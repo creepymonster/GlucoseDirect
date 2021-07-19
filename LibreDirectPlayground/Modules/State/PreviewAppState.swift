@@ -12,10 +12,14 @@ struct PreviewAppState: AppState {
     var appGroupName: String? = nil
     var connectionError: String? = nil
     var connectionState: SensorConnectionState = .connected
-    var glucoseTrend: [SensorGlucose] = [SensorGlucose(id: 1, timeStamp: Date(), glucose: 100, trend: .constant)]
+    var lastGlucose: SensorGlucose? = SensorGlucose(id: 1, timeStamp: Date(), glucose: 100, trend: .constant)
     var nightscoutApiSecret: String = ""
     var nightscoutHost: String = ""
     var sensor: Sensor? = Sensor(uuid: uuid, patchInfo: patchInfo, fram: fram)
+    
+    var alarmSnoozeUntil: Date? = nil
+    var alarmLow: Int = 70
+    var alarmHigh: Int = 180
 
     var isPairable: Bool = true
     var isPaired: Bool = true

@@ -13,7 +13,11 @@ struct DefaultAppState: AppState {
 
     var connectionState: SensorConnectionState = .disconnected
     var connectionError: String?
-    var glucoseTrend: [SensorGlucose] = []
+    var lastGlucose: SensorGlucose?
+    
+    var alarmSnoozeUntil: Date?
+    var alarmLow: Int = 70
+    var alarmHigh: Int = 180
 
     var nightscoutHost: String = "" {
         didSet {
@@ -66,10 +70,10 @@ struct DefaultAppState: AppState {
         }
     }
 
-    init(connectionState: SensorConnectionState, sensor: Sensor, glucoseTrend: [SensorGlucose] = []) {
+    init(connectionState: SensorConnectionState, sensor: Sensor, lastGlucose: SensorGlucose) {
         self.connectionState = connectionState
         self.sensor = sensor
-        self.glucoseTrend = glucoseTrend
+        self.lastGlucose = lastGlucose
     }
 }
 
@@ -112,4 +116,6 @@ fileprivate enum Key: String, CaseIterable {
     case sensor = "libre-direct.settings.sensor"
     case nightscoutHost = "libre-direct.settings.nightscout-host"
     case nightscoutApiSecret = "libre-direct.settings.nightscout-api-secret"
+    case alarmLow = "libre-direct.settings.alarm-low"
+    case alarmHigh = "libre-direct.settings.alarm-high"
 }

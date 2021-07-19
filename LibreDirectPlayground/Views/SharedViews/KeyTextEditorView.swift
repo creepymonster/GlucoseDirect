@@ -7,15 +7,15 @@
 
 import SwiftUI
 
-typealias EditorCompletionHandler = (_ value: String) -> Void
+typealias TextEditorCompletionHandler = (_ value: String) -> Void
 
-struct KeyValueEditorView: View {
+struct KeyTextEditorView: View {
     let key: String
-    let completionHandler: EditorCompletionHandler?
+    let completionHandler: TextEditorCompletionHandler?
     
     @State var value: String
 
-    init(key: String, value: String, completionHandler: EditorCompletionHandler? = nil) {
+    init(key: String, value: String, completionHandler: TextEditorCompletionHandler? = nil) {
         self.key = key
         self.value = value
         self.completionHandler = completionHandler
@@ -41,6 +41,6 @@ struct KeyValueEditorView: View {
 
 struct KeyValueEditorView_Previews: PreviewProvider {
     static var previews: some View {
-        KeyValueEditorView(key: "Key", value: "Value")
+        KeyTextEditorView(key: "Key", value: "Value")
     }
 }

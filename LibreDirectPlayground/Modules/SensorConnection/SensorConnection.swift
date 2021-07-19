@@ -28,10 +28,10 @@ class SensorConnectionUpdate: SensorUpdate {
 }
 
 class SensorReadingUpdate: SensorUpdate {
-    private(set) var glucoseTrend: [SensorGlucose]
+    private(set) var lastGlucose: SensorGlucose
 
-    init(glucoseTrend: [SensorGlucose]) {
-        self.glucoseTrend = glucoseTrend
+    init(lastGlucose: SensorGlucose) {
+        self.lastGlucose = lastGlucose
     }
 }
 

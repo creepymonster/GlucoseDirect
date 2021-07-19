@@ -34,9 +34,7 @@ func defaultAppReducer(state: inout AppState, action: AppAction) -> Void {
         }
 
     case .setSensorReading(readingUpdate: let readingUpdate):
-        if let lastGlucoseTrend = readingUpdate.glucoseTrend.sorted(by: { $0.timeStamp > $1.timeStamp }).first {
-            state.glucoseTrend = [lastGlucoseTrend]
-        }
+        state.lastGlucose = readingUpdate.lastGlucose
 
     case .setSensorAge(ageUpdate: let ageUpdate):
         guard state.sensor != nil else {
@@ -56,7 +54,19 @@ func defaultAppReducer(state: inout AppState, action: AppAction) -> Void {
 
     case .subscribeForUpdates:
         break
-
+        
+    case .setAlarmLow(value: let value):
+        state.alarmLow = value
+        
+    case .setAlarmHigh(value: let value):
+        state.alarmHigh = value
+        
+    case .setAlarmSnooze:
+        if state.alarmSnoozeUntil == nil {
+            state.alarmSnoozeUntil = Date().addingTimeInterval(60 * 60)
+        } else {
+            state.alarmSnoozeUntil = nil
+        }
     }
 }
 

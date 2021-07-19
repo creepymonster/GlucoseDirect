@@ -18,9 +18,13 @@ enum AppAction {
     case setSensorReading(readingUpdate: SensorReadingUpdate)
     case setSensorAge(ageUpdate: SensorAgeUpdate)
     case setSensorError(errorUpdate: SensorErrorUpdate)
-    
+
     case setNightscoutHost(host: String)
     case setNightscoutSecret(apiSecret: String)
+    
+    case setAlarmLow(value: Int)
+    case setAlarmHigh(value: Int)
+    case setAlarmSnooze
 
     case subscribeForUpdates
 }

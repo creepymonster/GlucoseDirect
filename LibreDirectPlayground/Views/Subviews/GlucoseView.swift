@@ -8,32 +8,23 @@
 import SwiftUI
 
 struct GlucoseView: View {
-    var trendValues: [SensorGlucose]
+    var glucose: SensorGlucose?
 
     var body: some View {
-        if trendValues.count > 0 {
+        if let glucose = glucose {
             Divider().padding(.trailing)
 
-            Section(header: HStack {
-                Text("GLUCOSE").foregroundColor(.gray).font(.subheadline)
-                Spacer()
-            }) {
-                ForEach(trendValues, id: \.id) { glucose in
-                    GlucoseDetailsView(glucose: glucose)
-                }
+            VStack {
+                Text("\(glucose.trend.description)")
+                Text("\(glucose.glucoseFiltered.description)").font(.system(size: 60))
+                Text("\(glucose.timeStamp.localTime)")
             }
         }
     }
 }
 
-struct GlucoseDetailsView: View {
-    var glucose: SensorGlucose
-    
-    var body: some View {
-        KeyValueView(key: glucose.timeStamp.localTime, value: "\(glucose.glucoseFiltered.description) \(glucose.trend.description)")
-    }
-    
-    init(glucose: SensorGlucose) {
-        self.glucose = glucose
+struct GlucoseView_Previews: PreviewProvider {
+    static var previews: some View {
+        GlucoseView(glucose: SensorGlucose(id: 1, timeStamp: Date(), glucose: 100, trend: .constant))
     }
 }

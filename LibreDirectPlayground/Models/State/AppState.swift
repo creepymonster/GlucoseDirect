@@ -12,10 +12,14 @@ protocol AppState {
     var appGroupName: String? { get set }
     var connectionError: String? { get set }
     var connectionState: SensorConnectionState { get set }
-    var glucoseTrend: [SensorGlucose] { get set }
+    var lastGlucose: SensorGlucose? { get set }
     var nightscoutApiSecret: String { get set }
     var nightscoutHost: String { get set }
     var sensor: Sensor? { get set }
+    
+    var alarmSnoozeUntil: Date? { get set }
+    var alarmLow: Int { get set }
+    var alarmHigh: Int { get set }
 
     var isPairable: Bool { get }
     var isPaired: Bool { get }

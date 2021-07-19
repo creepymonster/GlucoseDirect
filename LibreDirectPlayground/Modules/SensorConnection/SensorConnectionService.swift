@@ -92,7 +92,7 @@ class SensorConnectionService: NSObject, SensorConnectionProtocol {
         }
 
         sendUpdate(connectionState: .scanning)
-        manager.scanForPeripherals(withServices: nil, options: nil) // abbottServiceUuid
+        manager.scanForPeripherals(withServices: abbottServiceUuid, options: nil)
     }
 
     private func disconnect() {
@@ -180,7 +180,9 @@ class SensorConnectionService: NSObject, SensorConnectionProtocol {
         
         Log.info("GlucoseTrend: \(glucoseTrend.description)")
 
-        updateSubject.send(SensorReadingUpdate(glucoseTrend: glucoseTrend))
+        if let lastGlucose = glucoseTrend.sorted(by: { $0.timeStamp > $1.timeStamp }).first {
+            updateSubject.send(SensorReadingUpdate(lastGlucose: lastGlucose))
+        }       
     }
 
     private func sendUpdate(error: Error?) {
@@ -303,7 +305,7 @@ extension SensorConnectionService: CBPeripheralDelegate {
 
         if let services = peripheral.services {
             for service in services {
-                Log.info("Service: \(service.uuid)")
+                Log.info("Service Uuid: \(service.uuid)")
                 
                 peripheral.discoverCharacteristics(nil, for: service)
             }
@@ -318,7 +320,7 @@ extension SensorConnectionService: CBPeripheralDelegate {
 
         if let characteristics = service.characteristics {
             for characteristic in characteristics {
-                Log.info("Uuid: \(characteristic.uuid.description)")
+                Log.info("Characteristic Uuid: \(characteristic.uuid.description)")
                 
                 if characteristic.uuid == compositeRawDataUuid {
                     readCharacteristic = characteristic

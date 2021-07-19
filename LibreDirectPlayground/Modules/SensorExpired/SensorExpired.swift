@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import UserNotifications
 
-func sensorExpiredMiddelware(service: SensorExpiredService) -> Middleware<AppState, AppAction> {
+func sensorExpiredMiddelware(service: SensorExpiredNotificationService) -> Middleware<AppState, AppAction> {
     return { state, action in
         switch action {
         case .setSensorAge(ageUpdate: let ageUpdate):
@@ -30,12 +30,14 @@ func sensorExpiredMiddelware(service: SensorExpiredService) -> Middleware<AppSta
     }
 }
 
-class SensorExpiredService: NotificationCenterService {
+class SensorExpiredNotificationService: NotificationCenterService {
     enum Identifier: String {
         case sensorExpired = "libre-direct.notifications.sensorExpired"
     }
 
     func sendSensorExpiredNotification() {
+        dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
+
         ensureCanSendNotification { ensured in
             guard ensured else {
                 return

@@ -17,10 +17,10 @@ struct NightscoutView: View {
             Text("NIGHTSCOUT").foregroundColor(.gray).font(.subheadline)
             Spacer()
         }) {
-            KeyValueEditorView(key: "Host", value: store.state.nightscoutHost, completionHandler: { (value) -> Void in
+            KeyTextEditorView(key: "Host", value: store.state.nightscoutHost, completionHandler: { (value) -> Void in
                 store.dispatch(.setNightscoutHost(host: value))
             })
-            KeyValueEditorView(key: "Secret", value: store.state.nightscoutApiSecret, completionHandler: { (value) -> Void in
+            KeyTextEditorView(key: "Secret", value: store.state.nightscoutApiSecret, completionHandler: { (value) -> Void in
                 store.dispatch(.setNightscoutSecret(apiSecret: value))
             })
         }

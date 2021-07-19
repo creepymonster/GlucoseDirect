@@ -18,7 +18,7 @@ struct Sensor: Codable {
     var state: SensorState
     var age: Int? = nil
     var lifetime: Int
-    
+
     var unlockCount: Int {
         get {
             return UserDefaults.standard.integer(forKey: Key.sensorUnlockCount.rawValue)

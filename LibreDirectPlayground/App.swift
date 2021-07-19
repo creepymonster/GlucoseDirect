@@ -13,7 +13,8 @@ final class LibreDirectApp: App {
     private let store: AppStore = AppStore(initialState: DefaultAppState(), reducer: defaultAppReducer, middlewares: [
             sensorPairingMiddelware(service: SensorPairingService()),
             sensorConnectionMiddelware(service: SensorConnectionService()),
-            sensorExpiredMiddelware(service: SensorExpiredService()),
+            sensorExpiredMiddelware(service: SensorExpiredNotificationService()),
+            sensorGlucoseAlertMiddelware(service: SensorGlucoseAlertNotificationService()),
             freeAPSMiddleware(service: FreeAPSService()),
             nightscoutMiddleware(service: NightscoutService()),
             logMiddleware(),

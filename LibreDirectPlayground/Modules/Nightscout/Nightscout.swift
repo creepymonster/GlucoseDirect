@@ -30,7 +30,7 @@ func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppState, Ap
                 break
             }
 
-            service.addGlucose(nightscoutHost: nightscoutHost, apiSecret: nightscoutApiSecret, glucoseValues: readingUpdate.glucoseTrend)
+            service.addGlucose(nightscoutHost: nightscoutHost, apiSecret: nightscoutApiSecret, glucoseValues: [readingUpdate.lastGlucose])
 
         default:
             break

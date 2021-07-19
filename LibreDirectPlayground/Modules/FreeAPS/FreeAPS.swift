@@ -13,7 +13,7 @@ func freeAPSMiddleware(service: FreeAPSService) -> Middleware<AppState, AppActio
         switch action {
         case .setSensorReading(readingUpdate: let readingUpdate):
             if let appGroupName = state.appGroupName {
-                service.addGlucose(glucoseValues: readingUpdate.glucoseTrend, appGroupName: appGroupName)
+                service.addGlucose(glucoseValues: [readingUpdate.lastGlucose], appGroupName: appGroupName)
             }
 
         default:

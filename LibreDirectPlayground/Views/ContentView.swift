@@ -12,12 +12,13 @@ struct ContentView: View {
 
     var body: some View {
         ScrollView {
+            GlucoseView(glucose: store.state.lastGlucose).padding(.top).padding(.leading)
             ConnectionView(connectionState: store.state.connectionState, connectionError: store.state.connectionError).padding(.top).padding(.leading)
-            GlucoseView(trendValues: store.state.glucoseTrend).padding(.top).padding(.leading)
             LifetimeView(sensor: store.state.sensor).padding(.top).padding(.leading)
             DetailsView(sensor: store.state.sensor).padding(.top).padding(.leading)
             InternalsView(sensor: store.state.sensor).padding(.top).padding(.leading)
             NightscoutView().padding(.top).padding(.leading)
+            AlarmView().padding(.top).padding(.leading)
             ActionsView().padding(.top).padding(.leading)
         }
     }

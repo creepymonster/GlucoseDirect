@@ -7,8 +7,9 @@
 
 import Foundation
 import UserNotifications
+import UIKit
 
-class NotificationCenterService {
+class NotificationCenterService: NSObject {
     func add(identifier: String, content: UNMutableNotificationContent) {
         let center = UNUserNotificationCenter.current()
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
@@ -19,22 +20,14 @@ class NotificationCenterService {
     }
 
     func ensureCanSendNotification(_ completion: @escaping (_ canSend: Bool) -> Void) {
-        UNUserNotificationCenter.current().getNotificationSettings { settings in
-            if #available (iOSApplicationExtension 12.0, *) {
-                guard settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional else {
-                    completion(false)
+        let center = UNUserNotificationCenter.current()
 
-                    return
-                }
+        center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            if granted {
+                completion(true)
             } else {
-                guard settings.authorizationStatus == .authorized else {
-                    completion(false)
-
-                    return
-                }
+                completion(false)
             }
-
-            completion(true)
         }
     }
 }
