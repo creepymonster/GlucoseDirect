@@ -49,6 +49,7 @@ class SensorConnectionService: NSObject, SensorConnectionProtocol {
     }
 
     func connectSensor(sensor: Sensor) {
+        print("SensorConnectionService connectSensor")
         dispatchPrecondition(condition: .notOnQueue(managerQueue))
 
         self.sensor = sensor
@@ -59,6 +60,7 @@ class SensorConnectionService: NSObject, SensorConnectionProtocol {
     }
 
     func disconnectSensor() {
+        print("SensorConnectionService disconnectSensor")
         dispatchPrecondition(condition: .notOnQueue(managerQueue))
 
         self.sensor = nil
@@ -69,6 +71,7 @@ class SensorConnectionService: NSObject, SensorConnectionProtocol {
     }
 
     private func scan() {
+        print("SensorConnectionService scan")
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
         guard sensor != nil else {
@@ -90,6 +93,7 @@ class SensorConnectionService: NSObject, SensorConnectionProtocol {
     }
 
     private func disconnect() {
+        print("SensorConnectionService disconnect")
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
         setStayConnected(stayConnected: false)
@@ -106,6 +110,7 @@ class SensorConnectionService: NSObject, SensorConnectionProtocol {
     }
 
     private func connect(_ peripheral: CBPeripheral) {
+        print("SensorConnectionService connect")
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
         if manager.isScanning {
@@ -119,6 +124,7 @@ class SensorConnectionService: NSObject, SensorConnectionProtocol {
     }
 
     private func unlock() -> Data? {
+        print("SensorConnectionService unlock")
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
         if sensor == nil {
@@ -132,36 +138,42 @@ class SensorConnectionService: NSObject, SensorConnectionProtocol {
     }
 
     private func resetBuffer() {
+        print("SensorConnectionService resetBuffer")
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
         rxBuffer = Data()
     }
 
     private func setStayConnected(stayConnected: Bool) {
+        print("SensorConnectionService setStayConnected \(stayConnected.description)")
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
         self.stayConnected = stayConnected
     }
 
     private func sendUpdate(connectionState: SensorConnectionState) {
+        print("SensorConnectionService sendUpdate \(connectionState.description)")
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
         updateSubject.send(SensorConnectionUpdate(connectionState: connectionState))
     }
 
     private func sendUpdate(sensorAge: Int) {
+        print("SensorConnectionService sendUpdate \(sensorAge.description)")
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
         updateSubject.send(SensorAgeUpdate(sensorAge: sensorAge))
     }
 
     private func sendUpdate(glucoseTrend: [SensorGlucose]) {
+        print("SensorConnectionService sendUpdate \(glucoseTrend.description)")
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
         updateSubject.send(SensorReadingUpdate(glucoseTrend: glucoseTrend))
     }
 
     private func sendUpdate(error: Error?) {
+        print("SensorConnectionService sendUpdate \(error?.localizedDescription ?? "")")
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
         guard let error = error else {
@@ -186,6 +198,7 @@ class SensorConnectionService: NSObject, SensorConnectionProtocol {
 
 extension SensorConnectionService: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        print("CBCentralManagerDelegate didUpdateState: \(manager.state.rawValue)")
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
         switch manager.state {
@@ -205,8 +218,7 @@ extension SensorConnectionService: CBCentralManagerDelegate {
     }
 
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
-        print("didDiscover: \(peripheral.name?.description ?? "-")")
-        
+        print("CBCentralManagerDelegate didDiscover: \(peripheral.name?.description ?? "-")")
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
         guard let sensor = sensor, let manufacturerData = advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data else {
@@ -225,17 +237,15 @@ extension SensorConnectionService: CBCentralManagerDelegate {
     }
 
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        print("didConnect: \(peripheral.name?.description ?? "-")")
-        
+        print("CBCentralManagerDelegate didConnect: \(peripheral.name?.description ?? "-")")
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
         peripheral.discoverServices(abbottServiceUuid)
     }
 
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
-        print("didFailToConnect: \(peripheral.name?.description ?? "-")")
-        print("didFailToConnect with error: \(error?.localizedDescription ?? "-")")
-        
+        print("CBCentralManagerDelegate didFailToConnect: \(peripheral.name?.description ?? "-")")
+        print("CBCentralManagerDelegate didFailToConnect with error: \(error?.localizedDescription ?? "-")")
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
         sendUpdate(connectionState: .disconnected)
@@ -249,9 +259,8 @@ extension SensorConnectionService: CBCentralManagerDelegate {
     }
 
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        print("didDisconnectPeripheral: \(peripheral.name?.description ?? "-")")
-        print("didDisconnectPeripheral with error: \(error?.localizedDescription ?? "-")")
-        
+        print("CBCentralManagerDelegate didDisconnectPeripheral: \(peripheral.name?.description ?? "-")")
+        print("CBCentralManagerDelegate didDisconnectPeripheral with error: \(error?.localizedDescription ?? "-")")
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
         sendUpdate(connectionState: .disconnected)
@@ -267,16 +276,15 @@ extension SensorConnectionService: CBCentralManagerDelegate {
 
 extension SensorConnectionService: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
-        print("didDiscoverServices: \(peripheral.name?.description ?? "-")")
-        print("didDiscoverServices with error: \(error?.localizedDescription ?? "-")")
-        
+        print("CBCentralManagerDelegate didDiscoverServices: \(peripheral.name?.description ?? "-")")
+        print("CBCentralManagerDelegate didDiscoverServices with error: \(error?.localizedDescription ?? "-")")
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
         sendUpdate(error: error)
 
         if let services = peripheral.services {
             for service in services {
-                print("didDiscoverServices with service: \(service.uuid)")
+                print("CBCentralManagerDelegate didDiscoverServices with service: \(service.uuid)")
                 
                 peripheral.discoverCharacteristics(nil, for: service)
             }
@@ -284,16 +292,15 @@ extension SensorConnectionService: CBPeripheralDelegate {
     }
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
-        print("didDiscoverCharacteristicsFor: \(peripheral.name?.description ?? "-")")
-        print("didDiscoverCharacteristicsFor with error: \(error?.localizedDescription ?? "-")")
-        
+        print("CBCentralManagerDelegate didDiscoverCharacteristicsFor: \(peripheral.name?.description ?? "-")")
+        print("CBCentralManagerDelegate didDiscoverCharacteristicsFor with error: \(error?.localizedDescription ?? "-")")
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
         sendUpdate(error: error)
 
         if let characteristics = service.characteristics {
             for characteristic in characteristics {
-                print("didDiscoverCharacteristicsFor with uuid: \(characteristic.uuid.description)")
+                print("CBCentralManagerDelegate didDiscoverCharacteristicsFor with uuid: \(characteristic.uuid.description)")
                 
                 if characteristic.uuid == compositeRawDataUuid {
                     readCharacteristic = characteristic
@@ -311,9 +318,8 @@ extension SensorConnectionService: CBPeripheralDelegate {
     }
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
-        print("didUpdateNotificationStateFor: \(peripheral.name?.description ?? "-")")
-        print("didUpdateNotificationStateFor with error: \(error?.localizedDescription ?? "-")")
-        
+        print("CBCentralManagerDelegate didUpdateNotificationStateFor: \(peripheral.name?.description ?? "-")")
+        print("CBCentralManagerDelegate didUpdateNotificationStateFor with error: \(error?.localizedDescription ?? "-")")
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
         sendUpdate(error: error)
@@ -321,9 +327,8 @@ extension SensorConnectionService: CBPeripheralDelegate {
     }
 
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
-        print("didWriteValueFor: \(peripheral.name?.description ?? "-")")
-        print("didWriteValueFor with error: \(error?.localizedDescription ?? "-")")
-        
+        print("CBCentralManagerDelegate didWriteValueFor: \(peripheral.name?.description ?? "-")")
+        print("CBCentralManagerDelegate didWriteValueFor with error: \(error?.localizedDescription ?? "-")")
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
         sendUpdate(error: error)
@@ -334,9 +339,8 @@ extension SensorConnectionService: CBPeripheralDelegate {
     }
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        print("didUpdateValueFor: \(peripheral.name?.description ?? "-")")
-        print("didUpdateValueFor with error: \(error?.localizedDescription ?? "-")")
-        
+        print("CBCentralManagerDelegate didUpdateValueFor: \(peripheral.name?.description ?? "-")")
+        print("CBCentralManagerDelegate didUpdateValueFor with error: \(error?.localizedDescription ?? "-")")
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
         if error != nil {
