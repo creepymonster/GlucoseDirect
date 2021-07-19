@@ -17,12 +17,7 @@ struct Sensor: Codable {
     let serial: String?
     var state: SensorState
     var age: Int? = nil
-
-    var lifetime: Int {
-        get {
-            return 14 * 24 * 60
-        }
-    }
+    var lifetime: Int
     
     var unlockCount: Int {
         get {
@@ -36,7 +31,7 @@ struct Sensor: Codable {
     var remainingLifetime: Int? {
         get {
             if let age = age {
-                return lifetime - age
+                return officialLifetime - age
             }
 
             return nil
@@ -45,7 +40,7 @@ struct Sensor: Codable {
 
     var officialLifetime: Int {
         get {
-            return 20160
+            return 14 * 24 * 60
         }
     }
 
@@ -58,7 +53,7 @@ struct Sensor: Codable {
         self.region = SensorRegion(patchInfo: patchInfo)
         self.serial = sensorSerialNumber(sensorUID: self.uuid, sensorFamily: self.family)
         self.state = SensorState(fram: fram)
-        //self.lifetime = Int(footer[7]) << 8 + Int(footer[6])
+        self.lifetime = Int(fram[327]) << 8 + Int(fram[326])
         self.unlockCount = 0
     }
 
