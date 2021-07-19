@@ -61,7 +61,10 @@ class SensorPairingService: NSObject, NFCTagReaderSessionDelegate, SensorPairing
                     tag.customCommand(requestFlags: .highDataRate, customCommandCode: 0xA1, customRequestParameters: Data()) { response, error in
 
                         for i in 0 ..< requests {
-                            tag.readMultipleBlocks(requestFlags: [.highDataRate, .address], blockRange: NSRange(UInt8(i * requestBlocks) ... UInt8(i * requestBlocks + (i == requests - 1 ? (remainder == 0 ? requestBlocks : remainder) : requestBlocks) - (requestBlocks > 1 ? 1 : 0)))) { blockArray, error in
+                            tag.readMultipleBlocks(
+                                requestFlags: [.highDataRate, .address],
+                                blockRange: NSRange(UInt8(i * requestBlocks) ... UInt8(i * requestBlocks + (i == requests - 1 ? (remainder == 0 ? requestBlocks : remainder) : requestBlocks) - (requestBlocks > 1 ? 1 : 0)))
+                            ) { blockArray, error in
                                 if error != nil {
                                     if i != requests - 1 { return }
                                 } else {
@@ -87,8 +90,6 @@ class SensorPairingService: NSObject, NFCTagReaderSessionDelegate, SensorPairing
                                     guard patchInfo.count >= 6 else {
                                         return
                                     }
-
-                                    //self.delegate?.infoReceived(sensorUID: sensorUID, patchInfo: patchInfo, fram: fram)
 
                                     self.readRaw(0xF860, 43 * 8, tag: tag) { _, _, _ in
                                         self.readRaw(0x1A00, 64, tag: tag) { _, _, _ in

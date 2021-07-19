@@ -18,9 +18,10 @@ class SensorConnectionService: NSObject, SensorConnectionProtocol {
     private var manager: CBCentralManager! = nil
     private let managerQueue: DispatchQueue = DispatchQueue(label: "libre-direct.ble-queue") // , qos: .unspecified
 
-    private var serviceCharacteristicsUuid: [CBUUID] = [CBUUID(string: "FDE3")]
-    private var writeCharacteristicUuid: CBUUID = CBUUID(string: "F001")
-    private var readCharacteristicUuid: CBUUID = CBUUID(string: "F002")
+    private var abbottServiceUuid: [CBUUID] = [CBUUID(string: "FDE3")]
+    private var bleLoginUuid: CBUUID = CBUUID(string: "F001")
+    private var compositeRawDataUuid: CBUUID = CBUUID(string: "F002")
+    private var libre3DataUuid = CBUUID(string: "089810CC-EF89-11E9-81B4-2A2AE2DBCCE4")
 
     private var readCharacteristic: CBCharacteristic?
     private var writeCharacteristic: CBCharacteristic?
@@ -85,7 +86,7 @@ class SensorConnectionService: NSObject, SensorConnectionProtocol {
         }
 
         sendUpdate(connectionState: .scanning)
-        manager.scanForPeripherals(withServices: serviceCharacteristicsUuid, options: nil)
+        manager.scanForPeripherals(withServices: nil, options: nil) // abbottServiceUuid
     }
 
     private func disconnect() {
@@ -204,6 +205,8 @@ extension SensorConnectionService: CBCentralManagerDelegate {
     }
 
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
+        print("didDiscover: \(peripheral.name?.description ?? "-")")
+        
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
         guard let sensor = sensor, let manufacturerData = advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data else {
@@ -222,12 +225,17 @@ extension SensorConnectionService: CBCentralManagerDelegate {
     }
 
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        print("didConnect: \(peripheral.name?.description ?? "-")")
+        
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
-        peripheral.discoverServices(serviceCharacteristicsUuid)
+        peripheral.discoverServices(abbottServiceUuid)
     }
 
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
+        print("didFailToConnect: \(peripheral.name?.description ?? "-")")
+        print("didFailToConnect with error: \(error?.localizedDescription ?? "-")")
+        
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
         sendUpdate(connectionState: .disconnected)
@@ -241,6 +249,9 @@ extension SensorConnectionService: CBCentralManagerDelegate {
     }
 
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        print("didDisconnectPeripheral: \(peripheral.name?.description ?? "-")")
+        print("didDisconnectPeripheral with error: \(error?.localizedDescription ?? "-")")
+        
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
         sendUpdate(connectionState: .disconnected)
@@ -256,29 +267,39 @@ extension SensorConnectionService: CBCentralManagerDelegate {
 
 extension SensorConnectionService: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        print("didDiscoverServices: \(peripheral.name?.description ?? "-")")
+        print("didDiscoverServices with error: \(error?.localizedDescription ?? "-")")
+        
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
         sendUpdate(error: error)
 
         if let services = peripheral.services {
             for service in services {
+                print("didDiscoverServices with service: \(service.uuid)")
+                
                 peripheral.discoverCharacteristics(nil, for: service)
             }
         }
     }
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        print("didDiscoverCharacteristicsFor: \(peripheral.name?.description ?? "-")")
+        print("didDiscoverCharacteristicsFor with error: \(error?.localizedDescription ?? "-")")
+        
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
         sendUpdate(error: error)
 
         if let characteristics = service.characteristics {
             for characteristic in characteristics {
-                if characteristic.uuid == readCharacteristicUuid {
+                print("didDiscoverCharacteristicsFor with uuid: \(characteristic.uuid.description)")
+                
+                if characteristic.uuid == compositeRawDataUuid {
                     readCharacteristic = characteristic
                 }
 
-                if characteristic.uuid == writeCharacteristicUuid {
+                if characteristic.uuid == bleLoginUuid {
                     writeCharacteristic = characteristic
 
                     if let unlock = unlock() {
@@ -290,6 +311,9 @@ extension SensorConnectionService: CBPeripheralDelegate {
     }
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
+        print("didUpdateNotificationStateFor: \(peripheral.name?.description ?? "-")")
+        print("didUpdateNotificationStateFor with error: \(error?.localizedDescription ?? "-")")
+        
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
         sendUpdate(error: error)
@@ -297,16 +321,22 @@ extension SensorConnectionService: CBPeripheralDelegate {
     }
 
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
+        print("didWriteValueFor: \(peripheral.name?.description ?? "-")")
+        print("didWriteValueFor with error: \(error?.localizedDescription ?? "-")")
+        
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
         sendUpdate(error: error)
 
-        if characteristic.uuid == writeCharacteristicUuid {
+        if characteristic.uuid == bleLoginUuid {
             peripheral.setNotifyValue(true, for: readCharacteristic!)
         }
     }
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        print("didUpdateValueFor: \(peripheral.name?.description ?? "-")")
+        print("didUpdateValueFor with error: \(error?.localizedDescription ?? "-")")
+        
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
         if error != nil {

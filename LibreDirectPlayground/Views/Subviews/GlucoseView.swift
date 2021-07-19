@@ -30,7 +30,7 @@ struct GlucoseDetailsView: View {
     var glucose: SensorGlucose
     
     var body: some View {
-        KeyValueView(key: glucose.timeStamp.localTime, value: "\(glucose.glucose.description) \(glucose.trend.description)")
+        KeyValueView(key: glucose.timeStamp.localTime, value: "\(glucose.glucoseFiltered.description) \(glucose.trend.description)")
     }
     
     init(glucose: SensorGlucose) {
