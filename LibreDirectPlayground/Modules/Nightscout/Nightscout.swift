@@ -60,13 +60,13 @@ class NightscoutService {
 
         let task = session.uploadTask(with: request, from: nightscoutJson) { data, response, error in
             if let error = error {
-                print("Nightscout: \(error.localizedDescription)")
+                Log.info("Nightscout: \(error.localizedDescription)")
             }
 
             if let response = response as? HTTPURLResponse {
                 let status = response.statusCode
                 if status == 401 {
-                    print("Nightscout: not authorized")
+                    Log.info("Nightscout: not authorized")
                 }
             }
         }

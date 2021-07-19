@@ -16,7 +16,7 @@ final class LibreDirectApp: App {
             sensorExpiredMiddelware(service: SensorExpiredService()),
             freeAPSMiddleware(service: FreeAPSService()),
             nightscoutMiddleware(service: NightscoutService()),
-            printLogMiddleware(),
+            logMiddleware(),
         ])
 
     init() {
