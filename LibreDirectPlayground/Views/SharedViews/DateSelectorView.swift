@@ -27,7 +27,7 @@ struct DateSelectorView: View {
             Text(key)
                 .frame(maxWidth: 100, alignment: .leading)
            
-            Stepper(value: $value, in: 0...20, step: 1) {
+            Stepper(value: $value) {
                 if let outputValue = outputValue {
                     Text("\(outputValue.localTime)")
                 }

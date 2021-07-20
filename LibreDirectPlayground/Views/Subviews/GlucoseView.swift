@@ -22,6 +22,10 @@ struct GlucoseView: View {
                     Text("\(glucose.timeStamp.localTime)")
                 }
             }
+        } else {
+            VStack {
+                Text("...").font(.system(size: 60)).foregroundColor(getForegroundColor())
+            }
         }
     }
 
@@ -45,5 +49,6 @@ struct GlucoseView_Previews: PreviewProvider {
         GlucoseView(glucose: SensorGlucose(id: 1, timeStamp: Date(), glucose: 60, trend: .constant), alarmLow: 70, alarmHigh: 180)
         GlucoseView(glucose: SensorGlucose(id: 1, timeStamp: Date(), glucose: 100, trend: .constant), alarmLow: 70, alarmHigh: 180)
         GlucoseView(glucose: SensorGlucose(id: 1, timeStamp: Date(), glucose: 190, trend: .constant), alarmLow: 70, alarmHigh: 180)
+        GlucoseView(glucose: nil, alarmLow: 70, alarmHigh: 180)
     }
 }

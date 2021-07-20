@@ -12,7 +12,7 @@ struct ContentView: View {
 
     var body: some View {
         ScrollView {
-            GlucoseView(glucose: store.state.lastGlucose)
+            GlucoseView(glucose: store.state.lastGlucose).padding(.top)
             
             ConnectionView(connectionState: store.state.connectionState, connectionError: store.state.connectionError).padding()
             LifetimeView(sensor: store.state.sensor).padding()
