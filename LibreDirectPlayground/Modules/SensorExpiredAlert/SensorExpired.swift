@@ -50,7 +50,7 @@ class SensorExpiredAlertService: NotificationCenterService {
             let notification = UNMutableNotificationContent()
             notification.title = "Notification Title: Sensor expired"
             notification.body = "Notification Body: Please replace your old sensor as soon as possible"
-            notification.sound = .default
+            notification.sound = .defaultCritical
 
             self.add(identifier: Identifier.sensorExpired.rawValue, content: notification)
         }

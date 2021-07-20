@@ -58,7 +58,7 @@ class SensorGlucoseAlertService: NotificationCenterService {
             let notification = UNMutableNotificationContent()
             notification.title = "Notification Title: Sensor glucose low alert"
             notification.body = "Notification Body: Sensor glucose low"
-            notification.sound = .default
+            notification.sound = .defaultCritical
 
             self.add(identifier: Identifier.sensorGlucoseAlert.rawValue, content: notification)
         }
@@ -77,7 +77,7 @@ class SensorGlucoseAlertService: NotificationCenterService {
             let notification = UNMutableNotificationContent()
             notification.title = "Notification Title: Sensor glucose high alert"
             notification.body = "Notification Body: Sensor glucose high"
-            notification.sound = .default
+            notification.sound = .defaultCritical
 
             self.add(identifier: Identifier.sensorGlucoseAlert.rawValue, content: notification)
         }
