@@ -54,20 +54,18 @@ func defaultAppReducer(state: inout AppState, action: AppAction) -> Void {
 
     case .subscribeForUpdates:
         break
-        
+
     case .setAlarmLow(value: let value):
         state.alarmLow = value
-        
+
     case .setAlarmHigh(value: let value):
         state.alarmHigh = value
-        
-    case .setAlarmSnooze:
-        if state.alarmSnoozeUntil == nil {
-            state.alarmSnoozeUntil = Date().addingTimeInterval(60 * 60)
-        } else {
-            state.alarmSnoozeUntil = nil
-        }
+
+    case .setAlarmSnoozeUntil(value: let value):
+        state.alarmSnoozeUntil = value
     }
 }
 
 fileprivate var resetableStates: Set<SensorConnectionState> = [.connected, .powerOff, .scanning]
+
+// Date().addingTimeInterval(60 * 60)

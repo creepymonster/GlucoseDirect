@@ -9,13 +9,15 @@ import Foundation
 import Combine
 import UserNotifications
 
-func sensorExpiredMiddelware(service: SensorExpiredNotificationService) -> Middleware<AppState, AppAction> {
+func sensorExpiredAlertMiddelware(service: SensorExpiredAlertService) -> Middleware<AppState, AppAction> {
     return { state, action in
         switch action {
         case .setSensorAge(ageUpdate: let ageUpdate):
             guard let sensor = state.sensor else {
                 break
             }
+            
+            Log.info("Sensor expired alert check, age: \(ageUpdate.sensorAge), lifetime: \(sensor.lifetime)")
 
             guard ageUpdate.sensorAge >= sensor.lifetime else {
                 break
@@ -30,15 +32,17 @@ func sensorExpiredMiddelware(service: SensorExpiredNotificationService) -> Middl
     }
 }
 
-class SensorExpiredNotificationService: NotificationCenterService {
+class SensorExpiredAlertService: NotificationCenterService {
     enum Identifier: String {
-        case sensorExpired = "libre-direct.notifications.sensorExpired"
+        case sensorExpired = "libre-direct.notifications.sensor-expired-alert"
     }
 
     func sendSensorExpiredNotification() {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
         ensureCanSendNotification { ensured in
+            Log.info("Sensor expired alert, ensured: \(ensured)")
+            
             guard ensured else {
                 return
             }

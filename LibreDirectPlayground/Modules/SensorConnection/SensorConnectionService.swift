@@ -50,9 +50,9 @@ class SensorConnectionService: NSObject, SensorConnectionProtocol {
 
     func connectSensor(sensor: Sensor) {
         dispatchPrecondition(condition: .notOnQueue(managerQueue))
-        
+
         Log.info("ConnectSensor: \(sensor)")
-        
+
         self.sensor = sensor
 
         managerQueue.async {
@@ -62,9 +62,9 @@ class SensorConnectionService: NSObject, SensorConnectionProtocol {
 
     func disconnectSensor() {
         dispatchPrecondition(condition: .notOnQueue(managerQueue))
-        
+
         Log.info("DisconnectSensor")
-        
+
         self.sensor = nil
 
         managerQueue.sync {
@@ -74,9 +74,9 @@ class SensorConnectionService: NSObject, SensorConnectionProtocol {
 
     private func scan() {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        
+
         Log.info("Scan")
-        
+
         guard sensor != nil else {
             return
         }
@@ -97,7 +97,7 @@ class SensorConnectionService: NSObject, SensorConnectionProtocol {
 
     private func disconnect() {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        
+
         Log.info("Disconnect")
 
         setStayConnected(stayConnected: false)
@@ -115,7 +115,7 @@ class SensorConnectionService: NSObject, SensorConnectionProtocol {
 
     private func connect(_ peripheral: CBPeripheral) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        
+
         Log.info("Connect: \(peripheral)")
 
         if manager.isScanning {
@@ -130,7 +130,7 @@ class SensorConnectionService: NSObject, SensorConnectionProtocol {
 
     private func unlock() -> Data? {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        
+
         Log.info("Unlock")
 
         if sensor == nil {
@@ -145,7 +145,7 @@ class SensorConnectionService: NSObject, SensorConnectionProtocol {
 
     private func resetBuffer() {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        
+
         Log.info("ResetBuffer")
 
         rxBuffer = Data()
@@ -153,7 +153,7 @@ class SensorConnectionService: NSObject, SensorConnectionProtocol {
 
     private func setStayConnected(stayConnected: Bool) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        
+
         Log.info("StayConnected: \(stayConnected.description)")
 
         self.stayConnected = stayConnected
@@ -161,7 +161,7 @@ class SensorConnectionService: NSObject, SensorConnectionProtocol {
 
     private func sendUpdate(connectionState: SensorConnectionState) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        
+
         Log.info("ConnectionState: \(connectionState.description)")
 
         updateSubject.send(SensorConnectionUpdate(connectionState: connectionState))
@@ -169,7 +169,7 @@ class SensorConnectionService: NSObject, SensorConnectionProtocol {
 
     private func sendUpdate(sensorAge: Int) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        
+
         Log.info("SensorAge: \(sensorAge.description)")
 
         updateSubject.send(SensorAgeUpdate(sensorAge: sensorAge))
@@ -177,17 +177,17 @@ class SensorConnectionService: NSObject, SensorConnectionProtocol {
 
     private func sendUpdate(glucoseTrend: [SensorGlucose]) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        
+
         Log.info("GlucoseTrend: \(glucoseTrend.description)")
 
         if let lastGlucose = glucoseTrend.sorted(by: { $0.timeStamp > $1.timeStamp }).first {
             updateSubject.send(SensorReadingUpdate(lastGlucose: lastGlucose))
-        }       
+        }
     }
 
     private func sendUpdate(error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        
+
         guard let error = error else {
             return
         }
@@ -199,7 +199,7 @@ class SensorConnectionService: NSObject, SensorConnectionProtocol {
 
     private func sendUpdate(errorMessage: String) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        
+
         Log.error("ErrorMessage: \(errorMessage)")
 
         updateSubject.send(SensorErrorUpdate(errorMessage: errorMessage))
@@ -207,7 +207,7 @@ class SensorConnectionService: NSObject, SensorConnectionProtocol {
 
     private func sendUpdate(errorCode: Int) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        
+
         Log.error("ErrorCode: \(errorCode)")
 
         updateSubject.send(SensorErrorUpdate(errorCode: errorCode))
@@ -217,7 +217,7 @@ class SensorConnectionService: NSObject, SensorConnectionProtocol {
 extension SensorConnectionService: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        
+
         Log.info("State: \(manager.state.rawValue)")
 
         switch manager.state {
@@ -238,13 +238,13 @@ extension SensorConnectionService: CBCentralManagerDelegate {
 
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        
+
         Log.info("Peripheral: \(peripheral)")
-        
+
         guard let sensor = sensor, let manufacturerData = advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data else {
             return
         }
-        
+
         Log.info("Sensor: \(sensor)")
         Log.info("ManufacturerData: \(manufacturerData)")
 
@@ -261,7 +261,7 @@ extension SensorConnectionService: CBCentralManagerDelegate {
 
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        
+
         Log.info("Peripheral: \(peripheral)")
 
         peripheral.discoverServices(abbottServiceUuid)
@@ -269,7 +269,7 @@ extension SensorConnectionService: CBCentralManagerDelegate {
 
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        
+
         Log.info("Peripheral: \(peripheral)")
         sendUpdate(connectionState: .disconnected)
         sendUpdate(error: error)
@@ -283,7 +283,7 @@ extension SensorConnectionService: CBCentralManagerDelegate {
 
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        
+
         Log.info("Peripheral: \(peripheral)")
         sendUpdate(connectionState: .disconnected)
         sendUpdate(error: error)
@@ -299,14 +299,14 @@ extension SensorConnectionService: CBCentralManagerDelegate {
 extension SensorConnectionService: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        
+
         Log.info("Peripheral: \(peripheral)")
         sendUpdate(error: error)
 
         if let services = peripheral.services {
             for service in services {
                 Log.info("Service Uuid: \(service.uuid)")
-                
+
                 peripheral.discoverCharacteristics(nil, for: service)
             }
         }
@@ -314,14 +314,14 @@ extension SensorConnectionService: CBPeripheralDelegate {
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        
+
         Log.info("Peripheral: \(peripheral)")
         sendUpdate(error: error)
 
         if let characteristics = service.characteristics {
             for characteristic in characteristics {
                 Log.info("Characteristic Uuid: \(characteristic.uuid.description)")
-                
+
                 if characteristic.uuid == compositeRawDataUuid {
                     readCharacteristic = characteristic
                 }
@@ -339,7 +339,7 @@ extension SensorConnectionService: CBPeripheralDelegate {
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        
+
         Log.info("Peripheral: \(peripheral)")
         sendUpdate(error: error)
         sendUpdate(connectionState: .connected)
@@ -347,7 +347,7 @@ extension SensorConnectionService: CBPeripheralDelegate {
 
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        
+
         Log.info("Peripheral: \(peripheral)")
         sendUpdate(error: error)
 
@@ -358,7 +358,7 @@ extension SensorConnectionService: CBPeripheralDelegate {
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        
+
         Log.info("Peripheral: \(peripheral)")
         sendUpdate(error: error)
 

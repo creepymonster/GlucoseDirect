@@ -24,7 +24,7 @@ enum AppAction {
     
     case setAlarmLow(value: Int)
     case setAlarmHigh(value: Int)
-    case setAlarmSnooze
+    case setAlarmSnoozeUntil(value: Date?)
 
     case subscribeForUpdates
 }

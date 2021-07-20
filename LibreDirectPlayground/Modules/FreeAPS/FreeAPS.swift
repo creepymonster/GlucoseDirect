@@ -27,15 +27,22 @@ func freeAPSMiddleware(service: FreeAPSService) -> Middleware<AppState, AppActio
 
 class FreeAPSService {
     func addGlucose(glucoseValues: [SensorGlucose], appGroupName: String) {
+        Log.info("FreeAPS, appGroupName: \(appGroupName)")
+        
         guard let sharedDefaults = UserDefaults(suiteName: appGroupName) else {
             return
         }
 
         let freeAPSValues = glucoseValues.map { $0.toFreeAPS() }
+        
+        Log.info("FreeAPS, sharedDefaults: \(sharedDefaults)")
+        Log.info("FreeAPS, values: \(freeAPSValues)")
 
         guard let freeAPSJson = try? JSONSerialization.data(withJSONObject: freeAPSValues) else {
             return
         }
+        
+        Log.info("FreeAPS, json: \(freeAPSJson)")
 
         sharedDefaults.setValue(freeAPSJson, forKey: "latestReadings")
     }

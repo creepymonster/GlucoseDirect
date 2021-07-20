@@ -24,10 +24,17 @@ struct AlarmView: View {
                 store.dispatch(.setAlarmHigh(value: value))
             })
 
-            Button(action: {
-                store.dispatch(.setAlarmSnooze)
-            }) {
-                KeyValueView(key: "Snooze", value: store.state.alarmSnoozeUntil?.localTime ?? "-")
+            HStack(alignment: .top) {
+                Text("Snooze")
+                    .font(Font.body.weight(.semibold))
+                    .frame(maxWidth: 100, alignment: .leading)
+                Button(action: {
+                    store.dispatch(.setAlarmSnoozeUntil(value: Date().addingTimeInterval(60 * 60)))
+                }) {
+                    Text(store.state.alarmSnoozeUntil?.localTime ?? "-")
+                        .font(Font.body)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
             }
         }
     }

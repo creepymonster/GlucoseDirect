@@ -9,18 +9,25 @@ import Foundation
 import Combine
 import UserNotifications
 
-func sensorGlucoseAlertMiddelware(service: SensorGlucoseAlertNotificationService) -> Middleware<AppState, AppAction> {
+func sensorGlucoseAlertMiddelware(service: SensorGlucoseAlertService) -> Middleware<AppState, AppAction> {
     return { state, action in
         switch action {
         case .setSensorReading(readingUpdate: let readingUpdate):
             if let snoozeUntil = state.alarmSnoozeUntil, Date() < snoozeUntil {
-                Log.info("Snoozed until \(snoozeUntil.localTime)")
+                Log.info("Glucose alert snoozed until \(snoozeUntil.localTime)")
+                
                 break
             }
+            
+            let _ = AppAction.setAlarmSnoozeUntil(value: nil)
 
-            if readingUpdate.lastGlucose.glucoseFiltered <= state.alarmLow {
+            if readingUpdate.lastGlucose.glucoseFiltered < state.alarmLow {
+                Log.info("Glucose alert, low: \(readingUpdate.lastGlucose.glucoseFiltered) < \(state.alarmLow)")
+                
                 service.sendLowGlucoseNotification()
-            } else if readingUpdate.lastGlucose.glucoseFiltered >= state.alarmHigh {
+            } else if readingUpdate.lastGlucose.glucoseFiltered > state.alarmHigh {
+                Log.info("Glucose alert, high: \(readingUpdate.lastGlucose.glucoseFiltered) > \(state.alarmHigh)")
+                
                 service.sendHighGlucoseNotification()
             }
 
@@ -33,15 +40,17 @@ func sensorGlucoseAlertMiddelware(service: SensorGlucoseAlertNotificationService
     }
 }
 
-class SensorGlucoseAlertNotificationService: NotificationCenterService {
+class SensorGlucoseAlertService: NotificationCenterService {
     enum Identifier: String {
-        case sensorGlucoseAlert = "libre-direct.notifications.sensorGlucoseAlert"
+        case sensorGlucoseAlert = "libre-direct.notifications.sensor-glucose-alert"
     }
 
     func sendLowGlucoseNotification() {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
         ensureCanSendNotification { ensured in
+            Log.info("Glucose alert, ensured: \(ensured)")
+            
             guard ensured else {
                 return
             }
@@ -59,6 +68,8 @@ class SensorGlucoseAlertNotificationService: NotificationCenterService {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
         ensureCanSendNotification { ensured in
+            Log.info("Glucose alert, ensured: \(ensured)")
+            
             guard ensured else {
                 return
             }

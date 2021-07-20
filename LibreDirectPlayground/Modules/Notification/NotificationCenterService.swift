@@ -13,6 +13,9 @@ class NotificationCenterService: NSObject {
     func add(identifier: String, content: UNMutableNotificationContent) {
         let center = UNUserNotificationCenter.current()
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
+        
+        Log.info("NotificationCenter, identifier: \(identifier)")
+        Log.info("NotificationCenter, content: \(content)")
 
         center.removeDeliveredNotifications(withIdentifiers: [identifier])
         center.removePendingNotificationRequests(withIdentifiers: [identifier])

@@ -14,7 +14,7 @@ struct DefaultAppState: AppState {
     var connectionState: SensorConnectionState = .disconnected
     var connectionError: String?
     var lastGlucose: SensorGlucose?
-    
+
     var alarmSnoozeUntil: Date?
     var alarmLow: Int = 70
     var alarmHigh: Int = 180

@@ -18,7 +18,7 @@ func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppState, Ap
             guard minutes % 5 == 0 else {
                 break
             }
-            
+
             let nightscoutHost = state.nightscoutHost
             let nightscoutApiSecret = state.nightscoutApiSecret
 
