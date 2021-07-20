@@ -28,6 +28,7 @@ struct AlarmView: View {
                 Text("Snooze")
                     .font(Font.body.weight(.semibold))
                     .frame(maxWidth: 100, alignment: .leading)
+                
                 Button(action: {
                     store.dispatch(.setAlarmSnoozeUntil(value: Date().addingTimeInterval(60 * 60)))
                 }) {

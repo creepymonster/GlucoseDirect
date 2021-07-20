@@ -16,8 +16,18 @@ struct DefaultAppState: AppState {
     var lastGlucose: SensorGlucose?
 
     var alarmSnoozeUntil: Date?
-    var alarmLow: Int = 70
-    var alarmHigh: Int = 180
+    
+    var alarmLow: Int = 70 {
+        didSet {
+            UserDefaults.standard.set(alarmLow, forKey: Key.alarmLow.rawValue)
+        }
+    }
+    
+    var alarmHigh: Int = 180 {
+        didSet {
+            UserDefaults.standard.set(alarmHigh, forKey: Key.alarmHigh.rawValue)
+        }
+    }
 
     var nightscoutHost: String = "" {
         didSet {
@@ -53,6 +63,9 @@ struct DefaultAppState: AppState {
     }
 
     init() {
+        self.alarmLow = UserDefaults.standard.integer(forKey: Key.alarmLow.rawValue)
+        self.alarmHigh = UserDefaults.standard.integer(forKey: Key.alarmHigh.rawValue)
+        
         if let nightscoutHost = UserDefaults.standard.string(forKey: Key.nightscoutHost.rawValue) {
             self.nightscoutHost = nightscoutHost
         }
