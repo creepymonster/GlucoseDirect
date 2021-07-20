@@ -20,6 +20,10 @@ struct DateSelectorView: View {
         self.key = key
         self.outputValue = value
         self.completionHandler = completionHandler
+        
+        if value == nil {
+            self.value = 0
+        }
     }
 
     var body: some View {
@@ -27,17 +31,17 @@ struct DateSelectorView: View {
             Text(key)
                 .frame(maxWidth: 100, alignment: .leading)
            
-            Stepper(value: $value) {
+            Stepper(value: $value, in: 0...60) {
                 if let outputValue = outputValue {
-                    Text("\(outputValue.localTime)")
+                    Text("\(value) - \(outputValue.localTime)")
                 }
             }.onChange(of: value, perform: { value in
                 if let completionHandler = completionHandler {
                     if value == 0 {
                         completionHandler(nil)
                     } else {
-                        let dateValue = Date().addingTimeInterval(Double(value) * 5 * 60)
-                        completionHandler(dateValue)
+                        let dateValue = Date().addingTimeInterval(Double(value) * 60) //* 5
+                        completionHandler(dateValue.rounded(on: 1, .minute))
                     }
                 }
             })

@@ -19,8 +19,6 @@ func sensorGlucoseAlertMiddelware(service: SensorGlucoseAlertService) -> Middlew
                 break
             }
             
-            let _ = AppAction.setAlarmSnoozeUntil(value: nil)
-
             if readingUpdate.lastGlucose.glucoseFiltered < state.alarmLow {
                 Log.info("Glucose alert, low: \(readingUpdate.lastGlucose.glucoseFiltered) < \(state.alarmLow)")
                 
