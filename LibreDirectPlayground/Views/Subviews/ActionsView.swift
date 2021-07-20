@@ -11,8 +11,6 @@ struct ActionsView: View {
     @EnvironmentObject var store: AppStore
 
     var body: some View {
-        Divider().padding(.trailing)
-        
         if store.state.isPaired && store.state.isConnectable {
             Button(action: { store.dispatch(.connectSensor) }) {
                 Label("Connect", systemImage: "play")

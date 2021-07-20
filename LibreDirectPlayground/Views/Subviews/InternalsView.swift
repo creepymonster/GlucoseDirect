@@ -12,12 +12,7 @@ struct InternalsView: View {
 
     var body: some View {
         if let sensor = sensor {
-            Divider().padding(.trailing)
-
-            Section(header: HStack {
-                Text("SENSOR INTERNALS").foregroundColor(.gray).font(.subheadline)
-                Spacer()
-            }) {
+            GroupBox(label: Text("SENSOR INTERNALS")) {
                 KeyValueView(key: "UID", value: sensor.uuid.hex)
                 KeyValueView(key: "PatchInfo", value: sensor.patchInfo.hex)
                 KeyValueView(key: "Serial", value: sensor.serial?.description ?? "Unknown")

@@ -12,10 +12,7 @@ struct ConnectionView: View {
     var connectionError: String?
 
     var body: some View {
-        Section(header: HStack {
-            Text("CONNECTION").foregroundColor(.gray).font(.subheadline).padding(0)
-            Spacer()
-        }) {
+        GroupBox(label: Text("CONNECTION")) {
             KeyValueView(key: "State", value: connectionState.description)
 
             if let connectionError = connectionError {

@@ -9,10 +9,10 @@ import SwiftUI
 
 typealias TextEditorCompletionHandler = (_ value: String) -> Void
 
-struct KeyTextEditorView: View {
+struct TextEditorView: View {
     let key: String
     let completionHandler: TextEditorCompletionHandler?
-    
+
     @State var value: String
 
     init(key: String, value: String, completionHandler: TextEditorCompletionHandler? = nil) {
@@ -24,7 +24,6 @@ struct KeyTextEditorView: View {
     var body: some View {
         HStack(alignment: .center) {
             Text(key)
-                .font(Font.body.weight(.semibold))
                 .frame(maxWidth: 100, alignment: .leading)
 
             TextField("", text: $value)
@@ -33,14 +32,13 @@ struct KeyTextEditorView: View {
                         completionHandler(value)
                     }
                 })
-                .font(Font.body)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
 }
 
-struct KeyValueEditorView_Previews: PreviewProvider {
+struct ValueEditorView_Previews: PreviewProvider {
     static var previews: some View {
-        KeyTextEditorView(key: "Key", value: "Value")
+        TextEditorView(key: "Key", value: "Value")
     }
 }

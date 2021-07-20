@@ -12,12 +12,7 @@ struct LifetimeView: View {
 
     var body: some View {
         if let sensor = sensor {
-            Divider().padding(.trailing)
-
-            Section(header: HStack {
-                Text("SENSOR LIFETIME").foregroundColor(.gray).font(.subheadline)
-                Spacer()
-            }) {
+            GroupBox(label: Text("SENSOR LIFETIME")) {
                 KeyValueView(key: "State", value: sensor.state.description)
                 KeyValueView(key: "Lifetime", value: sensor.lifetime.inTime)
 

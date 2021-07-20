@@ -12,12 +12,7 @@ struct DetailsView: View {
 
     var body: some View {
         if let sensor = sensor {
-            Divider().padding(.trailing)
-
-            Section(header: HStack {
-                Text("SENSOR DETAILS").foregroundColor(.gray).font(.subheadline)
-                Spacer()
-            }) {
+            GroupBox(label: Text("SENSOR DETAILS")) {
                 KeyValueView(key: "Region", value: sensor.region.description)
                 KeyValueView(key: "Type", value: sensor.type.description)
             }

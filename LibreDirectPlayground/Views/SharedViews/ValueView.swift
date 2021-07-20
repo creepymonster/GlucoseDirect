@@ -16,7 +16,6 @@ struct ValueView: View {
 
     var body: some View {
         Text(value)
-            .font(Font.body)
             .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
