@@ -12,39 +12,36 @@ typealias DateSelectorCompletionHandler = (_ value: Date?) -> Void
 struct DateSelectorView: View {
     let key: String
     let completionHandler: DateSelectorCompletionHandler?
-    var outputValue: Date?
-    
-    @State var value: Int = 0
+    var value: Date?
 
     init(key: String, value: Date?, completionHandler: DateSelectorCompletionHandler? = nil) {
         self.key = key
-        self.outputValue = value
+        self.value = value
         self.completionHandler = completionHandler
-        
-        if value == nil {
-            self.value = 0
-        }
     }
 
     var body: some View {
         HStack(alignment: .center) {
             Text(key)
                 .frame(maxWidth: 100, alignment: .leading)
-           
-            Stepper(value: $value, in: 0...60) {
-                if let outputValue = outputValue {
+
+            Stepper(onIncrement: {
+                let date = (value ?? Date()).addingTimeInterval(15 * 60).rounded(on: 1, .minute)
+
+                if let completionHandler = completionHandler {
+                    completionHandler(date)
+                }
+            }, onDecrement: {
+                let date = (value ?? Date()).addingTimeInterval(-15 * 60).rounded(on: 1, .minute)
+
+                if let completionHandler = completionHandler {
+                    completionHandler(date)
+                }
+            }) {
+                if let outputValue = value {
                     Text("\(outputValue.localTime)")
                 }
-            }.onChange(of: value, perform: { value in
-                if let completionHandler = completionHandler {
-                    if value == 0 {
-                        completionHandler(nil)
-                    } else {
-                        let dateValue = Date().addingTimeInterval(Double(value) * 5 * 60)
-                        completionHandler(dateValue.rounded(on: 1, .minute))
-                    }
-                }
-            })
+            }
         }
     }
 }
