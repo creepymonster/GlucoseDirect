@@ -19,6 +19,7 @@ struct GlucoseView: View {
                 
                 HStack {
                     Text("\(glucose.trend.description)")
+                    Text("\(getMinuteChange())/min.")
                     Text("\(glucose.timeStamp.localTime)")
                 }
             }
@@ -27,6 +28,20 @@ struct GlucoseView: View {
                 Text("...").font(.system(size: 60)).foregroundColor(getForegroundColor())
             }
         }
+    }
+    
+    func getMinuteChange() -> String {
+        if let glucose = glucose {
+            if glucose.minuteChange > 0 {
+                return "+\(glucose.minuteChange)"
+            } else if glucose.minuteChange < 0 {
+                return "\(glucose.minuteChange)"
+            } else {
+                return "0"
+            }
+        }
+        
+        return ""
     }
 
     func getForegroundColor() -> Color {
@@ -46,9 +61,9 @@ struct GlucoseView: View {
 
 struct GlucoseView_Previews: PreviewProvider {
     static var previews: some View {
-        GlucoseView(glucose: SensorGlucose(id: 1, timeStamp: Date(), glucose: 60, trend: .constant), alarmLow: 70, alarmHigh: 180)
-        GlucoseView(glucose: SensorGlucose(id: 1, timeStamp: Date(), glucose: 100, trend: .constant), alarmLow: 70, alarmHigh: 180)
-        GlucoseView(glucose: SensorGlucose(id: 1, timeStamp: Date(), glucose: 190, trend: .constant), alarmLow: 70, alarmHigh: 180)
+        GlucoseView(glucose: SensorGlucose(id: 1, timeStamp: Date(), glucose: 60, minuteChange: 2), alarmLow: 70, alarmHigh: 180)
+        GlucoseView(glucose: SensorGlucose(id: 1, timeStamp: Date(), glucose: 100, minuteChange: -2), alarmLow: 70, alarmHigh: 180)
+        GlucoseView(glucose: SensorGlucose(id: 1, timeStamp: Date(), glucose: 190, minuteChange: 0), alarmLow: 70, alarmHigh: 180)
         GlucoseView(glucose: nil, alarmLow: 70, alarmHigh: 180)
     }
 }

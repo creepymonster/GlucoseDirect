@@ -21,16 +21,6 @@ enum SensorTrend: String, Codable {
         self = .unknown
     }
 
-    init(averageGlucose: Double, currentGlucose: Double) {
-        let slope = averageGlucose - currentGlucose
-        self = translateSlope(slope: slope)
-    }
-
-    init(secondLast: SensorGlucose, last: SensorGlucose) {
-        let slope = calculateSlope(secondLast: secondLast, last: last)
-        self = translateSlope(slope: slope)
-    }
-
     init(slope: Double) {
         self = translateSlope(slope: slope)
     }
@@ -38,22 +28,6 @@ enum SensorTrend: String, Codable {
     public var description: String {
         return "\(self.rawValue)"
     }
-}
-
-fileprivate func calculateDiffInMinutes(secondLast: Date, last: Date) -> Double {
-    let diff = last.timeIntervalSince(secondLast)
-    return diff / 60
-}
-
-fileprivate func calculateSlope(secondLast: SensorGlucose, last: SensorGlucose) -> Double {
-    if secondLast.timeStamp == last.timeStamp {
-        return 0.0
-    }
-
-    let glucoseDiff = Double(last.glucose) - Double(secondLast.glucose)
-    let minutesDiff = calculateDiffInMinutes(secondLast: secondLast.timeStamp, last: last.timeStamp)
-
-    return glucoseDiff / minutesDiff
 }
 
 fileprivate func translateSlope(slope: Double) -> SensorTrend {

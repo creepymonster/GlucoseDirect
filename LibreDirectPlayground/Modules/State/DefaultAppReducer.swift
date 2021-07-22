@@ -62,7 +62,12 @@ func defaultAppReducer(state: inout AppState, action: AppAction) -> Void {
         state.alarmHigh = value
 
     case .setAlarmSnoozeUntil(value: let value):
-        state.alarmSnoozeUntil = value
+        if let value = value {
+            state.alarmSnoozeUntil = value
+        } else {
+            state.alarmSnoozeUntil = nil
+        }
+        
     }
 
     if let alarmSnoozeUntil = state.alarmSnoozeUntil, Date() > alarmSnoozeUntil {

@@ -240,11 +240,28 @@ class Libre2 {
     }
 }
 
+fileprivate func calculateDiffInMinutes(secondLast: Date, last: Date) -> Double {
+    let diff = last.timeIntervalSince(secondLast)
+    return diff / 60
+}
+
+fileprivate func calculateSlope(secondLast: SensorGlucose, last: SensorGlucose) -> Double {
+    if secondLast.timeStamp == last.timeStamp {
+        return 0.0
+    }
+
+    let glucoseDiff = Double(last.glucose) - Double(secondLast.glucose)
+    let minutesDiff = calculateDiffInMinutes(secondLast: secondLast.timeStamp, last: last.timeStamp)
+
+    return glucoseDiff / minutesDiff
+}
+
 fileprivate func fillTrends(values: [SensorGlucose]) -> [SensorGlucose] {
     var lastGlucose: SensorGlucose? = nil
     for glucose in values {
         if let lastGlucose = lastGlucose {
-            glucose.trend = SensorTrend(secondLast: lastGlucose, last: glucose)
+            let slope = calculateSlope(secondLast: lastGlucose, last: glucose)
+            glucose.minuteChange = slope
         }
 
         lastGlucose = glucose

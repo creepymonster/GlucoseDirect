@@ -11,7 +11,14 @@ class SensorGlucose: Codable, CustomStringConvertible {
     let id: Int
     let timeStamp: Date
     let glucose: Int
-    var trend: SensorTrend = .unknown
+    
+    var minuteChange: Double = 0 {
+        didSet {
+            trend = SensorTrend(slope: minuteChange)
+        }
+    }
+    
+    private(set) var trend: SensorTrend = .unknown
 
     private let rawValue: Double
     private let rawTemperature: Double
@@ -29,11 +36,12 @@ class SensorGlucose: Codable, CustomStringConvertible {
         }
     }
 
-    init(id: Int, timeStamp: Date, glucose: Int, trend: SensorTrend) {
+    init(id: Int, timeStamp: Date, glucose: Int, minuteChange: Double) {
         self.id = id
         self.timeStamp = timeStamp.rounded(on: 1, .minute)
         self.glucose = glucose
-        self.trend = trend
+        self.minuteChange = minuteChange
+        self.trend = SensorTrend(slope: minuteChange)
 
         self.rawValue = 0
         self.rawTemperature = 0
