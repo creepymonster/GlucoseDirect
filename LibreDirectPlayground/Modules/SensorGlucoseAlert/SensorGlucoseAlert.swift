@@ -23,11 +23,15 @@ func sensorGlucoseAlertMiddelware(service: SensorGlucoseAlertService) -> Middlew
                 Log.info("Glucose alert, low: \(readingUpdate.lastGlucose.glucoseFiltered) < \(state.alarmLow)")
                 
                 service.sendLowGlucoseNotification()
+                return Just(AppAction.setAlarmSnoozeUntil(value: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute))).eraseToAnyPublisher()
             } else if readingUpdate.lastGlucose.glucoseFiltered > state.alarmHigh {
                 Log.info("Glucose alert, high: \(readingUpdate.lastGlucose.glucoseFiltered) > \(state.alarmHigh)")
                 
                 service.sendHighGlucoseNotification()
+                return Just(AppAction.setAlarmSnoozeUntil(value: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute))).eraseToAnyPublisher()
             }
+            
+            return Just(AppAction.setAlarmSnoozeUntil(value: nil)).eraseToAnyPublisher()
 
         default:
             break
