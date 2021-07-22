@@ -261,6 +261,10 @@ fileprivate func fillTrends(values: [SensorGlucose]) -> [SensorGlucose] {
     for glucose in values {
         if let lastGlucose = lastGlucose {
             let slope = calculateSlope(secondLast: lastGlucose, last: glucose)
+
+            Log.info("lastGlucose: \(lastGlucose.timeStamp.localTime): \(lastGlucose.glucoseFiltered)")
+            Log.info("glucose: \(glucose.timeStamp.localTime): \(glucose.glucoseFiltered)")
+
             glucose.minuteChange = slope
         }
 
