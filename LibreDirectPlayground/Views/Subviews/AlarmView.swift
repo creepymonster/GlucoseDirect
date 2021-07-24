@@ -12,7 +12,7 @@ struct AlarmView: View {
 
     var body: some View {
         GroupBox(label:
-                Text("ALARMS")
+            Text("ALARMS")
         ) {
             NumberSelectorView(key: "Low", value: store.state.alarmLow, completionHandler: { (value) -> Void in
                 store.dispatch(.setAlarmLow(value: value))

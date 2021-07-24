@@ -26,13 +26,13 @@ struct DateSelectorView: View {
                 .frame(maxWidth: 100, alignment: .leading)
 
             Stepper(onIncrement: {
-                let date = (value ?? Date()).addingTimeInterval(15 * 60).rounded(on: 1, .minute)
+                let date = (value ?? Date()).rounded(on: 15, .minute).addingTimeInterval(30 * 60)
 
                 if let completionHandler = completionHandler {
                     completionHandler(date)
                 }
             }, onDecrement: {
-                let date = (value ?? Date()).addingTimeInterval(-15 * 60).rounded(on: 1, .minute)
+                let date = (value ?? Date()).rounded(on: 15, .minute).addingTimeInterval(-30 * 60)
 
                 if let completionHandler = completionHandler {
                     completionHandler(date)

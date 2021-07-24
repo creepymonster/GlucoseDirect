@@ -13,25 +13,30 @@ func sensorGlucoseAlertMiddelware(service: SensorGlucoseAlertService) -> Middlew
     return { state, action in
         switch action {
         case .setSensorReading(readingUpdate: let readingUpdate):
+            var isSnoozed = false
+
             if let snoozeUntil = state.alarmSnoozeUntil, Date() < snoozeUntil {
                 Log.info("Glucose alert snoozed until \(snoozeUntil.localTime)")
-                
-                break
+                isSnoozed = true
             }
-            
+
             if readingUpdate.lastGlucose.glucoseFiltered < state.alarmLow {
-                Log.info("Glucose alert, low: \(readingUpdate.lastGlucose.glucoseFiltered) < \(state.alarmLow)")
-                
-                service.sendLowGlucoseNotification()
-                return Just(AppAction.setAlarmSnoozeUntil(value: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute))).eraseToAnyPublisher()
+                if !isSnoozed {
+                    Log.info("Glucose alert, low: \(readingUpdate.lastGlucose.glucoseFiltered) < \(state.alarmLow)")
+
+                    service.sendLowGlucoseNotification()
+                    return Just(AppAction.setAlarmSnoozeUntil(value: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute))).eraseToAnyPublisher()
+                }
             } else if readingUpdate.lastGlucose.glucoseFiltered > state.alarmHigh {
-                Log.info("Glucose alert, high: \(readingUpdate.lastGlucose.glucoseFiltered) > \(state.alarmHigh)")
-                
-                service.sendHighGlucoseNotification()
-                return Just(AppAction.setAlarmSnoozeUntil(value: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute))).eraseToAnyPublisher()
+                if !isSnoozed {
+                    Log.info("Glucose alert, high: \(readingUpdate.lastGlucose.glucoseFiltered) > \(state.alarmHigh)")
+
+                    service.sendHighGlucoseNotification()
+                    return Just(AppAction.setAlarmSnoozeUntil(value: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute))).eraseToAnyPublisher()
+                }
+            } else {
+                return Just(AppAction.setAlarmSnoozeUntil(value: nil)).eraseToAnyPublisher()
             }
-            
-            return Just(AppAction.setAlarmSnoozeUntil(value: nil)).eraseToAnyPublisher()
 
         default:
             break
@@ -52,7 +57,7 @@ class SensorGlucoseAlertService: NotificationCenterService {
 
         ensureCanSendNotification { ensured in
             Log.info("Glucose alert, ensured: \(ensured)")
-            
+
             guard ensured else {
                 return
             }
@@ -71,7 +76,7 @@ class SensorGlucoseAlertService: NotificationCenterService {
 
         ensureCanSendNotification { ensured in
             Log.info("Glucose alert, ensured: \(ensured)")
-            
+
             guard ensured else {
                 return
             }
