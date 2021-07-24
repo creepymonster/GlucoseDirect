@@ -15,6 +15,7 @@ final class LibreDirectApp: App {
             sensorConnectionMiddelware(service: SensorConnectionService()),
             sensorExpiredAlertMiddelware(service: SensorExpiredAlertService()),
             sensorGlucoseAlertMiddelware(service: SensorGlucoseAlertService()),
+            sensorGlucoseBadgeMiddelware(service: SensorGlucoseBadgeService()),
             freeAPSMiddleware(service: FreeAPSService()),
             nightscoutMiddleware(service: NightscoutService()),
             logMiddleware(),
