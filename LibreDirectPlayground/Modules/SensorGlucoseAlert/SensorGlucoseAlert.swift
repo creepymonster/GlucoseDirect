@@ -35,6 +35,9 @@ func sensorGlucoseAlertMiddelware(service: SensorGlucoseAlertService) -> Middlew
                     return Just(AppAction.setAlarmSnoozeUntil(value: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute))).eraseToAnyPublisher()
                 }
             } else {
+                UNUserNotificationCenter.current().removeAllDeliveredNotifications() // For removing all delivered notification
+                UNUserNotificationCenter.current().removeAllPendingNotificationRequests() // For removing all pending notifications which are not delivered yet but scheduled.
+                
                 return Just(AppAction.setAlarmSnoozeUntil(value: nil)).eraseToAnyPublisher()
             }
 
