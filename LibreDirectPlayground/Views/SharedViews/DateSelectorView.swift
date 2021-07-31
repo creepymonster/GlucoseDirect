@@ -2,7 +2,7 @@
 //  DateSelectorView.swift
 //  LibreDirectPlayground
 //
-//  Created by Reimar Metzen on 20.07.21.
+//  Created by creepymonster on 20.07.21.
 //
 
 import SwiftUI

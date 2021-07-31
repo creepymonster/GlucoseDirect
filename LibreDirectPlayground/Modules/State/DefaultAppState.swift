@@ -2,97 +2,97 @@
 //  DefaultAppState.swift
 //  LibreDirectPlayground
 //
-//  Created by Reimar Metzen on 06.07.21.
+//  Created by creepymonster on 06.07.21.
 //
 
 import Foundation
 import Combine
+import UserNotifications
 
-struct DefaultAppState: AppState {
-    var appGroupName: String? = "group.reimarmetzen.FreeAPS"
-
+class DefaultAppState: NSObject, AppState {
     var connectionState: SensorConnectionState = .disconnected
     var connectionError: String?
-    var lastGlucose: SensorGlucose?
-
+    var connectionErrorTimestamp: Date?
     var alarmSnoozeUntil: Date?
-    
-    var alarmLow: Int = 70 {
-        didSet {
-            UserDefaults.standard.set(alarmLow, forKey: Key.alarmLow.rawValue)
-        }
-    }
-    
+
     var alarmHigh: Int = 180 {
         didSet {
-            UserDefaults.standard.set(alarmHigh, forKey: Key.alarmHigh.rawValue)
+            UserDefaults.appGroup.alarmHigh = alarmHigh
         }
     }
 
-    var nightscoutHost: String = "" {
+    var alarmLow: Int = 70 {
         didSet {
-            if nightscoutHost.isEmpty {
-                UserDefaults.standard.removeObject(forKey: Key.nightscoutHost.rawValue)
-            } else {
-                UserDefaults.standard.set(nightscoutHost, forKey: Key.nightscoutHost.rawValue)
-            }
+            UserDefaults.appGroup.alarmLow = alarmLow
+        }
+    }
+
+    var glucoseValues: [SensorGlucose] = [] {
+        didSet {
+            UserDefaults.appGroup.glucoseValues = glucoseValues
+            UserDefaults.appGroup.lastGlucose = glucoseValues.last
         }
     }
 
     var nightscoutApiSecret: String = "" {
         didSet {
-            if nightscoutApiSecret.isEmpty {
-                UserDefaults.standard.removeObject(forKey: Key.nightscoutApiSecret.rawValue)
-            } else {
-                UserDefaults.standard.set(nightscoutApiSecret, forKey: Key.nightscoutApiSecret.rawValue)
-            }
+            UserDefaults.appGroup.nightscoutApiSecret = nightscoutApiSecret
+        }
+    }
+
+    var nightscoutHost: String = "" {
+        didSet {
+            UserDefaults.appGroup.nightscoutHost = nightscoutHost
         }
     }
 
     var sensor: Sensor? = nil {
         didSet {
-            if let sensor = sensor {
-                let encoder = JSONEncoder()
-                if let encoded = try? encoder.encode(sensor) {
-                    UserDefaults.standard.set(encoded, forKey: Key.sensor.rawValue)
-                }
-            } else {
-                UserDefaults.standard.removeObject(forKey: Key.sensor.rawValue)
-            }
+            UserDefaults.appGroup.sensor = sensor
         }
     }
 
-    init() {
-        self.alarmLow = UserDefaults.standard.integer(forKey: Key.alarmLow.rawValue)
-        self.alarmHigh = UserDefaults.standard.integer(forKey: Key.alarmHigh.rawValue)
+    override init() {
+        super.init()
         
-        if let nightscoutHost = UserDefaults.standard.string(forKey: Key.nightscoutHost.rawValue) {
-            self.nightscoutHost = nightscoutHost
+        if let alarmHigh = UserDefaults.appGroup.alarmHigh {
+            self.alarmHigh = alarmHigh
         }
-
-        if let apiSecret = UserDefaults.standard.string(forKey: Key.nightscoutApiSecret.rawValue) {
-            self.nightscoutApiSecret = apiSecret.toSha1()
+        
+        if let alarmLow = UserDefaults.appGroup.alarmLow {
+            self.alarmLow = alarmLow
         }
-
-        if let savedSensor = UserDefaults.standard.object(forKey: Key.sensor.rawValue) as? Data {
-            let decoder = JSONDecoder()
-
-            if let sensor = try? decoder.decode(Sensor.self, from: savedSensor) {
-                self.sensor = sensor
-            }
-        }
+        
+        self.glucoseValues = UserDefaults.appGroup.glucoseValues
+        self.nightscoutApiSecret = UserDefaults.appGroup.nightscoutApiSecret
+        self.nightscoutHost = UserDefaults.appGroup.nightscoutHost
+        self.sensor = UserDefaults.appGroup.sensor
+        
+        UNUserNotificationCenter.current().delegate = self
     }
 
     init(connectionState: SensorConnectionState, sensor: Sensor, lastGlucose: SensorGlucose) {
         self.connectionState = connectionState
         self.sensor = sensor
-        self.lastGlucose = lastGlucose
+        self.glucoseValues = [lastGlucose]
+    }
+}
+
+extension DefaultAppState: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.badge, .banner, .list, .sound])
     }
 }
 
 extension DefaultAppState {
     private static var connectableStates: Set<SensorConnectionState> = [.disconnected]
     private static var disconnectableStates: Set<SensorConnectionState> = [.connected, .connecting, .scanning]
+    
+    var lastGlucose: SensorGlucose? {
+        get {
+            return self.glucoseValues.last
+        }
+    }
 
     var isPairable: Bool {
         get {
@@ -123,12 +123,4 @@ extension DefaultAppState {
             return sensor != nil && sensor!.state == .ready
         }
     }
-}
-
-fileprivate enum Key: String, CaseIterable {
-    case sensor = "libre-direct.settings.sensor"
-    case nightscoutHost = "libre-direct.settings.nightscout-host"
-    case nightscoutApiSecret = "libre-direct.settings.nightscout-api-secret"
-    case alarmLow = "libre-direct.settings.alarm-low"
-    case alarmHigh = "libre-direct.settings.alarm-high"
 }

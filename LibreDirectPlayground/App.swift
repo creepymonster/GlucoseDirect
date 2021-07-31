@@ -2,7 +2,7 @@
 //  LibreDirectPlaygroundApp.swift
 //  LibreDirectPlayground
 //
-//  Created by Reimar Metzen on 06.07.21.
+//  Created by creepymonster on 06.07.21.
 //
 
 import SwiftUI
@@ -16,9 +16,11 @@ final class LibreDirectApp: App {
             sensorExpiredAlertMiddelware(service: SensorExpiredAlertService()),
             sensorGlucoseAlertMiddelware(service: SensorGlucoseAlertService()),
             sensorGlucoseBadgeMiddelware(service: SensorGlucoseBadgeService()),
+            sensorConnectionLostAlertMiddelware(service: SensorConnectionLostAlertService()),
             freeAPSMiddleware(service: FreeAPSService()),
             nightscoutMiddleware(service: NightscoutService()),
-            logMiddleware(),
+            widgetUpdaterMiddleware(),
+            actionLogMiddleware()
         ])
 
     init() {

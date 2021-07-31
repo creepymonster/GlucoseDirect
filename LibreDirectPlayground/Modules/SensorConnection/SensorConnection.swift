@@ -2,7 +2,7 @@
 //  SensorConnection.swift
 //  LibreDirectPlayground
 //
-//  Created by Reimar Metzen on 06.07.21.
+//  Created by creepymonster on 06.07.21.
 //
 
 import Foundation
@@ -37,6 +37,7 @@ class SensorReadingUpdate: SensorUpdate {
 
 class SensorErrorUpdate: SensorUpdate {
     private(set) var errorMessage: String
+    private(set) var errorTimestamp: Date = Date()
 
     init(errorMessage: String) {
         self.errorMessage = errorMessage

@@ -2,7 +2,7 @@
 //  NFC.swift
 //  LibreDirectPlayground
 //
-//  Created by Reimar Metzen on 06.07.21.
+//  Created by creepymonster on 06.07.21.
 //
 
 import Foundation
@@ -23,7 +23,7 @@ class SensorPairingService: NSObject, NFCTagReaderSessionDelegate, SensorPairing
         if NFCTagReaderSession.readingAvailable {
             accessQueue.async {
                 self.session = NFCTagReaderSession(pollingOption: .iso15693, delegate: self, queue: self.nfcQueue)
-                self.session?.alertMessage = "Hold iPhone near sensor"
+                self.session?.alertMessage = LocalizedString("Hold the top of your iPhone near the sensor to pair", comment: "")
                 self.session?.begin()
             }
         }

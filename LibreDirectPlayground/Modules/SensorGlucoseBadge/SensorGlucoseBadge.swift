@@ -2,7 +2,7 @@
 //  SensorGlucoseBadge.swift
 //  LibreDirectPlayground
 //
-//  Created by Reimar Metzen on 24.07.21.
+//  Created by creepymonster on 24.07.21.
 //
 
 import Foundation
@@ -15,7 +15,7 @@ func sensorGlucoseBadgeMiddelware(service: SensorGlucoseBadgeService) -> Middlew
         switch action {
         case .setSensorReading(readingUpdate: let readingUpdate):
             service.setGlucoseBadge(glucose: readingUpdate.lastGlucose.glucoseFiltered)
-            
+
         default:
             break
 
@@ -31,7 +31,7 @@ class SensorGlucoseBadgeService: NotificationCenterService {
 
         ensureCanSendNotification { ensured in
             Log.info("Glucose badge, ensured: \(ensured)")
-            
+
             guard ensured else {
                 return
             }

@@ -2,7 +2,7 @@
 //  KeyValueEditorView.swift
 //  LibreDirectPlayground
 //
-//  Created by Reimar Metzen on 06.07.21.
+//  Created by creepymonster on 06.07.21.
 //
 
 import SwiftUI
@@ -33,6 +33,7 @@ struct TextEditorView: View {
                     }
                 })
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
         }
     }
 }

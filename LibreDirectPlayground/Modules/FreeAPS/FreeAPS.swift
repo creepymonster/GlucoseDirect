@@ -2,7 +2,7 @@
 //  FreeAPS.swift
 //  LibreDirectPlayground
 //
-//  Created by Reimar Metzen on 06.07.21.
+//  Created by creepymonster on 06.07.21.
 //
 
 import Foundation
@@ -12,9 +12,7 @@ func freeAPSMiddleware(service: FreeAPSService) -> Middleware<AppState, AppActio
     return { state, action in
         switch action {
         case .setSensorReading(readingUpdate: let readingUpdate):
-            if let appGroupName = state.appGroupName {
-                service.addGlucose(glucoseValues: [readingUpdate.lastGlucose], appGroupName: appGroupName)
-            }
+            service.addGlucose(glucoseValues: [readingUpdate.lastGlucose])
 
         default:
             break
@@ -26,16 +24,9 @@ func freeAPSMiddleware(service: FreeAPSService) -> Middleware<AppState, AppActio
 }
 
 class FreeAPSService {
-    func addGlucose(glucoseValues: [SensorGlucose], appGroupName: String) {
-        Log.info("FreeAPS, appGroupName: \(appGroupName)")
-        
-        guard let sharedDefaults = UserDefaults(suiteName: appGroupName) else {
-            return
-        }
-
+    func addGlucose(glucoseValues: [SensorGlucose]) {
         let freeAPSValues = glucoseValues.map { $0.toFreeAPS() }
         
-        Log.info("FreeAPS, sharedDefaults: \(sharedDefaults)")
         Log.info("FreeAPS, values: \(freeAPSValues)")
 
         guard let freeAPSJson = try? JSONSerialization.data(withJSONObject: freeAPSValues) else {
@@ -44,7 +35,7 @@ class FreeAPSService {
         
         Log.info("FreeAPS, json: \(freeAPSJson)")
 
-        sharedDefaults.setValue(freeAPSJson, forKey: "latestReadings")
+        UserDefaults.appGroup.freeAPSLatestReadings = freeAPSJson
     }
 }
 

@@ -2,7 +2,7 @@
 //  SensorGlucoseView.swift
 //  LibreDirectPlayground
 //
-//  Created by Reimar Metzen on 06.07.21.
+//  Created by creepymonster on 06.07.21.
 //
 
 import SwiftUI
@@ -12,58 +12,61 @@ struct GlucoseView: View {
     var alarmLow: Int?
     var alarmHigh: Int?
 
+    var minuteChange: String {
+        get {
+            if let lastGlucose = glucose {
+                if lastGlucose.minuteChange > 0 {
+                    return "+\(lastGlucose.minuteChange)"
+                } else if lastGlucose.minuteChange < 0 {
+                    return "\(lastGlucose.minuteChange)"
+                } else {
+                    return "0"
+                }
+            }
+
+            return ""
+        }
+    }
+
+    var glucoseForegroundColor: Color {
+        get {
+            if let lastGlucose = glucose {
+                if let alarmLow = UserDefaults.appGroup.alarmLow, lastGlucose.glucoseFiltered < alarmLow {
+                    return Color.red
+                }
+
+                if let alarmHigh = UserDefaults.appGroup.alarmHigh, lastGlucose.glucoseFiltered > alarmHigh {
+                    return Color.red
+                }
+            }
+
+            return Color.primary
+        }
+    }
+
     var body: some View {
         if let glucose = glucose {
             VStack {
-                Text("\(glucose.glucoseFiltered.description)").font(.system(size: 60)).foregroundColor(getForegroundColor())
-                
+                Text(glucose.glucoseFiltered.description).font(.system(size: 96)).foregroundColor(glucoseForegroundColor)
+
                 HStack {
-                    Text("\(glucose.trend.description)")
-                    Text("\(getMinuteChange())/min.")
-                    Text("\(glucose.timeStamp.localTime)")
-                }
-            }
-        } else {
-            VStack {
-                Text("...").font(.system(size: 60)).foregroundColor(getForegroundColor())
-            }
-        }
-    }
-    
-    func getMinuteChange() -> String {
-        if let glucose = glucose {
-            if glucose.minuteChange > 0 {
-                return "+\(glucose.minuteChange)"
-            } else if glucose.minuteChange < 0 {
-                return "\(glucose.minuteChange)"
-            } else {
-                return "0"
-            }
-        }
-        
-        return ""
-    }
+                    Text(glucose.trend.description)
+                    Text(String(format: LocalizedString("%1$@/min.", comment: ""), minuteChange))
+                }.font(.footnote).padding(.bottom, 5)
 
-    func getForegroundColor() -> Color {
-        if let glucose = glucose {
-            if let alarmLow = alarmLow, glucose.glucoseFiltered < alarmLow {
-                return Color.accentColor
-            }
-            
-            if let alarmHigh = alarmHigh, glucose.glucoseFiltered > alarmHigh {
-                return Color.accentColor
+                Text("\(glucose.timeStamp.localTime)")
             }
         }
-
-        return Color.primary
     }
 }
 
 struct GlucoseView_Previews: PreviewProvider {
     static var previews: some View {
-        GlucoseView(glucose: SensorGlucose(id: 1, timeStamp: Date(), glucose: 60, minuteChange: 2), alarmLow: 70, alarmHigh: 180)
-        GlucoseView(glucose: SensorGlucose(id: 1, timeStamp: Date(), glucose: 100, minuteChange: -2), alarmLow: 70, alarmHigh: 180)
-        GlucoseView(glucose: SensorGlucose(id: 1, timeStamp: Date(), glucose: 190, minuteChange: 0), alarmLow: 70, alarmHigh: 180)
-        GlucoseView(glucose: nil, alarmLow: 70, alarmHigh: 180)
+        ForEach(ColorScheme.allCases, id: \.self) {
+            GlucoseView(glucose: SensorGlucose(id: 1, timeStamp: Date(), glucose: 60, minuteChange: 2), alarmLow: 70, alarmHigh: 180).preferredColorScheme($0)
+            GlucoseView(glucose: SensorGlucose(id: 1, timeStamp: Date(), glucose: 100, minuteChange: -2), alarmLow: 70, alarmHigh: 180).preferredColorScheme($0)
+            GlucoseView(glucose: SensorGlucose(id: 1, timeStamp: Date(), glucose: 190, minuteChange: 0), alarmLow: 70, alarmHigh: 180).preferredColorScheme($0)
+            GlucoseView(glucose: nil, alarmLow: 70, alarmHigh: 180).preferredColorScheme($0)
+        }
     }
 }

@@ -2,7 +2,7 @@
 //  LibreUtility.swift
 //  LibreDirectPlayground
 //
-//  Created by Reimar Metzen on 06.07.21.
+//  Created by creepymonster on 06.07.21.
 //
 
 import Foundation
@@ -199,6 +199,8 @@ class Libre2 {
         let ints = [0, 2, 4, 6, 7, 12, 15]
         var historyCount = 0
         for i in 0 ..< 10 {
+
+            
             let rawValue = Double(readBits(data, i * 4, 0, 0xe))
             if rawValue == 0 {
                 continue
@@ -206,6 +208,7 @@ class Libre2 {
 
             let rawTemperature = readBits(data, i * 4, 0xe, 0xc) << 2
             var rawTemperatureAdjustment = readBits(data, i * 4, 0x1a, 0x5) << 2
+            //let rawTemperatureAdjustmentXdrip = readBits(data, i * 4, 0x1a, 0x6)
 
             let negativeAdjustment = readBits(data, i * 4, 0x1f, 0x1)
             if negativeAdjustment != 0 {
@@ -220,16 +223,18 @@ class Libre2 {
                 idValue = ((idValue - delay) / 15) * 15 - 15 * (i - 7)
             }
 
-
             let timeStamp = Date().addingTimeInterval(Double(-60 * i))
             //let timeStamp = Date().addingTimeInterval(TimeInterval(-60 * (age - idValue)))
 
-            let measurement = SensorGlucose(id: idValue, timeStamp: timeStamp, rawValue: rawValue, rawTemperature: Double(rawTemperature), rawTemperatureAdjustment: Double(rawTemperatureAdjustment), calibration: calibration)
+            //let factorXdrip = (1000 / 117.64705)
+            //let measurementXdrip = SensorGlucose(id: idValue, timeStamp: timeStamp, rawValue: rawValue * factor, rawTemperature: Double(rawTemperature), rawTemperatureAdjustment: Double(rawTemperatureAdjustmentXdrip), calibration: calibration)
+            
+            let measurementFactory = SensorGlucose(id: idValue, timeStamp: timeStamp, rawValue: rawValue, rawTemperature: Double(rawTemperature), rawTemperatureAdjustment: Double(rawTemperatureAdjustment), calibration: calibration)
 
             if i < 7 {
-                measurementTrend.append(measurement)
+                measurementTrend.append(measurementFactory)
             } else {
-                measurementHistory.append(measurement)
+                measurementHistory.append(measurementFactory)
             }
         }
 

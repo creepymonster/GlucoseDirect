@@ -2,7 +2,7 @@
 //  AppReducers.swift
 //  LibreDirectPlayground
 //
-//  Created by Reimar Metzen on 06.07.21.
+//  Created by creepymonster on 06.07.21.
 //
 
 import Foundation
@@ -31,10 +31,31 @@ func defaultAppReducer(state: inout AppState, action: AppAction) -> Void {
 
         if resetableStates.contains(connectionUpdate.connectionState) {
             state.connectionError = nil
+            state.connectionErrorTimestamp = nil
         }
 
     case .setSensorReading(readingUpdate: let readingUpdate):
-        state.lastGlucose = readingUpdate.lastGlucose
+        if let lastGlucose = state.glucoseValues.last {
+            let minutesBetweenValues = readingUpdate.lastGlucose.timeStamp.timeIntervalSince(lastGlucose.timeStamp) / 60
+            let allowedChange = Int(Double(lastGlucose.glucoseFiltered) * Constants.AllowedGlucoseChangePerMinute * minutesBetweenValues)
+            
+            let lowerLimit = max(lastGlucose.glucoseFiltered - allowedChange, Constants.MinReadableGlucose)
+            let upperLimit = min(lastGlucose.glucoseFiltered + allowedChange, Constants.MaxReadableGlucose)
+            
+            readingUpdate.lastGlucose.lowerLimits.append(lowerLimit)
+            readingUpdate.lastGlucose.upperLimits.append(upperLimit)
+            
+            Log.info("Reading update current: \(readingUpdate.lastGlucose.glucoseFiltered), lowerLimit: \(lowerLimit), upperLimit: \(upperLimit)")
+        }
+        
+        state.glucoseValues.append(readingUpdate.lastGlucose)
+
+        let toMany = state.glucoseValues.count - 120
+        if toMany > 0 {
+            for _ in 1...toMany {
+                state.glucoseValues.removeFirst()
+            }
+        }
 
     case .setSensorAge(ageUpdate: let ageUpdate):
         guard state.sensor != nil else {
@@ -45,6 +66,7 @@ func defaultAppReducer(state: inout AppState, action: AppAction) -> Void {
 
     case .setSensorError(errorUpdate: let errorUpdate):
         state.connectionError = errorUpdate.errorMessage
+        state.connectionErrorTimestamp = errorUpdate.errorTimestamp
 
     case .setNightscoutHost(host: let host):
         state.nightscoutHost = host
@@ -76,3 +98,4 @@ func defaultAppReducer(state: inout AppState, action: AppAction) -> Void {
 }
 
 fileprivate var resetableStates: Set<SensorConnectionState> = [.connected, .powerOff, .scanning]
+fileprivate var disconnectedStates: Set<SensorConnectionState> = [.disconnected, .scanning]
