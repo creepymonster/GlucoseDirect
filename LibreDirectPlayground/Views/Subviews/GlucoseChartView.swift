@@ -8,9 +8,25 @@
 import SwiftUI
 import Combine
 
-extension SensorGlucose : Equatable {
+extension SensorGlucose: Equatable {
     static func == (lhs: SensorGlucose, rhs: SensorGlucose) -> Bool {
         lhs.timeStamp == rhs.timeStamp
+    }
+}
+
+extension Date {
+    static func dates(from fromDate: Date, to toDate: Date) -> [Date] {
+        var dates: [Date] = []
+        var date = fromDate
+        
+        while date <= toDate {
+            dates.append(date)
+            guard let newDate = Calendar.current.date(byAdding: .hour, value: 1, to: date) else {
+                break
+            }
+            date = newDate
+        }
+        return dates
     }
 }
 
@@ -21,56 +37,58 @@ struct GlucoseChartView: View {
     var alarmLow: Int?
     var alarmHigh: Int?
     var targetValue: Int?
-    
+
     var glucoseMinutes: Int {
         get {
             if let first = glucoseValues.first, let last = glucoseValues.last {
                 return Int(first.timeStamp.distance(to: last.timeStamp) / 60)
             }
-            
+
             return 0
         }
     }
-    
+
     var dotColor: Color {
         get {
             if colorScheme == .dark {
                 return Color.white
             }
-            
+
             return Color.blue
         }
     }
 
     private enum Config {
+        static let dotSize: CGFloat = 4
         static let endID = "End"
         static let maxGlucose = 400
         static let minGlucose = 0
-        static let yStep = 50
-        static let xAdditionalLeft: CGFloat = 20
+        static let xAdditionalLeft: CGFloat = 25
         static let xAdditionalRight: CGFloat = 50
         static let xStep: CGFloat = 6
-        static let dotSize: CGFloat = 4
+        static let yAdditionalBottom: CGFloat = 22.5
+        static let yGridFontsize: CGFloat = 12
+        static let yStep = 50
     }
-    
+
     func minuteToX(minute: Int) -> CGFloat {
         return CGFloat(minute) * Config.xStep
     }
-    
+
     func timestampToX(timeStamp: Date) -> CGFloat {
         if let first = glucoseValues.first {
             return CGFloat(first.timeStamp.distance(to: timeStamp) / 60) * Config.xStep
         }
-        
+
         return 0
     }
-    
+
     func glucoseToY(fullSize: CGSize, glucose: CGFloat) -> CGFloat {
         let inMin = CGFloat(Config.minGlucose)
         let inMax = CGFloat(Config.maxGlucose)
-        let outMin = fullSize.height
+        let outMin = fullSize.height - Config.yAdditionalBottom
         let outMax = CGFloat(0)
-        
+
         let y = (glucose - inMin) * (outMax - outMin) / (inMax - inMin) + outMin
         return y
     }
@@ -82,31 +100,10 @@ struct GlucoseChartView: View {
                     ZStack(alignment: .leading) {
                         yGridView(fullSize: geo.size)
                         alarmGridView(fullSize: geo.size)
-                        glucoseGridView(fullSize: geo.size).padding(.leading, Config.xAdditionalLeft)
+                        scrollGridView(fullSize: geo.size).padding(.leading, Config.xAdditionalLeft)
                     }
                 }
             }.frame(height: 350)
-        }
-    }
-           
-    private func yGridView(fullSize: CGSize) -> some View {
-        ZStack {
-            let gridParts = stride(from: Config.minGlucose, to: Config.maxGlucose + 1, by: Config.yStep)
-            
-            Path { path in
-                for i in gridParts {
-                    let y = glucoseToY(fullSize: fullSize, glucose: CGFloat(i))
-                    
-                    path.move(to: CGPoint(x: Config.xAdditionalLeft, y: y))
-                    path.addLine(to: CGPoint(x: fullSize.width, y: y))
-                }
-            }.stroke(Color.secondary, lineWidth: 0.5)
-            
-            ForEach(Array(gridParts), id: \.self) { i in
-                let y = glucoseToY(fullSize: fullSize, glucose: CGFloat(i))
-                
-                Text("\(i)").font(.system(size: 10)).fontWeight(.light).frame(width: Config.xAdditionalLeft, alignment: .trailing).position(x: 0, y: y)
-            }
         }
     }
     
@@ -114,42 +111,73 @@ struct GlucoseChartView: View {
         Path { path in
             if let alarmLow = alarmLow {
                 let y = glucoseToY(fullSize: fullSize, glucose: CGFloat(alarmLow))
-                
+
                 path.move(to: CGPoint(x: Config.xAdditionalLeft, y: y))
                 path.addLine(to: CGPoint(x: fullSize.width, y: y))
             }
-            
+
             if let alarmHigh = alarmHigh {
                 let y = glucoseToY(fullSize: fullSize, glucose: CGFloat(alarmHigh))
-                
+
                 path.move(to: CGPoint(x: Config.xAdditionalLeft, y: y))
                 path.addLine(to: CGPoint(x: fullSize.width, y: y))
             }
         }.stroke(Color.red, lineWidth: 0.55)
     }
+
+    private func yGridView(fullSize: CGSize) -> some View {
+        ZStack {
+            let gridParts = stride(from: Config.minGlucose, to: Config.maxGlucose + 1, by: Config.yStep)
+
+            Path { path in
+                for i in gridParts {
+                    let y = glucoseToY(fullSize: fullSize, glucose: CGFloat(i))
+
+                    path.move(to: CGPoint(x: Config.xAdditionalLeft, y: y))
+                    path.addLine(to: CGPoint(x: fullSize.width, y: y))
+                }
+            }.stroke(Color.secondary, lineWidth: 0.5)
+
+            ForEach(Array(gridParts), id: \.self) { i in
+                let y = glucoseToY(fullSize: fullSize, glucose: CGFloat(i))
+
+                Text("\(i)")
+                    .font(.system(size: Config.yGridFontsize))
+                    .fontWeight(.light)
+                    .frame(width: Config.xAdditionalLeft, alignment: .trailing)
+                    .position(x: 0, y: y)
+            }
+        }
+    }
     
-    private func glucoseGridView(fullSize: CGSize) -> some View {
+    private func xGridView(fullSize: CGSize) -> some View {
+        ZStack {
+            let firstTimeStamp = glucoseValues.first!.timeStamp.rounded(on: 1, .hour)
+            let lastTimeStamp = glucoseValues.last!.timeStamp.rounded(on: 1, .hour)
+            let allHours = Date.dates(from: firstTimeStamp, to: lastTimeStamp)
+            
+            ForEach(Array(allHours), id: \.self) { hour in
+                Text(hour.localTime)
+                    .font(.system(size: Config.yGridFontsize))
+                    .fontWeight(.light)
+                    .position(x: timestampToX(timeStamp: hour), y: fullSize.height - Config.yGridFontsize)
+            }
+            
+            Path { path in
+                for hour in allHours {
+                    path.move(to: CGPoint(x: timestampToX(timeStamp: hour), y: 0))
+                    path.addLine(to: CGPoint(x: timestampToX(timeStamp: hour), y: fullSize.height - Config.yAdditionalBottom))
+                }
+            }.stroke(Color.secondary, lineWidth: 0.5)
+        }
+    }
+
+    private func scrollGridView(fullSize: CGSize) -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
             ScrollViewReader { scroll in
                 ZStack {
-                    let lastHour = timestampToX(timeStamp: glucoseValues.last!.timeStamp.rounded(on: 1, .hour))
-                    
-                    Path { path in
-                        for i in stride(from: lastHour, to: 0, by: Config.xStep * 60 * -1) {
-                            path.move(to: CGPoint(x: i, y: 0))
-                            path.addLine(to: CGPoint(x: i, y: fullSize.height))
-                        }
-                    }.stroke(Color.secondary, lineWidth: 0.5)
-                    
-                    Path { path in
-                        for value in glucoseValues {
-                            let x = timestampToX(timeStamp: value.timeStamp) + Config.dotSize / 2
-                            let y = glucoseToY(fullSize: fullSize, glucose: CGFloat(value.glucoseFiltered))
-                            
-                            path.addEllipse(in: CGRect(x: x - Config.dotSize / 2, y: y - Config.dotSize / 2, width: Config.dotSize, height: Config.dotSize))
-                        }
-
-                    }.fill(dotColor)
+                    xGridView(fullSize: fullSize)
+                    glucoseGridView(fullSize: fullSize)
                 }
                 .id(Config.endID)
                 .frame(width: CGFloat(glucoseMinutes) * Config.xStep + Config.xAdditionalLeft + Config.xAdditionalRight)
@@ -164,6 +192,18 @@ struct GlucoseChartView: View {
             }
         }
     }
+    
+    private func glucoseGridView(fullSize: CGSize) -> some View {
+        Path { path in
+            for value in glucoseValues {
+                let x = timestampToX(timeStamp: value.timeStamp) + Config.dotSize / 2
+                let y = glucoseToY(fullSize: fullSize, glucose: CGFloat(value.glucoseFiltered))
+
+                path.addEllipse(in: CGRect(x: x - Config.dotSize / 2, y: y - Config.dotSize / 2, width: Config.dotSize, height: Config.dotSize))
+            }
+
+        }.fill(dotColor)
+    }
 }
 
 struct GlucoseChartView_Previews: PreviewProvider {
@@ -172,7 +212,7 @@ struct GlucoseChartView_Previews: PreviewProvider {
             SensorGlucose(timeStamp: Date().addingTimeInterval(180 * 60 * -1), glucose: 70),
             SensorGlucose(timeStamp: Date().addingTimeInterval(175 * 60 * -1), glucose: 100),
             SensorGlucose(timeStamp: Date().addingTimeInterval(170 * 60 * -1), glucose: 180),
-            
+
             SensorGlucose(timeStamp: Date().addingTimeInterval(120 * 60 * -1), glucose: 185),
             SensorGlucose(timeStamp: Date().addingTimeInterval(110 * 60 * -1), glucose: 180),
             SensorGlucose(timeStamp: Date().addingTimeInterval(100 * 60 * -1), glucose: 170),

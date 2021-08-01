@@ -11,7 +11,7 @@ extension Date {
     var localTime: String {
         let format = DateFormatter()
         format.timeZone = .current
-        format.dateFormat = "HH:mm:ss"
+        format.dateFormat = "HH:mm"
 
         return format.string(from: self)
     }
