@@ -35,7 +35,7 @@ struct GlucoseChartView: View {
         static let alarmGridColor = Color.red.opacity(0.5)
         static let alarmStrokeStyle = StrokeStyle(lineWidth: 0.2, dash: [5])
         static let darkDotColor = Color.white
-        static let dotSize: CGFloat = 3.5
+        static let dotSize: CGFloat = 4
         static let endID = "End"
         static let height: CGFloat = 350
         static let lightDotColor = Color.black
