@@ -21,7 +21,7 @@ extension Date {
         
         while date <= toDate {
             dates.append(date)
-            guard let newDate = Calendar.current.date(byAdding: .hour, value: 1, to: date) else {
+            guard let newDate = Calendar.current.date(byAdding: .minute, value: 30, to: date) else {
                 break
             }
             date = newDate
