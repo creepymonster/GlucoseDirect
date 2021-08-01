@@ -21,7 +21,7 @@ extension Date {
         
         while date <= toDate {
             dates.append(date)
-            guard let newDate = Calendar.current.date(byAdding: .minute, value: 30, to: date) else {
+            guard let newDate = Calendar.current.date(byAdding: .minute, value: 15, to: date) else {
                 break
             }
             date = newDate
@@ -187,7 +187,7 @@ struct GlucoseChartView: View {
     private func xGridView(fullSize: CGSize) -> some View {
         ZStack {
             let firstTimeStamp = glucoseValues.first!.timeStamp.rounded(on: 1, .hour)
-            let lastTimeStamp = glucoseValues.last!.timeStamp.rounded(on: 1, .hour)
+            let lastTimeStamp = glucoseValues.last!.timeStamp.rounded(on: 1, .hour).addingTimeInterval(60 * 60)
             let allHours = Date.dates(from: firstTimeStamp, to: lastTimeStamp)
             
             ForEach(Array(allHours), id: \.self) { hour in
