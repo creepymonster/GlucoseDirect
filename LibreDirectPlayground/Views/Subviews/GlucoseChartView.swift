@@ -31,6 +31,16 @@ struct GlucoseChartView: View {
             return 0
         }
     }
+    
+    var dotColor: Color {
+        get {
+            if colorScheme == .dark {
+                return Color.white
+            }
+            
+            return Color.blue
+        }
+    }
 
     private enum Config {
         static let endID = "End"
@@ -41,6 +51,10 @@ struct GlucoseChartView: View {
         static let xAdditionalRight: CGFloat = 50
         static let xStep: CGFloat = 6
         static let dotSize: CGFloat = 4
+    }
+    
+    func minuteToX(minute: Int) -> CGFloat {
+        return CGFloat(minute) * Config.xStep
     }
     
     func timestampToX(timeStamp: Date) -> CGFloat {
@@ -74,7 +88,7 @@ struct GlucoseChartView: View {
             }.frame(height: 350)
         }
     }
-       
+           
     private func yGridView(fullSize: CGSize) -> some View {
         ZStack {
             let gridParts = stride(from: Config.minGlucose, to: Config.maxGlucose + 1, by: Config.yStep)
@@ -86,7 +100,7 @@ struct GlucoseChartView: View {
                     path.move(to: CGPoint(x: Config.xAdditionalLeft, y: y))
                     path.addLine(to: CGPoint(x: fullSize.width, y: y))
                 }
-            }.stroke(Color.secondary, lineWidth: 0.4)
+            }.stroke(Color.secondary, lineWidth: 0.5)
             
             ForEach(Array(gridParts), id: \.self) { i in
                 let y = glucoseToY(fullSize: fullSize, glucose: CGFloat(i))
@@ -111,13 +125,22 @@ struct GlucoseChartView: View {
                 path.move(to: CGPoint(x: Config.xAdditionalLeft, y: y))
                 path.addLine(to: CGPoint(x: fullSize.width, y: y))
             }
-        }.stroke(Color.red, lineWidth: 0.4)
+        }.stroke(Color.red, lineWidth: 0.55)
     }
     
     private func glucoseGridView(fullSize: CGSize) -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
             ScrollViewReader { scroll in
-                Group {
+                ZStack {
+                    let lastHour = timestampToX(timeStamp: glucoseValues.last!.timeStamp.rounded(on: 1, .hour))
+                    
+                    Path { path in
+                        for i in stride(from: lastHour, to: 0, by: Config.xStep * 60 * -1) {
+                            path.move(to: CGPoint(x: i, y: 0))
+                            path.addLine(to: CGPoint(x: i, y: fullSize.height))
+                        }
+                    }.stroke(Color.secondary, lineWidth: 0.5)
+                    
                     Path { path in
                         for value in glucoseValues {
                             let x = timestampToX(timeStamp: value.timeStamp) + Config.dotSize / 2
@@ -126,7 +149,7 @@ struct GlucoseChartView: View {
                             path.addEllipse(in: CGRect(x: x - Config.dotSize / 2, y: y - Config.dotSize / 2, width: Config.dotSize, height: Config.dotSize))
                         }
 
-                    }.fill(Color.accentColor)
+                    }.fill(dotColor)
                 }
                 .id(Config.endID)
                 .frame(width: CGFloat(glucoseMinutes) * Config.xStep + Config.xAdditionalLeft + Config.xAdditionalRight)

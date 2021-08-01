@@ -50,12 +50,12 @@ func defaultAppReducer(state: inout AppState, action: AppAction) -> Void {
         
         state.glucoseValues.append(readingUpdate.lastGlucose)
 
-        /*let toMany = state.glucoseValues.count - 120
+        let toMany = state.glucoseValues.count - 720
         if toMany > 0 {
             for _ in 1...toMany {
                 state.glucoseValues.removeFirst()
             }
-        }*/
+        }
 
     case .setSensorAge(ageUpdate: let ageUpdate):
         guard state.sensor != nil else {
