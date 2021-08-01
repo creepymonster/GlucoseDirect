@@ -10,7 +10,7 @@ import Combine
 
 protocol AppState {
     var connectionError: String? { get set }
-    var connectionErrorTimestamp: Date? { get set }
+    var connectionErrorTimeStamp: Date? { get set }
     
     var connectionState: SensorConnectionState { get set }
     var nightscoutApiSecret: String { get set }

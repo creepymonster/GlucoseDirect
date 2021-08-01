@@ -17,7 +17,7 @@ struct ContentView: View {
                     GlucoseView(glucose: store.state.lastGlucose, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh).padding(.top)
                 }
 
-                ConnectionView(connectionState: store.state.connectionState, connectionError: store.state.connectionError, connectionErrorTimestamp: store.state.connectionErrorTimestamp).padding([.top, .horizontal])
+                ConnectionView(connectionState: store.state.connectionState, connectionError: store.state.connectionError, connectionErrorTimestamp: store.state.connectionErrorTimeStamp).padding([.top, .horizontal])
 
                 GlucoseChartView(glucoseValues: store.state.glucoseValues, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh, targetValue: 100).padding([.top, .horizontal]).frame(minHeight: 200)
                 LifetimeView(sensor: store.state.sensor).padding([.top, .horizontal])

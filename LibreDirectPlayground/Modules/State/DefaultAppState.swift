@@ -12,7 +12,7 @@ import UserNotifications
 class DefaultAppState: NSObject, AppState {
     var connectionState: SensorConnectionState = .disconnected
     var connectionError: String?
-    var connectionErrorTimestamp: Date?
+    var connectionErrorTimeStamp: Date?
     var alarmSnoozeUntil: Date?
 
     var alarmHigh: Int = 180 {

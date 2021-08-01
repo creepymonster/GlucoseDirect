@@ -6,29 +6,9 @@
 //
 
 import SwiftUI
-import SwiftUICharts
 
 struct LifetimeView: View {
     var sensor: Sensor?
-
-    var chartData: PieChartData? {
-        get {
-            guard let sensor = sensor, let age = sensor.age, let remainingLifetime = sensor.remainingLifetime else {
-                return nil
-            }
-
-            return PieChartData(
-                dataSets: PieDataSet(
-                    dataPoints: [
-                        PieChartDataPoint(value: Double(age), colour: Color.accentColor),
-                        PieChartDataPoint(value: Double(remainingLifetime), colour: Color.gray.opacity(0.2))
-                    ],
-                    legendTitle: ""
-                ),
-                metadata: ChartMetadata()
-            )
-        }
-    }
 
     var body: some View {
         if let sensor = sensor {
@@ -46,11 +26,6 @@ struct LifetimeView: View {
                         if let remainingLifetime = sensor.remainingLifetime {
                             KeyValueView(key: LocalizedString("Sensor Remaining Lifetime", comment: ""), value: remainingLifetime.inTime).padding(.top, 5)
                         }
-                    }
-
-                    if let chartData = chartData {
-                        PieChart(chartData: chartData)
-                            .frame(width: 50, height: 50, alignment: .center)
                     }
                 }
             }

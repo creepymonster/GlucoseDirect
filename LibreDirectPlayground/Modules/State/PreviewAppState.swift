@@ -26,7 +26,7 @@ fileprivate func createPreviewSensor() -> Sensor {
 struct PreviewAppState: AppState {
     var appGroupName: String? = nil
     var connectionError: String? = "Timeout"
-    var connectionErrorTimestamp: Date? = Date()
+    var connectionErrorTimeStamp: Date? = Date()
     var connectionState: SensorConnectionState = .connected
     
     var glucoseValues: [SensorGlucose] = [

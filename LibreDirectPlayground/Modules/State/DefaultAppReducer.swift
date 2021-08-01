@@ -31,7 +31,7 @@ func defaultAppReducer(state: inout AppState, action: AppAction) -> Void {
 
         if resetableStates.contains(connectionUpdate.connectionState) {
             state.connectionError = nil
-            state.connectionErrorTimestamp = nil
+            state.connectionErrorTimeStamp = nil
         }
 
     case .setSensorReading(readingUpdate: let readingUpdate):
@@ -50,12 +50,12 @@ func defaultAppReducer(state: inout AppState, action: AppAction) -> Void {
         
         state.glucoseValues.append(readingUpdate.lastGlucose)
 
-        let toMany = state.glucoseValues.count - 120
+        /*let toMany = state.glucoseValues.count - 120
         if toMany > 0 {
             for _ in 1...toMany {
                 state.glucoseValues.removeFirst()
             }
-        }
+        }*/
 
     case .setSensorAge(ageUpdate: let ageUpdate):
         guard state.sensor != nil else {
@@ -66,7 +66,7 @@ func defaultAppReducer(state: inout AppState, action: AppAction) -> Void {
 
     case .setSensorError(errorUpdate: let errorUpdate):
         state.connectionError = errorUpdate.errorMessage
-        state.connectionErrorTimestamp = errorUpdate.errorTimestamp
+        state.connectionErrorTimeStamp = errorUpdate.errorTimestamp
 
     case .setNightscoutHost(host: let host):
         state.nightscoutHost = host

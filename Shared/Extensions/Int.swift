@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 extension UInt16 {
     init(_ high: UInt8, _ low: UInt8) {
