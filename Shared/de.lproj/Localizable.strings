@@ -1,55 +1,7 @@
-"%1$@/min." = "%1$@/min.";
-"%1$@d %1$@h %1$@m" = "%1$@d %1$@h %1$@m";
-"Alarm Settings" = "Alarm Settings";
-"Alert, high blood sugar" = "Alert, high blood sugar";
-"Alert, low blood glucose" = "Alert, low blood glucose";
-"Alert, sensor connection lost" = "Alert, sensor connection lost";
-"Alert, sensor expired alert" = "Alert, sensor expired alert";
-"Alert, sensor expiring alert" = "Alert, sensor expiring alert";
-"Are you sure you want to delete the log files?" = "Are you sure you want to delete the log files?";
-"Are you sure you want to disconnect the sensor?" = "Are you sure you want to disconnect the sensor?";
-"Are you sure you want to unpair the sensor?" = "Are you sure you want to unpair the sensor?";
-"Chart (%1$@)" = "Chart (%1$@)";
-"Connect Sensor" = "Connect Sensor";
-"Delete Logs" = "Delete Logs";
-"Delete" = "Delete";
-"Disconnect Sensor" = "Disconnect Sensor";
-"Glucose Settings" = "Glucose Settings";
-"Glucose Unit" = "Unit";
-"Hold the top of your iPhone near the sensor to pair" = "Hold the top of your iPhone near the sensor to pair";
-"Loading" = "Loading";
-"Lower Limit" = "Low";
-"Nightscout API-Secret" = "API-Secret";
-"Nightscout Host" = "Host";
-"Nightscout Settings" = "Nightscout Settings";
-"Normal Glucose" = "Normal Glucose";
-"Pair Sensor" = "Pair Sensor";
-"Sensor Age" = "Sensor Age";
-"Sensor Calibration" = "Calibration";
-"Sensor Connection Error Timestamp" = "Time";
-"Sensor Connection Error" = "Error";
-"Sensor Connection State" = "State";
-"Sensor Connection" = "Sensor Connection";
-"Sensor Details" = "Sensor Details";
-"Sensor Internals" = "Sensor Internals";
-"Sensor Lifetime" = "Lifetime";
-"Sensor PatchInfo" = "PatchInfo";
-"Sensor Possible Lifetime" = "Lifetime";
-"Sensor Region" = "Region";
-"Sensor Remaining Lifetime" = "Remaining";
-"Sensor Serial" = "Serial";
-"Sensor State" = "State";
-"Sensor Type" = "Type";
-"Sensor UID" = "UID";
-"Snooze Until" = "Snooze Until";
-"The connection with the sensor has been lost. Normally this happens when the sensor is outside the possible range." = "The connection with the sensor has been lost. Normally this happens when the sensor is outside the possible range.";
-"The connection with the sensor has been lost. Normally this happens when the sensor is outside the possible range." = "The connection with the sensor has been lost. Normally this happens when the sensor is outside the possible range.";
-"There is no undo" = "There is no undo";
-"Unpair Sensor" = "Unpair Sensor";
-"Upper Limit" = "High";
-"Your blood sugar %1$@ is dangerously high and needs to be treated." = "Your blood sugar %1$@ is dangerously high and needs to be treated.";
-"Your blood sugar %1$@ is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "Your blood sugar %1$@ is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal.";
-"Your sensor has expired and needs to be replaced as soon as possible" = "Your sensor has expired and needs to be replaced as soon as possible";
-"Your sensor is about to expire and will need to be replaced in about %1$@ day." = "Your sensor is about to expire and will need to be replaced in about %1$@ day.";
-"Your sensor is about to expire and will need to be replaced in about %1$@ days." = "Your sensor is about to expire and will need to be replaced in about %1$@ days.";
+/* 
+  Localizable.strings
+  LibreDirectPlayground
 
+  Created by Reimar Metzen on 02.08.21.
+  
+*/
