@@ -130,7 +130,7 @@ struct GlucoseChartView: View {
 
     var body: some View {
         if glucoseValues.count > 2 {
-            GroupBox(label: Text(String(format: LocalizedString("Chart (%1$@)", comment: ""), glucoseValues.count.description)).padding(.bottom).foregroundColor(.accentColor)) {
+            GroupBox(label: Text(String(format: LocalizedString("Chart (%@)", comment: ""), glucoseValues.count.description)).padding(.bottom).foregroundColor(.accentColor)) {
                 GeometryReader { geo in
                     ZStack(alignment: .leading) {
                         yGridView(fullSize: geo.size)
