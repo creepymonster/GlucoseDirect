@@ -2,7 +2,7 @@
 //  Log.swift
 //  LibreDirectPlayground
 //
-//  Created by creepymonster on 19.07.21.
+//  Created by Reimar Metzen on 19.07.21.
 //
 
 import Foundation

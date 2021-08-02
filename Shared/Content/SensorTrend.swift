@@ -2,7 +2,7 @@
 //  SensorTrend.swift
 //  LibreDirectPlayground
 //
-//  Created by creepymonster on 06.07.21.
+//  Created by Reimar Metzen on 06.07.21.
 //
 
 import Foundation
@@ -25,8 +25,8 @@ enum SensorTrend: String, Codable {
         self = translateSlope(slope: slope)
     }
 
-    public var description: String {
-        return "\(self.rawValue)"
+    var description: String {
+        return self.rawValue
     }
 }
 

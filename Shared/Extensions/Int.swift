@@ -2,7 +2,7 @@
 //  UInt16Extensions.swift
 //  LibreDirectPlayground
 //
-//  Created by creepymonster on 06.07.21.
+//  Created by Reimar Metzen on 06.07.21.
 //
 
 import Foundation
@@ -39,9 +39,37 @@ extension Int {
     }
 
     var inTime: String {
-        return "\(self.inDays.description)d \(self.inHours.description)h \(self.inMinutes.description)m"
+        return String(format: LocalizedString("%1$@d %1$@h %1$@m", comment: ""), self.inDays.description, self.inHours.description, self.inMinutes.description)
     }
-    
+
+    var asMmolL: Decimal {
+        return Decimal(self) * GlucoseUnit.exchangeRate
+    }
+
+    var asMgdL: Int {
+        return self
+    }
+
+    func asGlucose(unit: GlucoseUnit, withUnit: Bool = false) -> String {
+        var glucose: String
+        
+        if unit == .mmolL {
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            formatter.maximumFractionDigits = 1
+
+            glucose = formatter.string(from: self.asMmolL as NSNumber)!
+        } else {
+            glucose = String(self.asMgdL)
+        }
+
+        if withUnit {
+            return "\(glucose) \(unit.description)"
+        }
+        
+        return glucose
+    }
+
     func map(inMin: Int, inMax: Int, outMin: Int, outMax: Int) -> Int {
         return (self - inMin) * (outMax - outMin) / (inMax - inMin) + outMin
     }

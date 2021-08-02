@@ -2,7 +2,7 @@
 //  View.swift
 //  LibreDirectPlayground
 //
-//  Created by creepymonster on 27.07.21.
+//  Created by Reimar Metzen on 27.07.21.
 //
 
 import SwiftUI

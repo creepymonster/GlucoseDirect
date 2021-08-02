@@ -2,7 +2,7 @@
 //  DummyAppState.swift
 //  LibreDirectPlayground
 //
-//  Created by creepymonster on 06.07.21.
+//  Created by Reimar Metzen on 06.07.21.
 //
 
 import Foundation
@@ -24,11 +24,14 @@ fileprivate func createPreviewSensor() -> Sensor {
 }
 
 struct PreviewAppState: AppState {
-    var appGroupName: String? = nil
+    var alarmHigh: Int = 180
+    var alarmLow: Int = 70
+    var alarmSnoozeUntil: Date? = nil
     var connectionError: String? = "Timeout"
     var connectionErrorTimeStamp: Date? = Date()
     var connectionState: SensorConnectionState = .connected
-    
+    var glucoseUnit: GlucoseUnit = GlucoseUnit.mgdL
+
     var glucoseValues: [SensorGlucose] = [
         SensorGlucose(timeStamp: Date().addingTimeInterval(-30 * 60), glucose: 60),
         SensorGlucose(timeStamp: Date().addingTimeInterval(-25 * 60), glucose: 65),
@@ -47,10 +50,6 @@ struct PreviewAppState: AppState {
     var nightscoutHost: String = ""
     var sensor: Sensor? = createPreviewSensor()
     
-    var alarmSnoozeUntil: Date? = nil
-    var alarmLow: Int = 70
-    var alarmHigh: Int = 180
-
     var lastGlucose: SensorGlucose? {
         get {
             return glucoseValues.last

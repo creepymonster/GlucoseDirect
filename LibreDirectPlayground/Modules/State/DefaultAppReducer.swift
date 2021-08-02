@@ -2,7 +2,7 @@
 //  AppReducers.swift
 //  LibreDirectPlayground
 //
-//  Created by creepymonster on 06.07.21.
+//  Created by Reimar Metzen on 06.07.21.
 //
 
 import Foundation
@@ -89,6 +89,9 @@ func defaultAppReducer(state: inout AppState, action: AppAction) -> Void {
         } else {
             state.alarmSnoozeUntil = nil
         }
+        
+    case .setGlucoseUnit(value: let value):
+        state.glucoseUnit = value
         
     }
 

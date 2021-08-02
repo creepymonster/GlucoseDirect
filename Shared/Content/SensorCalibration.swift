@@ -2,7 +2,7 @@
 //  SensorCalibration.swift
 //  LibreDirectPlayground
 //
-//  Created by creepymonster on 06.07.21.
+//  Created by Reimar Metzen on 06.07.21.
 //
 
 import Foundation
@@ -81,14 +81,14 @@ struct SensorCalibration: Codable {
         return Int(round((g3 - v1) / v2))
     }
 
-    public var description: String {
+    var description: String {
         return [
-            "\(i1)",
-            "\(i2)",
-            "\(i3)",
-            "\(i4)",
-            "\(i5)",
-            "\(i6)"
+            i1.description,
+            i2.description,
+            i3.description,
+            i4.description,
+            i5.description,
+            i6.description
         ].joined(separator: ", ")
     }
 }

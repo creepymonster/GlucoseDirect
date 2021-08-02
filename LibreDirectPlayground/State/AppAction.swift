@@ -2,7 +2,7 @@
 //  AppAction.swift
 //  LibreDirectPlayground
 //
-//  Created by creepymonster on 06.07.21.
+//  Created by Reimar Metzen on 06.07.21.
 //
 
 import Foundation
@@ -25,6 +25,8 @@ enum AppAction {
     case setAlarmLow(value: Int)
     case setAlarmHigh(value: Int)
     case setAlarmSnoozeUntil(value: Date?)
+    
+    case setGlucoseUnit(value: GlucoseUnit)
 
     case subscribeForUpdates
 }

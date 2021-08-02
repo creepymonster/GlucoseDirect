@@ -2,7 +2,7 @@
 //  GlucoseChartView.swift
 //  LibreDirectPlayground
 //
-//  Created by creepymonster on 26.07.21.
+//  Created by Reimar Metzen on 26.07.21.
 //
 
 import SwiftUI
@@ -34,39 +34,60 @@ struct GlucoseChartView: View {
     private enum Config {
         static let alarmGridColor = Color.red.opacity(0.5)
         static let alarmStrokeStyle = StrokeStyle(lineWidth: 0.2, dash: [5])
-        static let darkDotColor = Color.white
+        static let darkDotColor = Color.accentColor
         static let dotSize: CGFloat = 4
         static let endID = "End"
         static let height: CGFloat = 350
-        static let lightDotColor = Color.black
+        static let lightDotColor = Color.accentColor
         static let maxGlucose = 400
         static let minGlucose = 0
         static let targetGridColor = Color.green.opacity(0.5)
         static let targetStrokeStyle = StrokeStyle(lineWidth: 0.2, dash: [5])
-        static let xAdditionalLeft: CGFloat = Config.xGridFontSize * 2
-        static let xAdditionalRight: CGFloat = 50
         static let xGridColor = Color.secondary.opacity(0.25)
         static let xGridFontSize: CGFloat = 12
-        static let xGridStrokeStyle = StrokeStyle(lineWidth: 0.2)
+        static let xGridStrokeStyle = StrokeStyle(lineWidth: 0.2, dash: [1])
         static let xStep: CGFloat = Config.dotSize + Config.dotSize / 2
         static let yAdditionalBottom: CGFloat = Config.yGridFontSize * 2
         static let yGridColor = Color.secondary.opacity(0.25)
         static let yGridFontSize: CGFloat = 12
-        static let yGridStrokeStyle = StrokeStyle(lineWidth: 0.2)
+        static let yGridStrokeStyle = StrokeStyle(lineWidth: 0.2, dash: [1])
+        static let yGridFontWidth: CGFloat = 28
+        static let yGridPadding: CGFloat = 20
         static let yStep = 50
     }
     
     @Environment(\.colorScheme) var colorScheme
 
     var glucoseValues: [SensorGlucose]
+    var glucoseUnit: GlucoseUnit
     var alarmLow: Int?
     var alarmHigh: Int?
     var targetValue: Int?
+    
+    var firstTimestamp: Date? {
+        get {
+            if let first = glucoseValues.first {
+                return first.timeStamp.addingTimeInterval(-1 * 5 * 60)
+            }
+            
+            return nil
+        }
+    }
+    
+    var lastTimeStamp: Date? {
+        get {
+            if let last = glucoseValues.last {
+                return last.timeStamp.addingTimeInterval(5 * 60)
+            }
+            
+            return nil
+        }
+    }
 
     var glucoseMinutes: Int {
         get {
-            if let first = glucoseValues.first, let last = glucoseValues.last {
-                return Int(first.timeStamp.distance(to: last.timeStamp) / 60)
+            if let first = firstTimestamp, let last = lastTimeStamp {
+                return Int(first.distance(to: last) / 60)
             }
 
             return 0
@@ -88,8 +109,10 @@ struct GlucoseChartView: View {
     }
 
     func timestampToX(timeStamp: Date) -> CGFloat {
-        if let first = glucoseValues.first {
-            return CGFloat(first.timeStamp.distance(to: timeStamp) / 60) * Config.xStep
+        if let first = firstTimestamp {
+            let minute = Int(first.distance(to: timeStamp) / 60)
+            
+            return minuteToX(minute: minute)
         }
 
         return 0
@@ -113,7 +136,7 @@ struct GlucoseChartView: View {
                         yGridView(fullSize: geo.size)
                         alarmGridView(fullSize: geo.size)
                         targetGridView(fullSize: geo.size)
-                        scrollGridView(fullSize: geo.size).padding(.leading, Config.xAdditionalLeft)
+                        scrollGridView(fullSize: geo.size).padding(.leading, Config.yGridPadding)
                     }
                 }
             }.frame(height: Config.height)
@@ -125,7 +148,7 @@ struct GlucoseChartView: View {
             if let targetValue = targetValue {
                 let y = glucoseToY(fullSize: fullSize, glucose: CGFloat(targetValue))
 
-                path.move(to: CGPoint(x: Config.xAdditionalLeft, y: y))
+                path.move(to: CGPoint(x: Config.yGridPadding, y: y))
                 path.addLine(to: CGPoint(x: fullSize.width, y: y))
             }
         }
@@ -138,14 +161,14 @@ struct GlucoseChartView: View {
             if let alarmLow = alarmLow {
                 let y = glucoseToY(fullSize: fullSize, glucose: CGFloat(alarmLow))
 
-                path.move(to: CGPoint(x: Config.xAdditionalLeft, y: y))
+                path.move(to: CGPoint(x: Config.yGridPadding, y: y))
                 path.addLine(to: CGPoint(x: fullSize.width, y: y))
             }
 
             if let alarmHigh = alarmHigh {
                 let y = glucoseToY(fullSize: fullSize, glucose: CGFloat(alarmHigh))
 
-                path.move(to: CGPoint(x: Config.xAdditionalLeft, y: y))
+                path.move(to: CGPoint(x: Config.yGridPadding, y: y))
                 path.addLine(to: CGPoint(x: fullSize.width, y: y))
             }
         }
@@ -165,7 +188,7 @@ struct GlucoseChartView: View {
                     
                     let y = glucoseToY(fullSize: fullSize, glucose: CGFloat(i))
 
-                    path.move(to: CGPoint(x: Config.xAdditionalLeft, y: y))
+                    path.move(to: CGPoint(x: Config.yGridPadding, y: y))
                     path.addLine(to: CGPoint(x: fullSize.width, y: y))
                 }
             }
@@ -175,10 +198,11 @@ struct GlucoseChartView: View {
             ForEach(Array(gridParts), id: \.self) { i in
                 let y = glucoseToY(fullSize: fullSize, glucose: CGFloat(i))
 
-                Text("\(i)")
+                Text(i.asGlucose(unit: glucoseUnit))
                     .font(.system(size: Config.yGridFontSize))
                     .fontWeight(.light)
-                    .frame(width: Config.xAdditionalLeft, alignment: .trailing)
+                    .padding(0)
+                    .frame(width: Config.yGridFontWidth, alignment: .trailing)
                     .position(x: 0, y: y)
             }
         }
@@ -186,25 +210,25 @@ struct GlucoseChartView: View {
     
     private func xGridView(fullSize: CGSize) -> some View {
         ZStack {
-            let firstTimeStamp = glucoseValues.first!.timeStamp.rounded(on: 1, .hour)
-            let lastTimeStamp = glucoseValues.last!.timeStamp.rounded(on: 1, .hour).addingTimeInterval(60 * 60)
-            let allHours = Date.dates(from: firstTimeStamp, to: lastTimeStamp)
-            
-            ForEach(Array(allHours), id: \.self) { hour in
-                Text(hour.localTime)
-                    .font(.system(size: Config.xGridFontSize))
-                    .fontWeight(.light)
-                    .position(x: timestampToX(timeStamp: hour), y: fullSize.height - Config.yGridFontSize)
-            }
-            
-            Path { path in
-                for hour in allHours {
-                    path.move(to: CGPoint(x: timestampToX(timeStamp: hour), y: 0))
-                    path.addLine(to: CGPoint(x: timestampToX(timeStamp: hour), y: fullSize.height - Config.yAdditionalBottom))
+            if let first = firstTimestamp, let last = lastTimeStamp {
+                let allHours = Date.dates(from: first.rounded(on: 15, .minute).addingTimeInterval(-1 * 30 * 60), to: last.addingTimeInterval(30 * 60))
+                
+                ForEach(Array(allHours), id: \.self) { hour in
+                    Text(hour.localTime)
+                        .font(.system(size: Config.xGridFontSize))
+                        .fontWeight(.light)
+                        .position(x: timestampToX(timeStamp: hour), y: fullSize.height - Config.yGridFontSize)
                 }
+                
+                Path { path in
+                    for hour in allHours {
+                        path.move(to: CGPoint(x: timestampToX(timeStamp: hour), y: 0))
+                        path.addLine(to: CGPoint(x: timestampToX(timeStamp: hour), y: fullSize.height - Config.yAdditionalBottom))
+                    }
+                }
+                .stroke(style: Config.xGridStrokeStyle)
+                .stroke(Config.xGridColor)
             }
-            .stroke(style: Config.xGridStrokeStyle)
-            .stroke(Config.xGridColor)
         }
     }
 
@@ -216,7 +240,7 @@ struct GlucoseChartView: View {
                     glucoseDotsGridView(fullSize: fullSize)
                 }
                 .id(Config.endID)
-                .frame(width: CGFloat(glucoseMinutes) * Config.xStep + Config.xAdditionalLeft + Config.xAdditionalRight)
+                .frame(width: CGFloat(glucoseMinutes) * Config.xStep)
                 .onChange(of: glucoseValues) { _ in
                     scroll.scrollTo(Config.endID, anchor: .trailing)
                 }
@@ -229,24 +253,10 @@ struct GlucoseChartView: View {
         }
     }
     
-    private func glucoseLineGridView(fullSize: CGSize) -> some View {
-        Path { path in
-            path.move(to: CGPoint(x: 0, y: glucoseToY(fullSize: fullSize, glucose: CGFloat(glucoseValues.first!.glucoseFiltered))))
-            
-            for value in glucoseValues {
-                let x = timestampToX(timeStamp: value.timeStamp) + Config.dotSize / 2
-                let y = glucoseToY(fullSize: fullSize, glucose: CGFloat(value.glucoseFiltered))
-
-                path.addLine(to: CGPoint(x: x, y: y))
-            }
-
-        }.stroke(dotColor)
-    }
-    
     private func glucoseDotsGridView(fullSize: CGSize) -> some View {
         Path { path in
             for value in glucoseValues {
-                let x = timestampToX(timeStamp: value.timeStamp) + Config.dotSize / 2
+                let x = timestampToX(timeStamp: value.timeStamp)
                 let y = glucoseToY(fullSize: fullSize, glucose: CGFloat(value.glucoseFiltered))
 
                 path.addEllipse(in: CGRect(x: x - Config.dotSize / 2, y: y - Config.dotSize / 2, width: Config.dotSize, height: Config.dotSize))
@@ -258,27 +268,26 @@ struct GlucoseChartView: View {
 
 struct GlucoseChartView_Previews: PreviewProvider {
     static var previews: some View {
+        let dateFormatter = ISO8601DateFormatter()
+        
         let glucoseValues = [
-            SensorGlucose(timeStamp: Date().addingTimeInterval(180 * 60 * -1), glucose: 70),
-            SensorGlucose(timeStamp: Date().addingTimeInterval(175 * 60 * -1), glucose: 100),
-            SensorGlucose(timeStamp: Date().addingTimeInterval(170 * 60 * -1), glucose: 180),
-
-            SensorGlucose(timeStamp: Date().addingTimeInterval(120 * 60 * -1), glucose: 185),
-            SensorGlucose(timeStamp: Date().addingTimeInterval(110 * 60 * -1), glucose: 180),
-            SensorGlucose(timeStamp: Date().addingTimeInterval(100 * 60 * -1), glucose: 170),
-            SensorGlucose(timeStamp: Date().addingTimeInterval(95 * 60 * -1), glucose: 165),
-            SensorGlucose(timeStamp: Date().addingTimeInterval(90 * 60 * -1), glucose: 150),
-            SensorGlucose(timeStamp: Date().addingTimeInterval(85 * 60 * -1), glucose: 120),
-            SensorGlucose(timeStamp: Date().addingTimeInterval(70 * 60 * -1), glucose: 125),
-            SensorGlucose(timeStamp: Date().addingTimeInterval(55 * 60 * -1), glucose: 130),
-            SensorGlucose(timeStamp: Date().addingTimeInterval(40 * 60 * -1), glucose: 125),
-            SensorGlucose(timeStamp: Date().addingTimeInterval(35 * 60 * -1), glucose: 120),
-            SensorGlucose(timeStamp: Date().addingTimeInterval(20 * 60 * -1), glucose: 115),
-            SensorGlucose(timeStamp: Date().addingTimeInterval(0 * 60 * -1), glucose: 105)
+            SensorGlucose(timeStamp: dateFormatter.date(from: "2021-08-01T10:00:00+0200")!, glucose: 70),
+            SensorGlucose(timeStamp: dateFormatter.date(from: "2021-08-01T10:15:00+0200")!, glucose: 100),
+            SensorGlucose(timeStamp: dateFormatter.date(from: "2021-08-01T10:30:00+0200")!, glucose: 180),
+            SensorGlucose(timeStamp: dateFormatter.date(from: "2021-08-01T10:45:00+0200")!, glucose: 250),
+            SensorGlucose(timeStamp: dateFormatter.date(from: "2021-08-01T11:00:00+0200")!, glucose: 70),
+            SensorGlucose(timeStamp: dateFormatter.date(from: "2021-08-01T11:05:00+0200")!, glucose: 100),
+            SensorGlucose(timeStamp: dateFormatter.date(from: "2021-08-01T11:10:00+0200")!, glucose: 180),
+            SensorGlucose(timeStamp: dateFormatter.date(from: "2021-08-01T11:15:00+0200")!, glucose: 250),
+            SensorGlucose(timeStamp: dateFormatter.date(from: "2021-08-01T12:00:00+0200")!, glucose: 70),
+            SensorGlucose(timeStamp: dateFormatter.date(from: "2021-08-01T12:01:00+0200")!, glucose: 70),
+            SensorGlucose(timeStamp: dateFormatter.date(from: "2021-08-01T12:02:00+0200")!, glucose: 70),
+            SensorGlucose(timeStamp: dateFormatter.date(from: "2021-08-01T12:03:00+0200")!, glucose: 70)
         ]
 
         ForEach(ColorScheme.allCases, id: \.self) {
-            GlucoseChartView(glucoseValues: glucoseValues, alarmLow: 70, alarmHigh: 180, targetValue: 100).preferredColorScheme($0)
+            GlucoseChartView(glucoseValues: glucoseValues, glucoseUnit: .mgdL, alarmLow: 70, alarmHigh: 180, targetValue: 100).preferredColorScheme($0)
+            GlucoseChartView(glucoseValues: glucoseValues, glucoseUnit: .mmolL, alarmLow: 70, alarmHigh: 180, targetValue: 100).preferredColorScheme($0)
         }
     }
 }

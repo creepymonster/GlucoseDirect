@@ -2,7 +2,7 @@
 //  UserDefaults.swift
 //  LibreDirectPlayground
 //
-//  Created by creepymonster on 28.07.21.
+//  Created by Reimar Metzen on 28.07.21.
 //
 
 import Foundation
@@ -40,6 +40,7 @@ extension UserDefaults {
         case lastGlucose = "libre-direct.settings.last-glucose"
         case nightscoutApiSecret = "libre-direct.settings.nightscout-api-secret"
         case nightscoutHost = "libre-direct.settings.nightscout-host"
+        case glucoseUnit = "libre-direct.settings.glucose-unit"
         case sensor = "libre-direct.settings.sensor"
     }
 
@@ -79,6 +80,19 @@ extension UserDefaults {
             } else {
                 removeObject(forKey: Keys.freeAPSLatestReadings.rawValue)
             }
+        }
+    }
+    
+    var glucoseUnit: GlucoseUnit {
+        get {
+            if let glucoseUnitValue = object(forKey: Keys.glucoseUnit.rawValue) as? String {
+                return GlucoseUnit(rawValue: glucoseUnitValue)!
+            }
+            
+            return .mgdL
+        }
+        set {
+            set(newValue.rawValue, forKey: Keys.glucoseUnit.rawValue)
         }
     }
 

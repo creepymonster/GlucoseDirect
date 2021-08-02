@@ -2,7 +2,7 @@
 //  LibreDirectPlaygroundWidget.swift
 //  LibreDirectPlaygroundWidget
 //
-//  Created by creepymonster on 28.07.21.
+//  Created by Reimar Metzen on 28.07.21.
 //
 
 import WidgetKit
@@ -56,7 +56,7 @@ struct LibreDirectPlaygroundWidgetEntryView: View {
                 if lastGlucose.minuteChange > 0 {
                     return "+\(lastGlucose.minuteChange)"
                 } else if lastGlucose.minuteChange < 0 {
-                    return "\(lastGlucose.minuteChange)"
+                    return "-\(lastGlucose.minuteChange)"
                 } else {
                     return "0"
                 }
@@ -87,14 +87,14 @@ struct LibreDirectPlaygroundWidgetEntryView: View {
     var body: some View {
         if let lastGlucose = entry.last {
             VStack {
-                Text("\(lastGlucose.glucoseFiltered.description)").font(.system(size: 56)).foregroundColor(glucoseForegroundColor)
+                Text(lastGlucose.glucoseFiltered.description).font(.system(size: 56)).foregroundColor(glucoseForegroundColor)
                 
                 HStack {
-                    Text("\(lastGlucose.trend.description)")
+                    Text(lastGlucose.trend.description)
                     Text("\(minuteChange)/min.")
                 }.font(.footnote).padding(.bottom, 5)
                 
-                Text("\(lastGlucose.timeStamp.localTime)")
+                Text(lastGlucose.timeStamp.localTime)
             }
         } else {
             Text("...").font(.system(size: 56))

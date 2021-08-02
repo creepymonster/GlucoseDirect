@@ -2,7 +2,7 @@
 //  SensorFamily.swift
 //  LibreDirectPlayground
 //
-//  Created by creepymonster on 06.07.21.
+//  Created by Reimar Metzen on 06.07.21.
 //
 
 import Foundation
@@ -35,7 +35,7 @@ enum SensorFamily: Int, Codable {
         }
     }
 
-    public var description: String {
+    var description: String {
         switch self {
         case .libre1:
             return "Libre 1"

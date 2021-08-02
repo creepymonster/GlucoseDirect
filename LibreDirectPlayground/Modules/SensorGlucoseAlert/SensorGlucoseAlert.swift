@@ -2,7 +2,7 @@
 //  SensorGlucoseAlert.swift
 //  LibreDirectPlayground
 //
-//  Created by creepymonster on 19.07.21.
+//  Created by Reimar Metzen on 19.07.21.
 //
 
 import Foundation
@@ -24,14 +24,14 @@ func sensorGlucoseAlertMiddelware(service: SensorGlucoseAlertService) -> Middlew
                 if !isSnoozed {
                     Log.info("Glucose alert, low: \(readingUpdate.lastGlucose.glucoseFiltered) < \(state.alarmLow)")
 
-                    service.sendLowGlucoseNotification(glucose: readingUpdate.lastGlucose.glucoseFiltered)
+                    service.sendLowGlucoseNotification(glucose: readingUpdate.lastGlucose.glucoseFiltered.asGlucose(unit: state.glucoseUnit))
                     return Just(AppAction.setAlarmSnoozeUntil(value: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute))).eraseToAnyPublisher()
                 }
             } else if readingUpdate.lastGlucose.glucoseFiltered > state.alarmHigh {
                 if !isSnoozed {
                     Log.info("Glucose alert, high: \(readingUpdate.lastGlucose.glucoseFiltered) > \(state.alarmHigh)")
 
-                    service.sendHighGlucoseNotification(glucose: readingUpdate.lastGlucose.glucoseFiltered)
+                    service.sendHighGlucoseNotification(glucose: readingUpdate.lastGlucose.glucoseFiltered.asGlucose(unit: state.glucoseUnit))
                     return Just(AppAction.setAlarmSnoozeUntil(value: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute))).eraseToAnyPublisher()
                 }
             } else {
@@ -55,7 +55,7 @@ class SensorGlucoseAlertService: NotificationCenterService {
         case sensorGlucoseAlert = "libre-direct.notifications.sensor-glucose-alert"
     }
 
-    func sendLowGlucoseNotification(glucose: Int) {
+    func sendLowGlucoseNotification(glucose: String) {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
         ensureCanSendNotification { ensured in
@@ -68,14 +68,14 @@ class SensorGlucoseAlertService: NotificationCenterService {
             let notification = UNMutableNotificationContent()
             notification.title = LocalizedString("Alert, low blood glucose", comment: "")
             
-            notification.body = String(format: LocalizedString("Your blood sugar %1$@ is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal.", comment: ""), glucose.description)
+            notification.body = String(format: LocalizedString("Your blood sugar %1$@ is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal.", comment: ""), glucose)
             notification.sound = UNNotificationSound.init(named: UNNotificationSoundName(rawValue: "alarm.wav"))
 
             self.add(identifier: Identifier.sensorGlucoseAlert.rawValue, content: notification)
         }
     }
 
-    func sendHighGlucoseNotification(glucose: Int) {
+    func sendHighGlucoseNotification(glucose: String) {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
         ensureCanSendNotification { ensured in
@@ -87,7 +87,7 @@ class SensorGlucoseAlertService: NotificationCenterService {
 
             let notification = UNMutableNotificationContent()
             notification.title = LocalizedString("Alert, high blood sugar", comment: "")
-            notification.body = String(format: LocalizedString("Your blood sugar %1$@ is dangerously high and needs to be treated.", comment: ""), glucose.description)
+            notification.body = String(format: LocalizedString("Your blood sugar %1$@ is dangerously high and needs to be treated.", comment: ""), glucose)
             notification.sound = UNNotificationSound.init(named: UNNotificationSoundName(rawValue: "alarm.aiff"))
 
             self.add(identifier: Identifier.sensorGlucoseAlert.rawValue, content: notification)

@@ -1,13 +1,13 @@
 //
-//  SettingsView.swift
+//  NightscoutSettingsView.swift
 //  LibreDirectPlayground
 //
-//  Created by creepymonster on 06.07.21.
+//  Created by Reimar Metzen on 02.08.21.
 //
 
 import SwiftUI
 
-struct NightscoutView: View {
+struct NightscoutSettingsView: View {
     @EnvironmentObject var store: AppStore
 
     var body: some View {
@@ -28,7 +28,7 @@ struct NightscoutView_Previews: PreviewProvider {
         let store = AppStore(initialState: PreviewAppState())
 
         ForEach(ColorScheme.allCases, id: \.self) {
-            NightscoutView().environmentObject(store).preferredColorScheme($0)
+            NightscoutSettingsView().environmentObject(store).preferredColorScheme($0)
         }
     }
 }

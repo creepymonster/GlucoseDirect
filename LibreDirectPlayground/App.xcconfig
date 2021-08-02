@@ -1,0 +1,11 @@
+//
+//  AppConfig.xcconfig
+//  LibreDirectPlayground
+//
+//  Created by Reimar Metzen on 02.08.21.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+PRODUCT_BUNDLE_IDENTIFIER = name.${DEVELOPMENT_TEAM}.libre-direct

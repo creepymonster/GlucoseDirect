@@ -1,0 +1,53 @@
+//
+//  AlarmSettingsView.swift
+//  LibreDirectPlayground
+//
+//  Created by Reimar Metzen on 02.08.21.
+//
+
+import SwiftUI
+
+struct AlarmSettingsView: View {
+    @EnvironmentObject var store: AppStore
+
+    var body: some View {
+        GroupBox(label: Text("Alarm Settings").padding(.bottom).foregroundColor(.accentColor)) {
+            NumberSelectorView(
+                key: LocalizedString("Lower Limit", comment: ""),
+                value: store.state.alarmLow,
+                displayValue: store.state.alarmLow.asGlucose(unit: store.state.glucoseUnit, withUnit: true),
+                completionHandler: { (value) -> Void in
+                    store.dispatch(.setAlarmLow(value: value))
+                }
+            )
+
+            NumberSelectorView(
+                key: LocalizedString("Upper Limit", comment: ""),
+                value: store.state.alarmHigh,
+                displayValue: store.state.alarmHigh.asGlucose(unit: store.state.glucoseUnit, withUnit: true),
+                completionHandler: { (value) -> Void in
+                    store.dispatch(.setAlarmHigh(value: value))
+                }
+            )
+
+            DateSelectorView(
+                key: LocalizedString("Snooze Until", comment: ""),
+                value: store.state.alarmSnoozeUntil,
+                displayValue: store.state.alarmSnoozeUntil?.localTime,
+                completionHandler: { (value) -> Void in
+                    store.dispatch(.setAlarmSnoozeUntil(value: value))
+                }
+            )
+        }
+    }
+}
+
+struct AlarmView_Previews: PreviewProvider {
+    static var previews: some View {
+        let store = AppStore(initialState: PreviewAppState())
+
+        ForEach(ColorScheme.allCases, id: \.self) {
+            AlarmSettingsView().environmentObject(store).preferredColorScheme($0)
+        }
+    }
+}

@@ -2,7 +2,7 @@
 //  DefaultAppState.swift
 //  LibreDirectPlayground
 //
-//  Created by creepymonster on 06.07.21.
+//  Created by Reimar Metzen on 06.07.21.
 //
 
 import Foundation
@@ -10,11 +10,6 @@ import Combine
 import UserNotifications
 
 class DefaultAppState: NSObject, AppState {
-    var connectionState: SensorConnectionState = .disconnected
-    var connectionError: String?
-    var connectionErrorTimeStamp: Date?
-    var alarmSnoozeUntil: Date?
-
     var alarmHigh: Int = 180 {
         didSet {
             UserDefaults.appGroup.alarmHigh = alarmHigh
@@ -24,6 +19,17 @@ class DefaultAppState: NSObject, AppState {
     var alarmLow: Int = 70 {
         didSet {
             UserDefaults.appGroup.alarmLow = alarmLow
+        }
+    }
+    
+    var alarmSnoozeUntil: Date?
+    var connectionError: String?
+    var connectionErrorTimeStamp: Date?
+    var connectionState: SensorConnectionState = .disconnected
+    
+    var glucoseUnit: GlucoseUnit = .mgdL {
+        didSet {
+            UserDefaults.appGroup.glucoseUnit = glucoseUnit
         }
     }
 
@@ -66,6 +72,7 @@ class DefaultAppState: NSObject, AppState {
         self.glucoseValues = UserDefaults.appGroup.glucoseValues
         self.nightscoutApiSecret = UserDefaults.appGroup.nightscoutApiSecret
         self.nightscoutHost = UserDefaults.appGroup.nightscoutHost
+        self.glucoseUnit = UserDefaults.appGroup.glucoseUnit
         self.sensor = UserDefaults.appGroup.sensor
         
         UNUserNotificationCenter.current().delegate = self
