@@ -52,7 +52,7 @@ struct GlucoseView: View {
 
                 HStack {
                     Text(glucose.trend.description)
-                    Text(String(format: LocalizedString("%@/min.", comment: ""), minuteChange))
+                    Text(String(format: LocalizedString("%1$@/min.", comment: ""), minuteChange))
                 }.font(.footnote).padding(.bottom, 5)
 
                 Text(glucose.timeStamp.localTime)

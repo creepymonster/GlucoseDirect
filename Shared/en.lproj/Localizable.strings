@@ -2,13 +2,13 @@
 "..." = "...";
 
 /* No comment provided by engineer. */
-"%@.." = "%@..";
+"%1$@.." = "%1$@..";
 
 /* No comment provided by engineer. */
-"%@/min." = "%@/min.";
+"%1$@/min." = "%1$@/min.";
 
 /* (No Comment) */
-"%@d %@h %@m" = "%@d %@h %@m";
+"%1$@d %2$@h %3$@m" = "%1$@d %2$@h %3$@m";
 
 /* (No Comment) */
 "Alarm Settings" = "Alarm Settings";
@@ -38,7 +38,7 @@
 "Are you sure you want to unpair the sensor?" = "Are you sure you want to unpair the sensor?";
 
 /* (No Comment) */
-"Chart (%@)" = "Chart (%@)";
+"Chart (%1$@)" = "Chart (%1$@)";
 
 /* (No Comment) */
 "Connect Sensor" = "Connect Sensor";
@@ -155,17 +155,17 @@
 "Upper Limit" = "High";
 
 /* (No Comment) */
-"Your blood sugar %@ is dangerously high and needs to be treated." = "Your blood sugar %@ is dangerously high and needs to be treated.";
+"Your blood sugar %1$@ is dangerously high and needs to be treated." = "Your blood sugar %1$@ is dangerously high and needs to be treated.";
 
 /* (No Comment) */
-"Your blood sugar %@ is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "Your blood sugar %@ is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal.";
+"Your blood sugar %1$@ is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "Your blood sugar %1$@ is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal.";
 
 /* (No Comment) */
 "Your sensor has expired and needs to be replaced as soon as possible" = "Your sensor has expired and needs to be replaced as soon as possible";
 
 /* (No Comment) */
-"Your sensor is about to expire and will need to be replaced in about %@ day." = "Your sensor is about to expire and will need to be replaced in about %@ day.";
+"Your sensor is about to expire and will need to be replaced in about %1$@ day." = "Your sensor is about to expire and will need to be replaced in about %1$@ day.";
 
 /* (No Comment) */
-"Your sensor is about to expire and will need to be replaced in about %@ days." = "Your sensor is about to expire and will need to be replaced in about %@ days.";
+"Your sensor is about to expire and will need to be replaced in about %1$@ days." = "Your sensor is about to expire and will need to be replaced in about %1$@ days.";
 

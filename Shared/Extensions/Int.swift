@@ -39,7 +39,7 @@ extension Int {
     }
 
     var inTime: String {
-        return String(format: LocalizedString("%@d %@h %@m", comment: ""), self.inDays.description, self.inHours.description, self.inMinutes.description)
+        return String(format: LocalizedString("%1$@d %2$@h %3$@m", comment: ""), self.inDays.description, self.inHours.description, self.inMinutes.description)
     }
 
     var asMmolL: Decimal {
