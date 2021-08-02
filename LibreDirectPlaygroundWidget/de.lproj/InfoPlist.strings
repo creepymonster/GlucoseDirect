@@ -1,0 +1,6 @@
+/* Bundle display name */
+"CFBundleDisplayName" = "Libre Direct Widget";
+
+/* Bundle name */
+"CFBundleName" = "LibreDirectPlaygroundWidgetExtension";
+

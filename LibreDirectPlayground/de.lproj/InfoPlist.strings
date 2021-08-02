@@ -1,0 +1,12 @@
+/* Bundle display name */
+"CFBundleDisplayName" = "Libre Direct";
+
+/* Bundle name */
+"CFBundleName" = "LibreDirectPlayground";
+
+/* Privacy - NFC Scan Usage Description */
+"NFCReaderUsageDescription" = "Privacy - NFC Scan Usage Description";
+
+/* Privacy - Bluetooth Always Usage Description */
+"NSBluetoothAlwaysUsageDescription" = "Privacy - Bluetooth Always Usage Description";
+
