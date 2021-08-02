@@ -68,7 +68,7 @@ class SensorGlucoseAlertService: NotificationCenterService {
             let notification = UNMutableNotificationContent()
             notification.title = LocalizedString("Alert, low blood glucose", comment: "")
             
-            notification.body = String(format: LocalizedString("Your blood sugar %1$@ is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal.", comment: ""), glucose)
+            notification.body = String(format: LocalizedString("Your blood sugar %@ is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal.", comment: ""), glucose)
             notification.sound = UNNotificationSound.init(named: UNNotificationSoundName(rawValue: "alarm.wav"))
 
             self.add(identifier: Identifier.sensorGlucoseAlert.rawValue, content: notification)
@@ -87,7 +87,7 @@ class SensorGlucoseAlertService: NotificationCenterService {
 
             let notification = UNMutableNotificationContent()
             notification.title = LocalizedString("Alert, high blood sugar", comment: "")
-            notification.body = String(format: LocalizedString("Your blood sugar %1$@ is dangerously high and needs to be treated.", comment: ""), glucose)
+            notification.body = String(format: LocalizedString("Your blood sugar %@ is dangerously high and needs to be treated.", comment: ""), glucose)
             notification.sound = UNNotificationSound.init(named: UNNotificationSoundName(rawValue: "alarm.aiff"))
 
             self.add(identifier: Identifier.sensorGlucoseAlert.rawValue, content: notification)

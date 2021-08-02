@@ -94,7 +94,7 @@ class SensorExpiredAlertService: NotificationCenterService {
 
             let notification = UNMutableNotificationContent()
             notification.title = LocalizedString("Alert, sensor expiring alert", comment: "")
-            notification.body = String(format: LocalizedString("Your sensor is about to expire and will need to be replaced in about %1$@ days.", comment: ""), remainingDays.description)
+            notification.body = String(format: LocalizedString("Your sensor is about to expire and will need to be replaced in about %@ days.", comment: ""), remainingDays.description)
             notification.sound = .defaultCritical
 
             self.add(identifier: Identifier.sensorExpiring.rawValue, content: notification)
