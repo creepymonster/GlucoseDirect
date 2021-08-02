@@ -7,10 +7,10 @@
 
 import Foundation
 
-enum Constants {
+enum AppConfig {
     static var WidgetKind: String { "LibreDirectPlaygroundWidget" }
     static var FreeApsXBundleIdentifier: String { "reimarmetzen.FreeAPS" }
-    static var AppGroupName: String { "group.\(Constants.FreeApsXBundleIdentifier)" }
+    static var AppGroupName: String { "group.\(AppConfig.FreeApsXBundleIdentifier)" }
     static var AllowedGlucoseChangePerMinute: Double { 0.20 } // in percent, ex: 0.20 = 20%
     static var MinReadableGlucose: Int { 40 }
     static var MaxReadableGlucose: Int { 500 }

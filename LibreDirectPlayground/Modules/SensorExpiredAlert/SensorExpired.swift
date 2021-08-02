@@ -58,7 +58,7 @@ class SensorExpiredAlertService: NotificationCenterService {
             return
         }
         
-        nextExpiredAlert = Date().addingTimeInterval(Constants.ExpiredNotificationInterval)
+        nextExpiredAlert = Date().addingTimeInterval(AppConfig.ExpiredNotificationInterval)
 
         ensureCanSendNotification { ensured in
             Log.info("Sensor expired alert, ensured: \(ensured)")
@@ -83,7 +83,7 @@ class SensorExpiredAlertService: NotificationCenterService {
             return
         }
         
-        nextExpiringAlert = Date().addingTimeInterval(Constants.ExpiringNotificationInterval)
+        nextExpiringAlert = Date().addingTimeInterval(AppConfig.ExpiringNotificationInterval)
 
         ensureCanSendNotification { ensured in
             Log.info("Sensor expired alert, ensured: \(ensured)")

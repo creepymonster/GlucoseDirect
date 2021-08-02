@@ -8,7 +8,7 @@
 import Foundation
 
 extension UserDefaults {
-    static let appGroup = UserDefaults(suiteName: Constants.AppGroupName)!
+    static let appGroup = UserDefaults(suiteName: AppConfig.AppGroupName)!
 
     func setArray<Element>(_ array: [Element], forKey key: String) where Element: Encodable {
         let data = try? JSONEncoder().encode(array)

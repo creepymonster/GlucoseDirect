@@ -23,7 +23,7 @@ func widgetUpdaterMiddleware() -> Middleware<AppState, AppAction> {
             }
             
             Log.info("Trigger the widget update")
-            WidgetCenter.shared.reloadTimelines(ofKind: Constants.WidgetKind)
+            WidgetCenter.shared.reloadTimelines(ofKind: AppConfig.WidgetKind)
 
         default:
             break

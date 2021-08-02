@@ -12,8 +12,8 @@ class SensorGlucose: CustomStringConvertible, Codable {
     let timeStamp: Date
     let glucose: Int
     
-    var lowerLimits: [Int] = [Constants.MinReadableGlucose]
-    var upperLimits: [Int] = [Constants.MaxReadableGlucose]
+    var lowerLimits: [Int] = [AppConfig.MinReadableGlucose]
+    var upperLimits: [Int] = [AppConfig.MaxReadableGlucose]
     var minuteChange: Double = 0
     
     var trend: SensorTrend {

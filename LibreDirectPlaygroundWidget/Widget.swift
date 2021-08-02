@@ -105,7 +105,7 @@ struct LibreDirectPlaygroundWidgetEntryView: View {
 @main
 struct LibreDirectPlaygroundWidget: Widget {
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: Constants.WidgetKind, provider: Provider()) { entry in
+        StaticConfiguration(kind: AppConfig.WidgetKind, provider: Provider()) { entry in
             LibreDirectPlaygroundWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("Glucoe Widget")
