@@ -11,7 +11,17 @@ struct AlarmSettingsView: View {
     @EnvironmentObject var store: AppStore
 
     var body: some View {
+        
         GroupBox(label: Text("Alarm Settings").padding(.bottom).foregroundColor(.accentColor)) {
+            DateSelectorView(
+                key: LocalizedString("Snooze Until", comment: ""),
+                value: store.state.alarmSnoozeUntil,
+                displayValue: store.state.alarmSnoozeUntil?.localTime,
+                completionHandler: { (value) -> Void in
+                    store.dispatch(.setAlarmSnoozeUntil(value: value))
+                }
+            )
+            
             NumberSelectorView(
                 key: LocalizedString("Lower Limit", comment: ""),
                 value: store.state.alarmLow,
@@ -27,15 +37,6 @@ struct AlarmSettingsView: View {
                 displayValue: store.state.alarmHigh.asGlucose(unit: store.state.glucoseUnit, withUnit: true),
                 completionHandler: { (value) -> Void in
                     store.dispatch(.setAlarmHigh(value: value))
-                }
-            )
-
-            DateSelectorView(
-                key: LocalizedString("Snooze Until", comment: ""),
-                value: store.state.alarmSnoozeUntil,
-                displayValue: store.state.alarmSnoozeUntil?.localTime,
-                completionHandler: { (value) -> Void in
-                    store.dispatch(.setAlarmSnoozeUntil(value: value))
                 }
             )
         }

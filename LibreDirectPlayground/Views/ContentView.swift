@@ -24,9 +24,9 @@ struct ContentView: View {
                 DetailsView(sensor: store.state.sensor).padding([.top, .horizontal])
                 InternalsView(sensor: store.state.sensor).padding([.top, .horizontal])
 
+                AlarmSettingsView().padding([.top, .horizontal])
                 GlucoseSettingsView().padding([.top, .horizontal])
                 NightscoutSettingsView().padding([.top, .horizontal])
-                AlarmSettingsView().padding([.top, .horizontal])
 
                 ActionsView().padding([.top, .horizontal])
             }
