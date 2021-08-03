@@ -9,6 +9,7 @@ My playground for direct (BLE) Libre2 readings, to learn swift and understanding
 - (Later)FreeAPS X Module
 - Libre 2 US/CA
 - Highlight full Hours on Chart
+- Lifetime visualization
 
 ## I use sounds from the following sources (incl. licenses):
 
