@@ -50,10 +50,13 @@ func defaultAppReducer(state: inout AppState, action: AppAction) -> Void {
         
         state.glucoseValues.append(readingUpdate.lastGlucose)
 
-        let toMany = state.glucoseValues.count - 720
-        if toMany > 0 {
-            for _ in 1...toMany {
-                state.glucoseValues.removeFirst()
+        if let numberOfGlucoseValues = AppConfig.numberOfGlucoseValues {
+            let toMany = state.glucoseValues.count - numberOfGlucoseValues
+            if toMany > 0 {
+                for _ in 1...toMany {
+                    state.glucoseValues
+                        .removeFirst()
+                }
             }
         }
 

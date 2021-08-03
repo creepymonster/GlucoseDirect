@@ -91,8 +91,10 @@ struct LibreDirectPlaygroundWidgetEntryView: View {
                 
                 HStack {
                     Text(lastGlucose.trend.description)
-                    Text("\(minuteChange)/min.")
-                }.font(.footnote).padding(.bottom, 5)
+                    Text(String(format: LocalizedString("%1$@/min.", comment: ""), minuteChange))
+                }
+                .font(.footnote)
+                .padding(.bottom, 5)
                 
                 Text(lastGlucose.timeStamp.localTime)
             }

@@ -19,7 +19,7 @@ struct GlucoseView: View {
                 if lastGlucose.minuteChange > 0 {
                     return "+\(lastGlucose.minuteChange)"
                 } else if lastGlucose.minuteChange < 0 {
-                    return "-\(lastGlucose.minuteChange)"
+                    return "\(lastGlucose.minuteChange)"
                 } else {
                     return "0"
                 }
@@ -53,7 +53,9 @@ struct GlucoseView: View {
                 HStack {
                     Text(glucose.trend.description)
                     Text(String(format: LocalizedString("%1$@/min.", comment: ""), minuteChange))
-                }.font(.footnote).padding(.bottom, 5)
+                }
+                .font(.footnote)
+                .padding(.bottom, 5)
 
                 Text(glucose.timeStamp.localTime)
             }

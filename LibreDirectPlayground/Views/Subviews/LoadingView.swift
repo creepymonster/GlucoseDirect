@@ -13,7 +13,7 @@ struct LoadingView: View {
 
     var body: some View {
         ZStack {
-            Text("\(loadingText)..")
+            Text(String(format: LocalizedString("%1$@..", comment: ""), loadingText))
                 .font(.system(.body, design: .rounded))
                 .bold()
                 .offset(x: 0, y: 0)
@@ -23,7 +23,8 @@ struct LoadingView: View {
                 .stroke(Color.accentColor, lineWidth: 7)
                 .frame(width: 150, height: 150)
                 .rotationEffect(Angle(degrees: isLoading ? 360 : 0))
-                .animation(Animation.linear(duration: 1).repeatForever(autoreverses: false))
+                .animation(Animation.linear(duration: 1)
+                .repeatForever(autoreverses: false))
         }
         .padding(.vertical)
         .onAppear() {
