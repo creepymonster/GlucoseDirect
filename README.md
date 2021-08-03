@@ -3,6 +3,7 @@
 My playground for direct (BLE) Libre2 readings, to learn swift and understanding of the Libre 2. 
 
 ## Todo
+- Change calculation of glucose change per minute 
 - Speak glucose readings
 - Highlight hours on chart
 - Lifetime visualization
