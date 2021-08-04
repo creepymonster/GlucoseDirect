@@ -1,6 +1,6 @@
 //
 //  SensorExpiredNotificationService.swift
-//  LibreDirectPlayground
+//  LibreDirect
 //
 //  Created by Reimar Metzen on 25.06.21.
 //

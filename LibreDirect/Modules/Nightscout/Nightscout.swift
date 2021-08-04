@@ -79,7 +79,7 @@ fileprivate extension SensorGlucose {
     func toNightscout() -> [String: Any] {
         let nightscout: [String: Any] = [
             "_id": id,
-            "device": "LibreDirectPlayground",
+            "device": "LibreDirect",
             "date": timeStamp.toMillisecondsAsInt64(),
             "dateString": timeStamp.ISOStringFromDate(),
             "type": "sgv",

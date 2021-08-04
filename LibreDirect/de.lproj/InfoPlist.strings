@@ -2,7 +2,7 @@
 "CFBundleDisplayName" = "Libre Direct";
 
 /* Bundle name */
-"CFBundleName" = "LibreDirectPlayground";
+"CFBundleName" = "LibreDirect";
 
 /* Privacy - NFC Scan Usage Description */
 "NFCReaderUsageDescription" = "Libre Direct requires NFC to pair a Libre 2 sensor.";

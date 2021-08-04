@@ -47,7 +47,7 @@ struct GlucoseEntry: TimelineEntry {
     let last: SensorGlucose?
 }
 
-struct LibreDirectPlaygroundWidgetEntryView: View {
+struct LibreDirectWidgetEntryView: View {
     var entry: Provider.Entry
     
     var formatter: NumberFormatter {
@@ -117,10 +117,10 @@ struct LibreDirectPlaygroundWidgetEntryView: View {
 }
 
 @main
-struct LibreDirectPlaygroundWidget: Widget {
+struct LibreDirectWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: AppConfig.WidgetKind, provider: Provider()) { entry in
-            LibreDirectPlaygroundWidgetEntryView(entry: entry)
+            LibreDirectWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("Glucoe Widget")
         .description("Shows the last glucose value")
@@ -128,11 +128,11 @@ struct LibreDirectPlaygroundWidget: Widget {
     }
 }
 
-struct LibreDirectPlaygroundWidget_Previews: PreviewProvider {
+struct LibreDirectWidget_Previews: PreviewProvider {
     static var previews: some View {
         let date = Date()
 
-        LibreDirectPlaygroundWidgetEntryView(entry: GlucoseEntry(date: date, last: SensorGlucose(id: 1, timeStamp: Date(), glucose: 125, minuteChange: +2))).previewContext(WidgetPreviewContext(family: .systemSmall))
-        LibreDirectPlaygroundWidgetEntryView(entry: GlucoseEntry(date: date, last: nil)).previewContext(WidgetPreviewContext(family: .systemSmall))
+        LibreDirectWidgetEntryView(entry: GlucoseEntry(date: date, last: SensorGlucose(id: 1, timeStamp: Date(), glucose: 125, minuteChange: +2))).previewContext(WidgetPreviewContext(family: .systemSmall))
+        LibreDirectWidgetEntryView(entry: GlucoseEntry(date: date, last: nil)).previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }

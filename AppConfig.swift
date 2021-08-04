@@ -8,7 +8,7 @@
 import Foundation
 
 enum AppConfig {
-    static var WidgetKind: String { "LibreDirectPlaygroundWidget" }
+    static var WidgetKind: String { "LibreDirectWidget" }
     static var FreeApsXBundleIdentifier: String { "reimarmetzen.FreeAPS" }
     static var AppGroupName: String { "group.\(AppConfig.FreeApsXBundleIdentifier)" }
     static var AllowedGlucoseChangePerMinute: Double { 0.20 } // in percent, ex: 0.20 = 20%
