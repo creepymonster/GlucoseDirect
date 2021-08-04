@@ -1,6 +1,6 @@
 //
-//  AppReducers.swift
-//  LibreDirectPlayground
+//  DefaultAppReducer.swift
+//  LibreDirect
 //
 //  Created by Reimar Metzen on 06.07.21.
 //
@@ -22,6 +22,7 @@ func defaultAppReducer(state: inout AppState, action: AppAction) -> Void {
     case .resetSensor:
         state.sensor = nil
         state.connectionError = nil
+        state.glucoseValues = []       
 
     case .setSensor(value: let value):
         state.sensor = value
@@ -36,19 +37,19 @@ func defaultAppReducer(state: inout AppState, action: AppAction) -> Void {
 
     case .setSensorReading(readingUpdate: let readingUpdate):
         if let lastGlucose = state.glucoseValues.last {
-            let minutesBetweenValues = readingUpdate.lastGlucose.timeStamp.timeIntervalSince(lastGlucose.timeStamp) / 60
+            let minutesBetweenValues = readingUpdate.glucose.timeStamp.timeIntervalSince(lastGlucose.timeStamp) / 60
             let allowedChange = Int(Double(lastGlucose.glucoseFiltered) * AppConfig.AllowedGlucoseChangePerMinute * minutesBetweenValues)
             
             let lowerLimit = max(lastGlucose.glucoseFiltered - allowedChange, AppConfig.MinReadableGlucose)
             let upperLimit = min(lastGlucose.glucoseFiltered + allowedChange, AppConfig.MaxReadableGlucose)
             
-            readingUpdate.lastGlucose.lowerLimits.append(lowerLimit)
-            readingUpdate.lastGlucose.upperLimits.append(upperLimit)
+            readingUpdate.glucose.lowerLimits.append(lowerLimit)
+            readingUpdate.glucose.upperLimits.append(upperLimit)
             
-            Log.info("Reading update current: \(readingUpdate.lastGlucose.glucoseFiltered), lowerLimit: \(lowerLimit), upperLimit: \(upperLimit)")
+            Log.info("Reading update current: \(readingUpdate.glucose.glucoseFiltered), lowerLimit: \(lowerLimit), upperLimit: \(upperLimit)")
         }
         
-        state.glucoseValues.append(readingUpdate.lastGlucose)
+        state.glucoseValues.append(readingUpdate.glucose)
 
         if let numberOfGlucoseValues = AppConfig.numberOfGlucoseValues {
             let toMany = state.glucoseValues.count - numberOfGlucoseValues

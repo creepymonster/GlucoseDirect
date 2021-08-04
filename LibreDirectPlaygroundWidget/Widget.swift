@@ -1,6 +1,6 @@
 //
-//  LibreDirectPlaygroundWidget.swift
-//  LibreDirectPlaygroundWidget
+//  Widget.swift
+//  LibreDirectWidget
 //
 //  Created by Reimar Metzen on 28.07.21.
 //
@@ -50,32 +50,42 @@ struct GlucoseEntry: TimelineEntry {
 struct LibreDirectPlaygroundWidgetEntryView: View {
     var entry: Provider.Entry
     
+    var formatter: NumberFormatter {
+        get {
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            formatter.maximumFractionDigits = 1
+            
+            return formatter
+        }
+    }
+    
     var minuteChange: String {
         get {
-            if let lastGlucose = entry.last {
-                if lastGlucose.minuteChange > 0 {
-                    return "+\(lastGlucose.minuteChange)"
-                } else if lastGlucose.minuteChange < 0 {
-                    return "-\(lastGlucose.minuteChange)"
+            if let glucose = entry.last, let minuteChange = glucose.minuteChange {
+                if minuteChange > 0 {
+                    return "+\(formatter.string(from: minuteChange as NSNumber)!)"
+                } else if minuteChange < 0 {
+                    return formatter.string(from: minuteChange as NSNumber)!
                 } else {
                     return "0"
                 }
             }
             
-            return ""
+            return "0"
         }
     }
     
     var glucoseForegroundColor: Color {
         get {
-            if let lastGlucose = entry.last {
+            if let glucose = entry.last {
                 Log.info("alarmLow: \(UserDefaults.appGroup.alarmLow)")
-                if let alarmLow = UserDefaults.appGroup.alarmLow, lastGlucose.glucoseFiltered < alarmLow {
+                if let alarmLow = UserDefaults.appGroup.alarmLow, glucose.glucoseFiltered < alarmLow {
                     return Color.red
                 }
                 
                 Log.info("alarmHigh: \(UserDefaults.appGroup.alarmHigh)")
-                if let alarmHigh = UserDefaults.appGroup.alarmHigh, lastGlucose.glucoseFiltered > alarmHigh {
+                if let alarmHigh = UserDefaults.appGroup.alarmHigh, glucose.glucoseFiltered > alarmHigh {
                     return Color.red
                 }
             }
@@ -85,18 +95,20 @@ struct LibreDirectPlaygroundWidgetEntryView: View {
     }
 
     var body: some View {
-        if let lastGlucose = entry.last {
+        if let glucose = entry.last {
             VStack {
-                Text(lastGlucose.glucoseFiltered.description).font(.system(size: 56)).foregroundColor(glucoseForegroundColor)
-                
-                HStack {
-                    Text(lastGlucose.trend.description)
-                    Text(String(format: LocalizedString("%1$@/min.", comment: ""), minuteChange))
+                Text(glucose.glucoseFiltered.description).font(.system(size: 56)).foregroundColor(glucoseForegroundColor)
+                               
+                if let _ = glucose.minuteChange {
+                    HStack {
+                        Text(glucose.trend.description)
+                        Text(String(format: LocalizedString("%1$@/min.", comment: ""), minuteChange))
+                    }
+                    .font(.footnote)
+                    .padding(.bottom, 5)
                 }
-                .font(.footnote)
-                .padding(.bottom, 5)
                 
-                Text(lastGlucose.timeStamp.localTime)
+                Text(glucose.timeStamp.localTime)
             }
         } else {
             Text("...").font(.system(size: 56))

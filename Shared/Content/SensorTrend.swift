@@ -1,6 +1,6 @@
 //
 //  SensorTrend.swift
-//  LibreDirectPlayground
+//  LibreDirect
 //
 //  Created by Reimar Metzen on 06.07.21.
 //
@@ -15,7 +15,7 @@ enum SensorTrend: String, Codable {
     case falling = "↘︎"
     case fastFalling = "↓"
     case rapidlyFalling = "⇊"
-    case unknown = ""
+    case unknown = "?"
 
     init() {
         self = .unknown

@@ -1,6 +1,6 @@
 //
-//  WidgetUpdate.swift
-//  LibreDirectPlayground
+//  WidgetUpdater.swift
+//  LibreDirect
 //
 //  Created by Reimar Metzen on 28.07.21.
 //

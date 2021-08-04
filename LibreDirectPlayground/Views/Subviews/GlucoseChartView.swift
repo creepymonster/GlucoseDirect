@@ -1,6 +1,6 @@
 //
 //  GlucoseChartView.swift
-//  LibreDirectPlayground
+//  LibreDirect
 //
 //  Created by Reimar Metzen on 26.07.21.
 //
@@ -153,7 +153,7 @@ struct GlucoseChartView: View {
                         updateYGrid(fullSize: geo.size, alarmLow: self.alarmLow, alarmHigh: self.alarmHigh, targetValue: self.targetValue, glucoseUnit: glucoseUnit)
                     }
                     .onChange(of: glucoseValues) { glucoseValues in
-                        Log.info("onChange: \(glucoseValues)")
+                        Log.info("onChange: \(glucoseValues.count)")
                         
                         updateHelpVariables(fullSize: geo.size, glucoseValues: glucoseValues)
                         

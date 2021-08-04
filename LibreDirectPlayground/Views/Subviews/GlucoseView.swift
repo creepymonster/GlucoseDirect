@@ -1,6 +1,6 @@
 //
-//  SensorGlucoseView.swift
-//  LibreDirectPlayground
+//  GlucoseView.swift
+//  LibreDirect
 //
 //  Created by Reimar Metzen on 06.07.21.
 //
@@ -12,14 +12,24 @@ struct GlucoseView: View {
     var glucoseUnit: GlucoseUnit?
     var alarmLow: Int?
     var alarmHigh: Int?
+    
+    var formatter: NumberFormatter {
+        get {
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            formatter.maximumFractionDigits = 1
+            
+            return formatter
+        }
+    }
 
     var minuteChange: String {
         get {
-            if let lastGlucose = glucose {
-                if lastGlucose.minuteChange > 0 {
-                    return "+\(lastGlucose.minuteChange)"
-                } else if lastGlucose.minuteChange < 0 {
-                    return "\(lastGlucose.minuteChange)"
+            if let glucose = glucose, let minuteChange = glucose.minuteChange {
+                if minuteChange > 0 {
+                    return "+\(formatter.string(from: minuteChange as NSNumber)!)"
+                } else if minuteChange < 0 {
+                    return formatter.string(from: minuteChange as NSNumber)!
                 } else {
                     return "0"
                 }
@@ -31,12 +41,12 @@ struct GlucoseView: View {
 
     var glucoseForegroundColor: Color {
         get {
-            if let lastGlucose = glucose {
-                if let alarmLow = UserDefaults.appGroup.alarmLow, lastGlucose.glucoseFiltered < alarmLow {
+            if let glucose = glucose {
+                if let alarmLow = UserDefaults.appGroup.alarmLow, glucose.glucoseFiltered < alarmLow {
                     return Color.red
                 }
 
-                if let alarmHigh = UserDefaults.appGroup.alarmHigh, lastGlucose.glucoseFiltered > alarmHigh {
+                if let alarmHigh = UserDefaults.appGroup.alarmHigh, glucose.glucoseFiltered > alarmHigh {
                     return Color.red
                 }
             }
@@ -50,12 +60,14 @@ struct GlucoseView: View {
             VStack {
                 Text(glucose.glucoseFiltered.asGlucose(unit: glucoseUnit)).font(.system(size: 96)).foregroundColor(glucoseForegroundColor)
 
-                HStack {
-                    Text(glucose.trend.description)
-                    Text(String(format: LocalizedString("%1$@/min.", comment: ""), minuteChange))
+                if let _ = glucose.minuteChange {
+                    HStack {
+                        Text(glucose.trend.description)
+                        Text(String(format: LocalizedString("%1$@/min.", comment: ""), minuteChange))
+                    }
+                    .font(.footnote)
+                    .padding(.bottom, 5)
                 }
-                .font(.footnote)
-                .padding(.bottom, 5)
 
                 Text(glucose.timeStamp.localTime)
             }

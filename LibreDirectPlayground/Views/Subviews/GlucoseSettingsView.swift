@@ -1,6 +1,6 @@
 //
 //  GlucoseSettingsView.swift
-//  LibreDirectPlayground
+//  LibreDirect
 //
 //  Created by Reimar Metzen on 02.08.21.
 //

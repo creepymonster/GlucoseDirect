@@ -1,6 +1,6 @@
 //
-//  Libre2ConnectionService.swift
-//  LibreDirectPlayground
+//  SensorConnectionService.swift
+//  LibreDirect
 //
 //  Created by Reimar Metzen on 06.07.21.
 //
@@ -28,6 +28,7 @@ class SensorConnectionService: NSObject, SensorConnectionProtocol {
 
     private var stayConnected = false
     private var sensor: Sensor? = nil
+    private var lastGlucose: SensorGlucose? = nil
 
     private var peripheral: CBPeripheral? {
         didSet {
@@ -175,14 +176,17 @@ class SensorConnectionService: NSObject, SensorConnectionProtocol {
         updateSubject.send(SensorAgeUpdate(sensorAge: sensorAge))
     }
 
-    private func sendUpdate(glucoseTrend: [SensorGlucose]) {
+    private func sendUpdate(glucose: SensorGlucose) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
-        Log.info("GlucoseTrend: \(glucoseTrend.description)")
+        Log.info("GlucoseTrend: \(glucose.description)")
 
-        if let lastGlucose = glucoseTrend.sorted(by: { $0.timeStamp > $1.timeStamp }).first {
-            updateSubject.send(SensorReadingUpdate(lastGlucose: lastGlucose))
+        if let lastGlucose = lastGlucose {
+            glucose.minuteChange = calculateSlope(secondLast: lastGlucose, last: glucose)
         }
+        
+        lastGlucose = glucose
+        updateSubject.send(SensorReadingUpdate(lastGlucose: glucose))
     }
 
     private func sendUpdate(error: Error?) {
@@ -375,7 +379,11 @@ extension SensorConnectionService: CBPeripheralDelegate {
                     let sensorUpdate = Libre2.parseBLEData(decryptedBLE, calibration: sensor.calibration)
 
                     sendUpdate(sensorAge: sensorUpdate.age)
-                    sendUpdate(glucoseTrend: sensorUpdate.trend)
+                    
+                    if let newestGlucose = sensorUpdate.trend.last {
+                        sendUpdate(glucose: newestGlucose)
+                    }
+                    
                     resetBuffer()
                 } catch {
                     resetBuffer()
@@ -383,4 +391,20 @@ extension SensorConnectionService: CBPeripheralDelegate {
             }
         }
     }
+}
+
+fileprivate func calculateDiffInMinutes(secondLast: Date, last: Date) -> Double {
+    let diff = last.timeIntervalSince(secondLast)
+    return diff / 60
+}
+
+fileprivate func calculateSlope(secondLast: SensorGlucose, last: SensorGlucose) -> Double {
+    if secondLast.timeStamp == last.timeStamp {
+        return 0.0
+    }
+
+    let glucoseDiff = Double(last.glucose) - Double(secondLast.glucose)
+    let minutesDiff = calculateDiffInMinutes(secondLast: secondLast.timeStamp, last: last.timeStamp)
+
+    return glucoseDiff / minutesDiff
 }

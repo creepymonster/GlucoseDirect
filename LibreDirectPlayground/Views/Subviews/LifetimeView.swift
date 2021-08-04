@@ -1,6 +1,6 @@
 //
-//  SensorLife.swift
-//  LibreDirectPlayground
+//  LifetimeView.swift
+//  LibreDirect
 //
 //  Created by Reimar Metzen on 06.07.21.
 //

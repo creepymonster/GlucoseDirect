@@ -1,6 +1,6 @@
 //
-//  Infos.swift
-//  LibreDirectPlayground
+//  AppConfig.swift
+//  LibreDirect
 //
 //  Created by Reimar Metzen on 28.07.21.
 //

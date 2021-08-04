@@ -1,6 +1,6 @@
 //
-//  SensorNFCView.swift
-//  LibreDirectPlayground
+//  InternalsView.swift
+//  LibreDirect
 //
 //  Created by Reimar Metzen on 06.07.21.
 //

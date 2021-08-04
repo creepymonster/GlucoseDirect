@@ -1,6 +1,6 @@
 //
-//  Log.swift
-//  LibreDirectPlayground
+//  ActionLog.swift
+//  LibreDirect
 //
 //  Created by Reimar Metzen on 19.07.21.
 //

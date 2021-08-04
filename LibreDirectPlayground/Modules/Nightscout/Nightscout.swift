@@ -1,6 +1,6 @@
 //
 //  Nightscout.swift
-//  LibreDirectPlayground
+//  LibreDirect
 //
 //  Created by Reimar Metzen on 06.07.21.
 //
@@ -30,7 +30,7 @@ func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppState, Ap
                 break
             }
 
-            service.addGlucose(nightscoutHost: nightscoutHost.trimmingCharacters(in: CharacterSet(charactersIn: "/")), apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: [readingUpdate.lastGlucose])
+            service.addGlucose(nightscoutHost: nightscoutHost.trimmingCharacters(in: CharacterSet(charactersIn: "/")), apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: [readingUpdate.glucose])
 
         default:
             break

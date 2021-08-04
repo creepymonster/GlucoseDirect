@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  LibreDirectPlayground
+//  LoadingView.swift
+//  LibreDirect
 //
 //  Created by Reimar Metzen on 27.07.21.
 //

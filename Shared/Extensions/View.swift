@@ -1,6 +1,6 @@
 //
 //  View.swift
-//  LibreDirectPlayground
+//  LibreDirect
 //
 //  Created by Reimar Metzen on 27.07.21.
 //

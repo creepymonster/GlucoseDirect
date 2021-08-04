@@ -1,6 +1,6 @@
 //
 //  FreeAPS.swift
-//  LibreDirectPlayground
+//  LibreDirect
 //
 //  Created by Reimar Metzen on 06.07.21.
 //
@@ -12,7 +12,7 @@ func freeAPSMiddleware(service: FreeAPSService) -> Middleware<AppState, AppActio
     return { state, action in
         switch action {
         case .setSensorReading(readingUpdate: let readingUpdate):
-            service.addGlucose(glucoseValues: [readingUpdate.lastGlucose])
+            service.addGlucose(glucoseValues: [readingUpdate.glucose])
 
         default:
             break

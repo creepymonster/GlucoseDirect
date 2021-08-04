@@ -1,6 +1,6 @@
 //
 //  SensorGlucoseAlert.swift
-//  LibreDirectPlayground
+//  LibreDirect
 //
 //  Created by Reimar Metzen on 19.07.21.
 //
@@ -20,18 +20,18 @@ func sensorGlucoseAlertMiddelware(service: SensorGlucoseAlertService) -> Middlew
                 isSnoozed = true
             }
 
-            if readingUpdate.lastGlucose.glucoseFiltered < state.alarmLow {
+            if readingUpdate.glucose.glucoseFiltered < state.alarmLow {
                 if !isSnoozed {
-                    Log.info("Glucose alert, low: \(readingUpdate.lastGlucose.glucoseFiltered) < \(state.alarmLow)")
+                    Log.info("Glucose alert, low: \(readingUpdate.glucose.glucoseFiltered) < \(state.alarmLow)")
 
-                    service.sendLowGlucoseNotification(glucose: readingUpdate.lastGlucose.glucoseFiltered.asGlucose(unit: state.glucoseUnit))
+                    service.sendLowGlucoseNotification(glucose: readingUpdate.glucose.glucoseFiltered.asGlucose(unit: state.glucoseUnit))
                     return Just(AppAction.setAlarmSnoozeUntil(value: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute))).eraseToAnyPublisher()
                 }
-            } else if readingUpdate.lastGlucose.glucoseFiltered > state.alarmHigh {
+            } else if readingUpdate.glucose.glucoseFiltered > state.alarmHigh {
                 if !isSnoozed {
-                    Log.info("Glucose alert, high: \(readingUpdate.lastGlucose.glucoseFiltered) > \(state.alarmHigh)")
+                    Log.info("Glucose alert, high: \(readingUpdate.glucose.glucoseFiltered) > \(state.alarmHigh)")
 
-                    service.sendHighGlucoseNotification(glucose: readingUpdate.lastGlucose.glucoseFiltered.asGlucose(unit: state.glucoseUnit))
+                    service.sendHighGlucoseNotification(glucose: readingUpdate.glucose.glucoseFiltered.asGlucose(unit: state.glucoseUnit))
                     return Just(AppAction.setAlarmSnoozeUntil(value: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute))).eraseToAnyPublisher()
                 }
             } else {

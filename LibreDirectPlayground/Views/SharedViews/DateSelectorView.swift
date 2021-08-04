@@ -1,6 +1,6 @@
 //
 //  DateSelectorView.swift
-//  LibreDirectPlayground
+//  LibreDirect
 //
 //  Created by Reimar Metzen on 20.07.21.
 //

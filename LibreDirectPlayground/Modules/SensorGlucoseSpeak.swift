@@ -1,6 +1,6 @@
 //
-//  SensorGlucoseRead.swift
-//  LibreDirectPlayground
+//  SensorGlucoseSpeak.swift
+//  LibreDirect
 //
 //  Created by Reimar Metzen on 03.08.21.
 //
@@ -13,7 +13,7 @@ func sensorGlucoseSpeakMiddelware(service: SensorGlucoseSpeakService) -> Middlew
     return { state, action in
         switch action {
         case .setSensorReading(readingUpdate: let readingUpdate):
-            service.speakGlucose(glucose: readingUpdate.lastGlucose.glucoseFiltered.asGlucose(unit: state.glucoseUnit))
+            service.speakGlucose(glucose: readingUpdate.glucose.glucoseFiltered.asGlucose(unit: state.glucoseUnit))
 
         default:
             break

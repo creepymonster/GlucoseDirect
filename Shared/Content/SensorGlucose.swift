@@ -1,6 +1,6 @@
 //
 //  SensorGlucose.swift
-//  LibreDirectPlayground
+//  LibreDirect
 //
 //  Created by Reimar Metzen on 06.07.21.
 //
@@ -14,11 +14,15 @@ class SensorGlucose: CustomStringConvertible, Codable {
     
     var lowerLimits: [Int] = [AppConfig.MinReadableGlucose]
     var upperLimits: [Int] = [AppConfig.MaxReadableGlucose]
-    var minuteChange: Double = 0
+    var minuteChange: Double? = nil
     
     var trend: SensorTrend {
         get {
-            return SensorTrend(slope: minuteChange)
+            if let minuteChange = minuteChange {
+                return SensorTrend(slope: minuteChange)
+            }
+            
+            return .unknown
         }
     }
     

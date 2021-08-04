@@ -1,6 +1,6 @@
 //
 //  LibreUtility.swift
-//  LibreDirectPlayground
+//  LibreDirect
 //
 //  Created by Reimar Metzen on 06.07.21.
 //
@@ -8,7 +8,6 @@
 import Foundation
 
 // https://github.com/ivalkou/LibreTools/blob/master/Sources/LibreTools/Sensor/Libre2.swift
-
 class PreLibre {
     private static let keys: [UInt16] = [0xA0C5, 0x6860, 0x0000, 0x14C6]
 
@@ -238,45 +237,11 @@ class Libre2 {
             }
         }
 
-        let trend = fillTrends(values: measurementTrend.sorted(by: { $0.id < $1.id }))
-        let history = fillTrends(values: measurementHistory.sorted(by: { $0.id < $1.id }))
+        let trend = measurementTrend.sorted(by: { $0.id < $1.id })
+        let history = measurementHistory.sorted(by: { $0.id < $1.id })
 
         return (age, trend, history)
     }
-}
-
-fileprivate func calculateDiffInMinutes(secondLast: Date, last: Date) -> Double {
-    let diff = last.timeIntervalSince(secondLast)
-    return diff / 60
-}
-
-fileprivate func calculateSlope(secondLast: SensorGlucose, last: SensorGlucose) -> Double {
-    if secondLast.timeStamp == last.timeStamp {
-        return 0.0
-    }
-
-    let glucoseDiff = Double(last.glucose) - Double(secondLast.glucose)
-    let minutesDiff = calculateDiffInMinutes(secondLast: secondLast.timeStamp, last: last.timeStamp)
-
-    return glucoseDiff / minutesDiff
-}
-
-fileprivate func fillTrends(values: [SensorGlucose]) -> [SensorGlucose] {
-    var lastGlucose: SensorGlucose? = nil
-    for glucose in values {
-        if let lastGlucose = lastGlucose {
-            let slope = calculateSlope(secondLast: lastGlucose, last: glucose)
-
-            Log.info("lastGlucose: \(lastGlucose.timeStamp.localTime): \(lastGlucose.glucoseFiltered)")
-            Log.info("glucose: \(glucose.timeStamp.localTime): \(glucose.glucoseFiltered)")
-
-            glucose.minuteChange = slope
-        }
-
-        lastGlucose = glucose
-    }
-
-    return values
 }
 
 fileprivate func word(_ high: UInt8, _ low: UInt8) -> UInt64 {

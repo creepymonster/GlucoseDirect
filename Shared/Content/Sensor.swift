@@ -1,6 +1,6 @@
 //
 //  Sensor.swift
-//  LibreDirectPlayground
+//  LibreDirect
 //
 //  Created by Reimar Metzen on 06.07.21.
 //

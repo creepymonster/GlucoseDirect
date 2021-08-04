@@ -1,6 +1,6 @@
 //
 //  SensorGlucoseBadge.swift
-//  LibreDirectPlayground
+//  LibreDirect
 //
 //  Created by Reimar Metzen on 24.07.21.
 //
@@ -15,7 +15,7 @@ func sensorGlucoseBadgeMiddelware(service: SensorGlucoseBadgeService) -> Middlew
         switch action {
         case .setSensorReading(readingUpdate: let readingUpdate):
             if state.glucoseUnit == .mgdL {
-                service.setGlucoseBadge(glucose: readingUpdate.lastGlucose.glucoseFiltered)
+                service.setGlucoseBadge(glucose: readingUpdate.glucose.glucoseFiltered)
             } else {
                 service.setGlucoseBadge(glucose: 0)
             }

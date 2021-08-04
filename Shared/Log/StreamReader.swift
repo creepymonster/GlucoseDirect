@@ -1,6 +1,6 @@
 //
 //  StreamReader.swift
-//  LibreDirectPlayground
+//  LibreDirect
 //
 //  Created by Reimar Metzen on 19.07.21.
 //

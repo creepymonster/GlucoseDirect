@@ -1,6 +1,6 @@
 //
 //  SensorConnection.swift
-//  LibreDirectPlayground
+//  LibreDirect
 //
 //  Created by Reimar Metzen on 06.07.21.
 //
@@ -28,10 +28,10 @@ class SensorConnectionUpdate: SensorUpdate {
 }
 
 class SensorReadingUpdate: SensorUpdate {
-    private(set) var lastGlucose: SensorGlucose
+    private(set) var glucose: SensorGlucose
 
     init(lastGlucose: SensorGlucose) {
-        self.lastGlucose = lastGlucose
+        self.glucose = lastGlucose
     }
 }
 

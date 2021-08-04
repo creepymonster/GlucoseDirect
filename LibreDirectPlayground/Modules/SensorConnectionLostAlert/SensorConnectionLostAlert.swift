@@ -1,6 +1,6 @@
 //
 //  SensorConnectionLostAlert.swift
-//  LibreDirectPlayground
+//  LibreDirect
 //
 //  Created by Reimar Metzen on 29.07.21.
 //
