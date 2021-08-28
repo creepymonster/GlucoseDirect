@@ -1,0 +1,12 @@
+/* Bundle display name */
+"CFBundleDisplayName" = "Libre Direct";
+
+/* Bundle name */
+"CFBundleName" = "LibreDirect";
+
+/* Privacy - NFC Scan Usage Description */
+"NFCReaderUsageDescription" = "Libre Direct requires NFC to pair a Libre 2 sensor.";
+
+/* Privacy - Bluetooth Always Usage Description */
+"NSBluetoothAlwaysUsageDescription" = "Libre Direct requires Bluetooth to connect to a Libre 2 sensor.";
+

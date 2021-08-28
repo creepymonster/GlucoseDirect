@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "LibreDirectLibrary",
+        "repositoryURL": "https://github.com/creepymonster/LibreDirectLibrary",
+        "state": {
+          "branch": null,
+          "revision": "48109613ce23d65a02fb0a60e511c36c13a296e2",
+          "version": "1.0.2"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
