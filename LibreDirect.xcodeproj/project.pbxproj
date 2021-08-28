@@ -25,8 +25,8 @@
 		E24B532126B863C00091417F /* GlucoseSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532026B863C00091417F /* GlucoseSettingsView.swift */; };
 		E24B532326B863E20091417F /* AlarmSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532226B863E20091417F /* AlarmSettingsView.swift */; };
 		E24B532526B864020091417F /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532426B864020091417F /* ToggleView.swift */; };
+		E27CD74A26DA7BC100BC6BF3 /* LibreDirectLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = E27CD74926DA7BC100BC6BF3 /* LibreDirectLibrary */; };
 		E283306726AF058500244343 /* GlucoseChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E283306626AF058500244343 /* GlucoseChartView.swift */; };
-		E2929A2526D8BD50007105AE /* LibreDirectLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = E2929A2426D8BD50007105AE /* LibreDirectLibrary */; };
 		E292E1B226A608C400011F64 /* NumberSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E292E1B126A608C400011F64 /* NumberSelectorView.swift */; };
 		E29ED231268C754F00CBD3F1 /* GlucoseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29ED230268C754F00CBD3F1 /* GlucoseView.swift */; };
 		E29ED236268C87CC00CBD3F1 /* TextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29ED235268C87CC00CBD3F1 /* TextEditorView.swift */; };
@@ -85,7 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2929A2526D8BD50007105AE /* LibreDirectLibrary in Frameworks */,
+				E27CD74A26DA7BC100BC6BF3 /* LibreDirectLibrary in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,7 +209,7 @@
 			);
 			name = LibreDirect;
 			packageProductDependencies = (
-				E2929A2426D8BD50007105AE /* LibreDirectLibrary */,
+				E27CD74926DA7BC100BC6BF3 /* LibreDirectLibrary */,
 			);
 			productName = LibreDirect;
 			productReference = E20B853A266F4A9800AA4224 /* LibreDirect.app */;
@@ -240,7 +240,7 @@
 			);
 			mainGroup = E20B8531266F4A9800AA4224;
 			packageReferences = (
-				E2929A2326D8BD50007105AE /* XCRemoteSwiftPackageReference "LibreDirectLibrary" */,
+				E27CD74826DA7BC100BC6BF3 /* XCRemoteSwiftPackageReference "LibreDirectLibrary" */,
 			);
 			productRefGroup = E20B853B266F4A9800AA4224 /* Products */;
 			projectDirPath = "";
@@ -504,20 +504,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		E2929A2326D8BD50007105AE /* XCRemoteSwiftPackageReference "LibreDirectLibrary" */ = {
+		E27CD74826DA7BC100BC6BF3 /* XCRemoteSwiftPackageReference "LibreDirectLibrary" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/creepymonster/LibreDirectLibrary";
 			requirement = {
-				kind = exactVersion;
-				version = 1.0.2;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E2929A2426D8BD50007105AE /* LibreDirectLibrary */ = {
+		E27CD74926DA7BC100BC6BF3 /* LibreDirectLibrary */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E2929A2326D8BD50007105AE /* XCRemoteSwiftPackageReference "LibreDirectLibrary" */;
+			package = E27CD74826DA7BC100BC6BF3 /* XCRemoteSwiftPackageReference "LibreDirectLibrary" */;
 			productName = LibreDirectLibrary;
 		};
 /* End XCSwiftPackageProductDependency section */
