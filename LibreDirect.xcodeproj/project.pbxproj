@@ -14,7 +14,6 @@
 		E20B8542266F4A9900AA4224 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E20B8541266F4A9900AA4224 /* Assets.xcassets */; };
 		E20B8545266F4A9900AA4224 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E20B8544266F4A9900AA4224 /* Preview Assets.xcassets */; };
 		E223F863267A4CF200EC9BCA /* LifetimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E223F862267A4CF200EC9BCA /* LifetimeView.swift */; };
-		E223F865267A4D5F00EC9BCA /* InternalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E223F864267A4D5F00EC9BCA /* InternalsView.swift */; };
 		E223F867267A4D9800EC9BCA /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E223F866267A4D9800EC9BCA /* DetailsView.swift */; };
 		E235E2F9267B6F7C00280EF9 /* ConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E235E2F8267B6F7C00280EF9 /* ConnectionView.swift */; };
 		E23A77D1267BD0D100363770 /* KeyValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23A77D0267BD0D100363770 /* KeyValueView.swift */; };
@@ -27,6 +26,7 @@
 		E24B532526B864020091417F /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532426B864020091417F /* ToggleView.swift */; };
 		E27CD74A26DA7BC100BC6BF3 /* LibreDirectLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = E27CD74926DA7BC100BC6BF3 /* LibreDirectLibrary */; };
 		E283306726AF058500244343 /* GlucoseChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E283306626AF058500244343 /* GlucoseChartView.swift */; };
+		E28728AA26DE499200269F47 /* AlarmSnoozeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28728A926DE499200269F47 /* AlarmSnoozeView.swift */; };
 		E292E1B226A608C400011F64 /* NumberSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E292E1B126A608C400011F64 /* NumberSelectorView.swift */; };
 		E29ED231268C754F00CBD3F1 /* GlucoseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29ED230268C754F00CBD3F1 /* GlucoseView.swift */; };
 		E29ED236268C87CC00CBD3F1 /* TextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29ED235268C87CC00CBD3F1 /* TextEditorView.swift */; };
@@ -57,7 +57,6 @@
 		E20B8544266F4A9900AA4224 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E20B8546266F4A9900AA4224 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E223F862267A4CF200EC9BCA /* LifetimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifetimeView.swift; sourceTree = "<group>"; };
-		E223F864267A4D5F00EC9BCA /* InternalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalsView.swift; sourceTree = "<group>"; };
 		E223F866267A4D9800EC9BCA /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		E235E2F8267B6F7C00280EF9 /* ConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionView.swift; sourceTree = "<group>"; };
 		E23A77D0267BD0D100363770 /* KeyValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueView.swift; sourceTree = "<group>"; };
@@ -72,6 +71,7 @@
 		E27BFC0226B1407E00F8FBEF /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		E27BFC0426B1407E00F8FBEF /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		E283306626AF058500244343 /* GlucoseChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseChartView.swift; sourceTree = "<group>"; };
+		E28728A926DE499200269F47 /* AlarmSnoozeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmSnoozeView.swift; sourceTree = "<group>"; };
 		E292E1B126A608C400011F64 /* NumberSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberSelectorView.swift; sourceTree = "<group>"; };
 		E29ED230268C754F00CBD3F1 /* GlucoseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseView.swift; sourceTree = "<group>"; };
 		E29ED235268C87CC00CBD3F1 /* TextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorView.swift; sourceTree = "<group>"; };
@@ -167,16 +167,16 @@
 			isa = PBXGroup;
 			children = (
 				E20786222686283F004EEF1C /* ActionsView.swift */,
-				E29ED230268C754F00CBD3F1 /* GlucoseView.swift */,
-				E283306626AF058500244343 /* GlucoseChartView.swift */,
+				E24B532226B863E20091417F /* AlarmSettingsView.swift */,
+				E28728A926DE499200269F47 /* AlarmSnoozeView.swift */,
 				E235E2F8267B6F7C00280EF9 /* ConnectionView.swift */,
 				E223F866267A4D9800EC9BCA /* DetailsView.swift */,
-				E223F864267A4D5F00EC9BCA /* InternalsView.swift */,
+				E29ED230268C754F00CBD3F1 /* GlucoseView.swift */,
+				E283306626AF058500244343 /* GlucoseChartView.swift */,
+				E24B532026B863C00091417F /* GlucoseSettingsView.swift */,
 				E223F862267A4CF200EC9BCA /* LifetimeView.swift */,
 				E23D3F9226B047B900E10B07 /* LoadingView.swift */,
 				E24B531D26B863910091417F /* NightscoutSettingsView.swift */,
-				E24B532026B863C00091417F /* GlucoseSettingsView.swift */,
-				E24B532226B863E20091417F /* AlarmSettingsView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -281,12 +281,12 @@
 				E223F867267A4D9800EC9BCA /* DetailsView.swift in Sources */,
 				E2F5F3D126A70AC400834A74 /* DateSelectorView.swift in Sources */,
 				E20B853E266F4A9800AA4224 /* App.swift in Sources */,
-				E223F865267A4D5F00EC9BCA /* InternalsView.swift in Sources */,
 				E24B531E26B863910091417F /* NightscoutSettingsView.swift in Sources */,
 				E207862A2686306B004EEF1C /* ValueView.swift in Sources */,
 				E235E2F9267B6F7C00280EF9 /* ConnectionView.swift in Sources */,
 				E20786232686283F004EEF1C /* ActionsView.swift in Sources */,
 				E29ED231268C754F00CBD3F1 /* GlucoseView.swift in Sources */,
+				E28728AA26DE499200269F47 /* AlarmSnoozeView.swift in Sources */,
 				E292E1B226A608C400011F64 /* NumberSelectorView.swift in Sources */,
 				E29ED236268C87CC00CBD3F1 /* TextEditorView.swift in Sources */,
 				E23D3F9326B047B900E10B07 /* LoadingView.swift in Sources */,
