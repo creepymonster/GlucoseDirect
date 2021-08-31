@@ -16,7 +16,7 @@ struct AlarmSnoozeView: View {
 
         GroupBox {
             DateSelectorView(
-                key: LocalizedString("Snooze Until", comment: ""),
+                key: LocalizedBundleString("Snooze Until", comment: ""),
                 value: store.state.alarmSnoozeUntil,
                 displayValue: store.state.alarmSnoozeUntil?.localTime,
                 completionHandler: { (value) -> Void in

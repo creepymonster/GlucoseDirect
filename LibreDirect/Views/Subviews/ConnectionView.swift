@@ -15,14 +15,14 @@ struct ConnectionView: View {
 
     var body: some View {
         GroupBox(label: Text("Sensor Connection").padding(.bottom).foregroundColor(.accentColor)) {
-            KeyValueView(key: LocalizedString("Sensor Connection State", comment: ""), value: connectionState.description)
+            KeyValueView(key: LocalizedBundleString("Sensor Connection State", comment: ""), value: connectionState.description)
 
             if let connectionError = connectionError {
-                KeyValueView(key: LocalizedString("Sensor Connection Error", comment: ""), value: connectionError).padding(.top, 5)
+                KeyValueView(key: LocalizedBundleString("Sensor Connection Error", comment: ""), value: connectionError).padding(.top, 5)
             }
             
             if let connectionErrorTimestamp = connectionErrorTimestamp {
-                KeyValueView(key: LocalizedString("Sensor Connection Error Timestamp", comment: ""), value: connectionErrorTimestamp.localTime).padding(.top, 5)
+                KeyValueView(key: LocalizedBundleString("Sensor Connection Error Timestamp", comment: ""), value: connectionErrorTimestamp.localTime).padding(.top, 5)
             }
         }
     }

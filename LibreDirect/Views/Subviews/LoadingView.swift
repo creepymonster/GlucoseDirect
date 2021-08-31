@@ -9,12 +9,12 @@ import SwiftUI
 import LibreDirectLibrary
 
 struct LoadingView: View {
-    var loadingText: String = LocalizedString("Loading", comment: "")
+    var loadingText: String = LocalizedBundleString("Loading", comment: "")
     @State private var isLoading = false
 
     var body: some View {
         ZStack {
-            Text(String(format: LocalizedString("%1$@..", comment: ""), loadingText))
+            Text(String(format: LocalizedBundleString("%1$@..", comment: ""), loadingText))
                 .font(.system(.body, design: .rounded))
                 .bold()
                 .offset(x: 0, y: 0)

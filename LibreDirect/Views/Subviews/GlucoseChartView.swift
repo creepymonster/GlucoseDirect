@@ -99,7 +99,7 @@ struct GlucoseChartView: View {
 
     var body: some View {
         if glucoseValues.count > 0 {
-            GroupBox(label: Text(String(format: LocalizedString("Chart (%1$@)", comment: ""), glucoseValues.count.description)).padding(.bottom).foregroundColor(.accentColor)) {
+            GroupBox(label: Text(String(format: LocalizedBundleString("Chart (%1$@)", comment: ""), glucoseValues.count.description)).padding(.bottom).foregroundColor(.accentColor)) {
                 GeometryReader { geo in
                     ZStack(alignment: .leading) {
                         yGridView(fullSize: geo.size)
@@ -132,19 +132,19 @@ struct GlucoseChartView: View {
                         updateTargetGrid(fullSize: geo.size, targetValue: self.targetValue)
                     }
                     .onChange(of: alarmLow) { alarmLow in
-                        Log.info("onChange: \(alarmLow)")
+                        Log.info("onChange: \(alarmLow ?? 0)")
                         
                         updateYGrid(fullSize: geo.size, alarmLow: alarmLow, alarmHigh: self.alarmHigh, targetValue: self.targetValue, glucoseUnit: self.glucoseUnit)
                         updateAlarmLowGrid(fullSize: geo.size, alarmLow: alarmLow)
                     }
                     .onChange(of: alarmHigh) { alarmHigh in
-                        Log.info("onChange: \(alarmHigh)")
+                        Log.info("onChange: \(alarmHigh ?? 0)")
                         
                         updateYGrid(fullSize: geo.size, alarmLow: self.alarmLow, alarmHigh: alarmHigh, targetValue: self.targetValue, glucoseUnit: self.glucoseUnit)
                         updateAlarmHighGrid(fullSize: geo.size, alarmHigh: alarmHigh)
                     }
                     .onChange(of: targetValue) { targetValue in
-                        Log.info("onChange: \(targetValue)")
+                        Log.info("onChange: \(targetValue ?? 0)")
                         
                         updateYGrid(fullSize: geo.size, alarmLow: self.alarmLow, alarmHigh: self.alarmHigh, targetValue: targetValue, glucoseUnit: self.glucoseUnit)
                         updateTargetGrid(fullSize: geo.size, targetValue: targetValue)

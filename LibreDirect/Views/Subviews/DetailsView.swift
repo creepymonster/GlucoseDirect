@@ -14,15 +14,15 @@ struct DetailsView: View {
     var body: some View {
         if let sensor = sensor {
             GroupBox(label: Text("Sensor Details").padding(.bottom).foregroundColor(.accentColor)) {
-                KeyValueView(key: LocalizedString("Sensor Region", comment: ""), value: sensor.region.description)
-                KeyValueView(key: LocalizedString("Sensor Type", comment: ""), value: sensor.type.description).padding(.top, 5)
+                KeyValueView(key: LocalizedBundleString("Sensor Region", comment: ""), value: sensor.region.description)
+                KeyValueView(key: LocalizedBundleString("Sensor Type", comment: ""), value: sensor.type.description).padding(.top, 5)
             }
 
             GroupBox(label: Text("Sensor Internals").padding(.bottom).foregroundColor(.accentColor)) {
-                KeyValueView(key: LocalizedString("Sensor UID", comment: ""), value: sensor.uuid.hex)
-                KeyValueView(key: LocalizedString("Sensor PatchInfo", comment: ""), value: sensor.patchInfo.hex).padding(.top, 5)
-                KeyValueView(key: LocalizedString("Sensor Serial", comment: ""), value: sensor.serial?.description ?? "Unknown").padding(.top, 5)
-                KeyValueView(key: LocalizedString("Sensor Calibration", comment: ""), value: sensor.calibration.description).padding(.top, 5)
+                KeyValueView(key: LocalizedBundleString("Sensor UID", comment: ""), value: sensor.uuid.hex)
+                KeyValueView(key: LocalizedBundleString("Sensor PatchInfo", comment: ""), value: sensor.patchInfo.hex).padding(.top, 5)
+                KeyValueView(key: LocalizedBundleString("Sensor Serial", comment: ""), value: sensor.serial?.description ?? "Unknown").padding(.top, 5)
+                KeyValueView(key: LocalizedBundleString("Sensor Calibration", comment: ""), value: sensor.calibration.description).padding(.top, 5)
             }
         }
     }

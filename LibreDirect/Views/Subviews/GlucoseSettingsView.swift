@@ -29,7 +29,7 @@ struct GlucoseSettingsView: View {
     
     var body: some View {
         GroupBox(label: Text("Glucose Settings").padding(.bottom).foregroundColor(.accentColor)) {
-            ToggleView(key: LocalizedString("Glucose Unit", comment: ""), value: store.state.glucoseUnit.asBool, trueValue: true.asGlucoseUnit.description, falseValue: false.asGlucoseUnit.description, completionHandler: { (value) -> Void in
+            ToggleView(key: LocalizedBundleString("Glucose Unit", comment: ""), value: store.state.glucoseUnit.asBool, trueValue: true.asGlucoseUnit.description, falseValue: false.asGlucoseUnit.description, completionHandler: { (value) -> Void in
                 store.dispatch(.setGlucoseUnit(value: value.asGlucoseUnit))
             })
         }

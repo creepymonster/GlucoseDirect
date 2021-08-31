@@ -508,8 +508,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/creepymonster/LibreDirectLibrary";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.0;
+				kind = exactVersion;
+				version = 0.1.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
