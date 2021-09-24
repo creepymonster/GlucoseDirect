@@ -12,23 +12,20 @@ import LibreDirectLibrary
 @main
 final class LibreDirectApp: App {
     private let store: AppStore = AppStore(initialState: DefaultAppState(), reducer: defaultAppReducer, middlewares: [
+            actionLogMiddleware(),
             libre2Middelware(),
-            sensorExpiringAlertMiddelware(),
-            sensorGlucoseAlertMiddelware(),
-            sensorGlucoseAlertMiddelware(),
-            sensorConnectionAlertMiddelware(),
+            expiringNotificationMiddelware(),
+            glucoseNotificationMiddelware(),
+            glucoseNotificationMiddelware(),
+            connectionNotificationMiddelware(),
             freeAPSMiddleware(),
-            nightscoutMiddleware(),
-            actionLogMiddleware()
+            nightscoutMiddleware()
         ])
-    
+
     private let notificationCenterDelegate = LibreDirectNotificationCenter()
 
     init() {
         UNUserNotificationCenter.current().delegate = notificationCenterDelegate
-        
-        // app init
-        store.dispatch(.subscribeForUpdates)
 
         if store.state.isPaired {
             DispatchQueue.global(qos: .utility).async {
@@ -49,7 +46,7 @@ final class LibreDirectApp: App {
     }
 }
 
-final class LibreDirectNotificationCenter : NSObject, UNUserNotificationCenterDelegate {
+final class LibreDirectNotificationCenter: NSObject, UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.badge, .banner, .list, .sound])
     }

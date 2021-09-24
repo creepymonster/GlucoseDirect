@@ -92,13 +92,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E208F72426D8E7F4002FBB63 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		E20B8531266F4A9800AA4224 = {
 			isa = PBXGroup;
 			children = (
@@ -126,7 +119,6 @@
 				E247D8E426B7D70A00BDAF89 /* App.xcconfig */,
 				E2BF22DF266F9CA20060866F /* App.entitlements */,
 				E2FDC933266FAF1C007AA1F5 /* Views */,
-				E208F72426D8E7F4002FBB63 /* Extensions */,
 				E20B8543266F4A9900AA4224 /* Preview Content */,
 				E20B8541266F4A9900AA4224 /* Assets.xcassets */,
 			);
@@ -509,7 +501,7 @@
 			repositoryURL = "https://github.com/creepymonster/LibreDirectLibrary";
 			requirement = {
 				kind = exactVersion;
-				version = 0.1.2;
+				version = 0.2.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

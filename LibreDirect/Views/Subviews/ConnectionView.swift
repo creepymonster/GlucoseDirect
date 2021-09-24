@@ -12,17 +12,22 @@ struct ConnectionView: View {
     var connectionState: SensorConnectionState
     var connectionError: String?
     var connectionErrorTimestamp: Date?
+    var missedReadings: Int
 
     var body: some View {
         GroupBox(label: Text("Sensor Connection").padding(.bottom).foregroundColor(.accentColor)) {
-            KeyValueView(key: LocalizedBundleString("Sensor Connection State", comment: ""), value: connectionState.description)
+            KeyValueView(key: LocalizedString("Sensor Connection State", comment: ""), value: connectionState.description)
+
+            if missedReadings > 0 {
+                KeyValueView(key: LocalizedString("Sensor Missed Readings", comment: ""), value: missedReadings.description).padding(.top, 5)
+            }
 
             if let connectionError = connectionError {
-                KeyValueView(key: LocalizedBundleString("Sensor Connection Error", comment: ""), value: connectionError).padding(.top, 5)
+                KeyValueView(key: LocalizedString("Sensor Connection Error", comment: ""), value: connectionError).padding(.top, 5)
             }
-            
+
             if let connectionErrorTimestamp = connectionErrorTimestamp {
-                KeyValueView(key: LocalizedBundleString("Sensor Connection Error Timestamp", comment: ""), value: connectionErrorTimestamp.localTime).padding(.top, 5)
+                KeyValueView(key: LocalizedString("Sensor Connection Error Timestamp", comment: ""), value: connectionErrorTimestamp.localTime).padding(.top, 5)
             }
         }
     }
@@ -31,8 +36,8 @@ struct ConnectionView: View {
 struct ConnectionView_Previews: PreviewProvider {
     static var previews: some View {
         ForEach(ColorScheme.allCases, id: \.self) {
-            ConnectionView(connectionState: .connected).preferredColorScheme($0)
-            ConnectionView(connectionState: .disconnected, connectionError: "Timeout", connectionErrorTimestamp: Date()).preferredColorScheme($0)
+            ConnectionView(connectionState: .connected, missedReadings: 0).preferredColorScheme($0)
+            ConnectionView(connectionState: .disconnected, connectionError: "Timeout", connectionErrorTimestamp: Date(), missedReadings: 5).preferredColorScheme($0)
         }
     }
 }

@@ -13,16 +13,10 @@ struct AlarmSnoozeView: View {
     @EnvironmentObject var store: AppStore
 
     var body: some View {
-
         GroupBox {
-            DateSelectorView(
-                key: LocalizedBundleString("Snooze Until", comment: ""),
-                value: store.state.alarmSnoozeUntil,
-                displayValue: store.state.alarmSnoozeUntil?.localTime,
-                completionHandler: { (value) -> Void in
-                    store.dispatch(.setAlarmSnoozeUntil(value: value))
-                }
-            )
+            DateSelectorView(key: LocalizedString("Snooze Until", comment: ""), value: store.state.alarmSnoozeUntil, displayValue: store.state.alarmSnoozeUntil?.localTime) { (value) -> Void in
+                store.dispatch(.setAlarmSnoozeUntil(value: value))
+            }
         }
     }
 }

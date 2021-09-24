@@ -42,18 +42,18 @@ struct LifetimeView: View {
     var body: some View {
         if let sensor = sensor {
             GroupBox(label: Text("Sensor Lifetime").padding(.bottom).foregroundColor(.accentColor)) {
-                KeyValueView(key: LocalizedBundleString("Sensor State", comment: ""), value: sensor.state.description)
+                KeyValueView(key: LocalizedString("Sensor State", comment: ""), value: sensor.state.description)
                 
                 HStack(alignment: .center, spacing: 0) {
                     VStack {
-                        KeyValueView(key: LocalizedBundleString("Sensor Possible Lifetime", comment: ""), value: sensor.lifetime.inTime).padding(.top, 5)
+                        KeyValueView(key: LocalizedString("Sensor Possible Lifetime", comment: ""), value: sensor.lifetime.inTime).padding(.top, 5)
 
                         if let age = sensor.age {
-                            KeyValueView(key: LocalizedBundleString("Sensor Age", comment: ""), value: age.inTime, valueColor: Color.accentColor).padding(.top, 5)
+                            KeyValueView(key: LocalizedString("Sensor Age", comment: ""), value: age.inTime, valueColor: Color.accentColor).padding(.top, 5)
                         }
 
                         if let remainingLifetime = sensor.remainingLifetime {
-                            KeyValueView(key: LocalizedBundleString("Sensor Remaining Lifetime", comment: ""), value: remainingLifetime.inTime).padding(.top, 5)
+                            KeyValueView(key: LocalizedString("Sensor Remaining Lifetime", comment: ""), value: remainingLifetime.inTime).padding(.top, 5)
                         }
                     }
                     

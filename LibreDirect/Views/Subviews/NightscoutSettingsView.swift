@@ -13,13 +13,19 @@ struct NightscoutSettingsView: View {
 
     var body: some View {
         GroupBox(label: Text("Nightscout Settings").padding(.bottom).foregroundColor(.accentColor)) {
-            TextEditorView(key: LocalizedBundleString("Nightscout Host", comment: ""), value: store.state.nightscoutHost, completionHandler: { (value) -> Void in
-                store.dispatch(.setNightscoutHost(host: value))
-            })
+            ToggleView(key: LocalizedString("Nightscout Host Enabled", comment: ""), value: store.state.nightscoutUpload) { (value) -> Void in
+                store.dispatch(.setNightscoutUpload(enabled: value))
+            }
 
-            TextEditorView(key: LocalizedBundleString("Nightscout API-Secret", comment: ""), value: store.state.nightscoutApiSecret, completionHandler: { (value) -> Void in
-                store.dispatch(.setNightscoutSecret(apiSecret: value))
-            })
+            if store.state.nightscoutUpload {
+                TextEditorView(key: LocalizedString("Nightscout Host", comment: ""), value: store.state.nightscoutHost) { (value) -> Void in
+                    store.dispatch(.setNightscoutHost(host: value))
+                }
+
+                TextEditorView(key: LocalizedString("Nightscout API-Secret", comment: ""), value: store.state.nightscoutApiSecret) { (value) -> Void in
+                    store.dispatch(.setNightscoutSecret(apiSecret: value))
+                }
+            }
         }
     }
 }
@@ -33,3 +39,4 @@ struct NightscoutView_Previews: PreviewProvider {
         }
     }
 }
+
