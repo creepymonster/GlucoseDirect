@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import LibreDirectLibrary
 
 struct ConnectionView: View {
     var connectionState: SensorConnectionState

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import LibreDirectLibrary
 
 struct LifetimeView: View {
     var sensor: Sensor?

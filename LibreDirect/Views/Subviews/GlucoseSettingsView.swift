@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import LibreDirectLibrary
 
 fileprivate extension Bool {
     var asGlucoseUnit: GlucoseUnit {

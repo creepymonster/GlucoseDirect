@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import LibreDirectLibrary
 
 struct AlarmSettingsView: View {
     @EnvironmentObject var store: AppStore

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import LibreDirectLibrary
 
 struct ActionsView: View {
     @State private var showingDeleteLogsAlert = false

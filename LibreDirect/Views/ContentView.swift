@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import LibreDirectLibrary
 
 struct ContentView: View {
     @EnvironmentObject var store: AppStore

@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Combine
-import LibreDirectLibrary
 
 extension SensorGlucose: Equatable {
     public static func == (lhs: SensorGlucose, rhs: SensorGlucose) -> Bool {

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import LibreDirectLibrary
 
 struct LoadingView: View {
     var loadingText: String = LocalizedString("Loading", comment: "")

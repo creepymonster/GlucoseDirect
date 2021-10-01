@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import LibreDirectLibrary
 
 struct GlucoseView: View {
     var glucose: SensorGlucose?

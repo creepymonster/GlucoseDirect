@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import LibreDirectLibrary
 
 struct NightscoutSettingsView: View {
     @EnvironmentObject var store: AppStore
