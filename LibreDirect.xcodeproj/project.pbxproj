@@ -326,6 +326,10 @@
 		E2FCAC3C270741F000FE1CBF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				E2FCAC412707420100FE1CBF /* DefaultAppReducer.swift */,
+				E2FCAC3D2707420000FE1CBF /* DefaultAppState.swift */,
+				E2FCAC3F2707420100FE1CBF /* PreviewAppReducer.swift */,
+				E2FCAC402707420100FE1CBF /* PreviewAppState.swift */,
 				E2FCAC682707429800FE1CBF /* Internal */,
 				E2FCAC0E2706F8E400FE1CBF /* Bubble */,
 				E2FCAC4F2707424000FE1CBF /* Nightscout */,
@@ -337,10 +341,6 @@
 				E2FCAC492707421600FE1CBF /* ExpiringNotification */,
 				E2FCAC482707420D00FE1CBF /* ConnectionNotification */,
 				E2FCAC472707420800FE1CBF /* ActionLog */,
-				E2FCAC412707420100FE1CBF /* DefaultAppReducer.swift */,
-				E2FCAC3D2707420000FE1CBF /* DefaultAppState.swift */,
-				E2FCAC3F2707420100FE1CBF /* PreviewAppReducer.swift */,
-				E2FCAC402707420100FE1CBF /* PreviewAppState.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
