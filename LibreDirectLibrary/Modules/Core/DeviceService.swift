@@ -2,93 +2,89 @@
 //  DeviceService.swift
 //  LibreDirect
 //
-//  Created by Reimar Metzen on 01.10.21. 
+//  Created by Reimar Metzen on 01.10.21.
 //
 
 import Foundation
 import CoreBluetooth
+import Combine
 
-extension UserDefaults {
-    fileprivate enum Keys: String {
-        case devicePeripheralUuid = "libre-direct.bubble.peripheral-uuid"
-    }
+protocol DeviceServiceProtocol {
+    func pairSensor(completionHandler: @escaping DeviceConnectionHandler)
+    func connectSensor(sensor: Sensor, completionHandler: @escaping DeviceConnectionHandler)
+    func disconnectSensor()
+}
 
-    var devicePeripheralUuid: String? {
-        get {
-            return UserDefaults.standard.string(forKey: Keys.devicePeripheralUuid.rawValue)
-        }
-        set {
-            if let newValue = newValue {
-                UserDefaults.standard.setValue(newValue, forKey: Keys.devicePeripheralUuid.rawValue)
-            } else {
-                UserDefaults.standard.removeObject(forKey: Keys.devicePeripheralUuid.rawValue)
+func deviceMiddelware(service: DeviceServiceProtocol) -> Middleware<AppState, AppAction> {
+    return { store, action, lastState in
+        let completionHandler: DeviceConnectionHandler = { (update) -> Void in
+            let dispatch = store.dispatch
+            var action: AppAction? = nil
+
+            if let connectionUpdate = update as? DeviceServiceConnectionUpdate {
+                action = .setSensorConnection(connectionState: connectionUpdate.connectionState)
+
+            } else if let readingUpdate = update as? DeviceServiceGlucoseUpdate {
+                if let glucose = readingUpdate.glucose {
+                    action = .setSensorReading(glucose: glucose)
+                } else {
+                    action = .setSensorMissedReadings
+                }
+
+            } else if let ageUpdate = update as? DeviceServiceAgeUpdate {
+                action = .setSensorAge(sensorAge: ageUpdate.sensorAge)
+
+            } else if let errorUpdate = update as? DeviceServiceErrorUpdate {
+                action = .setSensorError(errorMessage: errorUpdate.errorMessage, errorTimestamp: errorUpdate.errorTimestamp)
+
+            } else if let sensorUpdate = update as? DeviceServiceSensorUpdate {
+                action = .setSensor(value: sensorUpdate.sensor)
+
+            }
+
+            if let action = action {
+                DispatchQueue.main.async {
+                    dispatch(action)
+                }
             }
         }
+
+        switch action {
+        case .pairSensor:
+            service.pairSensor(completionHandler: completionHandler)
+
+        case .connectSensor:
+            guard let sensor = store.state.sensor else {
+                break
+            }
+
+            service.connectSensor(sensor: sensor, completionHandler: completionHandler)
+
+        case .disconnectSensor:
+            service.disconnectSensor()
+
+        default:
+            break
+        }
+
+        return Empty().eraseToAnyPublisher()
     }
 }
 
-class DeviceUpdate {
-}
+typealias DeviceConnectionHandler = (_ update: DeviceServiceUpdate) -> Void
 
-class DeviceAgeUpdate: DeviceUpdate {
-    private(set) var sensorAge: Int
-
-    init(sensorAge: Int) {
-        self.sensorAge = sensorAge
-    }
-}
-
-class DeviceConnectionUpdate: DeviceUpdate {
-    private(set) var connectionState: SensorConnectionState
-
-    init(connectionState: SensorConnectionState) {
-        self.connectionState = connectionState
-    }
-}
-
-class DeviceSensorUpdate: DeviceUpdate {
-    private(set) var sensor: Sensor
-
-    init(sensor: Sensor) {
-        self.sensor = sensor
-    }
-}
-
-class DeviceGlucoseUpdate: DeviceUpdate {
-    private(set) var glucose: SensorGlucose?
-
-    init(lastGlucose: SensorGlucose? = nil) {
-        self.glucose = lastGlucose
-    }
-}
-
-class DeviceErrorUpdate: DeviceUpdate {
-    private(set) var errorMessage: String
-    private(set) var errorTimestamp: Date = Date()
-
-    init(errorMessage: String) {
-        self.errorMessage = errorMessage
-    }
-
-    init(errorCode: Int) {
-        self.errorMessage = translateError(errorCode: errorCode)
-    }
-}
-
-typealias DeviceConnectionHandler = (_ update: DeviceUpdate) -> Void
-
-class DeviceService : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
+class DeviceService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, DeviceServiceProtocol {
     var rxBuffer = Data()
-    var connectionCompletionHandler: DeviceConnectionHandler?
-    
+    var completionHandler: DeviceConnectionHandler?
+
     var manager: CBCentralManager! = nil
     let managerQueue: DispatchQueue = DispatchQueue(label: "libre-direct.ble-queue") // , qos: .unspecified
     var serviceUuid: [CBUUID] = []
-    
+
     var stayConnected = false
     var sensor: Sensor? = nil
     var lastGlucose: SensorGlucose? = nil
-    
+
     var peripheral: CBPeripheral? {
         didSet {
             oldValue?.delegate = nil
@@ -97,23 +93,27 @@ class DeviceService : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             UserDefaults.standard.devicePeripheralUuid = peripheral?.identifier.uuidString
         }
     }
-    
+
     init(serviceUuid: [CBUUID]) {
         super.init()
 
         self.serviceUuid = serviceUuid
         self.manager = CBCentralManager(delegate: self, queue: managerQueue, options: [CBCentralManagerOptionShowPowerAlertKey: true])
     }
-    
+
     deinit {
         disconnect()
     }
-    
+
+    func pairSensor(completionHandler: @escaping DeviceConnectionHandler) {
+        preconditionFailure("This method must be overridden")
+    }
+
     func connectSensor(sensor: Sensor, completionHandler: @escaping DeviceConnectionHandler) {
         dispatchPrecondition(condition: .notOnQueue(managerQueue))
         Log.info("ConnectSensor: \(sensor)")
 
-        self.connectionCompletionHandler = completionHandler
+        self.completionHandler = completionHandler
         self.sensor = sensor
 
         managerQueue.async {
@@ -132,7 +132,7 @@ class DeviceService : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             self.disconnect()
         }
     }
-    
+
     func find() {
         dispatchPrecondition(condition: .onQueue(managerQueue))
         Log.info("find")
@@ -181,7 +181,7 @@ class DeviceService : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     func connect() {
         dispatchPrecondition(condition: .onQueue(managerQueue))
         Log.info("Connect")
-        
+
         if let peripheral = self.peripheral {
             connect(peripheral)
         } else {
@@ -200,7 +200,7 @@ class DeviceService : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         manager.connect(peripheral, options: nil)
         sendUpdate(connectionState: .connecting)
     }
-    
+
     func resetBuffer() {
         Log.info("ResetBuffer")
         rxBuffer = Data()
@@ -210,30 +210,40 @@ class DeviceService : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         Log.info("StayConnected: \(stayConnected.description)")
         self.stayConnected = stayConnected
     }
-    
+
     func sendUpdate(connectionState: SensorConnectionState) {
+        dispatchPrecondition(condition: .onQueue(managerQueue))
         Log.info("ConnectionState: \(connectionState.description)")
-        self.connectionCompletionHandler?(DeviceConnectionUpdate(connectionState: connectionState))
+
+        self.completionHandler?(DeviceServiceConnectionUpdate(connectionState: connectionState))
     }
-    
+
     func sendUpdate(sensor: Sensor) {
+        dispatchPrecondition(condition: .onQueue(managerQueue))
         Log.info("Sensor: \(sensor.description)")
-        self.connectionCompletionHandler?(DeviceSensorUpdate(sensor: sensor))
+
+        self.completionHandler?(DeviceServiceSensorUpdate(sensor: sensor))
     }
 
     func sendUpdate(sensorAge: Int) {
+        dispatchPrecondition(condition: .onQueue(managerQueue))
         Log.info("SensorAge: \(sensorAge.description)")
-        self.connectionCompletionHandler?(DeviceAgeUpdate(sensorAge: sensorAge))
+
+        self.completionHandler?(DeviceServiceAgeUpdate(sensorAge: sensorAge))
     }
 
     func sendEmptyGlucoseUpdate() {
+        dispatchPrecondition(condition: .onQueue(managerQueue))
         Log.info("Empty glucose update!")
-        self.connectionCompletionHandler?(DeviceGlucoseUpdate())
+
+        self.completionHandler?(DeviceServiceGlucoseUpdate())
     }
 
     func sendUpdate(glucose: SensorGlucose) {
+        dispatchPrecondition(condition: .onQueue(managerQueue))
         Log.info("Glucose: \(glucose.description)")
-        self.connectionCompletionHandler?(DeviceGlucoseUpdate(lastGlucose: glucose))
+
+        self.completionHandler?(DeviceServiceGlucoseUpdate(lastGlucose: glucose))
     }
 
     func sendUpdate(error: Error?) {
@@ -241,20 +251,26 @@ class DeviceService : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             return
         }
 
+        dispatchPrecondition(condition: .onQueue(managerQueue))
         Log.error("Error: \(error.localizedDescription)")
+
         sendUpdate(errorMessage: error.localizedDescription)
     }
 
     func sendUpdate(errorMessage: String) {
+        dispatchPrecondition(condition: .onQueue(managerQueue))
         Log.error("ErrorMessage: \(errorMessage)")
-        self.connectionCompletionHandler?(DeviceErrorUpdate(errorMessage: errorMessage))
+
+        self.completionHandler?(DeviceServiceErrorUpdate(errorMessage: errorMessage))
     }
 
     func sendUpdate(errorCode: Int) {
+        dispatchPrecondition(condition: .onQueue(managerQueue))
         Log.error("ErrorCode: \(errorCode)")
-        self.connectionCompletionHandler?(DeviceErrorUpdate(errorCode: errorCode))
+
+        self.completionHandler?(DeviceServiceErrorUpdate(errorCode: errorCode))
     }
-    
+
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
         Log.info("State: \(manager.state.rawValue)")
@@ -276,50 +292,51 @@ class DeviceService : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
 
         }
     }
+    
+    func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
+        dispatchPrecondition(condition: .onQueue(managerQueue))
+        Log.info("Peripheral: \(peripheral)")
+
+        sendUpdate(connectionState: .disconnected)
+        sendUpdate(error: error)
+
+        guard stayConnected else {
+            return
+        }
+
+        connect()
+    }
+
+    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        dispatchPrecondition(condition: .onQueue(managerQueue))
+        Log.info("Peripheral: \(peripheral)")
+
+        sendUpdate(connectionState: .disconnected)
+        sendUpdate(error: error)
+
+        guard stayConnected else {
+            return
+        }
+
+        connect()
+    }
 }
 
-fileprivate func translateError(errorCode: Int) -> String {
-    switch errorCode {
-    case 0: //case unknown = 0
-        return "unknown"
+fileprivate extension UserDefaults {
+    enum Keys: String {
+        case devicePeripheralUuid = "libre-direct.bubble.peripheral-uuid"
+    }
 
-    case 1: //case invalidParameters = 1
-        return "invalidParameters"
-
-    case 2: //case invalidHandle = 2
-        return "invalidHandle"
-
-    case 3: //case notConnected = 3
-        return "notConnected"
-
-    case 4: //case outOfSpace = 4
-        return "outOfSpace"
-
-    case 5: //case operationCancelled = 5
-        return "operationCancelled"
-
-    case 6: //case connectionTimeout = 6
-        return "connectionTimeout"
-
-    case 7: //case peripheralDisconnected = 7
-        return "peripheralDisconnected"
-
-    case 8: //case uuidNotAllowed = 8
-        return "uuidNotAllowed"
-
-    case 9: //case alreadyAdvertising = 9
-        return "alreadyAdvertising"
-
-    case 10: //case connectionFailed = 10
-        return "connectionFailed"
-
-    case 11: //case connectionLimitReached = 11
-        return "connectionLimitReached"
-
-    case 13: //case operationNotSupported = 13
-        return "operationNotSupported"
-
-    default:
-        return ""
+    var devicePeripheralUuid: String? {
+        get {
+            return UserDefaults.standard.string(forKey: Keys.devicePeripheralUuid.rawValue)
+        }
+        set {
+            if let newValue = newValue {
+                UserDefaults.standard.setValue(newValue, forKey: Keys.devicePeripheralUuid.rawValue)
+            } else {
+                UserDefaults.standard.removeObject(forKey: Keys.devicePeripheralUuid.rawValue)
+            }
+        }
     }
 }

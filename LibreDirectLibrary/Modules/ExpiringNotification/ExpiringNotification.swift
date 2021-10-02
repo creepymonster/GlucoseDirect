@@ -75,7 +75,7 @@ class expiringNotificationService {
 
         nextExpiredAlert = Date().addingTimeInterval(AppConfig.ExpiredNotificationInterval)
 
-        NotificationCenterService.shared.ensureCanSendNotification { ensured in
+        NotificationService.shared.ensureCanSendNotification { ensured in
             Log.info("Sensor expired alert, ensured: \(ensured)")
 
             guard ensured else {
@@ -87,8 +87,8 @@ class expiringNotificationService {
             notification.body = LocalizedString("Your sensor has expired and needs to be replaced as soon as possible", comment: "")
             notification.sound = .none
 
-            NotificationCenterService.shared.add(identifier: Identifier.sensorExpiring.rawValue, content: notification)
-            NotificationCenterService.shared.playAlarmSound()
+            NotificationService.shared.add(identifier: Identifier.sensorExpiring.rawValue, content: notification)
+            NotificationService.shared.playAlarmSound()
         }
     }
 
@@ -106,7 +106,7 @@ class expiringNotificationService {
         lastExpiringAlert = body
         nextExpiredAlert = Date().addingTimeInterval(AppConfig.ExpiredNotificationInterval)
 
-        NotificationCenterService.shared.ensureCanSendNotification { ensured in
+        NotificationService.shared.ensureCanSendNotification { ensured in
             Log.info("Sensor expired alert, ensured: \(ensured)")
 
             guard ensured else {
@@ -118,10 +118,10 @@ class expiringNotificationService {
             notification.body = body
             notification.sound = .none
 
-            NotificationCenterService.shared.add(identifier: Identifier.sensorExpiring.rawValue, content: notification)
+            NotificationService.shared.add(identifier: Identifier.sensorExpiring.rawValue, content: notification)
 
             if withSound {
-                NotificationCenterService.shared.playExpiringSound()
+                NotificationService.shared.playExpiringSound()
             }
         }
     }

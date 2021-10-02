@@ -9,7 +9,8 @@ import Foundation
 import Combine
 import CoreBluetooth
 
-class Libre2ConnectionService: DeviceService {
+class Libre2Service: DeviceService {
+    let pairingService = Libre2PairingService()
     let expectedBufferSize = 46
 
     var writeCharacteristicUuid: CBUUID = CBUUID(string: "F001")
@@ -20,6 +21,22 @@ class Libre2ConnectionService: DeviceService {
 
     init() {
         super.init(serviceUuid: [CBUUID(string: "FDE3")])
+    }
+    
+    override func pairSensor(completionHandler: @escaping DeviceConnectionHandler) {
+        dispatchPrecondition(condition: .notOnQueue(managerQueue))
+        Log.info("PairSensor")
+
+        self.completionHandler = completionHandler
+        
+        pairingService.pairSensor() { (uuid, patchInfo, fram, streamingEnabled) -> Void in
+            if streamingEnabled {
+                DispatchQueue.main.async {
+                    UserDefaults.standard.libre2UnlockCount = 0
+                    self.completionHandler?(DeviceServiceSensorUpdate(sensor: Sensor(uuid: uuid, patchInfo: patchInfo, fram: fram)))
+                }
+            }
+        }
     }
 
     func unlock() -> Data? {
@@ -66,34 +83,6 @@ class Libre2ConnectionService: DeviceService {
         sendUpdate(connectionState: .connected)
 
         peripheral.discoverServices(serviceUuid)
-    }
-
-    func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Peripheral: \(peripheral)")
-
-        sendUpdate(connectionState: .disconnected)
-        sendUpdate(error: error)
-
-        guard stayConnected else {
-            return
-        }
-
-        connect()
-    }
-
-    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Peripheral: \(peripheral)")
-
-        sendUpdate(connectionState: .disconnected)
-        sendUpdate(error: error)
-
-        guard stayConnected else {
-            return
-        }
-
-        connect()
     }
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
@@ -203,4 +192,19 @@ fileprivate func calculateSlope(secondLast: SensorGlucose, last: SensorGlucose) 
     let minutesDiff = calculateDiffInMinutes(secondLast: secondLast.timestamp, last: last.timestamp)
 
     return glucoseDiff / minutesDiff
+}
+
+fileprivate extension UserDefaults {
+    fileprivate enum Keys: String {
+        case libre2UnlockCount = "libre-direct.libre2.unlock-count"
+    }
+
+    var libre2UnlockCount: Int {
+        get {
+            return UserDefaults.standard.integer(forKey: Keys.libre2UnlockCount.rawValue)
+        }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: Keys.libre2UnlockCount.rawValue)
+        }
+    }
 }

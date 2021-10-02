@@ -53,7 +53,7 @@ class connectionNotificationService {
     func sendSensorConnectionLostNotification() {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
-        NotificationCenterService.shared.ensureCanSendNotification { ensured in
+        NotificationService.shared.ensureCanSendNotification { ensured in
             Log.info("Sensor connection lLost alert, ensured: \(ensured)")
 
             guard ensured else {
@@ -65,14 +65,14 @@ class connectionNotificationService {
             notification.body = LocalizedString("The connection with the sensor has been lost. Normally this happens when the sensor is outside the possible range.", comment: "")
             notification.sound = .none
 
-            NotificationCenterService.shared.add(identifier: Identifier.sensorConnectionAlert.rawValue, content: notification)
+            NotificationService.shared.add(identifier: Identifier.sensorConnectionAlert.rawValue, content: notification)
         }
     }
 
     func sendSensorConnectionRestoredNotification() {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
-        NotificationCenterService.shared.ensureCanSendNotification { ensured in
+        NotificationService.shared.ensureCanSendNotification { ensured in
             Log.info("Sensor connection lLost alert, ensured: \(ensured)")
 
             guard ensured else {
@@ -84,14 +84,14 @@ class connectionNotificationService {
             notification.body = LocalizedString("The connection to the sensor has been successfully established and glucose data is received.", comment: "")
             notification.sound = .none
 
-            NotificationCenterService.shared.add(identifier: Identifier.sensorConnectionAlert.rawValue, content: notification)
+            NotificationService.shared.add(identifier: Identifier.sensorConnectionAlert.rawValue, content: notification)
         }
     }
 
     func sendSensorMissedReadingsNotification(missedReadings: Int) {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
-        NotificationCenterService.shared.ensureCanSendNotification { ensured in
+        NotificationService.shared.ensureCanSendNotification { ensured in
             Log.info("Sensor missed readings, ensured: \(ensured)")
 
             guard ensured else {
@@ -103,8 +103,8 @@ class connectionNotificationService {
             notification.body = LocalizedString("The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause.", comment: "")
             notification.sound = .none
 
-            NotificationCenterService.shared.add(identifier: Identifier.sensorConnectionAlert.rawValue, content: notification)
-            NotificationCenterService.shared.playNegativeSound()
+            NotificationService.shared.add(identifier: Identifier.sensorConnectionAlert.rawValue, content: notification)
+            NotificationService.shared.playNegativeSound()
         }
     }
 }

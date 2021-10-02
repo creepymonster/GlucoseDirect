@@ -69,7 +69,7 @@ class glucoseNotificationService {
     func sendLowGlucoseNotification(glucose: String) {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
-        NotificationCenterService.shared.ensureCanSendNotification { ensured in
+        NotificationService.shared.ensureCanSendNotification { ensured in
             Log.info("Glucose alert, ensured: \(ensured)")
 
             guard ensured else {
@@ -82,15 +82,15 @@ class glucoseNotificationService {
             notification.badge = 2.0
             notification.sound = .none
 
-            NotificationCenterService.shared.add(identifier: Identifier.sensorGlucoseAlert.rawValue, content: notification)
-            NotificationCenterService.shared.playAlarmSound()
+            NotificationService.shared.add(identifier: Identifier.sensorGlucoseAlert.rawValue, content: notification)
+            NotificationService.shared.playAlarmSound()
         }
     }
 
     func sendHighGlucoseNotification(glucose: String) {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
-        NotificationCenterService.shared.ensureCanSendNotification { ensured in
+        NotificationService.shared.ensureCanSendNotification { ensured in
             Log.info("Glucose alert, ensured: \(ensured)")
 
             guard ensured else {
@@ -102,8 +102,8 @@ class glucoseNotificationService {
             notification.body = String(format: LocalizedString("Your blood sugar %1$@ is dangerously high and needs to be treated.", comment: ""), glucose)
             notification.sound = .none
 
-            NotificationCenterService.shared.add(identifier: Identifier.sensorGlucoseAlert.rawValue, content: notification)
-            NotificationCenterService.shared.playAlarmSound()
+            NotificationService.shared.add(identifier: Identifier.sensorGlucoseAlert.rawValue, content: notification)
+            NotificationService.shared.playAlarmSound()
         }
     }
 }

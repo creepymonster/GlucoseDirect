@@ -96,7 +96,7 @@ public func defaultAppReducer(state: inout AppState, action: AppAction) -> Void 
             state.alarmSnoozeUntil = value
 
             // stop sounds
-            NotificationCenterService.shared.stopSound()
+            NotificationService.shared.stopSound()
         } else {
             state.alarmSnoozeUntil = nil
         }

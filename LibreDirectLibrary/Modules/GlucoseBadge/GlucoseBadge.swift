@@ -37,7 +37,7 @@ class glucoseBadgeService {
     func setGlucoseBadge(glucose: Int) {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
-        NotificationCenterService.shared.ensureCanSendNotification { ensured in
+        NotificationService.shared.ensureCanSendNotification { ensured in
             Log.info("Glucose badge, ensured: \(ensured)")
 
             guard ensured else {

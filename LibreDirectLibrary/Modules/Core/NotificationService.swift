@@ -10,9 +10,9 @@ import UserNotifications
 import UIKit
 import AVFoundation
 
-class NotificationCenterService {
+class NotificationService {
     private var player: AVPlayer?
-    static let shared = NotificationCenterService()
+    static let shared = NotificationService()
 
     private init() {
         do {
