@@ -30,6 +30,7 @@
 		E29ED236268C87CC00CBD3F1 /* TextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29ED235268C87CC00CBD3F1 /* TextEditorView.swift */; };
 		E2A590012708EDC7003A081B /* BubbleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A590002708EDC7003A081B /* BubbleService.swift */; };
 		E2A590032708EEDF003A081B /* DeviceServiceUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A590022708EEDF003A081B /* DeviceServiceUpdate.swift */; };
+		E2A590052709036B003A081B /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A590042709036B003A081B /* DeviceInfo.swift */; };
 		E2F5F3D126A70AC400834A74 /* DateSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F5F3D026A70AC400834A74 /* DateSelectorView.swift */; };
 		E2FCAC102706F90500FE1CBF /* Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC0F2706F90500FE1CBF /* Bubble.swift */; };
 		E2FCAC1C270741BC00FE1CBF /* SensorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC12270741BC00FE1CBF /* SensorType.swift */; };
@@ -126,6 +127,7 @@
 		E29ED235268C87CC00CBD3F1 /* TextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorView.swift; sourceTree = "<group>"; };
 		E2A590002708EDC7003A081B /* BubbleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleService.swift; sourceTree = "<group>"; };
 		E2A590022708EEDF003A081B /* DeviceServiceUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceServiceUpdate.swift; sourceTree = "<group>"; };
+		E2A590042709036B003A081B /* DeviceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfo.swift; sourceTree = "<group>"; };
 		E2BF22DF266F9CA20060866F /* App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = App.entitlements; sourceTree = "<group>"; };
 		E2F5F3D026A70AC400834A74 /* DateSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelectorView.swift; sourceTree = "<group>"; };
 		E2FCAC0F2706F90500FE1CBF /* Bubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bubble.swift; sourceTree = "<group>"; };
@@ -295,6 +297,7 @@
 				E2FCAC19270741BC00FE1CBF /* SensorState.swift */,
 				E2FCAC1B270741BC00FE1CBF /* SensorTrend.swift */,
 				E2FCAC12270741BC00FE1CBF /* SensorType.swift */,
+				E2A590042709036B003A081B /* DeviceInfo.swift */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -607,6 +610,7 @@
 				E2FCAC722707438A00FE1CBF /* AppConfig.swift in Sources */,
 				E29ED231268C754F00CBD3F1 /* GlucoseView.swift in Sources */,
 				E28728AA26DE499200269F47 /* AlarmSnoozeView.swift in Sources */,
+				E2A590052709036B003A081B /* DeviceInfo.swift in Sources */,
 				E2FCAC702707438A00FE1CBF /* AppState.swift in Sources */,
 				E2FCAC612707426F00FE1CBF /* FreeAPS.swift in Sources */,
 				E292E1B226A608C400011F64 /* NumberSelectorView.swift in Sources */,

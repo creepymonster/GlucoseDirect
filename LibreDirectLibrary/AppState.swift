@@ -25,6 +25,7 @@ public protocol AppState {
     var nightscoutApiSecret: String { get set }
     var nightscoutHost: String { get set }
     var sensor: Sensor? { get set }
+    var deviceInfo: DeviceInfo? { get set }
 }
 
 public extension AppState {

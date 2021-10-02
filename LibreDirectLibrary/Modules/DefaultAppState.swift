@@ -65,6 +65,12 @@ public struct DefaultAppState: AppState {
             UserDefaults.appGroup.sensor = sensor
         }
     }
+    
+    public var deviceInfo: DeviceInfo? = nil {
+        didSet {
+            UserDefaults.appGroup.deviceInfo = deviceInfo
+        }
+    }
 
     public init() {
         if let alarmHigh = UserDefaults.appGroup.alarmHigh {

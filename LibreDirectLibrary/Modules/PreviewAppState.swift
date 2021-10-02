@@ -35,7 +35,8 @@ public struct PreviewAppState: AppState {
     public var nightscoutApiSecret: String = ""
     public var nightscoutHost: String = ""
     public var sensor: Sensor? = createPreviewSensor()
-
+    public var deviceInfo: DeviceInfo? = nil
+    
     public var lastGlucose: SensorGlucose? {
         get {
             return glucoseValues.last

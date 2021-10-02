@@ -28,5 +28,7 @@ public enum AppAction {
     case setSensorError(errorMessage: String, errorTimestamp: Date)
     case setSensorReading(glucose: SensorGlucose)
     case setSensorMissedReadings
+    
+    case setDeviceInfo(value: DeviceInfo)
 }
 

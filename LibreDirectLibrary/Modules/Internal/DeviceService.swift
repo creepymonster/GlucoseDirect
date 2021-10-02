@@ -40,7 +40,10 @@ func deviceMiddelware(service: DeviceServiceProtocol) -> Middleware<AppState, Ap
 
             } else if let sensorUpdate = update as? DeviceServiceSensorUpdate {
                 action = .setSensor(value: sensorUpdate.sensor)
-
+                
+            } else if let infoUpdate = update as? DeviceServiceInfoUpdate {
+                action = .setDeviceInfo(value: infoUpdate.info)
+                
             }
 
             if let action = action {

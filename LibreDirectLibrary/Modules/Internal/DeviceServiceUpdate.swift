@@ -55,6 +55,14 @@ class DeviceServiceErrorUpdate: DeviceServiceUpdate {
     }
 }
 
+class DeviceServiceInfoUpdate: DeviceServiceUpdate {
+    private(set) var info: DeviceInfo
+    
+    init(info: DeviceInfo) {
+        self.info = info
+    }
+}
+
 fileprivate func translateError(errorCode: Int) -> String {
     switch errorCode {
     case 0: //case unknown = 0

@@ -103,6 +103,9 @@ public func defaultAppReducer(state: inout AppState, action: AppAction) -> Void 
 
     case .setGlucoseUnit(value: let value):
         state.glucoseUnit = value
+        
+    case .setDeviceInfo(value: let value):
+        state.deviceInfo = value
 
     }
 

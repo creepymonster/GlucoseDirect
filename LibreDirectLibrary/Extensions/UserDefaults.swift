@@ -42,6 +42,7 @@ fileprivate enum Keys: String {
     case nightscoutHost = "libre-direct.settings.nightscout-host"
     case glucoseUnit = "libre-direct.settings.glucose-unit"
     case sensor = "libre-direct.settings.sensor"
+    case deviceInfo = "libre-direct.settings.device-info"
 }
 
 public extension UserDefaults {
@@ -159,6 +160,19 @@ public extension UserDefaults {
                 setObject(newValue, forKey: Keys.sensor.rawValue)
             } else {
                 removeObject(forKey: Keys.sensor.rawValue)
+            }
+        }
+    }
+    
+    var deviceInfo: DeviceInfo? {
+        get {
+            return getObject(forKey: Keys.deviceInfo.rawValue)
+        }
+        set {
+            if let newValue = newValue {
+                setObject(newValue, forKey: Keys.deviceInfo.rawValue)
+            } else {
+                removeObject(forKey: Keys.deviceInfo.rawValue)
             }
         }
     }
