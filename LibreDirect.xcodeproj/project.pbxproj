@@ -61,9 +61,9 @@
 		E2FCAC512707424800FE1CBF /* Nightscout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC502707424800FE1CBF /* Nightscout.swift */; };
 		E2FCAC532707425000FE1CBF /* Loop.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC522707425000FE1CBF /* Loop.swift */; };
 		E2FCAC582707425900FE1CBF /* Libre2Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC542707425900FE1CBF /* Libre2Utility.swift */; };
-		E2FCAC592707425900FE1CBF /* Libre2Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC552707425900FE1CBF /* Libre2Connection.swift */; };
+		E2FCAC592707425900FE1CBF /* Libre2Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC552707425900FE1CBF /* Libre2Service.swift */; };
 		E2FCAC5A2707425900FE1CBF /* Libre2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC562707425900FE1CBF /* Libre2.swift */; };
-		E2FCAC5B2707425900FE1CBF /* Libre2Pairing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC572707425900FE1CBF /* Libre2Pairing.swift */; };
+		E2FCAC5B2707425900FE1CBF /* Libre2PairingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC572707425900FE1CBF /* Libre2PairingService.swift */; };
 		E2FCAC5D2707426100FE1CBF /* GlucoseNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC5C2707426100FE1CBF /* GlucoseNotification.swift */; };
 		E2FCAC5F2707426800FE1CBF /* GlucoseBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC5E2707426800FE1CBF /* GlucoseBadge.swift */; };
 		E2FCAC612707426F00FE1CBF /* FreeAPS.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC602707426F00FE1CBF /* FreeAPS.swift */; };
@@ -158,9 +158,9 @@
 		E2FCAC502707424800FE1CBF /* Nightscout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Nightscout.swift; sourceTree = "<group>"; };
 		E2FCAC522707425000FE1CBF /* Loop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loop.swift; sourceTree = "<group>"; };
 		E2FCAC542707425900FE1CBF /* Libre2Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Libre2Utility.swift; sourceTree = "<group>"; };
-		E2FCAC552707425900FE1CBF /* Libre2Connection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Libre2Connection.swift; sourceTree = "<group>"; };
+		E2FCAC552707425900FE1CBF /* Libre2Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Libre2Service.swift; sourceTree = "<group>"; };
 		E2FCAC562707425900FE1CBF /* Libre2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Libre2.swift; sourceTree = "<group>"; };
-		E2FCAC572707425900FE1CBF /* Libre2Pairing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Libre2Pairing.swift; sourceTree = "<group>"; };
+		E2FCAC572707425900FE1CBF /* Libre2PairingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Libre2PairingService.swift; sourceTree = "<group>"; };
 		E2FCAC5C2707426100FE1CBF /* GlucoseNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlucoseNotification.swift; sourceTree = "<group>"; };
 		E2FCAC5E2707426800FE1CBF /* GlucoseBadge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlucoseBadge.swift; sourceTree = "<group>"; };
 		E2FCAC602707426F00FE1CBF /* FreeAPS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreeAPS.swift; sourceTree = "<group>"; };
@@ -398,8 +398,8 @@
 			isa = PBXGroup;
 			children = (
 				E2FCAC562707425900FE1CBF /* Libre2.swift */,
-				E2FCAC552707425900FE1CBF /* Libre2Connection.swift */,
-				E2FCAC572707425900FE1CBF /* Libre2Pairing.swift */,
+				E2FCAC552707425900FE1CBF /* Libre2Service.swift */,
+				E2FCAC572707425900FE1CBF /* Libre2PairingService.swift */,
 				E2FCAC542707425900FE1CBF /* Libre2Utility.swift */,
 			);
 			path = Libre2;
@@ -586,7 +586,7 @@
 				E2FCAC3A270741E600FE1CBF /* StreamReader.swift in Sources */,
 				E2FCAC21270741BC00FE1CBF /* SensorFamily.swift in Sources */,
 				E2FCAC3B270741E600FE1CBF /* Log.swift in Sources */,
-				E2FCAC5B2707425900FE1CBF /* Libre2Pairing.swift in Sources */,
+				E2FCAC5B2707425900FE1CBF /* Libre2PairingService.swift in Sources */,
 				E2A590032708EEDF003A081B /* DeviceServiceUpdate.swift in Sources */,
 				E2FCAC732707438A00FE1CBF /* AppStore.swift in Sources */,
 				E20B853E266F4A9800AA4224 /* App.swift in Sources */,
@@ -604,7 +604,7 @@
 				E2FCAC32270741D200FE1CBF /* UserDefaults.swift in Sources */,
 				E2FCAC6A270742BA00FE1CBF /* DeviceService.swift in Sources */,
 				E2FCAC35270741D200FE1CBF /* State.swift in Sources */,
-				E2FCAC592707425900FE1CBF /* Libre2Connection.swift in Sources */,
+				E2FCAC592707425900FE1CBF /* Libre2Service.swift in Sources */,
 				E2FCAC1E270741BC00FE1CBF /* SensorConnectionState.swift in Sources */,
 				E2FCAC722707438A00FE1CBF /* AppConfig.swift in Sources */,
 				E29ED231268C754F00CBD3F1 /* GlucoseView.swift in Sources */,

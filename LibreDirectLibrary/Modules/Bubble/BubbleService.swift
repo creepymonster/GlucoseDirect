@@ -9,15 +9,6 @@ import Foundation
 import Combine
 import CoreBluetooth
 
-public enum BubbleResponseType: UInt8 {
-    case dataPacket = 130
-    case bubbleInfo = 128 // = wakeUp + device info
-    case noSensor = 191
-    case serialNumber = 192
-    case patchInfo = 193 //0xC1
-    case decryptedDataPacket = 136 // 0x88
-}
-
 class BubbleService: DeviceService {
     let expectedBufferSize = 352
 
@@ -219,4 +210,13 @@ class BubbleService: DeviceService {
             }
         }
     }
+}
+
+fileprivate enum BubbleResponseType: UInt8 {
+    case dataPacket = 130
+    case bubbleInfo = 128 // = wakeUp + device info
+    case noSensor = 191
+    case serialNumber = 192
+    case patchInfo = 193 //0xC1
+    case decryptedDataPacket = 136 // 0x88
 }
