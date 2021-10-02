@@ -19,7 +19,6 @@
 		E23A77D1267BD0D100363770 /* KeyValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23A77D0267BD0D100363770 /* KeyValueView.swift */; };
 		E23D3F9326B047B900E10B07 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23D3F9226B047B900E10B07 /* LoadingView.swift */; };
 		E24077B326B881C2001767C0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E24077B126B881C2001767C0 /* InfoPlist.strings */; };
-		E247D8E526B7D70A00BDAF89 /* App.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E247D8E426B7D70A00BDAF89 /* App.xcconfig */; };
 		E24B531E26B863910091417F /* NightscoutSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B531D26B863910091417F /* NightscoutSettingsView.swift */; };
 		E24B532126B863C00091417F /* GlucoseSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532026B863C00091417F /* GlucoseSettingsView.swift */; };
 		E24B532326B863E20091417F /* AlarmSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532226B863E20091417F /* AlarmSettingsView.swift */; };
@@ -501,7 +500,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1300;
 				TargetAttributes = {
 					E20B8539266F4A9800AA4224 = {
 						CreatedOnToolsVersion = 12.5;
@@ -541,7 +540,6 @@
 				E2FCAC7E270743B100FE1CBF /* alarm.aiff in Resources */,
 				E2FCAC7C270743B100FE1CBF /* expiring.aiff in Resources */,
 				E2FCAC7F270743B100FE1CBF /* negative.aiff in Resources */,
-				E247D8E526B7D70A00BDAF89 /* App.xcconfig in Resources */,
 				E2FCAC7B270743B100FE1CBF /* positive.aiff in Resources */,
 				E2FCAC80270743B100FE1CBF /* silent.aiff in Resources */,
 				E2FCAC7D270743B100FE1CBF /* sensor.png in Resources */,

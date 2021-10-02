@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import CoreBluetooth
 
+// MARK: - BubbleService
 class BubbleService: DeviceService {
     let expectedBufferSize = 352
 
@@ -25,6 +26,7 @@ class BubbleService: DeviceService {
         super.init(serviceUuid: [CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E")])
     }
 
+    // MARK: - CBCentralManagerDelegate
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
         Log.info("Peripheral: \(peripheral)")
@@ -76,6 +78,7 @@ class BubbleService: DeviceService {
         peripheral.discoverServices(serviceUuid)
     }
 
+    // MARK: - CBPeripheralDelegate
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
         Log.info("Peripheral: \(peripheral)")
@@ -201,6 +204,7 @@ class BubbleService: DeviceService {
     }
 }
 
+// MARK: - fileprivate
 fileprivate enum BubbleResponseType: UInt8 {
     case dataPacket = 130
     case bubbleInfo = 128 // = wakeUp + device info

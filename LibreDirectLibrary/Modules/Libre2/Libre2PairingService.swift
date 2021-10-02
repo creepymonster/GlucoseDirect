@@ -271,6 +271,7 @@ class Libre2PairingService: NSObject, NFCTagReaderSessionDelegate {
     }
 }
 
+// MARK: - fileprivate
 fileprivate struct NFCCommand {
     let code: UInt8
     let parameters: Data

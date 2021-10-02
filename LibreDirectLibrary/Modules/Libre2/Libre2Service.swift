@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import CoreBluetooth
 
+// MARK: - Libre2Service
 class Libre2Service: DeviceService {
     let pairingService = Libre2PairingService()
     let expectedBufferSize = 46
@@ -53,6 +54,7 @@ class Libre2Service: DeviceService {
         return Data(unlockPayload)
     }
 
+    // MARK: - CBCentralManagerDelegate
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
         Log.info("Peripheral: \(peripheral)")
@@ -85,6 +87,7 @@ class Libre2Service: DeviceService {
         peripheral.discoverServices(serviceUuid)
     }
 
+    // MARK: - CBPeripheralDelegate
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
         Log.info("Peripheral: \(peripheral)")
@@ -178,6 +181,7 @@ class Libre2Service: DeviceService {
     }
 }
 
+// MARK: - fileprivate
 fileprivate func calculateDiffInMinutes(secondLast: Date, last: Date) -> Double {
     let diff = last.timeIntervalSince(secondLast)
     return diff / 60
@@ -195,7 +199,7 @@ fileprivate func calculateSlope(secondLast: SensorGlucose, last: SensorGlucose) 
 }
 
 fileprivate extension UserDefaults {
-    fileprivate enum Keys: String {
+    enum Keys: String {
         case libre2UnlockCount = "libre-direct.libre2.unlock-count"
     }
 

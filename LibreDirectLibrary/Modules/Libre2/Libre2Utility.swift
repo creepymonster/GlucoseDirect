@@ -239,6 +239,7 @@ class Libre2 {
     }
 }
 
+// MARK: - fileprivate
 fileprivate func word(_ high: UInt8, _ low: UInt8) -> UInt64 {
     return (UInt64(high) << 8) + UInt64(low & 0xff)
 }

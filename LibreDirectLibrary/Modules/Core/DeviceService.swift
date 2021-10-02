@@ -15,6 +15,7 @@ protocol DeviceServiceProtocol {
     func disconnectSensor()
 }
 
+// MARK: - deviceMiddelware
 func deviceMiddelware(service: DeviceServiceProtocol) -> Middleware<AppState, AppAction> {
     return { store, action, lastState in
         let completionHandler: DeviceConnectionHandler = { (update) -> Void in
@@ -71,8 +72,10 @@ func deviceMiddelware(service: DeviceServiceProtocol) -> Middleware<AppState, Ap
     }
 }
 
+// MARK: - DeviceConnectionHandler
 typealias DeviceConnectionHandler = (_ update: DeviceServiceUpdate) -> Void
 
+// MARK: - DeviceService
 class DeviceService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, DeviceServiceProtocol {
     var rxBuffer = Data()
     var completionHandler: DeviceConnectionHandler?
@@ -218,6 +221,7 @@ class DeviceService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, D
         self.stayConnected = stayConnected
     }
 
+    // MARK: - sendUpdate
     func sendUpdate(connectionState: SensorConnectionState) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
         Log.info("ConnectionState: \(connectionState.description)")
@@ -277,7 +281,8 @@ class DeviceService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, D
 
         self.completionHandler?(DeviceServiceErrorUpdate(errorCode: errorCode))
     }
-
+    
+    // MARK: - CBCentralManagerDelegate
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
         Log.info("State: \(manager.state.rawValue)")
@@ -329,6 +334,7 @@ class DeviceService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, D
     }
 }
 
+// MARK: - fileprivate
 fileprivate extension UserDefaults {
     enum Keys: String {
         case devicePeripheralUuid = "libre-direct.bubble.peripheral-uuid"
