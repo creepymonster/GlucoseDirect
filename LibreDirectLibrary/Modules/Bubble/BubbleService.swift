@@ -25,17 +25,6 @@ class BubbleService: DeviceService {
         super.init(serviceUuid: [CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E")])
     }
 
-    override func pairSensor(completionHandler: @escaping DeviceConnectionHandler) {
-        dispatchPrecondition(condition: .notOnQueue(managerQueue))
-        Log.info("PairSensor")
-
-        self.completionHandler = completionHandler
-
-        managerQueue.async {
-            self.find()
-        }
-    }
-
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
         Log.info("Peripheral: \(peripheral)")
