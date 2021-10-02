@@ -17,7 +17,6 @@ My playground for the Libre 2 (and maybe other) blood glucose sensors and Swift/
 - Sensor expiring alert
 - Snooze for glucose alerts
 - Units mg/dL or mmol/L
-- Widget (iOS unfortunately throttles the update rate)
 
 ## Future
 - Feature flags
