@@ -111,5 +111,6 @@ public func defaultAppReducer(state: inout AppState, action: AppAction) -> Void 
     }
 }
 
+// MARK: - fileprivate
 fileprivate var resetableStates: Set<SensorConnectionState> = [.connected, .powerOff, .scanning]
 fileprivate var disconnectedStates: Set<SensorConnectionState> = [.disconnected, .scanning]

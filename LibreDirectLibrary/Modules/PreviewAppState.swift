@@ -8,21 +8,6 @@
 import Foundation
 import Combine
 
-fileprivate let savedUuid = "phFxAgCkB+A=".fromBase64()!
-fileprivate let savedPatchInfo = "nQgwAekK".fromBase64()!
-fileprivate let savedFram = "X4XlsiPXmEs16xz6olwbLkv3oy3TOjZ+Ed7R5MnhG26v5sInIkWrsuYJ9Mv1EF25A78WrFhw+EtMKk+KHmUTaxQwjvsyoxk9hd7CB20u4CJmYlnWnApQDjsRBgvkMhySPAck9HZSS8xz+jTK28fxaSfg/VP/i8k/QpfaO4k9901nwybpFKKB7VuPKaTI1eqLqE/KZ0CwdAxgSfZ2+t5oJuVR1ZnVEKtyyhAe/1iE+8urILQtcGNLK9ych5DrVJGq2OVk34A0Tb9uzV+FRG2Smt/Xlthp35jM9cTtp52lSCjruGB2qe/4AOZL7J4HFOGoZesOhcp3bq0qanWg7PWFeRlzlmLDp+Qs4zbaLo0odgjAIlf9bqoHHMorR9aylxOEJNuk9cz1W3z32m2rFZzl3TbC0Ig4BruLx4v2WP2uIgkLySWOwdiSCEeoklMKWECaI/6hBCGrOxk=".fromBase64()!
-fileprivate let savedSensor = "eyJmYW1pbHkiOjMsInJlZ2lvbiI6IjEgLSBFdXJvcGVhbiIsInNlcmlhbCI6IjNNSDAwNVZQUlo4IiwicGF0Y2hJbmZvIjoiblFnd0FaYzIiLCJjYWxpYnJhdGlvbiI6eyJpMyI6MTgsImk2Ijo3NDI4LCJpMiI6NzA1LCJpNSI6OTY2NCwiaTEiOjAsImk0Ijo2Nzc4fSwiYWdlIjoxOTc5MiwidXVpZCI6Iit0anVBZ0NrQitBPSIsImxpZmV0aW1lIjoyMDc1NCwidHlwZSI6IkxpYnJlIDIiLCJzdGF0ZSI6IlNlbnNvciBpcyByZWFkeSJ9".fromBase64()!
-
-fileprivate func createPreviewSensor() -> Sensor {
-    let decoder = JSONDecoder()
-
-    if let sensor = try? decoder.decode(Sensor.self, from: savedSensor) {
-        return sensor
-    }
-
-    return Sensor(uuid: savedUuid, patchInfo: savedPatchInfo, fram: savedFram)
-}
-
 public struct PreviewAppState: AppState {
     public var alarmHigh: Int = 180
     public var alarmLow: Int = 70
@@ -62,3 +47,19 @@ public struct PreviewAppState: AppState {
 }
 
 public let previewSensor = createPreviewSensor()
+
+// MARK: - fileprivate
+fileprivate let savedUuid = "phFxAgCkB+A=".fromBase64()!
+fileprivate let savedPatchInfo = "nQgwAekK".fromBase64()!
+fileprivate let savedFram = "X4XlsiPXmEs16xz6olwbLkv3oy3TOjZ+Ed7R5MnhG26v5sInIkWrsuYJ9Mv1EF25A78WrFhw+EtMKk+KHmUTaxQwjvsyoxk9hd7CB20u4CJmYlnWnApQDjsRBgvkMhySPAck9HZSS8xz+jTK28fxaSfg/VP/i8k/QpfaO4k9901nwybpFKKB7VuPKaTI1eqLqE/KZ0CwdAxgSfZ2+t5oJuVR1ZnVEKtyyhAe/1iE+8urILQtcGNLK9ych5DrVJGq2OVk34A0Tb9uzV+FRG2Smt/Xlthp35jM9cTtp52lSCjruGB2qe/4AOZL7J4HFOGoZesOhcp3bq0qanWg7PWFeRlzlmLDp+Qs4zbaLo0odgjAIlf9bqoHHMorR9aylxOEJNuk9cz1W3z32m2rFZzl3TbC0Ig4BruLx4v2WP2uIgkLySWOwdiSCEeoklMKWECaI/6hBCGrOxk=".fromBase64()!
+fileprivate let savedSensor = "eyJmYW1pbHkiOjMsInJlZ2lvbiI6IjEgLSBFdXJvcGVhbiIsInNlcmlhbCI6IjNNSDAwNVZQUlo4IiwicGF0Y2hJbmZvIjoiblFnd0FaYzIiLCJjYWxpYnJhdGlvbiI6eyJpMyI6MTgsImk2Ijo3NDI4LCJpMiI6NzA1LCJpNSI6OTY2NCwiaTEiOjAsImk0Ijo2Nzc4fSwiYWdlIjoxOTc5MiwidXVpZCI6Iit0anVBZ0NrQitBPSIsImxpZmV0aW1lIjoyMDc1NCwidHlwZSI6IkxpYnJlIDIiLCJzdGF0ZSI6IlNlbnNvciBpcyByZWFkeSJ9".fromBase64()!
+
+fileprivate func createPreviewSensor() -> Sensor {
+    let decoder = JSONDecoder()
+
+    if let sensor = try? decoder.decode(Sensor.self, from: savedSensor) {
+        return sensor
+    }
+
+    return Sensor(uuid: savedUuid, patchInfo: savedPatchInfo, fram: savedFram)
+}

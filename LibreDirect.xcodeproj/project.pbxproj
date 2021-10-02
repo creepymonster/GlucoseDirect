@@ -326,7 +326,7 @@
 		E2FCAC3C270741F000FE1CBF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				E2FCAC682707429800FE1CBF /* Core */,
+				E2FCAC682707429800FE1CBF /* Internal */,
 				E2FCAC0E2706F8E400FE1CBF /* Bubble */,
 				E2FCAC4F2707424000FE1CBF /* Nightscout */,
 				E2FCAC4E2707423A00FE1CBF /* Loop */,
@@ -420,14 +420,14 @@
 			path = Nightscout;
 			sourceTree = "<group>";
 		};
-		E2FCAC682707429800FE1CBF /* Core */ = {
+		E2FCAC682707429800FE1CBF /* Internal */ = {
 			isa = PBXGroup;
 			children = (
 				E2FCAC3E2707420100FE1CBF /* NotificationService.swift */,
 				E2FCAC69270742BA00FE1CBF /* DeviceService.swift */,
 				E2A590022708EEDF003A081B /* DeviceServiceUpdate.swift */,
 			);
-			path = Core;
+			path = Internal;
 			sourceTree = "<group>";
 		};
 		E2FCAC6B2707436D00FE1CBF /* LibreDirectLibrary */ = {
