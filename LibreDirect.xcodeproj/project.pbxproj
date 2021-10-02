@@ -195,8 +195,8 @@
 		E20B8531266F4A9800AA4224 = {
 			isa = PBXGroup;
 			children = (
-				E2FCAC6B2707436D00FE1CBF /* LibreDirectLibrary */,
 				E20B853C266F4A9800AA4224 /* LibreDirect */,
+				E2FCAC6B2707436D00FE1CBF /* LibreDirectLibrary */,
 				E27BFC0126B1407E00F8FBEF /* Frameworks */,
 				E20B853B266F4A9800AA4224 /* Products */,
 			);
