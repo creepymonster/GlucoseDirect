@@ -106,7 +106,14 @@ class DeviceService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, D
     }
 
     func pairSensor(completionHandler: @escaping DeviceConnectionHandler) {
-        preconditionFailure("This method must be overridden")
+        dispatchPrecondition(condition: .notOnQueue(managerQueue))
+        Log.info("PairSensor")
+
+        self.completionHandler = completionHandler
+
+        managerQueue.async {
+            self.find()
+        }
     }
 
     func connectSensor(sensor: Sensor, completionHandler: @escaping DeviceConnectionHandler) {
