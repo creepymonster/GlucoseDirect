@@ -2,7 +2,7 @@
 //  SensorGlucoseAlert.swift
 //  LibreDirect
 //
-//  Created by Reimar Metzen on 19.07.21. 
+//  Created by Reimar Metzen on 19.07.21.
 //
 
 import Foundation
@@ -77,10 +77,13 @@ class glucoseNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
-            notification.title = LocalizedString("Alert, low blood glucose", comment: "")
-            notification.body = String(format: LocalizedString("Your blood sugar %1$@ is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal.", comment: ""), glucose)
-            notification.badge = 2.0
             notification.sound = .none
+            notification.title = LocalizedString("Alert, low blood glucose", comment: "")
+            notification.body = String(format: LocalizedString("Your glucose %1$@ is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal.", comment: ""), glucose)
+            
+            if #available(iOS 15.0, *) {
+                notification.interruptionLevel = .passive
+            }
 
             NotificationService.shared.add(identifier: Identifier.sensorGlucoseAlert.rawValue, content: notification)
             NotificationService.shared.playAlarmSound()
@@ -98,9 +101,13 @@ class glucoseNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
-            notification.title = LocalizedString("Alert, high blood sugar", comment: "")
-            notification.body = String(format: LocalizedString("Your blood sugar %1$@ is dangerously high and needs to be treated.", comment: ""), glucose)
             notification.sound = .none
+            notification.title = LocalizedString("Alert, high glucose", comment: "")
+            notification.body = String(format: LocalizedString("Your glucose %1$@ is dangerously high and needs to be treated.", comment: ""), glucose)
+            
+            if #available(iOS 15.0, *) {
+                notification.interruptionLevel = .passive
+            }
 
             NotificationService.shared.add(identifier: Identifier.sensorGlucoseAlert.rawValue, content: notification)
             NotificationService.shared.playAlarmSound()

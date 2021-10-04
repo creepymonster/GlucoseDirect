@@ -26,8 +26,12 @@ struct GlucoseView: View {
 
     var minuteChange: String {
         get {
-            if let glucose = glucose, let minuteChange = glucose.minuteChange {
-                return formatter.string(from: minuteChange as NSNumber)!
+            if let minuteChange = glucose?.minuteChange {
+                if glucoseUnit == .mgdL {
+                    return formatter.string(from: minuteChange as NSNumber)!
+                } else {
+                    return formatter.string(from: minuteChange.asMmolL as NSNumber)!
+                }
             }
 
             return ""

@@ -2,7 +2,7 @@
 //  SensorPairing.swift
 //  LibreDirect
 //
-//  Created by Reimar Metzen on 06.07.21. 
+//  Created by Reimar Metzen on 06.07.21.
 //
 
 import Foundation
@@ -39,8 +39,13 @@ class Libre2PairingService: NSObject, NFCTagReaderSessionDelegate {
     }
 
     func tagReaderSession(_ session: NFCTagReaderSession, didDetect tags: [NFCTag]) {
-        guard let firstTag = tags.first else { return }
-        guard case .iso15693(let tag) = firstTag else { return }
+        guard let firstTag = tags.first else {
+            return
+        }
+        
+        guard case .iso15693(let tag) = firstTag else {
+            return
+        }
 
         let blocks = 43
         let requestBlocks = 3
@@ -58,14 +63,14 @@ class Libre2PairingService: NSObject, NFCTagReaderSessionDelegate {
                 switch result {
                 case .failure(_):
                     return
+                    
                 case .success(_):
                     tag.customCommand(requestFlags: .highDataRate, customCommandCode: 0xA1, customRequestParameters: Data()) { response, error in
-
                         for i in 0 ..< requests {
-                            tag.readMultipleBlocks(
-                                requestFlags: [.highDataRate, .address],
-                                blockRange: NSRange(UInt8(i * requestBlocks) ... UInt8(i * requestBlocks + (i == requests - 1 ? (remainder == 0 ? requestBlocks : remainder) : requestBlocks) - (requestBlocks > 1 ? 1 : 0)))
-                            ) { blockArray, error in
+                            let requestFlags: NFCISO15693RequestFlag = [.highDataRate, .address]
+                            let blockRange = NSRange(UInt8(i * requestBlocks) ... UInt8(i * requestBlocks + (i == requests - 1 ? (remainder == 0 ? requestBlocks : remainder) : requestBlocks) - (requestBlocks > 1 ? 1 : 0)))
+                            
+                            tag.readMultipleBlocks(requestFlags: requestFlags, blockRange: blockRange) { blockArray, error in
                                 if error != nil {
                                     if i != requests - 1 { return }
                                 } else {
@@ -92,31 +97,25 @@ class Libre2PairingService: NSObject, NFCTagReaderSessionDelegate {
                                         return
                                     }
 
-                                    self.readRaw(0xF860, 43 * 8, tag: tag) { _, _, _ in
-                                        self.readRaw(0x1A00, 64, tag: tag) { _, _, _ in
-                                            self.readRaw(0xFFAC, 36, tag: tag) { _, _, _ in
-                                                let subCmd: Subcommand = .enableStreaming
-                                                let cmd = self.nfcCommand(subCmd, unlockCode: self.unlockCode, patchInfo: patchInfo, sensorUID: sensorUID)
+                                    let subCmd: Subcommand = .enableStreaming
+                                    let cmd = self.nfcCommand(subCmd, unlockCode: self.unlockCode, patchInfo: patchInfo, sensorUID: sensorUID)
 
-                                                tag.customCommand(requestFlags: .highDataRate, customCommandCode: Int(cmd.code), customRequestParameters: cmd.parameters) { response, error in
-                                                    var streamingEnabled = false
+                                    tag.customCommand(requestFlags: .highDataRate, customCommandCode: Int(cmd.code), customRequestParameters: cmd.parameters) { response, error in
+                                        var streamingEnabled = false
 
-                                                    if subCmd == .enableStreaming && response.count == 6 {
-                                                        streamingEnabled = true
-                                                    }
+                                        if subCmd == .enableStreaming && response.count == 6 {
+                                            streamingEnabled = true
+                                        }
 
-                                                    session.invalidate()
+                                        session.invalidate()
 
-                                                    let decryptedFram = PreLibre2.decryptFRAM(sensorUID: sensorUID, patchInfo: patchInfo, fram: fram)
-                                                    if let decryptedFram = decryptedFram {
-                                                        self.completionHandler?(sensorUID, patchInfo, decryptedFram, streamingEnabled)
-                                                    } else {
-                                                        self.completionHandler?(sensorUID, patchInfo, fram, streamingEnabled)
-                                                    }
-
-                                                    //self.delegate?.streamingEnabled(successful: streamingEnabled)
-                                                }
-                                            }
+                                        let decryptedFram = PreLibre2.decryptFRAM(sensorUID: sensorUID, patchInfo: patchInfo, fram: fram)
+                                        if let decryptedFram = decryptedFram {
+                                            self.completionHandler?(sensorUID, patchInfo, decryptedFram, streamingEnabled)
+                                            
+                                        } else {
+                                            self.completionHandler?(sensorUID, patchInfo, fram, streamingEnabled)
+                                            
                                         }
                                     }
                                 }
@@ -244,6 +243,8 @@ class Libre2PairingService: NSObject, NFCTagReaderSessionDelegate {
     }
 
     private func nfcCommand(_ code: Subcommand, unlockCode: UInt32, patchInfo: Data, sensorUID: Data) -> NFCCommand {
+        var parameters = Data([code.rawValue])
+        
         var b: [UInt8] = []
         var y: UInt16
 
@@ -251,21 +252,25 @@ class Libre2PairingService: NSObject, NFCTagReaderSessionDelegate {
             // Enables Bluetooth on Libre 2. Returns peripheral MAC address to connect to.
             // unlockCode could be any 32 bit value. The unlockCode and sensor Uid / patchInfo
             // will have also to be provided to the login function when connecting to peripheral.
-            b = [UInt8(unlockCode & 0xFF), UInt8((unlockCode >> 8) & 0xFF), UInt8((unlockCode >> 16) & 0xFF), UInt8((unlockCode >> 24) & 0xFF)]
+            b = [
+                UInt8(unlockCode & 0xFF),
+                UInt8((unlockCode >> 8) & 0xFF),
+                UInt8((unlockCode >> 16) & 0xFF),
+                UInt8((unlockCode >> 24) & 0xFF)
+            ]
             y = UInt16(patchInfo[4...5]) ^ UInt16(b[1], b[0])
         } else {
             y = 0x1b6a
         }
 
-        let d = PreLibre2.usefulFunction(sensorUID: sensorUID, x: UInt16(code.rawValue), y: y)
-
-        var parameters = Data([code.rawValue])
-
-        if code == .enableStreaming {
+        if b.count > 0 {
             parameters += b
         }
 
-        parameters += d
+        if code.rawValue < 0x20 {
+            let d = PreLibre2.usefulFunction(sensorUID: sensorUID, x: UInt16(code.rawValue), y: y)
+            parameters += d
+        }
 
         return NFCCommand(code: 0xA1, parameters: parameters)
     }
@@ -280,16 +285,11 @@ fileprivate struct NFCCommand {
 fileprivate enum Subcommand: UInt8, CustomStringConvertible {
     case activate = 0x1b
     case enableStreaming = 0x1e
-    case unknown0x1a = 0x1a
-    case unknown0x1c = 0x1c
-    case unknown0x1d = 0x1d
-    case unknown0x1f = 0x1f
 
     var description: String {
         switch self {
         case .activate: return "activate"
         case .enableStreaming: return "enable BLE streaming"
-        default: return "[unknown: 0x\(String(format: "%x", rawValue))]"
         }
     }
 }

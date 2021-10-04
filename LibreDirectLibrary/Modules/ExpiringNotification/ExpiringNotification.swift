@@ -2,7 +2,7 @@
 //  SensorExpired.swift
 //  LibreDirect
 //
-//  Created by Reimar Metzen on 06.07.21. 
+//  Created by Reimar Metzen on 06.07.21.
 //
 
 import Foundation
@@ -83,9 +83,13 @@ class expiringNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
+            notification.sound = .none
             notification.title = LocalizedString("Alert, sensor expired", comment: "")
             notification.body = LocalizedString("Your sensor has expired and needs to be replaced as soon as possible", comment: "")
-            notification.sound = .none
+            
+            if #available(iOS 15.0, *) {
+                notification.interruptionLevel = .critical
+            }
 
             NotificationService.shared.add(identifier: Identifier.sensorExpiring.rawValue, content: notification)
             NotificationService.shared.playAlarmSound()
@@ -114,9 +118,13 @@ class expiringNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
+            notification.sound = .none
             notification.title = LocalizedString("Alert, sensor expiring soon", comment: "")
             notification.body = body
-            notification.sound = .none
+            
+            if #available(iOS 15.0, *) {
+                notification.interruptionLevel = .passive
+            }
 
             NotificationService.shared.add(identifier: Identifier.sensorExpiring.rawValue, content: notification)
 

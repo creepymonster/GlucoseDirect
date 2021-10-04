@@ -2,7 +2,7 @@
 //  DeviceService.swift
 //  LibreDirect
 //
-//  Created by Reimar Metzen on 01.10.21.
+//  Created by Reimar Metzen on 01.10.21. 
 //
 
 import Foundation
@@ -255,8 +255,14 @@ class DeviceService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, D
 
     func sendUpdate(glucose: SensorGlucose) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
+
+        if let lastGlucose = lastGlucose {
+            glucose.minuteChange = calculateSlope(secondLast: lastGlucose, last: glucose)
+        }
+
         Log.info("Glucose: \(glucose.description)")
 
+        lastGlucose = glucose
         self.completionHandler?(DeviceServiceGlucoseUpdate(lastGlucose: glucose))
     }
 
@@ -338,6 +344,22 @@ class DeviceService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, D
 }
 
 // MARK: - fileprivate
+fileprivate func calculateDiffInMinutes(secondLast: Date, last: Date) -> Double {
+    let diff = last.timeIntervalSince(secondLast)
+    return diff / 60
+}
+
+fileprivate func calculateSlope(secondLast: SensorGlucose, last: SensorGlucose) -> Double {
+    if secondLast.timestamp == last.timestamp {
+        return 0.0
+    }
+
+    let glucoseDiff = Double(last.glucoseValue) - Double(secondLast.glucoseValue)
+    let minutesDiff = calculateDiffInMinutes(secondLast: secondLast.timestamp, last: last.timestamp)
+
+    return glucoseDiff / minutesDiff
+}
+
 fileprivate extension UserDefaults {
     enum Keys: String {
         case devicePeripheralUuid = "libre-direct.bubble.peripheral-uuid"

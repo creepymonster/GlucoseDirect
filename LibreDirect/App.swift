@@ -16,7 +16,7 @@ final class LibreDirectApp: App {
             libre2Middelware(),
             expiringNotificationMiddelware(),
             glucoseNotificationMiddelware(),
-            glucoseNotificationMiddelware(),
+            glucoseBadgeMiddelware(),
             connectionNotificationMiddelware(),
             freeAPSMiddleware(),
             nightscoutMiddleware()

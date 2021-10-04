@@ -2,7 +2,7 @@
 //  SensorConnectionLostAlert.swift
 //  LibreDirect
 //
-//  Created by Reimar Metzen on 29.07.21. 
+//  Created by Reimar Metzen on 29.07.21.
 //
 
 import Foundation
@@ -61,9 +61,13 @@ class connectionNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
+            notification.sound = .none
             notification.title = LocalizedString("Alert, sensor connection lost", comment: "")
             notification.body = LocalizedString("The connection with the sensor has been lost. Normally this happens when the sensor is outside the possible range.", comment: "")
-            notification.sound = .none
+            
+            if #available(iOS 15.0, *) {
+                notification.interruptionLevel = .passive
+            }
 
             NotificationService.shared.add(identifier: Identifier.sensorConnectionAlert.rawValue, content: notification)
         }
@@ -80,9 +84,13 @@ class connectionNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
+            notification.sound = .none
             notification.title = LocalizedString("OK, sensor connection established", comment: "")
             notification.body = LocalizedString("The connection to the sensor has been successfully established and glucose data is received.", comment: "")
-            notification.sound = .none
+            
+            if #available(iOS 15.0, *) {
+                notification.interruptionLevel = .passive
+            }
 
             NotificationService.shared.add(identifier: Identifier.sensorConnectionAlert.rawValue, content: notification)
         }
@@ -99,9 +107,13 @@ class connectionNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
+            notification.sound = .none
             notification.title = String(format: LocalizedString("Warning, sensor missed %1$@ readings", comment: ""), missedReadings.description)
             notification.body = LocalizedString("The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause.", comment: "")
-            notification.sound = .none
+            
+            if #available(iOS 15.0, *) {
+                notification.interruptionLevel = .timeSensitive
+            }
 
             NotificationService.shared.add(identifier: Identifier.sensorConnectionAlert.rawValue, content: notification)
             NotificationService.shared.playNegativeSound()

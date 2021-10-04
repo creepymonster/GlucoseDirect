@@ -2,7 +2,7 @@
 //  Int.swift
 //  LibreDirect
 //
-//  Created by Reimar Metzen on 06.07.21. 
+//  Created by Reimar Metzen on 06.07.21.
 //
 
 import Foundation
@@ -16,6 +16,38 @@ public extension UInt16 {
 
     init(_ data: Data) {
         self = UInt16(data[data.startIndex + 1]) << 8 + UInt16(data[data.startIndex])
+    }
+}
+
+public extension Double {
+    var asMmolL: Decimal {
+        let places = Double(1)
+        let mmoll = self * GlucoseUnit.exchangeRate
+        
+        let divisor = pow(10.0, places)
+        let result = (mmoll * divisor).rounded() / divisor
+        
+        return Decimal(result)
+    }
+    
+    func asGlucose(unit: GlucoseUnit, withUnit: Bool = false) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 1
+        
+        var glucose: String
+        
+        if unit == .mmolL {
+            glucose = formatter.string(from: self.asMmolL as NSNumber)!
+        } else {
+            glucose = formatter.string(from: self as NSNumber)!
+        }
+
+        if withUnit {
+            return "\(glucose) \(unit.description)"
+        }
+        
+        return glucose
     }
 }
 
@@ -43,11 +75,7 @@ public extension Int {
     }
 
     var asMmolL: Decimal {
-        return Decimal(self) * GlucoseUnit.exchangeRate
-    }
-
-    var asMgdL: Int {
-        return self
+        return Double(self).asMmolL
     }
 
     func asGlucose(unit: GlucoseUnit, withUnit: Bool = false) -> String {
@@ -60,7 +88,7 @@ public extension Int {
 
             glucose = formatter.string(from: self.asMmolL as NSNumber)!
         } else {
-            glucose = String(self.asMgdL)
+            glucose = String(self)
         }
 
         if withUnit {
@@ -68,9 +96,5 @@ public extension Int {
         }
         
         return glucose
-    }
-
-    func map(inMin: Int, inMax: Int, outMin: Int, outMax: Int) -> Int {
-        return (self - inMin) * (outMax - outMin) / (inMax - inMin) + outMin
     }
 }

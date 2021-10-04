@@ -2,7 +2,7 @@
 //  SensorConnection.swift
 //  LibreDirect
 //
-//  Created by Reimar Metzen on 06.07.21. 
+//  Created by Reimar Metzen on 06.07.21.
 //
 
 import Foundation
@@ -182,22 +182,6 @@ class Libre2Service: DeviceService {
 }
 
 // MARK: - fileprivate
-fileprivate func calculateDiffInMinutes(secondLast: Date, last: Date) -> Double {
-    let diff = last.timeIntervalSince(secondLast)
-    return diff / 60
-}
-
-fileprivate func calculateSlope(secondLast: SensorGlucose, last: SensorGlucose) -> Double {
-    if secondLast.timestamp == last.timestamp {
-        return 0.0
-    }
-
-    let glucoseDiff = Double(last.glucoseValue) - Double(secondLast.glucoseValue)
-    let minutesDiff = calculateDiffInMinutes(secondLast: secondLast.timestamp, last: last.timestamp)
-
-    return glucoseDiff / minutesDiff
-}
-
 fileprivate extension UserDefaults {
     enum Keys: String {
         case libre2UnlockCount = "libre-direct.libre2.unlock-count"

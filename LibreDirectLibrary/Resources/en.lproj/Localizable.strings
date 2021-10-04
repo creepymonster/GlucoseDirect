@@ -14,7 +14,7 @@
 "Alarm Settings" = "Alarm Settings";
 
 /* (No Comment) */
-"Alert, high blood sugar" = "Alert, high blood sugar";
+"Alert, high glucose" = "Alert, high glucose";
 
 /* (No Comment) */
 "Alert, low blood glucose" = "Alert, low blood glucose";
@@ -161,10 +161,10 @@
 "Upper Limit" = "High";
 
 /* (No Comment) */
-"Your blood sugar %1$@ is dangerously high and needs to be treated." = "Your blood sugar %1$@ is dangerously high and needs to be treated.";
+"Your glucose %1$@ is dangerously high and needs to be treated." = "Your glucose %1$@ is dangerously high and needs to be treated.";
 
 /* (No Comment) */
-"Your blood sugar %1$@ is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "Your blood sugar %1$@ is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal.";
+"Your glucose %1$@ is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "Your glucose %1$@ is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal.";
 
 /* (No Comment) */
 "Your sensor has expired and needs to be replaced as soon as possible" = "Your sensor has expired and needs to be replaced as soon as possible";
@@ -198,4 +198,3 @@
 
 /* (No Comment) */
 "The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause." = "The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause.";
-
