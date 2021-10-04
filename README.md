@@ -5,21 +5,23 @@
 My playground for the Libre 2 (and maybe other) blood glucose sensors and Swift/SwiftUI.
 
 ## Current features
+- Units mg/dL or mmol/L
 - Connection lost alert
-- FreeAPS X Support (with App Groups)
+- Missed readings alert
 - Glucose alert for lows and highs
 - Glucose badge
 - Glucose chart
 - Libre 2 EU support (without transmitter)
 - Lifetime visualization
-- Nightscout support
 - Sensor details
 - Sensor expiring alert
 - Snooze for glucose alerts
-- Units mg/dL or mmol/L
+- Nightscout upload
+- FreeAPS X support (with Shared App Groups)
 
 ## Future
 - Feature flags
+- Bubble (because I have one :D)
 - Libre 2 US/CA
 - Libre 3 (if possible)
 
