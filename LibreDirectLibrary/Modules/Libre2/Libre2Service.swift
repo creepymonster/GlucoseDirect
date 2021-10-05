@@ -31,7 +31,7 @@ class Libre2Service: DeviceService {
         self.completionHandler = completionHandler
 
         Task {
-            let result = try await self.pairingService.pairSensor()
+            let result = await self.pairingService.pairSensor()
 
             if let result = result, result.streamingEnabled {
                 DispatchQueue.main.async {
