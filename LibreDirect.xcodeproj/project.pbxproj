@@ -17,7 +17,6 @@
 		E223F867267A4D9800EC9BCA /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E223F866267A4D9800EC9BCA /* DetailsView.swift */; };
 		E235E2F9267B6F7C00280EF9 /* ConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E235E2F8267B6F7C00280EF9 /* ConnectionView.swift */; };
 		E23A77D1267BD0D100363770 /* KeyValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23A77D0267BD0D100363770 /* KeyValueView.swift */; };
-		E23D3F9326B047B900E10B07 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23D3F9226B047B900E10B07 /* LoadingView.swift */; };
 		E24077B326B881C2001767C0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E24077B126B881C2001767C0 /* InfoPlist.strings */; };
 		E24B531E26B863910091417F /* NightscoutSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B531D26B863910091417F /* NightscoutSettingsView.swift */; };
 		E24B532126B863C00091417F /* GlucoseSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532026B863C00091417F /* GlucoseSettingsView.swift */; };
@@ -110,7 +109,6 @@
 		E223F866267A4D9800EC9BCA /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		E235E2F8267B6F7C00280EF9 /* ConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionView.swift; sourceTree = "<group>"; };
 		E23A77D0267BD0D100363770 /* KeyValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueView.swift; sourceTree = "<group>"; };
-		E23D3F9226B047B900E10B07 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		E24077B226B881C2001767C0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E24077B726B881CB001767C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E247D8E426B7D70A00BDAF89 /* App.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = App.xcconfig; sourceTree = "<group>"; };
@@ -269,7 +267,6 @@
 				E283306626AF058500244343 /* GlucoseChartView.swift */,
 				E24B532026B863C00091417F /* GlucoseSettingsView.swift */,
 				E223F862267A4CF200EC9BCA /* LifetimeView.swift */,
-				E23D3F9226B047B900E10B07 /* LoadingView.swift */,
 				E24B531D26B863910091417F /* NightscoutSettingsView.swift */,
 			);
 			path = Subviews;
@@ -617,7 +614,6 @@
 				E29ED236268C87CC00CBD3F1 /* TextEditorView.swift in Sources */,
 				E2FCAC1D270741BC00FE1CBF /* Sensor.swift in Sources */,
 				E2FCAC452707420100FE1CBF /* PreviewAppState.swift in Sources */,
-				E23D3F9326B047B900E10B07 /* LoadingView.swift in Sources */,
 				E2FCAC2F270741D200FE1CBF /* Data.swift in Sources */,
 				E2FCAC712707438A00FE1CBF /* AppAction.swift in Sources */,
 				E2FCAC512707424800FE1CBF /* Nightscout.swift in Sources */,
