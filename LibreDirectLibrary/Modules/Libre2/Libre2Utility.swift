@@ -315,8 +315,8 @@ struct GlucoseError: OptionSet {
     static let REF_R = GlucoseError(rawValue: 1 << 6)
     static let SIGNAL_SATURATED = GlucoseError(rawValue: 1 << 7)
     static let SENSOR_SIGNAL_LOW = GlucoseError(rawValue: 1 << 8)
-    static let THERMISTOR_OUT_OF_RANGE = GlucoseError(rawValue: 1 << 9)
-    static let TEMP_HIGH = GlucoseError(rawValue: 1 << 10)
-    static let TEMP_LOW = GlucoseError(rawValue: 1 << 11)
-    static let INVALID_DATA = GlucoseError(rawValue: 1 << 12)
+    static let THERMISTOR_OUT_OF_RANGE = GlucoseError(rawValue: 1 << 11)
+    static let TEMP_HIGH = GlucoseError(rawValue: 1 << 13)
+    static let TEMP_LOW = GlucoseError(rawValue: 1 << 14)
+    static let INVALID_DATA = GlucoseError(rawValue: 1 << 15)
 }
