@@ -11,7 +11,6 @@ import CoreNFC
 
 typealias Libre2PairingHandler = (_ uuid: Data, _ patchInfo: Data, _ fram: Data, _ streamingEnabled: Bool) -> Void
 
-@available(iOS 15.0, *)
 class Libre2PairingService: NSObject, NFCTagReaderSessionDelegate {
     private var session: NFCTagReaderSession?
     private var completionHandler: Libre2PairingHandler?
@@ -22,9 +21,9 @@ class Libre2PairingService: NSObject, NFCTagReaderSessionDelegate {
     private let unlockCode: UInt32 = 42
 
     func pairSensor(completionHandler: @escaping Libre2PairingHandler) {
+        self.completionHandler = completionHandler
+
         if NFCTagReaderSession.readingAvailable {
-            self.completionHandler = completionHandler
-            
             accessQueue.async {
                 self.session = NFCTagReaderSession(pollingOption: .iso15693, delegate: self, queue: self.nfcQueue)
                 self.session?.alertMessage = LocalizedString("Hold the top of your iPhone near the sensor to pair", comment: "")
@@ -40,69 +39,203 @@ class Libre2PairingService: NSObject, NFCTagReaderSessionDelegate {
     }
 
     func tagReaderSession(_ session: NFCTagReaderSession, didDetect tags: [NFCTag]) {
-        Task {
-            guard let firstTag = tags.first else {
+        guard let firstTag = tags.first else {
+            return
+        }
+        
+        guard case .iso15693(let tag) = firstTag else {
+            return
+        }
+
+        let blocks = 43
+        let requestBlocks = 3
+
+        let requests = Int(ceil(Double(blocks) / Double(requestBlocks)))
+        let remainder = blocks % requestBlocks
+        var dataArray = [Data](repeating: Data(), count: blocks)
+
+        session.connect(to: firstTag) { error in
+            if error != nil {
                 return
             }
 
-            guard case .iso15693(let tag) = firstTag else {
-                return
+            tag.getSystemInfo(requestFlags: [.address, .highDataRate]) { result in
+                switch result {
+                case .failure(_):
+                    return
+                    
+                case .success(_):
+                    tag.customCommand(requestFlags: .highDataRate, customCommandCode: 0xA1, customRequestParameters: Data()) { response, error in
+                        for i in 0 ..< requests {
+                            let requestFlags: NFCISO15693RequestFlag = [.highDataRate, .address]
+                            let blockRange = NSRange(UInt8(i * requestBlocks) ... UInt8(i * requestBlocks + (i == requests - 1 ? (remainder == 0 ? requestBlocks : remainder) : requestBlocks) - (requestBlocks > 1 ? 1 : 0)))
+                            
+                            tag.readMultipleBlocks(requestFlags: requestFlags, blockRange: blockRange) { blockArray, error in
+                                if error != nil {
+                                    if i != requests - 1 { return }
+                                } else {
+                                    for j in 0 ..< blockArray.count {
+                                        dataArray[i * requestBlocks + j] = blockArray[j]
+                                    }
+                                }
+
+                                if i == requests - 1 {
+                                    var fram = Data()
+
+                                    for (_, data) in dataArray.enumerated() {
+                                        if data.count > 0 {
+                                            fram.append(data)
+                                        }
+                                    }
+
+                                    // get sensorUID and patchInfo and send to delegate
+                                    let sensorUID = Data(tag.identifier.reversed())
+                                    let patchInfo = response
+
+                                    // patchInfo should have length 6, which sometimes is not the case, as there are occuring crashes in nfcCommand and Libre2BLEUtilities.streamingUnlockPayload
+                                    guard patchInfo.count >= 6 else {
+                                        return
+                                    }
+
+                                    let subCmd: Subcommand = .enableStreaming
+                                    let cmd = self.nfcCommand(subCmd, unlockCode: self.unlockCode, patchInfo: patchInfo, sensorUID: sensorUID)
+
+                                    tag.customCommand(requestFlags: .highDataRate, customCommandCode: Int(cmd.code), customRequestParameters: cmd.parameters) { response, error in
+                                        var streamingEnabled = false
+
+                                        if subCmd == .enableStreaming && response.count == 6 {
+                                            streamingEnabled = true
+                                        }
+
+                                        session.invalidate()
+
+                                        let decryptedFram = PreLibre2.decryptFRAM(sensorUID: sensorUID, patchInfo: patchInfo, fram: fram)
+                                        if let decryptedFram = decryptedFram {
+                                            self.completionHandler?(sensorUID, patchInfo, decryptedFram, streamingEnabled)
+                                            
+                                        } else {
+                                            self.completionHandler?(sensorUID, patchInfo, fram, streamingEnabled)
+                                            
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private func readRaw(_ address: UInt16, _ bytes: Int, buffer: Data = Data(), tag: NFCISO15693Tag, handler: @escaping (UInt16, Data, Error?) -> Void) {
+        var buffer = buffer
+        let addressToRead = address + UInt16(buffer.count)
+
+        var remainingBytes = bytes
+        let bytesToRead = remainingBytes > 24 ? 24 : bytes
+
+        var remainingWords = bytes / 2
+        if bytes % 2 == 1 || (bytes % 2 == 0 && addressToRead % 2 == 1) { remainingWords += 1 }
+        let wordsToRead = UInt8(remainingWords > 12 ? 12 : remainingWords) // real limit is 15
+
+        // this is for libre 2 only, ignoring other libre types
+        let readRawCommand = NFCCommand(code: 0xB3, parameters: Data([UInt8(addressToRead & 0x00FF), UInt8(addressToRead >> 8), wordsToRead]))
+
+        tag.customCommand(requestFlags: .highDataRate, customCommandCode: Int(readRawCommand.code), customRequestParameters: readRawCommand.parameters) { response, error in
+            var data = response
+
+            if error != nil {
+                remainingBytes = 0
+            } else {
+                if addressToRead % 2 == 1 { data = data.subdata(in: 1 ..< data.count) }
+                if data.count - Int(bytesToRead) == 1 { data = data.subdata(in: 0 ..< data.count - 1) }
             }
 
-            let blocks = 43
-            let requestBlocks = 3
+            buffer += data
+            remainingBytes -= data.count
 
-            let requests = Int(ceil(Double(blocks) / Double(requestBlocks)))
-            let remainder = blocks % requestBlocks
-            var dataArray = [Data](repeating: Data(), count: blocks)
-
-            try await session.connect(to: firstTag)
-
-            let patchInfo = try await tag.customCommand(requestFlags: .highDataRate, customCommandCode: 0xA1, customRequestParameters: Data())
-            guard patchInfo.count >= 6 else { // patchInfo should have length 6, which sometimes is not the case, as there are occuring crashes in nfcCommand and Libre2BLEUtilities.streamingUnlockPayload
-                return
+            if remainingBytes == 0 {
+                handler(address, buffer, error)
+            } else {
+                self.readRaw(address, remainingBytes, buffer: buffer, tag: tag) { address, data, error in handler(address, data, error) }
             }
-            
-            let sensorUID = Data(tag.identifier.reversed()) // get sensorUID and patchInfo and send to delegate
+        }
+    }
 
-            for i in 0 ..< requests {
-                let requestFlags: NFCISO15693RequestFlag = [.highDataRate, .address]
-                let blockRange = NSRange(UInt8(i * requestBlocks) ... UInt8(i * requestBlocks + (i == requests - 1 ? (remainder == 0 ? requestBlocks : remainder) : requestBlocks) - (requestBlocks > 1 ? 1 : 0)))
+    private func writeRaw(_ address: UInt16, _ data: Data, tag: NFCISO15693Tag, handler: @escaping (UInt16, Data, Error?) -> Void) {
+        let backdoor = "deadbeef".utf8
 
-                let blockArray = try await tag.readMultipleBlocks(requestFlags: requestFlags, blockRange: blockRange)
+        tag.customCommand(requestFlags: .highDataRate, customCommandCode: 0xA4, customRequestParameters: Data(backdoor)) {
+            response, error in
 
-                for j in 0 ..< blockArray.count {
-                    dataArray[i * requestBlocks + j] = blockArray[j]
+            let addressToRead = (address / 8) * 8
+            let startOffset = Int(address % 8)
+            let endAddressToRead = ((Int(address) + data.count - 1) / 8) * 8 + 7
+            let blocksToRead = (endAddressToRead - Int(addressToRead)) / 8 + 1
+
+            self.readRaw(addressToRead, blocksToRead * 8, tag: tag) { readAddress, readData, error in
+                if error != nil {
+                    handler(address, data, error)
+                    return
                 }
 
-                if i == requests - 1 {
-                    var fram = Data()
+                var bytesToWrite = readData
+                bytesToWrite.replaceSubrange(startOffset ..< startOffset + data.count, with: data)
 
-                    for (_, data) in dataArray.enumerated() {
-                        if data.count > 0 {
-                            fram.append(data)
+                let startBlock = Int(addressToRead / 8)
+                let blocks = bytesToWrite.count / 8
+
+                if address < 0xF860 { // lower than FRAM blocks
+                    for i in 0 ..< blocks {
+                        let blockToWrite = bytesToWrite[i * 8 ... i * 8 + 7]
+
+                        // FIXME: doesn't work as the custom commands C1 or A5 for other chips
+                        tag.extendedWriteSingleBlock(requestFlags: .highDataRate, blockNumber: startBlock + i, dataBlock: blockToWrite) { error in
+                            if error != nil {
+                                if i != blocks - 1 { return }
+                            }
+
+                            if i == blocks - 1 {
+                                tag.customCommand(requestFlags: .highDataRate, customCommandCode: 0xA2, customRequestParameters: Data(backdoor)) { response, error in
+                                    handler(address, data, error)
+                                }
+                            }
                         }
                     }
 
-                    let subCmd: Subcommand = .enableStreaming
-                    let cmd = self.nfcCommand(subCmd, unlockCode: self.unlockCode, patchInfo: patchInfo, sensorUID: sensorUID)
+                } else { // address >= 0xF860: write to FRAM blocks
+                    let requestBlocks = 2 // 3 doesn't work
+                    let requests = Int(ceil(Double(blocks) / Double(requestBlocks)))
+                    let remainder = blocks % requestBlocks
+                    var blocksToWrite = [Data](repeating: Data(), count: blocks)
 
-                    let streamingCommandResponse = try await tag.customCommand(requestFlags: .highDataRate, customCommandCode: Int(cmd.code), customRequestParameters: cmd.parameters)
-                    
-                    var streamingEnabled = false
-                    if subCmd == .enableStreaming && streamingCommandResponse.count == 6 {
-                        streamingEnabled = true
+                    for i in 0 ..< blocks {
+                        blocksToWrite[i] = Data(bytesToWrite[i * 8 ... i * 8 + 7])
                     }
 
-                    session.invalidate()
+                    for i in 0 ..< requests {
+                        let startIndex = startBlock - 0xF860 / 8 + i * requestBlocks
+                        let endIndex = startIndex + (i == requests - 1 ? (remainder == 0 ? requestBlocks : remainder) : requestBlocks) - (requestBlocks > 1 ? 1 : 0)
+                        let blockRange = NSRange(UInt8(startIndex) ... UInt8(endIndex))
 
-                    let decryptedFram = PreLibre2.decryptFRAM(sensorUID: sensorUID, patchInfo: patchInfo, fram: fram)
-                    if let decryptedFram = decryptedFram {
-                        self.completionHandler?(sensorUID, patchInfo, decryptedFram, streamingEnabled)
+                        var dataBlocks = [Data]()
+                        for j in startIndex ... endIndex { dataBlocks.append(blocksToWrite[j - startIndex]) }
 
-                    } else {
-                        self.completionHandler?(sensorUID, patchInfo, fram, streamingEnabled)
+                        // TODO: write to 16-bit addresses as the custom cummand C4 for other chips
+                        tag.writeMultipleBlocks(requestFlags: [.highDataRate, .address], blockRange: blockRange, dataBlocks: dataBlocks) { error in // TEST
+                            if error != nil {
+                                if i != requests - 1 { return }
+                            }
 
+                            if i == requests - 1 {
+                                // Lock
+                                tag.customCommand(requestFlags: .highDataRate, customCommandCode: 0xA2, customRequestParameters: Data(backdoor)) {
+                                    response, error in
+
+                                    handler(address, data, error)
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -111,7 +244,7 @@ class Libre2PairingService: NSObject, NFCTagReaderSessionDelegate {
 
     private func nfcCommand(_ code: Subcommand, unlockCode: UInt32, patchInfo: Data, sensorUID: Data) -> NFCCommand {
         var parameters = Data([code.rawValue])
-
+        
         var b: [UInt8] = []
         var y: UInt16
 
@@ -155,10 +288,9 @@ fileprivate enum Subcommand: UInt8, CustomStringConvertible {
 
     var description: String {
         switch self {
-        case .activate:
-            return "activate"
-        case .enableStreaming:
-            return "enable BLE streaming"
+        case .activate: return "activate"
+        case .enableStreaming: return "enable BLE streaming"
         }
     }
 }
+
