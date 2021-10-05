@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import CoreBluetooth
 
-@available(iOS 13.0, *)
+@available(iOS 14.0, *)
 class Libre2Service: DeviceService {
     let pairingService = Libre2PairingService()
     let expectedBufferSize = 46
