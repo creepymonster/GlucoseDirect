@@ -23,18 +23,20 @@ class Libre2Service: DeviceService {
     init() {
         super.init(serviceUuid: [CBUUID(string: "FDE3")])
     }
-    
+
     override func pairSensor(completionHandler: @escaping DeviceConnectionHandler) {
         dispatchPrecondition(condition: .notOnQueue(managerQueue))
         Log.info("PairSensor")
 
         self.completionHandler = completionHandler
-        
-        pairingService.pairSensor() { (uuid, patchInfo, fram, streamingEnabled) -> Void in
-            if streamingEnabled {
+
+        Task {
+            let result = try await self.pairingService.pairSensor()
+
+            if let result = result, result.streamingEnabled {
                 DispatchQueue.main.async {
                     UserDefaults.standard.libre2UnlockCount = 0
-                    self.completionHandler?(DeviceServiceSensorUpdate(sensor: Sensor(uuid: uuid, patchInfo: patchInfo, fram: fram)))
+                    self.completionHandler?(DeviceServiceSensorUpdate(sensor: Sensor(uuid: result.uuid, patchInfo: result.patchInfo, fram: result.fram)))
                 }
             }
         }
