@@ -56,7 +56,7 @@ struct ActionsView: View {
                 Label("Pair Sensor", systemImage: "arrow.uturn.forward")
             }
         }
-        
+
         Button(
             action: { showingDeleteLogsAlert = true },
             label: { Label("Delete Logs", systemImage: "trash") }

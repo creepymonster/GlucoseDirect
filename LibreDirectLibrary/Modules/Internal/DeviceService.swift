@@ -2,67 +2,34 @@
 //  DeviceService.swift
 //  LibreDirect
 //
-//  Created by Reimar Metzen on 01.10.21. 
+//  Created by Reimar Metzen on 01.10.21.
 //
 
 import Foundation
 import CoreBluetooth
 import Combine
 
-protocol DeviceServiceProtocol {
-    func pairSensor(completionHandler: @escaping DeviceConnectionHandler)
-    func connectSensor(sensor: Sensor, completionHandler: @escaping DeviceConnectionHandler)
-    func disconnectSensor()
-}
-
 // MARK: - deviceMiddelware
 func deviceMiddelware(service: DeviceServiceProtocol) -> Middleware<AppState, AppAction> {
     return { store, action, lastState in
-        let completionHandler: DeviceConnectionHandler = { (update) -> Void in
-            let dispatch = store.dispatch
-            var action: AppAction? = nil
-
-            if let connectionUpdate = update as? DeviceServiceConnectionUpdate {
-                action = .setSensorConnection(connectionState: connectionUpdate.connectionState)
-
-            } else if let readingUpdate = update as? DeviceServiceGlucoseUpdate {
-                if let glucose = readingUpdate.glucose {
-                    action = .setSensorReading(glucose: glucose)
-                } else {
-                    action = .setSensorMissedReadings
-                }
-
-            } else if let ageUpdate = update as? DeviceServiceAgeUpdate {
-                action = .setSensorAge(sensorAge: ageUpdate.sensorAge)
-
-            } else if let errorUpdate = update as? DeviceServiceErrorUpdate {
-                action = .setSensorError(errorMessage: errorUpdate.errorMessage, errorTimestamp: errorUpdate.errorTimestamp)
-
-            } else if let sensorUpdate = update as? DeviceServiceSensorUpdate {
-                action = .setSensor(value: sensorUpdate.sensor)
-                
-            } else if let infoUpdate = update as? DeviceServiceInfoUpdate {
-                action = .setDeviceInfo(value: infoUpdate.info)
-                
-            }
-
-            if let action = action {
-                DispatchQueue.main.async {
-                    dispatch(action)
-                }
-            }
-        }
-
         switch action {
         case .pairSensor:
-            service.pairSensor(completionHandler: completionHandler)
+            //service.pairSensor(completionHandler: createConnectionHandler(store: store))
+            Task {
+                let dispatch = store.dispatch
+                
+                let sensor = await service.pairSensor()
+                if let sensor = sensor {
+                    dispatch(.setSensor(value: sensor))
+                }
+            }
 
         case .connectSensor:
             guard let sensor = store.state.sensor else {
                 break
             }
 
-            service.connectSensor(sensor: sensor, completionHandler: completionHandler)
+            service.connectSensor(sensor: sensor, completionHandler: createConnectionHandler(store: store))
 
         case .disconnectSensor:
             service.disconnectSensor()
@@ -79,7 +46,19 @@ func deviceMiddelware(service: DeviceServiceProtocol) -> Middleware<AppState, Ap
 typealias DeviceConnectionHandler = (_ update: DeviceServiceUpdate) -> Void
 
 // MARK: - DeviceService
-class DeviceService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, DeviceServiceProtocol {
+typealias DeviceService = DeviceServiceClass & DeviceServiceProtocol
+
+
+// MARK: - DeviceServiceProtocol
+protocol DeviceServiceProtocol {
+    func pairSensor() async -> Sensor?
+    //func pairSensor(completionHandler: @escaping DeviceConnectionHandler)
+    func connectSensor(sensor: Sensor, completionHandler: @escaping DeviceConnectionHandler)
+    func disconnectSensor()
+}
+
+// MARK: - DeviceServiceClass
+class DeviceServiceClass: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     var rxBuffer = Data()
     var completionHandler: DeviceConnectionHandler?
 
@@ -109,41 +88,6 @@ class DeviceService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, D
 
     deinit {
         disconnect()
-    }
-
-    func pairSensor(completionHandler: @escaping DeviceConnectionHandler) {
-        dispatchPrecondition(condition: .notOnQueue(managerQueue))
-        Log.info("PairSensor")
-
-        self.completionHandler = completionHandler
-
-        managerQueue.async {
-            self.find()
-        }
-    }
-
-    func connectSensor(sensor: Sensor, completionHandler: @escaping DeviceConnectionHandler) {
-        dispatchPrecondition(condition: .notOnQueue(managerQueue))
-        Log.info("ConnectSensor: \(sensor)")
-
-        self.completionHandler = completionHandler
-        self.sensor = sensor
-
-        managerQueue.async {
-            self.find()
-        }
-    }
-
-    func disconnectSensor() {
-        dispatchPrecondition(condition: .notOnQueue(managerQueue))
-        Log.info("DisconnectSensor")
-
-        self.sensor = nil
-        self.lastGlucose = nil
-
-        managerQueue.sync {
-            self.disconnect()
-        }
     }
 
     func find() {
@@ -227,29 +171,29 @@ class DeviceService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, D
     // MARK: - sendUpdate
     func sendUpdate(connectionState: SensorConnectionState) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
+        
         Log.info("ConnectionState: \(connectionState.description)")
-
         self.completionHandler?(DeviceServiceConnectionUpdate(connectionState: connectionState))
     }
 
     func sendUpdate(sensor: Sensor) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
+        
         Log.info("Sensor: \(sensor.description)")
-
         self.completionHandler?(DeviceServiceSensorUpdate(sensor: sensor))
     }
 
     func sendUpdate(sensorAge: Int) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
+        
         Log.info("SensorAge: \(sensorAge.description)")
-
         self.completionHandler?(DeviceServiceAgeUpdate(sensorAge: sensorAge))
     }
 
     func sendEmptyGlucoseUpdate() {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Empty glucose update!")
 
+        Log.info("Empty glucose update!")
         self.completionHandler?(DeviceServiceGlucoseUpdate())
     }
 
@@ -271,29 +215,27 @@ class DeviceService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, D
             return
         }
 
-        dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.error("Error: \(error.localizedDescription)")
-
         sendUpdate(errorMessage: error.localizedDescription)
     }
 
     func sendUpdate(errorMessage: String) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.error("ErrorMessage: \(errorMessage)")
 
+        Log.error("ErrorMessage: \(errorMessage)")
         self.completionHandler?(DeviceServiceErrorUpdate(errorMessage: errorMessage))
     }
 
     func sendUpdate(errorCode: Int) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
+        
         Log.error("ErrorCode: \(errorCode)")
-
         self.completionHandler?(DeviceServiceErrorUpdate(errorCode: errorCode))
     }
     
     // MARK: - CBCentralManagerDelegate
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
+        
         Log.info("State: \(manager.state.rawValue)")
 
         switch manager.state {
@@ -374,6 +316,43 @@ fileprivate extension UserDefaults {
                 UserDefaults.standard.setValue(newValue, forKey: Keys.devicePeripheralUuid.rawValue)
             } else {
                 UserDefaults.standard.removeObject(forKey: Keys.devicePeripheralUuid.rawValue)
+            }
+        }
+    }
+}
+
+fileprivate func createConnectionHandler(store: AppStore) -> DeviceConnectionHandler {
+    return { (update) -> Void in
+        let dispatch = store.dispatch
+        var action: AppAction? = nil
+
+        if let connectionUpdate = update as? DeviceServiceConnectionUpdate {
+            action = .setSensorConnection(connectionState: connectionUpdate.connectionState)
+
+        } else if let readingUpdate = update as? DeviceServiceGlucoseUpdate {
+            if let glucose = readingUpdate.glucose {
+                action = .setSensorReading(glucose: glucose)
+            } else {
+                action = .setSensorMissedReadings
+            }
+
+        } else if let ageUpdate = update as? DeviceServiceAgeUpdate {
+            action = .setSensorAge(sensorAge: ageUpdate.sensorAge)
+
+        } else if let errorUpdate = update as? DeviceServiceErrorUpdate {
+            action = .setSensorError(errorMessage: errorUpdate.errorMessage, errorTimestamp: errorUpdate.errorTimestamp)
+
+        } else if let sensorUpdate = update as? DeviceServiceSensorUpdate {
+            action = .setSensor(value: sensorUpdate.sensor)
+            
+        } else if let infoUpdate = update as? DeviceServiceInfoUpdate {
+            action = .setDeviceInfo(value: infoUpdate.info)
+            
+        }
+
+        if let action = action {
+            DispatchQueue.main.async {
+                dispatch(action)
             }
         }
     }

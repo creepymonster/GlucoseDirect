@@ -24,7 +24,7 @@ func expiringNotificationMiddelware(service: expiringNotificationService) -> Mid
             Log.info("Sensor expiring alert check, age: \(sensorAge)")
 
             let remainingMinutes = max(0, sensor.lifetime - sensorAge)
-            if remainingMinutes < 5 { // expired
+            if remainingMinutes == 0 { // expired
                 Log.info("Sensor expired alert!")
 
                 service.sendSensorExpiredNotification()

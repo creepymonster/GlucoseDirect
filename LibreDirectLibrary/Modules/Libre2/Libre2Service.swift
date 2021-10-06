@@ -11,7 +11,6 @@ import CoreBluetooth
 
 @available(iOS 15.0, *)
 class Libre2Service: DeviceService {
-    let pairingService = Libre2PairingService()
     let expectedBufferSize = 46
 
     var writeCharacteristicUuid: CBUUID = CBUUID(string: "F001")
@@ -24,21 +23,50 @@ class Libre2Service: DeviceService {
         super.init(serviceUuid: [CBUUID(string: "FDE3")])
     }
 
-    override func pairSensor(completionHandler: @escaping DeviceConnectionHandler) {
+    //func pairSensor(completionHandler: @escaping DeviceConnectionHandler) {
+    func pairSensor() async -> Sensor? {
         dispatchPrecondition(condition: .notOnQueue(managerQueue))
         Log.info("PairSensor")
 
+        //self.completionHandler = completionHandler
+
+        //Task {
+        let pairingService = Libre2Pairing()
+        let pairedSensor = await pairingService.pairSensor()
+
+        //if let pairedSensor = pairedSensor {
+        //  DispatchQueue.main.async {
+        //      UserDefaults.standard.libre2UnlockCount = 0
+        //      self.completionHandler?(DeviceServiceSensorUpdate(sensor: pairedSensor))
+        //  }
+        //}
+
+        UserDefaults.standard.libre2UnlockCount = 0
+        return pairedSensor
+        //}
+    }
+
+    func connectSensor(sensor: Sensor, completionHandler: @escaping DeviceConnectionHandler) {
+        dispatchPrecondition(condition: .notOnQueue(managerQueue))
+        Log.info("ConnectSensor: \(sensor)")
+
         self.completionHandler = completionHandler
+        self.sensor = sensor
 
-        Task {
-            let result = await self.pairingService.pairSensor()
+        managerQueue.async {
+            self.find()
+        }
+    }
 
-            if let result = result, result.streamingEnabled {
-                DispatchQueue.main.async {
-                    UserDefaults.standard.libre2UnlockCount = 0
-                    self.completionHandler?(DeviceServiceSensorUpdate(sensor: Sensor(uuid: result.uuid, patchInfo: result.patchInfo, fram: result.fram)))
-                }
-            }
+    func disconnectSensor() {
+        dispatchPrecondition(condition: .notOnQueue(managerQueue))
+        Log.info("DisconnectSensor")
+
+        self.sensor = nil
+        self.lastGlucose = nil
+
+        managerQueue.sync {
+            self.disconnect()
         }
     }
 
