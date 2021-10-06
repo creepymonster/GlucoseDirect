@@ -23,34 +23,23 @@ class Libre2Service: DeviceService {
         super.init(serviceUuid: [CBUUID(string: "FDE3")])
     }
 
-    //func pairSensor(completionHandler: @escaping DeviceConnectionHandler) {
     func pairSensor() async -> Sensor? {
         dispatchPrecondition(condition: .notOnQueue(managerQueue))
         Log.info("PairSensor")
 
-        //self.completionHandler = completionHandler
-
-        //Task {
         let pairingService = Libre2Pairing()
         let pairedSensor = await pairingService.pairSensor()
 
-        //if let pairedSensor = pairedSensor {
-        //  DispatchQueue.main.async {
-        //      UserDefaults.standard.libre2UnlockCount = 0
-        //      self.completionHandler?(DeviceServiceSensorUpdate(sensor: pairedSensor))
-        //  }
-        //}
-
         UserDefaults.standard.libre2UnlockCount = 0
+        
         return pairedSensor
-        //}
     }
 
-    func connectSensor(sensor: Sensor, completionHandler: @escaping DeviceConnectionHandler) {
+    func connectSensor(sensor: Sensor, updatesHandler: @escaping DeviceUpdatesHandler) {
         dispatchPrecondition(condition: .notOnQueue(managerQueue))
         Log.info("ConnectSensor: \(sensor)")
 
-        self.completionHandler = completionHandler
+        self.updatesHandler = updatesHandler
         self.sensor = sensor
 
         managerQueue.async {
