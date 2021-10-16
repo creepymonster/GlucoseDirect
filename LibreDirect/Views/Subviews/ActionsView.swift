@@ -56,8 +56,8 @@ struct ActionsView: View {
                 Label("Pair Sensor", systemImage: "arrow.uturn.forward")
             }
         }
-        
-        Button(
+
+        /*Button(
             action: { showingDeleteLogsAlert = true },
             label: { Label("Delete Logs", systemImage: "trash") }
         ).alert(isPresented: $showingDeleteLogsAlert) {
@@ -69,6 +69,6 @@ struct ActionsView: View {
                 },
                 secondaryButton: .cancel()
             )
-        }
+        }*/
     }
 }

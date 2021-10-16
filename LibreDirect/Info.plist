@@ -23,9 +23,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NFCReaderUsageDescription</key>
-	<string>Privacy - NFC Scan Usage Description</string>
+	<string>The NFC function is required to read out all connection settings before a Bluetooth connection.</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Privacy - Bluetooth Always Usage Description</string>
+	<string>The Bluetooth function is needed to connect to the supported devices.</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>The Bluetooth function is needed to connect to the supported devices.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

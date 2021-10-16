@@ -2,7 +2,7 @@
 //  Nightscout.swift
 //  LibreDirect
 //
-//  Created by Reimar Metzen on 06.07.21. 
+//  Created by Reimar Metzen on 06.07.21.
 //
 
 import Foundation
@@ -70,10 +70,11 @@ class NightscoutService {
                 Log.info("Nightscout: \(error.localizedDescription)")
             }
             
-            if let response = response as? HTTPURLResponse {
+            if let response = response as? HTTPURLResponse, let data = data {
                 let status = response.statusCode
-                if status == 401 {
-                    Log.info("Nightscout: not authorized")
+                if status != 200 {
+                    let responseString = String(data: data, encoding: .utf8)
+                    Log.info("Nightscout error: \(response.statusCode) \(responseString)")
                 }
             }
         }
@@ -88,7 +89,7 @@ class NightscoutService {
 fileprivate extension SensorGlucose {
     func toNightscout() -> [String: Any] {
         let nightscout: [String: Any] = [
-            "_id": id,
+            "_id": timestamp.timeIntervalSince1970,
             "device": "LibreDirect",
             "date": timestamp.toMillisecondsAsInt64(),
             "dateString": timestamp.ISOStringFromDate(),

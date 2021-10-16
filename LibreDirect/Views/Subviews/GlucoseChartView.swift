@@ -79,6 +79,7 @@ struct GlucoseChartView: View {
     @State var xGridTexts: [TextInfo] = []
     @State var yGridPath: Path = Path()
     @State var yGridTexts: [TextInfo] = []
+    @State var deviceOrientation: UIDeviceOrientation? = UIDevice.current.orientation
     
     var glucoseValues: [SensorGlucose]
     var glucoseUnit: GlucoseUnit
@@ -108,9 +109,8 @@ struct GlucoseChartView: View {
                         scrollGridView(fullSize: geo.size).padding(.leading, Config.yGridPadding)
                     }
                     .onChange(of: scenePhase) { state in
-                        Log.info("onChange: \(state)")
-                        
-                        if state != .background {
+                        if state == .active {
+                            Log.info("onChange: \(state)")
                             updateHelpVariables(fullSize: geo.size, glucoseValues: self.glucoseValues)
                             
                             updateYGrid(fullSize: geo.size, alarmLow: self.alarmLow, alarmHigh: self.alarmHigh, targetValue: self.targetValue, glucoseUnit: self.glucoseUnit)
@@ -123,12 +123,16 @@ struct GlucoseChartView: View {
                         }
                     }
                     .onRotate { rotation in
-                        Log.info("onRotate: \(rotation)")
-                        
-                        updateYGrid(fullSize: geo.size, alarmLow: self.alarmLow, alarmHigh: self.alarmHigh, targetValue: self.targetValue, glucoseUnit: self.glucoseUnit)
-                        updateAlarmLowGrid(fullSize: geo.size, alarmLow: self.alarmLow)
-                        updateAlarmHighGrid(fullSize: geo.size, alarmHigh: self.alarmHigh)
-                        updateTargetGrid(fullSize: geo.size, targetValue: self.targetValue)
+                        if deviceOrientation != rotation && rotation != .unknown {
+                            deviceOrientation = rotation
+                            
+                            Log.info("onRotate: \(rotation)")
+                            
+                            updateYGrid(fullSize: geo.size, alarmLow: self.alarmLow, alarmHigh: self.alarmHigh, targetValue: self.targetValue, glucoseUnit: self.glucoseUnit)
+                            updateAlarmLowGrid(fullSize: geo.size, alarmLow: self.alarmLow)
+                            updateAlarmHighGrid(fullSize: geo.size, alarmHigh: self.alarmHigh)
+                            updateTargetGrid(fullSize: geo.size, targetValue: self.targetValue)
+                        }
                     }
                     .onChange(of: alarmLow) { alarmLow in
                         Log.info("onChange: \(alarmLow)")
@@ -178,7 +182,7 @@ struct GlucoseChartView: View {
             .frame(height: Config.height)
         }
     }
-    
+
     private func scrollGridView(fullSize: CGSize) -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
             ScrollViewReader { scroll in

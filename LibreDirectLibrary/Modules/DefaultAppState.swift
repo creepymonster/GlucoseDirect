@@ -2,7 +2,7 @@
 //  DefaultAppState.swift
 //  LibreDirect
 //
-//  Created by Reimar Metzen on 06.07.21. 
+//  Created by Reimar Metzen on 06.07.21.
 //
 
 import Foundation
@@ -12,13 +12,13 @@ import UserNotifications
 public struct DefaultAppState: AppState {
     public var alarmHigh: Int = 180 {
         didSet {
-            UserDefaults.appGroup.alarmHigh = alarmHigh
+            UserDefaults.standard.alarmHigh = alarmHigh
         }
     }
 
     public var alarmLow: Int = 70 {
         didSet {
-            UserDefaults.appGroup.alarmLow = alarmLow
+            UserDefaults.standard.alarmLow = alarmLow
         }
     }
 
@@ -29,14 +29,14 @@ public struct DefaultAppState: AppState {
 
     public var glucoseUnit: GlucoseUnit = .mgdL {
         didSet {
-            UserDefaults.appGroup.glucoseUnit = glucoseUnit
+            UserDefaults.standard.glucoseUnit = glucoseUnit
         }
     }
 
     public var glucoseValues: [SensorGlucose] = [] {
         didSet {
-            UserDefaults.appGroup.glucoseValues = glucoseValues
-            UserDefaults.appGroup.lastGlucose = glucoseValues.last
+            UserDefaults.standard.glucoseValues = glucoseValues
+            UserDefaults.standard.lastGlucose = glucoseValues.last
         }
     }
 
@@ -44,49 +44,49 @@ public struct DefaultAppState: AppState {
 
     public var nightscoutUpload: Bool = false {
         didSet {
-            UserDefaults.appGroup.nightscoutUpload = nightscoutUpload
+            UserDefaults.standard.nightscoutUpload = nightscoutUpload
         }
     }
 
     public var nightscoutApiSecret: String = "" {
         didSet {
-            UserDefaults.appGroup.nightscoutApiSecret = nightscoutApiSecret
+            UserDefaults.standard.nightscoutApiSecret = nightscoutApiSecret
         }
     }
 
     public var nightscoutHost: String = "" {
         didSet {
-            UserDefaults.appGroup.nightscoutHost = nightscoutHost
+            UserDefaults.standard.nightscoutHost = nightscoutHost
         }
     }
 
     public var sensor: Sensor? = nil {
         didSet {
-            UserDefaults.appGroup.sensor = sensor
+            UserDefaults.standard.sensor = sensor
         }
     }
     
     public var deviceInfo: DeviceInfo? = nil {
         didSet {
-            UserDefaults.appGroup.deviceInfo = deviceInfo
+            UserDefaults.standard.deviceInfo = deviceInfo
         }
     }
 
     public init() {
-        if let alarmHigh = UserDefaults.appGroup.alarmHigh {
+        if let alarmHigh = UserDefaults.standard.alarmHigh {
             self.alarmHigh = alarmHigh
         }
 
-        if let alarmLow = UserDefaults.appGroup.alarmLow {
+        if let alarmLow = UserDefaults.standard.alarmLow {
             self.alarmLow = alarmLow
         }
 
-        self.glucoseValues = UserDefaults.appGroup.glucoseValues
-        self.nightscoutUpload = UserDefaults.appGroup.nightscoutUpload
-        self.nightscoutApiSecret = UserDefaults.appGroup.nightscoutApiSecret
-        self.nightscoutHost = UserDefaults.appGroup.nightscoutHost
-        self.glucoseUnit = UserDefaults.appGroup.glucoseUnit
-        self.sensor = UserDefaults.appGroup.sensor
+        self.glucoseValues = UserDefaults.standard.glucoseValues
+        self.nightscoutUpload = UserDefaults.standard.nightscoutUpload
+        self.nightscoutApiSecret = UserDefaults.standard.nightscoutApiSecret
+        self.nightscoutHost = UserDefaults.standard.nightscoutHost
+        self.glucoseUnit = UserDefaults.standard.glucoseUnit
+        self.sensor = UserDefaults.standard.sensor
     }
 
     public init(connectionState: SensorConnectionState, sensor: Sensor, lastGlucose: SensorGlucose) {

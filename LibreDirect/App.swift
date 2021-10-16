@@ -12,7 +12,6 @@ import CoreBluetooth
 final class LibreDirectApp: App {
     private let store: AppStore = AppStore(initialState: DefaultAppState(), reducer: defaultAppReducer, middlewares: [
             actionLogMiddleware(),
-            //bubbleMiddelware(),
             libre2Middelware(),
             expiringNotificationMiddelware(),
             glucoseNotificationMiddelware(),

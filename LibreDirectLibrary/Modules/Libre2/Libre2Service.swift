@@ -9,9 +9,8 @@ import Foundation
 import Combine
 import CoreBluetooth
 
-@available(iOS 14.0, *)
+@available(iOS 15.0, *)
 class Libre2Service: DeviceService {
-    let pairingService = Libre2PairingService()
     let expectedBufferSize = 46
 
     var writeCharacteristicUuid: CBUUID = CBUUID(string: "F001")
@@ -23,20 +22,40 @@ class Libre2Service: DeviceService {
     init() {
         super.init(serviceUuid: [CBUUID(string: "FDE3")])
     }
-    
-    override func pairSensor(completionHandler: @escaping DeviceConnectionHandler) {
+
+    func pairSensor() async -> Sensor? {
         dispatchPrecondition(condition: .notOnQueue(managerQueue))
         Log.info("PairSensor")
 
-        self.completionHandler = completionHandler
+        let pairingService = Libre2Pairing()
+        let pairedSensor = await pairingService.pairSensor()
+
+        UserDefaults.standard.libre2UnlockCount = 0
         
-        pairingService.pairSensor() { (uuid, patchInfo, fram, streamingEnabled) -> Void in
-            if streamingEnabled {
-                DispatchQueue.main.async {
-                    UserDefaults.standard.libre2UnlockCount = 0
-                    self.completionHandler?(DeviceServiceSensorUpdate(sensor: Sensor(uuid: uuid, patchInfo: patchInfo, fram: fram)))
-                }
-            }
+        return pairedSensor
+    }
+
+    func connectSensor(sensor: Sensor, updatesHandler: @escaping DeviceUpdatesHandler) {
+        dispatchPrecondition(condition: .notOnQueue(managerQueue))
+        Log.info("ConnectSensor: \(sensor)")
+
+        self.updatesHandler = updatesHandler
+        self.sensor = sensor
+
+        managerQueue.async {
+            self.find()
+        }
+    }
+
+    func disconnectSensor() {
+        dispatchPrecondition(condition: .notOnQueue(managerQueue))
+        Log.info("DisconnectSensor")
+
+        self.sensor = nil
+        self.lastGlucose = nil
+
+        managerQueue.sync {
+            self.disconnect()
         }
     }
 
