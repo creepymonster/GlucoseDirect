@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import CoreBluetooth
 
-@available(iOS 14.0, *)
+@available(iOS 15.0, *)
 class Libre2Service: DeviceService {
     let expectedBufferSize = 46
 
