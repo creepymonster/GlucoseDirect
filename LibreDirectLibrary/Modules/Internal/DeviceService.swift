@@ -16,10 +16,12 @@ func deviceMiddelware(service: DeviceServiceProtocol) -> Middleware<AppState, Ap
         case .pairSensor:
             Task {
                 let dispatch = store.dispatch
-                
+
                 let sensor = await service.pairSensor()
                 if let sensor = sensor {
-                    dispatch(.setSensor(value: sensor))
+                    DispatchQueue.main.async {
+                        dispatch(.setSensor(value: sensor))
+                    }
                 }
             }
 
@@ -50,10 +52,10 @@ func deviceMiddelware(service: DeviceServiceProtocol) -> Middleware<AppState, Ap
 
                 } else if let sensorUpdate = update as? DeviceServiceSensorUpdate {
                     action = .setSensor(value: sensorUpdate.sensor)
-                    
+
                 } else if let infoUpdate = update as? DeviceServiceInfoUpdate {
                     action = .setDeviceInfo(value: infoUpdate.info)
-                    
+
                 }
 
                 if let action = action {
@@ -93,7 +95,7 @@ class DeviceServiceClass: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     var updatesHandler: DeviceUpdatesHandler?
 
     var manager: CBCentralManager! = nil
-    let managerQueue: DispatchQueue = DispatchQueue(label: "libre-direct.ble-queue") // , qos: .unspecified
+    let managerQueue: DispatchQueue = DispatchQueue(label: "libre-direct.ble-device.queue") // , qos: .unspecified
     var serviceUuid: [CBUUID] = []
 
     var stayConnected = false
@@ -113,7 +115,7 @@ class DeviceServiceClass: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
         super.init()
 
         self.serviceUuid = serviceUuid
-        self.manager = CBCentralManager(delegate: self, queue: managerQueue, options: [CBCentralManagerOptionShowPowerAlertKey: true])
+        self.manager = CBCentralManager(delegate: self, queue: managerQueue, options: [CBCentralManagerOptionShowPowerAlertKey: true, CBCentralManagerOptionRestoreIdentifierKey: "libre-direct.ble-device.restore-identifier"])
     }
 
     deinit {
@@ -133,6 +135,8 @@ class DeviceServiceClass: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
         if let peripheralUuidString = UserDefaults.standard.devicePeripheralUuid,
             let peripheralUuid = UUID(uuidString: peripheralUuidString),
             let retrievedPeripheral = manager.retrievePeripherals(withIdentifiers: [peripheralUuid]).first {
+            connect(retrievedPeripheral)
+        } else if let retrievedPeripheral = manager.retrieveConnectedPeripherals(withServices: serviceUuid).first {
             connect(retrievedPeripheral)
         } else {
             scan()
@@ -201,21 +205,21 @@ class DeviceServiceClass: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     // MARK: - sendUpdate
     func sendUpdate(connectionState: SensorConnectionState) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        
+
         Log.info("ConnectionState: \(connectionState.description)")
         self.updatesHandler?(DeviceServiceConnectionUpdate(connectionState: connectionState))
     }
 
     func sendUpdate(sensor: Sensor) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        
+
         Log.info("Sensor: \(sensor.description)")
         self.updatesHandler?(DeviceServiceSensorUpdate(sensor: sensor))
     }
 
     func sendUpdate(sensorAge: Int) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        
+
         Log.info("SensorAge: \(sensorAge.description)")
         self.updatesHandler?(DeviceServiceAgeUpdate(sensorAge: sensorAge))
     }
@@ -257,15 +261,15 @@ class DeviceServiceClass: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
 
     func sendUpdate(errorCode: Int) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        
+
         Log.error("ErrorCode: \(errorCode)")
         self.updatesHandler?(DeviceServiceErrorUpdate(errorCode: errorCode))
     }
-    
+
     // MARK: - CBCentralManagerDelegate
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        
+
         Log.info("State: \(manager.state.rawValue)")
 
         switch manager.state {
@@ -285,10 +289,15 @@ class DeviceServiceClass: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
 
         }
     }
-    
+
+    func centralManager(_ central: CBCentralManager, willRestoreState dict: [String: Any]) {
+        dispatchPrecondition(condition: .onQueue(managerQueue))
+        Log.info("Peripheral: \(peripheral), willRestoreState")
+    }
+
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Peripheral: \(peripheral)")
+        Log.info("Peripheral: \(peripheral), didFailToConnect")
 
         sendUpdate(connectionState: .disconnected)
         sendUpdate(error: error)
@@ -302,7 +311,7 @@ class DeviceServiceClass: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
 
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Peripheral: \(peripheral)")
+        Log.info("Peripheral: \(peripheral), didDisconnectPeripheral")
 
         sendUpdate(connectionState: .disconnected)
         sendUpdate(error: error)

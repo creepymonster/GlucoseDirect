@@ -19,16 +19,11 @@ class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
 
     func pairSensor() async -> Sensor? {
         return await withCheckedContinuation() { continuation in
-            if NFCTagReaderSession.readingAvailable {
-                self.continuation = continuation
+            self.continuation = continuation
                 
-                self.session = NFCTagReaderSession(pollingOption: .iso15693, delegate: self, queue: self.nfcQueue)
-                self.session?.alertMessage = LocalizedString("Hold the top of your iPhone near the sensor to pair", comment: "")
-                self.session?.begin()
-            } else {
-                Log.error("Continuation with 'nil' (no NFCTagReaderSession available)")
-                continuation.resume(returning: nil)
-            }
+            self.session = NFCTagReaderSession(pollingOption: .iso15693, delegate: self, queue: self.nfcQueue)
+            self.session?.alertMessage = LocalizedString("Hold the top of your iPhone near the sensor to pair", comment: "")
+            self.session?.begin()
         }
     }
 

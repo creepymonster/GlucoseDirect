@@ -2,7 +2,7 @@
 //  Log.swift
 //  LibreDirect
 //
-//  Created by Reimar Metzen on 28.07.21. 
+//  Created by Reimar Metzen on 28.07.21.
 //
 
 import Foundation

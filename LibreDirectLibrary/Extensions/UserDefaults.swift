@@ -2,7 +2,7 @@
 //  UserDefaults.swift
 //  LibreDirect
 //
-//  Created by Reimar Metzen on 28.07.21. 
+//  Created by Reimar Metzen on 28.07.21.
 //
 
 import Foundation
@@ -48,7 +48,7 @@ fileprivate enum Keys: String {
 public extension UserDefaults {
     var alarmHigh: Int? {
         get {
-            if UserDefaults.standard.object(forKey: Keys.alarmHigh.rawValue) != nil {
+            if object(forKey: Keys.alarmHigh.rawValue) != nil {
                 return integer(forKey: Keys.alarmHigh.rawValue)
             }
 
@@ -61,7 +61,7 @@ public extension UserDefaults {
 
     var alarmLow: Int? {
         get {
-            if UserDefaults.standard.object(forKey: Keys.alarmLow.rawValue) != nil {
+            if object(forKey: Keys.alarmLow.rawValue) != nil {
                 return integer(forKey: Keys.alarmLow.rawValue)
             }
 

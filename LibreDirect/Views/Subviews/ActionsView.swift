@@ -57,7 +57,7 @@ struct ActionsView: View {
             }
         }
 
-        Button(
+        /*Button(
             action: { showingDeleteLogsAlert = true },
             label: { Label("Delete Logs", systemImage: "trash") }
         ).alert(isPresented: $showingDeleteLogsAlert) {
@@ -69,6 +69,6 @@ struct ActionsView: View {
                 },
                 secondaryButton: .cancel()
             )
-        }
+        }*/
     }
 }
