@@ -14,6 +14,9 @@
 "Alarm Settings" = "Alarm Settings";
 
 /* (No Comment) */
+"Alarm Snooze" = "Alarm Snooze";
+
+/* (No Comment) */
 "Alert, high glucose" = "Alert, high glucose";
 
 /* (No Comment) */
@@ -62,10 +65,7 @@
 "Glucose Unit" = "Unit";
 
 /* (No Comment) */
-"Hold the top of your iPhone near the sensor to pair" = "Hold the top of your iPhone near the sensor to pair";
-
-/* (No Comment) */
-"Loading" = "Loading";
+"Hold the top of your iPhone near the sensor to pair" = "Hold the top of your iPhone near the sensor to pair.";
 
 /* (No Comment) */
 "Lower Limit" = "Low";
@@ -75,6 +75,9 @@
 
 /* (No Comment) */
 "Nightscout Host" = "Host";
+
+/* (No Comment) */
+"Nightscout Host Enabled" = "Enabled";
 
 /* (No Comment) */
 "Nightscout Settings" = "Nightscout Settings";
@@ -116,6 +119,9 @@
 "Sensor Lifetime" = "Lifetime";
 
 /* (No Comment) */
+"Sensor Missed Readings" = "Missed";
+
+/* (No Comment) */
 "Sensor PatchInfo" = "PatchInfo";
 
 /* (No Comment) */
@@ -146,10 +152,10 @@
 "The connection to the sensor has been successfully established and glucose data is received." = "The connection to the sensor has been successfully established and glucose data is received.";
 
 /* (No Comment) */
-"The connection with the sensor has been lost. Normally this happens when the sensor is outside the possible range." = "The connection with the sensor has been lost. Normally this happens when the sensor is outside the possible range.";
+"The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause." = "The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause.";
 
 /* (No Comment) */
-"There is no undo" = "There is no undo";
+"The connection with the sensor has been lost. Normally this happens when the sensor is outside the possible range." = "The connection with the sensor has been lost. Normally this happens when the sensor is outside the possible range.";
 
 /* No comment provided by engineer. */
 "Unpair" = "Unpair";
@@ -159,6 +165,9 @@
 
 /* (No Comment) */
 "Upper Limit" = "High";
+
+/* (No Comment) */
+"Warning, sensor missed %1$@ readings" = "Warning, sensor missed %1$@ readings";
 
 /* (No Comment) */
 "Your glucose %1$@ is dangerously high and needs to be treated." = "Your glucose %1$@ is dangerously high and needs to be treated.";
@@ -184,17 +193,3 @@
 /* (No Comment) */
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Your sensor is about to expire. Replace sensor in %1$@ minutes.";
 
-/* (No Comment) */
-"Alarm Snooze" = "Alarm Snooze";
-
-/* (No Comment) */
-"Nightscout Host Enabled" = "Enabled";
-
-/* (No Comment) */
-"Sensor Missed Readings" = "Missed";
-
-/* (No Comment) */
-"Warning, sensor missed %1$@ readings" = "Warning, sensor missed %1$@ readings";
-
-/* (No Comment) */
-"The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause." = "The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause.";

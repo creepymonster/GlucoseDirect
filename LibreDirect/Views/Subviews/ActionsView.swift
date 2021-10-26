@@ -26,7 +26,6 @@ struct ActionsView: View {
             ).alert(isPresented: $showingUnpairSensorAlert) {
                 Alert(
                     title: Text("Are you sure you want to unpair the sensor?"),
-                    message: Text("There is no undo"),
                     primaryButton: .destructive(Text("Unpair")) {
                         store.dispatch(.resetSensor)
                     },
@@ -42,7 +41,6 @@ struct ActionsView: View {
             ).alert(isPresented: $showingDisconnectSensorAlert) {
                 Alert(
                     title: Text("Are you sure you want to disconnect the sensor?"),
-                    message: Text("There is no undo"),
                     primaryButton: .destructive(Text("Disconnect")) {
                         store.dispatch(.disconnectSensor)
                     },
@@ -63,7 +61,6 @@ struct ActionsView: View {
         ).alert(isPresented: $showingDeleteLogsAlert) {
             Alert(
                 title: Text("Are you sure you want to delete the log files?"),
-                message: Text("There is no undo"),
                 primaryButton: .destructive(Text("Delete")) {
                     Log.clear()
                 },

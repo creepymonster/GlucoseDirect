@@ -5,10 +5,11 @@
 "CFBundleName" = "LibreDirect";
 
 /* Privacy - NFC Scan Usage Description */
-"NFCReaderUsageDescription" = "The NFC function is required to read out all connection settings before a Bluetooth connection.";
+"NFCReaderUsageDescription" = "NFC ist erforderlich, um alle Verbindungseinstellungen vor einer Bluetooth-Verbindung auszulesen.";
 
 /* Privacy - Bluetooth Always Usage Description */
-"NSBluetoothAlwaysUsageDescription" = "The Bluetooth function is needed to connect to the supported devices.";
+"NSBluetoothAlwaysUsageDescription" = "Bluetooth ist erforderlich, um eine Verbindung mit den unterstützten Geräten herzustellen.";
 
 /* Privacy - Bluetooth Peripheral Usage Description */
-"NSBluetoothPeripheralUsageDescription" = "The Bluetooth function is needed to connect to the supported devices.";
+"NSBluetoothPeripheralUsageDescription" = "Bluetooth ist erforderlich, um eine Verbindung mit den unterstützten Geräten herzustellen.";
+
