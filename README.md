@@ -19,11 +19,9 @@ My playground for the Libre 2 (and maybe other) blood glucose sensors and Swift/
 - Nightscout upload
 - FreeAPS X support (with Shared App Groups)
 
-## Future
-- Feature flags
-- Bubble (because I have one :D)
-- Libre 2 US/CA
-- Libre 3 (if possible)
+## Quick test?
+You can quickly get an idea of Libre Direct via TestFlight.
+[Libre Direct via TestFlight](https://testflight.apple.com/join/dWDt5Wme)
 
 ## Screenshots
 ![Screenshot](/Screenshots/48C96E2C-0A3D-45A2-BE09-ABFCB828CE00.JPG?raw=true)
