@@ -1,4 +1,4 @@
-# Libre Direct
+# Libre Direct App
 
 **Warning, in its current state the project is strictly for my personal use and is highly experimental.**
 
