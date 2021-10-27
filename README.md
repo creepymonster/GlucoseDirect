@@ -2,7 +2,7 @@
 
 **Warning, in its current state the project is strictly for my personal use and is highly experimental.**
 
-My playground for the Libre 2 (and maybe other) blood glucose sensors and Swift/SwiftUI.
+My playground for the Libre 2 blood glucose sensors and Swift/SwiftUI ([TestFlight](https://testflight.apple.com/join/dWDt5Wme)).
 
 ## Current features
 - Units mg/dL or mmol/L
