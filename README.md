@@ -20,8 +20,7 @@ My playground for the Libre 2 (and maybe other) blood glucose sensors and Swift/
 - FreeAPS X support (with Shared App Groups)
 
 ## Quick test?
-You can quickly get an idea of Libre Direct via TestFlight.
-[TestFlight](https://testflight.apple.com/join/dWDt5Wme)
+You can quickly get an idea of Libre Direct: [TestFlight](https://testflight.apple.com/join/dWDt5Wme)
 
 ## Screenshots
 ![Screenshot](/Screenshots/48C96E2C-0A3D-45A2-BE09-ABFCB828CE00.JPG?raw=true)
