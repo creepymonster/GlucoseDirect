@@ -1,8 +1,8 @@
-# Libre Direct
+# Libre Direct App
 
 **Warning, in its current state the project is strictly for my personal use and is highly experimental.**
 
-My playground for the Libre 2 (and maybe other) blood glucose sensors and Swift/SwiftUI.
+My playground for the Libre 2 blood glucose sensors and Swift/SwiftUI ([TestFlight](https://testflight.apple.com/join/dWDt5Wme)).
 
 ## Current features
 - Units mg/dL or mmol/L
@@ -19,11 +19,8 @@ My playground for the Libre 2 (and maybe other) blood glucose sensors and Swift/
 - Nightscout upload
 - FreeAPS X support (with Shared App Groups)
 
-## Future
-- Feature flags
-- Bubble (because I have one :D)
-- Libre 2 US/CA
-- Libre 3 (if possible)
+## Quick test?
+You can quickly get an idea of Libre Direct: [TestFlight](https://testflight.apple.com/join/dWDt5Wme)
 
 ## Screenshots
 ![Screenshot](/Screenshots/48C96E2C-0A3D-45A2-BE09-ABFCB828CE00.JPG?raw=true)
