@@ -28,7 +28,7 @@ func glucoseNotificationMiddelware(service: glucoseNotificationService) -> Middl
                 if !isSnoozed {
                     Log.info("Glucose alert, low: \(glucose.glucoseFiltered) < \(store.state.alarmLow)")
 
-                    service.sendLowGlucoseNotification(glucose: glucose.glucoseFiltered.asGlucose(unit: store.state.glucoseUnit))
+                    service.sendLowGlucoseNotification(glucose: "\(glucose.glucoseFiltered.asGlucose(unit: store.state.glucoseUnit)) \(store.state.glucoseUnit.description)")
 
                     DispatchQueue.main.async {
                         store.dispatch(.setAlarmSnoozeUntil(value: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute)))
@@ -38,7 +38,7 @@ func glucoseNotificationMiddelware(service: glucoseNotificationService) -> Middl
                 if !isSnoozed {
                     Log.info("Glucose alert, high: \(glucose.glucoseFiltered) > \(store.state.alarmHigh)")
 
-                    service.sendHighGlucoseNotification(glucose: glucose.glucoseFiltered.asGlucose(unit: store.state.glucoseUnit))
+                    service.sendHighGlucoseNotification(glucose: "\(glucose.glucoseFiltered.asGlucose(unit: store.state.glucoseUnit)) \(store.state.glucoseUnit.description)")
 
                     DispatchQueue.main.async {
                         store.dispatch(.setAlarmSnoozeUntil(value: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute)))

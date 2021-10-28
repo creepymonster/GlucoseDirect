@@ -18,7 +18,7 @@ func glucoseBadgeMiddelware(service: glucoseBadgeService) -> Middleware<AppState
     return { store, action, lastState in
         switch action {
         case .setSensorReading(glucose: let glucose):
-            service.setGlucoseBadge(glucose: glucose.glucoseFiltered, glucoseUnit: store.state.glucoseUnit)
+            service.setGlucoseBadge(glucose: glucose, glucoseUnit: store.state.glucoseUnit)
 
         default:
             break
@@ -33,12 +33,23 @@ class glucoseBadgeService {
     enum Identifier: String {
         case sensorGlucoseBadge = "libre-direct.notifications.sensor-glucose-badge"
     }
+    
+    var formatter: NumberFormatter {
+        get {
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            formatter.positivePrefix = "+"
+            formatter.maximumFractionDigits = 1
+            
+            return formatter
+        }
+    }
 
     func clearNotifications() {
         UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [Identifier.sensorGlucoseBadge.rawValue])
     }
-    
-    func setGlucoseBadge(glucose: Int, glucoseUnit: GlucoseUnit) {
+        
+    func setGlucoseBadge(glucose: SensorGlucose, glucoseUnit: GlucoseUnit) {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
         NotificationService.shared.ensureCanSendNotification { ensured in
@@ -50,20 +61,36 @@ class glucoseBadgeService {
 
             let notification = UNMutableNotificationContent()
             notification.sound = .none
-            notification.title = String(format: LocalizedString("Info, current glucose is %1$@", comment: ""), glucose.asGlucose(unit: glucoseUnit))
-            notification.body = String(format: LocalizedString("Your current glucose is %1$@.", comment: ""), glucose.asGlucose(unit: glucoseUnit))
+            notification.title = String(format: LocalizedString("Blood glucose: %1$@", comment: ""), "\(glucose.glucoseFiltered.asGlucose(unit: glucoseUnit)) \(glucoseUnit.description)")
+            notification.body = String(format: LocalizedString("Your current glucose is %1$@ (%2$@).", comment: ""), "\(glucose.glucoseFiltered.asGlucose(unit: glucoseUnit)) \(glucoseUnit.description)", self.getMinuteChange(glucose: glucose, glucoseUnit: glucoseUnit))
             
             if #available(iOS 15.0, *) {
                 notification.interruptionLevel = .passive
             }
             
             if glucoseUnit == .mgdL {
-                notification.badge = glucose as NSNumber
+                notification.badge = glucose.glucoseFiltered as NSNumber
             } else {
-                notification.badge = glucose.asMmolL as NSNumber
+                notification.badge = glucose.glucoseFiltered.asMmolL as NSNumber
             }
 
             NotificationService.shared.add(identifier: Identifier.sensorGlucoseBadge.rawValue, content: notification)
         }
+    }
+    
+    private func getMinuteChange(glucose: SensorGlucose, glucoseUnit: GlucoseUnit) -> String {
+        var formattedMinuteChange = ""
+        
+        if let minuteChange = glucose.minuteChange {
+            if glucoseUnit == .mgdL {
+                formattedMinuteChange = formatter.string(from: minuteChange as NSNumber)!
+            } else {
+                formattedMinuteChange = formatter.string(from: minuteChange.asMmolL as NSNumber)!
+            }
+        } else {
+            formattedMinuteChange = "?"
+        }
+        
+        return String(format: LocalizedString("%1$@/min.", comment: ""), formattedMinuteChange)
     }
 }

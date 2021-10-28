@@ -193,3 +193,8 @@
 /* (No Comment) */
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Ihr Sensor läuft demnächst ab. Ersetzen Sie den Sensor in %1$@ Minuten.";
 
+/* (No Comment) */
+"Info, current blood glucose: %1$@" = "Info, aktueller Blutzucker: %1$@";
+
+/* (No Comment) */
+"Your current glucose is %1$@ (%2$@)." = "Ihr aktueller Blutzuckerwert ist %1$@ (%2$@).";
