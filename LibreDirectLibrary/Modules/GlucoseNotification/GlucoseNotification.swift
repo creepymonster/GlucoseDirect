@@ -28,7 +28,7 @@ func glucoseNotificationMiddelware(service: glucoseNotificationService) -> Middl
                 if !isSnoozed {
                     Log.info("Glucose alert, low: \(glucose.glucoseFiltered) < \(store.state.alarmLow)")
 
-                    service.sendLowGlucoseNotification(glucose: "\(glucose.glucoseFiltered.asGlucose(unit: store.state.glucoseUnit)) \(store.state.glucoseUnit.description)")
+                    service.sendLowGlucoseNotification(glucose: glucose, glucoseUnit: store.state.glucoseUnit)
 
                     DispatchQueue.main.async {
                         store.dispatch(.setAlarmSnoozeUntil(value: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute)))
@@ -38,7 +38,7 @@ func glucoseNotificationMiddelware(service: glucoseNotificationService) -> Middl
                 if !isSnoozed {
                     Log.info("Glucose alert, high: \(glucose.glucoseFiltered) > \(store.state.alarmHigh)")
 
-                    service.sendHighGlucoseNotification(glucose: "\(glucose.glucoseFiltered.asGlucose(unit: store.state.glucoseUnit)) \(store.state.glucoseUnit.description)")
+                    service.sendHighGlucoseNotification(glucose: glucose, glucoseUnit: store.state.glucoseUnit)
 
                     DispatchQueue.main.async {
                         store.dispatch(.setAlarmSnoozeUntil(value: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute)))
@@ -61,12 +61,23 @@ class glucoseNotificationService {
     enum Identifier: String {
         case sensorGlucoseAlert = "libre-direct.notifications.sensor-glucose-alert"
     }
+    
+    var formatter: NumberFormatter {
+        get {
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            formatter.positivePrefix = "+"
+            formatter.maximumFractionDigits = 1
+            
+            return formatter
+        }
+    }
 
     func clearNotifications() {
         UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [Identifier.sensorGlucoseAlert.rawValue])
     }
 
-    func sendLowGlucoseNotification(glucose: String) {
+    func sendLowGlucoseNotification(glucose: SensorGlucose, glucoseUnit: GlucoseUnit) {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
         NotificationService.shared.ensureCanSendNotification { ensured in
@@ -79,7 +90,7 @@ class glucoseNotificationService {
             let notification = UNMutableNotificationContent()
             notification.sound = .none
             notification.title = LocalizedString("Alert, low blood glucose", comment: "")
-            notification.body = String(format: LocalizedString("Your glucose %1$@ is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal.", comment: ""), glucose)
+            notification.body = String(format: LocalizedString("Your glucose %1$@ is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal.", comment: ""), glucose.glucoseFiltered.asGlucose(unit: glucoseUnit, withUnit: true), self.getMinuteChange(glucose: glucose, glucoseUnit: glucoseUnit))
             
             if #available(iOS 15.0, *) {
                 notification.interruptionLevel = .passive
@@ -90,7 +101,7 @@ class glucoseNotificationService {
         }
     }
 
-    func sendHighGlucoseNotification(glucose: String) {
+    func sendHighGlucoseNotification(glucose: SensorGlucose, glucoseUnit: GlucoseUnit) {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
         NotificationService.shared.ensureCanSendNotification { ensured in
@@ -103,7 +114,7 @@ class glucoseNotificationService {
             let notification = UNMutableNotificationContent()
             notification.sound = .none
             notification.title = LocalizedString("Alert, high glucose", comment: "")
-            notification.body = String(format: LocalizedString("Your glucose %1$@ is dangerously high and needs to be treated.", comment: ""), glucose)
+            notification.body = String(format: LocalizedString("Your glucose %1$@ is dangerously high and needs to be treated.", comment: ""), glucose.glucoseFiltered.asGlucose(unit: glucoseUnit, withUnit: true), self.getMinuteChange(glucose: glucose, glucoseUnit: glucoseUnit))
             
             if #available(iOS 15.0, *) {
                 notification.interruptionLevel = .passive
@@ -112,5 +123,21 @@ class glucoseNotificationService {
             NotificationService.shared.add(identifier: Identifier.sensorGlucoseAlert.rawValue, content: notification)
             NotificationService.shared.playAlarmSound()
         }
+    }
+    
+    private func getMinuteChange(glucose: SensorGlucose, glucoseUnit: GlucoseUnit) -> String {
+        var formattedMinuteChange = ""
+        
+        if let minuteChange = glucose.minuteChange {
+            if glucoseUnit == .mgdL {
+                formattedMinuteChange = formatter.string(from: minuteChange as NSNumber)!
+            } else {
+                formattedMinuteChange = formatter.string(from: minuteChange.asMmolL as NSNumber)!
+            }
+        } else {
+            formattedMinuteChange = "?"
+        }
+        
+        return String(format: LocalizedString("%1$@/min.", comment: ""), formattedMinuteChange)
     }
 }

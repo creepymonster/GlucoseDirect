@@ -61,8 +61,8 @@ class glucoseBadgeService {
 
             let notification = UNMutableNotificationContent()
             notification.sound = .none
-            notification.title = String(format: LocalizedString("Blood glucose: %1$@", comment: ""), "\(glucose.glucoseFiltered.asGlucose(unit: glucoseUnit)) \(glucoseUnit.description)")
-            notification.body = String(format: LocalizedString("Your current glucose is %1$@ (%2$@).", comment: ""), "\(glucose.glucoseFiltered.asGlucose(unit: glucoseUnit)) \(glucoseUnit.description)", self.getMinuteChange(glucose: glucose, glucoseUnit: glucoseUnit))
+            notification.title = String(format: LocalizedString("Blood glucose: %1$@", comment: ""), glucose.glucoseFiltered.asGlucose(unit: glucoseUnit, withUnit: true))
+            notification.body = String(format: LocalizedString("Your current glucose is %1$@ (%2$@).", comment: ""), glucose.glucoseFiltered.asGlucose(unit: glucoseUnit, withUnit: true), self.getMinuteChange(glucose: glucose, glucoseUnit: glucoseUnit))
             
             if #available(iOS 15.0, *) {
                 notification.interruptionLevel = .passive
