@@ -170,10 +170,10 @@
 "Warning, sensor missed %1$@ readings" = "Warnung, Sensor hat %1$@ Messwerte nicht erfasst.";
 
 /* (No Comment) */
-"Your glucose %1$@ (%2$@) is dangerously high and needs to be treated." = "Ihr Blutzucker %1$@ (%2$@) ist gefährlich hoch und muss behandelt werden.";
+"Your glucose %1$@ (%2$@) is dangerously high and needs to be treated." = "Ihr Blutzucker, %1$@ (%2$@), ist gefährlich hoch und muss behandelt werden.";
 
 /* (No Comment) */
-"Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "Ihr Blutzucker %1$@ ist gefährlich niedrig. Mit gesüßten Getränken oder Traubenzucker kann der Blutzuckerspiegel oft wieder korrigiert werden.";
+"Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "Ihr Blutzucker, %1$@ (%2$@), ist gefährlich niedrig. Mit gesüßten Getränken oder Traubenzucker kann der Blutzuckerspiegel oft wieder korrigiert werden.";
 
 /* (No Comment) */
 "Your sensor has expired and needs to be replaced as soon as possible" = "Ihr Sensor ist abgelaufen und muss so schnell wie möglich ersetzt werden.";
