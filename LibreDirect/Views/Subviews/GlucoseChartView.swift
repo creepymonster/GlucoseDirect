@@ -40,7 +40,7 @@ struct TextInfo {
 
 struct GlucoseChartView: View {
     private let calculationQueue = DispatchQueue(label: "libre-direct.chart-calculation")
-    private let timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
+    private let timer = Timer.publish(every: 30, on: .main, in: .default).autoconnect()
 
     private enum Config {
         static let alarmGridColor = Color.red.opacity(0.5)
@@ -172,6 +172,7 @@ struct GlucoseChartView: View {
 
                         updateHelpVariables(fullSize: geo.size, glucoseValues: glucoseValues)
 
+                        updateNowPath(fullSize: geo.size)
                         updateXGrid(fullSize: geo.size, firstTimeStamp: self.firstTimeStamp, lastTimeStamp: self.lastTimeStamp)
                         updateGlucoseDots(fullSize: geo.size, glucoseValues: glucoseValues)
                     }.onAppear() {
@@ -281,9 +282,9 @@ struct GlucoseChartView: View {
     }
 
     private func updateHelpVariables(fullSize: CGSize, glucoseValues: [SensorGlucose]) {
-        if let first = glucoseValues.first, let last = glucoseValues.last {
+        if let first = glucoseValues.first {
             let firstTimeStamp = first.timestamp.addingTimeInterval(-1 * 15 * 60)
-            let lastTimeStamp = last.timestamp.addingTimeInterval(15 * 60)
+            let lastTimeStamp = Date().rounded(on: 1, .minute).addingTimeInterval(15 * 60)
             let glucoseMinutes = Int(firstTimeStamp.distance(to: lastTimeStamp) / 60)
 
             self.firstTimeStamp = firstTimeStamp
@@ -335,11 +336,13 @@ struct GlucoseChartView: View {
             #else
                 now = Date().rounded(on: 1, .minute)
             #endif
-
+            
             if let now = now {
+                let x = self.translateTimeStampToX(timestamp: now)
+                
                 var nowPath = Path()
-                nowPath.move(to: CGPoint(x: self.translateTimeStampToX(timestamp: now), y: 0))
-                nowPath.addLine(to: CGPoint(x: self.translateTimeStampToX(timestamp: now), y: fullSize.height - Config.yAdditionalBottom))
+                nowPath.move(to: CGPoint(x: x, y: 0))
+                nowPath.addLine(to: CGPoint(x: x, y: fullSize.height - Config.yAdditionalBottom))
                 
                 DispatchQueue.main.async {
                     self.nowPath = nowPath
