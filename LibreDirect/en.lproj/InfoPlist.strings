@@ -1,8 +1,8 @@
 /* Bundle display name */
-"CFBundleDisplayName" = "LibreDirect";
+"CFBundleDisplayName" = "Libre Direct";
 
 /* Bundle name */
-"CFBundleName" = "LibreDirect";
+"CFBundleName" = "Libre Direct";
 
 /* Privacy - NFC Scan Usage Description */
 "NFCReaderUsageDescription" = "The NFC function is required to read out all connection settings before a Bluetooth connection.";

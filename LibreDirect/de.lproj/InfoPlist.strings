@@ -1,8 +1,8 @@
 /* Bundle display name */
-"CFBundleDisplayName" = "LibreDirect";
+"CFBundleDisplayName" = "Libre Direct";
 
 /* Bundle name */
-"CFBundleName" = "LibreDirect";
+"CFBundleName" = "Libre Direct";
 
 /* Privacy - NFC Scan Usage Description */
 "NFCReaderUsageDescription" = "NFC ist erforderlich, um die Verbindungseinstellungen für eine Bluetooth-Verbindung auszulesen.";
@@ -12,4 +12,3 @@
 
 /* Privacy - Bluetooth Peripheral Usage Description */
 "NSBluetoothPeripheralUsageDescription" = "Bluetooth ist erforderlich, um eine Verbindung mit den unterstützten Geräten herzustellen.";
-
