@@ -5,8 +5,10 @@
 //  Created by Reimar Metzen on 06.07.21.
 //
 
-import SwiftUI
 import CoreNFC
+import SwiftUI
+
+// MARK: - ContentView
 
 struct ContentView: View {
     @EnvironmentObject var store: AppStore
@@ -21,7 +23,7 @@ struct ContentView: View {
                 if store.state.connectionState == .connected {
                     AlarmSnoozeView().padding([.top, .horizontal])
                 }
-                
+
                 ConnectionView(connectionState: store.state.connectionState, connectionError: store.state.connectionError, connectionErrorTimestamp: store.state.connectionErrorTimeStamp, missedReadings: store.state.missedReadings).padding([.top, .horizontal])
 
                 if !store.state.isPairable {
@@ -33,7 +35,7 @@ struct ContentView: View {
                     NightscoutSettingsView().padding([.top, .horizontal])
                     GlucoseSettingsView().padding([.top, .horizontal])
                 }
-                
+
                 ActionsView().padding([.top, .horizontal])
             }
         }
@@ -46,7 +48,7 @@ struct ContentView: View {
                 .background(RoundedRectangle(cornerRadius: 15, style: .continuous).fill(Color.red))
                 .frame(width: 320, height: 120)
                 .clipped()
-            
+
             VStack {
                 Text("Sorry, an NFC enabled iPhone is required to use LibreDirect :'(")
             }
@@ -63,6 +65,8 @@ struct ContentView: View {
         }
     }
 }
+
+// MARK: - ContentView_Previews
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

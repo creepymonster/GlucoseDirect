@@ -5,11 +5,13 @@
 //  Created by Reimar Metzen on 26.07.21.
 //
 
-import SwiftUI
 import Combine
+import SwiftUI
+
+// MARK: - SensorGlucose + Equatable
 
 extension SensorGlucose: Equatable {
-    public static func == (lhs: SensorGlucose, rhs: SensorGlucose) -> Bool {
+    static func == (lhs: SensorGlucose, rhs: SensorGlucose) -> Bool {
         lhs.timestamp == rhs.timestamp
     }
 }
@@ -26,10 +28,12 @@ extension Date {
             }
             date = newDate
         }
-        
+
         return dates
     }
 }
+
+// MARK: - TextInfo
 
 struct TextInfo {
     let description: String
@@ -38,9 +42,11 @@ struct TextInfo {
     let highlight: Bool
 }
 
+// MARK: - GlucoseChartView
+
 struct GlucoseChartView: View {
     private let calculationQueue = DispatchQueue(label: "libre-direct.chart-calculation")
-    private let timer = Timer.publish(every: 30, on: .main, in: .default).autoconnect()
+    private let timer = Timer.publish(every: 10, on: .main, in: .default).autoconnect()
 
     private enum Config {
         static let alarmGridColor = Color.red.opacity(0.5)
@@ -72,17 +78,17 @@ struct GlucoseChartView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.scenePhase) var scenePhase
 
-    @State var alarmHighGridPath: Path = Path()
-    @State var alarmLowGridPath: Path = Path()
+    @State var alarmHighGridPath = Path()
+    @State var alarmLowGridPath = Path()
     @State var firstTimeStamp: Date? = nil
-    @State var glucoseDotsPath: Path = Path()
+    @State var glucoseDotsPath = Path()
     @State var glucoseMinutes: Int = 0
     @State var lastTimeStamp: Date? = nil
-    @State var targetGridPath: Path = Path()
-    @State var xGridPath: Path = Path()
+    @State var targetGridPath = Path()
+    @State var xGridPath = Path()
     @State var xGridTexts: [TextInfo] = []
-    @State var nowPath: Path = Path()
-    @State var yGridPath: Path = Path()
+    @State var nowPath = Path()
+    @State var yGridPath = Path()
     @State var yGridTexts: [TextInfo] = []
     @State var deviceOrientation: UIDeviceOrientation? = UIDevice.current.orientation
 
@@ -93,17 +99,15 @@ struct GlucoseChartView: View {
     var targetValue: Int?
 
     var dotColor: Color {
-        get {
-            if colorScheme == .dark {
-                return Config.dotDarkColor
-            }
-
-            return Config.dotLightColor
+        if colorScheme == .dark {
+            return Config.dotDarkColor
         }
+
+        return Config.dotLightColor
     }
 
     var body: some View {
-        if glucoseValues.count > 0 {
+        if !glucoseValues.isEmpty {
             GroupBox(label: Text(String(format: LocalizedString("Chart (%1$@)", comment: ""), glucoseValues.count.description)).padding(.bottom).foregroundColor(.accentColor)) {
                 GeometryReader { geo in
                     ZStack(alignment: .leading) {
@@ -115,7 +119,7 @@ struct GlucoseChartView: View {
                     }
                     .onReceive(timer) { _ in
                         Log.info("onReceive: \(timer)")
-                        
+
                         updateNowPath(fullSize: geo.size)
                     }
                     .onChange(of: scenePhase) { state in
@@ -133,7 +137,7 @@ struct GlucoseChartView: View {
                         }
                     }
                     .onRotate { rotation in
-                        if deviceOrientation != rotation && rotation != .unknown {
+                        if deviceOrientation != rotation, rotation != .unknown {
                             deviceOrientation = rotation
 
                             Log.info("onRotate: \(rotation)")
@@ -175,7 +179,7 @@ struct GlucoseChartView: View {
                         updateNowPath(fullSize: geo.size)
                         updateXGrid(fullSize: geo.size, firstTimeStamp: self.firstTimeStamp, lastTimeStamp: self.lastTimeStamp)
                         updateGlucoseDots(fullSize: geo.size, glucoseValues: glucoseValues)
-                    }.onAppear() {
+                    }.onAppear {
                         Log.info("onAppear")
 
                         updateNowPath(fullSize: geo.size)
@@ -326,24 +330,24 @@ struct GlucoseChartView: View {
             }
         }
     }
-    
+
     private func updateNowPath(fullSize: CGSize) {
         calculationQueue.async {
             var now: Date?
-            
+
             #if targetEnvironment(simulator)
                 now = ISO8601DateFormatter().date(from: "2021-08-01T11:50:00+0200")
             #else
                 now = Date().rounded(on: 1, .minute)
             #endif
-            
+
             if let now = now {
                 let x = self.translateTimeStampToX(timestamp: now)
-                
+
                 var nowPath = Path()
                 nowPath.move(to: CGPoint(x: x, y: 0))
                 nowPath.addLine(to: CGPoint(x: x, y: fullSize.height - Config.yAdditionalBottom))
-                
+
                 DispatchQueue.main.async {
                     self.nowPath = nowPath
                 }
@@ -356,7 +360,7 @@ struct GlucoseChartView: View {
             let glucoseDotsPath = Path { path in
                 for value in glucoseValues {
                     let x = self.translateTimeStampToX(timestamp: value.timestamp)
-                    let y = self.translateGlucoseToY(fullSize: fullSize, glucose: CGFloat(value.glucoseFiltered))
+                    let y = self.translateGlucoseToY(fullSize: fullSize, glucose: CGFloat(value.glucoseValue))
 
                     path.addEllipse(in: CGRect(x: x - Config.dotSize / 2, y: y - Config.dotSize / 2, width: Config.dotSize, height: Config.dotSize))
                 }
@@ -472,23 +476,25 @@ struct GlucoseChartView: View {
     }
 }
 
+// MARK: - GlucoseChartView_Previews
+
 struct GlucoseChartView_Previews: PreviewProvider {
     static var previews: some View {
         let dateFormatter = ISO8601DateFormatter()
 
         let glucoseValues = [
-            SensorGlucose(timestamp: dateFormatter.date(from: "2021-08-01T10:00:00+0200")!, glucose: 70),
-            SensorGlucose(timestamp: dateFormatter.date(from: "2021-08-01T10:15:00+0200")!, glucose: 100),
-            SensorGlucose(timestamp: dateFormatter.date(from: "2021-08-01T10:30:00+0200")!, glucose: 180),
-            SensorGlucose(timestamp: dateFormatter.date(from: "2021-08-01T10:45:00+0200")!, glucose: 250),
-            SensorGlucose(timestamp: dateFormatter.date(from: "2021-08-01T11:00:00+0200")!, glucose: 70),
-            SensorGlucose(timestamp: dateFormatter.date(from: "2021-08-01T11:05:00+0200")!, glucose: 100),
-            SensorGlucose(timestamp: dateFormatter.date(from: "2021-08-01T11:10:00+0200")!, glucose: 180),
-            SensorGlucose(timestamp: dateFormatter.date(from: "2021-08-01T11:15:00+0200")!, glucose: 250),
-            SensorGlucose(timestamp: dateFormatter.date(from: "2021-08-01T12:00:00+0200")!, glucose: 70),
-            SensorGlucose(timestamp: dateFormatter.date(from: "2021-08-01T12:01:00+0200")!, glucose: 70),
-            SensorGlucose(timestamp: dateFormatter.date(from: "2021-08-01T12:02:00+0200")!, glucose: 70),
-            SensorGlucose(timestamp: dateFormatter.date(from: "2021-08-01T12:03:00+0200")!, glucose: 70)
+            SensorGlucose(id: 1, timestamp: dateFormatter.date(from: "2021-08-01T10:00:00+0200")!, glucose: 70),
+            SensorGlucose(id: 2, timestamp: dateFormatter.date(from: "2021-08-01T10:15:00+0200")!, glucose: 100),
+            SensorGlucose(id: 3, timestamp: dateFormatter.date(from: "2021-08-01T10:30:00+0200")!, glucose: 180),
+            SensorGlucose(id: 4, timestamp: dateFormatter.date(from: "2021-08-01T10:45:00+0200")!, glucose: 250),
+            SensorGlucose(id: 5, timestamp: dateFormatter.date(from: "2021-08-01T11:00:00+0200")!, glucose: 70),
+            SensorGlucose(id: 6, timestamp: dateFormatter.date(from: "2021-08-01T11:05:00+0200")!, glucose: 100),
+            SensorGlucose(id: 7, timestamp: dateFormatter.date(from: "2021-08-01T11:10:00+0200")!, glucose: 180),
+            SensorGlucose(id: 8, timestamp: dateFormatter.date(from: "2021-08-01T11:15:00+0200")!, glucose: 250),
+            SensorGlucose(id: 9, timestamp: dateFormatter.date(from: "2021-08-01T12:00:00+0200")!, glucose: 70),
+            SensorGlucose(id: 10, timestamp: dateFormatter.date(from: "2021-08-01T12:01:00+0200")!, glucose: 70),
+            SensorGlucose(id: 11, timestamp: dateFormatter.date(from: "2021-08-01T12:02:00+0200")!, glucose: 70),
+            SensorGlucose(id: 12, timestamp: dateFormatter.date(from: "2021-08-01T12:03:00+0200")!, glucose: 70)
         ]
 
         ForEach(ColorScheme.allCases, id: \.self) {
@@ -497,4 +503,3 @@ struct GlucoseChartView_Previews: PreviewProvider {
         }
     }
 }
-

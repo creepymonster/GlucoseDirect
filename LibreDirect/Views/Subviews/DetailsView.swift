@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: - DetailsView
+
 struct DetailsView: View {
     var sensor: Sensor?
 
@@ -21,11 +23,13 @@ struct DetailsView: View {
                 KeyValueView(key: LocalizedString("Sensor UID", comment: ""), value: sensor.uuid.hex)
                 KeyValueView(key: LocalizedString("Sensor PatchInfo", comment: ""), value: sensor.patchInfo.hex).padding(.top, 5)
                 KeyValueView(key: LocalizedString("Sensor Serial", comment: ""), value: sensor.serial?.description ?? "Unknown").padding(.top, 5)
-                KeyValueView(key: LocalizedString("Sensor Calibration", comment: ""), value: sensor.calibration.description).padding(.top, 5)
+                KeyValueView(key: LocalizedString("Sensor Factory Calibration", comment: ""), value: sensor.factoryCalibration.description).padding(.top, 5)
             }
         }
     }
 }
+
+// MARK: - DetailsView_Previews
 
 struct DetailsView_Previews: PreviewProvider {
     static var previews: some View {

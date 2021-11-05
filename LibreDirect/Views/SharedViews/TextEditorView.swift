@@ -9,17 +9,23 @@ import SwiftUI
 
 typealias TextEditorCompletionHandler = (_ value: String) -> Void
 
-struct TextEditorView: View {
-    let key: String
-    let completionHandler: TextEditorCompletionHandler?
+// MARK: - TextEditorView
 
-    @State var value: String
+struct TextEditorView: View {
+    // MARK: Lifecycle
 
     init(key: String, value: String, completionHandler: TextEditorCompletionHandler? = nil) {
         self.key = key
         self.value = value
         self.completionHandler = completionHandler
     }
+
+    // MARK: Internal
+
+    let key: String
+    let completionHandler: TextEditorCompletionHandler?
+
+    @State var value: String
 
     var body: some View {
         HStack(alignment: .center) {
@@ -37,6 +43,8 @@ struct TextEditorView: View {
         }
     }
 }
+
+// MARK: - ValueEditorView_Previews
 
 struct ValueEditorView_Previews: PreviewProvider {
     static var previews: some View {

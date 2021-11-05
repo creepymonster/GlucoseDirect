@@ -9,21 +9,10 @@ import SwiftUI
 
 typealias ToggleCompletionHandler = (_ value: Bool) -> Void
 
+// MARK: - ToggleView
+
 struct ToggleView: View {
-    let key: String
-    let trueValue: String?
-    let falseValue: String?
-    let completionHandler: ToggleCompletionHandler?
-
-    @State var value: Bool
-
-    var tintColor: Color {
-        if let _ = falseValue, let _ = trueValue {
-            return Color.clear
-        }
-
-        return Color.accentColor
-    }
+    // MARK: Lifecycle
 
     init(key: String, value: Bool, completionHandler: ToggleCompletionHandler? = nil) {
         self.key = key
@@ -39,6 +28,23 @@ struct ToggleView: View {
         self.trueValue = trueValue
         self.falseValue = falseValue
         self.completionHandler = completionHandler
+    }
+
+    // MARK: Internal
+
+    let key: String
+    let trueValue: String?
+    let falseValue: String?
+    let completionHandler: ToggleCompletionHandler?
+
+    @State var value: Bool
+
+    var tintColor: Color {
+        if let _ = falseValue, let _ = trueValue {
+            return Color.clear
+        }
+
+        return Color.accentColor
     }
 
     var body: some View {
@@ -69,10 +75,11 @@ struct ToggleView: View {
     }
 }
 
+// MARK: - ToggleView_Previews
+
 struct ToggleView_Previews: PreviewProvider {
     static var previews: some View {
         ToggleView(key: "Key", value: true, trueValue: "mg/dl", falseValue: "mmol")
         ToggleView(key: "Key", value: false, trueValue: "mg/dl", falseValue: "mmol")
     }
 }
-

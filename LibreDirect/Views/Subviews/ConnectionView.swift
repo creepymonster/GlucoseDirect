@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: - ConnectionView
+
 struct ConnectionView: View {
     var connectionState: SensorConnectionState
     var connectionError: String?
@@ -31,6 +33,8 @@ struct ConnectionView: View {
         }
     }
 }
+
+// MARK: - ConnectionView_Previews
 
 struct ConnectionView_Previews: PreviewProvider {
     static var previews: some View {

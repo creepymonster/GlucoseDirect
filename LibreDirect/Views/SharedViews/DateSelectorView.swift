@@ -9,11 +9,10 @@ import SwiftUI
 
 typealias DateSelectorCompletionHandler = (_ value: Date?) -> Void
 
+// MARK: - DateSelectorView
+
 struct DateSelectorView: View {
-    let key: String
-    var value: Date?
-    var displayValue: String?
-    let completionHandler: DateSelectorCompletionHandler?
+    // MARK: Lifecycle
 
     init(key: String, value: Date?, displayValue: String?, completionHandler: DateSelectorCompletionHandler? = nil) {
         self.key = key
@@ -21,6 +20,13 @@ struct DateSelectorView: View {
         self.displayValue = displayValue
         self.completionHandler = completionHandler
     }
+
+    // MARK: Internal
+
+    let key: String
+    var value: Date?
+    var displayValue: String?
+    let completionHandler: DateSelectorCompletionHandler?
 
     var body: some View {
         HStack(alignment: .center) {
@@ -47,6 +53,8 @@ struct DateSelectorView: View {
         }
     }
 }
+
+// MARK: - DateSelectorView_Previews
 
 struct DateSelectorView_Previews: PreviewProvider {
     static var previews: some View {

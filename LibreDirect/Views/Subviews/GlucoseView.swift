@@ -7,57 +7,53 @@
 
 import SwiftUI
 
+// MARK: - GlucoseView
+
 struct GlucoseView: View {
     var glucose: SensorGlucose?
     var glucoseUnit: GlucoseUnit?
     var alarmLow: Int?
     var alarmHigh: Int?
-    
+
     var formatter: NumberFormatter {
-        get {
-            let formatter = NumberFormatter()
-            formatter.numberStyle = .decimal
-            formatter.positivePrefix = "+"
-            formatter.maximumFractionDigits = 1
-            
-            return formatter
-        }
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.positivePrefix = "+"
+        formatter.maximumFractionDigits = 1
+
+        return formatter
     }
 
     var minuteChange: String {
-        get {
-            if let minuteChange = glucose?.minuteChange {
-                if glucoseUnit == .mgdL {
-                    return formatter.string(from: minuteChange as NSNumber)!
-                } else {
-                    return formatter.string(from: minuteChange.asMmolL as NSNumber)!
-                }
+        if let minuteChange = glucose?.minuteChange {
+            if glucoseUnit == .mgdL {
+                return formatter.string(from: minuteChange as NSNumber)!
+            } else {
+                return formatter.string(from: minuteChange.asMmolL as NSNumber)!
             }
-
-            return ""
         }
+
+        return ""
     }
 
     var glucoseForegroundColor: Color {
-        get {
-            if let glucose = glucose {
-                if let alarmLow = alarmLow, glucose.glucoseFiltered < alarmLow {
-                    return Color.red
-                }
-
-                if let alarmHigh = alarmHigh, glucose.glucoseFiltered > alarmHigh {
-                    return Color.red
-                }
+        if let glucose = glucose {
+            if let alarmLow = alarmLow, glucose.glucoseValue < alarmLow {
+                return Color.red
             }
 
-            return Color.primary
+            if let alarmHigh = alarmHigh, glucose.glucoseValue > alarmHigh {
+                return Color.red
+            }
         }
+
+        return Color.primary
     }
 
     var body: some View {
         if let glucose = glucose, let glucoseUnit = glucoseUnit {
             VStack {
-                Text(glucose.glucoseFiltered.asGlucose(unit: glucoseUnit)).font(.system(size: 96)).foregroundColor(glucoseForegroundColor)
+                Text(glucose.glucoseValue.asGlucose(unit: glucoseUnit)).font(.system(size: 96)).foregroundColor(glucoseForegroundColor)
 
                 if let _ = glucose.minuteChange {
                     HStack {
@@ -73,6 +69,8 @@ struct GlucoseView: View {
         }
     }
 }
+
+// MARK: - GlucoseView_Previews
 
 struct GlucoseView_Previews: PreviewProvider {
     static var previews: some View {

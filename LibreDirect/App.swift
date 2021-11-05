@@ -5,23 +5,14 @@
 //  Created by Reimar Metzen on 06.07.21.
 //
 
-import SwiftUI
 import CoreBluetooth
+import SwiftUI
+
+// MARK: - LibreDirectApp
 
 @main
 final class LibreDirectApp: App {
-    private let store: AppStore = AppStore(initialState: DefaultAppState(), reducer: defaultAppReducer, middlewares: [
-            actionLogMiddleware(),
-            libre2Middelware(),
-            expiringNotificationMiddelware(),
-            glucoseNotificationMiddelware(),
-            glucoseBadgeMiddelware(),
-            connectionNotificationMiddelware(),
-            freeAPSMiddleware(),
-            nightscoutMiddleware()
-        ])
-
-    private let notificationCenterDelegate = LibreDirectNotificationCenter()
+    // MARK: Lifecycle
 
     init() {
         UNUserNotificationCenter.current().delegate = notificationCenterDelegate
@@ -37,13 +28,33 @@ final class LibreDirectApp: App {
         }
     }
 
+    // MARK: Internal
+
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(store)
         }
     }
+
+    // MARK: Private
+
+    private let store = AppStore(initialState: DefaultAppState(), reducer: defaultAppReducer, middlewares: [
+        actionLogMiddleware(),
+        libre2Middelware(),
+        calibrationMiddleware(),
+        expiringNotificationMiddelware(),
+        glucoseNotificationMiddelware(),
+        glucoseBadgeMiddelware(),
+        connectionNotificationMiddelware(),
+        freeAPSMiddleware(),
+        nightscoutMiddleware()
+    ])
+
+    private let notificationCenterDelegate = LibreDirectNotificationCenter()
 }
+
+// MARK: - LibreDirectNotificationCenter
 
 final class LibreDirectNotificationCenter: NSObject, UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {

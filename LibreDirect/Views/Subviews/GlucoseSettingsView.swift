@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-fileprivate extension Bool {
+private extension Bool {
     var asGlucoseUnit: GlucoseUnit {
         if self == GlucoseUnit.mgdL.asBool {
             return GlucoseUnit.mgdL
@@ -17,18 +17,20 @@ fileprivate extension Bool {
     }
 }
 
-fileprivate extension GlucoseUnit {
+private extension GlucoseUnit {
     var asBool: Bool {
         return self == .mmolL
     }
 }
+
+// MARK: - GlucoseSettingsView
 
 struct GlucoseSettingsView: View {
     @EnvironmentObject var store: AppStore
 
     var body: some View {
         GroupBox(label: Text("Glucose Settings").padding(.bottom).foregroundColor(.accentColor)) {
-            ToggleView(key: LocalizedString("Glucose Unit", comment: ""), value: store.state.glucoseUnit.asBool, trueValue: true.asGlucoseUnit.description, falseValue: false.asGlucoseUnit.description) { (value) -> Void in
+            ToggleView(key: LocalizedString("Glucose Unit", comment: ""), value: store.state.glucoseUnit.asBool, trueValue: true.asGlucoseUnit.description, falseValue: false.asGlucoseUnit.description) { value -> Void in
                 store.dispatch(.setGlucoseUnit(value: value.asGlucoseUnit))
             }
         }

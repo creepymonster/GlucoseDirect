@@ -8,17 +8,21 @@
 
 import SwiftUI
 
+// MARK: - AlarmSnoozeView
+
 struct AlarmSnoozeView: View {
     @EnvironmentObject var store: AppStore
 
     var body: some View {
         GroupBox {
-            DateSelectorView(key: LocalizedString("Snooze Until", comment: ""), value: store.state.alarmSnoozeUntil, displayValue: store.state.alarmSnoozeUntil?.localTime) { (value) -> Void in
+            DateSelectorView(key: LocalizedString("Snooze Until", comment: ""), value: store.state.alarmSnoozeUntil, displayValue: store.state.alarmSnoozeUntil?.localTime) { value -> Void in
                 store.dispatch(.setAlarmSnoozeUntil(value: value))
             }
         }
     }
 }
+
+// MARK: - AlarmSnooze_Previews
 
 struct AlarmSnooze_Previews: PreviewProvider {
     static var previews: some View {

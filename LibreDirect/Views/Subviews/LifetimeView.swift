@@ -7,35 +7,31 @@
 
 import SwiftUI
 
+// MARK: - LifetimeView
+
 struct LifetimeView: View {
     var sensor: Sensor?
-    
+
     var startAngle: Double {
-        get {
-            return 360
-        }
+        return 360
     }
     
     var remainingEndAngle: Double? {
-        get {
-            if let sensor = sensor, let remainingLifetime = sensor.remainingLifetime {
-                let angle = (360.0 / Double(sensor.lifetime)) * Double(remainingLifetime)
-                return angle
-            }
-            
-            return nil
+        if let sensor = sensor, let remainingLifetime = sensor.remainingLifetime {
+            let angle = (360.0 / Double(sensor.lifetime)) * Double(remainingLifetime)
+            return angle
         }
+            
+        return nil
     }
     
     var elapsedEndAngle: Double? {
-        get {
-            if let sensor = sensor, let elapsedLifetime = sensor.elapsedLifetime {
-                let angle = (360.0 / Double(sensor.lifetime)) * Double(elapsedLifetime)
-                return angle
-            }
-            
-            return nil
+        if let sensor = sensor, let elapsedLifetime = sensor.elapsedLifetime {
+            let angle = (360.0 / Double(sensor.lifetime)) * Double(elapsedLifetime)
+            return angle
         }
+            
+        return nil
     }
 
     var body: some View {
@@ -78,6 +74,8 @@ struct LifetimeView: View {
         }
     }
 }
+
+// MARK: - LifetimeView_Previews
 
 struct LifetimeView_Previews: PreviewProvider {
     static var previews: some View {

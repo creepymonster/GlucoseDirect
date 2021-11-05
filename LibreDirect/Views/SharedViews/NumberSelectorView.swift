@@ -9,12 +9,10 @@ import SwiftUI
 
 typealias NumberSelectorCompletionHandler = (_ value: Int) -> Void
 
-struct NumberSelectorView: View {
-    let key: String
-    var displayValue: String?
-    let completionHandler: NumberSelectorCompletionHandler?
+// MARK: - NumberSelectorView
 
-    @State var value: Int
+struct NumberSelectorView: View {
+    // MARK: Lifecycle
 
     init(key: String, value: Int, displayValue: String?, completionHandler: NumberSelectorCompletionHandler? = nil) {
         self.key = key
@@ -23,12 +21,20 @@ struct NumberSelectorView: View {
         self.completionHandler = completionHandler
     }
 
+    // MARK: Internal
+
+    let key: String
+    var displayValue: String?
+    let completionHandler: NumberSelectorCompletionHandler?
+
+    @State var value: Int
+
     var body: some View {
         HStack(alignment: .center) {
             Text(key)
                 .frame(maxWidth: 100, alignment: .leading)
-           
-            Stepper(value: $value, in: 40...500, step: 5) {
+
+            Stepper(value: $value, in: 40 ... 500, step: 5) {
                 if let displayValue = displayValue {
                     Text(displayValue)
                 }
@@ -40,6 +46,8 @@ struct NumberSelectorView: View {
         }
     }
 }
+
+// MARK: - NumberSelectorView_Previews
 
 struct NumberSelectorView_Previews: PreviewProvider {
     static var previews: some View {

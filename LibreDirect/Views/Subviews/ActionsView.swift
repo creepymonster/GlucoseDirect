@@ -11,7 +11,7 @@ struct ActionsView: View {
     @State private var showingDeleteLogsAlert = false
     @State private var showingDisconnectSensorAlert = false
     @State private var showingUnpairSensorAlert = false
-    
+
     @EnvironmentObject var store: AppStore
 
     var body: some View {
@@ -19,7 +19,7 @@ struct ActionsView: View {
             Button(action: { store.dispatch(.connectSensor) }) {
                 Label("Connect Sensor", systemImage: "play")
             }
-            
+
             Button(
                 action: { showingUnpairSensorAlert = true },
                 label: { Label("Unpair Sensor", systemImage: "arrow.uturn.backward") }
@@ -55,17 +55,17 @@ struct ActionsView: View {
             }
         }
 
-        /*Button(
-            action: { showingDeleteLogsAlert = true },
-            label: { Label("Delete Logs", systemImage: "trash") }
-        ).alert(isPresented: $showingDeleteLogsAlert) {
-            Alert(
-                title: Text("Are you sure you want to delete the log files?"),
-                primaryButton: .destructive(Text("Delete")) {
-                    Log.clear()
-                },
-                secondaryButton: .cancel()
-            )
-        }*/
+        /* Button(
+             action: { showingDeleteLogsAlert = true },
+             label: { Label("Delete Logs", systemImage: "trash") }
+         ).alert(isPresented: $showingDeleteLogsAlert) {
+             Alert(
+                 title: Text("Are you sure you want to delete the log files?"),
+                 primaryButton: .destructive(Text("Delete")) {
+                     Log.clear()
+                 },
+                 secondaryButton: .cancel()
+             )
+         } */
     }
 }
