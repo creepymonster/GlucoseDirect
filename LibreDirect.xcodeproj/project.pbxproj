@@ -22,7 +22,7 @@
 		E24B532126B863C00091417F /* GlucoseSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532026B863C00091417F /* GlucoseSettingsView.swift */; };
 		E24B532326B863E20091417F /* AlarmSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532226B863E20091417F /* AlarmSettingsView.swift */; };
 		E24B532526B864020091417F /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532426B864020091417F /* ToggleView.swift */; };
-		E27B62F027357D2F0082C019 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27B62EF27357D2F0082C019 /* Filter.swift */; };
+		E27B62F027357D2F0082C019 /* Filtering.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27B62EF27357D2F0082C019 /* Filtering.swift */; };
 		E283306726AF058500244343 /* GlucoseChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E283306626AF058500244343 /* GlucoseChartView.swift */; };
 		E28728AA26DE499200269F47 /* AlarmSnoozeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28728A926DE499200269F47 /* AlarmSnoozeView.swift */; };
 		E292E1B226A608C400011F64 /* NumberSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E292E1B126A608C400011F64 /* NumberSelectorView.swift */; };
@@ -118,7 +118,7 @@
 		E24B532026B863C00091417F /* GlucoseSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseSettingsView.swift; sourceTree = "<group>"; };
 		E24B532226B863E20091417F /* AlarmSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingsView.swift; sourceTree = "<group>"; };
 		E24B532426B864020091417F /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
-		E27B62EF27357D2F0082C019 /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
+		E27B62EF27357D2F0082C019 /* Filtering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filtering.swift; sourceTree = "<group>"; };
 		E27BFC0226B1407E00F8FBEF /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		E27BFC0426B1407E00F8FBEF /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		E283306626AF058500244343 /* GlucoseChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseChartView.swift; sourceTree = "<group>"; };
@@ -237,12 +237,12 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		E27B62EE27357D170082C019 /* Filter */ = {
+		E27B62EE27357D170082C019 /* Filtering */ = {
 			isa = PBXGroup;
 			children = (
-				E27B62EF27357D2F0082C019 /* Filter.swift */,
+				E27B62EF27357D2F0082C019 /* Filtering.swift */,
 			);
-			path = Filter;
+			path = Filtering;
 			sourceTree = "<group>";
 		};
 		E27BFC0126B1407E00F8FBEF /* Frameworks */ = {
@@ -353,7 +353,7 @@
 				E2FCAC402707420100FE1CBF /* PreviewAppState.swift */,
 				E2FCAC682707429800FE1CBF /* Internal */,
 				E2C19FBD273568F900B70A73 /* Calibration */,
-				E27B62EE27357D170082C019 /* Filter */,
+				E27B62EE27357D170082C019 /* Filtering */,
 				E2FCAC4F2707424000FE1CBF /* Nightscout */,
 				E2FCAC4E2707423A00FE1CBF /* Loop */,
 				E2FCAC4D2707423400FE1CBF /* Libre2 */,
@@ -598,7 +598,7 @@
 				E223F867267A4D9800EC9BCA /* DetailsView.swift in Sources */,
 				E2FCAC5D2707426100FE1CBF /* GlucoseNotification.swift in Sources */,
 				E2C19FBF2735690A00B70A73 /* Calibration.swift in Sources */,
-				E27B62F027357D2F0082C019 /* Filter.swift in Sources */,
+				E27B62F027357D2F0082C019 /* Filtering.swift in Sources */,
 				E2FCAC33270741D200FE1CBF /* Int.swift in Sources */,
 				E2F5F3D126A70AC400834A74 /* DateSelectorView.swift in Sources */,
 				E2FCAC462707420100FE1CBF /* DefaultAppReducer.swift in Sources */,

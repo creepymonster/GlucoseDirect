@@ -43,7 +43,7 @@ final class LibreDirectApp: App {
         // required middlewares
         actionLogMiddleware(),
         calibrationMiddleware(),
-        filterMiddleware(),
+        filteringMiddleware(),
         
         // sensor middleware
         libre2Middelware(),
