@@ -297,14 +297,14 @@
 				E2FCAC18270741BC00FE1CBF /* GlucoseUnit.swift */,
 				E2FCAC13270741BC00FE1CBF /* Sensor.swift */,
 				E2FCAC14270741BC00FE1CBF /* SensorConnectionState.swift */,
+				E2C19FB62735688400B70A73 /* SensorCalibration.swift */,
+				E2FCAC12270741BC00FE1CBF /* SensorType.swift */,
 				E2FCAC17270741BC00FE1CBF /* SensorFamily.swift */,
 				E2FCAC15270741BC00FE1CBF /* SensorRegion.swift */,
 				E2FCAC19270741BC00FE1CBF /* SensorState.swift */,
 				E2FCAC1B270741BC00FE1CBF /* SensorTrend.swift */,
-				E2FCAC12270741BC00FE1CBF /* SensorType.swift */,
 				E2C19FB2273567FE00B70A73 /* SensorReading.swift */,
 				E2C19FB42735684500B70A73 /* SensorGlucose.swift */,
-				E2C19FB62735688400B70A73 /* SensorCalibration.swift */,
 				E2C19FB8273568A000B70A73 /* Calibrations */,
 			);
 			path = Content;
