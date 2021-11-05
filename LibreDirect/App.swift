@@ -40,9 +40,15 @@ final class LibreDirectApp: App {
     // MARK: Private
 
     private let store = AppStore(initialState: DefaultAppState(), reducer: defaultAppReducer, middlewares: [
+        // required middlewares
         actionLogMiddleware(),
-        libre2Middelware(),
         calibrationMiddleware(),
+        filterMiddleware(),
+        
+        // sensor middleware
+        libre2Middelware(),
+        
+        // other middlewares
         expiringNotificationMiddelware(),
         glucoseNotificationMiddelware(),
         glucoseBadgeMiddelware(),
