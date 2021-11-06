@@ -22,7 +22,6 @@
 		E24B532126B863C00091417F /* GlucoseSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532026B863C00091417F /* GlucoseSettingsView.swift */; };
 		E24B532326B863E20091417F /* AlarmSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532226B863E20091417F /* AlarmSettingsView.swift */; };
 		E24B532526B864020091417F /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532426B864020091417F /* ToggleView.swift */; };
-		E27B62F027357D2F0082C019 /* Filtering.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27B62EF27357D2F0082C019 /* Filtering.swift */; };
 		E283306726AF058500244343 /* GlucoseChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E283306626AF058500244343 /* GlucoseChartView.swift */; };
 		E28728AA26DE499200269F47 /* AlarmSnoozeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28728A926DE499200269F47 /* AlarmSnoozeView.swift */; };
 		E292E1B226A608C400011F64 /* NumberSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E292E1B126A608C400011F64 /* NumberSelectorView.swift */; };
@@ -34,7 +33,8 @@
 		E2C19FB72735688400B70A73 /* SensorCalibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C19FB62735688400B70A73 /* SensorCalibration.swift */; };
 		E2C19FBA273568AB00B70A73 /* SlopCalibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C19FB9273568AB00B70A73 /* SlopCalibration.swift */; };
 		E2C19FBC273568BF00B70A73 /* FactoryCalibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C19FBB273568BF00B70A73 /* FactoryCalibration.swift */; };
-		E2C19FBF2735690A00B70A73 /* Calibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C19FBE2735690A00B70A73 /* Calibration.swift */; };
+		E2C5935F273696FE00CAFFD4 /* CalibrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C5935E273696FE00CAFFD4 /* CalibrationService.swift */; };
+		E2C593612736988800CAFFD4 /* FilteringService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C593602736988800CAFFD4 /* FilteringService.swift */; };
 		E2F5F3D126A70AC400834A74 /* DateSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F5F3D026A70AC400834A74 /* DateSelectorView.swift */; };
 		E2FCAC1C270741BC00FE1CBF /* SensorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC12270741BC00FE1CBF /* SensorType.swift */; };
 		E2FCAC1D270741BC00FE1CBF /* Sensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC13270741BC00FE1CBF /* Sensor.swift */; };
@@ -118,7 +118,6 @@
 		E24B532026B863C00091417F /* GlucoseSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseSettingsView.swift; sourceTree = "<group>"; };
 		E24B532226B863E20091417F /* AlarmSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingsView.swift; sourceTree = "<group>"; };
 		E24B532426B864020091417F /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
-		E27B62EF27357D2F0082C019 /* Filtering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filtering.swift; sourceTree = "<group>"; };
 		E27BFC0226B1407E00F8FBEF /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		E27BFC0426B1407E00F8FBEF /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		E283306626AF058500244343 /* GlucoseChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseChartView.swift; sourceTree = "<group>"; };
@@ -133,7 +132,8 @@
 		E2C19FB62735688400B70A73 /* SensorCalibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorCalibration.swift; sourceTree = "<group>"; };
 		E2C19FB9273568AB00B70A73 /* SlopCalibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlopCalibration.swift; sourceTree = "<group>"; };
 		E2C19FBB273568BF00B70A73 /* FactoryCalibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryCalibration.swift; sourceTree = "<group>"; };
-		E2C19FBE2735690A00B70A73 /* Calibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calibration.swift; sourceTree = "<group>"; };
+		E2C5935E273696FE00CAFFD4 /* CalibrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationService.swift; sourceTree = "<group>"; };
+		E2C593602736988800CAFFD4 /* FilteringService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringService.swift; sourceTree = "<group>"; };
 		E2F5F3D026A70AC400834A74 /* DateSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelectorView.swift; sourceTree = "<group>"; };
 		E2FCAC12270741BC00FE1CBF /* SensorType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorType.swift; sourceTree = "<group>"; };
 		E2FCAC13270741BC00FE1CBF /* Sensor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sensor.swift; sourceTree = "<group>"; };
@@ -237,14 +237,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		E27B62EE27357D170082C019 /* Filtering */ = {
-			isa = PBXGroup;
-			children = (
-				E27B62EF27357D2F0082C019 /* Filtering.swift */,
-			);
-			path = Filtering;
-			sourceTree = "<group>";
-		};
 		E27BFC0126B1407E00F8FBEF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -274,14 +266,6 @@
 				E2C19FBB273568BF00B70A73 /* FactoryCalibration.swift */,
 			);
 			path = Calibrations;
-			sourceTree = "<group>";
-		};
-		E2C19FBD273568F900B70A73 /* Calibration */ = {
-			isa = PBXGroup;
-			children = (
-				E2C19FBE2735690A00B70A73 /* Calibration.swift */,
-			);
-			path = Calibration;
 			sourceTree = "<group>";
 		};
 		E2E72B8E2681E9720083AD54 /* Subviews */ = {
@@ -352,8 +336,6 @@
 				E2FCAC3F2707420100FE1CBF /* PreviewAppReducer.swift */,
 				E2FCAC402707420100FE1CBF /* PreviewAppState.swift */,
 				E2FCAC682707429800FE1CBF /* Internal */,
-				E2C19FBD273568F900B70A73 /* Calibration */,
-				E27B62EE27357D170082C019 /* Filtering */,
 				E2FCAC4F2707424000FE1CBF /* Nightscout */,
 				E2FCAC4E2707423A00FE1CBF /* Loop */,
 				E2FCAC4D2707423400FE1CBF /* Libre2 */,
@@ -448,6 +430,8 @@
 				E2FCAC3E2707420100FE1CBF /* NotificationService.swift */,
 				E2FCAC69270742BA00FE1CBF /* SensorService.swift */,
 				E2A590022708EEDF003A081B /* SensorServiceUpdate.swift */,
+				E2C5935E273696FE00CAFFD4 /* CalibrationService.swift */,
+				E2C593602736988800CAFFD4 /* FilteringService.swift */,
 			);
 			path = Internal;
 			sourceTree = "<group>";
@@ -595,10 +579,9 @@
 				E2FCAC36270741D200FE1CBF /* LocalizedString.swift in Sources */,
 				E2FCAC432707420100FE1CBF /* NotificationService.swift in Sources */,
 				E2FCAC1F270741BC00FE1CBF /* SensorRegion.swift in Sources */,
+				E2C5935F273696FE00CAFFD4 /* CalibrationService.swift in Sources */,
 				E223F867267A4D9800EC9BCA /* DetailsView.swift in Sources */,
 				E2FCAC5D2707426100FE1CBF /* GlucoseNotification.swift in Sources */,
-				E2C19FBF2735690A00B70A73 /* Calibration.swift in Sources */,
-				E27B62F027357D2F0082C019 /* Filtering.swift in Sources */,
 				E2FCAC33270741D200FE1CBF /* Int.swift in Sources */,
 				E2F5F3D126A70AC400834A74 /* DateSelectorView.swift in Sources */,
 				E2FCAC462707420100FE1CBF /* DefaultAppReducer.swift in Sources */,
@@ -610,6 +593,7 @@
 				E2A590032708EEDF003A081B /* SensorServiceUpdate.swift in Sources */,
 				E2C19FB72735688400B70A73 /* SensorCalibration.swift in Sources */,
 				E2FCAC732707438A00FE1CBF /* AppStore.swift in Sources */,
+				E2C593612736988800CAFFD4 /* FilteringService.swift in Sources */,
 				E20B853E266F4A9800AA4224 /* App.swift in Sources */,
 				E24B531E26B863910091417F /* NightscoutSettingsView.swift in Sources */,
 				E2FCAC25270741BC00FE1CBF /* SensorTrend.swift in Sources */,

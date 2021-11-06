@@ -42,8 +42,6 @@ final class LibreDirectApp: App {
     private let store = AppStore(initialState: DefaultAppState(), reducer: defaultAppReducer, middlewares: [
         // required middlewares
         actionLogMiddleware(),
-        calibrationMiddleware(),
-        filteringMiddleware(),
         
         // sensor middleware
         libre2Middelware(),
