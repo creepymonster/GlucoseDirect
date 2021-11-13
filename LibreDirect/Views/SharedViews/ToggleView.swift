@@ -2,8 +2,6 @@
 //  ToggleView.swift
 //  LibreDirect
 //
-//  Created by Reimar Metzen on 02.08.21.
-//
 
 import SwiftUI
 
@@ -50,22 +48,17 @@ struct ToggleView: View {
     var body: some View {
         HStack(alignment: .center) {
             Text(key)
-                .frame(maxWidth: 100, alignment: .leading)
 
             Toggle(isOn: $value, label: {
                 HStack {
                     if let falseValue = falseValue, let trueValue = trueValue {
-                        Text(falseValue)
-                            .if(value) { $0.foregroundColor(.secondary.opacity(0.5)) }
-                            .if(!value) { $0.foregroundColor(.accentColor) }
-                            .if(!value) { $0.font(.body.bold()) }
-
-                        Text(trueValue)
-                            .if(!value) { $0.foregroundColor(.secondary.opacity(0.5)) }
-                            .if(value) { $0.foregroundColor(.accentColor) }
-                            .if(value) { $0.font(.body.bold()) }
+                        if !value {
+                            Text(falseValue)
+                        } else {
+                            Text(trueValue)
+                        }
                     }
-                }
+                }.frame(maxWidth: .infinity, alignment: .trailing)
             }).onChange(of: value, perform: { value in
                 if let completionHandler = completionHandler {
                     completionHandler(value)

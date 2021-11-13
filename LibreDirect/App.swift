@@ -2,8 +2,6 @@
 //  App.swift
 //  LibreDirect
 //
-//  Created by Reimar Metzen on 06.07.21.
-//
 
 import CoreBluetooth
 import SwiftUI
@@ -42,10 +40,10 @@ final class LibreDirectApp: App {
     private let store = AppStore(initialState: DefaultAppState(), reducer: defaultAppReducer, middlewares: [
         // required middlewares
         actionLogMiddleware(),
-        
+
         // sensor middleware
         libre2Middelware(),
-        
+
         // other middlewares
         expiringNotificationMiddelware(),
         glucoseNotificationMiddelware(),

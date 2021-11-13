@@ -2,8 +2,6 @@
 //  TextEditorView.swift
 //  LibreDirect
 //
-//  Created by Reimar Metzen on 06.07.21.
-//
 
 import SwiftUI
 
@@ -30,7 +28,6 @@ struct TextEditorView: View {
     var body: some View {
         HStack(alignment: .center) {
             Text(key)
-                .frame(maxWidth: 100, alignment: .leading)
 
             TextField("", text: $value)
                 .onChange(of: value, perform: { value in

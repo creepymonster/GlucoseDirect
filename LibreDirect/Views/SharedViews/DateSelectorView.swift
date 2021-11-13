@@ -2,8 +2,6 @@
 //  DateSelectorView.swift
 //  LibreDirect
 //
-//  Created by Reimar Metzen on 20.07.21.
-//
 
 import SwiftUI
 
@@ -31,7 +29,6 @@ struct DateSelectorView: View {
     var body: some View {
         HStack(alignment: .center) {
             Text(key)
-                .frame(maxWidth: 100, alignment: .leading)
 
             Stepper(onIncrement: {
                 let date = (value ?? Date()).rounded(on: 15, .minute).addingTimeInterval(30 * 60)
@@ -48,6 +45,7 @@ struct DateSelectorView: View {
             }) {
                 if let displayValue = displayValue {
                     Text(displayValue)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
                 }
             }
         }

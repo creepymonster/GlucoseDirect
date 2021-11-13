@@ -2,10 +2,28 @@
 //  GlucoseSettingsView.swift
 //  LibreDirect
 //
-//  Created by Reimar Metzen on 02.08.21.
-//
 
 import SwiftUI
+
+// MARK: - GlucoseSettingsView
+
+struct GlucoseSettingsView: View {
+    @EnvironmentObject var store: AppStore
+
+    var body: some View {
+        Section(
+            header: Text(LocalizedString("Glucose Settings"))
+                .foregroundColor(.accentColor)
+                .fontWeight(.bold)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.top, 40)
+        ) {
+            ToggleView(key: LocalizedString("Glucose Unit", comment: ""), value: store.state.glucoseUnit.asBool, trueValue: true.asGlucoseUnit.description, falseValue: false.asGlucoseUnit.description) { value -> Void in
+                store.dispatch(.setGlucoseUnit(value: value.asGlucoseUnit))
+            }
+        }
+    }
+}
 
 private extension Bool {
     var asGlucoseUnit: GlucoseUnit {
@@ -20,19 +38,5 @@ private extension Bool {
 private extension GlucoseUnit {
     var asBool: Bool {
         return self == .mmolL
-    }
-}
-
-// MARK: - GlucoseSettingsView
-
-struct GlucoseSettingsView: View {
-    @EnvironmentObject var store: AppStore
-
-    var body: some View {
-        GroupBox(label: Text("Glucose Settings").padding(.bottom).foregroundColor(.accentColor)) {
-            ToggleView(key: LocalizedString("Glucose Unit", comment: ""), value: store.state.glucoseUnit.asBool, trueValue: true.asGlucoseUnit.description, falseValue: false.asGlucoseUnit.description) { value -> Void in
-                store.dispatch(.setGlucoseUnit(value: value.asGlucoseUnit))
-            }
-        }
     }
 }

@@ -2,18 +2,13 @@
 //  GlucoseView.swift
 //  LibreDirect
 //
-//  Created by Reimar Metzen on 06.07.21.
-//
 
 import SwiftUI
 
 // MARK: - GlucoseView
 
 struct GlucoseView: View {
-    var glucose: SensorGlucose?
-    var glucoseUnit: GlucoseUnit?
-    var alarmLow: Int?
-    var alarmHigh: Int?
+    @EnvironmentObject var store: AppStore
 
     var formatter: NumberFormatter {
         let formatter = NumberFormatter()
@@ -25,8 +20,8 @@ struct GlucoseView: View {
     }
 
     var minuteChange: String {
-        if let minuteChange = glucose?.minuteChange {
-            if glucoseUnit == .mgdL {
+        if let minuteChange = store.state.lastGlucose?.minuteChange {
+            if store.state.glucoseUnit == .mgdL {
                 return formatter.string(from: minuteChange as NSNumber)!
             } else {
                 return formatter.string(from: minuteChange.asMmolL as NSNumber)!
@@ -37,12 +32,12 @@ struct GlucoseView: View {
     }
 
     var glucoseForegroundColor: Color {
-        if let glucose = glucose {
-            if let alarmLow = alarmLow, glucose.glucoseValue < alarmLow {
+        if let glucose = store.state.lastGlucose {
+            if glucose.glucoseValue < store.state.alarmLow {
                 return Color.red
             }
 
-            if let alarmHigh = alarmHigh, glucose.glucoseValue > alarmHigh {
+            if glucose.glucoseValue > store.state.alarmHigh {
                 return Color.red
             }
         }
@@ -51,37 +46,26 @@ struct GlucoseView: View {
     }
 
     var body: some View {
-        if let glucose = glucose, let glucoseUnit = glucoseUnit {
+        if let glucose = store.state.lastGlucose {
             VStack {
-                Text(glucose.glucoseValue.asGlucose(unit: glucoseUnit)).font(.system(size: 96)).foregroundColor(glucoseForegroundColor)
+                Text(glucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit)).font(.system(size: 96)).foregroundColor(glucoseForegroundColor)
 
-                if let _ = glucose.minuteChange {
-                    HStack {
+                HStack {
+                    Spacer()
+
+                    if let _ = glucose.minuteChange {
                         Text(glucose.trend.description)
                         Text(String(format: LocalizedString("%1$@/min.", comment: ""), minuteChange))
+                        Spacer()
                     }
-                    .font(.footnote)
-                    .padding(.bottom, 5)
+
+                    Text("Last update")
+                    Text(String(format: LocalizedString("%1$@ a clock"), glucose.timestamp.localTime))
+                    Spacer()
                 }
-
-                Text(glucose.timestamp.localTime)
+                .font(.footnote)
+                .padding(.bottom, 5)
             }
-        }
-    }
-}
-
-// MARK: - GlucoseView_Previews
-
-struct GlucoseView_Previews: PreviewProvider {
-    static var previews: some View {
-        ForEach(ColorScheme.allCases, id: \.self) {
-            GlucoseView(glucose: SensorGlucose(id: 1, timestamp: Date(), glucose: 60, minuteChange: 2), glucoseUnit: .mgdL, alarmLow: 70, alarmHigh: 180).preferredColorScheme($0)
-            GlucoseView(glucose: SensorGlucose(id: 1, timestamp: Date(), glucose: 100, minuteChange: -2), glucoseUnit: .mgdL, alarmLow: 70, alarmHigh: 180).preferredColorScheme($0)
-            GlucoseView(glucose: SensorGlucose(id: 1, timestamp: Date(), glucose: 190, minuteChange: 0), glucoseUnit: .mgdL, alarmLow: 70, alarmHigh: 180).preferredColorScheme($0)
-            GlucoseView(glucose: SensorGlucose(id: 1, timestamp: Date(), glucose: 60, minuteChange: 2), glucoseUnit: .mmolL, alarmLow: 70, alarmHigh: 180).preferredColorScheme($0)
-            GlucoseView(glucose: SensorGlucose(id: 1, timestamp: Date(), glucose: 100, minuteChange: -2), glucoseUnit: .mmolL, alarmLow: 70, alarmHigh: 180).preferredColorScheme($0)
-            GlucoseView(glucose: SensorGlucose(id: 1, timestamp: Date(), glucose: 190, minuteChange: 0), glucoseUnit: .mmolL, alarmLow: 70, alarmHigh: 180).preferredColorScheme($0)
-            GlucoseView(glucose: nil, alarmLow: 70, alarmHigh: 180).preferredColorScheme($0)
         }
     }
 }

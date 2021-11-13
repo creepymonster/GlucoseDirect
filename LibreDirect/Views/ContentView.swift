@@ -2,8 +2,6 @@
 //  ContentView.swift
 //  LibreDirect
 //
-//  Created by Reimar Metzen on 06.07.21.
-//
 
 import CoreNFC
 import SwiftUI
@@ -15,33 +13,24 @@ struct ContentView: View {
 
     var contentView: some View {
         ScrollView {
-            VStack(spacing: 0) {
-                if let lastGlucose = store.state.lastGlucose {
-                    GlucoseView(glucose: lastGlucose, glucoseUnit: store.state.glucoseUnit, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh).padding([.top])
-                }
+            Group {
+                ActionsView()
+                GlucoseView()
+                SnoozeView()
 
-                if store.state.connectionState == .connected {
-                    AlarmSnoozeView().padding([.top, .horizontal])
-                }
+                ChartView()
+                SensorView()
+                CalibrationView()
 
-                ConnectionView(connectionState: store.state.connectionState, connectionError: store.state.connectionError, connectionErrorTimestamp: store.state.connectionErrorTimeStamp, missedReadings: store.state.missedReadings).padding([.top, .horizontal])
+                AlarmSettingsView()
+                GlucoseSettingsView()
+                NightscoutSettingsView()
 
-                if !store.state.isPairable {
-                    GlucoseChartView(glucoseValues: store.state.glucoseValues, glucoseUnit: store.state.glucoseUnit, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh, targetValue: 100).padding([.top, .horizontal]).frame(minHeight: 200)
-                    LifetimeView(sensor: store.state.sensor).padding([.top, .horizontal])
-                    DetailsView(sensor: store.state.sensor).padding([.top, .horizontal])
-
-                    AlarmSettingsView().padding([.top, .horizontal])
-                    NightscoutSettingsView().padding([.top, .horizontal])
-                    GlucoseSettingsView().padding([.top, .horizontal])
-                }
-
-                ActionsView().padding([.top, .horizontal])
-            }
+            }.padding([.horizontal, .bottom])
         }
     }
 
-    var nfcErrorView: some View {
+    var errorView: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 15, style: .continuous)
                 .stroke(Color.red, lineWidth: 0)
@@ -58,11 +47,15 @@ struct ContentView: View {
     }
 
     var body: some View {
+#if targetEnvironment(simulator)
+        contentView
+#else
         if NFCTagReaderSession.readingAvailable {
             contentView
         } else {
-            nfcErrorView
+            errorView
         }
+#endif
     }
 }
 

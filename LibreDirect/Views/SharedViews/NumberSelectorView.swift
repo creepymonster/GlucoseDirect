@@ -2,8 +2,6 @@
 //  NumberSelectorView.swift
 //  LibreDirect
 //
-//  Created by Reimar Metzen on 19.07.21.
-//
 
 import SwiftUI
 
@@ -14,9 +12,10 @@ typealias NumberSelectorCompletionHandler = (_ value: Int) -> Void
 struct NumberSelectorView: View {
     // MARK: Lifecycle
 
-    init(key: String, value: Int, displayValue: String?, completionHandler: NumberSelectorCompletionHandler? = nil) {
+    init(key: String, value: Int, step: Int, displayValue: String?, completionHandler: NumberSelectorCompletionHandler? = nil) {
         self.key = key
         self.value = value
+        self.step = step
         self.displayValue = displayValue
         self.completionHandler = completionHandler
     }
@@ -26,23 +25,24 @@ struct NumberSelectorView: View {
     let key: String
     var displayValue: String?
     let completionHandler: NumberSelectorCompletionHandler?
+    let step: Int
 
     @State var value: Int
 
     var body: some View {
         HStack(alignment: .center) {
             Text(key)
-                .frame(maxWidth: 100, alignment: .leading)
 
-            Stepper(value: $value, in: 40 ... 500, step: 5) {
+            Stepper(value: $value, in: 40 ... 500, step: step) {
                 if let displayValue = displayValue {
                     Text(displayValue)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
                 }
             }.onChange(of: value, perform: { value in
                 if let completionHandler = completionHandler {
                     completionHandler(value)
                 }
-            })
+            }).frame(minWidth: 0, maxWidth: .infinity)
         }
     }
 }
@@ -51,6 +51,6 @@ struct NumberSelectorView: View {
 
 struct NumberSelectorView_Previews: PreviewProvider {
     static var previews: some View {
-        NumberSelectorView(key: "Key", value: 10, displayValue: "10 mg/dl")
+        NumberSelectorView(key: "Key", value: 10, step: 5, displayValue: "10 mg/dl")
     }
 }

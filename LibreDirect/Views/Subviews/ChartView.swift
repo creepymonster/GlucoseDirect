@@ -2,8 +2,6 @@
 //  GlucoseChartView.swift
 //  LibreDirect
 //
-//  Created by Reimar Metzen on 26.07.21.
-//
 
 import Combine
 import SwiftUI
@@ -42,9 +40,9 @@ struct TextInfo {
     let highlight: Bool
 }
 
-// MARK: - GlucoseChartView
+// MARK: - ChartView
 
-struct GlucoseChartView: View {
+struct ChartView: View {
     private let calculationQueue = DispatchQueue(label: "libre-direct.chart-calculation")
     private let timer = Timer.publish(every: 10, on: .main, in: .default).autoconnect()
 
@@ -75,6 +73,8 @@ struct GlucoseChartView: View {
         static let yStep = 50
     }
 
+    @EnvironmentObject var store: AppStore
+
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.scenePhase) var scenePhase
 
@@ -92,12 +92,6 @@ struct GlucoseChartView: View {
     @State var yGridTexts: [TextInfo] = []
     @State var deviceOrientation: UIDeviceOrientation? = UIDevice.current.orientation
 
-    var glucoseValues: [SensorGlucose]
-    var glucoseUnit: GlucoseUnit
-    var alarmLow: Int?
-    var alarmHigh: Int?
-    var targetValue: Int?
-
     var dotColor: Color {
         if colorScheme == .dark {
             return Config.dotDarkColor
@@ -106,95 +100,128 @@ struct GlucoseChartView: View {
         return Config.dotLightColor
     }
 
-    var body: some View {
-        if !glucoseValues.isEmpty {
-            GroupBox(label: Text(String(format: LocalizedString("Chart (%1$@)", comment: ""), glucoseValues.count.description)).padding(.bottom).foregroundColor(.accentColor)) {
-                GeometryReader { geo in
-                    ZStack(alignment: .leading) {
-                        yGridView()
-                        alarmLowGridView()
-                        alarmHighGridView()
-                        targetGridView()
-                        scrollGridView().padding(.leading, Config.yGridPadding)
-                    }
-                    .onReceive(timer) { _ in
-                        Log.info("onReceive: \(timer)")
+    var backgroundView: some View {
+        RoundedRectangle(cornerRadius: 10, style: .continuous)
+            .background(
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .fill(Color.gray)
+            )
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .opacity(0.05)
+            .clipped()
+    }
 
-                        updateNowPath(fullSize: geo.size)
-                    }
-                    .onChange(of: scenePhase) { state in
-                        if state == .active {
-                            Log.info("onChange: \(state)")
-                            updateHelpVariables(fullSize: geo.size, glucoseValues: self.glucoseValues)
+    var chartView: some View {
+        GeometryReader { geo in
+            ZStack(alignment: .leading) {
+                yGridView()
+                alarmLowGridView()
+                alarmHighGridView()
+                targetGridView()
+                scrollGridView().padding(.leading, Config.yGridPadding)
+            }
+            .onReceive(timer) { _ in
+                Log.info("onReceive: \(timer)")
 
-                            updateYGrid(fullSize: geo.size, alarmLow: self.alarmLow, alarmHigh: self.alarmHigh, targetValue: self.targetValue, glucoseUnit: self.glucoseUnit)
-                            updateAlarmLowGrid(fullSize: geo.size, alarmLow: self.alarmLow)
-                            updateAlarmHighGrid(fullSize: geo.size, alarmHigh: self.alarmHigh)
-                            updateTargetGrid(fullSize: geo.size, targetValue: self.targetValue)
+                updateNowPath(fullSize: geo.size)
+            }
+            .onChange(of: scenePhase) { state in
+                if state == .active {
+                    Log.info("onChange: \(state)")
+                    updateHelpVariables(fullSize: geo.size, glucoseValues: store.state.glucoseValues)
 
-                            updateXGrid(fullSize: geo.size, firstTimeStamp: self.firstTimeStamp, lastTimeStamp: self.lastTimeStamp)
-                            updateGlucoseDots(fullSize: geo.size, glucoseValues: self.glucoseValues)
-                        }
-                    }
-                    .onRotate { rotation in
-                        if deviceOrientation != rotation, rotation != .unknown {
-                            deviceOrientation = rotation
+                    updateYGrid(fullSize: geo.size, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh, targetValue: store.state.targetValue, glucoseUnit: store.state.glucoseUnit)
+                    updateAlarmLowGrid(fullSize: geo.size, alarmLow: store.state.alarmLow)
+                    updateAlarmHighGrid(fullSize: geo.size, alarmHigh: store.state.alarmHigh)
+                    updateTargetGrid(fullSize: geo.size, targetValue: store.state.targetValue)
 
-                            Log.info("onRotate: \(rotation)")
-
-                            updateYGrid(fullSize: geo.size, alarmLow: self.alarmLow, alarmHigh: self.alarmHigh, targetValue: self.targetValue, glucoseUnit: self.glucoseUnit)
-                            updateAlarmLowGrid(fullSize: geo.size, alarmLow: self.alarmLow)
-                            updateAlarmHighGrid(fullSize: geo.size, alarmHigh: self.alarmHigh)
-                            updateTargetGrid(fullSize: geo.size, targetValue: self.targetValue)
-                        }
-                    }
-                    .onChange(of: alarmLow) { alarmLow in
-                        Log.info("onChange: \(alarmLow)")
-
-                        updateYGrid(fullSize: geo.size, alarmLow: alarmLow, alarmHigh: self.alarmHigh, targetValue: self.targetValue, glucoseUnit: self.glucoseUnit)
-                        updateAlarmLowGrid(fullSize: geo.size, alarmLow: alarmLow)
-                    }
-                    .onChange(of: alarmHigh) { alarmHigh in
-                        Log.info("onChange: \(alarmHigh)")
-
-                        updateYGrid(fullSize: geo.size, alarmLow: self.alarmLow, alarmHigh: alarmHigh, targetValue: self.targetValue, glucoseUnit: self.glucoseUnit)
-                        updateAlarmHighGrid(fullSize: geo.size, alarmHigh: alarmHigh)
-                    }
-                    .onChange(of: targetValue) { targetValue in
-                        Log.info("onChange: \(targetValue)")
-
-                        updateYGrid(fullSize: geo.size, alarmLow: self.alarmLow, alarmHigh: self.alarmHigh, targetValue: targetValue, glucoseUnit: self.glucoseUnit)
-                        updateTargetGrid(fullSize: geo.size, targetValue: targetValue)
-                    }
-                    .onChange(of: glucoseUnit) { glucoseUnit in
-                        Log.info("onChange: \(glucoseUnit)")
-
-                        updateYGrid(fullSize: geo.size, alarmLow: self.alarmLow, alarmHigh: self.alarmHigh, targetValue: self.targetValue, glucoseUnit: glucoseUnit)
-                    }
-                    .onChange(of: glucoseValues) { glucoseValues in
-                        Log.info("onChange: \(glucoseValues.count)")
-
-                        updateHelpVariables(fullSize: geo.size, glucoseValues: glucoseValues)
-
-                        updateNowPath(fullSize: geo.size)
-                        updateXGrid(fullSize: geo.size, firstTimeStamp: self.firstTimeStamp, lastTimeStamp: self.lastTimeStamp)
-                        updateGlucoseDots(fullSize: geo.size, glucoseValues: glucoseValues)
-                    }.onAppear {
-                        Log.info("onAppear")
-
-                        updateNowPath(fullSize: geo.size)
-                        updateHelpVariables(fullSize: geo.size, glucoseValues: self.glucoseValues)
-
-                        updateYGrid(fullSize: geo.size, alarmLow: self.alarmLow, alarmHigh: self.alarmHigh, targetValue: self.targetValue, glucoseUnit: self.glucoseUnit)
-                        updateAlarmLowGrid(fullSize: geo.size, alarmLow: self.alarmLow)
-                        updateAlarmHighGrid(fullSize: geo.size, alarmHigh: self.alarmHigh)
-                        updateTargetGrid(fullSize: geo.size, targetValue: self.targetValue)
-
-                        updateXGrid(fullSize: geo.size, firstTimeStamp: self.firstTimeStamp, lastTimeStamp: self.lastTimeStamp)
-                        updateGlucoseDots(fullSize: geo.size, glucoseValues: self.glucoseValues)
-                    }
+                    updateXGrid(fullSize: geo.size, firstTimeStamp: self.firstTimeStamp, lastTimeStamp: self.lastTimeStamp)
+                    updateGlucoseDots(fullSize: geo.size, glucoseValues: store.state.glucoseValues)
                 }
-            }.frame(height: Config.height)
+            }
+            .onRotate { rotation in
+                if deviceOrientation != rotation, rotation != .unknown {
+                    deviceOrientation = rotation
+
+                    Log.info("onRotate: \(rotation)")
+
+                    updateYGrid(fullSize: geo.size, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh, targetValue: store.state.targetValue, glucoseUnit: store.state.glucoseUnit)
+                    updateAlarmLowGrid(fullSize: geo.size, alarmLow: store.state.alarmLow)
+                    updateAlarmHighGrid(fullSize: geo.size, alarmHigh: store.state.alarmHigh)
+                    updateTargetGrid(fullSize: geo.size, targetValue: store.state.targetValue)
+                }
+            }
+            .onChange(of: store.state.alarmLow) { alarmLow in
+                Log.info("onChange: \(alarmLow)")
+
+                updateYGrid(fullSize: geo.size, alarmLow: alarmLow, alarmHigh: store.state.alarmHigh, targetValue: store.state.targetValue, glucoseUnit: store.state.glucoseUnit)
+                updateAlarmLowGrid(fullSize: geo.size, alarmLow: alarmLow)
+            }
+            .onChange(of: store.state.alarmHigh) { alarmHigh in
+                Log.info("onChange: \(alarmHigh)")
+
+                updateYGrid(fullSize: geo.size, alarmLow: store.state.alarmLow, alarmHigh: alarmHigh, targetValue: store.state.targetValue, glucoseUnit: store.state.glucoseUnit)
+                updateAlarmHighGrid(fullSize: geo.size, alarmHigh: alarmHigh)
+            }
+            .onChange(of: store.state.targetValue) { targetValue in
+                Log.info("onChange: \(targetValue)")
+
+                updateYGrid(fullSize: geo.size, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh, targetValue: targetValue, glucoseUnit: store.state.glucoseUnit)
+                updateTargetGrid(fullSize: geo.size, targetValue: targetValue)
+            }
+            .onChange(of: store.state.glucoseUnit) { glucoseUnit in
+                Log.info("onChange: \(glucoseUnit)")
+
+                updateYGrid(fullSize: geo.size, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh, targetValue: store.state.targetValue, glucoseUnit: glucoseUnit)
+            }
+            .onChange(of: store.state.glucoseValues) { glucoseValues in
+                Log.info("onChange: \(glucoseValues.count)")
+
+                updateHelpVariables(fullSize: geo.size, glucoseValues: glucoseValues)
+
+                updateNowPath(fullSize: geo.size)
+                updateXGrid(fullSize: geo.size, firstTimeStamp: self.firstTimeStamp, lastTimeStamp: self.lastTimeStamp)
+                updateGlucoseDots(fullSize: geo.size, glucoseValues: glucoseValues)
+            }.onAppear {
+                Log.info("onAppear")
+
+                updateNowPath(fullSize: geo.size)
+                updateHelpVariables(fullSize: geo.size, glucoseValues: store.state.glucoseValues)
+
+                updateYGrid(fullSize: geo.size, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh, targetValue: store.state.targetValue, glucoseUnit: store.state.glucoseUnit)
+                updateAlarmLowGrid(fullSize: geo.size, alarmLow: store.state.alarmLow)
+                updateAlarmHighGrid(fullSize: geo.size, alarmHigh: store.state.alarmHigh)
+                updateTargetGrid(fullSize: geo.size, targetValue: store.state.targetValue)
+
+                updateXGrid(fullSize: geo.size, firstTimeStamp: self.firstTimeStamp, lastTimeStamp: self.lastTimeStamp)
+                updateGlucoseDots(fullSize: geo.size, glucoseValues: store.state.glucoseValues)
+            }
+        }
+    }
+
+    var body: some View {
+        if !store.state.glucoseValues.isEmpty {
+            Section(
+                header: Text(String(format: LocalizedString("Chart (%1$@)", comment: ""), store.state.glucoseValues.count.description))
+                    .foregroundColor(.accentColor)
+                    .fontWeight(.bold)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.top, 40)
+                    .padding(.bottom, 10)
+            ) {
+                ZStack {
+                    backgroundView
+                        .padding(-8)
+                        .padding(.bottom, 0)
+
+                    chartView
+                        .padding(.leading, 10)
+                        .padding(.trailing, 5)
+                        .padding(.top, 15)
+                        .padding(.bottom, 5)
+                        .frame(height: Config.height)
+                }
+            }
         }
     }
 
@@ -208,7 +235,7 @@ struct GlucoseChartView: View {
                 }
                 .id(Config.endID)
                 .frame(width: CGFloat(glucoseMinutes) * Config.xStep)
-                .onChange(of: glucoseValues) { _ in
+                .onChange(of: store.state.glucoseValues) { _ in
                     scroll.scrollTo(Config.endID, anchor: .trailing)
                 }
                 .onAppear {
@@ -473,33 +500,5 @@ struct GlucoseChartView: View {
         }
 
         return 0
-    }
-}
-
-// MARK: - GlucoseChartView_Previews
-
-struct GlucoseChartView_Previews: PreviewProvider {
-    static var previews: some View {
-        let dateFormatter = ISO8601DateFormatter()
-
-        let glucoseValues = [
-            SensorGlucose(id: 1, timestamp: dateFormatter.date(from: "2021-08-01T10:00:00+0200")!, glucose: 70),
-            SensorGlucose(id: 2, timestamp: dateFormatter.date(from: "2021-08-01T10:15:00+0200")!, glucose: 100),
-            SensorGlucose(id: 3, timestamp: dateFormatter.date(from: "2021-08-01T10:30:00+0200")!, glucose: 180),
-            SensorGlucose(id: 4, timestamp: dateFormatter.date(from: "2021-08-01T10:45:00+0200")!, glucose: 250),
-            SensorGlucose(id: 5, timestamp: dateFormatter.date(from: "2021-08-01T11:00:00+0200")!, glucose: 70),
-            SensorGlucose(id: 6, timestamp: dateFormatter.date(from: "2021-08-01T11:05:00+0200")!, glucose: 100),
-            SensorGlucose(id: 7, timestamp: dateFormatter.date(from: "2021-08-01T11:10:00+0200")!, glucose: 180),
-            SensorGlucose(id: 8, timestamp: dateFormatter.date(from: "2021-08-01T11:15:00+0200")!, glucose: 250),
-            SensorGlucose(id: 9, timestamp: dateFormatter.date(from: "2021-08-01T12:00:00+0200")!, glucose: 70),
-            SensorGlucose(id: 10, timestamp: dateFormatter.date(from: "2021-08-01T12:01:00+0200")!, glucose: 70),
-            SensorGlucose(id: 11, timestamp: dateFormatter.date(from: "2021-08-01T12:02:00+0200")!, glucose: 70),
-            SensorGlucose(id: 12, timestamp: dateFormatter.date(from: "2021-08-01T12:03:00+0200")!, glucose: 70)
-        ]
-
-        ForEach(ColorScheme.allCases, id: \.self) {
-            GlucoseChartView(glucoseValues: glucoseValues, glucoseUnit: .mgdL, alarmLow: 70, alarmHigh: 180, targetValue: 100).preferredColorScheme($0)
-            GlucoseChartView(glucoseValues: glucoseValues, glucoseUnit: .mmolL, alarmLow: 70, alarmHigh: 180, targetValue: 100).preferredColorScheme($0)
-        }
     }
 }

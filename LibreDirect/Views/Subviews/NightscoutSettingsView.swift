@@ -2,8 +2,6 @@
 //  NightscoutSettingsView.swift
 //  LibreDirect
 //
-//  Created by Reimar Metzen on 02.08.21.
-//
 
 import SwiftUI
 
@@ -13,8 +11,14 @@ struct NightscoutSettingsView: View {
     @EnvironmentObject var store: AppStore
 
     var body: some View {
-        GroupBox(label: Text("Nightscout Settings").padding(.bottom).foregroundColor(.accentColor)) {
-            ToggleView(key: LocalizedString("Nightscout Host Enabled", comment: ""), value: store.state.nightscoutUpload) { value -> Void in
+        Section(
+            header: Text(LocalizedString("Nightscout Settings"))
+                .foregroundColor(.accentColor)
+                .fontWeight(.bold)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.top, 40)
+        ) {
+            ToggleView(key: LocalizedString("Nightscout Upload Enabled", comment: ""), value: store.state.nightscoutUpload) { value -> Void in
                 store.dispatch(.setNightscoutUpload(enabled: value))
             }
 

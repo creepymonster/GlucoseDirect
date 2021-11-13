@@ -2,8 +2,6 @@
 //  KeyValueView.swift
 //  LibreDirect
 //
-//  Created by Reimar Metzen on 06.07.21.
-//
 
 import SwiftUI
 
@@ -25,14 +23,14 @@ struct KeyValueView: View {
     let valueColor: Color?
 
     var body: some View {
-        HStack(alignment: .top) {
+        HStack(alignment: .top, spacing: 0) {
             Text(key)
                 .frame(maxWidth: 100, alignment: .leading)
 
             Text(value)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .ifLet(valueColor) { $0.foregroundColor($1).font(Font.body.bold()) }
-        }
+        }.padding(0)
     }
 }
 
