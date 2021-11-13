@@ -67,7 +67,6 @@ struct GlucoseView: View {
 
                     Spacer()
                     
-                    Text("Last update:")
                     Text(String(format: LocalizedString("%1$@ a clock"), glucose.timestamp.localTime))
                     
                     Spacer()
