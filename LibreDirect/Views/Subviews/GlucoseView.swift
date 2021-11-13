@@ -47,25 +47,44 @@ struct GlucoseView: View {
 
     var body: some View {
         if let glucose = store.state.lastGlucose {
-            VStack {
-                Text(glucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit)).font(.system(size: 96)).foregroundColor(glucoseForegroundColor)
+            VStack(alignment: .center) {
+                ZStack(alignment: .trailing) {
+                    Text(glucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit))
+                        .font(.system(size: 96))
+                        .foregroundColor(glucoseForegroundColor)
+                    
+                    Text(store.state.glucoseUnit.localizedString)
+                        .offset(y: 52)
+                }
+
+                Spacer()
 
                 HStack {
                     Spacer()
+                    
+                    Text(glucose.trend.description)
+                    Text(String(format: LocalizedString("%1$@/min.", comment: ""), minuteChange))
 
-                    if let _ = glucose.minuteChange {
-                        Text(glucose.trend.description)
-                        Text(String(format: LocalizedString("%1$@/min.", comment: ""), minuteChange))
-                        Spacer()
-                    }
-
-                    Text("Last update")
-                    Text(String(format: LocalizedString("%1$@ a clock"), glucose.timestamp.localTime))
                     Spacer()
-                }
-                .font(.footnote)
-                .padding(.bottom, 5)
-            }
+                    
+                    Text("Last update:")
+                    Text(String(format: LocalizedString("%1$@ a clock"), glucose.timestamp.localTime))
+                    
+                    Spacer()
+                }.font(.footnote)
+            }.frame(height: 156)
+        }
+    }
+}
+
+// MARK: - GlucoseView_Previews
+
+struct GlucoseView_Previews: PreviewProvider {
+    static var previews: some View {
+        let store = AppStore(initialState: PreviewAppState())
+
+        ForEach(ColorScheme.allCases, id: \.self) {
+            GlucoseView().environmentObject(store).preferredColorScheme($0)
         }
     }
 }
