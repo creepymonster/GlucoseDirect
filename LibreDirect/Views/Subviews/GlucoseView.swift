@@ -28,7 +28,7 @@ struct GlucoseView: View {
             }
         }
 
-        return ""
+        return "?"
     }
 
     var glucoseForegroundColor: Color {
@@ -48,30 +48,38 @@ struct GlucoseView: View {
     var body: some View {
         if let glucose = store.state.lastGlucose {
             VStack(alignment: .center) {
-                ZStack(alignment: .trailing) {
+                ZStack(alignment: .bottomTrailing) {
                     Text(glucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit))
                         .font(.system(size: 96))
                         .foregroundColor(glucoseForegroundColor)
-                    
+
                     Text(store.state.glucoseUnit.localizedString)
-                        .offset(y: 52)
                 }
-
-                Spacer()
-
+                
                 HStack {
                     Spacer()
-                    
-                    Text(glucose.trend.description)
-                    Text(String(format: LocalizedString("%1$@/min.", comment: ""), minuteChange))
+                    Text("(\(glucose.factoryCalibratedGlucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true)))")
+                    Spacer()
+                }
+                .font(.footnote)
 
-                    Spacer()
+                HStack {
+                    Text("Change:")
+                    if glucose.trend != .unknown {
+                        Text(glucose.trend.description)
+                        Text(String(format: LocalizedString("%1$@/min.", comment: ""), minuteChange))
+                    } else {
+                        Text("...")
+                    }
                     
+                    Spacer()
+
+                    Text("Last update:")
                     Text(String(format: LocalizedString("%1$@ a clock"), glucose.timestamp.localTime))
-                    
-                    Spacer()
-                }.font(.footnote)
-            }.frame(height: 156)
+                }
+                .font(.footnote)
+                .padding(.top, 15)
+            }
         }
     }
 }
