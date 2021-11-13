@@ -41,11 +41,8 @@ struct SensorView: View {
         ])
         
         ListView(header: "Sensor Details", rows: [
-            ListViewRow(key: "Sensor Region", value: store.state.sensor?.region.localizedString, isVisible: true),
-            ListViewRow(key: "Sensor Type", value: store.state.sensor?.type.localizedString, isVisible: false),
-        ])
-        
-        ListView(header: "Sensor Internals", rows: [
+            ListViewRow(key: "Sensor Region", value: store.state.sensor?.region.localizedString),
+            ListViewRow(key: "Sensor Type", value: store.state.sensor?.type.localizedString),
             ListViewRow(key: "Sensor UID", value: store.state.sensor?.uuid.hex),
             ListViewRow(key: "Sensor PatchInfo", value: store.state.sensor?.patchInfo.hex),
             ListViewRow(key: "Sensor Serial", value: store.state.sensor?.serial?.description),
