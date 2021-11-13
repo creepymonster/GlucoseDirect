@@ -12,6 +12,8 @@ My playground for the Libre 2 blood glucose sensors and Swift/SwiftUI ([TestFlig
 - Glucose badge
 - Glucose chart
 - Libre 2 EU support (without transmitter)
+- Factory calibration
+- Custom calibration
 - Lifetime visualization
 - Sensor details
 - Sensor expiring alert
