@@ -101,13 +101,10 @@ struct ChartView: View {
     }
 
     var backgroundView: some View {
-        RoundedRectangle(cornerRadius: 10, style: .continuous)
-            .background(
-                RoundedRectangle(cornerRadius: 10, style: .continuous)
-                    .fill(Color.gray)
-            )
+        Rectangle()
+            .background(Color.gray)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .opacity(0.05)
+            .opacity(0.01)
             .clipped()
     }
 
@@ -211,12 +208,12 @@ struct ChartView: View {
             ) {
                 ZStack {
                     backgroundView
-                        .padding(-8)
-                        .padding(.bottom, 0)
+                        .padding(.horizontal, -20)
+                        .padding(.vertical, -10)
 
                     chartView
-                        .padding(.leading, 10)
-                        .padding(.trailing, 5)
+                        .padding(.leading, 8)
+                        .padding(.trailing, -3)
                         .padding(.top, 15)
                         .padding(.bottom, 5)
                         .frame(height: Config.height)
