@@ -14,7 +14,7 @@ struct NightscoutSettingsView: View {
         Section(
             header: Text(LocalizedString("Nightscout Settings"))
                 .foregroundColor(.accentColor)
-                .fontWeight(.bold)
+                .fontWeight(.semibold)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 40)
         ) {

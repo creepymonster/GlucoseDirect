@@ -201,7 +201,7 @@ struct ChartView: View {
             Section(
                 header: Text(String(format: LocalizedString("Chart (%1$@)", comment: ""), store.state.glucoseValues.count.description))
                     .foregroundColor(.accentColor)
-                    .fontWeight(.bold)
+                    .fontWeight(.semibold)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 40)
                     .padding(.bottom, 10)
@@ -280,7 +280,7 @@ struct ChartView: View {
                 .stroke(Config.xGridColor)
 
             ForEach(xGridTexts, id: \.self.x) { text in
-                let fontWeight: Font.Weight = text.highlight ? .bold : .light
+                let fontWeight: Font.Weight = text.highlight ? .semibold : .regular
 
                 Text(text.description)
                     .font(.system(size: Config.xGridFontSize))
@@ -297,7 +297,7 @@ struct ChartView: View {
                 .stroke(Config.yGridColor)
 
             ForEach(yGridTexts, id: \.self.y) { text in
-                let fontWeight: Font.Weight = text.highlight ? .bold : .light
+                let fontWeight: Font.Weight = text.highlight ? .semibold : .regular
 
                 Text(text.description)
                     .font(.system(size: Config.yGridFontSize))

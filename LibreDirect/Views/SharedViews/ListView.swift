@@ -29,7 +29,7 @@ struct ListView: View {
         if let header = header {
             return AnyView(Text(LocalizedString(header))
                 .foregroundColor(.accentColor)
-                .fontWeight(.bold)
+                .fontWeight(.semibold)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 40))
         }

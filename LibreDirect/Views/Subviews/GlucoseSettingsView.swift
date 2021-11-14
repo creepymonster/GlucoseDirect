@@ -14,7 +14,7 @@ struct GlucoseSettingsView: View {
         Section(
             header: Text(LocalizedString("Glucose Settings"))
                 .foregroundColor(.accentColor)
-                .fontWeight(.bold)
+                .fontWeight(.semibold)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 40)
         ) {

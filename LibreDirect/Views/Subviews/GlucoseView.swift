@@ -42,43 +42,51 @@ struct GlucoseView: View {
             }
         }
 
-        return Color.primary
+        return Color.accentColor
     }
 
     var body: some View {
         if let glucose = store.state.lastGlucose {
-            VStack(alignment: .center) {
+            VStack(alignment: .trailing) {
                 ZStack(alignment: .bottomTrailing) {
                     Text(glucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit))
                         .font(.system(size: 96))
                         .foregroundColor(glucoseForegroundColor)
+                        .padding(.bottom, 5)
 
                     Text(store.state.glucoseUnit.localizedString)
                 }
+
+                HStack {
+                    Spacer()
+                    
+                    Text("Trend:")
+                    
+                    if glucose.trend != .unknown {
+                        Text(glucose.trend.description).fontWeight(.semibold).foregroundColor(.accentColor)
+                        Text(String(format: LocalizedString("%1$@/min."), minuteChange)).fontWeight(.semibold).foregroundColor(.accentColor)
+                    } else {
+                        Text(String(format: LocalizedString("%1$@/min."), "...")).fontWeight(.semibold).foregroundColor(.accentColor)
+                    }
+                }
+                .font(.footnote)
+                .padding(.top, 5)
                 
                 HStack {
                     Spacer()
-                    Text("(\(glucose.factoryCalibratedGlucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true)))")
-                    Spacer()
+                    Text("Last update:")
+                    Text(String(format: LocalizedString("%1$@ a clock"), glucose.timestamp.localTime)).fontWeight(.semibold).foregroundColor(.accentColor)
                 }
                 .font(.footnote)
+                .padding(.top, 5)
 
                 HStack {
-                    Text("Change:")
-                    if glucose.trend != .unknown {
-                        Text(glucose.trend.description)
-                        Text(String(format: LocalizedString("%1$@/min.", comment: ""), minuteChange))
-                    } else {
-                        Text("...")
-                    }
-                    
                     Spacer()
-
-                    Text("Last update:")
-                    Text(String(format: LocalizedString("%1$@ a clock"), glucose.timestamp.localTime))
+                    Text("Factory calibrated glucose:")
+                    Text(glucose.factoryCalibratedGlucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true)).fontWeight(.semibold).foregroundColor(.accentColor)
                 }
                 .font(.footnote)
-                .padding(.top, 15)
+                .padding(.top, 5)
             }
         }
     }
