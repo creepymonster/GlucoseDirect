@@ -69,7 +69,6 @@ struct GlucoseView: View {
                         Text(String(format: LocalizedString("%1$@/min."), "...")).fontWeight(.semibold).foregroundColor(.accentColor)
                     }
                 }
-                .font(.footnote)
                 .padding(.top, 5)
                 
                 HStack {
@@ -77,7 +76,6 @@ struct GlucoseView: View {
                     Text("Last update:")
                     Text(String(format: LocalizedString("%1$@ a clock"), glucose.timestamp.localTime)).fontWeight(.semibold).foregroundColor(.accentColor)
                 }
-                .font(.footnote)
                 .padding(.top, 5)
 
                 HStack {
@@ -85,7 +83,6 @@ struct GlucoseView: View {
                     Text("Factory calibrated glucose:")
                     Text(glucose.factoryCalibratedGlucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true)).fontWeight(.semibold).foregroundColor(.accentColor)
                 }
-                .font(.footnote)
                 .padding(.top, 5)
             }
         }
