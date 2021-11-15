@@ -5,21 +5,21 @@
 My playground for the Libre 2 blood glucose sensors and Swift/SwiftUI ([TestFlight](https://testflight.apple.com/join/dWDt5Wme)).
 
 ## Current features
-- Units mg/dL or mmol/L
-- Connection lost alert
-- Missed readings alert
-- Glucose alert for lows and highs
-- Glucose badge
-- Glucose chart
 - Libre 2 EU support (without transmitter)
-- Factory calibration
-- Custom calibration
-- Lifetime visualization
-- Sensor details
-- Sensor expiring alert
-- Snooze for glucose alerts
+- Units mg/dL or mmol/L
 - Nightscout upload
 - FreeAPS X support (with Shared App Groups)
+- Glucose badge
+- Glucose chart
+- Factory calibration
+- Custom calibration
+- Lifetime details
+- Sensor details
+- Glucose alert for lows and highs
+- Connection lost alert
+- Missed readings alert
+- Sensor expiring alert
+- Snooze for glucose alerts
 
 ## Quick test?
 You can quickly get an idea of Libre Direct: [TestFlight](https://testflight.apple.com/join/dWDt5Wme)
