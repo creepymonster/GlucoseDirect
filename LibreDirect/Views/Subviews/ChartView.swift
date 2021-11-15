@@ -198,27 +198,18 @@ struct ChartView: View {
 
     var body: some View {
         if !store.state.glucoseValues.isEmpty {
-            Section(
-                header: Text(String(format: LocalizedString("Chart (%1$@)", comment: ""), store.state.glucoseValues.count.description))
-                    .foregroundColor(.accentColor)
-                    .fontWeight(.semibold)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.top, 40)
-                    .padding(.bottom, 10)
-            ) {
-                ZStack {
-                    backgroundView
-                        .padding(.horizontal, -20)
-                        .padding(.vertical, -10)
+            ZStack {
+                backgroundView
+                    .padding(.horizontal, -20)
+                    .padding(.vertical, -10)
 
-                    chartView
-                        .padding(.leading, 8)
-                        .padding(.trailing, -3)
-                        .padding(.top, 15)
-                        .padding(.bottom, 5)
-                        .frame(height: Config.height)
-                }
-            }
+                chartView
+                    .padding(.leading, 5)
+                    .padding(.trailing, 0)
+                    .padding(.top, 15)
+                    .padding(.bottom, 5)
+                    .frame(height: Config.height)
+            }.padding(.top)
         }
     }
 
@@ -310,9 +301,15 @@ struct ChartView: View {
     }
 
     private func updateHelpVariables(fullSize: CGSize, glucoseValues: [SensorGlucose]) {
-        if let first = glucoseValues.first {
+        if let first = glucoseValues.first, let last = glucoseValues.last {
             let firstTimeStamp = first.timestamp.addingTimeInterval(-1 * 15 * 60)
-            let lastTimeStamp = Date().rounded(on: 1, .minute).addingTimeInterval(15 * 60)
+
+            #if targetEnvironment(simulator)
+                let lastTimeStamp = last.timestamp.rounded(on: 1, .minute).addingTimeInterval(15 * 60)
+            #else
+                let lastTimeStamp = Date().rounded(on: 1, .minute).addingTimeInterval(15 * 60)
+            #endif
+
             let glucoseMinutes = Int(firstTimeStamp.distance(to: lastTimeStamp) / 60)
 
             self.firstTimeStamp = firstTimeStamp

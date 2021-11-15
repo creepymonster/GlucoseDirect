@@ -25,23 +25,20 @@ struct ContentView: View {
                 AlarmSettingsView()
                 GlucoseSettingsView()
                 NightscoutSettingsView()
-
             }.padding([.horizontal, .bottom])
         }
     }
 
     var errorView: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 15, style: .continuous)
-                .stroke(Color.red, lineWidth: 0)
-                .background(RoundedRectangle(cornerRadius: 15, style: .continuous).fill(Color.red))
-                .frame(width: 320, height: 120)
-                .clipped()
+            Rectangle()
+                .foregroundColor(Color.red)
+                .frame(width: 320, height: 160)
 
             VStack {
                 Text("Sorry, an NFC enabled iPhone is required to use LibreDirect :'(")
             }
-            .frame(width: 300, height: 90)
+            .frame(width: 300, height: 140)
             .foregroundColor(Color.white)
         }.padding()
     }

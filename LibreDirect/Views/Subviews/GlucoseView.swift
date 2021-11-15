@@ -20,7 +20,7 @@ struct GlucoseView: View {
     }
 
     var minuteChange: String {
-        if let minuteChange = store.state.lastGlucose?.minuteChange {
+        if let minuteChange = store.state.currentGlucose?.minuteChange {
             if store.state.glucoseUnit == .mgdL {
                 return formatter.string(from: minuteChange as NSNumber)!
             } else {
@@ -31,59 +31,48 @@ struct GlucoseView: View {
         return "?"
     }
 
-    var glucoseForegroundColor: Color {
-        if let glucose = store.state.lastGlucose {
-            if glucose.glucoseValue < store.state.alarmLow {
-                return Color.red
-            }
-
-            if glucose.glucoseValue > store.state.alarmHigh {
-                return Color.red
-            }
+    var isAlarm: Bool {
+        if let glucose = store.state.currentGlucose, glucose.glucoseValue < store.state.alarmLow || glucose.glucoseValue > store.state.alarmHigh {
+            return true
         }
 
-        return Color.accentColor
+        return false
+    }
+
+    var glucoseForegroundColor: Color {
+        if isAlarm {
+            return Color.red
+        }
+
+        return Color.primary
     }
 
     var body: some View {
-        if let glucose = store.state.lastGlucose {
-            VStack(alignment: .trailing) {
+        if let currentGlucose = store.state.currentGlucose {
+            VStack(alignment: .center) {
                 ZStack(alignment: .bottomTrailing) {
-                    Text(glucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit))
-                        .font(.system(size: 96))
+                    Text(currentGlucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit))
+                        .font(.system(size: 112))
                         .foregroundColor(glucoseForegroundColor)
-                        .padding(.bottom, 5)
 
                     Text(store.state.glucoseUnit.localizedString)
                 }
 
                 HStack {
+                    Text(String(format: LocalizedString("%1$@ a clock"), currentGlucose.timestamp.localTime)).frame(width: 120, alignment: .leading)
                     Spacer()
                     
-                    Text("Trend:")
-                    
-                    if glucose.trend != .unknown {
-                        Text(glucose.trend.description).fontWeight(.semibold).foregroundColor(.accentColor)
-                        Text(String(format: LocalizedString("%1$@/min."), minuteChange)).fontWeight(.semibold).foregroundColor(.accentColor)
-                    } else {
-                        Text(String(format: LocalizedString("%1$@/min."), "...")).fontWeight(.semibold).foregroundColor(.accentColor)
+                    if let lastGlucose = store.state.lastGlucose {
+                        Text(lastGlucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true)).foregroundColor(.gray)
+                        Spacer()
                     }
-                }
-                .padding(.top, 5)
-                
-                HStack {
-                    Spacer()
-                    Text("Last update:")
-                    Text(String(format: LocalizedString("%1$@ a clock"), glucose.timestamp.localTime)).fontWeight(.semibold).foregroundColor(.accentColor)
-                }
-                .padding(.top, 5)
 
-                HStack {
-                    Spacer()
-                    Text("Factory calibrated glucose:")
-                    Text(glucose.factoryCalibratedGlucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true)).fontWeight(.semibold).foregroundColor(.accentColor)
-                }
-                .padding(.top, 5)
+                    if let _ = store.state.lastGlucose?.minuteChange, currentGlucose.trend != .unknown {
+                        Text("\(currentGlucose.trend.description) \(String(format: LocalizedString("%1$@/min."), minuteChange))").frame(width: 120, alignment: .trailing)
+                    } else {
+                        Text(String(format: LocalizedString("%1$@/min."), "?")).frame(width: 120, alignment: .trailing)
+                    }
+                }.padding(.top, 10)
             }
         }
     }

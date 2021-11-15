@@ -31,7 +31,8 @@ struct ListView: View {
                 .foregroundColor(.accentColor)
                 .fontWeight(.semibold)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.top, 40))
+                .padding(.top, 40)
+            )
         }
 
         return AnyView(EmptyView())
@@ -45,7 +46,7 @@ struct ListView: View {
                         HStack(spacing: 0) {
                             Text(LocalizedString(row.key))
                             Spacer()
-                            Text(row.value ?? "-")
+                            Text(row.value ?? "-").textSelection(.enabled)
                         }.padding(.top, 5)
                     }
                 }

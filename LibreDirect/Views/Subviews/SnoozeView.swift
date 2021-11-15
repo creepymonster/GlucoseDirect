@@ -5,7 +5,7 @@
 
 import SwiftUI
 
-// MARK: - AlarmSnoozeView
+// MARK: - SnoozeView
 
 struct SnoozeView: View {
     @EnvironmentObject var store: AppStore
@@ -17,10 +17,22 @@ struct SnoozeView: View {
 
         return ""
     }
-
+   
     var body: some View {
         DateSelectorView(key: LocalizedString("Snooze Until"), value: store.state.alarmSnoozeUntil, displayValue: snoozeTime) { value -> Void in
             store.dispatch(.setAlarmSnoozeUntil(value: value))
-        }.padding(.top)
+        }
+    }
+}
+
+// MARK: - SnoozeView_Previews
+
+struct SnoozeView_Previews: PreviewProvider {
+    static var previews: some View {
+        let store = AppStore(initialState: PreviewAppState())
+
+        ForEach(ColorScheme.allCases, id: \.self) {
+            SnoozeView().environmentObject(store).preferredColorScheme($0)
+        }
     }
 }

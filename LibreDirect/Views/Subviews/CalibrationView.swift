@@ -5,8 +5,11 @@
 
 import SwiftUI
 
+// MARK: - CalibrationView
+
 struct CalibrationView: View {
     @State var value: Int = 0
+    @State private var showingDeleteCalibrationsAlert = false
     @EnvironmentObject var store: AppStore
 
     var customCalibrationRows: [ListViewRow] {
@@ -42,51 +45,68 @@ struct CalibrationView: View {
         ])
         
         ListView(header: "Sensor Custom Calibration", rows: customCalibrationRows)
-        
-        Group {
-            if store.state.showCalibrationView {
-                NumberSelectorView(key: Date().localDateTime, value: value, step: 1, displayValue: value.asGlucose(unit: store.state.glucoseUnit, withUnit: true)) { value -> Void in
-                    self.value = value
-                }.padding(.bottom, 10)
+
+        if store.state.showCalibrationView {
+            NumberSelectorView(key: Date().localDateTime, value: value, step: 1, displayValue: value.asGlucose(unit: store.state.glucoseUnit, withUnit: true)) { value -> Void in
+                self.value = value
+            }
                 
-                HStack {
-                    Button(action: {
-                        store.dispatch(.hideCalibrationView)
-                    }) {
-                        Label("Cancel Calibration", systemImage: "stop")
-                    }
-                        
-                    Spacer()
-                        
-                    Button(action: {
-                        store.dispatch(.addCalibration(bloodGlucose: value))
-                    }) {
-                        Label("Add Calibration", systemImage: "plus")
+            HStack {
+                Spacer()
+                    
+                Button(action: {
+                    store.dispatch(.hideCalibrationView)
+                }) {
+                    Label("Cancel Calibration", systemImage: "multiply")
+                }
+ 
+                Button(action: {
+                    store.dispatch(.addCalibration(bloodGlucose: value))
+                }) {
+                    Label("Save Calibration", systemImage: "checkmark")
+                }
+            }.padding(.top, 5)
+        } else {
+            HStack {
+                if let sensor = store.state.sensor, !sensor.customCalibration.isEmpty {
+                    Button(
+                        action: { showingDeleteCalibrationsAlert = true },
+                        label: { Label("Delete Calibrations", systemImage: "trash.fill") }
+                    ).alert(isPresented: $showingDeleteCalibrationsAlert) {
+                        Alert(
+                            title: Text("Are you sure you want to delete all calibrations?"),
+                            primaryButton: .destructive(Text("Unpair")) {
+                                store.dispatch(.clearCalibrations)
+                            },
+                            secondaryButton: .cancel()
+                        )
                     }
                 }
-            } else {
-                HStack {
-                    if let sensor = store.state.sensor, !sensor.customCalibration.isEmpty {
-                        Button(action: {
-                            store.dispatch(.clearCalibrations)
-                        }) {
-                            Label("Clear Calibrations", systemImage: "stop")
-                        }
+                        
+                Spacer()
+                        
+                Button(action: {
+                    if let currentGlucose = store.state.currentGlucose {
+                        value = currentGlucose.glucoseValue
                     }
-                        
-                    Spacer()
-                        
-                    Button(action: {
-                        if let lastGlucose = store.state.lastGlucose {
-                            value = lastGlucose.glucoseValue
-                        }
                             
-                        store.dispatch(.showCalibrationView)
-                    }) {
-                        Label("Add Calibration", systemImage: "plus")
-                    }
-                }.padding(.top, 10)
-            }
+                    store.dispatch(.showCalibrationView)
+                }) {
+                    Label("Add Calibration", systemImage: "plus")
+                }
+            }.padding(.top, 10)
+        }
+    }
+}
+
+// MARK: - CalibrationView_Previews
+
+struct CalibrationView_Previews: PreviewProvider {
+    static var previews: some View {
+        let store = AppStore(initialState: PreviewAppState())
+
+        ForEach(ColorScheme.allCases, id: \.self) {
+            CalibrationView().environmentObject(store).preferredColorScheme($0)
         }
     }
 }

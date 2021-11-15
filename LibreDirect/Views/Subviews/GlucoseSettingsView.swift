@@ -25,6 +25,18 @@ struct GlucoseSettingsView: View {
     }
 }
 
+// MARK: - GlucoseSettingsView_Previews
+
+struct GlucoseSettingsView_Previews: PreviewProvider {
+    static var previews: some View {
+        let store = AppStore(initialState: PreviewAppState())
+
+        ForEach(ColorScheme.allCases, id: \.self) {
+            GlucoseSettingsView().environmentObject(store).preferredColorScheme($0)
+        }
+    }
+}
+
 private extension Bool {
     var asGlucoseUnit: GlucoseUnit {
         if self == GlucoseUnit.mgdL.asBool {
