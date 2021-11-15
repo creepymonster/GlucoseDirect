@@ -28,7 +28,7 @@ You can quickly get an idea of Libre Direct: [TestFlight](https://testflight.app
 ``git clone --recurse-submodules https://github.com/creepymonster/LibreDirectApp``
 
 ## Screenshots
-![Screenshot](/Screenshots/48C96E2C-0A3D-45A2-BE09-ABFCB828CE00.JPG?raw=true)
+![Screenshot](/Screenshots/48C96E2C-0A3D-45A2-BE09-ABFCB828CE00.png?raw=true)
 
 ## I use sounds from the following sources (incl. licenses):
 SpliceSound https://freesound.org/people/SpliceSound/sounds/369848, Licence: http://creativecommons.org/publicdomain/zero/1.0/
