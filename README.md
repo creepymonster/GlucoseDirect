@@ -32,6 +32,9 @@ You can quickly get an idea of Libre Direct: [TestFlight](https://testflight.app
 
 ## I use sounds from the following sources (incl. licenses):
 SpliceSound https://freesound.org/people/SpliceSound/sounds/369848, Licence: http://creativecommons.org/publicdomain/zero/1.0/
+
 ui interface positive https://freesound.org/people/JavierZumer/sounds/257227, Licence: http://creativecommons.org/licenses/by/3.0/
+
 ui interface negative https://freesound.org/people/JavierZumer/sounds/257235, Licence: http://creativecommons.org/licenses/by/3.0/
+
 Power Loss https://freesound.org/people/LorenzoTheGreat/sounds/417791, Licence: http://creativecommons.org/licenses/by/3.0/
