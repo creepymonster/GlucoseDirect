@@ -31,10 +31,7 @@ You can quickly get an idea of Libre Direct: [TestFlight](https://testflight.app
 ![Screenshot](/Screenshots/48C96E2C-0A3D-45A2-BE09-ABFCB828CE00.png?raw=true)
 
 ## I use sounds from the following sources (incl. licenses):
-SpliceSound https://freesound.org/people/SpliceSound/sounds/369848, Licence: http://creativecommons.org/publicdomain/zero/1.0/
-
-ui interface positive https://freesound.org/people/JavierZumer/sounds/257227, Licence: http://creativecommons.org/licenses/by/3.0/
-
-ui interface negative https://freesound.org/people/JavierZumer/sounds/257235, Licence: http://creativecommons.org/licenses/by/3.0/
-
-Power Loss https://freesound.org/people/LorenzoTheGreat/sounds/417791, Licence: http://creativecommons.org/licenses/by/3.0/
+- SpliceSound https://freesound.org/people/SpliceSound/sounds/369848, Licence: http://creativecommons.org/publicdomain/zero/1.0/
+- ui interface positive https://freesound.org/people/JavierZumer/sounds/257227, Licence: http://creativecommons.org/licenses/by/3.0/
+- ui interface negative https://freesound.org/people/JavierZumer/sounds/257235, Licence: http://creativecommons.org/licenses/by/3.0/
+- Power Loss https://freesound.org/people/LorenzoTheGreat/sounds/417791, Licence: http://creativecommons.org/licenses/by/3.0/
