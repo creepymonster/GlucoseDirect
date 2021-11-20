@@ -22,27 +22,57 @@ struct NumberSelectorView: View {
 
     // MARK: Internal
 
+    @State var value: Int
+
     let key: String
     var displayValue: String?
     let completionHandler: NumberSelectorCompletionHandler?
     let step: Int
 
-    @State var value: Int
+    var intProxy: Binding<Double> {
+        Binding<Double>(get: {
+            Double(value)
+        }, set: {
+            value = Int($0)
+        })
+    }
 
     var body: some View {
-        HStack(alignment: .center) {
-            Text(key)
-
-            Stepper(value: $value, in: 40 ... 500, step: step) {
+        VStack {
+            HStack {
+                Text(key)
+                Spacer()
+                
                 if let displayValue = displayValue {
                     Text(displayValue)
-                        .frame(maxWidth: .infinity, alignment: .trailing)
                 }
-            }.onChange(of: value, perform: { value in
-                if let completionHandler = completionHandler {
-                    completionHandler(value)
+            }.padding(.top, 5)
+
+            HStack {
+                Button() {
+                    value = value - 1
+                } label: {
+                    Image(systemName: "minus").frame(height: 40).padding(.trailing)
                 }
-            }).frame(minWidth: 0, maxWidth: .infinity)
+                .font(.title3)
+                .foregroundColor(Color.primary)
+                .buttonStyle(.plain)
+                
+                Slider(value: intProxy, in: 40 ... 500).onChange(of: value, perform: { value in
+                    if let completionHandler = completionHandler {
+                        completionHandler(value)
+                    }
+                })
+                
+                Button {
+                    value = value + 1
+                } label: {
+                    Image(systemName: "plus").frame(height: 40).padding(.leading)
+                }
+                .font(.title3)
+                .foregroundColor(Color.primary)
+                .buttonStyle(.plain)
+            }
         }
     }
 }

@@ -12,28 +12,15 @@ struct GlucoseSettingsView: View {
 
     var body: some View {
         Section(
-            header: Text(LocalizedString("Glucose Settings"))
-                .foregroundColor(.accentColor)
-                .fontWeight(.semibold)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.top, 40)
-        ) {
-            ToggleView(key: LocalizedString("Glucose Unit", comment: ""), value: store.state.glucoseUnit.asBool, trueValue: true.asGlucoseUnit.description, falseValue: false.asGlucoseUnit.description) { value -> Void in
-                store.dispatch(.setGlucoseUnit(value: value.asGlucoseUnit))
+            content: {
+                ToggleView(key: LocalizedString("Glucose Unit", comment: ""), value: store.state.glucoseUnit.asBool, trueValue: true.asGlucoseUnit.description, falseValue: false.asGlucoseUnit.description) { value -> Void in
+                    store.dispatch(.setGlucoseUnit(value: value.asGlucoseUnit))
+                }
+            },
+            header: {
+                Label("Glucose Settings", systemImage: "cross.case")
             }
-        }
-    }
-}
-
-// MARK: - GlucoseSettingsView_Previews
-
-struct GlucoseSettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        let store = AppStore(initialState: PreviewAppState())
-
-        ForEach(ColorScheme.allCases, id: \.self) {
-            GlucoseSettingsView().environmentObject(store).preferredColorScheme($0)
-        }
+        )
     }
 }
 

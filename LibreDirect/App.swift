@@ -16,12 +16,8 @@ final class LibreDirectApp: App {
         UNUserNotificationCenter.current().delegate = notificationCenterDelegate
 
         if store.state.isPaired {
-            DispatchQueue.global(qos: .utility).async {
-                Thread.sleep(forTimeInterval: 3)
-
-                DispatchQueue.main.sync {
-                    self.store.dispatch(.connectSensor)
-                }
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {
+                self.store.dispatch(.connectSensor)
             }
         }
     }
@@ -37,6 +33,20 @@ final class LibreDirectApp: App {
 
     // MARK: Private
 
+    #if targetEnvironment(simulator) || targetEnvironment(macCatalyst)
+    private let store = AppStore(initialState: PreviewAppState(), reducer: previewAppReducer, middlewares: [
+        // required middlewares
+        actionLogMiddleware(),
+
+        // other middlewares
+        expiringNotificationMiddelware(),
+        glucoseNotificationMiddelware(),
+        glucoseBadgeMiddelware(),
+        connectionNotificationMiddelware(),
+        freeAPSMiddleware(),
+        nightscoutMiddleware()
+    ])
+    #else
     private let store = AppStore(initialState: DefaultAppState(), reducer: defaultAppReducer, middlewares: [
         // required middlewares
         actionLogMiddleware(),
@@ -52,6 +62,7 @@ final class LibreDirectApp: App {
         freeAPSMiddleware(),
         nightscoutMiddleware()
     ])
+    #endif
 
     private let notificationCenterDelegate = LibreDirectNotificationCenter()
 }
@@ -63,3 +74,4 @@ final class LibreDirectNotificationCenter: NSObject, UNUserNotificationCenterDel
         completionHandler([.badge, .banner, .list, .sound])
     }
 }
+

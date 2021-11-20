@@ -33,38 +33,115 @@ struct SensorView: View {
     }
 
     var body: some View {
-        ListView(header: "Sensor Connection", rows: [
-            ListViewRow(key: "Sensor Connection State", value: store.state.connectionState.localizedString),
-            ListViewRow(key: "Sensor Missed Readings", value: store.state.missedReadings.description, isVisible: store.state.missedReadings > 0),
-            ListViewRow(key: "Sensor Connection Error", value: store.state.connectionError),
-            ListViewRow(key: "Sensor Connection Error Timestamp", value: store.state.connectionErrorTimestamp?.localTime),
-        ])
-
-        ListView(header: "Sensor Details", rows: [
-            ListViewRow(key: "Sensor Region", value: store.state.sensor?.region.localizedString),
-            ListViewRow(key: "Sensor Type", value: store.state.sensor?.type.localizedString),
-            ListViewRow(key: "Sensor UID", value: store.state.sensor?.uuid.hex),
-            ListViewRow(key: "Sensor PatchInfo", value: store.state.sensor?.patchInfo.hex),
-            ListViewRow(key: "Sensor Serial", value: store.state.sensor?.serial?.description),
-        ])
-
-        ListView(header: "Sensor Lifetime", rows: [
-            ListViewRow(key: "Sensor State", value: store.state.sensor?.state.localizedString),
-            ListViewRow(key: "Sensor Possible Lifetime", value: store.state.sensor?.lifetime.inTime),
-            ListViewRow(key: "Sensor Age", value: store.state.sensor?.age.inTime),
-            ListViewRow(key: "Sensor Remaining Lifetime", value: store.state.sensor?.remainingLifetime?.inTime),
-        ])
-    }
-}
-
-// MARK: - SensorView_Previews
-
-struct SensorView_Previews: PreviewProvider {
-    static var previews: some View {
-        let store = AppStore(initialState: PreviewAppState())
-
-        ForEach(ColorScheme.allCases, id: \.self) {
-            SensorView().environmentObject(store).preferredColorScheme($0)
+        if let sensor = store.state.sensor {
+            Section(
+                content: {
+                    HStack {
+                        Text("Sensor Connection State")
+                        Spacer()
+                        Text(store.state.connectionState.localizedString).textSelection(.enabled)
+                    }
+                
+                    if store.state.missedReadings > 0 {
+                        HStack {
+                            Text("Sensor Missed Readings")
+                            Spacer()
+                            Text(store.state.missedReadings.description).textSelection(.enabled)
+                        }
+                    }
+                
+                    if let connectionError = store.state.connectionError {
+                        HStack {
+                            Text("Sensor Connection Error")
+                            Spacer()
+                            Text(connectionError).textSelection(.enabled)
+                        }
+                    }
+                
+                    if let connectionErrorTimestamp = store.state.connectionErrorTimestamp?.localTime {
+                        HStack {
+                            Text("Sensor Connection Error Timestamp")
+                            Spacer()
+                            Text(connectionErrorTimestamp).textSelection(.enabled)
+                        }
+                    }
+                },
+                header: {
+                    Label("Sensor Connection", systemImage: "rectangle.connected.to.line.below")
+                }
+            )
+        
+            Section(
+                content: {
+                    HStack {
+                        Text("Sensor Region")
+                        Spacer()
+                        Text(sensor.region.localizedString).textSelection(.enabled)
+                    }
+                    
+                    HStack {
+                        Text("Sensor Type")
+                        Spacer()
+                        Text(sensor.type.localizedString).textSelection(.enabled)
+                    }
+                    
+                    HStack {
+                        Text("Sensor UID")
+                        Spacer()
+                        Text(sensor.uuid.hex).textSelection(.enabled)
+                    }
+                    
+                    HStack {
+                        Text("Sensor PatchInfo")
+                        Spacer()
+                        Text(sensor.patchInfo.hex).textSelection(.enabled)
+                    }
+                    
+                    if let serial = sensor.serial {
+                        HStack {
+                            Text("Sensor Serial")
+                            Spacer()
+                            Text(serial.description).textSelection(.enabled)
+                        }
+                    }
+                },
+                header: {
+                    Label("Sensor Details", systemImage: "text.magnifyingglass")
+                }
+            )
+            
+            Section(
+                content: {
+                    HStack {
+                        Text("Sensor State")
+                        Spacer()
+                        Text(sensor.state.localizedString).textSelection(.enabled)
+                    }
+                    
+                    HStack {
+                        Text("Sensor Possible Lifetime")
+                        Spacer()
+                        Text(sensor.lifetime.inTime).textSelection(.enabled)
+                    }
+                    
+                    HStack {
+                        Text("Sensor Age")
+                        Spacer()
+                        Text(sensor.age.inTime).textSelection(.enabled)
+                    }
+                    
+                    if let remainingLifetime = sensor.remainingLifetime {
+                        HStack {
+                            Text("Sensor Remaining Lifetime")
+                            Spacer()
+                            Text(remainingLifetime.inTime).textSelection(.enabled)
+                        }
+                    }
+                },
+                header: {
+                    Label("Sensor Lifetime", systemImage: "timer")
+                }
+            )
         }
     }
 }

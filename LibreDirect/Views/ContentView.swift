@@ -6,33 +6,77 @@
 import CoreNFC
 import SwiftUI
 
+// MARK: - DataView
+
+struct DataView: View {
+    @EnvironmentObject var store: AppStore
+
+    var body: some View {
+        VStack {
+            ActionsView()
+
+            List {
+                GlucoseView().frame(maxWidth: .infinity)
+                ChartView()
+                SensorView()
+            }
+        }
+    }
+}
+
+// MARK: - SettingsView
+
+struct SettingsView: View {
+    @EnvironmentObject var store: AppStore
+
+    var body: some View {
+        VStack {
+            List {
+                GlucoseSettingsView()
+                AlarmSettingsView()
+                NightscoutSettingsView()
+            }
+        }
+    }
+}
+
 // MARK: - ContentView
 
 struct ContentView: View {
+    // MARK: Internal
+
     @EnvironmentObject var store: AppStore
 
-    var contentView: some View {
-        ScrollView {
-            Group {
-                ActionsView()
-                GlucoseView()
-                SnoozeView()
-
-                ChartView()
-                SensorView()
+    var calibrationView: some View {
+        VStack {
+            List {
                 CalibrationView()
+            }
+        }
+    }
 
-                AlarmSettingsView()
-                GlucoseSettingsView()
-                NightscoutSettingsView()
-            }.padding([.horizontal, .bottom])
+    var contentView: some View {
+        TabView(selection: selectedView) {
+            DataView().tabItem {
+                Label("Sensor readings", systemImage: "waveform.path.ecg")
+            }.tag(1)
+
+            if store.state.isPaired {
+                calibrationView.tabItem {
+                    Label("Calibration", systemImage: "tuningfork")
+                }.tag(2)
+            }
+
+            SettingsView().tabItem {
+                Label("Settings", systemImage: "gearshape")
+            }.tag(3)
         }
     }
 
     var errorView: some View {
         ZStack {
             Rectangle()
-                .foregroundColor(Color.red)
+                .foregroundColor(Color.ui.red)
                 .frame(width: 320, height: 160)
 
             VStack {
@@ -44,7 +88,7 @@ struct ContentView: View {
     }
 
     var body: some View {
-#if targetEnvironment(simulator)
+#if targetEnvironment(simulator) || targetEnvironment(macCatalyst)
         contentView
 #else
         if NFCTagReaderSession.readingAvailable {
@@ -53,6 +97,15 @@ struct ContentView: View {
             errorView
         }
 #endif
+    }
+
+    // MARK: Private
+
+    private var selectedView: Binding<Int> {
+        Binding(
+            get: { store.state.selectedView },
+            set: { store.dispatch(.selectView(value: $0)) }
+        )
     }
 }
 

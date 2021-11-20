@@ -24,15 +24,3 @@ struct SnoozeView: View {
         }
     }
 }
-
-// MARK: - SnoozeView_Previews
-
-struct SnoozeView_Previews: PreviewProvider {
-    static var previews: some View {
-        let store = AppStore(initialState: PreviewAppState())
-
-        ForEach(ColorScheme.allCases, id: \.self) {
-            SnoozeView().environmentObject(store).preferredColorScheme($0)
-        }
-    }
-}

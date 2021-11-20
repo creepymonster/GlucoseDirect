@@ -46,6 +46,7 @@ struct DateSelectorView: View {
                 if let displayValue = displayValue {
                     Text(displayValue)
                         .frame(maxWidth: .infinity, alignment: .trailing)
+                        .padding(.trailing, 5)
                 }
             }
         }

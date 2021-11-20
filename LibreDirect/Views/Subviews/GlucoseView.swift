@@ -10,21 +10,12 @@ import SwiftUI
 struct GlucoseView: View {
     @EnvironmentObject var store: AppStore
 
-    var formatter: NumberFormatter {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.positivePrefix = "+"
-        formatter.maximumFractionDigits = 1
-
-        return formatter
-    }
-
     var minuteChange: String {
         if let minuteChange = store.state.currentGlucose?.minuteChange {
             if store.state.glucoseUnit == .mgdL {
-                return formatter.string(from: minuteChange as NSNumber)!
+                return GlucoseFormatters.minuteChangeFormatter.string(from: minuteChange as NSNumber)!
             } else {
-                return formatter.string(from: minuteChange.asMmolL as NSNumber)!
+                return GlucoseFormatters.minuteChangeFormatter.string(from: minuteChange.asMmolL as NSNumber)!
             }
         }
 
@@ -41,39 +32,61 @@ struct GlucoseView: View {
 
     var glucoseForegroundColor: Color {
         if isAlarm {
-            return Color.red
+            return Color.ui.red
         }
 
         return Color.primary
     }
 
     var body: some View {
+        if !store.state.isPaired {
+            VStack(alignment: .center) {
+                Text("No Sensor")
+                    .foregroundColor(Color.ui.red)
+                    .font(.system(size: 32))
+                    .padding(.vertical)
+                
+                /*Text("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu.")
+                    .multilineTextAlignment(.leading)
+                    .padding(.bottom)*/
+            }
+        }
+        
         if let currentGlucose = store.state.currentGlucose {
             VStack(alignment: .center) {
-                ZStack(alignment: .bottomTrailing) {
-                    Text(currentGlucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit))
-                        .font(.system(size: 112))
-                        .foregroundColor(glucoseForegroundColor)
+                VStack(alignment: .trailing, spacing: 0) {
+                    HStack(alignment: .lastTextBaseline) {
+                        Text(currentGlucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit))
+                            .font(.system(size: 112))
 
-                    Text(store.state.glucoseUnit.localizedString)
+                        VStack(alignment: .leading) {
+                            Text(currentGlucose.trend.description).font(.system(size: 48))
+                            Text(store.state.glucoseUnit.localizedString)
+                        }
+                    }.foregroundColor(glucoseForegroundColor)
+
+                    HStack(spacing: 20) {
+                        if store.state.connectionState == .connected {
+                            Text(String(format: LocalizedString("%1$@ a clock"), currentGlucose.timestamp.localTime))
+
+                            if let _ = store.state.lastGlucose?.minuteChange, currentGlucose.trend != .unknown {
+                                Text(String(format: LocalizedString("%1$@/min."), minuteChange))
+                            } else {
+                                Text(String(format: LocalizedString("%1$@/min."), "?"))
+                            }
+                        } else {
+                            Text(store.state.connectionState.localizedString).foregroundColor(Color.ui.red)
+                        }
+                    }.padding(.bottom)
                 }
-
-                HStack {
-                    Text(String(format: LocalizedString("%1$@ a clock"), currentGlucose.timestamp.localTime)).frame(width: 120, alignment: .leading)
-                    Spacer()
-                    
-                    if let lastGlucose = store.state.lastGlucose {
-                        Text(lastGlucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true)).foregroundColor(.gray)
-                        Spacer()
-                    }
-
-                    if let _ = store.state.lastGlucose?.minuteChange, currentGlucose.trend != .unknown {
-                        Text("\(currentGlucose.trend.description) \(String(format: LocalizedString("%1$@/min."), minuteChange))").frame(width: 120, alignment: .trailing)
-                    } else {
-                        Text(String(format: LocalizedString("%1$@/min."), "?")).frame(width: 120, alignment: .trailing)
-                    }
-                }.padding(.top, 10)
+                
+                SnoozeView().padding(.bottom, 5)
             }
+        } else {
+            VStack(alignment: .center) {
+                Text("???")
+                    .font(.system(size: 112))
+            }.foregroundColor(Color.ui.red)
         }
     }
 }
