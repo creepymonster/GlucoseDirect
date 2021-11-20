@@ -35,6 +35,8 @@
 		E2C5935F273696FE00CAFFD4 /* CalibrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C5935E273696FE00CAFFD4 /* CalibrationService.swift */; };
 		E2C593612736988800CAFFD4 /* FilteringService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C593602736988800CAFFD4 /* FilteringService.swift */; };
 		E2C9A9CE273EA967000BB4BA /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C9A9CD273EA967000BB4BA /* ListView.swift */; };
+		E2D7237F27491C3900455FB9 /* SimulatorAppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D7237E27491C3900455FB9 /* SimulatorAppReducer.swift */; };
+		E2D7238127491C4C00455FB9 /* SimulatorAppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D7238027491C4C00455FB9 /* SimulatorAppState.swift */; };
 		E2E1E9D2273D6E8B00992B2F /* CalibrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E1E9D1273D6E8B00992B2F /* CalibrationView.swift */; };
 		E2F5F3D126A70AC400834A74 /* DateSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F5F3D026A70AC400834A74 /* DateSelectorView.swift */; };
 		E2FCAC1C270741BC00FE1CBF /* SensorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC12270741BC00FE1CBF /* SensorType.swift */; };
@@ -135,6 +137,8 @@
 		E2C5935E273696FE00CAFFD4 /* CalibrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationService.swift; sourceTree = "<group>"; };
 		E2C593602736988800CAFFD4 /* FilteringService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringService.swift; sourceTree = "<group>"; };
 		E2C9A9CD273EA967000BB4BA /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		E2D7237E27491C3900455FB9 /* SimulatorAppReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorAppReducer.swift; sourceTree = "<group>"; };
+		E2D7238027491C4C00455FB9 /* SimulatorAppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorAppState.swift; sourceTree = "<group>"; };
 		E2E1E9D1273D6E8B00992B2F /* CalibrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationView.swift; sourceTree = "<group>"; };
 		E2F5F3D026A70AC400834A74 /* DateSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelectorView.swift; sourceTree = "<group>"; };
 		E2FCAC12270741BC00FE1CBF /* SensorType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorType.swift; sourceTree = "<group>"; };
@@ -338,6 +342,8 @@
 				E2FCAC3D2707420000FE1CBF /* DefaultAppState.swift */,
 				E2FCAC3F2707420100FE1CBF /* PreviewAppReducer.swift */,
 				E2FCAC402707420100FE1CBF /* PreviewAppState.swift */,
+				E2D7237E27491C3900455FB9 /* SimulatorAppReducer.swift */,
+				E2D7238027491C4C00455FB9 /* SimulatorAppState.swift */,
 				E2FCAC682707429800FE1CBF /* Internal */,
 				E2FCAC4F2707424000FE1CBF /* Nightscout */,
 				E2FCAC4E2707423A00FE1CBF /* Loop */,
@@ -589,6 +595,7 @@
 				E223F867267A4D9800EC9BCA /* SensorView.swift in Sources */,
 				E2FCAC5D2707426100FE1CBF /* GlucoseNotification.swift in Sources */,
 				E2FCAC33270741D200FE1CBF /* Int.swift in Sources */,
+				E2D7237F27491C3900455FB9 /* SimulatorAppReducer.swift in Sources */,
 				E2F5F3D126A70AC400834A74 /* DateSelectorView.swift in Sources */,
 				E2FCAC462707420100FE1CBF /* DefaultAppReducer.swift in Sources */,
 				E2FCAC5F2707426800FE1CBF /* GlucoseBadge.swift in Sources */,
@@ -621,6 +628,7 @@
 				E29ED231268C754F00CBD3F1 /* GlucoseView.swift in Sources */,
 				E28728AA26DE499200269F47 /* SnoozeView.swift in Sources */,
 				E2FCAC702707438A00FE1CBF /* AppState.swift in Sources */,
+				E2D7238127491C4C00455FB9 /* SimulatorAppState.swift in Sources */,
 				E2FCAC612707426F00FE1CBF /* FreeAPS.swift in Sources */,
 				E292E1B226A608C400011F64 /* NumberSelectorView.swift in Sources */,
 				E29ED236268C87CC00CBD3F1 /* TextEditorView.swift in Sources */,

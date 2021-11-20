@@ -82,7 +82,7 @@ struct GlucoseView: View {
                 
                 SnoozeView().padding(.bottom, 5)
             }
-        } else {
+        } else if store.state.isPaired {
             VStack(alignment: .center) {
                 Text("???")
                     .font(.system(size: 112))

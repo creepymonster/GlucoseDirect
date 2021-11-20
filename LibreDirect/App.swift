@@ -34,7 +34,7 @@ final class LibreDirectApp: App {
     // MARK: Private
 
     #if targetEnvironment(simulator) || targetEnvironment(macCatalyst)
-    private let store = AppStore(initialState: PreviewAppState(), reducer: previewAppReducer, middlewares: [
+    private let store = AppStore(initialState: SimulatorAppState(), reducer: simulatorAppReducer, middlewares: [
         // required middlewares
         actionLogMiddleware(),
 
