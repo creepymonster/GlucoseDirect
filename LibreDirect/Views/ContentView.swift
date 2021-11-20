@@ -50,7 +50,7 @@ struct ContentView: View {
     var calibrationView: some View {
         VStack {
             List {
-                CalibrationView()
+                CalibrationView() 
             }
         }
     }
