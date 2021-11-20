@@ -52,8 +52,9 @@ struct NumberSelectorView: View {
                 Button() {
                     value = value - 1
                 } label: {
-                    Image(systemName: "minus").frame(height: 40).padding(.trailing)
+                    Image(systemName: "minus").frame(height: 50).padding(.horizontal, 20)
                 }
+                .padding(.leading, -20)
                 .font(.title3)
                 .foregroundColor(Color.primary)
                 .buttonStyle(.plain)
@@ -67,8 +68,9 @@ struct NumberSelectorView: View {
                 Button {
                     value = value + 1
                 } label: {
-                    Image(systemName: "plus").frame(height: 40).padding(.leading)
+                    Image(systemName: "plus").frame(height: 50).padding(.horizontal, 20)
                 }
+                .padding(.trailing, -20)
                 .font(.title3)
                 .foregroundColor(Color.primary)
                 .buttonStyle(.plain)
