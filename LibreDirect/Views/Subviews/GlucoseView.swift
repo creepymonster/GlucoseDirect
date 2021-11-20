@@ -61,7 +61,7 @@ struct GlucoseView: View {
 
                         VStack(alignment: .leading) {
                             Text(currentGlucose.trend.description).font(.system(size: 48))
-                            +
+ 
                             Text(store.state.glucoseUnit.localizedString)
                         }
                     }.foregroundColor(glucoseForegroundColor)
