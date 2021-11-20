@@ -11,6 +11,8 @@ My playground for the Libre 2 blood glucose sensors and Swift/SwiftUI ([TestFlig
 - FreeAPS X support (with Shared App Groups)
 - Glucose badge
 - Glucose chart
+- Glucose trend arrow
+- Glucose change per minute
 - Factory calibration
 - Custom calibration
 - Lifetime details
