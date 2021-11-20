@@ -90,6 +90,8 @@ struct CalibrationView: View {
                                 Spacer()
                                 Text("\(calibration.x.asGlucose(unit: store.state.glucoseUnit)) = \(calibration.y.asGlucose(unit: store.state.glucoseUnit, withUnit: true))").textSelection(.enabled)
                             }
+                        }.onDelete { offsets in
+                            store.dispatch(.removeCalibration(offsets: offsets))
                         }
                     } else {
                         NumberSelectorView(key: LocalizedString("Now"), value: value, step: 1, displayValue: value.asGlucose(unit: store.state.glucoseUnit, withUnit: true)) { value -> Void in
