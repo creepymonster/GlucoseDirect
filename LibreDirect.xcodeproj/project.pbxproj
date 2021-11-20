@@ -34,7 +34,6 @@
 		E2C19FBC273568BF00B70A73 /* FactoryCalibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C19FBB273568BF00B70A73 /* FactoryCalibration.swift */; };
 		E2C5935F273696FE00CAFFD4 /* CalibrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C5935E273696FE00CAFFD4 /* CalibrationService.swift */; };
 		E2C593612736988800CAFFD4 /* FilteringService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C593602736988800CAFFD4 /* FilteringService.swift */; };
-		E2C9A9CE273EA967000BB4BA /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C9A9CD273EA967000BB4BA /* ListView.swift */; };
 		E2D7237F27491C3900455FB9 /* SimulatorAppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D7237E27491C3900455FB9 /* SimulatorAppReducer.swift */; };
 		E2D7238127491C4C00455FB9 /* SimulatorAppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D7238027491C4C00455FB9 /* SimulatorAppState.swift */; };
 		E2E1E9D2273D6E8B00992B2F /* CalibrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E1E9D1273D6E8B00992B2F /* CalibrationView.swift */; };
@@ -136,7 +135,6 @@
 		E2C19FBB273568BF00B70A73 /* FactoryCalibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryCalibration.swift; sourceTree = "<group>"; };
 		E2C5935E273696FE00CAFFD4 /* CalibrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationService.swift; sourceTree = "<group>"; };
 		E2C593602736988800CAFFD4 /* FilteringService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringService.swift; sourceTree = "<group>"; };
-		E2C9A9CD273EA967000BB4BA /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		E2D7237E27491C3900455FB9 /* SimulatorAppReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorAppReducer.swift; sourceTree = "<group>"; };
 		E2D7238027491C4C00455FB9 /* SimulatorAppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorAppState.swift; sourceTree = "<group>"; };
 		E2E1E9D1273D6E8B00992B2F /* CalibrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationView.swift; sourceTree = "<group>"; };
@@ -261,7 +259,6 @@
 				E292E1B126A608C400011F64 /* NumberSelectorView.swift */,
 				E2F5F3D026A70AC400834A74 /* DateSelectorView.swift */,
 				E24B532426B864020091417F /* ToggleView.swift */,
-				E2C9A9CD273EA967000BB4BA /* ListView.swift */,
 			);
 			path = SharedViews;
 			sourceTree = "<group>";
@@ -576,7 +573,6 @@
 				E2FCAC1C270741BC00FE1CBF /* SensorType.swift in Sources */,
 				E24B532526B864020091417F /* ToggleView.swift in Sources */,
 				E2E1E9D2273D6E8B00992B2F /* CalibrationView.swift in Sources */,
-				E2C9A9CE273EA967000BB4BA /* ListView.swift in Sources */,
 				E2FCAC582707425900FE1CBF /* Libre2Utility.swift in Sources */,
 				E2FCAC632707427500FE1CBF /* ExpiringNotification.swift in Sources */,
 				E2FCAC34270741D200FE1CBF /* View.swift in Sources */,

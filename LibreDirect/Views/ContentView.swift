@@ -64,7 +64,9 @@ struct ContentView: View {
             if store.state.isPaired && !store.state.glucoseValues.isEmpty {
                 calibrationView.tabItem {
                     Label("Calibration", systemImage: "tuningfork")
-                }.tag(2)
+                }
+                .badge(store.state.sensor?.customCalibration.count ?? 0)
+                .tag(2)
             }
 
             SettingsView().tabItem {

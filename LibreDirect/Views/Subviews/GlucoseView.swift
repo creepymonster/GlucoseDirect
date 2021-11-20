@@ -61,6 +61,7 @@ struct GlucoseView: View {
 
                         VStack(alignment: .leading) {
                             Text(currentGlucose.trend.description).font(.system(size: 48))
+                            +
                             Text(store.state.glucoseUnit.localizedString)
                         }
                     }.foregroundColor(glucoseForegroundColor)
@@ -68,7 +69,6 @@ struct GlucoseView: View {
                     HStack(spacing: 20) {
                         if store.state.connectionState == .connected {
                             Text(String(format: LocalizedString("%1$@ a clock"), currentGlucose.timestamp.localTime))
-
                             if let _ = store.state.lastGlucose?.minuteChange, currentGlucose.trend != .unknown {
                                 Text(String(format: LocalizedString("%1$@/min."), minuteChange))
                             } else {

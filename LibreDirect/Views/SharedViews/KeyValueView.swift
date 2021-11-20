@@ -24,7 +24,7 @@ struct KeyValueView: View {
         HStack(alignment: .top, spacing: 0) {
             Text(key)
                 .frame(maxWidth: 100, alignment: .leading)
-
+            
             Text(value)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }.padding(0)
