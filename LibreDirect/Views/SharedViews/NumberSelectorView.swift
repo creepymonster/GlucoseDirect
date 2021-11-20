@@ -49,15 +49,15 @@ struct NumberSelectorView: View {
             }.padding(.top, 5)
 
             HStack {
-                Button() {
+                Button {
                     value = value - 1
                 } label: {
-                    Image(systemName: "minus").frame(height: 50).padding(.horizontal, 20)
+                    Image(systemName: "minus")
                 }
-                .padding(.leading, -20)
+                .frame(width: 40, height: 40, alignment: .leading)
                 .font(.title3)
                 .foregroundColor(Color.primary)
-                .buttonStyle(.plain)
+                .buttonStyle(.borderless)
                 
                 Slider(value: intProxy, in: 40 ... 500).onChange(of: value, perform: { value in
                     if let completionHandler = completionHandler {
@@ -68,12 +68,12 @@ struct NumberSelectorView: View {
                 Button {
                     value = value + 1
                 } label: {
-                    Image(systemName: "plus").frame(height: 50).padding(.horizontal, 20)
+                    Image(systemName: "plus")
                 }
-                .padding(.trailing, -20)
+                .frame(width: 40, height: 40, alignment: .trailing)
                 .font(.title3)
                 .foregroundColor(Color.primary)
-                .buttonStyle(.plain)
+                .buttonStyle(.borderless)
             }
         }
     }
