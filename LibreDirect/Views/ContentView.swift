@@ -61,7 +61,7 @@ struct ContentView: View {
                 Label("Sensor readings", systemImage: "waveform.path.ecg")
             }.tag(1)
 
-            if store.state.isPaired {
+            if store.state.isPaired && !store.state.glucoseValues.isEmpty {
                 calibrationView.tabItem {
                     Label("Calibration", systemImage: "tuningfork")
                 }.tag(2)
