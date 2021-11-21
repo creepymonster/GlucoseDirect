@@ -34,9 +34,12 @@ final class LibreDirectApp: App {
     // MARK: Private
 
     #if targetEnvironment(simulator) || targetEnvironment(macCatalyst)
-    private let store = AppStore(initialState: SimulatorAppState(), reducer: simulatorAppReducer, middlewares: [
+    private let store = AppStore(initialState: InMemoryAppState(), reducer: appReducer, middlewares: [
         // required middlewares
         actionLogMiddleware(),
+        
+        // sensor middleware
+        virtualLibreMiddelware(),
 
         // other middlewares
         expiringNotificationMiddelware(),
@@ -47,7 +50,7 @@ final class LibreDirectApp: App {
         nightscoutMiddleware()
     ])
     #else
-    private let store = AppStore(initialState: DefaultAppState(), reducer: defaultAppReducer, middlewares: [
+    private let store = AppStore(initialState: UserDefaultsAppState(), reducer: appReducer, middlewares: [
         // required middlewares
         actionLogMiddleware(),
 

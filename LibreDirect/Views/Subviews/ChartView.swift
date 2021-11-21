@@ -299,7 +299,7 @@ struct ChartView: View {
     private func nowView(fullSize: CGSize) -> some View {
         Path { path in
             #if targetEnvironment(simulator)
-                let now = ISO8601DateFormatter().date(from: "2021-08-01T11:50:00+0200")
+                let now = ISO8601DateFormatter().date(from: "2021-08-01T11:50:00+0200") ?? Date()
             #else
                 let now = Date().rounded(on: 1, .minute)
             #endif
