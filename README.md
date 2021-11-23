@@ -23,6 +23,10 @@ My playground for the Libre 2 blood glucose sensors and Swift/SwiftUI ([TestFlig
 - Sensor expiring alert
 - Snooze for glucose alerts
 
+## Roadmap
+- manage glucose values
+- add blood glucose values
+
 ## Quick test?
 You can quickly get an idea of Libre Direct: [TestFlight](https://testflight.apple.com/join/dWDt5Wme)
 
