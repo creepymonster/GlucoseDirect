@@ -26,6 +26,7 @@ My playground for the Libre 2 blood glucose sensors and Swift/SwiftUI ([TestFlig
 ## Roadmap
 - manage glucose values
 - add blood glucose values
+- Respect state 'warmup' and 'not yet started'
 
 ## Quick test?
 You can quickly get an idea of Libre Direct: [TestFlight](https://testflight.apple.com/join/dWDt5Wme)
