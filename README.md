@@ -24,8 +24,8 @@ My playground for the Libre 2 blood glucose sensors and Swift/SwiftUI ([TestFlig
 - Snooze for glucose alerts
 
 ## Roadmap
-- manage glucose values
-- add blood glucose values
+- Manage glucose values
+- Add blood glucose values
 - Respect state 'warmup' and 'not yet started'
 
 ## Quick test?
