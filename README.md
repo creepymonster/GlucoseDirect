@@ -26,7 +26,7 @@ My playground for the Libre 2 blood glucose sensors and Swift/SwiftUI ([TestFlig
 - Snooze for glucose alerts
 
 ## Roadmap
-
+- CoreData and more than 1440 values
 
 ## Quick test?
 You can quickly get an idea of Libre Direct: [TestFlight](https://testflight.apple.com/join/dWDt5Wme)
