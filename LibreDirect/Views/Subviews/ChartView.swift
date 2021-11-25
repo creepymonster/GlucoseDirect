@@ -257,7 +257,7 @@ struct ChartView: View {
     }
 
     var body: some View {
-        if !cgmValues.isEmpty {
+        if !cgmValues.isEmpty || !bgmValues.isEmpty {
             Section(
                 content: {
                     chartView
