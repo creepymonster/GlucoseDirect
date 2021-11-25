@@ -213,7 +213,6 @@
 		E20B8531266F4A9800AA4224 = {
 			isa = PBXGroup;
 			children = (
-				E2FCAC6B2707436D00FE1CBF /* LibreDirectLibrary */,
 				E20B853C266F4A9800AA4224 /* LibreDirect */,
 				E27BFC0126B1407E00F8FBEF /* Frameworks */,
 				E20B853B266F4A9800AA4224 /* Products */,
@@ -231,14 +230,25 @@
 		E20B853C266F4A9800AA4224 /* LibreDirect */ = {
 			isa = PBXGroup;
 			children = (
-				E24077B126B881C2001767C0 /* InfoPlist.strings */,
-				E20B8546266F4A9900AA4224 /* Info.plist */,
-				E20B853D266F4A9800AA4224 /* App.swift */,
 				E247D8E426B7D70A00BDAF89 /* App.xcconfig */,
-				E2BF22DF266F9CA20060866F /* App.entitlements */,
+				E2FCAC6E2707438A00FE1CBF /* AppConfig.swift */,
+				E20B853D266F4A9800AA4224 /* App.swift */,
+				E2FCAC6D2707438A00FE1CBF /* AppAction.swift */,
+				E2FCAC6C2707438A00FE1CBF /* AppState.swift */,
+				E2FCAC6F2707438A00FE1CBF /* AppStore.swift */,
+				E2FCAC412707420100FE1CBF /* AppReducer.swift */,
+				E264775B274A9C6F0053BF6F /* States */,
+				E2FCAC37270741DB00FE1CBF /* Logging */,
+				E2FCAC26270741C700FE1CBF /* Extensions */,
+				E2FCAC112707419800FE1CBF /* Content */,
+				E2FCAC3C270741F000FE1CBF /* Modules */,
 				E2FDC933266FAF1C007AA1F5 /* Views */,
+				E2FCAC742707439300FE1CBF /* Resources */,
 				E20B8543266F4A9900AA4224 /* Preview Content */,
+				E2BF22DF266F9CA20060866F /* App.entitlements */,
 				E20B8541266F4A9900AA4224 /* Assets.xcassets */,
+				E20B8546266F4A9900AA4224 /* Info.plist */,
+				E24077B126B881C2001767C0 /* InfoPlist.strings */,
 				E2CA982E274EB2BD0027D5CF /* Settings.bundle */,
 			);
 			path = LibreDirect;
@@ -465,24 +475,6 @@
 				E2C593602736988800CAFFD4 /* FilteringService.swift */,
 			);
 			path = Internal;
-			sourceTree = "<group>";
-		};
-		E2FCAC6B2707436D00FE1CBF /* LibreDirectLibrary */ = {
-			isa = PBXGroup;
-			children = (
-				E2FCAC6E2707438A00FE1CBF /* AppConfig.swift */,
-				E2FCAC6D2707438A00FE1CBF /* AppAction.swift */,
-				E2FCAC6C2707438A00FE1CBF /* AppState.swift */,
-				E2FCAC6F2707438A00FE1CBF /* AppStore.swift */,
-				E2FCAC412707420100FE1CBF /* AppReducer.swift */,
-				E264775B274A9C6F0053BF6F /* States */,
-				E2FCAC37270741DB00FE1CBF /* Logging */,
-				E2FCAC26270741C700FE1CBF /* Extensions */,
-				E2FCAC112707419800FE1CBF /* Content */,
-				E2FCAC3C270741F000FE1CBF /* Modules */,
-				E2FCAC742707439300FE1CBF /* Resources */,
-			);
-			path = LibreDirectLibrary;
 			sourceTree = "<group>";
 		};
 		E2FCAC742707439300FE1CBF /* Resources */ = {
