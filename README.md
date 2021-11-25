@@ -27,6 +27,9 @@ My playground for the Libre 2 blood glucose sensors and Swift/SwiftUI ([TestFlig
 
 ## Roadmap
 - CoreData and more than 1440 values
+- Calendar export for watch support
+- Tidepool upload
+- Refactoring :D
 
 ## Quick test?
 You can quickly get an idea of Libre Direct: [TestFlight](https://testflight.apple.com/join/dWDt5Wme)
