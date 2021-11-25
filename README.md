@@ -5,7 +5,9 @@
 My playground for the Libre 2 blood glucose sensors and Swift/SwiftUI ([TestFlight](https://testflight.apple.com/join/dWDt5Wme)).
 
 ## Current features
-- Libre 2 EU support (without transmitter)
+- Libre 2 EU support, for cgm values (without transmitter)
+- Add manual bgm values
+- Manage bgm/cgm values
 - Units mg/dL or mmol/L
 - Nightscout upload
 - FreeAPS X support (with Shared App Groups)
@@ -24,9 +26,7 @@ My playground for the Libre 2 blood glucose sensors and Swift/SwiftUI ([TestFlig
 - Snooze for glucose alerts
 
 ## Roadmap
-- Manage glucose values
-- Add blood glucose values
-- Respect state 'warmup' and 'not yet started'
+
 
 ## Quick test?
 You can quickly get an idea of Libre Direct: [TestFlight](https://testflight.apple.com/join/dWDt5Wme)
