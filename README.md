@@ -31,9 +31,6 @@ My playground for the Libre 2 blood glucose sensors and Swift/SwiftUI ([TestFlig
 ## Quick test?
 You can quickly get an idea of Libre Direct: [TestFlight](https://testflight.apple.com/join/dWDt5Wme)
 
-## Clone
-``git clone --recurse-submodules https://github.com/creepymonster/LibreDirectApp``
-
 ## Screenshots
 ![Screenshot](/Screenshots/readings.png?raw=true)
 ![Screenshot](/Screenshots/calibrations.png?raw=true)
