@@ -15,7 +15,7 @@ final class LibreDirectApp: App {
     init() {
         UNUserNotificationCenter.current().delegate = notificationCenterDelegate
 
-        if store.state.isPaired {
+        if store.state.isPaired && store.state.isConnectable {
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {
                 self.store.dispatch(.connectSensor)
             }
@@ -23,6 +23,18 @@ final class LibreDirectApp: App {
     }
 
     // MARK: Internal
+
+    static var isPreviewMode: Bool {
+        return UserDefaults.standard.bool(forKey: "preview_mode")
+    }
+
+    static var isSimulator: Bool {
+        #if targetEnvironment(simulator)
+        return true
+        #else
+        return false
+        #endif
+    }
 
     var body: some Scene {
         WindowGroup {
@@ -33,41 +45,53 @@ final class LibreDirectApp: App {
 
     // MARK: Private
 
-    #if targetEnvironment(simulator) || targetEnvironment(macCatalyst)
-    private let store = AppStore(initialState: InMemoryAppState(), reducer: appReducer, middlewares: [
-        // required middlewares
-        actionLogMiddleware(),
-        
-        // sensor middleware
-        virtualLibreMiddelware(),
-
-        // other middlewares
-        expiringNotificationMiddelware(),
-        glucoseNotificationMiddelware(),
-        glucoseBadgeMiddelware(),
-        connectionNotificationMiddelware(),
-        freeAPSMiddleware(),
-        nightscoutMiddleware()
-    ])
-    #else
-    private let store = AppStore(initialState: UserDefaultsAppState(), reducer: appReducer, middlewares: [
-        // required middlewares
-        actionLogMiddleware(),
-
-        // sensor middleware
-        libre2Middelware(),
-
-        // other middlewares
-        expiringNotificationMiddelware(),
-        glucoseNotificationMiddelware(),
-        glucoseBadgeMiddelware(),
-        connectionNotificationMiddelware(),
-        freeAPSMiddleware(),
-        nightscoutMiddleware()
-    ])
-    #endif
-
+    private let store = createStore()
     private let notificationCenterDelegate = LibreDirectNotificationCenter()
+
+    private static func createStore() -> AppStore {
+        if isSimulator || isPreviewMode {
+            Log.info("start preview mode")
+
+            return createPreviewStore()
+        }
+
+        return createAppStore()
+    }
+
+    private static func createPreviewStore() -> AppStore {
+        return AppStore(initialState: InMemoryAppState(), reducer: appReducer, middlewares: [
+            // required middlewares
+            actionLogMiddleware(),
+
+            // sensor middleware
+            virtualLibreMiddelware(),
+
+            // other middlewares
+            expiringNotificationMiddelware(),
+            glucoseNotificationMiddelware(),
+            glucoseBadgeMiddelware(),
+            connectionNotificationMiddelware(),
+            nightscoutMiddleware()
+        ])
+    }
+
+    private static func createAppStore() -> AppStore {
+        return AppStore(initialState: UserDefaultsAppState(), reducer: appReducer, middlewares: [
+            // required middlewares
+            actionLogMiddleware(),
+
+            // sensor middleware
+            libre2Middelware(),
+
+            // other middlewares
+            expiringNotificationMiddelware(),
+            glucoseNotificationMiddelware(),
+            glucoseBadgeMiddelware(),
+            connectionNotificationMiddelware(),
+            freeAPSMiddleware(),
+            nightscoutMiddleware()
+        ])
+    }
 }
 
 // MARK: - LibreDirectNotificationCenter
@@ -77,4 +101,3 @@ final class LibreDirectNotificationCenter: NSObject, UNUserNotificationCenterDel
         completionHandler([.badge, .banner, .list, .sound])
     }
 }
-

@@ -118,23 +118,31 @@ struct SensorView: View {
                         Text(sensor.state.localizedString).textSelection(.enabled)
                     }
                     
-                    HStack {
-                        Text("Sensor Possible Lifetime")
-                        Spacer()
-                        Text(sensor.lifetime.inTime).textSelection(.enabled)
-                    }
-                    
-                    HStack {
-                        Text("Sensor Age")
-                        Spacer()
-                        Text(sensor.age.inTime).textSelection(.enabled)
-                    }
-                    
-                    if let remainingLifetime = sensor.remainingLifetime {
+                    if let remainingWarmupTime = sensor.remainingWarmupTime {
                         HStack {
-                            Text("Sensor Remaining Lifetime")
+                            Text("Sensor Remaining Warmup time")
                             Spacer()
-                            Text(remainingLifetime.inTime).textSelection(.enabled)
+                            Text(remainingWarmupTime.inTime).textSelection(.enabled)
+                        }
+                    } else {
+                        HStack {
+                            Text("Sensor Possible Lifetime")
+                            Spacer()
+                            Text(sensor.lifetime.inTime).textSelection(.enabled)
+                        }
+                    
+                        HStack {
+                            Text("Sensor Age")
+                            Spacer()
+                            Text(sensor.age.inTime).textSelection(.enabled)
+                        }
+                        
+                        if let remainingLifetime = sensor.remainingLifetime {
+                            HStack {
+                                Text("Sensor Remaining Lifetime")
+                                Spacer()
+                                Text(remainingLifetime.inTime).textSelection(.enabled)
+                            }
                         }
                     }
                 },

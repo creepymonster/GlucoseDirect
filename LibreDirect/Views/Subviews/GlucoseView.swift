@@ -39,19 +39,6 @@ struct GlucoseView: View {
     }
 
     var body: some View {
-        if !store.state.isPaired {
-            VStack(alignment: .center) {
-                Text("No Sensor")
-                    .foregroundColor(Color.ui.red)
-                    .font(.system(size: 32))
-                    .padding(.vertical)
-                
-                /*Text("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu.")
-                    .multilineTextAlignment(.leading)
-                    .padding(.bottom)*/
-            }
-        }
-        
         if let currentGlucose = store.state.currentGlucose {
             VStack(alignment: .center) {
                 VStack(alignment: .trailing, spacing: 0) {
@@ -61,7 +48,7 @@ struct GlucoseView: View {
 
                         VStack(alignment: .leading) {
                             Text(currentGlucose.trend.description).font(.system(size: 48))
- 
+
                             Text(store.state.glucoseUnit.localizedString)
                         }
                     }.foregroundColor(glucoseForegroundColor)
@@ -79,14 +66,9 @@ struct GlucoseView: View {
                         }
                     }.padding(.bottom)
                 }
-                
+
                 SnoozeView().padding(.bottom, 5)
             }
-        } else if store.state.isPaired {
-            VStack(alignment: .center) {
-                Text("???")
-                    .font(.system(size: 112))
-            }.foregroundColor(Color.ui.red)
         }
     }
 }

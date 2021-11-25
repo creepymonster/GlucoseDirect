@@ -6,10 +6,10 @@
 import Combine
 import SwiftUI
 
-// MARK: - SensorGlucose + Equatable
+// MARK: - Glucose + Equatable
 
-extension SensorGlucose: Equatable {
-    static func == (lhs: SensorGlucose, rhs: SensorGlucose) -> Bool {
+extension Glucose: Equatable {
+    static func == (lhs: Glucose, rhs: Glucose) -> Bool {
         lhs.timestamp == rhs.timestamp
     }
 }
@@ -73,13 +73,15 @@ struct ChartView: View {
         enum dot {
             static let size: CGFloat = 3.5
 
-            static var color: Color { Color(hex: "#36454F") | Color(hex: "#E5E4E2") }
+            static var cgmColor: Color { Color(hex: "#36454F") | Color(hex: "#E5E4E2") }
+            static var bgmColor: Color { Color.ui.red }
         }
 
         enum line {
             static var size = 2.5
 
-            static var color: Color { Color(hex: "#36454F") | Color(hex: "#E5E4E2") }
+            static var cgmColor: Color { Color(hex: "#36454F") | Color(hex: "#E5E4E2") }
+            static var bgmColor: Color { Color.ui.red }
         }
 
         enum x {
@@ -126,7 +128,8 @@ struct ChartView: View {
     @State var alarmHighGridPath = Path()
     @State var alarmLowGridPath = Path()
     @State var firstTimeStamp: Date? = nil
-    @State var glucosePath = Path()
+    @State var cgmPath = Path()
+    @State var bgmPath = Path()
     @State var glucoseMinutes: Int = 0
     @State var lastTimeStamp: Date? = nil
     @State var targetGridPath = Path()
@@ -137,8 +140,16 @@ struct ChartView: View {
     @State var deviceOrientation = UIDevice.current.orientation
     @State var deviceColorScheme = ColorScheme.light
 
-    var glucoseValues: [SensorGlucose] {
-        return store.state.glucoseValues
+    var cgmValues: [Glucose] {
+        return store.state.glucoseValues.filter { value in
+            value.type == .cgm
+        }
+    }
+
+    var bgmValues: [Glucose] {
+        return store.state.glucoseValues.filter { value in
+            value.type == .bgm
+        }
     }
 
     var chartView: some View {
@@ -164,15 +175,16 @@ struct ChartView: View {
                 if state == .active {
                     Log.info("onChange scenePhase: \(state)")
 
-                    updateHelpVariables(fullSize: geo.size, glucoseValues: glucoseValues)
+                    updateHelpVariables(fullSize: geo.size, glucoseValues: store.state.glucoseValues)
 
                     updateYGrid(fullSize: geo.size, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh, targetValue: store.state.targetValue, glucoseUnit: store.state.glucoseUnit)
                     updateAlarmLowGrid(fullSize: geo.size, alarmLow: store.state.alarmLow)
                     updateAlarmHighGrid(fullSize: geo.size, alarmHigh: store.state.alarmHigh)
                     updateTargetGrid(fullSize: geo.size, targetValue: store.state.targetValue)
-
                     updateXGrid(fullSize: geo.size, firstTimeStamp: self.firstTimeStamp, lastTimeStamp: self.lastTimeStamp)
-                    updateGlucoseDots(fullSize: geo.size, glucoseValues: glucoseValues)
+
+                    updateCgmPath(fullSize: geo.size, glucoseValues: cgmValues)
+                    updateBgmPath(fullSize: geo.size, glucoseValues: bgmValues)
                 }
             }
             .onRotate { rotation in
@@ -190,7 +202,8 @@ struct ChartView: View {
             .onChange(of: store.state.chartShowLines) { chartShowLines in
                 Log.info("onChange chartShowLines: \(chartShowLines)")
 
-                updateGlucoseDots(fullSize: geo.size, glucoseValues: glucoseValues)
+                updateCgmPath(fullSize: geo.size, glucoseValues: cgmValues)
+                updateBgmPath(fullSize: geo.size, glucoseValues: bgmValues)
             }
             .onChange(of: store.state.alarmLow) { alarmLow in
                 Log.info("onChange alarmLow: \(alarmLow)")
@@ -215,32 +228,36 @@ struct ChartView: View {
 
                 updateYGrid(fullSize: geo.size, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh, targetValue: store.state.targetValue, glucoseUnit: glucoseUnit)
             }
-            .onChange(of: glucoseValues) { glucoseValues in
-                Log.info("onChange glucoseValues: \(glucoseValues.count)")
+            .onChange(of: cgmValues) { _ in
+                Log.info("onChange glucoseValues: \(store.state.glucoseValues.count)")
 
-                updateHelpVariables(fullSize: geo.size, glucoseValues: glucoseValues)
+                updateHelpVariables(fullSize: geo.size, glucoseValues: store.state.glucoseValues)
 
                 updateXGrid(fullSize: geo.size, firstTimeStamp: self.firstTimeStamp, lastTimeStamp: self.lastTimeStamp)
-                updateGlucoseDots(fullSize: geo.size, glucoseValues: glucoseValues)
+
+                updateCgmPath(fullSize: geo.size, glucoseValues: cgmValues)
+                updateBgmPath(fullSize: geo.size, glucoseValues: bgmValues)
             }
             .onAppear {
                 Log.info("onAppear")
 
-                updateHelpVariables(fullSize: geo.size, glucoseValues: glucoseValues)
+                updateHelpVariables(fullSize: geo.size, glucoseValues: store.state.glucoseValues)
 
                 updateYGrid(fullSize: geo.size, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh, targetValue: store.state.targetValue, glucoseUnit: store.state.glucoseUnit)
+                updateXGrid(fullSize: geo.size, firstTimeStamp: self.firstTimeStamp, lastTimeStamp: self.lastTimeStamp)
+
                 updateAlarmLowGrid(fullSize: geo.size, alarmLow: store.state.alarmLow)
                 updateAlarmHighGrid(fullSize: geo.size, alarmHigh: store.state.alarmHigh)
                 updateTargetGrid(fullSize: geo.size, targetValue: store.state.targetValue)
 
-                updateXGrid(fullSize: geo.size, firstTimeStamp: self.firstTimeStamp, lastTimeStamp: self.lastTimeStamp)
-                updateGlucoseDots(fullSize: geo.size, glucoseValues: glucoseValues)
+                updateCgmPath(fullSize: geo.size, glucoseValues: cgmValues)
+                updateBgmPath(fullSize: geo.size, glucoseValues: bgmValues)
             }
         }
     }
 
     var body: some View {
-        if !glucoseValues.isEmpty {
+        if !cgmValues.isEmpty {
             Section(
                 content: {
                     chartView
@@ -265,14 +282,16 @@ struct ChartView: View {
                     nowView(fullSize: fullSize).zIndex(2)
 
                     if store.state.chartShowLines {
-                        glucoseLineView().zIndex(3)
+                        cgmLineView().zIndex(3)
                     } else {
-                        glucoseDotsView().zIndex(3)
+                        cgmDotsView().zIndex(3)
                     }
+
+                    bgmDotsView().zIndex(4)
                 }
                 .id(Config.endID)
                 .frame(width: CGFloat(glucoseMinutes) * CGFloat(Config.x.gridMinuteWidth))
-                .onChange(of: glucoseValues) { _ in
+                .onChange(of: cgmValues) { _ in
                     scroll.scrollTo(Config.endID, anchor: .trailing)
                 }
                 .onAppear {
@@ -311,14 +330,24 @@ struct ChartView: View {
         }.stroke(style: Config.now.strokeStyle).stroke(Config.now.color)
     }
 
-    private func glucoseLineView() -> some View {
-        glucosePath
-            .stroke(Config.line.color, lineWidth: Config.line.size)
+    private func cgmLineView() -> some View {
+        cgmPath
+            .stroke(Config.line.cgmColor, lineWidth: Config.line.size)
     }
 
-    private func glucoseDotsView() -> some View {
-        glucosePath
-            .fill(Config.dot.color)
+    private func cgmDotsView() -> some View {
+        cgmPath
+            .fill(Config.dot.cgmColor)
+    }
+
+    private func bgmLineView() -> some View {
+        bgmPath
+            .stroke(Config.line.bgmColor, lineWidth: Config.line.size)
+    }
+
+    private func bgmDotsView() -> some View {
+        bgmPath
+            .fill(Config.dot.bgmColor)
     }
 
     private func targetGridView() -> some View {
@@ -365,9 +394,9 @@ struct ChartView: View {
         }
     }
 
-    private func updateHelpVariables(fullSize: CGSize, glucoseValues: [SensorGlucose]) {
+    private func updateHelpVariables(fullSize: CGSize, glucoseValues: [Glucose]) {
         Log.info("updateHelpVariables")
-        
+
         if let first = glucoseValues.first, let last = glucoseValues.last {
             let firstTimeStamp = first.timestamp.addingTimeInterval(-2 * Config.x.gridStep * 60)
 
@@ -387,7 +416,7 @@ struct ChartView: View {
 
     private func updateAlarmHighGrid(fullSize: CGSize, alarmHigh: Int?) {
         Log.info("updateAlarmHighGrid")
-        
+
         calculationQueue.async {
             if let alarmHigh = alarmHigh {
                 let alarmHighGridPath = Path { path in
@@ -406,7 +435,7 @@ struct ChartView: View {
 
     private func updateAlarmLowGrid(fullSize: CGSize, alarmLow: Int?) {
         Log.info("updateAlarmLowGrid")
-        
+
         calculationQueue.async {
             if let alarmLow = alarmLow {
                 let alarmLowGridPath = Path { path in
@@ -423,11 +452,11 @@ struct ChartView: View {
         }
     }
 
-    private func updateGlucoseDots(fullSize: CGSize, glucoseValues: [SensorGlucose]) {
-        Log.info("updateGlucoseDots")
-        
+    private func updateCgmPath(fullSize: CGSize, glucoseValues: [Glucose]) {
+        Log.info("updateCgmPath")
+
         calculationQueue.async {
-            let glucoseDotsPath = Path { path in
+            let cgmPath = Path { path in
                 for value in glucoseValues {
                     let x = self.translateTimeStampToX(timestamp: value.timestamp)
                     let y = self.translateGlucoseToY(fullSize: fullSize, glucose: CGFloat(value.glucoseValue))
@@ -445,14 +474,41 @@ struct ChartView: View {
             }
 
             DispatchQueue.main.async {
-                self.glucosePath = glucoseDotsPath
+                self.cgmPath = cgmPath
+            }
+        }
+    }
+
+    private func updateBgmPath(fullSize: CGSize, glucoseValues: [Glucose]) {
+        Log.info("updateBgmPath")
+
+        calculationQueue.async {
+            let cgmPath = Path { path in
+                for value in glucoseValues {
+                    let x = self.translateTimeStampToX(timestamp: value.timestamp)
+                    let y = self.translateGlucoseToY(fullSize: fullSize, glucose: CGFloat(value.glucoseValue))
+
+                    if store.state.chartShowLines {
+                        if value == glucoseValues.first {
+                            path.move(to: CGPoint(x: x, y: y))
+                        }
+
+                        path.addLine(to: CGPoint(x: x, y: y))
+                    } else {
+                        path.addEllipse(in: CGRect(x: x - Config.dot.size / 2, y: y - Config.dot.size / 2, width: Config.dot.size, height: Config.dot.size))
+                    }
+                }
+            }
+
+            DispatchQueue.main.async {
+                self.bgmPath = cgmPath
             }
         }
     }
 
     private func updateTargetGrid(fullSize: CGSize, targetValue: Int?) {
         Log.info("updateTargetGrid")
-        
+
         calculationQueue.async {
             if let targetValue = targetValue {
                 let targetGridPath = Path { path in
@@ -471,7 +527,7 @@ struct ChartView: View {
 
     private func updateXGrid(fullSize: CGSize, firstTimeStamp: Date?, lastTimeStamp: Date?) {
         Log.info("updateXGrid")
-        
+
         calculationQueue.async {
             if let firstTimeStamp = firstTimeStamp, let lastTimeStamp = lastTimeStamp {
                 let allHours = Date.dates(
@@ -509,7 +565,7 @@ struct ChartView: View {
 
     private func updateYGrid(fullSize: CGSize, alarmLow: Int?, alarmHigh: Int?, targetValue: Int?, glucoseUnit: GlucoseUnit) {
         Log.info("updateYGrid")
-        
+
         calculationQueue.async {
             let gridParts = stride(from: Config.minGlucose, to: Config.maxGlucose + 1, by: Config.y.gridStep)
 
@@ -568,18 +624,6 @@ struct ChartView: View {
     }
 }
 
-// MARK: - ChartView_Previews
-
-struct ChartView_Previews: PreviewProvider {
-    static var previews: some View {
-        let store = AppStore(initialState: PreviewAppState())
-
-        ForEach(ColorScheme.allCases, id: \.self) {
-            ChartView().environmentObject(store).preferredColorScheme($0)
-        }
-    }
-}
-
 // MARK: - MinuteUpdater
 
 class MinuteUpdater: ObservableObject {
@@ -594,11 +638,23 @@ class MinuteUpdater: ObservableObject {
             self.objectWillChange.send()
         }
         RunLoop.main.add(timer, forMode: .common)
-        
+
         self.timer = timer
     }
 
     // MARK: Internal
 
     var timer: Timer?
+}
+
+// MARK: - ChartView_Previews
+
+struct ChartView_Previews: PreviewProvider {
+    static var previews: some View {
+        let store = AppStore(initialState: PreviewAppState())
+
+        ForEach(ColorScheme.allCases, id: \.self) {
+            ChartView().environmentObject(store).preferredColorScheme($0)
+        }
+    }
 }

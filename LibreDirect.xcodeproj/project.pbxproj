@@ -27,16 +27,22 @@
 		E292E1B226A608C400011F64 /* NumberSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E292E1B126A608C400011F64 /* NumberSelectorView.swift */; };
 		E29ED231268C754F00CBD3F1 /* GlucoseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29ED230268C754F00CBD3F1 /* GlucoseView.swift */; };
 		E29ED236268C87CC00CBD3F1 /* TextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29ED235268C87CC00CBD3F1 /* TextEditorView.swift */; };
+		E29F4FA2274D6C8B00AE0E39 /* GlucoseValueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29F4FA1274D6C8B00AE0E39 /* GlucoseValueType.swift */; };
 		E2A590032708EEDF003A081B /* SensorServiceUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A590022708EEDF003A081B /* SensorServiceUpdate.swift */; };
 		E2B63A88273E3EB100DDAA70 /* CustomCalibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B63A87273E3EB100DDAA70 /* CustomCalibration.swift */; };
 		E2C19FB3273567FE00B70A73 /* SensorReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C19FB2273567FE00B70A73 /* SensorReading.swift */; };
-		E2C19FB52735684500B70A73 /* SensorGlucose.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C19FB42735684500B70A73 /* SensorGlucose.swift */; };
+		E2C19FB52735684500B70A73 /* Glucose.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C19FB42735684500B70A73 /* Glucose.swift */; };
 		E2C19FB72735688400B70A73 /* SensorCalibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C19FB62735688400B70A73 /* SensorCalibration.swift */; };
 		E2C19FBC273568BF00B70A73 /* FactoryCalibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C19FBB273568BF00B70A73 /* FactoryCalibration.swift */; };
 		E2C5935F273696FE00CAFFD4 /* CalibrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C5935E273696FE00CAFFD4 /* CalibrationService.swift */; };
 		E2C593612736988800CAFFD4 /* FilteringService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C593602736988800CAFFD4 /* FilteringService.swift */; };
+		E2CA982F274EB2BD0027D5CF /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E2CA982E274EB2BD0027D5CF /* Settings.bundle */; };
+		E2D34BC4274D6BB500151895 /* GlucoeOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D34BC3274D6BB500151895 /* GlucoeOverviewView.swift */; };
+		E2D34BC6274D6BC000151895 /* CalibrationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D34BC5274D6BC000151895 /* CalibrationsView.swift */; };
+		E2D34BC8274D6BCB00151895 /* GlucoseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D34BC7274D6BCB00151895 /* GlucoseListView.swift */; };
+		E2D34BCA274D6C1300151895 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D34BC9274D6C1300151895 /* SettingsView.swift */; };
 		E2D7238127491C4C00455FB9 /* InMemoryAppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D7238027491C4C00455FB9 /* InMemoryAppState.swift */; };
-		E2E1E9D2273D6E8B00992B2F /* CalibrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E1E9D1273D6E8B00992B2F /* CalibrationView.swift */; };
+		E2E1E9D2273D6E8B00992B2F /* CalibrationSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E1E9D1273D6E8B00992B2F /* CalibrationSettingsView.swift */; };
 		E2F5F3D126A70AC400834A74 /* DateSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F5F3D026A70AC400834A74 /* DateSelectorView.swift */; };
 		E2FCAC1C270741BC00FE1CBF /* SensorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC12270741BC00FE1CBF /* SensorType.swift */; };
 		E2FCAC1D270741BC00FE1CBF /* Sensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC13270741BC00FE1CBF /* Sensor.swift */; };
@@ -126,17 +132,23 @@
 		E292E1B126A608C400011F64 /* NumberSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberSelectorView.swift; sourceTree = "<group>"; };
 		E29ED230268C754F00CBD3F1 /* GlucoseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseView.swift; sourceTree = "<group>"; };
 		E29ED235268C87CC00CBD3F1 /* TextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorView.swift; sourceTree = "<group>"; };
+		E29F4FA1274D6C8B00AE0E39 /* GlucoseValueType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseValueType.swift; sourceTree = "<group>"; };
 		E2A590022708EEDF003A081B /* SensorServiceUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorServiceUpdate.swift; sourceTree = "<group>"; };
 		E2B63A87273E3EB100DDAA70 /* CustomCalibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalibration.swift; sourceTree = "<group>"; };
 		E2BF22DF266F9CA20060866F /* App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = App.entitlements; sourceTree = "<group>"; };
 		E2C19FB2273567FE00B70A73 /* SensorReading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorReading.swift; sourceTree = "<group>"; };
-		E2C19FB42735684500B70A73 /* SensorGlucose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorGlucose.swift; sourceTree = "<group>"; };
+		E2C19FB42735684500B70A73 /* Glucose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Glucose.swift; sourceTree = "<group>"; };
 		E2C19FB62735688400B70A73 /* SensorCalibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorCalibration.swift; sourceTree = "<group>"; };
 		E2C19FBB273568BF00B70A73 /* FactoryCalibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryCalibration.swift; sourceTree = "<group>"; };
 		E2C5935E273696FE00CAFFD4 /* CalibrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationService.swift; sourceTree = "<group>"; };
 		E2C593602736988800CAFFD4 /* FilteringService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringService.swift; sourceTree = "<group>"; };
+		E2CA982E274EB2BD0027D5CF /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		E2D34BC3274D6BB500151895 /* GlucoeOverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoeOverviewView.swift; sourceTree = "<group>"; };
+		E2D34BC5274D6BC000151895 /* CalibrationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationsView.swift; sourceTree = "<group>"; };
+		E2D34BC7274D6BCB00151895 /* GlucoseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseListView.swift; sourceTree = "<group>"; };
+		E2D34BC9274D6C1300151895 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		E2D7238027491C4C00455FB9 /* InMemoryAppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryAppState.swift; sourceTree = "<group>"; };
-		E2E1E9D1273D6E8B00992B2F /* CalibrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationView.swift; sourceTree = "<group>"; };
+		E2E1E9D1273D6E8B00992B2F /* CalibrationSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationSettingsView.swift; sourceTree = "<group>"; };
 		E2F5F3D026A70AC400834A74 /* DateSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelectorView.swift; sourceTree = "<group>"; };
 		E2FCAC12270741BC00FE1CBF /* SensorType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorType.swift; sourceTree = "<group>"; };
 		E2FCAC13270741BC00FE1CBF /* Sensor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sensor.swift; sourceTree = "<group>"; };
@@ -227,6 +239,7 @@
 				E2FDC933266FAF1C007AA1F5 /* Views */,
 				E20B8543266F4A9900AA4224 /* Preview Content */,
 				E20B8541266F4A9900AA4224 /* Assets.xcassets */,
+				E2CA982E274EB2BD0027D5CF /* Settings.bundle */,
 			);
 			path = LibreDirect;
 			sourceTree = "<group>";
@@ -295,8 +308,8 @@
 				E28728A926DE499200269F47 /* SnoozeView.swift */,
 				E283306626AF058500244343 /* ChartView.swift */,
 				E223F866267A4D9800EC9BCA /* SensorView.swift */,
-				E2E1E9D1273D6E8B00992B2F /* CalibrationView.swift */,
 				E20786222686283F004EEF1C /* ActionsView.swift */,
+				E2E1E9D1273D6E8B00992B2F /* CalibrationSettingsView.swift */,
 				E24B532226B863E20091417F /* AlarmSettingsView.swift */,
 				E24B532026B863C00091417F /* GlucoseSettingsView.swift */,
 				E24B531D26B863910091417F /* NightscoutSettingsView.swift */,
@@ -307,7 +320,9 @@
 		E2FCAC112707419800FE1CBF /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				E2C19FB42735684500B70A73 /* Glucose.swift */,
 				E2FCAC18270741BC00FE1CBF /* GlucoseUnit.swift */,
+				E29F4FA1274D6C8B00AE0E39 /* GlucoseValueType.swift */,
 				E2FCAC13270741BC00FE1CBF /* Sensor.swift */,
 				E2FCAC14270741BC00FE1CBF /* SensorConnectionState.swift */,
 				E2C19FB62735688400B70A73 /* SensorCalibration.swift */,
@@ -317,7 +332,6 @@
 				E2FCAC19270741BC00FE1CBF /* SensorState.swift */,
 				E2FCAC1B270741BC00FE1CBF /* SensorTrend.swift */,
 				E2C19FB2273567FE00B70A73 /* SensorReading.swift */,
-				E2C19FB42735684500B70A73 /* SensorGlucose.swift */,
 				E2C19FB8273568A000B70A73 /* Calibrations */,
 			);
 			path = Content;
@@ -456,8 +470,8 @@
 		E2FCAC6B2707436D00FE1CBF /* LibreDirectLibrary */ = {
 			isa = PBXGroup;
 			children = (
-				E2FCAC6D2707438A00FE1CBF /* AppAction.swift */,
 				E2FCAC6E2707438A00FE1CBF /* AppConfig.swift */,
+				E2FCAC6D2707438A00FE1CBF /* AppAction.swift */,
 				E2FCAC6C2707438A00FE1CBF /* AppState.swift */,
 				E2FCAC6F2707438A00FE1CBF /* AppStore.swift */,
 				E2FCAC412707420100FE1CBF /* AppReducer.swift */,
@@ -489,6 +503,10 @@
 			isa = PBXGroup;
 			children = (
 				E20B853F266F4A9800AA4224 /* ContentView.swift */,
+				E2D34BC3274D6BB500151895 /* GlucoeOverviewView.swift */,
+				E2D34BC5274D6BC000151895 /* CalibrationsView.swift */,
+				E2D34BC7274D6BCB00151895 /* GlucoseListView.swift */,
+				E2D34BC9274D6C1300151895 /* SettingsView.swift */,
 				E2E72B8E2681E9720083AD54 /* Subviews */,
 				E29ED232268C774200CBD3F1 /* SharedViews */,
 			);
@@ -567,6 +585,7 @@
 				E2FCAC7F270743B100FE1CBF /* negative.aiff in Resources */,
 				E2FCAC7B270743B100FE1CBF /* positive.aiff in Resources */,
 				E2FCAC80270743B100FE1CBF /* silent.aiff in Resources */,
+				E2CA982F274EB2BD0027D5CF /* Settings.bundle in Resources */,
 				E2FCAC7D270743B100FE1CBF /* sensor.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -585,10 +604,11 @@
 				E283306726AF058500244343 /* ChartView.swift in Sources */,
 				E2FCAC1C270741BC00FE1CBF /* SensorType.swift in Sources */,
 				E24B532526B864020091417F /* ToggleView.swift in Sources */,
-				E2E1E9D2273D6E8B00992B2F /* CalibrationView.swift in Sources */,
+				E2E1E9D2273D6E8B00992B2F /* CalibrationSettingsView.swift in Sources */,
 				E2FCAC582707425900FE1CBF /* Libre2Utility.swift in Sources */,
 				E2FCAC632707427500FE1CBF /* ExpiringNotification.swift in Sources */,
 				E2FCAC34270741D200FE1CBF /* View.swift in Sources */,
+				E2D34BC6274D6BC000151895 /* CalibrationsView.swift in Sources */,
 				E2FCAC23270741BC00FE1CBF /* SensorState.swift in Sources */,
 				E2B63A88273E3EB100DDAA70 /* CustomCalibration.swift in Sources */,
 				E2FCAC652707427D00FE1CBF /* ConnectionNotification.swift in Sources */,
@@ -610,6 +630,7 @@
 				E2FCAC3A270741E600FE1CBF /* StreamReader.swift in Sources */,
 				E2FCAC21270741BC00FE1CBF /* SensorFamily.swift in Sources */,
 				E2FCAC3B270741E600FE1CBF /* Log.swift in Sources */,
+				E2D34BC4274D6BB500151895 /* GlucoeOverviewView.swift in Sources */,
 				E2FCAC5B2707425900FE1CBF /* Libre2Pairing.swift in Sources */,
 				E2A590032708EEDF003A081B /* SensorServiceUpdate.swift in Sources */,
 				E2C19FB72735688400B70A73 /* SensorCalibration.swift in Sources */,
@@ -618,6 +639,7 @@
 				E20B853E266F4A9800AA4224 /* App.swift in Sources */,
 				E24B531E26B863910091417F /* NightscoutSettingsView.swift in Sources */,
 				E2FCAC25270741BC00FE1CBF /* SensorTrend.swift in Sources */,
+				E29F4FA2274D6C8B00AE0E39 /* GlucoseValueType.swift in Sources */,
 				E207862A2686306B004EEF1C /* ValueView.swift in Sources */,
 				E2FCAC31270741D200FE1CBF /* Date.swift in Sources */,
 				E20786232686283F004EEF1C /* ActionsView.swift in Sources */,
@@ -630,7 +652,7 @@
 				E2FCAC1E270741BC00FE1CBF /* SensorConnectionState.swift in Sources */,
 				E2FCAC722707438A00FE1CBF /* AppConfig.swift in Sources */,
 				E2C19FBC273568BF00B70A73 /* FactoryCalibration.swift in Sources */,
-				E2C19FB52735684500B70A73 /* SensorGlucose.swift in Sources */,
+				E2C19FB52735684500B70A73 /* Glucose.swift in Sources */,
 				E2C19FB3273567FE00B70A73 /* SensorReading.swift in Sources */,
 				E29ED231268C754F00CBD3F1 /* GlucoseView.swift in Sources */,
 				E28728AA26DE499200269F47 /* SnoozeView.swift in Sources */,
@@ -641,6 +663,8 @@
 				E264775A274A69540053BF6F /* VirtualLibre.swift in Sources */,
 				E29ED236268C87CC00CBD3F1 /* TextEditorView.swift in Sources */,
 				E2FCAC1D270741BC00FE1CBF /* Sensor.swift in Sources */,
+				E2D34BCA274D6C1300151895 /* SettingsView.swift in Sources */,
+				E2D34BC8274D6BCB00151895 /* GlucoseListView.swift in Sources */,
 				E2FCAC452707420100FE1CBF /* PreviewAppState.swift in Sources */,
 				E2FCAC2F270741D200FE1CBF /* Data.swift in Sources */,
 				E2FCAC712707438A00FE1CBF /* AppAction.swift in Sources */,
@@ -801,7 +825,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LibreDirect/App.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.6.1;
+				CURRENT_PROJECT_VERSION = 0.6.3;
 				DEVELOPMENT_ASSET_PATHS = "\"LibreDirect/Preview Content\"";
 				DEVELOPMENT_TEAM = 9JNYW2DG9D;
 				ENABLE_PREVIEWS = YES;
@@ -811,7 +835,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.6.1;
+				MARKETING_VERSION = 0.6.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "name.9JNYW2DG9D.libre-direct";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -828,7 +852,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LibreDirect/App.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.6.1;
+				CURRENT_PROJECT_VERSION = 0.6.3;
 				DEVELOPMENT_ASSET_PATHS = "\"LibreDirect/Preview Content\"";
 				DEVELOPMENT_TEAM = 9JNYW2DG9D;
 				ENABLE_PREVIEWS = YES;
@@ -838,7 +862,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.6.1;
+				MARKETING_VERSION = 0.6.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "name.9JNYW2DG9D.libre-direct";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

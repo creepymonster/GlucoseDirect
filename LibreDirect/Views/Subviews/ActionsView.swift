@@ -15,32 +15,30 @@ struct ActionsView: View {
     @EnvironmentObject var store: AppStore
 
     var body: some View {
-        Group {
+        HStack {
             if store.state.isPaired {
-                if store.state.isConnectable {
-                    HStack {
-                        Button(
-                            action: { showingUnpairSensorAlert = true },
-                            label: { Label("Unpair Sensor", systemImage: "arrow.uturn.backward") }
-                        ).alert(isPresented: $showingUnpairSensorAlert) {
-                            Alert(
-                                title: Text("Are you sure you want to unpair the sensor?"),
-                                primaryButton: .destructive(Text("Unpair")) {
-                                    store.dispatch(.resetSensor)
-                                },
-                                secondaryButton: .cancel()
-                            )
-                        }
-
-                        Spacer()
-
-                        Button(action: { store.dispatch(.connectSensor) }) {
-                            Label("Connect Sensor", systemImage: "play")
-                        }
+                if !store.state.isDisconnectable {
+                    Button(
+                        action: { showingUnpairSensorAlert = true },
+                        label: { Label("Unpair Sensor", systemImage: "arrow.uturn.backward") }
+                    ).alert(isPresented: $showingUnpairSensorAlert) {
+                        Alert(
+                            title: Text("Are you sure you want to unpair the sensor?"),
+                            primaryButton: .destructive(Text("Unpair")) {
+                                store.dispatch(.resetSensor)
+                            },
+                            secondaryButton: .cancel()
+                        )
                     }
                 }
 
-                if store.state.isDisconnectable {
+                if store.state.isConnectable {
+                    Spacer()
+
+                    Button(action: { store.dispatch(.connectSensor) }) {
+                        Label("Connect Sensor", systemImage: "play")
+                    }
+                } else if store.state.isDisconnectable {
                     Button(
                         action: { showingDisconnectSensorAlert = true },
                         label: { Label("Disconnect Sensor", systemImage: "stop") }

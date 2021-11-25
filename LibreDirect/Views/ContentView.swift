@@ -6,40 +6,6 @@
 import CoreNFC
 import SwiftUI
 
-// MARK: - DataView
-
-struct DataView: View {
-    @EnvironmentObject var store: AppStore
-
-    var body: some View {
-        VStack {
-            ActionsView()
-
-            List {
-                GlucoseView().frame(maxWidth: .infinity)
-                ChartView()
-                SensorView()
-            }
-        }
-    }
-}
-
-// MARK: - SettingsView
-
-struct SettingsView: View {
-    @EnvironmentObject var store: AppStore
-
-    var body: some View {
-        VStack {
-            List {
-                GlucoseSettingsView()
-                AlarmSettingsView()
-                NightscoutSettingsView()
-            }
-        }
-    }
-}
-
 // MARK: - ContentView
 
 struct ContentView: View {
@@ -47,31 +13,27 @@ struct ContentView: View {
 
     @EnvironmentObject var store: AppStore
 
-    var calibrationView: some View {
-        VStack {
-            List {
-                CalibrationView() 
-            }
-        }
-    }
-
     var contentView: some View {
         TabView(selection: selectedView) {
-            DataView().tabItem {
-                Label("Sensor readings", systemImage: "waveform.path.ecg")
+            GlucoeOverviewView().tabItem {
+                Label("Glucose overview", systemImage: "waveform.path.ecg")
             }.tag(1)
 
-            if store.state.isPaired && !store.state.glucoseValues.isEmpty {
-                calibrationView.tabItem {
-                    Label("Calibration", systemImage: "tuningfork")
+            GlucoseListView().tabItem {
+                Label("Glucose list view", systemImage: "list.dash")
+            }.tag(2)
+
+            if store.state.isPaired, store.state.isConnectable || store.state.isDisconnectable, !store.state.glucoseValues.isEmpty {
+                CalibrationsView().tabItem {
+                    Label("Calibration view", systemImage: "tuningfork")
                 }
                 .badge(store.state.sensor?.customCalibration.count ?? 0)
-                .tag(2)
+                .tag(3)
             }
 
             SettingsView().tabItem {
-                Label("Settings", systemImage: "gearshape")
-            }.tag(3)
+                Label("Settings view", systemImage: "gearshape")
+            }.tag(4)
         }
     }
 
