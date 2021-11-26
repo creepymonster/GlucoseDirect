@@ -1,3 +1,4 @@
+
 //
 //  UserDefaults.swift
 //  LibreDirect
@@ -5,34 +6,11 @@
 
 import Foundation
 
-extension UserDefaults {
-    static let appGroup = UserDefaults(suiteName: AppConfig.FreeApsXAppGroupName)!
-
-    func setArray<Element>(_ array: [Element], forKey key: String) where Element: Encodable {
-        let data = try? JSONEncoder().encode(array)
-        set(data, forKey: key)
-    }
-
-    func getArray<Element>(forKey key: String) -> [Element]? where Element: Decodable {
-        guard let data = data(forKey: key) else { return nil }
-        return try? JSONDecoder().decode([Element].self, from: data)
-    }
-
-    func setObject<Element>(_ obj: Element, forKey key: String) where Element: Encodable {
-        let data = try? JSONEncoder().encode(obj)
-        set(data, forKey: key)
-    }
-
-    func getObject<Element>(forKey key: String) -> Element? where Element: Decodable {
-        guard let data = data(forKey: key) else { return nil }
-        return try? JSONDecoder().decode(Element.self, from: data)
-    }
-}
-
 // MARK: - Keys
 
 private enum Keys: String {
     case chartShowLines = "libre-direct.settings.chart-show-lines"
+    case alarm = "libre-direct.settings.alarm"
     case alarmHigh = "libre-direct.settings.alarm-high"
     case alarmLow = "libre-direct.settings.alarm-low"
     case freeAPSLatestReadings = "latestReadings"
@@ -41,23 +19,29 @@ private enum Keys: String {
     case nightscoutApiSecret = "libre-direct.settings.nightscout-api-secret"
     case nightscoutHost = "libre-direct.settings.nightscout-host"
     case nightscoutUpload = "libre-direct.nightscout-upload-enabled"
+    case selectedView = "libre-direct.settings.selected-view"
     case sensor = "libre-direct.settings.sensor"
 }
 
 extension UserDefaults {
     var chartShowLines: Bool {
         get {
-            if object(forKey: Keys.chartShowLines.rawValue) != nil {
-                return bool(forKey: Keys.chartShowLines.rawValue)
-            }
-
-            return false
+            return bool(forKey: Keys.chartShowLines.rawValue)
         }
         set {
             set(newValue, forKey: Keys.chartShowLines.rawValue)
         }
     }
-    
+
+    var alarm: Bool {
+        get {
+            return bool(forKey: Keys.alarm.rawValue)
+        }
+        set {
+            set(newValue, forKey: Keys.alarm.rawValue)
+        }
+    }
+
     var alarmHigh: Int? {
         get {
             if object(forKey: Keys.alarmHigh.rawValue) != nil {
@@ -67,7 +51,11 @@ extension UserDefaults {
             return nil
         }
         set {
-            set(newValue, forKey: Keys.alarmHigh.rawValue)
+            if let newValue = newValue {
+                set(newValue, forKey: Keys.alarmHigh.rawValue)
+            } else {
+                removeObject(forKey: Keys.alarmHigh.rawValue)
+            }
         }
     }
 
@@ -80,19 +68,10 @@ extension UserDefaults {
             return nil
         }
         set {
-            set(newValue, forKey: Keys.alarmLow.rawValue)
-        }
-    }
-
-    var freeAPSLatestReadings: Data? {
-        get {
-            return data(forKey: Keys.freeAPSLatestReadings.rawValue)
-        }
-        set {
             if let newValue = newValue {
-                set(newValue, forKey: Keys.freeAPSLatestReadings.rawValue)
+                set(newValue, forKey: Keys.alarmLow.rawValue)
             } else {
-                removeObject(forKey: Keys.freeAPSLatestReadings.rawValue)
+                removeObject(forKey: Keys.alarmLow.rawValue)
             }
         }
     }
@@ -118,7 +97,7 @@ extension UserDefaults {
             setArray(newValue, forKey: Keys.glucoseValues.rawValue)
         }
     }
-    
+
     var nightscoutApiSecret: String {
         get {
             return string(forKey: Keys.nightscoutApiSecret.rawValue) ?? ""
@@ -154,6 +133,15 @@ extension UserDefaults {
         }
     }
 
+    var selectedView: Int {
+        get {
+            return integer(forKey: Keys.selectedView.rawValue)
+        }
+        set {
+            set(newValue, forKey: Keys.selectedView.rawValue)
+        }
+    }
+
     var sensor: Sensor? {
         get {
             return getObject(forKey: Keys.sensor.rawValue)
@@ -165,5 +153,50 @@ extension UserDefaults {
                 removeObject(forKey: Keys.sensor.rawValue)
             }
         }
+    }
+
+    var freeAPSLatestReadings: Data? {
+        get {
+            return data(forKey: Keys.freeAPSLatestReadings.rawValue)
+        }
+        set {
+            if let newValue = newValue {
+                set(newValue, forKey: Keys.freeAPSLatestReadings.rawValue)
+            } else {
+                removeObject(forKey: Keys.freeAPSLatestReadings.rawValue)
+            }
+        }
+    }
+}
+
+extension UserDefaults {
+    static let appGroup = UserDefaults(suiteName: stringValue(forKey: "APP_GROUP_ID"))!
+
+    func setArray<Element>(_ array: [Element], forKey key: String) where Element: Encodable {
+        let data = try? JSONEncoder().encode(array)
+        set(data, forKey: key)
+    }
+
+    func getArray<Element>(forKey key: String) -> [Element]? where Element: Decodable {
+        guard let data = data(forKey: key) else { return nil }
+        return try? JSONDecoder().decode([Element].self, from: data)
+    }
+
+    func setObject<Element>(_ obj: Element, forKey key: String) where Element: Encodable {
+        let data = try? JSONEncoder().encode(obj)
+        set(data, forKey: key)
+    }
+
+    func getObject<Element>(forKey key: String) -> Element? where Element: Decodable {
+        guard let data = data(forKey: key) else { return nil }
+        return try? JSONDecoder().decode(Element.self, from: data)
+    }
+
+    static func stringValue(forKey key: String) -> String {
+        guard let value = Bundle.main.object(forInfoDictionaryKey: key) as? String
+        else {
+            fatalError("Invalid value or undefined key")
+        }
+        return value
     }
 }

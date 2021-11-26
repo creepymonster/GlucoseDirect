@@ -3,7 +3,6 @@
 //  LibreDirect
 //
 
-// Configuration settings file format documentation can be found at:
-// https://help.apple.com/xcode/#/dev745c5c974
-
 PRODUCT_BUNDLE_IDENTIFIER = name.${DEVELOPMENT_TEAM}.libre-direct
+APP_GROUP_ID = group.reimarmetzen.FreeAPS
+DEVELOPMENT_TEAM = 9JNYW2DG9D
