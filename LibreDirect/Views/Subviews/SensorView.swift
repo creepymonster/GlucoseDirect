@@ -11,6 +11,10 @@ struct SensorView: View {
     // MARK: Internal
 
     @EnvironmentObject var store: AppStore
+    
+    @Environment(\.colorScheme) var colorScheme
+    
+    @State var deviceColorScheme = ColorScheme.light
 
     var startAngle: Double {
         return 360
@@ -43,7 +47,7 @@ struct SensorView: View {
                         Spacer()
                         Text(store.state.connectionState.localizedString).textSelection(.enabled)
                     }
-                
+
                     if store.state.missedReadings > 0 {
                         HStack {
                             Text("Sensor Missed Readings")
@@ -51,7 +55,7 @@ struct SensorView: View {
                             Text(store.state.missedReadings.description).textSelection(.enabled)
                         }
                     }
-                
+
                     if let connectionError = store.state.connectionError {
                         HStack {
                             Text("Sensor Connection Error")
@@ -59,7 +63,7 @@ struct SensorView: View {
                             Text(connectionError).textSelection(.enabled)
                         }
                     }
-                
+
                     if let connectionErrorTimestamp = store.state.connectionErrorTimestamp?.localTime {
                         HStack {
                             Text("Sensor Connection Error Timestamp")
@@ -72,7 +76,7 @@ struct SensorView: View {
                     Label("Sensor Connection", systemImage: "rectangle.connected.to.line.below")
                 }
             )
-        
+
             Section(
                 content: {
                     HStack {
@@ -80,25 +84,25 @@ struct SensorView: View {
                         Spacer()
                         Text(sensor.region.localizedString).textSelection(.enabled)
                     }
-                    
+
                     HStack {
                         Text("Sensor Type")
                         Spacer()
                         Text(sensor.type.localizedString).textSelection(.enabled)
                     }
-                    
+
                     HStack {
                         Text("Sensor UID")
                         Spacer()
                         Text(sensor.uuid.hex).textSelection(.enabled)
                     }
-                    
+
                     HStack {
                         Text("Sensor PatchInfo")
                         Spacer()
                         Text(sensor.patchInfo.hex).textSelection(.enabled)
                     }
-                    
+
                     if let serial = sensor.serial {
                         HStack {
                             Text("Sensor Serial")
@@ -111,7 +115,7 @@ struct SensorView: View {
                     Label("Sensor Details", systemImage: "text.magnifyingglass")
                 }
             )
-            
+
             Section(
                 content: {
                     HStack {
@@ -119,7 +123,7 @@ struct SensorView: View {
                         Spacer()
                         Text(sensor.state.localizedString).textSelection(.enabled)
                     }
-                    
+
                     if let remainingWarmupTime = sensor.remainingWarmupTime, sensor.state == .starting {
                         HStack {
                             Text("Sensor Remaining Warmup time")
@@ -132,20 +136,20 @@ struct SensorView: View {
                             Spacer()
                             Text(sensor.lifetime.inTime).textSelection(.enabled)
                         }
-                        
+
                         HStack {
                             Text("Sensor Age")
                             Spacer()
                             Text(sensor.age.inTime).textSelection(.enabled)
-                            
+
                             if let endAngle = elapsedEndAngle {
                                 ZStack {
                                     GeometryReader { geo in
                                         Circle()
-                                            .fill(Color(hex: "#E4E6EB") | Color(hex: "#404040"))
+                                            .fill(SensorView.color)
                                             .position(x: geo.size.width / 2, y: geo.size.height / 2)
                                             .frame(width: geo.size.width, height: geo.size.width)
-                                    
+
                                         Path { path in
                                             path.move(to: CGPoint(x: geo.size.width / 2, y: geo.size.height / 2))
                                             path.addArc(center: CGPoint(x: geo.size.width / 2, y: geo.size.height / 2), radius: geo.size.width / 2, startAngle: .degrees(startAngle), endAngle: .degrees(endAngle), clockwise: false)
@@ -156,21 +160,21 @@ struct SensorView: View {
                                 }.frame(width: SensorView.size, height: SensorView.size)
                             }
                         }
-                            
+
                         if let remainingLifetime = sensor.remainingLifetime {
                             HStack {
                                 Text("Sensor Remaining Lifetime")
                                 Spacer()
                                 Text(remainingLifetime.inTime).textSelection(.enabled)
-                                
+
                                 if let endAngle = remainingEndAngle {
                                     ZStack {
                                         GeometryReader { geo in
                                             Circle()
-                                                .fill(Color(hex: "#E4E6EB") | Color(hex: "#404040"))
+                                                .fill(SensorView.color)
                                                 .position(x: geo.size.width / 2, y: geo.size.height / 2)
                                                 .frame(width: geo.size.width, height: geo.size.width)
-                                        
+
                                             Path { path in
                                                 path.move(to: CGPoint(x: geo.size.width / 2, y: geo.size.height / 2))
                                                 path.addArc(center: CGPoint(x: geo.size.width / 2, y: geo.size.height / 2), radius: geo.size.width / 2, startAngle: .degrees(startAngle), endAngle: .degrees(endAngle), clockwise: false)
@@ -187,11 +191,30 @@ struct SensorView: View {
                 header: {
                     Label("Sensor Lifetime", systemImage: "timer")
                 }
-            )
+            ).onChange(of: colorScheme) { scheme in
+                Log.info("onChange colorScheme: \(scheme)")
+
+                if deviceColorScheme != scheme {
+                    deviceColorScheme = scheme
+                }
+            }
         }
     }
 
     // MARK: Private
 
     private static let size: CGFloat = 25
+    private static var color: Color { Color(hex: "#E4E6EB") | Color(hex: "#404040") }
+}
+
+// MARK: - SensorView_Previews
+
+struct SensorView_Previews: PreviewProvider {
+    static var previews: some View {
+        let store = AppStore(initialState: PreviewAppState())
+
+        ForEach(ColorScheme.allCases, id: \.self) {
+            SensorView().environmentObject(store).preferredColorScheme($0)
+        }
+    }
 }
