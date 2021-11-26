@@ -9,7 +9,7 @@ import Foundation
 
 class SensorServiceUpdate {}
 
-// MARK: - SensorAgeUpdate
+// MARK: - SensorStateUpdate
 
 class SensorStateUpdate: SensorServiceUpdate {
     // MARK: Lifecycle

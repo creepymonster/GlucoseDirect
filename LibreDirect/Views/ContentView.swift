@@ -68,7 +68,7 @@ struct ContentView: View {
     private var selectedView: Binding<Int> {
         Binding(
             get: { store.state.selectedView },
-            set: { store.dispatch(.selectView(value: $0)) }
+            set: { store.dispatch(.selectView(viewTag: $0)) }
         )
     }
 }

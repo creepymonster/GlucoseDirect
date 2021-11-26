@@ -26,7 +26,7 @@ final class VirtualLibreService: SensorServiceProtocol {
                 region: .european,
                 serial: "OBIR2PO",
                 state: .starting,
-                age: 0,
+                age: initAge,
                 lifetime: 24 * 60,
                 warmupTime: warmupTime
             )
@@ -41,7 +41,7 @@ final class VirtualLibreService: SensorServiceProtocol {
         let currentGlucose = nextGlucose
         Log.info("currentGlucose: \(currentGlucose)")
 
-        age = age + 1
+        age = age + 30
 
         updatesHandler?(SensorStateUpdate(sensorAge: age, sensorState: age > warmupTime ? .ready : .starting))
 
@@ -97,7 +97,8 @@ final class VirtualLibreService: SensorServiceProtocol {
 
     // MARK: Private
 
-    private var warmupTime = 2
+    private var initAge = 30
+    private var warmupTime = 60
     private var age = 0
     private let glucoseInterval = TimeInterval(60)
 
@@ -130,5 +131,3 @@ private func createPreviewSensor() -> Sensor? {
 
     return nil
 }
-
-extension Data {}

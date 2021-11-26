@@ -8,6 +8,8 @@ import SwiftUI
 // MARK: - SensorView
 
 struct SensorView: View {
+    // MARK: Internal
+
     @EnvironmentObject var store: AppStore
 
     var startAngle: Double {
@@ -118,30 +120,66 @@ struct SensorView: View {
                         Text(sensor.state.localizedString).textSelection(.enabled)
                     }
                     
-                    if let remainingWarmupTime = sensor.remainingWarmupTime {
+                    if let remainingWarmupTime = sensor.remainingWarmupTime, sensor.state == .starting {
                         HStack {
                             Text("Sensor Remaining Warmup time")
                             Spacer()
                             Text(remainingWarmupTime.inTime).textSelection(.enabled)
                         }
-                    } else {
+                    } else if sensor.state != .expired && sensor.state != .shutdown && sensor.state != .unknown {
                         HStack {
                             Text("Sensor Possible Lifetime")
                             Spacer()
                             Text(sensor.lifetime.inTime).textSelection(.enabled)
                         }
-                    
+                        
                         HStack {
                             Text("Sensor Age")
                             Spacer()
                             Text(sensor.age.inTime).textSelection(.enabled)
+                            
+                            if let endAngle = elapsedEndAngle {
+                                ZStack {
+                                    GeometryReader { geo in
+                                        Circle()
+                                            .fill(Color(hex: "#E4E6EB") | Color(hex: "#404040"))
+                                            .position(x: geo.size.width / 2, y: geo.size.height / 2)
+                                            .frame(width: geo.size.width, height: geo.size.width)
+                                    
+                                        Path { path in
+                                            path.move(to: CGPoint(x: geo.size.width / 2, y: geo.size.height / 2))
+                                            path.addArc(center: CGPoint(x: geo.size.width / 2, y: geo.size.height / 2), radius: geo.size.width / 2, startAngle: .degrees(startAngle), endAngle: .degrees(endAngle), clockwise: false)
+                                        }
+                                        .rotation(.degrees(-90))
+                                        .fill(Color.accentColor)
+                                    }
+                                }.frame(width: SensorView.size, height: SensorView.size)
+                            }
                         }
-                        
+                            
                         if let remainingLifetime = sensor.remainingLifetime {
                             HStack {
                                 Text("Sensor Remaining Lifetime")
                                 Spacer()
                                 Text(remainingLifetime.inTime).textSelection(.enabled)
+                                
+                                if let endAngle = remainingEndAngle {
+                                    ZStack {
+                                        GeometryReader { geo in
+                                            Circle()
+                                                .fill(Color(hex: "#E4E6EB") | Color(hex: "#404040"))
+                                                .position(x: geo.size.width / 2, y: geo.size.height / 2)
+                                                .frame(width: geo.size.width, height: geo.size.width)
+                                        
+                                            Path { path in
+                                                path.move(to: CGPoint(x: geo.size.width / 2, y: geo.size.height / 2))
+                                                path.addArc(center: CGPoint(x: geo.size.width / 2, y: geo.size.height / 2), radius: geo.size.width / 2, startAngle: .degrees(startAngle), endAngle: .degrees(endAngle), clockwise: false)
+                                            }
+                                            .rotation(.degrees(-90))
+                                            .fill(Color.accentColor)
+                                        }
+                                    }.frame(width: SensorView.size, height: SensorView.size)
+                                }
                             }
                         }
                     }
@@ -152,4 +190,8 @@ struct SensorView: View {
             )
         }
     }
+
+    // MARK: Private
+
+    private static let size: CGFloat = 25
 }

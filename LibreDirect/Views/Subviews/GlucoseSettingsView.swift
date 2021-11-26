@@ -14,7 +14,7 @@ struct GlucoseSettingsView: View {
         Section(
             content: {
                 ToggleView(key: LocalizedString("Glucose Unit", comment: ""), value: store.state.glucoseUnit.asBool, trueValue: true.asGlucoseUnit.description, falseValue: false.asGlucoseUnit.description) { value -> Void in
-                    store.dispatch(.setGlucoseUnit(value: value.asGlucoseUnit))
+                    store.dispatch(.setGlucoseUnit(unit: value.asGlucoseUnit))
                 }
             },
             header: {

@@ -1,4 +1,3 @@
-
 //
 //  AppState.swift
 //  LibreDirect
@@ -14,6 +13,7 @@ private var disconnectableStates: Set<SensorConnectionState> = [.connected, .con
 // MARK: - AppState
 
 protocol AppState {
+    var alarm: Bool { get set }
     var alarmHigh: Int { get set }
     var alarmLow: Int { get set }
     var alarmSnoozeUntil: Date? { get set }
@@ -24,29 +24,17 @@ protocol AppState {
     var glucoseUnit: GlucoseUnit { get set }
     var glucoseValues: [Glucose] { get set }
     var missedReadings: Int { get set }
-    var nightscoutUpload: Bool { get set }
     var nightscoutApiSecret: String { get set }
     var nightscoutHost: String { get set }
+    var nightscoutUpload: Bool { get set }
+    var selectedView: Int { get set }
     var sensor: Sensor? { get set }
     var targetValue: Int { get set }
-    var selectedView: Int { get set }
 }
 
 extension AppState {
-    var limitedGlucoseValues: [Glucose] {
-        glucoseValues.filter { glucose in
-            glucose.is5Minutely
-        }
-    }
-
-    var currentGlucose: Glucose? {
-        self.glucoseValues.last
-    }
-
-    var lastGlucose: Glucose? {
-        self.glucoseValues.suffix(2).first
-    }
-
+    var currentGlucose: Glucose? { self.glucoseValues.last }
+    
     var isConnectable: Bool {
         if let sensor = sensor {
             return sensorConnectableStates.contains(sensor.state) && connectableStates.contains(connectionState)
@@ -54,16 +42,18 @@ extension AppState {
 
         return false
     }
+    
+    var isDisconnectable: Bool { disconnectableStates.contains(connectionState) }
 
-    var isDisconnectable: Bool {
-        disconnectableStates.contains(connectionState)
-    }
+    var isPaired: Bool { sensor != nil }
 
-    var isPaired: Bool {
-        sensor != nil
-    }
+    var isReady: Bool { sensor != nil && sensor!.state == .ready }
 
-    var isReady: Bool {
-        sensor != nil && sensor!.state == .ready
+    var lastGlucose: Glucose? { self.glucoseValues.suffix(2).first }
+    
+    var limitedGlucoseValues: [Glucose] {
+        glucoseValues.filter { glucose in
+            glucose.is5Minutely
+        }
     }
 }

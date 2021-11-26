@@ -27,6 +27,115 @@ struct CalibrationSettingsView: View {
 
     var body: some View {
         if let sensor = store.state.sensor, let lastGlucose = store.state.lastGlucose {
+            if showingAddCalibrationView {
+                Section(
+                    content: {
+                        NumberSelectorView(key: LocalizedString("Now"), value: value, step: 1, displayValue: value.asGlucose(unit: store.state.glucoseUnit, withUnit: true)) { value -> Void in
+                            self.value = value
+                        }
+                    },
+                    header: {
+                        Label("Add glucose for calibration", systemImage: "drop.fill")
+                    },
+                    footer: {
+                        HStack {
+                            Button(action: {
+                                showingAddCalibrationView = false
+                            }) {
+                                Label("Cancel", systemImage: "multiply")
+                            }
+                            
+                            Spacer()
+
+                            Button(
+                                action: { showingAddCalibrationsAlert = true },
+                                label: { Label("Add", systemImage: "checkmark") }
+                            ).alert(isPresented: $showingAddCalibrationsAlert) {
+                                Alert(
+                                    title: Text("Are you sure you want to add the new calibration?"),
+                                    primaryButton: .destructive(Text("Add")) {
+                                        showingAddCalibrationView = false
+                                        store.dispatch(.addCalibration(glucoseValue: value))
+                                    },
+                                    secondaryButton: .cancel()
+                                )
+                            }
+                        }
+                    }
+                )
+            }
+            
+            Section(
+                content: {
+                    HStack {
+                        Text("Custom Calibration slope")
+                        Spacer()
+                        Text(slope.description).textSelection(.enabled)
+                    }
+                    
+                    HStack {
+                        Text("Custom Calibration intercept")
+                        Spacer()
+                        Text(intercept.description).textSelection(.enabled)
+                    }
+                    
+                    ForEach(sensor.customCalibration) { calibration in
+                        HStack {
+                            Text(calibration.timestamp.localDateTime)
+                            Spacer()
+                            Text("\(calibration.x.asGlucose(unit: store.state.glucoseUnit)) = \(calibration.y.asGlucose(unit: store.state.glucoseUnit, withUnit: true))").textSelection(.enabled)
+                        }
+                    }.onDelete { offsets in
+                        Log.info("onDelete: \(offsets)")
+                            
+                        let ids = offsets.map { i in
+                            sensor.customCalibration[i].id
+                        }
+                            
+                        DispatchQueue.main.async {
+                            ids.forEach { id in
+                                store.dispatch(.removeCalibration(id: id))
+                            }
+                        }
+                    }
+                },
+                header: {
+                    HStack {
+                        Label("Sensor Custom Calibration", systemImage: "person")
+                        
+                        if !showingAddCalibrationView {
+                            Spacer()
+                        
+                            Button(
+                                action: {
+                                    value = lastGlucose.glucoseValue
+                                    showingAddCalibrationView = true
+                                },
+                                label: { Label("Add", systemImage: "plus") }
+                            )
+                        }
+                    }
+                },
+                footer: {
+                    if !showingAddCalibrationView {
+                        if let sensor = store.state.sensor, !sensor.customCalibration.isEmpty {
+                            Button(
+                                action: { showingDeleteCalibrationsAlert = true },
+                                label: { Label("Delete all", systemImage: "trash.fill") }
+                            ).alert(isPresented: $showingDeleteCalibrationsAlert) {
+                                Alert(
+                                    title: Text("Are you sure you want to delete all calibrations?"),
+                                    primaryButton: .destructive(Text("Delete")) {
+                                        store.dispatch(.clearCalibrations)
+                                    },
+                                    secondaryButton: .cancel()
+                                )
+                            }
+                        }
+                    }
+                }
+            )
+            
             Section(
                 content: {
                     HStack {
@@ -67,107 +176,6 @@ struct CalibrationSettingsView: View {
                 },
                 header: {
                     Label("Sensor Factory Calibration", systemImage: "building")
-                }
-            )
-            
-            Section(
-                content: {
-                    if !showingAddCalibrationView {
-                        HStack {
-                            Text("Custom Calibration slope")
-                            Spacer()
-                            Text(slope.description).textSelection(.enabled)
-                        }
-                    
-                        HStack {
-                            Text("Custom Calibration intercept")
-                            Spacer()
-                            Text(intercept.description).textSelection(.enabled)
-                        }
-                    
-                        ForEach(sensor.customCalibration) { calibration in
-                            HStack {
-                                Text(calibration.timestamp.localDateTime)
-                                Spacer()
-                                Text("\(calibration.x.asGlucose(unit: store.state.glucoseUnit)) = \(calibration.y.asGlucose(unit: store.state.glucoseUnit, withUnit: true))").textSelection(.enabled)
-                            }
-                        }.onDelete { offsets in
-                            Log.info("onDelete: \(offsets)")
-                            
-                            let ids = offsets.map { i in
-                                sensor.customCalibration[i].id
-                            }
-                            
-                            DispatchQueue.main.async {
-                                ids.forEach { id in
-                                    store.dispatch(.removeCalibration(id: id))
-                                }
-                            }
-                        }
-                    } else {
-                        NumberSelectorView(key: LocalizedString("Now"), value: value, step: 1, displayValue: value.asGlucose(unit: store.state.glucoseUnit, withUnit: true)) { value -> Void in
-                            self.value = value
-                        }
-                    }
-                },
-                header: {
-                    HStack {
-                        Label("Sensor Custom Calibration", systemImage: "person")
-                        
-                        if !showingAddCalibrationView {
-                            Spacer()
-                        
-                            Button(
-                                action: {
-                                    value = lastGlucose.glucoseValue
-                                    showingAddCalibrationView = true
-                                },
-                                label: { Label("Add", systemImage: "plus") }
-                            )
-                        }
-                    }
-                },
-                footer: {
-                    HStack {
-                        if !showingAddCalibrationView {
-                            if let sensor = store.state.sensor, !sensor.customCalibration.isEmpty {
-                                Button(
-                                    action: { showingDeleteCalibrationsAlert = true },
-                                    label: { Label("Delete all", systemImage: "trash.fill") }
-                                ).alert(isPresented: $showingDeleteCalibrationsAlert) {
-                                    Alert(
-                                        title: Text("Are you sure you want to delete all calibrations?"),
-                                        primaryButton: .destructive(Text("Delete")) {
-                                            store.dispatch(.clearCalibrations)
-                                        },
-                                        secondaryButton: .cancel()
-                                    )
-                                }
-                            }
-                        } else {
-                            Button(action: {
-                                showingAddCalibrationView = false
-                            }) {
-                                Label("Cancel", systemImage: "multiply")
-                            }
-                                
-                            Spacer()
-
-                            Button(
-                                action: { showingAddCalibrationsAlert = true },
-                                label: { Label("Add", systemImage: "checkmark") }
-                            ).alert(isPresented: $showingAddCalibrationsAlert) {
-                                Alert(
-                                    title: Text("Are you sure you want to add the new calibration?"),
-                                    primaryButton: .destructive(Text("Add")) {
-                                        showingAddCalibrationView = false
-                                        store.dispatch(.addCalibration(bloodGlucose: value))
-                                    },
-                                    secondaryButton: .cancel()
-                                )
-                            }
-                        }
-                    }
                 }
             )
         }

@@ -20,7 +20,7 @@ struct SnoozeView: View {
    
     var body: some View {
         DateSelectorView(key: LocalizedString("Snooze Until"), value: store.state.alarmSnoozeUntil, displayValue: snoozeTime) { value -> Void in
-            store.dispatch(.setAlarmSnoozeUntil(value: value))
+            store.dispatch(.setAlarmSnoozeUntil(untilDate: value))
         }
     }
 }

@@ -15,6 +15,10 @@ private func glucoseNotificationMiddelware(service: glucoseNotificationService) 
     return { store, action, _ in
         switch action {
         case .addGlucose(glucose: let glucose):
+            guard store.state.alarm else {
+                break
+            }
+            
             var isSnoozed = false
 
             if let snoozeUntil = store.state.alarmSnoozeUntil, Date() < snoozeUntil {
@@ -29,7 +33,7 @@ private func glucoseNotificationMiddelware(service: glucoseNotificationService) 
                     service.sendLowGlucoseNotification(glucose: glucose, glucoseUnit: store.state.glucoseUnit)
 
                     DispatchQueue.main.async {
-                        store.dispatch(.setAlarmSnoozeUntil(value: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute)))
+                        store.dispatch(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute)))
                     }
                 }
             } else if glucose.glucoseValue > store.state.alarmHigh {
@@ -39,7 +43,7 @@ private func glucoseNotificationMiddelware(service: glucoseNotificationService) 
                     service.sendHighGlucoseNotification(glucose: glucose, glucoseUnit: store.state.glucoseUnit)
 
                     DispatchQueue.main.async {
-                        store.dispatch(.setAlarmSnoozeUntil(value: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute)))
+                        store.dispatch(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute)))
                     }
                 }
             } else {

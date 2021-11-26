@@ -10,9 +10,9 @@ func appReducer(state: inout AppState, action: AppAction) {
     dispatchPrecondition(condition: .onQueue(.main))
 
     switch action {
-    case .addCalibration(bloodGlucose: let bloodGlucose):
+    case .addCalibration(glucoseValue: let glucoseValue):
         if let factoryCalibratedGlucoseValue = state.currentGlucose?.initialGlucoseValue {
-            let calibration = CustomCalibration(x: Double(factoryCalibratedGlucoseValue), y: Double(bloodGlucose))
+            let calibration = CustomCalibration(x: Double(factoryCalibratedGlucoseValue), y: Double(glucoseValue))
             state.sensor?.customCalibration.append(calibration)
         }
 
@@ -39,18 +39,21 @@ func appReducer(state: inout AppState, action: AppAction) {
         state.sensor = nil
         state.connectionError = nil
 
-    case .selectView(value: let value):
-        state.selectedView = value
+    case .selectView(viewTag: let viewTag):
+        state.selectedView = viewTag
+        
+    case .setAlarm(enabled: let enabled):
+        state.alarm = enabled
 
-    case .setAlarmHigh(value: let value):
-        state.alarmHigh = value
+    case .setAlarmHigh(upperLimit: let upperLimit):
+        state.alarmHigh = upperLimit
 
-    case .setAlarmLow(value: let value):
-        state.alarmLow = value
+    case .setAlarmLow(lowerLimit: let lowerLimit):
+        state.alarmLow = lowerLimit
 
-    case .setAlarmSnoozeUntil(value: let value):
-        if let value = value {
-            state.alarmSnoozeUntil = value
+    case .setAlarmSnoozeUntil(untilDate: let untilDate):
+        if let untilDate = untilDate {
+            state.alarmSnoozeUntil = untilDate
 
             // stop sounds
             NotificationService.shared.stopSound()
@@ -58,11 +61,11 @@ func appReducer(state: inout AppState, action: AppAction) {
             state.alarmSnoozeUntil = nil
         }
 
-    case .setChartShowLines(value: let value):
-        state.chartShowLines = value
+    case .setChartShowLines(enabled: let enabled):
+        state.chartShowLines = enabled
 
-    case .setGlucoseUnit(value: let value):
-        state.glucoseUnit = value
+    case .setGlucoseUnit(unit: let unit):
+        state.glucoseUnit = unit
 
     case .setNightscoutHost(host: let host):
         state.nightscoutHost = host
@@ -73,8 +76,8 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setNightscoutUpload(enabled: let enabled):
         state.nightscoutUpload = enabled
 
-    case .setSensor(value: let value):
-        state.sensor = value
+    case .setSensor(sensor: let sensor):
+        state.sensor = sensor
 
     case .setSensorConnectionState(connectionState: let connectionState):
         state.connectionState = connectionState
@@ -101,9 +104,11 @@ func appReducer(state: inout AppState, action: AppAction) {
             }
         }
 
-    case .addGlucoseValues(values: let values):
-        state.missedReadings = 0
-        state.glucoseValues.append(contentsOf: values)
+    case .addGlucoseValues(glucoseValues: let glucoseValues):
+        if !glucoseValues.isEmpty {
+            state.missedReadings = 0
+            state.glucoseValues.append(contentsOf: glucoseValues)
+        }
 
     case .addMissedReading:
         state.missedReadings += 1

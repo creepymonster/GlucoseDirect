@@ -6,7 +6,7 @@
 import Foundation
 
 enum AppAction {
-    case addCalibration(bloodGlucose: Int)
+    case addCalibration(glucoseValue: Int)
     case clearCalibrations
     case removeCalibration(id: UUID)
 
@@ -15,21 +15,22 @@ enum AppAction {
     case pairSensor
     case resetSensor
 
-    case selectView(value: Int)
-    case setAlarmHigh(value: Int)
-    case setAlarmLow(value: Int)
-    case setAlarmSnoozeUntil(value: Date?)
-    case setChartShowLines(value: Bool)
-    case setGlucoseUnit(value: GlucoseUnit)
+    case selectView(viewTag: Int)
+    case setAlarm(enabled: Bool)
+    case setAlarmHigh(upperLimit: Int)
+    case setAlarmLow(lowerLimit: Int)
+    case setAlarmSnoozeUntil(untilDate: Date?)
+    case setChartShowLines(enabled: Bool)
+    case setGlucoseUnit(unit: GlucoseUnit)
     case setNightscoutHost(host: String)
     case setNightscoutSecret(apiSecret: String)
     case setNightscoutUpload(enabled: Bool)
 
-    case setSensor(value: Sensor)
+    case setSensor(sensor: Sensor)
     case setSensorConnectionState(connectionState: SensorConnectionState)
     case setSensorError(errorMessage: String, errorTimestamp: Date)
     case addGlucose(glucose: Glucose)
-    case addGlucoseValues(values: [Glucose])
+    case addGlucoseValues(glucoseValues: [Glucose])
     case addMissedReading
     case addSensorReadings(nextReading: SensorReading, trendReadings: [SensorReading], historyReadings: [SensorReading])
     case setSensorState(sensorAge: Int, sensorState: SensorState)

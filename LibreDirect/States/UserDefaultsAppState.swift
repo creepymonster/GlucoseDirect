@@ -11,6 +11,8 @@ struct UserDefaultsAppState: AppState {
     // MARK: Lifecycle
 
     init() {
+        self.alarm = UserDefaults.standard.alarm
+        
         if let alarmHigh = UserDefaults.standard.alarmHigh {
             self.alarmHigh = alarmHigh
         }
@@ -18,13 +20,14 @@ struct UserDefaultsAppState: AppState {
         if let alarmLow = UserDefaults.standard.alarmLow {
             self.alarmLow = alarmLow
         }
-
+        
         self.chartShowLines = UserDefaults.standard.chartShowLines
+        self.glucoseUnit = UserDefaults.standard.glucoseUnit
         self.glucoseValues = UserDefaults.standard.glucoseValues
-        self.nightscoutUpload = UserDefaults.standard.nightscoutUpload
         self.nightscoutApiSecret = UserDefaults.standard.nightscoutApiSecret
         self.nightscoutHost = UserDefaults.standard.nightscoutHost
-        self.glucoseUnit = UserDefaults.standard.glucoseUnit
+        self.nightscoutUpload = UserDefaults.standard.nightscoutUpload
+        self.selectedView = UserDefaults.standard.selectedView
         self.sensor = UserDefaults.standard.sensor
     }
 
@@ -35,18 +38,10 @@ struct UserDefaultsAppState: AppState {
     }
 
     // MARK: Internal
-
-    var alarmSnoozeUntil: Date?
-    var connectionError: String?
-    var connectionErrorTimestamp: Date?
-    var connectionState: SensorConnectionState = .disconnected
-    var missedReadings: Int = 0
-    var targetValue: Int = 100
-    var selectedView: Int = 1
-
-    var chartShowLines: Bool = false {
+    
+    var alarm: Bool = false {
         didSet {
-            UserDefaults.standard.chartShowLines = chartShowLines
+            UserDefaults.standard.alarm = alarm
         }
     }
 
@@ -62,6 +57,20 @@ struct UserDefaultsAppState: AppState {
         }
     }
 
+    var alarmSnoozeUntil: Date?
+    
+    var chartShowLines: Bool = false {
+        didSet {
+            UserDefaults.standard.chartShowLines = chartShowLines
+        }
+    }
+    
+    var connectionError: String?
+    
+    var connectionErrorTimestamp: Date?
+    
+    var connectionState: SensorConnectionState = .disconnected
+    
     var glucoseUnit: GlucoseUnit = .mgdL {
         didSet {
             UserDefaults.standard.glucoseUnit = glucoseUnit
@@ -73,7 +82,9 @@ struct UserDefaultsAppState: AppState {
             UserDefaults.standard.glucoseValues = glucoseValues
         }
     }
-
+    
+    var missedReadings: Int = 0
+    
     var nightscoutApiSecret: String = "" {
         didSet {
             UserDefaults.standard.nightscoutApiSecret = nightscoutApiSecret
@@ -92,9 +103,17 @@ struct UserDefaultsAppState: AppState {
         }
     }
 
+    var selectedView: Int = 1 {
+        didSet {
+            UserDefaults.standard.selectedView = selectedView
+        }
+    }
+    
     var sensor: Sensor? {
         didSet {
             UserDefaults.standard.sensor = sensor
         }
     }
+    
+    var targetValue: Int = 100
 }

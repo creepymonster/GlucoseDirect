@@ -162,7 +162,7 @@ struct ChartView: View {
                 scrollGridView(fullSize: geo.size).padding(.leading, Config.y.padding)
             }
             .gesture(TapGesture(count: 2).onEnded { _ in
-                store.dispatch(.setChartShowLines(value: !store.state.chartShowLines))
+                store.dispatch(.setChartShowLines(enabled: !store.state.chartShowLines))
             })
             .onChange(of: colorScheme) { scheme in
                 Log.info("onChange colorScheme: \(scheme)")

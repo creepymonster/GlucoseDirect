@@ -15,20 +15,21 @@ struct InMemoryAppState: AppState {
 
     // MARK: Internal
 
-    var alarmHigh: Int = 160
-    var alarmLow: Int = 80
+    var alarm = false
+    var alarmHigh = 160
+    var alarmLow = 80
     var alarmSnoozeUntil: Date?
     var chartShowLines = false
     var connectionError: String? = "Timeout"
     var connectionErrorTimestamp: Date? = Date()
     var connectionState: SensorConnectionState = .disconnected
-    var glucoseUnit = GlucoseUnit.mgdL
+    var glucoseUnit: GlucoseUnit = .mgdL
     var glucoseValues: [Glucose] = []
     var missedReadings: Int = 0
     var nightscoutApiSecret: String = ""
     var nightscoutHost: String = ""
     var nightscoutUpload: Bool = false
+    var selectedView: Int = 1
     var sensor: Sensor?
     var targetValue: Int = 100
-    var selectedView: Int = 1
 }

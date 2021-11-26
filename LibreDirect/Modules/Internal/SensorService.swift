@@ -30,7 +30,7 @@ private func sensorMiddelware(sensorService: SensorServiceProtocol, calibrationS
                     if trendReadings.isEmpty {
                         store.dispatch(.addGlucose(glucose: glucose))
                     } else {
-                        store.dispatch(.addGlucoseValues(values: calibratedTrend))
+                        store.dispatch(.addGlucoseValues(glucoseValues: calibratedTrend))
                     }
                 } else {
                     Log.info("Current glucose: \(glucose.description)")
@@ -45,7 +45,7 @@ private func sensorMiddelware(sensorService: SensorServiceProtocol, calibrationS
                 let pairedSensor = await sensorService.pairSensor()
                 if let sensor = pairedSensor.sensor {
                     DispatchQueue.main.async {
-                        dispatch(.setSensor(value: sensor))
+                        dispatch(.setSensor(sensor: sensor))
 
                         if let nextReading = pairedSensor.nextReading {
                             dispatch(.addSensorReadings(nextReading: nextReading, trendReadings: pairedSensor.trendReadings, historyReadings: pairedSensor.historyReadings))
@@ -80,7 +80,7 @@ private func sensorMiddelware(sensorService: SensorServiceProtocol, calibrationS
                     action = .setSensorError(errorMessage: errorUpdate.errorMessage, errorTimestamp: errorUpdate.errorTimestamp)
 
                 } else if let sensorUpdate = update as? SensorUpdate {
-                    action = .setSensor(value: sensorUpdate.sensor)
+                    action = .setSensor(sensor: sensorUpdate.sensor)
                 }
 
                 if let action = action {

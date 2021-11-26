@@ -15,6 +15,7 @@ struct PreviewAppState: AppState {
 
     // MARK: Internal
 
+    var alarm = false
     var alarmHigh: Int = 160
     var alarmLow: Int = 80
     var alarmSnoozeUntil: Date?
@@ -28,6 +29,7 @@ struct PreviewAppState: AppState {
     var nightscoutApiSecret: String = ""
     var nightscoutHost: String = ""
     var nightscoutUpload: Bool = false
+    var selectedView: Int = 1
     var sensor: Sensor? = Sensor(
         uuid: Data(hexString: "e9ad9b6c79bd93aa")!,
         patchInfo: Data(hexString: "448cd1")!,
@@ -42,7 +44,6 @@ struct PreviewAppState: AppState {
         lifetime: 24 * 60
     )
     var targetValue: Int = 100
-    var selectedView: Int = 1
 }
 
 // MARK: - fileprivate
