@@ -376,16 +376,16 @@
 			isa = PBXGroup;
 			children = (
 				E2FCAC682707429800FE1CBF /* Internal */,
-				E2FCAC4F2707424000FE1CBF /* Nightscout */,
-				E2FCAC4E2707423A00FE1CBF /* Loop */,
-				E2647758274A69290053BF6F /* VirtualLibre */,
+				E2FCAC472707420800FE1CBF /* ActionLog */,
 				E2FCAC4D2707423400FE1CBF /* Libre2 */,
-				E2FCAC4C2707422D00FE1CBF /* GlucoseNotification */,
+				E2647758274A69290053BF6F /* VirtualLibre */,
 				E2FCAC4B2707422700FE1CBF /* GlucoseBadge */,
-				E2FCAC4A2707422000FE1CBF /* FreeAPS */,
+				E2FCAC4C2707422D00FE1CBF /* GlucoseNotification */,
 				E2FCAC492707421600FE1CBF /* ExpiringNotification */,
 				E2FCAC482707420D00FE1CBF /* ConnectionNotification */,
-				E2FCAC472707420800FE1CBF /* ActionLog */,
+				E2FCAC4F2707424000FE1CBF /* Nightscout */,
+				E2FCAC4A2707422000FE1CBF /* FreeAPS */,
+				E2FCAC4E2707423A00FE1CBF /* Loop */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
