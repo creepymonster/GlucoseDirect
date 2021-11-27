@@ -28,7 +28,8 @@ I try to keep the code as readable and understandable as possible so that as man
 - Snooze for glucose alerts
 
 ## Roadmap
-- refactor to allow different sensors oder transmitters (load md on demand)
+- Refactor to allow different sensors or transmitters (load md on demand)
+- Other diabetes sources to upload to (like tidepool, ...)
 
 ## Quick test?
 You can quickly get an idea of Libre Direct: [TestFlight](https://testflight.apple.com/join/dWDt5Wme)
@@ -37,7 +38,8 @@ You can quickly get an idea of Libre Direct: [TestFlight](https://testflight.app
 I am very happy to receive feedback - suggestions for improvement or reports of bugs encountered.
 
 ## Support?
-I am very happy to find a designer who will support me by designing a nice app icon :)
+- I am very happy to find a designer who will support me by designing a nice app icon :)
+- I appreciate all the translations I get
 
 ## Screenshots
 ![Screenshot](/Screenshots/readings.png?raw=true)
