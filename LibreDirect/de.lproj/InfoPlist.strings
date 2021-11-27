@@ -12,3 +12,4 @@
 
 /* Privacy - Bluetooth Peripheral Usage Description */
 "NSBluetoothPeripheralUsageDescription" = "Bluetooth ist erforderlich, um eine Verbindung mit den unterstützten Geräten herzustellen.";
+
