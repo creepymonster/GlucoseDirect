@@ -1,6 +1,6 @@
 # Gluco Direct App
 
-**Warning, in its current state the project is strictly for my personal use and is highly experimental.**
+**Warning, the project is strictly for my personal use and is highly experimental.**
 
 My playground for the Libre 2 blood glucose sensors and Swift/SwiftUI ([TestFlight](https://testflight.apple.com/join/dWDt5Wme)).
 
@@ -30,6 +30,9 @@ My playground for the Libre 2 blood glucose sensors and Swift/SwiftUI ([TestFlig
 
 ## Quick test?
 You can quickly get an idea of Libre Direct: [TestFlight](https://testflight.apple.com/join/dWDt5Wme)
+
+## Feedback?
+I am very happy to receive feedback - suggestions for improvement or reports of bugs encountered.
 
 ## Screenshots
 ![Screenshot](/Screenshots/readings.png?raw=true)
