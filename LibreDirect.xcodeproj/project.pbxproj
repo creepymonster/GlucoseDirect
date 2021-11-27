@@ -36,12 +36,12 @@
 		E2C19FBC273568BF00B70A73 /* FactoryCalibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C19FBB273568BF00B70A73 /* FactoryCalibration.swift */; };
 		E2C5935F273696FE00CAFFD4 /* CalibrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C5935E273696FE00CAFFD4 /* CalibrationService.swift */; };
 		E2C593612736988800CAFFD4 /* FilteringService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C593602736988800CAFFD4 /* FilteringService.swift */; };
-		E2CA982F274EB2BD0027D5CF /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E2CA982E274EB2BD0027D5CF /* Settings.bundle */; };
 		E2D34BC4274D6BB500151895 /* GlucoeOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D34BC3274D6BB500151895 /* GlucoeOverviewView.swift */; };
 		E2D34BC6274D6BC000151895 /* CalibrationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D34BC5274D6BC000151895 /* CalibrationsView.swift */; };
 		E2D34BC8274D6BCB00151895 /* GlucoseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D34BC7274D6BCB00151895 /* GlucoseListView.swift */; };
 		E2D34BCA274D6C1300151895 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D34BC9274D6C1300151895 /* SettingsView.swift */; };
 		E2D7238127491C4C00455FB9 /* InMemoryAppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D7238027491C4C00455FB9 /* InMemoryAppState.swift */; };
+		E2DB75CB2752CA2400FB8A00 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E2DB75CA2752CA2400FB8A00 /* Settings.bundle */; };
 		E2E1E9D2273D6E8B00992B2F /* CalibrationSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E1E9D1273D6E8B00992B2F /* CalibrationSettingsView.swift */; };
 		E2F5F3D126A70AC400834A74 /* DateSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F5F3D026A70AC400834A74 /* DateSelectorView.swift */; };
 		E2FCAC1C270741BC00FE1CBF /* SensorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC12270741BC00FE1CBF /* SensorType.swift */; };
@@ -142,12 +142,12 @@
 		E2C19FBB273568BF00B70A73 /* FactoryCalibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryCalibration.swift; sourceTree = "<group>"; };
 		E2C5935E273696FE00CAFFD4 /* CalibrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationService.swift; sourceTree = "<group>"; };
 		E2C593602736988800CAFFD4 /* FilteringService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringService.swift; sourceTree = "<group>"; };
-		E2CA982E274EB2BD0027D5CF /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		E2D34BC3274D6BB500151895 /* GlucoeOverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoeOverviewView.swift; sourceTree = "<group>"; };
 		E2D34BC5274D6BC000151895 /* CalibrationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationsView.swift; sourceTree = "<group>"; };
 		E2D34BC7274D6BCB00151895 /* GlucoseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseListView.swift; sourceTree = "<group>"; };
 		E2D34BC9274D6C1300151895 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		E2D7238027491C4C00455FB9 /* InMemoryAppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryAppState.swift; sourceTree = "<group>"; };
+		E2DB75CA2752CA2400FB8A00 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		E2E1E9D1273D6E8B00992B2F /* CalibrationSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationSettingsView.swift; sourceTree = "<group>"; };
 		E2F5F3D026A70AC400834A74 /* DateSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelectorView.swift; sourceTree = "<group>"; };
 		E2FCAC12270741BC00FE1CBF /* SensorType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorType.swift; sourceTree = "<group>"; };
@@ -249,7 +249,6 @@
 				E20B8541266F4A9900AA4224 /* Assets.xcassets */,
 				E20B8546266F4A9900AA4224 /* Info.plist */,
 				E24077B126B881C2001767C0 /* InfoPlist.strings */,
-				E2CA982E274EB2BD0027D5CF /* Settings.bundle */,
 			);
 			path = LibreDirect;
 			sourceTree = "<group>";
@@ -487,6 +486,7 @@
 				E2FCAC77270743B100FE1CBF /* sensor.png */,
 				E2FCAC7A270743B100FE1CBF /* silent.aiff */,
 				E2FCAC89270743E200FE1CBF /* Localizable.strings */,
+				E2DB75CA2752CA2400FB8A00 /* Settings.bundle */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -577,7 +577,7 @@
 				E2FCAC7F270743B100FE1CBF /* negative.aiff in Resources */,
 				E2FCAC7B270743B100FE1CBF /* positive.aiff in Resources */,
 				E2FCAC80270743B100FE1CBF /* silent.aiff in Resources */,
-				E2CA982F274EB2BD0027D5CF /* Settings.bundle in Resources */,
+				E2DB75CB2752CA2400FB8A00 /* Settings.bundle in Resources */,
 				E2FCAC7D270743B100FE1CBF /* sensor.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
