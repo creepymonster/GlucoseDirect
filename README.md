@@ -2,7 +2,7 @@
 
 **Warning, the project is strictly for my personal use and is highly experimental.**
 
-This is playground for the Libre 2 blood glucose sensors, Swift and SwiftUI ([TestFlight](https://testflight.apple.com/join/dWDt5Wme)).
+This is my playground for the Libre 2 blood glucose sensors, Swift and SwiftUI ([TestFlight](https://testflight.apple.com/join/dWDt5Wme)).
 
 ## Current features
 - Libre 2 EU support, for cgm values (without transmitter)
