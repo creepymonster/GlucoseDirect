@@ -48,6 +48,7 @@ struct ToggleView: View {
     var body: some View {
         HStack(alignment: .center) {
             Text(key)
+            Spacer()
 
             Toggle(isOn: $value, label: {
                 HStack {
@@ -63,7 +64,9 @@ struct ToggleView: View {
                 if let completionHandler = completionHandler {
                     completionHandler(value)
                 }
-            }).toggleStyle(SwitchToggleStyle(tint: tintColor))
+            })
+            .toggleStyle(SwitchToggleStyle(tint: tintColor))
+            .if(trueValue == nil && falseValue == nil) { $0.labelsHidden() }
         }
     }
 }
