@@ -16,7 +16,10 @@ enum AppAction {
     case resetSensor
 
     case selectView(viewTag: Int)
-    case setAlarm(enabled: Bool)
+    case setGlucoseAlarm(enabled: Bool)
+    case setExpiringAlarm(enabled: Bool)
+    case setConnectionAlarm(enabled: Bool)
+    
     case setAlarmHigh(upperLimit: Int)
     case setAlarmLow(lowerLimit: Int)
     case setAlarmSnoozeUntil(untilDate: Date?)

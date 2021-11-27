@@ -13,7 +13,9 @@ private var disconnectableStates: Set<SensorConnectionState> = [.connected, .con
 // MARK: - AppState
 
 protocol AppState {
-    var alarm: Bool { get set }
+    var glucoseAlarm: Bool { get set }
+    var expiringAlarm: Bool { get set }
+    var connectionAlarm: Bool { get set }
     var alarmHigh: Int { get set }
     var alarmLow: Int { get set }
     var alarmSnoozeUntil: Date? { get set }

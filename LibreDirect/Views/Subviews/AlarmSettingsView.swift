@@ -13,19 +13,18 @@ struct AlarmSettingsView: View {
     var body: some View {
         Section(
             content: {
-                ToggleView(key: LocalizedString("Alarm Enabled", comment: ""), value: store.state.alarm) { value -> Void in
-                    store.dispatch(.setAlarm(enabled: value))
+                ToggleView(key: LocalizedString("Glucose low/high", comment: ""), value: store.state.glucoseAlarm) { value -> Void in
+                    store.dispatch(.setGlucoseAlarm(enabled: value))
                 }
                 
-                if store.state.alarm {
-                    NumberSelectorView(key: LocalizedString("Lower Limit", comment: ""), value: store.state.alarmLow, step: 5, displayValue: store.state.alarmLow.asGlucose(unit: store.state.glucoseUnit, withUnit: true)) { value -> Void in
-                        store.dispatch(.setAlarmLow(lowerLimit: value))
-                    }
-                    
-                    NumberSelectorView(key: LocalizedString("Upper Limit", comment: ""), value: store.state.alarmHigh, step: 5, displayValue: store.state.alarmHigh.asGlucose(unit: store.state.glucoseUnit, withUnit: true)) { value -> Void in
-                        store.dispatch(.setAlarmHigh(upperLimit: value))
-                    }
+                ToggleView(key: LocalizedString("Lifetime ends", comment: ""), value: store.state.expiringAlarm) { value -> Void in
+                    store.dispatch(.setExpiringAlarm(enabled: value))
                 }
+                
+                ToggleView(key: LocalizedString("Connection issues", comment: ""), value: store.state.connectionAlarm) { value -> Void in
+                    store.dispatch(.setConnectionAlarm(enabled: value))
+                }
+                
             },
             header: {
                 Label("Alarm Settings", systemImage: "alarm")

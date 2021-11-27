@@ -9,7 +9,9 @@
 "Add glucose for calibration" = "Add glucose for calibration";
 "Add glucose value" = "Add glucose value";
 "Alarm active" = "Alarm active";
-"Alarm Enabled" = "Alarm";
+"Glucose low/high" = "Glucose low/high";
+"Lifetime ends" = "Lifetime ends";
+"Connection issues" = "Connection issues";
 "Alarm Settings" = "Alarm Settings";
 "Alert, high glucose" = "Alert, high glucose";
 "Alert, low blood glucose" = "Alert, low blood glucose";

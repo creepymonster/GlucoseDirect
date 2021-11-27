@@ -15,6 +15,10 @@ private func expiringNotificationMiddelware(service: expiringNotificationService
     return { store, action, _ in
         switch action {
         case .setSensorState(sensorAge: let sensorAge, sensorState: _):
+            guard store.state.expiringAlarm else {
+                break
+            }
+            
             guard let sensor = store.state.sensor else {
                 break
             }

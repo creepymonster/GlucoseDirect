@@ -10,7 +10,9 @@
 "Add glucose value" = "Glukose hinzufügen";
 "Add" = "Hinzufügen";
 "Alarm active" = "Alarm aktiv";
-"Alarm Enabled" = "Alarm";
+"Glucose low/high" = "Glukose tief/hoch";
+"Lifetime ends" = "Lebensdauer endet";
+"Connection issues" = "Verbindungsprobleme";
 "Alarm Settings" = "Alarm Einstellungen";
 "Alert, high glucose" = "Achtung, hoher Blutzucker";
 "Alert, low blood glucose" = "Achtung, niedriger Blutzucker";

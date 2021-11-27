@@ -15,7 +15,9 @@ struct PreviewAppState: AppState {
 
     // MARK: Internal
 
-    var alarm = false
+    var glucoseAlarm = true
+    var expiringAlarm = true
+    var connectionAlarm = true
     var alarmHigh: Int = 160
     var alarmLow: Int = 80
     var alarmSnoozeUntil: Date?

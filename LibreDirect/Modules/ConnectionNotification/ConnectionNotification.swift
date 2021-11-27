@@ -15,6 +15,10 @@ private func connectionNotificationMiddelware(service: connectionNotificationSer
     return { store, action, lastState in
         switch action {
         case .setSensorConnectionState(connectionState: let connectionState):
+            guard store.state.connectionAlarm else {
+                break
+            }
+            
             Log.info("Sensor connection lost alert check: \(connectionState)")
 
             if lastState.connectionState == .connected, connectionState == .disconnected {
@@ -25,6 +29,10 @@ private func connectionNotificationMiddelware(service: connectionNotificationSer
             }
 
         case .addMissedReading:
+            guard store.state.connectionAlarm else {
+                break
+            }
+            
             Log.info("Sensor connection available, but missed readings")
 
             if store.state.missedReadings % 5 == 0 {

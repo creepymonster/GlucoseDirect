@@ -15,7 +15,7 @@ private func glucoseNotificationMiddelware(service: glucoseNotificationService) 
     return { store, action, _ in
         switch action {
         case .addGlucose(glucose: let glucose):
-            guard store.state.alarm else {
+            guard store.state.glucoseAlarm else {
                 break
             }
             

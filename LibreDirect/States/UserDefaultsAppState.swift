@@ -11,7 +11,9 @@ struct UserDefaultsAppState: AppState {
     // MARK: Lifecycle
 
     init() {
-        self.alarm = UserDefaults.standard.alarm
+        self.glucoseAlarm = UserDefaults.standard.glucoseAlarm
+        self.expiringAlarm = UserDefaults.standard.expiringAlarm
+        self.connectionAlarm = UserDefaults.standard.connectionAlarm
         
         if let alarmHigh = UserDefaults.standard.alarmHigh {
             self.alarmHigh = alarmHigh
@@ -39,9 +41,21 @@ struct UserDefaultsAppState: AppState {
 
     // MARK: Internal
     
-    var alarm: Bool = false {
+    var glucoseAlarm: Bool = true {
         didSet {
-            UserDefaults.standard.alarm = alarm
+            UserDefaults.standard.glucoseAlarm = glucoseAlarm
+        }
+    }
+    
+    var expiringAlarm: Bool = true {
+        didSet {
+            UserDefaults.standard.expiringAlarm = expiringAlarm
+        }
+    }
+    
+    var connectionAlarm: Bool = true {
+        didSet {
+            UserDefaults.standard.connectionAlarm = connectionAlarm
         }
     }
 

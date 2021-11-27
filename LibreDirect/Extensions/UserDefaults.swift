@@ -9,7 +9,9 @@ import Foundation
 
 private enum Keys: String {
     case chartShowLines = "libre-direct.settings.chart-show-lines"
-    case alarm = "libre-direct.settings.alarm"
+    case glucoseAlarm = "libre-direct.settings.glucose-alarm"
+    case expiringAlarm = "libre-direct.settings.expiring-alarm"
+    case connectionAlarm = "libre-direct.settings.connection-alarm"
     case alarmHigh = "libre-direct.settings.alarm-high"
     case alarmLow = "libre-direct.settings.alarm-low"
     case freeAPSLatestReadings = "latestReadings"
@@ -32,12 +34,30 @@ extension UserDefaults {
         }
     }
 
-    var alarm: Bool {
+    var glucoseAlarm: Bool {
         get {
-            return bool(forKey: Keys.alarm.rawValue)
+            return bool(forKey: Keys.glucoseAlarm.rawValue)
         }
         set {
-            set(newValue, forKey: Keys.alarm.rawValue)
+            set(newValue, forKey: Keys.glucoseAlarm.rawValue)
+        }
+    }
+    
+    var expiringAlarm: Bool {
+        get {
+            return bool(forKey: Keys.expiringAlarm.rawValue)
+        }
+        set {
+            set(newValue, forKey: Keys.expiringAlarm.rawValue)
+        }
+    }
+    
+    var connectionAlarm: Bool {
+        get {
+            return bool(forKey: Keys.connectionAlarm.rawValue)
+        }
+        set {
+            set(newValue, forKey: Keys.connectionAlarm.rawValue)
         }
     }
 

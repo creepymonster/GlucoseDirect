@@ -15,7 +15,9 @@ struct InMemoryAppState: AppState {
 
     // MARK: Internal
 
-    var alarm = false
+    var glucoseAlarm = true
+    var expiringAlarm = true
+    var connectionAlarm = true
     var alarmHigh = 160
     var alarmLow = 80
     var alarmSnoozeUntil: Date?

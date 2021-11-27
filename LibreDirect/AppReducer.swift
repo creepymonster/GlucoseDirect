@@ -42,8 +42,14 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .selectView(viewTag: let viewTag):
         state.selectedView = viewTag
         
-    case .setAlarm(enabled: let enabled):
-        state.alarm = enabled
+    case .setGlucoseAlarm(enabled: let enabled):
+        state.glucoseAlarm = enabled
+        
+    case .setExpiringAlarm(enabled: let enabled):
+        state.expiringAlarm = enabled
+        
+    case .setConnectionAlarm(enabled: let enabled):
+        state.connectionAlarm = enabled
 
     case .setAlarmHigh(upperLimit: let upperLimit):
         state.alarmHigh = upperLimit
