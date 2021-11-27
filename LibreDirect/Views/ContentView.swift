@@ -44,7 +44,7 @@ struct ContentView: View {
                 .frame(width: 320, height: 160)
 
             VStack {
-                Text("Sorry, an NFC enabled iPhone is required to use LibreDirect :'(")
+                Text("Unfortunately, an NFC-enabled iPhone is required to use the app :'(")
             }
             .frame(width: 300, height: 140)
             .foregroundColor(Color.white)

@@ -302,7 +302,7 @@
 "Snooze Until" = "Snooze";
 
 /* (No Comment) */
-"Sorry, an NFC enabled iPhone is required to use LibreDirect :'(" = "Sorry, an NFC enabled iPhone is required to use LibreDirect :'(";
+"Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "Unfortunately, an NFC-enabled iPhone is required to use the app :'(";
 
 /* (No Comment) */
 "The connection to the sensor has been successfully established and glucose data is received." = "The connection to the sensor has been successfully established and glucose data is received.";

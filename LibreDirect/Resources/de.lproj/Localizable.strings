@@ -305,7 +305,7 @@
 "Snooze Until" = "Schlummern";
 
 /* (No Comment) */
-"Sorry, an NFC enabled iPhone is required to use LibreDirect :'(" = "Leider ist für die Nutzung von Libre Direct ein NFC-fähiges iPhone erforderlich :'(";
+"Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "Leider ist für die Nutzung der App ein NFC-fähiges iPhone erforderlich :'(";
 
 /* (No Comment) */
 "The connection to the sensor has been successfully established and glucose data is received." = "Die Verbindung zum Sensor wurde erfolgreich hergestellt und es werden Glukosedaten empfangen.";
