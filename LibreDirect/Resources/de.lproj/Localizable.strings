@@ -9,10 +9,9 @@
 "Add glucose for calibration" = "Glukose für Kalibrierung hinzufügen";
 "Add glucose value" = "Glukose hinzufügen";
 "Add" = "Hinzufügen";
-"Alarm active" = "Alarm aktiv";
-"Glucose low/high" = "Glukose tief/hoch";
-"Lifetime ends" = "Lebensdauer endet";
-"Connection issues" = "Verbindungsprobleme";
+"Glucose alarm" = "Glukose Alarm";
+"Wearing time alarm" = "Tragedauer";
+"Connection alarm" = "Verbindungsalarm";
 "Alarm Settings" = "Alarm Einstellungen";
 "Alert, high glucose" = "Achtung, hoher Blutzucker";
 "Alert, low blood glucose" = "Achtung, niedriger Blutzucker";
@@ -27,7 +26,6 @@
 "Blood glucose: %1$@" = "Blutzucker: %1$@";
 "Calibration view" = "Kalibrierung";
 "Cancel" = "Abbrechen";
-"Change:" = "Änderung:";
 "Chart (%1$@)" = "Diagramm";
 "Connect Sensor" = "Sensor verbinden";
 "Connected" = "Verbunden";
@@ -42,7 +40,6 @@
 "Disconnect Sensor" = "Sensorverbindung trennen";
 "Disconnect" = "Verbindung trennen";
 "Disconnected" = "Unterbrochen";
-"Factory calibrated glucose:" = "Nicht kalibriert:";
 "Factory Calibration i1" = "i1";
 "Factory Calibration i2" = "i2";
 "Factory Calibration i3" = "i3";
@@ -76,7 +73,6 @@
 "OK, sensor connection established" = "Ok, Sensorverbindung hergestellt";
 "Pair Sensor" = "Sensor koppeln";
 "Power Off" = "Stromlos";
-"Previous glucose:" = "Vorherige Glukose:";
 "Scanning" = "Scanne...";
 "Sensor Age" = "Alter";
 "Sensor Connection Error Timestamp" = "Zeit";
@@ -106,11 +102,9 @@
 "Settings view" = "Einstellungen";
 "Snooze Until" = "Schlummern";
 "Sorry, an NFC enabled iPhone is required to use LibreDirect :'(" = "Leider ist für die Nutzung von Libre Direct ein NFC-fähiges iPhone erforderlich :'(";
-"Test" = "Test";
 "The connection to the sensor has been successfully established and glucose data is received." = "Die Verbindung zum Sensor wurde erfolgreich hergestellt und es werden Glukosedaten empfangen.";
 "The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause." = "Die Verbindung zum Sensor scheint zu bestehen, aber es werden keine Werte empfangen. Fehlerhafte Sensordaten können die Ursache sein.";
 "The connection with the sensor has been lost. Normally this happens when the sensor is outside the possible range." = "Die Verbindung mit dem Sensor ist unterbrochen worden. Normalerweise geschieht dies, wenn sich der Sensor außerhalb des möglichen Bereichs befindet.";
-"Trend:" = "Trend:";
 "Unknown" = "Unbekannt";
 "Unpair Sensor" = "Sensor entkoppeln";
 "Unpair" = "Entkoppeln";
