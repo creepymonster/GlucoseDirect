@@ -17,6 +17,7 @@ private func glucoseBadgeMiddelware(service: glucoseBadgeService) -> Middleware<
         switch action {
         case .addGlucose(glucose: let glucose):
             guard store.state.glucoseBadge else {
+                UIApplication.shared.applicationIconBadgeNumber = 0
                 service.clearNotifications()
                 
                 break
