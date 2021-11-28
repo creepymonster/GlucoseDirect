@@ -73,7 +73,7 @@ final class VirtualLibreService: SensorServiceProtocol {
         self.updatesHandler = updatesHandler
         self.sensor = sensor
 
-        let fireDate = Date().rounded(on: 1, .minute)
+        let fireDate = Date().rounded(on: 1, .minute).addingTimeInterval(60)
         let timer = Timer(fire: fireDate, interval: glucoseInterval, repeats: true) { _ in
             Log.info("fires at \(Date())")
 
@@ -84,8 +84,6 @@ final class VirtualLibreService: SensorServiceProtocol {
 
         updatesHandler(SensorUpdate(sensor: sensor))
         updatesHandler(SensorConnectionStateUpdate(connectionState: .connected))
-
-        sendNextGlucose()
     }
 
     func disconnectSensor() {
