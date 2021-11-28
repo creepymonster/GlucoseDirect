@@ -41,7 +41,7 @@ final class VirtualLibreService: SensorServiceProtocol {
         let currentGlucose = nextGlucose
         Log.info("currentGlucose: \(currentGlucose)")
 
-        age = age + 30
+        age = age + 1
 
         updatesHandler?(SensorStateUpdate(sensorAge: age, sensorState: age > warmupTime ? .ready : .starting))
 
@@ -97,7 +97,7 @@ final class VirtualLibreService: SensorServiceProtocol {
 
     // MARK: Private
 
-    private var initAge = 30
+    private var initAge = 0
     private var warmupTime = 60
     private var age = 0
     private let glucoseInterval = TimeInterval(60)

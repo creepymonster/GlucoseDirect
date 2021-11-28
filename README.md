@@ -1,8 +1,10 @@
-# Libre Direct App
+# Gluco Direct App
 
-**Warning, in its current state the project is strictly for my personal use and is highly experimental.**
+**Warning, the project is strictly for my personal use and is highly experimental.**
 
-My playground for the Libre 2 blood glucose sensors and Swift/SwiftUI ([TestFlight](https://testflight.apple.com/join/dWDt5Wme)).
+This is my playground for the Libre 2 blood glucose sensors, Swift and SwiftUI ([TestFlight](https://testflight.apple.com/join/dWDt5Wme)).
+
+I try to keep the code as readable and understandable as possible so that as many people as possible can understand how this part of diabetes management works.
 
 ## Current features
 - Libre 2 EU support, for cgm values (without transmitter)
@@ -26,13 +28,18 @@ My playground for the Libre 2 blood glucose sensors and Swift/SwiftUI ([TestFlig
 - Snooze for glucose alerts
 
 ## Roadmap
-- CoreData and more than 1440 values
-- Calendar export for watch support
-- Tidepool upload
-- Refactoring :D
+- Refactor to allow different sensors or transmitters (load md on demand)
+- Other diabetes sources to upload to (like tidepool, ...)
 
 ## Quick test?
 You can quickly get an idea of Libre Direct: [TestFlight](https://testflight.apple.com/join/dWDt5Wme)
+
+## Feedback?
+I am very happy to receive feedback - suggestions for improvement or reports of bugs encountered.
+
+## Support?
+- I am very happy to find a designer who will support me by designing a nice app icon :)
+- I appreciate all the translations I get
 
 ## Screenshots
 ![Screenshot](/Screenshots/readings.png?raw=true)
