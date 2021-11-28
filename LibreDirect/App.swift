@@ -70,8 +70,7 @@ final class LibreDirectApp: App {
             expiringNotificationMiddelware(),
             glucoseNotificationMiddelware(),
             glucoseBadgeMiddelware(),
-            connectionNotificationMiddelware(),
-            nightscoutMiddleware()
+            connectionNotificationMiddelware()
         ])
     }
 
