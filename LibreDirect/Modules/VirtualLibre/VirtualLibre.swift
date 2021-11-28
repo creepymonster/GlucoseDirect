@@ -98,7 +98,7 @@ final class VirtualLibreService: SensorServiceProtocol {
     // MARK: Private
 
     private var initAge = 0
-    private var warmupTime = 60
+    private var warmupTime = 5
     private var age = 0
     private let glucoseInterval = TimeInterval(60)
 
