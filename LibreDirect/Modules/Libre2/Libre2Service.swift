@@ -69,8 +69,6 @@ final class Libre2Service: SensorService {
         dispatchPrecondition(condition: .notOnQueue(managerQueue))
         Log.info("DisconnectSensor")
 
-        sensor = nil
-
         managerQueue.sync {
             self.disconnect()
         }

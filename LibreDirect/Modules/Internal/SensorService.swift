@@ -132,7 +132,6 @@ class SensorServiceClass: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
 
     deinit {
         disconnect()
-        updatesHandler = nil
     }
 
     // MARK: Internal
@@ -201,8 +200,10 @@ class SensorServiceClass: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
             self.peripheral = nil
         }
 
-        sensor = nil
         sendUpdate(connectionState: .disconnected)
+        
+        sensor = nil
+        updatesHandler = nil
     }
 
     func connect() {
