@@ -1,0 +1,14 @@
+/* Bundle display name */
+"CFBundleDisplayName" = "Glucose Direct";
+
+/* Bundle name */
+"CFBundleName" = "Glucose Direct";
+
+/* Privacy - NFC Scan Usage Description */
+"NFCReaderUsageDescription" = "NFC krävs för att läsa av inställningar innan Bluetooth-anslutning.";
+
+/* Privacy - Bluetooth Always Usage Description */
+"NSBluetoothAlwaysUsageDescription" = "Bluetooth behövs för att ansluta till kompatibla enheter.";
+
+/* Privacy - Bluetooth Peripheral Usage Description */
+"NSBluetoothPeripheralUsageDescription" = "Bluetooth behövs för att ansluta till kompatibla enheter.";
