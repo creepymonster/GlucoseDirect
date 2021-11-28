@@ -6,3 +6,5 @@
 PRODUCT_BUNDLE_IDENTIFIER = name.${DEVELOPMENT_TEAM}.libre-direct
 APP_GROUP_ID = group.com.$(DEVELOPMENT_TEAM).loopkit.LoopGroups
 DEVELOPMENT_TEAM = ##TEAM_ID##
+
+#include "../../LibreDirect.xcconfig"
