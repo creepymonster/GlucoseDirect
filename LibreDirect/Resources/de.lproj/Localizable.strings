@@ -364,3 +364,8 @@
 /* (No Comment) */
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Ihr Sensor läuft demnächst ab. Ersetzen Sie den Sensor in %1$@ Minuten.";
 
+/* (No Comment) */
+"Other Settings" = "Zusätzliche Einstellungen";
+
+/* (No Comment) */
+"Glucose badge" = "Glukose Badge";

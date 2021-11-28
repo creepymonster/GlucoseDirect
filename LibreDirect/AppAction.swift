@@ -19,6 +19,7 @@ enum AppAction {
     case setGlucoseAlarm(enabled: Bool)
     case setExpiringAlarm(enabled: Bool)
     case setConnectionAlarm(enabled: Bool)
+    case setGlucoseBadge(enabled: Bool)
     
     case setAlarmHigh(upperLimit: Int)
     case setAlarmLow(lowerLimit: Int)

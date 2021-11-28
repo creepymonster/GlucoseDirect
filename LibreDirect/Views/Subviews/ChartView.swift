@@ -21,7 +21,7 @@ extension Date {
 
         while date <= toDate {
             dates.append(date)
-            guard let newDate = Calendar.current.date(byAdding: .minute, value: step, to: date) else { // Int(Config.xGridDistance)
+            guard let newDate = Calendar.current.date(byAdding: .minute, value: step, to: date) else {
                 break
             }
             date = newDate

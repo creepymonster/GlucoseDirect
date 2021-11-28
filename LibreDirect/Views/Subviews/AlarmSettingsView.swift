@@ -24,7 +24,6 @@ struct AlarmSettingsView: View {
                 ToggleView(key: LocalizedString("Connection alarm", comment: ""), value: store.state.connectionAlarm) { value -> Void in
                     store.dispatch(.setConnectionAlarm(enabled: value))
                 }
-                
             },
             header: {
                 Label("Alarm Settings", systemImage: "alarm")

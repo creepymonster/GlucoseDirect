@@ -23,6 +23,7 @@ protocol AppState {
     var connectionError: String? { get set }
     var connectionErrorTimestamp: Date? { get set }
     var connectionState: SensorConnectionState { get set }
+    var glucoseBadge: Bool { get set }
     var glucoseUnit: GlucoseUnit { get set }
     var glucoseValues: [Glucose] { get set }
     var missedReadings: Int { get set }

@@ -76,8 +76,15 @@ struct ContentView: View {
 // MARK: - ContentView_Previews
 
 struct ContentView_Previews: PreviewProvider {
+    static func createAppState() -> AppState {
+        var state = PreviewAppState()
+        state.selectedView = 4
+        
+        return state
+    }
+    
     static var previews: some View {
-        let store = AppStore(initialState: PreviewAppState())
+        let store = AppStore(initialState: createAppState())
 
         ForEach(ColorScheme.allCases, id: \.self) {
             ContentView().environmentObject(store).preferredColorScheme($0)

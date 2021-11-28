@@ -15,6 +15,7 @@ private enum Keys: String {
     case alarmHigh = "libre-direct.settings.alarm-high"
     case alarmLow = "libre-direct.settings.alarm-low"
     case freeAPSLatestReadings = "latestReadings"
+    case glucoseBadge = "libre-direct.settings.glucose-badge"
     case glucoseUnit = "libre-direct.settings.glucose-unit"
     case glucoseValues = "libre-direct.settings.glucose-values"
     case nightscoutApiSecret = "libre-direct.settings.nightscout-api-secret"
@@ -92,6 +93,15 @@ extension UserDefaults {
             } else {
                 removeObject(forKey: Keys.alarmLow.rawValue)
             }
+        }
+    }
+    
+    var glucoseBadge: Bool {
+        get {
+            return bool(forKey: Keys.glucoseBadge.rawValue)
+        }
+        set {
+            set(newValue, forKey: Keys.glucoseBadge.rawValue)
         }
     }
 

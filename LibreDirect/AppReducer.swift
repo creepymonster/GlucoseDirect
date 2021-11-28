@@ -69,6 +69,9 @@ func appReducer(state: inout AppState, action: AppAction) {
 
     case .setChartShowLines(enabled: let enabled):
         state.chartShowLines = enabled
+        
+    case .setGlucoseBadge(enabled: let enabled):
+        state.glucoseBadge = enabled
 
     case .setGlucoseUnit(unit: let unit):
         state.glucoseUnit = unit

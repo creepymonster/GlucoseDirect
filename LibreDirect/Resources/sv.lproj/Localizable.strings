@@ -360,3 +360,9 @@
 
 /* (No Comment) */
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Din sensor går snart ut. Byt sensor om %1$@ minuter.";
+
+/* (No Comment) */
+"Other Settings" = "Other Settings";
+
+/* (No Comment) */
+"Glucose badge" = "Glucose badge";

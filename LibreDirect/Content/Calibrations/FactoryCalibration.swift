@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - FactoryCalibration
 
-struct FactoryCalibration: SensorCalibration, Codable {
+struct FactoryCalibration: Codable {
     // MARK: Lifecycle
 
     init(i1: Int, i2: Int, i3: Double, i4: Double, i5: Double, i6: Double) {

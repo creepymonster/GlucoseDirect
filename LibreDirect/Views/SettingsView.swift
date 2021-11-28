@@ -14,6 +14,7 @@ struct SettingsView: View {
                 GlucoseSettingsView()
                 AlarmSettingsView()
                 NightscoutSettingsView()
+                OtherSettings()
             }
         }
     }

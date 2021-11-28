@@ -24,6 +24,7 @@ struct UserDefaultsAppState: AppState {
         }
         
         self.chartShowLines = UserDefaults.standard.chartShowLines
+        self.glucoseBadge = UserDefaults.standard.glucoseBadge
         self.glucoseUnit = UserDefaults.standard.glucoseUnit
         self.glucoseValues = UserDefaults.standard.glucoseValues
         self.nightscoutApiSecret = UserDefaults.standard.nightscoutApiSecret
@@ -84,6 +85,12 @@ struct UserDefaultsAppState: AppState {
     var connectionErrorTimestamp: Date?
     
     var connectionState: SensorConnectionState = .disconnected
+    
+    var glucoseBadge = true {
+        didSet {
+            UserDefaults.standard.glucoseBadge = glucoseBadge
+        }
+    }
     
     var glucoseUnit: GlucoseUnit = .mgdL {
         didSet {

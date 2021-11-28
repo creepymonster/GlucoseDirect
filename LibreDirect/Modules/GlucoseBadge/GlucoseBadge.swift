@@ -16,6 +16,12 @@ private func glucoseBadgeMiddelware(service: glucoseBadgeService) -> Middleware<
     return { store, action, _ in
         switch action {
         case .addGlucose(glucose: let glucose):
+            guard store.state.glucoseBadge else {
+                service.clearNotifications()
+                
+                break
+            }
+            
             service.setGlucoseBadge(glucose: glucose, glucoseUnit: store.state.glucoseUnit)
 
         default:

@@ -25,6 +25,7 @@ struct InMemoryAppState: AppState {
     var connectionError: String? = "Timeout"
     var connectionErrorTimestamp: Date? = Date()
     var connectionState: SensorConnectionState = .disconnected
+    var glucoseBadge = true
     var glucoseUnit: GlucoseUnit = .mgdL
     var glucoseValues: [Glucose] = []
     var missedReadings: Int = 0
