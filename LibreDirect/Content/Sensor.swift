@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - Sensor
 
-class Sensor: Codable {
+struct Sensor: Codable {
     // MARK: Lifecycle
 
     init(uuid: Data, patchInfo: Data, factoryCalibration: FactoryCalibration, customCalibration: [CustomCalibration], family: SensorFamily, type: SensorType, region: SensorRegion, serial: String?, state: SensorState, age: Int, lifetime: Int, warmupTime: Int = 60) {
