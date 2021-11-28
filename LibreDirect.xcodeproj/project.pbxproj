@@ -106,6 +106,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1938BB6F2752F8D10047059C /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1938BB702752F8D20047059C /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E20786222686283F004EEF1C /* ActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsView.swift; sourceTree = "<group>"; };
 		E20786292686306B004EEF1C /* ValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueView.swift; sourceTree = "<group>"; };
 		E20B853A266F4A9800AA4224 /* LibreDirect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LibreDirect.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -550,6 +552,7 @@
 				en,
 				Base,
 				de,
+				sv,
 			);
 			mainGroup = E20B8531266F4A9800AA4224;
 			packageReferences = (
@@ -672,6 +675,7 @@
 			children = (
 				E24077B226B881C2001767C0 /* de */,
 				E24077B726B881CB001767C0 /* en */,
+				1938BB702752F8D20047059C /* sv */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -681,6 +685,7 @@
 			children = (
 				E2FCAC88270743E200FE1CBF /* en */,
 				E2FCAC8A270743E500FE1CBF /* de */,
+				1938BB6F2752F8D10047059C /* sv */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
