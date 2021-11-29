@@ -34,27 +34,21 @@ struct UserDefaultsAppState: AppState {
         self.sensor = UserDefaults.standard.sensor
     }
 
-    init(connectionState: SensorConnectionState, sensor: Sensor, currentGlucose: Glucose) {
-        self.connectionState = connectionState
-        self.sensor = sensor
-        self.glucoseValues = [currentGlucose]
-    }
-
     // MARK: Internal
     
-    var glucoseAlarm: Bool = true {
+    var glucoseAlarm: Bool {
         didSet {
             UserDefaults.standard.glucoseAlarm = glucoseAlarm
         }
     }
     
-    var expiringAlarm: Bool = true {
+    var expiringAlarm: Bool {
         didSet {
             UserDefaults.standard.expiringAlarm = expiringAlarm
         }
     }
     
-    var connectionAlarm: Bool = true {
+    var connectionAlarm: Bool {
         didSet {
             UserDefaults.standard.connectionAlarm = connectionAlarm
         }
@@ -72,33 +66,31 @@ struct UserDefaultsAppState: AppState {
         }
     }
 
-    var alarmSnoozeUntil: Date?
+    var alarmSnoozeUntil: Date? = nil
     
-    var chartShowLines: Bool = false {
+    var chartShowLines: Bool {
         didSet {
             UserDefaults.standard.chartShowLines = chartShowLines
         }
     }
     
-    var connectionError: String?
-    
-    var connectionErrorTimestamp: Date?
-    
+    var connectionError: String? = nil
+    var connectionErrorTimestamp: Date? = nil
     var connectionState: SensorConnectionState = .disconnected
     
-    var glucoseBadge = true {
+    var glucoseBadge: Bool {
         didSet {
             UserDefaults.standard.glucoseBadge = glucoseBadge
         }
     }
     
-    var glucoseUnit: GlucoseUnit = .mgdL {
+    var glucoseUnit: GlucoseUnit {
         didSet {
             UserDefaults.standard.glucoseUnit = glucoseUnit
         }
     }
 
-    var glucoseValues: [Glucose] = [] {
+    var glucoseValues: [Glucose] {
         didSet {
             UserDefaults.standard.glucoseValues = glucoseValues
         }
@@ -106,25 +98,25 @@ struct UserDefaultsAppState: AppState {
     
     var missedReadings: Int = 0
     
-    var nightscoutApiSecret: String = "" {
+    var nightscoutApiSecret: String {
         didSet {
             UserDefaults.standard.nightscoutApiSecret = nightscoutApiSecret
         }
     }
 
-    var nightscoutHost: String = "" {
+    var nightscoutHost: String {
         didSet {
             UserDefaults.standard.nightscoutHost = nightscoutHost
         }
     }
 
-    var nightscoutUpload: Bool = false {
+    var nightscoutUpload: Bool {
         didSet {
             UserDefaults.standard.nightscoutUpload = nightscoutUpload
         }
     }
 
-    var selectedView: Int = 1 {
+    var selectedView: Int {
         didSet {
             UserDefaults.standard.selectedView = selectedView
         }

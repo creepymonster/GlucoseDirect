@@ -28,7 +28,11 @@ private enum Keys: String {
 extension UserDefaults {
     var chartShowLines: Bool {
         get {
-            return bool(forKey: Keys.chartShowLines.rawValue)
+            if object(forKey: Keys.chartShowLines.rawValue) != nil {
+                return bool(forKey: Keys.chartShowLines.rawValue)
+            }
+
+            return false
         }
         set {
             set(newValue, forKey: Keys.chartShowLines.rawValue)
@@ -37,25 +41,37 @@ extension UserDefaults {
 
     var glucoseAlarm: Bool {
         get {
-            return bool(forKey: Keys.glucoseAlarm.rawValue)
+            if object(forKey: Keys.glucoseAlarm.rawValue) != nil {
+                return bool(forKey: Keys.glucoseAlarm.rawValue)
+            }
+
+            return true
         }
         set {
             set(newValue, forKey: Keys.glucoseAlarm.rawValue)
         }
     }
-    
+
     var expiringAlarm: Bool {
         get {
-            return bool(forKey: Keys.expiringAlarm.rawValue)
+            if object(forKey: Keys.expiringAlarm.rawValue) != nil {
+                return bool(forKey: Keys.expiringAlarm.rawValue)
+            }
+
+            return true
         }
         set {
             set(newValue, forKey: Keys.expiringAlarm.rawValue)
         }
     }
-    
+
     var connectionAlarm: Bool {
         get {
-            return bool(forKey: Keys.connectionAlarm.rawValue)
+            if object(forKey: Keys.connectionAlarm.rawValue) != nil {
+                return bool(forKey: Keys.connectionAlarm.rawValue)
+            }
+
+            return true
         }
         set {
             set(newValue, forKey: Keys.connectionAlarm.rawValue)
@@ -95,10 +111,14 @@ extension UserDefaults {
             }
         }
     }
-    
+
     var glucoseBadge: Bool {
         get {
-            return bool(forKey: Keys.glucoseBadge.rawValue)
+            if object(forKey: Keys.glucoseBadge.rawValue) != nil {
+                return bool(forKey: Keys.glucoseBadge.rawValue)
+            }
+
+            return true
         }
         set {
             set(newValue, forKey: Keys.glucoseBadge.rawValue)
@@ -155,7 +175,11 @@ extension UserDefaults {
 
     var nightscoutUpload: Bool {
         get {
-            return bool(forKey: Keys.nightscoutUpload.rawValue)
+            if object(forKey: Keys.nightscoutUpload.rawValue) != nil {
+                return bool(forKey: Keys.nightscoutUpload.rawValue)
+            }
+
+            return false
         }
         set {
             set(newValue, forKey: Keys.nightscoutUpload.rawValue)
@@ -164,7 +188,11 @@ extension UserDefaults {
 
     var selectedView: Int {
         get {
-            return integer(forKey: Keys.selectedView.rawValue)
+            if object(forKey: Keys.selectedView.rawValue) != nil {
+                return integer(forKey: Keys.selectedView.rawValue)
+            }
+            
+            return 1
         }
         set {
             set(newValue, forKey: Keys.selectedView.rawValue)
@@ -184,7 +212,7 @@ extension UserDefaults {
         }
     }
 
-    var freeAPSLatestReadings: Data? {
+    var latestReadings: Data? {
         get {
             return data(forKey: Keys.freeAPSLatestReadings.rawValue)
         }
@@ -199,7 +227,7 @@ extension UserDefaults {
 }
 
 extension UserDefaults {
-    static let appGroup = UserDefaults(suiteName: stringValue(forKey: "APP_GROUP_ID"))!
+    static let shared = UserDefaults(suiteName: stringValue(forKey: "APP_GROUP_ID"))!
 
     func setArray<Element>(_ array: [Element], forKey key: String) where Element: Encodable {
         let data = try? JSONEncoder().encode(array)

@@ -24,6 +24,7 @@
 		E24B532526B864020091417F /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532426B864020091417F /* ToggleView.swift */; };
 		E26089A42748DCB500749025 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26089A32748DCB500749025 /* Double.swift */; };
 		E264775A274A69540053BF6F /* VirtualLibre.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2647759274A69540053BF6F /* VirtualLibre.swift */; };
+		E27325A7275543D600D3C41D /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27325A6275543D600D3C41D /* Color.swift */; };
 		E283306726AF058500244343 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E283306626AF058500244343 /* ChartView.swift */; };
 		E28728AA26DE499200269F47 /* SnoozeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28728A926DE499200269F47 /* SnoozeView.swift */; };
 		E292E1B226A608C400011F64 /* NumberSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E292E1B126A608C400011F64 /* NumberSelectorView.swift */; };
@@ -67,14 +68,13 @@
 		E2FCAC452707420100FE1CBF /* PreviewAppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC402707420100FE1CBF /* PreviewAppState.swift */; };
 		E2FCAC462707420100FE1CBF /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC412707420100FE1CBF /* AppReducer.swift */; };
 		E2FCAC512707424800FE1CBF /* Nightscout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC502707424800FE1CBF /* Nightscout.swift */; };
-		E2FCAC532707425000FE1CBF /* Loop.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC522707425000FE1CBF /* Loop.swift */; };
 		E2FCAC582707425900FE1CBF /* Libre2Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC542707425900FE1CBF /* Libre2Utility.swift */; };
 		E2FCAC592707425900FE1CBF /* Libre2Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC552707425900FE1CBF /* Libre2Service.swift */; };
 		E2FCAC5A2707425900FE1CBF /* Libre2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC562707425900FE1CBF /* Libre2.swift */; };
 		E2FCAC5B2707425900FE1CBF /* Libre2Pairing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC572707425900FE1CBF /* Libre2Pairing.swift */; };
 		E2FCAC5D2707426100FE1CBF /* GlucoseNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC5C2707426100FE1CBF /* GlucoseNotification.swift */; };
 		E2FCAC5F2707426800FE1CBF /* GlucoseBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC5E2707426800FE1CBF /* GlucoseBadge.swift */; };
-		E2FCAC612707426F00FE1CBF /* FreeAPS.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC602707426F00FE1CBF /* FreeAPS.swift */; };
+		E2FCAC612707426F00FE1CBF /* AppGroupSharing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC602707426F00FE1CBF /* AppGroupSharing.swift */; };
 		E2FCAC632707427500FE1CBF /* ExpiringNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC622707427500FE1CBF /* ExpiringNotification.swift */; };
 		E2FCAC652707427D00FE1CBF /* ConnectionNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC642707427D00FE1CBF /* ConnectionNotification.swift */; };
 		E2FCAC672707428500FE1CBF /* ActionLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC662707428500FE1CBF /* ActionLog.swift */; };
@@ -129,6 +129,7 @@
 		E24B532426B864020091417F /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
 		E26089A32748DCB500749025 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		E2647759274A69540053BF6F /* VirtualLibre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualLibre.swift; sourceTree = "<group>"; };
+		E27325A6275543D600D3C41D /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		E27BFC0226B1407E00F8FBEF /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		E27BFC0426B1407E00F8FBEF /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		E283306626AF058500244343 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
@@ -175,14 +176,13 @@
 		E2FCAC402707420100FE1CBF /* PreviewAppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewAppState.swift; sourceTree = "<group>"; };
 		E2FCAC412707420100FE1CBF /* AppReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
 		E2FCAC502707424800FE1CBF /* Nightscout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Nightscout.swift; sourceTree = "<group>"; };
-		E2FCAC522707425000FE1CBF /* Loop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loop.swift; sourceTree = "<group>"; };
 		E2FCAC542707425900FE1CBF /* Libre2Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Libre2Utility.swift; sourceTree = "<group>"; };
 		E2FCAC552707425900FE1CBF /* Libre2Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Libre2Service.swift; sourceTree = "<group>"; };
 		E2FCAC562707425900FE1CBF /* Libre2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Libre2.swift; sourceTree = "<group>"; };
 		E2FCAC572707425900FE1CBF /* Libre2Pairing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Libre2Pairing.swift; sourceTree = "<group>"; };
 		E2FCAC5C2707426100FE1CBF /* GlucoseNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlucoseNotification.swift; sourceTree = "<group>"; };
 		E2FCAC5E2707426800FE1CBF /* GlucoseBadge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlucoseBadge.swift; sourceTree = "<group>"; };
-		E2FCAC602707426F00FE1CBF /* FreeAPS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreeAPS.swift; sourceTree = "<group>"; };
+		E2FCAC602707426F00FE1CBF /* AppGroupSharing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppGroupSharing.swift; sourceTree = "<group>"; };
 		E2FCAC622707427500FE1CBF /* ExpiringNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpiringNotification.swift; sourceTree = "<group>"; };
 		E2FCAC642707427D00FE1CBF /* ConnectionNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionNotification.swift; sourceTree = "<group>"; };
 		E2FCAC662707428500FE1CBF /* ActionLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionLog.swift; sourceTree = "<group>"; };
@@ -361,6 +361,7 @@
 				E2FCAC2A270741D200FE1CBF /* UserDefaults.swift */,
 				E2FCAC2C270741D200FE1CBF /* View.swift */,
 				E26089A32748DCB500749025 /* Double.swift */,
+				E27325A6275543D600D3C41D /* Color.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -386,8 +387,7 @@
 				E2FCAC492707421600FE1CBF /* ExpiringNotification */,
 				E2FCAC482707420D00FE1CBF /* ConnectionNotification */,
 				E2FCAC4F2707424000FE1CBF /* Nightscout */,
-				E2FCAC4A2707422000FE1CBF /* FreeAPS */,
-				E2FCAC4E2707423A00FE1CBF /* Loop */,
+				E2FCAC4A2707422000FE1CBF /* AppGroupSharing */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -416,12 +416,12 @@
 			path = ExpiringNotification;
 			sourceTree = "<group>";
 		};
-		E2FCAC4A2707422000FE1CBF /* FreeAPS */ = {
+		E2FCAC4A2707422000FE1CBF /* AppGroupSharing */ = {
 			isa = PBXGroup;
 			children = (
-				E2FCAC602707426F00FE1CBF /* FreeAPS.swift */,
+				E2FCAC602707426F00FE1CBF /* AppGroupSharing.swift */,
 			);
-			path = FreeAPS;
+			path = AppGroupSharing;
 			sourceTree = "<group>";
 		};
 		E2FCAC4B2707422700FE1CBF /* GlucoseBadge */ = {
@@ -449,14 +449,6 @@
 				E2FCAC542707425900FE1CBF /* Libre2Utility.swift */,
 			);
 			path = Libre2;
-			sourceTree = "<group>";
-		};
-		E2FCAC4E2707423A00FE1CBF /* Loop */ = {
-			isa = PBXGroup;
-			children = (
-				E2FCAC522707425000FE1CBF /* Loop.swift */,
-			);
-			path = Loop;
 			sourceTree = "<group>";
 		};
 		E2FCAC4F2707424000FE1CBF /* Nightscout */ = {
@@ -611,7 +603,6 @@
 				E24B532126B863C00091417F /* GlucoseSettingsView.swift in Sources */,
 				E2FCAC422707420100FE1CBF /* UserDefaultsAppState.swift in Sources */,
 				E2FCAC30270741D200FE1CBF /* String.swift in Sources */,
-				E2FCAC532707425000FE1CBF /* Loop.swift in Sources */,
 				E2FCAC36270741D200FE1CBF /* LocalizedString.swift in Sources */,
 				E2FCAC432707420100FE1CBF /* NotificationService.swift in Sources */,
 				E2FCAC1F270741BC00FE1CBF /* SensorRegion.swift in Sources */,
@@ -646,13 +637,14 @@
 				E2FCAC1E270741BC00FE1CBF /* SensorConnectionState.swift in Sources */,
 				E2FCAC722707438A00FE1CBF /* AppConfig.swift in Sources */,
 				E2C19FBC273568BF00B70A73 /* FactoryCalibration.swift in Sources */,
+				E27325A7275543D600D3C41D /* Color.swift in Sources */,
 				E2C19FB52735684500B70A73 /* Glucose.swift in Sources */,
 				E2C19FB3273567FE00B70A73 /* SensorReading.swift in Sources */,
 				E29ED231268C754F00CBD3F1 /* GlucoseView.swift in Sources */,
 				E28728AA26DE499200269F47 /* SnoozeView.swift in Sources */,
 				E2FCAC702707438A00FE1CBF /* AppState.swift in Sources */,
 				E2D7238127491C4C00455FB9 /* InMemoryAppState.swift in Sources */,
-				E2FCAC612707426F00FE1CBF /* FreeAPS.swift in Sources */,
+				E2FCAC612707426F00FE1CBF /* AppGroupSharing.swift in Sources */,
 				E292E1B226A608C400011F64 /* NumberSelectorView.swift in Sources */,
 				E264775A274A69540053BF6F /* VirtualLibre.swift in Sources */,
 				E29ED236268C87CC00CBD3F1 /* TextEditorView.swift in Sources */,
@@ -823,7 +815,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LibreDirect/App.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.6.6;
+				CURRENT_PROJECT_VERSION = 0.6.7;
 				DEVELOPMENT_ASSET_PATHS = "\"LibreDirect/Preview Content\"";
 				DEVELOPMENT_TEAM = "${DEVELOPMENT_TEAM}";
 				ENABLE_PREVIEWS = YES;
@@ -833,7 +825,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.6.6;
+				MARKETING_VERSION = 0.6.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_BUNDLE_IDENTIFIER}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -851,7 +843,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LibreDirect/App.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.6.6;
+				CURRENT_PROJECT_VERSION = 0.6.7;
 				DEVELOPMENT_ASSET_PATHS = "\"LibreDirect/Preview Content\"";
 				DEVELOPMENT_TEAM = "${DEVELOPMENT_TEAM}";
 				ENABLE_PREVIEWS = YES;
@@ -861,7 +853,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.6.6;
+				MARKETING_VERSION = 0.6.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_BUNDLE_IDENTIFIER}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

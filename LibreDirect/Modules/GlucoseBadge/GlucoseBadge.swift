@@ -15,11 +15,14 @@ func glucoseBadgeMiddelware() -> Middleware<AppState, AppAction> {
 private func glucoseBadgeMiddelware(service: glucoseBadgeService) -> Middleware<AppState, AppAction> {
     return { store, action, _ in
         switch action {
-        case .addGlucose(glucose: let glucose):
-            guard store.state.glucoseBadge else {
+        case .setGlucoseBadge(enabled: let enabled):
+            if !enabled {
                 UIApplication.shared.applicationIconBadgeNumber = 0
                 service.clearNotifications()
-                
+            }
+            
+        case .addGlucose(glucose: let glucose):
+            guard store.state.glucoseBadge else {
                 break
             }
             

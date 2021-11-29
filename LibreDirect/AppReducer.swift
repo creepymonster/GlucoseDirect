@@ -41,13 +41,13 @@ func appReducer(state: inout AppState, action: AppAction) {
 
     case .selectView(viewTag: let viewTag):
         state.selectedView = viewTag
-        
+
     case .setGlucoseAlarm(enabled: let enabled):
         state.glucoseAlarm = enabled
-        
+
     case .setExpiringAlarm(enabled: let enabled):
         state.expiringAlarm = enabled
-        
+
     case .setConnectionAlarm(enabled: let enabled):
         state.connectionAlarm = enabled
 
@@ -69,7 +69,7 @@ func appReducer(state: inout AppState, action: AppAction) {
 
     case .setChartShowLines(enabled: let enabled):
         state.chartShowLines = enabled
-        
+
     case .setGlucoseBadge(enabled: let enabled):
         state.glucoseBadge = enabled
 

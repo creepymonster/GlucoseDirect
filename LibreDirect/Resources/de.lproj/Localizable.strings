@@ -335,7 +335,7 @@
 "Warning, sensor missed %1$@ readings" = "Warnung, Sensor hat %1$@ Messwerte nicht erfasst.";
 
 /* (No Comment) */
-"Wearing time alarm" = "Tragedauer";
+"Wearing time alarm" = "Tragedauer Alarm";
 
 /* (No Comment) */
 "Your current glucose is %1$@ (%2$@)." = "Ihr aktueller Blutzuckerwert ist %1$@ (%2$@).";
@@ -369,3 +369,6 @@
 
 /* (No Comment) */
 "Glucose badge" = "Glukose Badge";
+
+/* (No Comment) */
+"Are you sure you want to add the new blood glucose value?" = "Sind Sie sicher, dass Sie den neuen Blutzuckerwert hinzufügen möchten?";
