@@ -45,42 +45,44 @@ struct SensorView: View {
 
     var body: some View {
         Group {
-            Section(
-                content: {
-                    HStack {
-                        Text("Connection State")
-                        Spacer()
-                        Text(store.state.connectionState.localizedString).textSelection(.enabled)
-                    }
-
-                    if store.state.missedReadings > 0 {
+            if store.state.isPaired {
+                Section(
+                    content: {
                         HStack {
-                            Text("Missed Readings")
+                            Text("Connection State")
                             Spacer()
-                            Text(store.state.missedReadings.description).textSelection(.enabled)
+                            Text(store.state.connectionState.localizedString).textSelection(.enabled)
                         }
-                    }
 
-                    if let connectionError = store.state.connectionError {
-                        HStack {
-                            Text("Connection Error")
-                            Spacer()
-                            Text(connectionError).textSelection(.enabled)
+                        if store.state.missedReadings > 0 {
+                            HStack {
+                                Text("Missed Readings")
+                                Spacer()
+                                Text(store.state.missedReadings.description).textSelection(.enabled)
+                            }
                         }
-                    }
 
-                    if let connectionErrorTimestamp = store.state.connectionErrorTimestamp?.localTime {
-                        HStack {
-                            Text("Connection Error Timestamp")
-                            Spacer()
-                            Text(connectionErrorTimestamp).textSelection(.enabled)
+                        if let connectionError = store.state.connectionError {
+                            HStack {
+                                Text("Connection Error")
+                                Spacer()
+                                Text(connectionError).textSelection(.enabled)
+                            }
                         }
+
+                        if let connectionErrorTimestamp = store.state.connectionErrorTimestamp?.localTime {
+                            HStack {
+                                Text("Connection Error Timestamp")
+                                Spacer()
+                                Text(connectionErrorTimestamp).textSelection(.enabled)
+                            }
+                        }
+                    },
+                    header: {
+                        Label("Connection", systemImage: "rectangle.connected.to.line.below")
                     }
-                },
-                header: {
-                    Label("Connection", systemImage: "rectangle.connected.to.line.below")
-                }
-            )
+                )
+            }
 
             if let transmitter = store.state.transmitter {
                 Section(

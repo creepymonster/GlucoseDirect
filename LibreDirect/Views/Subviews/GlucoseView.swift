@@ -61,7 +61,7 @@ struct GlucoseView: View {
                             } else {
                                 Text(String(format: LocalizedString("%1$@/min."), "?"))
                             }
-                        } else {
+                        } else if store.state.isPaired {
                             Text(store.state.connectionState.localizedString).foregroundColor(Color.ui.red)
                         }
                     }.padding(.bottom)
