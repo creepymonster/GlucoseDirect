@@ -37,6 +37,7 @@ func appReducer(state: inout AppState, action: AppAction) {
 
     case .resetSensor:
         state.sensor = nil
+        state.transmitter = nil
         state.connectionError = nil
 
     case .selectView(viewTag: let viewTag):
@@ -88,7 +89,7 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setSensor(sensor: let sensor):
         state.sensor = sensor
 
-    case .setSensorConnectionState(connectionState: let connectionState):
+    case .setConnectionState(connectionState: let connectionState):
         state.connectionState = connectionState
 
         if resetableStates.contains(connectionState) {
@@ -96,9 +97,12 @@ func appReducer(state: inout AppState, action: AppAction) {
             state.connectionErrorTimestamp = nil
         }
 
-    case .setSensorError(errorMessage: let errorMessage, errorTimestamp: let errorTimestamp):
+    case .setConnectionError(errorMessage: let errorMessage, errorTimestamp: let errorTimestamp):
         state.connectionError = errorMessage
         state.connectionErrorTimestamp = errorTimestamp
+        
+    case .setTransmitter(transmitter: let transmitter):
+        state.transmitter = transmitter
 
     case .addGlucose(glucose: let glucose):
         state.missedReadings = 0

@@ -29,48 +29,27 @@ final class Libre2Service: SensorService {
     var readCharacteristic: CBCharacteristic?
     var writeCharacteristic: CBCharacteristic?
 
-    func pairSensor() async -> (sensor: Sensor?, nextReading: SensorReading?, trendReadings: [SensorReading], historyReadings: [SensorReading]) {
+    func pairSensor(updatesHandler: @escaping SensorUpdatesHandler) {
         dispatchPrecondition(condition: .notOnQueue(managerQueue))
         Log.info("PairSensor")
-
-        let pairingService = Libre2Pairing()
-        let pairedSensor = await pairingService.pairSensor()
-
-        UserDefaults.standard.libre2UnlockCount = 0
-
-        if let pairedSensor = pairedSensor {
-            Log.info("pairedSensor: \(pairedSensor)")
-
-            if let fram = pairedSensor.fram, pairedSensor.state == .ready {
-                let parsedFram = Libre2.parseFRAM(calibration: pairedSensor.factoryCalibration, nfcScanTimestamp: pairedSensor.nfcScanTimestamp, fram: fram)
-                    
-                return (pairedSensor, parsedFram.trend.last, parsedFram.trend, parsedFram.history)
-            } else {
-                return (pairedSensor, nil, [], [])
-            }
-        }
-
-        return (nil, nil, [], [])
-    }
-
-    func connectSensor(sensor: Sensor, updatesHandler: @escaping SensorUpdatesHandler) {
-        dispatchPrecondition(condition: .notOnQueue(managerQueue))
-        Log.info("ConnectSensor: \(sensor)")
-
+        
         self.updatesHandler = updatesHandler
-        self.sensor = sensor
 
-        managerQueue.async {
-            self.find()
-        }
-    }
+        Task {
+            let pairingService = Libre2Pairing()
+            let pairedSensor = await pairingService.pairSensor()
 
-    func disconnectSensor() {
-        dispatchPrecondition(condition: .notOnQueue(managerQueue))
-        Log.info("DisconnectSensor")
+            UserDefaults.standard.libre2UnlockCount = 0
 
-        managerQueue.sync {
-            self.disconnect()
+            if let pairedSensor = pairedSensor {
+                sendUpdate(sensor: pairedSensor)
+                
+                if let fram = pairedSensor.fram, pairedSensor.state == .ready {
+                    let parsedFram = Libre2.parseFRAM(calibration: pairedSensor.factoryCalibration, pairingTimestamp: pairedSensor.pairingTimestamp, fram: fram)
+                    
+                    sendUpdate(trendReadings: parsedFram.trend, historyReadings: parsedFram.history)
+                }
+            }
         }
     }
 

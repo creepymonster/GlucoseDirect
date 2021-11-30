@@ -261,9 +261,9 @@ enum Libre2 {
         return result
     }
 
-    static func parseFRAM(calibration: FactoryCalibration, nfcScanTimestamp: Date, fram: Data) -> (trend: [SensorReading], history: [SensorReading]) {
+    static func parseFRAM(calibration: FactoryCalibration, pairingTimestamp: Date, fram: Data) -> (trend: [SensorReading], history: [SensorReading]) {
         let age = Int(fram[316]) + Int(fram[317]) << 8
-        let startDate = nfcScanTimestamp - Double(age) * 60
+        let startDate = pairingTimestamp - Double(age) * 60
 
         var trendReadings: [SensorReading] = []
         var historyReadings: [SensorReading] = []
@@ -336,7 +336,7 @@ enum Libre2 {
             }
 
             let id = age - delay - i * 15
-            let timestamp = id > -1 ? nfcScanTimestamp - Double(i) * 15 * 60 : nfcScanTimestamp
+            let timestamp = id > -1 ? pairingTimestamp - Double(i) * 15 * 60 : pairingTimestamp
 
             let glucoseValue = calibration.calibrate(rawValue: Double(rawGlucoseValue), rawTemperature: Double(rawTemperature), rawTemperatureAdjustment: Double(rawTemperatureAdjustment))
             let reading = SensorReading(id: UUID(), timestamp: timestamp, glucoseValue: glucoseValue)

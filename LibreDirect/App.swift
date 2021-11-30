@@ -70,7 +70,7 @@ final class LibreDirectApp: App {
             expiringNotificationMiddelware(),
             glucoseNotificationMiddelware(),
             glucoseBadgeMiddelware(),
-            connectionNotificationMiddelware()
+            connectionNotificationMiddelware(),
         ])
     }
 
@@ -87,8 +87,8 @@ final class LibreDirectApp: App {
             glucoseNotificationMiddelware(),
             glucoseBadgeMiddelware(),
             connectionNotificationMiddelware(),
+            nightscoutMiddleware(),
             appGroupSharingMiddleware(),
-            nightscoutMiddleware()
         ])
     }
 }

@@ -23,6 +23,7 @@ private enum Keys: String {
     case nightscoutUpload = "libre-direct.nightscout-upload-enabled"
     case selectedView = "libre-direct.settings.selected-view"
     case sensor = "libre-direct.settings.sensor"
+    case transmitter = "libre-direct.settings.transmitter"
 }
 
 extension UserDefaults {
@@ -224,6 +225,20 @@ extension UserDefaults {
             }
         }
     }
+    
+    var transmitter: Transmitter? {
+        get {
+            return getObject(forKey: Keys.transmitter.rawValue)
+        }
+        set {
+            if let newValue = newValue {
+                setObject(newValue, forKey: Keys.transmitter.rawValue)
+            } else {
+                removeObject(forKey: Keys.transmitter.rawValue)
+            }
+        }
+    }
+
 }
 
 extension UserDefaults {

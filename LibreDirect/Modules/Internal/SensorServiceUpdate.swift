@@ -9,6 +9,20 @@ import Foundation
 
 class SensorServiceUpdate {}
 
+// MARK: - SensorTransmitterUpdate
+
+class SensorTransmitterUpdate: SensorServiceUpdate {
+    // MARK: Lifecycle
+
+    init(transmitter: Transmitter) {
+        self.transmitter = transmitter
+    }
+
+    // MARK: Internal
+
+    let transmitter: Transmitter
+}
+
 // MARK: - SensorStateUpdate
 
 class SensorStateUpdate: SensorServiceUpdate {

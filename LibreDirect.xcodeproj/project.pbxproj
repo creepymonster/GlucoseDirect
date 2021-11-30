@@ -234,9 +234,9 @@
 			children = (
 				E247D8E426B7D70A00BDAF89 /* App.xcconfig */,
 				E20B853D266F4A9800AA4224 /* App.swift */,
-				E2FCAC6D2707438A00FE1CBF /* AppAction.swift */,
-				E2FCAC6C2707438A00FE1CBF /* AppState.swift */,
 				E2FCAC6F2707438A00FE1CBF /* AppStore.swift */,
+				E2FCAC6C2707438A00FE1CBF /* AppState.swift */,
+				E2FCAC6D2707438A00FE1CBF /* AppAction.swift */,
 				E2FCAC412707420100FE1CBF /* AppReducer.swift */,
 				E2FCAC6E2707438A00FE1CBF /* AppConfig.swift */,
 				E264775B274A9C6F0053BF6F /* States */,
@@ -335,7 +335,6 @@
 				E2C19FB42735684500B70A73 /* Glucose.swift */,
 				E2FCAC18270741BC00FE1CBF /* GlucoseUnit.swift */,
 				E29F4FA1274D6C8B00AE0E39 /* GlucoseValueType.swift */,
-				E21656C4275377A90007AF43 /* Transmitter.swift */,
 				E2FCAC13270741BC00FE1CBF /* Sensor.swift */,
 				E2FCAC14270741BC00FE1CBF /* SensorConnectionState.swift */,
 				E2FCAC12270741BC00FE1CBF /* SensorType.swift */,
@@ -344,6 +343,7 @@
 				E2FCAC19270741BC00FE1CBF /* SensorState.swift */,
 				E2FCAC1B270741BC00FE1CBF /* SensorTrend.swift */,
 				E2C19FB2273567FE00B70A73 /* SensorReading.swift */,
+				E21656C4275377A90007AF43 /* Transmitter.swift */,
 				E2C19FB8273568A000B70A73 /* Calibrations */,
 			);
 			path = Content;

@@ -31,8 +31,9 @@ enum AppAction {
     case setNightscoutUpload(enabled: Bool)
 
     case setSensor(sensor: Sensor)
-    case setSensorConnectionState(connectionState: SensorConnectionState)
-    case setSensorError(errorMessage: String, errorTimestamp: Date)
+    case setTransmitter(transmitter: Transmitter)
+    case setConnectionState(connectionState: SensorConnectionState)
+    case setConnectionError(errorMessage: String, errorTimestamp: Date)
     case addGlucose(glucose: Glucose)
     case addGlucoseValues(glucoseValues: [Glucose])
     case addMissedReading

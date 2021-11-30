@@ -224,16 +224,16 @@
 "Sensor Age" = "Sensor Age";
 
 /* (No Comment) */
-"Sensor Connection" = "Sensor Connection";
+"Connection" = "Connection";
 
 /* (No Comment) */
-"Sensor Connection Error" = "Error";
+"Connection Error" = "Error";
 
 /* (No Comment) */
-"Sensor Connection Error Timestamp" = "Time";
+"Connection Error Timestamp" = "Time";
 
 /* (No Comment) */
-"Sensor Connection State" = "State";
+"Connection State" = "State";
 
 /* (No Comment) */
 "Sensor Custom Calibration" = "Custom Calibration";
@@ -263,7 +263,7 @@
 "Sensor Lifetime" = "Lifetime";
 
 /* (No Comment) */
-"Sensor Missed Readings" = "Missed";
+"Missed Readings" = "Missed";
 
 /* (No Comment) */
 "Sensor not yet startet" = "Sensor not yet startet";
@@ -369,3 +369,24 @@
 
 /* (No Comment) */
 "Are you sure you want to add the new blood glucose value?" = "Are you sure you want to add the new blood glucose value?";
+
+/* (No Comment) */
+"Chart presentation" = "Chart presentation";
+
+/* (No Comment) */
+"Line" = "Line";
+
+/* (No Comment) */
+"Points" = "Points";
+
+/* (No Comment) */
+"Transmitter Name" = "Name";
+
+/* (No Comment) */
+"Transmitter Battery" = "Battery";
+
+/* (No Comment) */
+"Transmitter Hardware" = "Hardware";
+
+/* (No Comment) */
+"Transmitter Firmware" = "Firmware";

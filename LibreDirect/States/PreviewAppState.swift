@@ -47,6 +47,7 @@ struct PreviewAppState: AppState {
         lifetime: 24 * 60
     )
     var targetValue: Int = 100
+    var transmitter: Transmitter? = nil
 }
 
 // MARK: - fileprivate
