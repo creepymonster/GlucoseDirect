@@ -67,7 +67,7 @@ struct GlucoseView: View {
                     }.padding(.bottom)
                 }
 
-                if store.state.glucoseAlarm {
+                if store.state.glucoseAlarm && store.state.isPaired {
                     SnoozeView().padding(.bottom, 5)
                 }
             }
