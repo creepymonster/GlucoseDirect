@@ -11,7 +11,11 @@ struct OtherSettings: View {
     var body: some View {
         Section(
             content: {
-                ToggleView(key: LocalizedString("Glucose badge", comment: ""), value: store.state.glucoseBadge) { value -> Void in
+                ToggleView(key: LocalizedString("Chart presentation"), value: store.state.chartShowLines, trueValue: LocalizedString("Line"), falseValue: LocalizedString("Points")) { value -> Void in
+                    store.dispatch(.setChartShowLines(enabled: !store.state.chartShowLines))
+                }
+                
+                ToggleView(key: LocalizedString("Glucose badge"), value: store.state.glucoseBadge) { value -> Void in
                     store.dispatch(.setGlucoseBadge(enabled: value))
                 }
             },

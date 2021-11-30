@@ -23,7 +23,7 @@ struct ContentView: View {
                 Label("Glucose list view", systemImage: "list.dash")
             }.tag(2)
 
-            if store.state.isPaired, store.state.isConnectable || store.state.isDisconnectable, !store.state.glucoseValues.isEmpty {
+            if store.state.isPaired && !store.state.glucoseValues.isEmpty && store.state.isConnectable || store.state.isDisconnectable {
                 CalibrationsView().tabItem {
                     Label("Calibration view", systemImage: "tuningfork")
                 }

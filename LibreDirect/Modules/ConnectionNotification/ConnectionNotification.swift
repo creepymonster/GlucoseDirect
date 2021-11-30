@@ -19,7 +19,7 @@ private func connectionNotificationMiddelware(service: connectionNotificationSer
                 service.clearNotifications()
             }
             
-        case .setSensorConnectionState(connectionState: let connectionState):
+        case .setConnectionState(connectionState: let connectionState):
             guard store.state.connectionAlarm else {
                 break
             }

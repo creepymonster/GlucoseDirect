@@ -32,6 +32,7 @@ struct UserDefaultsAppState: AppState {
         self.nightscoutUpload = UserDefaults.standard.nightscoutUpload
         self.selectedView = UserDefaults.standard.selectedView
         self.sensor = UserDefaults.standard.sensor
+        self.transmitter = UserDefaults.standard.transmitter
     }
 
     // MARK: Internal
@@ -129,4 +130,10 @@ struct UserDefaultsAppState: AppState {
     }
     
     var targetValue: Int = 100
+    
+    var transmitter: Transmitter? {
+        didSet {
+            UserDefaults.standard.transmitter = transmitter
+        }
+    }
 }

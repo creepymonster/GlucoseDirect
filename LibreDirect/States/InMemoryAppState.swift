@@ -35,4 +35,5 @@ struct InMemoryAppState: AppState {
     var selectedView: Int = 1
     var sensor: Sensor?
     var targetValue: Int = 100
+    var transmitter: Transmitter? = nil
 }

@@ -11,7 +11,7 @@ struct Sensor: Codable {
     // MARK: Lifecycle
 
     init(uuid: Data, patchInfo: Data, factoryCalibration: FactoryCalibration, customCalibration: [CustomCalibration], family: SensorFamily, type: SensorType, region: SensorRegion, serial: String?, state: SensorState, age: Int, lifetime: Int, warmupTime: Int = 60) {
-        self.nfcScanTimestamp = Date()
+        self.pairingTimestamp = Date()
         self.fram = nil
         self.uuid = uuid
         self.patchInfo = patchInfo
@@ -28,7 +28,7 @@ struct Sensor: Codable {
     }
 
     init(fram: Data, uuid: Data, patchInfo: Data, factoryCalibration: FactoryCalibration, customCalibration: [CustomCalibration], family: SensorFamily, type: SensorType, region: SensorRegion, serial: String?, state: SensorState, age: Int, lifetime: Int, warmupTime: Int = 60) {
-        self.nfcScanTimestamp = Date()
+        self.pairingTimestamp = Date()
         self.fram = fram
         self.uuid = uuid
         self.patchInfo = patchInfo
@@ -46,7 +46,7 @@ struct Sensor: Codable {
 
     // MARK: Internal
 
-    var nfcScanTimestamp: Date
+    var pairingTimestamp: Date
     let fram: Data?
     let uuid: Data
     let patchInfo: Data
