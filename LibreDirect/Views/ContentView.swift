@@ -23,7 +23,7 @@ struct ContentView: View {
                 Label("Glucose list view", systemImage: "list.dash")
             }.tag(2)
 
-            if store.state.isPaired, store.state.isConnectable || store.state.isDisconnectable, !store.state.glucoseValues.isEmpty {
+            if store.state.isPaired && !store.state.glucoseValues.isEmpty && store.state.isConnectable || store.state.isDisconnectable {
                 CalibrationsView().tabItem {
                     Label("Calibration view", systemImage: "tuningfork")
                 }
@@ -76,8 +76,15 @@ struct ContentView: View {
 // MARK: - ContentView_Previews
 
 struct ContentView_Previews: PreviewProvider {
+    static func createAppState() -> AppState {
+        var state = PreviewAppState()
+        state.selectedView = 4
+        
+        return state
+    }
+    
     static var previews: some View {
-        let store = AppStore(initialState: PreviewAppState())
+        let store = AppStore(initialState: createAppState())
 
         ForEach(ColorScheme.allCases, id: \.self) {
             ContentView().environmentObject(store).preferredColorScheme($0)

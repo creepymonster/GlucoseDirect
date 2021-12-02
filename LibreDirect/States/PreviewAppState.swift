@@ -25,6 +25,7 @@ struct PreviewAppState: AppState {
     var connectionError: String? = "Timeout"
     var connectionErrorTimestamp: Date? = Date()
     var connectionState: SensorConnectionState = .connected
+    var glucoseBadge = true
     var glucoseUnit = GlucoseUnit.mgdL
     var glucoseValues: [Glucose] = createPreviewGlucoseValues()
     var missedReadings: Int = 0
@@ -46,6 +47,7 @@ struct PreviewAppState: AppState {
         lifetime: 24 * 60
     )
     var targetValue: Int = 100
+    var transmitter: Transmitter? = nil
 }
 
 // MARK: - fileprivate

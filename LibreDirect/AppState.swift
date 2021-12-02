@@ -23,6 +23,7 @@ protocol AppState {
     var connectionError: String? { get set }
     var connectionErrorTimestamp: Date? { get set }
     var connectionState: SensorConnectionState { get set }
+    var glucoseBadge: Bool { get set }
     var glucoseUnit: GlucoseUnit { get set }
     var glucoseValues: [Glucose] { get set }
     var missedReadings: Int { get set }
@@ -32,6 +33,7 @@ protocol AppState {
     var selectedView: Int { get set }
     var sensor: Sensor? { get set }
     var targetValue: Int { get set }
+    var transmitter: Transmitter? { get set }
 }
 
 extension AppState {
@@ -47,7 +49,11 @@ extension AppState {
     
     var isDisconnectable: Bool { disconnectableStates.contains(connectionState) }
 
-    var isPaired: Bool { sensor != nil }
+    var isPaired: Bool { isSensorPaired || isTransmitterPaired }
+    
+    var isSensorPaired: Bool { sensor != nil }
+    
+    var isTransmitterPaired: Bool { transmitter != nil }
 
     var isReady: Bool { sensor != nil && sensor!.state == .ready }
 

@@ -14,25 +14,23 @@ func virtualLibreMiddelware() -> Middleware<AppState, AppAction> {
 final class VirtualLibreService: SensorServiceProtocol {
     // MARK: Internal
 
-    func pairSensor() async -> (sensor: Sensor?, nextReading: SensorReading?, trendReadings: [SensorReading], historyReadings: [SensorReading]) {
-        return await withCheckedContinuation { continuation in
-            let sensor = Sensor(
-                uuid: Data(hexString: "e9ad9b6c79bd93aa")!,
-                patchInfo: Data(hexString: "448cd1")!,
-                factoryCalibration: FactoryCalibration(i1: 1, i2: 2, i3: 4, i4: 8, i5: 16, i6: 32),
-                customCalibration: [],
-                family: .unknown,
-                type: .virtual,
-                region: .european,
-                serial: "OBIR2PO",
-                state: .starting,
-                age: initAge,
-                lifetime: 24 * 60,
-                warmupTime: warmupTime
-            )
+    func pairSensor(updatesHandler: @escaping SensorUpdatesHandler) {
+        let sensor = Sensor(
+            uuid: Data(hexString: "e9ad9b6c79bd93aa")!,
+            patchInfo: Data(hexString: "448cd1")!,
+            factoryCalibration: FactoryCalibration(i1: 1, i2: 2, i3: 4, i4: 8, i5: 16, i6: 32),
+            customCalibration: [],
+            family: .unknown,
+            type: .virtual,
+            region: .european,
+            serial: "OBIR2PO",
+            state: .starting,
+            age: initAge,
+            lifetime: 24 * 60,
+            warmupTime: warmupTime
+        )
 
-            continuation.resume(returning: (sensor, nil, [], []))
-        }
+        updatesHandler(SensorUpdate(sensor: sensor))
     }
 
     func sendNextGlucose() {
@@ -82,7 +80,6 @@ final class VirtualLibreService: SensorServiceProtocol {
 
         RunLoop.main.add(timer, forMode: .common)
 
-        updatesHandler(SensorUpdate(sensor: sensor))
         updatesHandler(SensorConnectionStateUpdate(connectionState: .connected))
     }
 

@@ -12,8 +12,9 @@ struct SettingsView: View {
         VStack {
             List {
                 GlucoseSettingsView()
-                AlarmSettingsView()
                 NightscoutSettingsView()
+                AlarmSettingsView()
+                OtherSettings()
             }
         }
     }

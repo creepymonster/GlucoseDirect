@@ -21,7 +21,7 @@ extension Date {
 
         while date <= toDate {
             dates.append(date)
-            guard let newDate = Calendar.current.date(byAdding: .minute, value: step, to: date) else { // Int(Config.xGridDistance)
+            guard let newDate = Calendar.current.date(byAdding: .minute, value: step, to: date) else {
                 break
             }
             date = newDate
@@ -51,80 +51,11 @@ struct SizePreferenceKey: PreferenceKey {
 // MARK: - ChartView
 
 struct ChartView: View {
-    private enum Config {
-        enum alarm {
-            static let strokeStyle = StrokeStyle(lineWidth: lineWidth)
-
-            static var color: Color { Color.ui.red.opacity(opacity) }
-        }
-
-        enum target {
-            static let strokeStyle = StrokeStyle(lineWidth: lineWidth)
-
-            static var color: Color { Color.ui.green.opacity(opacity) }
-        }
-
-        enum now {
-            static let strokeStyle = StrokeStyle(lineWidth: lineWidth, dash: [4, 8])
-
-            static var color: Color { Color.ui.blue.opacity(opacity) }
-        }
-
-        enum dot {
-            static let size: CGFloat = 3.5
-
-            static var cgmColor: Color { Color(hex: "#36454F") | Color(hex: "#E5E4E2") }
-            static var bgmColor: Color { Color.ui.red }
-        }
-
-        enum line {
-            static var size = 2.5
-
-            static var cgmColor: Color { Color(hex: "#36454F") | Color(hex: "#E5E4E2") }
-            static var bgmColor: Color { Color.ui.red }
-        }
-
-        enum x {
-            static let gridStep: Double = 15 // in minutes
-            static let fontSize: CGFloat = 12
-            static let strokeStyle = StrokeStyle(lineWidth: lineWidth)
-            static let gridMinuteWidth = 6
-
-            static var color: Color { Color(hex: "#E4E6EB") | Color(hex: "#404040") } // .opacity(opacity)
-            static var textColor: Color { Color(hex: "#181818") | Color(hex: "#A0A0A0") }
-        }
-
-        enum y {
-            static let additionalBottom: CGFloat = fontSize * 2
-            static let fontSize: CGFloat = 12
-            static let fontWidth: CGFloat = 28
-            static let padding: CGFloat = 20
-            static let strokeStyle = StrokeStyle(lineWidth: lineWidth)
-            static let gridStep = 50
-
-            static var color: Color { Color(hex: "#E4E6EB") | Color(hex: "#404040") }
-            static var textColor: Color { Color(hex: "#181818") | Color(hex: "#A0A0A0") }
-        }
-
-        static let endID = "End"
-        static let height: CGFloat = 350
-        static let lineWidth = 0.1
-        static let maxGlucose = 350
-        static let minGlucose = 0
-        static let opacity = 0.5
-
-        static var backgroundColor: Color { Color(hex: "#F5F5F5") | Color(hex: "#181818") }
-    }
-
-    private let calculationQueue = DispatchQueue(label: "libre-direct.chart-calculation")
-    // private let timer = Timer.publish(every: 10, tolerance: 5, on: .main, in: .default).autoconnect()
-    @StateObject private var updater = MinuteUpdater()
-
     @EnvironmentObject var store: AppStore
 
-    @Environment(\.scenePhase) var scenePhase
     @Environment(\.colorScheme) var colorScheme
 
+    @StateObject private var updater = MinuteUpdater()
     @State var alarmHighGridPath = Path()
     @State var alarmLowGridPath = Path()
     @State var firstTimeStamp: Date? = nil
@@ -169,22 +100,6 @@ struct ChartView: View {
 
                 if deviceColorScheme != scheme {
                     deviceColorScheme = scheme
-                }
-            }
-            .onChange(of: scenePhase) { state in
-                if state == .active {
-                    Log.info("onChange scenePhase: \(state)")
-
-                    updateHelpVariables(fullSize: geo.size, glucoseValues: store.state.glucoseValues)
-
-                    updateYGrid(fullSize: geo.size, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh, targetValue: store.state.targetValue, glucoseUnit: store.state.glucoseUnit)
-                    updateAlarmLowGrid(fullSize: geo.size, alarmLow: store.state.alarmLow)
-                    updateAlarmHighGrid(fullSize: geo.size, alarmHigh: store.state.alarmHigh)
-                    updateTargetGrid(fullSize: geo.size, targetValue: store.state.targetValue)
-                    updateXGrid(fullSize: geo.size, firstTimeStamp: self.firstTimeStamp, lastTimeStamp: self.lastTimeStamp)
-
-                    updateCgmPath(fullSize: geo.size, glucoseValues: cgmValues)
-                    updateBgmPath(fullSize: geo.size, glucoseValues: bgmValues)
                 }
             }
             .onRotate { rotation in
@@ -622,6 +537,73 @@ struct ChartView: View {
 
         return 0
     }
+
+    private enum Config {
+        enum alarm {
+            static let strokeStyle = StrokeStyle(lineWidth: lineWidth)
+
+            static var color: Color { Color.ui.red.opacity(opacity) }
+        }
+
+        enum target {
+            static let strokeStyle = StrokeStyle(lineWidth: lineWidth)
+
+            static var color: Color { Color.ui.green.opacity(opacity) }
+        }
+
+        enum now {
+            static let strokeStyle = StrokeStyle(lineWidth: lineWidth, dash: [4, 8])
+
+            static var color: Color { Color.ui.blue.opacity(opacity) }
+        }
+
+        enum dot {
+            static let size: CGFloat = 3.5
+
+            static var cgmColor: Color { Color(hex: "#36454F") | Color(hex: "#E5E4E2") }
+            static var bgmColor: Color { Color.ui.red }
+        }
+
+        enum line {
+            static var size = 2.5
+
+            static var cgmColor: Color { Color(hex: "#36454F") | Color(hex: "#E5E4E2") }
+            static var bgmColor: Color { Color.ui.red }
+        }
+
+        enum x {
+            static let gridStep: Double = 15 // in minutes
+            static let fontSize: CGFloat = 12
+            static let strokeStyle = StrokeStyle(lineWidth: lineWidth)
+            static let gridMinuteWidth = 6
+
+            static var color: Color { Color(hex: "#E4E6EB") | Color(hex: "#404040") } // .opacity(opacity)
+            static var textColor: Color { Color(hex: "#181818") | Color(hex: "#A0A0A0") }
+        }
+
+        enum y {
+            static let additionalBottom: CGFloat = fontSize * 2
+            static let fontSize: CGFloat = 12
+            static let fontWidth: CGFloat = 28
+            static let padding: CGFloat = 20
+            static let strokeStyle = StrokeStyle(lineWidth: lineWidth)
+            static let gridStep = 50
+
+            static var color: Color { Color(hex: "#E4E6EB") | Color(hex: "#404040") }
+            static var textColor: Color { Color(hex: "#181818") | Color(hex: "#A0A0A0") }
+        }
+
+        static let endID = "End"
+        static let height: CGFloat = 350
+        static let lineWidth = 0.1
+        static let maxGlucose = 350
+        static let minGlucose = 0
+        static let opacity = 0.5
+
+        static var backgroundColor: Color { Color(hex: "#F5F5F5") | Color(hex: "#181818") }
+    }
+
+    private let calculationQueue = DispatchQueue(label: "libre-direct.chart-calculation")
 }
 
 // MARK: - MinuteUpdater

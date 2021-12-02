@@ -14,6 +14,11 @@ func expiringNotificationMiddelware() -> Middleware<AppState, AppAction> {
 private func expiringNotificationMiddelware(service: expiringNotificationService) -> Middleware<AppState, AppAction> {
     return { store, action, _ in
         switch action {
+        case .setExpiringAlarm(enabled: let enabled):
+            if !enabled {
+                service.clearNotifications()
+            }
+            
         case .setSensorState(sensorAge: let sensorAge, sensorState: _):
             guard store.state.expiringAlarm else {
                 break

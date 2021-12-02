@@ -19,6 +19,7 @@ enum AppAction {
     case setGlucoseAlarm(enabled: Bool)
     case setExpiringAlarm(enabled: Bool)
     case setConnectionAlarm(enabled: Bool)
+    case setGlucoseBadge(enabled: Bool)
     
     case setAlarmHigh(upperLimit: Int)
     case setAlarmLow(lowerLimit: Int)
@@ -30,8 +31,9 @@ enum AppAction {
     case setNightscoutUpload(enabled: Bool)
 
     case setSensor(sensor: Sensor)
-    case setSensorConnectionState(connectionState: SensorConnectionState)
-    case setSensorError(errorMessage: String, errorTimestamp: Date)
+    case setTransmitter(transmitter: Transmitter)
+    case setConnectionState(connectionState: SensorConnectionState)
+    case setConnectionError(errorMessage: String, errorTimestamp: Date)
     case addGlucose(glucose: Glucose)
     case addGlucoseValues(glucoseValues: [Glucose])
     case addMissedReading

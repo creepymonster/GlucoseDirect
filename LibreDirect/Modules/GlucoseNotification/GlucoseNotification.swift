@@ -14,8 +14,12 @@ func glucoseNotificationMiddelware() -> Middleware<AppState, AppAction> {
 private func glucoseNotificationMiddelware(service: glucoseNotificationService) -> Middleware<AppState, AppAction> {
     return { store, action, _ in
         switch action {
+        case .setGlucoseAlarm(enabled: let enabled):
+            if !enabled {
+                service.clearNotifications()
+            }
         case .addGlucose(glucose: let glucose):
-            guard store.state.glucoseAlarm else {
+            guard store.state.glucoseAlarm && glucose.type == .cgm else {
                 break
             }
             

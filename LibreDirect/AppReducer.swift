@@ -37,17 +37,18 @@ func appReducer(state: inout AppState, action: AppAction) {
 
     case .resetSensor:
         state.sensor = nil
+        state.transmitter = nil
         state.connectionError = nil
 
     case .selectView(viewTag: let viewTag):
         state.selectedView = viewTag
-        
+
     case .setGlucoseAlarm(enabled: let enabled):
         state.glucoseAlarm = enabled
-        
+
     case .setExpiringAlarm(enabled: let enabled):
         state.expiringAlarm = enabled
-        
+
     case .setConnectionAlarm(enabled: let enabled):
         state.connectionAlarm = enabled
 
@@ -70,6 +71,9 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setChartShowLines(enabled: let enabled):
         state.chartShowLines = enabled
 
+    case .setGlucoseBadge(enabled: let enabled):
+        state.glucoseBadge = enabled
+
     case .setGlucoseUnit(unit: let unit):
         state.glucoseUnit = unit
 
@@ -85,7 +89,7 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setSensor(sensor: let sensor):
         state.sensor = sensor
 
-    case .setSensorConnectionState(connectionState: let connectionState):
+    case .setConnectionState(connectionState: let connectionState):
         state.connectionState = connectionState
 
         if resetableStates.contains(connectionState) {
@@ -93,9 +97,12 @@ func appReducer(state: inout AppState, action: AppAction) {
             state.connectionErrorTimestamp = nil
         }
 
-    case .setSensorError(errorMessage: let errorMessage, errorTimestamp: let errorTimestamp):
+    case .setConnectionError(errorMessage: let errorMessage, errorTimestamp: let errorTimestamp):
         state.connectionError = errorMessage
         state.connectionErrorTimestamp = errorTimestamp
+        
+    case .setTransmitter(transmitter: let transmitter):
+        state.transmitter = transmitter
 
     case .addGlucose(glucose: let glucose):
         state.missedReadings = 0

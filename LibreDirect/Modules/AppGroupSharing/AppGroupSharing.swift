@@ -1,3 +1,4 @@
+
 //
 //  FreeAPS.swift
 //  LibreDirect
@@ -6,11 +7,11 @@
 import Combine
 import Foundation
 
-func freeAPSMiddleware() -> Middleware<AppState, AppAction> {
-    return freeAPSMiddleware(service: FreeAPSService())
+func appGroupSharingMiddleware() -> Middleware<AppState, AppAction> {
+    return appGroupSharingMiddleware(service: AppGroupSharingService())
 }
 
-private func freeAPSMiddleware(service: FreeAPSService) -> Middleware<AppState, AppAction> {
+private func appGroupSharingMiddleware(service: AppGroupSharingService) -> Middleware<AppState, AppAction> {
     return { _, action, _ in
         switch action {
         case .addGlucose(glucose: let glucose):
@@ -26,7 +27,7 @@ private func freeAPSMiddleware(service: FreeAPSService) -> Middleware<AppState, 
 
 // MARK: - FreeAPSService
 
-private class FreeAPSService {
+private class AppGroupSharingService {
     // MARK: Lifecycle
 
     init() {}
@@ -34,17 +35,17 @@ private class FreeAPSService {
     // MARK: Internal
 
     func addGlucose(glucoseValues: [Glucose]) {
-        let freeAPSValues = glucoseValues.map { $0.toFreeAPS() }
+        let sharedValues = glucoseValues.map { $0.toFreeAPS() }
 
-        Log.info("FreeAPS, values: \(freeAPSValues)")
+        Log.info("Shared values, values: \(sharedValues)")
 
-        guard let freeAPSJson = try? JSONSerialization.data(withJSONObject: freeAPSValues) else {
+        guard let sharedValuesJson = try? JSONSerialization.data(withJSONObject: sharedValues) else {
             return
         }
 
-        Log.info("FreeAPS, json: \(freeAPSJson)")
+        Log.info("Shared values, json: \(sharedValuesJson)")
 
-        UserDefaults.appGroup.freeAPSLatestReadings = freeAPSJson
+        UserDefaults.shared.latestReadings = sharedValuesJson
     }
 }
 
@@ -54,8 +55,9 @@ private extension Glucose {
 
         let freeAPSGlucose: [String: Any] = [
             "Value": self.glucoseValue,
+            "Trend": self.trend.toFreeAPS(),
             "DT": date,
-            "direction": self.trend.toFreeAPS()
+            "direction": self.trend.toFreeAPSX()
         ]
 
         return freeAPSGlucose
@@ -63,7 +65,28 @@ private extension Glucose {
 }
 
 private extension SensorTrend {
-    func toFreeAPS() -> String {
+    func toFreeAPS() -> Int {
+        switch self {
+        case .rapidlyRising:
+            return 1
+        case .fastRising:
+            return 2
+        case .rising:
+            return 3
+        case .constant:
+            return 4
+        case .falling:
+            return 5
+        case .fastFalling:
+            return 6
+        case .rapidlyFalling:
+            return 7
+        case .unknown:
+            return 0
+        }
+    }
+    
+    func toFreeAPSX() -> String {
         switch self {
         case .rapidlyRising:
             return "DoubleUp"

@@ -15,6 +15,40 @@ func sensorMiddelware(service: SensorServiceProtocol) -> Middleware<AppState, Ap
 
 private func sensorMiddelware(sensorService: SensorServiceProtocol, calibrationService: CalibrationService) -> Middleware<AppState, AppAction> {
     return { store, action, _ in
+        let updatesHandler: SensorUpdatesHandler = { update -> Void in
+            let dispatch = store.dispatch
+            var action: AppAction?
+
+            if let connectionUpdate = update as? SensorConnectionStateUpdate {
+                action = .setConnectionState(connectionState: connectionUpdate.connectionState)
+
+            } else if let readingUpdate = update as? SensorReadingUpdate {
+                if let nextReading = readingUpdate.nextReading {
+                    action = .addSensorReadings(nextReading: nextReading, trendReadings: readingUpdate.trendReadings, historyReadings: readingUpdate.historyReadings)
+                } else {
+                    action = .addMissedReading
+                }
+
+            } else if let stateUpdate = update as? SensorStateUpdate {
+                action = .setSensorState(sensorAge: stateUpdate.sensorAge, sensorState: stateUpdate.sensorState)
+
+            } else if let errorUpdate = update as? SensorErrorUpdate {
+                action = .setConnectionError(errorMessage: errorUpdate.errorMessage, errorTimestamp: errorUpdate.errorTimestamp)
+
+            } else if let sensorUpdate = update as? SensorUpdate {
+                action = .setSensor(sensor: sensorUpdate.sensor)
+            } else if let transmitterUpdate = update as? SensorTransmitterUpdate {
+                action = .setTransmitter(transmitter: transmitterUpdate.transmitter)
+                
+            }
+
+            if let action = action {
+                DispatchQueue.main.async {
+                    dispatch(action)
+                }
+            }
+        }
+
         switch action {
         case .addSensorReadings(nextReading: let nextReading, trendReadings: let trendReadings, historyReadings: _):
             if let sensor = store.state.sensor, let glucose = calibrationService.calibrate(sensor: sensor, nextReading: nextReading, currentGlucose: store.state.currentGlucose) {
@@ -33,61 +67,16 @@ private func sensorMiddelware(sensorService: SensorServiceProtocol, calibrationS
                         store.dispatch(.addGlucoseValues(glucoseValues: calibratedTrend))
                     }
                 } else {
-                    Log.info("Current glucose: \(glucose.description)")
                     store.dispatch(.addGlucose(glucose: glucose))
                 }
             }
 
         case .pairSensor:
-            Task {
-                let dispatch = store.dispatch
-
-                let pairedSensor = await sensorService.pairSensor()
-                if let sensor = pairedSensor.sensor {
-                    DispatchQueue.main.async {
-                        dispatch(.setSensor(sensor: sensor))
-
-                        if let nextReading = pairedSensor.nextReading {
-                            dispatch(.addSensorReadings(nextReading: nextReading, trendReadings: pairedSensor.trendReadings, historyReadings: pairedSensor.historyReadings))
-                        }
-                    }
-                }
-            }
+            sensorService.pairSensor(updatesHandler: updatesHandler)
 
         case .connectSensor:
             guard let sensor = store.state.sensor else {
                 break
-            }
-
-            let updatesHandler: SensorUpdatesHandler = { update -> Void in
-                let dispatch = store.dispatch
-                var action: AppAction?
-
-                if let connectionUpdate = update as? SensorConnectionStateUpdate {
-                    action = .setSensorConnectionState(connectionState: connectionUpdate.connectionState)
-
-                } else if let readingUpdate = update as? SensorReadingUpdate {
-                    if let nextReading = readingUpdate.nextReading {
-                        action = .addSensorReadings(nextReading: nextReading, trendReadings: readingUpdate.trendReadings, historyReadings: readingUpdate.historyReadings)
-                    } else {
-                        action = .addMissedReading
-                    }
-
-                } else if let stateUpdate = update as? SensorStateUpdate {
-                    action = .setSensorState(sensorAge: stateUpdate.sensorAge, sensorState: stateUpdate.sensorState)
-
-                } else if let errorUpdate = update as? SensorErrorUpdate {
-                    action = .setSensorError(errorMessage: errorUpdate.errorMessage, errorTimestamp: errorUpdate.errorTimestamp)
-
-                } else if let sensorUpdate = update as? SensorUpdate {
-                    action = .setSensor(sensor: sensorUpdate.sensor)
-                }
-
-                if let action = action {
-                    DispatchQueue.main.async {
-                        dispatch(action)
-                    }
-                }
             }
 
             sensorService.connectSensor(sensor: sensor, updatesHandler: updatesHandler)
@@ -113,7 +102,7 @@ typealias SensorService = SensorServiceClass & SensorServiceProtocol
 // MARK: - SensorServiceProtocol
 
 protocol SensorServiceProtocol {
-    func pairSensor() async -> (sensor: Sensor?, nextReading: SensorReading?, trendReadings: [SensorReading], historyReadings: [SensorReading])
+    func pairSensor(updatesHandler: @escaping SensorUpdatesHandler)
     func connectSensor(sensor: Sensor, updatesHandler: @escaping SensorUpdatesHandler)
     func disconnectSensor()
 }
@@ -152,6 +141,27 @@ class SensorServiceClass: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
             peripheral?.delegate = self
 
             UserDefaults.standard.devicePeripheralUuid = peripheral?.identifier.uuidString
+        }
+    }
+    
+    func connectSensor(sensor: Sensor, updatesHandler: @escaping SensorUpdatesHandler) {
+        dispatchPrecondition(condition: .notOnQueue(managerQueue))
+        Log.info("ConnectSensor: \(sensor)")
+
+        self.updatesHandler = updatesHandler
+        self.sensor = sensor
+
+        managerQueue.async {
+            self.find()
+        }
+    }
+
+    func disconnectSensor() {
+        dispatchPrecondition(condition: .notOnQueue(managerQueue))
+        Log.info("DisconnectSensor")
+
+        managerQueue.sync {
+            self.disconnect()
         }
     }
 
@@ -201,7 +211,7 @@ class SensorServiceClass: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
         }
 
         sendUpdate(connectionState: .disconnected)
-        
+
         sensor = nil
         updatesHandler = nil
     }
@@ -242,29 +252,26 @@ class SensorServiceClass: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     // MARK: - sendUpdate
 
     func sendUpdate(connectionState: SensorConnectionState) {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
-
         Log.info("ConnectionState: \(connectionState.description)")
         updatesHandler?(SensorConnectionStateUpdate(connectionState: connectionState))
     }
 
     func sendUpdate(sensor: Sensor) {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
-
         Log.info("Sensor: \(sensor.description)")
         updatesHandler?(SensorUpdate(sensor: sensor))
     }
+    
+    func sendUpdate(transmitter: Transmitter) {
+        Log.info("Transmitter: \(transmitter.description)")
+        updatesHandler?(SensorTransmitterUpdate(transmitter: transmitter))
+    }
 
     func sendUpdate(age: Int, state: SensorState) {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
-
         Log.info("SensorAge: \(age.description)")
         updatesHandler?(SensorStateUpdate(sensorAge: age, sensorState: state))
     }
 
     func sendUpdate(trendReadings: [SensorReading] = [], historyReadings: [SensorReading] = []) {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
-
         Log.info("SensorTrendReadings: \(trendReadings)")
         Log.info("SensorHistoryReadings: \(historyReadings)")
 
@@ -280,15 +287,11 @@ class SensorServiceClass: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     }
 
     func sendUpdate(errorMessage: String) {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
-
         Log.error("ErrorMessage: \(errorMessage)")
         updatesHandler?(SensorErrorUpdate(errorMessage: errorMessage))
     }
 
     func sendUpdate(errorCode: Int) {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
-
         Log.error("ErrorCode: \(errorCode)")
         updatesHandler?(SensorErrorUpdate(errorCode: errorCode))
     }

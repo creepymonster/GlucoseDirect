@@ -227,22 +227,22 @@
 "Sensor Age" = "Alter";
 
 /* (No Comment) */
-"Sensor Connection" = "Verbindung";
+"Connection" = "Verbindung";
 
 /* (No Comment) */
-"Sensor Connection Error" = "Fehler";
+"Connection Error" = "Fehler";
 
 /* (No Comment) */
-"Sensor Connection Error Timestamp" = "Zeit";
+"Connection Error Timestamp" = "Zeit";
 
 /* (No Comment) */
-"Sensor Connection State" = "Status";
+"Connection State" = "Status";
 
 /* (No Comment) */
 "Sensor Custom Calibration" = "Individuelle Kalibrierung";
 
 /* (No Comment) */
-"Sensor Details" = "Details";
+"Sensor Details" = "Sensor Details";
 
 /* (No Comment) */
 "Sensor Factory Calibration" = "Werkskalibrierung";
@@ -266,7 +266,7 @@
 "Sensor Lifetime" = "Lebensdauer";
 
 /* (No Comment) */
-"Sensor Missed Readings" = "Verpasst";
+"Missed Readings" = "Verpasst";
 
 /* (No Comment) */
 "Sensor not yet startet" = "Nicht gestartet";
@@ -335,7 +335,7 @@
 "Warning, sensor missed %1$@ readings" = "Warnung, Sensor hat %1$@ Messwerte nicht erfasst.";
 
 /* (No Comment) */
-"Wearing time alarm" = "Tragedauer";
+"Wearing time alarm" = "Tragedauer Alarm";
 
 /* (No Comment) */
 "Your current glucose is %1$@ (%2$@)." = "Ihr aktueller Blutzuckerwert ist %1$@ (%2$@).";
@@ -364,3 +364,32 @@
 /* (No Comment) */
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Ihr Sensor läuft demnächst ab. Ersetzen Sie den Sensor in %1$@ Minuten.";
 
+/* (No Comment) */
+"Other Settings" = "Zusätzliche Einstellungen";
+
+/* (No Comment) */
+"Glucose badge" = "Glukose Badge";
+
+/* (No Comment) */
+"Are you sure you want to add the new blood glucose value?" = "Sind Sie sicher, dass Sie den neuen Blutzuckerwert hinzufügen möchten?";
+
+/* (No Comment) */
+"Chart presentation" = "Diagramm";
+
+/* (No Comment) */
+"Line" = "Linie";
+
+/* (No Comment) */
+"Points" = "Punkte";
+
+/* (No Comment) */
+"Transmitter Name" = "Name";
+
+/* (No Comment) */
+"Transmitter Battery" = "Batterie";
+
+/* (No Comment) */
+"Transmitter Hardware" = "Hardware";
+
+/* (No Comment) */
+"Transmitter Firmware" = "Firmware";

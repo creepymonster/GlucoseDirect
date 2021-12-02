@@ -14,7 +14,12 @@ func connectionNotificationMiddelware() -> Middleware<AppState, AppAction> {
 private func connectionNotificationMiddelware(service: connectionNotificationService) -> Middleware<AppState, AppAction> {
     return { store, action, lastState in
         switch action {
-        case .setSensorConnectionState(connectionState: let connectionState):
+        case .setConnectionAlarm(enabled: let enabled):
+            if !enabled {
+                service.clearNotifications()
+            }
+            
+        case .setConnectionState(connectionState: let connectionState):
             guard store.state.connectionAlarm else {
                 break
             }

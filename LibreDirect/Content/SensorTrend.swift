@@ -35,13 +35,13 @@ enum SensorTrend: String, Codable {
 }
 
 private func translateSlope(slope: Double) -> SensorTrend {
-    if slope > 3 {
+    if slope > 3.5 {
         return .rapidlyRising
     } else if slope > 2 {
         return .fastRising
     } else if slope > 1 {
         return .rising
-    } else if slope < -3 {
+    } else if slope < -3.5 {
         return .rapidlyFalling
     } else if slope < -2 {
         return .fastFalling
