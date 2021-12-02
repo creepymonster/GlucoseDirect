@@ -15,11 +15,13 @@ final class LibreDirectApp: App {
     init() {
         UNUserNotificationCenter.current().delegate = notificationCenterDelegate
 
-        if store.state.isPaired && store.state.isConnectable {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {
-                self.store.dispatch(.connectSensor)
-            }
-        }
+        /* if store.state.isPaired && store.state.isConnectable {
+             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {
+                 self.store.dispatch(.connectSensor)
+             }
+         } */
+
+        store.dispatch(.startup)
     }
 
     // MARK: Internal
@@ -62,15 +64,15 @@ final class LibreDirectApp: App {
         return AppStore(initialState: InMemoryAppState(), reducer: appReducer, middlewares: [
             // required middlewares
             actionLogMiddleware(),
+            sensorConnectorMiddelware([
+                SensorConnectionInfo(id: "virtual", name: "Virtual", connection: VirtualLibreConnection.self)
+            ]),
 
-            // sensor middleware
-            virtualLibreMiddelware(),
-
-            // other middlewares
+            // notification middleswares
             expiringNotificationMiddelware(),
             glucoseNotificationMiddelware(),
-            glucoseBadgeMiddelware(),
             connectionNotificationMiddelware(),
+            glucoseBadgeMiddelware(),
         ])
     }
 
@@ -78,15 +80,18 @@ final class LibreDirectApp: App {
         return AppStore(initialState: UserDefaultsAppState(), reducer: appReducer, middlewares: [
             // required middlewares
             actionLogMiddleware(),
+            sensorConnectorMiddelware([
+                SensorConnectionInfo(id: "libre2", name: "Libre 2", connection: Libre2Connection.self),
+                SensorConnectionInfo(id: "virtual", name: "Virtual", connection: VirtualLibreConnection.self)
+            ]),
 
-            // sensor middleware
-            libre2Middelware(),
-
-            // other middlewares
+            // notification middleswares
             expiringNotificationMiddelware(),
             glucoseNotificationMiddelware(),
-            glucoseBadgeMiddelware(),
             connectionNotificationMiddelware(),
+            glucoseBadgeMiddelware(),
+
+            // export middlewares
             nightscoutMiddleware(),
             appGroupSharingMiddleware(),
         ])

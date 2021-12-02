@@ -29,7 +29,7 @@ struct NumberSelectorView: View {
     let completionHandler: NumberSelectorCompletionHandler?
     let step: Int
 
-    var intProxy: Binding<Double> {
+    var doubleProxy: Binding<Double> {
         Binding<Double>(get: {
             Double(value)
         }, set: {
@@ -59,7 +59,7 @@ struct NumberSelectorView: View {
                 .foregroundColor(Color.primary)
                 .buttonStyle(.borderless)
                 
-                Slider(value: intProxy, in: 40 ... 500).onChange(of: value, perform: { value in
+                Slider(value: doubleProxy, in: 40 ... 500).onChange(of: value, perform: { value in
                     if let completionHandler = completionHandler {
                         completionHandler(value)
                     }

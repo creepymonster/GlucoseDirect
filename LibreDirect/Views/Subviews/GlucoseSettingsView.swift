@@ -13,20 +13,20 @@ struct GlucoseSettingsView: View {
     var body: some View {
         Section(
             content: {
-                ToggleView(key: LocalizedString("Glucose Unit", comment: ""), value: store.state.glucoseUnit.asBool, trueValue: true.asGlucoseUnit.description, falseValue: false.asGlucoseUnit.description) { value -> Void in
+                ToggleView(key: LocalizedString("Glucose unit", comment: ""), value: store.state.glucoseUnit.asBool, trueValue: true.asGlucoseUnit.description, falseValue: false.asGlucoseUnit.description) { value -> Void in
                     store.dispatch(.setGlucoseUnit(unit: value.asGlucoseUnit))
                 }
                 
-                NumberSelectorView(key: LocalizedString("Lower Limit", comment: ""), value: store.state.alarmLow, step: 5, displayValue: store.state.alarmLow.asGlucose(unit: store.state.glucoseUnit, withUnit: true)) { value -> Void in
+                NumberSelectorView(key: LocalizedString("Lower limit", comment: ""), value: store.state.alarmLow, step: 5, displayValue: store.state.alarmLow.asGlucose(unit: store.state.glucoseUnit, withUnit: true)) { value -> Void in
                     store.dispatch(.setAlarmLow(lowerLimit: value))
                 }
                 
-                NumberSelectorView(key: LocalizedString("Upper Limit", comment: ""), value: store.state.alarmHigh, step: 5, displayValue: store.state.alarmHigh.asGlucose(unit: store.state.glucoseUnit, withUnit: true)) { value -> Void in
+                NumberSelectorView(key: LocalizedString("Upper limit", comment: ""), value: store.state.alarmHigh, step: 5, displayValue: store.state.alarmHigh.asGlucose(unit: store.state.glucoseUnit, withUnit: true)) { value -> Void in
                     store.dispatch(.setAlarmHigh(upperLimit: value))
                 }
             },
             header: {
-                Label("Glucose Settings", systemImage: "cross.case")
+                Label("Glucose settings", systemImage: "cross.case")
             }
         )
     }

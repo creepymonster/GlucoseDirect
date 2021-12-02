@@ -9,7 +9,7 @@ enum SensorConnectionState: String {
     case connected = "Connected"
     case connecting = "Connecting"
     case disconnected = "Disconnected"
-    case powerOff = "Power Off"
+    case powerOff = "Power off"
     case scanning = "Scanning"
     case unknown = "Unknown"
 

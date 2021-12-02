@@ -1,5 +1,6 @@
+
 //
-//  LibreUtility.swift
+//  SensorUtility.swift
 //  LibreDirect
 //
 //  Special thanks to: guidos, ivalkou and dabear and many others
@@ -385,7 +386,7 @@ enum Libre2 {
             }
 
             let timestamp = Date().addingTimeInterval(TimeInterval(-60 * (age - id)))
-            
+
             let glucoseValue = calibration.calibrate(rawValue: Double(rawGlucoseValue), rawTemperature: Double(rawTemperature), rawTemperatureAdjustment: Double(rawTemperatureAdjustment))
             let reading = SensorReading(id: UUID(), timestamp: timestamp, glucoseValue: glucoseValue)
 

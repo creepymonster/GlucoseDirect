@@ -24,6 +24,7 @@ private enum Keys: String {
     case selectedView = "libre-direct.settings.selected-view"
     case sensor = "libre-direct.settings.sensor"
     case transmitter = "libre-direct.settings.transmitter"
+    case selectedConnectionId = "libre-direct.settings.selected-connection-id"
 }
 
 extension UserDefaults {
@@ -235,6 +236,19 @@ extension UserDefaults {
                 setObject(newValue, forKey: Keys.transmitter.rawValue)
             } else {
                 removeObject(forKey: Keys.transmitter.rawValue)
+            }
+        }
+    }
+    
+    var selectedConnectionId: String? {
+        get {
+            return string(forKey: Keys.selectedConnectionId.rawValue)
+        }
+        set {
+            if let newValue = newValue {
+                set(newValue, forKey: Keys.selectedConnectionId.rawValue)
+            } else {
+                removeObject(forKey: Keys.selectedConnectionId.rawValue)
             }
         }
     }

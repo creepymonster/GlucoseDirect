@@ -10,6 +10,36 @@ func appReducer(state: inout AppState, action: AppAction) {
     dispatchPrecondition(condition: .onQueue(.main))
 
     switch action {
+    case .startup:
+        break
+
+    case .registerConnectionInfo(infos: let infos):
+        state.connectionInfos.append(contentsOf: infos)
+
+        if let id = state.selectedConnectionId, let connectionInfo = infos.first(where: { $0.id == id }) {
+            Log.info("Select startup connection: \(connectionInfo.name)")
+            state.selectedConnection = connectionInfo.connection.init()
+        } else if infos.count == 1, let connectionInfo = infos.first {
+            Log.info("Select single startup connection: \(connectionInfo.name)")
+            state.selectedConnection = connectionInfo.connection.init()
+        } else if let connectionInfo = infos.first {
+            Log.info("Select first startup connection: \(connectionInfo.name)")
+            state.selectedConnection = connectionInfo.connection.init()
+        }
+
+    case .selectedConnectionId(id: _):
+        break
+
+    case .selectedConnection(id: let id, connection: let connection):
+        if id != state.selectedConnectionId {
+            state.selectedConnectionId = id
+            state.selectedConnection = connection
+            
+            state.sensor = nil
+            state.transmitter = nil
+            state.connectionError = nil
+        }
+
     case .addCalibration(glucoseValue: let glucoseValue):
         if let factoryCalibratedGlucoseValue = state.currentGlucose?.initialGlucoseValue {
             let calibration = CustomCalibration(x: Double(factoryCalibratedGlucoseValue), y: Double(glucoseValue))
@@ -100,7 +130,7 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setConnectionError(errorMessage: let errorMessage, errorTimestamp: let errorTimestamp):
         state.connectionError = errorMessage
         state.connectionErrorTimestamp = errorTimestamp
-        
+
     case .setTransmitter(transmitter: let transmitter):
         state.transmitter = transmitter
 

@@ -16,11 +16,11 @@ struct ActionsView: View {
 
     var body: some View {
         HStack {
-            if store.state.isPaired {
+            if store.state.hasSelectedConnection && store.state.isPaired {
                 if !store.state.isDisconnectable {
                     Button(
                         action: { showingUnpairSensorAlert = true },
-                        label: { Label("Unpair Sensor", systemImage: "arrow.uturn.backward") }
+                        label: { Label("Unpair sensor", systemImage: "arrow.uturn.backward") }
                     ).alert(isPresented: $showingUnpairSensorAlert) {
                         Alert(
                             title: Text("Are you sure you want to unpair the sensor?"),
@@ -36,12 +36,12 @@ struct ActionsView: View {
                     Spacer()
 
                     Button(action: { store.dispatch(.connectSensor) }) {
-                        Label("Connect Sensor", systemImage: "play")
+                        Label("Connect sensor", systemImage: "play")
                     }
                 } else if store.state.isDisconnectable {
                     Button(
                         action: { showingDisconnectSensorAlert = true },
-                        label: { Label("Disconnect Sensor", systemImage: "stop") }
+                        label: { Label("Disconnect sensor", systemImage: "stop") }
                     ).alert(isPresented: $showingDisconnectSensorAlert) {
                         Alert(
                             title: Text("Are you sure you want to disconnect the sensor?"),
@@ -52,9 +52,9 @@ struct ActionsView: View {
                         )
                     }
                 }
-            } else {
+            } else if store.state.hasSelectedConnection {
                 Button(action: { store.dispatch(.pairSensor) }) {
-                    Label("Pair Sensor", systemImage: "arrow.uturn.forward")
+                    Label("Pair sensor", systemImage: "arrow.uturn.forward")
                 }
             }
         }.padding([.top, .horizontal])

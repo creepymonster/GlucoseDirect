@@ -1,38 +1,35 @@
 //
-//  SensorConnection.swift
+//  Libre2Connection.swift
 //  LibreDirect
-//
-//  Special thanks to: guidos
 //
 
 import Combine
 import CoreBluetooth
 import Foundation
 
-// MARK: - Libre2Service
+// MARK: - Libre2Connection
 
-@available(iOS 15.0, *)
-final class Libre2Service: SensorService {
+final class Libre2Connection: SensorConnection {
     // MARK: Lifecycle
 
-    init() {
-        super.init(serviceUuid: [CBUUID(string: "FDE3")])
+    required init() {
+        super.init()
+
+        self.manager = CBCentralManager(delegate: self, queue: managerQueue, options: [CBCentralManagerOptionShowPowerAlertKey: true, CBCentralManagerOptionRestoreIdentifierKey: "libre-direct.ble-device.restore-identifier"])
+    }
+
+    deinit {
+        managerQueue.sync {
+            disconnect()
+        }
     }
 
     // MARK: Internal
 
-    let expectedBufferSize = 46
-
-    var writeCharacteristicUuid = CBUUID(string: "F001")
-    var readCharacteristicUuid = CBUUID(string: "F002")
-
-    var readCharacteristic: CBCharacteristic?
-    var writeCharacteristic: CBCharacteristic?
-
-    func pairSensor(updatesHandler: @escaping SensorUpdatesHandler) {
+    func pairSensor(updatesHandler: @escaping SensorConnectionHandler) {
         dispatchPrecondition(condition: .notOnQueue(managerQueue))
         Log.info("PairSensor")
-        
+
         self.updatesHandler = updatesHandler
 
         Task {
@@ -43,13 +40,34 @@ final class Libre2Service: SensorService {
 
             if let pairedSensor = pairedSensor {
                 sendUpdate(sensor: pairedSensor)
-                
+
                 if let fram = pairedSensor.fram, pairedSensor.state == .ready {
                     let parsedFram = Libre2.parseFRAM(calibration: pairedSensor.factoryCalibration, pairingTimestamp: pairedSensor.pairingTimestamp, fram: fram)
-                    
+
                     sendUpdate(trendReadings: parsedFram.trend, historyReadings: parsedFram.history)
                 }
             }
+        }
+    }
+
+    func connectSensor(sensor: Sensor, updatesHandler: @escaping SensorConnectionHandler) {
+        dispatchPrecondition(condition: .notOnQueue(managerQueue))
+        Log.info("ConnectSensor: \(sensor)")
+
+        self.sensor = sensor
+        self.updatesHandler = updatesHandler
+
+        managerQueue.async {
+            self.find()
+        }
+    }
+
+    func disconnectSensor() {
+        dispatchPrecondition(condition: .notOnQueue(managerQueue))
+        Log.info("DisconnectSensor")
+
+        managerQueue.sync {
+            self.disconnect()
         }
     }
 
@@ -65,6 +83,176 @@ final class Libre2Service: SensorService {
 
         let unlockPayload = Libre2.streamingUnlockPayload(sensorUID: sensor!.uuid, info: sensor!.patchInfo, enableTime: 42, unlockCount: UInt16(UserDefaults.standard.libre2UnlockCount))
         return Data(unlockPayload)
+    }
+
+    func find() {
+        dispatchPrecondition(condition: .onQueue(managerQueue))
+        Log.info("find")
+
+        setStayConnected(stayConnected: true)
+
+        guard manager.state == .poweredOn else {
+            return
+        }
+
+        if let peripheralUuidString = UserDefaults.standard.libre2PeripheralUuid,
+           let peripheralUuid = UUID(uuidString: peripheralUuidString),
+           let retrievedPeripheral = manager.retrievePeripherals(withIdentifiers: [peripheralUuid]).first
+        {
+            connect(retrievedPeripheral)
+        } else if let retrievedPeripheral = manager.retrieveConnectedPeripherals(withServices: serviceUuid).first {
+            connect(retrievedPeripheral)
+        } else {
+            scan()
+        }
+    }
+
+    func scan() {
+        dispatchPrecondition(condition: .onQueue(managerQueue))
+        Log.info("scan")
+
+        sendUpdate(connectionState: .scanning)
+        manager.scanForPeripherals(withServices: serviceUuid, options: nil)
+    }
+
+    func disconnect() {
+        dispatchPrecondition(condition: .onQueue(managerQueue))
+        Log.info("Disconnect")
+
+        setStayConnected(stayConnected: false)
+
+        if manager.isScanning {
+            manager.stopScan()
+        }
+
+        if let peripheral = peripheral {
+            manager.cancelPeripheralConnection(peripheral)
+            self.peripheral = nil
+        }
+
+        sendUpdate(connectionState: .disconnected)
+
+        sensor = nil
+        updatesHandler = nil
+    }
+
+    func connect() {
+        dispatchPrecondition(condition: .onQueue(managerQueue))
+        Log.info("Connect")
+
+        if let peripheral = peripheral {
+            connect(peripheral)
+        } else {
+            find()
+        }
+    }
+
+    func connect(_ peripheral: CBPeripheral) {
+        dispatchPrecondition(condition: .onQueue(managerQueue))
+        Log.info("Connect: \(peripheral)")
+
+        if self.peripheral != peripheral {
+            self.peripheral = peripheral
+        }
+
+        manager.connect(peripheral, options: nil)
+        sendUpdate(connectionState: .connecting)
+    }
+
+    func resetBuffer() {
+        Log.info("ResetBuffer")
+        rxBuffer = Data()
+    }
+
+    func setStayConnected(stayConnected: Bool) {
+        Log.info("StayConnected: \(stayConnected.description)")
+        self.stayConnected = stayConnected
+    }
+
+    // MARK: Private
+
+    private let expectedBufferSize = 46
+    private var rxBuffer = Data()
+
+    private var manager: CBCentralManager!
+    private let managerQueue = DispatchQueue(label: "libre-direct.ble-device.queue")
+
+    private var serviceUuid: [CBUUID] = [CBUUID(string: "FDE3")]
+    private var writeCharacteristicUuid = CBUUID(string: "F001")
+    private var readCharacteristicUuid = CBUUID(string: "F002")
+
+    private var readCharacteristic: CBCharacteristic?
+    private var writeCharacteristic: CBCharacteristic?
+
+    private var stayConnected = false
+    private var sensor: Sensor?
+
+    private var peripheral: CBPeripheral? {
+        didSet {
+            oldValue?.delegate = nil
+            peripheral?.delegate = self
+
+            UserDefaults.standard.libre2PeripheralUuid = peripheral?.identifier.uuidString
+        }
+    }
+}
+
+// MARK: CBCentralManagerDelegate
+
+extension Libre2Connection: CBCentralManagerDelegate {
+    func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        dispatchPrecondition(condition: .onQueue(managerQueue))
+
+        Log.info("State: \(manager.state.rawValue)")
+
+        switch manager.state {
+        case .poweredOff:
+            sendUpdate(connectionState: .powerOff)
+
+        case .poweredOn:
+            sendUpdate(connectionState: .disconnected)
+
+            guard stayConnected else {
+                break
+            }
+
+            find()
+        default:
+            sendUpdate(connectionState: .unknown)
+        }
+    }
+
+    func centralManager(_ central: CBCentralManager, willRestoreState dict: [String: Any]) {
+        dispatchPrecondition(condition: .onQueue(managerQueue))
+        Log.info("Peripheral: \(peripheral), willRestoreState")
+    }
+
+    func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
+        dispatchPrecondition(condition: .onQueue(managerQueue))
+        Log.info("Peripheral: \(peripheral), didFailToConnect")
+
+        sendUpdate(connectionState: .disconnected)
+        sendUpdate(error: error)
+
+        guard stayConnected else {
+            return
+        }
+
+        connect()
+    }
+
+    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        dispatchPrecondition(condition: .onQueue(managerQueue))
+        Log.info("Peripheral: \(peripheral), didDisconnectPeripheral")
+
+        sendUpdate(connectionState: .disconnected)
+        sendUpdate(error: error)
+
+        guard stayConnected else {
+            return
+        }
+
+        connect()
     }
 
     // MARK: - CBCentralManagerDelegate
@@ -100,9 +288,11 @@ final class Libre2Service: SensorService {
 
         peripheral.discoverServices(serviceUuid)
     }
+}
 
-    // MARK: - CBPeripheralDelegate
+// MARK: CBPeripheralDelegate
 
+extension Libre2Connection: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
         Log.info("Peripheral: \(peripheral)")
@@ -201,7 +391,21 @@ final class Libre2Service: SensorService {
 
 private extension UserDefaults {
     enum Keys: String {
+        case devicePeripheralUuid = "libre-direct.libre2.peripheral-uuid"
         case libre2UnlockCount = "libre-direct.libre2.unlock-count"
+    }
+
+    var libre2PeripheralUuid: String? {
+        get {
+            return UserDefaults.standard.string(forKey: Keys.devicePeripheralUuid.rawValue)
+        }
+        set {
+            if let newValue = newValue {
+                UserDefaults.standard.setValue(newValue, forKey: Keys.devicePeripheralUuid.rawValue)
+            } else {
+                UserDefaults.standard.removeObject(forKey: Keys.devicePeripheralUuid.rawValue)
+            }
+        }
     }
 
     var libre2UnlockCount: Int {

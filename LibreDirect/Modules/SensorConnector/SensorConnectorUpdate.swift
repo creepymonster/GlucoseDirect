@@ -1,3 +1,4 @@
+
 //
 //  DeviceUpdate.swift
 //  LibreDirect
@@ -5,13 +6,13 @@
 
 import Foundation
 
-// MARK: - SensorServiceUpdate
+// MARK: - SensorConnectorUpdate
 
-class SensorServiceUpdate {}
+class SensorConnectorUpdate {}
 
 // MARK: - SensorTransmitterUpdate
 
-class SensorTransmitterUpdate: SensorServiceUpdate {
+class SensorTransmitterUpdate: SensorConnectorUpdate {
     // MARK: Lifecycle
 
     init(transmitter: Transmitter) {
@@ -25,7 +26,7 @@ class SensorTransmitterUpdate: SensorServiceUpdate {
 
 // MARK: - SensorStateUpdate
 
-class SensorStateUpdate: SensorServiceUpdate {
+class SensorStateUpdate: SensorConnectorUpdate {
     // MARK: Lifecycle
 
     init(sensorAge: Int, sensorState: SensorState) {
@@ -41,7 +42,7 @@ class SensorStateUpdate: SensorServiceUpdate {
 
 // MARK: - SensorConnectionStateUpdate
 
-class SensorConnectionStateUpdate: SensorServiceUpdate {
+class SensorConnectionStateUpdate: SensorConnectorUpdate {
     // MARK: Lifecycle
 
     init(connectionState: SensorConnectionState) {
@@ -55,7 +56,7 @@ class SensorConnectionStateUpdate: SensorServiceUpdate {
 
 // MARK: - SensorUpdate
 
-class SensorUpdate: SensorServiceUpdate {
+class SensorUpdate: SensorConnectorUpdate {
     // MARK: Lifecycle
 
     init(sensor: Sensor) {
@@ -69,7 +70,7 @@ class SensorUpdate: SensorServiceUpdate {
 
 // MARK: - SensorReadingUpdate
 
-class SensorReadingUpdate: SensorServiceUpdate {
+class SensorReadingUpdate: SensorConnectorUpdate {
     // MARK: Lifecycle
 
     init(nextReading: SensorReading?, trendReadings: [SensorReading] = [], historyReadings: [SensorReading] = []) {
@@ -87,7 +88,7 @@ class SensorReadingUpdate: SensorServiceUpdate {
 
 // MARK: - SensorErrorUpdate
 
-class SensorErrorUpdate: SensorServiceUpdate {
+class SensorErrorUpdate: SensorConnectorUpdate {
     // MARK: Lifecycle
 
     init(errorMessage: String) {

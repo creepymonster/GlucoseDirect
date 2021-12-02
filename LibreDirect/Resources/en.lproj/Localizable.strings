@@ -77,7 +77,7 @@
 "Chart (%1$@)" = "Chart";
 
 /* (No Comment) */
-"Connect Sensor" = "Connect Sensor";
+"Connect sensor" = "Connect sensor";
 
 /* (No Comment) */
 "Connected" = "Connected";
@@ -89,16 +89,13 @@
 "Connection alarm" = "Connection alarm";
 
 /* (No Comment) */
-"Custom Calibration" = "Calibration";
+"Custom calibration" = "Calibration";
 
 /* (No Comment) */
-"Custom Calibration count" = "Count";
+"Custom calibration intercept" = "Intercept";
 
 /* (No Comment) */
-"Custom Calibration intercept" = "Intercept";
-
-/* (No Comment) */
-"Custom Calibration slope" = "Slope";
+"Custom calibration slope" = "Slope";
 
 /* (No Comment) */
 "Delete" = "Delete";
@@ -107,34 +104,31 @@
 "Delete all" = "Delete all";
 
 /* (No Comment) */
-"Delete Calibrations" = "Delete all";
-
-/* (No Comment) */
 "Disconnect" = "Disconnect";
 
 /* (No Comment) */
-"Disconnect Sensor" = "Disconnect Sensor";
+"Disconnect sensor" = "Disconnect sensor";
 
 /* (No Comment) */
 "Disconnected" = "Disconnected";
 
 /* (No Comment) */
-"Factory Calibration i1" = "i1";
+"Factory calibration i1" = "i1";
 
 /* (No Comment) */
-"Factory Calibration i2" = "i2";
+"Factory calibration i2" = "i2";
 
 /* (No Comment) */
-"Factory Calibration i3" = "i3";
+"Factory calibration i3" = "i3";
 
 /* (No Comment) */
-"Factory Calibration i4" = "i4";
+"Factory calibration i4" = "i4";
 
 /* (No Comment) */
-"Factory Calibration i5" = "i5";
+"Factory calibration i5" = "i5";
 
 /* (No Comment) */
-"Factory Calibration i6" = "i6";
+"Factory calibration i6" = "i6";
 
 /* (No Comment) */
 "Glucose alarm" = "Glucose alarm";
@@ -146,10 +140,10 @@
 "Glucose overview" = "Overview";
 
 /* (No Comment) */
-"Glucose Settings" = "Glucose Settings";
+"Glucose settings" = "Glucose settings";
 
 /* (No Comment) */
-"Glucose Unit" = "Unit";
+"Glucose unit" = "Unit";
 
 /* (No Comment) */
 "Glucose values" = "Glucose values";
@@ -182,7 +176,7 @@
 "Libre US 14d" = "Libre US 14d";
 
 /* (No Comment) */
-"Lower Limit" = "Low";
+"Lower limit" = "Low";
 
 /* (No Comment) */
 "mg/dL" = "mg/dL";
@@ -191,19 +185,19 @@
 "mmol/L" = "mmol/L";
 
 /* (No Comment) */
-"New Calibration" = "New Calibration";
+"New calibration" = "New calibration";
 
 /* (No Comment) */
 "Nightscout API-Secret" = "API-Secret";
 
 /* (No Comment) */
-"Nightscout Host" = "Host";
+"Nightscout host" = "Host";
 
 /* (No Comment) */
-"Nightscout Settings" = "Nightscout Settings";
+"Nightscout settings" = "Nightscout settings";
 
 /* (No Comment) */
-"Nightscout Upload Enabled" = "Upload";
+"Nightscout upload enabled" = "Upload";
 
 /* (No Comment) */
 "Now" = "Now";
@@ -212,37 +206,37 @@
 "OK, sensor connection established" = "OK, sensor connection established";
 
 /* (No Comment) */
-"Pair Sensor" = "Pair Sensor";
+"Pair sensor" = "Pair sensor";
 
 /* (No Comment) */
-"Power Off" = "Power Off";
+"Power off" = "Power off";
 
 /* (No Comment) */
 "Scanning" = "Scanning";
 
 /* (No Comment) */
-"Sensor Age" = "Sensor Age";
+"Sensor age" = "Sensor age";
 
 /* (No Comment) */
 "Connection" = "Connection";
 
 /* (No Comment) */
-"Connection Error" = "Error";
+"Connection error" = "Error";
 
 /* (No Comment) */
-"Connection Error Timestamp" = "Time";
+"Connection error timestamp" = "Time";
 
 /* (No Comment) */
-"Connection State" = "State";
+"Connection state" = "State";
 
 /* (No Comment) */
-"Sensor Custom Calibration" = "Custom Calibration";
+"Sensor custom calibration" = "Custom Calibration";
 
 /* (No Comment) */
-"Sensor Details" = "Sensor Details";
+"Sensor details" = "Sensor details";
 
 /* (No Comment) */
-"Sensor Factory Calibration" = "Factory Calibration";
+"Sensor factory calibration" = "Factory Calibration";
 
 /* (No Comment) */
 "Sensor has failure" = "Sensor has failure";
@@ -260,10 +254,10 @@
 "Sensor is shut down" = "Sensor is expired";
 
 /* (No Comment) */
-"Sensor Lifetime" = "Lifetime";
+"Sensor lifetime" = "Lifetime";
 
 /* (No Comment) */
-"Missed Readings" = "Missed";
+"Missed readings" = "Missed";
 
 /* (No Comment) */
 "Sensor not yet startet" = "Sensor not yet startet";
@@ -272,25 +266,25 @@
 "Sensor PatchInfo" = "PatchInfo";
 
 /* (No Comment) */
-"Sensor Possible Lifetime" = "Lifetime";
+"Sensor possible lifetime" = "Lifetime";
 
 /* (No Comment) */
-"Sensor Region" = "Region";
+"Sensor region" = "Region";
 
 /* (No Comment) */
-"Sensor Remaining Lifetime" = "Remaining";
+"Sensor remaining lifetime" = "Remaining";
 
 /* (No Comment) */
-"Sensor Remaining Warmup time" = "Warmup";
+"Sensor remaining warmup time" = "Warmup";
 
 /* (No Comment) */
-"Sensor Serial" = "Serial";
+"Sensor serial" = "Serial";
 
 /* (No Comment) */
-"Sensor State" = "State";
+"Sensor state" = "State";
 
 /* (No Comment) */
-"Sensor Type" = "Type";
+"Sensor type" = "Type";
 
 /* (No Comment) */
 "Sensor UID" = "UID";
@@ -299,7 +293,7 @@
 "Settings view" = "Settings";
 
 /* (No Comment) */
-"Snooze Until" = "Snooze";
+"Snooze until" = "Snooze";
 
 /* (No Comment) */
 "Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "Unfortunately, an NFC-enabled iPhone is required to use the app :'(";
@@ -320,10 +314,10 @@
 "Unpair" = "Unpair";
 
 /* (No Comment) */
-"Unpair Sensor" = "Unpair Sensor";
+"Unpair sensor" = "Unpair sensor";
 
 /* (No Comment) */
-"Upper Limit" = "High";
+"Upper limit" = "High";
 
 /* (No Comment) */
 "Virtual Sensor" = "Virtual Sensor";
@@ -380,13 +374,19 @@
 "Points" = "Points";
 
 /* (No Comment) */
-"Transmitter Name" = "Name";
+"Transmitter name" = "Name";
 
 /* (No Comment) */
-"Transmitter Battery" = "Battery";
+"Transmitter battery" = "Battery";
 
 /* (No Comment) */
-"Transmitter Hardware" = "Hardware";
+"Transmitter hardware" = "Hardware";
 
 /* (No Comment) */
-"Transmitter Firmware" = "Firmware";
+"Transmitter firmware" = "Firmware";
+
+/* (No Comment) */
+"Sensor connection type" = "Sensor connection type";
+
+/* (No Comment) */
+"Sensor connection" = "Sensor connection";
