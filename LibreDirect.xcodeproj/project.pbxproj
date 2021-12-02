@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4941588D2754463500169EA3 /* LibreDirect.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4941588C2754463500169EA3 /* LibreDirect.xcconfig */; };
 		E20786232686283F004EEF1C /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20786222686283F004EEF1C /* ActionsView.swift */; };
 		E207862A2686306B004EEF1C /* ValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20786292686306B004EEF1C /* ValueView.swift */; };
 		E20B853E266F4A9800AA4224 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B853D266F4A9800AA4224 /* App.swift */; };
@@ -108,6 +109,7 @@
 /* Begin PBXFileReference section */
 		1938BB6F2752F8D10047059C /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1938BB702752F8D20047059C /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4941588C2754463500169EA3 /* LibreDirect.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = LibreDirect.xcconfig; sourceTree = "<group>"; };
 		E20786222686283F004EEF1C /* ActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsView.swift; sourceTree = "<group>"; };
 		E20786292686306B004EEF1C /* ValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueView.swift; sourceTree = "<group>"; };
 		E20B853A266F4A9800AA4224 /* LibreDirect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LibreDirect.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -215,6 +217,7 @@
 		E20B8531266F4A9800AA4224 = {
 			isa = PBXGroup;
 			children = (
+				4941588C2754463500169EA3 /* LibreDirect.xcconfig */,
 				E20B853C266F4A9800AA4224 /* LibreDirect */,
 				E27BFC0126B1407E00F8FBEF /* Frameworks */,
 				E20B853B266F4A9800AA4224 /* Products */,
@@ -575,6 +578,7 @@
 				E24077B326B881C2001767C0 /* InfoPlist.strings in Resources */,
 				E2FCAC87270743E200FE1CBF /* Localizable.strings in Resources */,
 				E20B8542266F4A9900AA4224 /* Assets.xcassets in Resources */,
+				4941588D2754463500169EA3 /* LibreDirect.xcconfig in Resources */,
 				E2FCAC7E270743B100FE1CBF /* alarm.aiff in Resources */,
 				E2FCAC7C270743B100FE1CBF /* expiring.aiff in Resources */,
 				E2FCAC7F270743B100FE1CBF /* negative.aiff in Resources */,

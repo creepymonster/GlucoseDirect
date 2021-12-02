@@ -1,0 +1,8 @@
+//
+//  AppConfig.xcconfig
+//  LibreDirect
+//
+
+PRODUCT_BUNDLE_IDENTIFIER = com.rcg.libre-direct
+APP_GROUP_ID = group.com.$(DEVELOPMENT_TEAM).loopkit.LoopGroups
+DEVELOPMENT_TEAM = M8UYM6388E
