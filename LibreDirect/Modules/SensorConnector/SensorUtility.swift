@@ -146,7 +146,7 @@ enum Libre2 {
             family: family,
             type: SensorType(patchInfo),
             region: SensorRegion(patchInfo[3]),
-            serial: Libre2.sensorSerialNumber(sensorUID: uuid, sensorFamily: family),
+            serial: Libre2.sensorSerialNumber(uuid: uuid, sensorFamily: family),
             state: SensorState(fram[4]),
             age: Int(fram[316]) + Int(fram[317]) << 8,
             lifetime: Int(fram[326]) + Int(fram[327]) << 8
@@ -169,14 +169,14 @@ enum Libre2 {
         return FactoryCalibration(i1: i1, i2: i2, i3: i3, i4: i4, i5: i5, i6: i6)
     }
 
-    static func sensorSerialNumber(sensorUID: Data, sensorFamily: SensorFamily) -> String? {
+    static func sensorSerialNumber(uuid: Data, sensorFamily: SensorFamily) -> String? {
         let lookupTable = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "R", "T", "U", "V", "W", "X", "Y", "Z"]
 
-        guard sensorUID.count == 8 else {
+        guard uuid.count == 8 else {
             return nil
         }
 
-        let bytes = Array(sensorUID.reversed().suffix(6))
+        let bytes = Array(uuid.reversed().suffix(6))
         var fiveBitsArray = [UInt8]()
         fiveBitsArray.append(bytes[0] >> 3)
         fiveBitsArray.append(bytes[0] << 2 + bytes[1] >> 6)
@@ -199,21 +199,21 @@ enum Libre2 {
         }
     }
 
-    static func streamingUnlockPayload(sensorUID: Data, info: Data, enableTime: UInt32, unlockCount: UInt16) -> [UInt8] {
+    static func streamingUnlockPayload(uuid: Data, patchInfo: Data, enableTime: UInt32, unlockCount: UInt16) -> [UInt8] {
         // First 4 bytes are just int32 of timestamp + unlockCount
         let time = enableTime + UInt32(unlockCount)
         let b: [UInt8] = [UInt8(time & 0xff), UInt8((time >> 8) & 0xff), UInt8((time >> 16) & 0xff), UInt8((time >> 24) & 0xff)]
 
         // Then we need data of activation command and enable command that were sent to sensor
-        let ad = PreLibre2.usefulFunction(sensorUID: sensorUID, x: 0x1b, y: 0x1b6a)
-        let ed = PreLibre2.usefulFunction(sensorUID: sensorUID, x: 0x1e, y: UInt16(enableTime & 0xffff) ^ UInt16(info[5], info[4]))
+        let ad = PreLibre2.usefulFunction(sensorUID: uuid, x: 0x1b, y: 0x1b6a)
+        let ed = PreLibre2.usefulFunction(sensorUID: uuid, x: 0x1e, y: UInt16(enableTime & 0xffff) ^ UInt16(patchInfo[5], patchInfo[4]))
 
         let t11 = UInt16(ed[1], ed[0]) ^ UInt16(b[3], b[2])
         let t12 = UInt16(ad[1], ad[0])
         let t13 = UInt16(ed[3], ed[2]) ^ UInt16(b[1], b[0])
         let t14 = UInt16(ad[3], ad[2])
 
-        let t2 = PreLibre2.processCrypto(input: PreLibre2.prepareVariables(sensorUID: sensorUID, i1: t11, i2: t12, i3: t13, i4: t14))
+        let t2 = PreLibre2.processCrypto(input: PreLibre2.prepareVariables(sensorUID: uuid, i1: t11, i2: t12, i3: t13, i4: t14))
 
         // TODO: extract if secret
         let t31 = crc16(Data([0xc1, 0xc4, 0xc3, 0xc0, 0xd4, 0xe1, 0xe7, 0xba, UInt8(t2[0] & 0xff), UInt8((t2[0] >> 8) & 0xff)])).byteSwapped
@@ -221,20 +221,20 @@ enum Libre2 {
         let t33 = crc16(Data([ad[0], ad[1], ad[2], ad[3], ed[0], ed[1]])).byteSwapped
         let t34 = crc16(Data([ed[2], ed[3], b[0], b[1], b[2], b[3]])).byteSwapped
 
-        let t4 = PreLibre2.processCrypto(input: PreLibre2.prepareVariables(sensorUID: sensorUID, i1: t31, i2: t32, i3: t33, i4: t34))
+        let t4 = PreLibre2.processCrypto(input: PreLibre2.prepareVariables(sensorUID: uuid, i1: t31, i2: t32, i3: t33, i4: t34))
 
         let res = [UInt8(t4[0] & 0xff), UInt8((t4[0] >> 8) & 0xff), UInt8(t4[1] & 0xff), UInt8((t4[1] >> 8) & 0xff), UInt8(t4[2] & 0xff), UInt8((t4[2] >> 8) & 0xff), UInt8(t4[3] & 0xff), UInt8((t4[3] >> 8) & 0xff)]
 
         return [b[0], b[1], b[2], b[3], res[0], res[1], res[2], res[3], res[4], res[5], res[6], res[7]]
     }
 
-    static func decryptBLE(sensorUID: Data, data: Data) throws -> [UInt8] {
-        let d = PreLibre2.usefulFunction(sensorUID: sensorUID, x: 0x1b, y: 0x1b6a)
+    static func decryptBLE(uuid: Data, data: Data) throws -> [UInt8] {
+        let d = PreLibre2.usefulFunction(sensorUID: uuid, x: 0x1b, y: 0x1b6a)
         let x = UInt16(d[1], d[0]) ^ UInt16(d[3], d[2]) | 0x63
         let y = UInt16(data[1], data[0]) ^ 0x63
 
         var key = [UInt8]()
-        var initialKey = PreLibre2.processCrypto(input: PreLibre2.prepareVariables(sensorUID: sensorUID, x: x, y: y))
+        var initialKey = PreLibre2.processCrypto(input: PreLibre2.prepareVariables(sensorUID: uuid, x: x, y: y))
 
         for _ in 0 ..< 8 {
             key.append(UInt8(truncatingIfNeeded: initialKey[0]))
@@ -256,10 +256,35 @@ enum Libre2 {
             struct DecryptBLEError: LocalizedError {
                 var errorDescription: String? { "BLE data decryption failed" }
             }
+            
             throw DecryptBLEError()
         }
 
         return result
+    }
+    
+    static func decryptFRAM(uuid: Data, patchInfo: Data, fram: Data) throws -> Data {
+        func getArg(block: Int) -> UInt16 {
+            return UInt16(patchInfo[5], patchInfo[4]) ^ 0x44
+        }
+
+        var result = [UInt8]()
+
+        for i in 0 ..< 43 {
+            let input = PreLibre2.prepareVariables(sensorUID: uuid, x: UInt16(i), y: getArg(block: i))
+            let blockKey = PreLibre2.processCrypto(input: input)
+
+            result.append(fram[i * 8 + 0] ^ UInt8(truncatingIfNeeded: blockKey[0]))
+            result.append(fram[i * 8 + 1] ^ UInt8(truncatingIfNeeded: blockKey[0] >> 8))
+            result.append(fram[i * 8 + 2] ^ UInt8(truncatingIfNeeded: blockKey[1]))
+            result.append(fram[i * 8 + 3] ^ UInt8(truncatingIfNeeded: blockKey[1] >> 8))
+            result.append(fram[i * 8 + 4] ^ UInt8(truncatingIfNeeded: blockKey[2]))
+            result.append(fram[i * 8 + 5] ^ UInt8(truncatingIfNeeded: blockKey[2] >> 8))
+            result.append(fram[i * 8 + 6] ^ UInt8(truncatingIfNeeded: blockKey[3]))
+            result.append(fram[i * 8 + 7] ^ UInt8(truncatingIfNeeded: blockKey[3] >> 8))
+        }
+        
+        return Data(result)
     }
 
     static func parseFRAM(calibration: FactoryCalibration, pairingTimestamp: Date, fram: Data) -> (trend: [SensorReading], history: [SensorReading]) {

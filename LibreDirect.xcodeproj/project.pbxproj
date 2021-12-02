@@ -270,9 +270,9 @@
 		E264775B274A9C6F0053BF6F /* States */ = {
 			isa = PBXGroup;
 			children = (
-				E2FCAC402707420100FE1CBF /* PreviewAppState.swift */,
-				E2FCAC3D2707420000FE1CBF /* UserDefaultsAppState.swift */,
 				E2D7238027491C4C00455FB9 /* InMemoryAppState.swift */,
+				E2FCAC3D2707420000FE1CBF /* UserDefaultsAppState.swift */,
+				E2FCAC402707420100FE1CBF /* PreviewAppState.swift */,
 			);
 			path = States;
 			sourceTree = "<group>";

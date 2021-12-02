@@ -81,7 +81,7 @@ final class Libre2Connection: SensorConnection {
 
         UserDefaults.standard.libre2UnlockCount = UserDefaults.standard.libre2UnlockCount + 1
 
-        let unlockPayload = Libre2.streamingUnlockPayload(sensorUID: sensor!.uuid, info: sensor!.patchInfo, enableTime: 42, unlockCount: UInt16(UserDefaults.standard.libre2UnlockCount))
+        let unlockPayload = Libre2.streamingUnlockPayload(uuid: sensor!.uuid, patchInfo: sensor!.patchInfo, enableTime: 42, unlockCount: UInt16(UserDefaults.standard.libre2UnlockCount))
         return Data(unlockPayload)
     }
 
@@ -274,7 +274,7 @@ extension Libre2Connection: CBCentralManagerDelegate {
 
             let result = foundUUID == sensor.uuid && peripheral.name?.lowercased().starts(with: "abbott") ?? false
             if result {
-                manager.stopScan()
+                manager.stopScan()                
                 connect(peripheral)
             }
         }
@@ -366,7 +366,7 @@ extension Libre2Connection: CBPeripheralDelegate {
         if rxBuffer.count == expectedBufferSize {
             if let sensor = sensor {
                 do {
-                    let decryptedBLE = Data(try Libre2.decryptBLE(sensorUID: sensor.uuid, data: rxBuffer))
+                    let decryptedBLE = Data(try Libre2.decryptBLE(uuid: sensor.uuid, data: rxBuffer))
                     let parsedBLE = Libre2.parseBLE(calibration: sensor.factoryCalibration, data: decryptedBLE)
 
                     if parsedBLE.age >= sensor.lifetime {

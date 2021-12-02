@@ -33,7 +33,7 @@ struct UserDefaultsAppState: AppState {
         self.selectedView = UserDefaults.standard.selectedView
         self.sensor = UserDefaults.standard.sensor
         self.transmitter = UserDefaults.standard.transmitter
-        self.selectedConnectionId = UserDefaults.standard.selectedConnectionId
+        self.selectedConnectionId = UserDefaults.standard.selectedConnectionId ?? "libre2"
     }
 
     // MARK: Internal

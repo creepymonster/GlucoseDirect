@@ -81,8 +81,8 @@ final class LibreDirectApp: App {
             // required middlewares
             actionLogMiddleware(),
             sensorConnectorMiddelware([
-                SensorConnectionInfo(id: "libre2", name: "Libre 2", connection: Libre2Connection.self),
-                SensorConnectionInfo(id: "virtual", name: "Virtual", connection: VirtualLibreConnection.self)
+                SensorConnectionInfo(id: "libre2", name: LocalizedString("Without transmitter"), connection: Libre2Connection.self),
+                SensorConnectionInfo(id: "bubble", name: LocalizedString("Bubble transmitter"), connection: BubbleConnection.self),
             ]),
 
             // notification middleswares
