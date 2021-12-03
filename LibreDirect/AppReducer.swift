@@ -16,28 +16,15 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .registerConnectionInfo(infos: let infos):
         state.connectionInfos.append(contentsOf: infos)
 
-        if let id = state.selectedConnectionId, let connectionInfo = infos.first(where: { $0.id == id }) {
-            Log.info("Select startup connection: \(connectionInfo.name)")
-            state.selectedConnection = connectionInfo.connection.init()
-        } else if infos.count == 1, let connectionInfo = infos.first {
-            Log.info("Select single startup connection: \(connectionInfo.name)")
-            state.selectedConnection = connectionInfo.connection.init()
-        } else if let connectionInfo = infos.first {
-            Log.info("Select first startup connection: \(connectionInfo.name)")
-            state.selectedConnection = connectionInfo.connection.init()
-        }
-
     case .selectedConnectionId(id: _):
-        break
+        state.sensor = nil
+        state.transmitter = nil
+        state.connectionError = nil
 
     case .selectedConnection(id: let id, connection: let connection):
-        if id != state.selectedConnectionId {
+        if id != state.selectedConnectionId || state.selectedConnection == nil {
             state.selectedConnectionId = id
             state.selectedConnection = connection
-            
-            state.sensor = nil
-            state.transmitter = nil
-            state.connectionError = nil
         }
 
     case .addCalibration(glucoseValue: let glucoseValue):
