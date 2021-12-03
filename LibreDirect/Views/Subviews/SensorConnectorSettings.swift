@@ -5,18 +5,22 @@
 
 import SwiftUI
 
+// MARK: - SensorConnectorSettings
+
 struct SensorConnectorSettings: View {
+    // MARK: Internal
+
     @EnvironmentObject var store: AppStore
-    
+
     var body: some View {
         if store.state.connectionInfos.count > 1 {
             Section(
                 content: {
                     HStack {
-                        Text("Sensor connection type")
+                        Text("Transmitter")
                         Spacer()
 
-                        Picker("Connection", selection: selectedConnectionId) {
+                        Picker("Transmitter", selection: selectedConnectionId) {
                             ForEach(store.state.connectionInfos, id: \.id) { info in
                                 Text(info.name)
                             }
@@ -31,7 +35,9 @@ struct SensorConnectorSettings: View {
             )
         }
     }
-    
+
+    // MARK: Private
+
     private var selectedConnectionId: Binding<String> {
         Binding(
             get: { store.state.selectedConnectionId ?? "" },
@@ -39,6 +45,8 @@ struct SensorConnectorSettings: View {
         )
     }
 }
+
+// MARK: - SensorConnectorSettings_Previews
 
 struct SensorConnectorSettings_Previews: PreviewProvider {
     static var previews: some View {
