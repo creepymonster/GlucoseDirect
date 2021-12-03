@@ -8,7 +8,7 @@ I try to keep the code as readable and understandable as possible so that as man
 
 ## Current features
 - Libre 2 EU support, for cgm values (without transmitter)
-- support for bubble transmitter
+- support for bubble transmitter (experimental, untested with Libre 1)
 - Add manual bgm values
 - Manage bgm/cgm values
 - Units mg/dL or mmol/L
@@ -29,7 +29,6 @@ I try to keep the code as readable and understandable as possible so that as man
 - Snooze for glucose alerts
 
 ## Roadmap
-- Refactor to allow different sensors or transmitters (load md on demand)
 - Other diabetes sources to upload to (like tidepool, ...)
 
 ## Quick test?
