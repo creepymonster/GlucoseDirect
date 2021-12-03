@@ -1,4 +1,3 @@
-
 //
 //  VirtualConnection.swift
 //  LibreDirect
@@ -9,6 +8,10 @@ import Foundation
 // MARK: - VirtualLibreConnection
 
 final class VirtualLibreConnection: SensorConnection {
+    // MARK: Lifecycle
+
+    override required init() {}
+
     // MARK: Internal
 
     func pairSensor(updatesHandler: @escaping SensorConnectionHandler) {
@@ -33,7 +36,6 @@ final class VirtualLibreConnection: SensorConnection {
     }
 
     func connectSensor(sensor: Sensor, updatesHandler: @escaping SensorConnectionHandler) {
-        self.sensor = sensor
         self.updatesHandler = updatesHandler
 
         let fireDate = Date().rounded(on: 1, .minute).addingTimeInterval(60)
