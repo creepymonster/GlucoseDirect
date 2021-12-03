@@ -29,7 +29,6 @@ I try to keep the code as readable and understandable as possible so that as man
 - Snooze for glucose alerts
 
 ## Roadmap
-- Refactor to allow different sensors or transmitters (load md on demand)
 - Other diabetes sources to upload to (like tidepool, ...)
 
 ## Quick test?
