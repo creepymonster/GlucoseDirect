@@ -6,6 +6,11 @@
 import Foundation
 
 enum AppAction {
+    case startup
+    case registerConnectionInfo(infos: [SensorConnectionInfo])
+    case selectedConnectionId(id: String)
+    case selectedConnection(id: String, connection: SensorConnection)
+
     case addCalibration(glucoseValue: Int)
     case clearCalibrations
     case removeCalibration(id: UUID)
@@ -20,7 +25,7 @@ enum AppAction {
     case setExpiringAlarm(enabled: Bool)
     case setConnectionAlarm(enabled: Bool)
     case setGlucoseBadge(enabled: Bool)
-    
+
     case setAlarmHigh(upperLimit: Int)
     case setAlarmLow(lowerLimit: Int)
     case setAlarmSnoozeUntil(untilDate: Date?)

@@ -10,6 +10,23 @@ func appReducer(state: inout AppState, action: AppAction) {
     dispatchPrecondition(condition: .onQueue(.main))
 
     switch action {
+    case .startup:
+        break
+
+    case .registerConnectionInfo(infos: let infos):
+        state.connectionInfos.append(contentsOf: infos)
+
+    case .selectedConnectionId(id: _):
+        state.sensor = nil
+        state.transmitter = nil
+        state.connectionError = nil
+
+    case .selectedConnection(id: let id, connection: let connection):
+        if id != state.selectedConnectionId || state.selectedConnection == nil {
+            state.selectedConnectionId = id
+            state.selectedConnection = connection
+        }
+
     case .addCalibration(glucoseValue: let glucoseValue):
         if let factoryCalibratedGlucoseValue = state.currentGlucose?.initialGlucoseValue {
             let calibration = CustomCalibration(x: Double(factoryCalibratedGlucoseValue), y: Double(glucoseValue))
@@ -100,7 +117,7 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setConnectionError(errorMessage: let errorMessage, errorTimestamp: let errorTimestamp):
         state.connectionError = errorMessage
         state.connectionErrorTimestamp = errorTimestamp
-        
+
     case .setTransmitter(transmitter: let transmitter):
         state.transmitter = transmitter
 

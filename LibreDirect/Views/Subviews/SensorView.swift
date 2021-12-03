@@ -16,6 +16,15 @@ struct SensorView: View {
 
     @State var deviceColorScheme = ColorScheme.light
 
+    var batteryEndAngle: Double? {
+        if let transmitter = store.state.transmitter {
+            let angle = 3.6 * Double(transmitter.battery)
+            return angle
+        }
+
+        return nil
+    }
+
     var remainingWarmupEndAngle: Double? {
         if let sensor = store.state.sensor, let remainingWarmupTime = sensor.remainingWarmupTime {
             let angle = (360.0 / Double(sensor.warmupTime)) * Double(remainingWarmupTime)
@@ -49,14 +58,14 @@ struct SensorView: View {
                 Section(
                     content: {
                         HStack {
-                            Text("Connection State")
+                            Text("Connection state")
                             Spacer()
                             Text(store.state.connectionState.localizedString).textSelection(.enabled)
                         }
 
                         if store.state.missedReadings > 0 {
                             HStack {
-                                Text("Missed Readings")
+                                Text("Missed readings")
                                 Spacer()
                                 Text(store.state.missedReadings.description).textSelection(.enabled)
                             }
@@ -64,7 +73,7 @@ struct SensorView: View {
 
                         if let connectionError = store.state.connectionError {
                             HStack {
-                                Text("Connection Error")
+                                Text("Connection error")
                                 Spacer()
                                 Text(connectionError).textSelection(.enabled)
                             }
@@ -72,7 +81,7 @@ struct SensorView: View {
 
                         if let connectionErrorTimestamp = store.state.connectionErrorTimestamp?.localTime {
                             HStack {
-                                Text("Connection Error Timestamp")
+                                Text("Connection error timestamp")
                                 Spacer()
                                 Text(connectionErrorTimestamp).textSelection(.enabled)
                             }
@@ -88,20 +97,38 @@ struct SensorView: View {
                 Section(
                     content: {
                         HStack {
-                            Text("Transmitter Name")
+                            Text("Transmitter name")
                             Spacer()
                             Text(transmitter.name).textSelection(.enabled)
                         }
 
                         HStack {
-                            Text("Transmitter Battery")
+                            Text("Transmitter battery")
                             Spacer()
                             Text(transmitter.battery.description).textSelection(.enabled)
+
+                            if let endAngle = batteryEndAngle {
+                                ZStack {
+                                    GeometryReader { geo in
+                                        Circle()
+                                            .fill(Config.color)
+                                            .position(x: geo.size.width / 2, y: geo.size.height / 2)
+                                            .frame(width: geo.size.width, height: geo.size.width)
+
+                                        Path { path in
+                                            path.move(to: CGPoint(x: geo.size.width / 2, y: geo.size.height / 2))
+                                            path.addArc(center: CGPoint(x: geo.size.width / 2, y: geo.size.height / 2), radius: geo.size.width / 2, startAngle: .degrees(0), endAngle: .degrees(endAngle), clockwise: false)
+                                        }
+                                        .rotation(.degrees(-90))
+                                        .fill(Color.accentColor)
+                                    }
+                                }.frame(width: Config.size, height: Config.size)
+                            }
                         }
 
                         if let hardware = transmitter.hardware {
                             HStack {
-                                Text("Transmitter Hardware")
+                                Text("Transmitter hardware")
                                 Spacer()
                                 Text(hardware.description).textSelection(.enabled)
                             }
@@ -109,7 +136,7 @@ struct SensorView: View {
 
                         if let firmware = transmitter.firmware {
                             HStack {
-                                Text("Transmitter Firmware")
+                                Text("Transmitter firmware")
                                 Spacer()
                                 Text(firmware.description).textSelection(.enabled)
                             }
@@ -125,13 +152,13 @@ struct SensorView: View {
                 Section(
                     content: {
                         HStack {
-                            Text("Sensor Region")
+                            Text("Sensor region")
                             Spacer()
                             Text(sensor.region.localizedString).textSelection(.enabled)
                         }
 
                         HStack {
-                            Text("Sensor Type")
+                            Text("Sensor type")
                             Spacer()
                             Text(sensor.type.localizedString).textSelection(.enabled)
                         }
@@ -150,28 +177,28 @@ struct SensorView: View {
 
                         if let serial = sensor.serial {
                             HStack {
-                                Text("Sensor Serial")
+                                Text("Sensor serial")
                                 Spacer()
                                 Text(serial.description).textSelection(.enabled)
                             }
                         }
                     },
                     header: {
-                        Label("Sensor Details", systemImage: "text.magnifyingglass")
+                        Label("Sensor details", systemImage: "text.magnifyingglass")
                     }
                 )
 
                 Section(
                     content: {
                         HStack {
-                            Text("Sensor State")
+                            Text("Sensor state")
                             Spacer()
                             Text(sensor.state.localizedString).textSelection(.enabled)
                         }
 
                         if let remainingWarmupTime = sensor.remainingWarmupTime, sensor.state == .starting {
                             HStack {
-                                Text("Sensor Remaining Warmup time")
+                                Text("Sensor remaining warmup time")
                                 Spacer()
                                 Text(remainingWarmupTime.inTime).textSelection(.enabled)
 
@@ -195,13 +222,13 @@ struct SensorView: View {
                             }
                         } else if sensor.state != .expired && sensor.state != .shutdown && sensor.state != .unknown {
                             HStack {
-                                Text("Sensor Possible Lifetime")
+                                Text("Sensor possible lifetime")
                                 Spacer()
                                 Text(sensor.lifetime.inTime).textSelection(.enabled)
                             }
 
                             HStack {
-                                Text("Sensor Age")
+                                Text("Sensor age")
                                 Spacer()
                                 Text(sensor.age.inTime).textSelection(.enabled)
 
@@ -226,7 +253,7 @@ struct SensorView: View {
 
                             if let remainingLifetime = sensor.remainingLifetime {
                                 HStack {
-                                    Text("Sensor Remaining Lifetime")
+                                    Text("Sensor remaining lifetime")
                                     Spacer()
                                     Text(remainingLifetime.inTime).textSelection(.enabled)
 
@@ -252,14 +279,14 @@ struct SensorView: View {
                         }
                     },
                     header: {
-                        Label("Sensor Lifetime", systemImage: "timer")
+                        Label("Sensor lifetime", systemImage: "timer")
                     }
                 )
             }
         }.onChange(of: colorScheme) { scheme in
-            Log.info("onChange colorScheme: \(scheme)")
-
             if deviceColorScheme != scheme {
+                Log.info("onChange colorScheme: \(scheme)")
+
                 deviceColorScheme = scheme
             }
         }
@@ -268,7 +295,7 @@ struct SensorView: View {
     // MARK: Private
 
     private enum Config {
-        static let size: CGFloat = 25
+        static let size: CGFloat = 20
 
         static var color: Color { Color(hex: "#E4E6EB") | Color(hex: "#404040") }
     }

@@ -11,7 +11,6 @@ import Foundation
 
 // MARK: - Libre2Pairing
 
-@available(iOS 15.0, *)
 final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
     // MARK: Internal
 
@@ -30,7 +29,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
     func tagReaderSession(_ session: NFCTagReaderSession, didInvalidateWithError error: Error) {
         if let readerError = error as? NFCReaderError, readerError.code != .readerSessionInvalidationErrorUserCanceled {
             session.invalidate(errorMessage: "Connection failure: \(readerError.localizedDescription)")
-            
+
             Log.error("Continuation with 'nil' (with error: \(readerError.localizedDescription))")
             self.continuation?.resume(returning: nil)
         } else {
@@ -72,7 +71,6 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
             }
 
             let sensorUID = Data(tag.identifier.reversed()) // get sensorUID and patchInfo and send to delegate
-
             for i in 0 ..< requests {
                 let requestFlags: NFCISO15693RequestFlag = [.highDataRate, .address]
                 let blockRange = NSRange(UInt8(i * requestBlocks) ... UInt8(i * requestBlocks + (i == requests - 1 ? (remainder == 0 ? requestBlocks : remainder) : requestBlocks) - (requestBlocks > 1 ? 1 : 0)))
@@ -111,14 +109,14 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                         return
                     }
 
-                    let decryptedFram = PreLibre2.decryptFRAM(sensorUID: sensorUID, patchInfo: patchInfo, fram: fram)
+                    let decryptedFram = SensorUtility.decryptFRAM(uuid: sensorUID, patchInfo: patchInfo, fram: fram)
                     if let decryptedFram = decryptedFram {
                         Log.error("Continuation with success (from decrypted fram)")
-                        self.continuation?.resume(returning: Libre2.sensor(uuid: sensorUID, patchInfo: patchInfo, fram: decryptedFram))
+                        self.continuation?.resume(returning: Sensor(uuid: sensorUID, patchInfo: patchInfo, fram: decryptedFram))
 
                     } else {
                         Log.error("Continuation with success (from fram)")
-                        self.continuation?.resume(returning: Libre2.sensor(uuid: sensorUID, patchInfo: patchInfo, fram: fram))
+                        self.continuation?.resume(returning: Sensor(uuid: sensorUID, patchInfo: patchInfo, fram: fram))
                     }
                 }
             }
@@ -159,7 +157,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
         }
 
         if code.rawValue < 0x20 {
-            let d = PreLibre2.usefulFunction(sensorUID: sensorUID, x: UInt16(code.rawValue), y: y)
+            let d = SensorUtility.usefulFunction(uuid: sensorUID, x: UInt16(code.rawValue), y: y)
             parameters += d
         }
 

@@ -34,11 +34,15 @@ protocol AppState {
     var sensor: Sensor? { get set }
     var targetValue: Int { get set }
     var transmitter: Transmitter? { get set }
+
+    var connectionInfos: [SensorConnectionInfo] { get set }
+    var selectedConnection: SensorConnection? { get set }
+    var selectedConnectionId: String? { get set }
 }
 
 extension AppState {
-    var currentGlucose: Glucose? { self.glucoseValues.last }
-    
+    var currentGlucose: Glucose? { glucoseValues.last }
+
     var isConnectable: Bool {
         if let sensor = sensor {
             return sensorConnectableStates.contains(sensor.state) && connectableStates.contains(connectionState)
@@ -46,19 +50,21 @@ extension AppState {
 
         return false
     }
-    
+
+    var hasSelectedConnection: Bool { selectedConnection != nil }
+
     var isDisconnectable: Bool { disconnectableStates.contains(connectionState) }
 
     var isPaired: Bool { isSensorPaired || isTransmitterPaired }
-    
+
     var isSensorPaired: Bool { sensor != nil }
-    
+
     var isTransmitterPaired: Bool { transmitter != nil }
 
     var isReady: Bool { sensor != nil && sensor!.state == .ready }
 
-    var lastGlucose: Glucose? { self.glucoseValues.suffix(2).first }
-    
+    var lastGlucose: Glucose? { glucoseValues.suffix(2).first }
+
     var limitedGlucoseValues: [Glucose] {
         glucoseValues.filter { glucose in
             glucose.is5Minutely

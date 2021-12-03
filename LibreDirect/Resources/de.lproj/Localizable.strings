@@ -80,7 +80,7 @@
 "Chart (%1$@)" = "Diagramm";
 
 /* (No Comment) */
-"Connect Sensor" = "Sensor verbinden";
+"Connect sensor" = "Sensor verbinden";
 
 /* (No Comment) */
 "Connected" = "Verbunden";
@@ -92,16 +92,13 @@
 "Connection alarm" = "Verbindungsalarm";
 
 /* (No Comment) */
-"Custom Calibration" = "Kalibrierung";
+"Custom calibration" = "Kalibrierung";
 
 /* (No Comment) */
-"Custom Calibration count" = "Anzahl";
+"Custom calibration intercept" = "Schnittpunkt";
 
 /* (No Comment) */
-"Custom Calibration intercept" = "Schnittpunkt";
-
-/* (No Comment) */
-"Custom Calibration slope" = "Steigung";
+"Custom calibration slope" = "Steigung";
 
 /* (No Comment) */
 "Delete" = "Löschen";
@@ -110,34 +107,31 @@
 "Delete all" = "Alle löschen";
 
 /* (No Comment) */
-"Delete Calibrations" = "Alle löschen";
-
-/* (No Comment) */
 "Disconnect" = "Verbindung trennen";
 
 /* (No Comment) */
-"Disconnect Sensor" = "Sensorverbindung trennen";
+"Disconnect sensor" = "Sensorverbindung trennen";
 
 /* (No Comment) */
 "Disconnected" = "Unterbrochen";
 
 /* (No Comment) */
-"Factory Calibration i1" = "i1";
+"Factory calibration i1" = "i1";
 
 /* (No Comment) */
-"Factory Calibration i2" = "i2";
+"Factory calibration i2" = "i2";
 
 /* (No Comment) */
-"Factory Calibration i3" = "i3";
+"Factory calibration i3" = "i3";
 
 /* (No Comment) */
-"Factory Calibration i4" = "i4";
+"Factory calibration i4" = "i4";
 
 /* (No Comment) */
-"Factory Calibration i5" = "i5";
+"Factory calibration i5" = "i5";
 
 /* (No Comment) */
-"Factory Calibration i6" = "i6";
+"Factory calibration i6" = "i6";
 
 /* (No Comment) */
 "Glucose alarm" = "Glukose Alarm";
@@ -149,10 +143,10 @@
 "Glucose overview" = "Übersicht";
 
 /* (No Comment) */
-"Glucose Settings" = "Glukose Einstellungen";
+"Glucose settings" = "Glukose Einstellungen";
 
 /* (No Comment) */
-"Glucose Unit" = "Einheit";
+"Glucose unit" = "Einheit";
 
 /* (No Comment) */
 "Glucose values" = "Glukose Werte";
@@ -185,7 +179,7 @@
 "Libre US 14d" = "Libre US 14d";
 
 /* (No Comment) */
-"Lower Limit" = "Niedrig";
+"Lower limit" = "Niedrig";
 
 /* (No Comment) */
 "mg/dL" = "mg/dL";
@@ -194,19 +188,19 @@
 "mmol/L" = "mmol/L";
 
 /* (No Comment) */
-"New Calibration" = "Neue Kalibrierung";
+"New calibration" = "Neue Kalibrierung";
 
 /* (No Comment) */
 "Nightscout API-Secret" = "API-Secret";
 
 /* (No Comment) */
-"Nightscout Host" = "Host";
+"Nightscout host" = "Host";
 
 /* (No Comment) */
-"Nightscout Settings" = "Nightscout Einstellungen";
+"Nightscout settings" = "Nightscout Einstellungen";
 
 /* (No Comment) */
-"Nightscout Upload Enabled" = "Upload";
+"Nightscout upload enabled" = "Upload";
 
 /* (No Comment) */
 "Now" = "Jetzt";
@@ -215,37 +209,37 @@
 "OK, sensor connection established" = "Ok, Sensorverbindung hergestellt";
 
 /* (No Comment) */
-"Pair Sensor" = "Sensor koppeln";
+"Pair sensor" = "Sensor koppeln";
 
 /* (No Comment) */
-"Power Off" = "Stromlos";
+"Power off" = "Stromlos";
 
 /* (No Comment) */
 "Scanning" = "Scanne...";
 
 /* (No Comment) */
-"Sensor Age" = "Alter";
+"Sensor age" = "Alter";
 
 /* (No Comment) */
 "Connection" = "Verbindung";
 
 /* (No Comment) */
-"Connection Error" = "Fehler";
+"Connection error" = "Fehler";
 
 /* (No Comment) */
-"Connection Error Timestamp" = "Zeit";
+"Connection error timestamp" = "Zeit";
 
 /* (No Comment) */
-"Connection State" = "Status";
+"Connection state" = "Status";
 
 /* (No Comment) */
-"Sensor Custom Calibration" = "Individuelle Kalibrierung";
+"Sensor custom calibration" = "Individuelle Kalibrierung";
 
 /* (No Comment) */
-"Sensor Details" = "Sensor Details";
+"Sensor details" = "Sensor details";
 
 /* (No Comment) */
-"Sensor Factory Calibration" = "Werkskalibrierung";
+"Sensor factory calibration" = "Werkskalibrierung";
 
 /* (No Comment) */
 "Sensor has failure" = "Fehler";
@@ -263,10 +257,10 @@
 "Sensor is shut down" = "Abgelaufen";
 
 /* (No Comment) */
-"Sensor Lifetime" = "Lebensdauer";
+"Sensor lifetime" = "Lebensdauer";
 
 /* (No Comment) */
-"Missed Readings" = "Verpasst";
+"Missed readings" = "Verpasst";
 
 /* (No Comment) */
 "Sensor not yet startet" = "Nicht gestartet";
@@ -275,25 +269,25 @@
 "Sensor PatchInfo" = "PatchInfo";
 
 /* (No Comment) */
-"Sensor Possible Lifetime" = "Lebensdauer";
+"Sensor possible lifetime" = "Lebensdauer";
 
 /* (No Comment) */
-"Sensor Region" = "Region";
+"Sensor region" = "Region";
 
 /* (No Comment) */
-"Sensor Remaining Lifetime" = "Verbleibend";
+"Sensor remaining lifetime" = "Verbleibend";
 
 /* (No Comment) */
-"Sensor Remaining Warmup time" = "Aufwärmzeit";
+"Sensor remaining warmup time" = "Aufwärmzeit";
 
 /* (No Comment) */
-"Sensor Serial" = "Seriennummer";
+"Sensor serial" = "Seriennummer";
 
 /* (No Comment) */
-"Sensor State" = "Status";
+"Sensor state" = "Status";
 
 /* (No Comment) */
-"Sensor Type" = "Typ";
+"Sensor type" = "Typ";
 
 /* (No Comment) */
 "Sensor UID" = "UID";
@@ -302,7 +296,7 @@
 "Settings view" = "Einstellungen";
 
 /* (No Comment) */
-"Snooze Until" = "Schlummern";
+"Snooze until" = "Schlummern";
 
 /* (No Comment) */
 "Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "Leider ist für die Nutzung der App ein NFC-fähiges iPhone erforderlich :'(";
@@ -323,10 +317,10 @@
 "Unpair" = "Entkoppeln";
 
 /* (No Comment) */
-"Unpair Sensor" = "Sensor entkoppeln";
+"Unpair sensor" = "Sensor entkoppeln";
 
 /* (No Comment) */
-"Upper Limit" = "Hoch";
+"Upper limit" = "Hoch";
 
 /* (No Comment) */
 "Virtual Sensor" = "Virtueller Sensor";
@@ -383,13 +377,28 @@
 "Points" = "Punkte";
 
 /* (No Comment) */
-"Transmitter Name" = "Name";
+"Transmitter name" = "Name";
 
 /* (No Comment) */
-"Transmitter Battery" = "Batterie";
+"Transmitter battery" = "Batterie";
 
 /* (No Comment) */
-"Transmitter Hardware" = "Hardware";
+"Transmitter hardware" = "Hardware";
 
 /* (No Comment) */
-"Transmitter Firmware" = "Firmware";
+"Transmitter firmware" = "Firmware";
+
+/* (No Comment) */
+"Transmitter" = "Transmitter";
+
+/* (No Comment) */
+"Sensor connection" = "Sensor Verbindung";
+
+/* (No Comment) */
+"Without transmitter" = "Ohne Transmitter";
+
+/* (No Comment) */
+"Bubble transmitter" = "Bubble Transmitter";
+
+/* (No Comment) */
+"Pairing" = "Wird gekoppelt";

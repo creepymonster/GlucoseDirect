@@ -1,3 +1,4 @@
+
 //
 //  GlucoseChartView.swift
 //  LibreDirect
@@ -96,9 +97,9 @@ struct ChartView: View {
                 store.dispatch(.setChartShowLines(enabled: !store.state.chartShowLines))
             })
             .onChange(of: colorScheme) { scheme in
-                Log.info("onChange colorScheme: \(scheme)")
-
                 if deviceColorScheme != scheme {
+                    Log.info("onChange colorScheme: \(scheme)")
+                    
                     deviceColorScheme = scheme
                 }
             }

@@ -13,12 +13,12 @@ struct NightscoutSettingsView: View {
     var body: some View {
         Section(
             content: {
-                ToggleView(key: LocalizedString("Nightscout Upload Enabled", comment: ""), value: store.state.nightscoutUpload) { value -> Void in
+                ToggleView(key: LocalizedString("Nightscout upload enabled", comment: ""), value: store.state.nightscoutUpload) { value -> Void in
                     store.dispatch(.setNightscoutUpload(enabled: value))
                 }
 
                 if store.state.nightscoutUpload {
-                    TextEditorView(key: LocalizedString("Nightscout Host", comment: ""), value: store.state.nightscoutHost) { value -> Void in
+                    TextEditorView(key: LocalizedString("Nightscout host", comment: ""), value: store.state.nightscoutHost) { value -> Void in
                         store.dispatch(.setNightscoutHost(host: value))
                     }
                     
@@ -28,7 +28,7 @@ struct NightscoutSettingsView: View {
                 }
             },
             header: {
-                Label("Nightscout Settings", systemImage: "icloud.and.arrow.up")
+                Label("Nightscout settings", systemImage: "icloud.and.arrow.up")
             }
         )
     }

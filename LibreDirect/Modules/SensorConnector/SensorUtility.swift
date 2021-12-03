@@ -1,5 +1,5 @@
 //
-//  LibreUtility.swift
+//  SensorUtility.swift
 //  LibreDirect
 //
 //  Special thanks to: guidos, ivalkou and dabear and many others
@@ -7,14 +7,16 @@
 
 import Foundation
 
-// MARK: - PreLibre2
+// MARK: - SensorUtility
 
-// https://github.com/ivalkou/LibreTools/blob/master/Sources/LibreTools/Sensor/Libre2.swift
-struct PreLibre2 {
+enum SensorUtility {
     // MARK: Internal
 
-    static func decryptFRAM(sensorUID: Data, patchInfo: Data, fram: Data) -> Data? {
-        guard sensorUID.count == 8, patchInfo.count == 6, fram.count == 344 else {
+    // https://github.com/ivalkou/LibreTools/blob/master/Sources/LibreTools/Sensor/Libre2.swift
+    // https://github.com/gui-dos/DiaBLE/blob/master/DiaBLE/Libre2.swift
+
+    static func decryptFRAM(uuid: Data, patchInfo: Data, fram: Data) -> Data? {
+        guard uuid.count == 8, patchInfo.count == 6, fram.count == 344 else {
             return nil
         }
 
@@ -33,15 +35,15 @@ struct PreLibre2 {
 
             var s1: UInt16 = 0
             if patchInfo[0] == 0xe5 {
-                let ss1 = (word(sensorUID[5], sensorUID[4]) + y + i64)
+                let ss1 = (word(uuid[5], uuid[4]) + y + i64)
                 s1 = UInt16(ss1 & 0xffff)
             } else {
-                let ss1 = ((word(sensorUID[5], sensorUID[4]) + (word(patchInfo[5], patchInfo[4]) ^ 0x44)) + i64)
+                let ss1 = ((word(uuid[5], uuid[4]) + (word(patchInfo[5], patchInfo[4]) ^ 0x44)) + i64)
                 s1 = UInt16(ss1 & 0xffff)
             }
 
-            let s2 = UInt16((word(sensorUID[3], sensorUID[2]) + UInt64(self.keys[2])) & 0xffff)
-            let s3 = UInt16((word(sensorUID[1], sensorUID[0]) + (i64 << 1)) & 0xffff)
+            let s2 = UInt16((word(uuid[3], uuid[2]) + UInt64(self.keys[2])) & 0xffff)
+            let s3 = UInt16((word(uuid[1], uuid[0]) + (i64 << 1)) & 0xffff)
             let s4 = (0x241a ^ self.keys[3])
 
             let key = self.processCrypto(input: [s1, s2, s3, s4])
@@ -58,182 +60,13 @@ struct PreLibre2 {
         return result
     }
 
-    static func usefulFunction(sensorUID: Data, x: UInt16, y: UInt16) -> [UInt8] {
-        let blockKey = self.processCrypto(input: self.prepareVariables(sensorUID: sensorUID, x: x, y: y))
-        let low = blockKey[0]
-        let high = blockKey[1]
-
-        let r1 = low ^ 0x4163
-        let r2 = high ^ 0x4344
-
-        return [
-            UInt8(truncatingIfNeeded: r1),
-            UInt8(truncatingIfNeeded: r1 >> 8),
-            UInt8(truncatingIfNeeded: r2),
-            UInt8(truncatingIfNeeded: r2 >> 8)
-        ]
-    }
-
-    static func prepareVariables(sensorUID: Data, x: UInt16, y: UInt16) -> [UInt16] {
-        let s1 = UInt16(truncatingIfNeeded: UInt(UInt16(sensorUID[5], sensorUID[4])) + UInt(x) + UInt(y))
-        let s2 = UInt16(truncatingIfNeeded: UInt(UInt16(sensorUID[3], sensorUID[2])) + UInt(self.keys[2]))
-        let s3 = UInt16(truncatingIfNeeded: UInt(UInt16(sensorUID[1], sensorUID[0])) + UInt(x) * 2)
-        let s4 = 0x241a ^ self.keys[3]
-
-        return [s1, s2, s3, s4]
-    }
-
-    static func prepareVariables(sensorUID: Data, i1: UInt16, i2: UInt16, i3: UInt16, i4: UInt16) -> [UInt16] {
-        let s1 = UInt16(truncatingIfNeeded: UInt(UInt16(sensorUID[5], sensorUID[4])) + UInt(i1))
-        let s2 = UInt16(truncatingIfNeeded: UInt(UInt16(sensorUID[3], sensorUID[2])) + UInt(i2))
-        let s3 = UInt16(truncatingIfNeeded: UInt(UInt16(sensorUID[1], sensorUID[0])) + UInt(i3) + UInt(self.keys[2]))
-        let s4 = UInt16(truncatingIfNeeded: UInt(i4) + UInt(self.keys[3]))
-
-        return [s1, s2, s3, s4]
-    }
-
-    static func processCrypto(input: [UInt16]) -> [UInt16] {
-        func op(_ value: UInt16) -> UInt16 {
-            // We check for last 2 bits and do the xor with specific value if bit is 1
-            var res = value >> 2 // Result does not include these last 2 bits
-            if value & 1 != 0 { // If last bit is 1
-                res = res ^ self.keys[1]
-            }
-
-            if value & 2 != 0 { // If second last bit is 1
-                res = res ^ self.keys[0]
-            }
-
-            return res
-        }
-
-        let r0 = op(input[0]) ^ input[3]
-        let r1 = op(r0) ^ input[2]
-
-        let r2 = op(r1) ^ input[1]
-        let r3 = op(r2) ^ input[0]
-        let r4 = op(r3)
-        let r5 = op(r4 ^ r0)
-        let r6 = op(r5 ^ r1)
-        let r7 = op(r6 ^ r2)
-
-        let f1 = r0 ^ r4
-        let f2 = r1 ^ r5
-        let f3 = r2 ^ r6
-        let f4 = r3 ^ r7
-
-        return [f4, f3, f2, f1]
-    }
-
-    // MARK: Private
-
-    private static let keys: [UInt16] = [0xa0c5, 0x6860, 0x0000, 0x14c6]
-}
-
-// MARK: - Libre2
-
-enum Libre2 {
-    static func sensor(uuid: Data, patchInfo: Data, fram: Data) -> Sensor {
-        let family = SensorFamily(Int(patchInfo[2] >> 4))
-
-        return Sensor(
-            fram: fram,
-            uuid: uuid,
-            patchInfo: patchInfo,
-            factoryCalibration: self.factoryCalibration(fram: fram),
-            customCalibration: [],
-            family: family,
-            type: SensorType(patchInfo),
-            region: SensorRegion(patchInfo[3]),
-            serial: Libre2.sensorSerialNumber(sensorUID: uuid, sensorFamily: family),
-            state: SensorState(fram[4]),
-            age: Int(fram[316]) + Int(fram[317]) << 8,
-            lifetime: Int(fram[326]) + Int(fram[327]) << 8
-        )
-    }
-
-    static func factoryCalibration(fram: Data) -> FactoryCalibration {
-        let i1 = readBits(fram, 2, 0, 3)
-        let i2 = readBits(fram, 2, 3, 0xa)
-
-        var i3 = Double(readBits(fram, 0x150, 0, 8))
-        if readBits(fram, 0x150, 0x21, 1) != 0 {
-            i3 = -i3
-        }
-
-        let i4 = Double(readBits(fram, 0x150, 8, 0xe))
-        let i5 = Double(readBits(fram, 0x150, 0x28, 0xc) << 2)
-        let i6 = Double(readBits(fram, 0x150, 0x34, 0xc) << 2)
-
-        return FactoryCalibration(i1: i1, i2: i2, i3: i3, i4: i4, i5: i5, i6: i6)
-    }
-
-    static func sensorSerialNumber(sensorUID: Data, sensorFamily: SensorFamily) -> String? {
-        let lookupTable = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "R", "T", "U", "V", "W", "X", "Y", "Z"]
-
-        guard sensorUID.count == 8 else {
-            return nil
-        }
-
-        let bytes = Array(sensorUID.reversed().suffix(6))
-        var fiveBitsArray = [UInt8]()
-        fiveBitsArray.append(bytes[0] >> 3)
-        fiveBitsArray.append(bytes[0] << 2 + bytes[1] >> 6)
-
-        fiveBitsArray.append(bytes[1] >> 1)
-        fiveBitsArray.append(bytes[1] << 4 + bytes[2] >> 4)
-
-        fiveBitsArray.append(bytes[2] << 1 + bytes[3] >> 7)
-
-        fiveBitsArray.append(bytes[3] >> 2)
-        fiveBitsArray.append(bytes[3] << 3 + bytes[4] >> 5)
-
-        fiveBitsArray.append(bytes[4])
-
-        fiveBitsArray.append(bytes[5] >> 3)
-        fiveBitsArray.append(bytes[5] << 2)
-
-        return fiveBitsArray.reduce("\(sensorFamily.rawValue)") {
-            $0 + lookupTable[Int(0x1f & $1)]
-        }
-    }
-
-    static func streamingUnlockPayload(sensorUID: Data, info: Data, enableTime: UInt32, unlockCount: UInt16) -> [UInt8] {
-        // First 4 bytes are just int32 of timestamp + unlockCount
-        let time = enableTime + UInt32(unlockCount)
-        let b: [UInt8] = [UInt8(time & 0xff), UInt8((time >> 8) & 0xff), UInt8((time >> 16) & 0xff), UInt8((time >> 24) & 0xff)]
-
-        // Then we need data of activation command and enable command that were sent to sensor
-        let ad = PreLibre2.usefulFunction(sensorUID: sensorUID, x: 0x1b, y: 0x1b6a)
-        let ed = PreLibre2.usefulFunction(sensorUID: sensorUID, x: 0x1e, y: UInt16(enableTime & 0xffff) ^ UInt16(info[5], info[4]))
-
-        let t11 = UInt16(ed[1], ed[0]) ^ UInt16(b[3], b[2])
-        let t12 = UInt16(ad[1], ad[0])
-        let t13 = UInt16(ed[3], ed[2]) ^ UInt16(b[1], b[0])
-        let t14 = UInt16(ad[3], ad[2])
-
-        let t2 = PreLibre2.processCrypto(input: PreLibre2.prepareVariables(sensorUID: sensorUID, i1: t11, i2: t12, i3: t13, i4: t14))
-
-        // TODO: extract if secret
-        let t31 = crc16(Data([0xc1, 0xc4, 0xc3, 0xc0, 0xd4, 0xe1, 0xe7, 0xba, UInt8(t2[0] & 0xff), UInt8((t2[0] >> 8) & 0xff)])).byteSwapped
-        let t32 = crc16(Data([UInt8(t2[1] & 0xff), UInt8((t2[1] >> 8) & 0xff), UInt8(t2[2] & 0xff), UInt8((t2[2] >> 8) & 0xff), UInt8(t2[3] & 0xff), UInt8((t2[3] >> 8) & 0xff)])).byteSwapped
-        let t33 = crc16(Data([ad[0], ad[1], ad[2], ad[3], ed[0], ed[1]])).byteSwapped
-        let t34 = crc16(Data([ed[2], ed[3], b[0], b[1], b[2], b[3]])).byteSwapped
-
-        let t4 = PreLibre2.processCrypto(input: PreLibre2.prepareVariables(sensorUID: sensorUID, i1: t31, i2: t32, i3: t33, i4: t34))
-
-        let res = [UInt8(t4[0] & 0xff), UInt8((t4[0] >> 8) & 0xff), UInt8(t4[1] & 0xff), UInt8((t4[1] >> 8) & 0xff), UInt8(t4[2] & 0xff), UInt8((t4[2] >> 8) & 0xff), UInt8(t4[3] & 0xff), UInt8((t4[3] >> 8) & 0xff)]
-
-        return [b[0], b[1], b[2], b[3], res[0], res[1], res[2], res[3], res[4], res[5], res[6], res[7]]
-    }
-
-    static func decryptBLE(sensorUID: Data, data: Data) throws -> [UInt8] {
-        let d = PreLibre2.usefulFunction(sensorUID: sensorUID, x: 0x1b, y: 0x1b6a)
+    static func decryptBLE(uuid: Data, data: Data) throws -> [UInt8] {
+        let d = self.usefulFunction(uuid: uuid, x: 0x1b, y: 0x1b6a)
         let x = UInt16(d[1], d[0]) ^ UInt16(d[3], d[2]) | 0x63
         let y = UInt16(data[1], data[0]) ^ 0x63
 
         var key = [UInt8]()
-        var initialKey = PreLibre2.processCrypto(input: PreLibre2.prepareVariables(sensorUID: sensorUID, x: x, y: y))
+        var initialKey = self.processCrypto(input: self.prepareVariables(uuid: uuid, x: x, y: y))
 
         for _ in 0 ..< 8 {
             key.append(UInt8(truncatingIfNeeded: initialKey[0]))
@@ -244,7 +77,7 @@ enum Libre2 {
             key.append(UInt8(truncatingIfNeeded: initialKey[2] >> 8))
             key.append(UInt8(truncatingIfNeeded: initialKey[3]))
             key.append(UInt8(truncatingIfNeeded: initialKey[3] >> 8))
-            initialKey = PreLibre2.processCrypto(input: initialKey)
+            initialKey = self.processCrypto(input: initialKey)
         }
 
         let result = data[2...].enumerated().map { i, value in
@@ -255,10 +88,40 @@ enum Libre2 {
             struct DecryptBLEError: LocalizedError {
                 var errorDescription: String? { "BLE data decryption failed" }
             }
+
             throw DecryptBLEError()
         }
 
         return result
+    }
+
+    static func streamingUnlockPayload(uuid: Data, patchInfo: Data, enableTime: UInt32, unlockCount: UInt16) -> [UInt8] {
+        // First 4 bytes are just int32 of timestamp + unlockCount
+        let time = enableTime + UInt32(unlockCount)
+        let b: [UInt8] = [UInt8(time & 0xff), UInt8((time >> 8) & 0xff), UInt8((time >> 16) & 0xff), UInt8((time >> 24) & 0xff)]
+
+        // Then we need data of activation command and enable command that were sent to sensor
+        let ad = self.usefulFunction(uuid: uuid, x: 0x1b, y: 0x1b6a)
+        let ed = self.usefulFunction(uuid: uuid, x: 0x1e, y: UInt16(enableTime & 0xffff) ^ UInt16(patchInfo[5], patchInfo[4]))
+
+        let t11 = UInt16(ed[1], ed[0]) ^ UInt16(b[3], b[2])
+        let t12 = UInt16(ad[1], ad[0])
+        let t13 = UInt16(ed[3], ed[2]) ^ UInt16(b[1], b[0])
+        let t14 = UInt16(ad[3], ad[2])
+
+        let t2 = self.processCrypto(input: self.prepareVariables(uuid: uuid, i1: t11, i2: t12, i3: t13, i4: t14))
+
+        // TODO: extract if secret
+        let t31 = crc16(Data([0xc1, 0xc4, 0xc3, 0xc0, 0xd4, 0xe1, 0xe7, 0xba, UInt8(t2[0] & 0xff), UInt8((t2[0] >> 8) & 0xff)])).byteSwapped
+        let t32 = crc16(Data([UInt8(t2[1] & 0xff), UInt8((t2[1] >> 8) & 0xff), UInt8(t2[2] & 0xff), UInt8((t2[2] >> 8) & 0xff), UInt8(t2[3] & 0xff), UInt8((t2[3] >> 8) & 0xff)])).byteSwapped
+        let t33 = crc16(Data([ad[0], ad[1], ad[2], ad[3], ed[0], ed[1]])).byteSwapped
+        let t34 = crc16(Data([ed[2], ed[3], b[0], b[1], b[2], b[3]])).byteSwapped
+
+        let t4 = self.processCrypto(input: self.prepareVariables(uuid: uuid, i1: t31, i2: t32, i3: t33, i4: t34))
+
+        let res = [UInt8(t4[0] & 0xff), UInt8((t4[0] >> 8) & 0xff), UInt8(t4[1] & 0xff), UInt8((t4[1] >> 8) & 0xff), UInt8(t4[2] & 0xff), UInt8((t4[2] >> 8) & 0xff), UInt8(t4[3] & 0xff), UInt8((t4[3] >> 8) & 0xff)]
+
+        return [b[0], b[1], b[2], b[3], res[0], res[1], res[2], res[3], res[4], res[5], res[6], res[7]]
     }
 
     static func parseFRAM(calibration: FactoryCalibration, pairingTimestamp: Date, fram: Data) -> (trend: [SensorReading], history: [SensorReading]) {
@@ -385,7 +248,7 @@ enum Libre2 {
             }
 
             let timestamp = Date().addingTimeInterval(TimeInterval(-60 * (age - id)))
-            
+
             let glucoseValue = calibration.calibrate(rawValue: Double(rawGlucoseValue), rawTemperature: Double(rawTemperature), rawTemperatureAdjustment: Double(rawTemperatureAdjustment))
             let reading = SensorReading(id: UUID(), timestamp: timestamp, glucoseValue: glucoseValue)
 
@@ -403,6 +266,77 @@ enum Libre2 {
 
         return (age, trend, history)
     }
+
+    static func usefulFunction(uuid: Data, x: UInt16, y: UInt16) -> [UInt8] {
+        let blockKey = self.processCrypto(input: self.prepareVariables(uuid: uuid, x: x, y: y))
+        let low = blockKey[0]
+        let high = blockKey[1]
+
+        let r1 = low ^ 0x4163
+        let r2 = high ^ 0x4344
+
+        return [
+            UInt8(truncatingIfNeeded: r1),
+            UInt8(truncatingIfNeeded: r1 >> 8),
+            UInt8(truncatingIfNeeded: r2),
+            UInt8(truncatingIfNeeded: r2 >> 8)
+        ]
+    }
+
+    static func prepareVariables(uuid: Data, x: UInt16, y: UInt16) -> [UInt16] {
+        let s1 = UInt16(truncatingIfNeeded: UInt(UInt16(uuid[5], uuid[4])) + UInt(x) + UInt(y))
+        let s2 = UInt16(truncatingIfNeeded: UInt(UInt16(uuid[3], uuid[2])) + UInt(self.keys[2]))
+        let s3 = UInt16(truncatingIfNeeded: UInt(UInt16(uuid[1], uuid[0])) + UInt(x) * 2)
+        let s4 = 0x241a ^ self.keys[3]
+
+        return [s1, s2, s3, s4]
+    }
+
+    static func prepareVariables(uuid: Data, i1: UInt16, i2: UInt16, i3: UInt16, i4: UInt16) -> [UInt16] {
+        let s1 = UInt16(truncatingIfNeeded: UInt(UInt16(uuid[5], uuid[4])) + UInt(i1))
+        let s2 = UInt16(truncatingIfNeeded: UInt(UInt16(uuid[3], uuid[2])) + UInt(i2))
+        let s3 = UInt16(truncatingIfNeeded: UInt(UInt16(uuid[1], uuid[0])) + UInt(i3) + UInt(self.keys[2]))
+        let s4 = UInt16(truncatingIfNeeded: UInt(i4) + UInt(self.keys[3]))
+
+        return [s1, s2, s3, s4]
+    }
+
+    static func processCrypto(input: [UInt16]) -> [UInt16] {
+        func op(_ value: UInt16) -> UInt16 {
+            // We check for last 2 bits and do the xor with specific value if bit is 1
+            var res = value >> 2 // Result does not include these last 2 bits
+
+            if value & 1 != 0 { // If last bit is 1
+                res = res ^ self.keys[1]
+            }
+
+            if value & 2 != 0 { // If second last bit is 1
+                res = res ^ self.keys[0]
+            }
+
+            return res
+        }
+
+        let r0 = op(input[0]) ^ input[3]
+        let r1 = op(r0) ^ input[2]
+        let r2 = op(r1) ^ input[1]
+        let r3 = op(r2) ^ input[0]
+        let r4 = op(r3)
+        let r5 = op(r4 ^ r0)
+        let r6 = op(r5 ^ r1)
+        let r7 = op(r6 ^ r2)
+
+        let f1 = r0 ^ r4
+        let f2 = r1 ^ r5
+        let f3 = r2 ^ r6
+        let f4 = r3 ^ r7
+
+        return [f4, f3, f2, f1]
+    }
+
+    // MARK: Private
+
+    private static let keys: [UInt16] = [0xa0c5, 0x6860, 0x0000, 0x14c6]
 }
 
 // MARK: - fileprivate

@@ -33,6 +33,7 @@ struct UserDefaultsAppState: AppState {
         self.selectedView = UserDefaults.standard.selectedView
         self.sensor = UserDefaults.standard.sensor
         self.transmitter = UserDefaults.standard.transmitter
+        self.selectedConnectionId = UserDefaults.standard.selectedConnectionId ?? "libre2"
     }
 
     // MARK: Internal
@@ -134,6 +135,14 @@ struct UserDefaultsAppState: AppState {
     var transmitter: Transmitter? {
         didSet {
             UserDefaults.standard.transmitter = transmitter
+        }
+    }
+    
+    var connectionInfos: [SensorConnectionInfo] = []
+    var selectedConnection: SensorConnection? = nil
+    var selectedConnectionId: String? {
+        didSet {
+            UserDefaults.standard.selectedConnectionId = selectedConnectionId
         }
     }
 }

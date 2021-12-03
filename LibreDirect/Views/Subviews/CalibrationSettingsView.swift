@@ -68,13 +68,13 @@ struct CalibrationSettingsView: View {
             Section(
                 content: {
                     HStack {
-                        Text("Custom Calibration slope")
+                        Text("Custom calibration slope")
                         Spacer()
                         Text(slope.description).textSelection(.enabled)
                     }
                     
                     HStack {
-                        Text("Custom Calibration intercept")
+                        Text("Custom calibration intercept")
                         Spacer()
                         Text(intercept.description).textSelection(.enabled)
                     }
@@ -101,7 +101,7 @@ struct CalibrationSettingsView: View {
                 },
                 header: {
                     HStack {
-                        Label("Sensor Custom Calibration", systemImage: "person")
+                        Label("Sensor custom calibration", systemImage: "person")
                         
                         if !showingAddCalibrationView {
                             Spacer()
@@ -139,43 +139,43 @@ struct CalibrationSettingsView: View {
             Section(
                 content: {
                     HStack {
-                        Text("Factory Calibration i1")
+                        Text("Factory calibration i1")
                         Spacer()
                         Text(sensor.factoryCalibration.i1.description).textSelection(.enabled)
                     }
                     
                     HStack {
-                        Text("Factory Calibration i2")
+                        Text("Factory calibration i2")
                         Spacer()
                         Text(sensor.factoryCalibration.i2.description).textSelection(.enabled)
                     }
                     
                     HStack {
-                        Text("Factory Calibration i3")
+                        Text("Factory calibration i3")
                         Spacer()
                         Text(sensor.factoryCalibration.i3.description).textSelection(.enabled)
                     }
                     
                     HStack {
-                        Text("Factory Calibration i4")
+                        Text("Factory calibration i4")
                         Spacer()
                         Text(sensor.factoryCalibration.i4.description).textSelection(.enabled)
                     }
                     
                     HStack {
-                        Text("Factory Calibration i5")
+                        Text("Factory calibration i5")
                         Spacer()
                         Text(sensor.factoryCalibration.i5.description).textSelection(.enabled)
                     }
                     
                     HStack {
-                        Text("Factory Calibration i6")
+                        Text("Factory calibration i6")
                         Spacer()
                         Text(sensor.factoryCalibration.i6.description).textSelection(.enabled)
                     }
                 },
                 header: {
-                    Label("Sensor Factory Calibration", systemImage: "building")
+                    Label("Sensor factory calibration", systemImage: "building")
                 }
             )
         }

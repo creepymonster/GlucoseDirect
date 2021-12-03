@@ -47,7 +47,11 @@ struct PreviewAppState: AppState {
         lifetime: 24 * 60
     )
     var targetValue: Int = 100
-    var transmitter: Transmitter? = nil
+    var transmitter: Transmitter?
+
+    var connectionInfos: [SensorConnectionInfo] = []
+    var selectedConnection: SensorConnection?
+    var selectedConnectionId: String?
 }
 
 // MARK: - fileprivate

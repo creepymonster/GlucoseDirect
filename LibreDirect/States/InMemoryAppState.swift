@@ -36,4 +36,8 @@ struct InMemoryAppState: AppState {
     var sensor: Sensor?
     var targetValue: Int = 100
     var transmitter: Transmitter? = nil
+    
+    var connectionInfos: [SensorConnectionInfo] = []
+    var selectedConnection: SensorConnection? = nil
+    var selectedConnectionId: String? = nil
 }
