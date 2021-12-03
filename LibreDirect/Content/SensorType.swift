@@ -1,4 +1,3 @@
-
 //
 //  SensorType.swift
 //  LibreDirect
