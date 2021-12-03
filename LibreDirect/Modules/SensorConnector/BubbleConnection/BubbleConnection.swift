@@ -1,3 +1,8 @@
+//
+//  BubbleConnection.swift
+//  LibreDirect
+//
+
 import Combine
 import CoreBluetooth
 import Foundation
@@ -7,13 +12,16 @@ import Foundation
 class BubbleConnection: SensorConnection {
     // MARK: Lifecycle
 
-    required init() {
-        super.init()
+    override required init() {
+        Log.info("init")
 
-        self.manager = CBCentralManager(delegate: self, queue: managerQueue, options: [CBCentralManagerOptionShowPowerAlertKey: true, CBCentralManagerOptionRestoreIdentifierKey: "libre-direct.ble-device.restore-identifier"])
+        super.init()
+        self.manager = CBCentralManager(delegate: self, queue: managerQueue, options: [CBCentralManagerOptionShowPowerAlertKey: true, CBCentralManagerOptionRestoreIdentifierKey: "libre-direct.bubble.restore-identifier"])
     }
 
     deinit {
+        Log.info("deinit")
+
         managerQueue.sync {
             disconnect()
         }
@@ -26,6 +34,10 @@ class BubbleConnection: SensorConnection {
         Log.info("PairSensor")
 
         self.updatesHandler = updatesHandler
+
+        UserDefaults.standard.peripheralUuid = nil
+
+        sendUpdate(connectionState: .pairing)
 
         managerQueue.async {
             self.find()
@@ -63,7 +75,7 @@ class BubbleConnection: SensorConnection {
             return
         }
 
-        if let peripheralUuidString = UserDefaults.standard.bubblePeripheralUuid,
+        if let peripheralUuidString = UserDefaults.standard.peripheralUuid,
            let peripheralUuid = UUID(uuidString: peripheralUuidString),
            let retrievedPeripheral = manager.retrievePeripherals(withIdentifiers: [peripheralUuid]).first
         {
@@ -143,7 +155,7 @@ class BubbleConnection: SensorConnection {
     private var rxBuffer = Data()
 
     private var manager: CBCentralManager!
-    private let managerQueue = DispatchQueue(label: "libre-direct.ble-device.queue")
+    private let managerQueue = DispatchQueue(label: "libre-direct.bubble.ble-device.queue")
 
     private var serviceUuid: [CBUUID] = [CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E")]
     private var writeCharacteristicUuid = CBUUID(string: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E")
@@ -165,7 +177,7 @@ class BubbleConnection: SensorConnection {
             oldValue?.delegate = nil
             peripheral?.delegate = self
 
-            UserDefaults.standard.bubblePeripheralUuid = peripheral?.identifier.uuidString
+            UserDefaults.standard.peripheralUuid = peripheral?.identifier.uuidString
         }
     }
 }
@@ -331,18 +343,49 @@ extension BubbleConnection: CBPeripheralDelegate {
             let firmware = Double("\(firmwareMajor).\(firmwareMinor)")
             let battery = Int(value[4])
 
-            if let firmware = firmware, firmware > 2.6 {
-                let transmitter = Transmitter(name: "Bubble", battery: battery, firmware: hardware, hardware: firmware)
-                sendUpdate(transmitter: transmitter)
+            let transmitter = Transmitter(name: "Bubble", battery: battery, firmware: hardware, hardware: firmware)
+            sendUpdate(transmitter: transmitter)
 
-                if let writeCharacteristic = writeCharacteristic {
-                    peripheral.writeValue(Data([0x08, 0x01, 0x00, 0x00, 0x00, 0x2b]), for: writeCharacteristic, type: .withoutResponse)
-                    // peripheral.writeValue(Data([0x02, 0x00, 0x00, 0x00, 0x00, 0x2b]), for: writeCharacteristic, type: .withResponse)
-                }
+            if let writeCharacteristic = writeCharacteristic {
+                // peripheral.writeValue(Data([0x08, 0x01, 0x00, 0x00, 0x00, 0x2b]), for: writeCharacteristic, type: .withoutResponse)
+                peripheral.writeValue(Data([0x02, 0x00, 0x00, 0x00, 0x00, 0x2b]), for: writeCharacteristic, type: .withResponse)
             }
 
         case .dataPacket:
-            print("oh nein")
+            rxBuffer.append(value.suffix(from: 4))
+
+            if rxBuffer.count >= expectedBufferSize {
+                Log.info("Completed DataPacket")
+
+                guard let uuid = uuid, let patchInfo = patchInfo else {
+                    resetBuffer()
+
+                    return
+                }
+
+                let family = SensorFamily(patchInfo)
+
+                let fram = family == .libre1
+                    ? rxBuffer[..<344]
+                    : SensorUtility.decryptFRAM(uuid: uuid, patchInfo: patchInfo, fram: rxBuffer[..<344])
+
+                if let fram = fram {
+                    let sensor = Sensor(uuid: uuid, patchInfo: patchInfo, fram: fram)
+
+                    if sensor.age >= sensor.lifetime {
+                        sendUpdate(sensor: sensor)
+                    } else if sensor.age > sensor.warmupTime {
+                        sendUpdate(sensor: sensor)
+
+                        let readings = SensorUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
+                        sendUpdate(trendReadings: readings.trend, historyReadings: readings.history)
+                    } else if sensor.age <= sensor.warmupTime {
+                        sendUpdate(sensor: sensor)
+                    }
+                }
+
+                resetBuffer()
+            }
         case .decryptedDataPacket:
             rxBuffer.append(value.suffix(from: 4))
 
@@ -355,15 +398,15 @@ extension BubbleConnection: CBPeripheralDelegate {
                     return
                 }
 
-                let sensor = Libre2.sensor(uuid: uuid, patchInfo: patchInfo, fram: rxBuffer[..<344])
+                let sensor = Sensor(uuid: uuid, patchInfo: patchInfo, fram: rxBuffer[..<344])
                 if sensor.age >= sensor.lifetime {
                     sendUpdate(sensor: sensor)
                 } else if sensor.age > sensor.warmupTime {
                     sendUpdate(sensor: sensor)
 
                     if let fram = sensor.fram {
-                        let data = Libre2.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
-                        sendUpdate(trendReadings: data.trend, historyReadings: data.history)
+                        let readings = SensorUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
+                        sendUpdate(trendReadings: readings.trend, historyReadings: readings.history)
                     }
                 } else if sensor.age <= sensor.warmupTime {
                     sendUpdate(sensor: sensor)
@@ -406,7 +449,7 @@ private extension UserDefaults {
         case devicePeripheralUuid = "libre-direct.bubble.peripheral-uuid"
     }
 
-    var bubblePeripheralUuid: String? {
+    var peripheralUuid: String? {
         get {
             return UserDefaults.standard.string(forKey: Keys.devicePeripheralUuid.rawValue)
         }

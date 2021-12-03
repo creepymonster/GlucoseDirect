@@ -109,14 +109,14 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                         return
                     }
 
-                    let decryptedFram = PreLibre2.decryptFRAM(sensorUID: sensorUID, patchInfo: patchInfo, fram: fram)
+                    let decryptedFram = SensorUtility.decryptFRAM(uuid: sensorUID, patchInfo: patchInfo, fram: fram)
                     if let decryptedFram = decryptedFram {
                         Log.error("Continuation with success (from decrypted fram)")
-                        self.continuation?.resume(returning: Libre2.sensor(uuid: sensorUID, patchInfo: patchInfo, fram: decryptedFram))
+                        self.continuation?.resume(returning: Sensor(uuid: sensorUID, patchInfo: patchInfo, fram: decryptedFram))
 
                     } else {
                         Log.error("Continuation with success (from fram)")
-                        self.continuation?.resume(returning: Libre2.sensor(uuid: sensorUID, patchInfo: patchInfo, fram: fram))
+                        self.continuation?.resume(returning: Sensor(uuid: sensorUID, patchInfo: patchInfo, fram: fram))
                     }
                 }
             }
@@ -157,7 +157,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
         }
 
         if code.rawValue < 0x20 {
-            let d = PreLibre2.usefulFunction(sensorUID: sensorUID, x: UInt16(code.rawValue), y: y)
+            let d = SensorUtility.usefulFunction(uuid: sensorUID, x: UInt16(code.rawValue), y: y)
             parameters += d
         }
 

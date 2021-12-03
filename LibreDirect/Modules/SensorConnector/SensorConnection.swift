@@ -1,4 +1,3 @@
-
 //
 //  SensorConnection.swift
 //  LibreDirect
@@ -13,6 +12,7 @@ typealias SensorConnectionHandler = (_ update: SensorConnectorUpdate) -> Void
 // MARK: - SensorConnectionProtocoll
 
 protocol SensorConnectionProtocoll {
+    init()
     func pairSensor(updatesHandler: @escaping SensorConnectionHandler)
     func connectSensor(sensor: Sensor, updatesHandler: @escaping SensorConnectionHandler)
     func disconnectSensor()
@@ -21,12 +21,6 @@ protocol SensorConnectionProtocoll {
 // MARK: - SensorConnectionClass
 
 class SensorConnectionClass: NSObject {
-    // MARK: Lifecycle
-
-    required override init() {}
-
-    // MARK: Internal
-
     var updatesHandler: SensorConnectionHandler?
 
     func sendUpdate(connectionState: SensorConnectionState) {
@@ -88,15 +82,15 @@ typealias SensorConnection = SensorConnectionClass & SensorConnectionProtocoll
 class SensorConnectionInfo: Identifiable {
     // MARK: Lifecycle
 
-    init(id: String, name: String, connection: SensorConnection.Type) {
+    init(id: String, name: String, connectionType: SensorConnection.Type) {
         self.id = id
         self.name = name
-        self.connection = connection
+        self.connectionType = connectionType
     }
 
     // MARK: Internal
 
     let id: String
     let name: String
-    let connection: SensorConnection.Type
+    let connectionType: SensorConnection.Type
 }

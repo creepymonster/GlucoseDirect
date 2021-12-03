@@ -1,4 +1,3 @@
-
 //
 //  SensorConnector.swift
 //  LibreDirect
@@ -50,9 +49,32 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], calibrat
         case .startup:
             store.dispatch(.registerConnectionInfo(infos: infos))
 
+            if let id = store.state.selectedConnectionId, let connectionInfo = infos.first(where: { $0.id == id }) {
+                Log.info("Select startup connection: \(connectionInfo.name)")
+                store.dispatch(.selectedConnection(id: connectionInfo.id, connection: connectionInfo.connectionType.init()))
+
+            } else if infos.count == 1, let connectionInfo = infos.first {
+                Log.info("Select single startup connection: \(connectionInfo.name)")
+                store.dispatch(.selectedConnection(id: connectionInfo.id, connection: connectionInfo.connectionType.init()))
+
+            } else if let connectionInfo = infos.first {
+                Log.info("Select first startup connection: \(connectionInfo.name)")
+                store.dispatch(.selectedConnection(id: connectionInfo.id, connection: connectionInfo.connectionType.init()))
+            }
+
         case .selectedConnectionId(id: let id):
+            // if let sensorConnection = store.state.selectedConnection {
+            // sensorConnection.disconnectSensor()
+            // }
+
             if let connectionInfo = store.state.connectionInfos.first(where: { $0.id == id }) {
-                store.dispatch(.selectedConnection(id: id, connection: connectionInfo.connection.init()))
+                let connection = connectionInfo.connectionType.init()
+                store.dispatch(.selectedConnection(id: id, connection: connection))
+            }
+
+        case .selectedConnection(id: _, connection: _):
+            if store.state.isPaired, store.state.isConnectable {
+                store.dispatch(.connectSensor)
             }
 
         case .addSensorReadings(nextReading: let nextReading, trendReadings: let trendReadings, historyReadings: _):

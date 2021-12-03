@@ -13,14 +13,10 @@ final class LibreDirectApp: App {
     // MARK: Lifecycle
 
     init() {
+        store = LibreDirectApp.createStore()
+        notificationCenterDelegate = LibreDirectNotificationCenter(store: store)
+
         UNUserNotificationCenter.current().delegate = notificationCenterDelegate
-
-        /* if store.state.isPaired && store.state.isConnectable {
-             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {
-                 self.store.dispatch(.connectSensor)
-             }
-         } */
-
         store.dispatch(.startup)
     }
 
@@ -47,8 +43,8 @@ final class LibreDirectApp: App {
 
     // MARK: Private
 
-    private let store = createStore()
-    private let notificationCenterDelegate = LibreDirectNotificationCenter()
+    private let store: AppStore
+    private let notificationCenterDelegate: UNUserNotificationCenterDelegate
 
     private static func createStore() -> AppStore {
         if isSimulator || isPreviewMode {
@@ -65,7 +61,7 @@ final class LibreDirectApp: App {
             // required middlewares
             actionLogMiddleware(),
             sensorConnectorMiddelware([
-                SensorConnectionInfo(id: "virtual", name: "Virtual", connection: VirtualLibreConnection.self)
+                SensorConnectionInfo(id: "virtual", name: "Virtual", connectionType: VirtualLibreConnection.self),
             ]),
 
             // notification middleswares
@@ -81,8 +77,8 @@ final class LibreDirectApp: App {
             // required middlewares
             actionLogMiddleware(),
             sensorConnectorMiddelware([
-                SensorConnectionInfo(id: "libre2", name: LocalizedString("Without transmitter"), connection: Libre2Connection.self),
-                SensorConnectionInfo(id: "bubble", name: LocalizedString("Bubble transmitter"), connection: BubbleConnection.self),
+                SensorConnectionInfo(id: "libre2", name: LocalizedString("Without transmitter"), connectionType: Libre2Connection.self),
+                SensorConnectionInfo(id: "bubble", name: LocalizedString("Bubble transmitter"), connectionType: BubbleConnection.self),
             ]),
 
             // notification middleswares
@@ -101,7 +97,27 @@ final class LibreDirectApp: App {
 // MARK: - LibreDirectNotificationCenter
 
 final class LibreDirectNotificationCenter: NSObject, UNUserNotificationCenterDelegate {
+    // MARK: Lifecycle
+
+    init(store: AppStore) {
+        self.store = store
+    }
+
+    // MARK: Internal
+
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.badge, .banner, .list, .sound])
     }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        if let store = store, let action = response.notification.request.content.userInfo["action"] as? String, action == "snooze" {
+            store.dispatch(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(30 * 60).rounded(on: 1, .minute)))
+        }
+
+        completionHandler()
+    }
+
+    // MARK: Private
+
+    private weak var store: AppStore?
 }

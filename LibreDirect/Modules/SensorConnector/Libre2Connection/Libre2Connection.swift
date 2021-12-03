@@ -12,13 +12,16 @@ import Foundation
 final class Libre2Connection: SensorConnection {
     // MARK: Lifecycle
 
-    required init() {
-        super.init()
+    override required init() {
+        Log.info("init")
 
-        self.manager = CBCentralManager(delegate: self, queue: managerQueue, options: [CBCentralManagerOptionShowPowerAlertKey: true, CBCentralManagerOptionRestoreIdentifierKey: "libre-direct.ble-device.restore-identifier"])
+        super.init()
+        self.manager = CBCentralManager(delegate: self, queue: managerQueue, options: [CBCentralManagerOptionShowPowerAlertKey: true, CBCentralManagerOptionRestoreIdentifierKey: "libre-direct.libre2.restore-identifier"])
     }
 
     deinit {
+        Log.info("deinit")
+
         managerQueue.sync {
             disconnect()
         }
@@ -32,21 +35,26 @@ final class Libre2Connection: SensorConnection {
 
         self.updatesHandler = updatesHandler
 
+        UserDefaults.standard.peripheralUuid = nil
+        UserDefaults.standard.libre2UnlockCount = 0
+
+        sendUpdate(connectionState: .pairing)
+
         Task {
             let pairingService = Libre2Pairing()
             let pairedSensor = await pairingService.pairSensor()
-
-            UserDefaults.standard.libre2UnlockCount = 0
 
             if let pairedSensor = pairedSensor {
                 sendUpdate(sensor: pairedSensor)
 
                 if let fram = pairedSensor.fram, pairedSensor.state == .ready {
-                    let parsedFram = Libre2.parseFRAM(calibration: pairedSensor.factoryCalibration, pairingTimestamp: pairedSensor.pairingTimestamp, fram: fram)
+                    let parsedFram = SensorUtility.parseFRAM(calibration: pairedSensor.factoryCalibration, pairingTimestamp: pairedSensor.pairingTimestamp, fram: fram)
 
                     sendUpdate(trendReadings: parsedFram.trend, historyReadings: parsedFram.history)
                 }
             }
+
+            sendUpdate(connectionState: .disconnected)
         }
     }
 
@@ -81,7 +89,7 @@ final class Libre2Connection: SensorConnection {
 
         UserDefaults.standard.libre2UnlockCount = UserDefaults.standard.libre2UnlockCount + 1
 
-        let unlockPayload = Libre2.streamingUnlockPayload(uuid: sensor!.uuid, patchInfo: sensor!.patchInfo, enableTime: 42, unlockCount: UInt16(UserDefaults.standard.libre2UnlockCount))
+        let unlockPayload = SensorUtility.streamingUnlockPayload(uuid: sensor!.uuid, patchInfo: sensor!.patchInfo, enableTime: 42, unlockCount: UInt16(UserDefaults.standard.libre2UnlockCount))
         return Data(unlockPayload)
     }
 
@@ -95,7 +103,7 @@ final class Libre2Connection: SensorConnection {
             return
         }
 
-        if let peripheralUuidString = UserDefaults.standard.libre2PeripheralUuid,
+        if let peripheralUuidString = UserDefaults.standard.peripheralUuid,
            let peripheralUuid = UUID(uuidString: peripheralUuidString),
            let retrievedPeripheral = manager.retrievePeripherals(withIdentifiers: [peripheralUuid]).first
         {
@@ -175,7 +183,7 @@ final class Libre2Connection: SensorConnection {
     private var rxBuffer = Data()
 
     private var manager: CBCentralManager!
-    private let managerQueue = DispatchQueue(label: "libre-direct.ble-device.queue")
+    private let managerQueue = DispatchQueue(label: "libre-direct.libre2.ble-device.queue")
 
     private var serviceUuid: [CBUUID] = [CBUUID(string: "FDE3")]
     private var writeCharacteristicUuid = CBUUID(string: "F001")
@@ -192,7 +200,7 @@ final class Libre2Connection: SensorConnection {
             oldValue?.delegate = nil
             peripheral?.delegate = self
 
-            UserDefaults.standard.libre2PeripheralUuid = peripheral?.identifier.uuidString
+            UserDefaults.standard.peripheralUuid = peripheral?.identifier.uuidString
         }
     }
 }
@@ -274,7 +282,7 @@ extension Libre2Connection: CBCentralManagerDelegate {
 
             let result = foundUUID == sensor.uuid && peripheral.name?.lowercased().starts(with: "abbott") ?? false
             if result {
-                manager.stopScan()                
+                manager.stopScan()
                 connect(peripheral)
             }
         }
@@ -366,8 +374,8 @@ extension Libre2Connection: CBPeripheralDelegate {
         if rxBuffer.count == expectedBufferSize {
             if let sensor = sensor {
                 do {
-                    let decryptedBLE = Data(try Libre2.decryptBLE(uuid: sensor.uuid, data: rxBuffer))
-                    let parsedBLE = Libre2.parseBLE(calibration: sensor.factoryCalibration, data: decryptedBLE)
+                    let decryptedBLE = Data(try SensorUtility.decryptBLE(uuid: sensor.uuid, data: rxBuffer))
+                    let parsedBLE = SensorUtility.parseBLE(calibration: sensor.factoryCalibration, data: decryptedBLE)
 
                     if parsedBLE.age >= sensor.lifetime {
                         sendUpdate(age: parsedBLE.age, state: .expired)
@@ -395,7 +403,7 @@ private extension UserDefaults {
         case libre2UnlockCount = "libre-direct.libre2.unlock-count"
     }
 
-    var libre2PeripheralUuid: String? {
+    var peripheralUuid: String? {
         get {
             return UserDefaults.standard.string(forKey: Keys.devicePeripheralUuid.rawValue)
         }
