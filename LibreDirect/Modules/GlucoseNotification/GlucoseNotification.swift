@@ -19,10 +19,10 @@ private func glucoseNotificationMiddelware(service: glucoseNotificationService) 
                 service.clearNotifications()
             }
         case .addGlucose(glucose: let glucose):
-            guard store.state.glucoseAlarm && glucose.type == .cgm else {
+            guard store.state.glucoseAlarm, glucose.type == .cgm else {
                 break
             }
-            
+
             var isSnoozed = false
 
             if let snoozeUntil = store.state.alarmSnoozeUntil, Date() < snoozeUntil {
@@ -86,6 +86,7 @@ private class glucoseNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
+            notification.userInfo = self.actions
             notification.sound = .none
             notification.title = LocalizedString("Alert, low blood glucose", comment: "")
             notification.body = String(format: LocalizedString("Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal.", comment: ""), glucose.glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true), self.getMinuteChange(glucose: glucose, glucoseUnit: glucoseUnit))
@@ -110,6 +111,7 @@ private class glucoseNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
+            notification.userInfo = self.actions
             notification.sound = .none
             notification.title = LocalizedString("Alert, high glucose", comment: "")
             notification.body = String(format: LocalizedString("Your glucose %1$@ (%2$@) is dangerously high and needs to be treated.", comment: ""), glucose.glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true), self.getMinuteChange(glucose: glucose, glucoseUnit: glucoseUnit))
@@ -124,6 +126,10 @@ private class glucoseNotificationService {
     }
 
     // MARK: Private
+
+    private let actions: [AnyHashable: Any] = [
+        "action": "snooze"
+    ]
 
     private func getMinuteChange(glucose: Glucose, glucoseUnit: GlucoseUnit) -> String {
         var formattedMinuteChange = ""
