@@ -8,6 +8,7 @@ I try to keep the code as readable and understandable as possible so that as man
 
 ## Current features
 - Libre 2 EU support, for cgm values (without transmitter)
+- support for bubble transmitter
 - Add manual bgm values
 - Manage bgm/cgm values
 - Units mg/dL or mmol/L
@@ -42,7 +43,8 @@ I am very happy to receive feedback - suggestions for improvement or reports of 
 - I appreciate all the translations I get
 
 ## Screenshots
-![Screenshot](/Screenshots/readings.png?raw=true)
+![Screenshot](/Screenshots/overview.png?raw=true)
+![Screenshot](/Screenshots/list.png?raw=true)
 ![Screenshot](/Screenshots/calibrations.png?raw=true)
 ![Screenshot](/Screenshots/settings.png?raw=true)
 
