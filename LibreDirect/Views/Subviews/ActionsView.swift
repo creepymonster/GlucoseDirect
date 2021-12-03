@@ -8,9 +8,7 @@ import SwiftUI
 // MARK: - ActionsView
 
 struct ActionsView: View {
-    @State private var showingDeleteLogsAlert = false
-    @State private var showingDisconnectSensorAlert = false
-    @State private var showingUnpairSensorAlert = false
+    // MARK: Internal
 
     @EnvironmentObject var store: AppStore
 
@@ -52,13 +50,22 @@ struct ActionsView: View {
                         )
                     }
                 }
-            } else if store.state.hasSelectedConnection {
+            } else if store.state.hasSelectedConnection && store.state.connectionState != .pairing && store.state.connectionState != .scanning && store.state.connectionState != .connecting {
                 Button(action: { store.dispatch(.pairSensor) }) {
                     Label("Pair sensor", systemImage: "arrow.uturn.forward")
                 }
+            } else {
+                Text("...")
             }
-        }.padding([.top, .horizontal])
+        }
+        .padding([.top, .horizontal])
     }
+
+    // MARK: Private
+
+    @State private var showingDeleteLogsAlert = false
+    @State private var showingDisconnectSensorAlert = false
+    @State private var showingUnpairSensorAlert = false
 }
 
 // MARK: - ActionsView_Previews
