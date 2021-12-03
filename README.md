@@ -21,6 +21,7 @@ I try to keep the code as readable and understandable as possible so that as man
 - Factory calibration
 - Custom calibration
 - Lifetime details
+- Transmitter details
 - Sensor details
 - Glucose alert for lows and highs
 - Connection lost alert
