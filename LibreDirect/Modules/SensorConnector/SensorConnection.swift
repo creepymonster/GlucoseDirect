@@ -45,14 +45,12 @@ class SensorConnectionClass: NSObject {
 
     func sendUpdate(nextReading: SensorReading) {
         Log.info("NextReading: \(nextReading)")
-
         updatesHandler?(SensorReadingUpdate(nextReading: nextReading))
     }
 
     func sendUpdate(trendReadings: [SensorReading] = [], historyReadings: [SensorReading] = []) {
         Log.info("SensorTrendReadings: \(trendReadings)")
         Log.info("SensorHistoryReadings: \(historyReadings)")
-
         updatesHandler?(SensorReadingUpdate(nextReading: trendReadings.last, trendReadings: trendReadings, historyReadings: historyReadings))
     }
 
