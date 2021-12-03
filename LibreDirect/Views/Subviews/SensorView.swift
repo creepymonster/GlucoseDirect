@@ -16,6 +16,15 @@ struct SensorView: View {
 
     @State var deviceColorScheme = ColorScheme.light
 
+    var batteryEndAngle: Double? {
+        if let transmitter = store.state.transmitter {
+            let angle = 3.6 * Double(transmitter.battery)
+            return angle
+        }
+
+        return nil
+    }
+
     var remainingWarmupEndAngle: Double? {
         if let sensor = store.state.sensor, let remainingWarmupTime = sensor.remainingWarmupTime {
             let angle = (360.0 / Double(sensor.warmupTime)) * Double(remainingWarmupTime)
@@ -97,6 +106,24 @@ struct SensorView: View {
                             Text("Transmitter battery")
                             Spacer()
                             Text(transmitter.battery.description).textSelection(.enabled)
+
+                            if let endAngle = batteryEndAngle {
+                                ZStack {
+                                    GeometryReader { geo in
+                                        Circle()
+                                            .fill(Config.color)
+                                            .position(x: geo.size.width / 2, y: geo.size.height / 2)
+                                            .frame(width: geo.size.width, height: geo.size.width)
+
+                                        Path { path in
+                                            path.move(to: CGPoint(x: geo.size.width / 2, y: geo.size.height / 2))
+                                            path.addArc(center: CGPoint(x: geo.size.width / 2, y: geo.size.height / 2), radius: geo.size.width / 2, startAngle: .degrees(0), endAngle: .degrees(endAngle), clockwise: false)
+                                        }
+                                        .rotation(.degrees(-90))
+                                        .fill(Color.accentColor)
+                                    }
+                                }.frame(width: Config.size, height: Config.size)
+                            }
                         }
 
                         if let hardware = transmitter.hardware {
@@ -257,9 +284,9 @@ struct SensorView: View {
                 )
             }
         }.onChange(of: colorScheme) { scheme in
-            Log.info("onChange colorScheme: \(scheme)")
-
             if deviceColorScheme != scheme {
+                Log.info("onChange colorScheme: \(scheme)")
+
                 deviceColorScheme = scheme
             }
         }
@@ -268,7 +295,7 @@ struct SensorView: View {
     // MARK: Private
 
     private enum Config {
-        static let size: CGFloat = 25
+        static let size: CGFloat = 20
 
         static var color: Color { Color(hex: "#E4E6EB") | Color(hex: "#404040") }
     }
