@@ -389,10 +389,16 @@
 "Transmitter firmware" = "Firmware";
 
 /* (No Comment) */
-"Sensor connection type" = "Verbindungsart";
+"Transmitter" = "Transmitter";
 
 /* (No Comment) */
 "Sensor connection" = "Sensor Verbindung";
 
 /* (No Comment) */
-"Without transmitter" = "Without transmitter";
+"Without transmitter" = "Ohne Transmitter";
+
+/* (No Comment) */
+"Bubble transmitter" = "Bubble Transmitter";
+
+/* (No Comment) */
+"Pairing" = "Wird gekoppelt";
