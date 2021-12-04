@@ -40,12 +40,7 @@ I am very happy to receive feedback - suggestions for improvement or reports of 
 
 ## Support?
 - I am very happy to find a designer who will support me by designing a nice app icon :)
-- I appreciate all the translations I get
-
-## Translation?
-I appreciate your support with translations into other languages.
-
-Just drop by Crowdin, every translation helps :)
+- I appreciate all the translations I get. Just drop by Crowdin, every translation helps :)
 https://crwd.in/glucose-direct-app
 
 ## Screenshots
