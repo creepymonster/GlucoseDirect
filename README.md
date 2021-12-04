@@ -1,4 +1,4 @@
-# Gluco Direct App
+# Glucose Direct App
 
 **Warning, the project is strictly for my personal use and is highly experimental.**
 
