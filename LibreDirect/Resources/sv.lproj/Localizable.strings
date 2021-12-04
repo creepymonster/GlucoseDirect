@@ -356,46 +356,46 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Din sensor går snart ut. Byt sensor om %1$@ minuter.";
 
 /* (No Comment) */
-"Other Settings" = "Other Settings";
+"Other Settings" = "Andra inställningar";
 
 /* (No Comment) */
-"Glucose badge" = "Glucose badge";
+"Glucose badge" = "Visa blodsocker på ikon";
 
 /* (No Comment) */
-"Are you sure you want to add the new blood glucose value?" = "Are you sure you want to add the new blood glucose value?";
+"Are you sure you want to add the new blood glucose value?" = "Bekräfta att du vill lägga till ett nytt glukosvärde.";
 
 /* (No Comment) */
-"Chart presentation" = "Chart presentation";
+"Chart presentation" = "Diagram";
 
 /* (No Comment) */
-"Line" = "Line";
+"Line" = "Linje";
 
 /* (No Comment) */
-"Points" = "Points";
+"Points" = "Punkter";
 
 /* (No Comment) */
-"Transmitter name" = "Name";
+"Transmitter name" = "Namn";
 
 /* (No Comment) */
-"Transmitter battery" = "Battery";
+"Transmitter battery" = "Batteri";
 
 /* (No Comment) */
-"Transmitter hardware" = "Hardware";
+"Transmitter hardware" = "Hårdvara";
 
 /* (No Comment) */
 "Transmitter firmware" = "Firmware";
 
 /* (No Comment) */
-"Transmitter" = "Transmitter";
+"Transmitter" = "Sändare";
 
 /* (No Comment) */
-"Sensor connection" = "Sensor connection";
+"Sensor connection" = "Sensoranslutning";
 
 /* (No Comment) */
-"Without transmitter" = "Without transmitter";
+"Without transmitter" = "Utan sändare";
 
 /* (No Comment) */
-"Bubble transmitter" = "Bubble transmitter";
+"Bubble transmitter" = "Bubbel-sändare";
 
 /* (No Comment) */
-"Pairing" = "Pairing";
+"Pairing" = "Parkopplar";
