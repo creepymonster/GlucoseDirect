@@ -46,6 +46,8 @@ I am very happy to receive feedback - suggestions for improvement or reports of 
 ![Screenshot](/Screenshots/settings.png?raw=true)
 
 ## Roadmap
+- Other transmitters
+- Detailed tests of the Libre 1
 - Other diabetes sources to upload to (like tidepool, ...)
 
 ## I use sounds from the following sources (incl. licenses):
