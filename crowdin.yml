@@ -1,0 +1,7 @@
+files:
+  - source: /LibreDirect/en.lproj/InfoPlist.strings
+    translation: /LibreDirect/%two_letters_code%.lproj/InfoPlist.strings
+  - source: /LibreDirect/Resources/en.lproj/Localizable.strings
+    translation: /LibreDirect/Resources/%two_letters_code%.lproj/Localizable.strings
+  - source: /LibreDirect/Resources/Settings.bundle/en.lproj/Root.strings
+    translation: /LibreDirect/Resources/Settings.bundle/%two_letters_code%.lproj/Root.strings
