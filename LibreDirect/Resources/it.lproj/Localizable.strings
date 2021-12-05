@@ -8,109 +8,109 @@
 "%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
 
 /* (No Comment) */
-"0 - Unknown" = "0 - Unknown";
+"0 - Unknown" = "0 - Sconosciuto";
 
 /* (No Comment) */
-"1 - European" = "1 - European";
+"1 - European" = "1 - Europeo";
 
 /* (No Comment) */
 "2 - USA" = "2 - USA";
 
 /* (No Comment) */
-"4 - Australian" = "4 - Australian";
+"4 - Australian" = "4 - Australiano";
 
 /* (No Comment) */
-"8 - Eastern" = "8 - Eastern";
+"8 - Eastern" = "8 - Est";
 
 /* (No Comment) */
-"Add" = "Add";
+"Add" = "Aggiungi";
 
 /* (No Comment) */
-"Add glucose for calibration" = "Add glucose for calibration";
+"Add glucose for calibration" = "Aggiungere glucosio per la calibrazione";
 
 /* (No Comment) */
-"Add glucose value" = "Add glucose value";
+"Add glucose value" = "Aggiungere valore al glucosio";
 
 /* (No Comment) */
-"Alarm Settings" = "Alarm Settings";
+"Alarm Settings" = "Impostazioni dell'allarme";
 
 /* (No Comment) */
-"Alert, high glucose" = "Alert, high glucose";
+"Alert, high glucose" = "Allarme, glucosio alto";
 
 /* (No Comment) */
-"Alert, low blood glucose" = "Alert, low blood glucose";
+"Alert, low blood glucose" = "Allarme, glucosio basso nel sangue";
 
 /* (No Comment) */
-"Alert, sensor connection lost" = "Alert, sensor connection lost";
+"Alert, sensor connection lost" = "Allarme, connessione sensore persa";
 
 /* (No Comment) */
-"Alert, sensor expired" = "Alert, sensor expired";
+"Alert, sensor expired" = "Allarme, sensore scaduto";
 
 /* (No Comment) */
-"Alert, sensor expiring soon" = "Alert, sensor expiring soon";
+"Alert, sensor expiring soon" = "Allarme, sensore che scade presto";
 
 /* (No Comment) */
-"Are you sure you want to add the new calibration?" = "Are you sure you want to add the new calibration?";
+"Are you sure you want to add the new calibration?" = "Sei sicuro di voler aggiungere la nuova calibrazione?";
 
 /* (No Comment) */
-"Are you sure you want to delete all calibrations?" = "Are you sure you want to delete all calibrations?";
+"Are you sure you want to delete all calibrations?" = "Sei sicuro di voler cancellare tutte le calibrazioni?";
 
 /* (No Comment) */
-"Are you sure you want to delete all glucose values?" = "Are you sure you want to delete all glucose values?";
+"Are you sure you want to delete all glucose values?" = "Sei sicuro di voler cancellare tutti i valori del glucosio?";
 
 /* (No Comment) */
-"Are you sure you want to disconnect the sensor?" = "Are you sure you want to disconnect the sensor?";
+"Are you sure you want to disconnect the sensor?" = "Sei sicuro di voler scollegare il sensore?";
 
 /* (No Comment) */
-"Are you sure you want to unpair the sensor?" = "Are you sure you want to unpair the sensor?";
+"Are you sure you want to unpair the sensor?" = "Sei sicuro di voler disaccoppiare il sensore?";
 
 /* (No Comment) */
-"Blood glucose: %1$@" = "Blood glucose: %1$@";
+"Blood glucose: %1$@" = "Glicemia: %1$@";
 
 /* (No Comment) */
-"Calibration view" = "Calibration";
+"Calibration view" = "Taratura";
 
 /* (No Comment) */
-"Cancel" = "Abbrechen";
+"Cancel" = "Annulla";
 
 /* (No Comment) */
-"Chart (%1$@)" = "Chart";
+"Chart (%1$@)" = "Grafico";
 
 /* (No Comment) */
-"Connect sensor" = "Connect sensor";
+"Connect sensor" = "Collegare il sensore";
 
 /* (No Comment) */
-"Connected" = "Connected";
+"Connected" = "Collegato";
 
 /* (No Comment) */
-"Connecting" = "Connecting";
+"Connecting" = "Collegare";
 
 /* (No Comment) */
-"Connection alarm" = "Connection alarm";
+"Connection alarm" = "Allarme di connessione";
 
 /* (No Comment) */
-"Custom calibration" = "Calibration";
+"Custom calibration" = "Taratura";
 
 /* (No Comment) */
-"Custom calibration intercept" = "Intercept";
+"Custom calibration intercept" = "Intercettare";
 
 /* (No Comment) */
-"Custom calibration slope" = "Slope";
+"Custom calibration slope" = "Pendenza";
 
 /* (No Comment) */
-"Delete" = "Delete";
+"Delete" = "Cancellare";
 
 /* (No Comment) */
-"Delete all" = "Delete all";
+"Delete all" = "Cancellare tutto";
 
 /* (No Comment) */
-"Disconnect" = "Disconnect";
+"Disconnect" = "Scollegare";
 
 /* (No Comment) */
-"Disconnect sensor" = "Disconnect sensor";
+"Disconnect sensor" = "Scollegare il sensore";
 
 /* (No Comment) */
-"Disconnected" = "Disconnected";
+"Disconnected" = "Scollegato";
 
 /* (No Comment) */
 "Factory calibration i1" = "i1";
@@ -131,25 +131,25 @@
 "Factory calibration i6" = "i6";
 
 /* (No Comment) */
-"Glucose alarm" = "Glucose alarm";
+"Glucose alarm" = "Allarme glucosio";
 
 /* (No Comment) */
-"Glucose list view" = "List";
+"Glucose list view" = "Lista";
 
 /* (No Comment) */
-"Glucose overview" = "Overview";
+"Glucose overview" = "Panoramica";
 
 /* (No Comment) */
-"Glucose settings" = "Glucose settings";
+"Glucose settings" = "Impostazioni del glucosio";
 
 /* (No Comment) */
-"Glucose unit" = "Unit";
+"Glucose unit" = "Unità";
 
 /* (No Comment) */
-"Glucose values" = "Glucose values";
+"Glucose values" = "Valori di glucosio";
 
 /* (No Comment) */
-"Hold the top edge of your iPhone close to the sensor." = "Hold the top edge of your iPhone close to the sensor.";
+"Hold the top edge of your iPhone close to the sensor." = "Tieni il bordo superiore del tuo iPhone vicino al sensore.";
 
 /* (No Comment) */
 "Libre 1" = "Libre 1";
@@ -176,7 +176,7 @@
 "Libre US 14d" = "Libre US 14d";
 
 /* (No Comment) */
-"Lower limit" = "Low";
+"Lower limit" = "Basso";
 
 /* (No Comment) */
 "mg/dL" = "mg/dL";
@@ -185,7 +185,7 @@
 "mmol/L" = "mmol/L";
 
 /* (No Comment) */
-"New calibration" = "New calibration";
+"New calibration" = "Nuova calibrazione";
 
 /* (No Comment) */
 "Nightscout API-Secret" = "API-Secret";
@@ -194,73 +194,73 @@
 "Nightscout host" = "Host";
 
 /* (No Comment) */
-"Nightscout settings" = "Nightscout settings";
+"Nightscout settings" = "Impostazioni Nightscout";
 
 /* (No Comment) */
 "Nightscout upload enabled" = "Upload";
 
 /* (No Comment) */
-"Now" = "Now";
+"Now" = "Ora";
 
 /* (No Comment) */
-"OK, sensor connection established" = "OK, sensor connection established";
+"OK, sensor connection established" = "OK, connessione del sensore stabilita";
 
 /* (No Comment) */
-"Pair sensor" = "Pair sensor";
+"Pair sensor" = "Sensore di coppia";
 
 /* (No Comment) */
-"Power off" = "Power off";
+"Power off" = "Spegnimento";
 
 /* (No Comment) */
-"Scanning" = "Scanning";
+"Scanning" = "Scansione";
 
 /* (No Comment) */
-"Sensor age" = "Sensor age";
+"Sensor age" = "Età del sensore";
 
 /* (No Comment) */
-"Connection" = "Connection";
+"Connection" = "Connessione";
 
 /* (No Comment) */
-"Connection error" = "Error";
+"Connection error" = "Errore";
 
 /* (No Comment) */
-"Connection error timestamp" = "Time";
+"Connection error timestamp" = "Tempo";
 
 /* (No Comment) */
-"Connection state" = "State";
+"Connection state" = "Stato";
 
 /* (No Comment) */
-"Sensor custom calibration" = "Custom Calibration";
+"Sensor custom calibration" = "Taratura personalizzata";
 
 /* (No Comment) */
-"Sensor details" = "Sensor details";
+"Sensor details" = "Dettagli del sensore";
 
 /* (No Comment) */
-"Sensor factory calibration" = "Factory Calibration";
+"Sensor factory calibration" = "Calibrazione di fabbrica";
 
 /* (No Comment) */
-"Sensor has failure" = "Sensor has failure";
+"Sensor has failure" = "Il sensore ha un guasto";
 
 /* (No Comment) */
-"Sensor in starting phase" = "Sensor in starting phase";
+"Sensor in starting phase" = "Sensore in fase di avvio";
 
 /* (No Comment) */
-"Sensor is expired" = "Sensor is expired";
+"Sensor is expired" = "Il sensore è scaduto";
 
 /* (No Comment) */
-"Sensor is ready" = "Sensor is ready";
+"Sensor is ready" = "Il sensore è pronto";
 
 /* (No Comment) */
-"Sensor is shut down" = "Sensor is expired";
+"Sensor is shut down" = "Il sensore è scaduto";
 
 /* (No Comment) */
-"Sensor lifetime" = "Lifetime";
+"Sensor lifetime" = "Vita";
 
 /* (No Comment) */
-"Missed readings" = "Missed";
+"Missed readings" = "Mancato";
 
 /* (No Comment) */
-"Sensor not yet startet" = "Sensor not yet startet";
+"Sensor not yet startet" = "Sensore non ancora avviato";
 
 /* (No Comment) */
 "Sensor PatchInfo" = "PatchInfo";
@@ -269,115 +269,115 @@
 "Sensor possible lifetime" = "Lifetime";
 
 /* (No Comment) */
-"Sensor region" = "Region";
+"Sensor region" = "Regione";
 
 /* (No Comment) */
-"Sensor remaining lifetime" = "Remaining";
+"Sensor remaining lifetime" = "Rimanente";
 
 /* (No Comment) */
-"Sensor remaining warmup time" = "Warmup";
+"Sensor remaining warmup time" = "Riscaldamento";
 
 /* (No Comment) */
-"Sensor serial" = "Serial";
+"Sensor serial" = "Seriale";
 
 /* (No Comment) */
-"Sensor state" = "State";
+"Sensor state" = "Stato";
 
 /* (No Comment) */
-"Sensor type" = "Type";
+"Sensor type" = "Tipo";
 
 /* (No Comment) */
 "Sensor UID" = "UID";
 
 /* (No Comment) */
-"Settings view" = "Settings";
+"Settings view" = "Impostazioni";
 
 /* (No Comment) */
 "Snooze until" = "Snooze";
 
 /* (No Comment) */
-"Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "Unfortunately, an NFC-enabled iPhone is required to use the app :'(";
+"Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "Sfortunatamente, è necessario un iPhone abilitato NFC per usare l'app :'(";
 
 /* (No Comment) */
-"The connection to the sensor has been successfully established and glucose data is received." = "The connection to the sensor has been successfully established and glucose data is received.";
+"The connection to the sensor has been successfully established and glucose data is received." = "La connessione al sensore è stata stabilita con successo e i dati sul glucosio vengono ricevuti.";
 
 /* (No Comment) */
-"The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause." = "The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause.";
+"The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause." = "La connessione al sensore sembra esistere, ma non si ricevono valori. I dati del sensore difettosi possono essere la causa.";
 
 /* (No Comment) */
-"The connection with the sensor has been lost. Normally this happens when the sensor is outside the possible range." = "The connection with the sensor has been lost. Normally this happens when the sensor is outside the possible range.";
+"The connection with the sensor has been lost. Normally this happens when the sensor is outside the possible range." = "La connessione con il sensore è stata persa. Normalmente questo accade quando il sensore è fuori dalla gamma possibile.";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "Sconosciuto";
 
 /* (No Comment) */
 "Unpair" = "Unpair";
 
 /* (No Comment) */
-"Unpair sensor" = "Unpair sensor";
+"Unpair sensor" = "Disaccoppiamento del sensore";
 
 /* (No Comment) */
-"Upper limit" = "High";
+"Upper limit" = "Alto";
 
 /* (No Comment) */
-"Virtual Sensor" = "Virtual Sensor";
+"Virtual Sensor" = "Sensore virtuale";
 
 /* (No Comment) */
-"Warning, sensor missed %1$@ readings" = "Warning, sensor missed %1$@ readings";
+"Warning, sensor missed %1$@ readings" = "Attenzione, il sensore ha mancato le letture di %1$@";
 
 /* (No Comment) */
-"Wearing time alarm" = "Wearing time alarm";
+"Wearing time alarm" = "Allarme orario d'uso";
 
 /* (No Comment) */
-"Your current glucose is %1$@ (%2$@)." = "Your current glucose is %1$@ (%2$@).";
+"Your current glucose is %1$@ (%2$@)." = "Il tuo glucosio attuale è %1$@ (%2$@).";
 
 /* (No Comment) */
-"Your glucose %1$@ (%2$@) is dangerously high and needs to be treated." = "Your glucose, %1$@ (%2$@), is dangerously high and needs to be treated.";
+"Your glucose %1$@ (%2$@) is dangerously high and needs to be treated." = "Il tuo glucosio, %1$@ (%2$@), è pericolosamente alto e deve essere trattato.";
 
 /* (No Comment) */
-"Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "Your glucose, %1$@ (%2$@), is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal.";
+"Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "Il tuo glucosio, %1$@ (%2$@), è pericolosamente basso. Con bevande zuccherate o destrosio, i livelli di glucosio nel sangue possono spesso tornare alla normalità.";
 
 /* (No Comment) */
-"Your sensor has expired and needs to be replaced as soon as possible" = "Your sensor has expired and needs to be replaced as soon as possible";
+"Your sensor has expired and needs to be replaced as soon as possible" = "Il suo sensore è scaduto e deve essere sostituito al più presto";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ day." = "Your sensor is about to expire. Replace sensor in %1$@ day.";
+"Your sensor is about to expire. Replace sensor in %1$@ day." = "Il tuo sensore sta per scadere. Sostituisci il sensore nel giorno %1$@.";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ days." = "Your sensor is about to expire. Replace sensor in %1$@ days.";
+"Your sensor is about to expire. Replace sensor in %1$@ days." = "Il tuo sensore sta per scadere. Sostituisci il sensore tra %1$@ giorni.";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ hour." = "Your sensor is about to expire. Replace sensor in %1$@ hour.";
+"Your sensor is about to expire. Replace sensor in %1$@ hour." = "Il tuo sensore sta per scadere. Sostituisci il sensore in %1$@ ora.";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ hours." = "Your sensor is about to expire. Replace sensor in %1$@ hours.";
+"Your sensor is about to expire. Replace sensor in %1$@ hours." = "Il tuo sensore sta per scadere. Sostituisci il sensore tra %1$@ ore.";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Your sensor is about to expire. Replace sensor in %1$@ minutes.";
+"Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Il tuo sensore sta per scadere. Sostituisci il sensore tra %1$@ minuti.";
 
 /* (No Comment) */
-"Other Settings" = "Other Settings";
+"Other Settings" = "Altre impostazioni";
 
 /* (No Comment) */
-"Glucose badge" = "Glucose badge";
+"Glucose badge" = "Distintivo del glucosio";
 
 /* (No Comment) */
-"Are you sure you want to add the new blood glucose value?" = "Are you sure you want to add the new blood glucose value?";
+"Are you sure you want to add the new blood glucose value?" = "Sei sicuro di voler aggiungere il nuovo valore della glicemia?";
 
 /* (No Comment) */
-"Chart presentation" = "Chart presentation";
+"Chart presentation" = "Presentazione del grafico";
 
 /* (No Comment) */
-"Line" = "Line";
+"Line" = "Linea";
 
 /* (No Comment) */
-"Points" = "Points";
+"Points" = "Punti";
 
 /* (No Comment) */
-"Transmitter name" = "Name";
+"Transmitter name" = "Nome";
 
 /* (No Comment) */
-"Transmitter battery" = "Battery";
+"Transmitter battery" = "Batteria";
 
 /* (No Comment) */
 "Transmitter hardware" = "Hardware";
@@ -386,16 +386,16 @@
 "Transmitter firmware" = "Firmware";
 
 /* (No Comment) */
-"Transmitter" = "Transmitter";
+"Transmitter" = "Trasmettitore";
 
 /* (No Comment) */
-"Sensor connection" = "Sensor connection";
+"Sensor connection" = "Collegamento del sensore";
 
 /* (No Comment) */
-"Without transmitter" = "Without transmitter";
+"Without transmitter" = "Senza trasmettitore";
 
 /* (No Comment) */
 "Bubble transmitter" = "Bubble transmitter";
 
 /* (No Comment) */
-"Pairing" = "Pairing";
+"Pairing" = "Abbinamento";
