@@ -1,3 +1,4 @@
+
 //
 //  SensorConnectorSettings.swift
 //  LibreDirect
@@ -41,7 +42,7 @@ struct SensorConnectorSettings: View {
     private var selectedConnectionId: Binding<String> {
         Binding(
             get: { store.state.selectedConnectionId ?? "" },
-            set: { store.dispatch(.selectedConnectionId(id: $0)) }
+            set: { store.dispatch(.selectConnectionId(id: $0)) }
         )
     }
 }

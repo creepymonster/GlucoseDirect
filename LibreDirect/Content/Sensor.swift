@@ -7,10 +7,10 @@ import Foundation
 
 // MARK: - Sensor
 
-struct Sensor: Codable {
+class Sensor: Codable {
     // MARK: Lifecycle
 
-    init(uuid: Data, patchInfo: Data, fram: Data) {
+    convenience init(uuid: Data, patchInfo: Data, fram: Data) {
         let family = SensorFamily(Int(patchInfo[2] >> 4))
 
         self.init(

@@ -1,3 +1,4 @@
+
 //
 //  ActionsView.swift
 //  LibreDirect
@@ -23,6 +24,7 @@ struct ActionsView: View {
                         Alert(
                             title: Text("Are you sure you want to unpair the sensor?"),
                             primaryButton: .destructive(Text("Unpair")) {
+                                store.dispatch(.resetTransmitter)
                                 store.dispatch(.resetSensor)
                             },
                             secondaryButton: .cancel()

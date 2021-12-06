@@ -8,10 +8,6 @@ import Foundation
 // MARK: - VirtualLibreConnection
 
 final class VirtualLibreConnection: SensorConnection {
-    // MARK: Lifecycle
-
-    override required init() {}
-
     // MARK: Internal
 
     func pairSensor(updatesHandler: @escaping SensorConnectionHandler) {
@@ -59,6 +55,8 @@ final class VirtualLibreConnection: SensorConnection {
     }
 
     // MARK: Private
+    
+    var updatesHandler: SensorConnectionHandler? = nil
 
     private var initAge = 0
     private var warmupTime = 5
