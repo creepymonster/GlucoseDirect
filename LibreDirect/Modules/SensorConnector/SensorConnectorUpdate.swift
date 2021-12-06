@@ -1,4 +1,3 @@
-
 //
 //  DeviceUpdate.swift
 //  LibreDirect
@@ -29,7 +28,7 @@ class SensorTransmitterUpdate: SensorConnectorUpdate {
 class SensorStateUpdate: SensorConnectorUpdate {
     // MARK: Lifecycle
 
-    init(sensorAge: Int, sensorState: SensorState) {
+    init(sensorAge: Int, sensorState: SensorState?) {
         self.sensorAge = sensorAge
         self.sensorState = sensorState
     }
@@ -37,7 +36,7 @@ class SensorStateUpdate: SensorConnectorUpdate {
     // MARK: Internal
 
     let sensorAge: Int
-    let sensorState: SensorState
+    let sensorState: SensorState?
 }
 
 // MARK: - SensorConnectionStateUpdate
@@ -59,13 +58,13 @@ class SensorConnectionStateUpdate: SensorConnectorUpdate {
 class SensorUpdate: SensorConnectorUpdate {
     // MARK: Lifecycle
 
-    init(sensor: Sensor) {
+    init(sensor: Sensor?) {
         self.sensor = sensor
     }
 
     // MARK: Internal
 
-    let sensor: Sensor
+    let sensor: Sensor?
 }
 
 // MARK: - SensorReadingUpdate

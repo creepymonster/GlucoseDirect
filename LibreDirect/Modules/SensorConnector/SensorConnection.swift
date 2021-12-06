@@ -9,27 +9,24 @@ import Foundation
 
 typealias SensorConnectionHandler = (_ update: SensorConnectorUpdate) -> Void
 
-// MARK: - SensorConnectionProtocoll
+// MARK: - SensorConnection
 
-protocol SensorConnectionProtocoll {
-    init()
+protocol SensorConnection {
+    var updatesHandler: SensorConnectionHandler? { get }
+
     func pairSensor(updatesHandler: @escaping SensorConnectionHandler)
     func connectSensor(sensor: Sensor, updatesHandler: @escaping SensorConnectionHandler)
     func disconnectSensor()
 }
 
-// MARK: - SensorConnectionClass
-
-class SensorConnectionClass: NSObject {
-    var updatesHandler: SensorConnectionHandler?
-
+extension SensorConnection {
     func sendUpdate(connectionState: SensorConnectionState) {
         Log.info("ConnectionState: \(connectionState.description)")
         updatesHandler?(SensorConnectionStateUpdate(connectionState: connectionState))
     }
 
-    func sendUpdate(sensor: Sensor) {
-        Log.info("Sensor: \(sensor.description)")
+    func sendUpdate(sensor: Sensor?) {
+        Log.info("Sensor: \(sensor?.description ?? "-")")
         updatesHandler?(SensorUpdate(sensor: sensor))
     }
 
@@ -71,24 +68,4 @@ class SensorConnectionClass: NSObject {
         Log.error("ErrorCode: \(errorCode)")
         updatesHandler?(SensorErrorUpdate(errorCode: errorCode))
     }
-}
-
-typealias SensorConnection = SensorConnectionClass & SensorConnectionProtocoll
-
-// MARK: - SensorConnectionInfo
-
-class SensorConnectionInfo: Identifiable {
-    // MARK: Lifecycle
-
-    init(id: String, name: String, connectionType: SensorConnection.Type) {
-        self.id = id
-        self.name = name
-        self.connectionType = connectionType
-    }
-
-    // MARK: Internal
-
-    let id: String
-    let name: String
-    let connectionType: SensorConnection.Type
 }
