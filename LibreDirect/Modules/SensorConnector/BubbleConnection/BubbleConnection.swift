@@ -123,7 +123,7 @@ class BubbleConnection: SensorBLEConnection {
             let firmware = Double("\(firmwareMajor).\(firmwareMinor)")
             let battery = Int(value[4])
 
-            let transmitter = Transmitter(name: "Bubble", battery: battery, firmware: hardware, hardware: firmware)
+            let transmitter = Transmitter(name: "Bubble", battery: battery, firmware: firmware, hardware: hardware)
             sendUpdate(transmitter: transmitter)
 
             if let writeCharacteristic = writeCharacteristic {
