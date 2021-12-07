@@ -68,4 +68,9 @@ extension SensorConnection {
         Log.error("ErrorCode: \(errorCode)")
         updatesHandler?(SensorErrorUpdate(errorCode: errorCode))
     }
+    
+    func sendMissedUpdate() {
+        Log.error("Missed update")
+        updatesHandler?(SensorReadingUpdate(nextReading: nil))
+    }
 }

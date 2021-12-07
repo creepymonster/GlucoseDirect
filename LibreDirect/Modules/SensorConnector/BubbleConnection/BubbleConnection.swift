@@ -173,6 +173,7 @@ class BubbleConnection: SensorBLEConnection {
             }
 
         case .noSensor:
+            sendMissedUpdate()
             resetBuffer()
 
         case .serialNumber:
