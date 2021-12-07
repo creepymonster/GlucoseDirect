@@ -44,6 +44,10 @@ extension AppState {
     var currentGlucose: Glucose? { glucoseValues.last }
 
     var isConnectable: Bool {
+        if transmitter != nil, connectableStates.contains(connectionState) {
+            return true
+        }
+
         if let sensor = sensor {
             return sensorConnectableStates.contains(sensor.state) && connectableStates.contains(connectionState)
         }

@@ -110,11 +110,12 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], calibrat
                 break
             }
 
-            guard let sensor = store.state.sensor else {
-                break
+            if let sensor = store.state.sensor {
+                sensorConnection.connectSensor(sensor: sensor, updatesHandler: updatesHandler)
+            } else {
+                sensorConnection.pairSensor(updatesHandler: updatesHandler)
             }
-
-            sensorConnection.connectSensor(sensor: sensor, updatesHandler: updatesHandler)
+            
         case .disconnectSensor:
             guard let sensorConnection = store.state.selectedConnection else {
                 break
