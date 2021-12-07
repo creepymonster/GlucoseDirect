@@ -92,7 +92,7 @@ class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate,
         setStayConnected(stayConnected: true)
 
         guard manager.state == .poweredOn else {
-            print("ERROR \(manager.state)")
+            Log.error("Bad bluetooth state, manager.state \(manager.state.rawValue)")
             return
         }
 
@@ -195,7 +195,12 @@ class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate,
         Log.info("Peripheral: \(peripheral), didFailToConnect")
 
         sendUpdate(connectionState: .disconnected)
-        sendUpdate(error: error)
+
+        if let error = error, let errorCode = CBError.Code(rawValue: (error as NSError).code) {
+            sendUpdate(errorCode: errorCode.rawValue)
+        } else {
+            sendUpdate(error: error)
+        }
 
         guard stayConnected else {
             return
@@ -209,7 +214,12 @@ class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate,
         Log.info("Peripheral: \(peripheral), didDisconnectPeripheral")
 
         sendUpdate(connectionState: .disconnected)
-        sendUpdate(error: error)
+        
+        if let error = error, let errorCode = CBError.Code(rawValue: (error as NSError).code) {
+            sendUpdate(errorCode: errorCode.rawValue) // code 7 - bad unlock count
+        } else {
+            sendUpdate(error: error)
+        }
 
         guard stayConnected else {
             return

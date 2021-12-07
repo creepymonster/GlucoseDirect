@@ -58,15 +58,19 @@ final class Libre2Connection: SensorBLEConnection {
 
     func unlock() -> Data? {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Unlock")
+        Log.info("Unlock, count: \(UserDefaults.standard.libre2UnlockCount)")
 
         if sensor == nil {
             return nil
         }
-
-        UserDefaults.standard.libre2UnlockCount = UserDefaults.standard.libre2UnlockCount + 1
-
-        let unlockPayload = SensorUtility.streamingUnlockPayload(uuid: sensor!.uuid, patchInfo: sensor!.patchInfo, enableTime: 42, unlockCount: UInt16(UserDefaults.standard.libre2UnlockCount))
+        
+        let unlockCount = UserDefaults.standard.libre2UnlockCount + 1
+        let unlockPayload = SensorUtility.streamingUnlockPayload(uuid: sensor!.uuid, patchInfo: sensor!.patchInfo, enableTime: 42, unlockCount: UInt16(unlockCount))
+        
+        UserDefaults.standard.libre2UnlockCount = unlockCount
+        
+        Log.info("Unlock done, count: \(UserDefaults.standard.libre2UnlockCount)")
+        
         return Data(unlockPayload)
     }
 
