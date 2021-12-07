@@ -41,6 +41,8 @@
 	<string>The Bluetooth function is needed to connect to the supported devices.</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>The Bluetooth function is needed to connect to the supported devices.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Access to the calendar is required to display up-to-date glucose values on the Apple Watch.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
