@@ -14,7 +14,9 @@ struct NightscoutSettingsView: View {
         Section(
             content: {
                 ToggleView(key: LocalizedString("Nightscout upload enabled", comment: ""), value: store.state.nightscoutUpload) { value -> Void in
-                    store.dispatch(.setNightscoutUpload(enabled: value))
+                    withAnimation {
+                        store.dispatch(.setNightscoutUpload(enabled: value))
+                    }
                 }
 
                 if store.state.nightscoutUpload {

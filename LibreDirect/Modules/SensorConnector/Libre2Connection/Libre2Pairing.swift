@@ -111,11 +111,11 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
 
                     let decryptedFram = SensorUtility.decryptFRAM(uuid: sensorUID, patchInfo: patchInfo, fram: fram)
                     if let decryptedFram = decryptedFram {
-                        Log.error("Continuation with success (from decrypted fram)")
+                        Log.info("Continuation with success (from decrypted fram)")
                         self.continuation?.resume(returning: Sensor(uuid: sensorUID, patchInfo: patchInfo, fram: decryptedFram))
 
                     } else {
-                        Log.error("Continuation with success (from fram)")
+                        Log.info("Continuation with success (from fram)")
                         self.continuation?.resume(returning: Sensor(uuid: sensorUID, patchInfo: patchInfo, fram: fram))
                     }
                 }

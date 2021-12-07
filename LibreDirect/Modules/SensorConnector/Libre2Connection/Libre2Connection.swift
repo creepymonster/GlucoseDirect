@@ -96,7 +96,7 @@ final class Libre2Connection: SensorBLEConnection {
             }
         }
     }
-
+    
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
         Log.info("Peripheral: \(peripheral)")

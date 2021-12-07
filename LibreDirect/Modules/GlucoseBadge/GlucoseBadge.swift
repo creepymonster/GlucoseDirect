@@ -62,7 +62,7 @@ private class glucoseBadgeService {
             let notification = UNMutableNotificationContent()
             notification.sound = .none
             notification.title = String(format: LocalizedString("Blood glucose: %1$@", comment: ""), glucose.glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true))
-            notification.body = String(format: LocalizedString("Your current glucose is %1$@ (%2$@).", comment: ""), glucose.glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true), self.getMinuteChange(glucose: glucose, glucoseUnit: glucoseUnit))
+            notification.body = String(format: LocalizedString("Your current glucose is %1$@ (%2$@).", comment: ""), glucose.glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true), glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) ?? "?")
 
             if #available(iOS 15.0, *) {
                 notification.interruptionLevel = .passive
@@ -76,23 +76,5 @@ private class glucoseBadgeService {
 
             NotificationService.shared.add(identifier: Identifier.sensorGlucoseBadge.rawValue, content: notification)
         }
-    }
-
-    // MARK: Private
-
-    private func getMinuteChange(glucose: Glucose, glucoseUnit: GlucoseUnit) -> String {
-        var formattedMinuteChange = ""
-
-        if let minuteChange = glucose.minuteChange {
-            if glucoseUnit == .mgdL {
-                formattedMinuteChange = GlucoseFormatters.minuteChangeFormatter.string(from: minuteChange as NSNumber)!
-            } else {
-                formattedMinuteChange = GlucoseFormatters.minuteChangeFormatter.string(from: minuteChange.asMmolL as NSNumber)!
-            }
-        } else {
-            formattedMinuteChange = "?"
-        }
-
-        return String(format: LocalizedString("%1$@/min.", comment: ""), formattedMinuteChange)
     }
 }

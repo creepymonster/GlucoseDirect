@@ -27,6 +27,7 @@ enum AppAction {
     case resetSensor
     case resetTransmitter
     
+    case selectCalendarTarget(id: String?)
     case selectConnection(id: String, connection: SensorConnection)
     case selectConnectionId(id: String)
     case selectView(viewTag: Int)
@@ -34,6 +35,7 @@ enum AppAction {
     case setAlarmHigh(upperLimit: Int)
     case setAlarmLow(lowerLimit: Int)
     case setAlarmSnoozeUntil(untilDate: Date?)
+    case setCalendarExport(enabled: Bool)
     case setChartShowLines(enabled: Bool)
     case setConnectionAlarm(enabled: Bool)
     case setConnectionError(errorMessage: String, errorTimestamp: Date)

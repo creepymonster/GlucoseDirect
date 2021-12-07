@@ -9,22 +9,18 @@ import Foundation
 // MARK: - PreviewAppState
 
 struct PreviewAppState: AppState {
-    // MARK: Lifecycle
-
-    init() {}
-
-    // MARK: Internal
-
-    var glucoseAlarm = true
-    var expiringAlarm = true
-    var connectionAlarm = true
     var alarmHigh: Int = 160
     var alarmLow: Int = 80
-    var alarmSnoozeUntil: Date?
+    var alarmSnoozeUntil: Date? = nil
+    var calendarExport = false
     var chartShowLines = false
+    var connectionAlarm = true
     var connectionError: String? = "Timeout"
     var connectionErrorTimestamp: Date? = Date()
+    var connectionInfos: [SensorConnectionInfo] = []
     var connectionState: SensorConnectionState = .connected
+    var expiringAlarm = true
+    var glucoseAlarm = true
     var glucoseBadge = true
     var glucoseUnit = GlucoseUnit.mgdL
     var glucoseValues: [Glucose] = createPreviewGlucoseValues()
@@ -32,26 +28,13 @@ struct PreviewAppState: AppState {
     var nightscoutApiSecret: String = ""
     var nightscoutHost: String = ""
     var nightscoutUpload: Bool = false
-    var selectedView: Int = 1
-    var sensor: Sensor? = Sensor(
-        uuid: Data(hexString: "e9ad9b6c79bd93aa")!,
-        patchInfo: Data(hexString: "448cd1")!,
-        factoryCalibration: FactoryCalibration(i1: 1, i2: 2, i3: 4, i4: 8, i5: 16, i6: 32),
-        customCalibration: [],
-        family: .unknown,
-        type: .virtual,
-        region: .european,
-        serial: "OBIR2PO",
-        state: .ready,
-        age: 120,
-        lifetime: 24 * 60
-    )
-    var targetValue: Int = 100
-    var transmitter: Transmitter?
-
-    var connectionInfos: [SensorConnectionInfo] = []
+    var selectedCalendarTarget: String? = nil
     var selectedConnection: SensorConnection?
     var selectedConnectionId: String?
+    var selectedView: Int = 1
+    var sensor: Sensor? = Sensor(uuid: Data(hexString: "e9ad9b6c79bd93aa")!, patchInfo: Data(hexString: "448cd1")!, factoryCalibration: FactoryCalibration(i1: 1, i2: 2, i3: 4, i4: 8, i5: 16, i6: 32), customCalibration: [], family: .unknown, type: .virtual, region: .european, serial: "OBIR2PO", state: .ready, age: 120, lifetime: 24 * 60)
+    var targetValue: Int = 100
+    var transmitter: Transmitter? = nil
 }
 
 // MARK: - fileprivate

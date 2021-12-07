@@ -14,7 +14,6 @@
 		E20B8542266F4A9900AA4224 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E20B8541266F4A9900AA4224 /* Assets.xcassets */; };
 		E20B8545266F4A9900AA4224 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E20B8544266F4A9900AA4224 /* Preview Assets.xcassets */; };
 		E21656C5275377A90007AF43 /* Transmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21656C4275377A90007AF43 /* Transmitter.swift */; };
-		E21656C72753849B0007AF43 /* OtherSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21656C62753849B0007AF43 /* OtherSettings.swift */; };
 		E223F867267A4D9800EC9BCA /* SensorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E223F866267A4D9800EC9BCA /* SensorView.swift */; };
 		E2330A33275E88CF0050A391 /* SensorBLEConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2330A32275E88CF0050A391 /* SensorBLEConnection.swift */; };
 		E23A77D1267BD0D100363770 /* KeyValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23A77D0267BD0D100363770 /* KeyValueView.swift */; };
@@ -24,6 +23,9 @@
 		E24B532326B863E20091417F /* AlarmSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532226B863E20091417F /* AlarmSettingsView.swift */; };
 		E24B532526B864020091417F /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532426B864020091417F /* ToggleView.swift */; };
 		E26089A42748DCB500749025 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26089A32748DCB500749025 /* Double.swift */; };
+		E2646F3B275FD2EC00ADE451 /* CalendarExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2646F3A275FD2EC00ADE451 /* CalendarExport.swift */; };
+		E2646F3D275FD3E800ADE451 /* CalendarExportSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2646F3C275FD3E800ADE451 /* CalendarExportSettingsView.swift */; };
+		E271581F275F7FD000E8620E /* OtherSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E271581E275F7FD000E8620E /* OtherSettingsView.swift */; };
 		E27325A7275543D600D3C41D /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27325A6275543D600D3C41D /* Color.swift */; };
 		E27ED9732758A41B0099149C /* VirtualConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27ED9722758A41B0099149C /* VirtualConnection.swift */; };
 		E27ED9752758A4270099149C /* BubbleConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27ED9742758A4270099149C /* BubbleConnection.swift */; };
@@ -120,7 +122,6 @@
 		E20B8544266F4A9900AA4224 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E20B8546266F4A9900AA4224 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E21656C4275377A90007AF43 /* Transmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transmitter.swift; sourceTree = "<group>"; };
-		E21656C62753849B0007AF43 /* OtherSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherSettings.swift; sourceTree = "<group>"; };
 		E223F866267A4D9800EC9BCA /* SensorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorView.swift; sourceTree = "<group>"; };
 		E2330A32275E88CF0050A391 /* SensorBLEConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorBLEConnection.swift; sourceTree = "<group>"; };
 		E23A77D0267BD0D100363770 /* KeyValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueView.swift; sourceTree = "<group>"; };
@@ -132,6 +133,9 @@
 		E24B532226B863E20091417F /* AlarmSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingsView.swift; sourceTree = "<group>"; };
 		E24B532426B864020091417F /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
 		E26089A32748DCB500749025 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		E2646F3A275FD2EC00ADE451 /* CalendarExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarExport.swift; sourceTree = "<group>"; };
+		E2646F3C275FD3E800ADE451 /* CalendarExportSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarExportSettingsView.swift; sourceTree = "<group>"; };
+		E271581E275F7FD000E8620E /* OtherSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherSettingsView.swift; sourceTree = "<group>"; };
 		E27325A6275543D600D3C41D /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		E27BFC0226B1407E00F8FBEF /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		E27BFC0426B1407E00F8FBEF /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -277,6 +281,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		E2646F39275FD2D100ADE451 /* CalendarExport */ = {
+			isa = PBXGroup;
+			children = (
+				E2646F3A275FD2EC00ADE451 /* CalendarExport.swift */,
+			);
+			path = CalendarExport;
+			sourceTree = "<group>";
+		};
 		E264775B274A9C6F0053BF6F /* States */ = {
 			isa = PBXGroup;
 			children = (
@@ -371,7 +383,8 @@
 				E24B532226B863E20091417F /* AlarmSettingsView.swift */,
 				E24B532026B863C00091417F /* GlucoseSettingsView.swift */,
 				E24B531D26B863910091417F /* NightscoutSettingsView.swift */,
-				E21656C62753849B0007AF43 /* OtherSettings.swift */,
+				E2646F3C275FD3E800ADE451 /* CalendarExportSettingsView.swift */,
+				E271581E275F7FD000E8620E /* OtherSettingsView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -433,6 +446,7 @@
 				E2FCAC492707421600FE1CBF /* ExpiringNotification */,
 				E2FCAC482707420D00FE1CBF /* ConnectionNotification */,
 				E2FCAC4F2707424000FE1CBF /* Nightscout */,
+				E2646F39275FD2D100ADE451 /* CalendarExport */,
 				E2FCAC4A2707422000FE1CBF /* AppGroupSharing */,
 			);
 			path = Modules;
@@ -660,6 +674,7 @@
 				E2FCAC3B270741E600FE1CBF /* Log.swift in Sources */,
 				E2D34BC4274D6BB500151895 /* GlucoeOverviewView.swift in Sources */,
 				E2FCAC5B2707425900FE1CBF /* Libre2Pairing.swift in Sources */,
+				E2646F3D275FD3E800ADE451 /* CalendarExportSettingsView.swift in Sources */,
 				E27ED9752758A4270099149C /* BubbleConnection.swift in Sources */,
 				E2A590032708EEDF003A081B /* SensorConnectorUpdate.swift in Sources */,
 				E2FCAC732707438A00FE1CBF /* AppStore.swift in Sources */,
@@ -671,6 +686,7 @@
 				E207862A2686306B004EEF1C /* ValueView.swift in Sources */,
 				E27ED9732758A41B0099149C /* VirtualConnection.swift in Sources */,
 				E2FCAC31270741D200FE1CBF /* Date.swift in Sources */,
+				E2646F3B275FD2EC00ADE451 /* CalendarExport.swift in Sources */,
 				E20786232686283F004EEF1C /* ActionsView.swift in Sources */,
 				E2FCAC672707428500FE1CBF /* ActionLog.swift in Sources */,
 				E2FCAC32270741D200FE1CBF /* UserDefaults.swift in Sources */,
@@ -685,11 +701,11 @@
 				E28728AA26DE499200269F47 /* SnoozeView.swift in Sources */,
 				E2FCAC702707438A00FE1CBF /* AppState.swift in Sources */,
 				E2D7238127491C4C00455FB9 /* InMemoryAppState.swift in Sources */,
+				E271581F275F7FD000E8620E /* OtherSettingsView.swift in Sources */,
 				E2FCAC612707426F00FE1CBF /* AppGroupSharing.swift in Sources */,
 				E292E1B226A608C400011F64 /* NumberSelectorView.swift in Sources */,
 				E29ED236268C87CC00CBD3F1 /* TextEditorView.swift in Sources */,
 				E2FCAC1D270741BC00FE1CBF /* Sensor.swift in Sources */,
-				E21656C72753849B0007AF43 /* OtherSettings.swift in Sources */,
 				E2D34BCA274D6C1300151895 /* SettingsView.swift in Sources */,
 				E2D34BC8274D6BCB00151895 /* GlucoseListView.swift in Sources */,
 				E2FCAC452707420100FE1CBF /* PreviewAppState.swift in Sources */,

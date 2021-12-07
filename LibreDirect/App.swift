@@ -61,7 +61,7 @@ final class LibreDirectApp: App {
             // required middlewares
             actionLogMiddleware(),
             sensorConnectorMiddelware([
-                SensorConnectionInfo(id: "virtual", name: "Virtual") { VirtualLibreConnection.init() },
+                SensorConnectionInfo(id: "virtual", name: "Virtual") { VirtualLibreConnection() },
             ]),
 
             // notification middleswares
@@ -69,6 +69,7 @@ final class LibreDirectApp: App {
             glucoseNotificationMiddelware(),
             connectionNotificationMiddelware(),
             glucoseBadgeMiddelware(),
+            calendarExportMiddleware(),
         ])
     }
 
@@ -77,8 +78,8 @@ final class LibreDirectApp: App {
             // required middlewares
             actionLogMiddleware(),
             sensorConnectorMiddelware([
-                SensorConnectionInfo(id: "libre2", name: LocalizedString("Without transmitter")) { Libre2Connection.init() },
-                SensorConnectionInfo(id: "bubble", name: LocalizedString("Bubble transmitter")) { BubbleConnection.init() },
+                SensorConnectionInfo(id: "libre2", name: LocalizedString("Without transmitter")) { Libre2Connection() },
+                SensorConnectionInfo(id: "bubble", name: LocalizedString("Bubble transmitter")) { BubbleConnection() },
             ]),
 
             // notification middleswares
@@ -86,6 +87,7 @@ final class LibreDirectApp: App {
             glucoseNotificationMiddelware(),
             connectionNotificationMiddelware(),
             glucoseBadgeMiddelware(),
+            calendarExportMiddleware(),
 
             // export middlewares
             nightscoutMiddleware(),

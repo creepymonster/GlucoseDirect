@@ -91,6 +91,9 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .resetTransmitter:
         state.transmitter = nil
         
+    case .selectCalendarTarget(id: let id):
+        state.selectedCalendarTarget = id
+        
     case .selectConnection(id: let id, connection: let connection):
         if id != state.selectedConnectionId || state.selectedConnection == nil {
             state.selectedConnectionId = id
@@ -110,6 +113,9 @@ func appReducer(state: inout AppState, action: AppAction) {
 
     case .setAlarmLow(lowerLimit: let lowerLimit):
         state.alarmLow = lowerLimit
+        
+    case .setCalendarExport(enabled: let enabled):
+        state.calendarExport = enabled
         
     case .setAlarmSnoozeUntil(untilDate: let untilDate):
         if let untilDate = untilDate {

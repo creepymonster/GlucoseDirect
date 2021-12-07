@@ -19,8 +19,10 @@ struct SnoozeView: View {
     }
    
     var body: some View {
-        DateSelectorView(key: LocalizedString("Snooze until"), value: store.state.alarmSnoozeUntil, displayValue: snoozeTime) { value -> Void in
-            store.dispatch(.setAlarmSnoozeUntil(untilDate: value))
-        }
+        Group {
+            DateSelectorView(key: LocalizedString("Snooze until"), value: store.state.alarmSnoozeUntil, displayValue: snoozeTime) { value -> Void in
+                store.dispatch(.setAlarmSnoozeUntil(untilDate: value))
+            }
+        }.animation(.default, value: store.state.alarmSnoozeUntil)
     }
 }

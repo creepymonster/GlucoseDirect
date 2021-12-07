@@ -195,12 +195,7 @@ class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate,
         Log.info("Peripheral: \(peripheral), didFailToConnect")
 
         sendUpdate(connectionState: .disconnected)
-
-        if let error = error, let errorCode = CBError.Code(rawValue: (error as NSError).code) {
-            sendUpdate(errorCode: errorCode.rawValue)
-        } else {
-            sendUpdate(error: error)
-        }
+        sendUpdate(error: error)
 
         guard stayConnected else {
             return
@@ -214,12 +209,7 @@ class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate,
         Log.info("Peripheral: \(peripheral), didDisconnectPeripheral")
 
         sendUpdate(connectionState: .disconnected)
-        
-        if let error = error, let errorCode = CBError.Code(rawValue: (error as NSError).code) {
-            sendUpdate(errorCode: errorCode.rawValue) // code 7 - bad unlock count
-        } else {
-            sendUpdate(error: error)
-        }
+        sendUpdate(error: error)
 
         guard stayConnected else {
             return

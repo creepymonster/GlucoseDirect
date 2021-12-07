@@ -34,7 +34,7 @@ struct ContentView: View {
             SettingsView().tabItem {
                 Label("Settings view", systemImage: "gearshape")
             }.tag(4)
-        }
+        }.animation(.default, value: store.state.selectedView)
     }
 
     var errorView: some View {

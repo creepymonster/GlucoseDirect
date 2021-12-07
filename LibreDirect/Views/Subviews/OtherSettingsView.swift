@@ -5,7 +5,7 @@
 
 import SwiftUI
 
-struct OtherSettings: View {
+struct OtherSettingsView: View {
     @EnvironmentObject var store: AppStore
     
     var body: some View {
@@ -27,7 +27,7 @@ struct OtherSettings_Previews: PreviewProvider {
         let store = AppStore(initialState: PreviewAppState())
 
         ForEach(ColorScheme.allCases, id: \.self) {
-            OtherSettings().environmentObject(store).preferredColorScheme($0)
+            OtherSettingsView().environmentObject(store).preferredColorScheme($0)
         }
     }
 }
