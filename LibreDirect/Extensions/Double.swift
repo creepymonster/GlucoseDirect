@@ -3,7 +3,6 @@
 //  LibreDirect
 //
 
-
 import Foundation
 
 extension Double {
@@ -17,21 +16,35 @@ extension Double {
         return Decimal(result)
     }
 
-    func asGlucose(unit: GlucoseUnit, withUnit: Bool = false) -> String {
+    func asGlucose(glucoseUnit: GlucoseUnit, withUnit: Bool = false) -> String {
         var glucose: String
 
-        if unit == .mmolL {
-
-
+        if glucoseUnit == .mmolL {
             glucose = GlucoseFormatters.mmolLFormatter.string(from: self.asMmolL as NSNumber)!
         } else {
             glucose = String(self)
         }
 
         if withUnit {
-            return "\(glucose) \(unit.description)"
+            return "\(glucose) \(glucoseUnit.localizedString)"
         }
 
         return glucose
+    }
+    
+    func asMinuteChange(glucoseUnit: GlucoseUnit, withUnit: Bool = false) -> String {
+        var formattedMinuteChange = ""
+
+        if glucoseUnit == .mgdL {
+            formattedMinuteChange = GlucoseFormatters.minuteChangeFormatter.string(from: self as NSNumber)!
+        } else {
+            formattedMinuteChange = GlucoseFormatters.minuteChangeFormatter.string(from: self.asMmolL as NSNumber)!
+        }
+
+        if withUnit {
+            return String(format: LocalizedString("%1$@ %2$@/min.", comment: ""), formattedMinuteChange, glucoseUnit.localizedString)
+        }
+        
+        return String(format: LocalizedString("%1$@/min.", comment: ""), formattedMinuteChange)
     }
 }
