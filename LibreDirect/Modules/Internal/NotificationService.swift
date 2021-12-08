@@ -17,43 +17,11 @@ class NotificationService {
 
     static let shared = NotificationService()
 
-    func isPlaying() -> Bool {
-        if let player = player {
-            return player.isPlaying
-        }
-
-        return false
-    }
-
-    func stopSound() {
-        guard let player = player else {
-            return
-        }
-
-        if player.isPlaying {
-            player.stop()
-        }
-    }
-
-    func playSilentSound() {
-        playSound(named: "silent")
-    }
-
-    func playAlarmSound() {
-        playSound(named: "alarm")
-    }
-
-    func playExpiringSound() {
-        playSound(named: "expiring")
-    }
-
-    func playNegativeSound() {
-        playSound(named: "negative")
-    }
-
-    func playPositiveSound() {
-        playSound(named: "positive")
-    }
+    static let SilentSound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "silent.aiff"))
+    static let AlarmSound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "alarm.aiff"))
+    static let ExpiringSound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "expiring.aiff"))
+    static let NegativeSound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "negative.aiff"))
+    static let PositiveSound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "positive.aiff"))
 
     func add(identifier: String, content: UNMutableNotificationContent) {
         let center = UNUserNotificationCenter.current()
@@ -76,31 +44,6 @@ class NotificationService {
             } else {
                 completion(false)
             }
-        }
-    }
-
-    // MARK: Private
-
-    private var player: AVAudioPlayer?
-
-    private func playSound(named: String) {
-        guard let soundURL = FrameworkBundle.main.url(forResource: named, withExtension: "aiff") else { return }
-
-        do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, options: [.mixWithOthers])
-            try AVAudioSession.sharedInstance().setActive(true)
-        } catch {
-            Log.error("NotificationCenter, could not set AVAudioSession category to playback and mixwithOthers, error = \(error.localizedDescription)")
-        }
-
-        do {
-            let player = try AVAudioPlayer(contentsOf: soundURL)
-            player.volume = 0.5
-            player.play()
-
-            self.player = player
-        } catch {
-            Log.error("NotificationCenter, exception while trying to play sound, error = \(error.localizedDescription)")
         }
     }
 }
