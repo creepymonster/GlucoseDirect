@@ -56,7 +56,11 @@ extension SensorConnection {
             return
         }
 
-        sendUpdate(errorMessage: error.localizedDescription)
+        if let errorCode = CBError.Code(rawValue: (error as NSError).code) {
+            sendUpdate(errorCode: errorCode.rawValue, errorIsCritical: errorCode.rawValue == 7)
+        } else {
+            sendUpdate(errorMessage: error.localizedDescription)
+        }
     }
 
     func sendUpdate(errorMessage: String) {
@@ -64,11 +68,11 @@ extension SensorConnection {
         updatesHandler?(SensorErrorUpdate(errorMessage: errorMessage))
     }
 
-    func sendUpdate(errorCode: Int) {
+    func sendUpdate(errorCode: Int, errorIsCritical: Bool = false) {
         Log.error("ErrorCode: \(errorCode)")
-        updatesHandler?(SensorErrorUpdate(errorCode: errorCode))
+        updatesHandler?(SensorErrorUpdate(errorCode: errorCode, errorIsCritical: errorIsCritical))
     }
-    
+
     func sendMissedUpdate() {
         Log.error("Missed update")
         updatesHandler?(SensorReadingUpdate(nextReading: nil))
