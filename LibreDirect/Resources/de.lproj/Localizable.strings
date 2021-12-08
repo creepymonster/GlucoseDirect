@@ -305,10 +305,10 @@
 "The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause." = "Die Verbindung zum Sensor scheint zu bestehen, aber es werden keine Werte empfangen. Fehlerhafte Sensordaten können die Ursache sein.";
 
 /* (No Comment) */
-"The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "Die Verbindung mit dem Sensor ist unterbrochen worden. Normalerweise geschieht dies, wenn der Sensor außer Reichweite oder seine Sendeleistung beeinträchtigt ist.";
+"The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "Die Verbindung mit dem Sensor ist unterbrochen worden. Normalerweise geschieht dies, wenn der Sensor außerhalb der Reichweite oder seine Sendeleistung beeinträchtigt ist.";
 
 /* (No Comment) */
-"The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor." = "Der Sensor kann nicht verbunden werden und lehnt alle Verbindungsversuche ab. Dieses Problem macht es erforderlich den Sensor neu koppeln.";
+"The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor." = "Der Sensor kann nicht verbunden werden und lehnt alle Verbindungsversuche ab. Dieses Problem macht es notwendig, den Sensor neu zu koppeln.";
 
 /* (No Comment) */
 "Unknown" = "Unbekannt";
@@ -404,13 +404,13 @@
 "Pairing" = "Wird gekoppelt";
 
 /* (No Comment) */
-"Calendar export" = "Calendar export";
+"Calendar export" = "Kalender Export";
 
 /* (No Comment) */
 "Calendar export enabled" = "Export";
 
 /* (No Comment) */
-"Selected calendar" = "Calendar";
+"Selected calendar" = "Kalender";
 
 /* (No Comment) */
-"Please select" = "Please select";
+"Please select" = "Bitte auswählen";
