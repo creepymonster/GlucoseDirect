@@ -77,7 +77,7 @@ class CalendarExportService {
         let events = eventStore.events(matching: predicate)
 
         for event in events {
-            if event.notes == identifier {
+            if event.url == url {
                 do {
                     try eventStore.remove(event, span: .thisEvent)
                 } catch {
@@ -99,10 +99,9 @@ class CalendarExportService {
         clearGlucoseEvents()
 
         let event = EKEvent(eventStore: eventStore)
-        event.title = "\(glucose.glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)) (\(glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) ?? ""))"
-        event.notes = identifier
+        event.title = "\(glucose.trend.description) \(glucose.glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)) (\(glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) ?? ""))"
         event.calendar = calendar
-        event.url = URL(string: "libredirect://")
+        event.url = url
         event.startDate = Date()
         event.endDate = Date(timeIntervalSinceNow: 60 * 10)
 
@@ -115,6 +114,6 @@ class CalendarExportService {
 
     // MARK: Private
 
-    private let identifier = "libre-direct.calendar-export.event-identifier"
+    private let url = URL(string: "libredirect://")
     private var calendar: EKCalendar?
 }
