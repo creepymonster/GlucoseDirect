@@ -12,6 +12,7 @@ App programmed in Swift/SwiftUI for using Libre 1/2 blood glucose sensors. I try
 - Units mg/dL or mmol/L
 - Nightscout upload
 - FreeAPS X support (with Shared App Groups)
+- Calendar export
 - Glucose badge
 - Glucose chart
 - Glucose trend arrow
