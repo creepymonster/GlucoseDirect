@@ -13,37 +13,36 @@ struct GlucoseSettingsView: View {
     var body: some View {
         Section(
             content: {
-                ToggleView(key: LocalizedString("Glucose Unit", comment: ""), value: store.state.glucoseUnit.asBool, trueValue: true.asGlucoseUnit.description, falseValue: false.asGlucoseUnit.description) { value -> Void in
-                    store.dispatch(.setGlucoseUnit(unit: value.asGlucoseUnit))
+                HStack {
+                    Text(LocalizedString("Glucose unit"))
+                    Spacer()
+
+                    Picker(LocalizedString("Glucose unit"), selection: selectedGlucoseUnit) {
+                        Text(GlucoseUnit.mgdL.localizedString).tag(GlucoseUnit.mgdL.rawValue)
+                        Text(GlucoseUnit.mmolL.localizedString).tag(GlucoseUnit.mmolL.rawValue)
+                    }
+                    .pickerStyle(.menu)
+                    .labelsHidden()
                 }
                 
-                NumberSelectorView(key: LocalizedString("Lower Limit", comment: ""), value: store.state.alarmLow, step: 5, displayValue: store.state.alarmLow.asGlucose(unit: store.state.glucoseUnit, withUnit: true)) { value -> Void in
+                NumberSelectorView(key: LocalizedString("Lower limit", comment: ""), value: store.state.alarmLow, step: 5, max: store.state.alarmHigh, displayValue: store.state.alarmLow.asGlucose(unit: store.state.glucoseUnit, withUnit: true)) { value -> Void in
                     store.dispatch(.setAlarmLow(lowerLimit: value))
                 }
-                
-                NumberSelectorView(key: LocalizedString("Upper Limit", comment: ""), value: store.state.alarmHigh, step: 5, displayValue: store.state.alarmHigh.asGlucose(unit: store.state.glucoseUnit, withUnit: true)) { value -> Void in
+
+                NumberSelectorView(key: LocalizedString("Upper limit", comment: ""), value: store.state.alarmHigh, step: 5, min: store.state.alarmLow, displayValue: store.state.alarmHigh.asGlucose(unit: store.state.glucoseUnit, withUnit: true)) { value -> Void in
                     store.dispatch(.setAlarmHigh(upperLimit: value))
                 }
             },
             header: {
-                Label("Glucose Settings", systemImage: "cross.case")
+                Label("Glucose settings", systemImage: "cross.case")
             }
         )
     }
-}
-
-private extension Bool {
-    var asGlucoseUnit: GlucoseUnit {
-        if self == GlucoseUnit.mgdL.asBool {
-            return GlucoseUnit.mgdL
-        }
-
-        return GlucoseUnit.mmolL
-    }
-}
-
-private extension GlucoseUnit {
-    var asBool: Bool {
-        return self == .mmolL
+    
+    private var selectedGlucoseUnit: Binding<String> {
+        Binding(
+            get: { store.state.glucoseUnit.rawValue },
+            set: { store.dispatch(.setGlucoseUnit(unit: GlucoseUnit(rawValue: $0)!)) }
+        )
     }
 }

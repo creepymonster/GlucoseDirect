@@ -12,12 +12,14 @@ typealias NumberSelectorCompletionHandler = (_ value: Int) -> Void
 struct NumberSelectorView: View {
     // MARK: Lifecycle
 
-    init(key: String, value: Int, step: Int, displayValue: String?, completionHandler: NumberSelectorCompletionHandler? = nil) {
+    init(key: String, value: Int, step: Int, min: Int = 40, max: Int = 500, displayValue: String?, completionHandler: NumberSelectorCompletionHandler? = nil) {
         self.key = key
         self.value = value
         self.step = step
         self.displayValue = displayValue
         self.completionHandler = completionHandler
+        self.min = Double(min)
+        self.max = Double(max)
     }
 
     // MARK: Internal
@@ -28,8 +30,10 @@ struct NumberSelectorView: View {
     var displayValue: String?
     let completionHandler: NumberSelectorCompletionHandler?
     let step: Int
+    let min: Double
+    let max: Double
 
-    var intProxy: Binding<Double> {
+    var doubleProxy: Binding<Double> {
         Binding<Double>(get: {
             Double(value)
         }, set: {
@@ -59,7 +63,7 @@ struct NumberSelectorView: View {
                 .foregroundColor(Color.primary)
                 .buttonStyle(.borderless)
                 
-                Slider(value: intProxy, in: 40 ... 500).onChange(of: value, perform: { value in
+                Slider(value: doubleProxy, in: min...max).onChange(of: value, perform: { value in
                     if let completionHandler = completionHandler {
                         completionHandler(value)
                     }

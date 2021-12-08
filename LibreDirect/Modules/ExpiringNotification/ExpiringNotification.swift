@@ -90,16 +90,12 @@ private class expiringNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
-            notification.sound = .none
+            notification.sound = NotificationService.AlarmSound
+            notification.interruptionLevel = .critical
             notification.title = LocalizedString("Alert, sensor expired", comment: "")
             notification.body = LocalizedString("Your sensor has expired and needs to be replaced as soon as possible", comment: "")
 
-            if #available(iOS 15.0, *) {
-                notification.interruptionLevel = .critical
-            }
-
             NotificationService.shared.add(identifier: Identifier.sensorExpiring.rawValue, content: notification)
-            NotificationService.shared.playAlarmSound()
         }
     }
 
@@ -125,19 +121,17 @@ private class expiringNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
-            notification.sound = .none
-            notification.title = LocalizedString("Alert, sensor expiring soon", comment: "")
-            notification.body = body
-
-            if #available(iOS 15.0, *) {
+            if withSound {
+                notification.sound = NotificationService.ExpiringSound
+                notification.interruptionLevel = .timeSensitive
+            } else {
+                notification.sound = .none
                 notification.interruptionLevel = .passive
             }
-
+            notification.title = LocalizedString("Alert, sensor expiring soon", comment: "")
+            notification.body = body
+            
             NotificationService.shared.add(identifier: Identifier.sensorExpiring.rawValue, content: notification)
-
-            if withSound {
-                NotificationService.shared.playExpiringSound()
-            }
         }
     }
 }

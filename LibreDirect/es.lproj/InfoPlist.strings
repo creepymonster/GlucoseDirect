@@ -1,0 +1,17 @@
+/* Bundle display name */
+"CFBundleDisplayName" = "Glucose Direct";
+
+/* Bundle name */
+"CFBundleName" = "Glucose Direct";
+
+/* Privacy - NFC Scan Usage Description */
+"NFCReaderUsageDescription" = "The NFC function is required to read out all connection settings before a Bluetooth connection.";
+
+/* Privacy - Bluetooth Always Usage Description */
+"NSBluetoothAlwaysUsageDescription" = "The Bluetooth function is needed to connect to the supported devices.";
+
+/* Privacy - Bluetooth Peripheral Usage Description */
+"NSBluetoothPeripheralUsageDescription" = "The Bluetooth function is needed to connect to the supported devices.";
+
+/* Privacy - Calendars Usage Description */
+"NSCalendarsUsageDescription" = "Access to the calendar is required to display up-to-date glucose values on the Apple Watch.";

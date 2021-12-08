@@ -13,13 +13,11 @@ final class LibreDirectApp: App {
     // MARK: Lifecycle
 
     init() {
-        UNUserNotificationCenter.current().delegate = notificationCenterDelegate
+        store = LibreDirectApp.createStore()
+        notificationCenterDelegate = LibreDirectNotificationCenter(store: store)
 
-        if store.state.isPaired && store.state.isConnectable {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {
-                self.store.dispatch(.connectSensor)
-            }
-        }
+        UNUserNotificationCenter.current().delegate = notificationCenterDelegate
+        store.dispatch(.startup)
     }
 
     // MARK: Internal
@@ -45,8 +43,8 @@ final class LibreDirectApp: App {
 
     // MARK: Private
 
-    private let store = createStore()
-    private let notificationCenterDelegate = LibreDirectNotificationCenter()
+    private let store: AppStore
+    private let notificationCenterDelegate: UNUserNotificationCenterDelegate
 
     private static func createStore() -> AppStore {
         if isSimulator || isPreviewMode {
@@ -62,15 +60,16 @@ final class LibreDirectApp: App {
         return AppStore(initialState: InMemoryAppState(), reducer: appReducer, middlewares: [
             // required middlewares
             actionLogMiddleware(),
+            sensorConnectorMiddelware([
+                SensorConnectionInfo(id: "virtual", name: "Virtual") { VirtualLibreConnection() },
+            ]),
 
-            // sensor middleware
-            virtualLibreMiddelware(),
-
-            // other middlewares
+            // notification middleswares
             expiringNotificationMiddelware(),
             glucoseNotificationMiddelware(),
-            glucoseBadgeMiddelware(),
             connectionNotificationMiddelware(),
+            glucoseBadgeMiddelware(),
+            calendarExportMiddleware(),
         ])
     }
 
@@ -78,15 +77,19 @@ final class LibreDirectApp: App {
         return AppStore(initialState: UserDefaultsAppState(), reducer: appReducer, middlewares: [
             // required middlewares
             actionLogMiddleware(),
+            sensorConnectorMiddelware([
+                SensorConnectionInfo(id: "libre2", name: LocalizedString("Without transmitter")) { Libre2Connection() },
+                SensorConnectionInfo(id: "bubble", name: LocalizedString("Bubble transmitter")) { BubbleConnection() },
+            ]),
 
-            // sensor middleware
-            libre2Middelware(),
-
-            // other middlewares
+            // notification middleswares
             expiringNotificationMiddelware(),
             glucoseNotificationMiddelware(),
-            glucoseBadgeMiddelware(),
             connectionNotificationMiddelware(),
+            glucoseBadgeMiddelware(),
+            calendarExportMiddleware(),
+
+            // export middlewares
             nightscoutMiddleware(),
             appGroupSharingMiddleware(),
         ])
@@ -96,7 +99,27 @@ final class LibreDirectApp: App {
 // MARK: - LibreDirectNotificationCenter
 
 final class LibreDirectNotificationCenter: NSObject, UNUserNotificationCenterDelegate {
+    // MARK: Lifecycle
+
+    init(store: AppStore) {
+        self.store = store
+    }
+
+    // MARK: Internal
+
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.badge, .banner, .list, .sound])
     }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        if let store = store, let action = response.notification.request.content.userInfo["action"] as? String, action == "snooze" {
+            store.dispatch(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(30 * 60).rounded(on: 1, .minute)))
+        }
+
+        completionHandler()
+    }
+
+    // MARK: Private
+
+    private weak var store: AppStore?
 }

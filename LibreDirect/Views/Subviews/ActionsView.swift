@@ -1,3 +1,4 @@
+
 //
 //  ActionsView.swift
 //  LibreDirect
@@ -8,23 +9,22 @@ import SwiftUI
 // MARK: - ActionsView
 
 struct ActionsView: View {
-    @State private var showingDeleteLogsAlert = false
-    @State private var showingDisconnectSensorAlert = false
-    @State private var showingUnpairSensorAlert = false
+    // MARK: Internal
 
     @EnvironmentObject var store: AppStore
 
     var body: some View {
         HStack {
-            if store.state.isPaired {
+            if store.state.hasSelectedConnection && store.state.isPaired {
                 if !store.state.isDisconnectable {
                     Button(
                         action: { showingUnpairSensorAlert = true },
-                        label: { Label("Unpair Sensor", systemImage: "arrow.uturn.backward") }
+                        label: { Label("Unpair sensor", systemImage: "arrow.uturn.backward") }
                     ).alert(isPresented: $showingUnpairSensorAlert) {
                         Alert(
                             title: Text("Are you sure you want to unpair the sensor?"),
                             primaryButton: .destructive(Text("Unpair")) {
+                                store.dispatch(.resetTransmitter)
                                 store.dispatch(.resetSensor)
                             },
                             secondaryButton: .cancel()
@@ -36,12 +36,12 @@ struct ActionsView: View {
                     Spacer()
 
                     Button(action: { store.dispatch(.connectSensor) }) {
-                        Label("Connect Sensor", systemImage: "play")
+                        Label("Connect sensor", systemImage: "play")
                     }
                 } else if store.state.isDisconnectable {
                     Button(
                         action: { showingDisconnectSensorAlert = true },
-                        label: { Label("Disconnect Sensor", systemImage: "stop") }
+                        label: { Label("Disconnect sensor", systemImage: "stop") }
                     ).alert(isPresented: $showingDisconnectSensorAlert) {
                         Alert(
                             title: Text("Are you sure you want to disconnect the sensor?"),
@@ -52,13 +52,22 @@ struct ActionsView: View {
                         )
                     }
                 }
-            } else {
+            } else if store.state.hasSelectedConnection && store.state.connectionState != .pairing && store.state.connectionState != .scanning && store.state.connectionState != .connecting {
                 Button(action: { store.dispatch(.pairSensor) }) {
-                    Label("Pair Sensor", systemImage: "arrow.uturn.forward")
+                    Label("Pair sensor", systemImage: "arrow.uturn.forward")
                 }
+            } else {
+                Text("...")
             }
-        }.padding([.top, .horizontal])
+        }
+        .padding([.top, .horizontal])
     }
+
+    // MARK: Private
+
+    @State private var showingDeleteLogsAlert = false
+    @State private var showingDisconnectSensorAlert = false
+    @State private var showingUnpairSensorAlert = false
 }
 
 // MARK: - ActionsView_Previews

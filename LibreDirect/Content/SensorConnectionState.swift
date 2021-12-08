@@ -6,10 +6,11 @@
 import Foundation
 
 enum SensorConnectionState: String {
+    case pairing = "Pairing"
     case connected = "Connected"
     case connecting = "Connecting"
     case disconnected = "Disconnected"
-    case powerOff = "Power Off"
+    case powerOff = "Power off"
     case scanning = "Scanning"
     case unknown = "Unknown"
 
