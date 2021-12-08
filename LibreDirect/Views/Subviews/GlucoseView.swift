@@ -45,7 +45,7 @@ struct GlucoseView: View {
                         HStack(spacing: 20) {
                             if store.state.connectionState == .connected {
                                 Text(String(format: LocalizedString("%1$@ a clock"), currentGlucose.timestamp.localTime))
-                                if let minuteChange = store.state.lastGlucose?.minuteChange?.asMinuteChange(glucoseUnit: store.state.glucoseUnit), currentGlucose.trend != .unknown {
+                                if let minuteChange = currentGlucose.minuteChange?.asMinuteChange(glucoseUnit: store.state.glucoseUnit), currentGlucose.trend != .unknown {
                                     Text(minuteChange)
                                 } else {
                                     Text(String(format: LocalizedString("%1$@/min."), "?"))
