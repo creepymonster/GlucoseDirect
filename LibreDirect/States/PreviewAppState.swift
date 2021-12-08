@@ -16,6 +16,7 @@ struct PreviewAppState: AppState {
     var chartShowLines = false
     var connectionAlarm = true
     var connectionError: String? = "Timeout"
+    var connectionErrorIsCritical = false
     var connectionErrorTimestamp: Date? = Date()
     var connectionInfos: [SensorConnectionInfo] = []
     var connectionState: SensorConnectionState = .connected

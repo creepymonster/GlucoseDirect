@@ -20,6 +20,7 @@ protocol AppState {
     var chartShowLines: Bool { get set }
     var connectionAlarm: Bool { get set }
     var connectionError: String? { get set }
+    var connectionErrorIsCritical: Bool { get set }
     var connectionErrorTimestamp: Date? { get set }
     var connectionInfos: [SensorConnectionInfo] { get set }
     var connectionState: SensorConnectionState { get set }

@@ -39,9 +39,10 @@ struct UserDefaultsAppState: AppState {
 
     // MARK: Internal
 
-    var alarmSnoozeUntil: Date?
-    var connectionError: String?
-    var connectionErrorTimestamp: Date?
+    var alarmSnoozeUntil: Date? = nil
+    var connectionError: String? = nil
+    var connectionErrorIsCritical = false
+    var connectionErrorTimestamp: Date? = nil
     var connectionInfos: [SensorConnectionInfo] = []
     var connectionState: SensorConnectionState = .disconnected
     var missedReadings: Int = 0

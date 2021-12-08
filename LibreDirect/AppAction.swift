@@ -38,7 +38,7 @@ enum AppAction {
     case setCalendarExport(enabled: Bool)
     case setChartShowLines(enabled: Bool)
     case setConnectionAlarm(enabled: Bool)
-    case setConnectionError(errorMessage: String, errorTimestamp: Date)
+    case setConnectionError(errorMessage: String, errorTimestamp: Date, errorIsCritical: Bool)
     case setConnectionState(connectionState: SensorConnectionState)
     case setExpiringAlarm(enabled: Bool)
     case setGlucoseAlarm(enabled: Bool)

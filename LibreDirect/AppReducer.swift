@@ -120,9 +120,6 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setAlarmSnoozeUntil(untilDate: let untilDate):
         if let untilDate = untilDate {
             state.alarmSnoozeUntil = untilDate
-
-            // stop sounds
-            NotificationService.shared.stopSound()
         } else {
             state.alarmSnoozeUntil = nil
         }
@@ -133,9 +130,10 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setConnectionAlarm(enabled: let enabled):
         state.connectionAlarm = enabled
         
-    case .setConnectionError(errorMessage: let errorMessage, errorTimestamp: let errorTimestamp):
+    case .setConnectionError(errorMessage: let errorMessage, errorTimestamp: let errorTimestamp, errorIsCritical: let errorIsCritical):
         state.connectionError = errorMessage
         state.connectionErrorTimestamp = errorTimestamp
+        state.connectionErrorIsCritical = errorIsCritical
         
     case .setConnectionState(connectionState: let connectionState):
         state.connectionState = connectionState
