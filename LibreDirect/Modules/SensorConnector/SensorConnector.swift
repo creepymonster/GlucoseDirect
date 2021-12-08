@@ -30,7 +30,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], calibrat
                 action = .setSensorState(sensorAge: stateUpdate.sensorAge, sensorState: stateUpdate.sensorState)
 
             } else if let errorUpdate = update as? SensorErrorUpdate {
-                action = .setConnectionError(errorMessage: errorUpdate.errorMessage, errorTimestamp: errorUpdate.errorTimestamp)
+                action = .setConnectionError(errorMessage: errorUpdate.errorMessage, errorTimestamp: errorUpdate.errorTimestamp, errorIsCritical: errorUpdate.errorIsCritical)
 
             } else if let sensorUpdate = update as? SensorUpdate {
                 if let sensor = sensorUpdate.sensor {
