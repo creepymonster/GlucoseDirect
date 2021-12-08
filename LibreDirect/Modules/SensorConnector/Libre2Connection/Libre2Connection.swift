@@ -166,11 +166,14 @@ final class Libre2Connection: SensorBLEConnection {
         }
 
         rxBuffer.append(value)
+        
+        Log.info("Value: \(value.count)")
+        Log.info("Buffer: \(rxBuffer.count)")
 
-        if rxBuffer.count == expectedBufferSize {
+        if rxBuffer.count >= expectedBufferSize {
             if let sensor = sensor {
                 do {
-                    let decryptedBLE = Data(try SensorUtility.decryptBLE(uuid: sensor.uuid, data: rxBuffer))
+                    let decryptedBLE = Data(try SensorUtility.decryptBLE(uuid: sensor.uuid, data: rxBuffer[..<expectedBufferSize]))
                     let parsedBLE = SensorUtility.parseBLE(calibration: sensor.factoryCalibration, data: decryptedBLE)
 
                     if parsedBLE.age >= sensor.lifetime {
@@ -183,12 +186,12 @@ final class Libre2Connection: SensorBLEConnection {
                     } else if parsedBLE.age <= sensor.warmupTime {
                         sendUpdate(age: parsedBLE.age, state: .starting)
                     }
-
-                    resetBuffer()
                 } catch {
-                    resetBuffer()
+                    Log.error("Cannot process BLE data: \(error.localizedDescription)")
                 }
             }
+            
+            resetBuffer()
         }
     }
 }

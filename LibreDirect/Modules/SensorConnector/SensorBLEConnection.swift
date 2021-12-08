@@ -221,6 +221,8 @@ class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate,
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
         Log.info("Peripheral: \(peripheral)")
+        
+        resetBuffer()
 
         sendUpdate(connectionState: .connected)
         peripheral.discoverServices(serviceUuid)
