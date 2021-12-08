@@ -14,4 +14,4 @@
 "NSBluetoothPeripheralUsageDescription" = "Bluetooth ist erforderlich, um eine Verbindung mit den unterstützten Geräten herzustellen.";
 
 /* Privacy - Calendars Usage Description */
-"NSCalendarsUsageDescription" = "Access to the calendar is required to display up-to-date glucose values on the Apple Watch.";
+"NSCalendarsUsageDescription" = "Um aktuelle Glukosewerte auf der Apple Watch anzeigen zu können, ist der Zugriff auf den Kalender erforderlich.";
