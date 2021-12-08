@@ -71,7 +71,7 @@
 "Calibration view" = "Kalibrering";
 
 /* (No Comment) */
-"Cancel" = "Avbryt";
+"Cancel" = "Cancel";
 
 /* (No Comment) */
 "Chart (%1$@)" = "Diagram";
@@ -305,7 +305,10 @@
 "The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause." = "En anslutning till sensor verkar finnas, men inga värden har erhållits";
 
 /* (No Comment) */
-"The connection with the sensor has been lost. Normally this happens when the sensor is outside the possible range." = "Anslutning till sensorn har förlorats. Normalt händer detta när sensorn är utanför sin maximala räckvidd";
+"The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired.";
+
+/* (No Comment) */
+"The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor." = "The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor.";
 
 /* (No Comment) */
 "Unknown" = "Okänd";
@@ -399,3 +402,15 @@
 
 /* (No Comment) */
 "Pairing" = "Parkopplar";
+
+/* (No Comment) */
+"Calendar export" = "Calendar export";
+
+/* (No Comment) */
+"Calendar export enabled" = "Export";
+
+/* (No Comment) */
+"Selected calendar" = "Calendar";
+
+/* (No Comment) */
+"Please select" = "Please select";
