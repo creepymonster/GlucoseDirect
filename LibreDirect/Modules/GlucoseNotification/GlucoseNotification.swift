@@ -18,6 +18,7 @@ private func glucoseNotificationMiddelware(service: glucoseNotificationService) 
             if !enabled {
                 service.clearNotifications()
             }
+
         case .addGlucose(glucose: let glucose):
             guard store.state.glucoseAlarm, glucose.type == .cgm else {
                 break
@@ -87,16 +88,17 @@ private class glucoseNotificationService {
 
             let notification = UNMutableNotificationContent()
             notification.userInfo = self.actions
-            notification.sound = .none
+            notification.sound = NotificationService.AlarmSound
+            notification.interruptionLevel = .critical
             notification.title = LocalizedString("Alert, low blood glucose", comment: "")
-            notification.body = String(format: LocalizedString("Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal.", comment: ""), glucose.glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true), self.getMinuteChange(glucose: glucose, glucoseUnit: glucoseUnit))
-
-            if #available(iOS 15.0, *) {
-                notification.interruptionLevel = .passive
-            }
+            notification.body = String(
+                format: LocalizedString("Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal."),
+                glucose.glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true),
+                glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) ?? "?"
+            )
+            
 
             NotificationService.shared.add(identifier: Identifier.sensorGlucoseAlert.rawValue, content: notification)
-            NotificationService.shared.playAlarmSound()
         }
     }
 
@@ -112,16 +114,16 @@ private class glucoseNotificationService {
 
             let notification = UNMutableNotificationContent()
             notification.userInfo = self.actions
-            notification.sound = .none
+            notification.sound = NotificationService.AlarmSound
+            notification.interruptionLevel = .critical
             notification.title = LocalizedString("Alert, high glucose", comment: "")
-            notification.body = String(format: LocalizedString("Your glucose %1$@ (%2$@) is dangerously high and needs to be treated.", comment: ""), glucose.glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true), self.getMinuteChange(glucose: glucose, glucoseUnit: glucoseUnit))
-
-            if #available(iOS 15.0, *) {
-                notification.interruptionLevel = .passive
-            }
+            notification.body = String(
+                format: LocalizedString("Your glucose %1$@ (%2$@) is dangerously high and needs to be treated."),
+                glucose.glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true),
+                glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) ?? "?"
+            )
 
             NotificationService.shared.add(identifier: Identifier.sensorGlucoseAlert.rawValue, content: notification)
-            NotificationService.shared.playAlarmSound()
         }
     }
 
@@ -130,20 +132,4 @@ private class glucoseNotificationService {
     private let actions: [AnyHashable: Any] = [
         "action": "snooze"
     ]
-
-    private func getMinuteChange(glucose: Glucose, glucoseUnit: GlucoseUnit) -> String {
-        var formattedMinuteChange = ""
-
-        if let minuteChange = glucose.minuteChange {
-            if glucoseUnit == .mgdL {
-                formattedMinuteChange = GlucoseFormatters.minuteChangeFormatter.string(from: minuteChange as NSNumber)!
-            } else {
-                formattedMinuteChange = GlucoseFormatters.minuteChangeFormatter.string(from: minuteChange.asMmolL as NSNumber)!
-            }
-        } else {
-            formattedMinuteChange = "?"
-        }
-
-        return String(format: LocalizedString("%1$@/min.", comment: ""), formattedMinuteChange)
-    }
 }

@@ -19,6 +19,15 @@ private func connectionNotificationMiddelware(service: connectionNotificationSer
                 service.clearNotifications()
             }
             
+        case .setConnectionError(errorMessage: let errorMessage, errorTimestamp: _, errorIsCritical: let errorIsCritical):
+            guard store.state.connectionAlarm else {
+                break
+            }
+            
+            Log.info("Sensor connection lost alert check: \(errorMessage), \(errorIsCritical)")
+            
+            service.sendSensorConnectionLostNotification(errorIsCritical: errorIsCritical)
+            
         case .setConnectionState(connectionState: let connectionState):
             guard store.state.connectionAlarm else {
                 break
@@ -63,7 +72,7 @@ private class connectionNotificationService {
         UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [Identifier.sensorConnectionAlert.rawValue])
     }
 
-    func sendSensorConnectionLostNotification() {
+    func sendSensorConnectionLostNotification(errorIsCritical: Bool = false) {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
         NotificationService.shared.ensureCanSendNotification { ensured in
@@ -74,12 +83,16 @@ private class connectionNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
-            notification.sound = .none
             notification.title = LocalizedString("Alert, sensor connection lost", comment: "")
-            notification.body = LocalizedString("The connection with the sensor has been lost. Normally this happens when the sensor is outside the possible range.", comment: "")
-
-            if #available(iOS 15.0, *) {
+            
+            if errorIsCritical {
+                notification.sound = NotificationService.AlarmSound
+                notification.interruptionLevel = .critical
+                notification.body = LocalizedString("The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor.", comment: "")
+            } else {
+                notification.sound = .none
                 notification.interruptionLevel = .passive
+                notification.body = LocalizedString("The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired.", comment: "")
             }
 
             NotificationService.shared.add(identifier: Identifier.sensorConnectionAlert.rawValue, content: notification)
@@ -98,12 +111,9 @@ private class connectionNotificationService {
 
             let notification = UNMutableNotificationContent()
             notification.sound = .none
+            notification.interruptionLevel = .passive
             notification.title = LocalizedString("OK, sensor connection established", comment: "")
             notification.body = LocalizedString("The connection to the sensor has been successfully established and glucose data is received.", comment: "")
-
-            if #available(iOS 15.0, *) {
-                notification.interruptionLevel = .passive
-            }
 
             NotificationService.shared.add(identifier: Identifier.sensorConnectionAlert.rawValue, content: notification)
         }
@@ -120,16 +130,12 @@ private class connectionNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
-            notification.sound = .none
+            notification.sound = NotificationService.NegativeSound
+            notification.interruptionLevel = .timeSensitive
             notification.title = String(format: LocalizedString("Warning, sensor missed %1$@ readings", comment: ""), missedReadings.description)
             notification.body = LocalizedString("The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause.", comment: "")
 
-            if #available(iOS 15.0, *) {
-                notification.interruptionLevel = .timeSensitive
-            }
-
             NotificationService.shared.add(identifier: Identifier.sensorConnectionAlert.rawValue, content: notification)
-            NotificationService.shared.playNegativeSound()
         }
     }
 }

@@ -9,236 +9,28 @@ import Foundation
 
 // MARK: - BubbleConnection
 
-class BubbleConnection: SensorConnection {
+class BubbleConnection: SensorBLEConnection {
     // MARK: Lifecycle
 
-    override required init() {
+    init() {
         Log.info("init")
-
-        super.init()
-        self.manager = CBCentralManager(delegate: self, queue: managerQueue, options: [CBCentralManagerOptionShowPowerAlertKey: true, CBCentralManagerOptionRestoreIdentifierKey: "libre-direct.bubble.restore-identifier"])
-    }
-
-    deinit {
-        Log.info("deinit")
-
-        managerQueue.sync {
-            disconnect()
-        }
+        super.init(serviceUuid: [CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E")])
     }
 
     // MARK: Internal
 
-    func pairSensor(updatesHandler: @escaping SensorConnectionHandler) {
-        dispatchPrecondition(condition: .notOnQueue(managerQueue))
-        Log.info("PairSensor")
+    let expectedBufferSize = 344
 
-        self.updatesHandler = updatesHandler
+    let writeCharacteristicUuid = CBUUID(string: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E")
+    let readCharacteristicUuid = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
 
-        UserDefaults.standard.peripheralUuid = nil
+    var readCharacteristic: CBCharacteristic?
+    var writeCharacteristic: CBCharacteristic?
 
-        sendUpdate(connectionState: .pairing)
-
-        managerQueue.async {
-            self.find()
-        }
-    }
-
-    func connectSensor(sensor: Sensor, updatesHandler: @escaping SensorConnectionHandler) {
-        dispatchPrecondition(condition: .notOnQueue(managerQueue))
-        Log.info("ConnectSensor: \(sensor)")
-
-        self.sensor = sensor
-        self.updatesHandler = updatesHandler
-
-        managerQueue.async {
-            self.find()
-        }
-    }
-
-    func disconnectSensor() {
-        dispatchPrecondition(condition: .notOnQueue(managerQueue))
-        Log.info("DisconnectSensor")
-
-        managerQueue.sync {
-            self.disconnect()
-        }
-    }
-
-    func find() {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("find")
-
-        setStayConnected(stayConnected: true)
-
-        guard manager.state == .poweredOn else {
-            return
-        }
-
-        if let peripheralUuidString = UserDefaults.standard.peripheralUuid,
-           let peripheralUuid = UUID(uuidString: peripheralUuidString),
-           let retrievedPeripheral = manager.retrievePeripherals(withIdentifiers: [peripheralUuid]).first
-        {
-            connect(retrievedPeripheral)
-        } else if let retrievedPeripheral = manager.retrieveConnectedPeripherals(withServices: serviceUuid).first {
-            connect(retrievedPeripheral)
-        } else {
-            scan()
-        }
-    }
-
-    func scan() {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("scan")
-
-        sendUpdate(connectionState: .scanning)
-        manager.scanForPeripherals(withServices: serviceUuid, options: nil)
-    }
-
-    func disconnect() {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Disconnect")
-
-        setStayConnected(stayConnected: false)
-
-        if manager.isScanning {
-            manager.stopScan()
-        }
-
-        if let peripheral = peripheral {
-            manager.cancelPeripheralConnection(peripheral)
-            self.peripheral = nil
-        }
-
-        sendUpdate(connectionState: .disconnected)
-
-        sensor = nil
-        updatesHandler = nil
-    }
-
-    func connect() {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Connect")
-
-        if let peripheral = peripheral {
-            connect(peripheral)
-        } else {
-            find()
-        }
-    }
-
-    func connect(_ peripheral: CBPeripheral) {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Connect: \(peripheral)")
-
-        if self.peripheral != peripheral {
-            self.peripheral = peripheral
-        }
-
-        manager.connect(peripheral, options: nil)
-        sendUpdate(connectionState: .connecting)
-    }
-
-    func resetBuffer() {
-        Log.info("ResetBuffer")
-        rxBuffer = Data()
-    }
-
-    func setStayConnected(stayConnected: Bool) {
-        Log.info("StayConnected: \(stayConnected.description)")
-        self.stayConnected = stayConnected
-    }
-
-    // MARK: Private
-
-    private let expectedBufferSize = 344
-    private var rxBuffer = Data()
-
-    private var manager: CBCentralManager!
-    private let managerQueue = DispatchQueue(label: "libre-direct.bubble.ble-device.queue")
-
-    private var serviceUuid: [CBUUID] = [CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E")]
-    private var writeCharacteristicUuid = CBUUID(string: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E")
-    private var readCharacteristicUuid = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
-
-    private var readCharacteristic: CBCharacteristic?
-    private var writeCharacteristic: CBCharacteristic?
-
-    private var stayConnected = false
-    private var sensor: Sensor?
-
-    private var uuid: Data?
-    private var patchInfo: Data?
-    private var hardware: Double?
-    private var firmware: Double?
-
-    private var peripheral: CBPeripheral? {
-        didSet {
-            oldValue?.delegate = nil
-            peripheral?.delegate = self
-
-            UserDefaults.standard.peripheralUuid = peripheral?.identifier.uuidString
-        }
-    }
-}
-
-// MARK: CBCentralManagerDelegate
-
-extension BubbleConnection: CBCentralManagerDelegate {
-    func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
-
-        Log.info("State: \(manager.state.rawValue)")
-
-        switch manager.state {
-        case .poweredOff:
-            sendUpdate(connectionState: .powerOff)
-
-        case .poweredOn:
-            sendUpdate(connectionState: .disconnected)
-
-            guard stayConnected else {
-                break
-            }
-
-            find()
-        default:
-            sendUpdate(connectionState: .unknown)
-        }
-    }
-
-    func centralManager(_ central: CBCentralManager, willRestoreState dict: [String: Any]) {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Peripheral: \(peripheral), willRestoreState")
-    }
-
-    func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Peripheral: \(peripheral), didFailToConnect")
-
-        sendUpdate(connectionState: .disconnected)
-        sendUpdate(error: error)
-
-        guard stayConnected else {
-            return
-        }
-
-        connect()
-    }
-
-    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Peripheral: \(peripheral), didDisconnectPeripheral")
-
-        sendUpdate(connectionState: .disconnected)
-        sendUpdate(error: error)
-
-        guard stayConnected else {
-            return
-        }
-
-        connect()
-    }
+    var uuid: Data?
+    var patchInfo: Data?
+    var hardware: Double?
+    var firmware: Double?
 
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
@@ -252,18 +44,6 @@ extension BubbleConnection: CBCentralManagerDelegate {
         connect(peripheral)
     }
 
-    func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Peripheral: \(peripheral)")
-
-        sendUpdate(connectionState: .connected)
-        peripheral.discoverServices(serviceUuid)
-    }
-}
-
-// MARK: CBPeripheralDelegate
-
-extension BubbleConnection: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
         Log.info("Peripheral: \(peripheral)")
@@ -343,11 +123,10 @@ extension BubbleConnection: CBPeripheralDelegate {
             let firmware = Double("\(firmwareMajor).\(firmwareMinor)")
             let battery = Int(value[4])
 
-            let transmitter = Transmitter(name: "Bubble", battery: battery, firmware: hardware, hardware: firmware)
+            let transmitter = Transmitter(name: "Bubble", battery: battery, firmware: firmware, hardware: hardware)
             sendUpdate(transmitter: transmitter)
 
             if let writeCharacteristic = writeCharacteristic {
-                // peripheral.writeValue(Data([0x08, 0x01, 0x00, 0x00, 0x00, 0x2b]), for: writeCharacteristic, type: .withoutResponse)
                 peripheral.writeValue(Data([0x02, 0x00, 0x00, 0x00, 0x00, 0x2b]), for: writeCharacteristic, type: .withResponse)
             }
 
@@ -363,8 +142,7 @@ extension BubbleConnection: CBPeripheralDelegate {
                     return
                 }
 
-                let family = SensorFamily(patchInfo)
-
+                let family = sensor?.family ?? SensorFamily(patchInfo)
                 let fram = family == .libre1
                     ? rxBuffer[..<344]
                     : SensorUtility.decryptFRAM(uuid: uuid, patchInfo: patchInfo, fram: rxBuffer[..<344])
@@ -372,50 +150,30 @@ extension BubbleConnection: CBPeripheralDelegate {
                 if let fram = fram {
                     let sensor = Sensor(uuid: uuid, patchInfo: patchInfo, fram: fram)
 
+                    if self.sensor == nil || self.sensor?.serial != sensor.serial {
+                        self.sensor = sensor
+                        sendUpdate(sensor: sensor)
+                    }
+
                     if sensor.age >= sensor.lifetime {
-                        sendUpdate(sensor: sensor)
+                        sendUpdate(age: sensor.age, state: .expired)
+
                     } else if sensor.age > sensor.warmupTime {
-                        sendUpdate(sensor: sensor)
+                        sendUpdate(age: sensor.age, state: .ready)
 
                         let readings = SensorUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
                         sendUpdate(trendReadings: readings.trend, historyReadings: readings.history)
+
                     } else if sensor.age <= sensor.warmupTime {
-                        sendUpdate(sensor: sensor)
+                        sendUpdate(age: sensor.age, state: .starting)
                     }
-                }
-
-                resetBuffer()
-            }
-        case .decryptedDataPacket:
-            rxBuffer.append(value.suffix(from: 4))
-
-            if rxBuffer.count >= expectedBufferSize {
-                Log.info("Completed DataPacket")
-
-                guard let uuid = uuid, let patchInfo = patchInfo else {
-                    resetBuffer()
-
-                    return
-                }
-
-                let sensor = Sensor(uuid: uuid, patchInfo: patchInfo, fram: rxBuffer[..<344])
-                if sensor.age >= sensor.lifetime {
-                    sendUpdate(sensor: sensor)
-                } else if sensor.age > sensor.warmupTime {
-                    sendUpdate(sensor: sensor)
-
-                    if let fram = sensor.fram {
-                        let readings = SensorUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
-                        sendUpdate(trendReadings: readings.trend, historyReadings: readings.history)
-                    }
-                } else if sensor.age <= sensor.warmupTime {
-                    sendUpdate(sensor: sensor)
                 }
 
                 resetBuffer()
             }
 
         case .noSensor:
+            sendMissedUpdate()
             resetBuffer()
 
         case .serialNumber:
@@ -441,24 +199,4 @@ private enum BubbleResponseType: UInt8 {
     case noSensor = 191
     case serialNumber = 192
     case patchInfo = 193 // 0xC1
-    case decryptedDataPacket = 136 // 0x88
-}
-
-private extension UserDefaults {
-    enum Keys: String {
-        case devicePeripheralUuid = "libre-direct.bubble.peripheral-uuid"
-    }
-
-    var peripheralUuid: String? {
-        get {
-            return UserDefaults.standard.string(forKey: Keys.devicePeripheralUuid.rawValue)
-        }
-        set {
-            if let newValue = newValue {
-                UserDefaults.standard.setValue(newValue, forKey: Keys.devicePeripheralUuid.rawValue)
-            } else {
-                UserDefaults.standard.removeObject(forKey: Keys.devicePeripheralUuid.rawValue)
-            }
-        }
-    }
 }

@@ -30,10 +30,14 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], calibrat
                 action = .setSensorState(sensorAge: stateUpdate.sensorAge, sensorState: stateUpdate.sensorState)
 
             } else if let errorUpdate = update as? SensorErrorUpdate {
-                action = .setConnectionError(errorMessage: errorUpdate.errorMessage, errorTimestamp: errorUpdate.errorTimestamp)
+                action = .setConnectionError(errorMessage: errorUpdate.errorMessage, errorTimestamp: errorUpdate.errorTimestamp, errorIsCritical: errorUpdate.errorIsCritical)
 
             } else if let sensorUpdate = update as? SensorUpdate {
-                action = .setSensor(sensor: sensorUpdate.sensor)
+                if let sensor = sensorUpdate.sensor {
+                    action = .setSensor(sensor: sensor)
+                } else {
+                    action = .resetSensor
+                }
             } else if let transmitterUpdate = update as? SensorTransmitterUpdate {
                 action = .setTransmitter(transmitter: transmitterUpdate.transmitter)
             }
@@ -51,28 +55,24 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], calibrat
 
             if let id = store.state.selectedConnectionId, let connectionInfo = infos.first(where: { $0.id == id }) {
                 Log.info("Select startup connection: \(connectionInfo.name)")
-                store.dispatch(.selectedConnection(id: connectionInfo.id, connection: connectionInfo.connectionType.init()))
+                store.dispatch(.selectConnection(id: connectionInfo.id, connection: connectionInfo.connectionCreator()))
 
             } else if infos.count == 1, let connectionInfo = infos.first {
                 Log.info("Select single startup connection: \(connectionInfo.name)")
-                store.dispatch(.selectedConnection(id: connectionInfo.id, connection: connectionInfo.connectionType.init()))
+                store.dispatch(.selectConnection(id: connectionInfo.id, connection: connectionInfo.connectionCreator()))
 
             } else if let connectionInfo = infos.first {
                 Log.info("Select first startup connection: \(connectionInfo.name)")
-                store.dispatch(.selectedConnection(id: connectionInfo.id, connection: connectionInfo.connectionType.init()))
+                store.dispatch(.selectConnection(id: connectionInfo.id, connection: connectionInfo.connectionCreator()))
             }
 
-        case .selectedConnectionId(id: let id):
-            // if let sensorConnection = store.state.selectedConnection {
-            // sensorConnection.disconnectSensor()
-            // }
-
+        case .selectConnectionId(id: let id):
             if let connectionInfo = store.state.connectionInfos.first(where: { $0.id == id }) {
-                let connection = connectionInfo.connectionType.init()
-                store.dispatch(.selectedConnection(id: id, connection: connection))
+                let connection = connectionInfo.connectionCreator()
+                store.dispatch(.selectConnection(id: id, connection: connection))
             }
 
-        case .selectedConnection(id: _, connection: _):
+        case .selectConnection(id: _, connection: _):
             if store.state.isPaired, store.state.isConnectable {
                 store.dispatch(.connectSensor)
             }
@@ -110,11 +110,12 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], calibrat
                 break
             }
 
-            guard let sensor = store.state.sensor else {
-                break
+            if let sensor = store.state.sensor {
+                sensorConnection.connectSensor(sensor: sensor, updatesHandler: updatesHandler)
+            } else {
+                sensorConnection.pairSensor(updatesHandler: updatesHandler)
             }
-
-            sensorConnection.connectSensor(sensor: sensor, updatesHandler: updatesHandler)
+            
         case .disconnectSensor:
             guard let sensorConnection = store.state.selectedConnection else {
                 break
@@ -128,4 +129,24 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], calibrat
 
         return Empty().eraseToAnyPublisher()
     }
+}
+
+typealias SensorConnectionCreator = () -> SensorConnection
+
+// MARK: - SensorConnectionInfo
+
+class SensorConnectionInfo: Identifiable {
+    // MARK: Lifecycle
+
+    init(id: String, name: String, connectionCreator: @escaping SensorConnectionCreator) {
+        self.id = id
+        self.name = name
+        self.connectionCreator = connectionCreator
+    }
+
+    // MARK: Internal
+
+    let id: String
+    let name: String
+    let connectionCreator: SensorConnectionCreator
 }

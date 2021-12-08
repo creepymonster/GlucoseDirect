@@ -8,78 +8,28 @@ import Foundation
 // MARK: - Keys
 
 private enum Keys: String {
-    case chartShowLines = "libre-direct.settings.chart-show-lines"
-    case glucoseAlarm = "libre-direct.settings.glucose-alarm"
-    case expiringAlarm = "libre-direct.settings.expiring-alarm"
-    case connectionAlarm = "libre-direct.settings.connection-alarm"
     case alarmHigh = "libre-direct.settings.alarm-high"
     case alarmLow = "libre-direct.settings.alarm-low"
-    case freeAPSLatestReadings = "latestReadings"
+    case calendarExport = "libre-direct.settings.calendar-export"
+    case chartShowLines = "libre-direct.settings.chart-show-lines"
+    case connectionAlarm = "libre-direct.settings.connection-alarm"
+    case expiringAlarm = "libre-direct.settings.expiring-alarm"
+    case latestReadings = "latestReadings"
+    case glucoseAlarm = "libre-direct.settings.glucose-alarm"
     case glucoseBadge = "libre-direct.settings.glucose-badge"
     case glucoseUnit = "libre-direct.settings.glucose-unit"
     case glucoseValues = "libre-direct.settings.glucose-values"
     case nightscoutApiSecret = "libre-direct.settings.nightscout-api-secret"
     case nightscoutHost = "libre-direct.settings.nightscout-host"
-    case nightscoutUpload = "libre-direct.nightscout-upload-enabled"
+    case nightscoutUpload = "libre-direct.settings.nightscout-upload-enabled"
+    case selectedCalendarTarget = "libre-direct.settings.selected-calendar-target"
+    case selectedConnectionId = "libre-direct.settings.selected-connection-id"
     case selectedView = "libre-direct.settings.selected-view"
     case sensor = "libre-direct.settings.sensor"
     case transmitter = "libre-direct.settings.transmitter"
-    case selectedConnectionId = "libre-direct.settings.selected-connection-id"
 }
 
 extension UserDefaults {
-    var chartShowLines: Bool {
-        get {
-            if object(forKey: Keys.chartShowLines.rawValue) != nil {
-                return bool(forKey: Keys.chartShowLines.rawValue)
-            }
-
-            return false
-        }
-        set {
-            set(newValue, forKey: Keys.chartShowLines.rawValue)
-        }
-    }
-
-    var glucoseAlarm: Bool {
-        get {
-            if object(forKey: Keys.glucoseAlarm.rawValue) != nil {
-                return bool(forKey: Keys.glucoseAlarm.rawValue)
-            }
-
-            return true
-        }
-        set {
-            set(newValue, forKey: Keys.glucoseAlarm.rawValue)
-        }
-    }
-
-    var expiringAlarm: Bool {
-        get {
-            if object(forKey: Keys.expiringAlarm.rawValue) != nil {
-                return bool(forKey: Keys.expiringAlarm.rawValue)
-            }
-
-            return true
-        }
-        set {
-            set(newValue, forKey: Keys.expiringAlarm.rawValue)
-        }
-    }
-
-    var connectionAlarm: Bool {
-        get {
-            if object(forKey: Keys.connectionAlarm.rawValue) != nil {
-                return bool(forKey: Keys.connectionAlarm.rawValue)
-            }
-
-            return true
-        }
-        set {
-            set(newValue, forKey: Keys.connectionAlarm.rawValue)
-        }
-    }
-
     var alarmHigh: Int? {
         get {
             if object(forKey: Keys.alarmHigh.rawValue) != nil {
@@ -111,6 +61,71 @@ extension UserDefaults {
             } else {
                 removeObject(forKey: Keys.alarmLow.rawValue)
             }
+        }
+    }
+
+    var calendarExport: Bool {
+        get {
+            if object(forKey: Keys.calendarExport.rawValue) != nil {
+                return bool(forKey: Keys.calendarExport.rawValue)
+            }
+
+            return false
+        }
+        set {
+            set(newValue, forKey: Keys.calendarExport.rawValue)
+        }
+    }
+
+    var chartShowLines: Bool {
+        get {
+            if object(forKey: Keys.chartShowLines.rawValue) != nil {
+                return bool(forKey: Keys.chartShowLines.rawValue)
+            }
+
+            return false
+        }
+        set {
+            set(newValue, forKey: Keys.chartShowLines.rawValue)
+        }
+    }
+    
+    var connectionAlarm: Bool {
+        get {
+            if object(forKey: Keys.connectionAlarm.rawValue) != nil {
+                return bool(forKey: Keys.connectionAlarm.rawValue)
+            }
+
+            return true
+        }
+        set {
+            set(newValue, forKey: Keys.connectionAlarm.rawValue)
+        }
+    }
+
+    var expiringAlarm: Bool {
+        get {
+            if object(forKey: Keys.expiringAlarm.rawValue) != nil {
+                return bool(forKey: Keys.expiringAlarm.rawValue)
+            }
+
+            return true
+        }
+        set {
+            set(newValue, forKey: Keys.expiringAlarm.rawValue)
+        }
+    }
+
+    var glucoseAlarm: Bool {
+        get {
+            if object(forKey: Keys.glucoseAlarm.rawValue) != nil {
+                return bool(forKey: Keys.glucoseAlarm.rawValue)
+            }
+
+            return true
+        }
+        set {
+            set(newValue, forKey: Keys.glucoseAlarm.rawValue)
         }
     }
 
@@ -148,7 +163,20 @@ extension UserDefaults {
             setArray(newValue, forKey: Keys.glucoseValues.rawValue)
         }
     }
-
+    
+    var latestReadings: Data? {
+        get {
+            return data(forKey: Keys.latestReadings.rawValue)
+        }
+        set {
+            if let newValue = newValue {
+                set(newValue, forKey: Keys.latestReadings.rawValue)
+            } else {
+                removeObject(forKey: Keys.latestReadings.rawValue)
+            }
+        }
+    }
+    
     var nightscoutApiSecret: String {
         get {
             return string(forKey: Keys.nightscoutApiSecret.rawValue) ?? ""
@@ -161,7 +189,7 @@ extension UserDefaults {
             }
         }
     }
-
+    
     var nightscoutHost: String {
         get {
             return string(forKey: Keys.nightscoutHost.rawValue) ?? ""
@@ -187,13 +215,40 @@ extension UserDefaults {
             set(newValue, forKey: Keys.nightscoutUpload.rawValue)
         }
     }
+    
+    var selectedCalendarTarget: String? {
+        get {
+            return string(forKey: Keys.selectedCalendarTarget.rawValue)
+        }
+        set {
+            if let newValue = newValue {
+                set(newValue, forKey: Keys.selectedCalendarTarget.rawValue)
+            } else {
+                removeObject(forKey: Keys.selectedCalendarTarget.rawValue)
+            }
+        }
+    }
+
+    
+    var selectedConnectionId: String? {
+        get {
+            return string(forKey: Keys.selectedConnectionId.rawValue)
+        }
+        set {
+            if let newValue = newValue {
+                set(newValue, forKey: Keys.selectedConnectionId.rawValue)
+            } else {
+                removeObject(forKey: Keys.selectedConnectionId.rawValue)
+            }
+        }
+    }
 
     var selectedView: Int {
         get {
             if object(forKey: Keys.selectedView.rawValue) != nil {
                 return integer(forKey: Keys.selectedView.rawValue)
             }
-            
+
             return 1
         }
         set {
@@ -214,19 +269,6 @@ extension UserDefaults {
         }
     }
 
-    var latestReadings: Data? {
-        get {
-            return data(forKey: Keys.freeAPSLatestReadings.rawValue)
-        }
-        set {
-            if let newValue = newValue {
-                set(newValue, forKey: Keys.freeAPSLatestReadings.rawValue)
-            } else {
-                removeObject(forKey: Keys.freeAPSLatestReadings.rawValue)
-            }
-        }
-    }
-    
     var transmitter: Transmitter? {
         get {
             return getObject(forKey: Keys.transmitter.rawValue)
@@ -239,20 +281,6 @@ extension UserDefaults {
             }
         }
     }
-    
-    var selectedConnectionId: String? {
-        get {
-            return string(forKey: Keys.selectedConnectionId.rawValue)
-        }
-        set {
-            if let newValue = newValue {
-                set(newValue, forKey: Keys.selectedConnectionId.rawValue)
-            } else {
-                removeObject(forKey: Keys.selectedConnectionId.rawValue)
-            }
-        }
-    }
-
 }
 
 extension UserDefaults {

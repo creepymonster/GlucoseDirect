@@ -30,7 +30,9 @@ struct GlucoseListView: View {
                         footer: {
                             HStack {
                                 Button(action: {
-                                    showingAddBloodGlucoseView = false
+                                    withAnimation {
+                                        showingAddBloodGlucoseView = false
+                                    }
                                 }) {
                                     Label("Cancel", systemImage: "multiply")
                                 }
@@ -44,7 +46,9 @@ struct GlucoseListView: View {
                                     Alert(
                                         title: Text("Are you sure you want to add the new blood glucose value?"),
                                         primaryButton: .destructive(Text("Add")) {
-                                            showingAddBloodGlucoseView = false
+                                            withAnimation {
+                                                showingAddBloodGlucoseView = false
+                                            }
 
                                             let glucose = Glucose(id: UUID(), timestamp: Date(), glucose: value, type: .bgm)
                                             store.dispatch(.addGlucose(glucose: glucose))
@@ -99,7 +103,9 @@ struct GlucoseListView: View {
                                 Button(
                                     action: {
                                         value = 100
-                                        showingAddBloodGlucoseView = true
+                                        withAnimation {
+                                            showingAddBloodGlucoseView = true
+                                        }
                                     },
                                     label: { Label("Add", systemImage: "plus") }
                                 )

@@ -65,7 +65,7 @@ extension Int {
         }
 
         if withUnit {
-            return "\(glucose) \(unit.description)"
+            return "\(glucose) \(unit.localizedString)"
         }
 
         return glucose
