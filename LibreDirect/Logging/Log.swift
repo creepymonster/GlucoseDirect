@@ -36,7 +36,7 @@ public enum Log {
         Self.log(message: message, type: .error, log: log, error: error, file: file, line: line, function: function)
     }
 
-    public static func clear() {
+    public static func deleteLogs() {
         fileLogger.deleteLogs()
     }
 
