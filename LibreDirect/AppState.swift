@@ -6,10 +6,6 @@
 import Combine
 import Foundation
 
-private var sensorConnectableStates: Set<SensorState> = [.starting, .ready]
-private var connectableStates: Set<SensorConnectionState> = [.disconnected]
-private var disconnectableStates: Set<SensorConnectionState> = [.connected, .connecting, .scanning]
-
 // MARK: - AppState
 
 protocol AppState {
@@ -77,3 +73,9 @@ extension AppState {
         }
     }
 }
+
+// MARK: - private
+
+private var sensorConnectableStates: Set<SensorState> = [.starting, .ready]
+private var connectableStates: Set<SensorConnectionState> = [.disconnected]
+private var disconnectableStates: Set<SensorConnectionState> = [.connected, .connecting, .scanning]

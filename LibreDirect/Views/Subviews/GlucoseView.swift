@@ -33,7 +33,7 @@ struct GlucoseView: View {
                     VStack(alignment: .trailing, spacing: 0) {
                         HStack(alignment: .lastTextBaseline) {
                             Text(currentGlucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit))
-                                .font(.system(size: 112))
+                                .font(.system(size: 96))
 
                             VStack(alignment: .leading) {
                                 Text(currentGlucose.trend.description).font(.system(size: 48))

@@ -26,7 +26,7 @@ struct SettingsView: View {
                             HStack {
                                 Text("App Version")
                                 Spacer()
-                                Text(appVersion).foregroundColor(Color.accentColor)
+                                Text(appVersion)
                             }
                         },
                         header: {

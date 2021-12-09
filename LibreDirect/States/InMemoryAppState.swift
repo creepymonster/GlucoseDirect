@@ -6,7 +6,7 @@
 import Combine
 import Foundation
 
-// MARK: - PreviewAppState
+// MARK: - InMemoryAppState
 
 struct InMemoryAppState: AppState {
     var alarmHigh = 160

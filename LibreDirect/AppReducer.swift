@@ -6,6 +6,8 @@
 import Combine
 import Foundation
 
+// MARK: - appReducer
+
 func appReducer(state: inout AppState, action: AppAction) {
     dispatchPrecondition(condition: .onQueue(.main))
 
@@ -87,6 +89,8 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .resetSensor:
         state.sensor = nil
         state.connectionError = nil
+        state.connectionErrorIsCritical = false
+        state.connectionErrorTimestamp = nil
         
     case .resetTransmitter:
         state.transmitter = nil
@@ -104,6 +108,8 @@ func appReducer(state: inout AppState, action: AppAction) {
         state.sensor = nil
         state.transmitter = nil
         state.connectionError = nil
+        state.connectionErrorIsCritical = false
+        state.connectionErrorTimestamp = nil
         
     case .selectView(viewTag: let viewTag):
         state.selectedView = viewTag
@@ -140,6 +146,7 @@ func appReducer(state: inout AppState, action: AppAction) {
 
         if resetableStates.contains(connectionState) {
             state.connectionError = nil
+            state.connectionErrorIsCritical = false
             state.connectionErrorTimestamp = nil
         }
         
@@ -191,7 +198,7 @@ func appReducer(state: inout AppState, action: AppAction) {
     }
 }
 
-// MARK: - fileprivate
+// MARK: - private
 
 private var resetableStates: Set<SensorConnectionState> = [.connected, .powerOff, .scanning]
 private var disconnectedStates: Set<SensorConnectionState> = [.disconnected, .scanning]
