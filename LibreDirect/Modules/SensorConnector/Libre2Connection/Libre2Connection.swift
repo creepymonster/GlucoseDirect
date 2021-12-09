@@ -43,6 +43,12 @@ final class Libre2Connection: SensorBLEConnection {
         pairingService.pairSensor { update in
             if let sensorUpdate = update as? SensorUpdate, let sensor = sensorUpdate.sensor {
                 self.sendUpdate(sensor: sensor)
+                
+                if let fram = sensor.fram, sensor.state == .ready {
+                    let parsedFram = SensorUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
+
+                    self.sendUpdate(trendReadings: parsedFram.trend, historyReadings: parsedFram.history)
+                }
             }
             
             self.sendUpdate(connectionState: .disconnected)
