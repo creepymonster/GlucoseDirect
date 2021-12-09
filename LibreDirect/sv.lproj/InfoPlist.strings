@@ -14,4 +14,4 @@
 "NSBluetoothPeripheralUsageDescription" = "Bluetooth behövs för att ansluta till kompatibla enheter.";
 
 /* Privacy - Calendars Usage Description */
-"NSCalendarsUsageDescription" = "Access to the calendar is required to display up-to-date glucose values on the Apple Watch.";
+"NSCalendarsUsageDescription" = "Tillgång till kalendern krävs för att visa aktuella glukosvärden på din Apple Watch.";

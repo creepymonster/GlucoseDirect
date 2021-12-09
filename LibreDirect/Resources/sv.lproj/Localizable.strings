@@ -305,10 +305,10 @@
 "The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause." = "En anslutning till sensor verkar finnas, men inga värden har erhållits";
 
 /* (No Comment) */
-"The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired.";
+"The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "Anslutningen till sensorn har avbrutits. Normalt händer detta när sensorn är utom räckvidd eller när dess överföringskapacitet är nedsatt.";
 
 /* (No Comment) */
-"The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor." = "The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor.";
+"The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor." = "Sensorn kan inte anslutas och avvisar alla anslutningsförsök. Detta problem gör det nödvändigt att göra en ny parkoppling av sensorn. ";
 
 /* (No Comment) */
 "Unknown" = "Okänd";
@@ -404,13 +404,13 @@
 "Pairing" = "Parkopplar";
 
 /* (No Comment) */
-"Calendar export" = "Calendar export";
+"Calendar export" = "Exportera kalender";
 
 /* (No Comment) */
-"Calendar export enabled" = "Export";
+"Calendar export enabled" = "Exportera";
 
 /* (No Comment) */
-"Selected calendar" = "Calendar";
+"Selected calendar" = "Kalender";
 
 /* (No Comment) */
-"Please select" = "Please select";
+"Please select" = "Välj";
