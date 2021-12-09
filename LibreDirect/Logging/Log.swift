@@ -9,6 +9,7 @@ import os.log
 public extension OSLog {
     private static var subsystem = Bundle.main.bundleIdentifier!
 
+    static let logger = OSLog(subsystem: subsystem, category: "logger")
     // static let sensorLink = OSLog(subsystem: subsystem, category: "SensorLink")
     // static let sensor = OSLog(subsystem: subsystem, category: "Sensor")
     // static let sensorManager = OSLog(subsystem: subsystem, category: "SensorManager")
@@ -46,10 +47,17 @@ public enum Log {
 
     private static func log(message: String, type: OSLogType, log: OSLog, error: Error?, file: String, line: Int, function: String) {
         // Console logging
-        let meta: String = "[\(file):\(line)]" // [\(function)]
-        // obviously we have to disable swiftline here:
-        // swiftlint:disable:next no_direct_oslog
-        os_log("%{public}@ %{public}@", log: log, type: type, meta, message)
+        let meta: String = "[\(file):\(line)] [\(function)]"
+
+        if let error = error {
+            // obviously we have to disable swiftlint here:
+            // swiftlint:disable:next no_direct_oslog
+            os_log("%{public}@ %{public}@ %{public}@ %{public}@", log: log, type: type, meta, message, error as CVarArg, error.localizedDescription)
+        } else {
+            // obviously we have to disable swiftlint here:
+            // swiftlint:disable:next no_direct_oslog
+            os_log("%{public}@ %{public}@", log: log, type: type, meta, message)
+        }
 
         // Save logs to File. This is used for viewing and exporting logs from debug menu.
         fileLogger.log(message, logType: type, file: file, line: line, function: function)
@@ -88,7 +96,7 @@ extension OSLogType {
     }
 
     var logFilePath: String {
-        return "LibreDirectClient__\(title).log"
+        return "\(title).log"
     }
 }
 
@@ -104,14 +112,14 @@ struct FileLogger {
     /// The directory where all logs are stored
     let logFileBaseURL: URL = {
         let fileManager = FileManager.default
-        return fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("Logs")
+        return fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("Logs")
     }()
 
     /// Path to a common log file for all log types combined
     let allLogsFileURL: URL = {
         let fileManager = FileManager.default
-        let baseURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("Logs")
-        return baseURL.appendingPathComponent("LibreDirectClient__AllLogs.log")
+        let baseURL = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("Logs")
+        return baseURL.appendingPathComponent("AllLogTypes.log")
     }()
 
     func log(_ logMessage: String, logType: OSLogType, file: String? = nil, line: Int? = nil, function: String? = nil) {
@@ -119,25 +127,9 @@ struct FileLogger {
         if let file = file, let line = line, let function = function {
             meta = "[\(file):\(line)] [\(function)]\n"
         }
-        let prefixedLogMessage = "\(logType.icon) \(logDateFormatter.string(from: Date()))\n\(meta)\(logMessage)\n\n"
+        let prefixedLogMessage = "\(logType.title) \(logDateFormatter.string(from: Date()))\n\(meta)\(logMessage)\n\n"
 
-        guard let fileHandle = makeWriteFileHandle(with: logType),
-              let logMessageData = prefixedLogMessage.data(using: encoding)
-        else {
-            return
-        }
-        defer {
-            fileHandle.closeFile()
-        }
-
-        fileHandle.seekToEndOfFile()
-        fileHandle.write(logMessageData)
-
-        guard let allLogsFileHandle = makeWriteFileHandle(with: allLogsFileURL) else {
-            return
-        }
-        allLogsFileHandle.seekToEndOfFile()
-        allLogsFileHandle.write(logMessageData)
+        writeLog(of: logType, message: prefixedLogMessage)
     }
 
     /// `StreamReader` for a given log type
@@ -165,18 +157,38 @@ struct FileLogger {
         return reader
     }
 
+    /// Removes ALL logs
     func deleteLogs() {
         do {
             try FileManager.default.removeItem(at: logFileBaseURL)
         } catch {
-            Log.error("Can't remove logs at \(logFileBaseURL)", log: .default, error: error)
+            Log.error("Can't remove logs at \(logFileBaseURL)", log: .logger, error: error)
         }
     }
 
     // MARK: Private
 
-    private let encoding: String.Encoding = .utf8
     private let logDateFormatter = ISO8601DateFormatter()
+    private let writeQueue = DispatchQueue(label: "libre-direct.logging.write-queue") // Serial by default
+
+    private func writeLog(of logType: OSLogType, message: String) {
+        let logHandle = makeWriteFileHandle(with: logType)
+        let allLogsHandle = makeWriteFileHandle(with: allLogsFileURL)
+
+        guard let logMessageData = message.data(using: .utf8) else { return }
+        defer {
+            logHandle?.closeFile()
+            allLogsHandle?.closeFile()
+        }
+
+        writeQueue.sync {
+            logHandle?.seekToEndOfFile()
+            logHandle?.write(logMessageData)
+
+            allLogsHandle?.seekToEndOfFile()
+            allLogsHandle?.write(logMessageData)
+        }
+    }
 
     private func createLogFile(for url: URL) throws {
         let fileManager = FileManager.default
@@ -187,7 +199,7 @@ struct FileLogger {
     }
 
     private func makeWriteFileHandle(with logType: OSLogType) -> FileHandle? {
-        let logFileURL = logFileBaseURL.appendingPathComponent("LibreDirectClient__\(logType.title).log")
+        let logFileURL = logFileBaseURL.appendingPathComponent("\(logType.title).log")
         return makeWriteFileHandle(with: logFileURL)
     }
 
@@ -202,13 +214,13 @@ struct FileLogger {
             let fileHandle = try? FileHandle(forWritingTo: url)
             return fileHandle
         } catch {
-            Log.error("File handle error", log: .default, error: error)
+            Log.error("File handle error", log: .logger, error: error)
             return nil
         }
     }
 
     private func makeReadFileHandle(with logType: OSLogType) -> FileHandle? {
-        let logFileURL = logFileBaseURL.appendingPathComponent("LibreDirectClient__\(logType.title).log")
+        let logFileURL = logFileBaseURL.appendingPathComponent("\(logType.title).log")
         return makeReadFileHandle(with: logFileURL)
     }
 
@@ -216,7 +228,7 @@ struct FileLogger {
         do {
             return try FileHandle(forReadingFrom: url)
         } catch {
-            Log.error("File handle error", log: .default, error: error)
+            Log.error("File handle error", log: .logger, error: error)
             return nil
         }
     }

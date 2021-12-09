@@ -14,14 +14,12 @@ import Foundation
 final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
     // MARK: Internal
 
-    func pairSensor() async -> Sensor? {
-        return await withCheckedContinuation { continuation in
-            self.continuation = continuation
+    func pairSensor(updatesHandler: @escaping SensorConnectionHandler){
+        self.updatesHandler = updatesHandler
 
-            self.session = NFCTagReaderSession(pollingOption: .iso15693, delegate: self, queue: self.nfcQueue)
-            self.session?.alertMessage = LocalizedString("Hold the top edge of your iPhone close to the sensor.", comment: "")
-            self.session?.begin()
-        }
+        self.session = NFCTagReaderSession(pollingOption: .iso15693, delegate: self, queue: self.nfcQueue)
+        self.session?.alertMessage = LocalizedString("Hold the top edge of your iPhone close to the sensor.", comment: "")
+        self.session?.begin()
     }
 
     func tagReaderSessionDidBecomeActive(_ session: NFCTagReaderSession) {}
@@ -30,26 +28,26 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
         if let readerError = error as? NFCReaderError, readerError.code != .readerSessionInvalidationErrorUserCanceled {
             session.invalidate(errorMessage: "Connection failure: \(readerError.localizedDescription)")
 
-            Log.error("Continuation with 'nil' (with error: \(readerError.localizedDescription))")
-            self.continuation?.resume(returning: nil)
+            Log.error("tagReaderSession didInvalidateWithError: \(readerError.localizedDescription))")
+            self.updatesHandler?(SensorUpdate(sensor: nil))
         } else {
-            Log.error("Continuation with 'nil' (user canceled nfc scan)")
-            self.continuation?.resume(returning: nil)
+            Log.error("tagReaderSession didInvalidate")
+            self.updatesHandler?(SensorUpdate(sensor: nil))
         }
     }
 
     func tagReaderSession(_ session: NFCTagReaderSession, didDetect tags: [NFCTag]) {
         Task {
             guard let firstTag = tags.first else {
-                self.continuation?.resume(returning: nil)
+                self.updatesHandler?(SensorUpdate(sensor: nil))
 
                 return
             }
 
             guard case .iso15693(let tag) = firstTag else {
                 Log.error("Continuation with 'nil' (no iso15693 tag)")
-                self.continuation?.resume(returning: nil)
-
+                
+                self.updatesHandler?(SensorUpdate(sensor: nil))
                 return
             }
 
@@ -64,9 +62,9 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
 
             let patchInfo = try await tag.customCommand(requestFlags: .highDataRate, customCommandCode: 0xA1, customRequestParameters: Data())
             guard patchInfo.count >= 6 else { // patchInfo should have length 6, which sometimes is not the case, as there are occuring crashes in nfcCommand and Libre2BLEUtilities.streamingUnlockPayload
-                Log.error("Continuation with 'nil' (patchInfo not > 6)")
-                self.continuation?.resume(returning: nil)
-
+                Log.error("invalid patchInfo (patchInfo not > 6)")
+                
+                self.updatesHandler?(SensorUpdate(sensor: nil))
                 return
             }
 
@@ -103,20 +101,20 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                     session.invalidate()
 
                     guard streamingEnabled else {
-                        Log.error("Continuation with 'nil' (streaming not enabled)")
-                        self.continuation?.resume(returning: nil)
-
+                        Log.error("streaming not enabled")
+                        
+                        self.updatesHandler?(SensorUpdate(sensor: nil))
                         return
                     }
 
                     let decryptedFram = SensorUtility.decryptFRAM(uuid: sensorUID, patchInfo: patchInfo, fram: fram)
                     if let decryptedFram = decryptedFram {
-                        Log.info("Continuation with success (from decrypted fram)")
-                        self.continuation?.resume(returning: Sensor(uuid: sensorUID, patchInfo: patchInfo, fram: decryptedFram))
+                        Log.info("success (from decrypted fram)")
+                        self.updatesHandler?(SensorUpdate(sensor: Sensor(uuid: sensorUID, patchInfo: patchInfo, fram: decryptedFram)))
 
                     } else {
-                        Log.info("Continuation with success (from fram)")
-                        self.continuation?.resume(returning: Sensor(uuid: sensorUID, patchInfo: patchInfo, fram: fram))
+                        Log.info("success (from fram)")
+                        self.updatesHandler?(SensorUpdate(sensor: Sensor(uuid: sensorUID, patchInfo: patchInfo, fram: fram)))
                     }
                 }
             }
@@ -126,7 +124,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
     // MARK: Private
 
     private var session: NFCTagReaderSession?
-    private var continuation: CheckedContinuation<Sensor?, Never>?
+    private var updatesHandler: SensorConnectionHandler?
 
     private let nfcQueue = DispatchQueue(label: "libre-direct.nfc-queue")
     private let unlockCode: UInt32 = 42
