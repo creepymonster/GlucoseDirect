@@ -11,14 +11,27 @@ final class SensorReading: CustomStringConvertible, Codable {
     init(id: UUID, timestamp: Date, glucoseValue: Double) {
         self.id = id
         self.timestamp = timestamp.rounded(on: 1, .minute)
-        self.glucoseValue = glucoseValue
+        self.readGlucoseValue = glucoseValue
     }
 
     // MARK: Internal
 
     let id: UUID
     let timestamp: Date
-    let glucoseValue: Double
+    let readGlucoseValue: Double
+
+    var glucoseValue: Double {
+        let minReadableGlucose = Double(AppConfig.MinReadableGlucose)
+        let maxReadableGlucose = Double(AppConfig.MaxReadableGlucose)
+
+        if readGlucoseValue < minReadableGlucose {
+            return minReadableGlucose
+        } else if readGlucoseValue > maxReadableGlucose {
+            return maxReadableGlucose
+        }
+
+        return readGlucoseValue
+    }
 
     var description: String {
         [
