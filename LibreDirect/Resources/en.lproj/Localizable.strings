@@ -420,3 +420,29 @@
 
 /* (No Comment) */
 "App Version" = "Version";
+
+"Unknown" = "Unknown";
+
+"Invalid parameters" = "Invalid parameters";
+
+"Invalid handle" = "Invalid handle";
+
+"Not connected" = "Not connected";
+
+"Out of space" = "Out of space";
+
+"Operation cancelled" = "Operation cancelled";
+
+"Connection timeout" = "Connection timeout";
+
+"Peripheral disconnected" = "Peripheral disconnected";
+
+"UUID not allowed" = "UUID not allowed";
+
+"Already advertising" = "Already advertising";
+
+"Connection failed" = "Connection failed";
+
+"Connection limit reached" = "Connection limit reached";
+
+"Operation not supported" = "Operation not supported";
