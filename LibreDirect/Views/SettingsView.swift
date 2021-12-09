@@ -9,11 +9,9 @@ struct SettingsView: View {
     // MARK: Internal
 
     @EnvironmentObject var store: AppStore
-    let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
 
     var body: some View {
         VStack {
-            Text("GlucoseDirect v\(appVersion!)").foregroundColor(Color.ui.blue).font(.caption)
             List {
                 SensorConnectorSettings()
                 GlucoseSettingsView()
@@ -21,11 +19,29 @@ struct SettingsView: View {
                 AlarmSettingsView()
                 CalendarExportSettingsView()
                 OtherSettingsView()
+
+                if let appName = appName, let appVersion = appVersion {
+                    Section(
+                        content: {
+                            HStack {
+                                Text("App Version")
+                                Spacer()
+                                Text(appVersion).foregroundColor(Color.accentColor)
+                            }
+                        },
+                        header: {
+                            Label("About \(appName)", systemImage: "info")
+                        }
+                    )
+                }
             }
         }
     }
 
     // MARK: Private
+
+    private let appName = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String
+    private let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
 
     @State private var selectedConnectionId = ""
 }
