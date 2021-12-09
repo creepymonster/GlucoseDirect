@@ -114,43 +114,43 @@ class SensorErrorUpdate: SensorConnectorUpdate {
     private static func translateError(errorCode: Int) -> String {
         switch errorCode {
         case 0: // case unknown = 0
-            return "unknown"
+            return LocalizedString("Unknown")
 
         case 1: // case invalidParameters = 1
-            return "invalidParameters"
+            return LocalizedString("Invalid parameters")
 
         case 2: // case invalidHandle = 2
-            return "invalidHandle"
+            return LocalizedString("Invalid handle")
 
         case 3: // case notConnected = 3
-            return "notConnected"
+            return LocalizedString("Not connected")
 
         case 4: // case outOfSpace = 4
-            return "outOfSpace"
+            return LocalizedString("Out of space")
 
         case 5: // case operationCancelled = 5
-            return "operationCancelled"
+            return LocalizedString("Operation cancelled")
 
         case 6: // case connectionTimeout = 6
-            return "connectionTimeout"
+            return LocalizedString("Connection timeout")
 
         case 7: // case peripheralDisconnected = 7
-            return "peripheralDisconnected"
+            return LocalizedString("Peripheral disconnected")
 
         case 8: // case uuidNotAllowed = 8
-            return "uuidNotAllowed"
+            return LocalizedString("UUID not allowed")
 
         case 9: // case alreadyAdvertising = 9
-            return "alreadyAdvertising"
+            return LocalizedString("Already advertising")
 
         case 10: // case connectionFailed = 10
-            return "connectionFailed"
+            return LocalizedString("Connection failed")
 
         case 11: // case connectionLimitReached = 11
-            return "connectionLimitReached"
+            return LocalizedString("Connection limit reached")
 
         case 13: // case operationNotSupported = 13
-            return "operationNotSupported"
+            return LocalizedString("Operation not supported")
 
         default:
             return ""

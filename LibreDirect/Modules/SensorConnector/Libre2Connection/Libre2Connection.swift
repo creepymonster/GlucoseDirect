@@ -27,6 +27,8 @@ final class Libre2Connection: SensorBLEConnection {
     var readCharacteristic: CBCharacteristic?
     var writeCharacteristic: CBCharacteristic?
 
+    let pairingService = Libre2Pairing()
+
     override func pairSensor(updatesHandler: @escaping SensorConnectionHandler) {
         dispatchPrecondition(condition: .notOnQueue(managerQueue))
         Log.info("PairSensor")
@@ -37,22 +39,19 @@ final class Libre2Connection: SensorBLEConnection {
         UserDefaults.standard.libre2UnlockCount = 0
 
         sendUpdate(connectionState: .pairing)
+        
+        pairingService.pairSensor { update in
+            if let sensorUpdate = update as? SensorUpdate, let sensor = sensorUpdate.sensor {
+                self.sendUpdate(sensor: sensor)
+                
+                if let fram = sensor.fram, sensor.state == .ready {
+                    let parsedFram = SensorUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
 
-        Task {
-            let pairingService = Libre2Pairing()
-            let pairedSensor = await pairingService.pairSensor()
-
-            if let pairedSensor = pairedSensor {
-                sendUpdate(sensor: pairedSensor)
-
-                if let fram = pairedSensor.fram, pairedSensor.state == .ready {
-                    let parsedFram = SensorUtility.parseFRAM(calibration: pairedSensor.factoryCalibration, pairingTimestamp: pairedSensor.pairingTimestamp, fram: fram)
-
-                    sendUpdate(trendReadings: parsedFram.trend, historyReadings: parsedFram.history)
+                    self.sendUpdate(trendReadings: parsedFram.trend, historyReadings: parsedFram.history)
                 }
             }
-
-            sendUpdate(connectionState: .disconnected)
+            
+            self.sendUpdate(connectionState: .disconnected)
         }
     }
 
@@ -63,14 +62,14 @@ final class Libre2Connection: SensorBLEConnection {
         if sensor == nil {
             return nil
         }
-        
+
         let unlockCount = UserDefaults.standard.libre2UnlockCount + 1
         let unlockPayload = SensorUtility.streamingUnlockPayload(uuid: sensor!.uuid, patchInfo: sensor!.patchInfo, enableTime: 42, unlockCount: UInt16(unlockCount))
-        
+
         UserDefaults.standard.libre2UnlockCount = unlockCount
-        
+
         Log.info("Unlock done, count: \(UserDefaults.standard.libre2UnlockCount)")
-        
+
         return Data(unlockPayload)
     }
 
@@ -96,7 +95,7 @@ final class Libre2Connection: SensorBLEConnection {
             }
         }
     }
-    
+
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
         Log.info("Peripheral: \(peripheral)")
@@ -166,7 +165,7 @@ final class Libre2Connection: SensorBLEConnection {
         }
 
         rxBuffer.append(value)
-        
+
         Log.info("Value: \(value.count)")
         Log.info("Buffer: \(rxBuffer.count)")
 
@@ -190,7 +189,7 @@ final class Libre2Connection: SensorBLEConnection {
                     Log.error("Cannot process BLE data: \(error.localizedDescription)")
                 }
             }
-            
+
             resetBuffer()
         }
     }
