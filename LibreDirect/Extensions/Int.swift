@@ -17,6 +17,15 @@ struct GlucoseFormatters {
         return formatter
     }()
     
+    static var preciseMmolLFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 1
+        formatter.maximumFractionDigits = 2
+        
+        return formatter
+    }()
+    
     static var minuteChangeFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
@@ -54,12 +63,28 @@ extension Int {
     var asMmolL: Decimal {
         Double(self).asMmolL
     }
+    
+    func isAlmost(_ lower: Int, _ upper: Int) -> Bool {
+        if self >= (lower - 1) && self <= (lower + 1) {
+            return true
+        }
+        
+        if self >= (upper - 1) && self <= (upper + 1) {
+            return true
+        }
+        
+        return false
+    }
 
-    func asGlucose(unit: GlucoseUnit, withUnit: Bool = false) -> String {
+    func asGlucose(unit: GlucoseUnit, withUnit: Bool = false, precise: Bool = false) -> String {
         var glucose: String
 
         if unit == .mmolL {
-            glucose = GlucoseFormatters.mmolLFormatter.string(from: self.asMmolL as NSNumber)!
+            if precise {
+                glucose = GlucoseFormatters.preciseMmolLFormatter.string(from: self.asMmolL as NSNumber)!
+            } else {
+                glucose = GlucoseFormatters.mmolLFormatter.string(from: self.asMmolL as NSNumber)!
+            }
         } else {
             glucose = String(self)
         }
