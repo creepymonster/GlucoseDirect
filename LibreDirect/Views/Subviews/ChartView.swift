@@ -1,4 +1,3 @@
-
 //
 //  GlucoseChartView.swift
 //  LibreDirect
@@ -370,15 +369,22 @@ struct ChartView: View {
 
     private func updateCgmPath(fullSize: CGSize, glucoseValues: [Glucose]) {
         Log.info("updateCgmPath")
+        
+        var isFirst = true
 
         calculationQueue.async {
             let cgmPath = Path { path in
-                for value in glucoseValues {
-                    let x = self.translateTimeStampToX(timestamp: value.timestamp)
-                    let y = self.translateGlucoseToY(fullSize: fullSize, glucose: CGFloat(value.glucoseValue))
+                for glucose in glucoseValues {
+                    guard let glucoseValue = glucose.glucoseValue else {
+                        return
+                    }
+                    
+                    let x = self.translateTimeStampToX(timestamp: glucose.timestamp)
+                    let y = self.translateGlucoseToY(fullSize: fullSize, glucose: CGFloat(glucoseValue))
 
                     if store.state.chartShowLines {
-                        if value == glucoseValues.first {
+                        if isFirst {
+                            isFirst = false
                             path.move(to: CGPoint(x: x, y: y))
                         }
 
@@ -398,14 +404,21 @@ struct ChartView: View {
     private func updateBgmPath(fullSize: CGSize, glucoseValues: [Glucose]) {
         Log.info("updateBgmPath")
 
+        var isFirst = true
+        
         calculationQueue.async {
             let cgmPath = Path { path in
-                for value in glucoseValues {
-                    let x = self.translateTimeStampToX(timestamp: value.timestamp)
-                    let y = self.translateGlucoseToY(fullSize: fullSize, glucose: CGFloat(value.glucoseValue))
+                for glucose in glucoseValues {
+                    guard let glucoseValue = glucose.glucoseValue else {
+                        return
+                    }
+                    
+                    let x = self.translateTimeStampToX(timestamp: glucose.timestamp)
+                    let y = self.translateGlucoseToY(fullSize: fullSize, glucose: CGFloat(glucoseValue))
 
                     if store.state.chartShowLines {
-                        if value == glucoseValues.first {
+                        if isFirst {
+                            isFirst = false
                             path.move(to: CGPoint(x: x, y: y))
                         }
 

@@ -113,7 +113,7 @@ struct CalibrationSettingsView: View {
                         
                                 Button(
                                     action: {
-                                        value = lastGlucose.glucoseValue
+                                        value = lastGlucose.glucoseValue ?? 100
                                         withAnimation {
                                             showingAddCalibrationView = true
                                         }
