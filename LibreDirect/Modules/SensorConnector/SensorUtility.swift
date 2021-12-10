@@ -142,13 +142,7 @@ enum SensorUtility {
 
             let rawGlucoseValue = readBits(fram, offset, 0, 0xe)
             let rawTemperature = readBits(fram, offset, 0x1a, 0xc) << 2
-
-            let quality = rawGlucoseValue == 0 ? GlucoseError(rawValue: rawTemperature >> 2) : .OK
-            if quality != .OK {
-                Log.error("Sensor reading quality error: \(quality.rawValue), \(quality.description))")
-
-                continue
-            }
+            let quality = rawGlucoseValue == 0 ? SensorReadingQuality(rawValue: rawTemperature >> 2) : .OK
 
             // let quality = UInt16(readBits(fram, offset, 0xe, 0xb)) & 0x1FF
             // let qualityFlags = (readBits(fram, offset, 0xe, 0xb) & 0x600) >> 9
@@ -162,9 +156,10 @@ enum SensorUtility {
             let timestamp = startDate + Double(age - i) * 60
 
             let glucoseValue = calibration.calibrate(rawValue: Double(rawGlucoseValue), rawTemperature: Double(rawTemperature), rawTemperatureAdjustment: Double(rawTemperatureAdjustment))
-            let reading = SensorReading(id: UUID(), timestamp: timestamp, glucoseValue: glucoseValue)
+            let reading = quality == .OK
+                ? SensorReading(id: UUID(), timestamp: timestamp, glucoseValue: glucoseValue, quality: quality)
+                : SensorReading(id: UUID(), timestamp: timestamp, quality: quality)
 
-            Log.info("Sensor trend reading: \(reading.description))")
             trendReadings.append(reading)
         }
 
@@ -181,13 +176,7 @@ enum SensorUtility {
 
             let rawGlucoseValue = readBits(fram, offset, 0, 0xe)
             let rawTemperature = readBits(fram, offset, 0x1a, 0xc) << 2
-
-            let quality = rawGlucoseValue == 0 ? GlucoseError(rawValue: rawTemperature >> 2) : .OK
-            if quality != .OK {
-                Log.error("Glucose Error: \(quality.rawValue), \(quality.description))")
-
-                continue
-            }
+            let quality = rawGlucoseValue == 0 ? SensorReadingQuality(rawValue: rawTemperature >> 2) : .OK
 
             // let quality = UInt16(readBits(fram, offset, 0xe, 0xb)) & 0x1ff
             // let qualityFlags = (readBits(fram, offset, 0xe, 0xb) & 0x600) >> 9
@@ -202,9 +191,10 @@ enum SensorUtility {
             let timestamp = id > -1 ? pairingTimestamp - Double(i) * 15 * 60 : pairingTimestamp
 
             let glucoseValue = calibration.calibrate(rawValue: Double(rawGlucoseValue), rawTemperature: Double(rawTemperature), rawTemperatureAdjustment: Double(rawTemperatureAdjustment))
-            let reading = SensorReading(id: UUID(), timestamp: timestamp, glucoseValue: glucoseValue)
+            let reading = quality == .OK
+                ? SensorReading(id: UUID(), timestamp: timestamp, glucoseValue: glucoseValue, quality: quality)
+                : SensorReading(id: UUID(), timestamp: timestamp, quality: quality)
 
-            Log.info("Sensor history reading: \(reading.description))")
             historyReadings.append(reading)
         }
 
@@ -226,13 +216,7 @@ enum SensorUtility {
         for i in 0 ..< 10 {
             let rawGlucoseValue = Double(readBits(data, i * 4, 0, 0xe))
             let rawTemperature = readBits(data, i * 4, 0xe, 0xc) << 2
-
-            let quality = rawGlucoseValue == 0 ? GlucoseError(rawValue: rawTemperature >> 2) : .OK
-            if quality != .OK {
-                Log.error("Glucose Error: \(quality.rawValue), \(quality.description))")
-
-                continue
-            }
+            let quality = rawGlucoseValue == 0 ? SensorReadingQuality(rawValue: rawTemperature >> 2) : .OK
 
             var rawTemperatureAdjustment = readBits(data, i * 4, 0x1a, 0x5) << 2
             let negativeAdjustment = readBits(data, i * 4, 0x1f, 0x1)
@@ -250,7 +234,9 @@ enum SensorUtility {
             let timestamp = Date().addingTimeInterval(TimeInterval(-60 * (age - id)))
 
             let glucoseValue = calibration.calibrate(rawValue: Double(rawGlucoseValue), rawTemperature: Double(rawTemperature), rawTemperatureAdjustment: Double(rawTemperatureAdjustment))
-            let reading = SensorReading(id: UUID(), timestamp: timestamp, glucoseValue: glucoseValue)
+            let reading = quality == .OK
+                ? SensorReading(id: UUID(), timestamp: timestamp, glucoseValue: glucoseValue, quality: quality)
+                : SensorReading(id: UUID(), timestamp: timestamp, quality: quality)
 
             if i < 7 {
                 Log.info("Sensor trend reading: \(reading.description))")
@@ -387,42 +373,3 @@ private func crc16(_ data: Data) -> UInt16 {
 }
 
 // MARK: - GlucoseError
-
-struct GlucoseError: OptionSet {
-    static let OK = GlucoseError([])
-    static let SD14_FIFO_OVERFLOW = GlucoseError(rawValue: 1 << 0)
-    static let FILTER_DELTA = GlucoseError(rawValue: 1 << 1)
-    static let WORK_VOLTAGE = GlucoseError(rawValue: 1 << 2)
-    static let PEAK_DELTA_EXCEEDED = GlucoseError(rawValue: 1 << 3)
-    static let AVG_DELTA_EXCEEDED = GlucoseError(rawValue: 1 << 4)
-    static let RF = GlucoseError(rawValue: 1 << 5)
-    static let REF_R = GlucoseError(rawValue: 1 << 6)
-    static let SIGNAL_SATURATED = GlucoseError(rawValue: 1 << 7)
-    static let SENSOR_SIGNAL_LOW = GlucoseError(rawValue: 1 << 8)
-    static let THERMISTOR_OUT_OF_RANGE = GlucoseError(rawValue: 1 << 11)
-    static let TEMP_HIGH = GlucoseError(rawValue: 1 << 13)
-    static let TEMP_LOW = GlucoseError(rawValue: 1 << 14)
-    static let INVALID_DATA = GlucoseError(rawValue: 1 << 15)
-
-    let rawValue: Int
-
-    var description: String {
-        var outputs: [String] = []
-
-        if self.contains(.SD14_FIFO_OVERFLOW) { outputs.append("SD14_FIFO_OVERFLOW") }
-        if self.contains(.FILTER_DELTA) { outputs.append("FILTER_DELTA") }
-        if self.contains(.WORK_VOLTAGE) { outputs.append("WORK_VOLTAGE") }
-        if self.contains(.PEAK_DELTA_EXCEEDED) { outputs.append("PEAK_DELTA_EXCEEDED") }
-        if self.contains(.AVG_DELTA_EXCEEDED) { outputs.append("AVG_DELTA_EXCEEDED") }
-        if self.contains(.RF) { outputs.append("RF") }
-        if self.contains(.REF_R) { outputs.append("REF_R") }
-        if self.contains(.SIGNAL_SATURATED) { outputs.append("SIGNAL_SATURATED") }
-        if self.contains(.SENSOR_SIGNAL_LOW) { outputs.append("SENSOR_SIGNAL_LOW") }
-        if self.contains(.THERMISTOR_OUT_OF_RANGE) { outputs.append("THERMISTOR_OUT_OF_RANGE") }
-        if self.contains(.TEMP_HIGH) { outputs.append("TEMP_HIGH") }
-        if self.contains(.TEMP_LOW) { outputs.append("TEMP_LOW") }
-        if self.contains(.INVALID_DATA) { outputs.append("INVALID_DATA") }
-
-        return outputs.joined(separator: ", ")
-    }
-}
