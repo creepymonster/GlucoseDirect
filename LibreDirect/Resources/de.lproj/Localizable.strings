@@ -422,43 +422,43 @@
 "App Version" = "Version";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "Unbekannt";
 
 /* (No Comment) */
-"Invalid parameters" = "Invalid parameters";
+"Invalid parameters" = "Ungültige Parameter";
 
 /* (No Comment) */
-"Invalid handle" = "Invalid handle";
+"Invalid handle" = "Ungültiges Handle";
 
 /* (No Comment) */
-"Not connected" = "Not connected";
+"Not connected" = "Nicht verbunden";
 
 /* (No Comment) */
-"Out of space" = "Out of space";
+"Out of space" = "Zu wenig Speicherplatz";
 
 /* (No Comment) */
-"Operation cancelled" = "Operation cancelled";
+"Operation cancelled" = "Operation abgebrochen";
 
 /* (No Comment) */
-"Connection timeout" = "Connection timeout";
+"Connection timeout" = "Zeitüberschreitung";
 
 /* (No Comment) */
-"Peripheral disconnected" = "Peripheral disconnected";
+"Peripheral disconnected" = "Verbindung getrennt";
 
 /* (No Comment) */
-"UUID not allowed" = "UUID not allowed";
+"UUID not allowed" = "UUID nicht zulässig";
 
 /* (No Comment) */
-"Already advertising" = "Already advertising";
+"Already advertising" = "Bereits annonciert";
 
 /* (No Comment) */
-"Connection failed" = "Connection failed";
+"Connection failed" = "Verbindung fehlgeschlagen";
 
 /* (No Comment) */
-"Connection limit reached" = "Connection limit reached";
+"Connection limit reached" = "Verbindungslimit erreicht";
 
 /* (No Comment) */
-"Operation not supported" = "Operation not supported";
+"Operation not supported" = "Operation nicht unterstützt";
 
 /* (No Comment) */
-"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Attention, the sensor sends faulty values. Please wait 10 minutes.";
+"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Achtung, der Sensor sendet fehlerhafte Werte. Bitte warten Sie 10 Minuten.";
