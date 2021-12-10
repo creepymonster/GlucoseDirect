@@ -23,6 +23,10 @@ private func glucoseNotificationMiddelware(service: glucoseNotificationService) 
             guard store.state.glucoseAlarm, glucose.type == .cgm else {
                 break
             }
+            
+            guard let glucoseValue = glucose.glucoseValue else {
+                break
+            }
 
             var isSnoozed = false
 
@@ -31,7 +35,7 @@ private func glucoseNotificationMiddelware(service: glucoseNotificationService) 
                 isSnoozed = true
             }
 
-            if glucose.glucoseValue < store.state.alarmLow {
+            if glucoseValue < store.state.alarmLow {
                 if !isSnoozed {
                     Log.info("Glucose alert, low: \(glucose.glucoseValue) < \(store.state.alarmLow)")
 
@@ -41,7 +45,7 @@ private func glucoseNotificationMiddelware(service: glucoseNotificationService) 
                         store.dispatch(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute)))
                     }
                 }
-            } else if glucose.glucoseValue > store.state.alarmHigh {
+            } else if glucoseValue > store.state.alarmHigh {
                 if !isSnoozed {
                     Log.info("Glucose alert, high: \(glucose.glucoseValue) > \(store.state.alarmHigh)")
 
@@ -85,6 +89,10 @@ private class glucoseNotificationService {
             guard ensured else {
                 return
             }
+            
+            guard let glucoseValue = glucose.glucoseValue else {
+                return
+            }
 
             let notification = UNMutableNotificationContent()
             notification.userInfo = self.actions
@@ -93,7 +101,7 @@ private class glucoseNotificationService {
             notification.title = LocalizedString("Alert, low blood glucose", comment: "")
             notification.body = String(
                 format: LocalizedString("Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal."),
-                glucose.glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true),
+                glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true),
                 glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) ?? "?"
             )
             
@@ -111,6 +119,10 @@ private class glucoseNotificationService {
             guard ensured else {
                 return
             }
+            
+            guard let glucoseValue = glucose.glucoseValue else {
+                return
+            }
 
             let notification = UNMutableNotificationContent()
             notification.userInfo = self.actions
@@ -119,7 +131,7 @@ private class glucoseNotificationService {
             notification.title = LocalizedString("Alert, high glucose", comment: "")
             notification.body = String(
                 format: LocalizedString("Your glucose %1$@ (%2$@) is dangerously high and needs to be treated."),
-                glucose.glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true),
+                glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true),
                 glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) ?? "?"
             )
 

@@ -1,4 +1,3 @@
-
 //
 //  FreeAPS.swift
 //  LibreDirect
@@ -28,14 +27,14 @@ private func appGroupSharingMiddleware(service: AppGroupSharingService) -> Middl
 // MARK: - FreeAPSService
 
 private class AppGroupSharingService {
-    // MARK: Lifecycle
-
-    init() {}
-
-    // MARK: Internal
-
     func addGlucose(glucoseValues: [Glucose]) {
-        let sharedValues = glucoseValues.map { $0.toFreeAPS() }
+        let sharedValues = glucoseValues
+            .map { $0.toFreeAPS() }
+            .compactMap { $0 }
+        
+        if sharedValues.isEmpty {
+            return
+        }
 
         Log.info("Shared values, values: \(sharedValues)")
 
@@ -50,14 +49,18 @@ private class AppGroupSharingService {
 }
 
 private extension Glucose {
-    func toFreeAPS() -> [String: Any] {
-        let date = "/Date(" + Int64(floor(self.timestamp.toMillisecondsAsDouble() / 1000) * 1000).description + ")/"
+    func toFreeAPS() -> [String: Any]? {
+        guard let glucoseValue = glucoseValue else {
+            return nil
+        }
+        
+        let date = "/Date(" + Int64(floor(timestamp.toMillisecondsAsDouble() / 1000) * 1000).description + ")/"
 
         let freeAPSGlucose: [String: Any] = [
-            "Value": self.glucoseValue,
-            "Trend": self.trend.toFreeAPS(),
+            "Value": glucoseValue,
+            "Trend": trend.toFreeAPS(),
             "DT": date,
-            "direction": self.trend.toFreeAPSX()
+            "direction": trend.toFreeAPSX()
         ]
 
         return freeAPSGlucose

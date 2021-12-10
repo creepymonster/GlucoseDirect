@@ -30,6 +30,10 @@ private func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppS
             guard store.state.nightscoutUpload else {
                 break
             }
+            
+            guard glucose.type != .none else {
+                break
+            }
 
             guard glucose.is5Minutely || glucose.type == .bgm else {
                 break

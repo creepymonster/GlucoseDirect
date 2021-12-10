@@ -95,11 +95,15 @@ class CalendarExportService {
         guard let calendar = calendar else {
             return
         }
-
+        
         clearGlucoseEvents()
+        
+        guard let glucoseValue = glucose.glucoseValue else {
+            return
+        }
 
         let event = EKEvent(eventStore: eventStore)
-        event.title = "\(glucose.trend.description) \(glucose.glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)) (\(glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) ?? ""))"
+        event.title = "\(glucose.trend.description) \(glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)) (\(glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) ?? ""))"
         event.calendar = calendar
         event.url = AppConfig.AppSchemaUrl
         event.startDate = Date()
