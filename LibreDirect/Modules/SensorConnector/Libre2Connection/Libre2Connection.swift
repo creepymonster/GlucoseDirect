@@ -51,6 +51,7 @@ final class Libre2Connection: SensorBLEConnection {
                 }
             }
             
+            self.pairingService.clean()
             self.sendUpdate(connectionState: .disconnected)
         }
     }

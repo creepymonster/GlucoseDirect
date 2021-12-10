@@ -13,7 +13,11 @@ import Foundation
 
 final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
     // MARK: Internal
-
+    
+    func clean() {
+        self.updatesHandler = nil
+    }
+    
     func pairSensor(updatesHandler: @escaping SensorConnectionHandler){
         self.updatesHandler = updatesHandler
 
