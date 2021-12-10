@@ -10,6 +10,8 @@ import Foundation
 final class VirtualLibreConnection: SensorConnection {
     // MARK: Internal
 
+    var updatesHandler: SensorConnectionHandler?
+
     func pairSensor(updatesHandler: @escaping SensorConnectionHandler) {
         self.updatesHandler = updatesHandler
 
@@ -55,8 +57,6 @@ final class VirtualLibreConnection: SensorConnection {
     }
 
     // MARK: Private
-    
-    var updatesHandler: SensorConnectionHandler? = nil
 
     private var initAge = 0
     private var warmupTime = 5
@@ -80,7 +80,11 @@ final class VirtualLibreConnection: SensorConnection {
         sendUpdate(age: age, state: age > warmupTime ? .ready : .starting)
 
         if age > warmupTime {
-            sendUpdate(nextReading: SensorReading(id: UUID(), timestamp: Date(), glucoseValue: Double(currentGlucose), quality: .OK))
+            let badQuality: GlucoseQuality = Int.random(in: 0 ..< 100) < 2
+                ? .INVALID_DATA
+                : .OK
+
+            sendUpdate(nextReading: SensorReading(id: UUID(), timestamp: Date(), glucoseValue: Double(currentGlucose), quality: badQuality))
         }
 
         let nextAddition = direction == .up ? 1 : -1

@@ -10,7 +10,7 @@ import Foundation
 final class Glucose: CustomStringConvertible, Codable, Identifiable {
     // MARK: Lifecycle
 
-    init(id: UUID, timestamp: Date, type: GlucoseValueType, quality: SensorReadingQuality) {
+    init(id: UUID, timestamp: Date, type: GlucoseValueType, quality: GlucoseQuality) {
         self.id = id
         self.timestamp = timestamp.rounded(on: 1, .minute)
 
@@ -21,7 +21,7 @@ final class Glucose: CustomStringConvertible, Codable, Identifiable {
         self.quality = quality
     }
     
-    init(id: UUID, timestamp: Date, glucose: Int, type: GlucoseValueType, quality: SensorReadingQuality = .OK) {
+    init(id: UUID, timestamp: Date, glucose: Int, type: GlucoseValueType, quality: GlucoseQuality = .OK) {
         self.id = id
         self.timestamp = timestamp.rounded(on: 1, .minute)
 
@@ -39,7 +39,7 @@ final class Glucose: CustomStringConvertible, Codable, Identifiable {
         self.quality = quality
     }
 
-    init(id: UUID, timestamp: Date, minuteChange: Double?, initialGlucoseValue: Int, calibratedGlucoseValue: Int, type: GlucoseValueType, quality: SensorReadingQuality = .OK) {
+    init(id: UUID, timestamp: Date, minuteChange: Double?, initialGlucoseValue: Int, calibratedGlucoseValue: Int, type: GlucoseValueType, quality: GlucoseQuality = .OK) {
         self.id = id
         self.timestamp = timestamp.rounded(on: 1, .minute)
 
@@ -65,7 +65,7 @@ final class Glucose: CustomStringConvertible, Codable, Identifiable {
     let initialGlucoseValue: Int?
     let calibratedGlucoseValue: Int?
     let type: GlucoseValueType
-    let quality: SensorReadingQuality
+    let quality: GlucoseQuality
 
     var trend: SensorTrend {
         if let minuteChange = minuteChange {

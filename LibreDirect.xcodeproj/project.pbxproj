@@ -23,6 +23,7 @@
 		E24B532326B863E20091417F /* AlarmSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532226B863E20091417F /* AlarmSettingsView.swift */; };
 		E24B532526B864020091417F /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532426B864020091417F /* ToggleView.swift */; };
 		E26089A42748DCB500749025 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26089A32748DCB500749025 /* Double.swift */; };
+		E2645D842763F4EF0058BFC7 /* GlucoseQuality.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2645D832763F4EF0058BFC7 /* GlucoseQuality.swift */; };
 		E2646F3B275FD2EC00ADE451 /* CalendarExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2646F3A275FD2EC00ADE451 /* CalendarExport.swift */; };
 		E2646F3D275FD3E800ADE451 /* CalendarExportSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2646F3C275FD3E800ADE451 /* CalendarExportSettingsView.swift */; };
 		E271581F275F7FD000E8620E /* OtherSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E271581E275F7FD000E8620E /* OtherSettingsView.swift */; };
@@ -133,6 +134,7 @@
 		E24B532226B863E20091417F /* AlarmSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingsView.swift; sourceTree = "<group>"; };
 		E24B532426B864020091417F /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
 		E26089A32748DCB500749025 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		E2645D832763F4EF0058BFC7 /* GlucoseQuality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseQuality.swift; sourceTree = "<group>"; };
 		E2646F3A275FD2EC00ADE451 /* CalendarExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarExport.swift; sourceTree = "<group>"; };
 		E2646F3C275FD3E800ADE451 /* CalendarExportSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarExportSettingsView.swift; sourceTree = "<group>"; };
 		E271581E275F7FD000E8620E /* OtherSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherSettingsView.swift; sourceTree = "<group>"; };
@@ -394,6 +396,7 @@
 			children = (
 				E2C19FB42735684500B70A73 /* Glucose.swift */,
 				E2FCAC18270741BC00FE1CBF /* GlucoseUnit.swift */,
+				E2645D832763F4EF0058BFC7 /* GlucoseQuality.swift */,
 				E29F4FA1274D6C8B00AE0E39 /* GlucoseValueType.swift */,
 				E2FCAC13270741BC00FE1CBF /* Sensor.swift */,
 				E2FCAC14270741BC00FE1CBF /* SensorConnectionState.swift */,
@@ -637,6 +640,7 @@
 			files = (
 				E2330A33275E88CF0050A391 /* SensorBLEConnection.swift in Sources */,
 				E21656C5275377A90007AF43 /* Transmitter.swift in Sources */,
+				E2645D842763F4EF0058BFC7 /* GlucoseQuality.swift in Sources */,
 				E27ED9782758A4360099149C /* Libre2Connection.swift in Sources */,
 				E24B532326B863E20091417F /* AlarmSettingsView.swift in Sources */,
 				E23A77D1267BD0D100363770 /* KeyValueView.swift in Sources */,
