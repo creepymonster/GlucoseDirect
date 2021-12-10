@@ -422,31 +422,31 @@
 "App Version" = "Version";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "Unbekannt";
 
 /* (No Comment) */
-"Invalid parameters" = "Invalid parameters";
+"Invalid parameters" = "Ungültige Parameter";
 
 /* (No Comment) */
-"Invalid handle" = "Invalid handle";
+"Invalid handle" = "Ungültiges Handle";
 
 /* (No Comment) */
-"Not connected" = "Not connected";
+"Not connected" = "Nicht verbunden";
 
 /* (No Comment) */
-"Out of space" = "Out of space";
+"Out of space" = "Zu wenig Speicher";
 
 /* (No Comment) */
-"Operation cancelled" = "Operation cancelled";
+"Operation cancelled" = "Operation abgebrochen";
 
 /* (No Comment) */
-"Connection timeout" = "Connection timeout";
+"Connection timeout" = "Zeitüberschreitung";
 
 /* (No Comment) */
-"Peripheral disconnected" = "Peripheral disconnected";
+"Peripheral disconnected" = "Verbindung getrennt";
 
 /* (No Comment) */
-"UUID not allowed" = "UUID not allowed";
+"UUID not allowed" = "UUID nicht zulässig";
 
 /* (No Comment) */
 "Already advertising" = "Already advertising";
