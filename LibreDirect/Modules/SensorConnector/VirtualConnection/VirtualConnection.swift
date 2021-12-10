@@ -80,7 +80,7 @@ final class VirtualLibreConnection: SensorConnection {
         sendUpdate(age: age, state: age > warmupTime ? .ready : .starting)
 
         if age > warmupTime {
-            sendUpdate(nextReading: SensorReading(id: UUID(), timestamp: Date(), glucoseValue: Double(currentGlucose)))
+            sendUpdate(nextReading: SensorReading(id: UUID(), timestamp: Date(), glucoseValue: Double(currentGlucose), quality: .OK))
         }
 
         let nextAddition = direction == .up ? 1 : -1
