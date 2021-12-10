@@ -15,8 +15,8 @@ struct SettingsView: View {
             List {
                 SensorConnectorSettings()
                 GlucoseSettingsView()
-                NightscoutSettingsView()
                 AlarmSettingsView()
+                NightscoutSettingsView()
                 CalendarExportSettingsView()
                 OtherSettingsView()
 
@@ -27,6 +27,13 @@ struct SettingsView: View {
                                 Text("App Version")
                                 Spacer()
                                 Text(appVersion)
+                            }
+                            HStack {
+                                Text("App Website")
+                                Spacer()
+                                Link("GitHub", destination: URL(string: AppConfig.RepoUrl)!)
+                                    .lineLimit(1)
+                                    .truncationMode(.head)
                             }
                         },
                         header: {

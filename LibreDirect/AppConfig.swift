@@ -13,4 +13,5 @@ enum AppConfig {
     static var ExpiredNotificationInterval: Double { 1 * 60 * 60 } // in seconds
     static var NumberOfGlucoseValues: Int? { 24 * 60 } // every minute a value
     static var AppSchemaUrl = URL(string: "libredirect://")
+    static var RepoUrl = "https://github.com/creepymonster/GlucoseDirectApp"
 }
