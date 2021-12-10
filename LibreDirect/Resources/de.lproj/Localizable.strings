@@ -434,7 +434,7 @@
 "Not connected" = "Nicht verbunden";
 
 /* (No Comment) */
-"Out of space" = "Zu wenig Speicher";
+"Out of space" = "Zu wenig Speicherplatz";
 
 /* (No Comment) */
 "Operation cancelled" = "Operation abgebrochen";
@@ -449,16 +449,16 @@
 "UUID not allowed" = "UUID nicht zulässig";
 
 /* (No Comment) */
-"Already advertising" = "Already advertising";
+"Already advertising" = "Bereits annonciert";
 
 /* (No Comment) */
-"Connection failed" = "Connection failed";
+"Connection failed" = "Verbindung fehlgeschlagen";
 
 /* (No Comment) */
-"Connection limit reached" = "Connection limit reached";
+"Connection limit reached" = "Verbindungslimit erreicht";
 
 /* (No Comment) */
-"Operation not supported" = "Operation not supported";
+"Operation not supported" = "Operation nicht unterstützt";
 
 /* (No Comment) */
-"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Attention, the sensor sends faulty values. Please wait 10 minutes.";
+"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Achtung, der Sensor sendet fehlerhafte Werte. Bitte warten Sie 10 Minuten.";
