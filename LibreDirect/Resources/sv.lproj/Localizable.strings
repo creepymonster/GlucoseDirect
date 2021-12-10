@@ -459,3 +459,6 @@
 
 /* (No Comment) */
 "Operation not supported" = "Operation not supported";
+
+/* (No Comment) */
+"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Attention, the sensor sends faulty values. Please wait 10 minutes.";
