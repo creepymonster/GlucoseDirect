@@ -17,6 +17,7 @@ final class LibreDirectApp: App {
         notificationCenterDelegate = LibreDirectNotificationCenter(store: store)
 
         UNUserNotificationCenter.current().delegate = notificationCenterDelegate
+
         store.dispatch(.startup)
     }
 
@@ -33,6 +34,8 @@ final class LibreDirectApp: App {
         return false
         #endif
     }
+
+    @UIApplicationDelegateAdaptor(LibreDirectAppDelegate.self) var delegate
 
     var body: some Scene {
         WindowGroup {
@@ -122,4 +125,21 @@ final class LibreDirectNotificationCenter: NSObject, UNUserNotificationCenterDel
     // MARK: Private
 
     private weak var store: AppStore?
+}
+
+// MARK: - LibreDirectAppDelegate
+
+final class LibreDirectAppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+        Log.info("Application did finish launching with options")
+        return true
+    }
+
+    func applicationWillTerminate(_ application: UIApplication) {
+        Log.info("Application will terminate")
+    }
+    
+    func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
+        Log.info("Application did receive memory warning")
+    }
 }
