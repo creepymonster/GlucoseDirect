@@ -18,7 +18,7 @@ private func logMiddleware(service: SendLogsService) -> Middleware<AppState, App
 
         switch action {
         case .collectLogs:
-            AppLog.getLogEntries(hours: 24) { entries in
+            AppLog.getLogEntries(hours: 48) { entries in
                 store.dispatch(.collectLogsCompleted(entries: entries))
             }
             
@@ -40,7 +40,7 @@ private class SendLogsService {
 
     func sendLogfile(entries: [OSLogEntryLog]) {
         let logContent = entries.map { entry in
-            "[\(entry.level.rawValue)] \(entry.date): \(entry.composedMessage)"
+            "[\(entry.level.rawValue)] \(entry.date): \(entry.composedMessage)".components(separatedBy: .whitespacesAndNewlines).joined()
         }.joined(separator: "\n")
 
         let fileUrl = getDocumentDirectory().appendingPathComponent(SendLogsService.filename)
