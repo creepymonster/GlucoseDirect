@@ -9,7 +9,7 @@ import OSLog
 
 // MARK: - Log
 
-public enum AppLog {
+enum AppLog {
     // MARK: Internal
 
     static func debug(_ message: String, log: OSLog = .default, file: String = #fileID, line: Int = #line, function: String = #function) {
@@ -28,9 +28,9 @@ public enum AppLog {
         self.log(message: message, type: .error, log: log, error: error, file: file, line: line, function: function)
     }
 
-    // "[\(entry.level.rawValue)] \(entry.date): \(entry.composedMessage)"
+    //
     static func getLogEntries(hours: Double = 24, completionHandler: @escaping (_ enties: [OSLogEntryLog]) -> Void) {
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .default).async {
             do {
                 let logEntries = try readLogEntries(hours: hours)
 

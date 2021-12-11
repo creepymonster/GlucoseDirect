@@ -14,6 +14,7 @@
 		E20B8542266F4A9900AA4224 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E20B8541266F4A9900AA4224 /* Assets.xcassets */; };
 		E20B8545266F4A9900AA4224 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E20B8544266F4A9900AA4224 /* Preview Assets.xcassets */; };
 		E21656C5275377A90007AF43 /* Transmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21656C4275377A90007AF43 /* Transmitter.swift */; };
+		E216E50A27654AF60056A61D /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E216E50927654AF60056A61D /* AboutView.swift */; };
 		E223F867267A4D9800EC9BCA /* SensorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E223F866267A4D9800EC9BCA /* SensorView.swift */; };
 		E2330A33275E88CF0050A391 /* SensorBLEConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2330A32275E88CF0050A391 /* SensorBLEConnection.swift */; };
 		E23A77D1267BD0D100363770 /* KeyValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23A77D0267BD0D100363770 /* KeyValueView.swift */; };
@@ -83,7 +84,7 @@
 		E2FCAC612707426F00FE1CBF /* AppGroupSharing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC602707426F00FE1CBF /* AppGroupSharing.swift */; };
 		E2FCAC632707427500FE1CBF /* ExpiringNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC622707427500FE1CBF /* ExpiringNotification.swift */; };
 		E2FCAC652707427D00FE1CBF /* ConnectionNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC642707427D00FE1CBF /* ConnectionNotification.swift */; };
-		E2FCAC672707428500FE1CBF /* ActionLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC662707428500FE1CBF /* ActionLog.swift */; };
+		E2FCAC672707428500FE1CBF /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC662707428500FE1CBF /* Log.swift */; };
 		E2FCAC702707438A00FE1CBF /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC6C2707438A00FE1CBF /* AppState.swift */; };
 		E2FCAC712707438A00FE1CBF /* AppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC6D2707438A00FE1CBF /* AppAction.swift */; };
 		E2FCAC722707438A00FE1CBF /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC6E2707438A00FE1CBF /* AppConfig.swift */; };
@@ -122,6 +123,7 @@
 		E20B8544266F4A9900AA4224 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E20B8546266F4A9900AA4224 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E21656C4275377A90007AF43 /* Transmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transmitter.swift; sourceTree = "<group>"; };
+		E216E50927654AF60056A61D /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		E223F866267A4D9800EC9BCA /* SensorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorView.swift; sourceTree = "<group>"; };
 		E2330A32275E88CF0050A391 /* SensorBLEConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorBLEConnection.swift; sourceTree = "<group>"; };
 		E23A77D0267BD0D100363770 /* KeyValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueView.swift; sourceTree = "<group>"; };
@@ -204,7 +206,7 @@
 		E2FCAC602707426F00FE1CBF /* AppGroupSharing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppGroupSharing.swift; sourceTree = "<group>"; };
 		E2FCAC622707427500FE1CBF /* ExpiringNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpiringNotification.swift; sourceTree = "<group>"; };
 		E2FCAC642707427D00FE1CBF /* ConnectionNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionNotification.swift; sourceTree = "<group>"; };
-		E2FCAC662707428500FE1CBF /* ActionLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionLog.swift; sourceTree = "<group>"; };
+		E2FCAC662707428500FE1CBF /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		E2FCAC6C2707438A00FE1CBF /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		E2FCAC6D2707438A00FE1CBF /* AppAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAction.swift; sourceTree = "<group>"; };
 		E2FCAC6E2707438A00FE1CBF /* AppConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
@@ -385,6 +387,7 @@
 				E24B531D26B863910091417F /* NightscoutSettingsView.swift */,
 				E2646F3C275FD3E800ADE451 /* CalendarExportSettingsView.swift */,
 				E271581E275F7FD000E8620E /* OtherSettingsView.swift */,
+				E216E50927654AF60056A61D /* AboutView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -431,7 +434,7 @@
 			isa = PBXGroup;
 			children = (
 				E2FCAC682707429800FE1CBF /* Internal */,
-				E2FCAC472707420800FE1CBF /* ActionLog */,
+				E2FCAC472707420800FE1CBF /* Log */,
 				E27ED96E2758A3EE0099149C /* SensorConnector */,
 				E2FCAC4B2707422700FE1CBF /* GlucoseBadge */,
 				E2FCAC4C2707422D00FE1CBF /* GlucoseNotification */,
@@ -444,12 +447,12 @@
 			path = Modules;
 			sourceTree = "<group>";
 		};
-		E2FCAC472707420800FE1CBF /* ActionLog */ = {
+		E2FCAC472707420800FE1CBF /* Log */ = {
 			isa = PBXGroup;
 			children = (
-				E2FCAC662707428500FE1CBF /* ActionLog.swift */,
+				E2FCAC662707428500FE1CBF /* Log.swift */,
 			);
-			path = ActionLog;
+			path = Log;
 			sourceTree = "<group>";
 		};
 		E2FCAC482707420D00FE1CBF /* ConnectionNotification */ = {
@@ -631,6 +634,7 @@
 				E21656C5275377A90007AF43 /* Transmitter.swift in Sources */,
 				E2645D842763F4EF0058BFC7 /* GlucoseQuality.swift in Sources */,
 				E27ED9782758A4360099149C /* Libre2Connection.swift in Sources */,
+				E216E50A27654AF60056A61D /* AboutView.swift in Sources */,
 				E24B532326B863E20091417F /* AlarmSettingsView.swift in Sources */,
 				E23A77D1267BD0D100363770 /* KeyValueView.swift in Sources */,
 				E2FCAC22270741BC00FE1CBF /* GlucoseUnit.swift in Sources */,
@@ -680,7 +684,7 @@
 				E2FCAC31270741D200FE1CBF /* Date.swift in Sources */,
 				E2646F3B275FD2EC00ADE451 /* CalendarExport.swift in Sources */,
 				E20786232686283F004EEF1C /* ActionsView.swift in Sources */,
-				E2FCAC672707428500FE1CBF /* ActionLog.swift in Sources */,
+				E2FCAC672707428500FE1CBF /* Log.swift in Sources */,
 				E2FCAC32270741D200FE1CBF /* UserDefaults.swift in Sources */,
 				E2FCAC35270741D200FE1CBF /* State.swift in Sources */,
 				E2FCAC1E270741BC00FE1CBF /* SensorConnectionState.swift in Sources */,

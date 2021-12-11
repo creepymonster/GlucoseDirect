@@ -8,31 +8,31 @@ import Foundation
 import UserNotifications
 
 func connectionNotificationMiddelware() -> Middleware<AppState, AppAction> {
-    return connectionNotificationMiddelware(service: connectionNotificationService())
+    return connectionNotificationMiddelware(service: ConnectionNotificationService())
 }
 
-private func connectionNotificationMiddelware(service: connectionNotificationService) -> Middleware<AppState, AppAction> {
+private func connectionNotificationMiddelware(service: ConnectionNotificationService) -> Middleware<AppState, AppAction> {
     return { store, action, lastState in
         switch action {
         case .setConnectionAlarm(enabled: let enabled):
             if !enabled {
                 service.clearNotifications()
             }
-            
+
         case .setConnectionError(errorMessage: let errorMessage, errorTimestamp: _, errorIsCritical: let errorIsCritical):
             guard store.state.connectionAlarm else {
                 break
             }
-            
+
             AppLog.info("Sensor connection lost alert check: \(errorMessage), \(errorIsCritical)")
-            
+
             service.sendSensorConnectionLostNotification(errorIsCritical: errorIsCritical)
-            
+
         case .setConnectionState(connectionState: let connectionState):
             guard store.state.connectionAlarm else {
                 break
             }
-            
+
             AppLog.info("Sensor connection lost alert check: \(connectionState)")
 
             if lastState.connectionState == .connected, connectionState == .disconnected {
@@ -46,7 +46,7 @@ private func connectionNotificationMiddelware(service: connectionNotificationSer
             guard store.state.connectionAlarm else {
                 break
             }
-            
+
             AppLog.info("Sensor connection available, but missed readings")
 
             if store.state.missedReadings % 5 == 0 {
@@ -61,9 +61,9 @@ private func connectionNotificationMiddelware(service: connectionNotificationSer
     }
 }
 
-// MARK: - connectionNotificationService
+// MARK: - ConnectionNotificationService
 
-private class connectionNotificationService {
+private class ConnectionNotificationService {
     enum Identifier: String {
         case sensorConnectionAlert = "libre-direct.notifications.sensor-connection-alert"
     }
@@ -84,7 +84,7 @@ private class connectionNotificationService {
 
             let notification = UNMutableNotificationContent()
             notification.title = LocalizedString("Alert, sensor connection lost", comment: "")
-            
+
             if errorIsCritical {
                 notification.sound = NotificationService.AlarmSound
                 notification.interruptionLevel = .critical

@@ -9,10 +9,10 @@ import UIKit
 import UserNotifications
 
 func glucoseBadgeMiddelware() -> Middleware<AppState, AppAction> {
-    return glucoseBadgeMiddelware(service: glucoseBadgeService())
+    return glucoseBadgeMiddelware(service: GlucoseBadgeService())
 }
 
-private func glucoseBadgeMiddelware(service: glucoseBadgeService) -> Middleware<AppState, AppAction> {
+private func glucoseBadgeMiddelware(service: GlucoseBadgeService) -> Middleware<AppState, AppAction> {
     return { store, action, _ in
         switch action {
         case .setGlucoseBadge(enabled: let enabled):
@@ -42,9 +42,9 @@ private func glucoseBadgeMiddelware(service: glucoseBadgeService) -> Middleware<
     }
 }
 
-// MARK: - glucoseBadgeService
+// MARK: - GlucoseBadgeService
 
-private class glucoseBadgeService {
+private class GlucoseBadgeService {
     enum Identifier: String {
         case sensorGlucoseBadge = "libre-direct.notifications.sensor-glucose-badge"
     }
