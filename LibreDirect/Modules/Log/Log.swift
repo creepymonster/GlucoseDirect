@@ -40,7 +40,7 @@ private class SendLogsService {
 
     func sendLogfile(entries: [OSLogEntryLog]) {
         let logContent = entries.map { entry in
-            "[\(entry.level.rawValue)] \(entry.date): \(entry.composedMessage)".components(separatedBy: .whitespacesAndNewlines).joined()
+            "[\(entry.level.rawValue)] \(entry.date): \(entry.composedMessage)"
         }.joined(separator: "\n")
 
         let fileUrl = getDocumentDirectory().appendingPathComponent(SendLogsService.filename)
