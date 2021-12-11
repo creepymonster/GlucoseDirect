@@ -17,15 +17,21 @@ private func glucoseBadgeMiddelware(service: glucoseBadgeService) -> Middleware<
         switch action {
         case .setGlucoseBadge(enabled: let enabled):
             if !enabled {
-                UIApplication.shared.applicationIconBadgeNumber = 0
                 service.clearNotifications()
             }
-            
+
+        case .setGlucoseUnit(unit: let unit):
+            guard let glucose = store.state.currentGlucose else {
+                break
+            }
+
+            service.setGlucoseBadge(glucose: glucose, glucoseUnit: unit)
+
         case .addGlucose(glucose: let glucose):
             guard store.state.glucoseBadge else {
                 break
             }
-            
+
             service.setGlucoseBadge(glucose: glucose, glucoseUnit: store.state.glucoseUnit)
 
         default:
@@ -39,13 +45,12 @@ private func glucoseBadgeMiddelware(service: glucoseBadgeService) -> Middleware<
 // MARK: - glucoseBadgeService
 
 private class glucoseBadgeService {
-    // MARK: Internal
-
     enum Identifier: String {
         case sensorGlucoseBadge = "libre-direct.notifications.sensor-glucose-badge"
     }
 
     func clearNotifications() {
+        UIApplication.shared.applicationIconBadgeNumber = 0
         UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [Identifier.sensorGlucoseBadge.rawValue])
     }
 
@@ -58,7 +63,7 @@ private class glucoseBadgeService {
             guard ensured else {
                 return
             }
-            
+
             guard let glucoseValue = glucose.glucoseValue else {
                 return
             }
@@ -76,10 +81,19 @@ private class glucoseBadgeService {
             if glucoseUnit == .mgdL {
                 notification.badge = glucoseValue as NSNumber
             } else {
-                notification.badge = glucoseValue.asMmolL as NSNumber
+                notification.badge = glucoseValue.asRoundedMmolL as NSNumber
             }
 
             NotificationService.shared.add(identifier: Identifier.sensorGlucoseBadge.rawValue, content: notification)
         }
+    }
+}
+
+private extension Int {
+    var asRoundedMmolL: Double {
+        let value = Double(self) * GlucoseUnit.exchangeRate
+        let divisor = pow(10.0, Double(1))
+
+        return round(value * divisor) / divisor
     }
 }
