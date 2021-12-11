@@ -32,8 +32,8 @@ struct AboutView: View {
                     if store.state.isCollectingLogs {
                         HStack {
                             Image(systemName: "hourglass.bottomhalf.filled")
-                            Text("Log data will be processed...").foregroundColor(.gray)
-                        }
+                            Text("Log data will be processed...")
+                        }.foregroundColor(.gray)
                     } else {
                         Button(action: {
                             store.dispatch(.collectLogs)
