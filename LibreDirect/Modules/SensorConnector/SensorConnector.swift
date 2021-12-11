@@ -54,15 +54,15 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], calibrat
             store.dispatch(.registerConnectionInfo(infos: infos))
 
             if let id = store.state.selectedConnectionId, let connectionInfo = infos.first(where: { $0.id == id }) {
-                Log.info("Select startup connection: \(connectionInfo.name)")
+                AppLog.info("Select startup connection: \(connectionInfo.name)")
                 store.dispatch(.selectConnection(id: connectionInfo.id, connection: connectionInfo.connectionCreator()))
 
             } else if infos.count == 1, let connectionInfo = infos.first {
-                Log.info("Select single startup connection: \(connectionInfo.name)")
+                AppLog.info("Select single startup connection: \(connectionInfo.name)")
                 store.dispatch(.selectConnection(id: connectionInfo.id, connection: connectionInfo.connectionCreator()))
 
             } else if let connectionInfo = infos.first {
-                Log.info("Select first startup connection: \(connectionInfo.name)")
+                AppLog.info("Select first startup connection: \(connectionInfo.name)")
                 store.dispatch(.selectConnection(id: connectionInfo.id, connection: connectionInfo.connectionCreator()))
             }
 

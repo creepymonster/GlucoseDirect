@@ -31,13 +31,13 @@ private func glucoseNotificationMiddelware(service: glucoseNotificationService) 
             var isSnoozed = false
 
             if let snoozeUntil = store.state.alarmSnoozeUntil, Date() < snoozeUntil {
-                Log.info("Glucose alert snoozed until \(snoozeUntil.localTime)")
+                AppLog.info("Glucose alert snoozed until \(snoozeUntil.localTime)")
                 isSnoozed = true
             }
 
             if glucoseValue < store.state.alarmLow {
                 if !isSnoozed {
-                    Log.info("Glucose alert, low: \(glucose.glucoseValue) < \(store.state.alarmLow)")
+                    AppLog.info("Glucose alert, low: \(glucose.glucoseValue) < \(store.state.alarmLow)")
 
                     service.sendLowGlucoseNotification(glucose: glucose, glucoseUnit: store.state.glucoseUnit)
 
@@ -47,7 +47,7 @@ private func glucoseNotificationMiddelware(service: glucoseNotificationService) 
                 }
             } else if glucoseValue > store.state.alarmHigh {
                 if !isSnoozed {
-                    Log.info("Glucose alert, high: \(glucose.glucoseValue) > \(store.state.alarmHigh)")
+                    AppLog.info("Glucose alert, high: \(glucose.glucoseValue) > \(store.state.alarmHigh)")
 
                     service.sendHighGlucoseNotification(glucose: glucose, glucoseUnit: store.state.glucoseUnit)
 
@@ -84,7 +84,7 @@ private class glucoseNotificationService {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
         NotificationService.shared.ensureCanSendNotification { ensured in
-            Log.info("Glucose alert, ensured: \(ensured)")
+            AppLog.info("Glucose alert, ensured: \(ensured)")
 
             guard ensured else {
                 return
@@ -114,7 +114,7 @@ private class glucoseNotificationService {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
         NotificationService.shared.ensureCanSendNotification { ensured in
-            Log.info("Glucose alert, ensured: \(ensured)")
+            AppLog.info("Glucose alert, ensured: \(ensured)")
 
             guard ensured else {
                 return

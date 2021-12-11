@@ -51,7 +51,7 @@ final class LibreDirectApp: App {
 
     private static func createStore() -> AppStore {
         if isSimulator || isPreviewMode {
-            Log.info("start preview mode")
+            AppLog.info("start preview mode")
 
             return createPreviewStore()
         }
@@ -131,15 +131,15 @@ final class LibreDirectNotificationCenter: NSObject, UNUserNotificationCenterDel
 
 final class LibreDirectAppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-        Log.info("Application did finish launching with options")
+        AppLog.info("Application did finish launching with options")
         return true
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        Log.info("Application will terminate")
+        AppLog.info("Application will terminate")
     }
     
     func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
-        Log.info("Application did receive memory warning")
+        AppLog.info("Application did receive memory warning")
     }
 }

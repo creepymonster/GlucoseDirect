@@ -71,8 +71,7 @@
 		E2FCAC34270741D200FE1CBF /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC2C270741D200FE1CBF /* View.swift */; };
 		E2FCAC35270741D200FE1CBF /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC2D270741D200FE1CBF /* State.swift */; };
 		E2FCAC36270741D200FE1CBF /* LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC2E270741D200FE1CBF /* LocalizedString.swift */; };
-		E2FCAC3A270741E600FE1CBF /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC38270741E600FE1CBF /* StreamReader.swift */; };
-		E2FCAC3B270741E600FE1CBF /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC39270741E600FE1CBF /* Log.swift */; };
+		E2FCAC3B270741E600FE1CBF /* AppLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC39270741E600FE1CBF /* AppLog.swift */; };
 		E2FCAC422707420100FE1CBF /* UserDefaultsAppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC3D2707420000FE1CBF /* UserDefaultsAppState.swift */; };
 		E2FCAC432707420100FE1CBF /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC3E2707420100FE1CBF /* NotificationService.swift */; };
 		E2FCAC452707420100FE1CBF /* PreviewAppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC402707420100FE1CBF /* PreviewAppState.swift */; };
@@ -193,8 +192,7 @@
 		E2FCAC2C270741D200FE1CBF /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		E2FCAC2D270741D200FE1CBF /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		E2FCAC2E270741D200FE1CBF /* LocalizedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizedString.swift; sourceTree = "<group>"; };
-		E2FCAC38270741E600FE1CBF /* StreamReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamReader.swift; sourceTree = "<group>"; };
-		E2FCAC39270741E600FE1CBF /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		E2FCAC39270741E600FE1CBF /* AppLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppLog.swift; sourceTree = "<group>"; };
 		E2FCAC3D2707420000FE1CBF /* UserDefaultsAppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsAppState.swift; sourceTree = "<group>"; };
 		E2FCAC3E2707420100FE1CBF /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		E2FCAC402707420100FE1CBF /* PreviewAppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewAppState.swift; sourceTree = "<group>"; };
@@ -259,8 +257,8 @@
 				E2FCAC6C2707438A00FE1CBF /* AppState.swift */,
 				E2FCAC6D2707438A00FE1CBF /* AppAction.swift */,
 				E2FCAC412707420100FE1CBF /* AppReducer.swift */,
+				E2FCAC39270741E600FE1CBF /* AppLog.swift */,
 				E264775B274A9C6F0053BF6F /* States */,
-				E2FCAC37270741DB00FE1CBF /* Logging */,
 				E2FCAC26270741C700FE1CBF /* Extensions */,
 				E2FCAC112707419800FE1CBF /* Content */,
 				E2FCAC3C270741F000FE1CBF /* Modules */,
@@ -427,15 +425,6 @@
 				E27325A6275543D600D3C41D /* Color.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		E2FCAC37270741DB00FE1CBF /* Logging */ = {
-			isa = PBXGroup;
-			children = (
-				E2FCAC39270741E600FE1CBF /* Log.swift */,
-				E2FCAC38270741E600FE1CBF /* StreamReader.swift */,
-			);
-			path = Logging;
 			sourceTree = "<group>";
 		};
 		E2FCAC3C270741F000FE1CBF /* Modules */ = {
@@ -673,9 +662,8 @@
 				E2F5F3D126A70AC400834A74 /* DateSelectorView.swift in Sources */,
 				E2FCAC462707420100FE1CBF /* AppReducer.swift in Sources */,
 				E2FCAC5F2707426800FE1CBF /* GlucoseBadge.swift in Sources */,
-				E2FCAC3A270741E600FE1CBF /* StreamReader.swift in Sources */,
 				E2FCAC21270741BC00FE1CBF /* SensorFamily.swift in Sources */,
-				E2FCAC3B270741E600FE1CBF /* Log.swift in Sources */,
+				E2FCAC3B270741E600FE1CBF /* AppLog.swift in Sources */,
 				E2D34BC4274D6BB500151895 /* GlucoeOverviewView.swift in Sources */,
 				E2FCAC5B2707425900FE1CBF /* Libre2Pairing.swift in Sources */,
 				E2646F3D275FD3E800ADE451 /* CalendarExportSettingsView.swift in Sources */,

@@ -285,7 +285,7 @@ struct SensorView: View {
             }
         }.onChange(of: colorScheme) { scheme in
             if deviceColorScheme != scheme {
-                Log.info("onChange colorScheme: \(scheme)")
+                AppLog.info("onChange colorScheme: \(scheme)")
 
                 deviceColorScheme = scheme
             }

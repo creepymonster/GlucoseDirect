@@ -81,14 +81,14 @@ private class NightscoutService {
 
         let task = session.dataTask(with: request) { data, response, error in
             if let error = error {
-                Log.info("Nightscout: \(error.localizedDescription)")
+                AppLog.info("Nightscout: \(error.localizedDescription)")
             }
 
             if let response = response as? HTTPURLResponse, let data = data {
                 let status = response.statusCode
                 if status != 200 {
                     let responseString = String(data: data, encoding: .utf8)
-                    Log.info("Nightscout error: \(response.statusCode) \(responseString)")
+                    AppLog.info("Nightscout error: \(response.statusCode) \(responseString)")
                 }
             }
         }
@@ -114,14 +114,14 @@ private class NightscoutService {
 
         let task = session.uploadTask(with: request, from: nightscoutJson) { data, response, error in
             if let error = error {
-                Log.info("Nightscout: \(error.localizedDescription)")
+                AppLog.info("Nightscout: \(error.localizedDescription)")
             }
 
             if let response = response as? HTTPURLResponse, let data = data {
                 let status = response.statusCode
                 if status != 200 {
                     let responseString = String(data: data, encoding: .utf8)
-                    Log.info("Nightscout error: \(response.statusCode) \(responseString)")
+                    AppLog.info("Nightscout error: \(response.statusCode) \(responseString)")
                 }
             }
         }

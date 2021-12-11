@@ -13,7 +13,7 @@ final class Libre2Connection: SensorBLEConnection {
     // MARK: Lifecycle
 
     init() {
-        Log.info("init")
+        AppLog.info("init")
         super.init(serviceUuid: [CBUUID(string: "FDE3")])
     }
 
@@ -31,7 +31,7 @@ final class Libre2Connection: SensorBLEConnection {
 
     override func pairSensor(updatesHandler: @escaping SensorConnectionHandler) {
         dispatchPrecondition(condition: .notOnQueue(managerQueue))
-        Log.info("PairSensor")
+        AppLog.info("PairSensor")
 
         self.updatesHandler = updatesHandler
 
@@ -50,15 +50,14 @@ final class Libre2Connection: SensorBLEConnection {
                     self.sendUpdate(trendReadings: parsedFram.trend, historyReadings: parsedFram.history)
                 }
             }
-            
-            self.pairingService.clean()
+
             self.sendUpdate(connectionState: .disconnected)
         }
     }
 
     func unlock() -> Data? {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Unlock, count: \(UserDefaults.standard.libre2UnlockCount)")
+        AppLog.info("Unlock, count: \(UserDefaults.standard.libre2UnlockCount)")
 
         if sensor == nil {
             return nil
@@ -69,21 +68,21 @@ final class Libre2Connection: SensorBLEConnection {
 
         UserDefaults.standard.libre2UnlockCount = unlockCount
 
-        Log.info("Unlock done, count: \(UserDefaults.standard.libre2UnlockCount)")
+        AppLog.info("Unlock done, count: \(UserDefaults.standard.libre2UnlockCount)")
 
         return Data(unlockPayload)
     }
 
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Peripheral: \(peripheral)")
+        AppLog.info("Peripheral: \(peripheral)")
 
         guard let sensor = sensor, let manufacturerData = advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data else {
             return
         }
 
-        Log.info("Sensor: \(sensor)")
-        Log.info("ManufacturerData: \(manufacturerData)")
+        AppLog.info("Sensor: \(sensor)")
+        AppLog.info("ManufacturerData: \(manufacturerData)")
 
         if manufacturerData.count == 8 {
             var foundUUID = manufacturerData.subdata(in: 2 ..< 8)
@@ -99,13 +98,13 @@ final class Libre2Connection: SensorBLEConnection {
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Peripheral: \(peripheral)")
+        AppLog.info("Peripheral: \(peripheral)")
 
         sendUpdate(error: error)
 
         if let services = peripheral.services {
             for service in services {
-                Log.info("Service Uuid: \(service.uuid)")
+                AppLog.info("Service Uuid: \(service.uuid)")
 
                 peripheral.discoverCharacteristics([readCharacteristicUuid, writeCharacteristicUuid], for: service)
             }
@@ -114,13 +113,13 @@ final class Libre2Connection: SensorBLEConnection {
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Peripheral: \(peripheral)")
+        AppLog.info("Peripheral: \(peripheral)")
 
         sendUpdate(error: error)
 
         if let characteristics = service.characteristics {
             for characteristic in characteristics {
-                Log.info("Characteristic Uuid: \(characteristic.uuid.description)")
+                AppLog.info("Characteristic Uuid: \(characteristic.uuid.description)")
 
                 if characteristic.uuid == readCharacteristicUuid {
                     readCharacteristic = characteristic
@@ -139,14 +138,14 @@ final class Libre2Connection: SensorBLEConnection {
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Peripheral: \(peripheral)")
+        AppLog.info("Peripheral: \(peripheral)")
 
         sendUpdate(error: error)
     }
 
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Peripheral: \(peripheral)")
+        AppLog.info("Peripheral: \(peripheral)")
 
         sendUpdate(error: error)
 
@@ -157,7 +156,7 @@ final class Libre2Connection: SensorBLEConnection {
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Peripheral: \(peripheral)")
+        AppLog.info("Peripheral: \(peripheral)")
 
         sendUpdate(error: error)
 
@@ -167,8 +166,8 @@ final class Libre2Connection: SensorBLEConnection {
 
         rxBuffer.append(value)
 
-        Log.info("Value: \(value.count)")
-        Log.info("Buffer: \(rxBuffer.count)")
+        AppLog.info("Value: \(value.count)")
+        AppLog.info("Buffer: \(rxBuffer.count)")
 
         if rxBuffer.count >= expectedBufferSize {
             if let sensor = sensor {
@@ -187,7 +186,7 @@ final class Libre2Connection: SensorBLEConnection {
                         sendUpdate(age: parsedBLE.age, state: .starting)
                     }
                 } catch {
-                    Log.error("Cannot process BLE data: \(error.localizedDescription)")
+                    AppLog.error("Cannot process BLE data: \(error.localizedDescription)")
                 }
             }
 

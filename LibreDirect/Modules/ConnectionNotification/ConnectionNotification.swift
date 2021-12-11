@@ -24,7 +24,7 @@ private func connectionNotificationMiddelware(service: connectionNotificationSer
                 break
             }
             
-            Log.info("Sensor connection lost alert check: \(errorMessage), \(errorIsCritical)")
+            AppLog.info("Sensor connection lost alert check: \(errorMessage), \(errorIsCritical)")
             
             service.sendSensorConnectionLostNotification(errorIsCritical: errorIsCritical)
             
@@ -33,7 +33,7 @@ private func connectionNotificationMiddelware(service: connectionNotificationSer
                 break
             }
             
-            Log.info("Sensor connection lost alert check: \(connectionState)")
+            AppLog.info("Sensor connection lost alert check: \(connectionState)")
 
             if lastState.connectionState == .connected, connectionState == .disconnected {
                 service.sendSensorConnectionLostNotification()
@@ -47,7 +47,7 @@ private func connectionNotificationMiddelware(service: connectionNotificationSer
                 break
             }
             
-            Log.info("Sensor connection available, but missed readings")
+            AppLog.info("Sensor connection available, but missed readings")
 
             if store.state.missedReadings % 5 == 0 {
                 service.sendSensorMissedReadingsNotification(missedReadings: store.state.missedReadings)
@@ -76,7 +76,7 @@ private class connectionNotificationService {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
         NotificationService.shared.ensureCanSendNotification { ensured in
-            Log.info("Sensor connection lLost alert, ensured: \(ensured)")
+            AppLog.info("Sensor connection lLost alert, ensured: \(ensured)")
 
             guard ensured else {
                 return
@@ -103,7 +103,7 @@ private class connectionNotificationService {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
         NotificationService.shared.ensureCanSendNotification { ensured in
-            Log.info("Sensor connection lLost alert, ensured: \(ensured)")
+            AppLog.info("Sensor connection lLost alert, ensured: \(ensured)")
 
             guard ensured else {
                 return
@@ -123,7 +123,7 @@ private class connectionNotificationService {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
         NotificationService.shared.ensureCanSendNotification { ensured in
-            Log.info("Sensor missed readings, ensured: \(ensured)")
+            AppLog.info("Sensor missed readings, ensured: \(ensured)")
 
             guard ensured else {
                 return

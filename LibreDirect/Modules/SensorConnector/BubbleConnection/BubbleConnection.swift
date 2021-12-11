@@ -13,7 +13,7 @@ class BubbleConnection: SensorBLEConnection {
     // MARK: Lifecycle
 
     init() {
-        Log.info("init")
+        AppLog.info("init")
         super.init(serviceUuid: [CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E")])
     }
 
@@ -34,7 +34,7 @@ class BubbleConnection: SensorBLEConnection {
 
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Peripheral: \(peripheral)")
+        AppLog.info("Peripheral: \(peripheral)")
 
         guard peripheral.name?.lowercased().starts(with: "bubble") ?? false else {
             return
@@ -46,13 +46,13 @@ class BubbleConnection: SensorBLEConnection {
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Peripheral: \(peripheral)")
+        AppLog.info("Peripheral: \(peripheral)")
 
         sendUpdate(error: error)
 
         if let services = peripheral.services {
             for service in services {
-                Log.info("Service Uuid: \(service.uuid)")
+                AppLog.info("Service Uuid: \(service.uuid)")
 
                 peripheral.discoverCharacteristics([writeCharacteristicUuid, readCharacteristicUuid], for: service)
             }
@@ -61,13 +61,13 @@ class BubbleConnection: SensorBLEConnection {
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Peripheral: \(peripheral)")
+        AppLog.info("Peripheral: \(peripheral)")
 
         sendUpdate(error: error)
 
         if let characteristics = service.characteristics {
             for characteristic in characteristics {
-                Log.info("Characteristic Uuid: \(characteristic.uuid.description)")
+                AppLog.info("Characteristic Uuid: \(characteristic.uuid.description)")
 
                 if characteristic.uuid == readCharacteristicUuid {
                     readCharacteristic = characteristic
@@ -83,7 +83,7 @@ class BubbleConnection: SensorBLEConnection {
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Peripheral: \(peripheral)")
+        AppLog.info("Peripheral: \(peripheral)")
 
         sendUpdate(error: error)
 
@@ -96,12 +96,12 @@ class BubbleConnection: SensorBLEConnection {
 
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Peripheral: \(peripheral)")
+        AppLog.info("Peripheral: \(peripheral)")
     }
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Peripheral: \(peripheral)")
+        AppLog.info("Peripheral: \(peripheral)")
 
         guard let value = characteristic.value else {
             return
@@ -111,7 +111,7 @@ class BubbleConnection: SensorBLEConnection {
             return
         }
 
-        Log.info("BubbleResponseState: \(bubbleResponseState)")
+        AppLog.info("BubbleResponseState: \(bubbleResponseState)")
 
         switch bubbleResponseState {
         case .dataInfo:
@@ -134,7 +134,7 @@ class BubbleConnection: SensorBLEConnection {
             rxBuffer.append(value.suffix(from: 4))
 
             if rxBuffer.count >= expectedBufferSize {
-                Log.info("Completed DataPacket")
+                AppLog.info("Completed DataPacket")
 
                 guard let uuid = uuid, let patchInfo = patchInfo else {
                     resetBuffer()

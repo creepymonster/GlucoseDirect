@@ -58,7 +58,7 @@ private class glucoseBadgeService {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
         NotificationService.shared.ensureCanSendNotification { ensured in
-            Log.info("Glucose info, ensured: \(ensured)")
+            AppLog.info("Glucose info, ensured: \(ensured)")
 
             guard ensured else {
                 return

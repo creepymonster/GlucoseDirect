@@ -28,16 +28,16 @@ private func expiringNotificationMiddelware(service: expiringNotificationService
                 break
             }
 
-            Log.info("Sensor expiring alert check, age: \(sensorAge)")
+            AppLog.info("Sensor expiring alert check, age: \(sensorAge)")
 
             let remainingMinutes = max(0, sensor.lifetime - sensorAge)
             if remainingMinutes == 0 { // expired
-                Log.info("Sensor expired alert!")
+                AppLog.info("Sensor expired alert!")
 
                 service.sendSensorExpiredNotification()
 
             } else if remainingMinutes <= (8 * 60 + 1) { // less than 8 hours
-                Log.info("Sensor expiring alert, less than 8 hours")
+                AppLog.info("Sensor expiring alert, less than 8 hours")
 
                 if remainingMinutes.inHours == 0 {
                     service.sendSensorExpiringNotification(body: String(format: LocalizedString("Your sensor is about to expire. Replace sensor in %1$@ minutes.", comment: ""), remainingMinutes.inMinutes.description), withSound: true)
@@ -46,7 +46,7 @@ private func expiringNotificationMiddelware(service: expiringNotificationService
                 }
 
             } else if remainingMinutes <= (24 * 60 + 1) { // less than 24 hours
-                Log.info("Sensor expiring alert check, less than 24 hours")
+                AppLog.info("Sensor expiring alert check, less than 24 hours")
 
                 service.sendSensorExpiringNotification(body: String(format: LocalizedString("Your sensor is about to expire. Replace sensor in %1$@ hours.", comment: ""), remainingMinutes.inHours.description))
             }
@@ -83,7 +83,7 @@ private class expiringNotificationService {
         nextExpiredAlert = Date().addingTimeInterval(AppConfig.ExpiredNotificationInterval)
 
         NotificationService.shared.ensureCanSendNotification { ensured in
-            Log.info("Sensor expired alert, ensured: \(ensured)")
+            AppLog.info("Sensor expired alert, ensured: \(ensured)")
 
             guard ensured else {
                 return
@@ -114,7 +114,7 @@ private class expiringNotificationService {
         nextExpiredAlert = Date().addingTimeInterval(AppConfig.ExpiredNotificationInterval)
 
         NotificationService.shared.ensureCanSendNotification { ensured in
-            Log.info("Sensor expired alert, ensured: \(ensured)")
+            AppLog.info("Sensor expired alert, ensured: \(ensured)")
 
             guard ensured else {
                 return

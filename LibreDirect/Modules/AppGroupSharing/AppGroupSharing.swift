@@ -36,13 +36,13 @@ private class AppGroupSharingService {
             return
         }
 
-        Log.info("Shared values, values: \(sharedValues)")
+        AppLog.info("Shared values, values: \(sharedValues)")
 
         guard let sharedValuesJson = try? JSONSerialization.data(withJSONObject: sharedValues) else {
             return
         }
 
-        Log.info("Shared values, json: \(sharedValuesJson)")
+        AppLog.info("Shared values, json: \(sharedValuesJson)")
 
         UserDefaults.shared.latestReadings = sharedValuesJson
     }
