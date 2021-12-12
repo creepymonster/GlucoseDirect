@@ -152,17 +152,17 @@ struct SensorView: View {
                 Section(
                     content: {
                         HStack {
-                            Text("Sensor region")
-                            Spacer()
-                            Text(sensor.region.localizedString).textSelection(.enabled)
-                        }
-
-                        HStack {
                             Text("Sensor type")
                             Spacer()
                             Text(sensor.type.localizedString).textSelection(.enabled)
                         }
 
+                        HStack {
+                            Text("Sensor region")
+                            Spacer()
+                            Text(sensor.region.localizedString).textSelection(.enabled)
+                        }
+                        
                         HStack {
                             Text("Sensor UID")
                             Spacer()
