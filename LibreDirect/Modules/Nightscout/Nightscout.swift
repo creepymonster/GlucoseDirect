@@ -40,7 +40,15 @@ private func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppS
                     break
                 }
 
-                service.setSensorStart(nightscoutHost: nightscoutHost, apiSecret: nightscoutApiSecret.toSha1(), sensor: sensor)
+                guard let serial = sensor.serial else {
+                    break
+                }
+
+                service.isSensorStarted(nightscoutHost: nightscoutHost, apiSecret: nightscoutApiSecret.toSha1(), serial: serial) { isStarted in
+                    if let isStarted = isStarted, !isStarted {
+                        service.setSensorStart(nightscoutHost: nightscoutHost, apiSecret: nightscoutApiSecret.toSha1(), sensor: sensor)
+                    }
+                }
 
             default:
                 break
@@ -54,10 +62,6 @@ private func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppS
 // MARK: - NightscoutService
 
 private class NightscoutService {
-    // MARK: Lifecycle
-
-    init() {}
-
     // MARK: Internal
 
     func setSensorStart(nightscoutHost: String, apiSecret: String, sensor: Sensor) {
@@ -73,12 +77,7 @@ private class NightscoutService {
 
         let session = URLSession.shared
         let url = URL(string: "\(nightscoutHost)/api/v1/treatments")!
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue(apiSecret, forHTTPHeaderField: "api-secret")
+        let request = createRequest(url: url, method: "POST", apiSecret: apiSecret)
 
         let task = session.uploadTask(with: request, from: nightscoutJson) { data, response, error in
             if let error = error {
@@ -100,12 +99,7 @@ private class NightscoutService {
     func removeGlucose(nightscoutHost: String, apiSecret: String, id: UUID) {
         let session = URLSession.shared
         let url = URL(string: "\(nightscoutHost)/api/v1/entries?find[_id][$in][]=\(id.uuidString)")!
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "DELETE"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue(apiSecret, forHTTPHeaderField: "api-secret")
+        let request = createRequest(url: url, method: "DELETE", apiSecret: apiSecret)
 
         let task = session.dataTask(with: request) { data, response, error in
             if let error = error {
@@ -133,12 +127,7 @@ private class NightscoutService {
 
         let session = URLSession.shared
         let url = URL(string: "\(nightscoutHost)/api/v1/entries")!
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue(apiSecret, forHTTPHeaderField: "api-secret")
+        let request = createRequest(url: url, method: "POST", apiSecret: apiSecret)
 
         let task = session.uploadTask(with: request, from: nightscoutJson) { data, response, error in
             if let error = error {
@@ -156,6 +145,61 @@ private class NightscoutService {
 
         task.resume()
     }
+
+    func isSensorStarted(nightscoutHost: String, apiSecret: String, serial: String, completionHandler: @escaping (Bool?) -> Void) {
+        let session = URLSession.shared
+        let url = URL(string: "\(nightscoutHost)/api/v1/treatments?find[_id][$in][]=\(serial)&find[eventType][$in][]=Sensor Start")!
+        let request = createRequest(url: url, method: "GET", apiSecret: apiSecret)
+
+        let task = session.dataTask(with: request) { data, _, error in
+            if let error = error {
+                AppLog.info("Nightscout: \(error.localizedDescription)")
+
+                completionHandler(nil)
+                return
+            }
+
+            guard let data = data else {
+                AppLog.info("Nightscout, data is nil")
+
+                completionHandler(nil)
+                return
+            }
+
+            print(String(data: data, encoding: .utf8)!)
+
+            do {
+                let results = try JSONDecoder().decode([Treatment].self, from: data)
+                completionHandler(!results.isEmpty)
+            } catch {
+                AppLog.info("Nightscout, json decode failed: \(error.localizedDescription)")
+                completionHandler(nil)
+            }
+        }
+
+        task.resume()
+    }
+
+    // MARK: Private
+
+    private func createRequest(url: URL, method: String, apiSecret: String) -> URLRequest {
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue(apiSecret, forHTTPHeaderField: "api-secret")
+
+        return request
+    }
+}
+
+// MARK: - Treatment
+
+private struct Treatment: Decodable {
+    let _id: String
+    let eventType: String
+    let created_at: String
+    let enteredBy: String
 }
 
 private extension Sensor {
