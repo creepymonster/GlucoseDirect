@@ -467,10 +467,10 @@
 "App Website" = "Webseite";
 
 /* (No Comment) */
-"Send log file" = "Send log file";
+"Send log file" = "Protokolldatei senden";
 
 /* (No Comment) */
-"Log data will be processed..." = "Log data will be processed...";
+"Log data will be processed..." = "Die Protokolldaten werden verarbeitet...";
 
 /* (No Comment) */
-"Sensor starting date" = "Starting date";
+"Sensor starting date" = "Startdatum";
