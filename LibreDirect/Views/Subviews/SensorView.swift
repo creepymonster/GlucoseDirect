@@ -196,6 +196,14 @@ struct SensorView: View {
                             Text(sensor.state.localizedString).textSelection(.enabled)
                         }
 
+                        if let startTimestamp = sensor.startTimestamp {
+                            HStack {
+                                Text("Sensor starting date")
+                                Spacer()
+                                Text(startTimestamp.localDateTime)
+                            }
+                        }
+
                         if let remainingWarmupTime = sensor.remainingWarmupTime, sensor.state == .starting {
                             HStack {
                                 Text("Sensor remaining warmup time")

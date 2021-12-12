@@ -8,10 +8,10 @@ import Foundation
 import UserNotifications
 
 func glucoseNotificationMiddelware() -> Middleware<AppState, AppAction> {
-    return glucoseNotificationMiddelware(service: glucoseNotificationService())
+    return glucoseNotificationMiddelware(service: GlucoseNotificationService())
 }
 
-private func glucoseNotificationMiddelware(service: glucoseNotificationService) -> Middleware<AppState, AppAction> {
+private func glucoseNotificationMiddelware(service: GlucoseNotificationService) -> Middleware<AppState, AppAction> {
     return { store, action, _ in
         switch action {
         case .setGlucoseAlarm(enabled: let enabled):
@@ -23,7 +23,7 @@ private func glucoseNotificationMiddelware(service: glucoseNotificationService) 
             guard store.state.glucoseAlarm, glucose.type == .cgm else {
                 break
             }
-            
+
             guard let glucoseValue = glucose.glucoseValue else {
                 break
             }
@@ -67,9 +67,9 @@ private func glucoseNotificationMiddelware(service: glucoseNotificationService) 
     }
 }
 
-// MARK: - glucoseNotificationService
+// MARK: - GlucoseNotificationService
 
-private class glucoseNotificationService {
+private class GlucoseNotificationService {
     // MARK: Internal
 
     enum Identifier: String {
@@ -89,7 +89,7 @@ private class glucoseNotificationService {
             guard ensured else {
                 return
             }
-            
+
             guard let glucoseValue = glucose.glucoseValue else {
                 return
             }
@@ -104,7 +104,6 @@ private class glucoseNotificationService {
                 glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true),
                 glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) ?? "?"
             )
-            
 
             NotificationService.shared.add(identifier: Identifier.sensorGlucoseAlert.rawValue, content: notification)
         }
@@ -119,7 +118,7 @@ private class glucoseNotificationService {
             guard ensured else {
                 return
             }
-            
+
             guard let glucoseValue = glucose.glucoseValue else {
                 return
             }

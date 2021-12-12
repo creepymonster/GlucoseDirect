@@ -8,22 +8,22 @@ import Foundation
 import UserNotifications
 
 func expiringNotificationMiddelware() -> Middleware<AppState, AppAction> {
-    return expiringNotificationMiddelware(service: expiringNotificationService())
+    return expiringNotificationMiddelware(service: ExpiringNotificationService())
 }
 
-private func expiringNotificationMiddelware(service: expiringNotificationService) -> Middleware<AppState, AppAction> {
+private func expiringNotificationMiddelware(service: ExpiringNotificationService) -> Middleware<AppState, AppAction> {
     return { store, action, _ in
         switch action {
         case .setExpiringAlarm(enabled: let enabled):
             if !enabled {
                 service.clearNotifications()
             }
-            
+
         case .setSensorState(sensorAge: let sensorAge, sensorState: _):
             guard store.state.expiringAlarm else {
                 break
             }
-            
+
             guard let sensor = store.state.sensor else {
                 break
             }
@@ -59,9 +59,9 @@ private func expiringNotificationMiddelware(service: expiringNotificationService
     }
 }
 
-// MARK: - expiringNotificationService
+// MARK: - ExpiringNotificationService
 
-private class expiringNotificationService {
+private class ExpiringNotificationService {
     enum Identifier: String {
         case sensorExpiring = "libre-direct.notifications.sensor-expiring-alert"
     }
@@ -130,7 +130,7 @@ private class expiringNotificationService {
             }
             notification.title = LocalizedString("Alert, sensor expiring soon", comment: "")
             notification.body = body
-            
+
             NotificationService.shared.add(identifier: Identifier.sensorExpiring.rawValue, content: notification)
         }
     }

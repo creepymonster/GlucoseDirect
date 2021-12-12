@@ -9,7 +9,7 @@ import OSLog
 
 // MARK: - Log
 
-public enum AppLog {
+enum AppLog {
     // MARK: Internal
 
     static func debug(_ message: String, log: OSLog = .default, file: String = #fileID, line: Int = #line, function: String = #function) {
@@ -28,9 +28,9 @@ public enum AppLog {
         self.log(message: message, type: .error, log: log, error: error, file: file, line: line, function: function)
     }
 
-    // "[\(entry.level.rawValue)] \(entry.date): \(entry.composedMessage)"
+    //
     static func getLogEntries(hours: Double = 24, completionHandler: @escaping (_ enties: [OSLogEntryLog]) -> Void) {
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .default).async {
             do {
                 let logEntries = try readLogEntries(hours: hours)
 
@@ -55,7 +55,7 @@ public enum AppLog {
 
     private static func readLogEntries(hours: Double) throws -> [OSLogEntryLog] {
         let logStore = try OSLogStore(scope: .currentProcessIdentifier)
-        let oneHourAgo = logStore.position(date: Date().addingTimeInterval(-3600 * hours))
+        let oneHourAgo = logStore.position(date: Date().addingTimeInterval(hours * 60 * 60 * -1))
         let allEntries = try logStore.getEntries(at: oneHourAgo)
 
         // FB8518539: Using NSPredicate to filter the subsystem doesn't seem to work.
@@ -69,9 +69,9 @@ public enum AppLog {
         let meta: String = "[\(file):\(line)] [\(function)]"
 
         if let error = error {
-            logger.log(level: type, "\(meta) \(message) \(error.localizedDescription)")
+            logger.log(level: type, "\(meta, privacy: .public) \(message, privacy: .public) \(error.localizedDescription, privacy: .public)")
         } else {
-            logger.log(level: type, "\(meta) \(message)")
+            logger.log(level: type, "\(meta, privacy: .public) \(message, privacy: .public)")
         }
     }
 }

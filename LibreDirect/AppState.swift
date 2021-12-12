@@ -25,6 +25,7 @@ protocol AppState {
     var glucoseBadge: Bool { get set }
     var glucoseUnit: GlucoseUnit { get set }
     var glucoseValues: [Glucose] { get set }
+    var isCollectingLogs: Bool { get set }
     var missedReadings: Int { get set }
     var nightscoutApiSecret: String { get set }
     var nightscoutHost: String { get set }

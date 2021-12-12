@@ -62,7 +62,7 @@ final class LibreDirectApp: App {
     private static func createPreviewStore() -> AppStore {
         return AppStore(initialState: InMemoryAppState(), reducer: appReducer, middlewares: [
             // required middlewares
-            actionLogMiddleware(),
+            logMiddleware(),
             sensorConnectorMiddelware([
                 SensorConnectionInfo(id: "virtual", name: "Virtual") { VirtualLibreConnection() },
             ]),
@@ -79,7 +79,7 @@ final class LibreDirectApp: App {
     private static func createAppStore() -> AppStore {
         return AppStore(initialState: UserDefaultsAppState(), reducer: appReducer, middlewares: [
             // required middlewares
-            actionLogMiddleware(),
+            logMiddleware(),
             sensorConnectorMiddelware([
                 SensorConnectionInfo(id: "libre2", name: LocalizedString("Without transmitter")) { Libre2Connection() },
                 SensorConnectionInfo(id: "bubble", name: LocalizedString("Bubble transmitter")) { BubbleConnection() },
