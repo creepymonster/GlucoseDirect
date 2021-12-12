@@ -192,7 +192,7 @@ func appReducer(state: inout AppState, action: AppAction) {
         }
         
         if state.sensor!.startTimestamp == nil {
-            state.sensor!.startTimestamp = Date().addingTimeInterval(Double(sensorAge) * 60 * -1).rounded(on: 1, .minute)
+            state.sensor!.startTimestamp = Date() - Double(sensorAge) * 60
         }
 
     case .setTransmitter(transmitter: let transmitter):

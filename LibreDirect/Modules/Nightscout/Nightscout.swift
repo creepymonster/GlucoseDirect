@@ -76,7 +76,15 @@ private class NightscoutService {
         }
 
         let session = URLSession.shared
-        let url = URL(string: "\(nightscoutHost)/api/v1/treatments")!
+
+        let urlString = "\(nightscoutHost)/api/v1/treatments"
+        AppLog.info("Nightscout request: \(urlString)")
+        
+        guard let url = URL(string: urlString) else {
+            AppLog.error("Bad url: \(urlString)")
+            return
+        }
+
         let request = createRequest(url: url, method: "POST", apiSecret: apiSecret)
 
         let task = session.uploadTask(with: request, from: nightscoutJson) { data, response, error in
@@ -98,7 +106,15 @@ private class NightscoutService {
 
     func removeGlucose(nightscoutHost: String, apiSecret: String, id: UUID) {
         let session = URLSession.shared
-        let url = URL(string: "\(nightscoutHost)/api/v1/entries?find[_id][$in][]=\(id.uuidString)")!
+
+        let urlString = "\(nightscoutHost)/api/v1/entries?find[_id][$in][]=\(id.uuidString)"
+        AppLog.info("Nightscout request: \(urlString)")
+        
+        guard let url = URL(string: urlString) else {
+            AppLog.error("Bad url: \(urlString)")
+            return
+        }
+
         let request = createRequest(url: url, method: "DELETE", apiSecret: apiSecret)
 
         let task = session.dataTask(with: request) { data, response, error in
@@ -126,7 +142,15 @@ private class NightscoutService {
         }
 
         let session = URLSession.shared
-        let url = URL(string: "\(nightscoutHost)/api/v1/entries")!
+
+        let urlString = "\(nightscoutHost)/api/v1/entries"
+        AppLog.info("Nightscout request: \(urlString)")
+        
+        guard let url = URL(string: urlString) else {
+            AppLog.error("Bad url: \(urlString)")
+            return
+        }
+
         let request = createRequest(url: url, method: "POST", apiSecret: apiSecret)
 
         let task = session.uploadTask(with: request, from: nightscoutJson) { data, response, error in
@@ -148,7 +172,17 @@ private class NightscoutService {
 
     func isSensorStarted(nightscoutHost: String, apiSecret: String, serial: String, completionHandler: @escaping (Bool?) -> Void) {
         let session = URLSession.shared
-        let url = URL(string: "\(nightscoutHost)/api/v1/treatments?find[_id][$in][]=\(serial)&find[eventType][$in][]=Sensor Start")!
+
+        let urlString = "\(nightscoutHost)/api/v1/treatments?find[_id][$in][]=\(serial)&find[eventType][$in][]=Sensor%20Start"
+        AppLog.info("Nightscout request: \(urlString)")
+        
+        guard let url = URL(string: urlString) else {
+            AppLog.error("Bad url: \(urlString)")
+
+            completionHandler(nil)
+            return
+        }
+
         let request = createRequest(url: url, method: "GET", apiSecret: apiSecret)
 
         let task = session.dataTask(with: request) { data, _, error in
@@ -170,7 +204,7 @@ private class NightscoutService {
 
             do {
                 let results = try JSONDecoder().decode([Treatment].self, from: data)
-                completionHandler(!results.isEmpty)
+                completionHandler(results.count > 0)
             } catch {
                 AppLog.info("Nightscout, json decode failed: \(error.localizedDescription)")
                 completionHandler(nil)
