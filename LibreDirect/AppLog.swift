@@ -69,9 +69,9 @@ enum AppLog {
         let meta: String = "[\(file):\(line)] [\(function)]"
 
         if let error = error {
-            logger.log(level: type, "\(meta) \(message) \(error.localizedDescription)")
+            logger.log(level: type, "\(meta, privacy: .public) \(message, privacy: .public) \(error.localizedDescription, privacy: .public)")
         } else {
-            logger.log(level: type, "\(meta) \(message)")
+            logger.log(level: type, "\(meta, privacy: .public) \(message, privacy: .public)")
         }
     }
 }
