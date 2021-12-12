@@ -38,7 +38,7 @@ struct AboutView: View {
                         Button(action: {
                             store.dispatch(.collectLogs)
                         }) {
-                            Text("Send bug report")
+                            Text("Send log file")
                         }
                     }
                 },

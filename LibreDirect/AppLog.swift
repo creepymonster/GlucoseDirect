@@ -55,7 +55,7 @@ enum AppLog {
 
     private static func readLogEntries(hours: Double) throws -> [OSLogEntryLog] {
         let logStore = try OSLogStore(scope: .currentProcessIdentifier)
-        let oneHourAgo = logStore.position(date: Date().addingTimeInterval(-3600 * hours))
+        let oneHourAgo = logStore.position(date: Date().addingTimeInterval(hours * 60 * 60 * -1))
         let allEntries = try logStore.getEntries(at: oneHourAgo)
 
         // FB8518539: Using NSPredicate to filter the subsystem doesn't seem to work.
