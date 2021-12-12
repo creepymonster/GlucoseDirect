@@ -218,7 +218,7 @@ private class NightscoutService {
 
     private func createRequest(url: URL, method: String, apiSecret: String) -> URLRequest {
         var request = URLRequest(url: url)
-        request.httpMethod = "GET"
+        request.httpMethod = method
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue(apiSecret, forHTTPHeaderField: "api-secret")
