@@ -7,10 +7,10 @@ import Foundation
 
 // MARK: - Sensor
 
-class Sensor: Codable {
+struct Sensor: Codable {
     // MARK: Lifecycle
 
-    convenience init(uuid: Data, patchInfo: Data, fram: Data) {
+    init(uuid: Data, patchInfo: Data, fram: Data) {
         let family = SensorFamily(Int(patchInfo[2] >> 4))
 
         self.init(
@@ -30,8 +30,8 @@ class Sensor: Codable {
     }
 
     init(uuid: Data, patchInfo: Data, factoryCalibration: FactoryCalibration, customCalibration: [CustomCalibration], family: SensorFamily, type: SensorType, region: SensorRegion, serial: String?, state: SensorState, age: Int, lifetime: Int, warmupTime: Int = 60) {
-        self.pairingTimestamp = Date()
-        self.fram = nil
+        pairingTimestamp = Date()
+        fram = nil
         self.uuid = uuid
         self.patchInfo = patchInfo
         self.factoryCalibration = factoryCalibration
@@ -47,7 +47,7 @@ class Sensor: Codable {
     }
 
     init(fram: Data, uuid: Data, patchInfo: Data, factoryCalibration: FactoryCalibration, customCalibration: [CustomCalibration], family: SensorFamily, type: SensorType, region: SensorRegion, serial: String?, state: SensorState, age: Int, lifetime: Int, warmupTime: Int = 60) {
-        self.pairingTimestamp = Date()
+        pairingTimestamp = Date()
         self.fram = fram
         self.uuid = uuid
         self.patchInfo = patchInfo
@@ -63,9 +63,48 @@ class Sensor: Codable {
         self.warmupTime = warmupTime
     }
 
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        pairingTimestamp = try container.decode(Date.self, forKey: .pairingTimestamp)
+        startTimestamp = try container.decodeIfPresent(Date.self, forKey: .startTimestamp) ?? nil
+        fram = try container.decode(Data?.self, forKey: .fram)
+        uuid = try container.decode(Data.self, forKey: .uuid)
+        patchInfo = try container.decode(Data.self, forKey: .patchInfo)
+        factoryCalibration = try container.decode(FactoryCalibration.self, forKey: .factoryCalibration)
+        customCalibration = try container.decode([CustomCalibration].self, forKey: .customCalibration)
+        family = try container.decode(SensorFamily.self, forKey: .family)
+        type = try container.decode(SensorType.self, forKey: .type)
+        region = try container.decode(SensorRegion.self, forKey: .region)
+        serial = try container.decode(String?.self, forKey: .serial)
+        state = try container.decode(SensorState.self, forKey: .state)
+        age = try container.decode(Int.self, forKey: .age)
+        lifetime = try container.decode(Int.self, forKey: .lifetime)
+        warmupTime = try container.decode(Int.self, forKey: .warmupTime)
+    }
+
     // MARK: Internal
 
+    enum CodingKeys: String, CodingKey {
+        case pairingTimestamp
+        case startTimestamp
+        case fram
+        case uuid
+        case patchInfo
+        case factoryCalibration
+        case customCalibration
+        case family
+        case type
+        case region
+        case serial
+        case state
+        case age
+        case lifetime
+        case warmupTime
+    }
+
     var pairingTimestamp: Date
+    var startTimestamp: Date?
     let fram: Data?
     let uuid: Data
     let patchInfo: Data

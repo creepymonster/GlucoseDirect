@@ -11,49 +11,40 @@ func nightscoutMiddleware() -> Middleware<AppState, AppAction> {
 }
 
 private func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppState, AppAction> {
-    return { store, action, _ in
-        switch action {
-        case .removeGlucose(id: let id):
-            let nightscoutHost = store.state.nightscoutHost
-            let nightscoutApiSecret = store.state.nightscoutApiSecret
+    return { store, action, lastState in
+        let nightscoutHost = store.state.nightscoutHost.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+        let nightscoutApiSecret = store.state.nightscoutApiSecret
 
-            guard !nightscoutHost.isEmpty else {
+        if store.state.nightscoutUpload, !nightscoutHost.isEmpty, !nightscoutApiSecret.isEmpty {
+            switch action {
+            case .removeGlucose(id: let id):
+                service.removeGlucose(nightscoutHost: nightscoutHost, apiSecret: nightscoutApiSecret.toSha1(), id: id)
+
+            case .addGlucose(glucose: let glucose):
+                guard glucose.type != .none else {
+                    break
+                }
+
+                guard glucose.is5Minutely || glucose.type == .bgm else {
+                    break
+                }
+
+                service.addGlucose(nightscoutHost: nightscoutHost, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: [glucose])
+
+            case .setSensorState(sensorAge: _, sensorState: _):
+                guard let sensor = store.state.sensor, sensor.startTimestamp != nil else {
+                    break
+                }
+
+                guard lastState.sensor == nil || lastState.sensor!.startTimestamp == nil else {
+                    break
+                }
+
+                service.setSensorStart(nightscoutHost: nightscoutHost, apiSecret: nightscoutApiSecret.toSha1(), sensor: sensor)
+
+            default:
                 break
             }
-
-            guard !nightscoutApiSecret.isEmpty else {
-                break
-            }
-
-            service.removeGlucose(nightscoutHost: nightscoutHost.trimmingCharacters(in: CharacterSet(charactersIn: "/")), apiSecret: nightscoutApiSecret.toSha1(), id: id)
-        case .addGlucose(glucose: let glucose):
-            guard store.state.nightscoutUpload else {
-                break
-            }
-            
-            guard glucose.type != .none else {
-                break
-            }
-
-            guard glucose.is5Minutely || glucose.type == .bgm else {
-                break
-            }
-
-            let nightscoutHost = store.state.nightscoutHost
-            let nightscoutApiSecret = store.state.nightscoutApiSecret
-
-            guard !nightscoutHost.isEmpty else {
-                break
-            }
-
-            guard !nightscoutApiSecret.isEmpty else {
-                break
-            }
-
-            service.addGlucose(nightscoutHost: nightscoutHost.trimmingCharacters(in: CharacterSet(charactersIn: "/")), apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: [glucose])
-
-        default:
-            break
         }
 
         return Empty().eraseToAnyPublisher()
@@ -68,6 +59,43 @@ private class NightscoutService {
     init() {}
 
     // MARK: Internal
+
+    func setSensorStart(nightscoutHost: String, apiSecret: String, sensor: Sensor) {
+        let nightscoutValue = sensor.toNightscoutSensorStart()
+
+        guard let nightscoutValue = nightscoutValue else {
+            return
+        }
+
+        guard let nightscoutJson = try? JSONSerialization.data(withJSONObject: nightscoutValue) else {
+            return
+        }
+
+        let session = URLSession.shared
+        let url = URL(string: "\(nightscoutHost)/api/v1/treatments")!
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue(apiSecret, forHTTPHeaderField: "api-secret")
+
+        let task = session.uploadTask(with: request, from: nightscoutJson) { data, response, error in
+            if let error = error {
+                AppLog.info("Nightscout: \(error.localizedDescription)")
+            }
+
+            if let response = response as? HTTPURLResponse, let data = data {
+                let status = response.statusCode
+                if status != 200 {
+                    let responseString = String(data: data, encoding: .utf8)
+                    AppLog.info("Nightscout error: \(response.statusCode) \(responseString)")
+                }
+            }
+        }
+
+        task.resume()
+    }
 
     func removeGlucose(nightscoutHost: String, apiSecret: String, id: UUID) {
         let session = URLSession.shared
@@ -97,7 +125,7 @@ private class NightscoutService {
     }
 
     func addGlucose(nightscoutHost: String, apiSecret: String, glucoseValues: [Glucose]) {
-        let nightscoutValues = glucoseValues.map { $0.toNightscout() }
+        let nightscoutValues = glucoseValues.map { $0.toNightscoutGlucose() }
 
         guard let nightscoutJson = try? JSONSerialization.data(withJSONObject: nightscoutValues) else {
             return
@@ -130,11 +158,32 @@ private class NightscoutService {
     }
 }
 
+private extension Sensor {
+    func toNightscoutSensorStart() -> [String: Any]? {
+        guard let startTimestamp = startTimestamp else {
+            return nil
+        }
+
+        guard let serial = serial else {
+            return nil
+        }
+
+        let nightscout: [String: Any] = [
+            "_id": serial,
+            "eventType": "Sensor Start",
+            "created_at": startTimestamp.ISOStringFromDate(),
+            "enteredBy": AppConfig.appName
+        ]
+
+        return nightscout
+    }
+}
+
 private extension Glucose {
-    func toNightscout() -> [String: Any] {
+    func toNightscoutGlucose() -> [String: Any] {
         var nightscout: [String: Any] = [
             "_id": id.uuidString,
-            "device": "LibreDirect",
+            "device": AppConfig.appName,
             "date": timestamp.toMillisecondsAsInt64(),
             "dateString": timestamp.ISOStringFromDate()
         ]
