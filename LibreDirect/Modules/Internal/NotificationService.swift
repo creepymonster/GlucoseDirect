@@ -27,8 +27,8 @@ class NotificationService {
         let center = UNUserNotificationCenter.current()
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
 
-        Log.info("NotificationCenter, identifier: \(identifier)")
-        Log.info("NotificationCenter, content: \(content)")
+        AppLog.info("NotificationCenter, identifier: \(identifier)")
+        AppLog.info("NotificationCenter, content: \(content)")
 
         center.removeDeliveredNotifications(withIdentifiers: [identifier])
         center.removePendingNotificationRequests(withIdentifiers: [identifier])

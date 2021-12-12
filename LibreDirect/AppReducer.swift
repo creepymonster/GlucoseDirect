@@ -13,7 +13,7 @@ func appReducer(state: inout AppState, action: AppAction) {
 
     switch action {
     case .addCalibration(glucoseValue: let glucoseValue):
-        guard let sensor = state.sensor else {
+        guard state.sensor != nil else {
             break
         }
         
@@ -21,11 +21,7 @@ func appReducer(state: inout AppState, action: AppAction) {
             break
         }
         
-        var calibration = sensor.customCalibration
-        calibration.append(CustomCalibration(x: Double(factoryCalibratedGlucoseValue), y: Double(glucoseValue)))
-        
-        sensor.customCalibration = calibration
-        state.sensor = sensor
+        state.sensor!.customCalibration.append(CustomCalibration(x: Double(factoryCalibratedGlucoseValue), y: Double(glucoseValue)))
         
     case .addGlucose(glucose: let glucose):
         state.missedReadings = 0
@@ -53,10 +49,11 @@ func appReducer(state: inout AppState, action: AppAction) {
         break
         
     case .clearCalibrations:
-        if let sensor = state.sensor {
-            sensor.customCalibration = []
-            state.sensor = sensor
+        guard state.sensor != nil else {
+            break
         }
+        
+        state.sensor!.customCalibration = []
         
     case .clearGlucoseValues:
         state.glucoseValues = []
@@ -74,12 +71,15 @@ func appReducer(state: inout AppState, action: AppAction) {
         state.connectionInfos.append(contentsOf: infos)
         
     case .removeCalibration(id: let id):
-        if let sensor = state.sensor {
-            sensor.customCalibration = sensor.customCalibration.filter { item in
-                item.id != id
-            }
-            state.sensor = sensor
+        guard state.sensor != nil else {
+            break
         }
+        
+        let customCalibration = state.sensor!.customCalibration.filter { item in
+            item.id != id
+        }
+        
+        state.sensor!.customCalibration = customCalibration
         
     case .removeGlucose(id: let id):
         state.glucoseValues = state.glucoseValues.filter { item in
@@ -113,6 +113,12 @@ func appReducer(state: inout AppState, action: AppAction) {
         
     case .selectView(viewTag: let viewTag):
         state.selectedView = viewTag
+        
+    case .collectLogs:
+        state.isCollectingLogs = true
+        
+    case .collectLogsCompleted(entries: _):
+        state.isCollectingLogs = false
         
     case .setAlarmHigh(upperLimit: let upperLimit):
         state.alarmHigh = upperLimit
@@ -175,16 +181,19 @@ func appReducer(state: inout AppState, action: AppAction) {
         state.sensor = sensor
 
     case .setSensorState(sensorAge: let sensorAge, sensorState: let sensorState):
-        guard let sensor = state.sensor else {
+        guard state.sensor != nil else {
             break
         }
-
-        sensor.age = sensorAge
+        
+        state.sensor!.age = sensorAge
+        
         if let sensorState = sensorState {
-            sensor.state = sensorState
+            state.sensor!.state = sensorState
         }
-
-        state.sensor = sensor
+        
+        if state.sensor!.startTimestamp == nil {
+            state.sensor!.startTimestamp = Date() - Double(sensorAge) * 60
+        }
 
     case .setTransmitter(transmitter: let transmitter):
         state.transmitter = transmitter

@@ -45,6 +45,7 @@ struct UserDefaultsAppState: AppState {
     var connectionErrorTimestamp: Date? = nil
     var connectionInfos: [SensorConnectionInfo] = []
     var connectionState: SensorConnectionState = .disconnected
+    var isCollectingLogs = false
     var missedReadings: Int = 0
     var selectedConnection: SensorConnection?
     var targetValue: Int = 100

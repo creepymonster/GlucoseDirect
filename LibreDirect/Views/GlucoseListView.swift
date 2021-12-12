@@ -100,7 +100,7 @@ struct GlucoseListView: View {
                                 }
                             }
                         }.onDelete { offsets in
-                            Log.info("onDelete: \(offsets)")
+                            AppLog.info("onDelete: \(offsets)")
 
                             let ids = offsets.map { i in
                                 glucoseValues[i].id
@@ -153,11 +153,11 @@ struct GlucoseListView: View {
             }
         }
         .onAppear {
-            Log.info("onAppear")
+            AppLog.info("onAppear")
             self.glucoseValues = store.state.glucoseValues.reversed()
         }
         .onChange(of: store.state.glucoseValues) { glucoseValues in
-            Log.info("onChange")
+            AppLog.info("onChange")
             self.glucoseValues = glucoseValues.reversed()
         }
     }

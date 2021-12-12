@@ -81,7 +81,7 @@ class CalendarExportService {
                 do {
                     try eventStore.remove(event, span: .thisEvent)
                 } catch {
-                    Log.error("Cannot remove calendar event: \(error)")
+                    AppLog.error("Cannot remove calendar event: \(error)")
                 }
             }
         }
@@ -112,7 +112,7 @@ class CalendarExportService {
         do {
             try eventStore.save(event, span: .thisEvent)
         } catch {
-            Log.error("Cannot create calendar event: \(error)")
+            AppLog.error("Cannot create calendar event: \(error)")
         }
     }
 

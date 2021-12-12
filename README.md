@@ -45,6 +45,7 @@ I am very happy to receive feedback - suggestions for improvement or reports of 
 ![Screenshot](/Screenshots/settings.png?raw=true)
 
 ## Roadmap
+- Upload sensor start/end to nightscout
 - Other transmitters
 - Other diabetes sources to upload to (like tidepool, ...)
 

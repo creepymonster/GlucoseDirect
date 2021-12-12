@@ -32,27 +32,27 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
         if let readerError = error as? NFCReaderError, readerError.code != .readerSessionInvalidationErrorUserCanceled {
             session.invalidate(errorMessage: "Connection failure: \(readerError.localizedDescription)")
 
-            Log.error("Reader session didInvalidateWithError: \(readerError.localizedDescription))")
-            self.updatesHandler?(SensorUpdate(sensor: nil))
+            AppLog.error("Reader session didInvalidateWithError: \(readerError.localizedDescription))")
+            self.updatesHandler?(SensorErrorUpdate(errorMessage: readerError.localizedDescription))
         } else {
-            Log.error("Reader session didInvalidate")
-            self.updatesHandler?(SensorUpdate(sensor: nil))
+            AppLog.info("Reader session didInvalidate")
+            self.updatesHandler?(SensorConnectorUpdate())
         }
     }
 
     func tagReaderSession(_ session: NFCTagReaderSession, didDetect tags: [NFCTag]) {
         Task {
             guard let firstTag = tags.first else {
-                Log.error("No tag)")
+                AppLog.error("No tag")
                 
-                self.updatesHandler?(SensorUpdate(sensor: nil))
+                self.updatesHandler?(SensorErrorUpdate(errorMessage: "No tag"))
                 return
             }
 
             guard case .iso15693(let tag) = firstTag else {
-                Log.error("No ISO15693 tag)")
+                AppLog.error("No ISO15693 tag")
                 
-                self.updatesHandler?(SensorUpdate(sensor: nil))
+                self.updatesHandler?(SensorErrorUpdate(errorMessage: "No ISO15693 tag"))
                 return
             }
 
@@ -67,9 +67,9 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
 
             let patchInfo = try await tag.customCommand(requestFlags: .highDataRate, customCommandCode: 0xA1, customRequestParameters: Data())
             guard patchInfo.count >= 6 else { // patchInfo should have length 6, which sometimes is not the case, as there are occuring crashes in nfcCommand and Libre2BLEUtilities.streamingUnlockPayload
-                Log.error("Invalid patchInfo (patchInfo not > 6)")
+                AppLog.error("Invalid patchInfo (patchInfo not > 6)")
                 
-                self.updatesHandler?(SensorUpdate(sensor: nil))
+                self.updatesHandler?(SensorErrorUpdate(errorMessage: "Invalid patchInfo (patchInfo not > 6)"))
                 return
             }
 
@@ -106,19 +106,19 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                     session.invalidate()
 
                     guard streamingEnabled else {
-                        Log.error("Streaming not enabled")
+                        AppLog.error("Streaming not enabled")
                         
-                        self.updatesHandler?(SensorUpdate(sensor: nil))
+                        self.updatesHandler?(SensorErrorUpdate(errorMessage: "Streaming not enabled"))
                         return
                     }
 
                     let decryptedFram = SensorUtility.decryptFRAM(uuid: sensorUID, patchInfo: patchInfo, fram: fram)
                     if let decryptedFram = decryptedFram {
-                        Log.info("Success (from decrypted fram)")
+                        AppLog.info("Success (from decrypted fram)")
                         self.updatesHandler?(SensorUpdate(sensor: Sensor(uuid: sensorUID, patchInfo: patchInfo, fram: decryptedFram)))
 
                     } else {
-                        Log.info("Success (from fram)")
+                        AppLog.info("Success (from fram)")
                         self.updatesHandler?(SensorUpdate(sensor: Sensor(uuid: sensorUID, patchInfo: patchInfo, fram: fram)))
                     }
                 }

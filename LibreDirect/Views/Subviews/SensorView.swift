@@ -196,6 +196,14 @@ struct SensorView: View {
                             Text(sensor.state.localizedString).textSelection(.enabled)
                         }
 
+                        if let startTimestamp = sensor.startTimestamp {
+                            HStack {
+                                Text("Sensor starting date")
+                                Spacer()
+                                Text(startTimestamp.localDateTime)
+                            }
+                        }
+
                         if let remainingWarmupTime = sensor.remainingWarmupTime, sensor.state == .starting {
                             HStack {
                                 Text("Sensor remaining warmup time")
@@ -285,7 +293,7 @@ struct SensorView: View {
             }
         }.onChange(of: colorScheme) { scheme in
             if deviceColorScheme != scheme {
-                Log.info("onChange colorScheme: \(scheme)")
+                AppLog.info("onChange colorScheme: \(scheme)")
 
                 deviceColorScheme = scheme
             }

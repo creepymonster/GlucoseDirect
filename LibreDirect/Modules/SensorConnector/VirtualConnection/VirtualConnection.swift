@@ -38,7 +38,7 @@ final class VirtualLibreConnection: SensorConnection {
 
         let fireDate = Date().rounded(on: 1, .minute).addingTimeInterval(60)
         let timer = Timer(fire: fireDate, interval: glucoseInterval, repeats: true) { _ in
-            Log.info("fires at \(Date())")
+            AppLog.info("fires at \(Date())")
 
             self.sendNextGlucose()
         }
@@ -70,10 +70,10 @@ final class VirtualLibreConnection: SensorConnection {
     private var lastGlucose = 100
 
     private func sendNextGlucose() {
-        Log.info("direction: \(direction)")
+        AppLog.info("direction: \(direction)")
 
         let currentGlucose = nextGlucose
-        Log.info("currentGlucose: \(currentGlucose)")
+        AppLog.info("currentGlucose: \(currentGlucose)")
 
         age = age + 1
 
@@ -92,18 +92,18 @@ final class VirtualLibreConnection: SensorConnection {
         nextGlucose = currentGlucose + (nextAddition * Int.random(in: 0 ..< 12))
         lastGlucose = currentGlucose
 
-        Log.info("nextGlucose: \(nextGlucose)")
+        AppLog.info("nextGlucose: \(nextGlucose)")
 
         if direction == .up, currentGlucose > nextRotation {
             direction = .down
             nextRotation = Int.random(in: 50 ..< 80)
 
-            Log.info("nextRotation: \(nextRotation)")
+            AppLog.info("nextRotation: \(nextRotation)")
         } else if direction == .down, currentGlucose < nextRotation {
             direction = .up
             nextRotation = Int.random(in: 160 ..< 240)
 
-            Log.info("nextRotation: \(nextRotation)")
+            AppLog.info("nextRotation: \(nextRotation)")
         }
     }
 }

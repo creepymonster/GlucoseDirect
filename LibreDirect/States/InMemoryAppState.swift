@@ -21,6 +21,7 @@ struct InMemoryAppState: AppState {
     var connectionInfos: [SensorConnectionInfo] = []
     var connectionState: SensorConnectionState = .disconnected
     var expiringAlarm = true
+    var isCollectingLogs = false
     var glucoseAlarm = true
     var glucoseBadge = true
     var glucoseUnit: GlucoseUnit = .mgdL

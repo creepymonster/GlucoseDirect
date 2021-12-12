@@ -91,7 +91,7 @@ struct CalibrationSettingsView: View {
                                 Text("\(calibration.x.asGlucose(glucoseUnit: store.state.glucoseUnit)) = \(calibration.y.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))").textSelection(.enabled)
                             }
                         }.onDelete { offsets in
-                            Log.info("onDelete: \(offsets)")
+                            AppLog.info("onDelete: \(offsets)")
                             
                             let ids = offsets.map { i in
                                 sensor.customCalibration[i].id

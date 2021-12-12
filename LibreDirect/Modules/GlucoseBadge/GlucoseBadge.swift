@@ -9,23 +9,29 @@ import UIKit
 import UserNotifications
 
 func glucoseBadgeMiddelware() -> Middleware<AppState, AppAction> {
-    return glucoseBadgeMiddelware(service: glucoseBadgeService())
+    return glucoseBadgeMiddelware(service: GlucoseBadgeService())
 }
 
-private func glucoseBadgeMiddelware(service: glucoseBadgeService) -> Middleware<AppState, AppAction> {
+private func glucoseBadgeMiddelware(service: GlucoseBadgeService) -> Middleware<AppState, AppAction> {
     return { store, action, _ in
         switch action {
         case .setGlucoseBadge(enabled: let enabled):
             if !enabled {
-                UIApplication.shared.applicationIconBadgeNumber = 0
                 service.clearNotifications()
             }
-            
+
+        case .setGlucoseUnit(unit: let unit):
+            guard let glucose = store.state.currentGlucose else {
+                break
+            }
+
+            service.setGlucoseBadge(glucose: glucose, glucoseUnit: unit)
+
         case .addGlucose(glucose: let glucose):
             guard store.state.glucoseBadge else {
                 break
             }
-            
+
             service.setGlucoseBadge(glucose: glucose, glucoseUnit: store.state.glucoseUnit)
 
         default:
@@ -36,16 +42,15 @@ private func glucoseBadgeMiddelware(service: glucoseBadgeService) -> Middleware<
     }
 }
 
-// MARK: - glucoseBadgeService
+// MARK: - GlucoseBadgeService
 
-private class glucoseBadgeService {
-    // MARK: Internal
-
+private class GlucoseBadgeService {
     enum Identifier: String {
         case sensorGlucoseBadge = "libre-direct.notifications.sensor-glucose-badge"
     }
 
     func clearNotifications() {
+        UIApplication.shared.applicationIconBadgeNumber = 0
         UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [Identifier.sensorGlucoseBadge.rawValue])
     }
 
@@ -53,12 +58,12 @@ private class glucoseBadgeService {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
         NotificationService.shared.ensureCanSendNotification { ensured in
-            Log.info("Glucose info, ensured: \(ensured)")
+            AppLog.info("Glucose info, ensured: \(ensured)")
 
             guard ensured else {
                 return
             }
-            
+
             guard let glucoseValue = glucose.glucoseValue else {
                 return
             }
@@ -76,10 +81,19 @@ private class glucoseBadgeService {
             if glucoseUnit == .mgdL {
                 notification.badge = glucoseValue as NSNumber
             } else {
-                notification.badge = glucoseValue.asMmolL as NSNumber
+                notification.badge = glucoseValue.asRoundedMmolL as NSNumber
             }
 
             NotificationService.shared.add(identifier: Identifier.sensorGlucoseBadge.rawValue, content: notification)
         }
+    }
+}
+
+private extension Int {
+    var asRoundedMmolL: Double {
+        let value = Double(self) * GlucoseUnit.exchangeRate
+        let divisor = pow(10.0, Double(1))
+
+        return round(value * divisor) / divisor
     }
 }
