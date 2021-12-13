@@ -56,6 +56,9 @@
 "Are you sure you want to delete all calibrations?" = "Bekräfta att du vill ta bort alla kalibreringar";
 
 /* (No Comment) */
+"Are you sure you want to delete all log files?" = "Are you sure you want to delete all log files?";
+
+/* (No Comment) */
 "Are you sure you want to delete all glucose values?" = "Bekräfta att du vill ta bort alla glukosvärden";
 
 /* (No Comment) */
@@ -470,7 +473,7 @@
 "Send log file" = "Send log file";
 
 /* (No Comment) */
-"Log data will be processed..." = "Log data will be processed...";
+"Sensor starting date" = "Starting date";
 
 /* (No Comment) */
-"Sensor starting date" = "Starting date";
+"Delete log files" = "Delete log files";
