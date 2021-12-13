@@ -32,8 +32,12 @@ enum AppLog {
         fileLogger.deleteLogs()
     }
 
-    static func getLogfileUrl() -> URL {
+    static func getLogsUrl() -> URL {
         return fileLogger.allLogsFileURL
+    }
+
+    static func getLogsSize() -> String {
+        return fileLogger.getLogsSize().asFileSize()
     }
 
     // MARK: Private
@@ -168,6 +172,20 @@ struct FileLogger {
             throw Error.streamerInitError
         }
         return reader
+    }
+
+    func getLogsSize() -> UInt64 {
+        do {
+            let url = allLogsFileURL
+            let attr = try FileManager.default.attributesOfItem(atPath: url.path)
+            let fileSize = attr[FileAttributeKey.size] as! UInt64
+
+            return fileSize
+        } catch {
+            AppLog.error("Failed to get file size: \(error.localizedDescription)")
+        }
+
+        return 0
     }
 
     func deleteLogs() {

@@ -78,10 +78,8 @@ private class NightscoutService {
         let session = URLSession.shared
 
         let urlString = "\(nightscoutHost)/api/v1/treatments"
-        AppLog.info("Nightscout request: \(urlString)")
-        
         guard let url = URL(string: urlString) else {
-            AppLog.error("Bad url: \(urlString)")
+            AppLog.error("Nightscout, bad nightscout url")
             return
         }
 
@@ -89,12 +87,14 @@ private class NightscoutService {
 
         let task = session.uploadTask(with: request, from: nightscoutJson) { data, response, error in
             if let error = error {
-                AppLog.info("Nightscout: \(error.localizedDescription)")
+                AppLog.info("Nightscout error: \(error.localizedDescription)")
+                return
             }
 
-            if let response = response as? HTTPURLResponse, let data = data {
+            if let response = response as? HTTPURLResponse {
                 let status = response.statusCode
-                if status != 200 {
+
+                if status != 200, let data = data {
                     let responseString = String(data: data, encoding: .utf8)
                     AppLog.info("Nightscout error: \(response.statusCode) \(responseString)")
                 }
@@ -108,10 +108,8 @@ private class NightscoutService {
         let session = URLSession.shared
 
         let urlString = "\(nightscoutHost)/api/v1/entries?find[_id][$in][]=\(id.uuidString)"
-        AppLog.info("Nightscout request: \(urlString)")
-        
         guard let url = URL(string: urlString) else {
-            AppLog.error("Bad url: \(urlString)")
+            AppLog.error("Nightscout, bad nightscout url")
             return
         }
 
@@ -119,12 +117,13 @@ private class NightscoutService {
 
         let task = session.dataTask(with: request) { data, response, error in
             if let error = error {
-                AppLog.info("Nightscout: \(error.localizedDescription)")
+                AppLog.info("Nightscout error: \(error.localizedDescription)")
+                return
             }
 
-            if let response = response as? HTTPURLResponse, let data = data {
+            if let response = response as? HTTPURLResponse {
                 let status = response.statusCode
-                if status != 200 {
+                if status != 200, let data = data {
                     let responseString = String(data: data, encoding: .utf8)
                     AppLog.info("Nightscout error: \(response.statusCode) \(responseString)")
                 }
@@ -144,10 +143,8 @@ private class NightscoutService {
         let session = URLSession.shared
 
         let urlString = "\(nightscoutHost)/api/v1/entries"
-        AppLog.info("Nightscout request: \(urlString)")
-        
         guard let url = URL(string: urlString) else {
-            AppLog.error("Bad url: \(urlString)")
+            AppLog.error("Nightscout, bad nightscout url")
             return
         }
 
@@ -155,12 +152,13 @@ private class NightscoutService {
 
         let task = session.uploadTask(with: request, from: nightscoutJson) { data, response, error in
             if let error = error {
-                AppLog.info("Nightscout: \(error.localizedDescription)")
+                AppLog.info("Nightscout error: \(error.localizedDescription)")
+                return
             }
 
-            if let response = response as? HTTPURLResponse, let data = data {
+            if let response = response as? HTTPURLResponse {
                 let status = response.statusCode
-                if status != 200 {
+                if status != 200, let data = data {
                     let responseString = String(data: data, encoding: .utf8)
                     AppLog.info("Nightscout error: \(response.statusCode) \(responseString)")
                 }
@@ -174,10 +172,8 @@ private class NightscoutService {
         let session = URLSession.shared
 
         let urlString = "\(nightscoutHost)/api/v1/treatments?find[_id][$in][]=\(serial)&find[eventType][$in][]=Sensor%20Start"
-        AppLog.info("Nightscout request: \(urlString)")
-        
         guard let url = URL(string: urlString) else {
-            AppLog.error("Bad url: \(urlString)")
+            AppLog.error("Nightscout, bad nightscout url")
 
             completionHandler(nil)
             return
@@ -185,28 +181,31 @@ private class NightscoutService {
 
         let request = createRequest(url: url, method: "GET", apiSecret: apiSecret)
 
-        let task = session.dataTask(with: request) { data, _, error in
+        let task = session.dataTask(with: request) { data, response, error in
             if let error = error {
-                AppLog.info("Nightscout: \(error.localizedDescription)")
+                AppLog.info("Nightscout error: \(error.localizedDescription)")
 
                 completionHandler(nil)
                 return
             }
 
-            guard let data = data else {
-                AppLog.info("Nightscout, data is nil")
+            if let response = response as? HTTPURLResponse, let data = data {
+                let status = response.statusCode
+                if status != 200 {
+                    let responseString = String(data: data, encoding: .utf8)
 
-                completionHandler(nil)
-                return
-            }
-
-            print(String(data: data, encoding: .utf8)!)
-
-            do {
-                let results = try JSONDecoder().decode([Treatment].self, from: data)
-                completionHandler(results.count > 0)
-            } catch {
-                AppLog.info("Nightscout, json decode failed: \(error.localizedDescription)")
+                    AppLog.info("Nightscout error: \(response.statusCode) \(responseString)")
+                    completionHandler(nil)
+                } else {
+                    do {
+                        let results = try JSONDecoder().decode([Treatment].self, from: data)
+                        completionHandler(!results.isEmpty)
+                    } catch {
+                        AppLog.info("Nightscout, json decode failed: \(error.localizedDescription)")
+                        completionHandler(nil)
+                    }
+                }
+            } else {
                 completionHandler(nil)
             }
         }

@@ -17,11 +17,14 @@ private func logMiddleware(service: SendLogsService) -> Middleware<AppState, App
         AppLog.info("Triggered action: \(action)")
 
         switch action {
+        case .startup:
+            AppLog.info("Logfile size: \(AppLog.getLogsSize())")
+
         case .deleteLogs:
             service.deleteLogs()
 
         case .sendLogs:
-            service.sendLog(fileUrl: AppLog.getLogfileUrl())
+            service.sendLog(fileUrl: AppLog.getLogsUrl())
 
         default:
             break
