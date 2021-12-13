@@ -56,6 +56,9 @@
 "Are you sure you want to delete all calibrations?" = "Sind Sie sicher, dass Sie alle Kalibrierungen löschen wollen?";
 
 /* (No Comment) */
+"Are you sure you want to delete all log files?" = "Are you sure you want to delete all log files?";
+
+/* (No Comment) */
 "Are you sure you want to delete all glucose values?" = "Sind Sie sicher, dass Sie alle Glukosewerte löschen wollen?";
 
 /* (No Comment) */
@@ -470,7 +473,7 @@
 "Send log file" = "Protokolldatei senden";
 
 /* (No Comment) */
-"Log data will be processed..." = "Die Protokolldaten werden verarbeitet...";
+"Sensor starting date" = "Startdatum";
 
 /* (No Comment) */
-"Sensor starting date" = "Startdatum";
+"Delete log files" = "Delete log files";
