@@ -114,11 +114,11 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .selectView(viewTag: let viewTag):
         state.selectedView = viewTag
         
-    case .collectLogs:
-        state.isCollectingLogs = true
+    case .deleteLogs:
+        break
         
-    case .collectLogsCompleted(entries: _):
-        state.isCollectingLogs = false
+    case .sendLogs:
+        break
         
     case .setAlarmHigh(upperLimit: let upperLimit):
         state.alarmHigh = upperLimit

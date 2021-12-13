@@ -14,7 +14,7 @@ final class Libre2Connection: SensorBLEConnection {
 
     init() {
         AppLog.info("init")
-        super.init(serviceUuid: [CBUUID(string: "FDE3")])
+        super.init(serviceUuid: CBUUID(string: "FDE3"), restoreIdentifier: "libre-direct.libre2.restore-identifier")
     }
 
     // MARK: Internal

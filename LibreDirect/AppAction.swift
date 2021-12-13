@@ -33,8 +33,8 @@ enum AppAction {
     case selectConnectionId(id: String)
     case selectView(viewTag: Int)
     
-    case collectLogs
-    case collectLogsCompleted(entries: [OSLogEntryLog])
+    case deleteLogs
+    case sendLogs
     
     case setAlarmHigh(upperLimit: Int)
     case setAlarmLow(lowerLimit: Int)

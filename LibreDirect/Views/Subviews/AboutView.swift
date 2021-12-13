@@ -8,6 +8,8 @@ import SwiftUI
 // MARK: - AboutView
 
 struct AboutView: View {
+    // MARK: Internal
+
     @EnvironmentObject var store: AppStore
 
     var body: some View {
@@ -26,17 +28,23 @@ struct AboutView: View {
                         .truncationMode(.head)
                 }
 
-                if store.state.isCollectingLogs {
-                    HStack {
-                        Image(systemName: "hourglass.bottomhalf.filled")
-                        Text("Log data will be processed...")
-                    }.foregroundColor(.gray)
-                } else {
-                    Button(action: {
-                        store.dispatch(.collectLogs)
-                    }) {
-                        Text("Send log file")
-                    }
+                Button(action: {
+                    store.dispatch(.sendLogs)
+                }) {
+                    Label("Send log file", systemImage: "square.and.arrow.up")
+                }
+
+                Button(
+                    action: { showingDeleteLogsAlert = true },
+                    label: { Label("Delete log files", systemImage: "trash") }
+                ).alert(isPresented: $showingDeleteLogsAlert) {
+                    Alert(
+                        title: Text("Are you sure you want to delete all log files?"),
+                        primaryButton: .destructive(Text("Delete all")) {
+                            store.dispatch(.deleteLogs)
+                        },
+                        secondaryButton: .cancel()
+                    )
                 }
             },
             header: {
@@ -44,6 +52,10 @@ struct AboutView: View {
             }
         )
     }
+
+    // MARK: Private
+
+    @State private var showingDeleteLogsAlert = false
 }
 
 // MARK: - SendingLogsView

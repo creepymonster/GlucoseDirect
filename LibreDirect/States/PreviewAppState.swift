@@ -25,7 +25,6 @@ struct PreviewAppState: AppState {
     var glucoseBadge = true
     var glucoseUnit = GlucoseUnit.mgdL
     var glucoseValues: [Glucose] = []
-    var isCollectingLogs = false
     var missedReadings: Int = 0
     var nightscoutApiSecret: String = ""
     var nightscoutHost: String = ""

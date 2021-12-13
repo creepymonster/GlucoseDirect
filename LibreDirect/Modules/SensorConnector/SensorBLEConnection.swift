@@ -12,12 +12,12 @@ import Foundation
 class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate, CBPeripheralDelegate {
     // MARK: Lifecycle
 
-    init(serviceUuid: [CBUUID]) {
+    init(serviceUuid: CBUUID, restoreIdentifier: String) {
         AppLog.info("init")
         super.init()
 
         self.serviceUuid = serviceUuid
-        self.manager = CBCentralManager(delegate: self, queue: managerQueue, options: [CBCentralManagerOptionShowPowerAlertKey: true])
+        self.manager = CBCentralManager(delegate: self, queue: managerQueue, options: [CBCentralManagerOptionShowPowerAlertKey: true, CBCentralManagerOptionRestoreIdentifierKey: restoreIdentifier])
     }
 
     deinit {
@@ -33,7 +33,7 @@ class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate,
     var rxBuffer = Data()
     var updatesHandler: SensorConnectionHandler?
 
-    var serviceUuid: [CBUUID]!
+    var serviceUuid: CBUUID!
     var manager: CBCentralManager!
     let managerQueue = DispatchQueue(label: "libre-direct.sensor-ble-connection.queue")
 
@@ -100,8 +100,10 @@ class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate,
            let peripheralUuid = UUID(uuidString: peripheralUuidString),
            let retrievedPeripheral = manager.retrievePeripherals(withIdentifiers: [peripheralUuid]).first
         {
+            AppLog.info("Connect from retrievePeripherals")
             connect(retrievedPeripheral)
         } else {
+            AppLog.info("Scan for peripherals")
             scan()
         }
     }
@@ -111,7 +113,7 @@ class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate,
         AppLog.info("scan")
 
         sendUpdate(connectionState: .scanning)
-        manager.scanForPeripherals(withServices: serviceUuid, options: nil)
+        manager.scanForPeripherals(withServices: [serviceUuid], options: nil)
     }
 
     func disconnect() {
@@ -190,6 +192,11 @@ class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate,
         }
     }
 
+    func centralManager(_ central: CBCentralManager, willRestoreState dict: [String: Any]) {
+        dispatchPrecondition(condition: .onQueue(managerQueue))
+        AppLog.info("Peripheral: \(peripheral), willRestoreState")
+    }
+
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
         AppLog.info("Peripheral: \(peripheral), didFailToConnect")
@@ -221,11 +228,11 @@ class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate,
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
         AppLog.info("Peripheral: \(peripheral)")
-        
+
         resetBuffer()
 
         sendUpdate(connectionState: .connected)
-        peripheral.discoverServices(serviceUuid)
+        peripheral.discoverServices([serviceUuid])
     }
 }
 
