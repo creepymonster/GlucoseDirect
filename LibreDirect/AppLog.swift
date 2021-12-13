@@ -106,6 +106,12 @@ struct FileLogger {
         return fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("Logs")
     }()
 
+    let oldLogsFileURL: URL = {
+        let fileManager = FileManager.default
+        let baseURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        return baseURL.appendingPathComponent("GlucoseDirect.log")
+    }()
+
     /// Path to a common log file for all log types combined
     let allLogsFileURL: URL = {
         let fileManager = FileManager.default
@@ -166,6 +172,14 @@ struct FileLogger {
 
     func deleteLogs() {
         do {
+            if FileManager.default.fileExists(atPath: oldLogsFileURL.path) {
+                do {
+                    try FileManager.default.removeItem(at: oldLogsFileURL)
+                } catch {
+                    AppLog.error("Failed to remove file: \(error.localizedDescription)")
+                }
+            }
+
             try FileManager.default.removeItem(at: logFileBaseURL)
         } catch {
             AppLog.error("Can't remove logs at \(logFileBaseURL)", log: .default, error: error)
