@@ -1,6 +1,6 @@
 # Glucose Direct App
 
-**Warning, the project is strictly for my personal use and is highly experimental.**
+** Warning, please use this app with caution and extreme care. Do not mindlessly make decisions based on software. Do not use this software if you are unsure.**
 
 App programmed in Swift/SwiftUI for using Libre 1/2 blood glucose sensors. I try to keep the code as readable and understandable as possible so that as many people as possible can understand how this part of diabetes management works.
 
