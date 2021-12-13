@@ -10,7 +10,8 @@ App programmed in Swift/SwiftUI for using Libre 1/2 blood glucose sensors. I try
 - Add manual bgm values
 - Manage bgm/cgm values
 - Units mg/dL or mmol/L
-- Nightscout upload
+- Upload glucose values to Nightscout
+- Upload sensor start to Nightscout
 - FreeAPS X support (with Shared App Groups)
 - Calendar export
 - Glucose badge
@@ -28,6 +29,9 @@ App programmed in Swift/SwiftUI for using Libre 1/2 blood glucose sensors. I try
 - Sensor expiring alert
 - Snooze for glucose alerts
 
+## Requirements
+- Apple iPhone with iOS 15
+
 ## Quick test?
 You can quickly get an idea of Libre Direct: [TestFlight](https://testflight.apple.com/join/dWDt5Wme)
 
@@ -38,16 +42,16 @@ I am very happy to receive feedback - suggestions for improvement or reports of 
 - I am very happy to find a designer who will support me by designing a nice app icon :)
 - I appreciate all the translations I get. Just drop by Crowdin, every translation helps :) https://crwd.in/glucose-direct-app
 
+## Roadmap
+- Upload sensor end to nightscout
+- Other transmitters
+- Other diabetes sources to upload to (like tidepool, ...)
+
 ## Screenshots
 ![Screenshot](/Screenshots/overview.png?raw=true)
 ![Screenshot](/Screenshots/list.png?raw=true)
 ![Screenshot](/Screenshots/calibrations.png?raw=true)
 ![Screenshot](/Screenshots/settings.png?raw=true)
-
-## Roadmap
-- Upload sensor start/end to nightscout
-- Other transmitters
-- Other diabetes sources to upload to (like tidepool, ...)
 
 ## I use sounds from the following sources (incl. licenses):
 - SpliceSound https://freesound.org/people/SpliceSound/sounds/369848, Licence: http://creativecommons.org/publicdomain/zero/1.0/
