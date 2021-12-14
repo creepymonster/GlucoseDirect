@@ -56,7 +56,7 @@
 "Are you sure you want to delete all calibrations?" = "Bekräfta att du vill ta bort alla kalibreringar";
 
 /* (No Comment) */
-"Are you sure you want to delete all log files?" = "Are you sure you want to delete all log files?";
+"Are you sure you want to delete all log files?" = "Bekräfta att du vill rensa loggfiler";
 
 /* (No Comment) */
 "Are you sure you want to delete all glucose values?" = "Bekräfta att du vill ta bort alla glukosvärden";
@@ -419,61 +419,61 @@
 "Please select" = "Välj";
 
 /* (No Comment) */
-"About %@" = "About %@";
+"About %@" = "Om %@";
 
 /* (No Comment) */
 "App Version" = "Version";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "Okänd";
 
 /* (No Comment) */
-"Invalid parameters" = "Invalid parameters";
+"Invalid parameters" = "Ogiltiga parametrar";
 
 /* (No Comment) */
 "Invalid handle" = "Invalid handle";
 
 /* (No Comment) */
-"Not connected" = "Not connected";
+"Not connected" = "Inte ansluten";
 
 /* (No Comment) */
-"Out of space" = "Out of space";
+"Out of space" = "Slut på utrymme";
 
 /* (No Comment) */
-"Operation cancelled" = "Operation cancelled";
+"Operation cancelled" = "Åtgärd avbruten";
 
 /* (No Comment) */
-"Connection timeout" = "Connection timeout";
+"Connection timeout" = "Anslutningen tog för lång tid";
 
 /* (No Comment) */
-"Peripheral disconnected" = "Peripheral disconnected";
+"Peripheral disconnected" = "Perifer enhet frånkopplad";
 
 /* (No Comment) */
-"UUID not allowed" = "UUID not allowed";
+"UUID not allowed" = "UUID inte tillåten";
 
 /* (No Comment) */
-"Already advertising" = "Already advertising";
+"Already advertising" = "Annonserar redan";
 
 /* (No Comment) */
-"Connection failed" = "Connection failed";
+"Connection failed" = "Anslutningen misslyckades";
 
 /* (No Comment) */
 "Connection limit reached" = "Connection limit reached";
 
 /* (No Comment) */
-"Operation not supported" = "Operation not supported";
+"Operation not supported" = "Åtgärden stöds inte";
 
 /* (No Comment) */
-"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Attention, the sensor sends faulty values. Please wait 10 minutes.";
+"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Varning, sensorn skickar felaktiga värden. Vänta 10 minuter.";
 
 /* (No Comment) */
-"App Website" = "Website";
+"App Website" = "Hemsida";
 
 /* (No Comment) */
-"Send log file" = "Send log file";
+"Send log file" = "Skicka loggfil";
 
 /* (No Comment) */
-"Sensor starting date" = "Starting date";
+"Sensor starting date" = "Startdatum";
 
 /* (No Comment) */
-"Delete log files" = "Delete log files";
+"Delete log files" = "Ta bort loggfiler";
