@@ -60,7 +60,7 @@ final class LibreDirectApp: App {
     }
 
     private static func createPreviewStore() -> AppStore {
-        return AppStore(initialState: InMemoryAppState(), reducer: appReducer, middlewares: [
+        return AppStore(initialState: MemoryAppState(), reducer: appReducer, middlewares: [
             // required middlewares
             logMiddleware(),
             sensorConnectorMiddelware([
@@ -77,7 +77,7 @@ final class LibreDirectApp: App {
     }
 
     private static func createAppStore() -> AppStore {
-        return AppStore(initialState: UserDefaultsAppState(), reducer: appReducer, middlewares: [
+        return AppStore(initialState: StoredAppState(), reducer: appReducer, middlewares: [
             // required middlewares
             logMiddleware(),
             sensorConnectorMiddelware([
