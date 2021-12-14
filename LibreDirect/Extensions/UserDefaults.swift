@@ -14,7 +14,7 @@ private enum Keys: String {
     case chartShowLines = "libre-direct.settings.chart-show-lines"
     case connectionAlarm = "libre-direct.settings.connection-alarm"
     case expiringAlarm = "libre-direct.settings.expiring-alarm"
-    case latestReadings = "latestReadings"
+    case latestReadings
     case glucoseAlarm = "libre-direct.settings.glucose-alarm"
     case glucoseBadge = "libre-direct.settings.glucose-badge"
     case glucoseUnit = "libre-direct.settings.glucose-unit"
@@ -27,6 +27,8 @@ private enum Keys: String {
     case selectedView = "libre-direct.settings.selected-view"
     case sensor = "libre-direct.settings.sensor"
     case transmitter = "libre-direct.settings.transmitter"
+    case glucoseValue = "libre-direct.settings.glucose-value."
+    case glucoseIds = "libre-direct.settings.glucose-ids"
 }
 
 extension UserDefaults {
@@ -89,7 +91,7 @@ extension UserDefaults {
             set(newValue, forKey: Keys.chartShowLines.rawValue)
         }
     }
-    
+
     var connectionAlarm: Bool {
         get {
             if object(forKey: Keys.connectionAlarm.rawValue) != nil {
@@ -163,7 +165,7 @@ extension UserDefaults {
             setArray(newValue, forKey: Keys.glucoseValues.rawValue)
         }
     }
-    
+
     var latestReadings: Data? {
         get {
             return data(forKey: Keys.latestReadings.rawValue)
@@ -176,7 +178,7 @@ extension UserDefaults {
             }
         }
     }
-    
+
     var nightscoutApiSecret: String {
         get {
             return string(forKey: Keys.nightscoutApiSecret.rawValue) ?? ""
@@ -189,7 +191,7 @@ extension UserDefaults {
             }
         }
     }
-    
+
     var nightscoutHost: String {
         get {
             return string(forKey: Keys.nightscoutHost.rawValue) ?? ""
@@ -215,7 +217,7 @@ extension UserDefaults {
             set(newValue, forKey: Keys.nightscoutUpload.rawValue)
         }
     }
-    
+
     var selectedCalendarTarget: String? {
         get {
             return string(forKey: Keys.selectedCalendarTarget.rawValue)
@@ -229,7 +231,6 @@ extension UserDefaults {
         }
     }
 
-    
     var selectedConnectionId: String? {
         get {
             return string(forKey: Keys.selectedConnectionId.rawValue)
@@ -280,6 +281,49 @@ extension UserDefaults {
                 removeObject(forKey: Keys.transmitter.rawValue)
             }
         }
+    }
+
+    var glucoseIds: [String] {
+        get {
+            return getArray(forKey: Keys.glucoseIds.rawValue) ?? []
+        }
+        set {
+            if !newValue.isEmpty {
+                setArray(newValue, forKey: Keys.glucoseIds.rawValue)
+            } else {
+                removeObject(forKey: Keys.glucoseIds.rawValue)
+            }
+        }
+    }
+
+    func getAllGlucoseIds() -> [String] {
+        return UserDefaults.standard.dictionaryRepresentation().keys.filter {
+            $0.starts(with: Keys.glucoseValue.rawValue)
+        }
+    }
+
+    func getGlucoseValue(id: String) -> Glucose? {
+        return getObject(forKey: getGlucoseKey(id: id))
+    }
+
+    func getGlucoseValue(id: UUID) -> Glucose? {
+        return getObject(forKey: getGlucoseKey(id: id))
+    }
+
+    func addGlucoseValue(glucose: Glucose) {
+        setObject(glucose, forKey: getGlucoseKey(id: glucose.id))
+    }
+
+    func removeGlucoseValue(id: UUID) {
+        removeObject(forKey: getGlucoseKey(id: id))
+    }
+
+    private func getGlucoseKey(id: String) -> String {
+        return "\(Keys.glucoseValue.rawValue)\(id)"
+    }
+
+    private func getGlucoseKey(id: UUID) -> String {
+        return getGlucoseKey(id: id.uuidString)
     }
 }
 
