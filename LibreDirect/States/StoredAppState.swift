@@ -7,7 +7,7 @@ import Combine
 import Foundation
 import UserNotifications
 
-struct UserDefaultsAppState: AppState {
+struct StoredAppState: AppState {
     // MARK: Lifecycle
 
     init() {

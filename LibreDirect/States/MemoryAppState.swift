@@ -8,7 +8,7 @@ import Foundation
 
 // MARK: - InMemoryAppState
 
-struct InMemoryAppState: AppState {
+struct MemoryAppState: AppState {
     var alarmHigh = 160
     var alarmLow = 80
     var alarmSnoozeUntil: Date?
