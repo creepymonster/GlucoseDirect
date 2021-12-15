@@ -27,8 +27,7 @@ private enum Keys: String {
     case selectedView = "libre-direct.settings.selected-view"
     case sensor = "libre-direct.settings.sensor"
     case transmitter = "libre-direct.settings.transmitter"
-    case glucoseValue = "libre-direct.settings.glucose-value."
-    case glucoseIds = "libre-direct.settings.glucose-ids"
+    case glucoseValue = "gv-"
 }
 
 extension UserDefaults {
@@ -283,47 +282,34 @@ extension UserDefaults {
         }
     }
 
-    var glucoseIds: [String] {
-        get {
-            return getArray(forKey: Keys.glucoseIds.rawValue) ?? []
-        }
-        set {
-            if !newValue.isEmpty {
-                setArray(newValue, forKey: Keys.glucoseIds.rawValue)
-            } else {
-                removeObject(forKey: Keys.glucoseIds.rawValue)
-            }
-        }
-    }
-
-    func getAllGlucoseIds() -> [String] {
+    func getAllGlucoseKeys() -> [String] {
         return UserDefaults.standard.dictionaryRepresentation().keys.filter {
             $0.starts(with: Keys.glucoseValue.rawValue)
-        }
+        }.sorted()
     }
 
-    func getGlucoseValue(id: String) -> Glucose? {
-        return getObject(forKey: getGlucoseKey(id: id))
+    func getGlucoseValue(key: String) -> Glucose? {
+        return getObject(forKey: key)
     }
 
-    func getGlucoseValue(id: UUID) -> Glucose? {
-        return getObject(forKey: getGlucoseKey(id: id))
+    func getGlucoseValue(timestamp: Date, glucoseType: GlucoseValueType) -> Glucose? {
+        return getObject(forKey: getGlucoseKey(timestamp: timestamp, glucoseType: glucoseType))
     }
 
     func addGlucoseValue(glucose: Glucose) {
-        setObject(glucose, forKey: getGlucoseKey(id: glucose.id))
+        setObject(glucose, forKey: getGlucoseKey(timestamp: glucose.timestamp, glucoseType: glucose.type))
     }
 
-    func removeGlucoseValue(id: UUID) {
-        removeObject(forKey: getGlucoseKey(id: id))
+    func removeGlucoseValue(key: String) {
+        removeObject(forKey: key)
     }
 
-    private func getGlucoseKey(id: String) -> String {
-        return "\(Keys.glucoseValue.rawValue)\(id)"
+    func removeGlucoseValue(glucose: Glucose) {
+        removeObject(forKey: getGlucoseKey(timestamp: glucose.timestamp, glucoseType: glucose.type))
     }
 
-    private func getGlucoseKey(id: UUID) -> String {
-        return getGlucoseKey(id: id.uuidString)
+    private func getGlucoseKey(timestamp: Date, glucoseType: GlucoseValueType) -> String {
+        return "\(Keys.glucoseValue.rawValue)\(keyFormatter.string(for: timestamp)!)-\(glucoseType.rawValue)"
     }
 }
 
@@ -358,3 +344,11 @@ extension UserDefaults {
         return value
     }
 }
+
+private var keyFormatter: DateFormatter = {
+    let dateFormatter = DateFormatter()
+    dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+
+    return dateFormatter
+}()

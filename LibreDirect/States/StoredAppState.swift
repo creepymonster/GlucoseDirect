@@ -36,35 +36,20 @@ struct StoredAppState: AppState {
         self.transmitter = UserDefaults.standard.transmitter
 
         if !UserDefaults.standard.glucoseValues.isEmpty {
-            var glucoseIds = [String?](repeating: nil, count: AppConfig.NumberOfGlucoseValues)
-            var glucoseValues = [Glucose?](repeating: nil, count: AppConfig.NumberOfGlucoseValues)
-            var index = 0
-
-            let oldGlucoseValues = UserDefaults.standard.glucoseValues[..<AppConfig.NumberOfGlucoseValues]
-            oldGlucoseValues.forEach {
+            AppLog.info("Restore old data")
+            
+            let glucoseValues = UserDefaults.standard.glucoseValues
+            glucoseValues.forEach {
                 UserDefaults.standard.addGlucoseValue(glucose: $0)
-
-                glucoseIds[index] = $0.id.uuidString
-                glucoseValues[index] = $0
-                index += 1
             }
 
-            self.glucoseValues = glucoseValues.compactMap { $0 }
-
-            UserDefaults.standard.glucoseValues = []
+            self.glucoseValues = glucoseValues
         } else {
-            var glucoseValues = [Glucose?](repeating: nil, count: AppConfig.NumberOfGlucoseValues)
-            var index = 0
-
-            let ids = UserDefaults.standard.glucoseIds[0 ..< AppConfig.NumberOfGlucoseValues]
-            ids.forEach {
-                if let glucose = UserDefaults.standard.getGlucoseValue(id: $0) {
-                    glucoseValues[index] = glucose
-                    index += 1
-                }
+            self.glucoseValues = UserDefaults.standard.getAllGlucoseKeys().map {
+                UserDefaults.standard.getGlucoseValue(key: $0)
+            }.compactMap {
+                $0
             }
-
-            self.glucoseValues = glucoseValues.compactMap { $0 }
         }
     }
 
@@ -140,13 +125,11 @@ struct StoredAppState: AppState {
             for change in differences {
                 switch change {
                 case let .remove(_, oldElement, _):
-                    UserDefaults.standard.removeGlucoseValue(id: oldElement.id)
+                    UserDefaults.standard.removeGlucoseValue(glucose: oldElement)
                 case let .insert(_, newElement, _):
                     UserDefaults.standard.addGlucoseValue(glucose: newElement)
                 }
             }
-
-            UserDefaults.standard.glucoseIds = glucoseValues.map { $0.id.uuidString }
         }
     }
 
