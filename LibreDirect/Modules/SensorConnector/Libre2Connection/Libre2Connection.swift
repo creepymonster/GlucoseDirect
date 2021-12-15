@@ -12,9 +12,9 @@ import Foundation
 final class Libre2Connection: SensorBLEConnection {
     // MARK: Lifecycle
 
-    init() {
+    init(subject: PassthroughSubject<AppAction, AppError>) {
         AppLog.info("init")
-        super.init(serviceUuid: CBUUID(string: "FDE3"), restoreIdentifier: "libre-direct.libre2.restore-identifier")
+        super.init(subject: subject, serviceUuid: CBUUID(string: "FDE3"), restoreIdentifier: "libre-direct.libre2.restore-identifier")
     }
 
     // MARK: Internal
@@ -29,30 +29,15 @@ final class Libre2Connection: SensorBLEConnection {
 
     let pairingService = Libre2Pairing()
 
-    override func pairSensor(updatesHandler: @escaping SensorConnectionHandler) {
+    override func pairSensor() {
         dispatchPrecondition(condition: .notOnQueue(managerQueue))
         AppLog.info("PairSensor")
-
-        self.updatesHandler = updatesHandler
 
         UserDefaults.standard.peripheralUuid = nil
         UserDefaults.standard.libre2UnlockCount = 0
 
         sendUpdate(connectionState: .pairing)
-        
-        pairingService.pairSensor { update in
-            if let sensorUpdate = update as? SensorUpdate, let sensor = sensorUpdate.sensor {
-                self.sendUpdate(sensor: sensor)
-                
-                if let fram = sensor.fram, sensor.state == .ready {
-                    let parsedFram = SensorUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
-
-                    self.sendUpdate(trendReadings: parsedFram.trend, historyReadings: parsedFram.history)
-                }
-            }
-
-            self.sendUpdate(connectionState: .disconnected)
-        }
+        pairingService.pairSensor(subject: subject)
     }
 
     func unlock() -> Data? {

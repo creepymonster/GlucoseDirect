@@ -12,7 +12,7 @@ func expiringNotificationMiddelware() -> Middleware<AppState, AppAction> {
 }
 
 private func expiringNotificationMiddelware(service: ExpiringNotificationService) -> Middleware<AppState, AppAction> {
-    return { store, action, _ in
+    return { state, action, _ in
         switch action {
         case .setExpiringAlarm(enabled: let enabled):
             if !enabled {
@@ -20,11 +20,11 @@ private func expiringNotificationMiddelware(service: ExpiringNotificationService
             }
 
         case .setSensorState(sensorAge: let sensorAge, sensorState: _):
-            guard store.state.expiringAlarm else {
+            guard state.expiringAlarm else {
                 break
             }
 
-            guard let sensor = store.state.sensor else {
+            guard let sensor = state.sensor else {
                 break
             }
 
@@ -91,7 +91,11 @@ private class ExpiringNotificationService {
 
             let notification = UNMutableNotificationContent()
             notification.sound = NotificationService.AlarmSound
-            notification.interruptionLevel = .critical
+
+            if #available(iOS 15.0, *) {
+                notification.interruptionLevel = .critical
+            }
+
             notification.title = LocalizedString("Alert, sensor expired", comment: "")
             notification.body = LocalizedString("Your sensor has expired and needs to be replaced as soon as possible", comment: "")
 
@@ -121,12 +125,19 @@ private class ExpiringNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
+            
             if withSound {
                 notification.sound = NotificationService.ExpiringSound
-                notification.interruptionLevel = .timeSensitive
+
+                if #available(iOS 15.0, *) {
+                    notification.interruptionLevel = .timeSensitive
+                }
             } else {
                 notification.sound = .none
-                notification.interruptionLevel = .passive
+
+                if #available(iOS 15.0, *) {
+                    notification.interruptionLevel = .passive
+                }
             }
             notification.title = LocalizedString("Alert, sensor expiring soon", comment: "")
             notification.body = body

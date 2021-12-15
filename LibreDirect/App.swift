@@ -64,7 +64,7 @@ final class LibreDirectApp: App {
             // required middlewares
             logMiddleware(),
             sensorConnectorMiddelware([
-                SensorConnectionInfo(id: "virtual", name: "Virtual") { VirtualLibreConnection() },
+                SensorConnectionInfo(id: "virtual", name: "Virtual") { VirtualLibreConnection(subject: $0) },
             ]),
 
             // notification middleswares
@@ -81,8 +81,8 @@ final class LibreDirectApp: App {
             // required middlewares
             logMiddleware(),
             sensorConnectorMiddelware([
-                SensorConnectionInfo(id: "libre2", name: LocalizedString("Without transmitter")) { Libre2Connection() },
-                SensorConnectionInfo(id: "bubble", name: LocalizedString("Bubble transmitter")) { BubbleConnection() },
+                SensorConnectionInfo(id: "libre2", name: LocalizedString("Without transmitter")) { Libre2Connection(subject: $0) },
+                SensorConnectionInfo(id: "bubble", name: LocalizedString("Bubble transmitter")) { BubbleConnection(subject: $0) },
             ]),
 
             // notification middleswares
@@ -138,7 +138,7 @@ final class LibreDirectAppDelegate: NSObject, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         AppLog.info("Application will terminate")
     }
-    
+
     func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
         AppLog.info("Application did receive memory warning")
     }

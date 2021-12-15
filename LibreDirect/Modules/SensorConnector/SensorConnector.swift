@@ -7,117 +7,107 @@ import Combine
 import Foundation
 
 func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo]) -> Middleware<AppState, AppAction> {
-    return sensorConnectorMiddelware(infos, calibrationService: CalibrationService())
+    return sensorConnectorMiddelware(infos, subject: PassthroughSubject<AppAction, AppError>(), calibrationService: CalibrationService())
 }
 
-private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], calibrationService: CalibrationService) -> Middleware<AppState, AppAction> {
-    return { store, action, _ in
-        let updatesHandler: SensorConnectionHandler = { update -> Void in
-            let dispatch = store.dispatch
-            var action: AppAction?
-
-            if let connectionUpdate = update as? SensorConnectionStateUpdate {
-                action = .setConnectionState(connectionState: connectionUpdate.connectionState)
-
-            } else if let readingUpdate = update as? SensorReadingUpdate {
-                if let nextReading = readingUpdate.nextReading {
-                    action = .addSensorReadings(nextReading: nextReading, trendReadings: readingUpdate.trendReadings, historyReadings: readingUpdate.historyReadings)
-                } else {
-                    action = .addMissedReading
-                }
-
-            } else if let stateUpdate = update as? SensorStateUpdate {
-                action = .setSensorState(sensorAge: stateUpdate.sensorAge, sensorState: stateUpdate.sensorState)
-
-            } else if let errorUpdate = update as? SensorErrorUpdate {
-                action = .setConnectionError(errorMessage: errorUpdate.errorMessage, errorTimestamp: errorUpdate.errorTimestamp, errorIsCritical: errorUpdate.errorIsCritical)
-
-            } else if let sensorUpdate = update as? SensorUpdate {
-                if let sensor = sensorUpdate.sensor {
-                    action = .setSensor(sensor: sensor)
-                } else {
-                    action = .resetSensor
-                }
-            } else if let transmitterUpdate = update as? SensorTransmitterUpdate {
-                action = .setTransmitter(transmitter: transmitterUpdate.transmitter)
-            }
-
-            if let action = action {
-                DispatchQueue.main.async {
-                    dispatch(action)
-                }
-            }
-        }
-
+private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject: PassthroughSubject<AppAction, AppError>, calibrationService: CalibrationService) -> Middleware<AppState, AppAction> {
+    return { state, action, _ in
         switch action {
         case .startup:
-            store.dispatch(.registerConnectionInfo(infos: infos))
+            let registerConnectionInfo = Just(AppAction.registerConnectionInfo(infos: infos))
+            var selectConnection: Just<AppAction>? = nil
 
-            if let id = store.state.selectedConnectionId, let connectionInfo = infos.first(where: { $0.id == id }) {
+            if let id = state.selectedConnectionId, let connectionInfo = infos.first(where: { $0.id == id }) {
                 AppLog.info("Select startup connection: \(connectionInfo.name)")
-                store.dispatch(.selectConnection(id: connectionInfo.id, connection: connectionInfo.connectionCreator()))
+                selectConnection = Just(.selectConnection(id: connectionInfo.id, connection: connectionInfo.connectionCreator(subject)))
 
             } else if infos.count == 1, let connectionInfo = infos.first {
                 AppLog.info("Select single startup connection: \(connectionInfo.name)")
-                store.dispatch(.selectConnection(id: connectionInfo.id, connection: connectionInfo.connectionCreator()))
+                selectConnection = Just(.selectConnection(id: connectionInfo.id, connection: connectionInfo.connectionCreator(subject)))
 
             } else if let connectionInfo = infos.first {
                 AppLog.info("Select first startup connection: \(connectionInfo.name)")
-                store.dispatch(.selectConnection(id: connectionInfo.id, connection: connectionInfo.connectionCreator()))
+                selectConnection = Just(.selectConnection(id: connectionInfo.id, connection: connectionInfo.connectionCreator(subject)))
+
+            }
+            
+            if let selectConnection = selectConnection {
+                return registerConnectionInfo
+                    .merge(with: selectConnection)
+                    .setFailureType(to: AppError.self)
+                    .merge(with: subject)
+                    .eraseToAnyPublisher()
             }
 
+            return registerConnectionInfo
+                .setFailureType(to: AppError.self)
+                .merge(with: subject)
+                .eraseToAnyPublisher()
+
         case .selectConnectionId(id: let id):
-            if let connectionInfo = store.state.connectionInfos.first(where: { $0.id == id }) {
-                let connection = connectionInfo.connectionCreator()
-                store.dispatch(.selectConnection(id: id, connection: connection))
+            if let connectionInfo = state.connectionInfos.first(where: { $0.id == id }) {
+                let connection = connectionInfo.connectionCreator(subject)
+
+                return Just(.selectConnection(id: id, connection: connection))
+                    .setFailureType(to: AppError.self)
+                    .eraseToAnyPublisher()
             }
 
         case .selectConnection(id: _, connection: _):
-            if store.state.isPaired, store.state.isConnectable {
-                store.dispatch(.connectSensor)
+            if state.isPaired, state.isConnectable {
+                return Just(.connectSensor)
+                    .setFailureType(to: AppError.self)
+                    .eraseToAnyPublisher()
             }
 
         case .addSensorReadings(nextReading: let nextReading, trendReadings: let trendReadings, historyReadings: _):
-            if let sensor = store.state.sensor, let glucose = calibrationService.calibrate(sensor: sensor, nextReading: nextReading, currentGlucose: store.state.currentGlucose) {
-                guard store.state.currentGlucose == nil || store.state.currentGlucose!.timestamp < nextReading.timestamp else {
+            if let sensor = state.sensor, let glucose = calibrationService.calibrate(sensor: sensor, nextReading: nextReading, currentGlucose: state.currentGlucose) {
+                guard state.currentGlucose == nil || state.currentGlucose!.timestamp < nextReading.timestamp else {
                     break
                 }
 
-                if store.state.glucoseValues.isEmpty {
+                if state.glucoseValues.isEmpty {
                     let calibratedTrend = trendReadings.map { reading in
                         calibrationService.calibrate(sensor: sensor, nextReading: reading)
                     }.compactMap { $0 }
 
                     if trendReadings.isEmpty {
-                        store.dispatch(.addGlucose(glucose: glucose))
+                        return Just(.addGlucose(glucose: glucose))
+                            .setFailureType(to: AppError.self)
+                            .eraseToAnyPublisher()
+
                     } else {
-                        store.dispatch(.addGlucoseValues(glucoseValues: calibratedTrend))
+                        return Just(.addGlucoseValues(glucoseValues: calibratedTrend))
+                            .setFailureType(to: AppError.self)
+                            .eraseToAnyPublisher()
                     }
                 } else {
-                    store.dispatch(.addGlucose(glucose: glucose))
+                    return Just(.addGlucose(glucose: glucose))
+                        .setFailureType(to: AppError.self)
+                        .eraseToAnyPublisher()
                 }
             }
 
         case .pairSensor:
-            guard let sensorConnection = store.state.selectedConnection else {
+            guard let sensorConnection = state.selectedConnection else {
                 break
             }
 
-            sensorConnection.pairSensor(updatesHandler: updatesHandler)
+            sensorConnection.pairSensor()
 
         case .connectSensor:
-            guard let sensorConnection = store.state.selectedConnection else {
+            guard let sensorConnection = state.selectedConnection else {
                 break
             }
 
-            if let sensor = store.state.sensor {
-                sensorConnection.connectSensor(sensor: sensor, updatesHandler: updatesHandler)
+            if let sensor = state.sensor {
+                sensorConnection.connectSensor(sensor: sensor)
             } else {
-                sensorConnection.pairSensor(updatesHandler: updatesHandler)
+                sensorConnection.pairSensor()
             }
-            
+
         case .disconnectSensor:
-            guard let sensorConnection = store.state.selectedConnection else {
+            guard let sensorConnection = state.selectedConnection else {
                 break
             }
 
@@ -131,7 +121,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], calibrat
     }
 }
 
-typealias SensorConnectionCreator = () -> SensorConnection
+typealias SensorConnectionCreator = (PassthroughSubject<AppAction, AppError>) -> SensorConnection
 
 // MARK: - SensorConnectionInfo
 

@@ -41,7 +41,6 @@
 		E29ED231268C754F00CBD3F1 /* GlucoseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29ED230268C754F00CBD3F1 /* GlucoseView.swift */; };
 		E29ED236268C87CC00CBD3F1 /* TextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29ED235268C87CC00CBD3F1 /* TextEditorView.swift */; };
 		E29F4FA2274D6C8B00AE0E39 /* GlucoseValueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29F4FA1274D6C8B00AE0E39 /* GlucoseValueType.swift */; };
-		E2A590032708EEDF003A081B /* SensorConnectorUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A590022708EEDF003A081B /* SensorConnectorUpdate.swift */; };
 		E2B63A88273E3EB100DDAA70 /* CustomCalibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B63A87273E3EB100DDAA70 /* CustomCalibration.swift */; };
 		E2C19FB3273567FE00B70A73 /* SensorReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C19FB2273567FE00B70A73 /* SensorReading.swift */; };
 		E2C19FB52735684500B70A73 /* Glucose.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C19FB42735684500B70A73 /* Glucose.swift */; };
@@ -154,7 +153,6 @@
 		E29ED230268C754F00CBD3F1 /* GlucoseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseView.swift; sourceTree = "<group>"; };
 		E29ED235268C87CC00CBD3F1 /* TextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorView.swift; sourceTree = "<group>"; };
 		E29F4FA1274D6C8B00AE0E39 /* GlucoseValueType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseValueType.swift; sourceTree = "<group>"; };
-		E2A590022708EEDF003A081B /* SensorConnectorUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorConnectorUpdate.swift; sourceTree = "<group>"; };
 		E2B63A87273E3EB100DDAA70 /* CustomCalibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalibration.swift; sourceTree = "<group>"; };
 		E2BF22DF266F9CA20060866F /* App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = App.entitlements; sourceTree = "<group>"; };
 		E2C19FB2273567FE00B70A73 /* SensorReading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorReading.swift; sourceTree = "<group>"; };
@@ -314,7 +312,6 @@
 			isa = PBXGroup;
 			children = (
 				E27ED9792758A4470099149C /* SensorConnector.swift */,
-				E2A590022708EEDF003A081B /* SensorConnectorUpdate.swift */,
 				E27ED97E2758ADF40099149C /* SensorConnection.swift */,
 				E2330A32275E88CF0050A391 /* SensorBLEConnection.swift */,
 				E27ED97C2758A4660099149C /* SensorUtility.swift */,
@@ -672,7 +669,6 @@
 				E2FCAC5B2707425900FE1CBF /* Libre2Pairing.swift in Sources */,
 				E2646F3D275FD3E800ADE451 /* CalendarExportSettingsView.swift in Sources */,
 				E27ED9752758A4270099149C /* BubbleConnection.swift in Sources */,
-				E2A590032708EEDF003A081B /* SensorConnectorUpdate.swift in Sources */,
 				E2FCAC732707438A00FE1CBF /* AppStore.swift in Sources */,
 				E20B853E266F4A9800AA4224 /* App.swift in Sources */,
 				E27ED97D2758A4660099149C /* SensorUtility.swift in Sources */,

@@ -11,11 +11,11 @@ func nightscoutMiddleware() -> Middleware<AppState, AppAction> {
 }
 
 private func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppState, AppAction> {
-    return { store, action, lastState in
-        let nightscoutHost = store.state.nightscoutHost.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
-        let nightscoutApiSecret = store.state.nightscoutApiSecret
+    return { state, action, lastState in
+        let nightscoutHost = state.nightscoutHost.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+        let nightscoutApiSecret = state.nightscoutApiSecret
 
-        if store.state.nightscoutUpload, !nightscoutHost.isEmpty, !nightscoutApiSecret.isEmpty {
+        if state.nightscoutUpload, !nightscoutHost.isEmpty, !nightscoutApiSecret.isEmpty {
             switch action {
             case .removeGlucose(id: let id):
                 service.removeGlucose(nightscoutHost: nightscoutHost, apiSecret: nightscoutApiSecret.toSha1(), id: id)
@@ -32,7 +32,7 @@ private func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppS
                 service.addGlucose(nightscoutHost: nightscoutHost, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: [glucose])
 
             case .setSensorState(sensorAge: _, sensorState: _):
-                guard let sensor = store.state.sensor, sensor.startTimestamp != nil else {
+                guard let sensor = state.sensor, sensor.startTimestamp != nil else {
                     break
                 }
 
