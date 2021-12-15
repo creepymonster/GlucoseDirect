@@ -431,7 +431,7 @@
 "Invalid parameters" = "Ogiltiga parametrar";
 
 /* (No Comment) */
-"Invalid handle" = "Invalid handle";
+"Invalid handle" = "Ogiltigt handling";
 
 /* (No Comment) */
 "Not connected" = "Inte ansluten";
@@ -458,7 +458,7 @@
 "Connection failed" = "Anslutningen misslyckades";
 
 /* (No Comment) */
-"Connection limit reached" = "Connection limit reached";
+"Connection limit reached" = "Anslutningsgräns nådd";
 
 /* (No Comment) */
 "Operation not supported" = "Åtgärden stöds inte";
