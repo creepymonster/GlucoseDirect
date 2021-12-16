@@ -24,7 +24,7 @@ struct NightscoutSettingsView: View {
                         store.dispatch(.setNightscoutHost(host: value))
                     }
                     
-                    TextEditorView(key: LocalizedString("Nightscout API-Secret", comment: ""), value: store.state.nightscoutApiSecret) { value -> Void in
+                    TextEditorView(key: LocalizedString("Nightscout API-Secret", comment: ""), value: store.state.nightscoutApiSecret, secure: true) { value -> Void in
                         store.dispatch(.setNightscoutSecret(apiSecret: value))
                     }
                 }
