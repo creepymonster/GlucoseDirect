@@ -8,10 +8,10 @@ import Foundation
 
 // MARK: - InMemoryAppState
 
-struct InMemoryAppState: AppState {
+struct MemoryAppState: AppState {
     var alarmHigh = 160
     var alarmLow = 80
-    var alarmSnoozeUntil: Date? = nil
+    var alarmSnoozeUntil: Date?
     var calendarExport = false
     var chartShowLines = false
     var connectionAlarm = true
@@ -29,11 +29,11 @@ struct InMemoryAppState: AppState {
     var nightscoutApiSecret: String = ""
     var nightscoutHost: String = ""
     var nightscoutUpload: Bool = false
-    var selectedCalendarTarget: String? = nil
-    var selectedConnection: SensorConnection? = nil
-    var selectedConnectionId: String? = nil
+    var selectedCalendarTarget: String?
+    var selectedConnection: SensorConnection?
+    var selectedConnectionId: String?
     var selectedView: Int = 1
     var sensor: Sensor?
     var targetValue: Int = 100
-    var transmitter: Transmitter? = nil
+    var transmitter: Transmitter?
 }

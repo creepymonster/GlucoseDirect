@@ -14,7 +14,7 @@ private enum Keys: String {
     case chartShowLines = "libre-direct.settings.chart-show-lines"
     case connectionAlarm = "libre-direct.settings.connection-alarm"
     case expiringAlarm = "libre-direct.settings.expiring-alarm"
-    case latestReadings = "latestReadings"
+    case latestReadings
     case glucoseAlarm = "libre-direct.settings.glucose-alarm"
     case glucoseBadge = "libre-direct.settings.glucose-badge"
     case glucoseUnit = "libre-direct.settings.glucose-unit"
@@ -27,6 +27,7 @@ private enum Keys: String {
     case selectedView = "libre-direct.settings.selected-view"
     case sensor = "libre-direct.settings.sensor"
     case transmitter = "libre-direct.settings.transmitter"
+    case glucoseValue = "gv-"
 }
 
 extension UserDefaults {
@@ -89,7 +90,7 @@ extension UserDefaults {
             set(newValue, forKey: Keys.chartShowLines.rawValue)
         }
     }
-    
+
     var connectionAlarm: Bool {
         get {
             if object(forKey: Keys.connectionAlarm.rawValue) != nil {
@@ -163,7 +164,7 @@ extension UserDefaults {
             setArray(newValue, forKey: Keys.glucoseValues.rawValue)
         }
     }
-    
+
     var latestReadings: Data? {
         get {
             return data(forKey: Keys.latestReadings.rawValue)
@@ -176,7 +177,7 @@ extension UserDefaults {
             }
         }
     }
-    
+
     var nightscoutApiSecret: String {
         get {
             return string(forKey: Keys.nightscoutApiSecret.rawValue) ?? ""
@@ -189,7 +190,7 @@ extension UserDefaults {
             }
         }
     }
-    
+
     var nightscoutHost: String {
         get {
             return string(forKey: Keys.nightscoutHost.rawValue) ?? ""
@@ -215,7 +216,7 @@ extension UserDefaults {
             set(newValue, forKey: Keys.nightscoutUpload.rawValue)
         }
     }
-    
+
     var selectedCalendarTarget: String? {
         get {
             return string(forKey: Keys.selectedCalendarTarget.rawValue)
@@ -229,7 +230,6 @@ extension UserDefaults {
         }
     }
 
-    
     var selectedConnectionId: String? {
         get {
             return string(forKey: Keys.selectedConnectionId.rawValue)
@@ -281,6 +281,36 @@ extension UserDefaults {
             }
         }
     }
+
+    func getAllGlucoseKeys() -> [String] {
+        return UserDefaults.standard.dictionaryRepresentation().keys.filter {
+            $0.starts(with: Keys.glucoseValue.rawValue)
+        }.sorted()
+    }
+
+    func getGlucoseValue(key: String) -> Glucose? {
+        return getObject(forKey: key)
+    }
+
+    func getGlucoseValue(timestamp: Date, glucoseType: GlucoseValueType) -> Glucose? {
+        return getObject(forKey: getGlucoseKey(timestamp: timestamp, glucoseType: glucoseType))
+    }
+
+    func addGlucoseValue(glucose: Glucose) {
+        setObject(glucose, forKey: getGlucoseKey(timestamp: glucose.timestamp, glucoseType: glucose.type))
+    }
+
+    func removeGlucoseValue(key: String) {
+        removeObject(forKey: key)
+    }
+
+    func removeGlucoseValue(glucose: Glucose) {
+        removeObject(forKey: getGlucoseKey(timestamp: glucose.timestamp, glucoseType: glucose.type))
+    }
+
+    private func getGlucoseKey(timestamp: Date, glucoseType: GlucoseValueType) -> String {
+        return "\(Keys.glucoseValue.rawValue)\(keyFormatter.string(for: timestamp)!)-\(glucoseType.rawValue)"
+    }
 }
 
 extension UserDefaults {
@@ -314,3 +344,11 @@ extension UserDefaults {
         return value
     }
 }
+
+private var keyFormatter: DateFormatter = {
+    let dateFormatter = DateFormatter()
+    dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+
+    return dateFormatter
+}()

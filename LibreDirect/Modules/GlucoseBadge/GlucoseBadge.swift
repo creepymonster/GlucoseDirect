@@ -13,7 +13,7 @@ func glucoseBadgeMiddelware() -> Middleware<AppState, AppAction> {
 }
 
 private func glucoseBadgeMiddelware(service: GlucoseBadgeService) -> Middleware<AppState, AppAction> {
-    return { store, action, _ in
+    return { state, action, _ in
         switch action {
         case .setGlucoseBadge(enabled: let enabled):
             if !enabled {
@@ -21,18 +21,18 @@ private func glucoseBadgeMiddelware(service: GlucoseBadgeService) -> Middleware<
             }
 
         case .setGlucoseUnit(unit: let unit):
-            guard let glucose = store.state.currentGlucose else {
+            guard let glucose = state.currentGlucose else {
                 break
             }
 
             service.setGlucoseBadge(glucose: glucose, glucoseUnit: unit)
 
         case .addGlucose(glucose: let glucose):
-            guard store.state.glucoseBadge else {
+            guard state.glucoseBadge else {
                 break
             }
 
-            service.setGlucoseBadge(glucose: glucose, glucoseUnit: store.state.glucoseUnit)
+            service.setGlucoseBadge(glucose: glucose, glucoseUnit: state.glucoseUnit)
 
         default:
             break
@@ -70,7 +70,11 @@ private class GlucoseBadgeService {
 
             let notification = UNMutableNotificationContent()
             notification.sound = .none
-            notification.interruptionLevel = .passive
+
+            if #available(iOS 15.0, *) {
+                notification.interruptionLevel = .passive
+            }
+
             notification.title = String(format: LocalizedString("Blood glucose: %1$@", comment: ""), glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true))
             notification.body = String(
                 format: LocalizedString("Your current glucose is %1$@ (%2$@).", comment: ""),

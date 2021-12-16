@@ -12,7 +12,7 @@ func glucoseNotificationMiddelware() -> Middleware<AppState, AppAction> {
 }
 
 private func glucoseNotificationMiddelware(service: GlucoseNotificationService) -> Middleware<AppState, AppAction> {
-    return { store, action, _ in
+    return { state, action, _ in
         switch action {
         case .setGlucoseAlarm(enabled: let enabled):
             if !enabled {
@@ -20,7 +20,7 @@ private func glucoseNotificationMiddelware(service: GlucoseNotificationService) 
             }
 
         case .addGlucose(glucose: let glucose):
-            guard store.state.glucoseAlarm, glucose.type == .cgm else {
+            guard state.glucoseAlarm, glucose.type == .cgm else {
                 break
             }
 
@@ -30,30 +30,30 @@ private func glucoseNotificationMiddelware(service: GlucoseNotificationService) 
 
             var isSnoozed = false
 
-            if let snoozeUntil = store.state.alarmSnoozeUntil, Date() < snoozeUntil {
+            if let snoozeUntil = state.alarmSnoozeUntil, Date() < snoozeUntil {
                 AppLog.info("Glucose alert snoozed until \(snoozeUntil.localTime)")
                 isSnoozed = true
             }
 
-            if glucoseValue < store.state.alarmLow {
+            if glucoseValue < state.alarmLow {
                 if !isSnoozed {
-                    AppLog.info("Glucose alert, low: \(glucose.glucoseValue) < \(store.state.alarmLow)")
+                    AppLog.info("Glucose alert, low: \(glucose.glucoseValue) < \(state.alarmLow)")
 
-                    service.sendLowGlucoseNotification(glucose: glucose, glucoseUnit: store.state.glucoseUnit)
+                    service.sendLowGlucoseNotification(glucose: glucose, glucoseUnit: state.glucoseUnit)
 
-                    DispatchQueue.main.async {
-                        store.dispatch(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute)))
-                    }
+                    return Just(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute)))
+                        .setFailureType(to: AppError.self)
+                        .eraseToAnyPublisher()
                 }
-            } else if glucoseValue > store.state.alarmHigh {
+            } else if glucoseValue > state.alarmHigh {
                 if !isSnoozed {
-                    AppLog.info("Glucose alert, high: \(glucose.glucoseValue) > \(store.state.alarmHigh)")
+                    AppLog.info("Glucose alert, high: \(glucose.glucoseValue) > \(state.alarmHigh)")
 
-                    service.sendHighGlucoseNotification(glucose: glucose, glucoseUnit: store.state.glucoseUnit)
+                    service.sendHighGlucoseNotification(glucose: glucose, glucoseUnit: state.glucoseUnit)
 
-                    DispatchQueue.main.async {
-                        store.dispatch(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute)))
-                    }
+                    return Just(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute)))
+                        .setFailureType(to: AppError.self)
+                        .eraseToAnyPublisher()
                 }
             } else {
                 service.clearNotifications()
@@ -97,7 +97,11 @@ private class GlucoseNotificationService {
             let notification = UNMutableNotificationContent()
             notification.userInfo = self.actions
             notification.sound = NotificationService.AlarmSound
-            notification.interruptionLevel = .critical
+
+            if #available(iOS 15.0, *) {
+                notification.interruptionLevel = .critical
+            }
+
             notification.title = LocalizedString("Alert, low blood glucose", comment: "")
             notification.body = String(
                 format: LocalizedString("Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal."),
@@ -126,7 +130,11 @@ private class GlucoseNotificationService {
             let notification = UNMutableNotificationContent()
             notification.userInfo = self.actions
             notification.sound = NotificationService.AlarmSound
-            notification.interruptionLevel = .critical
+
+            if #available(iOS 15.0, *) {
+                notification.interruptionLevel = .critical
+            }
+
             notification.title = LocalizedString("Alert, high glucose", comment: "")
             notification.body = String(
                 format: LocalizedString("Your glucose %1$@ (%2$@) is dangerously high and needs to be treated."),

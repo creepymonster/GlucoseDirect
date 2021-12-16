@@ -75,20 +75,20 @@ struct CalibrationSettingsView: View {
                         HStack {
                             Text("Custom calibration slope")
                             Spacer()
-                            Text(slope.description).textSelection(.enabled)
+                            Text(slope.description)
                         }
                     
                         HStack {
                             Text("Custom calibration intercept")
                             Spacer()
-                            Text(intercept.description).textSelection(.enabled)
+                            Text(intercept.description)
                         }
                     
                         ForEach(sensor.customCalibration) { calibration in
                             HStack {
                                 Text(calibration.timestamp.localDateTime)
                                 Spacer()
-                                Text("\(calibration.x.asGlucose(glucoseUnit: store.state.glucoseUnit)) = \(calibration.y.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))").textSelection(.enabled)
+                                Text("\(calibration.x.asGlucose(glucoseUnit: store.state.glucoseUnit)) = \(calibration.y.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))")
                             }
                         }.onDelete { offsets in
                             AppLog.info("onDelete: \(offsets)")
@@ -148,37 +148,37 @@ struct CalibrationSettingsView: View {
                         HStack {
                             Text("Factory calibration i1")
                             Spacer()
-                            Text(sensor.factoryCalibration.i1.description).textSelection(.enabled)
+                            Text(sensor.factoryCalibration.i1.description)
                         }
                     
                         HStack {
                             Text("Factory calibration i2")
                             Spacer()
-                            Text(sensor.factoryCalibration.i2.description).textSelection(.enabled)
+                            Text(sensor.factoryCalibration.i2.description)
                         }
                     
                         HStack {
                             Text("Factory calibration i3")
                             Spacer()
-                            Text(sensor.factoryCalibration.i3.description).textSelection(.enabled)
+                            Text(sensor.factoryCalibration.i3.description)
                         }
                     
                         HStack {
                             Text("Factory calibration i4")
                             Spacer()
-                            Text(sensor.factoryCalibration.i4.description).textSelection(.enabled)
+                            Text(sensor.factoryCalibration.i4.description)
                         }
                     
                         HStack {
                             Text("Factory calibration i5")
                             Spacer()
-                            Text(sensor.factoryCalibration.i5.description).textSelection(.enabled)
+                            Text(sensor.factoryCalibration.i5.description)
                         }
                     
                         HStack {
                             Text("Factory calibration i6")
                             Spacer()
-                            Text(sensor.factoryCalibration.i6.description).textSelection(.enabled)
+                            Text(sensor.factoryCalibration.i6.description)
                         }
                     },
                     header: {

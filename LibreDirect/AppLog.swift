@@ -32,8 +32,12 @@ enum AppLog {
         fileLogger.deleteLogs()
     }
 
-    static func getLogfileUrl() -> URL {
+    static func getLogsUrl() -> URL {
         return fileLogger.allLogsFileURL
+    }
+
+    static func getLogsSize() -> String {
+        return fileLogger.getLogsSize().asFileSize()
     }
 
     // MARK: Private
@@ -106,6 +110,12 @@ struct FileLogger {
         return fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("Logs")
     }()
 
+    let oldLogsFileURL: URL = {
+        let fileManager = FileManager.default
+        let baseURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        return baseURL.appendingPathComponent("GlucoseDirect.log")
+    }()
+
     /// Path to a common log file for all log types combined
     let allLogsFileURL: URL = {
         let fileManager = FileManager.default
@@ -164,8 +174,30 @@ struct FileLogger {
         return reader
     }
 
+    func getLogsSize() -> UInt64 {
+        do {
+            let url = allLogsFileURL
+            let attr = try FileManager.default.attributesOfItem(atPath: url.path)
+            let fileSize = attr[FileAttributeKey.size] as! UInt64
+
+            return fileSize
+        } catch {
+            AppLog.error("Failed to get file size: \(error.localizedDescription)")
+        }
+
+        return 0
+    }
+
     func deleteLogs() {
         do {
+            if FileManager.default.fileExists(atPath: oldLogsFileURL.path) {
+                do {
+                    try FileManager.default.removeItem(at: oldLogsFileURL)
+                } catch {
+                    AppLog.error("Failed to remove file: \(error.localizedDescription)")
+                }
+            }
+
             try FileManager.default.removeItem(at: logFileBaseURL)
         } catch {
             AppLog.error("Can't remove logs at \(logFileBaseURL)", log: .default, error: error)
