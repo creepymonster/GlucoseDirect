@@ -12,10 +12,11 @@ import Foundation
 class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate, CBPeripheralDelegate {
     // MARK: Lifecycle
 
-    init(serviceUuid: CBUUID, restoreIdentifier: String) {
+    init(subject: PassthroughSubject<AppAction, AppError>, serviceUuid: CBUUID, restoreIdentifier: String) {
         AppLog.info("init")
         super.init()
 
+        self.subject = subject
         self.serviceUuid = serviceUuid
         self.manager = CBCentralManager(delegate: self, queue: managerQueue, options: [CBCentralManagerOptionShowPowerAlertKey: true, CBCentralManagerOptionRestoreIdentifierKey: restoreIdentifier])
     }
@@ -31,11 +32,11 @@ class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate,
     // MARK: Internal
 
     var rxBuffer = Data()
-    var updatesHandler: SensorConnectionHandler?
 
     var serviceUuid: CBUUID!
     var manager: CBCentralManager!
     let managerQueue = DispatchQueue(label: "libre-direct.sensor-ble-connection.queue")
+    weak var subject: PassthroughSubject<AppAction, AppError>?
 
     var stayConnected = false
     var sensor: Sensor?
@@ -49,11 +50,9 @@ class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate,
         }
     }
 
-    func pairSensor(updatesHandler: @escaping SensorConnectionHandler) {
+    func pairSensor() {
         dispatchPrecondition(condition: .notOnQueue(managerQueue))
         AppLog.info("PairSensor")
-
-        self.updatesHandler = updatesHandler
 
         UserDefaults.standard.peripheralUuid = nil
 
@@ -64,12 +63,11 @@ class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate,
         }
     }
 
-    func connectSensor(sensor: Sensor, updatesHandler: @escaping SensorConnectionHandler) {
+    func connectSensor(sensor: Sensor) {
         dispatchPrecondition(condition: .notOnQueue(managerQueue))
         AppLog.info("ConnectSensor: \(sensor)")
 
         self.sensor = sensor
-        self.updatesHandler = updatesHandler
 
         managerQueue.async {
             self.find()
@@ -134,7 +132,7 @@ class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate,
         sendUpdate(connectionState: .disconnected)
 
         sensor = nil
-        updatesHandler = nil
+        subject = nil
     }
 
     func connect() {
@@ -195,6 +193,11 @@ class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate,
     func centralManager(_ central: CBCentralManager, willRestoreState dict: [String: Any]) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
         AppLog.info("Peripheral: \(peripheral), willRestoreState")
+
+        let connectedperipherals = dict[CBCentralManagerRestoredStatePeripheralsKey] as? [CBPeripheral]
+        if let peripheral = connectedperipherals?.first {
+            connect(peripheral)
+        }
     }
 
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {

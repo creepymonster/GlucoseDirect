@@ -4,17 +4,21 @@
 //
 
 import Foundation
+import Combine
 
 // MARK: - VirtualLibreConnection
 
 final class VirtualLibreConnection: SensorConnection {
     // MARK: Internal
 
-    var updatesHandler: SensorConnectionHandler?
+    weak var subject: PassthroughSubject<AppAction, AppError>?
+    
+    init(subject: PassthroughSubject<AppAction, AppError>) {
+        AppLog.info("init")
+        self.subject = subject
+    }
 
-    func pairSensor(updatesHandler: @escaping SensorConnectionHandler) {
-        self.updatesHandler = updatesHandler
-
+    func pairSensor() {
         let sensor = Sensor(
             uuid: Data(hexString: "e9ad9b6c79bd93aa")!,
             patchInfo: Data(hexString: "448cd1")!,
@@ -33,9 +37,7 @@ final class VirtualLibreConnection: SensorConnection {
         sendUpdate(sensor: sensor)
     }
 
-    func connectSensor(sensor: Sensor, updatesHandler: @escaping SensorConnectionHandler) {
-        self.updatesHandler = updatesHandler
-
+    func connectSensor(sensor: Sensor) {
         let fireDate = Date().rounded(on: 1, .minute).addingTimeInterval(60)
         let timer = Timer(fire: fireDate, interval: glucoseInterval, repeats: true) { _ in
             AppLog.info("fires at \(Date())")
@@ -53,7 +55,7 @@ final class VirtualLibreConnection: SensorConnection {
         timer = nil
 
         sendUpdate(connectionState: .disconnected)
-        updatesHandler = nil
+        subject = nil
     }
 
     // MARK: Private

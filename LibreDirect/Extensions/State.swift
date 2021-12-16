@@ -12,7 +12,13 @@ import Foundation
 // https://danielbernal.co/redux-like-architecture-with-swiftui-real-world-app/
 
 typealias Reducer<State, Action> = (inout State, Action) -> Void
-typealias Middleware<State, Action> = (Store<State, Action>, Action, State) -> AnyPublisher<Action, Never>?
+typealias Middleware<State, Action> = (State, Action, State) -> AnyPublisher<Action, AppError>?
+
+// MARK: - AppError
+
+enum AppError: Error {
+    case withMessage(_ message: String)
+}
 
 // MARK: - Store
 
@@ -41,12 +47,23 @@ final class Store<State, Action>: ObservableObject {
 
         // Dispatch all middleware functions
         for mw in middlewares {
-            guard let middleware = mw(self, action, lastState) else {
+            guard let middleware = mw(state, action, lastState) else {
                 break
             }
 
-            middleware.receive(on: DispatchQueue.main)
-                .sink(receiveValue: dispatch)
+            middleware
+                .receive(on: DispatchQueue.main)
+                .sink(
+                    receiveCompletion: { completion in
+                        switch completion {
+                        case .failure(.withMessage(message: let message)):
+                            AppLog.error(message)
+                        default:
+                            break
+                        }
+                    },
+                    receiveValue: dispatch
+                )
                 .store(in: &middlewareCancellables)
         }
     }
