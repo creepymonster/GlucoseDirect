@@ -12,9 +12,9 @@ import Foundation
 class BubbleConnection: SensorBLEConnection {
     // MARK: Lifecycle
 
-    init() {
+    init(subject: PassthroughSubject<AppAction, AppError>) {
         AppLog.info("init")
-        super.init(serviceUuid: CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E"), restoreIdentifier: "libre-direct.bubble.restore-identifier")
+        super.init(subject: subject, serviceUuid: CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E"), restoreIdentifier: "libre-direct.bubble.restore-identifier")
     }
 
     // MARK: Internal

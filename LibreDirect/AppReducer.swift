@@ -27,12 +27,10 @@ func appReducer(state: inout AppState, action: AppAction) {
         state.missedReadings = 0
         state.glucoseValues.append(glucose)
 
-        if let numberOfGlucoseValues = AppConfig.NumberOfGlucoseValues {
-            let toMany = state.glucoseValues.count - numberOfGlucoseValues
-            if toMany > 0 {
-                for _ in 1 ... toMany {
-                    state.glucoseValues.removeFirst()
-                }
+        let toMany = state.glucoseValues.count - AppConfig.NumberOfGlucoseValues
+        if toMany > 0 {
+            for _ in 1 ... toMany {
+                state.glucoseValues.removeFirst()
             }
         }
 

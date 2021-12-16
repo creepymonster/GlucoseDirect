@@ -98,7 +98,7 @@ struct ChartView: View {
             .onChange(of: colorScheme) { scheme in
                 if deviceColorScheme != scheme {
                     AppLog.info("onChange colorScheme: \(scheme)")
-                    
+
                     deviceColorScheme = scheme
                 }
             }
@@ -143,7 +143,7 @@ struct ChartView: View {
 
                 updateYGrid(fullSize: geo.size, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh, targetValue: store.state.targetValue, glucoseUnit: glucoseUnit)
             }
-            .onChange(of: cgmValues) { _ in
+            .onChange(of: store.state.glucoseValues) { _ in
                 AppLog.info("onChange glucoseValues: \(store.state.glucoseValues.count)")
 
                 updateHelpVariables(fullSize: geo.size, glucoseValues: store.state.glucoseValues)
@@ -369,7 +369,7 @@ struct ChartView: View {
 
     private func updateCgmPath(fullSize: CGSize, glucoseValues: [Glucose]) {
         AppLog.info("updateCgmPath")
-        
+
         var isFirst = true
 
         calculationQueue.async {
@@ -378,7 +378,7 @@ struct ChartView: View {
                     guard let glucoseValue = glucose.glucoseValue else {
                         return
                     }
-                    
+
                     let x = self.translateTimeStampToX(timestamp: glucose.timestamp)
                     let y = self.translateGlucoseToY(fullSize: fullSize, glucose: CGFloat(glucoseValue))
 
@@ -405,14 +405,14 @@ struct ChartView: View {
         AppLog.info("updateBgmPath")
 
         var isFirst = true
-        
+
         calculationQueue.async {
             let cgmPath = Path { path in
                 for glucose in glucoseValues {
                     guard let glucoseValue = glucose.glucoseValue else {
                         return
                     }
-                    
+
                     let x = self.translateTimeStampToX(timestamp: glucose.timestamp)
                     let y = self.translateGlucoseToY(fullSize: fullSize, glucose: CGFloat(glucoseValue))
 

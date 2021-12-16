@@ -12,25 +12,33 @@ func calendarExportMiddleware() -> Middleware<AppState, AppAction> {
 }
 
 func calendarExportMiddleware(service: CalendarExportService) -> Middleware<AppState, AppAction> {
-    return { store, action, _ in
+    return { state, action, _ in
         switch action {
         case .setCalendarExport(enabled: let enabled):
             if enabled {
-                service.requestAccess { granted in
-                    if !granted {
-                        store.dispatch(.setCalendarExport(enabled: false))
+                return Future<AppAction, AppError> { promise in
+                    service.requestAccess { granted in
+                        if !granted {
+                            promise(.success(.setCalendarExport(enabled: false)))
+
+                        } else {
+                            promise(.failure(.withMessage("Calendar access declined")))
+                        }
                     }
-                }
+                }.eraseToAnyPublisher()
+
             } else {
-                store.dispatch(.selectCalendarTarget(id: nil))
+                return Just(AppAction.selectCalendarTarget(id: nil))
+                    .setFailureType(to: AppError.self)
+                    .eraseToAnyPublisher()
             }
 
         case .addGlucose(glucose: let glucose):
-            guard store.state.calendarExport, let calendarTarget = store.state.selectedCalendarTarget, glucose.type == .cgm else {
+            guard state.calendarExport, let calendarTarget = state.selectedCalendarTarget, glucose.type == .cgm else {
                 break
             }
 
-            service.createGlucoseEvent(calendarTarget: calendarTarget, glucose: glucose, glucoseUnit: store.state.glucoseUnit)
+            service.createGlucoseEvent(calendarTarget: calendarTarget, glucose: glucose, glucoseUnit: state.glucoseUnit)
 
         default:
             break
@@ -95,9 +103,9 @@ class CalendarExportService {
         guard let calendar = calendar else {
             return
         }
-        
+
         clearGlucoseEvents()
-        
+
         guard let glucoseValue = glucose.glucoseValue else {
             return
         }

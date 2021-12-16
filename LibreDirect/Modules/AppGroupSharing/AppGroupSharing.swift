@@ -24,14 +24,14 @@ private func appGroupSharingMiddleware(service: AppGroupSharingService) -> Middl
     }
 }
 
-// MARK: - FreeAPSService
+// MARK: - AppGroupSharingService
 
 private class AppGroupSharingService {
     func addGlucose(glucoseValues: [Glucose]) {
         let sharedValues = glucoseValues
             .map { $0.toFreeAPS() }
             .compactMap { $0 }
-        
+
         if sharedValues.isEmpty {
             return
         }
@@ -53,7 +53,7 @@ private extension Glucose {
         guard let glucoseValue = glucoseValue else {
             return nil
         }
-        
+
         let date = "/Date(" + Int64(floor(timestamp.toMillisecondsAsDouble() / 1000) * 1000).description + ")/"
 
         let freeAPSGlucose: [String: Any] = [
@@ -89,7 +89,7 @@ private extension SensorTrend {
             return 0
         }
     }
-    
+
     func toFreeAPSX() -> String {
         switch self {
         case .rapidlyRising:
