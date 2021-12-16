@@ -60,7 +60,8 @@ private extension Glucose {
             "Value": glucoseValue,
             "Trend": trend.toFreeAPS(),
             "DT": date,
-            "direction": trend.toFreeAPSX()
+            "direction": trend.toFreeAPSX(),
+            "from": "GlucoseDirect"
         ]
 
         return freeAPSGlucose
