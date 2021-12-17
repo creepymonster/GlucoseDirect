@@ -165,8 +165,8 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setGlucoseUnit(unit: let unit):
         state.glucoseUnit = unit
         
-    case .setNightscoutHost(host: let host):
-        state.nightscoutHost = host
+    case .setNightscoutUrl(url: let url):
+        state.nightscoutUrl = url
 
     case .setNightscoutSecret(apiSecret: let apiSecret):
         state.nightscoutApiSecret = apiSecret
@@ -197,6 +197,7 @@ func appReducer(state: inout AppState, action: AppAction) {
         
     case .startup:
         break
+
     }
 
     if let alarmSnoozeUntil = state.alarmSnoozeUntil, Date() > alarmSnoozeUntil {

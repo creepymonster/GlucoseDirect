@@ -12,13 +12,13 @@ func nightscoutMiddleware() -> Middleware<AppState, AppAction> {
 
 private func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppState, AppAction> {
     return { state, action, lastState in
-        let nightscoutHost = state.nightscoutHost.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+        let nightscoutUrl = state.nightscoutUrl.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
         let nightscoutApiSecret = state.nightscoutApiSecret
 
-        if state.nightscoutUpload, !nightscoutHost.isEmpty, !nightscoutApiSecret.isEmpty {
+        if state.nightscoutUpload, !nightscoutUrl.isEmpty, !nightscoutApiSecret.isEmpty {
             switch action {
             case .removeGlucose(id: let id):
-                service.removeGlucose(nightscoutHost: nightscoutHost, apiSecret: nightscoutApiSecret.toSha1(), id: id)
+                service.removeGlucose(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1(), id: id)
 
             case .addGlucose(glucose: let glucose):
                 guard glucose.type != .none else {
@@ -29,7 +29,7 @@ private func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppS
                     break
                 }
 
-                service.addGlucose(nightscoutHost: nightscoutHost, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: [glucose])
+                service.addGlucose(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: [glucose])
 
             case .setSensorState(sensorAge: _, sensorState: _):
                 guard let sensor = state.sensor, sensor.startTimestamp != nil else {
@@ -44,9 +44,9 @@ private func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppS
                     break
                 }
 
-                service.isSensorStarted(nightscoutHost: nightscoutHost, apiSecret: nightscoutApiSecret.toSha1(), serial: serial) { isStarted in
+                service.isSensorStarted(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1(), serial: serial) { isStarted in
                     if let isStarted = isStarted, !isStarted {
-                        service.setSensorStart(nightscoutHost: nightscoutHost, apiSecret: nightscoutApiSecret.toSha1(), sensor: sensor)
+                        service.setSensorStart(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1(), sensor: sensor)
                     }
                 }
 
@@ -64,7 +64,7 @@ private func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppS
 private class NightscoutService {
     // MARK: Internal
 
-    func setSensorStart(nightscoutHost: String, apiSecret: String, sensor: Sensor) {
+    func setSensorStart(nightscoutUrl: String, apiSecret: String, sensor: Sensor) {
         let nightscoutValue = sensor.toNightscoutSensorStart()
 
         guard let nightscoutValue = nightscoutValue else {
@@ -77,7 +77,7 @@ private class NightscoutService {
 
         let session = URLSession.shared
 
-        let urlString = "\(nightscoutHost)/api/v1/treatments"
+        let urlString = "\(nightscoutUrl)/api/v1/treatments"
         guard let url = URL(string: urlString) else {
             AppLog.error("Nightscout, bad nightscout url")
             return
@@ -104,10 +104,10 @@ private class NightscoutService {
         task.resume()
     }
 
-    func removeGlucose(nightscoutHost: String, apiSecret: String, id: UUID) {
+    func removeGlucose(nightscoutUrl: String, apiSecret: String, id: UUID) {
         let session = URLSession.shared
 
-        let urlString = "\(nightscoutHost)/api/v1/entries?find[_id][$in][]=\(id.uuidString)"
+        let urlString = "\(nightscoutUrl)/api/v1/entries?find[_id][$in][]=\(id.uuidString)"
         guard let url = URL(string: urlString) else {
             AppLog.error("Nightscout, bad nightscout url")
             return
@@ -133,7 +133,7 @@ private class NightscoutService {
         task.resume()
     }
 
-    func addGlucose(nightscoutHost: String, apiSecret: String, glucoseValues: [Glucose]) {
+    func addGlucose(nightscoutUrl: String, apiSecret: String, glucoseValues: [Glucose]) {
         let nightscoutValues = glucoseValues.map { $0.toNightscoutGlucose() }
 
         guard let nightscoutJson = try? JSONSerialization.data(withJSONObject: nightscoutValues) else {
@@ -142,7 +142,7 @@ private class NightscoutService {
 
         let session = URLSession.shared
 
-        let urlString = "\(nightscoutHost)/api/v1/entries"
+        let urlString = "\(nightscoutUrl)/api/v1/entries"
         guard let url = URL(string: urlString) else {
             AppLog.error("Nightscout, bad nightscout url")
             return
@@ -168,10 +168,10 @@ private class NightscoutService {
         task.resume()
     }
 
-    func isSensorStarted(nightscoutHost: String, apiSecret: String, serial: String, completionHandler: @escaping (Bool?) -> Void) {
+    func isSensorStarted(nightscoutUrl: String, apiSecret: String, serial: String, completionHandler: @escaping (Bool?) -> Void) {
         let session = URLSession.shared
 
-        let urlString = "\(nightscoutHost)/api/v1/treatments?find[_id][$in][]=\(serial)&find[eventType][$in][]=Sensor%20Start"
+        let urlString = "\(nightscoutUrl)/api/v1/treatments?find[_id][$in][]=\(serial)&find[eventType][$in][]=Sensor%20Start"
         guard let url = URL(string: urlString) else {
             AppLog.error("Nightscout, bad nightscout url")
 

@@ -13,6 +13,12 @@ func appGroupSharingMiddleware() -> Middleware<AppState, AppAction> {
 private func appGroupSharingMiddleware(service: AppGroupSharingService) -> Middleware<AppState, AppAction> {
     return { _, action, _ in
         switch action {
+        case .disconnectSensor:
+            service.clearGlucoseValues()
+
+        case .pairSensor:
+            service.clearGlucoseValues()
+
         case .addGlucose(glucose: let glucose):
             service.addGlucose(glucoseValues: [glucose])
 
@@ -27,6 +33,10 @@ private func appGroupSharingMiddleware(service: AppGroupSharingService) -> Middl
 // MARK: - AppGroupSharingService
 
 private class AppGroupSharingService {
+    func clearGlucoseValues() {
+        UserDefaults.shared.latestReadings = nil
+    }
+
     func addGlucose(glucoseValues: [Glucose]) {
         let sharedValues = glucoseValues
             .map { $0.toFreeAPS() }

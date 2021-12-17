@@ -69,15 +69,13 @@ struct GlucoseView: View {
 
                             Text("Attention, the sensor sends faulty values. Please wait 10 minutes.")
                                 .padding(.vertical)
-                            
+
                             Text(String(format: LocalizedString("%1$@ a clock"), currentGlucose.timestamp.localTime))
                         }.padding(.vertical)
                     }
                 }
             }
         }
-        .animation(.default, value: store.state.connectionState)
-        .animation(.default, value: store.state.currentGlucose)
     }
 }
 

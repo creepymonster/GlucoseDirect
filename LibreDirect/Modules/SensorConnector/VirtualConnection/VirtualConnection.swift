@@ -3,20 +3,22 @@
 //  LibreDirect
 //
 
-import Foundation
 import Combine
+import Foundation
 
 // MARK: - VirtualLibreConnection
 
 final class VirtualLibreConnection: SensorConnection {
-    // MARK: Internal
+    // MARK: Lifecycle
 
-    weak var subject: PassthroughSubject<AppAction, AppError>?
-    
     init(subject: PassthroughSubject<AppAction, AppError>) {
         AppLog.info("init")
         self.subject = subject
     }
+
+    // MARK: Internal
+
+    weak var subject: PassthroughSubject<AppAction, AppError>?
 
     func pairSensor() {
         let sensor = Sensor(
@@ -55,7 +57,6 @@ final class VirtualLibreConnection: SensorConnection {
         timer = nil
 
         sendUpdate(connectionState: .disconnected)
-        subject = nil
     }
 
     // MARK: Private

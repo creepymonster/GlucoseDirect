@@ -8,6 +8,8 @@ import SwiftUI
 // MARK: - NightscoutSettingsView
 
 struct NightscoutSettingsView: View {
+    // MARK: Internal
+
     @EnvironmentObject var store: AppStore
 
     var body: some View {
@@ -20,18 +22,42 @@ struct NightscoutSettingsView: View {
                 }
 
                 if store.state.nightscoutUpload {
-                    TextEditorView(key: LocalizedString("Nightscout host", comment: ""), value: store.state.nightscoutHost) { value -> Void in
-                        store.dispatch(.setNightscoutHost(host: value))
+                    HStack {
+                        Text("Nightscout url")
+                        Spacer()
+                        TextField("https://my-nightscout.herokuapp.com", text: nightscoutUrl)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
                     }
-                    
-                    TextEditorView(key: LocalizedString("Nightscout API-Secret", comment: ""), value: store.state.nightscoutApiSecret, secure: true) { value -> Void in
-                        store.dispatch(.setNightscoutSecret(apiSecret: value))
+
+                    HStack {
+                        Text("Nightscout API-Secret")
+                        Spacer()
+                        SecureField("", text: nightscoutSecret)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
                     }
                 }
             },
             header: {
                 Label("Nightscout settings", systemImage: "icloud.and.arrow.up")
             }
+        )
+    }
+
+    // MARK: Private
+
+    private var nightscoutUrl: Binding<String> {
+        Binding(
+            get: { store.state.nightscoutUrl },
+            set: { store.dispatch(.setNightscoutUrl(url: $0)) }
+        )
+    }
+
+    private var nightscoutSecret: Binding<String> {
+        Binding(
+            get: { store.state.nightscoutApiSecret },
+            set: { store.dispatch(.setNightscoutSecret(apiSecret: $0)) }
         )
     }
 }

@@ -28,15 +28,22 @@ struct AboutView: View {
                         .truncationMode(.head)
                 }
 
-                Button(action: {
-                    store.dispatch(.sendLogs)
-                }) {
-                    Label("Send log file", systemImage: "square.and.arrow.up")
-                }
+                Button(
+                    action: {
+                        store.dispatch(.sendLogs)
+                    },
+                    label: {
+                        Label("Send log file", systemImage: "square.and.arrow.up")
+                    }
+                )
 
                 Button(
-                    action: { showingDeleteLogsAlert = true },
-                    label: { Label("Delete log files", systemImage: "trash") }
+                    action: {
+                        showingDeleteLogsAlert = true
+                    },
+                    label: {
+                        Label("Delete log files", systemImage: "trash")
+                    }
                 ).alert(isPresented: $showingDeleteLogsAlert) {
                     Alert(
                         title: Text("Are you sure you want to delete all log files?"),

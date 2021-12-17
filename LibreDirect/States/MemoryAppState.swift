@@ -27,7 +27,7 @@ struct MemoryAppState: AppState {
     var glucoseValues: [Glucose] = []
     var missedReadings: Int = 0
     var nightscoutApiSecret: String = ""
-    var nightscoutHost: String = ""
+    var nightscoutUrl: String = ""
     var nightscoutUpload: Bool = false
     var selectedCalendarTarget: String?
     var selectedConnection: SensorConnection?

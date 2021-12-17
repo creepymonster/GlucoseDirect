@@ -12,10 +12,20 @@ import Foundation
 // MARK: - Libre2Pairing
 
 final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
+    // MARK: Lifecycle
+
+    init(subject: PassthroughSubject<AppAction, AppError>) {
+        self.subject = subject
+    }
+
     // MARK: Internal
 
-    func pairSensor(subject: PassthroughSubject<AppAction, AppError>?) {
-        self.subject = subject
+    func pairSensor() {
+        guard subject != nil else {
+            AppLog.error("Pairing, subject is nil")
+
+            return
+        }
 
         if NFCTagReaderSession.readingAvailable {
             session = NFCTagReaderSession(pollingOption: .iso15693, delegate: self, queue: nfcQueue)

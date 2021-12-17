@@ -40,27 +40,34 @@ struct CalibrationSettingsView: View {
                         },
                         footer: {
                             HStack {
-                                Button(action: {
-                                    withAnimation {
-                                        showingAddCalibrationView = false
+                                Button(
+                                    action: {
+                                        withAnimation {
+                                            showingAddCalibrationView = false
+                                        }
+                                    },
+                                    label: {
+                                        Label("Cancel", systemImage: "multiply")
                                     }
-                                }) {
-                                    Label("Cancel", systemImage: "multiply")
-                                }
+                                )
                             
                                 Spacer()
 
                                 Button(
-                                    action: { showingAddCalibrationsAlert = true },
-                                    label: { Label("Add", systemImage: "checkmark") }
+                                    action: {
+                                        showingAddCalibrationsAlert = true
+                                    },
+                                    label: {
+                                        Label("Add", systemImage: "checkmark")
+                                    }
                                 ).alert(isPresented: $showingAddCalibrationsAlert) {
                                     Alert(
                                         title: Text("Are you sure you want to add the new calibration?"),
                                         primaryButton: .destructive(Text("Add")) {
                                             withAnimation {
+                                                store.dispatch(.addCalibration(glucoseValue: value))
                                                 showingAddCalibrationView = false
                                             }
-                                            store.dispatch(.addCalibration(glucoseValue: value))
                                         },
                                         secondaryButton: .cancel()
                                     )
@@ -113,12 +120,14 @@ struct CalibrationSettingsView: View {
                         
                                 Button(
                                     action: {
-                                        value = lastGlucose.glucoseValue ?? 100
                                         withAnimation {
+                                            value = lastGlucose.glucoseValue ?? 100
                                             showingAddCalibrationView = true
                                         }
                                     },
-                                    label: { Label("Add", systemImage: "plus") }
+                                    label: {
+                                        Label("Add", systemImage: "plus")
+                                    }
                                 )
                             }
                         }
@@ -127,13 +136,19 @@ struct CalibrationSettingsView: View {
                         if !showingAddCalibrationView {
                             if let sensor = store.state.sensor, !sensor.customCalibration.isEmpty {
                                 Button(
-                                    action: { showingDeleteCalibrationsAlert = true },
-                                    label: { Label("Delete all", systemImage: "trash.fill") }
+                                    action: {
+                                        showingDeleteCalibrationsAlert = true
+                                    },
+                                    label: {
+                                        Label("Delete all", systemImage: "trash.fill")
+                                    }
                                 ).alert(isPresented: $showingDeleteCalibrationsAlert) {
                                     Alert(
                                         title: Text("Are you sure you want to delete all calibrations?"),
                                         primaryButton: .destructive(Text("Delete")) {
-                                            store.dispatch(.clearCalibrations)
+                                            withAnimation {
+                                                store.dispatch(.clearCalibrations)
+                                            }
                                         },
                                         secondaryButton: .cancel()
                                     )

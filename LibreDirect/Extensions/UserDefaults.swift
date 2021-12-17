@@ -20,7 +20,7 @@ private enum Keys: String {
     case glucoseUnit = "libre-direct.settings.glucose-unit"
     case glucoseValues = "libre-direct.settings.glucose-values"
     case nightscoutApiSecret = "libre-direct.settings.nightscout-api-secret"
-    case nightscoutHost = "libre-direct.settings.nightscout-host"
+    case nightscoutUrl = "libre-direct.settings.nightscout-host"
     case nightscoutUpload = "libre-direct.settings.nightscout-upload-enabled"
     case selectedCalendarTarget = "libre-direct.settings.selected-calendar-target"
     case selectedConnectionId = "libre-direct.settings.selected-connection-id"
@@ -191,15 +191,15 @@ extension UserDefaults {
         }
     }
 
-    var nightscoutHost: String {
+    var nightscoutUrl: String {
         get {
-            return string(forKey: Keys.nightscoutHost.rawValue) ?? ""
+            return string(forKey: Keys.nightscoutUrl.rawValue) ?? ""
         }
         set {
             if newValue.isEmpty {
-                removeObject(forKey: Keys.nightscoutHost.rawValue)
+                removeObject(forKey: Keys.nightscoutUrl.rawValue)
             } else {
-                set(newValue, forKey: Keys.nightscoutHost.rawValue)
+                set(newValue, forKey: Keys.nightscoutUrl.rawValue)
             }
         }
     }

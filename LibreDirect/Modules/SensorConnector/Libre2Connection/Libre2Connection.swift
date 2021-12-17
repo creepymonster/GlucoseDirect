@@ -14,6 +14,8 @@ final class Libre2Connection: SensorBLEConnection {
 
     init(subject: PassthroughSubject<AppAction, AppError>) {
         AppLog.info("init")
+
+        pairingService = Libre2Pairing(subject: subject)
         super.init(subject: subject, serviceUuid: CBUUID(string: "FDE3"), restoreIdentifier: "libre-direct.libre2.restore-identifier")
     }
 
@@ -27,7 +29,7 @@ final class Libre2Connection: SensorBLEConnection {
     var readCharacteristic: CBCharacteristic?
     var writeCharacteristic: CBCharacteristic?
 
-    let pairingService = Libre2Pairing()
+    let pairingService: Libre2Pairing
 
     override func pairSensor() {
         dispatchPrecondition(condition: .notOnQueue(managerQueue))
@@ -37,7 +39,7 @@ final class Libre2Connection: SensorBLEConnection {
         UserDefaults.standard.libre2UnlockCount = 0
 
         sendUpdate(connectionState: .pairing)
-        pairingService.pairSensor(subject: subject)
+        pairingService.pairSensor()
     }
 
     func unlock() -> Data? {

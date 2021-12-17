@@ -130,9 +130,7 @@ class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate,
         }
 
         sendUpdate(connectionState: .disconnected)
-
         sensor = nil
-        subject = nil
     }
 
     func connect() {

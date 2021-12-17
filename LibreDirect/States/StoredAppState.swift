@@ -27,7 +27,7 @@ struct StoredAppState: AppState {
         self.glucoseBadge = UserDefaults.standard.glucoseBadge
         self.glucoseUnit = UserDefaults.standard.glucoseUnit
         self.nightscoutApiSecret = UserDefaults.standard.nightscoutApiSecret
-        self.nightscoutHost = UserDefaults.standard.nightscoutHost
+        self.nightscoutUrl = UserDefaults.standard.nightscoutUrl
         self.nightscoutUpload = UserDefaults.standard.nightscoutUpload
         self.selectedCalendarTarget = UserDefaults.standard.selectedCalendarTarget
         self.selectedConnectionId = UserDefaults.standard.selectedConnectionId ?? "libre2"
@@ -35,9 +35,10 @@ struct StoredAppState: AppState {
         self.sensor = UserDefaults.standard.sensor
         self.transmitter = UserDefaults.standard.transmitter
 
-        if !UserDefaults.standard.glucoseValues.isEmpty {
+        let glucoseKeys = UserDefaults.standard.getAllGlucoseKeys()
+        if !UserDefaults.standard.glucoseValues.isEmpty && glucoseKeys.isEmpty {
             AppLog.info("Restore old data")
-            
+
             let glucoseValues = UserDefaults.standard.glucoseValues
             glucoseValues.forEach {
                 UserDefaults.standard.addGlucoseValue(glucose: $0)
@@ -45,7 +46,7 @@ struct StoredAppState: AppState {
 
             self.glucoseValues = glucoseValues
         } else {
-            self.glucoseValues = UserDefaults.standard.getAllGlucoseKeys().map {
+            self.glucoseValues = glucoseKeys.map {
                 UserDefaults.standard.getGlucoseValue(key: $0)
             }.compactMap {
                 $0
@@ -139,9 +140,9 @@ struct StoredAppState: AppState {
         }
     }
 
-    var nightscoutHost: String {
+    var nightscoutUrl: String {
         didSet {
-            UserDefaults.standard.nightscoutHost = nightscoutHost
+            UserDefaults.standard.nightscoutUrl = nightscoutUrl
         }
     }
 

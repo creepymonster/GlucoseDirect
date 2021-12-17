@@ -1,4 +1,3 @@
-
 //
 //  ActionsView.swift
 //  LibreDirect
@@ -18,14 +17,20 @@ struct ActionsView: View {
             if store.state.hasSelectedConnection && store.state.isPaired {
                 if !store.state.isDisconnectable {
                     Button(
-                        action: { showingUnpairSensorAlert = true },
-                        label: { Label("Unpair sensor", systemImage: "arrow.uturn.backward") }
+                        action: {
+                            showingUnpairSensorAlert = true
+                        },
+                        label: {
+                            Label("Unpair sensor", systemImage: "arrow.uturn.backward")
+                        }
                     ).alert(isPresented: $showingUnpairSensorAlert) {
                         Alert(
                             title: Text("Are you sure you want to unpair the sensor?"),
                             primaryButton: .destructive(Text("Unpair")) {
-                                store.dispatch(.resetTransmitter)
-                                store.dispatch(.resetSensor)
+                                withAnimation {
+                                    store.dispatch(.resetTransmitter)
+                                    store.dispatch(.resetSensor)
+                                }
                             },
                             secondaryButton: .cancel()
                         )
@@ -35,27 +40,47 @@ struct ActionsView: View {
                 if store.state.isConnectable {
                     Spacer()
 
-                    Button(action: { store.dispatch(.connectSensor) }) {
-                        Label("Connect sensor", systemImage: "play")
-                    }
+                    Button(
+                        action: {
+                            withAnimation {
+                                store.dispatch(.connectSensor)
+                            }
+                        },
+                        label: {
+                            Label("Connect sensor", systemImage: "play")
+                        }
+                    )
                 } else if store.state.isDisconnectable {
                     Button(
-                        action: { showingDisconnectSensorAlert = true },
-                        label: { Label("Disconnect sensor", systemImage: "stop") }
+                        action: {
+                            showingDisconnectSensorAlert = true
+                        },
+                        label: {
+                            Label("Disconnect sensor", systemImage: "stop")
+                        }
                     ).alert(isPresented: $showingDisconnectSensorAlert) {
                         Alert(
                             title: Text("Are you sure you want to disconnect the sensor?"),
                             primaryButton: .destructive(Text("Disconnect")) {
-                                store.dispatch(.disconnectSensor)
+                                withAnimation {
+                                    store.dispatch(.disconnectSensor)
+                                }
                             },
                             secondaryButton: .cancel()
                         )
                     }
                 }
             } else if store.state.hasSelectedConnection && store.state.connectionState != .pairing && store.state.connectionState != .scanning && store.state.connectionState != .connecting {
-                Button(action: { store.dispatch(.pairSensor) }) {
-                    Label("Pair sensor", systemImage: "arrow.uturn.forward")
-                }
+                Button(
+                    action: {
+                        withAnimation {
+                            store.dispatch(.pairSensor)
+                        }
+                    },
+                    label: {
+                        Label("Pair sensor", systemImage: "arrow.uturn.forward")
+                    }
+                )
             } else {
                 Text("...")
             }
@@ -65,7 +90,6 @@ struct ActionsView: View {
 
     // MARK: Private
 
-    @State private var showingDeleteLogsAlert = false
     @State private var showingDisconnectSensorAlert = false
     @State private var showingUnpairSensorAlert = false
 }

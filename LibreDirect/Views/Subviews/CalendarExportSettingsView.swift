@@ -17,7 +17,9 @@ struct CalendarExportSettingsView: View {
         Section(
             content: {
                 ToggleView(key: LocalizedString("Calendar export enabled"), value: store.state.calendarExport) { value -> Void in
-                    store.dispatch(.setCalendarExport(enabled: value))
+                    withAnimation {
+                        store.dispatch(.setCalendarExport(enabled: value))
+                    }
                 }
 
                 if store.state.calendarExport {
