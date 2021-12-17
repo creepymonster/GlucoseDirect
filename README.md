@@ -48,6 +48,7 @@ I am very happy to receive feedback - suggestions for improvement or reports of 
 - Upload sensor end to nightscout
 - Other transmitters
 - Other diabetes sources to upload to (like tidepool, ...)
+- Transmitter battery notifications
 
 ## Screenshots
 ![Screenshot](/Screenshots/overview.png?raw=true)
