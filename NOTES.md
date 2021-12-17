@@ -1,8 +1,8 @@
 # Keywords and thoughts
 
 ## Read out
-- mg/dl miligramm/deziliter
-- mmol/l milimol/l
+- mg/dl miligram per deciliter
+- mmol/l milimol per liter
 - constant values only after change of more than 5%.
 - values within a range not read out
 
