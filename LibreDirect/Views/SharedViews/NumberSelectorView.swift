@@ -46,7 +46,7 @@ struct NumberSelectorView: View {
             HStack {
                 Text(key)
                 Spacer()
-                
+
                 if let displayValue = displayValue {
                     Text(displayValue)
                 }
@@ -62,13 +62,13 @@ struct NumberSelectorView: View {
                 .font(.title3)
                 .foregroundColor(Color.primary)
                 .buttonStyle(.borderless)
-                
-                Slider(value: doubleProxy, in: min...max).onChange(of: value, perform: { value in
+
+                Slider(value: doubleProxy, in: min ... max).onChange(of: value, perform: { value in
                     if let completionHandler = completionHandler {
                         completionHandler(value)
                     }
                 })
-                
+
                 Button {
                     value = value + 1
                 } label: {

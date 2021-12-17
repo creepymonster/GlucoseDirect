@@ -12,9 +12,9 @@ import Foundation
 class BubbleConnection: SensorBLEConnection {
     // MARK: Lifecycle
 
-    init() {
-        Log.info("init")
-        super.init(serviceUuid: [CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E")])
+    init(subject: PassthroughSubject<AppAction, AppError>) {
+        AppLog.info("init")
+        super.init(subject: subject, serviceUuid: CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E"), restoreIdentifier: "libre-direct.bubble.restore-identifier")
     }
 
     // MARK: Internal
@@ -34,7 +34,7 @@ class BubbleConnection: SensorBLEConnection {
 
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Peripheral: \(peripheral)")
+        AppLog.info("Peripheral: \(peripheral)")
 
         guard peripheral.name?.lowercased().starts(with: "bubble") ?? false else {
             return
@@ -46,13 +46,13 @@ class BubbleConnection: SensorBLEConnection {
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Peripheral: \(peripheral)")
+        AppLog.info("Peripheral: \(peripheral)")
 
         sendUpdate(error: error)
 
         if let services = peripheral.services {
             for service in services {
-                Log.info("Service Uuid: \(service.uuid)")
+                AppLog.info("Service Uuid: \(service.uuid)")
 
                 peripheral.discoverCharacteristics([writeCharacteristicUuid, readCharacteristicUuid], for: service)
             }
@@ -61,13 +61,13 @@ class BubbleConnection: SensorBLEConnection {
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Peripheral: \(peripheral)")
+        AppLog.info("Peripheral: \(peripheral)")
 
         sendUpdate(error: error)
 
         if let characteristics = service.characteristics {
             for characteristic in characteristics {
-                Log.info("Characteristic Uuid: \(characteristic.uuid.description)")
+                AppLog.info("Characteristic Uuid: \(characteristic.uuid.description)")
 
                 if characteristic.uuid == readCharacteristicUuid {
                     readCharacteristic = characteristic
@@ -83,7 +83,7 @@ class BubbleConnection: SensorBLEConnection {
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Peripheral: \(peripheral)")
+        AppLog.info("Peripheral: \(peripheral)")
 
         sendUpdate(error: error)
 
@@ -96,12 +96,12 @@ class BubbleConnection: SensorBLEConnection {
 
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Peripheral: \(peripheral)")
+        AppLog.info("Peripheral: \(peripheral)")
     }
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        Log.info("Peripheral: \(peripheral)")
+        AppLog.info("Peripheral: \(peripheral)")
 
         guard let value = characteristic.value else {
             return
@@ -111,7 +111,7 @@ class BubbleConnection: SensorBLEConnection {
             return
         }
 
-        Log.info("BubbleResponseState: \(bubbleResponseState)")
+        AppLog.info("BubbleResponseState: \(bubbleResponseState)")
 
         switch bubbleResponseState {
         case .dataInfo:
@@ -127,29 +127,78 @@ class BubbleConnection: SensorBLEConnection {
             sendUpdate(transmitter: transmitter)
 
             if let writeCharacteristic = writeCharacteristic {
-                peripheral.writeValue(Data([0x02, 0x00, 0x00, 0x00, 0x00, 0x2b]), for: writeCharacteristic, type: .withResponse)
+                if let firmware = firmware, firmware >= 2.6 {
+                    peripheral.writeValue(Data([0x08, 0x01, 0x00, 0x00, 0x00, 0x2b]), for: writeCharacteristic, type: .withResponse)
+                } else {
+                    peripheral.writeValue(Data([0x02, 0x00, 0x00, 0x00, 0x00, 0x2b]), for: writeCharacteristic, type: .withResponse)
+                }
+            }
+
+        case .decryptedDataPacket:
+            rxBuffer.append(value.suffix(from: 4))
+
+            if rxBuffer.count >= expectedBufferSize {
+                AppLog.info("Completed DecryptedDataPacket")
+
+                guard let uuid = uuid, let patchInfo = patchInfo else {
+                    resetBuffer()
+                    return
+                }
+
+                let type = sensor?.type ?? SensorType(patchInfo)
+                guard type == .libre1 || type == .libre2EU || type == .libreUS14day else {
+                    resetBuffer()
+                    return
+                }
+
+                let fram = rxBuffer[..<expectedBufferSize]
+
+                let sensor = Sensor(uuid: uuid, patchInfo: patchInfo, fram: fram)
+                if self.sensor == nil || self.sensor?.serial != sensor.serial {
+                    self.sensor = sensor
+                    sendUpdate(sensor: sensor)
+                }
+
+                if sensor.age >= sensor.lifetime {
+                    sendUpdate(age: sensor.age, state: .expired)
+
+                } else if sensor.age > sensor.warmupTime {
+                    sendUpdate(age: sensor.age, state: .ready)
+
+                    let readings = SensorUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
+                    sendUpdate(trendReadings: readings.trend, historyReadings: readings.history)
+
+                } else if sensor.age <= sensor.warmupTime {
+                    sendUpdate(age: sensor.age, state: .starting)
+                }
+
+                resetBuffer()
             }
 
         case .dataPacket:
             rxBuffer.append(value.suffix(from: 4))
 
             if rxBuffer.count >= expectedBufferSize {
-                Log.info("Completed DataPacket")
+                AppLog.info("Completed DataPacket")
 
                 guard let uuid = uuid, let patchInfo = patchInfo else {
                     resetBuffer()
+                    return
+                }
 
+                let type = sensor?.type ?? SensorType(patchInfo)
+                guard type == .libre1 || type == .libre2EU else {
+                    resetBuffer()
                     return
                 }
 
                 let family = sensor?.family ?? SensorFamily(patchInfo)
                 let fram = family == .libre1
-                    ? rxBuffer[..<344]
-                    : SensorUtility.decryptFRAM(uuid: uuid, patchInfo: patchInfo, fram: rxBuffer[..<344])
+                    ? rxBuffer[..<expectedBufferSize]
+                    : SensorUtility.decryptFRAM(uuid: uuid, patchInfo: patchInfo, fram: rxBuffer[..<expectedBufferSize])
 
                 if let fram = fram {
                     let sensor = Sensor(uuid: uuid, patchInfo: patchInfo, fram: fram)
-
                     if self.sensor == nil || self.sensor?.serial != sensor.serial {
                         self.sensor = sensor
                         sendUpdate(sensor: sensor)
@@ -182,7 +231,6 @@ class BubbleConnection: SensorBLEConnection {
             }
 
             uuid = value.subdata(in: 2 ..< 10)
-
             resetBuffer()
 
         case .patchInfo:
@@ -194,9 +242,10 @@ class BubbleConnection: SensorBLEConnection {
 // MARK: - BubbleResponseType
 
 private enum BubbleResponseType: UInt8 {
-    case dataPacket = 130
     case dataInfo = 128 // = wakeUp + device info
+    case dataPacket = 130
+    case decryptedDataPacket = 0x88
     case noSensor = 191
-    case serialNumber = 192
     case patchInfo = 193 // 0xC1
+    case serialNumber = 192
 }

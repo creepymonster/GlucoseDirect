@@ -17,12 +17,12 @@ struct SnoozeView: View {
 
         return ""
     }
-   
+
     var body: some View {
         Group {
             DateSelectorView(key: LocalizedString("Snooze until"), value: store.state.alarmSnoozeUntil, displayValue: snoozeTime) { value -> Void in
                 store.dispatch(.setAlarmSnoozeUntil(untilDate: value))
             }
-        }.animation(.default, value: store.state.alarmSnoozeUntil)
+        }
     }
 }

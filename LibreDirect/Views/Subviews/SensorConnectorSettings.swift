@@ -1,4 +1,3 @@
-
 //
 //  SensorConnectorSettings.swift
 //  LibreDirect

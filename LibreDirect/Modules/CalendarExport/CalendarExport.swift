@@ -12,25 +12,33 @@ func calendarExportMiddleware() -> Middleware<AppState, AppAction> {
 }
 
 func calendarExportMiddleware(service: CalendarExportService) -> Middleware<AppState, AppAction> {
-    return { store, action, _ in
+    return { state, action, _ in
         switch action {
         case .setCalendarExport(enabled: let enabled):
             if enabled {
-                service.requestAccess { granted in
-                    if !granted {
-                        store.dispatch(.setCalendarExport(enabled: false))
+                return Future<AppAction, AppError> { promise in
+                    service.requestAccess { granted in
+                        if !granted {
+                            promise(.success(.setCalendarExport(enabled: false)))
+
+                        } else {
+                            promise(.failure(.withMessage("Calendar access declined")))
+                        }
                     }
-                }
+                }.eraseToAnyPublisher()
+
             } else {
-                store.dispatch(.selectCalendarTarget(id: nil))
+                return Just(AppAction.selectCalendarTarget(id: nil))
+                    .setFailureType(to: AppError.self)
+                    .eraseToAnyPublisher()
             }
 
         case .addGlucose(glucose: let glucose):
-            guard store.state.calendarExport, let calendarTarget = store.state.selectedCalendarTarget, glucose.type == .cgm else {
+            guard state.calendarExport, let calendarTarget = state.selectedCalendarTarget, glucose.type == .cgm else {
                 break
             }
 
-            service.createGlucoseEvent(calendarTarget: calendarTarget, glucose: glucose, glucoseUnit: store.state.glucoseUnit)
+            service.createGlucoseEvent(calendarTarget: calendarTarget, glucose: glucose, glucoseUnit: state.glucoseUnit)
 
         default:
             break
@@ -77,11 +85,11 @@ class CalendarExportService {
         let events = eventStore.events(matching: predicate)
 
         for event in events {
-            if event.url == url {
+            if event.url == AppConfig.AppSchemaUrl {
                 do {
                     try eventStore.remove(event, span: .thisEvent)
                 } catch {
-                    Log.error("Cannot remove calendar event: \(error)")
+                    AppLog.error("Cannot remove calendar event: \(error)")
                 }
             }
         }
@@ -98,22 +106,25 @@ class CalendarExportService {
 
         clearGlucoseEvents()
 
+        guard let glucoseValue = glucose.glucoseValue else {
+            return
+        }
+
         let event = EKEvent(eventStore: eventStore)
-        event.title = "\(glucose.trend.description) \(glucose.glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)) (\(glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) ?? ""))"
+        event.title = "\(glucose.trend.description) \(glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)) (\(glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) ?? ""))"
         event.calendar = calendar
-        event.url = url
+        event.url = AppConfig.AppSchemaUrl
         event.startDate = Date()
         event.endDate = Date(timeIntervalSinceNow: 60 * 10)
 
         do {
             try eventStore.save(event, span: .thisEvent)
         } catch {
-            Log.error("Cannot create calendar event: \(error)")
+            AppLog.error("Cannot create calendar event: \(error)")
         }
     }
 
     // MARK: Private
 
-    private let url = URL(string: "libredirect://")
     private var calendar: EKCalendar?
 }

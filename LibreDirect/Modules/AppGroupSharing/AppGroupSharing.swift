@@ -1,4 +1,3 @@
-
 //
 //  FreeAPS.swift
 //  LibreDirect
@@ -14,6 +13,12 @@ func appGroupSharingMiddleware() -> Middleware<AppState, AppAction> {
 private func appGroupSharingMiddleware(service: AppGroupSharingService) -> Middleware<AppState, AppAction> {
     return { _, action, _ in
         switch action {
+        case .disconnectSensor:
+            service.clearGlucoseValues()
+
+        case .pairSensor:
+            service.clearGlucoseValues()
+
         case .addGlucose(glucose: let glucose):
             service.addGlucose(glucoseValues: [glucose])
 
@@ -25,39 +30,48 @@ private func appGroupSharingMiddleware(service: AppGroupSharingService) -> Middl
     }
 }
 
-// MARK: - FreeAPSService
+// MARK: - AppGroupSharingService
 
 private class AppGroupSharingService {
-    // MARK: Lifecycle
-
-    init() {}
-
-    // MARK: Internal
+    func clearGlucoseValues() {
+        UserDefaults.shared.latestReadings = nil
+    }
 
     func addGlucose(glucoseValues: [Glucose]) {
-        let sharedValues = glucoseValues.map { $0.toFreeAPS() }
+        let sharedValues = glucoseValues
+            .map { $0.toFreeAPS() }
+            .compactMap { $0 }
 
-        Log.info("Shared values, values: \(sharedValues)")
+        if sharedValues.isEmpty {
+            return
+        }
+
+        AppLog.info("Shared values, values: \(sharedValues)")
 
         guard let sharedValuesJson = try? JSONSerialization.data(withJSONObject: sharedValues) else {
             return
         }
 
-        Log.info("Shared values, json: \(sharedValuesJson)")
+        AppLog.info("Shared values, json: \(sharedValuesJson)")
 
         UserDefaults.shared.latestReadings = sharedValuesJson
     }
 }
 
 private extension Glucose {
-    func toFreeAPS() -> [String: Any] {
-        let date = "/Date(" + Int64(floor(self.timestamp.toMillisecondsAsDouble() / 1000) * 1000).description + ")/"
+    func toFreeAPS() -> [String: Any]? {
+        guard let glucoseValue = glucoseValue else {
+            return nil
+        }
+
+        let date = "/Date(" + Int64(floor(timestamp.toMillisecondsAsDouble() / 1000) * 1000).description + ")/"
 
         let freeAPSGlucose: [String: Any] = [
-            "Value": self.glucoseValue,
-            "Trend": self.trend.toFreeAPS(),
+            "Value": glucoseValue,
+            "Trend": trend.toFreeAPS(),
             "DT": date,
-            "direction": self.trend.toFreeAPSX()
+            "direction": trend.toFreeAPSX(),
+            "from": "GlucoseDirect"
         ]
 
         return freeAPSGlucose
@@ -85,7 +99,7 @@ private extension SensorTrend {
             return 0
         }
     }
-    
+
     func toFreeAPSX() -> String {
         switch self {
         case .rapidlyRising:

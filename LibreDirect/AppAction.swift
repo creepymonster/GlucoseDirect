@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import OSLog
 
 enum AppAction {
     case addCalibration(glucoseValue: Int)
@@ -32,6 +33,9 @@ enum AppAction {
     case selectConnectionId(id: String)
     case selectView(viewTag: Int)
     
+    case deleteLogs
+    case sendLogs
+    
     case setAlarmHigh(upperLimit: Int)
     case setAlarmLow(lowerLimit: Int)
     case setAlarmSnoozeUntil(untilDate: Date?)
@@ -44,7 +48,7 @@ enum AppAction {
     case setGlucoseAlarm(enabled: Bool)
     case setGlucoseBadge(enabled: Bool)
     case setGlucoseUnit(unit: GlucoseUnit)
-    case setNightscoutHost(host: String)
+    case setNightscoutUrl(url: String)
     case setNightscoutSecret(apiSecret: String)
     case setNightscoutUpload(enabled: Bool)
     case setSensor(sensor: Sensor)

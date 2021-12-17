@@ -26,15 +26,22 @@ struct ContentView: View {
             if store.state.isPaired && !store.state.glucoseValues.isEmpty && store.state.isConnectable || store.state.isDisconnectable {
                 CalibrationsView().tabItem {
                     Label("Calibration view", systemImage: "tuningfork")
-                }
-                .badge(store.state.sensor?.customCalibration.count ?? 0)
-                .tag(3)
+                }.tag(3)
             }
 
             SettingsView().tabItem {
                 Label("Settings view", systemImage: "gearshape")
             }.tag(4)
-        }.animation(.default, value: store.state.selectedView)
+        }
+        .onAppear {
+            if #available(iOS 15.0, *) {
+                let apparence = UITabBarAppearance()
+                apparence.configureWithOpaqueBackground()
+
+                UITabBar.appearance().scrollEdgeAppearance = apparence
+            }
+        }
+        .animation(.default, value: store.state.selectedView)
     }
 
     var errorView: some View {
@@ -76,18 +83,18 @@ struct ContentView: View {
 // MARK: - ContentView_Previews
 
 struct ContentView_Previews: PreviewProvider {
-    static func createAppState() -> AppState {
-        var state = PreviewAppState()
-        state.selectedView = 4
-        
-        return state
-    }
-    
     static var previews: some View {
         let store = AppStore(initialState: createAppState())
 
         ForEach(ColorScheme.allCases, id: \.self) {
             ContentView().environmentObject(store).preferredColorScheme($0)
         }
+    }
+
+    static func createAppState() -> AppState {
+        var state = PreviewAppState()
+        state.selectedView = 4
+
+        return state
     }
 }

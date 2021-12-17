@@ -56,6 +56,9 @@
 "Are you sure you want to delete all calibrations?" = "Are you sure you want to delete all calibrations?";
 
 /* (No Comment) */
+"Are you sure you want to delete all log files?" = "Are you sure you want to delete all log files?";
+
+/* (No Comment) */
 "Are you sure you want to delete all glucose values?" = "Are you sure you want to delete all glucose values?";
 
 /* (No Comment) */
@@ -191,7 +194,7 @@
 "Nightscout API-Secret" = "API-Secret";
 
 /* (No Comment) */
-"Nightscout host" = "Host";
+"Nightscout url" = "Url";
 
 /* (No Comment) */
 "Nightscout settings" = "Nightscout settings";
@@ -414,3 +417,63 @@
 
 /* (No Comment) */
 "Please select" = "Please select";
+
+/* (No Comment) */
+"About %@" = "About %@";
+
+/* (No Comment) */
+"App Version" = "Version";
+
+/* (No Comment) */
+"Unknown" = "Unknown";
+
+/* (No Comment) */
+"Invalid parameters" = "Invalid parameters";
+
+/* (No Comment) */
+"Invalid handle" = "Invalid handle";
+
+/* (No Comment) */
+"Not connected" = "Not connected";
+
+/* (No Comment) */
+"Out of space" = "Out of space";
+
+/* (No Comment) */
+"Operation cancelled" = "Operation cancelled";
+
+/* (No Comment) */
+"Connection timeout" = "Connection timeout";
+
+/* (No Comment) */
+"Peripheral disconnected" = "Peripheral disconnected";
+
+/* (No Comment) */
+"UUID not allowed" = "UUID not allowed";
+
+/* (No Comment) */
+"Already advertising" = "Already advertising";
+
+/* (No Comment) */
+"Connection failed" = "Connection failed";
+
+/* (No Comment) */
+"Connection limit reached" = "Connection limit reached";
+
+/* (No Comment) */
+"Operation not supported" = "Operation not supported";
+
+/* (No Comment) */
+"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Attention, the sensor sends faulty values. Please wait 10 minutes.";
+
+/* (No Comment) */
+"App Website" = "Website";
+
+/* (No Comment) */
+"Send log file" = "Send log file";
+
+/* (No Comment) */
+"Sensor starting date" = "Starting date";
+
+/* (No Comment) */
+"Delete log files" = "Delete log files";

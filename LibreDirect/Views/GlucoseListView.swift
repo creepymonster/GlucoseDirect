@@ -14,6 +14,22 @@ struct GlucoseListView: View {
 
     @EnvironmentObject var store: AppStore
 
+    private func isPrecise(glucose: Glucose) -> Bool {
+        if glucose.type == .none {
+            return false
+        }
+
+        if store.state.glucoseUnit == .mgdL || glucose.type == .bgm {
+            return false
+        }
+
+        guard let glucoseValue = glucose.glucoseValue else {
+            return false
+        }
+
+        return glucoseValue.isAlmost(store.state.alarmLow, store.state.alarmHigh)
+    }
+
     var body: some View {
         VStack {
             List {
@@ -40,18 +56,22 @@ struct GlucoseListView: View {
                                 Spacer()
 
                                 Button(
-                                    action: { showingAddBloodGlucoseAlert = true },
-                                    label: { Label("Add", systemImage: "checkmark") }
+                                    action: {
+                                        showingAddBloodGlucoseAlert = true
+                                    },
+                                    label: {
+                                        Label("Add", systemImage: "checkmark")
+                                    }
                                 ).alert(isPresented: $showingAddBloodGlucoseAlert) {
                                     Alert(
                                         title: Text("Are you sure you want to add the new blood glucose value?"),
                                         primaryButton: .destructive(Text("Add")) {
                                             withAnimation {
+                                                let glucose = Glucose(id: UUID(), timestamp: Date(), glucose: value, type: .bgm)
+                                                store.dispatch(.addGlucose(glucose: glucose))
+
                                                 showingAddBloodGlucoseView = false
                                             }
-
-                                            let glucose = Glucose(id: UUID(), timestamp: Date(), glucose: value, type: .bgm)
-                                            store.dispatch(.addGlucose(glucose: glucose))
                                         },
                                         secondaryButton: .cancel()
                                     )
@@ -73,13 +93,18 @@ struct GlucoseListView: View {
                                         .foregroundColor(Color.ui.red)
                                 }
 
-                                Text(glucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true))
-                                    .if(glucose.glucoseValue < store.state.alarmLow || glucose.glucoseValue > store.state.alarmHigh) { text in
-                                        text.foregroundColor(Color.ui.red)
-                                    }
+                                if let glucoseValue = glucose.glucoseValue {
+                                    Text(glucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true, precise: isPrecise(glucose: glucose)))
+                                        .if(glucoseValue < store.state.alarmLow || glucoseValue > store.state.alarmHigh) { text in
+                                            text.foregroundColor(Color.ui.red)
+                                        }
+                                } else {
+                                    Image(systemName: "exclamationmark.triangle")
+                                        .foregroundColor(Color.ui.red)
+                                }
                             }
                         }.onDelete { offsets in
-                            Log.info("onDelete: \(offsets)")
+                            AppLog.info("onDelete: \(offsets)")
 
                             let ids = offsets.map { i in
                                 glucoseValues[i].id
@@ -102,12 +127,14 @@ struct GlucoseListView: View {
                             if !showingAddBloodGlucoseView {
                                 Button(
                                     action: {
-                                        value = 100
                                         withAnimation {
+                                            value = 100
                                             showingAddBloodGlucoseView = true
                                         }
                                     },
-                                    label: { Label("Add", systemImage: "plus") }
+                                    label: {
+                                        Label("Add", systemImage: "plus")
+                                    }
                                 )
                             }
                         }
@@ -115,13 +142,19 @@ struct GlucoseListView: View {
                     footer: {
                         if !store.state.glucoseValues.isEmpty {
                             Button(
-                                action: { showingDeleteGlucoseValuesAlert = true },
-                                label: { Label("Delete all", systemImage: "trash.fill") }
+                                action: {
+                                    showingDeleteGlucoseValuesAlert = true
+                                },
+                                label: {
+                                    Label("Delete all", systemImage: "trash.fill")
+                                }
                             ).alert(isPresented: $showingDeleteGlucoseValuesAlert) {
                                 Alert(
                                     title: Text("Are you sure you want to delete all glucose values?"),
                                     primaryButton: .destructive(Text("Delete")) {
-                                        store.dispatch(.clearGlucoseValues)
+                                        withAnimation {
+                                            store.dispatch(.clearGlucoseValues)
+                                        }
                                     },
                                     secondaryButton: .cancel()
                                 )
@@ -132,11 +165,11 @@ struct GlucoseListView: View {
             }
         }
         .onAppear {
-            Log.info("onAppear")
+            AppLog.info("onAppear")
             self.glucoseValues = store.state.glucoseValues.reversed()
         }
         .onChange(of: store.state.glucoseValues) { glucoseValues in
-            Log.info("onChange")
+            AppLog.info("onChange")
             self.glucoseValues = glucoseValues.reversed()
         }
     }

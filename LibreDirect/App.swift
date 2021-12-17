@@ -17,6 +17,7 @@ final class LibreDirectApp: App {
         notificationCenterDelegate = LibreDirectNotificationCenter(store: store)
 
         UNUserNotificationCenter.current().delegate = notificationCenterDelegate
+
         store.dispatch(.startup)
     }
 
@@ -34,6 +35,8 @@ final class LibreDirectApp: App {
         #endif
     }
 
+    @UIApplicationDelegateAdaptor(LibreDirectAppDelegate.self) var delegate
+
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -48,7 +51,7 @@ final class LibreDirectApp: App {
 
     private static func createStore() -> AppStore {
         if isSimulator || isPreviewMode {
-            Log.info("start preview mode")
+            AppLog.info("start preview mode")
 
             return createPreviewStore()
         }
@@ -57,11 +60,11 @@ final class LibreDirectApp: App {
     }
 
     private static func createPreviewStore() -> AppStore {
-        return AppStore(initialState: InMemoryAppState(), reducer: appReducer, middlewares: [
+        return AppStore(initialState: MemoryAppState(), reducer: appReducer, middlewares: [
             // required middlewares
-            actionLogMiddleware(),
+            logMiddleware(),
             sensorConnectorMiddelware([
-                SensorConnectionInfo(id: "virtual", name: "Virtual") { VirtualLibreConnection() },
+                SensorConnectionInfo(id: "virtual", name: "Virtual") { VirtualLibreConnection(subject: $0) },
             ]),
 
             // notification middleswares
@@ -74,12 +77,12 @@ final class LibreDirectApp: App {
     }
 
     private static func createAppStore() -> AppStore {
-        return AppStore(initialState: UserDefaultsAppState(), reducer: appReducer, middlewares: [
+        return AppStore(initialState: StoredAppState(), reducer: appReducer, middlewares: [
             // required middlewares
-            actionLogMiddleware(),
+            logMiddleware(),
             sensorConnectorMiddelware([
-                SensorConnectionInfo(id: "libre2", name: LocalizedString("Without transmitter")) { Libre2Connection() },
-                SensorConnectionInfo(id: "bubble", name: LocalizedString("Bubble transmitter")) { BubbleConnection() },
+                SensorConnectionInfo(id: "libre2", name: LocalizedString("Without transmitter")) { Libre2Connection(subject: $0) },
+                SensorConnectionInfo(id: "bubble", name: LocalizedString("Bubble transmitter")) { BubbleConnection(subject: $0) },
             ]),
 
             // notification middleswares
@@ -122,4 +125,21 @@ final class LibreDirectNotificationCenter: NSObject, UNUserNotificationCenterDel
     // MARK: Private
 
     private weak var store: AppStore?
+}
+
+// MARK: - LibreDirectAppDelegate
+
+final class LibreDirectAppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+        AppLog.info("Application did finish launching with options")
+        return true
+    }
+
+    func applicationWillTerminate(_ application: UIApplication) {
+        AppLog.info("Application will terminate")
+    }
+
+    func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
+        AppLog.info("Application did receive memory warning")
+    }
 }

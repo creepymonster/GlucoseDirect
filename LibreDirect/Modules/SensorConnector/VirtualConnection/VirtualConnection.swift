@@ -3,16 +3,24 @@
 //  LibreDirect
 //
 
+import Combine
 import Foundation
 
 // MARK: - VirtualLibreConnection
 
 final class VirtualLibreConnection: SensorConnection {
+    // MARK: Lifecycle
+
+    init(subject: PassthroughSubject<AppAction, AppError>) {
+        AppLog.info("init")
+        self.subject = subject
+    }
+
     // MARK: Internal
 
-    func pairSensor(updatesHandler: @escaping SensorConnectionHandler) {
-        self.updatesHandler = updatesHandler
+    weak var subject: PassthroughSubject<AppAction, AppError>?
 
+    func pairSensor() {
         let sensor = Sensor(
             uuid: Data(hexString: "e9ad9b6c79bd93aa")!,
             patchInfo: Data(hexString: "448cd1")!,
@@ -31,12 +39,10 @@ final class VirtualLibreConnection: SensorConnection {
         sendUpdate(sensor: sensor)
     }
 
-    func connectSensor(sensor: Sensor, updatesHandler: @escaping SensorConnectionHandler) {
-        self.updatesHandler = updatesHandler
-
+    func connectSensor(sensor: Sensor) {
         let fireDate = Date().rounded(on: 1, .minute).addingTimeInterval(60)
         let timer = Timer(fire: fireDate, interval: glucoseInterval, repeats: true) { _ in
-            Log.info("fires at \(Date())")
+            AppLog.info("fires at \(Date())")
 
             self.sendNextGlucose()
         }
@@ -51,12 +57,9 @@ final class VirtualLibreConnection: SensorConnection {
         timer = nil
 
         sendUpdate(connectionState: .disconnected)
-        updatesHandler = nil
     }
 
     // MARK: Private
-    
-    var updatesHandler: SensorConnectionHandler? = nil
 
     private var initAge = 0
     private var warmupTime = 5
@@ -70,17 +73,21 @@ final class VirtualLibreConnection: SensorConnection {
     private var lastGlucose = 100
 
     private func sendNextGlucose() {
-        Log.info("direction: \(direction)")
+        AppLog.info("direction: \(direction)")
 
         let currentGlucose = nextGlucose
-        Log.info("currentGlucose: \(currentGlucose)")
+        AppLog.info("currentGlucose: \(currentGlucose)")
 
         age = age + 1
 
         sendUpdate(age: age, state: age > warmupTime ? .ready : .starting)
 
         if age > warmupTime {
-            sendUpdate(nextReading: SensorReading(id: UUID(), timestamp: Date(), glucoseValue: Double(currentGlucose)))
+            let badQuality: GlucoseQuality = Int.random(in: 0 ..< 100) < 2
+                ? .INVALID_DATA
+                : .OK
+
+            sendUpdate(nextReading: SensorReading(id: UUID(), timestamp: Date(), glucoseValue: Double(currentGlucose), quality: badQuality))
         }
 
         let nextAddition = direction == .up ? 1 : -1
@@ -88,18 +95,18 @@ final class VirtualLibreConnection: SensorConnection {
         nextGlucose = currentGlucose + (nextAddition * Int.random(in: 0 ..< 12))
         lastGlucose = currentGlucose
 
-        Log.info("nextGlucose: \(nextGlucose)")
+        AppLog.info("nextGlucose: \(nextGlucose)")
 
         if direction == .up, currentGlucose > nextRotation {
             direction = .down
             nextRotation = Int.random(in: 50 ..< 80)
 
-            Log.info("nextRotation: \(nextRotation)")
+            AppLog.info("nextRotation: \(nextRotation)")
         } else if direction == .down, currentGlucose < nextRotation {
             direction = .up
             nextRotation = Int.random(in: 160 ..< 240)
 
-            Log.info("nextRotation: \(nextRotation)")
+            AppLog.info("nextRotation: \(nextRotation)")
         }
     }
 }

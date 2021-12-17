@@ -6,12 +6,14 @@
 import Combine
 import Foundation
 
+// MARK: - appReducer
+
 func appReducer(state: inout AppState, action: AppAction) {
     dispatchPrecondition(condition: .onQueue(.main))
 
     switch action {
     case .addCalibration(glucoseValue: let glucoseValue):
-        guard let sensor = state.sensor else {
+        guard state.sensor != nil else {
             break
         }
         
@@ -19,29 +21,22 @@ func appReducer(state: inout AppState, action: AppAction) {
             break
         }
         
-        var calibration = sensor.customCalibration
-        calibration.append(CustomCalibration(x: Double(factoryCalibratedGlucoseValue), y: Double(glucoseValue)))
-        
-        sensor.customCalibration = calibration
-        state.sensor = sensor
+        state.sensor!.customCalibration.append(CustomCalibration(x: Double(factoryCalibratedGlucoseValue), y: Double(glucoseValue)))
         
     case .addGlucose(glucose: let glucose):
+        var glucoseValues = state.glucoseValues.suffix(min(AppConfig.NumberOfGlucoseValues - 1, state.glucoseValues.count))
+        glucoseValues.append(glucose)
+        
         state.missedReadings = 0
-        state.glucoseValues.append(glucose)
+        state.glucoseValues = [Glucose](glucoseValues)
 
-        if let numberOfGlucoseValues = AppConfig.NumberOfGlucoseValues {
-            let toMany = state.glucoseValues.count - numberOfGlucoseValues
-            if toMany > 0 {
-                for _ in 1 ... toMany {
-                    state.glucoseValues.removeFirst()
-                }
-            }
-        }
-
-    case .addGlucoseValues(glucoseValues: let glucoseValues):
-        if !glucoseValues.isEmpty {
+    case .addGlucoseValues(glucoseValues: let addedGlucoseValues):
+        if !addedGlucoseValues.isEmpty {
+            var glucoseValues = state.glucoseValues.suffix(min(AppConfig.NumberOfGlucoseValues - addedGlucoseValues.count, state.glucoseValues.count))
+            glucoseValues.append(contentsOf: glucoseValues)
+            
             state.missedReadings = 0
-            state.glucoseValues.append(contentsOf: glucoseValues)
+            state.glucoseValues = [Glucose](glucoseValues)
         }
         
     case .addMissedReading:
@@ -51,10 +46,11 @@ func appReducer(state: inout AppState, action: AppAction) {
         break
         
     case .clearCalibrations:
-        if let sensor = state.sensor {
-            sensor.customCalibration = []
-            state.sensor = sensor
+        guard state.sensor != nil else {
+            break
         }
+        
+        state.sensor!.customCalibration = []
         
     case .clearGlucoseValues:
         state.glucoseValues = []
@@ -72,12 +68,15 @@ func appReducer(state: inout AppState, action: AppAction) {
         state.connectionInfos.append(contentsOf: infos)
         
     case .removeCalibration(id: let id):
-        if let sensor = state.sensor {
-            sensor.customCalibration = sensor.customCalibration.filter { item in
-                item.id != id
-            }
-            state.sensor = sensor
+        guard state.sensor != nil else {
+            break
         }
+        
+        let customCalibration = state.sensor!.customCalibration.filter { item in
+            item.id != id
+        }
+        
+        state.sensor!.customCalibration = customCalibration
         
     case .removeGlucose(id: let id):
         state.glucoseValues = state.glucoseValues.filter { item in
@@ -87,6 +86,8 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .resetSensor:
         state.sensor = nil
         state.connectionError = nil
+        state.connectionErrorIsCritical = false
+        state.connectionErrorTimestamp = nil
         
     case .resetTransmitter:
         state.transmitter = nil
@@ -104,9 +105,17 @@ func appReducer(state: inout AppState, action: AppAction) {
         state.sensor = nil
         state.transmitter = nil
         state.connectionError = nil
+        state.connectionErrorIsCritical = false
+        state.connectionErrorTimestamp = nil
         
     case .selectView(viewTag: let viewTag):
         state.selectedView = viewTag
+        
+    case .deleteLogs:
+        break
+        
+    case .sendLogs:
+        break
         
     case .setAlarmHigh(upperLimit: let upperLimit):
         state.alarmHigh = upperLimit
@@ -140,6 +149,7 @@ func appReducer(state: inout AppState, action: AppAction) {
 
         if resetableStates.contains(connectionState) {
             state.connectionError = nil
+            state.connectionErrorIsCritical = false
             state.connectionErrorTimestamp = nil
         }
         
@@ -155,8 +165,8 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setGlucoseUnit(unit: let unit):
         state.glucoseUnit = unit
         
-    case .setNightscoutHost(host: let host):
-        state.nightscoutHost = host
+    case .setNightscoutUrl(url: let url):
+        state.nightscoutUrl = url
 
     case .setNightscoutSecret(apiSecret: let apiSecret):
         state.nightscoutApiSecret = apiSecret
@@ -168,22 +178,26 @@ func appReducer(state: inout AppState, action: AppAction) {
         state.sensor = sensor
 
     case .setSensorState(sensorAge: let sensorAge, sensorState: let sensorState):
-        guard let sensor = state.sensor else {
+        guard state.sensor != nil else {
             break
         }
-
-        sensor.age = sensorAge
+        
+        state.sensor!.age = sensorAge
+        
         if let sensorState = sensorState {
-            sensor.state = sensorState
+            state.sensor!.state = sensorState
         }
-
-        state.sensor = sensor
+        
+        if state.sensor!.startTimestamp == nil {
+            state.sensor!.startTimestamp = Date() - Double(sensorAge) * 60
+        }
 
     case .setTransmitter(transmitter: let transmitter):
         state.transmitter = transmitter
         
     case .startup:
         break
+
     }
 
     if let alarmSnoozeUntil = state.alarmSnoozeUntil, Date() > alarmSnoozeUntil {
@@ -191,7 +205,7 @@ func appReducer(state: inout AppState, action: AppAction) {
     }
 }
 
-// MARK: - fileprivate
+// MARK: - private
 
 private var resetableStates: Set<SensorConnectionState> = [.connected, .powerOff, .scanning]
 private var disconnectedStates: Set<SensorConnectionState> = [.disconnected, .scanning]

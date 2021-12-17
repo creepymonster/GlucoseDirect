@@ -77,4 +77,4 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 fastlane/FastlaneRunner
-/LibreDirect/App.xcconfig
+AppConfigOverride.xcconfig

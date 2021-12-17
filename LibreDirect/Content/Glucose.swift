@@ -10,44 +10,51 @@ import Foundation
 final class Glucose: CustomStringConvertible, Codable, Identifiable {
     // MARK: Lifecycle
 
-    init(glucose: Int) {
-        self.id = UUID()
-        self.timestamp = Date()
-
-        self.minuteChange = 0
-        self.initialGlucoseValue = glucose
-        self.calibratedGlucoseValue = glucose
-        self.type = .cgm
-    }
-
-    init(id: UUID, timestamp: Date, glucose: Int, type: GlucoseValueType) {
+    init(id: UUID, timestamp: Date, type: GlucoseValueType, quality: GlucoseQuality) {
         self.id = id
         self.timestamp = timestamp.rounded(on: 1, .minute)
 
-        self.minuteChange = 0
-        self.calibratedGlucoseValue = glucose
-        self.initialGlucoseValue = glucose
+        self.minuteChange = nil
+        self.calibratedGlucoseValue = nil
+        self.initialGlucoseValue = nil
         self.type = type
+        self.quality = quality
+    }
+    
+    init(id: UUID, timestamp: Date, glucose: Int, type: GlucoseValueType, quality: GlucoseQuality = .OK) {
+        self.id = id
+        self.timestamp = timestamp.rounded(on: 1, .minute)
+
+        self.minuteChange = nil
+        
+        if quality == .OK {
+            self.calibratedGlucoseValue = glucose
+            self.initialGlucoseValue = glucose
+        } else {
+            self.calibratedGlucoseValue = nil
+            self.initialGlucoseValue = nil
+        }
+        
+        self.type = type
+        self.quality = quality
     }
 
-    init(id: UUID, timestamp: Date, glucose: Int, minuteChange: Double, type: GlucoseValueType) {
+    init(id: UUID, timestamp: Date, minuteChange: Double?, initialGlucoseValue: Int, calibratedGlucoseValue: Int, type: GlucoseValueType, quality: GlucoseQuality = .OK) {
         self.id = id
         self.timestamp = timestamp.rounded(on: 1, .minute)
 
         self.minuteChange = minuteChange
-        self.calibratedGlucoseValue = glucose
-        self.initialGlucoseValue = glucose
+        
+        if quality == .OK {
+            self.initialGlucoseValue = initialGlucoseValue
+            self.calibratedGlucoseValue = calibratedGlucoseValue
+        } else {
+            self.calibratedGlucoseValue = nil
+            self.initialGlucoseValue = nil
+        }
+        
         self.type = type
-    }
-
-    init(id: UUID, timestamp: Date, minuteChange: Double?, initialGlucoseValue: Int, calibratedGlucoseValue: Int, type: GlucoseValueType) {
-        self.id = id
-        self.timestamp = timestamp.rounded(on: 1, .minute)
-
-        self.minuteChange = minuteChange
-        self.initialGlucoseValue = initialGlucoseValue
-        self.calibratedGlucoseValue = calibratedGlucoseValue
-        self.type = type
+        self.quality = quality
     }
 
     // MARK: Internal
@@ -55,9 +62,10 @@ final class Glucose: CustomStringConvertible, Codable, Identifiable {
     let id: UUID
     let timestamp: Date
     let minuteChange: Double?
-    let initialGlucoseValue: Int
-    let calibratedGlucoseValue: Int
+    let initialGlucoseValue: Int?
+    let calibratedGlucoseValue: Int?
     let type: GlucoseValueType
+    let quality: GlucoseQuality
 
     var trend: SensorTrend {
         if let minuteChange = minuteChange {
@@ -67,7 +75,11 @@ final class Glucose: CustomStringConvertible, Codable, Identifiable {
         return .unknown
     }
 
-    var glucoseValue: Int {
+    var glucoseValue: Int? {
+        guard let calibratedGlucoseValue = calibratedGlucoseValue else {
+            return nil
+        }
+        
         if calibratedGlucoseValue < AppConfig.MinReadableGlucose {
             return AppConfig.MinReadableGlucose
         } else if calibratedGlucoseValue > AppConfig.MaxReadableGlucose {
@@ -82,9 +94,9 @@ final class Glucose: CustomStringConvertible, Codable, Identifiable {
             "id: \(id)",
             "timestamp: \(timestamp.localTime)",
             "minuteChange: \(minuteChange?.description ?? "")",
-            "factoryCalibratedGlucoseValue: \(initialGlucoseValue.description)",
-            "calibratedGlucoseValue: \(calibratedGlucoseValue.description)",
-            "glucoseValue: \(glucoseValue.description)"
+            "factoryCalibratedGlucoseValue: \(initialGlucoseValue?.description ?? "-")",
+            "calibratedGlucoseValue: \(calibratedGlucoseValue?.description ?? "-")",
+            "glucoseValue: \(glucoseValue?.description ?? "-")"
         ].joined(separator: ", ")
     }
 }

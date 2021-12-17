@@ -7,23 +7,34 @@ import Combine
 import Foundation
 import SwiftUI
 
+// MARK: - GlucoseFormatters
+
 struct GlucoseFormatters {
     static var mmolLFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.minimumFractionDigits = 1
         formatter.maximumFractionDigits = 1
-        
+
         return formatter
     }()
-    
+
+    static var preciseMmolLFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 1
+        formatter.maximumFractionDigits = 2
+
+        return formatter
+    }()
+
     static var minuteChangeFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.positivePrefix = "+"
         formatter.minimumFractionDigits = 1
         formatter.maximumFractionDigits = 1
-        
+
         return formatter
     }()
 }
@@ -55,11 +66,27 @@ extension Int {
         Double(self).asMmolL
     }
 
-    func asGlucose(unit: GlucoseUnit, withUnit: Bool = false) -> String {
+    func isAlmost(_ lower: Int, _ upper: Int) -> Bool {
+        if self >= (lower - 1), self <= (lower + 1) {
+            return true
+        }
+
+        if self >= (upper - 1), self <= (upper + 1) {
+            return true
+        }
+
+        return false
+    }
+
+    func asGlucose(unit: GlucoseUnit, withUnit: Bool = false, precise: Bool = false) -> String {
         var glucose: String
 
         if unit == .mmolL {
-            glucose = GlucoseFormatters.mmolLFormatter.string(from: self.asMmolL as NSNumber)!
+            if precise {
+                glucose = GlucoseFormatters.preciseMmolLFormatter.string(from: self.asMmolL as NSNumber)!
+            } else {
+                glucose = GlucoseFormatters.mmolLFormatter.string(from: self.asMmolL as NSNumber)!
+            }
         } else {
             glucose = String(self)
         }
@@ -79,5 +106,19 @@ extension UInt16 {
 
     init(_ data: Data) {
         self = UInt16(data[data.startIndex + 1]) << 8 + UInt16(data[data.startIndex])
+    }
+}
+
+extension UInt64 {
+    func asFileSize() -> String {
+        var convertedValue = Double(self)
+        var multiplyFactor = 0
+        let tokens = ["bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"]
+
+        while convertedValue > 1024 {
+            convertedValue /= 1024
+            multiplyFactor += 1
+        }
+        return String(format: "%4.2f %@", convertedValue, tokens[multiplyFactor])
     }
 }

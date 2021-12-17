@@ -6,8 +6,6 @@
 import SwiftUI
 
 struct SettingsView: View {
-    // MARK: Internal
-
     @EnvironmentObject var store: AppStore
 
     var body: some View {
@@ -15,15 +13,12 @@ struct SettingsView: View {
             List {
                 SensorConnectorSettings()
                 GlucoseSettingsView()
-                NightscoutSettingsView()
                 AlarmSettingsView()
+                NightscoutSettingsView()
                 CalendarExportSettingsView()
                 OtherSettingsView()
+                AboutView()
             }
         }
     }
-
-    // MARK: Private
-
-    @State private var selectedConnectionId = ""
 }
