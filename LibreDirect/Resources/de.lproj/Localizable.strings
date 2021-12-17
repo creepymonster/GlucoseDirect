@@ -470,10 +470,10 @@
 "App Website" = "Webseite";
 
 /* (No Comment) */
-"Send log file" = "Protokolldatei senden";
+"Send log file" = "Fehlerbericht senden";
 
 /* (No Comment) */
 "Sensor starting date" = "Startdatum";
 
 /* (No Comment) */
-"Delete log files" = "Protokolldateien löschen";
+"Delete log files" = "Fehlerberichte löschen";
