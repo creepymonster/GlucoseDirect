@@ -194,7 +194,7 @@
 "Nightscout API-Secret" = "API-Secret";
 
 /* (No Comment) */
-"Nightscout host" = "Host";
+"Nightscout url" = "Url";
 
 /* (No Comment) */
 "Nightscout settings" = "Nightscout settings";
