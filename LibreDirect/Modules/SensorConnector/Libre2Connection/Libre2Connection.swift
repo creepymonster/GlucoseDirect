@@ -21,16 +21,6 @@ final class Libre2Connection: SensorBLEConnection {
 
     // MARK: Internal
 
-    let expectedBufferSize = 46
-
-    let writeCharacteristicUuid = CBUUID(string: "F001")
-    let readCharacteristicUuid = CBUUID(string: "F002")
-
-    var readCharacteristic: CBCharacteristic?
-    var writeCharacteristic: CBCharacteristic?
-
-    let pairingService: Libre2Pairing
-
     override func pairSensor() {
         dispatchPrecondition(condition: .notOnQueue(managerQueue))
         AppLog.info("PairSensor")
@@ -40,6 +30,12 @@ final class Libre2Connection: SensorBLEConnection {
 
         sendUpdate(connectionState: .pairing)
         pairingService.pairSensor()
+    }
+
+    override func resetBuffer() {
+        firstBuffer = Data()
+        secondBuffer = Data()
+        thirdBuffer = Data()
     }
 
     func unlock() -> Data? {
@@ -151,15 +147,25 @@ final class Libre2Connection: SensorBLEConnection {
             return
         }
 
-        rxBuffer.append(value)
+        if value.count == 20 {
+            firstBuffer = value
+        } else if value.count == 18 {
+            secondBuffer = value
+        } else if value.count == 8 {
+            thirdBuffer = value
+        }
 
         AppLog.info("Value: \(value.count)")
-        AppLog.info("Buffer: \(rxBuffer.count)")
+        AppLog.info("First buffer: \(firstBuffer.count)")
+        AppLog.info("Second buffer: \(secondBuffer.count)")
+        AppLog.info("Third buffer: \(thirdBuffer.count)")
 
-        if rxBuffer.count >= expectedBufferSize {
+        if !firstBuffer.isEmpty, !secondBuffer.isEmpty, !thirdBuffer.isEmpty {
+            let rxBuffer = firstBuffer + secondBuffer + thirdBuffer
+
             if let sensor = sensor {
                 do {
-                    let decryptedBLE = Data(try SensorUtility.decryptBLE(uuid: sensor.uuid, data: rxBuffer[..<expectedBufferSize]))
+                    let decryptedBLE = Data(try SensorUtility.decryptBLE(uuid: sensor.uuid, data: rxBuffer))
                     let parsedBLE = SensorUtility.parseBLE(calibration: sensor.factoryCalibration, data: decryptedBLE)
 
                     if parsedBLE.age >= sensor.lifetime {
@@ -180,6 +186,20 @@ final class Libre2Connection: SensorBLEConnection {
             resetBuffer()
         }
     }
+
+    // MARK: Private
+
+    private let writeCharacteristicUuid = CBUUID(string: "F001")
+    private let readCharacteristicUuid = CBUUID(string: "F002")
+
+    private var readCharacteristic: CBCharacteristic?
+    private var writeCharacteristic: CBCharacteristic?
+
+    private let pairingService: Libre2Pairing
+
+    private var firstBuffer = Data()
+    private var secondBuffer = Data()
+    private var thirdBuffer = Data()
 }
 
 private extension UserDefaults {

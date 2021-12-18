@@ -19,18 +19,9 @@ class BubbleConnection: SensorBLEConnection {
 
     // MARK: Internal
 
-    let expectedBufferSize = 344
-
-    let writeCharacteristicUuid = CBUUID(string: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E")
-    let readCharacteristicUuid = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
-
-    var readCharacteristic: CBCharacteristic?
-    var writeCharacteristic: CBCharacteristic?
-
-    var uuid: Data?
-    var patchInfo: Data?
-    var hardware: Double?
-    var firmware: Double?
+    override func resetBuffer() {
+        rxBuffer = Data()
+    }
 
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
@@ -237,6 +228,23 @@ class BubbleConnection: SensorBLEConnection {
             patchInfo = value.subdata(in: 5 ..< 11)
         }
     }
+
+    // MARK: Private
+
+    private let expectedBufferSize = 344
+
+    private let writeCharacteristicUuid = CBUUID(string: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E")
+    private let readCharacteristicUuid = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
+
+    private var readCharacteristic: CBCharacteristic?
+    private var writeCharacteristic: CBCharacteristic?
+
+    private var uuid: Data?
+    private var patchInfo: Data?
+    private var hardware: Double?
+    private var firmware: Double?
+
+    private var rxBuffer = Data()
 }
 
 // MARK: - BubbleResponseType
