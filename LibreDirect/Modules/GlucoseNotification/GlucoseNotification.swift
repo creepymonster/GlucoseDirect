@@ -18,6 +18,13 @@ private func glucoseNotificationMiddelware(service: GlucoseNotificationService) 
             if !enabled {
                 service.clearNotifications()
             }
+            
+        case .setAlarmSnoozeUntil(untilDate: let untilDate):
+            guard untilDate != nil else {
+                break
+            }
+            
+            service.clearNotifications()
 
         case .addGlucose(glucose: let glucose):
             guard state.glucoseAlarm, glucose.type == .cgm else {
