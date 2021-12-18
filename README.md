@@ -44,6 +44,11 @@ I am very happy to receive feedback - suggestions for improvement or reports of 
 - I am very happy to find a designer who will support me by designing a nice app icon :)
 - I appreciate all the translations I get. Just drop by Crowdin, every translation helps :) https://crwd.in/glucose-direct-app
 
+## Many thanks goes to
+- **Richard** for the design of the app icon
+- **Jon-b-m** for your translation into Swedish
+- **All** who contribute to the app with their ideas
+
 ## Todo
 - Upload sensor end to nightscout
 - Other transmitters
