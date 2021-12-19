@@ -183,8 +183,7 @@ class BubbleConnection: SensorBLEConnection {
                     return
                 }
 
-                let family = sensor?.family ?? SensorFamily(patchInfo)
-                let fram = family == .libre1
+                let fram = type == .libre1
                     ? rxBuffer[..<expectedBufferSize]
                     : SensorUtility.decryptFRAM(uuid: uuid, patchInfo: patchInfo, fram: rxBuffer[..<expectedBufferSize])
 

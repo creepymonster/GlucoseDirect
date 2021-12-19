@@ -20,6 +20,13 @@ private func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppS
             case .removeGlucose(id: let id):
                 service.removeGlucose(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1(), id: id)
 
+            case .clearGlucoseValues:
+                lastState.glucoseValues.map { value in
+                    value.id
+                }.forEach { id in
+                    service.removeGlucose(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1(), id: id)
+                }
+
             case .addGlucoseValues(glucoseValues: let glucoseValues):
                 let filteredGlucoseValues = glucoseValues.filter { glucose in
                     glucose.type == .cgm && glucose.is5Minutely || glucose.type == .bgm
@@ -245,7 +252,7 @@ private extension Sensor {
             "_id": serial,
             "eventType": "Sensor Start",
             "created_at": startTimestamp.ISOStringFromDate(),
-            "enteredBy": AppConfig.appName
+            "enteredBy": AppConfig.projectName
         ]
 
         return nightscout
@@ -256,7 +263,7 @@ private extension Glucose {
     func toNightscoutGlucose() -> [String: Any] {
         var nightscout: [String: Any] = [
             "_id": id.uuidString,
-            "device": AppConfig.appName,
+            "device": AppConfig.projectName,
             "date": timestamp.toMillisecondsAsInt64(),
             "dateString": timestamp.ISOStringFromDate()
         ]

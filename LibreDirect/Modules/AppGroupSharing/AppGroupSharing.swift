@@ -23,7 +23,7 @@ private func appGroupSharingMiddleware(service: AppGroupSharingService) -> Middl
             guard let glucose = glucoseValues.last else {
                 break
             }
-            
+
             service.addGlucose(glucoseValues: [glucose])
 
         default:
@@ -75,7 +75,7 @@ private extension Glucose {
             "Trend": trend.toFreeAPS(),
             "DT": date,
             "direction": trend.toFreeAPSX(),
-            "from": "GlucoseDirect"
+            "from": AppConfig.projectName
         ]
 
         return freeAPSGlucose
