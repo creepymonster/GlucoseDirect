@@ -20,16 +20,12 @@ private func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppS
             case .removeGlucose(id: let id):
                 service.removeGlucose(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1(), id: id)
 
-            case .addGlucose(glucose: let glucose):
-                guard glucose.type != .none else {
-                    break
+            case .addGlucoseValues(glucoseValues: let glucoseValues):
+                let filteredGlucoseValues = glucoseValues.filter { glucose in
+                    glucose.type == .cgm && glucose.is5Minutely || glucose.type == .bgm
                 }
 
-                guard glucose.is5Minutely || glucose.type == .bgm else {
-                    break
-                }
-
-                service.addGlucose(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: [glucose])
+                service.addGlucose(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: filteredGlucoseValues)
 
             case .setSensorState(sensorAge: _, sensorState: _):
                 guard let sensor = state.sensor, sensor.startTimestamp != nil else {

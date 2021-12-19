@@ -27,7 +27,11 @@ private func glucoseBadgeMiddelware(service: GlucoseBadgeService) -> Middleware<
 
             service.setGlucoseBadge(glucose: glucose, glucoseUnit: unit)
 
-        case .addGlucose(glucose: let glucose):
+        case .addGlucoseValues(glucoseValues: let glucoseValues):
+            guard let glucose = glucoseValues.last else {
+                break
+            }
+            
             guard state.glucoseBadge else {
                 break
             }

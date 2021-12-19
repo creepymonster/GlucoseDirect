@@ -26,7 +26,11 @@ private func glucoseNotificationMiddelware(service: GlucoseNotificationService) 
             
             service.clearNotifications()
 
-        case .addGlucose(glucose: let glucose):
+        case .addGlucoseValues(glucoseValues: let glucoseValues):
+            guard let glucose = glucoseValues.last else {
+                break
+            }
+            
             guard state.glucoseAlarm, glucose.type == .cgm else {
                 break
             }

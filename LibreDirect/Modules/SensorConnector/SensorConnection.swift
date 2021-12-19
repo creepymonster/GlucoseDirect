@@ -50,7 +50,7 @@ extension SensorConnection {
         AppLog.info("NextReading: \(nextReading)")
 
         if let nextReading = nextReading {
-            subject?.send(.addSensorReadings(nextReading: nextReading, trendReadings: [], historyReadings: []))
+            subject?.send(.addSensorReadings(trendReadings: [nextReading], historyReadings: []))
         } else {
             subject?.send(.addMissedReading)
         }
@@ -60,8 +60,8 @@ extension SensorConnection {
         AppLog.info("SensorTrendReadings: \(trendReadings)")
         AppLog.info("SensorHistoryReadings: \(historyReadings)")
 
-        if let nextReading = trendReadings.last {
-            subject?.send(.addSensorReadings(nextReading: nextReading, trendReadings: trendReadings, historyReadings: historyReadings))
+        if !trendReadings.isEmpty, !historyReadings.isEmpty {
+            subject?.send(.addSensorReadings(trendReadings: trendReadings, historyReadings: historyReadings))
         } else {
             subject?.send(.addMissedReading)
         }

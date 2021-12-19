@@ -19,7 +19,11 @@ private func appGroupSharingMiddleware(service: AppGroupSharingService) -> Middl
         case .pairSensor:
             service.clearGlucoseValues()
 
-        case .addGlucose(glucose: let glucose):
+        case .addGlucoseValues(glucoseValues: let glucoseValues):
+            guard let glucose = glucoseValues.last else {
+                break
+            }
+            
             service.addGlucose(glucoseValues: [glucose])
 
         default:
