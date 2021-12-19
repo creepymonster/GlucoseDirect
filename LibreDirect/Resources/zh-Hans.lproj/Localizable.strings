@@ -2,25 +2,25 @@
 "%1$@ a clock" = "%1$@";
 
 /* (No Comment) */
-"%1$@/min." = "%1$@/min.";
+"%1$@/min." = "%1$@/分钟";
 
 /* (No Comment) */
-"%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
+"%1$@d %2$@h %3$@min" = "%1$@d %2$@小时 %3$@分钟";
 
 /* (No Comment) */
-"0 - Unknown" = "0 - Unknown";
+"0 - Unknown" = "0 - 未知";
 
 /* (No Comment) */
-"1 - European" = "1 - European";
+"1 - European" = "1 - 欧洲";
 
 /* (No Comment) */
-"2 - USA" = "2 - USA";
+"2 - USA" = "2 - 美国";
 
 /* (No Comment) */
-"4 - Australian" = "4 - Australian";
+"4 - Australian" = "4 - 澳大利亚";
 
 /* (No Comment) */
-"8 - Eastern" = "8 - Eastern";
+"8 - Eastern" = "8-东部";
 
 /* (No Comment) */
 "Add" = "Add";
