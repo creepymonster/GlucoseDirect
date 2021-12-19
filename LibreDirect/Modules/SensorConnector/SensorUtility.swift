@@ -341,7 +341,7 @@ private func readBits(_ buffer: Data, _ byteOffset: Int, _ bitOffset: Int, _ bit
         let totalBitOffset = byteOffset * 8 + bitOffset + i
         let byte = Int(floor(Float(totalBitOffset) / 8))
         let bit = totalBitOffset % 8
-        if totalBitOffset >= 0, ((Int(buffer[byte]) >> bit) & 0x1) == 1 {
+        if byte >= 0, byte < buffer.count, ((Int(buffer[byte]) >> bit) & 0x1) == 1 {
             res = res | (1 << i)
         }
     }
@@ -351,6 +351,7 @@ private func readBits(_ buffer: Data, _ byteOffset: Int, _ bitOffset: Int, _ bit
 
 private func writeBits(_ buffer: Data, _ byteOffset: Int, _ bitOffset: Int, _ bitCount: Int, _ value: Int) -> Data {
     var res = buffer
+
     for i in 0 ..< bitCount {
         let totalBitOffset = byteOffset * 8 + bitOffset + i
         let byte = Int(floor(Double(totalBitOffset) / 8))
@@ -358,6 +359,7 @@ private func writeBits(_ buffer: Data, _ byteOffset: Int, _ bitOffset: Int, _ bi
         let bitValue = (value >> i) & 0x1
         res[byte] = (res[byte] & ~(1 << bit) | (UInt8(bitValue) << bit))
     }
+
     return res
 }
 
@@ -369,6 +371,7 @@ private func crc16(_ data: Data) -> UInt16 {
         reverseCrc = reverseCrc << 1 | crc & 1
         crc >>= 1
     }
+
     return reverseCrc.byteSwapped
 }
 

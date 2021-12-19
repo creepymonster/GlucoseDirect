@@ -31,8 +31,6 @@ class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate,
 
     // MARK: Internal
 
-    var rxBuffer = Data()
-
     var serviceUuid: CBUUID!
     var manager: CBCentralManager!
     let managerQueue = DispatchQueue(label: "libre-direct.sensor-ble-connection.queue")
@@ -157,8 +155,7 @@ class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate,
     }
 
     func resetBuffer() {
-        AppLog.info("ResetBuffer")
-        rxBuffer = Data()
+        preconditionFailure("This method must be overridden")
     }
 
     func setStayConnected(stayConnected: Bool) {

@@ -119,6 +119,15 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
 
                                         return
                                     }
+                                    
+                                    let type = SensorType(patchInfo)
+                                    guard type == .libre2EU else {
+                                        AppLog.error("Invalid sensor type: \(type.localizedString)")
+                                        self.subject?.send(.setConnectionError(errorMessage: "Invalid sensor type: \(type.localizedString)", errorTimestamp: Date(), errorIsCritical: false))
+                                        self.subject?.send(.setConnectionState(connectionState: .disconnected))
+
+                                        return
+                                    }
 
                                     let subCmd: Subcommand = .enableStreaming
                                     let cmd = self.nfcCommand(subCmd, unlockCode: self.unlockCode, patchInfo: patchInfo, sensorUID: sensorUID)
@@ -140,11 +149,6 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                                         if let decryptedFram = decryptedFram {
                                             AppLog.info("Success (from decrypted fram)")
                                             self.subject?.send(.setSensor(sensor: Sensor(uuid: sensorUID, patchInfo: patchInfo, fram: decryptedFram)))
-                                            self.subject?.send(.setConnectionState(connectionState: .disconnected))
-
-                                        } else {
-                                            AppLog.info("Success (from fram)")
-                                            self.subject?.send(.setSensor(sensor: Sensor(uuid: sensorUID, patchInfo: patchInfo, fram: fram)))
                                             self.subject?.send(.setConnectionState(connectionState: .disconnected))
                                         }
                                     }

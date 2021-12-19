@@ -100,7 +100,7 @@ private func readBits(_ buffer: Data, _ byteOffset: Int, _ bitOffset: Int, _ bit
         let totalBitOffset = byteOffset * 8 + bitOffset + i
         let byte = Int(floor(Float(totalBitOffset) / 8))
         let bit = totalBitOffset % 8
-        if totalBitOffset >= 0, ((Int(buffer[byte]) >> bit) & 0x1) == 1 {
+        if byte >= 0, byte < buffer.count, ((Int(buffer[byte]) >> bit) & 0x1) == 1 {
             res = res | (1 << i)
         }
     }
