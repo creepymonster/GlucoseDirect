@@ -47,6 +47,7 @@ I am very happy to receive feedback - suggestions for improvement or reports of 
 ## Many thanks goes to
 - **Richard** for the design of the app icon
 - **Jon-b-m** for your translation into Swedish
+- **birdfly** for your translation into Chinese
 - **All** who contribute to the app with their ideas
 
 ## Todo
