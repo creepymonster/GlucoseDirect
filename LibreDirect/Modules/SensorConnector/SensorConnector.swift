@@ -15,7 +15,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
         switch action {
         case .startup:
             let registerConnectionInfo = Just(AppAction.registerConnectionInfo(infos: infos))
-            var selectConnection: Just<AppAction>? = nil
+            var selectConnection: Just<AppAction>?
 
             if let id = state.selectedConnectionId, let connectionInfo = infos.first(where: { $0.id == id }) {
                 AppLog.info("Select startup connection: \(connectionInfo.name)")
@@ -28,9 +28,8 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             } else if let connectionInfo = infos.first {
                 AppLog.info("Select first startup connection: \(connectionInfo.name)")
                 selectConnection = Just(.selectConnection(id: connectionInfo.id, connection: connectionInfo.connectionCreator(subject)))
-
             }
-            
+
             if let selectConnection = selectConnection {
                 return registerConnectionInfo
                     .merge(with: selectConnection)
@@ -60,32 +59,51 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
                     .eraseToAnyPublisher()
             }
 
-        case .addSensorReadings(nextReading: let nextReading, trendReadings: let trendReadings, historyReadings: _):
-            if let sensor = state.sensor, let glucose = calibrationService.calibrate(sensor: sensor, nextReading: nextReading, currentGlucose: state.currentGlucose) {
-                guard state.currentGlucose == nil || state.currentGlucose!.timestamp < nextReading.timestamp else {
-                    break
-                }
-
-                if state.glucoseValues.isEmpty {
-                    let calibratedTrend = trendReadings.map { reading in
-                        calibrationService.calibrate(sensor: sensor, nextReading: reading)
-                    }.compactMap { $0 }
-
-                    if trendReadings.isEmpty {
-                        return Just(.addGlucose(glucose: glucose))
-                            .setFailureType(to: AppError.self)
-                            .eraseToAnyPublisher()
-
-                    } else {
-                        return Just(.addGlucoseValues(glucoseValues: calibratedTrend))
-                            .setFailureType(to: AppError.self)
-                            .eraseToAnyPublisher()
+        case .addSensorReadings(trendReadings: let trendReadings, historyReadings: let historyReadings):
+            if let sensor = state.sensor, !trendReadings.isEmpty, !historyReadings.isEmpty {
+                let missingHistory = historyReadings.filter { reading in
+                    if state.currentGlucose == nil || reading.timestamp > state.currentGlucose!.timestamp, reading.timestamp < trendReadings.first!.timestamp {
+                        return true
                     }
-                } else {
-                    return Just(.addGlucose(glucose: glucose))
-                        .setFailureType(to: AppError.self)
-                        .eraseToAnyPublisher()
+
+                    return false
                 }
+
+                let missingTrend = trendReadings
+                    .filter { reading in
+                        if state.currentGlucose == nil || reading.timestamp > state.currentGlucose!.timestamp {
+                            return true
+                        }
+
+                        return false
+                    }
+
+                var previousGlucose = state.currentGlucose
+                var missedGlucosValues: [Glucose] = []
+
+                missingHistory.forEach { reading in
+                    let glucose = calibrationService.calibrate(sensor: sensor, nextReading: reading, currentGlucose: previousGlucose)
+                    missedGlucosValues.append(glucose)
+
+                    if glucose.quality == .OK {
+                        previousGlucose = glucose
+                    }
+                }
+
+                missingTrend.forEach { reading in
+                    let glucose = calibrationService.calibrate(sensor: sensor, nextReading: reading, currentGlucose: previousGlucose)
+                    missedGlucosValues.append(glucose)
+
+                    if glucose.quality == .OK {
+                        previousGlucose = glucose
+                    }
+                }
+
+                AppLog.info("develop: \(missedGlucosValues)")
+
+                return Just(.addGlucoseValues(glucoseValues: missedGlucosValues))
+                    .setFailureType(to: AppError.self)
+                    .eraseToAnyPublisher()
             }
 
         case .pairSensor:

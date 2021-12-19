@@ -23,17 +23,10 @@ func appReducer(state: inout AppState, action: AppAction) {
         
         state.sensor!.customCalibration.append(CustomCalibration(x: Double(factoryCalibratedGlucoseValue), y: Double(glucoseValue)))
         
-    case .addGlucose(glucose: let glucose):
-        var glucoseValues = state.glucoseValues.suffix(min(AppConfig.NumberOfGlucoseValues - 1, state.glucoseValues.count))
-        glucoseValues.append(glucose)
-        
-        state.missedReadings = 0
-        state.glucoseValues = [Glucose](glucoseValues)
-
     case .addGlucoseValues(glucoseValues: let addedGlucoseValues):
         if !addedGlucoseValues.isEmpty {
             var glucoseValues = state.glucoseValues.suffix(min(AppConfig.NumberOfGlucoseValues - addedGlucoseValues.count, state.glucoseValues.count))
-            glucoseValues.append(contentsOf: glucoseValues)
+            glucoseValues.append(contentsOf: addedGlucoseValues)
             
             state.missedReadings = 0
             state.glucoseValues = [Glucose](glucoseValues)

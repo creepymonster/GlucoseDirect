@@ -33,7 +33,11 @@ func calendarExportMiddleware(service: CalendarExportService) -> Middleware<AppS
                     .eraseToAnyPublisher()
             }
 
-        case .addGlucose(glucose: let glucose):
+        case .addGlucoseValues(glucoseValues: let glucoseValues):
+            guard let glucose = glucoseValues.last else {
+                break
+            }
+            
             guard state.calendarExport, let calendarTarget = state.selectedCalendarTarget, glucose.type == .cgm else {
                 break
             }

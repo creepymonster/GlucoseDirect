@@ -8,10 +8,9 @@ import OSLog
 
 enum AppAction {
     case addCalibration(glucoseValue: Int)
-    case addGlucose(glucose: Glucose)
     case addGlucoseValues(glucoseValues: [Glucose])
     case addMissedReading
-    case addSensorReadings(nextReading: SensorReading, trendReadings: [SensorReading], historyReadings: [SensorReading])
+    case addSensorReadings(trendReadings: [SensorReading], historyReadings: [SensorReading])
     
     case clearCalibrations
     case clearGlucoseValues

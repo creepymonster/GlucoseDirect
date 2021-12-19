@@ -68,7 +68,7 @@ struct GlucoseListView: View {
                                         primaryButton: .destructive(Text("Add")) {
                                             withAnimation {
                                                 let glucose = Glucose(id: UUID(), timestamp: Date(), glucose: value, type: .bgm)
-                                                store.dispatch(.addGlucose(glucose: glucose))
+                                                store.dispatch(.addGlucoseValues(glucoseValues: [glucose]))
 
                                                 showingAddBloodGlucoseView = false
                                             }
