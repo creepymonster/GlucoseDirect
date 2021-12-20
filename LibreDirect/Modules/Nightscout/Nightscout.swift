@@ -24,11 +24,11 @@ private func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppS
                 service.clearGlucoseValues(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1())
 
             case .addGlucoseValues(glucoseValues: let glucoseValues):
-                let filteredGlucoseValues = glucoseValues.filter { glucose in
-                    glucose.type == .cgm && glucose.is5Minutely || glucose.type == .bgm
+                if glucoseValues.count > 1 {
+                    service.addGlucose(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: glucoseValues)
+                } else if let glucose = glucoseValues.first, (glucose.is5Minutely || glucose.type == .bgm) {
+                    service.addGlucose(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: [glucose])
                 }
-
-                service.addGlucose(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: filteredGlucoseValues)
 
             case .setSensorState(sensorAge: _, sensorState: _):
                 guard let sensor = state.sensor, sensor.startTimestamp != nil else {
@@ -185,8 +185,7 @@ private class NightscoutService {
             }
 
             if let response = response as? HTTPURLResponse {
-                let status = response.statusCode
-                if status != 200, let data = data {
+                if response.statusCode != 200, let data = data {
                     let responseString = String(data: data, encoding: .utf8)
                     AppLog.info("Nightscout error: \(response.statusCode) \(responseString)")
                 }
