@@ -21,11 +21,7 @@ private func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppS
                 service.removeGlucose(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1(), id: id)
 
             case .clearGlucoseValues:
-                lastState.glucoseValues.map { value in
-                    value.id
-                }.forEach { id in
-                    service.removeGlucose(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1(), id: id)
-                }
+                service.clearGlucoseValues(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1())
 
             case .addGlucoseValues(glucoseValues: let glucoseValues):
                 let filteredGlucoseValues = glucoseValues.filter { glucose in
@@ -97,6 +93,35 @@ private class NightscoutService {
             if let response = response as? HTTPURLResponse {
                 let status = response.statusCode
 
+                if status != 200, let data = data {
+                    let responseString = String(data: data, encoding: .utf8)
+                    AppLog.info("Nightscout error: \(response.statusCode) \(responseString)")
+                }
+            }
+        }
+
+        task.resume()
+    }
+
+    func clearGlucoseValues(nightscoutUrl: String, apiSecret: String) {
+        let session = URLSession.shared
+
+        let urlString = "\(nightscoutUrl)/api/v1/entries?find[device]=\(AppConfig.projectName)"
+        guard let url = URL(string: urlString) else {
+            AppLog.error("Nightscout, bad nightscout url")
+            return
+        }
+
+        let request = createRequest(url: url, method: "DELETE", apiSecret: apiSecret)
+
+        let task = session.dataTask(with: request) { data, response, error in
+            if let error = error {
+                AppLog.info("Nightscout error: \(error.localizedDescription)")
+                return
+            }
+
+            if let response = response as? HTTPURLResponse {
+                let status = response.statusCode
                 if status != 200, let data = data {
                     let responseString = String(data: data, encoding: .utf8)
                     AppLog.info("Nightscout error: \(response.statusCode) \(responseString)")
