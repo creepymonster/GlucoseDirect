@@ -18,15 +18,23 @@ private func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppS
         if state.nightscoutUpload, !nightscoutUrl.isEmpty, !nightscoutApiSecret.isEmpty {
             switch action {
             case .removeGlucose(id: let id):
-                service.removeGlucose(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1(), id: id)
+                guard let glucose = lastState.glucoseValues.first(where: { $0.id == id }) else {
+                    break
+                }
+
+                service.removeGlucose(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1(), date: glucose.timestamp)
 
             case .clearGlucoseValues:
                 service.clearGlucoseValues(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1())
 
             case .addGlucoseValues(glucoseValues: let glucoseValues):
                 if glucoseValues.count > 1 {
-                    service.addGlucose(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: glucoseValues)
-                } else if let glucose = glucoseValues.first, glucose.is5Minutely || glucose.type == .bgm {
+                    let filteredGlucoseValues = glucoseValues.filter { glucose in
+                        glucose.type != .none
+                    }
+
+                    service.addGlucose(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: filteredGlucoseValues)
+                } else if let glucose = glucoseValues.first, (glucose.type == .cgm && glucose.is5Minutely) || glucose.type == .bgm {
                     service.addGlucose(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: [glucose])
                 }
 
@@ -132,10 +140,10 @@ private class NightscoutService {
         task.resume()
     }
 
-    func removeGlucose(nightscoutUrl: String, apiSecret: String, id: UUID) {
+    func removeGlucose(nightscoutUrl: String, apiSecret: String, date: Date) {
         let session = URLSession.shared
 
-        let urlString = "\(nightscoutUrl)/api/v1/entries?find[_id][$in][]=\(id.uuidString)"
+        let urlString = "\(nightscoutUrl)/api/v1/entries?find[device]=\(AppConfig.projectName)&find[dateString]=\(date.ISOStringFromDate())"
         guard let url = URL(string: urlString) else {
             AppLog.error("Nightscout, bad nightscout url")
             return
