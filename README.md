@@ -53,10 +53,10 @@ I am very happy to receive feedback - suggestions for improvement or reports of 
 - Read out blood glucose values
 - Cache Nightscout uploads without an Internet connection and run them later
 - Connect to Apple Health
+- Transmitter battery notifications
 - Upload sensor end to nightscout
 - Other transmitters
 - Other diabetes sources to upload to (like tidepool, ...)
-- Transmitter battery notifications
 
 ## Screenshots
 ![Screenshot](/Screenshots/overview.png?raw=true)
