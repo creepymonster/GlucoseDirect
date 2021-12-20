@@ -76,7 +76,6 @@
 		E2FCAC512707424800FE1CBF /* Nightscout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC502707424800FE1CBF /* Nightscout.swift */; };
 		E2FCAC5B2707425900FE1CBF /* Libre2Pairing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC572707425900FE1CBF /* Libre2Pairing.swift */; };
 		E2FCAC5D2707426100FE1CBF /* GlucoseNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC5C2707426100FE1CBF /* GlucoseNotification.swift */; };
-		E2FCAC5F2707426800FE1CBF /* GlucoseBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC5E2707426800FE1CBF /* GlucoseBadge.swift */; };
 		E2FCAC612707426F00FE1CBF /* AppGroupSharing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC602707426F00FE1CBF /* AppGroupSharing.swift */; };
 		E2FCAC632707427500FE1CBF /* ExpiringNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC622707427500FE1CBF /* ExpiringNotification.swift */; };
 		E2FCAC652707427D00FE1CBF /* ConnectionNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC642707427D00FE1CBF /* ConnectionNotification.swift */; };
@@ -90,7 +89,6 @@
 		E2FCAC7D270743B100FE1CBF /* sensor.png in Resources */ = {isa = PBXBuildFile; fileRef = E2FCAC77270743B100FE1CBF /* sensor.png */; };
 		E2FCAC7E270743B100FE1CBF /* alarm.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E2FCAC78270743B100FE1CBF /* alarm.aiff */; };
 		E2FCAC7F270743B100FE1CBF /* negative.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E2FCAC79270743B100FE1CBF /* negative.aiff */; };
-		E2FCAC80270743B100FE1CBF /* silent.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E2FCAC7A270743B100FE1CBF /* silent.aiff */; };
 		E2FCAC87270743E200FE1CBF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E2FCAC89270743E200FE1CBF /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
@@ -198,7 +196,6 @@
 		E2FCAC502707424800FE1CBF /* Nightscout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Nightscout.swift; sourceTree = "<group>"; };
 		E2FCAC572707425900FE1CBF /* Libre2Pairing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Libre2Pairing.swift; sourceTree = "<group>"; };
 		E2FCAC5C2707426100FE1CBF /* GlucoseNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlucoseNotification.swift; sourceTree = "<group>"; };
-		E2FCAC5E2707426800FE1CBF /* GlucoseBadge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlucoseBadge.swift; sourceTree = "<group>"; };
 		E2FCAC602707426F00FE1CBF /* AppGroupSharing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppGroupSharing.swift; sourceTree = "<group>"; };
 		E2FCAC622707427500FE1CBF /* ExpiringNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpiringNotification.swift; sourceTree = "<group>"; };
 		E2FCAC642707427D00FE1CBF /* ConnectionNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionNotification.swift; sourceTree = "<group>"; };
@@ -212,7 +209,6 @@
 		E2FCAC77270743B100FE1CBF /* sensor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sensor.png; sourceTree = "<group>"; };
 		E2FCAC78270743B100FE1CBF /* alarm.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = alarm.aiff; sourceTree = "<group>"; };
 		E2FCAC79270743B100FE1CBF /* negative.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = negative.aiff; sourceTree = "<group>"; };
-		E2FCAC7A270743B100FE1CBF /* silent.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = silent.aiff; sourceTree = "<group>"; };
 		E2FCAC88270743E200FE1CBF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E2FCAC8A270743E500FE1CBF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -428,7 +424,6 @@
 				E2FCAC682707429800FE1CBF /* Internal */,
 				E2FCAC472707420800FE1CBF /* Log */,
 				E27ED96E2758A3EE0099149C /* SensorConnector */,
-				E2FCAC4B2707422700FE1CBF /* GlucoseBadge */,
 				E2FCAC4C2707422D00FE1CBF /* GlucoseNotification */,
 				E2FCAC492707421600FE1CBF /* ExpiringNotification */,
 				E2FCAC482707420D00FE1CBF /* ConnectionNotification */,
@@ -471,14 +466,6 @@
 			path = AppGroupSharing;
 			sourceTree = "<group>";
 		};
-		E2FCAC4B2707422700FE1CBF /* GlucoseBadge */ = {
-			isa = PBXGroup;
-			children = (
-				E2FCAC5E2707426800FE1CBF /* GlucoseBadge.swift */,
-			);
-			path = GlucoseBadge;
-			sourceTree = "<group>";
-		};
 		E2FCAC4C2707422D00FE1CBF /* GlucoseNotification */ = {
 			isa = PBXGroup;
 			children = (
@@ -512,7 +499,6 @@
 				E2FCAC79270743B100FE1CBF /* negative.aiff */,
 				E2FCAC75270743B100FE1CBF /* positive.aiff */,
 				E2FCAC77270743B100FE1CBF /* sensor.png */,
-				E2FCAC7A270743B100FE1CBF /* silent.aiff */,
 				E2FCAC89270743E200FE1CBF /* Localizable.strings */,
 				E2DB75CA2752CA2400FB8A00 /* Settings.bundle */,
 			);
@@ -611,7 +597,6 @@
 				E2FCAC7C270743B100FE1CBF /* expiring.aiff in Resources */,
 				E2FCAC7F270743B100FE1CBF /* negative.aiff in Resources */,
 				E2FCAC7B270743B100FE1CBF /* positive.aiff in Resources */,
-				E2FCAC80270743B100FE1CBF /* silent.aiff in Resources */,
 				E2DB75CB2752CA2400FB8A00 /* Settings.bundle in Resources */,
 				E2FCAC7D270743B100FE1CBF /* sensor.png in Resources */,
 			);
@@ -658,7 +643,6 @@
 				E2FCAC33270741D200FE1CBF /* Int.swift in Sources */,
 				E2F5F3D126A70AC400834A74 /* DateSelectorView.swift in Sources */,
 				E2FCAC462707420100FE1CBF /* AppReducer.swift in Sources */,
-				E2FCAC5F2707426800FE1CBF /* GlucoseBadge.swift in Sources */,
 				E2FCAC21270741BC00FE1CBF /* SensorFamily.swift in Sources */,
 				E2FCAC3B270741E600FE1CBF /* AppLog.swift in Sources */,
 				E2D34BC4274D6BB500151895 /* GlucoeOverviewView.swift in Sources */,

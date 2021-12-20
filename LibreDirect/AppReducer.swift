@@ -122,6 +122,9 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setAlarmSnoozeUntil(untilDate: let untilDate):
         if let untilDate = untilDate {
             state.alarmSnoozeUntil = untilDate
+            
+            // stop sounds
+            NotificationService.shared.stopSound()
         } else {
             state.alarmSnoozeUntil = nil
         }
@@ -190,7 +193,6 @@ func appReducer(state: inout AppState, action: AppAction) {
         
     case .startup:
         break
-
     }
 
     if let alarmSnoozeUntil = state.alarmSnoozeUntil, Date() > alarmSnoozeUntil {

@@ -71,7 +71,6 @@ final class LibreDirectApp: App {
             expiringNotificationMiddelware(),
             glucoseNotificationMiddelware(),
             connectionNotificationMiddelware(),
-            glucoseBadgeMiddelware(),
             calendarExportMiddleware(),
         ])
     }
@@ -89,7 +88,6 @@ final class LibreDirectApp: App {
             expiringNotificationMiddelware(),
             glucoseNotificationMiddelware(),
             connectionNotificationMiddelware(),
-            glucoseBadgeMiddelware(),
             calendarExportMiddleware(),
 
             // export middlewares
