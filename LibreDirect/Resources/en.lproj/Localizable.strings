@@ -477,3 +477,33 @@
 
 /* (No Comment) */
 "Delete log files" = "Delete log files";
+
+/* (No Comment) */
+"Speakable glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@";
+
+/* (No Comment) */
+"Speakable glucose with trend: %1$@ %2$@, %3$@" = "Glucose: %1$@ %2$@, %3$@";
+
+/* (No Comment) */
+"Speakable miligram" = "miligram";
+
+/* (No Comment) */
+"Speakable milimol" = "milimol";
+
+/* (No Comment) */
+"Speakable falling" = "falling"
+
+/* (No Comment) */
+"Speakable fast falling" = "falling"
+
+/* (No Comment) */
+"Speakable rapidly falling" = "falling"
+
+/* (No Comment) */
+"Speakable rising" = "falling"
+
+/* (No Comment) */
+"Speakable fast rising" = "falling"
+
+/* (No Comment) */
+"Speakable rapidly rising" = "falling"

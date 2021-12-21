@@ -51,10 +51,12 @@ private class ReadGlucoseService {
     private func read(glucoseValue: Int, glucoseUnit: GlucoseUnit, glucoseTrend: SensorTrend? = nil) {
         AppLog.info("read: \(glucoseValue) \(glucoseUnit.speakable) \(glucoseTrend?.speakable)")
 
-        var glucoseString = "Blutzucker: \(glucoseValue) \(glucoseUnit.speakable)"
+        var glucoseString: String
 
         if let speakableTrend = glucoseTrend?.speakable {
-            glucoseString.append(", \(speakableTrend)")
+            glucoseString = String(format: LocalizedString("Speakable glucose with trend: %1$@ %2$@, %3$@"), glucoseValue.asGlucose(unit: glucoseUnit), glucoseUnit.speakable, speakableTrend)
+        } else {
+            glucoseString = String(format: LocalizedString("Speakable glucose: %1$@ %2$@"), glucoseValue.asGlucose(unit: glucoseUnit), glucoseUnit.speakable)
         }
 
         let glucoseUtterance = AVSpeechUtterance(string: glucoseString)
@@ -66,9 +68,9 @@ extension GlucoseUnit {
     var speakable: String {
         switch self {
         case .mgdL:
-            return "miligram"
+            return LocalizedString("Speakable miligram")
         case .mmolL:
-            return "milimol"
+            return LocalizedString("Speakable milimol")
         }
     }
 }
@@ -77,17 +79,17 @@ extension SensorTrend {
     var speakable: String? {
         switch self {
         case .falling:
-            return "fallend"
+            return LocalizedString("Speakable falling")
         case .fastFalling:
-            return "schnell fallend"
+            return LocalizedString("Speakable fast falling")
         case .rapidlyFalling:
-            return "rapide fallend"
+            return LocalizedString("Speakable rapidly falling")
         case .rising:
-            return "steigend"
+            return LocalizedString("Speakable rising")
         case .fastRising:
-            return "schnell steigend"
+            return LocalizedString("Speakable fast rising")
         case .rapidlyRising:
-            return "rapide steigend"
+            return LocalizedString("Speakable rapidly rising")
         default:
             return nil
         }
