@@ -137,22 +137,22 @@
 "Glucose alarm" = "Alarma de glucosa alta/baja";
 
 /* (No Comment) */
-"Glucose list view" = "List";
+"Glucose list view" = "Lista";
 
 /* (No Comment) */
-"Glucose overview" = "Overview";
+"Glucose overview" = "Resumen";
 
 /* (No Comment) */
-"Glucose settings" = "Glucose settings";
+"Glucose settings" = "Ajustes de glucosa";
 
 /* (No Comment) */
-"Glucose unit" = "Unit";
+"Glucose unit" = "Unidad";
 
 /* (No Comment) */
-"Glucose values" = "Glucose values";
+"Glucose values" = "Valores de glucosa";
 
 /* (No Comment) */
-"Hold the top edge of your iPhone close to the sensor." = "Hold the top edge of your iPhone close to the sensor.";
+"Hold the top edge of your iPhone close to the sensor." = "Mantenga el borde superior de su iPhone cerca del sensor.";
 
 /* (No Comment) */
 "Libre 1" = "Libre 1";
@@ -179,7 +179,7 @@
 "Libre US 14d" = "Libre US 14d";
 
 /* (No Comment) */
-"Lower limit" = "Low";
+"Lower limit" = "Baja";
 
 /* (No Comment) */
 "mg/dL" = "mg/dL";
@@ -188,7 +188,7 @@
 "mmol/L" = "mmol/L";
 
 /* (No Comment) */
-"New calibration" = "New calibration";
+"New calibration" = "Nueva calibración";
 
 /* (No Comment) */
 "Nightscout API-Secret" = "API-Secret";
@@ -197,52 +197,52 @@
 "Nightscout url" = "Url";
 
 /* (No Comment) */
-"Nightscout settings" = "Nightscout settings";
+"Nightscout settings" = "Configuración de Nightscout";
 
 /* (No Comment) */
-"Nightscout upload enabled" = "Upload";
+"Nightscout upload enabled" = "Cargar";
 
 /* (No Comment) */
-"Now" = "Now";
+"Now" = "Ahora";
 
 /* (No Comment) */
-"OK, sensor connection established" = "OK, sensor connection established";
+"OK, sensor connection established" = "OK, conexión de sensor establecida";
 
 /* (No Comment) */
-"Pair sensor" = "Pair sensor";
+"Pair sensor" = "Emparejar sensor";
 
 /* (No Comment) */
-"Power off" = "Power off";
+"Power off" = "Apagado";
 
 /* (No Comment) */
-"Scanning" = "Scanning";
+"Scanning" = "Buscando";
 
 /* (No Comment) */
-"Sensor age" = "Sensor age";
+"Sensor age" = "Edad del sensor";
 
 /* (No Comment) */
-"Connection" = "Connection";
+"Connection" = "Conexión";
 
 /* (No Comment) */
 "Connection error" = "Error";
 
 /* (No Comment) */
-"Connection error timestamp" = "Time";
+"Connection error timestamp" = "Tiempo";
 
 /* (No Comment) */
-"Connection state" = "State";
+"Connection state" = "Estado";
 
 /* (No Comment) */
-"Sensor custom calibration" = "Custom Calibration";
+"Sensor custom calibration" = "Calibración personalizada";
 
 /* (No Comment) */
-"Sensor details" = "Sensor details";
+"Sensor details" = "Detalles del sensor";
 
 /* (No Comment) */
-"Sensor factory calibration" = "Factory Calibration";
+"Sensor factory calibration" = "Calibración de Fábrica";
 
 /* (No Comment) */
-"Sensor has failure" = "Sensor has failure";
+"Sensor has failure" = "Falla de Sensor";
 
 /* (No Comment) */
 "Sensor in starting phase" = "Sensor en fase de inicio";
@@ -259,20 +259,23 @@
 /* (No Comment) */
 "Sensor lifetime" = "Tiempo de vida máximo";
 
-/* (No Comment) */
+/* Missed readings
+
+If glucose values were missed (e.g. because invalid values were sent), the number of missed values (until the time when new ones are received) is shown in a table.
+If 3 values in a row are incorrect, in principle the table shows "Missed: 3". */
 "Missed readings" = "Missed";
 
 /* (No Comment) */
-"Sensor not yet startet" = "Sensor not yet startet";
+"Sensor not yet startet" = "Sensor aún no iniciado";
 
 /* (No Comment) */
 "Sensor PatchInfo" = "PatchInfo";
 
 /* (No Comment) */
-"Sensor possible lifetime" = "Lifetime";
+"Sensor possible lifetime" = "Tiempo de vida";
 
 /* (No Comment) */
-"Sensor region" = "Region";
+"Sensor region" = "Región";
 
 /* (No Comment) */
 "Sensor remaining lifetime" = "Tiempo restante";
@@ -364,7 +367,9 @@
 /* (No Comment) */
 "Other Settings" = "Other Settings";
 
-/* (No Comment) */
+/* Glucose badge
+
+This is the setting for displaying the glucose value on the app icon (the red number in the upper right corner of the icon) */
 "Glucose badge" = "Glucose badge";
 
 /* (No Comment) */
