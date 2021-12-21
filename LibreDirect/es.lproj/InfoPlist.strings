@@ -5,7 +5,7 @@
 "CFBundleName" = "Glucose Direct";
 
 /* Privacy - NFC Scan Usage Description */
-"NFCReaderUsageDescription" = "The NFC function is required to read out all connection settings before a Bluetooth connection.";
+"NFCReaderUsageDescription" = "La función NFC es necesaria para leer todos los ajustes de conexión antes de una conexión Bluetooth.";
 
 /* Privacy - Bluetooth Always Usage Description */
 "NSBluetoothAlwaysUsageDescription" = "The Bluetooth function is needed to connect to the supported devices.";
