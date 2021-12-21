@@ -25,11 +25,15 @@ func appReducer(state: inout AppState, action: AppAction) {
         
     case .addGlucoseValues(glucoseValues: let addedGlucoseValues):
         if !addedGlucoseValues.isEmpty {
-            var glucoseValues = state.glucoseValues.suffix(min(AppConfig.NumberOfGlucoseValues - addedGlucoseValues.count, state.glucoseValues.count))
-            glucoseValues.append(contentsOf: addedGlucoseValues)
+            var glucoseValues = state.glucoseValues + addedGlucoseValues
+            
+            let overLimit = glucoseValues.count - AppConfig.NumberOfGlucoseValues
+            if overLimit > 0 {
+                glucoseValues = Array(glucoseValues.dropFirst(overLimit))
+            }
             
             state.missedReadings = 0
-            state.glucoseValues = [Glucose](glucoseValues)
+            state.glucoseValues = glucoseValues
         }
         
     case .addMissedReading:
