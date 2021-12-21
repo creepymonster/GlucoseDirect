@@ -76,7 +76,7 @@ private class ConnectionNotificationService {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
         NotificationService.shared.ensureCanSendNotification { state in
-            AppLog.info("Sensor connection lLost alert, state: \(state)")
+            AppLog.info("Sensor connection lost alert, state: \(state)")
 
             guard state != .none else {
                 return
@@ -112,7 +112,7 @@ private class ConnectionNotificationService {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
         NotificationService.shared.ensureCanSendNotification { state in
-            AppLog.info("Sensor connection lLost alert, state: \(state)")
+            AppLog.info("Sensor connection lost alert, state: \(state)")
 
             guard state != .none else {
                 return
