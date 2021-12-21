@@ -96,7 +96,9 @@ final class Glucose: CustomStringConvertible, Codable, Identifiable {
             "minuteChange: \(minuteChange?.description ?? "")",
             "factoryCalibratedGlucoseValue: \(initialGlucoseValue?.description ?? "-")",
             "calibratedGlucoseValue: \(calibratedGlucoseValue?.description ?? "-")",
-            "glucoseValue: \(glucoseValue?.description ?? "-")"
+            "glucoseValue: \(glucoseValue?.description ?? "-")",
+            "type: \(type.rawValue)",
+            "quality: \(quality.rawValue)"
         ].joined(separator: ", ")
     }
 }
