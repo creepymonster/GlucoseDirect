@@ -49,14 +49,14 @@ private class ReadGlucoseService {
     private var lastGlucose: Glucose?
 
     private func read(glucoseValue: Int, glucoseUnit: GlucoseUnit, glucoseTrend: SensorTrend? = nil) {
-        AppLog.info("read: \(glucoseValue) \(glucoseUnit.speakable) \(glucoseTrend?.speakable)")
+        AppLog.info("read: \(glucoseValue) \(glucoseUnit.readable) \(glucoseTrend?.readable)")
 
         var glucoseString: String
 
-        if let speakableTrend = glucoseTrend?.speakable {
-            glucoseString = String(format: LocalizedString("Speakable glucose with trend: %1$@ %2$@, %3$@"), glucoseValue.asGlucose(unit: glucoseUnit), glucoseUnit.speakable, speakableTrend)
+        if let readableTrend = glucoseTrend?.readable {
+            glucoseString = String(format: LocalizedString("Readable glucose with trend: %1$@ %2$@, %3$@"), glucoseValue.asGlucose(unit: glucoseUnit), glucoseUnit.readable, readableTrend)
         } else {
-            glucoseString = String(format: LocalizedString("Speakable glucose: %1$@ %2$@"), glucoseValue.asGlucose(unit: glucoseUnit), glucoseUnit.speakable)
+            glucoseString = String(format: LocalizedString("Readable glucose: %1$@ %2$@"), glucoseValue.asGlucose(unit: glucoseUnit), glucoseUnit.readable)
         }
 
         let glucoseUtterance = AVSpeechUtterance(string: glucoseString)
@@ -65,31 +65,31 @@ private class ReadGlucoseService {
 }
 
 extension GlucoseUnit {
-    var speakable: String {
+    var readable: String {
         switch self {
         case .mgdL:
-            return LocalizedString("Speakable miligram")
+            return LocalizedString("Readable miligram")
         case .mmolL:
-            return LocalizedString("Speakable milimol")
+            return LocalizedString("Readable milimol")
         }
     }
 }
 
 extension SensorTrend {
-    var speakable: String? {
+    var readable: String? {
         switch self {
         case .falling:
-            return LocalizedString("Speakable falling")
+            return LocalizedString("Readable falling")
         case .fastFalling:
-            return LocalizedString("Speakable fast falling")
+            return LocalizedString("Readable fast falling")
         case .rapidlyFalling:
-            return LocalizedString("Speakable rapidly falling")
+            return LocalizedString("Readable rapidly falling")
         case .rising:
-            return LocalizedString("Speakable rising")
+            return LocalizedString("Readable rising")
         case .fastRising:
-            return LocalizedString("Speakable fast rising")
+            return LocalizedString("Readable fast rising")
         case .rapidlyRising:
-            return LocalizedString("Speakable rapidly rising")
+            return LocalizedString("Readable rapidly rising")
         default:
             return nil
         }
