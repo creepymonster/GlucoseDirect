@@ -477,3 +477,36 @@
 
 /* (No Comment) */
 "Delete log files" = "Fehlerberichte löschen";
+
+/* (No Comment) */
+"Readable glucose: %1$@ %2$@" = "Glukose: %1$@ %2$@";
+
+/* (No Comment) */
+"Readable glucose with trend: %1$@ %2$@, %3$@" = "Glukose: %1$@ %2$@, %3$@";
+
+/* (No Comment) */
+"Readable miligram" = "miligram";
+
+/* (No Comment) */
+"Readable milimol" = "milimol";
+
+/* (No Comment) */
+"Readable falling" = "fallend";
+
+/* (No Comment) */
+"Readable fast falling" = "schnell fallend";
+
+/* (No Comment) */
+"Readable rapidly falling" = "rapide fallend";
+
+/* (No Comment) */
+"Readable rising" = "steigend";
+
+/* (No Comment) */
+"Readable fast rising" = "schnell steigend";
+
+/* (No Comment) */
+"Readable rapidly rising" = "rapide steigend";
+
+/* (No Comment) */
+"Read glucose" = "Glukose vorlesen";
