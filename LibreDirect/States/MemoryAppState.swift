@@ -15,7 +15,7 @@ struct MemoryAppState: AppState {
     var calendarExport = false
     var chartShowLines = false
     var connectionAlarm = true
-    var connectionError: String? = "Timeout"
+    var connectionError: String?
     var connectionErrorIsCritical = false
     var connectionErrorTimestamp: Date? = Date()
     var connectionInfos: [SensorConnectionInfo] = []
@@ -25,15 +25,16 @@ struct MemoryAppState: AppState {
     var glucoseBadge = true
     var glucoseUnit: GlucoseUnit = .mgdL
     var glucoseValues: [Glucose] = []
-    var missedReadings: Int = 0
-    var nightscoutApiSecret: String = ""
-    var nightscoutUrl: String = ""
-    var nightscoutUpload: Bool = false
+    var missedReadings = 0
+    var nightscoutApiSecret = ""
+    var nightscoutUrl = ""
+    var nightscoutUpload = false
+    var readGlucose = false
     var selectedCalendarTarget: String?
     var selectedConnection: SensorConnection?
     var selectedConnectionId: String?
-    var selectedView: Int = 1
+    var selectedView = 1
     var sensor: Sensor?
-    var targetValue: Int = 100
+    var targetValue = 100
     var transmitter: Transmitter?
 }

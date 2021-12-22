@@ -8,6 +8,8 @@ import SwiftUI
 // MARK: - GlucoseSettingsView
 
 struct GlucoseSettingsView: View {
+    // MARK: Internal
+
     @EnvironmentObject var store: AppStore
 
     var body: some View {
@@ -24,7 +26,7 @@ struct GlucoseSettingsView: View {
                     .pickerStyle(.menu)
                     .labelsHidden()
                 }
-                
+
                 NumberSelectorView(key: LocalizedString("Lower limit", comment: ""), value: store.state.alarmLow, step: 5, max: store.state.alarmHigh, displayValue: store.state.alarmLow.asGlucose(unit: store.state.glucoseUnit, withUnit: true)) { value -> Void in
                     store.dispatch(.setAlarmLow(lowerLimit: value))
                 }
@@ -38,7 +40,9 @@ struct GlucoseSettingsView: View {
             }
         )
     }
-    
+
+    // MARK: Private
+
     private var selectedGlucoseUnit: Binding<String> {
         Binding(
             get: { store.state.glucoseUnit.rawValue },

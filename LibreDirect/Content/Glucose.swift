@@ -109,4 +109,16 @@ extension Glucose {
 
         return minutes % 5 == 0
     }
+    
+    var is10Minutely: Bool {
+        let minutes = Calendar.current.component(.minute, from: timestamp)
+
+        return minutes % 10 == 0
+    }
+    
+    var is15Minutely: Bool {
+        let minutes = Calendar.current.component(.minute, from: timestamp)
+
+        return minutes % 15 == 0
+    }
 }

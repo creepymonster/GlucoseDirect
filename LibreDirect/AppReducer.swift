@@ -174,6 +174,9 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setNightscoutUpload(enabled: let enabled):
         state.nightscoutUpload = enabled
         
+    case .setReadGlucose(enabled: let enabled):
+        state.readGlucose = enabled
+        
     case .setSensor(sensor: let sensor):
         state.sensor = sensor
 
