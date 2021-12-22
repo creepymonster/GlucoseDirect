@@ -60,7 +60,7 @@ I am very happy to receive feedback - suggestions for improvement or reports of 
 - **All** who contribute to the app with their ideas
 
 ## Todo
-- Read out blood glucose values **in progress**
+- Read out blood glucose values (**in progress**)
 - Cache Nightscout uploads without an Internet connection and run them later
 - Connect to Apple Health
 - Transmitter battery notifications
