@@ -263,7 +263,7 @@
 
 If glucose values were missed (e.g. because invalid values were sent), the number of missed values (until the time when new ones are received) is shown in a table.
 If 3 values in a row are incorrect, in principle the table shows "Missed: 3". */
-"Missed readings" = "Missed";
+"Missed readings" = "Lecturas perdidas";
 
 /* (No Comment) */
 "Sensor not yet startet" = "Sensor aún no iniciado";
@@ -370,7 +370,7 @@ If 3 values in a row are incorrect, in principle the table shows "Missed: 3". */
 /* Glucose badge
 
 This is the setting for displaying the glucose value on the app icon (the red number in the upper right corner of the icon) */
-"Glucose badge" = "Glucose badge";
+"Glucose badge" = "Globo de notificación de glucosa";
 
 /* (No Comment) */
 "Are you sure you want to add the new blood glucose value?" = "¿Está seguro de que desea añadir un nuevo valor de glucosa en sangre?";
