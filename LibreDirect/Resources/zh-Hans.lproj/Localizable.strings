@@ -485,6 +485,12 @@
 "Readable glucose with trend: %1$@ %2$@, %3$@" = "Glucose: %1$@ %2$@, %3$@";
 
 /* (No Comment) */
+"Readable low glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, too low!";
+
+/* (No Comment) */
+"Readable high glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, too high!";
+
+/* (No Comment) */
 "Readable miligram" = "miligram";
 
 /* (No Comment) */
@@ -507,6 +513,12 @@
 
 /* (No Comment) */
 "Readable rapidly rising" = "rapidly rising";
+
+/* (No Comment) */
+"Readable low glucose warning" = "zu tief";
+
+/* (No Comment) */
+"Readable high glucose warning" = "zu hoch";
 
 /* (No Comment) */
 "Read glucose" = "Read glucose";
