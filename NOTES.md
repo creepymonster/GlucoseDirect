@@ -8,6 +8,7 @@
 - Read next value after gap
 - Should snooze be taken into account?
 - Low/High Read out warning
+- Explanation when read aloud
 - Read sensor connection state (connect/disconnect)
 
 ## iOS 14 support
