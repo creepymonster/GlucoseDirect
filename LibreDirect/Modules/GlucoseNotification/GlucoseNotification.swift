@@ -9,7 +9,9 @@ import UIKit
 import UserNotifications
 
 func glucoseNotificationMiddelware() -> Middleware<AppState, AppAction> {
-    return glucoseNotificationMiddelware(service: GlucoseNotificationService())
+    return glucoseNotificationMiddelware(service: {
+        GlucoseNotificationService()
+    }())
 }
 
 private func glucoseNotificationMiddelware(service: GlucoseNotificationService) -> Middleware<AppState, AppAction> {

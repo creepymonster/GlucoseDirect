@@ -7,7 +7,9 @@ import Combine
 import Foundation
 
 func nightscoutMiddleware() -> Middleware<AppState, AppAction> {
-    return nightscoutMiddleware(service: NightscoutService())
+    return nightscoutMiddleware(service: {
+        NightscoutService()
+    }())
 }
 
 private func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppState, AppAction> {

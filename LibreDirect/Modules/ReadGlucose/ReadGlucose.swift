@@ -8,7 +8,9 @@ import Combine
 import Foundation
 
 func readGlucoseMiddelware() -> Middleware<AppState, AppAction> {
-    return readGlucoseMiddelware(service: ReadGlucoseService())
+    return readGlucoseMiddelware(service: {
+        ReadGlucoseService()
+    }())
 }
 
 private func readGlucoseMiddelware(service: ReadGlucoseService) -> Middleware<AppState, AppAction> {
@@ -65,7 +67,7 @@ private class ReadGlucoseService {
 
         let glucoseUtterance = AVSpeechUtterance(string: glucoseString)
         glucoseUtterance.voice = AVSpeechSynthesisVoice(language: NSLocale.current.languageCode)
-        
+
         speechSynthesizer.speak(glucoseUtterance)
     }
 }
