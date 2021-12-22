@@ -2,49 +2,49 @@
 "%1$@ a clock" = "%1$@";
 
 /* (No Comment) */
-"%1$@/min." = "%1$@/min.";
+"%1$@/min." = "%1$@/分鐘";
 
 /* (No Comment) */
-"%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
+"%1$@d %2$@h %3$@min" = "%1$@天%2$@小時%3$@分鐘";
 
 /* (No Comment) */
-"0 - Unknown" = "0 - Unknown";
+"0 - Unknown" = "0 - 未知";
 
 /* (No Comment) */
-"1 - European" = "1 - European";
+"1 - European" = "1-歐洲";
 
 /* (No Comment) */
-"2 - USA" = "2 - USA";
+"2 - USA" = "2 - 美國";
 
 /* (No Comment) */
-"4 - Australian" = "4 - Australian";
+"4 - Australian" = "4 - 澳洲";
 
 /* (No Comment) */
-"8 - Eastern" = "8 - Eastern";
+"8 - Eastern" = "8 - 東方";
 
 /* (No Comment) */
-"Add" = "Add";
+"Add" = "新增";
 
 /* (No Comment) */
-"Add glucose for calibration" = "Add glucose for calibration";
+"Add glucose for calibration" = "新增校準血糖值";
 
 /* (No Comment) */
-"Add glucose value" = "Add glucose value";
+"Add glucose value" = "新增血糖值";
 
 /* (No Comment) */
-"Alarm Settings" = "Alarm Settings";
+"Alarm Settings" = "報警設定";
 
 /* (No Comment) */
-"Alert, high glucose" = "Alert, high glucose";
+"Alert, high glucose" = "警報，高血糖";
 
 /* (No Comment) */
-"Alert, low blood glucose" = "Alert, low blood glucose";
+"Alert, low blood glucose" = "警報，低血糖";
 
 /* (No Comment) */
-"Alert, sensor connection lost" = "Alert, sensor connection lost";
+"Alert, sensor connection lost" = "警報，感測器失去連線";
 
 /* (No Comment) */
-"Alert, sensor expired" = "Alert, sensor expired";
+"Alert, sensor expired" = "警報，感測器過期";
 
 /* (No Comment) */
 "Alert, sensor expiring soon" = "Alert, sensor expiring soon";
@@ -259,7 +259,10 @@
 /* (No Comment) */
 "Sensor lifetime" = "Lifetime";
 
-/* (No Comment) */
+/* Missed readings
+
+If glucose values were missed (e.g. because invalid values were sent), the number of missed values (until the time when new ones are received) is shown in a table.
+If 3 values in a row are incorrect, in principle the table shows "Missed: 3". */
 "Missed readings" = "Missed";
 
 /* (No Comment) */
@@ -364,7 +367,9 @@
 /* (No Comment) */
 "Other Settings" = "Other Settings";
 
-/* (No Comment) */
+/* Glucose badge
+
+This is the setting for displaying the glucose value on the app icon (the red number in the upper right corner of the icon) */
 "Glucose badge" = "Glucose badge";
 
 /* (No Comment) */
