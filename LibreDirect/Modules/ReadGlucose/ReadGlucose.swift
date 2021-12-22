@@ -15,6 +15,10 @@ private func readGlucoseMiddelware(service: ReadGlucoseService) -> Middleware<Ap
     return { state, action, _ in
         switch action {
         case .addGlucoseValues(glucoseValues: let glucoseValues):
+            guard state.readGlucose else {
+                break
+            }
+
             service.readGlucoseValues(glucoseValues: glucoseValues, glucoseUnit: state.glucoseUnit)
 
         default:
@@ -60,6 +64,8 @@ private class ReadGlucoseService {
         }
 
         let glucoseUtterance = AVSpeechUtterance(string: glucoseString)
+        glucoseUtterance.voice = AVSpeechSynthesisVoice(language: NSLocale.current.languageCode)
+        
         speechSynthesizer.speak(glucoseUtterance)
     }
 }
