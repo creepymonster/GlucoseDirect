@@ -123,12 +123,9 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setCalendarExport(enabled: let enabled):
         state.calendarExport = enabled
         
-    case .setAlarmSnoozeUntil(untilDate: let untilDate):
+    case .setAlarmSnoozeUntil(untilDate: let untilDate, autosnooze: _):
         if let untilDate = untilDate {
             state.alarmSnoozeUntil = untilDate
-            
-            // stop sounds
-            NotificationService.shared.stopSound()
         } else {
             state.alarmSnoozeUntil = nil
         }

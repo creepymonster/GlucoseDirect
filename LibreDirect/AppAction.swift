@@ -37,7 +37,7 @@ enum AppAction {
     
     case setAlarmHigh(upperLimit: Int)
     case setAlarmLow(lowerLimit: Int)
-    case setAlarmSnoozeUntil(untilDate: Date?)
+    case setAlarmSnoozeUntil(untilDate: Date?, autosnooze: Bool = false)
     case setCalendarExport(enabled: Bool)
     case setChartShowLines(enabled: Bool)
     case setConnectionAlarm(enabled: Bool)

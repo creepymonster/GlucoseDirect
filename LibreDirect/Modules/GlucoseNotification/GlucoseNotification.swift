@@ -25,12 +25,14 @@ private func glucoseNotificationMiddelware(service: GlucoseNotificationService) 
                 service.clearBadge()
             }
 
-        case .setAlarmSnoozeUntil(untilDate: let untilDate):
+        case .setAlarmSnoozeUntil(untilDate: let untilDate, autosnooze: let autosnooze):
             guard untilDate != nil else {
                 break
             }
 
-            service.clearAlarm()
+            if !autosnooze {
+                service.clearAlarm()
+            }
 
         case .setGlucoseUnit(unit: let unit):
             guard let glucose = state.currentGlucose else {
@@ -64,7 +66,7 @@ private func glucoseNotificationMiddelware(service: GlucoseNotificationService) 
                 service.clearBadge()
                 service.setLowGlucoseAlarm(glucose: glucose, glucoseUnit: state.glucoseUnit)
 
-                return Just(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute)))
+                return Just(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute), autosnooze: true))
                     .setFailureType(to: AppError.self)
                     .eraseToAnyPublisher()
 
@@ -74,13 +76,12 @@ private func glucoseNotificationMiddelware(service: GlucoseNotificationService) 
                 service.clearBadge()
                 service.setHighGlucoseAlarm(glucose: glucose, glucoseUnit: state.glucoseUnit)
 
-                return Just(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute)))
+                return Just(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute), autosnooze: true))
                     .setFailureType(to: AppError.self)
                     .eraseToAnyPublisher()
 
             } else if state.glucoseBadge {
                 service.setGlucoseBadge(glucose: glucose, glucoseUnit: state.glucoseUnit)
-                
             }
 
         default:
@@ -102,6 +103,7 @@ private class GlucoseNotificationService {
     }
 
     func clearAlarm() {
+        NotificationService.shared.stopSound()
         UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [Identifier.sensorGlucoseAlarm.rawValue])
     }
 
