@@ -31,6 +31,14 @@ App programmed in Swift/SwiftUI for using Libre 1/2 blood glucose sensors. I try
 - Sensor expiring alert
 - Snooze for glucose alerts
 
+## Available languages
+- English
+- German
+- Swedish
+- Chinese (simplified and traditional)
+- Spanish
+- Italian
+
 ## Requirements
 - Apple iPhone with iOS 15
 
