@@ -47,73 +47,73 @@
 "Alert, sensor expired" = "警報，感測器過期";
 
 /* (No Comment) */
-"Alert, sensor expiring soon" = "Alert, sensor expiring soon";
+"Alert, sensor expiring soon" = "警報，感測器即將失效";
 
 /* (No Comment) */
-"Are you sure you want to add the new calibration?" = "Are you sure you want to add the new calibration?";
+"Are you sure you want to add the new calibration?" = "你確定要新增的校準值嗎？";
 
 /* (No Comment) */
-"Are you sure you want to delete all calibrations?" = "Are you sure you want to delete all calibrations?";
+"Are you sure you want to delete all calibrations?" = "您確定要刪除全部校準值嗎？";
 
 /* (No Comment) */
-"Are you sure you want to delete all log files?" = "Are you sure you want to delete all log files?";
+"Are you sure you want to delete all log files?" = "請確認要刪除檔案?";
 
 /* (No Comment) */
-"Are you sure you want to delete all glucose values?" = "Are you sure you want to delete all glucose values?";
+"Are you sure you want to delete all glucose values?" = "確實要刪除全部的血糖數值嗎?";
 
 /* (No Comment) */
-"Are you sure you want to disconnect the sensor?" = "Are you sure you want to disconnect the sensor?";
+"Are you sure you want to disconnect the sensor?" = "您確定要斷開感測器連結嗎？";
 
 /* (No Comment) */
-"Are you sure you want to unpair the sensor?" = "Are you sure you want to unpair the sensor?";
+"Are you sure you want to unpair the sensor?" = "你是否確定要解除感測器繫結嗎？";
 
 /* (No Comment) */
-"Blood glucose: %1$@" = "Blood glucose: %1$@";
+"Blood glucose: %1$@" = "血糖:%1$@";
 
 /* (No Comment) */
-"Calibration view" = "Calibration";
+"Calibration view" = "校準";
 
 /* (No Comment) */
-"Cancel" = "Cancel";
+"Cancel" = "取消";
 
 /* (No Comment) */
-"Chart (%1$@)" = "Chart";
+"Chart (%1$@)" = "圖表";
 
 /* (No Comment) */
-"Connect sensor" = "Connect sensor";
+"Connect sensor" = "連線感測器";
 
 /* (No Comment) */
-"Connected" = "Connected";
+"Connected" = "已連線";
 
 /* (No Comment) */
-"Connecting" = "Connecting";
+"Connecting" = "連結中";
 
 /* (No Comment) */
-"Connection alarm" = "Connection alarm";
+"Connection alarm" = "連線警報";
 
 /* (No Comment) */
-"Custom calibration" = "Calibration";
+"Custom calibration" = "校準";
 
 /* (No Comment) */
-"Custom calibration intercept" = "Intercept";
+"Custom calibration intercept" = "截距";
 
 /* (No Comment) */
-"Custom calibration slope" = "Slope";
+"Custom calibration slope" = "斜率";
 
 /* (No Comment) */
-"Delete" = "Delete";
+"Delete" = "刪除";
 
 /* (No Comment) */
-"Delete all" = "Delete all";
+"Delete all" = "刪除全部";
 
 /* (No Comment) */
-"Disconnect" = "Disconnect";
+"Disconnect" = "中斷連線";
 
 /* (No Comment) */
-"Disconnect sensor" = "Disconnect sensor";
+"Disconnect sensor" = "斷開感測器連線";
 
 /* (No Comment) */
-"Disconnected" = "Disconnected";
+"Disconnected" = "連線已中斷";
 
 /* (No Comment) */
 "Factory calibration i1" = "i1";
@@ -134,37 +134,37 @@
 "Factory calibration i6" = "i6";
 
 /* (No Comment) */
-"Glucose alarm" = "Glucose alarm";
+"Glucose alarm" = "血糖警報";
 
 /* (No Comment) */
-"Glucose list view" = "List";
+"Glucose list view" = "列表";
 
 /* (No Comment) */
-"Glucose overview" = "Overview";
+"Glucose overview" = "總覽";
 
 /* (No Comment) */
-"Glucose settings" = "Glucose settings";
+"Glucose settings" = "血糖設定";
 
 /* (No Comment) */
-"Glucose unit" = "Unit";
+"Glucose unit" = "單位";
 
 /* (No Comment) */
-"Glucose values" = "Glucose values";
+"Glucose values" = "血糖值";
 
 /* (No Comment) */
-"Hold the top edge of your iPhone close to the sensor." = "Hold the top edge of your iPhone close to the sensor.";
+"Hold the top edge of your iPhone close to the sensor." = "請握持您的手機讓頂部靠近感測器";
 
 /* (No Comment) */
 "Libre 1" = "Libre 1";
 
 /* (No Comment) */
-"Libre 2 CA" = "Libre 2 CA";
+"Libre 2 CA" = "Libre 2 加拿大";
 
 /* (No Comment) */
-"Libre 2 EU" = "Libre 2 EU";
+"Libre 2 EU" = "Libre 2 歐洲";
 
 /* (No Comment) */
-"Libre 2 US" = "Libre 2 US";
+"Libre 2 US" = "Libre 2 美國";
 
 /* (No Comment) */
 "Libre 3" = "Libre 3";
@@ -179,7 +179,7 @@
 "Libre US 14d" = "Libre US 14d";
 
 /* (No Comment) */
-"Lower limit" = "Low";
+"Lower limit" = "低";
 
 /* (No Comment) */
 "mg/dL" = "mg/dL";
@@ -188,297 +188,297 @@
 "mmol/L" = "mmol/L";
 
 /* (No Comment) */
-"New calibration" = "New calibration";
+"New calibration" = "新的校準值";
 
 /* (No Comment) */
-"Nightscout API-Secret" = "API-Secret";
+"Nightscout API-Secret" = "API-密鑰";
 
 /* (No Comment) */
-"Nightscout url" = "Url";
+"Nightscout url" = "網址";
 
 /* (No Comment) */
-"Nightscout settings" = "Nightscout settings";
+"Nightscout settings" = "Nightscout 設定";
 
 /* (No Comment) */
-"Nightscout upload enabled" = "Upload";
+"Nightscout upload enabled" = "上傳";
 
 /* (No Comment) */
-"Now" = "Now";
+"Now" = "現在";
 
 /* (No Comment) */
-"OK, sensor connection established" = "OK, sensor connection established";
+"OK, sensor connection established" = "好的，感測器連線已建立";
 
 /* (No Comment) */
-"Pair sensor" = "Pair sensor";
+"Pair sensor" = "配對感測器";
 
 /* (No Comment) */
-"Power off" = "Power off";
+"Power off" = "關閉";
 
 /* (No Comment) */
-"Scanning" = "Scanning";
+"Scanning" = "掃描中";
 
 /* (No Comment) */
-"Sensor age" = "Sensor age";
+"Sensor age" = "感測器壽命";
 
 /* (No Comment) */
-"Connection" = "Connection";
+"Connection" = "連線";
 
 /* (No Comment) */
-"Connection error" = "Error";
+"Connection error" = "錯誤";
 
 /* (No Comment) */
-"Connection error timestamp" = "Time";
+"Connection error timestamp" = "時間";
 
 /* (No Comment) */
-"Connection state" = "State";
+"Connection state" = "狀態";
 
 /* (No Comment) */
-"Sensor custom calibration" = "Custom Calibration";
+"Sensor custom calibration" = "自定義校準";
 
 /* (No Comment) */
-"Sensor details" = "Sensor details";
+"Sensor details" = "感測器詳情";
 
 /* (No Comment) */
-"Sensor factory calibration" = "Factory Calibration";
+"Sensor factory calibration" = "出厂校准";
 
 /* (No Comment) */
-"Sensor has failure" = "Sensor has failure";
+"Sensor has failure" = "感測器失敗請更換";
 
 /* (No Comment) */
-"Sensor in starting phase" = "Sensor in starting phase";
+"Sensor in starting phase" = "感測器啟動中";
 
 /* (No Comment) */
-"Sensor is expired" = "Sensor is expired";
+"Sensor is expired" = "感測器已過期";
 
 /* (No Comment) */
-"Sensor is ready" = "Sensor is ready";
+"Sensor is ready" = "感測器已就緒";
 
 /* (No Comment) */
-"Sensor is shut down" = "Sensor is expired";
+"Sensor is shut down" = "感測器已過期";
 
 /* (No Comment) */
-"Sensor lifetime" = "Lifetime";
+"Sensor lifetime" = "壽命";
 
 /* Missed readings
 
 If glucose values were missed (e.g. because invalid values were sent), the number of missed values (until the time when new ones are received) is shown in a table.
 If 3 values in a row are incorrect, in principle the table shows "Missed: 3". */
-"Missed readings" = "Missed";
+"Missed readings" = "錯過";
 
 /* (No Comment) */
-"Sensor not yet startet" = "Sensor not yet startet";
+"Sensor not yet startet" = "感測器尚未啟動";
 
 /* (No Comment) */
 "Sensor PatchInfo" = "PatchInfo";
 
 /* (No Comment) */
-"Sensor possible lifetime" = "Lifetime";
+"Sensor possible lifetime" = "生命期";
 
 /* (No Comment) */
-"Sensor region" = "Region";
+"Sensor region" = "區域";
 
 /* (No Comment) */
-"Sensor remaining lifetime" = "Remaining";
+"Sensor remaining lifetime" = "剩餘";
 
 /* (No Comment) */
-"Sensor remaining warmup time" = "Warmup";
+"Sensor remaining warmup time" = "啟動中";
 
 /* (No Comment) */
-"Sensor serial" = "Serial";
+"Sensor serial" = "序號";
 
 /* (No Comment) */
-"Sensor state" = "State";
+"Sensor state" = "狀態";
 
 /* (No Comment) */
-"Sensor type" = "Type";
+"Sensor type" = "類型";
 
 /* (No Comment) */
 "Sensor UID" = "UID";
 
 /* (No Comment) */
-"Settings view" = "Settings";
+"Settings view" = "設置";
 
 /* (No Comment) */
-"Snooze until" = "Snooze";
+"Snooze until" = "稍後提醒";
 
 /* (No Comment) */
-"Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "Unfortunately, an NFC-enabled iPhone is required to use the app :'(";
+"Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "您的手機不支援NFC :'(";
 
 /* (No Comment) */
-"The connection to the sensor has been successfully established and glucose data is received." = "The connection to the sensor has been successfully established and glucose data is received.";
+"The connection to the sensor has been successfully established and glucose data is received." = "感測器連線已建立且收到了血糖資料";
 
 /* (No Comment) */
-"The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause." = "The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause.";
+"The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause." = "感測器連線似乎正常但尚未收到血糖資料，這可能是感測器故障導致的";
 
 /* (No Comment) */
-"The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired.";
+"The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "感測器連線中斷，請確保手機與感測器保持在5米以內範圍";
 
 /* (No Comment) */
-"The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor." = "The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor.";
+"The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor." = "感測器拒絕與手機連線，請使用NFC掃描重新建立連線";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "未知";
 
 /* (No Comment) */
-"Unpair" = "Unpair";
+"Unpair" = "解除配對";
 
 /* (No Comment) */
-"Unpair sensor" = "Unpair sensor";
+"Unpair sensor" = "解除感測器配對";
 
 /* (No Comment) */
-"Upper limit" = "High";
+"Upper limit" = "高";
 
 /* (No Comment) */
-"Virtual Sensor" = "Virtual Sensor";
+"Virtual Sensor" = "虛擬感測器";
 
 /* (No Comment) */
-"Warning, sensor missed %1$@ readings" = "Warning, sensor missed %1$@ readings";
+"Warning, sensor missed %1$@ readings" = "注意，錯過了%1$@讀數";
 
 /* (No Comment) */
-"Wearing time alarm" = "Wearing time alarm";
+"Wearing time alarm" = "佩戴時間警報";
 
 /* (No Comment) */
-"Your current glucose is %1$@ (%2$@)." = "Your current glucose is %1$@ (%2$@).";
+"Your current glucose is %1$@ (%2$@)." = "您當前的血糖值為%1$@ (%2$@).";
 
 /* (No Comment) */
-"Your glucose %1$@ (%2$@) is dangerously high and needs to be treated." = "Your glucose, %1$@ (%2$@), is dangerously high and needs to be treated.";
+"Your glucose %1$@ (%2$@) is dangerously high and needs to be treated." = "您的血糖為, %1$@ (%2$@),需要做一些處理";
 
 /* (No Comment) */
-"Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "Your glucose, %1$@ (%2$@), is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal.";
+"Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "您的血糖為, %1$@ (%2$@), 非常低。需要補充一些食物";
 
 /* (No Comment) */
-"Your sensor has expired and needs to be replaced as soon as possible" = "Your sensor has expired and needs to be replaced as soon as possible";
+"Your sensor has expired and needs to be replaced as soon as possible" = "您的感測器已經過期，請儘快更換";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ day." = "Your sensor is about to expire. Replace sensor in %1$@ day.";
+"Your sensor is about to expire. Replace sensor in %1$@ day." = "您的感測器即將到期, 請在%1$@天後更換";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ days." = "Your sensor is about to expire. Replace sensor in %1$@ days.";
+"Your sensor is about to expire. Replace sensor in %1$@ days." = "您的感測器即將到期, 請在%1$@天後更換";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ hour." = "Your sensor is about to expire. Replace sensor in %1$@ hour.";
+"Your sensor is about to expire. Replace sensor in %1$@ hour." = "您的感測器即將到期, 請在%1$@小時後更換";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ hours." = "Your sensor is about to expire. Replace sensor in %1$@ hours.";
+"Your sensor is about to expire. Replace sensor in %1$@ hours." = "您的感測器即將到期, 請在%1$@小時後更換";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Your sensor is about to expire. Replace sensor in %1$@ minutes.";
+"Your sensor is about to expire. Replace sensor in %1$@ minutes." = "您的感測器即將到期, 請在%1$@分鐘後更換";
 
 /* (No Comment) */
-"Other Settings" = "Other Settings";
+"Other Settings" = "其他設定";
 
 /* Glucose badge
 
 This is the setting for displaying the glucose value on the app icon (the red number in the upper right corner of the icon) */
-"Glucose badge" = "Glucose badge";
+"Glucose badge" = "血糖角標";
 
 /* (No Comment) */
-"Are you sure you want to add the new blood glucose value?" = "Are you sure you want to add the new blood glucose value?";
+"Are you sure you want to add the new blood glucose value?" = "您確定要新增血糖值嗎？";
 
 /* (No Comment) */
-"Chart presentation" = "Chart presentation";
+"Chart presentation" = "圖表展示";
 
 /* (No Comment) */
-"Line" = "Line";
+"Line" = "線條";
 
 /* (No Comment) */
-"Points" = "Points";
+"Points" = "點";
 
 /* (No Comment) */
-"Transmitter name" = "Name";
+"Transmitter name" = "名稱";
 
 /* (No Comment) */
-"Transmitter battery" = "Battery";
+"Transmitter battery" = "電量";
 
 /* (No Comment) */
-"Transmitter hardware" = "Hardware";
+"Transmitter hardware" = "硬體";
 
 /* (No Comment) */
-"Transmitter firmware" = "Firmware";
+"Transmitter firmware" = "固件";
 
 /* (No Comment) */
-"Transmitter" = "Transmitter";
+"Transmitter" = "發射機";
 
 /* (No Comment) */
-"Sensor connection" = "Sensor connection";
+"Sensor connection" = "感測器連線";
 
 /* (No Comment) */
-"Without transmitter" = "Without transmitter";
+"Without transmitter" = "沒有發射機";
 
 /* (No Comment) */
-"Bubble transmitter" = "Bubble transmitter";
+"Bubble transmitter" = "Bubble發射機";
 
 /* (No Comment) */
-"Pairing" = "Pairing";
+"Pairing" = "正在配對";
 
 /* (No Comment) */
-"Calendar export" = "Calendar export";
+"Calendar export" = "導出日歷";
 
 /* (No Comment) */
-"Calendar export enabled" = "Export";
+"Calendar export enabled" = "導出";
 
 /* (No Comment) */
-"Selected calendar" = "Calendar";
+"Selected calendar" = "日曆";
 
 /* (No Comment) */
-"Please select" = "Please select";
+"Please select" = "請選擇";
 
 /* (No Comment) */
-"About %@" = "About %@";
+"About %@" = "關於%@";
 
 /* (No Comment) */
-"App Version" = "Version";
+"App Version" = "版本";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "未知";
 
 /* (No Comment) */
-"Invalid parameters" = "Invalid parameters";
+"Invalid parameters" = "無效參數";
 
 /* (No Comment) */
-"Invalid handle" = "Invalid handle";
+"Invalid handle" = "無效操作";
 
 /* (No Comment) */
-"Not connected" = "Not connected";
+"Not connected" = "未連接";
 
 /* (No Comment) */
-"Out of space" = "Out of space";
+"Out of space" = "空間不足";
 
 /* (No Comment) */
-"Operation cancelled" = "Operation cancelled";
+"Operation cancelled" = "操作已取消";
 
 /* (No Comment) */
-"Connection timeout" = "Connection timeout";
+"Connection timeout" = "連接超時";
 
 /* (No Comment) */
-"Peripheral disconnected" = "Peripheral disconnected";
+"Peripheral disconnected" = "外部裝置已斷開";
 
 /* (No Comment) */
-"UUID not allowed" = "UUID not allowed";
+"UUID not allowed" = "UUID不允許";
 
 /* (No Comment) */
-"Already advertising" = "Already advertising";
+"Already advertising" = "已經開始廣播";
 
 /* (No Comment) */
-"Connection failed" = "Connection failed";
+"Connection failed" = "連結失敗";
 
 /* (No Comment) */
-"Connection limit reached" = "Connection limit reached";
+"Connection limit reached" = "達到連線數階段限制";
 
 /* (No Comment) */
-"Operation not supported" = "Operation not supported";
+"Operation not supported" = "不支援此作業";
 
 /* (No Comment) */
-"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Attention, the sensor sends faulty values. Please wait 10 minutes.";
+"Attention, the sensor sends faulty values. Please wait 10 minutes." = "注意，感測器傳送了錯誤的資料，請等待10分鐘";
 
 /* (No Comment) */
-"App Website" = "Website";
+"App Website" = "網址";
 
 /* (No Comment) */
-"Send log file" = "Send log file";
+"Send log file" = "發送日誌檔案";
 
 /* (No Comment) */
-"Sensor starting date" = "Starting date";
+"Sensor starting date" = "開始日期";
 
 /* (No Comment) */
-"Delete log files" = "Delete log files";
+"Delete log files" = "删除所有的日志文件？";
