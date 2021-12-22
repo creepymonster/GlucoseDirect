@@ -90,7 +90,7 @@ private class ExpiringNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
-            notification.sound = .none
+            notification.sound = NotificationService.SilentSound
 
             if #available(iOS 15.0, *) {
                 notification.interruptionLevel = .critical
@@ -129,7 +129,7 @@ private class ExpiringNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
-            notification.sound = .none
+            notification.sound = NotificationService.SilentSound
 
             if withSound {
                 if #available(iOS 15.0, *) {

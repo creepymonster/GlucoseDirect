@@ -127,7 +127,7 @@ private class GlucoseNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
-            notification.sound = .none
+            notification.sound = NotificationService.SilentSound
 
             if #available(iOS 15.0, *) {
                 notification.interruptionLevel = .passive
@@ -165,7 +165,7 @@ private class GlucoseNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
-            notification.sound = .none
+            notification.sound = NotificationService.SilentSound
             notification.userInfo = self.actions
 
             if #available(iOS 15.0, *) {
@@ -208,7 +208,7 @@ private class GlucoseNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
-            notification.sound = .none
+            notification.sound = NotificationService.SilentSound
             notification.userInfo = self.actions
 
             if #available(iOS 15.0, *) {

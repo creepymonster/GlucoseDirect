@@ -22,6 +22,7 @@
 		E24B532326B863E20091417F /* AlarmSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532226B863E20091417F /* AlarmSettingsView.swift */; };
 		E24B532526B864020091417F /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532426B864020091417F /* ToggleView.swift */; };
 		E26089A42748DCB500749025 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26089A32748DCB500749025 /* Double.swift */; };
+		E26205102773C80400AD631B /* silent.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E262050F2773C80400AD631B /* silent.aiff */; };
 		E2645D842763F4EF0058BFC7 /* GlucoseQuality.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2645D832763F4EF0058BFC7 /* GlucoseQuality.swift */; };
 		E2646F3B275FD2EC00ADE451 /* CalendarExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2646F3A275FD2EC00ADE451 /* CalendarExport.swift */; };
 		E2646F3D275FD3E800ADE451 /* CalendarExportSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2646F3C275FD3E800ADE451 /* CalendarExportSettingsView.swift */; };
@@ -128,6 +129,7 @@
 		E24B532226B863E20091417F /* AlarmSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingsView.swift; sourceTree = "<group>"; };
 		E24B532426B864020091417F /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
 		E26089A32748DCB500749025 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		E262050F2773C80400AD631B /* silent.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = silent.aiff; sourceTree = "<group>"; };
 		E2645D832763F4EF0058BFC7 /* GlucoseQuality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseQuality.swift; sourceTree = "<group>"; };
 		E2646F3A275FD2EC00ADE451 /* CalendarExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarExport.swift; sourceTree = "<group>"; };
 		E2646F3C275FD3E800ADE451 /* CalendarExportSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarExportSettingsView.swift; sourceTree = "<group>"; };
@@ -505,6 +507,7 @@
 		E2FCAC742707439300FE1CBF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E262050F2773C80400AD631B /* silent.aiff */,
 				E2FCAC78270743B100FE1CBF /* alarm.aiff */,
 				E2FCAC76270743B100FE1CBF /* expiring.aiff */,
 				E2FCAC79270743B100FE1CBF /* negative.aiff */,
@@ -603,6 +606,7 @@
 				E20B8545266F4A9900AA4224 /* Preview Assets.xcassets in Resources */,
 				E24077B326B881C2001767C0 /* InfoPlist.strings in Resources */,
 				E2FCAC87270743E200FE1CBF /* Localizable.strings in Resources */,
+				E26205102773C80400AD631B /* silent.aiff in Resources */,
 				E20B8542266F4A9900AA4224 /* Assets.xcassets in Resources */,
 				E2FCAC7E270743B100FE1CBF /* alarm.aiff in Resources */,
 				E2FCAC7C270743B100FE1CBF /* expiring.aiff in Resources */,

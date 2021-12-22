@@ -19,6 +19,10 @@ class NotificationService {
 
     static let shared = NotificationService()
 
+    static let SilentSound: UNNotificationSound = {
+        UNNotificationSound(named: UNNotificationSoundName(rawValue: "silent.aiff"))
+    }()
+
     func isPlaying() -> Bool {
         if let player = player {
             return player.isPlaying

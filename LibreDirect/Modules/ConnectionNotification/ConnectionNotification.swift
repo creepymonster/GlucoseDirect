@@ -83,7 +83,7 @@ private class ConnectionNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
-            notification.sound = .none
+            notification.sound = NotificationService.SilentSound
             notification.title = LocalizedString("Alert, sensor connection lost", comment: "")
 
             if errorIsCritical {
@@ -119,7 +119,7 @@ private class ConnectionNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
-            notification.sound = .none
+            notification.sound = NotificationService.SilentSound
 
             if #available(iOS 15.0, *) {
                 notification.interruptionLevel = .passive
@@ -143,7 +143,7 @@ private class ConnectionNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
-            notification.sound = .none
+            notification.sound = NotificationService.SilentSound
 
             if #available(iOS 15.0, *) {
                 notification.interruptionLevel = .timeSensitive
