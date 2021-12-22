@@ -491,19 +491,19 @@
 "Readable milimol" = "milimol";
 
 /* (No Comment) */
-"Readable falling" = "falling"
+"Readable falling" = "falling";
 
 /* (No Comment) */
-"Readable fast falling" = "falling"
+"Readable fast falling" = "falling";
 
 /* (No Comment) */
-"Readable rapidly falling" = "falling"
+"Readable rapidly falling" = "falling";
 
 /* (No Comment) */
-"Readable rising" = "falling"
+"Readable rising" = "falling";
 
 /* (No Comment) */
-"Readable fast rising" = "falling"
+"Readable fast rising" = "falling";
 
 /* (No Comment) */
-"Readable rapidly rising" = "falling"
+"Readable rapidly rising" = "falling";
