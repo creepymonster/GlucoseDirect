@@ -7,13 +7,13 @@ import AVFoundation
 import Combine
 import Foundation
 
-func readGlucoseMiddelware() -> Middleware<AppState, AppAction> {
+func readAloudMiddelware() -> Middleware<AppState, AppAction> {
     return readGlucoseMiddelware(service: {
-        ReadGlucoseService()
+        ReadAloudService()
     }())
 }
 
-private func readGlucoseMiddelware(service: ReadGlucoseService) -> Middleware<AppState, AppAction> {
+private func readGlucoseMiddelware(service: ReadAloudService) -> Middleware<AppState, AppAction> {
     return { state, action, _ in
         switch action {
         case .addGlucoseValues(glucoseValues: let glucoseValues):
@@ -21,7 +21,7 @@ private func readGlucoseMiddelware(service: ReadGlucoseService) -> Middleware<Ap
                 break
             }
 
-            service.readGlucoseValues(glucoseValues: glucoseValues, glucoseUnit: state.glucoseUnit)
+            service.readGlucoseValues(glucoseValues: glucoseValues, glucoseUnit: state.glucoseUnit, alarmLow: state.alarmLow, alarmHigh: state.alarmHigh)
 
         default:
             break
@@ -31,35 +31,56 @@ private func readGlucoseMiddelware(service: ReadGlucoseService) -> Middleware<Ap
     }
 }
 
-// MARK: - ReadGlucoseService
+// MARK: - ReadAloudService
 
-private class ReadGlucoseService {
+private class ReadAloudService {
     // MARK: Internal
 
-    func readGlucoseValues(glucoseValues: [Glucose], glucoseUnit: GlucoseUnit) {
+    func readGlucoseValues(glucoseValues: [Glucose], glucoseUnit: GlucoseUnit, alarmLow: Int, alarmHigh: Int) {
         AppLog.info("readGlucoseValues: \(glucoseValues.count) \(glucoseUnit.localizedString)")
 
         guard let glucose = glucoseValues.last, glucose.type == .cgm else {
             return
         }
 
-        if let glucoseValue = glucose.glucoseValue, glucoseValues.count > 1 || glucose.is5Minutely || lastGlucose == nil || lastGlucose!.trend != glucose.trend {
-            read(glucoseValue: glucoseValue, glucoseUnit: glucoseUnit, glucoseTrend: glucose.trend)
-            lastGlucose = glucose
+        guard let glucoseValue = glucose.glucoseValue else {
+            return
+        }
+
+        var alarm: AlarmType = .none
+        if glucoseValue < alarmLow {
+            alarm = .low
+        } else if glucoseValue > alarmHigh {
+            alarm = .high
+        }
+
+        if alarm != self.alarm || glucoseValues.count > 1 || glucose.is5Minutely || self.glucose == nil || self.glucose!.trend != glucose.trend {
+            read(glucoseValue: glucoseValue, glucoseUnit: glucoseUnit, glucoseTrend: glucose.trend, alarm: alarm)
+
+            self.glucose = glucose
+            self.alarm = alarm
         }
     }
 
     // MARK: Private
 
-    private var speechSynthesizer = AVSpeechSynthesizer()
-    private var lastGlucose: Glucose?
+    private var speechSynthesizer: AVSpeechSynthesizer = {
+        AVSpeechSynthesizer()
+    }()
 
-    private func read(glucoseValue: Int, glucoseUnit: GlucoseUnit, glucoseTrend: SensorTrend? = nil) {
-        AppLog.info("read: \(glucoseValue) \(glucoseUnit.readable) \(glucoseTrend?.readable)")
+    private var glucose: Glucose?
+    private var alarm: AlarmType = .none
+
+    private func read(glucoseValue: Int, glucoseUnit: GlucoseUnit, glucoseTrend: SensorTrend? = nil, alarm: AlarmType = .none) {
+        AppLog.info("read: \(glucoseValue.asGlucose(unit: glucoseUnit)) \(glucoseUnit.readable) \(glucoseTrend?.readable)")
 
         var glucoseString: String
 
-        if let readableTrend = glucoseTrend?.readable {
+        if alarm == .low {
+            glucoseString = String(format: LocalizedString("Readable low glucose: %1$@ %2$@"), glucoseValue.asGlucose(unit: glucoseUnit), glucoseUnit.readable)
+        } else if alarm == .high {
+            glucoseString = String(format: LocalizedString("Readable high glucose: %1$@ %2$@"), glucoseValue.asGlucose(unit: glucoseUnit), glucoseUnit.readable)
+        } else if let readableTrend = glucoseTrend?.readable {
             glucoseString = String(format: LocalizedString("Readable glucose with trend: %1$@ %2$@, %3$@"), glucoseValue.asGlucose(unit: glucoseUnit), glucoseUnit.readable, readableTrend)
         } else {
             glucoseString = String(format: LocalizedString("Readable glucose: %1$@ %2$@"), glucoseValue.asGlucose(unit: glucoseUnit), glucoseUnit.readable)
@@ -70,6 +91,14 @@ private class ReadGlucoseService {
 
         speechSynthesizer.speak(glucoseUtterance)
     }
+}
+
+// MARK: - AlarmType
+
+enum AlarmType {
+    case none
+    case low
+    case high
 }
 
 extension GlucoseUnit {

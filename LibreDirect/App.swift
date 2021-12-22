@@ -72,7 +72,7 @@ final class LibreDirectApp: App {
             glucoseNotificationMiddelware(),
             connectionNotificationMiddelware(),
             calendarExportMiddleware(),
-            readGlucoseMiddelware(),
+            readAloudMiddelware(),
         ])
     }
 
@@ -90,7 +90,7 @@ final class LibreDirectApp: App {
             glucoseNotificationMiddelware(),
             connectionNotificationMiddelware(),
             calendarExportMiddleware(),
-            readGlucoseMiddelware(),
+            readAloudMiddelware(),
 
             // export middlewares
             nightscoutMiddleware(),
