@@ -494,19 +494,19 @@
 "Readable falling" = "falling";
 
 /* (No Comment) */
-"Readable fast falling" = "falling";
+"Readable fast falling" = "fast falling";
 
 /* (No Comment) */
-"Readable rapidly falling" = "falling";
+"Readable rapidly falling" = "rapidly falling";
 
 /* (No Comment) */
-"Readable rising" = "falling";
+"Readable rising" = "rising";
 
 /* (No Comment) */
-"Readable fast rising" = "falling";
+"Readable fast rising" = "fast rising";
 
 /* (No Comment) */
-"Readable rapidly rising" = "falling";
+"Readable rapidly rising" = "rapidly rising";
 
 /* (No Comment) */
 "Read glucose" = "Read glucose";
