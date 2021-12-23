@@ -479,46 +479,40 @@
 "Delete log files" = "Elimina i file di Log";
 
 /* (No Comment) */
-"Readable glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@";
+"Readable glucose: %1$@ %2$@" = "Glucosio: %1$@ %2$@";
 
 /* (No Comment) */
-"Readable glucose with trend: %1$@ %2$@, %3$@" = "Glucose: %1$@ %2$@, %3$@";
+"Readable glucose with trend: %1$@ %2$@, %3$@" = "Glucosio: %1$@ %2$@ %3$@";
 
 /* (No Comment) */
-"Readable low glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, too low!";
+"Readable low glucose: %1$@ %2$@" = "Glucosio: %1$@ %2$@. Attenzione, troppo basso!";
 
 /* (No Comment) */
-"Readable high glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, too high!";
+"Readable high glucose: %1$@ %2$@" = "Glucosio: %1$@ %2$@. Attenzione, troppo alto!";
 
 /* (No Comment) */
-"Readable miligram" = "miligram";
+"Readable miligram" = "milligrammo";
 
 /* (No Comment) */
-"Readable milimol" = "milimol";
+"Readable milimol" = "millimole";
 
 /* (No Comment) */
-"Readable falling" = "falling";
+"Readable falling" = "in discesa";
 
 /* (No Comment) */
-"Readable fast falling" = "fast falling";
+"Readable fast falling" = "discesa veloce";
 
 /* (No Comment) */
-"Readable rapidly falling" = "rapidly falling";
+"Readable rapidly falling" = "discesa rapida";
 
 /* (No Comment) */
-"Readable rising" = "rising";
+"Readable rising" = "in aumento";
 
 /* (No Comment) */
 "Readable fast rising" = "fast rising";
 
 /* (No Comment) */
 "Readable rapidly rising" = "rapidly rising";
-
-/* (No Comment) */
-"Readable low glucose warning" = "zu tief";
-
-/* (No Comment) */
-"Readable high glucose warning" = "zu hoch";
 
 /* (No Comment) */
 "Read aloud" = "Read aloud";
