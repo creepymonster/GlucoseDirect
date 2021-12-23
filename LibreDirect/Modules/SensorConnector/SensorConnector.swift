@@ -108,6 +108,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
 
         case .pairSensor:
             guard let sensorConnection = state.selectedConnection else {
+                AppLog.info("Guard: state.selectedConnection is nil")
                 break
             }
 
@@ -115,6 +116,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
 
         case .connectSensor:
             guard let sensorConnection = state.selectedConnection else {
+                AppLog.info("Guard: state.selectedConnection is nil")
                 break
             }
 
@@ -126,6 +128,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
 
         case .disconnectSensor:
             guard let sensorConnection = state.selectedConnection else {
+                AppLog.info("Guard: state.selectedConnection is nil")
                 break
             }
 

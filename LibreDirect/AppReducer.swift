@@ -14,10 +14,12 @@ func appReducer(state: inout AppState, action: AppAction) {
     switch action {
     case .addCalibration(glucoseValue: let glucoseValue):
         guard state.sensor != nil else {
+            AppLog.info("Guard: state.sensor is nil")
             break
         }
         
         guard let factoryCalibratedGlucoseValue = state.currentGlucose?.initialGlucoseValue else {
+            AppLog.info("Guard: state.currentGlucose.initialGlucoseValue is nil")
             break
         }
         
@@ -44,6 +46,7 @@ func appReducer(state: inout AppState, action: AppAction) {
         
     case .clearCalibrations:
         guard state.sensor != nil else {
+            AppLog.info("Guard: state.sensor is nil")
             break
         }
         
@@ -66,6 +69,7 @@ func appReducer(state: inout AppState, action: AppAction) {
         
     case .removeCalibration(id: let id):
         guard state.sensor != nil else {
+            AppLog.info("Guard: state.sensor is nil")
             break
         }
         
@@ -179,6 +183,7 @@ func appReducer(state: inout AppState, action: AppAction) {
 
     case .setSensorState(sensorAge: let sensorAge, sensorState: let sensorState):
         guard state.sensor != nil else {
+            AppLog.info("Guard: state.sensor is nil")
             break
         }
         

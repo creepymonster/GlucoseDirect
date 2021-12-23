@@ -305,7 +305,10 @@ extension UserDefaults {
     }
 
     func getArray<Element>(forKey key: String) -> [Element]? where Element: Decodable {
-        guard let data = data(forKey: key) else { return nil }
+        guard let data = data(forKey: key) else {
+            return nil
+        }
+        
         return try? JSONDecoder().decode([Element].self, from: data)
     }
 
@@ -315,15 +318,18 @@ extension UserDefaults {
     }
 
     func getObject<Element>(forKey key: String) -> Element? where Element: Decodable {
-        guard let data = data(forKey: key) else { return nil }
+        guard let data = data(forKey: key) else {
+            return nil
+        }
+        
         return try? JSONDecoder().decode(Element.self, from: data)
     }
 
     static func stringValue(forKey key: String) -> String {
-        guard let value = Bundle.main.object(forInfoDictionaryKey: key) as? String
-        else {
+        guard let value = Bundle.main.object(forInfoDictionaryKey: key) as? String else {
             fatalError("Invalid value or undefined key")
         }
+        
         return value
     }
 }

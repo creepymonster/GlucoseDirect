@@ -37,6 +37,7 @@ final class SensorReading: CustomStringConvertible, Codable {
 
     var glucoseValue: Double? {
         guard let readGlucoseValue = readGlucoseValue else {
+            AppLog.info("Guard: readGlucoseValue is nil")
             return nil
         }
         
