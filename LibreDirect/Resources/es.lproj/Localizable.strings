@@ -485,6 +485,12 @@
 "Readable glucose with trend: %1$@ %2$@, %3$@" = "Glucose: %1$@ %2$@, %3$@";
 
 /* (No Comment) */
+"Readable low glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, too low!";
+
+/* (No Comment) */
+"Readable high glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, too high!";
+
+/* (No Comment) */
 "Readable miligram" = "miligram";
 
 /* (No Comment) */
@@ -509,4 +515,28 @@
 "Readable rapidly rising" = "rapidly rising";
 
 /* (No Comment) */
+"Readable low glucose warning" = "zu tief";
+
+/* (No Comment) */
+"Readable high glucose warning" = "zu hoch";
+
+/* (No Comment) */
+"Read aloud" = "Read aloud";
+
+/* (No Comment) */
 "Glucose read aloud" = "Glucose read aloud";
+
+/* (No Comment) */
+"Glucose values are read aloud:" = "Glucose values are read aloud:";
+
+/* (No Comment) */
+"Every 10 minutes" = "- Every 10 minutes";
+
+/* (No Comment) */
+"After disconnections" = "- After disconnections";
+
+/* (No Comment) */
+"When the glucose trend changes" = "- When the glucose trend changes";
+
+/* (No Comment) */
+"When a new alarm is triggered" = "- When a new alarm is triggered";
