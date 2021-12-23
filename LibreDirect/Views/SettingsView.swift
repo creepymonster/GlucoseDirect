@@ -16,6 +16,7 @@ struct SettingsView: View {
                 AlarmSettingsView()
                 NightscoutSettingsView()
                 CalendarExportSettingsView()
+                ReadAloudSettingsView()
                 OtherSettingsView()
                 AboutView()
             }
