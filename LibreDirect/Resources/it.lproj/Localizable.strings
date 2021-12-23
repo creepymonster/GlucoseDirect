@@ -485,10 +485,10 @@
 "Readable glucose with trend: %1$@ %2$@, %3$@" = "Glucosio: %1$@ %2$@ %3$@";
 
 /* (No Comment) */
-"Readable low glucose: %1$@ %2$@" = "Glucosio: %1$@ %2$@. Attenzione, troppo basso!";
+"Readable low glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, Hypoglycemia!";
 
 /* (No Comment) */
-"Readable high glucose: %1$@ %2$@" = "Glucosio: %1$@ %2$@. Attenzione, troppo alto!";
+"Readable high glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, Hyperglycemia!";
 
 /* (No Comment) */
 "Readable miligram" = "milligrammo";
@@ -509,28 +509,28 @@
 "Readable rising" = "in aumento";
 
 /* (No Comment) */
-"Readable fast rising" = "fast rising";
+"Readable fast rising" = "aumento veloce";
 
 /* (No Comment) */
-"Readable rapidly rising" = "rapidly rising";
+"Readable rapidly rising" = "aumento rapido";
 
 /* (No Comment) */
-"Read aloud" = "Read aloud";
+"Read aloud" = "Leggi ad alta voce";
 
 /* (No Comment) */
-"Glucose read aloud" = "Glucose read aloud";
+"Glucose read aloud" = "Glucosio leggi ad alta voce";
 
 /* (No Comment) */
-"Glucose values are read aloud:" = "Glucose values are read aloud:";
+"Glucose values are read aloud:" = "I valori di glucosio vanno letti ad alta voce:";
 
 /* (No Comment) */
-"Every 10 minutes" = "- Every 10 minutes";
+"Every 10 minutes" = "- Ogni 10 minuti";
 
 /* (No Comment) */
-"After disconnections" = "- After disconnections";
+"After disconnections" = "- Dopo le disconnessioni";
 
 /* (No Comment) */
-"When the glucose trend changes" = "- When the glucose trend changes";
+"When the glucose trend changes" = "- Quando l'andamento di glucosio cambia";
 
 /* (No Comment) */
-"When a new alarm is triggered" = "- When a new alarm is triggered";
+"When a new alarm is triggered" = "- Quando un nuovo allarme è attivato";
