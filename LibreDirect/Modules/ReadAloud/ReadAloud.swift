@@ -39,11 +39,18 @@ private class ReadAloudService {
     func readGlucoseValues(glucoseValues: [Glucose], glucoseUnit: GlucoseUnit, alarmLow: Int, alarmHigh: Int) {
         AppLog.info("readGlucoseValues: \(glucoseValues.count) \(glucoseUnit.localizedString)")
 
-        guard let glucose = glucoseValues.last, glucose.type == .cgm else {
+        guard let glucose = glucoseValues.last else {
+            AppLog.info("Guard: glucoseValues.last is nil")
+            return
+        }
+        
+        guard glucose.type == .cgm else {
+            AppLog.info("Guard: glucose.type is not .cgm")
             return
         }
 
         guard let glucoseValue = glucose.glucoseValue else {
+            AppLog.info("Guard: glucose.glucoseValue is nil")
             return
         }
 

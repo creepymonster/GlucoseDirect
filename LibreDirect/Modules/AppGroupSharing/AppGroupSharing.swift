@@ -23,6 +23,7 @@ private func appGroupSharingMiddleware(service: AppGroupSharingService) -> Middl
 
         case .addGlucoseValues(glucoseValues: let glucoseValues):
             guard let glucose = glucoseValues.last else {
+                AppLog.info("Guard: glucoseValues.last is nil")
                 break
             }
 

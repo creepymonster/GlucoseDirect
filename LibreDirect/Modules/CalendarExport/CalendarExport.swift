@@ -36,11 +36,23 @@ func calendarExportMiddleware(service: CalendarExportService) -> Middleware<AppS
             }
 
         case .addGlucoseValues(glucoseValues: let glucoseValues):
+            guard state.calendarExport else {
+                AppLog.info("Guard: state.calendarExport disabled")
+                break
+            }
+            
             guard let glucose = glucoseValues.last else {
+                AppLog.info("Guard: glucoseValues.last is nil")
+                break
+            }
+            
+            guard glucose.type == .cgm else {
+                AppLog.info("Guard: glucose.type is not .cgm")
                 break
             }
 
-            guard state.calendarExport, let calendarTarget = state.selectedCalendarTarget, glucose.type == .cgm else {
+            guard let calendarTarget = state.selectedCalendarTarget else {
+                AppLog.info("Guard: state.selectedCalendarTarget is nil")
                 break
             }
 

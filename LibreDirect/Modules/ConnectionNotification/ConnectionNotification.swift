@@ -21,21 +21,19 @@ private func connectionNotificationMiddelware(service: ConnectionNotificationSer
                 service.clearAlarm()
             }
 
-        case .setConnectionError(errorMessage: let errorMessage, errorTimestamp: _, errorIsCritical: let errorIsCritical):
+        case .setConnectionError(errorMessage: _, errorTimestamp: _, errorIsCritical: let errorIsCritical):
             guard state.connectionAlarm else {
+                AppLog.info("Guard: connectionAlarm disabled")
                 break
             }
-
-            AppLog.info("Sensor connection lost alert check: \(errorMessage), \(errorIsCritical)")
 
             service.setSensorConnectionLostAlarm(errorIsCritical: errorIsCritical)
 
         case .setConnectionState(connectionState: let connectionState):
             guard state.connectionAlarm else {
+                AppLog.info("Guard: connectionAlarm disabled")
                 break
             }
-
-            AppLog.info("Sensor connection lost alert check: \(connectionState)")
 
             if lastState.connectionState == .connected, connectionState == .disconnected {
                 service.setSensorConnectionLostAlarm()
@@ -46,10 +44,9 @@ private func connectionNotificationMiddelware(service: ConnectionNotificationSer
 
         case .addMissedReading:
             guard state.connectionAlarm else {
+                AppLog.info("Guard: connectionAlarm disabled")
                 break
             }
-
-            AppLog.info("Sensor connection available, but missed readings")
 
             if state.missedReadings % 5 == 0 {
                 service.setSensorMissedReadingsAlarm(missedReadings: state.missedReadings)
