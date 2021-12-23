@@ -485,10 +485,10 @@
 "Readable glucose with trend: %1$@ %2$@, %3$@" = "Glukose: %1$@ %2$@, %3$@";
 
 /* (No Comment) */
-"Readable low glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, too low!";
+"Readable low glucose: %1$@ %2$@" = "Glukose: %1$@ %2$@. Achtung, zu tief!";
 
 /* (No Comment) */
-"Readable high glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, too high!";
+"Readable high glucose: %1$@ %2$@" = "Glukose: %1$@ %2$@. Achtung, zu hoch!";
 
 /* (No Comment) */
 "Readable miligram" = "miligram";
@@ -515,28 +515,22 @@
 "Readable rapidly rising" = "rapide steigend";
 
 /* (No Comment) */
-"Readable low glucose warning" = "zu tief";
+"Read aloud" = "Laut vorlesen";
 
 /* (No Comment) */
-"Readable high glucose warning" = "zu hoch";
+"Glucose read aloud" = "Glukose vorlesen";
 
 /* (No Comment) */
-"Read aloud" = "Read aloud";
+"Glucose values are read aloud:" = "Die Glukosewerte werden vorgelesen:";
 
 /* (No Comment) */
-"Glucose read aloud" = "Glucose read aloud";
+"Every 10 minutes" = "- Alle 10 Minuten";
 
 /* (No Comment) */
-"Glucose values are read aloud:" = "Glucose values are read aloud:";
+"After disconnections" = "- Nach Verbindungsabbrüchen";
 
 /* (No Comment) */
-"Every 10 minutes" = "- Every 10 minutes";
+"When the glucose trend changes" = "- Wenn sich der Glukosetrend ändert";
 
 /* (No Comment) */
-"After disconnections" = "- After disconnections";
-
-/* (No Comment) */
-"When the glucose trend changes" = "- When the glucose trend changes";
-
-/* (No Comment) */
-"When a new alarm is triggered" = "- When a new alarm is triggered";
+"When a new alarm is triggered" = "- Wenn ein neuer Alarm ausgelöst wird";
