@@ -5,9 +5,11 @@
 
 import SwiftUI
 
+// MARK: - OtherSettingsView
+
 struct OtherSettingsView: View {
     @EnvironmentObject var store: AppStore
-    
+
     var body: some View {
         Section(
             content: {
@@ -21,6 +23,8 @@ struct OtherSettingsView: View {
         )
     }
 }
+
+// MARK: - OtherSettings_Previews
 
 struct OtherSettings_Previews: PreviewProvider {
     static var previews: some View {

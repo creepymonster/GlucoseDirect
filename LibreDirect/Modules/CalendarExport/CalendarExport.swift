@@ -8,7 +8,9 @@ import EventKit
 import Foundation
 
 func calendarExportMiddleware() -> Middleware<AppState, AppAction> {
-    return calendarExportMiddleware(service: CalendarExportService())
+    return calendarExportMiddleware(service: {
+        CalendarExportService()
+    }())
 }
 
 func calendarExportMiddleware(service: CalendarExportService) -> Middleware<AppState, AppAction> {
@@ -33,7 +35,11 @@ func calendarExportMiddleware(service: CalendarExportService) -> Middleware<AppS
                     .eraseToAnyPublisher()
             }
 
-        case .addGlucose(glucose: let glucose):
+        case .addGlucoseValues(glucoseValues: let glucoseValues):
+            guard let glucose = glucoseValues.last else {
+                break
+            }
+
             guard state.calendarExport, let calendarTarget = state.selectedCalendarTarget, glucose.type == .cgm else {
                 break
             }

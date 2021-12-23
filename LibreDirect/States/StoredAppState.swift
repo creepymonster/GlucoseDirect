@@ -23,33 +23,28 @@ struct StoredAppState: AppState {
         self.chartShowLines = UserDefaults.standard.chartShowLines
         self.connectionAlarm = UserDefaults.standard.connectionAlarm
         self.expiringAlarm = UserDefaults.standard.expiringAlarm
+        self.glucoseValues = UserDefaults.standard.glucoseValues
         self.glucoseAlarm = UserDefaults.standard.glucoseAlarm
         self.glucoseBadge = UserDefaults.standard.glucoseBadge
         self.glucoseUnit = UserDefaults.standard.glucoseUnit
         self.nightscoutApiSecret = UserDefaults.standard.nightscoutApiSecret
         self.nightscoutUrl = UserDefaults.standard.nightscoutUrl
         self.nightscoutUpload = UserDefaults.standard.nightscoutUpload
+        self.readGlucose = UserDefaults.standard.readGlucose
         self.selectedCalendarTarget = UserDefaults.standard.selectedCalendarTarget
         self.selectedConnectionId = UserDefaults.standard.selectedConnectionId ?? "libre2"
         self.selectedView = UserDefaults.standard.selectedView
         self.sensor = UserDefaults.standard.sensor
         self.transmitter = UserDefaults.standard.transmitter
 
-        let glucoseKeys = UserDefaults.standard.getAllGlucoseKeys()
-        if !UserDefaults.standard.glucoseValues.isEmpty && glucoseKeys.isEmpty {
-            AppLog.info("Restore old data")
+        let oldGlucoseValues = getOldGlucoseKeys()
+        if glucoseValues.isEmpty, !oldGlucoseValues.isEmpty {
+            oldGlucoseValues.forEach { key in
+                if let glucose = getGlucoseForKey(key: key) {
+                    glucoseValues.append(glucose)
+                }
 
-            let glucoseValues = UserDefaults.standard.glucoseValues
-            glucoseValues.forEach {
-                UserDefaults.standard.addGlucoseValue(glucose: $0)
-            }
-
-            self.glucoseValues = glucoseValues
-        } else {
-            self.glucoseValues = glucoseKeys.map {
-                UserDefaults.standard.getGlucoseValue(key: $0)
-            }.compactMap {
-                $0
+                UserDefaults.standard.removeObject(forKey: key)
             }
         }
     }
@@ -122,15 +117,7 @@ struct StoredAppState: AppState {
 
     var glucoseValues: [Glucose] {
         didSet {
-            let differences = glucoseValues.difference(from: oldValue)
-            for change in differences {
-                switch change {
-                case let .remove(_, oldElement, _):
-                    UserDefaults.standard.removeGlucoseValue(glucose: oldElement)
-                case let .insert(_, newElement, _):
-                    UserDefaults.standard.addGlucoseValue(glucose: newElement)
-                }
-            }
+            UserDefaults.standard.glucoseValues = glucoseValues
         }
     }
 
@@ -149,6 +136,12 @@ struct StoredAppState: AppState {
     var nightscoutUpload: Bool {
         didSet {
             UserDefaults.standard.nightscoutUpload = nightscoutUpload
+        }
+    }
+
+    var readGlucose: Bool {
+        didSet {
+            UserDefaults.standard.readGlucose = readGlucose
         }
     }
 
@@ -180,5 +173,16 @@ struct StoredAppState: AppState {
         didSet {
             UserDefaults.standard.transmitter = transmitter
         }
+    }
+
+    func getOldGlucoseKeys() -> [String] {
+        return UserDefaults.standard.dictionaryRepresentation().keys.filter {
+            $0.starts(with: "gv-")
+        }.sorted()
+    }
+
+    func getGlucoseForKey(key: String) -> Glucose? {
+        guard let data = UserDefaults.standard.data(forKey: key) else { return nil }
+        return try? JSONDecoder().decode(Glucose.self, from: data)
     }
 }

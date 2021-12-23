@@ -31,7 +31,7 @@ struct CalendarExportSettingsView: View {
                             if store.state.selectedCalendarTarget == nil {
                                 Text("Please select")
                             }
-                            
+
                             ForEach(EKEventStore().calendars(for: .event), id: \.title) { cal in
                                 Text(cal.title)
                             }

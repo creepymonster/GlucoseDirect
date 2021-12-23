@@ -8,10 +8,9 @@ import OSLog
 
 enum AppAction {
     case addCalibration(glucoseValue: Int)
-    case addGlucose(glucose: Glucose)
     case addGlucoseValues(glucoseValues: [Glucose])
     case addMissedReading
-    case addSensorReadings(nextReading: SensorReading, trendReadings: [SensorReading], historyReadings: [SensorReading])
+    case addSensorReadings(trendReadings: [SensorReading], historyReadings: [SensorReading])
     
     case clearCalibrations
     case clearGlucoseValues
@@ -38,7 +37,7 @@ enum AppAction {
     
     case setAlarmHigh(upperLimit: Int)
     case setAlarmLow(lowerLimit: Int)
-    case setAlarmSnoozeUntil(untilDate: Date?)
+    case setAlarmSnoozeUntil(untilDate: Date?, autosnooze: Bool = false)
     case setCalendarExport(enabled: Bool)
     case setChartShowLines(enabled: Bool)
     case setConnectionAlarm(enabled: Bool)
@@ -51,6 +50,7 @@ enum AppAction {
     case setNightscoutUrl(url: String)
     case setNightscoutSecret(apiSecret: String)
     case setNightscoutUpload(enabled: Bool)
+    case setReadGlucose(enabled: Bool)
     case setSensor(sensor: Sensor)
     case setSensorState(sensorAge: Int, sensorState: SensorState?)
     case setTransmitter(transmitter: Transmitter)

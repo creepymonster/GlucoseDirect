@@ -23,20 +23,17 @@ func appReducer(state: inout AppState, action: AppAction) {
         
         state.sensor!.customCalibration.append(CustomCalibration(x: Double(factoryCalibratedGlucoseValue), y: Double(glucoseValue)))
         
-    case .addGlucose(glucose: let glucose):
-        var glucoseValues = state.glucoseValues.suffix(min(AppConfig.NumberOfGlucoseValues - 1, state.glucoseValues.count))
-        glucoseValues.append(glucose)
-        
-        state.missedReadings = 0
-        state.glucoseValues = [Glucose](glucoseValues)
-
     case .addGlucoseValues(glucoseValues: let addedGlucoseValues):
         if !addedGlucoseValues.isEmpty {
-            var glucoseValues = state.glucoseValues.suffix(min(AppConfig.NumberOfGlucoseValues - addedGlucoseValues.count, state.glucoseValues.count))
-            glucoseValues.append(contentsOf: glucoseValues)
+            var glucoseValues = state.glucoseValues + addedGlucoseValues
+            
+            let overLimit = glucoseValues.count - AppConfig.NumberOfGlucoseValues
+            if overLimit > 0 {
+                glucoseValues = Array(glucoseValues.dropFirst(overLimit))
+            }
             
             state.missedReadings = 0
-            state.glucoseValues = [Glucose](glucoseValues)
+            state.glucoseValues = glucoseValues
         }
         
     case .addMissedReading:
@@ -126,7 +123,7 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setCalendarExport(enabled: let enabled):
         state.calendarExport = enabled
         
-    case .setAlarmSnoozeUntil(untilDate: let untilDate):
+    case .setAlarmSnoozeUntil(untilDate: let untilDate, autosnooze: _):
         if let untilDate = untilDate {
             state.alarmSnoozeUntil = untilDate
         } else {
@@ -174,6 +171,9 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setNightscoutUpload(enabled: let enabled):
         state.nightscoutUpload = enabled
         
+    case .setReadGlucose(enabled: let enabled):
+        state.readGlucose = enabled
+        
     case .setSensor(sensor: let sensor):
         state.sensor = sensor
 
@@ -197,7 +197,6 @@ func appReducer(state: inout AppState, action: AppAction) {
         
     case .startup:
         break
-
     }
 
     if let alarmSnoozeUntil = state.alarmSnoozeUntil, Date() > alarmSnoozeUntil {

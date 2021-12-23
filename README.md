@@ -1,6 +1,6 @@
 # Glucose Direct App
 
-**Warning, please use this app with caution and extreme care.
+**Warning, This project is highly experimental. Please use this app with caution and extreme care.
 Do not mindlessly make decisions based on software.
 Do not use this software if you are unsure.**
 
@@ -31,6 +31,14 @@ App programmed in Swift/SwiftUI for using Libre 1/2 blood glucose sensors. I try
 - Sensor expiring alert
 - Snooze for glucose alerts
 
+## Available languages
+- English
+- German
+- Swedish
+- Chinese (simplified and traditional)
+- Spanish
+- Italian
+
 ## Requirements
 - Apple iPhone with iOS 15
 
@@ -41,20 +49,24 @@ You can quickly get an idea of Libre Direct: [TestFlight](https://testflight.app
 I am very happy to receive feedback - suggestions for improvement or reports of bugs encountered.
 
 ## Support?
-- I am very happy to find a designer who will support me by designing a nice app icon :)
 - I appreciate all the translations I get. Just drop by Crowdin, every translation helps :) https://crwd.in/glucose-direct-app
 
 ## Many thanks goes to
 - **Richard** for the design of the app icon
-- **Jon-b-m** for your translation into Swedish
-- **birdfly** for your translation into Chinese
+- **Jon-b-m** and **bubblan** for your translation into Swedish
+- **birdfly** for your translation into Chinese (simplified and traditional)
+- **Timmy_otoole** for your translation into Spanish
+- **goldshotter** for your translation into Italian
 - **All** who contribute to the app with their ideas
 
 ## Todo
+- Read out blood glucose values (**in progress**)
+- Cache Nightscout uploads without an Internet connection and run them later
+- Connect to Apple Health
+- Transmitter battery notifications
 - Upload sensor end to nightscout
 - Other transmitters
 - Other diabetes sources to upload to (like tidepool, ...)
-- Transmitter battery notifications
 
 ## Screenshots
 ![Screenshot](/Screenshots/overview.png?raw=true)

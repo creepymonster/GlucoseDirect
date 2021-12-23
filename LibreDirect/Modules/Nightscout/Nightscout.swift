@@ -7,7 +7,9 @@ import Combine
 import Foundation
 
 func nightscoutMiddleware() -> Middleware<AppState, AppAction> {
-    return nightscoutMiddleware(service: NightscoutService())
+    return nightscoutMiddleware(service: {
+        NightscoutService()
+    }())
 }
 
 private func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppState, AppAction> {
@@ -18,18 +20,25 @@ private func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppS
         if state.nightscoutUpload, !nightscoutUrl.isEmpty, !nightscoutApiSecret.isEmpty {
             switch action {
             case .removeGlucose(id: let id):
-                service.removeGlucose(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1(), id: id)
-
-            case .addGlucose(glucose: let glucose):
-                guard glucose.type != .none else {
+                guard let glucose = lastState.glucoseValues.first(where: { $0.id == id }) else {
                     break
                 }
 
-                guard glucose.is5Minutely || glucose.type == .bgm else {
-                    break
-                }
+                service.removeGlucose(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1(), date: glucose.timestamp)
 
-                service.addGlucose(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: [glucose])
+            case .clearGlucoseValues:
+                service.clearGlucoseValues(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1())
+
+            case .addGlucoseValues(glucoseValues: let glucoseValues):
+                if glucoseValues.count > 1 {
+                    let filteredGlucoseValues = glucoseValues.filter { glucose in
+                        glucose.type != .none
+                    }
+
+                    service.addGlucose(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: filteredGlucoseValues)
+                } else if let glucose = glucoseValues.first, (glucose.type == .cgm && glucose.is5Minutely) || glucose.type == .bgm {
+                    service.addGlucose(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: [glucose])
+                }
 
             case .setSensorState(sensorAge: _, sensorState: _):
                 guard let sensor = state.sensor, sensor.startTimestamp != nil else {
@@ -104,10 +113,39 @@ private class NightscoutService {
         task.resume()
     }
 
-    func removeGlucose(nightscoutUrl: String, apiSecret: String, id: UUID) {
+    func clearGlucoseValues(nightscoutUrl: String, apiSecret: String) {
         let session = URLSession.shared
 
-        let urlString = "\(nightscoutUrl)/api/v1/entries?find[_id][$in][]=\(id.uuidString)"
+        let urlString = "\(nightscoutUrl)/api/v1/entries?find[device]=\(AppConfig.projectName)"
+        guard let url = URL(string: urlString) else {
+            AppLog.error("Nightscout, bad nightscout url")
+            return
+        }
+
+        let request = createRequest(url: url, method: "DELETE", apiSecret: apiSecret)
+
+        let task = session.dataTask(with: request) { data, response, error in
+            if let error = error {
+                AppLog.info("Nightscout error: \(error.localizedDescription)")
+                return
+            }
+
+            if let response = response as? HTTPURLResponse {
+                let status = response.statusCode
+                if status != 200, let data = data {
+                    let responseString = String(data: data, encoding: .utf8)
+                    AppLog.info("Nightscout error: \(response.statusCode) \(responseString)")
+                }
+            }
+        }
+
+        task.resume()
+    }
+
+    func removeGlucose(nightscoutUrl: String, apiSecret: String, date: Date) {
+        let session = URLSession.shared
+
+        let urlString = "\(nightscoutUrl)/api/v1/entries?find[device]=\(AppConfig.projectName)&find[dateString]=\(date.ISOStringFromDate())"
         guard let url = URL(string: urlString) else {
             AppLog.error("Nightscout, bad nightscout url")
             return
@@ -157,8 +195,7 @@ private class NightscoutService {
             }
 
             if let response = response as? HTTPURLResponse {
-                let status = response.statusCode
-                if status != 200, let data = data {
+                if response.statusCode != 200, let data = data {
                     let responseString = String(data: data, encoding: .utf8)
                     AppLog.info("Nightscout error: \(response.statusCode) \(responseString)")
                 }
@@ -249,7 +286,7 @@ private extension Sensor {
             "_id": serial,
             "eventType": "Sensor Start",
             "created_at": startTimestamp.ISOStringFromDate(),
-            "enteredBy": AppConfig.appName
+            "enteredBy": AppConfig.projectName
         ]
 
         return nightscout
@@ -260,7 +297,7 @@ private extension Glucose {
     func toNightscoutGlucose() -> [String: Any] {
         var nightscout: [String: Any] = [
             "_id": id.uuidString,
-            "device": AppConfig.appName,
+            "device": AppConfig.projectName,
             "date": timestamp.toMillisecondsAsInt64(),
             "dateString": timestamp.ISOStringFromDate()
         ]

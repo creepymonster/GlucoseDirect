@@ -96,7 +96,9 @@ final class Glucose: CustomStringConvertible, Codable, Identifiable {
             "minuteChange: \(minuteChange?.description ?? "")",
             "factoryCalibratedGlucoseValue: \(initialGlucoseValue?.description ?? "-")",
             "calibratedGlucoseValue: \(calibratedGlucoseValue?.description ?? "-")",
-            "glucoseValue: \(glucoseValue?.description ?? "-")"
+            "glucoseValue: \(glucoseValue?.description ?? "-")",
+            "type: \(type.rawValue)",
+            "quality: \(quality.rawValue)"
         ].joined(separator: ", ")
     }
 }
@@ -106,5 +108,17 @@ extension Glucose {
         let minutes = Calendar.current.component(.minute, from: timestamp)
 
         return minutes % 5 == 0
+    }
+    
+    var is10Minutely: Bool {
+        let minutes = Calendar.current.component(.minute, from: timestamp)
+
+        return minutes % 10 == 0
+    }
+    
+    var is15Minutely: Bool {
+        let minutes = Calendar.current.component(.minute, from: timestamp)
+
+        return minutes % 15 == 0
     }
 }

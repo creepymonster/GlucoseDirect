@@ -29,6 +29,7 @@ protocol AppState {
     var nightscoutApiSecret: String { get set }
     var nightscoutUrl: String { get set }
     var nightscoutUpload: Bool { get set }
+    var readGlucose: Bool { get set }
     var selectedCalendarTarget: String? { get set }
     var selectedConnection: SensorConnection? { get set }
     var selectedConnectionId: String? { get set }

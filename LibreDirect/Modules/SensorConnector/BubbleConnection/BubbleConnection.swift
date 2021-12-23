@@ -114,15 +114,17 @@ class BubbleConnection: SensorBLEConnection {
             let firmware = Double("\(firmwareMajor).\(firmwareMinor)")
             let battery = Int(value[4])
 
-            let transmitter = Transmitter(name: "Bubble", battery: battery, firmware: firmware, hardware: hardware)
+            let transmitter = Transmitter(name: peripheral.name ?? "Bubble", battery: battery, firmware: firmware, hardware: hardware)
             sendUpdate(transmitter: transmitter)
 
             if let writeCharacteristic = writeCharacteristic {
-                if let firmware = firmware, firmware >= 2.6 {
+                /*if let firmware = firmware, firmware >= 2.6, false {
                     peripheral.writeValue(Data([0x08, 0x01, 0x00, 0x00, 0x00, 0x2b]), for: writeCharacteristic, type: .withResponse)
                 } else {
                     peripheral.writeValue(Data([0x02, 0x00, 0x00, 0x00, 0x00, 0x2b]), for: writeCharacteristic, type: .withResponse)
-                }
+                }*/
+                
+                peripheral.writeValue(Data([0x02, 0x00, 0x00, 0x00, 0x00, 0x2b]), for: writeCharacteristic, type: .withResponse)
             }
 
         case .decryptedDataPacket:
@@ -178,13 +180,12 @@ class BubbleConnection: SensorBLEConnection {
                 }
 
                 let type = sensor?.type ?? SensorType(patchInfo)
-                guard type == .libre1 || type == .libre2EU else {
+                guard type == .libre1 || type == .libre2EU || type == .libreUS14day else {
                     resetBuffer()
                     return
                 }
 
-                let family = sensor?.family ?? SensorFamily(patchInfo)
-                let fram = family == .libre1
+                let fram = type == .libre1
                     ? rxBuffer[..<expectedBufferSize]
                     : SensorUtility.decryptFRAM(uuid: uuid, patchInfo: patchInfo, fram: rxBuffer[..<expectedBufferSize])
 

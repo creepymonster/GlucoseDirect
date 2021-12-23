@@ -10,7 +10,7 @@ import Foundation
 class CalibrationService {
     // MARK: Internal
 
-    func calibrate(sensor: Sensor, nextReading: SensorReading, currentGlucose: Glucose? = nil) -> Glucose? {
+    func calibrate(sensor: Sensor, nextReading: SensorReading, currentGlucose: Glucose? = nil) -> Glucose {
         if let nextGlucoseValue = nextReading.glucoseValue, nextReading.quality == .OK {
             let nextCalibratedGlucoseValue = sensor.customCalibration.calibrate(sensorGlucose: nextGlucoseValue)
             var nextMinuteChange: Double?

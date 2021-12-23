@@ -182,8 +182,10 @@ final class Libre2Connection: SensorBLEConnection {
                     AppLog.error("Cannot process BLE data: \(error.localizedDescription)")
                 }
             }
-
-            resetBuffer()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
+                self.resetBuffer()
+            }
         }
     }
 

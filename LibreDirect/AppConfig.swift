@@ -11,6 +11,8 @@ enum AppConfig {
     static var AppSchemaUrl = URL(string: "libredirect://")
     static var RepoUrl = "https://github.com/creepymonster/GlucoseDirectApp"
 
+    static var projectName = "GlucoseDirect"
+
     static var appName: String = {
         Bundle.main.infoDictionary?["CFBundleDisplayName"] as! String
     }()

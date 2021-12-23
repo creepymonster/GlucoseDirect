@@ -18,16 +18,16 @@ private enum Keys: String {
     case glucoseAlarm = "libre-direct.settings.glucose-alarm"
     case glucoseBadge = "libre-direct.settings.glucose-badge"
     case glucoseUnit = "libre-direct.settings.glucose-unit"
-    case glucoseValues = "libre-direct.settings.glucose-values"
+    case glucoseValues = "libre-direct.settings.glucose-value-array"
     case nightscoutApiSecret = "libre-direct.settings.nightscout-api-secret"
     case nightscoutUrl = "libre-direct.settings.nightscout-host"
     case nightscoutUpload = "libre-direct.settings.nightscout-upload-enabled"
+    case readGlucose = "libre-direct.settings.read-glucose"
     case selectedCalendarTarget = "libre-direct.settings.selected-calendar-target"
     case selectedConnectionId = "libre-direct.settings.selected-connection-id"
     case selectedView = "libre-direct.settings.selected-view"
     case sensor = "libre-direct.settings.sensor"
     case transmitter = "libre-direct.settings.transmitter"
-    case glucoseValue = "gv-"
 }
 
 extension UserDefaults {
@@ -216,6 +216,19 @@ extension UserDefaults {
             set(newValue, forKey: Keys.nightscoutUpload.rawValue)
         }
     }
+    
+    var readGlucose: Bool {
+        get {
+            if object(forKey: Keys.readGlucose.rawValue) != nil {
+                return bool(forKey: Keys.readGlucose.rawValue)
+            }
+
+            return false
+        }
+        set {
+            set(newValue, forKey: Keys.readGlucose.rawValue)
+        }
+    }
 
     var selectedCalendarTarget: String? {
         get {
@@ -280,36 +293,6 @@ extension UserDefaults {
                 removeObject(forKey: Keys.transmitter.rawValue)
             }
         }
-    }
-
-    func getAllGlucoseKeys() -> [String] {
-        return UserDefaults.standard.dictionaryRepresentation().keys.filter {
-            $0.starts(with: Keys.glucoseValue.rawValue)
-        }.sorted()
-    }
-
-    func getGlucoseValue(key: String) -> Glucose? {
-        return getObject(forKey: key)
-    }
-
-    func getGlucoseValue(timestamp: Date, glucoseType: GlucoseValueType) -> Glucose? {
-        return getObject(forKey: getGlucoseKey(timestamp: timestamp, glucoseType: glucoseType))
-    }
-
-    func addGlucoseValue(glucose: Glucose) {
-        setObject(glucose, forKey: getGlucoseKey(timestamp: glucose.timestamp, glucoseType: glucose.type))
-    }
-
-    func removeGlucoseValue(key: String) {
-        removeObject(forKey: key)
-    }
-
-    func removeGlucoseValue(glucose: Glucose) {
-        removeObject(forKey: getGlucoseKey(timestamp: glucose.timestamp, glucoseType: glucose.type))
-    }
-
-    private func getGlucoseKey(timestamp: Date, glucoseType: GlucoseValueType) -> String {
-        return "\(Keys.glucoseValue.rawValue)\(keyFormatter.string(for: timestamp)!)-\(glucoseType.rawValue)"
     }
 }
 
