@@ -54,7 +54,7 @@ private class ReadAloudService {
             alarm = .high
         }
 
-        if alarm != self.alarm || glucoseValues.count > 1 || glucose.is5Minutely || self.glucose == nil || self.glucose!.trend != glucose.trend {
+        if alarm != self.alarm || glucoseValues.count > 1 || glucose.is10Minutely || self.glucose == nil || self.glucose!.trend != glucose.trend {
             read(glucoseValue: glucoseValue, glucoseUnit: glucoseUnit, glucoseTrend: glucose.trend, alarm: alarm)
 
             self.glucose = glucose
@@ -70,6 +70,18 @@ private class ReadAloudService {
 
     private var glucose: Glucose?
     private var alarm: AlarmType = .none
+
+    private var voice: AVSpeechSynthesisVoice? = {
+        for availableVoice in AVSpeechSynthesisVoice.speechVoices() {
+            if availableVoice.language == AVSpeechSynthesisVoice.currentLanguageCode(), availableVoice.quality == AVSpeechSynthesisVoiceQuality.enhanced {
+                AppLog.info("Found enhanced voice: \(availableVoice.name)")
+                return availableVoice
+            }
+        }
+
+        AppLog.info("Use default voice for language")
+        return AVSpeechSynthesisVoice(language: AVSpeechSynthesisVoice.currentLanguageCode())
+    }()
 
     private func read(glucoseValue: Int, glucoseUnit: GlucoseUnit, glucoseTrend: SensorTrend? = nil, alarm: AlarmType = .none) {
         AppLog.info("read: \(glucoseValue.asGlucose(unit: glucoseUnit)) \(glucoseUnit.readable) \(glucoseTrend?.readable)")
@@ -87,7 +99,9 @@ private class ReadAloudService {
         }
 
         let glucoseUtterance = AVSpeechUtterance(string: glucoseString)
-        glucoseUtterance.voice = AVSpeechSynthesisVoice(language: NSLocale.current.languageCode)
+        if let voice = voice {
+            glucoseUtterance.voice = voice
+        }
 
         speechSynthesizer.speak(glucoseUtterance)
     }

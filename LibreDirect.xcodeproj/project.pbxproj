@@ -39,6 +39,7 @@
 		E292E1B226A608C400011F64 /* NumberSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E292E1B126A608C400011F64 /* NumberSelectorView.swift */; };
 		E29ED231268C754F00CBD3F1 /* GlucoseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29ED230268C754F00CBD3F1 /* GlucoseView.swift */; };
 		E29F4FA2274D6C8B00AE0E39 /* GlucoseValueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29F4FA1274D6C8B00AE0E39 /* GlucoseValueType.swift */; };
+		E2A1807427747CBA004C23EF /* ReadAloudSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A1807327747CBA004C23EF /* ReadAloudSettingsView.swift */; };
 		E2B63A88273E3EB100DDAA70 /* CustomCalibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B63A87273E3EB100DDAA70 /* CustomCalibration.swift */; };
 		E2C19FB3273567FE00B70A73 /* SensorReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C19FB2273567FE00B70A73 /* SensorReading.swift */; };
 		E2C19FB52735684500B70A73 /* Glucose.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C19FB42735684500B70A73 /* Glucose.swift */; };
@@ -150,6 +151,7 @@
 		E292E1B126A608C400011F64 /* NumberSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberSelectorView.swift; sourceTree = "<group>"; };
 		E29ED230268C754F00CBD3F1 /* GlucoseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseView.swift; sourceTree = "<group>"; };
 		E29F4FA1274D6C8B00AE0E39 /* GlucoseValueType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseValueType.swift; sourceTree = "<group>"; };
+		E2A1807327747CBA004C23EF /* ReadAloudSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadAloudSettingsView.swift; sourceTree = "<group>"; };
 		E2ABC151276F4602003DBFA5 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		E2ABC152276F4602003DBFA5 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		E2B63A87273E3EB100DDAA70 /* CustomCalibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalibration.swift; sourceTree = "<group>"; };
@@ -387,6 +389,7 @@
 				E24B531D26B863910091417F /* NightscoutSettingsView.swift */,
 				E2646F3C275FD3E800ADE451 /* CalendarExportSettingsView.swift */,
 				E271581E275F7FD000E8620E /* OtherSettingsView.swift */,
+				E2A1807327747CBA004C23EF /* ReadAloudSettingsView.swift */,
 				E216E50927654AF60056A61D /* AboutView.swift */,
 			);
 			path = Subviews;
@@ -662,6 +665,7 @@
 				E2FCAC3B270741E600FE1CBF /* AppLog.swift in Sources */,
 				E2D34BC4274D6BB500151895 /* GlucoeOverviewView.swift in Sources */,
 				E2FCAC5B2707425900FE1CBF /* Libre2Pairing.swift in Sources */,
+				E2A1807427747CBA004C23EF /* ReadAloudSettingsView.swift in Sources */,
 				E2646F3D275FD3E800ADE451 /* CalendarExportSettingsView.swift in Sources */,
 				E27ED9752758A4270099149C /* BubbleConnection.swift in Sources */,
 				E2CDA01A27722FB900A1E694 /* ReadAloud.swift in Sources */,
