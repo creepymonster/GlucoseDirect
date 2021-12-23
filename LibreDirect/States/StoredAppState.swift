@@ -36,17 +36,6 @@ struct StoredAppState: AppState {
         self.selectedView = UserDefaults.standard.selectedView
         self.sensor = UserDefaults.standard.sensor
         self.transmitter = UserDefaults.standard.transmitter
-
-        let oldGlucoseValues = getOldGlucoseKeys()
-        if glucoseValues.isEmpty, !oldGlucoseValues.isEmpty {
-            oldGlucoseValues.forEach { key in
-                if let glucose = getGlucoseForKey(key: key) {
-                    glucoseValues.append(glucose)
-                }
-
-                UserDefaults.standard.removeObject(forKey: key)
-            }
-        }
     }
 
     // MARK: Internal
