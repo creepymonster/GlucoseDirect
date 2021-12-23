@@ -101,8 +101,6 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
                     }
                 }
 
-                AppLog.info("develop: \(missedGlucosValues)")
-
                 return Just(.addGlucoseValues(glucoseValues: missedGlucosValues))
                     .setFailureType(to: AppError.self)
                     .eraseToAnyPublisher()
