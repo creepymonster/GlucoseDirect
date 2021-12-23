@@ -163,15 +163,4 @@ struct StoredAppState: AppState {
             UserDefaults.standard.transmitter = transmitter
         }
     }
-
-    func getOldGlucoseKeys() -> [String] {
-        return UserDefaults.standard.dictionaryRepresentation().keys.filter {
-            $0.starts(with: "gv-")
-        }.sorted()
-    }
-
-    func getGlucoseForKey(key: String) -> Glucose? {
-        guard let data = UserDefaults.standard.data(forKey: key) else { return nil }
-        return try? JSONDecoder().decode(Glucose.self, from: data)
-    }
 }
