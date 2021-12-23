@@ -521,4 +521,22 @@
 "Readable high glucose warning" = "zu hoch";
 
 /* (No Comment) */
-"Read glucose" = "Read glucose";
+"Read aloud" = "Read aloud";
+
+/* (No Comment) */
+"Glucose read aloud" = "Glucose read aloud";
+
+/* (No Comment) */
+"Glucose values are read aloud:" = "Glucose values are read aloud:";
+
+/* (No Comment) */
+"Every 10 minutes" = "- Every 10 minutes";
+
+/* (No Comment) */
+"After disconnections" = "- After disconnections";
+
+/* (No Comment) */
+"When the glucose trend changes" = "- When the glucose trend changes";
+
+/* (No Comment) */
+"When a new alarm is triggered" = "- When a new alarm is triggered";
