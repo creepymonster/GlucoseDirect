@@ -19,7 +19,7 @@ struct SettingsView: View {
                 ReadAloudSettingsView()
                 OtherSettingsView()
                 AboutView()
-            }
+            }.listStyle(.grouped)
         }
     }
 }

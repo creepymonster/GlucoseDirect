@@ -20,11 +20,11 @@ enum AppConfig {
     static var appVersion: String = {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
     }()
-    
+
     static var appAuthor: String? = {
         Bundle.main.infoDictionary?["AppAuthor"] as? String
     }()
-    
+
     static var appSupportMail: String? = {
         Bundle.main.infoDictionary?["AppSupportMail"] as? String
     }()

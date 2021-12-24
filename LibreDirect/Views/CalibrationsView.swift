@@ -12,7 +12,7 @@ struct CalibrationsView: View {
         VStack {
             List {
                 CalibrationSettingsView()
-            }
+            }.listStyle(.grouped)
         }
     }
 }

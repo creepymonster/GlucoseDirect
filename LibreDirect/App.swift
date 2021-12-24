@@ -51,8 +51,6 @@ final class LibreDirectApp: App {
 
     private static func createStore() -> AppStore {
         if isSimulator || isPreviewMode {
-            AppLog.info("start preview mode")
-
             return createPreviewStore()
         }
 
@@ -60,6 +58,8 @@ final class LibreDirectApp: App {
     }
 
     private static func createPreviewStore() -> AppStore {
+        AppLog.info("Create preview store")
+        
         return AppStore(initialState: MemoryAppState(), reducer: appReducer, middlewares: [
             // required middlewares
             logMiddleware(),
@@ -77,6 +77,8 @@ final class LibreDirectApp: App {
     }
 
     private static func createAppStore() -> AppStore {
+        AppLog.info("Create app store")
+        
         return AppStore(initialState: StoredAppState(), reducer: appReducer, middlewares: [
             // required middlewares
             logMiddleware(),
