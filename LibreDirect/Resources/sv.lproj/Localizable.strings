@@ -478,59 +478,72 @@
 /* (No Comment) */
 "Delete log files" = "Ta bort loggfiler";
 
-/* (No Comment) */
-"Readable glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@";
+/* Readable glucose: %1$@ %2$@
+
+%1$@ is the Glucose value - 107 or 5.6
+%2$@ is the Glucose unit - mg/dl oder mmol/l */
+"Readable glucose: %1$@ %2$@" = "Glukos: %1$@ %2$@";
+
+/* Readable glucose with trend: %1$@ %2$@, %3$@
+
+%1$@ is the Glucose value - 107 or 5.6
+%2$@ is the Glucose unit - mg/dl oder mmol/l
+%3$@ is the Glucose trend - falling, rising */
+"Readable glucose with trend: %1$@ %2$@, %3$@" = "Glukos: %1$@ %2$@, %3$@";
+
+/* Readable low glucose: %1$@ %2$@
+
+%1$@ is the Glucose value - 107 or 5.6
+%2$@ is the Glucose unit - mg/dl oder mmol/l */
+"Readable low glucose: %1$@ %2$@" = "Glukos: %1$@ %2$@. Varning, Lågt blodsocker!";
+
+/* Readable high glucose: %1$@ %2$@
+
+%1$@ is the Glucose value - 107 or 5.6
+%2$@ is the Glucose unit - mg/dl oder mmol/l */
+"Readable high glucose: %1$@ %2$@" = "Glukos: %1$@ %2$@. Varning, Högt blodsocker!";
 
 /* (No Comment) */
-"Readable glucose with trend: %1$@ %2$@, %3$@" = "Glucose: %1$@ %2$@, %3$@";
+"Readable miligram" = "milligram";
 
 /* (No Comment) */
-"Readable low glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, Hypoglycemia!";
+"Readable milimol" = "millimol";
 
 /* (No Comment) */
-"Readable high glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, Hyperglycemia!";
+"Readable falling" = "sjunkande";
 
 /* (No Comment) */
-"Readable miligram" = "miligram";
+"Readable fast falling" = "snabbt sjunkande";
 
 /* (No Comment) */
-"Readable milimol" = "milimol";
+"Readable rapidly falling" = "hastigt sjunkande";
 
 /* (No Comment) */
-"Readable falling" = "falling";
+"Readable rising" = "stigande";
 
 /* (No Comment) */
-"Readable fast falling" = "fast falling";
+"Readable fast rising" = "snabbt stigande";
 
 /* (No Comment) */
-"Readable rapidly falling" = "rapidly falling";
+"Readable rapidly rising" = "hastigt stigande";
 
 /* (No Comment) */
-"Readable rising" = "rising";
+"Read aloud" = "Läs upp";
 
 /* (No Comment) */
-"Readable fast rising" = "fast rising";
+"Glucose read aloud" = "Glukos läses upp";
 
 /* (No Comment) */
-"Readable rapidly rising" = "rapidly rising";
+"Glucose values are read aloud:" = "Glukosvärden läses upp:";
 
 /* (No Comment) */
-"Read aloud" = "Read aloud";
+"Every 10 minutes" = "Var 10: e minut";
 
 /* (No Comment) */
-"Glucose read aloud" = "Glucose read aloud";
+"After disconnections" = "- Efter frånkopplingar";
 
 /* (No Comment) */
-"Glucose values are read aloud:" = "Glucose values are read aloud:";
+"When the glucose trend changes" = "- När glukostrend förändras";
 
 /* (No Comment) */
-"Every 10 minutes" = "- Every 10 minutes";
-
-/* (No Comment) */
-"After disconnections" = "- After disconnections";
-
-/* (No Comment) */
-"When the glucose trend changes" = "- When the glucose trend changes";
-
-/* (No Comment) */
-"When a new alarm is triggered" = "- When a new alarm is triggered";
+"When a new alarm is triggered" = "- När ett nytt larm utlöses";
