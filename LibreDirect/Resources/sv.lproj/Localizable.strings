@@ -479,26 +479,22 @@
 "Delete log files" = "Ta bort loggfiler";
 
 /* Readable glucose: %1$@ %2$@
-
 %1$@ is the Glucose value - 107 or 5.6
 %2$@ is the Glucose unit - mg/dl oder mmol/l */
 "Readable glucose: %1$@ %2$@" = "Glukos: %1$@ %2$@";
 
 /* Readable glucose with trend: %1$@ %2$@, %3$@
-
 %1$@ is the Glucose value - 107 or 5.6
 %2$@ is the Glucose unit - mg/dl oder mmol/l
 %3$@ is the Glucose trend - falling, rising */
 "Readable glucose with trend: %1$@ %2$@, %3$@" = "Glukos: %1$@ %2$@, %3$@";
 
 /* Readable low glucose: %1$@ %2$@
-
 %1$@ is the Glucose value - 107 or 5.6
 %2$@ is the Glucose unit - mg/dl oder mmol/l */
 "Readable low glucose: %1$@ %2$@" = "Glukos: %1$@ %2$@. Varning, Lågt blodsocker!";
 
 /* Readable high glucose: %1$@ %2$@
-
 %1$@ is the Glucose value - 107 or 5.6
 %2$@ is the Glucose unit - mg/dl oder mmol/l */
 "Readable high glucose: %1$@ %2$@" = "Glukos: %1$@ %2$@. Varning, Högt blodsocker!";
