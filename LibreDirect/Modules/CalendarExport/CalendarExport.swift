@@ -103,7 +103,7 @@ class CalendarExportService {
         let events = eventStore.events(matching: predicate)
 
         for event in events {
-            if event.url == AppConfig.AppSchemaUrl {
+            if event.url == AppConfig.appSchemaUrl {
                 do {
                     try eventStore.remove(event, span: .thisEvent)
                 } catch {
@@ -131,7 +131,7 @@ class CalendarExportService {
         let event = EKEvent(eventStore: eventStore)
         event.title = "\(glucose.trend.description) \(glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)) (\(glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) ?? ""))"
         event.calendar = calendar
-        event.url = AppConfig.AppSchemaUrl
+        event.url = AppConfig.appSchemaUrl
         event.startDate = Date()
         event.endDate = Date(timeIntervalSinceNow: 60 * 10)
 

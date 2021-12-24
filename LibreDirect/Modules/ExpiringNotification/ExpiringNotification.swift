@@ -84,7 +84,7 @@ private class ExpiringNotificationService {
             return
         }
 
-        nextExpiredAlert = Date().addingTimeInterval(AppConfig.ExpiredNotificationInterval)
+        nextExpiredAlert = Date().addingTimeInterval(AppConfig.expiredNotificationInterval)
 
         NotificationService.shared.ensureCanSendNotification { state in
             AppLog.info("Sensor expired alert, state: \(state)")
@@ -123,7 +123,7 @@ private class ExpiringNotificationService {
         }
 
         lastExpiringAlert = body
-        nextExpiredAlert = Date().addingTimeInterval(AppConfig.ExpiredNotificationInterval)
+        nextExpiredAlert = Date().addingTimeInterval(AppConfig.expiredNotificationInterval)
 
         NotificationService.shared.ensureCanSendNotification { state in
             AppLog.info("Sensor expired alert, state: \(state)")

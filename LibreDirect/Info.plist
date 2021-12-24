@@ -8,6 +8,10 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
 	<string>Libre Direct</string>
+	<key>AppAuthor</key>
+	<string>$(APP_AUTHOR)</string>
+  <key>AppSupportMail</key>
+	<string>$(APP_SUPPORT_MAIL)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

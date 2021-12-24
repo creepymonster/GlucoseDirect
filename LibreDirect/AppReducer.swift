@@ -29,7 +29,7 @@ func appReducer(state: inout AppState, action: AppAction) {
         if !addedGlucoseValues.isEmpty {
             var glucoseValues = state.glucoseValues + addedGlucoseValues
             
-            let overLimit = glucoseValues.count - AppConfig.NumberOfGlucoseValues
+            let overLimit = glucoseValues.count - AppConfig.numberOfGlucoseValues
             if overLimit > 0 {
                 glucoseValues = Array(glucoseValues.dropFirst(overLimit))
             }

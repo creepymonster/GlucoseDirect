@@ -422,7 +422,7 @@
 "About %@" = "Acerca de %@";
 
 /* (No Comment) */
-"App Version" = "Versión";
+"App version" = "Versión";
 
 /* (No Comment) */
 "Unknown" = "Desconocido";
@@ -467,7 +467,7 @@
 "Attention, the sensor sends faulty values. Please wait 10 minutes." = "Atención, el sensor envía valores defectuosos. Por favor, espere 10 minutos.";
 
 /* (No Comment) */
-"App Website" = "Sitio Web";
+"App website" = "Sitio Web";
 
 /* (No Comment) */
 "Send log file" = "Enviar archivo de registro";
