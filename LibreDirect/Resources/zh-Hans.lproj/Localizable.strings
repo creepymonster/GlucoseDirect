@@ -422,7 +422,7 @@
 "About %@" = "约 %@";
 
 /* (No Comment) */
-"App version" = "版本";
+"App version" = "Version";
 
 /* (No Comment) */
 "Unknown" = "未知";
@@ -467,7 +467,7 @@
 "Attention, the sensor sends faulty values. Please wait 10 minutes." = "注意，传感器发送错误的数值。请等待10分钟。";
 
 /* (No Comment) */
-"App website" = "网站";
+"App website" = "Website";
 
 /* (No Comment) */
 "Send log file" = "发送日志文件";
