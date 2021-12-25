@@ -118,13 +118,11 @@ class BubbleConnection: SensorBLEConnection {
             sendUpdate(transmitter: transmitter)
 
             if let writeCharacteristic = writeCharacteristic {
-                /*if let firmware = firmware, firmware >= 2.6, false {
+                if let firmware = firmware, firmware >= 2.6, false {
                     peripheral.writeValue(Data([0x08, 0x01, 0x00, 0x00, 0x00, 0x2b]), for: writeCharacteristic, type: .withResponse)
                 } else {
                     peripheral.writeValue(Data([0x02, 0x00, 0x00, 0x00, 0x00, 0x2b]), for: writeCharacteristic, type: .withResponse)
-                }*/
-                
-                peripheral.writeValue(Data([0x02, 0x00, 0x00, 0x00, 0x00, 0x2b]), for: writeCharacteristic, type: .withResponse)
+                }
             }
 
         case .decryptedDataPacket:
