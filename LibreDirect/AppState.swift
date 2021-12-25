@@ -54,19 +54,33 @@ extension AppState {
         return false
     }
 
-    var hasSelectedConnection: Bool { selectedConnection != nil }
+    var hasSelectedConnection: Bool {
+        selectedConnection != nil
+    }
 
-    var isDisconnectable: Bool { disconnectableStates.contains(connectionState) }
+    var isDisconnectable: Bool {
+        disconnectableStates.contains(connectionState)
+    }
 
-    var isPaired: Bool { isSensorPaired || isTransmitterPaired }
+    var isPaired: Bool {
+        isSensorPaired || isTransmitterPaired
+    }
 
-    var isSensorPaired: Bool { sensor != nil }
+    var isSensorPaired: Bool {
+        sensor != nil
+    }
 
-    var isTransmitterPaired: Bool { transmitter != nil }
+    var isTransmitterPaired: Bool {
+        transmitter != nil
+    }
 
-    var isReady: Bool { sensor != nil && sensor!.state == .ready }
+    var isReady: Bool {
+        sensor != nil && sensor!.state == .ready
+    }
 
-    var lastGlucose: Glucose? { glucoseValues.suffix(2).first }
+    var lastGlucose: Glucose? {
+        glucoseValues.suffix(2).first
+    }
 
     var limitedGlucoseValues: [Glucose] {
         glucoseValues.filter { glucose in
