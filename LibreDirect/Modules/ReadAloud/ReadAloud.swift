@@ -100,12 +100,12 @@ private class ReadAloudService {
     }()
 
     private func read(text: String) {
-        let glucoseUtterance = AVSpeechUtterance(string: glucoseString)
+        let textUtterance = AVSpeechUtterance(string: text)
         if let voice = voice {
-            glucoseUtterance.voice = voice
+            textUtterance.voice = voice
         }
 
-        speechSynthesizer.speak(glucoseUtterance)
+        speechSynthesizer.speak(textUtterance)
     }
 
     private func read(glucoseValue: Int, glucoseUnit: GlucoseUnit, glucoseTrend: SensorTrend? = nil, alarm: AlarmType = .none) {
