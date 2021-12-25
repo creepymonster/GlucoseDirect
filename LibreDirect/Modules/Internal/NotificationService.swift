@@ -33,6 +33,7 @@ class NotificationService {
 
     func stopSound() {
         guard let player = player else {
+            AppLog.info("Guard: player is nil")
             return
         }
 
@@ -97,7 +98,10 @@ class NotificationService {
     private var player: AVAudioPlayer?
 
     private func playSound(named: String) {
-        guard let soundURL = FrameworkBundle.main.url(forResource: named, withExtension: "aiff") else { return }
+        guard let soundURL = FrameworkBundle.main.url(forResource: named, withExtension: "aiff") else {
+            AppLog.info("Guard: FrameworkBundle.main.url(forResource: \(named), withExtension: aiff) is nil")
+            return
+        }
 
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, options: [.mixWithOthers])

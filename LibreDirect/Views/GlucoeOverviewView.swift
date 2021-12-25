@@ -19,7 +19,7 @@ struct GlucoeOverviewView: View {
 
                 ChartView()
                 SensorView()
-            }
+            }.listStyle(.grouped)
         }
     }
 }

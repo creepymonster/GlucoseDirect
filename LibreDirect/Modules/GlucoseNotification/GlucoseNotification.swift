@@ -29,6 +29,7 @@ private func glucoseNotificationMiddelware(service: GlucoseNotificationService) 
 
         case .setAlarmSnoozeUntil(untilDate: let untilDate, autosnooze: let autosnooze):
             guard untilDate != nil else {
+                AppLog.info("Guard: untilDate is nil")
                 break
             }
 
@@ -45,22 +46,26 @@ private func glucoseNotificationMiddelware(service: GlucoseNotificationService) 
 
         case .addGlucoseValues(glucoseValues: let glucoseValues):
             guard let glucose = glucoseValues.last else {
+                AppLog.info("Guard: glucoseValues.last is nil")
                 break
             }
 
             guard glucose.type == .cgm else {
+                AppLog.info("Guard: glucose.type is not .cgm")
                 break
             }
 
             guard let glucoseValue = glucose.glucoseValue else {
+                AppLog.info("Guard: glucose.glucoseValue is nil")
                 break
             }
 
             var isSnoozed = false
             if let snoozeUntil = state.alarmSnoozeUntil, Date() < snoozeUntil {
-                AppLog.info("Glucose alert snoozed until \(snoozeUntil.localTime)")
                 isSnoozed = true
             }
+
+            AppLog.info("isSnoozed: \(isSnoozed)")
 
             if state.glucoseAlarm, glucoseValue < state.alarmLow, !isSnoozed {
                 AppLog.info("Glucose alert, low: \(glucose.glucoseValue) < \(state.alarmLow)")

@@ -21,6 +21,7 @@ private func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppS
             switch action {
             case .removeGlucose(id: let id):
                 guard let glucose = lastState.glucoseValues.first(where: { $0.id == id }) else {
+                    AppLog.info("Guard: lastState.glucoseValues.first with id \(id) not found")
                     break
                 }
 
@@ -42,14 +43,17 @@ private func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppS
 
             case .setSensorState(sensorAge: _, sensorState: _):
                 guard let sensor = state.sensor, sensor.startTimestamp != nil else {
+                    AppLog.info("Guard: state.sensor or sensor.startTimestamp is nil")
                     break
                 }
 
                 guard lastState.sensor == nil || lastState.sensor!.startTimestamp == nil else {
+                    AppLog.info("Guard: lastState.sensor and lastState.sensor!.startTimestamp not nil")
                     break
                 }
 
                 guard let serial = sensor.serial else {
+                    AppLog.info("Guard: sensor.serial is nil")
                     break
                 }
 

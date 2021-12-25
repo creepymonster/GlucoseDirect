@@ -88,7 +88,7 @@ class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate,
         setStayConnected(stayConnected: true)
 
         guard manager.state == .poweredOn else {
-            AppLog.error("Bad bluetooth state, manager.state \(manager.state.rawValue)")
+            AppLog.error("Guard: manager.state \(manager.state.rawValue) is not .poweredOn")
             return
         }
 

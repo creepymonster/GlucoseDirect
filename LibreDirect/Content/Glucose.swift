@@ -77,13 +77,14 @@ final class Glucose: CustomStringConvertible, Codable, Identifiable {
 
     var glucoseValue: Int? {
         guard let calibratedGlucoseValue = calibratedGlucoseValue else {
+            AppLog.info("Guard: calibratedGlucoseValue is nil")
             return nil
         }
         
-        if calibratedGlucoseValue < AppConfig.MinReadableGlucose {
-            return AppConfig.MinReadableGlucose
-        } else if calibratedGlucoseValue > AppConfig.MaxReadableGlucose {
-            return AppConfig.MaxReadableGlucose
+        if calibratedGlucoseValue < AppConfig.minReadableGlucose {
+            return AppConfig.minReadableGlucose
+        } else if calibratedGlucoseValue > AppConfig.maxReadableGlucose {
+            return AppConfig.maxReadableGlucose
         }
 
         return calibratedGlucoseValue

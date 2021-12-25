@@ -162,7 +162,7 @@ struct GlucoseListView: View {
                         }
                     }
                 )
-            }
+            }.listStyle(.grouped)
         }
         .onAppear {
             AppLog.info("onAppear")

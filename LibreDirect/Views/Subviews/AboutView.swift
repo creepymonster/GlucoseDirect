@@ -16,16 +16,35 @@ struct AboutView: View {
         Section(
             content: {
                 HStack {
-                    Text("App Version")
+                    Text("App version")
                     Spacer()
                     Text(AppConfig.appVersion)
                 }
+                
                 HStack {
-                    Text("App Website")
+                    Text("App website")
                     Spacer()
-                    Link("GitHub", destination: URL(string: AppConfig.RepoUrl)!)
+                    Link("GitHub", destination: URL(string: AppConfig.repoUrl)!)
                         .lineLimit(1)
                         .truncationMode(.head)
+                }
+                
+                if let appAuthor = AppConfig.appAuthor, !appAuthor.isEmpty {
+                    HStack {
+                        Text("App author")
+                        Spacer()
+                        Text(appAuthor)
+                    }
+                }
+                
+                if let appSupportMail = AppConfig.appSupportMail, !appSupportMail.isEmpty {
+                    HStack {
+                        Text("App support mail")
+                        Spacer()
+                        Link(appSupportMail, destination: URL(string: "mailto:\(appSupportMail)")!)
+                            .lineLimit(1)
+                            .truncationMode(.head)
+                    }
                 }
 
                 Button(

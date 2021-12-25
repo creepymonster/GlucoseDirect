@@ -39,11 +39,18 @@ private class ReadAloudService {
     func readGlucoseValues(glucoseValues: [Glucose], glucoseUnit: GlucoseUnit, alarmLow: Int, alarmHigh: Int) {
         AppLog.info("readGlucoseValues: \(glucoseValues.count) \(glucoseUnit.localizedString)")
 
-        guard let glucose = glucoseValues.last, glucose.type == .cgm else {
+        guard let glucose = glucoseValues.last else {
+            AppLog.info("Guard: glucoseValues.last is nil")
+            return
+        }
+        
+        guard glucose.type == .cgm else {
+            AppLog.info("Guard: glucose.type is not .cgm")
             return
         }
 
         guard let glucoseValue = glucose.glucoseValue else {
+            AppLog.info("Guard: glucose.glucoseValue is nil")
             return
         }
 
@@ -54,8 +61,13 @@ private class ReadAloudService {
             alarm = .high
         }
 
-        if alarm != self.alarm || glucoseValues.count > 1 || glucose.is10Minutely || self.glucose == nil || self.glucose!.trend != glucose.trend {
+        if alarm != self.alarm || (glucose.is5Minutely && alarm != .none) {
             read(glucoseValue: glucoseValue, glucoseUnit: glucoseUnit, glucoseTrend: glucose.trend, alarm: alarm)
+
+            self.glucose = glucose
+            self.alarm = alarm
+        } else if glucoseValues.count > 1 || glucose.is10Minutely || self.glucose == nil || self.glucose!.trend != glucose.trend {
+            read(glucoseValue: glucoseValue, glucoseUnit: glucoseUnit, glucoseTrend: glucose.trend)
 
             self.glucose = glucose
             self.alarm = alarm
@@ -90,7 +102,7 @@ private class ReadAloudService {
 
         if alarm == .low {
             glucoseString = String(format: LocalizedString("Readable low glucose: %1$@ %2$@"), glucoseValue.asGlucose(unit: glucoseUnit), glucoseUnit.readable)
-        } else if alarm == .high {
+        } else if alarm == .high, alarm != self.alarm {
             glucoseString = String(format: LocalizedString("Readable high glucose: %1$@ %2$@"), glucoseValue.asGlucose(unit: glucoseUnit), glucoseUnit.readable)
         } else if let readableTrend = glucoseTrend?.readable {
             glucoseString = String(format: LocalizedString("Readable glucose with trend: %1$@ %2$@, %3$@"), glucoseValue.asGlucose(unit: glucoseUnit), glucoseUnit.readable, readableTrend)

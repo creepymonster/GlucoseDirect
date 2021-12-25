@@ -294,7 +294,10 @@ class StreamReader {
     ///   - encoding: the file encoding to expect; defaults to `.utf8`
     ///   - chunkSize: the buffer size during the read process; defaults to 4096 bytes
     convenience init?(at path: String, delimiter: String = "\n", encoding: String.Encoding = .utf8, chunkSize: Int = 4096) {
-        guard let url = URL(string: path) else { return nil }
+        guard let url = URL(string: path) else {
+            return nil
+        }
+
         self.init(at: url, delimiter: delimiter, encoding: encoding, chunkSize: chunkSize)
     }
 

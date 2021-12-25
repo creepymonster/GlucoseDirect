@@ -101,8 +101,6 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
                     }
                 }
 
-                AppLog.info("develop: \(missedGlucosValues)")
-
                 return Just(.addGlucoseValues(glucoseValues: missedGlucosValues))
                     .setFailureType(to: AppError.self)
                     .eraseToAnyPublisher()
@@ -110,6 +108,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
 
         case .pairSensor:
             guard let sensorConnection = state.selectedConnection else {
+                AppLog.info("Guard: state.selectedConnection is nil")
                 break
             }
 
@@ -117,6 +116,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
 
         case .connectSensor:
             guard let sensorConnection = state.selectedConnection else {
+                AppLog.info("Guard: state.selectedConnection is nil")
                 break
             }
 
@@ -128,6 +128,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
 
         case .disconnectSensor:
             guard let sensorConnection = state.selectedConnection else {
+                AppLog.info("Guard: state.selectedConnection is nil")
                 break
             }
 

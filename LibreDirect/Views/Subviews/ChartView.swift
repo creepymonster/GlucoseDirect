@@ -513,7 +513,7 @@ struct ChartView: View {
 
             var yGridTexts: [TextInfo] = []
             for i in gridParts {
-                if i < AppConfig.MinReadableGlucose {
+                if i < AppConfig.minReadableGlucose {
                     continue
                 }
 

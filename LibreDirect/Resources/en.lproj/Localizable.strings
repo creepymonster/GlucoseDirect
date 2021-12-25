@@ -422,7 +422,7 @@
 "About %@" = "About %@";
 
 /* (No Comment) */
-"App Version" = "Version";
+"App version" = "Version";
 
 /* (No Comment) */
 "Unknown" = "Unknown";
@@ -467,7 +467,7 @@
 "Attention, the sensor sends faulty values. Please wait 10 minutes." = "Attention, the sensor sends faulty values. Please wait 10 minutes.";
 
 /* (No Comment) */
-"App Website" = "Website";
+"App website" = "Website";
 
 /* (No Comment) */
 "Send log file" = "Send log file";
@@ -485,10 +485,10 @@
 "Readable glucose with trend: %1$@ %2$@, %3$@" = "Glucose: %1$@ %2$@, %3$@";
 
 /* (No Comment) */
-"Readable low glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, too low!";
+"Readable low glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, Hypoglycemia!";
 
 /* (No Comment) */
-"Readable high glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, too high!";
+"Readable high glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, Hyperglycemia!";
 
 /* (No Comment) */
 "Readable miligram" = "miligram";
@@ -515,12 +515,6 @@
 "Readable rapidly rising" = "rapidly rising";
 
 /* (No Comment) */
-"Readable low glucose warning" = "zu tief";
-
-/* (No Comment) */
-"Readable high glucose warning" = "zu hoch";
-
-/* (No Comment) */
 "Read aloud" = "Read aloud";
 
 /* (No Comment) */
@@ -540,3 +534,9 @@
 
 /* (No Comment) */
 "When a new alarm is triggered" = "- When a new alarm is triggered";
+
+/* (No Comment) */
+"App author" = "Author";
+
+/* (No Comment) */
+"App support mail" = "Support";
