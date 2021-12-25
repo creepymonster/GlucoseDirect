@@ -422,7 +422,7 @@
 "About %@" = "Om %@";
 
 /* (No Comment) */
-"App Version" = "Version";
+"App version" = "Version";
 
 /* (No Comment) */
 "Unknown" = "Okänd";
@@ -467,7 +467,7 @@
 "Attention, the sensor sends faulty values. Please wait 10 minutes." = "Varning, sensorn skickar felaktiga värden. Vänta 10 minuter.";
 
 /* (No Comment) */
-"App Website" = "Hemsida";
+"App website" = "Website";
 
 /* (No Comment) */
 "Send log file" = "Skicka loggfil";
@@ -478,29 +478,16 @@
 /* (No Comment) */
 "Delete log files" = "Ta bort loggfiler";
 
-/* Readable glucose: %1$@ %2$@
-
-%1$@ is the Glucose value - 107 or 5.6
-%2$@ is the Glucose unit - mg/dl oder mmol/l */
+/* (No Comment) */
 "Readable glucose: %1$@ %2$@" = "Glukos: %1$@ %2$@";
 
-/* Readable glucose with trend: %1$@ %2$@, %3$@
-
-%1$@ is the Glucose value - 107 or 5.6
-%2$@ is the Glucose unit - mg/dl oder mmol/l
-%3$@ is the Glucose trend - falling, rising */
+/* (No Comment) */
 "Readable glucose with trend: %1$@ %2$@, %3$@" = "Glukos: %1$@ %2$@, %3$@";
 
-/* Readable low glucose: %1$@ %2$@
-
-%1$@ is the Glucose value - 107 or 5.6
-%2$@ is the Glucose unit - mg/dl oder mmol/l */
+/* (No Comment) */
 "Readable low glucose: %1$@ %2$@" = "Glukos: %1$@ %2$@. Varning, Lågt blodsocker!";
 
-/* Readable high glucose: %1$@ %2$@
-
-%1$@ is the Glucose value - 107 or 5.6
-%2$@ is the Glucose unit - mg/dl oder mmol/l */
+/* (No Comment) */
 "Readable high glucose: %1$@ %2$@" = "Glukos: %1$@ %2$@. Varning, Högt blodsocker!";
 
 /* (No Comment) */
@@ -547,3 +534,9 @@
 
 /* (No Comment) */
 "When a new alarm is triggered" = "- När ett nytt larm utlöses";
+
+/* (No Comment) */
+"App author" = "Author";
+
+/* (No Comment) */
+"App support mail" = "Support";
