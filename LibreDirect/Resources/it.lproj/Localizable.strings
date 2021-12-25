@@ -422,7 +422,7 @@
 "About %@" = "In circa %@";
 
 /* (No Comment) */
-"App Version" = "Versione";
+"App version" = "Version";
 
 /* (No Comment) */
 "Unknown" = "Sconosciuto";
@@ -467,7 +467,7 @@
 "Attention, the sensor sends faulty values. Please wait 10 minutes." = "Attenzione, il sensore manda valori errati. Riprovare tra 10 minuti.";
 
 /* (No Comment) */
-"App Website" = "Sito Web";
+"App website" = "Website";
 
 /* (No Comment) */
 "Send log file" = "Manda file di log";
@@ -534,3 +534,9 @@
 
 /* (No Comment) */
 "When a new alarm is triggered" = "- Quando un nuovo allarme è attivato";
+
+/* (No Comment) */
+"App author" = "Author";
+
+/* (No Comment) */
+"App support mail" = "Support";
