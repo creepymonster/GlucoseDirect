@@ -1,5 +1,5 @@
 /* (No Comment) */
-"%1$@ a clock" = "%1$@";
+"%1$@ a clock" = "%1$@ a reloj";
 
 /* (No Comment) */
 "%1$@/min." = "%1$@/min.";
@@ -14,7 +14,7 @@
 "1 - European" = "1 - Europeo";
 
 /* (No Comment) */
-"2 - USA" = "2 - ESTADOS UNIDOS";
+"2 - USA" = "2 - Estados Unidos";
 
 /* (No Comment) */
 "4 - Australian" = "4 - Australiano";
@@ -44,16 +44,16 @@
 "Alert, sensor connection lost" = "Alerta, conexión del sensor perdida";
 
 /* (No Comment) */
-"Alert, sensor expired" = "Alerta, sensor expirado";
+"Alert, sensor expired" = "Alerta, sensor caducado";
 
 /* (No Comment) */
-"Alert, sensor expiring soon" = "Alerta, el sensor expirará pronto";
+"Alert, sensor expiring soon" = "Alerta, el sensor caducará pronto";
 
 /* (No Comment) */
-"Are you sure you want to add the new calibration?" = "¿Estás seguro que desea añadir la nueva calibración?";
+"Are you sure you want to add the new calibration?" = "¿Estás seguro de que desea añadir la nueva calibración?";
 
 /* (No Comment) */
-"Are you sure you want to delete all calibrations?" = "¿Estás seguro que desea borrar todas las calibraciones?";
+"Are you sure you want to delete all calibrations?" = "¿Estás seguro de que desea borrar todas las calibraciones?";
 
 /* (No Comment) */
 "Are you sure you want to delete all log files?" = "¿Está seguro que desea eliminar todos los archivos de registro?";
@@ -197,7 +197,7 @@
 "Nightscout url" = "Url";
 
 /* (No Comment) */
-"Nightscout settings" = "Configuración de Nightscout";
+"Nightscout settings" = "Ajustes de Nightscout";
 
 /* (No Comment) */
 "Nightscout upload enabled" = "Cargar";
@@ -239,7 +239,7 @@
 "Sensor details" = "Detalles del sensor";
 
 /* (No Comment) */
-"Sensor factory calibration" = "Calibración de Fábrica";
+"Sensor factory calibration" = "Calibración de fábrica";
 
 /* (No Comment) */
 "Sensor has failure" = "Falla de Sensor";
@@ -248,28 +248,28 @@
 "Sensor in starting phase" = "Sensor en fase de inicio";
 
 /* (No Comment) */
-"Sensor is expired" = "El sensor ha expirado";
+"Sensor is expired" = "El sensor ha caducado";
 
 /* (No Comment) */
 "Sensor is ready" = "El sensor está listo";
 
 /* (No Comment) */
-"Sensor is shut down" = "El sensor ha expirado";
+"Sensor is shut down" = "El sensor ha caducado";
 
 /* (No Comment) */
-"Sensor lifetime" = "Tiempo de vida máximo";
+"Sensor lifetime" = "Duración máxima";
 
 /* (No Comment) */
-"Missed readings" = "Lecturas perdidas";
+"Missed readings" = "Perdidas";
 
 /* (No Comment) */
 "Sensor not yet startet" = "Sensor aún no iniciado";
 
 /* (No Comment) */
-"Sensor PatchInfo" = "PatchInfo";
+"Sensor PatchInfo" = "Sensor ParcheInfo";
 
 /* (No Comment) */
-"Sensor possible lifetime" = "Tiempo de vida";
+"Sensor possible lifetime" = "Duración";
 
 /* (No Comment) */
 "Sensor region" = "Región";
@@ -278,10 +278,10 @@
 "Sensor remaining lifetime" = "Tiempo restante";
 
 /* (No Comment) */
-"Sensor remaining warmup time" = "Calentamiento";
+"Sensor remaining warmup time" = "Preparación";
 
 /* (No Comment) */
-"Sensor serial" = "Números de serie";
+"Sensor serial" = "Número de serie";
 
 /* (No Comment) */
 "Sensor state" = "Estado";
@@ -341,7 +341,7 @@
 "Your glucose %1$@ (%2$@) is dangerously high and needs to be treated." = "Su glucosa, %1$@ (%2$@), es peligrosamente alta y necesita ser tratada.";
 
 /* (No Comment) */
-"Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "Tu glucosa, %1$@ (%2$@), es peligrosamente baja. Con bebidas endulzadas o dextrosa, los niveles de glucosa en la sangre pueden volver a la normalidad.";
+"Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "Su glucosa, %1$@ (%2$@), es peligrosamente baja. Con bebidas endulzadas o dextrosa, los niveles de glucosa en la sangre pueden volver a la normalidad.";
 
 /* (No Comment) */
 "Your sensor has expired and needs to be replaced as soon as possible" = "Su sensor ha caducado y debe ser sustituido lo antes posible";
@@ -365,7 +365,7 @@
 "Other Settings" = "Other Settings";
 
 /* (No Comment) */
-"Glucose badge" = "Globo de notificación de glucosa";
+"Glucose badge" = "Globo de notificación";
 
 /* (No Comment) */
 "Are you sure you want to add the new blood glucose value?" = "¿Está seguro de que desea añadir un nuevo valor de glucosa en sangre?";
@@ -407,7 +407,7 @@
 "Pairing" = "Emparejamiento";
 
 /* (No Comment) */
-"Calendar export" = "Exportar Calendario";
+"Calendar export" = "Exportar calendario";
 
 /* (No Comment) */
 "Calendar export enabled" = "Exportar";
@@ -416,7 +416,7 @@
 "Selected calendar" = "Calendario";
 
 /* (No Comment) */
-"Please select" = "Por favor seleccionar";
+"Please select" = "Seleccione, por favor";
 
 /* (No Comment) */
 "About %@" = "Acerca de %@";
@@ -479,64 +479,64 @@
 "Delete log files" = "Borrar archivos de registro";
 
 /* (No Comment) */
-"Readable glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@";
+"Readable glucose: %1$@ %2$@" = "Glucosa: %1$@ %2$@";
 
 /* (No Comment) */
-"Readable glucose with trend: %1$@ %2$@, %3$@" = "Glucose: %1$@ %2$@, %3$@";
+"Readable glucose with trend: %1$@ %2$@, %3$@" = "Glucosa: %1$@ %2$@, %3$@";
 
 /* (No Comment) */
-"Readable low glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, Hypoglycemia!";
+"Readable low glucose: %1$@ %2$@" = "Glucosa: %1$@ %2$@. ¡Atención, Hipoglucemia!";
 
 /* (No Comment) */
-"Readable high glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, Hyperglycemia!";
+"Readable high glucose: %1$@ %2$@" = "Glucosa: %1$@ %2$@. ¡Atención, Hiperglucemia!";
 
 /* (No Comment) */
-"Readable miligram" = "miligram";
+"Readable miligram" = "miligramo";
 
 /* (No Comment) */
 "Readable milimol" = "milimol";
 
 /* (No Comment) */
-"Readable falling" = "falling";
+"Readable falling" = "bajada";
 
 /* (No Comment) */
-"Readable fast falling" = "fast falling";
+"Readable fast falling" = "bajada rápida";
 
 /* (No Comment) */
-"Readable rapidly falling" = "rapidly falling";
+"Readable rapidly falling" = "bajando rápidamente";
 
 /* (No Comment) */
-"Readable rising" = "rising";
+"Readable rising" = "subida";
 
 /* (No Comment) */
-"Readable fast rising" = "fast rising";
+"Readable fast rising" = "subida rápida";
 
 /* (No Comment) */
-"Readable rapidly rising" = "rapidly rising";
+"Readable rapidly rising" = "subiendo rápidamente";
 
 /* (No Comment) */
-"Read aloud" = "Read aloud";
+"Read aloud" = "Lectura en voz alta";
 
 /* (No Comment) */
-"Glucose read aloud" = "Glucose read aloud";
+"Glucose read aloud" = "Lectura de Glucosa en voz alta";
 
 /* (No Comment) */
-"Glucose values are read aloud:" = "Glucose values are read aloud:";
+"Glucose values are read aloud:" = "Los valores de Glucosa se leen en voz alta:";
 
 /* (No Comment) */
-"Every 10 minutes" = "- Every 10 minutes";
+"Every 10 minutes" = "- Cada 10 minutos";
 
 /* (No Comment) */
-"After disconnections" = "- After disconnections";
+"After disconnections" = "- Después de desconexiones";
 
 /* (No Comment) */
-"When the glucose trend changes" = "- When the glucose trend changes";
+"When the glucose trend changes" = "- Cuándo la tendencia de glucosa cambia";
 
 /* (No Comment) */
-"When a new alarm is triggered" = "- When a new alarm is triggered";
+"When a new alarm is triggered" = "- Cuando se produce una nueva alarma";
 
 /* (No Comment) */
-"App author" = "Author";
+"App author" = "Autor";
 
 /* (No Comment) */
-"App support mail" = "Support";
+"App support mail" = "Soporte";
