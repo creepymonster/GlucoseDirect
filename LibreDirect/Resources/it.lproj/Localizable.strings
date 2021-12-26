@@ -401,7 +401,7 @@
 "Without transmitter" = "Senza Transmettitore";
 
 /* (No Comment) */
-"Bubble transmitter" = "Trasmettitore Bolla";
+"Bubble transmitter" = "Trasmettitore \"Bubble\"";
 
 /* (No Comment) */
 "Pairing" = "Collegamento";
@@ -485,10 +485,10 @@
 "Readable glucose with trend: %1$@ %2$@, %3$@" = "Glucosio: %1$@ %2$@ %3$@";
 
 /* (No Comment) */
-"Readable low glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, Hypoglycemia!";
+"Readable low glucose: %1$@ %2$@" = "Glucosio: %1$@ %2$@. Attenzione, Ipoglicemia!";
 
 /* (No Comment) */
-"Readable high glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, Hyperglycemia!";
+"Readable high glucose: %1$@ %2$@" = "%1$@%2$@. Attenzione, Glicemia Alta!";
 
 /* (No Comment) */
 "Readable miligram" = "milligrammo";
@@ -536,7 +536,7 @@
 "When a new alarm is triggered" = "- Quando un nuovo allarme è attivato";
 
 /* (No Comment) */
-"App author" = "Author";
+"App author" = "Autore";
 
 /* (No Comment) */
-"App support mail" = "Support";
+"App support mail" = "Supporto";
