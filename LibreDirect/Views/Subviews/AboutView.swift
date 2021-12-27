@@ -33,7 +33,7 @@ struct AboutView: View {
                 HStack {
                     Text("App website")
                     Spacer()
-                    Link("GitHub", destination: URL(string: AppConfig.repoUrl)!)
+                    Link("GitHub", destination: URL(string: AppConfig.githubUrl)!)
                         .lineLimit(1)
                         .truncationMode(.head)
                 }
@@ -46,6 +46,14 @@ struct AboutView: View {
                             .lineLimit(1)
                             .truncationMode(.head)
                     }
+                }
+                
+                HStack {
+                    Text("App translation")
+                    Spacer()
+                    Link("Crowdin", destination: URL(string: AppConfig.crowdinUrl)!)
+                        .lineLimit(1)
+                        .truncationMode(.head)
                 }
 
                 Button(
