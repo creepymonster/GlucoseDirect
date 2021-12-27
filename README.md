@@ -45,8 +45,8 @@ App programmed in Swift/SwiftUI for using Libre 1/2 blood glucose sensors. I try
 ## Quick test?
 You can quickly get an idea of Libre Direct: [TestFlight](https://testflight.apple.com/join/dWDt5Wme)
 
-## FAQ
-[a relative link](FAQ.md)
+## Frequently Asked Questions
+Read the [FAQ](FAQ.md) ☺️
 
 ## Feedback?
 I am very happy to receive feedback - suggestions for improvement or reports of bugs encountered.
