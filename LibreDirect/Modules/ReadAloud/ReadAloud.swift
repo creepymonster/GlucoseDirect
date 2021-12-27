@@ -43,9 +43,9 @@ private class ReadAloudService {
             AppLog.info("Guard: glucoseValues.last is nil")
             return
         }
-        
-        guard glucose.type == .cgm else {
-            AppLog.info("Guard: glucose.type is not .cgm")
+
+        guard glucose.type != .bgm else {
+            AppLog.info("Guard: glucose.type is .bgm")
             return
         }
 
@@ -66,8 +66,12 @@ private class ReadAloudService {
 
             self.glucose = glucose
             self.alarm = alarm
-        } else if glucoseValues.count > 1 || glucose.is10Minutely || self.glucose == nil || self.glucose!.trend != glucose.trend {
-            read(glucoseValue: glucoseValue, glucoseUnit: glucoseUnit, glucoseTrend: glucose.trend)
+        } else if glucoseValues.count > 1 || glucose.is10Minutely || self.glucose == nil || self.glucose!.trend != glucose.trend || self.glucose!.type != glucose.type {
+            if glucose.type == .cgm {
+                read(glucoseValue: glucoseValue, glucoseUnit: glucoseUnit, glucoseTrend: glucose.trend)
+            } else if glucose.type == .none {
+                read(text: LocalizedString("Attention, faulty value received"))
+            }
 
             self.glucose = glucose
             self.alarm = alarm
@@ -94,6 +98,15 @@ private class ReadAloudService {
         AppLog.info("Use default voice for language")
         return AVSpeechSynthesisVoice(language: AVSpeechSynthesisVoice.currentLanguageCode())
     }()
+
+    private func read(text: String) {
+        let textUtterance = AVSpeechUtterance(string: text)
+        if let voice = voice {
+            textUtterance.voice = voice
+        }
+
+        speechSynthesizer.speak(textUtterance)
+    }
 
     private func read(glucoseValue: Int, glucoseUnit: GlucoseUnit, glucoseTrend: SensorTrend? = nil, alarm: AlarmType = .none) {
         AppLog.info("read: \(glucoseValue.asGlucose(unit: glucoseUnit)) \(glucoseUnit.readable) \(glucoseTrend?.readable)")

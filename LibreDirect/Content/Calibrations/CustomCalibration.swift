@@ -85,6 +85,23 @@ extension Array where Element == CustomCalibration {
         return Swift.min(Swift.max(intercept, Config.minIntercept), Config.maxIntercept)
     }
 
+    var description: String {
+        [
+            "slope: \(slope.description)",
+            "intercept: \(intercept.description)",
+        ].joined(separator: ", ")
+    }
+
+    // MARK: Private
+
+    private var minReadableGlucose: Double {
+        Double(AppConfig.minReadableGlucose)
+    }
+
+    private var maxReadableGlucose: Double {
+        Double(AppConfig.maxReadableGlucose)
+    }
+
     private func average(_ input: [Double]) -> Double {
         input.reduce(0, +) / Double(input.count)
     }
@@ -94,13 +111,16 @@ extension Array where Element == CustomCalibration {
     }
 
     private func linearRegression(_ x: Double) -> Double {
-        intercept + slope * x
-    }
+        let result = intercept + slope * x
 
-    var description: String {
-        [
-            "slope: \(slope.description)",
-            "intercept: \(intercept.description)",
-        ].joined(separator: ", ")
+        if result < minReadableGlucose {
+            return minReadableGlucose
+        }
+
+        if result > maxReadableGlucose {
+            return maxReadableGlucose
+        }
+
+        return result
     }
 }

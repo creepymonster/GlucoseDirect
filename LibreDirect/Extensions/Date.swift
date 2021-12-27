@@ -14,7 +14,7 @@ extension Date {
 
         return format.string(from: self)
     }
-    
+
     var localTime: String {
         let format = DateFormatter()
         format.timeZone = .current

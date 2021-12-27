@@ -11,8 +11,8 @@ class CalibrationService {
     // MARK: Internal
 
     func calibrate(sensor: Sensor, nextReading: SensorReading, currentGlucose: Glucose? = nil) -> Glucose {
-        if let nextGlucoseValue = nextReading.glucoseValue, nextReading.quality == .OK {
-            let nextCalibratedGlucoseValue = sensor.customCalibration.calibrate(sensorGlucose: nextGlucoseValue)
+        if let nextGlucoseValue = nextReading.glucoseValue, nextReading.quality == .OK, !nextGlucoseValue.isNaN, !nextGlucoseValue.isInfinite {
+            let nextCalibratedGlucoseValue = calibrate(sensor: sensor, glucoseValue: nextGlucoseValue)
             var nextMinuteChange: Double?
 
             if let currentGlucose = currentGlucose, let currentGlucoseValue = currentGlucose.glucoseValue {
@@ -36,11 +36,21 @@ class CalibrationService {
 
             return nextGlucose
         }
-        
+
         return Glucose(id: nextReading.id, timestamp: nextReading.timestamp, type: .none, quality: nextReading.quality)
     }
 
     // MARK: Private
+
+    private func calibrate(sensor: Sensor, glucoseValue: Double) -> Double {
+        let calibratedGlucoseValue = sensor.customCalibration.calibrate(sensorGlucose: glucoseValue)
+
+        if calibratedGlucoseValue.isNaN || calibratedGlucoseValue.isInfinite {
+            return glucoseValue
+        }
+
+        return calibratedGlucoseValue
+    }
 
     private func calculateSlope(currentTimestamp: Date, currentGlucoseValue: Int, nextTimestamp: Date, nextGlucoseValue: Int) -> Double {
         if currentTimestamp == nextTimestamp {
