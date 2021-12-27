@@ -16,6 +16,7 @@ App programmed in Swift/SwiftUI for using Libre 1/2 blood glucose sensors. I try
 - Upload sensor start to Nightscout
 - FreeAPS X support (with Shared App Groups)
 - Calendar export
+- Glucose read aloud
 - Glucose badge
 - Glucose chart
 - Glucose trend arrow
