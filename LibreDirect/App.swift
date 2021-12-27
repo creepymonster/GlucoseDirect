@@ -23,10 +23,6 @@ final class LibreDirectApp: App {
 
     // MARK: Internal
 
-    static var isPreviewMode: Bool {
-        return UserDefaults.standard.bool(forKey: "preview_mode")
-    }
-
     static var isSimulator: Bool {
         #if targetEnvironment(simulator)
         return true
@@ -50,7 +46,7 @@ final class LibreDirectApp: App {
     private let notificationCenterDelegate: UNUserNotificationCenterDelegate
 
     private static func createStore() -> AppStore {
-        if isSimulator || isPreviewMode {
+        if isSimulator {
             return createPreviewStore()
         }
 
