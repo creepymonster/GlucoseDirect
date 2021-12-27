@@ -14,4 +14,4 @@
 "NSBluetoothPeripheralUsageDescription" = "La funzione Bluetooth è necessaria per connettere i dispositivi supportati.";
 
 /* Privacy - Calendars Usage Description */
-"NSCalendarsUsageDescription" = "L'accesso al calendario è richiesto per mostrare i valori di glucosio sull'Apple Watch.";
+"NSCalendarsUsageDescription" = "L'accesso al calendario è richiesto per mostrare i valori di glucosio su Apple Watch.";
