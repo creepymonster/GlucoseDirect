@@ -32,7 +32,7 @@
 "Add glucose value" = "Aggiungi valore glucosio";
 
 /* (No Comment) */
-"Alarm Settings" = "Impostazioni Sveglia";
+"Alarm Settings" = "Impostazioni Allarmi";
 
 /* (No Comment) */
 "Alert, high glucose" = "Allarme, Glucosio alto";
@@ -89,7 +89,7 @@
 "Connecting" = "In Connessione";
 
 /* (No Comment) */
-"Connection alarm" = "Connessione allarme";
+"Connection alarm" = "Allarme connessione";
 
 /* (No Comment) */
 "Custom calibration" = "Calibrazione";
@@ -296,7 +296,7 @@
 "Settings view" = "Impostazioni";
 
 /* (No Comment) */
-"Snooze until" = "Sveglia";
+"Snooze until" = "Posponi";
 
 /* (No Comment) */
 "Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "Sfortunatamente, ad un iPhone con NFC è richiesta per avviare l'app :'(";
@@ -458,7 +458,7 @@
 "Connection failed" = "Connessione Fallita";
 
 /* (No Comment) */
-"Connection limit reached" = "Limiti di connessione raggiunta";
+"Connection limit reached" = "Limite di connessione raggiunta";
 
 /* (No Comment) */
 "Operation not supported" = "Operazione non supportata";
