@@ -10,6 +10,7 @@ import Foundation
 enum AppConfig {
     static var appSchemaUrl = URL(string: "libredirect://")
     static var githubUrl = "https://github.com/creepymonster/GlucoseDirectApp"
+    static var faqUrl = "https://github.com/creepymonster/GlucoseDirectApp"
     static var crowdinUrl = "https://crwd.in/glucose-direct-app"
 
     static var projectName = "GlucoseDirect"
