@@ -203,14 +203,14 @@ struct ChartView: View {
                                 label: {
                                     Circle()
                                         .if(zoomMinutes == zoom.minutes) {
-                                            $0.fill(.primary)
+                                            $0.fill(Config.y.textColor)
                                         } else: {
-                                            $0.strokeBorder(.primary, lineWidth: 1.5)
+                                            $0.stroke(Config.y.textColor)
                                         }
-                                        .frame(width: 12, height: 12)
+                                        .frame(width: 9, height: 9)
 
                                     Text(zoom.title)
-                                        .foregroundColor(.primary)
+                                        .foregroundColor(Config.y.textColor)
                                 }
                             ).buttonStyle(.plain)
                         }
