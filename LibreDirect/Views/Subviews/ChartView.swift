@@ -74,8 +74,10 @@ struct ChartView: View {
     @State var cgmValues: [Glucose] = []
     @State var bgmValues: [Glucose] = []
 
-    @State var zoomLevel = 1
+    @State var zoomMinutes = 1
     @State var zoomGridStep = Config.zoomGridStep[1]!
+    
+    var y
 
     var chartView: some View {
         GeometryReader { geo in
@@ -148,7 +150,7 @@ struct ChartView: View {
                 updateCgmPath(fullSize: geo.size, glucoseValues: cgmValues)
                 updateBgmPath(fullSize: geo.size, glucoseValues: bgmValues)
             }
-            .onChange(of: zoomLevel) { _ in
+            .onChange(of: zoomMinutes) { _ in
                 updateGlucoseValues()
                 updateHelpVariables(fullSize: geo.size, glucoseValues: store.state.glucoseValues)
 
@@ -193,15 +195,28 @@ struct ChartView: View {
                         .frame(height: Config.height)
 
                     HStack {
-                        Picker("", selection: $zoomLevel) {
-                            ForEach(Config.zoomLevels, id: \.minutes) {
-                                Text($0.title)
-                            }
-                        }.onChange(of: zoomLevel) {
-                            zoomGridStep = Config.zoomGridStep[$0]!
+                        ForEach(Config.zoomLevels, id: \.minutes) { zoom in
+                            Spacer()
+                            Button(
+                                action: {
+                                    zoomMinutes = zoom.minutes
+                                    zoomGridStep = Config.zoomGridStep[zoom.minutes]!
+                                },
+                                label: {
+                                    Circle()
+                                        .if(zoomMinutes == zoom.minutes) {
+                                            $0.fill(.primary)
+                                        } else: {
+                                            $0.strokeBorder(.primary, lineWidth: 1.5)
+                                        }
+                                        .frame(width: 13, height: 13)
+
+                                    Text(zoom.title)
+                                        .foregroundColor(.primary)
+                                }
+                            ).buttonStyle(.plain)
                         }
-                        .pickerStyle(.segmented)
-                        .labelsHidden()
+                        Spacer()
                     }
                 },
                 header: {
@@ -237,7 +252,7 @@ struct ChartView: View {
                 .onChange(of: bgmValues) { _ in
                     scroll.scrollTo(Config.endID, anchor: .trailing)
                 }
-                .onChange(of: zoomLevel) { _ in
+                .onChange(of: zoomMinutes) { _ in
                     scroll.scrollTo(Config.endID, anchor: .trailing)
                 }
                 .onAppear {
@@ -344,7 +359,7 @@ struct ChartView: View {
     }
 
     private func updateGlucoseValues() {
-        if zoomLevel == 1 {
+        if zoomMinutes == 1 {
             cgmValues = store.state.glucoseValues.filter { value in
                 value.type == .cgm && value.quality == .OK
             }
@@ -357,7 +372,7 @@ struct ChartView: View {
             let filteredValues = store.state.glucoseValues.filter { value in
                 value.type == .cgm && value.quality == .OK
             }.map { value in
-                (value.timestamp.rounded(on: zoomLevel, .minute), value.glucoseValue!)
+                (value.timestamp.rounded(on: zoomMinutes, .minute), value.glucoseValue!)
             }
 
             let groupedValues = Dictionary(grouping: filteredValues, by: { $0.0 })
@@ -375,7 +390,7 @@ struct ChartView: View {
             bgmValues = store.state.glucoseValues.filter { value in
                 value.type == .bgm && value.quality == .OK
             }.map { value in
-                Glucose(id: value.id, timestamp: value.timestamp.rounded(on: zoomLevel, .minute), glucose: value.glucoseValue!, type: .bgm)
+                Glucose(id: value.id, timestamp: value.timestamp.rounded(on: zoomMinutes, .minute), glucose: value.glucoseValue!, type: .bgm)
             }
         }
     }
@@ -392,7 +407,7 @@ struct ChartView: View {
                 let lastTimeStamp = Date().rounded(on: 1, .minute).addingTimeInterval(2 * zoomGridStep * 60)
             #endif
 
-            let glucoseSteps = Int(firstTimeStamp.distance(to: lastTimeStamp) / 60) / zoomLevel
+            let glucoseSteps = Int(firstTimeStamp.distance(to: lastTimeStamp) / 60) / zoomMinutes
 
             self.firstTimeStamp = firstTimeStamp
             self.lastTimeStamp = lastTimeStamp
@@ -615,7 +630,7 @@ struct ChartView: View {
 
     private func translateTimeStampToX(timestamp: Date) -> CGFloat {
         if let first = firstTimeStamp {
-            let steps = Int(first.distance(to: timestamp) / 60) / zoomLevel
+            let steps = Int(first.distance(to: timestamp) / 60) / zoomMinutes
 
             return translateStepsToX(steps: steps)
         }
@@ -683,7 +698,7 @@ struct ChartView: View {
             15: 180,
             30: 360,
         ]
-        
+
         static let zoomLevels: [ZoomLevel] = [
             ZoomLevel(minutes: 1, title: "1m"),
             ZoomLevel(minutes: 5, title: "5m"),

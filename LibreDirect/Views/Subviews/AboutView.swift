@@ -36,6 +36,14 @@ struct AboutView: View {
                         .lineLimit(1)
                         .truncationMode(.head)
                 }
+                
+                HStack {
+                    Text("App facebook group")
+                    Spacer()
+                    Link("Facebook", destination: URL(string: AppConfig.facebookUrl)!)
+                        .lineLimit(1)
+                        .truncationMode(.head)
+                }
 
                 HStack {
                     Text("App faq")
