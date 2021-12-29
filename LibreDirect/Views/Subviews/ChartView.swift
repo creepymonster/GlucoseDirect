@@ -76,8 +76,6 @@ struct ChartView: View {
 
     @State var zoomMinutes = 1
     @State var zoomGridStep = Config.zoomGridStep[1]!
-    
-    var y
 
     var chartView: some View {
         GeometryReader { geo in
@@ -209,7 +207,7 @@ struct ChartView: View {
                                         } else: {
                                             $0.strokeBorder(.primary, lineWidth: 1.5)
                                         }
-                                        .frame(width: 13, height: 13)
+                                        .frame(width: 12, height: 12)
 
                                     Text(zoom.title)
                                         .foregroundColor(.primary)
@@ -582,7 +580,9 @@ struct ChartView: View {
         AppLog.info("updateYGrid")
 
         calculationQueue.async {
-            let gridParts = stride(from: Config.minGlucose, to: Config.maxGlucose + 1, by: Config.y.gridStep)
+            let gridParts = store.state.glucoseUnit == .mgdL
+                ? Config.y.mgdLGrid
+                : Config.y.mmolLGrid
 
             let yGridPath = Path { path in
                 for i in gridParts {
@@ -686,7 +686,9 @@ struct ChartView: View {
             static let fontWidth: CGFloat = 28
             static let padding: CGFloat = 20
             static let strokeStyle = StrokeStyle(lineWidth: lineWidth)
-            static let gridStep = 50
+
+            static let mgdLGrid: [Int] = [0, 50, 100, 150, 200, 250, 300, 350]
+            static let mmolLGrid: [Int] = [0, 54, 108, 162, 216, 270, 324]
 
             static var color: Color { Color(hex: "#E4E6EB") | Color(hex: "#404040") }
             static var textColor: Color { Color(hex: "#181818") | Color(hex: "#A0A0A0") }
