@@ -332,7 +332,7 @@
 "Warning, sensor missed %1$@ readings" = "Aviso, sensor falhou %1$@ leituras";
 
 /* (No Comment) */
-"Wearing time alarm" = "Alarme de tempo de uso";
+"Wearing time alarm" = "Idade do sensor";
 
 /* (No Comment) */
 "Your current glucose is %1$@ (%2$@)." = "A tua glicose actual é %1$@ (%2$@).";
