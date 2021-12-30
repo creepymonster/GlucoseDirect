@@ -373,8 +373,8 @@ struct ChartView: View {
                 (value.timestamp.rounded(on: zoomMinutes, .minute), value.glucoseValue!)
             }
 
-            let groupedValues = Dictionary(grouping: filteredValues, by: { $0.0 })
-            cgmValues = groupedValues.map { group in
+            let groupedValues: [Date: [(Date, Int)]] = Dictionary(grouping: filteredValues, by: { $0.0 })
+            var cgmValues: [Glucose] = groupedValues.map { group in
                 let sumGlucoseValues = group.value.reduce(0) {
                     $0 + $1.1
                 }
@@ -383,6 +383,16 @@ struct ChartView: View {
 
                 return Glucose(id: UUID(), timestamp: group.key, glucose: meanGlucoseValues, type: .cgm)
             }.sorted(by: { $0.timestamp < $1.timestamp })
+
+            if let lastTimeStamp = cgmValues.last?.timestamp,
+               let lastGlucose = store.state.glucoseValues.last(where: { $0.quality == .OK && $0.type == .cgm }),
+               lastTimeStamp < lastGlucose.timestamp,
+               let lastGlucoseValue = lastGlucose.glucoseValue
+            {
+                cgmValues.append(Glucose(id: lastGlucose.id, timestamp: lastGlucose.timestamp, glucose: lastGlucoseValue, type: .cgm))
+            }
+
+            self.cgmValues = cgmValues
 
             // bgm values
             bgmValues = store.state.glucoseValues.filter { value in
