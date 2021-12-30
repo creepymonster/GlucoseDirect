@@ -14,6 +14,7 @@ struct PreviewAppState: AppState {
     var alarmSnoozeUntil: Date?
     var calendarExport = false
     var chartShowLines = false
+    var chartZoomLevel = 1
     var connectionAlarm = true
     var connectionError: String?
     var connectionErrorIsCritical = false

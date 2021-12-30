@@ -21,6 +21,7 @@ struct StoredAppState: AppState {
 
         self.calendarExport = UserDefaults.standard.calendarExport
         self.chartShowLines = UserDefaults.standard.chartShowLines
+        self.chartZoomLevel = UserDefaults.standard.chartZoomLevel
         self.connectionAlarm = UserDefaults.standard.connectionAlarm
         self.expiringAlarm = UserDefaults.standard.expiringAlarm
         self.glucoseValues = UserDefaults.standard.glucoseValues
@@ -71,6 +72,12 @@ struct StoredAppState: AppState {
     var chartShowLines: Bool {
         didSet {
             UserDefaults.standard.chartShowLines = chartShowLines
+        }
+    }
+    
+    var chartZoomLevel: Int {
+        didSet {
+            UserDefaults.standard.chartZoomLevel = chartZoomLevel
         }
     }
 

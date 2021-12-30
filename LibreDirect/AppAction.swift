@@ -40,6 +40,7 @@ enum AppAction {
     case setAlarmSnoozeUntil(untilDate: Date?, autosnooze: Bool = false)
     case setCalendarExport(enabled: Bool)
     case setChartShowLines(enabled: Bool)
+    case setChartZoomLevel(level: Int)
     case setConnectionAlarm(enabled: Bool)
     case setConnectionError(errorMessage: String, errorTimestamp: Date, errorIsCritical: Bool)
     case setConnectionState(connectionState: SensorConnectionState)

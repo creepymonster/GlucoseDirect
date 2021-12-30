@@ -12,6 +12,7 @@ private enum Keys: String {
     case alarmLow = "libre-direct.settings.alarm-low"
     case calendarExport = "libre-direct.settings.calendar-export"
     case chartShowLines = "libre-direct.settings.chart-show-lines"
+    case chartZoomLevel = "libre-direct.settings.chart-zoom-level"
     case connectionAlarm = "libre-direct.settings.connection-alarm"
     case expiringAlarm = "libre-direct.settings.expiring-alarm"
     case latestReadings
@@ -88,6 +89,19 @@ extension UserDefaults {
         }
         set {
             set(newValue, forKey: Keys.chartShowLines.rawValue)
+        }
+    }
+    
+    var chartZoomLevel: Int {
+        get {
+            if object(forKey: Keys.chartZoomLevel.rawValue) != nil {
+                return integer(forKey: Keys.chartZoomLevel.rawValue)
+            }
+
+            return 1
+        }
+        set {
+            set(newValue, forKey: Keys.chartZoomLevel.rawValue)
         }
     }
 

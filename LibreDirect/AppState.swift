@@ -14,6 +14,7 @@ protocol AppState {
     var alarmSnoozeUntil: Date? { get set }
     var calendarExport: Bool { get set }
     var chartShowLines: Bool { get set }
+    var chartZoomLevel: Int { get set }
     var connectionAlarm: Bool { get set }
     var connectionError: String? { get set }
     var connectionErrorIsCritical: Bool { get set }

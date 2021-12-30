@@ -135,6 +135,9 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setChartShowLines(enabled: let enabled):
         state.chartShowLines = enabled
         
+    case .setChartZoomLevel(level: let level):
+        state.chartZoomLevel = level
+        
     case .setConnectionAlarm(enabled: let enabled):
         state.connectionAlarm = enabled
         
