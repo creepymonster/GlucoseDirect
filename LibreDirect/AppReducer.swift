@@ -9,8 +9,6 @@ import Foundation
 // MARK: - appReducer
 
 func appReducer(state: inout AppState, action: AppAction) {
-    dispatchPrecondition(condition: .onQueue(.main))
-
     switch action {
     case .addCalibration(glucoseValue: let glucoseValue):
         guard state.sensor != nil else {

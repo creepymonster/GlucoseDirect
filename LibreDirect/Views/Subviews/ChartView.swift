@@ -3,6 +3,7 @@
 //  LibreDirect
 //
 
+import Accelerate
 import Combine
 import SwiftUI
 
@@ -61,7 +62,7 @@ struct ChartView: View {
     @State var firstTimeStamp: Date? = nil
     @State var cgmPath = Path()
     @State var bgmPath = Path()
-    @State var glucoseMinutes: Int = 0
+    @State var glucoseSteps: Int = 0
     @State var lastTimeStamp: Date? = nil
     @State var targetGridPath = Path()
     @State var xGridPath = Path()
@@ -70,26 +71,19 @@ struct ChartView: View {
     @State var yGridTexts: [TextInfo] = []
     @State var deviceOrientation = UIDevice.current.orientation
     @State var deviceColorScheme = ColorScheme.light
+    @State var cgmValues: [Glucose] = []
+    @State var bgmValues: [Glucose] = []
 
-    var cgmValues: [Glucose] {
-        return store.state.glucoseValues.filter { value in
-            value.type == .cgm
-        }
-    }
-
-    var bgmValues: [Glucose] {
-        return store.state.glucoseValues.filter { value in
-            value.type == .bgm
-        }
-    }
+    @State var zoomMinutes = 1
+    @State var zoomGridStep = Config.zoomGridStep[1]!
 
     var chartView: some View {
         GeometryReader { geo in
             ZStack(alignment: .leading) {
                 yGridView()
-                alarmLowGridView().zIndex(1)
-                alarmHighGridView().zIndex(1)
-                targetGridView().zIndex(1)
+                alarmLowGridView()
+                alarmHighGridView()
+                targetGridView()
                 scrollGridView(fullSize: geo.size).padding(.leading, Config.y.padding)
             }
             .gesture(TapGesture(count: 2).onEnded { _ in
@@ -146,6 +140,7 @@ struct ChartView: View {
             .onChange(of: store.state.glucoseValues) { _ in
                 AppLog.info("onChange glucoseValues: \(store.state.glucoseValues.count)")
 
+                updateGlucoseValues()
                 updateHelpVariables(fullSize: geo.size, glucoseValues: store.state.glucoseValues)
 
                 updateXGrid(fullSize: geo.size, firstTimeStamp: self.firstTimeStamp, lastTimeStamp: self.lastTimeStamp)
@@ -153,9 +148,24 @@ struct ChartView: View {
                 updateCgmPath(fullSize: geo.size, glucoseValues: cgmValues)
                 updateBgmPath(fullSize: geo.size, glucoseValues: bgmValues)
             }
+            .onChange(of: zoomMinutes) { _ in
+                updateGlucoseValues()
+                updateHelpVariables(fullSize: geo.size, glucoseValues: store.state.glucoseValues)
+
+                updateYGrid(fullSize: geo.size, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh, targetValue: store.state.targetValue, glucoseUnit: store.state.glucoseUnit)
+                updateXGrid(fullSize: geo.size, firstTimeStamp: self.firstTimeStamp, lastTimeStamp: self.lastTimeStamp)
+
+                updateAlarmLowGrid(fullSize: geo.size, alarmLow: store.state.alarmLow)
+                updateAlarmHighGrid(fullSize: geo.size, alarmHigh: store.state.alarmHigh)
+                updateTargetGrid(fullSize: geo.size, targetValue: store.state.targetValue)
+
+                updateCgmPath(fullSize: geo.size, glucoseValues: cgmValues)
+                updateBgmPath(fullSize: geo.size, glucoseValues: bgmValues)
+            }
             .onAppear {
                 AppLog.info("onAppear")
 
+                updateGlucoseValues()
                 updateHelpVariables(fullSize: geo.size, glucoseValues: store.state.glucoseValues)
 
                 updateYGrid(fullSize: geo.size, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh, targetValue: store.state.targetValue, glucoseUnit: store.state.glucoseUnit)
@@ -172,7 +182,7 @@ struct ChartView: View {
     }
 
     var body: some View {
-        if !cgmValues.isEmpty || !bgmValues.isEmpty {
+        if !store.state.glucoseValues.isEmpty {
             Section(
                 content: {
                     chartView
@@ -181,6 +191,31 @@ struct ChartView: View {
                         .padding(.top, 15)
                         .padding(.bottom, 5)
                         .frame(height: Config.height)
+
+                    HStack {
+                        ForEach(Config.zoomLevels, id: \.minutes) { zoom in
+                            Spacer()
+                            Button(
+                                action: {
+                                    zoomMinutes = zoom.minutes
+                                    zoomGridStep = Config.zoomGridStep[zoom.minutes]!
+                                },
+                                label: {
+                                    Circle()
+                                        .if(zoomMinutes == zoom.minutes) {
+                                            $0.fill(Config.y.textColor)
+                                        } else: {
+                                            $0.stroke(Config.y.textColor)
+                                        }
+                                        .frame(width: 9, height: 9)
+
+                                    Text(zoom.title)
+                                        .foregroundColor(Config.y.textColor)
+                                }
+                            ).buttonStyle(.plain)
+                        }
+                        Spacer()
+                    }
                 },
                 header: {
                     Label(String(format: LocalizedString("Chart (%1$@)"), store.state.glucoseValues.count), systemImage: "chart.bar.xaxis")
@@ -194,23 +229,32 @@ struct ChartView: View {
             ScrollViewReader { scroll in
                 ZStack {
                     xGridView()
-                    nowView(fullSize: fullSize).zIndex(2)
+
+                    nowView(fullSize: fullSize)
+                        .zIndex(2)
 
                     if store.state.chartShowLines {
-                        cgmLineView().zIndex(3)
+                        cgmLineView()
+                            .zIndex(3)
                     } else {
-                        cgmDotsView().zIndex(3)
+                        cgmDotsView()
+                            .zIndex(3)
                     }
 
                     bgmDotsView().zIndex(4)
                 }
-                .id(Config.endID)
-                .frame(width: CGFloat(glucoseMinutes) * CGFloat(Config.x.gridMinuteWidth))
+                .frame(width: CGFloat(Double(glucoseSteps) * Config.x.stepWidth))
                 .onChange(of: cgmValues) { _ in
                     scroll.scrollTo(Config.endID, anchor: .trailing)
                 }
+                .onChange(of: bgmValues) { _ in
+                    scroll.scrollTo(Config.endID, anchor: .trailing)
+                }
+                .onChange(of: zoomMinutes) { _ in
+                    scroll.scrollTo(Config.endID, anchor: .trailing)
+                }
                 .onAppear {
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {
                         scroll.scrollTo(Config.endID, anchor: .trailing)
                     }
                 }
@@ -242,7 +286,9 @@ struct ChartView: View {
 
             path.move(to: CGPoint(x: x, y: 0))
             path.addLine(to: CGPoint(x: x, y: fullSize.height - Config.y.additionalBottom))
-        }.stroke(style: Config.now.strokeStyle).stroke(Config.now.color)
+        }
+        .stroke(style: Config.now.strokeStyle)
+        .stroke(Config.now.color)
     }
 
     private func cgmLineView() -> some View {
@@ -285,6 +331,7 @@ struct ChartView: View {
                     .font(.system(size: Config.x.fontSize))
                     .fontWeight(fontWeight)
                     .position(x: text.x, y: text.y)
+                    .if(text.x == xGridTexts.last?.x) { $0.id(Config.endID) }
             }
         }
     }
@@ -309,23 +356,60 @@ struct ChartView: View {
         }
     }
 
+    private func updateGlucoseValues() {
+        if zoomMinutes == 1 {
+            cgmValues = store.state.glucoseValues.filter { value in
+                value.type == .cgm && value.quality == .OK
+            }
+
+            bgmValues = store.state.glucoseValues.filter { value in
+                value.type == .bgm && value.quality == .OK
+            }
+        } else {
+            // cgm values
+            let filteredValues = store.state.glucoseValues.filter { value in
+                value.type == .cgm && value.quality == .OK
+            }.map { value in
+                (value.timestamp.rounded(on: zoomMinutes, .minute), value.glucoseValue!)
+            }
+
+            let groupedValues = Dictionary(grouping: filteredValues, by: { $0.0 })
+            cgmValues = groupedValues.map { group in
+                let sumGlucoseValues = group.value.reduce(0) {
+                    $0 + $1.1
+                }
+
+                let meanGlucoseValues = sumGlucoseValues / group.value.count
+
+                return Glucose(id: UUID(), timestamp: group.key, glucose: meanGlucoseValues, type: .cgm)
+            }.sorted(by: { $0.timestamp < $1.timestamp })
+
+            // bgm values
+            bgmValues = store.state.glucoseValues.filter { value in
+                value.type == .bgm && value.quality == .OK
+            }.map { value in
+                Glucose(id: value.id, timestamp: value.timestamp.rounded(on: zoomMinutes, .minute), glucose: value.glucoseValue!, type: .bgm)
+            }
+        }
+    }
+
     private func updateHelpVariables(fullSize: CGSize, glucoseValues: [Glucose]) {
         AppLog.info("updateHelpVariables")
 
         if let first = glucoseValues.first, let last = glucoseValues.last {
-            let firstTimeStamp = first.timestamp.addingTimeInterval(-2 * Config.x.gridStep * 60)
+            let firstTimeStamp = first.timestamp.addingTimeInterval(-2 * zoomGridStep * 60)
 
             #if targetEnvironment(simulator)
-                let lastTimeStamp = last.timestamp.addingTimeInterval(2 * Config.x.gridStep * 60)
+                let lastTimeStamp = last.timestamp.addingTimeInterval(2 * zoomGridStep * 60)
             #else
-                let lastTimeStamp = Date().rounded(on: 1, .minute).addingTimeInterval(2 * Config.x.gridStep * 60)
+                let lastTimeStamp = Date().rounded(on: 1, .minute).addingTimeInterval(2 * zoomGridStep * 60)
             #endif
 
-            let glucoseMinutes = Int(firstTimeStamp.distance(to: lastTimeStamp) / 60)
+            let glucoseSteps = Int(firstTimeStamp.distance(to: lastTimeStamp) / 60) / zoomMinutes
 
             self.firstTimeStamp = firstTimeStamp
             self.lastTimeStamp = lastTimeStamp
-            self.glucoseMinutes = glucoseMinutes
+            self.glucoseSteps = glucoseSteps
         }
     }
 
@@ -460,9 +544,9 @@ struct ChartView: View {
         calculationQueue.async {
             if let firstTimeStamp = firstTimeStamp, let lastTimeStamp = lastTimeStamp {
                 let allHours = Date.dates(
-                    from: firstTimeStamp.rounded(on: Int(Config.x.gridStep), .minute).addingTimeInterval(-5 * Config.x.gridStep * 60),
-                    to: lastTimeStamp.rounded(on: Int(Config.x.gridStep), .minute).addingTimeInterval(5 * Config.x.gridStep * 60),
-                    step: Int(Config.x.gridStep)
+                    from: firstTimeStamp.rounded(on: Int(zoomGridStep), .minute).addingTimeInterval(-3600),
+                    to: lastTimeStamp.rounded(on: Int(zoomGridStep), .minute).addingTimeInterval(3600),
+                    step: Int(zoomGridStep)
                 )
 
                 let xGridPath = Path { path in
@@ -496,7 +580,9 @@ struct ChartView: View {
         AppLog.info("updateYGrid")
 
         calculationQueue.async {
-            let gridParts = stride(from: Config.minGlucose, to: Config.maxGlucose + 1, by: Config.y.gridStep)
+            let gridParts = store.state.glucoseUnit == .mgdL
+                ? Config.y.mgdLGrid
+                : Config.y.mmolLGrid
 
             let yGridPath = Path { path in
                 for i in gridParts {
@@ -538,15 +624,15 @@ struct ChartView: View {
         return y
     }
 
-    private func translateMinuteToX(minute: Int) -> CGFloat {
-        return CGFloat(minute) * CGFloat(Config.x.gridMinuteWidth)
+    private func translateStepsToX(steps: Int) -> CGFloat {
+        return CGFloat(steps) * CGFloat(Config.x.stepWidth)
     }
 
     private func translateTimeStampToX(timestamp: Date) -> CGFloat {
         if let first = firstTimeStamp {
-            let minute = Int(first.distance(to: timestamp) / 60)
+            let steps = Int(first.distance(to: timestamp) / 60) / zoomMinutes
 
-            return translateMinuteToX(minute: minute)
+            return translateStepsToX(steps: steps)
         }
 
         return 0
@@ -586,10 +672,9 @@ struct ChartView: View {
         }
 
         enum x {
-            static let gridStep: Double = 15 // in minutes
             static let fontSize: CGFloat = 12
             static let strokeStyle = StrokeStyle(lineWidth: lineWidth)
-            static let gridMinuteWidth = 6
+            static let stepWidth: Double = 5
 
             static var color: Color { Color(hex: "#E4E6EB") | Color(hex: "#404040") } // .opacity(opacity)
             static var textColor: Color { Color(hex: "#181818") | Color(hex: "#A0A0A0") }
@@ -601,11 +686,27 @@ struct ChartView: View {
             static let fontWidth: CGFloat = 28
             static let padding: CGFloat = 20
             static let strokeStyle = StrokeStyle(lineWidth: lineWidth)
-            static let gridStep = 50
+
+            static let mgdLGrid: [Int] = [0, 50, 100, 150, 200, 250, 300, 350]
+            static let mmolLGrid: [Int] = [0, 54, 108, 162, 216, 270, 324]
 
             static var color: Color { Color(hex: "#E4E6EB") | Color(hex: "#404040") }
             static var textColor: Color { Color(hex: "#181818") | Color(hex: "#A0A0A0") }
         }
+
+        static let zoomGridStep: [Int: Double] = [
+            1: 15,
+            5: 60,
+            15: 180,
+            30: 360,
+        ]
+
+        static let zoomLevels: [ZoomLevel] = [
+            ZoomLevel(minutes: 1, title: "1m"),
+            ZoomLevel(minutes: 5, title: "5m"),
+            ZoomLevel(minutes: 15, title: "15m"),
+            ZoomLevel(minutes: 30, title: "30m"),
+        ]
 
         static let endID = "End"
         static let height: CGFloat = 350
@@ -618,6 +719,13 @@ struct ChartView: View {
     }
 
     private let calculationQueue = DispatchQueue(label: "libre-direct.chart-calculation")
+}
+
+// MARK: - ZoomLevel
+
+struct ZoomLevel {
+    let minutes: Int
+    let title: String
 }
 
 // MARK: - MinuteUpdater

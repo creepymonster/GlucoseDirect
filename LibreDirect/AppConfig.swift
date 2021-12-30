@@ -9,7 +9,10 @@ import Foundation
 
 enum AppConfig {
     static var appSchemaUrl = URL(string: "libredirect://")
-    static var repoUrl = "https://github.com/creepymonster/GlucoseDirectApp"
+    static var githubUrl = "https://github.com/creepymonster/GlucoseDirectApp"
+    static var faqUrl = "https://github.com/creepymonster/GlucoseDirectApp"
+    static var crowdinUrl = "https://crwd.in/glucose-direct-app"
+    static var facebookUrl = "https://www.facebook.com/groups/4747621411996068/"
 
     static var projectName = "GlucoseDirect"
 
@@ -32,5 +35,5 @@ enum AppConfig {
     static var minReadableGlucose: Int { 40 }
     static var maxReadableGlucose: Int { 500 }
     static var expiredNotificationInterval: Double { 1 * 60 * 60 } // in seconds
-    static var numberOfGlucoseValues: Int { 24 * 60 } // every minute a value
+    static var numberOfGlucoseValues: Int { 36 * 60 } // every minute a value
 }

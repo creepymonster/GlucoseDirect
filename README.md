@@ -16,6 +16,7 @@ App programmed in Swift/SwiftUI for using Libre 1/2 blood glucose sensors. I try
 - Upload sensor start to Nightscout
 - FreeAPS X support (with Shared App Groups)
 - Calendar export
+- Glucose read aloud
 - Glucose badge
 - Glucose chart
 - Glucose trend arrow
@@ -38,12 +39,16 @@ App programmed in Swift/SwiftUI for using Libre 1/2 blood glucose sensors. I try
 - Chinese (simplified and traditional)
 - Spanish
 - Italian
+- Portuguese
 
 ## Requirements
 - Apple iPhone with iOS 15
 
 ## Quick test?
 You can quickly get an idea of Libre Direct: [TestFlight](https://testflight.apple.com/join/dWDt5Wme)
+
+## Frequently Asked Questions
+Read the [FAQ](FAQ.md) ☺️
 
 ## Feedback?
 I am very happy to receive feedback - suggestions for improvement or reports of bugs encountered.
@@ -55,8 +60,9 @@ I am very happy to receive feedback - suggestions for improvement or reports of 
 - **Richard** for the design of the app icon
 - **Jon-b-m** and **bubblan** for your translation into Swedish
 - **birdfly** for your translation into Chinese (simplified and traditional)
-- **Timmy_otoole** for your translation into Spanish
-- **goldshotter** for your translation into Italian
+- **Timmy_otoole** and **albertodeviaje2** for your translation into Spanish
+- **goldshotter** and **ferdytao** for your translation into Italian
+- **Fcourela** for your translation into Portuguese
 - **All** who contribute to the app with their ideas
 
 ## Todo
