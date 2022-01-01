@@ -63,6 +63,7 @@ I am very happy to receive feedback - suggestions for improvement or reports of 
 - **Timmy_otoole** and **albertodeviaje2** for your translation into Spanish
 - **goldshotter** and **ferdytao** for your translation into Italian
 - **Fcourela** for your translation into Portuguese
+- **Thanks to all Paypal supporters**
 - **All** who contribute to the app with their ideas
 
 ## Todo
