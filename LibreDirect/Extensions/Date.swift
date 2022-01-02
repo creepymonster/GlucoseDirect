@@ -6,28 +6,11 @@
 import Foundation
 
 extension Date {
-    var localDateTime: String {
-        let format = DateFormatter()
-        format.timeZone = .current
-        format.dateStyle = .short
-        format.timeStyle = .short
-
-        return format.string(from: self)
-    }
-
-    var localTime: String {
-        let format = DateFormatter()
-        format.timeZone = .current
-        format.dateFormat = "HH:mm"
-
-        return format.string(from: self)
-    }
-
     func toMillisecondsAsInt64() -> Int64 {
         Int64((self.timeIntervalSince1970 * 1000.0).rounded())
     }
 
-    func rounded(on amount: Int, _ component: Calendar.Component) -> Date {
+    func toRounded(on amount: Int, _ component: Calendar.Component) -> Date {
         let cal = Calendar.current
         let value = cal.component(component, from: self)
 
@@ -38,7 +21,23 @@ extension Date {
         return newDate.floorAllComponents(before: component)
     }
 
-    func floorAllComponents(before component: Calendar.Component) -> Date {
+    func toISOStringFromDate() -> String {
+        return Date.isoDateFormatter.string(from: self).appending("Z")
+    }
+
+    func toMillisecondsAsDouble() -> Double {
+        Double(self.timeIntervalSince1970 * 1000)
+    }
+
+    func toLocalDateTime() -> String {
+        return Date.localDateTimeFormatter.string(from: self)
+    }
+
+    func toLocalTime() -> String {
+        return Date.localTimeFormatter.string(from: self)
+    }
+    
+    private func floorAllComponents(before component: Calendar.Component) -> Date {
         // All components to round ordered by length
         let components = [Calendar.Component.year, .month, .day, .hour, .minute, .second, .nanosecond]
 
@@ -57,16 +56,30 @@ extension Date {
         return date
     }
 
-    func toMillisecondsAsDouble() -> Double {
-        Double(self.timeIntervalSince1970 * 1000)
-    }
-
-    func ISOStringFromDate() -> String {
+    private static var isoDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
 
-        return dateFormatter.string(from: self).appending("Z")
-    }
+        return dateFormatter
+    }()
+
+    private static var localDateTimeFormatter: DateFormatter = {
+        let format = DateFormatter()
+        format.timeZone = .current
+        format.dateStyle = .short
+        format.timeStyle = .short
+
+        return format
+    }()
+
+    private static var localTimeFormatter: DateFormatter = {
+        let format = DateFormatter()
+        format.timeZone = .current
+        format.timeStyle = .short
+        format.dateStyle = .none
+
+        return format
+    }()
 }

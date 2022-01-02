@@ -11,7 +11,7 @@ struct SnoozeView: View {
     @EnvironmentObject var store: AppStore
 
     var snoozeTime: String {
-        if let localSnoozeTime = store.state.alarmSnoozeUntil?.localTime {
+        if let localSnoozeTime = store.state.alarmSnoozeUntil?.toLocalTime() {
             return String(format: LocalizedString("%1$@ a clock"), localSnoozeTime)
         }
 

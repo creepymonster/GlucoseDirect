@@ -45,7 +45,7 @@ struct GlucoseView: View {
 
                             HStack(spacing: 20) {
                                 if store.state.connectionState == .connected {
-                                    Text(String(format: LocalizedString("%1$@ a clock"), currentGlucose.timestamp.localTime))
+                                    Text(String(format: LocalizedString("%1$@ a clock"), currentGlucose.timestamp.toLocalTime()))
                                     if let minuteChange = currentGlucose.minuteChange?.asMinuteChange(glucoseUnit: store.state.glucoseUnit), currentGlucose.trend != .unknown {
                                         Text(minuteChange)
                                     } else {
@@ -70,7 +70,7 @@ struct GlucoseView: View {
                             Text("Attention, the sensor sends faulty values. Please wait 10 minutes.")
                                 .padding(.vertical)
 
-                            Text(String(format: LocalizedString("%1$@ a clock"), currentGlucose.timestamp.localTime))
+                            Text(String(format: LocalizedString("%1$@ a clock"), currentGlucose.timestamp.toLocalTime()))
                         }.padding(.vertical)
                     }
                 }

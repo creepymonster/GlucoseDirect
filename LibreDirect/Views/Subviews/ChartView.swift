@@ -300,7 +300,7 @@ struct ChartView: View {
             #if targetEnvironment(simulator)
                 let now = ISO8601DateFormatter().date(from: "2021-08-01T11:50:00+0200") ?? Date()
             #else
-                let now = Date().rounded(on: 1, .minute)
+                let now = Date().toRounded(on: 1, .minute)
             #endif
 
             let x = self.translateTimeStampToX(timestamp: now)
@@ -399,7 +399,7 @@ struct ChartView: View {
             let filteredValues = store.state.glucoseValues.filter { value in
                 value.type == .cgm && value.quality == .OK
             }.map { value in
-                (value.timestamp.rounded(on: store.state.chartZoomLevel, .minute), value.glucoseValue!)
+                (value.timestamp.toRounded(on: store.state.chartZoomLevel, .minute), value.glucoseValue!)
             }
 
             let groupedValues: [Date: [(Date, Int)]] = Dictionary(grouping: filteredValues, by: { $0.0 })
@@ -427,7 +427,7 @@ struct ChartView: View {
             bgmValues = store.state.glucoseValues.filter { value in
                 value.type == .bgm && value.quality == .OK
             }.map { value in
-                Glucose(id: value.id, timestamp: value.timestamp.rounded(on: store.state.chartZoomLevel, .minute), glucose: value.glucoseValue!, type: .bgm)
+                Glucose(id: value.id, timestamp: value.timestamp.toRounded(on: store.state.chartZoomLevel, .minute), glucose: value.glucoseValue!, type: .bgm)
             }
         }
     }
@@ -441,7 +441,7 @@ struct ChartView: View {
             #if targetEnvironment(simulator)
                 let lastTimeStamp = last.timestamp.addingTimeInterval(2 * zoomGridStep * 60)
             #else
-                let lastTimeStamp = Date().rounded(on: 1, .minute).addingTimeInterval(2 * zoomGridStep * 60)
+                let lastTimeStamp = Date().toRounded(on: 1, .minute).addingTimeInterval(2 * zoomGridStep * 60)
             #endif
 
             let glucoseSteps = Int(firstTimeStamp.distance(to: lastTimeStamp) / 60) / store.state.chartZoomLevel
@@ -583,14 +583,14 @@ struct ChartView: View {
         calculationQueue.async {
             if let firstTimeStamp = firstTimeStamp, let lastTimeStamp = lastTimeStamp {
                 let allHours = Date.dates(
-                    from: firstTimeStamp.rounded(on: Int(zoomGridStep), .minute).addingTimeInterval(-3600),
-                    to: lastTimeStamp.rounded(on: Int(zoomGridStep), .minute).addingTimeInterval(3600),
+                    from: firstTimeStamp.toRounded(on: Int(zoomGridStep), .minute).addingTimeInterval(-3600),
+                    to: lastTimeStamp.toRounded(on: Int(zoomGridStep), .minute).addingTimeInterval(3600),
                     step: Int(zoomGridStep)
                 )
 
                 let xGridPath = Path { path in
                     for hour in allHours {
-                        if hour == Date().rounded(on: 1, .minute) {
+                        if hour == Date().toRounded(on: 1, .minute) {
                             continue
                         }
 
@@ -604,7 +604,7 @@ struct ChartView: View {
                     let highlight = Calendar.current.component(.minute, from: hour) == 0
                     let x = self.translateTimeStampToX(timestamp: hour)
                     let y = fullSize.height - Config.y.fontSize
-                    xGridTexts.append(TextInfo(description: hour.localTime, x: x, y: y, highlight: highlight))
+                    xGridTexts.append(TextInfo(description: hour.toLocalTime(), x: x, y: y, highlight: highlight))
                 }
 
                 DispatchQueue.main.async {
@@ -773,7 +773,7 @@ class MinuteUpdater: ObservableObject {
     // MARK: Lifecycle
 
     init() {
-        let fireDate = Date().rounded(on: 1, .minute).addingTimeInterval(60)
+        let fireDate = Date().toRounded(on: 1, .minute).addingTimeInterval(60)
         AppLog.info("MinuteUpdater, init with \(fireDate)")
 
         let timer = Timer(fire: fireDate, interval: 60, repeats: true) { _ in

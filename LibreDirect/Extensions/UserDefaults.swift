@@ -91,7 +91,7 @@ extension UserDefaults {
             set(newValue, forKey: Keys.chartShowLines.rawValue)
         }
     }
-    
+
     var chartZoomLevel: Int {
         get {
             if object(forKey: Keys.chartZoomLevel.rawValue) != nil {
@@ -230,7 +230,7 @@ extension UserDefaults {
             set(newValue, forKey: Keys.nightscoutUpload.rawValue)
         }
     }
-    
+
     var readGlucose: Bool {
         get {
             if object(forKey: Keys.readGlucose.rawValue) != nil {
@@ -322,7 +322,7 @@ extension UserDefaults {
         guard let data = data(forKey: key) else {
             return nil
         }
-        
+
         return try? JSONDecoder().decode([Element].self, from: data)
     }
 
@@ -335,7 +335,7 @@ extension UserDefaults {
         guard let data = data(forKey: key) else {
             return nil
         }
-        
+
         return try? JSONDecoder().decode(Element.self, from: data)
     }
 
@@ -343,15 +343,7 @@ extension UserDefaults {
         guard let value = Bundle.main.object(forInfoDictionaryKey: key) as? String else {
             fatalError("Invalid value or undefined key")
         }
-        
+
         return value
     }
 }
-
-private var keyFormatter: DateFormatter = {
-    let dateFormatter = DateFormatter()
-    dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
-    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-
-    return dateFormatter
-}()

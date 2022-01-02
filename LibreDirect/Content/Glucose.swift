@@ -12,7 +12,7 @@ final class Glucose: CustomStringConvertible, Codable, Identifiable {
 
     init(id: UUID, timestamp: Date, type: GlucoseValueType, quality: GlucoseQuality) {
         self.id = id
-        self.timestamp = timestamp.rounded(on: 1, .minute)
+        self.timestamp = timestamp.toRounded(on: 1, .minute)
 
         self.minuteChange = nil
         self.calibratedGlucoseValue = nil
@@ -20,13 +20,13 @@ final class Glucose: CustomStringConvertible, Codable, Identifiable {
         self.type = type
         self.quality = quality
     }
-    
+
     init(id: UUID, timestamp: Date, glucose: Int, type: GlucoseValueType, quality: GlucoseQuality = .OK) {
         self.id = id
-        self.timestamp = timestamp.rounded(on: 1, .minute)
+        self.timestamp = timestamp.toRounded(on: 1, .minute)
 
         self.minuteChange = nil
-        
+
         if quality == .OK {
             self.calibratedGlucoseValue = glucose
             self.initialGlucoseValue = glucose
@@ -34,17 +34,17 @@ final class Glucose: CustomStringConvertible, Codable, Identifiable {
             self.calibratedGlucoseValue = nil
             self.initialGlucoseValue = nil
         }
-        
+
         self.type = type
         self.quality = quality
     }
 
     init(id: UUID, timestamp: Date, minuteChange: Double?, initialGlucoseValue: Int, calibratedGlucoseValue: Int, type: GlucoseValueType, quality: GlucoseQuality = .OK) {
         self.id = id
-        self.timestamp = timestamp.rounded(on: 1, .minute)
+        self.timestamp = timestamp.toRounded(on: 1, .minute)
 
         self.minuteChange = minuteChange
-        
+
         if quality == .OK {
             self.initialGlucoseValue = initialGlucoseValue
             self.calibratedGlucoseValue = calibratedGlucoseValue
@@ -52,7 +52,7 @@ final class Glucose: CustomStringConvertible, Codable, Identifiable {
             self.calibratedGlucoseValue = nil
             self.initialGlucoseValue = nil
         }
-        
+
         self.type = type
         self.quality = quality
     }
@@ -80,7 +80,7 @@ final class Glucose: CustomStringConvertible, Codable, Identifiable {
             AppLog.info("Guard: calibratedGlucoseValue is nil")
             return nil
         }
-        
+
         if calibratedGlucoseValue < AppConfig.minReadableGlucose {
             return AppConfig.minReadableGlucose
         } else if calibratedGlucoseValue > AppConfig.maxReadableGlucose {
@@ -93,7 +93,7 @@ final class Glucose: CustomStringConvertible, Codable, Identifiable {
     var description: String {
         [
             "id: \(id)",
-            "timestamp: \(timestamp.localTime)",
+            "timestamp: \(timestamp.toLocalTime())",
             "minuteChange: \(minuteChange?.description ?? "")",
             "factoryCalibratedGlucoseValue: \(initialGlucoseValue?.description ?? "-")",
             "calibratedGlucoseValue: \(calibratedGlucoseValue?.description ?? "-")",
@@ -110,13 +110,13 @@ extension Glucose {
 
         return minutes % 5 == 0
     }
-    
+
     var is10Minutely: Bool {
         let minutes = Calendar.current.component(.minute, from: timestamp)
 
         return minutes % 10 == 0
     }
-    
+
     var is15Minutely: Bool {
         let minutes = Calendar.current.component(.minute, from: timestamp)
 

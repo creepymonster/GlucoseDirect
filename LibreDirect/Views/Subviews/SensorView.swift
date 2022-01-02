@@ -79,7 +79,7 @@ struct SensorView: View {
                             }
                         }
 
-                        if let connectionErrorTimestamp = store.state.connectionErrorTimestamp?.localTime {
+                        if let connectionErrorTimestamp = store.state.connectionErrorTimestamp?.toLocalTime() {
                             HStack {
                                 Text("Connection error timestamp")
                                 Spacer()
@@ -200,7 +200,7 @@ struct SensorView: View {
                             HStack {
                                 Text("Sensor starting date")
                                 Spacer()
-                                Text(startTimestamp.localDateTime)
+                                Text(startTimestamp.toLocalDateTime())
                             }
                         }
 

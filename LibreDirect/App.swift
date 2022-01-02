@@ -115,7 +115,7 @@ final class LibreDirectNotificationCenter: NSObject, UNUserNotificationCenterDel
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         if let store = store, let action = response.notification.request.content.userInfo["action"] as? String, action == "snooze" {
             NotificationService.shared.stopSound()
-            store.dispatch(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(30 * 60).rounded(on: 1, .minute)))
+            store.dispatch(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(30 * 60).toRounded(on: 1, .minute)))
         }
 
         

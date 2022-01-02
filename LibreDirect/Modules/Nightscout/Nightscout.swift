@@ -149,7 +149,7 @@ private class NightscoutService {
     func removeGlucose(nightscoutUrl: String, apiSecret: String, date: Date) {
         let session = URLSession.shared
 
-        let urlString = "\(nightscoutUrl)/api/v1/entries?find[device]=\(AppConfig.projectName)&find[dateString]=\(date.ISOStringFromDate())"
+        let urlString = "\(nightscoutUrl)/api/v1/entries?find[device]=\(AppConfig.projectName)&find[dateString]=\(date.toISOStringFromDate())"
         guard let url = URL(string: urlString) else {
             AppLog.error("Nightscout, bad nightscout url")
             return
@@ -289,7 +289,7 @@ private extension Sensor {
         let nightscout: [String: Any] = [
             "_id": serial,
             "eventType": "Sensor Start",
-            "created_at": startTimestamp.ISOStringFromDate(),
+            "created_at": startTimestamp.toISOStringFromDate(),
             "enteredBy": AppConfig.projectName
         ]
 
@@ -303,7 +303,7 @@ private extension Glucose {
             "_id": id.uuidString,
             "device": AppConfig.projectName,
             "date": timestamp.toMillisecondsAsInt64(),
-            "dateString": timestamp.ISOStringFromDate()
+            "dateString": timestamp.toISOStringFromDate()
         ]
 
         if type == .bgm {

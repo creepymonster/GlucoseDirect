@@ -73,7 +73,7 @@ private func glucoseNotificationMiddelware(service: GlucoseNotificationService) 
                 service.clearBadge()
                 service.setLowGlucoseAlarm(glucose: glucose, glucoseUnit: state.glucoseUnit)
 
-                return Just(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute), autosnooze: true))
+                return Just(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).toRounded(on: 1, .minute), autosnooze: true))
                     .setFailureType(to: AppError.self)
                     .eraseToAnyPublisher()
 
@@ -83,7 +83,7 @@ private func glucoseNotificationMiddelware(service: GlucoseNotificationService) 
                 service.clearBadge()
                 service.setHighGlucoseAlarm(glucose: glucose, glucoseUnit: state.glucoseUnit)
 
-                return Just(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).rounded(on: 1, .minute), autosnooze: true))
+                return Just(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).toRounded(on: 1, .minute), autosnooze: true))
                     .setFailureType(to: AppError.self)
                     .eraseToAnyPublisher()
 

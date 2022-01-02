@@ -93,7 +93,7 @@ struct CalibrationSettingsView: View {
                     
                         ForEach(sensor.customCalibration) { calibration in
                             HStack {
-                                Text(calibration.timestamp.localDateTime)
+                                Text(calibration.timestamp.toLocalDateTime())
                                 Spacer()
                                 Text("\(calibration.x.asGlucose(glucoseUnit: store.state.glucoseUnit)) = \(calibration.y.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))")
                             }

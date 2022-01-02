@@ -85,7 +85,7 @@ struct GlucoseListView: View {
                     content: {
                         ForEach(glucoseValues) { glucose in
                             HStack {
-                                Text(glucose.timestamp.localDateTime)
+                                Text(glucose.timestamp.toLocalDateTime())
                                 Spacer()
 
                                 if glucose.type == .bgm {
