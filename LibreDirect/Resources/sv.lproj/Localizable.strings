@@ -269,7 +269,7 @@
 "Sensor PatchInfo" = "PatchInfo";
 
 /* (No Comment) */
-"Sensor possible lifetime" = "Sensorns möjliga Livstid";
+"Sensor possible lifetime" = "Sensorns livstid";
 
 /* (No Comment) */
 "Sensor region" = "Region";
@@ -542,10 +542,10 @@
 "App support mail" = "Support";
 
 /* (No Comment) */
-"Attention, faulty value received" = "Attention, faulty value received";
+"Attention, faulty value received" = "Observera, felvärde mottaget";
 
 /* (No Comment) */
-"App translation" = "Translation";
+"App translation" = "Översättning";
 
 /* (No Comment) */
 "App faq" = "FAQ";
@@ -554,4 +554,4 @@
 "App facebook group" = "Facebook";
 
 /* (No Comment) */
-"App email" = "eMail";
+"App email" = "E-post";
