@@ -69,7 +69,6 @@ extension SensorConnection {
 
     func sendUpdate(error: Error?) {
         guard let error = error else {
-            AppLog.info("Guard: error is nil")
             return
         }
 

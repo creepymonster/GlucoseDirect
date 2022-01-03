@@ -21,6 +21,7 @@
 		E24B532126B863C00091417F /* GlucoseSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532026B863C00091417F /* GlucoseSettingsView.swift */; };
 		E24B532326B863E20091417F /* AlarmSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532226B863E20091417F /* AlarmSettingsView.swift */; };
 		E24B532526B864020091417F /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532426B864020091417F /* ToggleView.swift */; };
+		E257088E278354B600896696 /* mute.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E257088D278354B600896696 /* mute.aiff */; };
 		E26089A42748DCB500749025 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26089A32748DCB500749025 /* Double.swift */; };
 		E26205102773C80400AD631B /* silent.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E262050F2773C80400AD631B /* silent.aiff */; };
 		E2645D842763F4EF0058BFC7 /* GlucoseQuality.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2645D832763F4EF0058BFC7 /* GlucoseQuality.swift */; };
@@ -128,6 +129,7 @@
 		E24B532026B863C00091417F /* GlucoseSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseSettingsView.swift; sourceTree = "<group>"; };
 		E24B532226B863E20091417F /* AlarmSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingsView.swift; sourceTree = "<group>"; };
 		E24B532426B864020091417F /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
+		E257088D278354B600896696 /* mute.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = mute.aiff; sourceTree = "<group>"; };
 		E26089A32748DCB500749025 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		E262050F2773C80400AD631B /* silent.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = silent.aiff; sourceTree = "<group>"; };
 		E2645D832763F4EF0058BFC7 /* GlucoseQuality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseQuality.swift; sourceTree = "<group>"; };
@@ -512,6 +514,7 @@
 		E2FCAC742707439300FE1CBF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E257088D278354B600896696 /* mute.aiff */,
 				E262050F2773C80400AD631B /* silent.aiff */,
 				E2FCAC78270743B100FE1CBF /* alarm.aiff */,
 				E2FCAC76270743B100FE1CBF /* expiring.aiff */,
@@ -611,6 +614,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E20B8545266F4A9900AA4224 /* Preview Assets.xcassets in Resources */,
+				E257088E278354B600896696 /* mute.aiff in Resources */,
 				E24077B326B881C2001767C0 /* InfoPlist.strings in Resources */,
 				E2FCAC87270743E200FE1CBF /* Localizable.strings in Resources */,
 				E26205102773C80400AD631B /* silent.aiff in Resources */,
