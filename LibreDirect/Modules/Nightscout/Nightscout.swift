@@ -312,6 +312,7 @@ private extension Glucose {
         } else if type == .cgm {
             nightscout["type"] = "sgv"
             nightscout["sgv"] = glucoseValue
+            nightscout["rawbg"] = initialGlucoseValue
             nightscout["direction"] = trend.toNightscout()
         }
 
