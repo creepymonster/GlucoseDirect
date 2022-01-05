@@ -20,6 +20,7 @@ private enum Keys: String {
     case glucoseBadge = "libre-direct.settings.glucose-badge"
     case glucoseUnit = "libre-direct.settings.glucose-unit"
     case glucoseValues = "libre-direct.settings.glucose-value-array"
+    case internalHttpServer = "libre-direct.settings.internal-http-server"
     case nightscoutApiSecret = "libre-direct.settings.nightscout-api-secret"
     case nightscoutUrl = "libre-direct.settings.nightscout-host"
     case nightscoutUpload = "libre-direct.settings.nightscout-upload-enabled"
@@ -176,6 +177,19 @@ extension UserDefaults {
         }
         set {
             setArray(newValue, forKey: Keys.glucoseValues.rawValue)
+        }
+    }
+    
+    var internalHttpServer: Bool {
+        get {
+            if object(forKey: Keys.internalHttpServer.rawValue) != nil {
+                return bool(forKey: Keys.internalHttpServer.rawValue)
+            }
+
+            return false
+        }
+        set {
+            set(newValue, forKey: Keys.internalHttpServer.rawValue)
         }
     }
 
