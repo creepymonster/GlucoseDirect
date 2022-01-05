@@ -35,17 +35,18 @@ enum AppAction {
     case deleteLogs
     case sendLogs
     
+    case setConnectionAlarmSound(sound: NotificationSound)
+    case setExpiringAlarmSound(sound: NotificationSound)
+    case setGlucoseAlarmSound(sound: NotificationSound)
+    
     case setAlarmHigh(upperLimit: Int)
     case setAlarmLow(lowerLimit: Int)
     case setAlarmSnoozeUntil(untilDate: Date?, autosnooze: Bool = false)
     case setCalendarExport(enabled: Bool)
     case setChartShowLines(enabled: Bool)
     case setChartZoomLevel(level: Int)
-    case setConnectionAlarm(enabled: Bool)
     case setConnectionError(errorMessage: String, errorTimestamp: Date, errorIsCritical: Bool)
     case setConnectionState(connectionState: SensorConnectionState)
-    case setExpiringAlarm(enabled: Bool)
-    case setGlucoseAlarm(enabled: Bool)
     case setGlucoseBadge(enabled: Bool)
     case setGlucoseUnit(unit: GlucoseUnit)
     case setInternalHttpServer(enabled: Bool)

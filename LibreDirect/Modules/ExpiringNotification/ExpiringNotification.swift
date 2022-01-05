@@ -16,8 +16,8 @@ func expiringNotificationMiddelware() -> Middleware<AppState, AppAction> {
 private func expiringNotificationMiddelware(service: ExpiringNotificationService) -> Middleware<AppState, AppAction> {
     return { state, action, _ in
         switch action {
-        case .setExpiringAlarm(enabled: let enabled):
-            if !enabled {
+        case .setExpiringAlarmSound(sound: let sound):
+            if sound == .none {
                 service.clearAlarm()
             }
 

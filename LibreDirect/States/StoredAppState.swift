@@ -22,10 +22,7 @@ struct StoredAppState: AppState {
         self.calendarExport = UserDefaults.standard.calendarExport
         self.chartShowLines = UserDefaults.standard.chartShowLines
         self.chartZoomLevel = UserDefaults.standard.chartZoomLevel
-        self.connectionAlarm = UserDefaults.standard.connectionAlarm
-        self.expiringAlarm = UserDefaults.standard.expiringAlarm
         self.glucoseValues = UserDefaults.standard.glucoseValues
-        self.glucoseAlarm = UserDefaults.standard.glucoseAlarm
         self.glucoseBadge = UserDefaults.standard.glucoseBadge
         self.glucoseUnit = UserDefaults.standard.glucoseUnit
         self.internalHttpServer = UserDefaults.standard.internalHttpServer
@@ -38,6 +35,9 @@ struct StoredAppState: AppState {
         self.selectedView = UserDefaults.standard.selectedView
         self.sensor = UserDefaults.standard.sensor
         self.transmitter = UserDefaults.standard.transmitter
+        self.connectionAlarmSound = UserDefaults.standard.connectionAlarmSound
+        self.expiringAlarmSound = UserDefaults.standard.expiringAlarmSound
+        self.glucoseAlarmSound = UserDefaults.standard.glucoseAlarmSound
     }
 
     // MARK: Internal
@@ -75,28 +75,28 @@ struct StoredAppState: AppState {
             UserDefaults.standard.chartShowLines = chartShowLines
         }
     }
-    
+
     var chartZoomLevel: Int {
         didSet {
             UserDefaults.standard.chartZoomLevel = chartZoomLevel
         }
     }
 
-    var connectionAlarm: Bool {
+    var connectionAlarmSound: NotificationSound {
         didSet {
-            UserDefaults.standard.connectionAlarm = connectionAlarm
+            UserDefaults.standard.connectionAlarmSound = connectionAlarmSound
         }
     }
 
-    var expiringAlarm: Bool {
+    var expiringAlarmSound: NotificationSound {
         didSet {
-            UserDefaults.standard.expiringAlarm = expiringAlarm
+            UserDefaults.standard.expiringAlarmSound = expiringAlarmSound
         }
     }
 
-    var glucoseAlarm: Bool {
+    var glucoseAlarmSound: NotificationSound {
         didSet {
-            UserDefaults.standard.glucoseAlarm = glucoseAlarm
+            UserDefaults.standard.glucoseAlarmSound = glucoseAlarmSound
         }
     }
 
@@ -117,7 +117,7 @@ struct StoredAppState: AppState {
             UserDefaults.standard.glucoseValues = glucoseValues
         }
     }
-    
+
     var internalHttpServer: Bool {
         didSet {
             UserDefaults.standard.internalHttpServer = internalHttpServer

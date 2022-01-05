@@ -16,8 +16,8 @@ func connectionNotificationMiddelware() -> Middleware<AppState, AppAction> {
 private func connectionNotificationMiddelware(service: ConnectionNotificationService) -> Middleware<AppState, AppAction> {
     return { state, action, lastState in
         switch action {
-        case .setConnectionAlarm(enabled: let enabled):
-            if !enabled {
+        case .setConnectionAlarmSound(sound: let sound):
+            if sound == .none {
                 service.clearAlarm()
             }
 

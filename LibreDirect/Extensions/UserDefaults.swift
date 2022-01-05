@@ -13,10 +13,9 @@ private enum Keys: String {
     case calendarExport = "libre-direct.settings.calendar-export"
     case chartShowLines = "libre-direct.settings.chart-show-lines"
     case chartZoomLevel = "libre-direct.settings.chart-zoom-level"
-    case connectionAlarm = "libre-direct.settings.connection-alarm"
-    case expiringAlarm = "libre-direct.settings.expiring-alarm"
+    
     case latestReadings
-    case glucoseAlarm = "libre-direct.settings.glucose-alarm"
+    
     case glucoseBadge = "libre-direct.settings.glucose-badge"
     case glucoseUnit = "libre-direct.settings.glucose-unit"
     case glucoseValues = "libre-direct.settings.glucose-value-array"
@@ -30,6 +29,10 @@ private enum Keys: String {
     case selectedView = "libre-direct.settings.selected-view"
     case sensor = "libre-direct.settings.sensor"
     case transmitter = "libre-direct.settings.transmitter"
+    
+    case connectionAlarmSound = "libre-direct.settings.connection-alarm-sound"
+    case glucoseAlarmSound = "libre-direct.settings.glucose-alarm-sound"
+    case expiringAlarmSound = "libre-direct.settings.expiring-alarm-sound"
 }
 
 extension UserDefaults {
@@ -106,42 +109,42 @@ extension UserDefaults {
         }
     }
 
-    var connectionAlarm: Bool {
+    var connectionAlarmSound: NotificationSound {
         get {
-            if object(forKey: Keys.connectionAlarm.rawValue) != nil {
-                return bool(forKey: Keys.connectionAlarm.rawValue)
+            if let soundRawValue = object(forKey: Keys.connectionAlarmSound.rawValue) as? String, let sound = NotificationSound(rawValue: soundRawValue) {
+                return sound
             }
 
-            return true
+            return .alarm
         }
         set {
-            set(newValue, forKey: Keys.connectionAlarm.rawValue)
+            set(newValue, forKey: Keys.connectionAlarmSound.rawValue)
         }
     }
 
-    var expiringAlarm: Bool {
+    var expiringAlarmSound: NotificationSound {
         get {
-            if object(forKey: Keys.expiringAlarm.rawValue) != nil {
-                return bool(forKey: Keys.expiringAlarm.rawValue)
+            if let soundRawValue = object(forKey: Keys.expiringAlarmSound.rawValue) as? String, let sound = NotificationSound(rawValue: soundRawValue) {
+                return sound
             }
 
-            return true
+            return .expiring
         }
         set {
-            set(newValue, forKey: Keys.expiringAlarm.rawValue)
+            set(newValue, forKey: Keys.expiringAlarmSound.rawValue)
         }
     }
 
-    var glucoseAlarm: Bool {
+    var glucoseAlarmSound: NotificationSound {
         get {
-            if object(forKey: Keys.glucoseAlarm.rawValue) != nil {
-                return bool(forKey: Keys.glucoseAlarm.rawValue)
+            if let soundRawValue = object(forKey: Keys.glucoseAlarmSound.rawValue) as? String, let sound = NotificationSound(rawValue: soundRawValue) {
+                return sound
             }
 
-            return true
+            return .alarm
         }
         set {
-            set(newValue, forKey: Keys.glucoseAlarm.rawValue)
+            set(newValue, forKey: Keys.glucoseAlarmSound.rawValue)
         }
     }
 

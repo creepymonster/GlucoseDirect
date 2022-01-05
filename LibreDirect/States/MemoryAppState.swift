@@ -15,14 +15,11 @@ struct MemoryAppState: AppState {
     var calendarExport = false
     var chartShowLines = false
     var chartZoomLevel = 1
-    var connectionAlarm = true
     var connectionError: String?
     var connectionErrorIsCritical = false
     var connectionErrorTimestamp: Date? = Date()
     var connectionInfos: [SensorConnectionInfo] = []
     var connectionState: SensorConnectionState = .disconnected
-    var expiringAlarm = true
-    var glucoseAlarm = true
     var glucoseBadge = true
     var glucoseUnit: GlucoseUnit = .mgdL
     var glucoseValues: [Glucose] = []
@@ -39,4 +36,7 @@ struct MemoryAppState: AppState {
     var sensor: Sensor?
     var targetValue = 100
     var transmitter: Transmitter?
+    var connectionAlarmSound: NotificationSound = .alarm
+    var expiringAlarmSound: NotificationSound = .expiring
+    var glucoseAlarmSound: NotificationSound = .alarm
 }

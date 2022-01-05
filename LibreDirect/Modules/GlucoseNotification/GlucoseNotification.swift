@@ -17,8 +17,8 @@ func glucoseNotificationMiddelware() -> Middleware<AppState, AppAction> {
 private func glucoseNotificationMiddelware(service: GlucoseNotificationService) -> Middleware<AppState, AppAction> {
     return { state, action, _ in
         switch action {
-        case .setGlucoseAlarm(enabled: let enabled):
-            if !enabled {
+        case .setGlucoseAlarmSound(sound: let sound):
+            if sound == .none {
                 service.clearAlarm()
             }
 

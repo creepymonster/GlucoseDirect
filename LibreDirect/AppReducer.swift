@@ -138,9 +138,6 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setChartZoomLevel(level: let level):
         state.chartZoomLevel = level
         
-    case .setConnectionAlarm(enabled: let enabled):
-        state.connectionAlarm = enabled
-        
     case .setConnectionError(errorMessage: let errorMessage, errorTimestamp: let errorTimestamp, errorIsCritical: let errorIsCritical):
         state.connectionError = errorMessage
         state.connectionErrorTimestamp = errorTimestamp
@@ -155,11 +152,14 @@ func appReducer(state: inout AppState, action: AppAction) {
             state.connectionErrorTimestamp = nil
         }
         
-    case .setExpiringAlarm(enabled: let enabled):
-        state.expiringAlarm = enabled
+    case .setConnectionAlarmSound(sound: let sound):
+        state.connectionAlarmSound = sound
         
-    case .setGlucoseAlarm(enabled: let enabled):
-        state.glucoseAlarm = enabled
+    case .setExpiringAlarmSound(sound: let sound):
+        state.expiringAlarmSound = sound
+        
+    case .setGlucoseAlarmSound(sound: let sound):
+        state.glucoseAlarmSound = sound
         
     case .setGlucoseBadge(enabled: let enabled):
         state.glucoseBadge = enabled

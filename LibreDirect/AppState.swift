@@ -15,14 +15,15 @@ protocol AppState {
     var calendarExport: Bool { get set }
     var chartShowLines: Bool { get set }
     var chartZoomLevel: Int { get set }
-    var connectionAlarm: Bool { get set }
+    
     var connectionError: String? { get set }
     var connectionErrorIsCritical: Bool { get set }
     var connectionErrorTimestamp: Date? { get set }
     var connectionInfos: [SensorConnectionInfo] { get set }
     var connectionState: SensorConnectionState { get set }
-    var expiringAlarm: Bool { get set }
-    var glucoseAlarm: Bool { get set }
+    var connectionAlarmSound: NotificationSound { get set }
+    var expiringAlarmSound: NotificationSound { get set }
+    var glucoseAlarmSound: NotificationSound { get set }
     var glucoseBadge: Bool { get set }
     var glucoseUnit: GlucoseUnit { get set }
     var glucoseValues: [Glucose] { get set }
@@ -44,6 +45,18 @@ protocol AppState {
 extension AppState {
     var currentGlucose: Glucose? {
         glucoseValues.last(where: { $0.type == .cgm })
+    }
+    
+    var connectionAlarm: Bool {
+        connectionAlarmSound != .none
+    }
+    
+    var expiringAlarm: Bool {
+        expiringAlarmSound != .none
+    }
+    
+    var glucoseAlarm: Bool {
+        glucoseAlarmSound != .none
     }
 
     var isConnectable: Bool {
