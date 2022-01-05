@@ -251,14 +251,18 @@ struct ChartView: View {
                     bgmDotsView().zIndex(4)
                 }
                 .frame(width: CGFloat(Double(glucoseSteps) * Config.x.stepWidth))
-                .gesture(DragGesture(minimumDistance: 0).onChanged { value in
-                    findGlucoseInfo(x: value.location.x)
-                })
-                .onChange(of: [bgmValues, cgmValues]) { _ in
+                /* .gesture(DragGesture(minimumDistance: 0).onChanged { value in
+                     findGlucoseInfo(x: value.location.x)
+                 }) */
+                .onChange(of: store.state.glucoseValues) { _ in
                     scroll.scrollTo(Config.endID, anchor: .trailing)
                 }
                 .onChange(of: store.state.chartZoomLevel) { _ in
                     scroll.scrollTo(Config.endID, anchor: .trailing)
+                }.onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {
+                        scroll.scrollTo(Config.endID, anchor: .trailing)
+                    }
                 }
             }
         }
