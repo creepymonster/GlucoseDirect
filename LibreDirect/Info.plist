@@ -4,14 +4,14 @@
 <dict>
 	<key>APP_GROUP_ID</key>
 	<string>$(APP_GROUP_ID)</string>
+	<key>AppAuthor</key>
+	<string>$(APP_AUTHOR)</string>
+	<key>AppSupportMail</key>
+	<string>$(APP_SUPPORT_MAIL)</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
 	<string>Libre Direct</string>
-	<key>AppAuthor</key>
-	<string>$(APP_AUTHOR)</string>
-  <key>AppSupportMail</key>
-	<string>$(APP_SUPPORT_MAIL)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -34,7 +34,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>30</string>
+	<string>31</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
@@ -47,6 +47,10 @@
 	<string>The Bluetooth function is needed to connect to the supported devices.</string>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Access to the calendar is required to display up-to-date glucose values on the Apple Watch.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Access to the location while the app is open and in the background is required.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Access to the location while the app is open is required.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -58,6 +62,8 @@
 	<array>
 		<string>audio</string>
 		<string>bluetooth-central</string>
+		<string>fetch</string>
+		<string>location</string>
 	</array>
 	<key>UILaunchScreen</key>
 	<dict/>
