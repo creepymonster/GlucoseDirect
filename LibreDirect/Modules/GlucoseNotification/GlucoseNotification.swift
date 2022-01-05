@@ -91,6 +91,10 @@ private func glucoseNotificationMiddelware(service: GlucoseNotificationService) 
                 service.setGlucoseBadge(glucose: glucose, glucoseUnit: state.glucoseUnit)
             }
 
+            if state.glucoseAlarm, glucoseValue >= state.alarmLow, glucoseValue <= state.alarmHigh {
+                service.clearAlarm()
+            }
+
         default:
             break
         }
