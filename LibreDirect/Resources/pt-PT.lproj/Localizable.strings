@@ -555,3 +555,6 @@
 
 /* (No Comment) */
 "App email" = "eMail";
+
+/* (No Comment) */
+"Internal http server" = "Internal server";
