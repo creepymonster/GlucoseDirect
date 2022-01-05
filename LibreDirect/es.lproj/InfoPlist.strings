@@ -15,3 +15,9 @@
 
 /* Privacy - Calendars Usage Description */
 "NSCalendarsUsageDescription" = "El acceso al calendario es necesario para mostrar los valores de glucosa actualizados en el Apple Watch.";
+
+/* Privacy - Location Always and When In Use Usage Description */
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "Access to the location while the app is open and in the background is required.";
+
+/* Privacy - Location When In Use Usage Description */
+"NSLocationWhenInUseUsageDescription" = "Access to the location while the app is open is required.";
