@@ -27,7 +27,7 @@ struct CalibrationSettingsView: View {
 
     var body: some View {
         Group {
-            if let sensor = store.state.sensor, let lastGlucose = store.state.lastGlucose {
+            if let sensor = store.state.sensor {
                 if showingAddCalibrationView {
                     Section(
                         content: {
@@ -115,13 +115,13 @@ struct CalibrationSettingsView: View {
                         HStack {
                             Label("Sensor custom calibration", systemImage: "person")
                         
-                            if !showingAddCalibrationView {
+                            if let currentGlucose = store.state.currentGlucose, !showingAddCalibrationView {
                                 Spacer()
                         
                                 Button(
                                     action: {
                                         withAnimation {
-                                            value = lastGlucose.glucoseValue ?? 100
+                                            value = currentGlucose.glucoseValue ?? 100
                                             showingAddCalibrationView = true
                                         }
                                     },
