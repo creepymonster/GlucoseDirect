@@ -426,7 +426,7 @@ struct ChartView: View {
                 }
 
                 let groupedValues: [Date: [(Date, Int)]] = Dictionary(grouping: filteredValues, by: { $0.0 })
-                var cgmValues: [Glucose] = groupedValues.map { group in
+                let cgmValues: [Glucose] = groupedValues.map { group in
                     let sumGlucoseValues = group.value.reduce(0) {
                         $0 + $1.1
                     }
@@ -435,14 +435,6 @@ struct ChartView: View {
 
                     return Glucose(id: UUID(), timestamp: group.key, glucose: meanGlucoseValues, type: .cgm)
                 }.sorted(by: { $0.timestamp < $1.timestamp })
-
-                if let lastTimeStamp = cgmValues.last?.timestamp,
-                   let lastGlucose = glucoseValues.last(where: { $0.quality == .OK && $0.type == .cgm }),
-                   lastTimeStamp < lastGlucose.timestamp,
-                   let lastGlucoseValue = lastGlucose.glucoseValue
-                {
-                    cgmValues.append(Glucose(id: lastGlucose.id, timestamp: lastGlucose.timestamp, glucose: lastGlucoseValue, type: .cgm))
-                }
 
                 // bgm values
                 let bgmValues = glucoseValues.filter { value in
