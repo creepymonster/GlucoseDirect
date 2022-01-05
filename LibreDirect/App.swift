@@ -63,12 +63,12 @@ final class LibreDirectApp: App {
                 SensorConnectionInfo(id: "virtual", name: "Virtual") { VirtualLibreConnection(subject: $0) },
             ]),
 
-            // notification middleswares
             expiringNotificationMiddelware(),
             glucoseNotificationMiddelware(),
             connectionNotificationMiddelware(),
             calendarExportMiddleware(),
             readAloudMiddelware(),
+            httpServerMiddleware(),
         ])
     }
 
@@ -83,12 +83,12 @@ final class LibreDirectApp: App {
                 SensorConnectionInfo(id: "bubble", name: LocalizedString("Bubble transmitter")) { BubbleConnection(subject: $0) },
             ]),
 
-            // notification middleswares
             expiringNotificationMiddelware(),
             glucoseNotificationMiddelware(),
             connectionNotificationMiddelware(),
             calendarExportMiddleware(),
             readAloudMiddelware(),
+            httpServerMiddleware(),
 
             // export middlewares
             nightscoutMiddleware(),

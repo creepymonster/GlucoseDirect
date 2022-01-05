@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -22,6 +22,7 @@
 		E24B532326B863E20091417F /* AlarmSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532226B863E20091417F /* AlarmSettingsView.swift */; };
 		E24B532526B864020091417F /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532426B864020091417F /* ToggleView.swift */; };
 		E257088E278354B600896696 /* mute.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E257088D278354B600896696 /* mute.aiff */; };
+		E25FC4AF27842690004A19DB /* HttpServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25FC4AE27842690004A19DB /* HttpServer.swift */; };
 		E26089A42748DCB500749025 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26089A32748DCB500749025 /* Double.swift */; };
 		E26205102773C80400AD631B /* silent.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E262050F2773C80400AD631B /* silent.aiff */; };
 		E2645D842763F4EF0058BFC7 /* GlucoseQuality.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2645D832763F4EF0058BFC7 /* GlucoseQuality.swift */; };
@@ -54,6 +55,7 @@
 		E2D7238127491C4C00455FB9 /* MemoryAppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D7238027491C4C00455FB9 /* MemoryAppState.swift */; };
 		E2DE3CA327594E5500FAC82E /* SensorConnectorSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DE3CA227594E5500FAC82E /* SensorConnectorSettings.swift */; };
 		E2E1E9D2273D6E8B00992B2F /* CalibrationSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E1E9D1273D6E8B00992B2F /* CalibrationSettingsView.swift */; };
+		E2F03BFD27862AC6009C80C2 /* Swifter in Frameworks */ = {isa = PBXBuildFile; productRef = E2F03BFC27862AC6009C80C2 /* Swifter */; };
 		E2F5F3D126A70AC400834A74 /* DateSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F5F3D026A70AC400834A74 /* DateSelectorView.swift */; };
 		E2FCAC1C270741BC00FE1CBF /* SensorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC12270741BC00FE1CBF /* SensorType.swift */; };
 		E2FCAC1D270741BC00FE1CBF /* Sensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC13270741BC00FE1CBF /* Sensor.swift */; };
@@ -130,6 +132,7 @@
 		E24B532226B863E20091417F /* AlarmSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingsView.swift; sourceTree = "<group>"; };
 		E24B532426B864020091417F /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
 		E257088D278354B600896696 /* mute.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = mute.aiff; sourceTree = "<group>"; };
+		E25FC4AE27842690004A19DB /* HttpServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpServer.swift; sourceTree = "<group>"; };
 		E26089A32748DCB500749025 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		E262050F2773C80400AD631B /* silent.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = silent.aiff; sourceTree = "<group>"; };
 		E2645D832763F4EF0058BFC7 /* GlucoseQuality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseQuality.swift; sourceTree = "<group>"; };
@@ -228,6 +231,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2F03BFD27862AC6009C80C2 /* Swifter in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +287,14 @@
 				E20B8544266F4A9900AA4224 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E25FC4AD27842665004A19DB /* HttpServer */ = {
+			isa = PBXGroup;
+			children = (
+				E25FC4AE27842690004A19DB /* HttpServer.swift */,
+			);
+			path = HttpServer;
 			sourceTree = "<group>";
 		};
 		E2646F39275FD2D100ADE451 /* CalendarExport */ = {
@@ -450,6 +462,7 @@
 				E2FCAC4F2707424000FE1CBF /* Nightscout */,
 				E2646F39275FD2D100ADE451 /* CalendarExport */,
 				E2FCAC4A2707422000FE1CBF /* AppGroupSharing */,
+				E25FC4AD27842665004A19DB /* HttpServer */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -559,6 +572,7 @@
 			);
 			name = LibreDirect;
 			packageProductDependencies = (
+				E2F03BFC27862AC6009C80C2 /* Swifter */,
 			);
 			productName = LibreDirect;
 			productReference = E20B853A266F4A9800AA4224 /* LibreDirect.app */;
@@ -598,6 +612,7 @@
 			);
 			mainGroup = E20B8531266F4A9800AA4224;
 			packageReferences = (
+				E2F03BFB27862AC6009C80C2 /* XCRemoteSwiftPackageReference "swifter" */,
 			);
 			productRefGroup = E20B853B266F4A9800AA4224 /* Products */;
 			projectDirPath = "";
@@ -720,6 +735,7 @@
 				E2FCAC702707438A00FE1CBF /* AppState.swift in Sources */,
 				E2D7238127491C4C00455FB9 /* MemoryAppState.swift in Sources */,
 				E271581F275F7FD000E8620E /* OtherSettingsView.swift in Sources */,
+				E25FC4AF27842690004A19DB /* HttpServer.swift in Sources */,
 				E2FCAC612707426F00FE1CBF /* AppGroupSharing.swift in Sources */,
 				E292E1B226A608C400011F64 /* NumberSelectorView.swift in Sources */,
 				E2FCAC1D270741BC00FE1CBF /* Sensor.swift in Sources */,
@@ -904,7 +920,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LibreDirect/App.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 30;
+				CURRENT_PROJECT_VERSION = 31;
 				DEVELOPMENT_ASSET_PATHS = "\"LibreDirect/Preview Content\"";
 				DEVELOPMENT_TEAM = "${DEVELOPMENT_TEAM}";
 				ENABLE_PREVIEWS = YES;
@@ -932,7 +948,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LibreDirect/App.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 30;
+				CURRENT_PROJECT_VERSION = 31;
 				DEVELOPMENT_ASSET_PATHS = "\"LibreDirect/Preview Content\"";
 				DEVELOPMENT_TEAM = "${DEVELOPMENT_TEAM}";
 				ENABLE_PREVIEWS = YES;
@@ -972,6 +988,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E2F03BFB27862AC6009C80C2 /* XCRemoteSwiftPackageReference "swifter" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/httpswift/swifter.git";
+			requirement = {
+				branch = stable;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E2F03BFC27862AC6009C80C2 /* Swifter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E2F03BFB27862AC6009C80C2 /* XCRemoteSwiftPackageReference "swifter" */;
+			productName = Swifter;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E20B8532266F4A9800AA4224 /* Project object */;
 }
