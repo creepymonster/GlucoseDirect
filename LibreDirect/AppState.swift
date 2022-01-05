@@ -26,6 +26,7 @@ protocol AppState {
     var glucoseBadge: Bool { get set }
     var glucoseUnit: GlucoseUnit { get set }
     var glucoseValues: [Glucose] { get set }
+    var internalHttpServer: Bool { get set }
     var missedReadings: Int { get set }
     var nightscoutApiSecret: String { get set }
     var nightscoutUrl: String { get set }
@@ -41,7 +42,9 @@ protocol AppState {
 }
 
 extension AppState {
-    var currentGlucose: Glucose? { glucoseValues.last }
+    var currentGlucose: Glucose? {
+        glucoseValues.last(where: { $0.type == .cgm })
+    }
 
     var isConnectable: Bool {
         if transmitter != nil, connectableStates.contains(connectionState) {
@@ -80,7 +83,7 @@ extension AppState {
     }
 
     var lastGlucose: Glucose? {
-        glucoseValues.suffix(2).first
+        glucoseValues.last(where: { $0.type == .cgm && $0 != currentGlucose })
     }
 
     var limitedGlucoseValues: [Glucose] {

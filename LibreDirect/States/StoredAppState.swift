@@ -28,6 +28,7 @@ struct StoredAppState: AppState {
         self.glucoseAlarm = UserDefaults.standard.glucoseAlarm
         self.glucoseBadge = UserDefaults.standard.glucoseBadge
         self.glucoseUnit = UserDefaults.standard.glucoseUnit
+        self.internalHttpServer = UserDefaults.standard.internalHttpServer
         self.nightscoutApiSecret = UserDefaults.standard.nightscoutApiSecret
         self.nightscoutUrl = UserDefaults.standard.nightscoutUrl
         self.nightscoutUpload = UserDefaults.standard.nightscoutUpload
@@ -114,6 +115,12 @@ struct StoredAppState: AppState {
     var glucoseValues: [Glucose] {
         didSet {
             UserDefaults.standard.glucoseValues = glucoseValues
+        }
+    }
+    
+    var internalHttpServer: Bool {
+        didSet {
+            UserDefaults.standard.internalHttpServer = internalHttpServer
         }
     }
 

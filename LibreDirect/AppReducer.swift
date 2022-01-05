@@ -167,6 +167,9 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setGlucoseUnit(unit: let unit):
         state.glucoseUnit = unit
         
+    case .setInternalHttpServer(enabled: let enabled):
+        state.internalHttpServer = enabled
+        
     case .setNightscoutUrl(url: let url):
         state.nightscoutUrl = url
 

@@ -26,6 +26,7 @@ struct MemoryAppState: AppState {
     var glucoseBadge = true
     var glucoseUnit: GlucoseUnit = .mgdL
     var glucoseValues: [Glucose] = []
+    var internalHttpServer = false
     var missedReadings = 0
     var nightscoutApiSecret = ""
     var nightscoutUrl = ""

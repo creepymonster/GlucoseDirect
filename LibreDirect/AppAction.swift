@@ -48,6 +48,7 @@ enum AppAction {
     case setGlucoseAlarm(enabled: Bool)
     case setGlucoseBadge(enabled: Bool)
     case setGlucoseUnit(unit: GlucoseUnit)
+    case setInternalHttpServer(enabled: Bool)
     case setNightscoutUrl(url: String)
     case setNightscoutSecret(apiSecret: String)
     case setNightscoutUpload(enabled: Bool)
