@@ -118,7 +118,7 @@ extension UserDefaults {
             return .alarm
         }
         set {
-            set(newValue, forKey: Keys.connectionAlarmSound.rawValue)
+            set(newValue.rawValue, forKey: Keys.connectionAlarmSound.rawValue)
         }
     }
 
@@ -131,7 +131,7 @@ extension UserDefaults {
             return .expiring
         }
         set {
-            set(newValue, forKey: Keys.expiringAlarmSound.rawValue)
+            set(newValue.rawValue, forKey: Keys.expiringAlarmSound.rawValue)
         }
     }
 
@@ -144,7 +144,7 @@ extension UserDefaults {
             return .alarm
         }
         set {
-            set(newValue, forKey: Keys.glucoseAlarmSound.rawValue)
+            set(newValue.rawValue, forKey: Keys.glucoseAlarmSound.rawValue)
         }
     }
 
