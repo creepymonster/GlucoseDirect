@@ -36,7 +36,7 @@ private func connectionNotificationMiddelware(service: ConnectionNotificationSer
             }
 
             if lastState.connectionState == .connected, connectionState == .disconnected {
-                service.setSensorConnectionLostAlarm()
+                service.setSensorConnectionLostAlarm(errorIsCritical: false)
 
             } else if lastState.connectionState != .connected, connectionState == .connected {
                 service.clearAlarm()
@@ -71,7 +71,7 @@ private class ConnectionNotificationService {
         UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [Identifier.sensorConnectionAlarm.rawValue])
     }
 
-    func setSensorConnectionLostAlarm(errorIsCritical: Bool = false) {
+    func setSensorConnectionLostAlarm(errorIsCritical: Bool, sound: NotificationSound = .alarm) {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
         NotificationService.shared.ensureCanSendNotification { state in
@@ -102,7 +102,7 @@ private class ConnectionNotificationService {
             NotificationService.shared.add(identifier: Identifier.sensorConnectionAlarm.rawValue, content: notification)
 
             if state == .sound && errorIsCritical {
-                NotificationService.shared.playAlarmSound()
+                NotificationService.shared.playSound(sound: sound)
             }
         }
     }
@@ -131,7 +131,7 @@ private class ConnectionNotificationService {
         }
     }
 
-    func setSensorMissedReadingsAlarm(missedReadings: Int) {
+    func setSensorMissedReadingsAlarm(missedReadings: Int, sound: NotificationSound = .negative) {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
         NotificationService.shared.ensureCanSendNotification { state in
@@ -154,7 +154,7 @@ private class ConnectionNotificationService {
             NotificationService.shared.add(identifier: Identifier.sensorConnectionAlarm.rawValue, content: notification)
 
             if state == .sound {
-                NotificationService.shared.playNegativeSound()
+                NotificationService.shared.playSound(sound: sound)
             }
         }
     }

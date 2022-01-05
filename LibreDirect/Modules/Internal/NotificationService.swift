@@ -48,24 +48,8 @@ class NotificationService {
         }
     }
 
-    func playSilentSound() {
-        playSound(named: "silent")
-    }
-
-    func playAlarmSound() {
-        playSound(named: "alarm")
-    }
-
-    func playExpiringSound() {
-        playSound(named: "expiring")
-    }
-
-    func playNegativeSound() {
-        playSound(named: "negative")
-    }
-
-    func playPositiveSound() {
-        playSound(named: "positive")
+    func playSound(sound: NotificationSound) {
+        playSound(named: sound.rawValue)
     }
 
     func add(identifier: String, content: UNMutableNotificationContent) {
@@ -159,4 +143,14 @@ enum NotificationState {
     case none
     case silent
     case sound
+}
+
+// MARK: - NotificationSound
+
+enum NotificationSound: String, Codable {
+    case none
+    case alarm
+    case expiring
+    case negative
+    case positive
 }

@@ -44,15 +44,15 @@ private func expiringNotificationMiddelware(service: ExpiringNotificationService
                 AppLog.info("Sensor is expiring in less than 8 hours")
 
                 if remainingMinutes.inHours == 0 {
-                    service.setSensorExpiringAlarm(body: String(format: LocalizedString("Your sensor is about to expire. Replace sensor in %1$@ minutes.", comment: ""), remainingMinutes.inMinutes.description), withSound: true)
+                    service.setSensorExpiringAlarm(body: String(format: LocalizedString("Your sensor is about to expire. Replace sensor in %1$@ minutes."), remainingMinutes.inMinutes.description), withSound: true)
                 } else {
-                    service.setSensorExpiringAlarm(body: String(format: LocalizedString("Your sensor is about to expire. Replace sensor in %1$@ hours.", comment: ""), remainingMinutes.inHours.description), withSound: true)
+                    service.setSensorExpiringAlarm(body: String(format: LocalizedString("Your sensor is about to expire. Replace sensor in %1$@ hours."), remainingMinutes.inHours.description), withSound: true)
                 }
 
             } else if remainingMinutes <= (24 * 60 + 1) { // less than 24 hours
                 AppLog.info("Sensor is expiring in less than 24 hours")
 
-                service.setSensorExpiringAlarm(body: String(format: LocalizedString("Your sensor is about to expire. Replace sensor in %1$@ hours.", comment: ""), remainingMinutes.inHours.description))
+                service.setSensorExpiringAlarm(body: String(format: LocalizedString("Your sensor is about to expire. Replace sensor in %1$@ hours."), remainingMinutes.inHours.description), withSound: false)
             }
 
         default:
@@ -77,7 +77,7 @@ private class ExpiringNotificationService {
         UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [Identifier.sensorExpiringAlarm.rawValue])
     }
 
-    func setSensorExpiredAlarm() {
+    func setSensorExpiredAlarm(sound: NotificationSound = .alarm) {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
         guard nextExpiredAlert == nil || Date() >= nextExpiredAlert! else {
@@ -106,12 +106,12 @@ private class ExpiringNotificationService {
             NotificationService.shared.add(identifier: Identifier.sensorExpiringAlarm.rawValue, content: notification)
 
             if state == .sound {
-                NotificationService.shared.playAlarmSound()
+                NotificationService.shared.playSound(sound: sound)
             }
         }
     }
 
-    func setSensorExpiringAlarm(body: String, withSound: Bool = false) {
+    func setSensorExpiringAlarm(body: String, withSound: Bool, sound: NotificationSound = .expiring) {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
         guard lastExpiringAlert != body else {
@@ -151,7 +151,7 @@ private class ExpiringNotificationService {
             NotificationService.shared.add(identifier: Identifier.sensorExpiringAlarm.rawValue, content: notification)
 
             if state == .sound && withSound {
-                NotificationService.shared.playExpiringSound()
+                NotificationService.shared.playSound(sound: sound)
             }
         }
     }
