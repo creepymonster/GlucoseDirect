@@ -20,7 +20,7 @@ struct SensorConnectorSettings: View {
                         Text("Transmitter")
                         Spacer()
 
-                        Picker("Transmitter", selection: selectedConnectionId) {
+                        Picker("", selection: selectedConnectionId) {
                             ForEach(store.state.connectionInfos, id: \.id) { info in
                                 Text(info.name)
                             }
