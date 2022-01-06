@@ -569,7 +569,7 @@
 "Sound: achievement" = "Achievement";
 
 /* (No Comment) */
-"Sound: none" = "None";
+"Sound: none" = "Keiner";
 
 /* (No Comment) */
 "Sound: alarm" = "Alarm";
@@ -611,7 +611,7 @@
 "Sound: jump" = "Jump";
 
 /* (No Comment) */
-"Sound: long-alarm" = "Long-alarm";
+"Sound: long-alarm" = "Long-Alarm";
 
 /* (No Comment) */
 "Sound: lose" = "Lose";
