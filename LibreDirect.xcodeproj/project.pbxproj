@@ -42,6 +42,26 @@
 		E29ED231268C754F00CBD3F1 /* GlucoseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29ED230268C754F00CBD3F1 /* GlucoseView.swift */; };
 		E29F4FA2274D6C8B00AE0E39 /* GlucoseValueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29F4FA1274D6C8B00AE0E39 /* GlucoseValueType.swift */; };
 		E2A1807427747CBA004C23EF /* ReadAloudSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A1807327747CBA004C23EF /* ReadAloudSettingsView.swift */; };
+		E2A6992E278760A300409F33 /* negative.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E2A6991A278760A100409F33 /* negative.aiff */; };
+		E2A6992F278760A300409F33 /* buzz-beep.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E2A6991B278760A100409F33 /* buzz-beep.aiff */; };
+		E2A69930278760A300409F33 /* chiptone.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E2A6991C278760A100409F33 /* chiptone.aiff */; };
+		E2A69931278760A300409F33 /* ping.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E2A6991D278760A200409F33 /* ping.aiff */; };
+		E2A69932278760A300409F33 /* failure.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E2A6991E278760A200409F33 /* failure.aiff */; };
+		E2A69933278760A300409F33 /* jump.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E2A6991F278760A200409F33 /* jump.aiff */; };
+		E2A69934278760A300409F33 /* lose.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E2A69920278760A200409F33 /* lose.aiff */; };
+		E2A69935278760A300409F33 /* future.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E2A69921278760A200409F33 /* future.aiff */; };
+		E2A69936278760A300409F33 /* positive.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E2A69922278760A200409F33 /* positive.aiff */; };
+		E2A69937278760A300409F33 /* expiring.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E2A69923278760A200409F33 /* expiring.aiff */; };
+		E2A69938278760A300409F33 /* collect-point.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E2A69924278760A200409F33 /* collect-point.aiff */; };
+		E2A69939278760A300409F33 /* achievement.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E2A69925278760A200409F33 /* achievement.aiff */; };
+		E2A6993A278760A300409F33 /* long-alarm.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E2A69926278760A200409F33 /* long-alarm.aiff */; };
+		E2A6993B278760A300409F33 /* climb-rope.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E2A69927278760A200409F33 /* climb-rope.aiff */; };
+		E2A6993C278760A300409F33 /* alarm.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E2A69928278760A200409F33 /* alarm.aiff */; };
+		E2A6993D278760A300409F33 /* low-battery.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E2A69929278760A200409F33 /* low-battery.aiff */; };
+		E2A6993E278760A300409F33 /* coin-chime.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E2A6992A278760A200409F33 /* coin-chime.aiff */; };
+		E2A6993F278760A300409F33 /* highlight.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E2A6992B278760A200409F33 /* highlight.aiff */; };
+		E2A69940278760A300409F33 /* coin-insert.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E2A6992C278760A300409F33 /* coin-insert.aiff */; };
+		E2A69941278760A300409F33 /* hit.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E2A6992D278760A300409F33 /* hit.aiff */; };
 		E2B63A88273E3EB100DDAA70 /* CustomCalibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B63A87273E3EB100DDAA70 /* CustomCalibration.swift */; };
 		E2C19FB3273567FE00B70A73 /* SensorReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C19FB2273567FE00B70A73 /* SensorReading.swift */; };
 		E2C19FB52735684500B70A73 /* Glucose.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C19FB42735684500B70A73 /* Glucose.swift */; };
@@ -158,6 +178,26 @@
 		E29ED230268C754F00CBD3F1 /* GlucoseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseView.swift; sourceTree = "<group>"; };
 		E29F4FA1274D6C8B00AE0E39 /* GlucoseValueType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseValueType.swift; sourceTree = "<group>"; };
 		E2A1807327747CBA004C23EF /* ReadAloudSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadAloudSettingsView.swift; sourceTree = "<group>"; };
+		E2A6991A278760A100409F33 /* negative.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = negative.aiff; path = "../../../../Downloads/ready-sounds/negative.aiff"; sourceTree = "<group>"; };
+		E2A6991B278760A100409F33 /* buzz-beep.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "buzz-beep.aiff"; sourceTree = "<group>"; };
+		E2A6991C278760A100409F33 /* chiptone.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = chiptone.aiff; sourceTree = "<group>"; };
+		E2A6991D278760A200409F33 /* ping.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = ping.aiff; sourceTree = "<group>"; };
+		E2A6991E278760A200409F33 /* failure.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = failure.aiff; sourceTree = "<group>"; };
+		E2A6991F278760A200409F33 /* jump.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = jump.aiff; sourceTree = "<group>"; };
+		E2A69920278760A200409F33 /* lose.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = lose.aiff; sourceTree = "<group>"; };
+		E2A69921278760A200409F33 /* future.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = future.aiff; sourceTree = "<group>"; };
+		E2A69922278760A200409F33 /* positive.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = positive.aiff; path = "../../../../Downloads/ready-sounds/positive.aiff"; sourceTree = "<group>"; };
+		E2A69923278760A200409F33 /* expiring.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = expiring.aiff; path = "../../../../Downloads/ready-sounds/expiring.aiff"; sourceTree = "<group>"; };
+		E2A69924278760A200409F33 /* collect-point.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "collect-point.aiff"; sourceTree = "<group>"; };
+		E2A69925278760A200409F33 /* achievement.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = achievement.aiff; sourceTree = "<group>"; };
+		E2A69926278760A200409F33 /* long-alarm.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "long-alarm.aiff"; sourceTree = "<group>"; };
+		E2A69927278760A200409F33 /* climb-rope.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "climb-rope.aiff"; sourceTree = "<group>"; };
+		E2A69928278760A200409F33 /* alarm.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = alarm.aiff; path = "../../../../Downloads/ready-sounds/alarm.aiff"; sourceTree = "<group>"; };
+		E2A69929278760A200409F33 /* low-battery.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "low-battery.aiff"; sourceTree = "<group>"; };
+		E2A6992A278760A200409F33 /* coin-chime.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "coin-chime.aiff"; sourceTree = "<group>"; };
+		E2A6992B278760A200409F33 /* highlight.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = highlight.aiff; sourceTree = "<group>"; };
+		E2A6992C278760A300409F33 /* coin-insert.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "coin-insert.aiff"; sourceTree = "<group>"; };
+		E2A6992D278760A300409F33 /* hit.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = hit.aiff; sourceTree = "<group>"; };
 		E2ABC151276F4602003DBFA5 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		E2ABC152276F4602003DBFA5 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		E2B63A87273E3EB100DDAA70 /* CustomCalibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalibration.swift; sourceTree = "<group>"; };
@@ -527,6 +567,26 @@
 		E2FCAC742707439300FE1CBF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E2A69925278760A200409F33 /* achievement.aiff */,
+				E2A69928278760A200409F33 /* alarm.aiff */,
+				E2A6991B278760A100409F33 /* buzz-beep.aiff */,
+				E2A6991C278760A100409F33 /* chiptone.aiff */,
+				E2A69927278760A200409F33 /* climb-rope.aiff */,
+				E2A6992A278760A200409F33 /* coin-chime.aiff */,
+				E2A6992C278760A300409F33 /* coin-insert.aiff */,
+				E2A69924278760A200409F33 /* collect-point.aiff */,
+				E2A69923278760A200409F33 /* expiring.aiff */,
+				E2A6991E278760A200409F33 /* failure.aiff */,
+				E2A69921278760A200409F33 /* future.aiff */,
+				E2A6992B278760A200409F33 /* highlight.aiff */,
+				E2A6992D278760A300409F33 /* hit.aiff */,
+				E2A6991F278760A200409F33 /* jump.aiff */,
+				E2A69926278760A200409F33 /* long-alarm.aiff */,
+				E2A69920278760A200409F33 /* lose.aiff */,
+				E2A69929278760A200409F33 /* low-battery.aiff */,
+				E2A6991A278760A100409F33 /* negative.aiff */,
+				E2A6991D278760A200409F33 /* ping.aiff */,
+				E2A69922278760A200409F33 /* positive.aiff */,
 				E257088D278354B600896696 /* mute.aiff */,
 				E262050F2773C80400AD631B /* silent.aiff */,
 				E2FCAC78270743B100FE1CBF /* alarm.aiff */,
@@ -631,14 +691,34 @@
 				E20B8545266F4A9900AA4224 /* Preview Assets.xcassets in Resources */,
 				E257088E278354B600896696 /* mute.aiff in Resources */,
 				E24077B326B881C2001767C0 /* InfoPlist.strings in Resources */,
+				E2A6993E278760A300409F33 /* coin-chime.aiff in Resources */,
 				E2FCAC87270743E200FE1CBF /* Localizable.strings in Resources */,
+				E2A6993D278760A300409F33 /* low-battery.aiff in Resources */,
+				E2A69936278760A300409F33 /* positive.aiff in Resources */,
+				E2A69934278760A300409F33 /* lose.aiff in Resources */,
 				E26205102773C80400AD631B /* silent.aiff in Resources */,
+				E2A69933278760A300409F33 /* jump.aiff in Resources */,
+				E2A69941278760A300409F33 /* hit.aiff in Resources */,
 				E20B8542266F4A9900AA4224 /* Assets.xcassets in Resources */,
+				E2A6993C278760A300409F33 /* alarm.aiff in Resources */,
+				E2A69937278760A300409F33 /* expiring.aiff in Resources */,
+				E2A69940278760A300409F33 /* coin-insert.aiff in Resources */,
 				E2FCAC7E270743B100FE1CBF /* alarm.aiff in Resources */,
 				E2FCAC7C270743B100FE1CBF /* expiring.aiff in Resources */,
+				E2A69932278760A300409F33 /* failure.aiff in Resources */,
+				E2A6992E278760A300409F33 /* negative.aiff in Resources */,
+				E2A69935278760A300409F33 /* future.aiff in Resources */,
+				E2A69938278760A300409F33 /* collect-point.aiff in Resources */,
 				E2FCAC7F270743B100FE1CBF /* negative.aiff in Resources */,
 				E2FCAC7B270743B100FE1CBF /* positive.aiff in Resources */,
+				E2A6993F278760A300409F33 /* highlight.aiff in Resources */,
+				E2A69931278760A300409F33 /* ping.aiff in Resources */,
+				E2A69930278760A300409F33 /* chiptone.aiff in Resources */,
+				E2A6992F278760A300409F33 /* buzz-beep.aiff in Resources */,
+				E2A6993A278760A300409F33 /* long-alarm.aiff in Resources */,
+				E2A6993B278760A300409F33 /* climb-rope.aiff in Resources */,
 				E2FCAC7D270743B100FE1CBF /* sensor.png in Resources */,
+				E2A69939278760A300409F33 /* achievement.aiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
