@@ -125,7 +125,7 @@ class NotificationService {
 
             do {
                 let player = try AVAudioPlayer(contentsOf: soundURL)
-                player.volume = 0.25
+                player.volume = 0.2
                 player.prepareToPlay()
                 player.play()
 
