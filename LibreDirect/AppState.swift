@@ -15,23 +15,23 @@ protocol AppState {
     var calendarExport: Bool { get set }
     var chartShowLines: Bool { get set }
     var chartZoomLevel: Int { get set }
-    
+    var connectionAlarmSound: NotificationSound { get set }
     var connectionError: String? { get set }
     var connectionErrorIsCritical: Bool { get set }
     var connectionErrorTimestamp: Date? { get set }
     var connectionInfos: [SensorConnectionInfo] { get set }
     var connectionState: SensorConnectionState { get set }
-    var connectionAlarmSound: NotificationSound { get set }
     var expiringAlarmSound: NotificationSound { get set }
-    var glucoseAlarmSound: NotificationSound { get set }
     var glucoseBadge: Bool { get set }
     var glucoseUnit: GlucoseUnit { get set }
     var glucoseValues: [Glucose] { get set }
+    var highGlucoseAlarmSound: NotificationSound { get set }
     var internalHttpServer: Bool { get set }
+    var lowGlucoseAlarmSound: NotificationSound { get set }
     var missedReadings: Int { get set }
     var nightscoutApiSecret: String { get set }
-    var nightscoutUrl: String { get set }
     var nightscoutUpload: Bool { get set }
+    var nightscoutUrl: String { get set }
     var readGlucose: Bool { get set }
     var selectedCalendarTarget: String? { get set }
     var selectedConnection: SensorConnection? { get set }
@@ -55,8 +55,12 @@ extension AppState {
         expiringAlarmSound != .none
     }
     
-    var glucoseAlarm: Bool {
-        glucoseAlarmSound != .none
+    var highGlucoseAlarm: Bool {
+        highGlucoseAlarmSound != .none
+    }
+    
+    var lowGlucoseAlarm: Bool {
+        lowGlucoseAlarmSound != .none
     }
 
     var isConnectable: Bool {

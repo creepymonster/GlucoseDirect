@@ -37,7 +37,8 @@ struct StoredAppState: AppState {
         self.transmitter = UserDefaults.standard.transmitter
         self.connectionAlarmSound = UserDefaults.standard.connectionAlarmSound
         self.expiringAlarmSound = UserDefaults.standard.expiringAlarmSound
-        self.glucoseAlarmSound = UserDefaults.standard.glucoseAlarmSound
+        self.highGlucoseAlarmSound = UserDefaults.standard.highGlucoseAlarmSound
+        self.lowGlucoseAlarmSound = UserDefaults.standard.lowGlucoseAlarmSound
     }
 
     // MARK: Internal
@@ -94,9 +95,15 @@ struct StoredAppState: AppState {
         }
     }
 
-    var glucoseAlarmSound: NotificationSound {
+    var highGlucoseAlarmSound: NotificationSound {
         didSet {
-            UserDefaults.standard.glucoseAlarmSound = glucoseAlarmSound
+            UserDefaults.standard.highGlucoseAlarmSound = highGlucoseAlarmSound
+        }
+    }
+    
+    var lowGlucoseAlarmSound: NotificationSound {
+        didSet {
+            UserDefaults.standard.lowGlucoseAlarmSound = lowGlucoseAlarmSound
         }
     }
 

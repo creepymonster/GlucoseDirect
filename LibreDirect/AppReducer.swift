@@ -55,6 +55,9 @@ func appReducer(state: inout AppState, action: AppAction) {
         
     case .connectSensor:
         break
+        
+    case .deleteLogs:
+        break
 
     case .disconnectSensor:
         break
@@ -110,9 +113,6 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .selectView(viewTag: let viewTag):
         state.selectedView = viewTag
         
-    case .deleteLogs:
-        break
-        
     case .sendLogs:
         break
         
@@ -121,10 +121,7 @@ func appReducer(state: inout AppState, action: AppAction) {
 
     case .setAlarmLow(lowerLimit: let lowerLimit):
         state.alarmLow = lowerLimit
-        
-    case .setCalendarExport(enabled: let enabled):
-        state.calendarExport = enabled
-        
+
     case .setAlarmSnoozeUntil(untilDate: let untilDate, autosnooze: _):
         if let untilDate = untilDate {
             state.alarmSnoozeUntil = untilDate
@@ -132,11 +129,17 @@ func appReducer(state: inout AppState, action: AppAction) {
             state.alarmSnoozeUntil = nil
         }
         
+    case .setCalendarExport(enabled: let enabled):
+        state.calendarExport = enabled
+        
     case .setChartShowLines(enabled: let enabled):
         state.chartShowLines = enabled
         
     case .setChartZoomLevel(level: let level):
         state.chartZoomLevel = level
+        
+    case .setConnectionAlarmSound(sound: let sound):
+        state.connectionAlarmSound = sound
         
     case .setConnectionError(errorMessage: let errorMessage, errorTimestamp: let errorTimestamp, errorIsCritical: let errorIsCritical):
         state.connectionError = errorMessage
@@ -152,32 +155,32 @@ func appReducer(state: inout AppState, action: AppAction) {
             state.connectionErrorTimestamp = nil
         }
         
-    case .setConnectionAlarmSound(sound: let sound):
-        state.connectionAlarmSound = sound
-        
     case .setExpiringAlarmSound(sound: let sound):
         state.expiringAlarmSound = sound
-        
-    case .setGlucoseAlarmSound(sound: let sound):
-        state.glucoseAlarmSound = sound
-        
+               
     case .setGlucoseBadge(enabled: let enabled):
         state.glucoseBadge = enabled
         
     case .setGlucoseUnit(unit: let unit):
         state.glucoseUnit = unit
         
+    case .setHighGlucoseAlarmSound(sound: let sound):
+        state.highGlucoseAlarmSound = sound
+        
     case .setInternalHttpServer(enabled: let enabled):
         state.internalHttpServer = enabled
         
-    case .setNightscoutUrl(url: let url):
-        state.nightscoutUrl = url
+    case .setLowGlucoseAlarmSound(sound: let sound):
+        state.lowGlucoseAlarmSound = sound
 
     case .setNightscoutSecret(apiSecret: let apiSecret):
         state.nightscoutApiSecret = apiSecret
 
     case .setNightscoutUpload(enabled: let enabled):
         state.nightscoutUpload = enabled
+        
+    case .setNightscoutUrl(url: let url):
+        state.nightscoutUrl = url
         
     case .setReadGlucose(enabled: let enabled):
         state.readGlucose = enabled

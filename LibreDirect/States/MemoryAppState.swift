@@ -15,19 +15,23 @@ struct MemoryAppState: AppState {
     var calendarExport = false
     var chartShowLines = false
     var chartZoomLevel = 1
+    var connectionAlarmSound: NotificationSound = .alarm
     var connectionError: String?
     var connectionErrorIsCritical = false
     var connectionErrorTimestamp: Date? = Date()
     var connectionInfos: [SensorConnectionInfo] = []
     var connectionState: SensorConnectionState = .disconnected
+    var expiringAlarmSound: NotificationSound = .expiring
     var glucoseBadge = true
     var glucoseUnit: GlucoseUnit = .mgdL
     var glucoseValues: [Glucose] = []
+    var highGlucoseAlarmSound: NotificationSound = .alarm
     var internalHttpServer = false
+    var lowGlucoseAlarmSound: NotificationSound = .alarm
     var missedReadings = 0
     var nightscoutApiSecret = ""
-    var nightscoutUrl = ""
     var nightscoutUpload = false
+    var nightscoutUrl = ""
     var readGlucose = false
     var selectedCalendarTarget: String?
     var selectedConnection: SensorConnection?
@@ -36,7 +40,4 @@ struct MemoryAppState: AppState {
     var sensor: Sensor?
     var targetValue = 100
     var transmitter: Transmitter?
-    var connectionAlarmSound: NotificationSound = .alarm
-    var expiringAlarmSound: NotificationSound = .expiring
-    var glucoseAlarmSound: NotificationSound = .alarm
 }
