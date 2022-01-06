@@ -17,7 +17,7 @@
 "NSCalendarsUsageDescription" = "Tillgång till kalendern krävs för att visa aktuella glukosvärden på din Apple Watch.";
 
 /* Privacy - Location Always and When In Use Usage Description */
-"NSLocationAlwaysAndWhenInUseUsageDescription" = "Access to the location while the app is open and in the background is required.";
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "Åtkomst till platsinfo medan appen är öppen och i bakgrunden krävs.";
 
 /* Privacy - Location When In Use Usage Description */
-"NSLocationWhenInUseUsageDescription" = "Access to the location while the app is open is required.";
+"NSLocationWhenInUseUsageDescription" = "Åtkomst till platsinfo medan appen är öppen krävs.";
