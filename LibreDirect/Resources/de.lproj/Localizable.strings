@@ -554,31 +554,31 @@
 "App facebook group" = "Facebook";
 
 /* (No Comment) */
-"App email" = "eMail";
+"App email" = "E-Mail";
 
 /* (No Comment) */
-"Internal http server" = "Internal http server";
+"Internal http server" = "Interner HTTP-Server";
 
 /* (No Comment) */
-"Low glucose alarm" = "Low glucose alarm";
+"Low glucose alarm" = "Niedrige Glukose Alarm";
 
 /* (No Comment) */
-"High glucose alarm" = "High glucose alarm";
+"High glucose alarm" = "Hohe Glukose Alarm";
 
 /* (No Comment) */
-"Sound: achievement" = "Achievement";
+"Sound: achievement" = "Erfolg";
 
 /* (No Comment) */
-"Sound: none" = "None";
+"Sound: none" = "Keiner";
 
 /* (No Comment) */
 "Sound: alarm" = "Alarm";
 
 /* (No Comment) */
-"Sound: buzz-beep" = "Buzz-Beep";
+"Sound: buzz-beep" = "Buzz-Piepton";
 
 /* (No Comment) */
-"Sound: chiptone" = "Chiptone";
+"Sound: chiptone" = "Chipton";
 
 /* (No Comment) */
 "Sound: climb-rope" = "Climb-Rope";
