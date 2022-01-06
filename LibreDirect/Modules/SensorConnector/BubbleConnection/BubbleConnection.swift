@@ -118,12 +118,12 @@ class BubbleConnection: SensorBLEConnection {
             sendUpdate(transmitter: transmitter)
 
             if let writeCharacteristic = writeCharacteristic {
-                /*if let firmware = firmware, firmware >= 2.6 {
-                    peripheral.writeValue(Data([0x08, 0x01, 0x00, 0x00, 0x00, 0x2b]), for: writeCharacteristic, type: .withResponse)
-                } else {
-                    peripheral.writeValue(Data([0x02, 0x00, 0x00, 0x00, 0x00, 0x2b]), for: writeCharacteristic, type: .withResponse)
-                }*/
-                
+                /* if let firmware = firmware, firmware >= 2.6 {
+                     peripheral.writeValue(Data([0x08, 0x01, 0x00, 0x00, 0x00, 0x2b]), for: writeCharacteristic, type: .withResponse)
+                 } else {
+                     peripheral.writeValue(Data([0x02, 0x00, 0x00, 0x00, 0x00, 0x2b]), for: writeCharacteristic, type: .withResponse)
+                 } */
+
                 peripheral.writeValue(Data([0x02, 0x00, 0x00, 0x00, 0x00, 0x2b]), for: writeCharacteristic, type: .withResponse)
             }
 
@@ -152,7 +152,7 @@ class BubbleConnection: SensorBLEConnection {
                     sendUpdate(sensor: sensor)
                 }
 
-                if sensor.age >= sensor.lifetime {
+                if (sensor.age + 15) >= sensor.lifetime {
                     sendUpdate(age: sensor.age, state: .expired)
 
                 } else if sensor.age > sensor.warmupTime {
@@ -196,7 +196,7 @@ class BubbleConnection: SensorBLEConnection {
                         sendUpdate(sensor: sensor)
                     }
 
-                    if sensor.age >= sensor.lifetime {
+                    if (sensor.age + 15) >= sensor.lifetime {
                         sendUpdate(age: sensor.age, state: .expired)
 
                     } else if sensor.age > sensor.warmupTime {

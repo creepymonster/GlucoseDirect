@@ -168,7 +168,7 @@ final class Libre2Connection: SensorBLEConnection {
                     let decryptedBLE = Data(try SensorUtility.decryptBLE(uuid: sensor.uuid, data: rxBuffer))
                     let parsedBLE = SensorUtility.parseBLE(calibration: sensor.factoryCalibration, data: decryptedBLE)
 
-                    if parsedBLE.age >= sensor.lifetime {
+                    if (parsedBLE.age + 15) >= sensor.lifetime {
                         sendUpdate(age: parsedBLE.age, state: .expired)
 
                     } else if parsedBLE.age > sensor.warmupTime {
@@ -182,7 +182,7 @@ final class Libre2Connection: SensorBLEConnection {
                     AppLog.error("Cannot process BLE data: \(error.localizedDescription)")
                 }
             }
-            
+
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
                 self.resetBuffer()
             }
