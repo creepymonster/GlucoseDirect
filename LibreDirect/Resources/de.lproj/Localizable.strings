@@ -563,22 +563,22 @@
 "Low glucose alarm" = "Niedrige Glukose Alarm";
 
 /* (No Comment) */
-"High glucose alarm" = "Hohe Glukose Alarm";
+"High glucose alarm" = "Hoher Glukose Alarm";
 
 /* (No Comment) */
-"Sound: achievement" = "Erfolg";
+"Sound: achievement" = "Achievement";
 
 /* (No Comment) */
-"Sound: none" = "Keiner";
+"Sound: none" = "None";
 
 /* (No Comment) */
 "Sound: alarm" = "Alarm";
 
 /* (No Comment) */
-"Sound: buzz-beep" = "Buzz-Piepton";
+"Sound: buzz-beep" = "Buzz-Beep";
 
 /* (No Comment) */
-"Sound: chiptone" = "Chipton";
+"Sound: chiptone" = "Chiptone";
 
 /* (No Comment) */
 "Sound: climb-rope" = "Climb-Rope";
