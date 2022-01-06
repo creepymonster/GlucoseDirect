@@ -8,37 +8,117 @@ import SwiftUI
 // MARK: - AlarmSettingsView
 
 struct AlarmSettingsView: View {
+    // MARK: Internal
+
     @EnvironmentObject var store: AppStore
 
     var body: some View {
         Section(
             content: {
-                ToggleView(key: LocalizedString("Glucose alarm", comment: ""), value: store.state.glucoseAlarm) { value -> Void in
-                    if value {
-                        store.dispatch(.setGlucoseAlarmSound(sound: .alarm))
-                    } else {
-                        store.dispatch(.setGlucoseAlarmSound(sound: .none))
-                    }
-                }
+                HStack {
+                    Text("Low glucose alarm")
+                    Spacer()
 
-                ToggleView(key: LocalizedString("Wearing time alarm", comment: ""), value: store.state.expiringAlarm) { value -> Void in
-                    if value {
-                        store.dispatch(.setExpiringAlarmSound(sound: .expiring))
-                    } else {
-                        store.dispatch(.setExpiringAlarmSound(sound: .none))
+                    Picker("", selection: selectedLowGlucoseAlarmSound) {
+                        ForEach(NotificationSound.allCases, id: \.rawValue) { info in
+                            Text(info.localizedString)
+                        }
                     }
+                    .pickerStyle(.menu)
+                    .labelsHidden()
                 }
+                
+                HStack {
+                    Text("High glucose alarm")
+                    Spacer()
 
-                ToggleView(key: LocalizedString("Connection alarm", comment: ""), value: store.state.connectionAlarm) { value -> Void in
-                    if value {
-                        store.dispatch(.setConnectionAlarmSound(sound: .alarm))
-                    } else {
-                        store.dispatch(.setConnectionAlarmSound(sound: .none))
+                    Picker("", selection: selectedHighGlucoseAlarmSound) {
+                        ForEach(NotificationSound.allCases, id: \.rawValue) { info in
+                            Text(info.localizedString)
+                        }
                     }
+                    .pickerStyle(.menu)
+                    .labelsHidden()
+                }
+                
+                HStack {
+                    Text("Connection alarm")
+                    Spacer()
+
+                    Picker("", selection: selectedConnectionAlarmSound) {
+                        ForEach(NotificationSound.allCases, id: \.rawValue) { info in
+                            Text(info.localizedString)
+                        }
+                    }
+                    .pickerStyle(.menu)
+                    .labelsHidden()
+                }
+                
+                HStack {
+                    Text("Wearing time alarm")
+                    Spacer()
+
+                    Picker("", selection: selectedExpiringAlarmSound) {
+                        ForEach(NotificationSound.allCases, id: \.rawValue) { info in
+                            Text(info.localizedString)
+                        }
+                    }
+                    .pickerStyle(.menu)
+                    .labelsHidden()
                 }
             },
             header: {
                 Label("Alarm Settings", systemImage: "alarm")
+            }
+        )
+    }
+
+    // MARK: Private
+
+    private var selectedLowGlucoseAlarmSound: Binding<String> {
+        Binding(
+            get: { store.state.lowGlucoseAlarmSound.rawValue },
+            set: {
+                let sound = NotificationSound(rawValue: $0)!
+                
+                store.dispatch(.setLowGlucoseAlarmSound(sound: sound))
+                NotificationService.shared.playSound(sound: sound, ignoreMute: true)
+            }
+        )
+    }
+
+    private var selectedHighGlucoseAlarmSound: Binding<String> {
+        Binding(
+            get: { store.state.highGlucoseAlarmSound.rawValue },
+            set: {
+                let sound = NotificationSound(rawValue: $0)!
+                
+                store.dispatch(.setHighGlucoseAlarmSound(sound: sound))
+                NotificationService.shared.playSound(sound: sound, ignoreMute: true)
+            }
+        )
+    }
+
+    private var selectedConnectionAlarmSound: Binding<String> {
+        Binding(
+            get: { store.state.connectionAlarmSound.rawValue },
+            set: {
+                let sound = NotificationSound(rawValue: $0)!
+                
+                store.dispatch(.setConnectionAlarmSound(sound: sound))
+                NotificationService.shared.playSound(sound: sound, ignoreMute: true)
+            }
+        )
+    }
+
+    private var selectedExpiringAlarmSound: Binding<String> {
+        Binding(
+            get: { store.state.expiringAlarmSound.rawValue },
+            set: {
+                let sound = NotificationSound(rawValue: $0)!
+                
+                store.dispatch(.setExpiringAlarmSound(sound: sound))
+                NotificationService.shared.playSound(sound: sound, ignoreMute: true)
             }
         )
     }

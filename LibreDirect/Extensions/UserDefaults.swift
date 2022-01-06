@@ -1,3 +1,5 @@
+
+
 //
 //  UserDefaults.swift
 //  LibreDirect
@@ -13,26 +15,24 @@ private enum Keys: String {
     case calendarExport = "libre-direct.settings.calendar-export"
     case chartShowLines = "libre-direct.settings.chart-show-lines"
     case chartZoomLevel = "libre-direct.settings.chart-zoom-level"
-    
-    case latestReadings
-    
+    case connectionAlarmSound = "libre-direct.settings.connection-alarm-sound"
+    case expiringAlarmSound = "libre-direct.settings.expiring-alarm-sound"
     case glucoseBadge = "libre-direct.settings.glucose-badge"
     case glucoseUnit = "libre-direct.settings.glucose-unit"
     case glucoseValues = "libre-direct.settings.glucose-value-array"
+    case highGlucoseAlarmSound = "libre-direct.settings.high-glucose-alarm-sound"
     case internalHttpServer = "libre-direct.settings.internal-http-server"
+    case latestReadings
+    case lowGlucoseAlarmSound = "libre-direct.settings.low-glucose-alarm-sound"
     case nightscoutApiSecret = "libre-direct.settings.nightscout-api-secret"
-    case nightscoutUrl = "libre-direct.settings.nightscout-host"
     case nightscoutUpload = "libre-direct.settings.nightscout-upload-enabled"
+    case nightscoutUrl = "libre-direct.settings.nightscout-host"
     case readGlucose = "libre-direct.settings.read-glucose"
     case selectedCalendarTarget = "libre-direct.settings.selected-calendar-target"
     case selectedConnectionId = "libre-direct.settings.selected-connection-id"
     case selectedView = "libre-direct.settings.selected-view"
     case sensor = "libre-direct.settings.sensor"
     case transmitter = "libre-direct.settings.transmitter"
-    
-    case connectionAlarmSound = "libre-direct.settings.connection-alarm-sound"
-    case glucoseAlarmSound = "libre-direct.settings.glucose-alarm-sound"
-    case expiringAlarmSound = "libre-direct.settings.expiring-alarm-sound"
 }
 
 extension UserDefaults {
@@ -135,16 +135,29 @@ extension UserDefaults {
         }
     }
 
-    var glucoseAlarmSound: NotificationSound {
+    var highGlucoseAlarmSound: NotificationSound {
         get {
-            if let soundRawValue = object(forKey: Keys.glucoseAlarmSound.rawValue) as? String, let sound = NotificationSound(rawValue: soundRawValue) {
+            if let soundRawValue = object(forKey: Keys.highGlucoseAlarmSound.rawValue) as? String, let sound = NotificationSound(rawValue: soundRawValue) {
                 return sound
             }
 
             return .alarm
         }
         set {
-            set(newValue.rawValue, forKey: Keys.glucoseAlarmSound.rawValue)
+            set(newValue.rawValue, forKey: Keys.highGlucoseAlarmSound.rawValue)
+        }
+    }
+    
+    var lowGlucoseAlarmSound: NotificationSound {
+        get {
+            if let soundRawValue = object(forKey: Keys.lowGlucoseAlarmSound.rawValue) as? String, let sound = NotificationSound(rawValue: soundRawValue) {
+                return sound
+            }
+
+            return .alarm
+        }
+        set {
+            set(newValue.rawValue, forKey: Keys.lowGlucoseAlarmSound.rawValue)
         }
     }
 

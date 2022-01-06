@@ -17,7 +17,12 @@ func glucoseNotificationMiddelware() -> Middleware<AppState, AppAction> {
 private func glucoseNotificationMiddelware(service: GlucoseNotificationService) -> Middleware<AppState, AppAction> {
     return { state, action, _ in
         switch action {
-        case .setGlucoseAlarmSound(sound: let sound):
+        case .setHighGlucoseAlarmSound(sound: let sound):
+            if sound == .none {
+                service.clearAlarm()
+            }
+
+        case .setLowGlucoseAlarmSound(sound: let sound):
             if sound == .none {
                 service.clearAlarm()
             }
@@ -67,21 +72,21 @@ private func glucoseNotificationMiddelware(service: GlucoseNotificationService) 
 
             AppLog.info("isSnoozed: \(isSnoozed)")
 
-            if state.glucoseAlarm, glucoseValue < state.alarmLow, !isSnoozed {
+            if state.lowGlucoseAlarm, glucoseValue < state.alarmLow, !isSnoozed {
                 AppLog.info("Glucose alert, low: \(glucose.glucoseValue) < \(state.alarmLow)")
 
                 service.clearBadge()
-                service.setLowGlucoseAlarm(glucose: glucose, glucoseUnit: state.glucoseUnit)
+                service.setLowGlucoseAlarm(glucose: glucose, glucoseUnit: state.glucoseUnit, sound: state.lowGlucoseAlarmSound)
 
                 return Just(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).toRounded(on: 1, .minute), autosnooze: true))
                     .setFailureType(to: AppError.self)
                     .eraseToAnyPublisher()
 
-            } else if state.glucoseAlarm, glucoseValue > state.alarmHigh, !isSnoozed {
+            } else if state.highGlucoseAlarm, glucoseValue > state.alarmHigh, !isSnoozed {
                 AppLog.info("Glucose alert, high: \(glucose.glucoseValue) > \(state.alarmHigh)")
 
                 service.clearBadge()
-                service.setHighGlucoseAlarm(glucose: glucose, glucoseUnit: state.glucoseUnit)
+                service.setHighGlucoseAlarm(glucose: glucose, glucoseUnit: state.glucoseUnit, sound: state.highGlucoseAlarmSound)
 
                 return Just(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).toRounded(on: 1, .minute), autosnooze: true))
                     .setFailureType(to: AppError.self)
@@ -91,7 +96,7 @@ private func glucoseNotificationMiddelware(service: GlucoseNotificationService) 
                 service.setGlucoseBadge(glucose: glucose, glucoseUnit: state.glucoseUnit)
             }
 
-            if state.glucoseAlarm, glucoseValue >= state.alarmLow, glucoseValue <= state.alarmHigh {
+            if glucoseValue >= state.alarmLow, glucoseValue <= state.alarmHigh {
                 service.clearAlarm()
             }
 
@@ -161,7 +166,7 @@ private class GlucoseNotificationService {
         }
     }
 
-    func setLowGlucoseAlarm(glucose: Glucose, glucoseUnit: GlucoseUnit, sound: NotificationSound = .alarm) {
+    func setLowGlucoseAlarm(glucose: Glucose, glucoseUnit: GlucoseUnit, sound: NotificationSound) {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
         NotificationService.shared.ensureCanSendNotification { state in
@@ -204,7 +209,7 @@ private class GlucoseNotificationService {
         }
     }
 
-    func setHighGlucoseAlarm(glucose: Glucose, glucoseUnit: GlucoseUnit, sound: NotificationSound = .alarm) {
+    func setHighGlucoseAlarm(glucose: Glucose, glucoseUnit: GlucoseUnit, sound: NotificationSound) {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
         NotificationService.shared.ensureCanSendNotification { state in

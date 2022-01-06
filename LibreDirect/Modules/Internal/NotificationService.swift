@@ -48,8 +48,8 @@ class NotificationService {
         }
     }
 
-    func playSound(sound: NotificationSound) {
-        playSound(named: sound.rawValue)
+    func playSound(sound: NotificationSound, ignoreMute: Bool = false) {
+        playSound(named: sound.rawValue, ignoreMute: ignoreMute)
     }
 
     func add(identifier: String, content: UNMutableNotificationContent) {
@@ -104,9 +104,9 @@ class NotificationService {
         }
     }
 
-    private func playSound(named: String) {
+    private func playSound(named: String, ignoreMute: Bool) {
         checkMute { isMuted in
-            guard !isMuted else {
+            guard !isMuted || ignoreMute else {
                 AppLog.info("Guard: Audio is muted")
                 return
             }
@@ -147,10 +147,34 @@ enum NotificationState {
 
 // MARK: - NotificationSound
 
-enum NotificationSound: String, Codable {
+enum NotificationSound: String, Codable, CaseIterable {
     case none
+    case achievement
     case alarm
+    case buzzBeep = "buzz-beep"
+    case chiptone
+    case climbRope = "climb-rope"
+    case coinChime = "coin-chime"
+    case coinInsert = "coin-insert"
+    case collectPoint = "collect-point"
     case expiring
+    case failure
+    case future
+    case highlight
+    case hit
+    case jump
+    case longAlarm = "long-alarm"
+    case lose
+    case lowBattery = "low-battery"
     case negative
+    case ping
     case positive
+    
+    var description: String {
+        self.rawValue
+    }
+
+    var localizedString: String {
+        LocalizedString("Sound: \(self.rawValue)")
+    }
 }
