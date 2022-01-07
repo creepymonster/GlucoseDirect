@@ -560,10 +560,10 @@
 "Internal http server" = "Intern http-server";
 
 /* (No Comment) */
-"Low glucose alarm" = "Low glucose alarm";
+"Low glucose alarm" = "Lågt blodsockerlarm";
 
 /* (No Comment) */
-"High glucose alarm" = "High glucose alarm";
+"High glucose alarm" = "Högt blodsockerlarm";
 
 /* (No Comment) */
 "Sound: achievement" = "Achievement";
