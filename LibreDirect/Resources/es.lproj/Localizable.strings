@@ -627,3 +627,6 @@
 
 /* (No Comment) */
 "Sound: positive" = "Positive";
+
+/* (No Comment) */
+"Sound: vibration" = "Vibrate only";
