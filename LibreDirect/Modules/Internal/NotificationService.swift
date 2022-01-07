@@ -49,7 +49,15 @@ class NotificationService {
     }
 
     func playSound(sound: NotificationSound, ignoreMute: Bool = false) {
-        playSound(named: sound.rawValue, ignoreMute: ignoreMute)
+        guard sound != .none else {
+            return
+        }
+
+        if sound == .vibration {
+            vibrate()
+        } else {
+            playSound(named: sound.rawValue, ignoreMute: ignoreMute)
+        }
     }
 
     func add(identifier: String, content: UNMutableNotificationContent) {
@@ -102,6 +110,10 @@ class NotificationService {
                 completion(isMuted)
             }
         }
+    }
+
+    private func vibrate() {
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
     }
 
     private func playSound(named: String, ignoreMute: Bool) {
@@ -168,13 +180,16 @@ enum NotificationSound: String, Codable, CaseIterable {
     case buzzBeep = "buzz-beep"
     case alarm
     case achievement
+    case vibration
     case none
-    
+
+    // MARK: Internal
+
     var description: String {
-        self.rawValue
+        rawValue
     }
 
     var localizedString: String {
-        LocalizedString("Sound: \(self.rawValue)")
+        LocalizedString("Sound: \(rawValue)")
     }
 }
