@@ -17,7 +17,7 @@
 "NSCalendarsUsageDescription" = "Um aktuelle Glukosewerte auf der Apple Watch anzeigen zu können, ist der Zugriff auf den Kalender erforderlich.";
 
 /* Privacy - Location Always and When In Use Usage Description */
-"NSLocationAlwaysAndWhenInUseUsageDescription" = "Access to the location while the app is open and in the background is required.";
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "Der Zugriff auf den Standort ist erforderlich, während die App geöffnet ist und sich im Hintergrund befindet.";
 
 /* Privacy - Location When In Use Usage Description */
-"NSLocationWhenInUseUsageDescription" = "Access to the location while the app is open is required.";
+"NSLocationWhenInUseUsageDescription" = "Der Zugriff auf den Standort ist erforderlich, während die App geöffnet ist.";
