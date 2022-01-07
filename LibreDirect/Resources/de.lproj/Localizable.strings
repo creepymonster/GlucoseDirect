@@ -554,22 +554,22 @@
 "App facebook group" = "Facebook";
 
 /* (No Comment) */
-"App email" = "eMail";
+"App email" = "E-Mail";
 
 /* (No Comment) */
-"Internal http server" = "Internal http server";
+"Internal http server" = "Interner HTTP-Server";
 
 /* (No Comment) */
-"Low glucose alarm" = "Low glucose alarm";
+"Low glucose alarm" = "Niedrige Glukose Alarm";
 
 /* (No Comment) */
-"High glucose alarm" = "High glucose alarm";
+"High glucose alarm" = "Hoher Glukose Alarm";
 
 /* (No Comment) */
 "Sound: achievement" = "Achievement";
 
 /* (No Comment) */
-"Sound: none" = "None";
+"Sound: none" = "Keiner";
 
 /* (No Comment) */
 "Sound: alarm" = "Alarm";
@@ -611,7 +611,7 @@
 "Sound: jump" = "Jump";
 
 /* (No Comment) */
-"Sound: long-alarm" = "Long-alarm";
+"Sound: long-alarm" = "Long-Alarm";
 
 /* (No Comment) */
 "Sound: lose" = "Lose";

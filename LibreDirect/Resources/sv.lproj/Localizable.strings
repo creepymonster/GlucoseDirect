@@ -560,22 +560,22 @@
 "Internal http server" = "Intern http-server";
 
 /* (No Comment) */
-"Low glucose alarm" = "Low glucose alarm";
+"Low glucose alarm" = "Lågt blodsockerlarm";
 
 /* (No Comment) */
-"High glucose alarm" = "High glucose alarm";
+"High glucose alarm" = "Högt blodsockerlarm";
 
 /* (No Comment) */
-"Sound: achievement" = "Achievement";
+"Sound: achievement" = "Uppnått mål";
 
 /* (No Comment) */
-"Sound: none" = "None";
+"Sound: none" = "Inget";
 
 /* (No Comment) */
-"Sound: alarm" = "Alarm";
+"Sound: alarm" = "Larm";
 
 /* (No Comment) */
-"Sound: buzz-beep" = "Buzz-Beep";
+"Sound: buzz-beep" = "Surrande pip";
 
 /* (No Comment) */
 "Sound: chiptone" = "Chiptone";
@@ -584,19 +584,19 @@
 "Sound: climb-rope" = "Climb-Rope";
 
 /* (No Comment) */
-"Sound: coin-chime" = "Coin-Chime";
+"Sound: coin-chime" = "Myntljud";
 
 /* (No Comment) */
-"Sound: coin-insert" = "Coin-Insert";
+"Sound: coin-insert" = "Mynt läggs in";
 
 /* (No Comment) */
 "Sound: collect-point" = "Collect-Point";
 
 /* (No Comment) */
-"Sound: expiring" = "Expiring";
+"Sound: expiring" = "Går ut";
 
 /* (No Comment) */
-"Sound: failure" = "Failure";
+"Sound: failure" = "Fel";
 
 /* (No Comment) */
 "Sound: future" = "Future";
@@ -620,10 +620,10 @@
 "Sound: low-battery" = "Low-Battery";
 
 /* (No Comment) */
-"Sound: negative" = "Negative";
+"Sound: negative" = "Negativ";
 
 /* (No Comment) */
 "Sound: ping" = "Ping";
 
 /* (No Comment) */
-"Sound: positive" = "Positive";
+"Sound: positive" = "Positiv";
