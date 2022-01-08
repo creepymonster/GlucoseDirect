@@ -599,7 +599,7 @@
 "Sound: failure" = "Fel";
 
 /* (No Comment) */
-"Sound: future" = "Future";
+"Sound: future" = "Framtid";
 
 /* (No Comment) */
 "Sound: highlight" = "Höjdpunkt";
@@ -611,10 +611,10 @@
 "Sound: jump" = "Hoppa";
 
 /* (No Comment) */
-"Sound: long-alarm" = "Long-alarm";
+"Sound: long-alarm" = "Långt larm";
 
 /* (No Comment) */
-"Sound: lose" = "Lose";
+"Sound: lose" = "Lös";
 
 /* (No Comment) */
 "Sound: low-battery" = "Lågt batteri";
@@ -623,7 +623,7 @@
 "Sound: negative" = "Negativ";
 
 /* (No Comment) */
-"Sound: ping" = "Ping";
+"Sound: ping" = "Ping-ljud";
 
 /* (No Comment) */
 "Sound: positive" = "Positiv";
