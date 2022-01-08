@@ -578,13 +578,13 @@
 "Sound: buzz-beep" = "Surrande pip";
 
 /* (No Comment) */
-"Sound: chiptone" = "Chiptone";
+"Sound: chiptone" = "Flisa";
 
 /* (No Comment) */
-"Sound: climb-rope" = "Climb-Rope";
+"Sound: climb-rope" = "Klättra i rep";
 
 /* (No Comment) */
-"Sound: coin-chime" = "Myntljud";
+"Sound: coin-chime" = "Mynt";
 
 /* (No Comment) */
 "Sound: coin-insert" = "Mynt läggs in";
@@ -602,13 +602,13 @@
 "Sound: future" = "Future";
 
 /* (No Comment) */
-"Sound: highlight" = "Highlight";
+"Sound: highlight" = "Höjdpunkt";
 
 /* (No Comment) */
-"Sound: hit" = "Hit";
+"Sound: hit" = "Slå";
 
 /* (No Comment) */
-"Sound: jump" = "Jump";
+"Sound: jump" = "Hoppa";
 
 /* (No Comment) */
 "Sound: long-alarm" = "Long-alarm";
@@ -617,7 +617,7 @@
 "Sound: lose" = "Lose";
 
 /* (No Comment) */
-"Sound: low-battery" = "Low-Battery";
+"Sound: low-battery" = "Lågt batteri";
 
 /* (No Comment) */
 "Sound: negative" = "Negativ";
@@ -629,4 +629,4 @@
 "Sound: positive" = "Positiv";
 
 /* (No Comment) */
-"Sound: vibration" = "Vibrate only";
+"Sound: vibration" = "Endast vibration";
