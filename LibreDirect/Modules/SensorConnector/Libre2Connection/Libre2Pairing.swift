@@ -155,7 +155,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                                     if self.noPairing {
                                         session.invalidate()
 
-                                        self.subject?.send(.setSensor(sensor: sensor, isPaired: false))
+                                        self.subject?.send(.setSensor(sensor: sensor))
                                         self.subject?.send(.addSensorReadings(trendReadings: sensorReadings.trend, historyReadings: sensorReadings.history))
                                     } else {
                                         let subCmd: Subcommand = .enableStreaming

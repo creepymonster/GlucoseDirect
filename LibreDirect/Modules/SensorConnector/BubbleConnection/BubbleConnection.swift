@@ -147,22 +147,11 @@ class BubbleConnection: SensorBLEConnection {
                 let fram = rxBuffer[..<expectedBufferSize]
 
                 let sensor = Sensor(uuid: uuid, patchInfo: patchInfo, fram: fram)
-                if self.sensor == nil || self.sensor?.serial != sensor.serial {
-                    self.sensor = sensor
-                    sendUpdate(sensor: sensor, isPaired: false)
-                }
+                sendUpdate(sensor: sensor)
 
-                if (sensor.age + 15) >= sensor.lifetime {
-                    sendUpdate(age: sensor.age, state: .expired)
-
-                } else if sensor.age > sensor.warmupTime {
-                    sendUpdate(age: sensor.age, state: .ready)
-
+                if sensor.age > sensor.warmupTime {
                     let readings = SensorUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
                     sendUpdate(trendReadings: readings.trend, historyReadings: readings.history)
-
-                } else if sensor.age <= sensor.warmupTime {
-                    sendUpdate(age: sensor.age, state: .starting)
                 }
 
                 resetBuffer()
@@ -191,22 +180,11 @@ class BubbleConnection: SensorBLEConnection {
 
                 if let fram = fram {
                     let sensor = Sensor(uuid: uuid, patchInfo: patchInfo, fram: fram)
-                    if self.sensor == nil || self.sensor?.serial != sensor.serial {
-                        self.sensor = sensor
-                        sendUpdate(sensor: sensor, isPaired: false)
-                    }
+                    sendUpdate(sensor: sensor)
 
-                    if (sensor.age + 15) >= sensor.lifetime {
-                        sendUpdate(age: sensor.age, state: .expired)
-
-                    } else if sensor.age > sensor.warmupTime {
-                        sendUpdate(age: sensor.age, state: .ready)
-
+                    if sensor.age > sensor.warmupTime {
                         let readings = SensorUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
                         sendUpdate(trendReadings: readings.trend, historyReadings: readings.history)
-
-                    } else if sensor.age <= sensor.warmupTime {
-                        sendUpdate(age: sensor.age, state: .starting)
                     }
                 }
 
