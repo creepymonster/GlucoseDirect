@@ -30,7 +30,7 @@ extension SensorBluetoothConnection {
         subject?.send(.setConnectionState(connectionState: connectionState))
     }
 
-    func sendUpdate(sensor: Sensor?, isPaired: Bool) {
+    func sendUpdate(sensor: Sensor?, isPaired: Bool = false) {
         AppLog.info("Sensor: \(sensor?.description ?? "-")")
 
         if let sensor = sensor {

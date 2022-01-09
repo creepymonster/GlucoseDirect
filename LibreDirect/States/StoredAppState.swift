@@ -22,6 +22,7 @@ struct StoredAppState: AppState {
         self.calendarExport = UserDefaults.standard.calendarExport
         self.chartShowLines = UserDefaults.standard.chartShowLines
         self.chartZoomLevel = UserDefaults.standard.chartZoomLevel
+        self.customCalibration = UserDefaults.standard.customCalibration
         self.glucoseValues = UserDefaults.standard.glucoseValues
         self.glucoseBadge = UserDefaults.standard.glucoseBadge
         self.glucoseUnit = UserDefaults.standard.glucoseUnit
@@ -87,6 +88,12 @@ struct StoredAppState: AppState {
     var connectionAlarmSound: NotificationSound {
         didSet {
             UserDefaults.standard.connectionAlarmSound = connectionAlarmSound
+        }
+    }
+    
+    var customCalibration: [CustomCalibration] {
+        didSet {
+            UserDefaults.standard.customCalibration = customCalibration
         }
     }
 

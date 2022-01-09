@@ -18,11 +18,11 @@ struct CalibrationSettingsView: View {
     @EnvironmentObject var store: AppStore
 
     var slope: Double {
-        Double(round(CalibrationSettingsView.factor * store.state.sensor!.customCalibration.slope) / CalibrationSettingsView.factor)
+        Double(round(CalibrationSettingsView.factor * store.state.customCalibration.slope) / CalibrationSettingsView.factor)
     }
     
     var intercept: Double {
-        Double(round(CalibrationSettingsView.factor * store.state.sensor!.customCalibration.intercept) / CalibrationSettingsView.factor)
+        Double(round(CalibrationSettingsView.factor * store.state.customCalibration.intercept) / CalibrationSettingsView.factor)
     }
 
     var body: some View {
@@ -91,7 +91,7 @@ struct CalibrationSettingsView: View {
                             Text(intercept.description)
                         }
                     
-                        ForEach(sensor.customCalibration) { calibration in
+                        ForEach(store.state.customCalibration) { calibration in
                             HStack {
                                 Text(calibration.timestamp.toLocalDateTime())
                                 Spacer()
@@ -101,7 +101,7 @@ struct CalibrationSettingsView: View {
                             AppLog.info("onDelete: \(offsets)")
                             
                             let ids = offsets.map { i in
-                                sensor.customCalibration[i].id
+                                store.state.customCalibration[i].id
                             }
                             
                             DispatchQueue.main.async {
@@ -133,26 +133,24 @@ struct CalibrationSettingsView: View {
                         }
                     },
                     footer: {
-                        if !showingAddCalibrationView {
-                            if let sensor = store.state.sensor, !sensor.customCalibration.isEmpty {
-                                Button(
-                                    action: {
-                                        showingDeleteCalibrationsAlert = true
-                                    },
-                                    label: {
-                                        Label("Delete all", systemImage: "trash.fill")
-                                    }
-                                ).alert(isPresented: $showingDeleteCalibrationsAlert) {
-                                    Alert(
-                                        title: Text("Are you sure you want to delete all calibrations?"),
-                                        primaryButton: .destructive(Text("Delete")) {
-                                            withAnimation {
-                                                store.dispatch(.clearCalibrations)
-                                            }
-                                        },
-                                        secondaryButton: .cancel()
-                                    )
+                        if !showingAddCalibrationView && !store.state.customCalibration.isEmpty {
+                            Button(
+                                action: {
+                                    showingDeleteCalibrationsAlert = true
+                                },
+                                label: {
+                                    Label("Delete all", systemImage: "trash.fill")
                                 }
+                            ).alert(isPresented: $showingDeleteCalibrationsAlert) {
+                                Alert(
+                                    title: Text("Are you sure you want to delete all calibrations?"),
+                                    primaryButton: .destructive(Text("Delete")) {
+                                        withAnimation {
+                                            store.dispatch(.clearCalibrations)
+                                        }
+                                    },
+                                    secondaryButton: .cancel()
+                                )
                             }
                         }
                     }

@@ -10,9 +10,9 @@ import Foundation
 class CalibrationService {
     // MARK: Internal
 
-    func calibrate(sensor: Sensor, nextReading: SensorReading, currentGlucose: Glucose? = nil) -> Glucose {
+    func calibrate(customCalibration: [CustomCalibration], nextReading: SensorReading, currentGlucose: Glucose? = nil) -> Glucose {
         if let nextGlucoseValue = nextReading.glucoseValue, nextReading.quality == .OK, !nextGlucoseValue.isNaN, !nextGlucoseValue.isInfinite {
-            let nextCalibratedGlucoseValue = calibrate(sensor: sensor, glucoseValue: nextGlucoseValue)
+            let nextCalibratedGlucoseValue = calibrate(customCalibration: customCalibration, glucoseValue: nextGlucoseValue)
             var nextMinuteChange: Double?
 
             if let currentGlucose = currentGlucose, let currentGlucoseValue = currentGlucose.glucoseValue {
@@ -42,8 +42,8 @@ class CalibrationService {
 
     // MARK: Private
 
-    private func calibrate(sensor: Sensor, glucoseValue: Double) -> Double {
-        let calibratedGlucoseValue = sensor.customCalibration.calibrate(sensorGlucose: glucoseValue)
+    private func calibrate(customCalibration: [CustomCalibration], glucoseValue: Double) -> Double {
+        let calibratedGlucoseValue = customCalibration.calibrate(sensorGlucose: glucoseValue)
 
         if calibratedGlucoseValue.isNaN || calibratedGlucoseValue.isInfinite {
             return glucoseValue
