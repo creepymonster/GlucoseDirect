@@ -30,8 +30,8 @@ struct GlucoeOverviewView: View {
                     SnoozeView()
                 }
                 
-                ConnectionView()
                 ChartView()
+                ConnectionView()
                 SensorView()
             }.listStyle(.grouped)
         }
