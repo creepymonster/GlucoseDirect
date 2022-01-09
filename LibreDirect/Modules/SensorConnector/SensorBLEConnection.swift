@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - SensorBLEConnection
 
-class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate, CBPeripheralDelegate {
+class SensorBLEConnection: NSObject, SensorBluetoothConnection, CBCentralManagerDelegate, CBPeripheralDelegate {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<AppAction, AppError>, serviceUuid: CBUUID, restoreIdentifier: String) {

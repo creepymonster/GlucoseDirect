@@ -105,6 +105,16 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
                     .setFailureType(to: AppError.self)
                     .eraseToAnyPublisher()
             }
+            
+        case .scanSensor:
+            guard let sensorConnection = state.selectedConnection else {
+                AppLog.info("Guard: state.selectedConnection is nil")
+                break
+            }
+
+            if let sensorConnection = sensorConnection as? SensorNfcConnection {
+                sensorConnection.scanSensor()
+            }
 
         case .pairSensor:
             guard let sensorConnection = state.selectedConnection else {
@@ -142,7 +152,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
     }
 }
 
-typealias SensorConnectionCreator = (PassthroughSubject<AppAction, AppError>) -> SensorConnection
+typealias SensorConnectionCreator = (PassthroughSubject<AppAction, AppError>) -> SensorBluetoothConnection
 
 // MARK: - SensorConnectionInfo
 

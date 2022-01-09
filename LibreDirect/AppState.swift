@@ -27,6 +27,7 @@ protocol AppState {
     var glucoseValues: [Glucose] { get set }
     var highGlucoseAlarmSound: NotificationSound { get set }
     var internalHttpServer: Bool { get set }
+    var isPaired: Bool { get set }
     var lowGlucoseAlarmSound: NotificationSound { get set }
     var missedReadings: Int { get set }
     var nightscoutApiSecret: String { get set }
@@ -34,7 +35,7 @@ protocol AppState {
     var nightscoutUrl: String { get set }
     var readGlucose: Bool { get set }
     var selectedCalendarTarget: String? { get set }
-    var selectedConnection: SensorConnection? { get set }
+    var selectedConnection: SensorBluetoothConnection? { get set }
     var selectedConnectionId: String? { get set }
     var selectedView: Int { get set }
     var sensor: Sensor? { get set }
@@ -46,19 +47,19 @@ extension AppState {
     var currentGlucose: Glucose? {
         glucoseValues.last(where: { $0.type == .cgm })
     }
-    
+
     var connectionAlarm: Bool {
         connectionAlarmSound != .none
     }
-    
+
     var expiringAlarm: Bool {
         expiringAlarmSound != .none
     }
-    
+
     var highGlucoseAlarm: Bool {
         highGlucoseAlarmSound != .none
     }
-    
+
     var lowGlucoseAlarm: Bool {
         lowGlucoseAlarmSound != .none
     }
@@ -83,16 +84,16 @@ extension AppState {
         disconnectableStates.contains(connectionState)
     }
 
-    var isPaired: Bool {
-        isSensorPaired || isTransmitterPaired
+    var isScanable: Bool {
+        selectedConnection is SensorNfcConnection
+    }
+    
+    var isPairable: Bool {
+        !isPaired && !(connectionState != .disconnected && connectionState != .pairing && connectionState != .scanning && connectionState != .connecting)
     }
 
-    var isSensorPaired: Bool {
-        sensor != nil
-    }
-
-    var isTransmitterPaired: Bool {
-        transmitter != nil
+    var isBusy: Bool {
+        !(connectionState != .pairing && connectionState != .scanning && connectionState != .connecting)
     }
 
     var isReady: Bool {

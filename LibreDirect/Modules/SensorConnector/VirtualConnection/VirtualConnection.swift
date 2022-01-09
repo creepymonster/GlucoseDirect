@@ -8,7 +8,7 @@ import Foundation
 
 // MARK: - VirtualLibreConnection
 
-final class VirtualLibreConnection: SensorConnection {
+final class VirtualLibreConnection: SensorBluetoothConnection {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<AppAction, AppError>) {
@@ -36,7 +36,7 @@ final class VirtualLibreConnection: SensorConnection {
             warmupTime: warmupTime
         )
 
-        sendUpdate(sensor: sensor)
+        sendUpdate(sensor: sensor, isPaired: true)
     }
 
     func connectSensor(sensor: Sensor) {

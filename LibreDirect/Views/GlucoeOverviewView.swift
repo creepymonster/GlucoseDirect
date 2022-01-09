@@ -10,13 +10,27 @@ struct GlucoeOverviewView: View {
 
     var body: some View {
         VStack {
-            ActionsView()
-
             List {
+                if store.state.isScanable {
+                    Button(
+                        action: {
+                            store.dispatch(.scanSensor)
+                        },
+                        label: {
+                            Label("Scan sensor", systemImage: "viewfinder")
+                        }
+                    )
+                }
+                
                 if store.state.currentGlucose != nil {
                     GlucoseView().frame(maxWidth: .infinity)
                 }
 
+                if store.state.isPaired || store.state.isScanable {
+                    SnoozeView()
+                }
+                
+                ConnectionView()
                 ChartView()
                 SensorView()
             }.listStyle(.grouped)

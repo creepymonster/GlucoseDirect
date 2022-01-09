@@ -22,6 +22,7 @@ private enum Keys: String {
     case glucoseValues = "libre-direct.settings.glucose-value-array"
     case highGlucoseAlarmSound = "libre-direct.settings.high-glucose-alarm-sound"
     case internalHttpServer = "libre-direct.settings.internal-http-server"
+    case isPaired = "libre-direct.settings.is-paired"
     case latestReadings
     case lowGlucoseAlarmSound = "libre-direct.settings.low-glucose-alarm-sound"
     case nightscoutApiSecret = "libre-direct.settings.nightscout-api-secret"
@@ -208,7 +209,20 @@ extension UserDefaults {
             set(newValue, forKey: Keys.internalHttpServer.rawValue)
         }
     }
+    
+    var isPaired: Bool {
+        get {
+            if object(forKey: Keys.isPaired.rawValue) != nil {
+                return bool(forKey: Keys.isPaired.rawValue)
+            }
 
+            return false
+        }
+        set {
+            set(newValue, forKey: Keys.isPaired.rawValue)
+        }
+    }
+    
     var latestReadings: Data? {
         get {
             return data(forKey: Keys.latestReadings.rawValue)

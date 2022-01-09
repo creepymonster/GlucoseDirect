@@ -65,6 +65,9 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .pairSensor:
         break
         
+    case .scanSensor:
+        break
+        
     case .registerConnectionInfo(infos: let infos):
         state.connectionInfos.append(contentsOf: infos)
         
@@ -86,13 +89,11 @@ func appReducer(state: inout AppState, action: AppAction) {
         }
         
     case .resetSensor:
+        state.isPaired = false
         state.sensor = nil
         state.connectionError = nil
         state.connectionErrorIsCritical = false
         state.connectionErrorTimestamp = nil
-        
-    case .resetTransmitter:
-        state.transmitter = nil
         
     case .selectCalendarTarget(id: let id):
         state.selectedCalendarTarget = id
@@ -104,6 +105,7 @@ func appReducer(state: inout AppState, action: AppAction) {
         }
         
     case .selectConnectionId(id: _):
+        state.isPaired = false
         state.sensor = nil
         state.transmitter = nil
         state.connectionError = nil
@@ -185,8 +187,12 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setReadGlucose(enabled: let enabled):
         state.readGlucose = enabled
         
-    case .setSensor(sensor: let sensor):
+    case .setSensor(sensor: let sensor, isPaired: let isPaired):
         state.sensor = sensor
+        
+        if isPaired {
+            state.isPaired = true
+        }
 
     case .setSensorState(sensorAge: let sensorAge, sensorState: let sensorState):
         guard state.sensor != nil else {
@@ -205,6 +211,7 @@ func appReducer(state: inout AppState, action: AppAction) {
         }
 
     case .setTransmitter(transmitter: let transmitter):
+        state.isPaired = true
         state.transmitter = transmitter
         
     case .startup:

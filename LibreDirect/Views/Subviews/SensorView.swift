@@ -54,45 +54,6 @@ struct SensorView: View {
 
     var body: some View {
         Group {
-            if store.state.isPaired {
-                Section(
-                    content: {
-                        HStack {
-                            Text("Connection state")
-                            Spacer()
-                            Text(store.state.connectionState.localizedString)
-                        }
-
-                        if store.state.missedReadings > 0 {
-                            HStack {
-                                Text("Missed readings")
-                                Spacer()
-                                Text(store.state.missedReadings.description)
-                            }
-                        }
-
-                        if let connectionError = store.state.connectionError {
-                            HStack {
-                                Text("Connection error")
-                                Spacer()
-                                Text(connectionError)
-                            }
-                        }
-
-                        if let connectionErrorTimestamp = store.state.connectionErrorTimestamp?.toLocalTime() {
-                            HStack {
-                                Text("Connection error timestamp")
-                                Spacer()
-                                Text(connectionErrorTimestamp)
-                            }
-                        }
-                    },
-                    header: {
-                        Label("Connection", systemImage: "rectangle.connected.to.line.below")
-                    }
-                )
-            }
-
             if let transmitter = store.state.transmitter {
                 Section(
                     content: {

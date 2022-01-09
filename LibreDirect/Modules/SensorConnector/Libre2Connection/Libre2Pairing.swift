@@ -20,12 +20,14 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
 
     // MARK: Internal
 
-    func pairSensor() {
+    func readSensor(noPairing: Bool) {
         guard subject != nil else {
             AppLog.error("Pairing, subject is nil")
 
             return
         }
+
+        self.noPairing = noPairing
 
         if NFCTagReaderSession.readingAvailable {
             session = NFCTagReaderSession(pollingOption: .iso15693, delegate: self, queue: nfcQueue)
@@ -42,10 +44,16 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
 
             AppLog.error("Reader session didInvalidateWithError: \(readerError.localizedDescription))")
             subject?.send(.setConnectionError(errorMessage: readerError.localizedDescription, errorTimestamp: Date(), errorIsCritical: false))
-            subject?.send(.setConnectionState(connectionState: .disconnected))
+
+            if !noPairing {
+                subject?.send(.setConnectionState(connectionState: .disconnected))
+            }
         } else {
             AppLog.info("Reader session didInvalidate")
-            subject?.send(.setConnectionState(connectionState: .disconnected))
+
+            if !noPairing {
+                subject?.send(.setConnectionState(connectionState: .disconnected))
+            }
         }
     }
 
@@ -53,7 +61,10 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
         guard let firstTag = tags.first else {
             AppLog.error("No tag")
             subject?.send(.setConnectionError(errorMessage: "No tag", errorTimestamp: Date(), errorIsCritical: false))
-            subject?.send(.setConnectionState(connectionState: .disconnected))
+
+            if !noPairing {
+                subject?.send(.setConnectionState(connectionState: .disconnected))
+            }
 
             return
         }
@@ -61,7 +72,10 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
         guard case .iso15693(let tag) = firstTag else {
             AppLog.error("No ISO15693 tag")
             subject?.send(.setConnectionError(errorMessage: "No ISO15693 tag", errorTimestamp: Date(), errorIsCritical: false))
-            subject?.send(.setConnectionState(connectionState: .disconnected))
+
+            if !noPairing {
+                subject?.send(.setConnectionState(connectionState: .disconnected))
+            }
 
             return
         }
@@ -115,40 +129,54 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                                     guard patchInfo.count >= 6 else {
                                         AppLog.error("Invalid patchInfo (patchInfo not > 6)")
                                         self.subject?.send(.setConnectionError(errorMessage: "Invalid patchInfo (patchInfo not > 6)", errorTimestamp: Date(), errorIsCritical: false))
-                                        self.subject?.send(.setConnectionState(connectionState: .disconnected))
 
-                                        return
-                                    }
-                                    
-                                    let type = SensorType(patchInfo)
-                                    guard type == .libre2EU else {
-                                        AppLog.error("Invalid sensor type: \(type.localizedString)")
-                                        self.subject?.send(.setConnectionError(errorMessage: "Invalid sensor type: \(type.localizedString)", errorTimestamp: Date(), errorIsCritical: false))
-                                        self.subject?.send(.setConnectionState(connectionState: .disconnected))
-
-                                        return
-                                    }
-
-                                    let subCmd: Subcommand = .enableStreaming
-                                    let cmd = self.nfcCommand(subCmd, unlockCode: self.unlockCode, patchInfo: patchInfo, sensorUID: sensorUID)
-
-                                    tag.customCommand(requestFlags: .highDataRate, customCommandCode: Int(cmd.code), customRequestParameters: cmd.parameters) { response, _ in
-                                        let streamingEnabled = subCmd == .enableStreaming && response.count == 6
-
-                                        session.invalidate()
-
-                                        guard streamingEnabled else {
-                                            AppLog.error("Streaming not enabled")
-                                            self.subject?.send(.setConnectionError(errorMessage: "Streaming not enabled", errorTimestamp: Date(), errorIsCritical: false))
+                                        if !self.noPairing {
                                             self.subject?.send(.setConnectionState(connectionState: .disconnected))
-
-                                            return
                                         }
 
-                                        let decryptedFram = SensorUtility.decryptFRAM(uuid: sensorUID, patchInfo: patchInfo, fram: fram)
-                                        if let decryptedFram = decryptedFram {
-                                            AppLog.info("Success (from decrypted fram)")
-                                            self.subject?.send(.setSensor(sensor: Sensor(uuid: sensorUID, patchInfo: patchInfo, fram: decryptedFram)))
+                                        return
+                                    }
+
+                                    let type = SensorType(patchInfo)
+                                    guard type == .libre2EU || (type == .libre1 && self.noPairing) else {
+                                        AppLog.error("Invalid sensor type: \(type.localizedString)")
+                                        self.subject?.send(.setConnectionError(errorMessage: "Invalid sensor type: \(type.localizedString)", errorTimestamp: Date(), errorIsCritical: false))
+
+                                        if !self.noPairing {
+                                            self.subject?.send(.setConnectionState(connectionState: .disconnected))
+                                        }
+
+                                        return
+                                    }
+
+                                    let sensor = Sensor(uuid: sensorUID, patchInfo: patchInfo, fram: SensorUtility.decryptFRAM(uuid: sensorUID, patchInfo: patchInfo, fram: fram) ?? fram)
+                                    let sensorReadings = SensorUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: sensor.fram!)
+
+                                    if self.noPairing {
+                                        session.invalidate()
+
+                                        self.subject?.send(.setSensor(sensor: sensor, isPaired: false))
+                                        self.subject?.send(.addSensorReadings(trendReadings: sensorReadings.trend, historyReadings: sensorReadings.history))
+                                    } else {
+                                        let subCmd: Subcommand = .enableStreaming
+                                        let cmd = self.nfcCommand(subCmd, unlockCode: self.unlockCode, patchInfo: patchInfo, sensorUID: sensorUID)
+
+                                        tag.customCommand(requestFlags: .highDataRate, customCommandCode: Int(cmd.code), customRequestParameters: cmd.parameters) { response, _ in
+                                            let streamingEnabled = subCmd == .enableStreaming && response.count == 6
+
+                                            session.invalidate()
+
+                                            guard streamingEnabled else {
+                                                AppLog.error("Streaming not enabled")
+
+                                                self.subject?.send(.setConnectionError(errorMessage: "Streaming not enabled", errorTimestamp: Date(), errorIsCritical: false))
+                                                self.subject?.send(.setConnectionState(connectionState: .disconnected))
+
+                                                return
+                                            }
+
+                                            self.subject?.send(.setSensor(sensor: sensor, isPaired: true))
+                                            self.subject?.send(.addSensorReadings(trendReadings: sensorReadings.trend, historyReadings: sensorReadings.history))
                                             self.subject?.send(.setConnectionState(connectionState: .disconnected))
                                         }
                                     }
@@ -168,6 +196,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
 
     private let nfcQueue = DispatchQueue(label: "libre-direct.nfc-queue")
     private let unlockCode: UInt32 = 42
+    private var noPairing = false
 
     private func nfcCommand(_ code: Subcommand, unlockCode: UInt32, patchInfo: Data, sensorUID: Data) -> NFCCommand {
         var parameters = Data([code.rawValue])

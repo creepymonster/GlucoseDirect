@@ -59,11 +59,13 @@ struct SizePreferenceKey: PreferenceKey {
 // MARK: - ChartView
 
 struct ChartView: View {
+    // MARK: Internal
+
     @EnvironmentObject var store: AppStore
 
     @Environment(\.colorScheme) var colorScheme
 
-    @StateObject private var updater = MinuteUpdater()
+    @StateObject var updater = MinuteUpdater()
     @State var alarmHighGridPath = Path()
     @State var alarmLowGridPath = Path()
     @State var firstTimeStamp: Date? = nil
@@ -158,6 +160,7 @@ struct ChartView: View {
                 updateCgmPath(fullSize: geo.size, glucoseValues: cgmValues)
                 updateBgmPath(fullSize: geo.size, glucoseValues: bgmValues)
             }
+
             .onAppear {
                 AppLog.info("onAppear")
 
@@ -230,6 +233,90 @@ struct ChartView: View {
             )
         }
     }
+
+    // MARK: Private
+
+    private enum Config {
+        enum alarm {
+            static let strokeStyle = StrokeStyle(lineWidth: lineWidth)
+
+            static var color: Color { Color.ui.red.opacity(opacity) }
+        }
+
+        enum target {
+            static let strokeStyle = StrokeStyle(lineWidth: lineWidth)
+
+            static var color: Color { Color.ui.green.opacity(opacity) }
+        }
+
+        enum now {
+            static let strokeStyle = StrokeStyle(lineWidth: lineWidth, dash: [4, 8])
+
+            static var color: Color { Color.ui.blue.opacity(opacity) }
+        }
+
+        enum dot {
+            static let size: CGFloat = 3.5
+
+            static var cgmColor: Color { Color(hex: "#36454F") | Color(hex: "#E5E4E2") }
+            static var bgmColor: Color { Color.ui.red }
+        }
+
+        enum line {
+            static var size = 2.5
+
+            static var cgmColor: Color { Color(hex: "#36454F") | Color(hex: "#E5E4E2") }
+            static var bgmColor: Color { Color.ui.red }
+        }
+
+        enum x {
+            static let fontSize: CGFloat = 12
+            static let strokeStyle = StrokeStyle(lineWidth: lineWidth)
+            static let stepWidth: Double = 5
+
+            static var color: Color { Color(hex: "#E4E6EB") | Color(hex: "#404040") } // .opacity(opacity)
+            static var textColor: Color { Color(hex: "#181818") | Color(hex: "#A0A0A0") }
+        }
+
+        enum y {
+            static let additionalBottom: CGFloat = fontSize * 2
+            static let fontSize: CGFloat = 12
+            static let fontWidth: CGFloat = 28
+            static let padding: CGFloat = 20
+            static let strokeStyle = StrokeStyle(lineWidth: lineWidth)
+
+            static let mgdLGrid: [Int] = [0, 50, 100, 150, 200, 250, 300, 350]
+            static let mmolLGrid: [Int] = [0, 54, 108, 162, 216, 270, 324]
+
+            static var color: Color { Color(hex: "#E4E6EB") | Color(hex: "#404040") }
+            static var textColor: Color { Color(hex: "#181818") | Color(hex: "#A0A0A0") }
+        }
+
+        static let zoomGridStep: [Int: Double] = [
+            1: 15,
+            5: 60,
+            15: 180,
+            30: 360,
+        ]
+
+        static let zoomLevels: [ZoomLevel] = [
+            ZoomLevel(level: 1, title: "1m"),
+            ZoomLevel(level: 5, title: "5m"),
+            ZoomLevel(level: 15, title: "15m"),
+            ZoomLevel(level: 30, title: "30m"),
+        ]
+
+        static let endID = "End"
+        static let height: CGFloat = 350
+        static let lineWidth = 0.1
+        static let maxGlucose = 350
+        static let minGlucose = 0
+        static let opacity = 0.5
+
+        static var backgroundColor: Color { Color(hex: "#F5F5F5") | Color(hex: "#181818") }
+    }
+
+    private let calculationQueue = DispatchQueue(label: "libre-direct.chart-calculation")
 
     private func scrollGridView(fullSize: CGSize) -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -679,88 +766,6 @@ struct ChartView: View {
 
         return 0
     }
-
-    private enum Config {
-        enum alarm {
-            static let strokeStyle = StrokeStyle(lineWidth: lineWidth)
-
-            static var color: Color { Color.ui.red.opacity(opacity) }
-        }
-
-        enum target {
-            static let strokeStyle = StrokeStyle(lineWidth: lineWidth)
-
-            static var color: Color { Color.ui.green.opacity(opacity) }
-        }
-
-        enum now {
-            static let strokeStyle = StrokeStyle(lineWidth: lineWidth, dash: [4, 8])
-
-            static var color: Color { Color.ui.blue.opacity(opacity) }
-        }
-
-        enum dot {
-            static let size: CGFloat = 3.5
-
-            static var cgmColor: Color { Color(hex: "#36454F") | Color(hex: "#E5E4E2") }
-            static var bgmColor: Color { Color.ui.red }
-        }
-
-        enum line {
-            static var size = 2.5
-
-            static var cgmColor: Color { Color(hex: "#36454F") | Color(hex: "#E5E4E2") }
-            static var bgmColor: Color { Color.ui.red }
-        }
-
-        enum x {
-            static let fontSize: CGFloat = 12
-            static let strokeStyle = StrokeStyle(lineWidth: lineWidth)
-            static let stepWidth: Double = 5
-
-            static var color: Color { Color(hex: "#E4E6EB") | Color(hex: "#404040") } // .opacity(opacity)
-            static var textColor: Color { Color(hex: "#181818") | Color(hex: "#A0A0A0") }
-        }
-
-        enum y {
-            static let additionalBottom: CGFloat = fontSize * 2
-            static let fontSize: CGFloat = 12
-            static let fontWidth: CGFloat = 28
-            static let padding: CGFloat = 20
-            static let strokeStyle = StrokeStyle(lineWidth: lineWidth)
-
-            static let mgdLGrid: [Int] = [0, 50, 100, 150, 200, 250, 300, 350]
-            static let mmolLGrid: [Int] = [0, 54, 108, 162, 216, 270, 324]
-
-            static var color: Color { Color(hex: "#E4E6EB") | Color(hex: "#404040") }
-            static var textColor: Color { Color(hex: "#181818") | Color(hex: "#A0A0A0") }
-        }
-
-        static let zoomGridStep: [Int: Double] = [
-            1: 15,
-            5: 60,
-            15: 180,
-            30: 360,
-        ]
-
-        static let zoomLevels: [ZoomLevel] = [
-            ZoomLevel(level: 1, title: "1m"),
-            ZoomLevel(level: 5, title: "5m"),
-            ZoomLevel(level: 15, title: "15m"),
-            ZoomLevel(level: 30, title: "30m"),
-        ]
-
-        static let endID = "End"
-        static let height: CGFloat = 350
-        static let lineWidth = 0.1
-        static let maxGlucose = 350
-        static let minGlucose = 0
-        static let opacity = 0.5
-
-        static var backgroundColor: Color { Color(hex: "#F5F5F5") | Color(hex: "#181818") }
-    }
-
-    private let calculationQueue = DispatchQueue(label: "libre-direct.chart-calculation")
 }
 
 // MARK: - ZoomLevel

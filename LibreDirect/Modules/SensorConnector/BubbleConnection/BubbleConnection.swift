@@ -149,7 +149,7 @@ class BubbleConnection: SensorBLEConnection {
                 let sensor = Sensor(uuid: uuid, patchInfo: patchInfo, fram: fram)
                 if self.sensor == nil || self.sensor?.serial != sensor.serial {
                     self.sensor = sensor
-                    sendUpdate(sensor: sensor)
+                    sendUpdate(sensor: sensor, isPaired: false)
                 }
 
                 if (sensor.age + 15) >= sensor.lifetime {
@@ -193,7 +193,7 @@ class BubbleConnection: SensorBLEConnection {
                     let sensor = Sensor(uuid: uuid, patchInfo: patchInfo, fram: fram)
                     if self.sensor == nil || self.sensor?.serial != sensor.serial {
                         self.sensor = sensor
-                        sendUpdate(sensor: sensor)
+                        sendUpdate(sensor: sensor, isPaired: false)
                     }
 
                     if (sensor.age + 15) >= sensor.lifetime {

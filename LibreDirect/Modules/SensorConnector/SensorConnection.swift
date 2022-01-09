@@ -11,24 +11,30 @@ import Foundation
 
 protocol SensorConnection {
     var subject: PassthroughSubject<AppAction, AppError>? { get }
+}
 
+protocol SensorBluetoothConnection : SensorConnection {
     func pairSensor()
     func connectSensor(sensor: Sensor)
     func disconnectSensor()
 }
 
-extension SensorConnection {
+protocol SensorNfcConnection: SensorConnection {
+    func scanSensor()
+}
+
+extension SensorBluetoothConnection {
     func sendUpdate(connectionState: SensorConnectionState) {
         AppLog.info("ConnectionState: \(connectionState.description)")
 
         subject?.send(.setConnectionState(connectionState: connectionState))
     }
 
-    func sendUpdate(sensor: Sensor?) {
+    func sendUpdate(sensor: Sensor?, isPaired: Bool) {
         AppLog.info("Sensor: \(sensor?.description ?? "-")")
 
         if let sensor = sensor {
-            subject?.send(.setSensor(sensor: sensor))
+            subject?.send(.setSensor(sensor: sensor, isPaired: isPaired))
         } else {
             subject?.send(.resetSensor)
         }

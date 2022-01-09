@@ -27,6 +27,7 @@ struct MemoryAppState: AppState {
     var glucoseValues: [Glucose] = []
     var highGlucoseAlarmSound: NotificationSound = .alarm
     var internalHttpServer = false
+    var isPaired = false
     var lowGlucoseAlarmSound: NotificationSound = .alarm
     var missedReadings = 0
     var nightscoutApiSecret = ""
@@ -34,7 +35,7 @@ struct MemoryAppState: AppState {
     var nightscoutUrl = ""
     var readGlucose = false
     var selectedCalendarTarget: String?
-    var selectedConnection: SensorConnection?
+    var selectedConnection: SensorBluetoothConnection?
     var selectedConnectionId: String?
     var selectedView = 1
     var sensor: Sensor?

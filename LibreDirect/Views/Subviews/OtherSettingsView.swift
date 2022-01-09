@@ -17,6 +17,7 @@ struct OtherSettingsView: View {
                     store.dispatch(.setGlucoseBadge(enabled: value))
                 }
 
+                /*
                 ToggleView(key: LocalizedString("Internal http server"), value: store.state.internalHttpServer) { value -> Void in
                     store.dispatch(.setInternalHttpServer(enabled: value))
                 }
@@ -30,6 +31,7 @@ struct OtherSettingsView: View {
                     .lineLimit(1)
                     .truncationMode(.head)
                 }
+                */
             },
             header: {
                 Label("Other Settings", systemImage: "flag.badge.ellipsis")

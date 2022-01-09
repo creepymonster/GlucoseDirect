@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - Libre2Connection
 
-final class Libre2Connection: SensorBLEConnection {
+final class Libre2Connection: SensorBLEConnection, SensorNfcConnection {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<AppAction, AppError>) {
@@ -21,6 +21,13 @@ final class Libre2Connection: SensorBLEConnection {
 
     // MARK: Internal
 
+    func scanSensor() {
+        dispatchPrecondition(condition: .notOnQueue(managerQueue))
+        AppLog.info("ReadSensor")
+
+        pairingService.readSensor(noPairing: true)
+    }
+
     override func pairSensor() {
         dispatchPrecondition(condition: .notOnQueue(managerQueue))
         AppLog.info("PairSensor")
@@ -29,7 +36,7 @@ final class Libre2Connection: SensorBLEConnection {
         UserDefaults.standard.libre2UnlockCount = 0
 
         sendUpdate(connectionState: .pairing)
-        pairingService.pairSensor()
+        pairingService.readSensor(noPairing: false)
     }
 
     override func resetBuffer() {
@@ -58,7 +65,7 @@ final class Libre2Connection: SensorBLEConnection {
 
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        AppLog.info("Peripheral: \(peripheral)")
+        AppLog.info("Found peripheral: \(peripheral.name ?? "-")")
 
         guard let sensor = sensor, let manufacturerData = advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data else {
             return

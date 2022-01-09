@@ -26,6 +26,7 @@ struct StoredAppState: AppState {
         self.glucoseBadge = UserDefaults.standard.glucoseBadge
         self.glucoseUnit = UserDefaults.standard.glucoseUnit
         self.internalHttpServer = UserDefaults.standard.internalHttpServer
+        self.isPaired = UserDefaults.standard.isPaired
         self.nightscoutApiSecret = UserDefaults.standard.nightscoutApiSecret
         self.nightscoutUrl = UserDefaults.standard.nightscoutUrl
         self.nightscoutUpload = UserDefaults.standard.nightscoutUpload
@@ -50,7 +51,7 @@ struct StoredAppState: AppState {
     var connectionInfos: [SensorConnectionInfo] = []
     var connectionState: SensorConnectionState = .disconnected
     var missedReadings: Int = 0
-    var selectedConnection: SensorConnection?
+    var selectedConnection: SensorBluetoothConnection?
     var targetValue: Int = 100
 
     var alarmHigh: Int = 160 {
@@ -128,6 +129,12 @@ struct StoredAppState: AppState {
     var internalHttpServer: Bool {
         didSet {
             UserDefaults.standard.internalHttpServer = internalHttpServer
+        }
+    }
+    
+    var isPaired: Bool {
+        didSet {
+            UserDefaults.standard.isPaired = isPaired
         }
     }
 

@@ -27,6 +27,7 @@ struct PreviewAppState: AppState {
     var glucoseValues: [Glucose] = []
     var highGlucoseAlarmSound: NotificationSound = .alarm
     var internalHttpServer = false
+    var isPaired = false
     var lowGlucoseAlarmSound: NotificationSound = .alarm
     var missedReadings = 0
     var nightscoutApiSecret = ""
@@ -34,7 +35,7 @@ struct PreviewAppState: AppState {
     var nightscoutUrl = ""
     var readGlucose = false
     var selectedCalendarTarget: String?
-    var selectedConnection: SensorConnection?
+    var selectedConnection: SensorBluetoothConnection?
     var selectedConnectionId: String?
     var selectedView = 1
     var sensor: Sensor? = Sensor(uuid: Data(hexString: "e9ad9b6c79bd93aa")!, patchInfo: Data(hexString: "448cd1")!, factoryCalibration: FactoryCalibration(i1: 1, i2: 2, i3: 4, i4: 8, i5: 16, i6: 32), customCalibration: [], family: .unknown, type: .virtual, region: .european, serial: "OBIR2PO", state: .ready, age: 120, lifetime: 24 * 60)

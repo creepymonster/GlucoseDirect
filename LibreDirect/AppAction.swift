@@ -17,13 +17,13 @@ enum AppAction {
     case deleteLogs
     case disconnectSensor
     case pairSensor
+    case scanSensor
     case registerConnectionInfo(infos: [SensorConnectionInfo])
     case removeCalibration(id: UUID)
     case removeGlucose(id: UUID)
     case resetSensor
-    case resetTransmitter
     case selectCalendarTarget(id: String?)
-    case selectConnection(id: String, connection: SensorConnection)
+    case selectConnection(id: String, connection: SensorBluetoothConnection)
     case selectConnectionId(id: String)
     case selectView(viewTag: Int)
     case sendLogs
@@ -46,7 +46,7 @@ enum AppAction {
     case setNightscoutUpload(enabled: Bool)
     case setNightscoutUrl(url: String)
     case setReadGlucose(enabled: Bool)
-    case setSensor(sensor: Sensor)
+    case setSensor(sensor: Sensor, isPaired: Bool)
     case setSensorState(sensorAge: Int, sensorState: SensorState?)
     case setTransmitter(transmitter: Transmitter)
     case startup
