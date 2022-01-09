@@ -21,6 +21,7 @@ protocol AppState {
     var connectionErrorTimestamp: Date? { get set }
     var connectionInfos: [SensorConnectionInfo] { get set }
     var connectionState: SensorConnectionState { get set }
+    var customCalibration: [CustomCalibration] { get set }
     var expiringAlarmSound: NotificationSound { get set }
     var glucoseBadge: Bool { get set }
     var glucoseUnit: GlucoseUnit { get set }

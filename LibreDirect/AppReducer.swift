@@ -21,7 +21,7 @@ func appReducer(state: inout AppState, action: AppAction) {
             break
         }
         
-        state.sensor!.customCalibration.append(CustomCalibration(x: Double(factoryCalibratedGlucoseValue), y: Double(glucoseValue)))
+        state.customCalibration.append(CustomCalibration(x: Double(factoryCalibratedGlucoseValue), y: Double(glucoseValue)))
         
     case .addGlucoseValues(glucoseValues: let addedGlucoseValues):
         if !addedGlucoseValues.isEmpty {
@@ -48,7 +48,7 @@ func appReducer(state: inout AppState, action: AppAction) {
             break
         }
         
-        state.sensor!.customCalibration = []
+        state.customCalibration = []
         
     case .clearGlucoseValues:
         state.glucoseValues = []
@@ -77,11 +77,9 @@ func appReducer(state: inout AppState, action: AppAction) {
             break
         }
         
-        let customCalibration = state.sensor!.customCalibration.filter { item in
+        state.customCalibration = state.customCalibration.filter { item in
             item.id != id
         }
-        
-        state.sensor!.customCalibration = customCalibration
         
     case .removeGlucose(id: let id):
         state.glucoseValues = state.glucoseValues.filter { item in
@@ -91,6 +89,7 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .resetSensor:
         state.isPaired = false
         state.sensor = nil
+        state.customCalibration = []
         state.connectionError = nil
         state.connectionErrorIsCritical = false
         state.connectionErrorTimestamp = nil
@@ -107,6 +106,7 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .selectConnectionId(id: _):
         state.isPaired = false
         state.sensor = nil
+        state.customCalibration = []
         state.transmitter = nil
         state.connectionError = nil
         state.connectionErrorIsCritical = false

@@ -18,7 +18,6 @@ struct Sensor: Codable {
             uuid: uuid,
             patchInfo: patchInfo,
             factoryCalibration: FactoryCalibration(fram: fram),
-            customCalibration: [],
             family: family,
             type: SensorType(patchInfo),
             region: SensorRegion(patchInfo[3]),
@@ -29,13 +28,12 @@ struct Sensor: Codable {
         )
     }
 
-    init(uuid: Data, patchInfo: Data, factoryCalibration: FactoryCalibration, customCalibration: [CustomCalibration], family: SensorFamily, type: SensorType, region: SensorRegion, serial: String?, state: SensorState, age: Int, lifetime: Int, warmupTime: Int = 60) {
+    init(uuid: Data, patchInfo: Data, factoryCalibration: FactoryCalibration, family: SensorFamily, type: SensorType, region: SensorRegion, serial: String?, state: SensorState, age: Int, lifetime: Int, warmupTime: Int = 60) {
         pairingTimestamp = Date()
         fram = nil
         self.uuid = uuid
         self.patchInfo = patchInfo
         self.factoryCalibration = factoryCalibration
-        self.customCalibration = customCalibration
         self.family = family
         self.type = type
         self.region = region
@@ -46,13 +44,12 @@ struct Sensor: Codable {
         self.warmupTime = warmupTime
     }
 
-    init(fram: Data, uuid: Data, patchInfo: Data, factoryCalibration: FactoryCalibration, customCalibration: [CustomCalibration], family: SensorFamily, type: SensorType, region: SensorRegion, serial: String?, state: SensorState, age: Int, lifetime: Int, warmupTime: Int = 60) {
+    init(fram: Data, uuid: Data, patchInfo: Data, factoryCalibration: FactoryCalibration, family: SensorFamily, type: SensorType, region: SensorRegion, serial: String?, state: SensorState, age: Int, lifetime: Int, warmupTime: Int = 60) {
         pairingTimestamp = Date()
         self.fram = fram
         self.uuid = uuid
         self.patchInfo = patchInfo
         self.factoryCalibration = factoryCalibration
-        self.customCalibration = customCalibration
         self.family = family
         self.type = type
         self.region = region
@@ -72,7 +69,6 @@ struct Sensor: Codable {
         uuid = try container.decode(Data.self, forKey: .uuid)
         patchInfo = try container.decode(Data.self, forKey: .patchInfo)
         factoryCalibration = try container.decode(FactoryCalibration.self, forKey: .factoryCalibration)
-        customCalibration = try container.decode([CustomCalibration].self, forKey: .customCalibration)
         family = try container.decode(SensorFamily.self, forKey: .family)
         type = try container.decode(SensorType.self, forKey: .type)
         region = try container.decode(SensorRegion.self, forKey: .region)
@@ -92,7 +88,6 @@ struct Sensor: Codable {
         case uuid
         case patchInfo
         case factoryCalibration
-        case customCalibration
         case family
         case type
         case region
@@ -109,7 +104,6 @@ struct Sensor: Codable {
     let uuid: Data
     let patchInfo: Data
     let factoryCalibration: FactoryCalibration
-    var customCalibration: [CustomCalibration]
     let family: SensorFamily
     let type: SensorType
     let region: SensorRegion

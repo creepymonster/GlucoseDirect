@@ -62,7 +62,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             }
 
         case .addSensorReadings(trendReadings: let trendReadings, historyReadings: let historyReadings):
-            if let sensor = state.sensor, !trendReadings.isEmpty, !historyReadings.isEmpty {
+            if !trendReadings.isEmpty, !historyReadings.isEmpty {
                 let missingHistory = historyReadings.filter { reading in
                     if state.currentGlucose == nil || reading.timestamp > state.currentGlucose!.timestamp, reading.timestamp < trendReadings.first!.timestamp {
                         return true
@@ -84,7 +84,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
                 var missedGlucosValues: [Glucose] = []
 
                 missingHistory.forEach { reading in
-                    let glucose = calibrationService.calibrate(sensor: sensor, nextReading: reading, currentGlucose: previousGlucose)
+                    let glucose = calibrationService.calibrate(customCalibration: state.customCalibration, nextReading: reading, currentGlucose: previousGlucose)
                     missedGlucosValues.append(glucose)
 
                     if glucose.quality == .OK {
@@ -93,7 +93,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
                 }
 
                 missingTrend.forEach { reading in
-                    let glucose = calibrationService.calibrate(sensor: sensor, nextReading: reading, currentGlucose: previousGlucose)
+                    let glucose = calibrationService.calibrate(customCalibration: state.customCalibration, nextReading: reading, currentGlucose: previousGlucose)
                     missedGlucosValues.append(glucose)
 
                     if glucose.quality == .OK {

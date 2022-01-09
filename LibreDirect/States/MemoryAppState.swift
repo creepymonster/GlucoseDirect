@@ -21,6 +21,7 @@ struct MemoryAppState: AppState {
     var connectionErrorTimestamp: Date? = Date()
     var connectionInfos: [SensorConnectionInfo] = []
     var connectionState: SensorConnectionState = .disconnected
+    var customCalibration: [CustomCalibration] = []
     var expiringAlarmSound: NotificationSound = .expiring
     var glucoseBadge = true
     var glucoseUnit: GlucoseUnit = .mgdL

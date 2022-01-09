@@ -16,6 +16,7 @@ private enum Keys: String {
     case chartShowLines = "libre-direct.settings.chart-show-lines"
     case chartZoomLevel = "libre-direct.settings.chart-zoom-level"
     case connectionAlarmSound = "libre-direct.settings.connection-alarm-sound"
+    case customCalibration = "libre-direct.settings.custom-calibration"
     case expiringAlarmSound = "libre-direct.settings.expiring-alarm-sound"
     case glucoseBadge = "libre-direct.settings.glucose-badge"
     case glucoseUnit = "libre-direct.settings.glucose-unit"
@@ -120,6 +121,15 @@ extension UserDefaults {
         }
         set {
             set(newValue.rawValue, forKey: Keys.connectionAlarmSound.rawValue)
+        }
+    }
+    
+    var customCalibration: [CustomCalibration] {
+        get {
+            return getArray(forKey: Keys.customCalibration.rawValue) ?? []
+        }
+        set {
+            setArray(newValue, forKey: Keys.customCalibration.rawValue)
         }
     }
 
