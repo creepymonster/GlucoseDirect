@@ -16,7 +16,7 @@ final class Libre2Connection: SensorBLEConnection, SensorNfcConnection {
         AppLog.info("init")
 
         pairingService = Libre2Pairing(subject: subject)
-        super.init(subject: subject, serviceUuid: CBUUID(string: "FDE3"), restoreIdentifier: "libre-direct.libre2.restore-identifier")
+        super.init(subject: subject, serviceUuid: CBUUID(string: "FDE3"))
     }
 
     // MARK: Internal

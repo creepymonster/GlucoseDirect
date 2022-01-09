@@ -12,13 +12,11 @@ import Foundation
 class SensorBLEConnection: NSObject, SensorBluetoothConnection, CBCentralManagerDelegate, CBPeripheralDelegate {
     // MARK: Lifecycle
 
-    init(subject: PassthroughSubject<AppAction, AppError>, serviceUuid: CBUUID, restoreIdentifier: String) {
+    init(subject: PassthroughSubject<AppAction, AppError>, serviceUuid: CBUUID) {
         AppLog.info("init")
-        super.init()
 
         self.subject = subject
         self.serviceUuid = serviceUuid
-        self.manager = CBCentralManager(delegate: self, queue: managerQueue, options: [CBCentralManagerOptionShowPowerAlertKey: true, CBCentralManagerOptionRestoreIdentifierKey: restoreIdentifier])
     }
 
     deinit {
@@ -31,8 +29,11 @@ class SensorBLEConnection: NSObject, SensorBluetoothConnection, CBCentralManager
 
     // MARK: Internal
 
-    var serviceUuid: CBUUID!
-    var manager: CBCentralManager!
+    var serviceUuid: CBUUID
+    lazy var manager: CBCentralManager = {
+        CBCentralManager(delegate: self, queue: managerQueue, options: [CBCentralManagerOptionShowPowerAlertKey: true])
+    }()
+    
     let managerQueue = DispatchQueue(label: "libre-direct.sensor-ble-connection.queue")
     weak var subject: PassthroughSubject<AppAction, AppError>?
 
@@ -166,8 +167,6 @@ class SensorBLEConnection: NSObject, SensorBluetoothConnection, CBCentralManager
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
 
-        AppLog.info("State: \(manager.state.rawValue)")
-
         switch manager.state {
         case .poweredOff:
             sendUpdate(connectionState: .powerOff)
@@ -182,16 +181,6 @@ class SensorBLEConnection: NSObject, SensorBluetoothConnection, CBCentralManager
             find()
         default:
             sendUpdate(connectionState: .unknown)
-        }
-    }
-
-    func centralManager(_ central: CBCentralManager, willRestoreState dict: [String: Any]) {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
-        AppLog.info("Peripheral: \(peripheral), willRestoreState")
-
-        let connectedperipherals = dict[CBCentralManagerRestoredStatePeripheralsKey] as? [CBPeripheral]
-        if let peripheral = connectedperipherals?.first {
-            connect(peripheral)
         }
     }
 
