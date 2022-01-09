@@ -9,13 +9,14 @@ App programmed in Swift/SwiftUI for using Libre 1/2 blood glucose sensors. I try
 ## Current features
 - Libre 2 EU support (without transmitter)
 - Libre 1 support with transmitter (supported transmitter bubble)
+- Libre 1, manual scans without transmitter
 - Add manual bgm values
 - Manage bgm/cgm values
 - Units mg/dL or mmol/L
 - Upload glucose values to Nightscout
 - Upload sensor start to Nightscout
 - FreeAPS X support (with Shared App Groups)
-- Calendar export
+- Calendar export (to support Apple Watch)
 - Glucose read aloud
 - Glucose badge
 - Glucose chart
