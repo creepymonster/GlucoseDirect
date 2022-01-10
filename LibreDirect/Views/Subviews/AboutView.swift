@@ -18,7 +18,7 @@ struct AboutView: View {
                 HStack {
                     Text("App version")
                     Spacer()
-                    Text(AppConfig.appVersion)
+                    Text("\(AppConfig.appVersion) (\(AppConfig.appBuild))")
                 }
 
                 if let appAuthor = AppConfig.appAuthor, !appAuthor.isEmpty {

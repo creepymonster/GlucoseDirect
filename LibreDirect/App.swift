@@ -67,8 +67,8 @@ final class LibreDirectApp: App {
             glucoseNotificationMiddelware(),
             connectionNotificationMiddelware(),
             calendarExportMiddleware(),
-            readAloudMiddelware(),
-            httpServerMiddleware(),
+            readAloudMiddelware()
+            //httpServerMiddleware(),
         ])
     }
 
@@ -88,7 +88,7 @@ final class LibreDirectApp: App {
             connectionNotificationMiddelware(),
             calendarExportMiddleware(),
             readAloudMiddelware(),
-            httpServerMiddleware(),
+            //httpServerMiddleware(),
 
             // export middlewares
             nightscoutMiddleware(),
