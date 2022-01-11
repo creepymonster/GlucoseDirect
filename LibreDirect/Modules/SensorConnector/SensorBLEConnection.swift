@@ -7,9 +7,19 @@ import Combine
 import CoreBluetooth
 import Foundation
 
-// MARK: - SensorBLEConnection
+// MARK: - SensorBLEConnectionBase
 
-class SensorBLEConnection: NSObject, SensorBluetoothConnection, CBCentralManagerDelegate, CBPeripheralDelegate {
+typealias SensorBLEConnectionBase = SensorBLEConnectionBaseProtocol & SensorBLEConnectionBaseClass
+
+// MARK: - SensorBLEConnectionBaseProtocol
+
+protocol SensorBLEConnectionBaseProtocol {
+    var peripheralName: String { get }
+}
+
+// MARK: - SensorBLEConnectionBaseClass
+
+class SensorBLEConnectionBaseClass: NSObject, SensorBLEConnection, CBCentralManagerDelegate, CBPeripheralDelegate {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<AppAction, AppError>, serviceUuid: CBUUID) {
@@ -33,12 +43,13 @@ class SensorBLEConnection: NSObject, SensorBluetoothConnection, CBCentralManager
     lazy var manager: CBCentralManager = {
         CBCentralManager(delegate: self, queue: managerQueue, options: [CBCentralManagerOptionShowPowerAlertKey: true])
     }()
-    
+
     let managerQueue = DispatchQueue(label: "libre-direct.sensor-ble-connection.queue")
     weak var subject: PassthroughSubject<AppAction, AppError>?
 
     var stayConnected = false
     var sensor: Sensor?
+    var connectionMode: ConnectionMode = .unknown
 
     var peripheral: CBPeripheral? {
         didSet {
@@ -93,14 +104,23 @@ class SensorBLEConnection: NSObject, SensorBluetoothConnection, CBCentralManager
             return
         }
 
-        if let peripheralUuidString = UserDefaults.standard.peripheralUuid,
-           let peripheralUuid = UUID(uuidString: peripheralUuidString),
-           let retrievedPeripheral = manager.retrievePeripherals(withIdentifiers: [peripheralUuid]).first
+        if let connectedPeripheral = manager.retrieveConnectedPeripherals(withServices: [serviceUuid]).first {
+            AppLog.info("Connect from retrievePeripherals")
+
+            connectionMode = .alreadyConnectedDevice
+            connect(connectedPeripheral)
+        } else if let peripheralUuidString = UserDefaults.standard.peripheralUuid,
+                  let peripheralUuid = UUID(uuidString: peripheralUuidString),
+                  let retrievedPeripheral = manager.retrievePeripherals(withIdentifiers: [peripheralUuid]).first
         {
             AppLog.info("Connect from retrievePeripherals")
+
+            connectionMode = .knownDevice
             connect(retrievedPeripheral)
         } else {
             AppLog.info("Scan for peripherals")
+
+            connectionMode = .foundDevice
             scan()
         }
     }
@@ -221,6 +241,15 @@ class SensorBLEConnection: NSObject, SensorBluetoothConnection, CBCentralManager
         sendUpdate(connectionState: .connected)
         peripheral.discoverServices([serviceUuid])
     }
+}
+
+// MARK: - ConnectionMode
+
+enum ConnectionMode {
+    case unknown
+    case knownDevice
+    case alreadyConnectedDevice
+    case foundDevice
 }
 
 extension UserDefaults {

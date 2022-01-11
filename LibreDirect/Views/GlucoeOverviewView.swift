@@ -26,7 +26,7 @@ struct GlucoeOverviewView: View {
                     GlucoseView().frame(maxWidth: .infinity)
                 }
 
-                if store.state.isPaired || store.state.isScanable {
+                if (store.state.isPaired || store.state.isScanable) && !store.state.glucoseValues.isEmpty {
                     SnoozeView()
                 }
                 
