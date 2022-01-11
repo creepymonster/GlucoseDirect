@@ -77,7 +77,6 @@ final class Glucose: CustomStringConvertible, Codable, Identifiable {
 
     var glucoseValue: Int? {
         guard let calibratedGlucoseValue = calibratedGlucoseValue else {
-            AppLog.info("Guard: calibratedGlucoseValue is nil")
             return nil
         }
 
