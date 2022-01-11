@@ -36,7 +36,7 @@ protocol AppState {
     var nightscoutUrl: String { get set }
     var readGlucose: Bool { get set }
     var selectedCalendarTarget: String? { get set }
-    var selectedConnection: SensorBluetoothConnection? { get set }
+    var selectedConnection: SensorBLEConnection? { get set }
     var selectedConnectionId: String? { get set }
     var selectedView: Int { get set }
     var sensor: Sensor? { get set }
@@ -86,7 +86,7 @@ extension AppState {
     }
 
     var isScanable: Bool {
-        selectedConnection is SensorNfcConnection
+        selectedConnection is SensorNFCConnection
     }
     
     var isPairable: Bool {

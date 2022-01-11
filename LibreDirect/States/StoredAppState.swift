@@ -52,7 +52,7 @@ struct StoredAppState: AppState {
     var connectionInfos: [SensorConnectionInfo] = []
     var connectionState: SensorConnectionState = .disconnected
     var missedReadings: Int = 0
-    var selectedConnection: SensorBluetoothConnection?
+    var selectedConnection: SensorBLEConnection?
     var targetValue: Int = 100
 
     var alarmHigh: Int = 160 {

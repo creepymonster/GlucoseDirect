@@ -8,7 +8,7 @@ import Foundation
 
 // MARK: - VirtualLibreConnection
 
-final class VirtualLibreConnection: SensorBluetoothConnection {
+final class VirtualLibreConnection: SensorBLEConnection {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<AppAction, AppError>) {
@@ -86,7 +86,7 @@ final class VirtualLibreConnection: SensorBluetoothConnection {
                 ? .INVALID_DATA
                 : .OK
 
-            sendUpdate(nextReading: SensorReading(id: UUID(), timestamp: Date(), glucoseValue: Double(currentGlucose), quality: badQuality))
+            sendUpdate(sensorSerial: sensor?.serial ?? "", nextReading: SensorReading(id: UUID(), timestamp: Date(), glucoseValue: Double(currentGlucose), quality: badQuality))
         }
 
         let nextAddition = direction == .up ? 1 : -1

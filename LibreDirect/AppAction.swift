@@ -10,7 +10,7 @@ enum AppAction {
     case addCalibration(glucoseValue: Int)
     case addGlucoseValues(glucoseValues: [Glucose])
     case addMissedReading
-    case addSensorReadings(trendReadings: [SensorReading], historyReadings: [SensorReading])
+    case addSensorReadings(sensorSerial: String, trendReadings: [SensorReading], historyReadings: [SensorReading])
     case clearCalibrations
     case clearGlucoseValues
     case connectSensor
@@ -23,7 +23,7 @@ enum AppAction {
     case removeGlucose(id: UUID)
     case resetSensor
     case selectCalendarTarget(id: String?)
-    case selectConnection(id: String, connection: SensorBluetoothConnection)
+    case selectConnection(id: String, connection: SensorBLEConnection)
     case selectConnectionId(id: String)
     case selectView(viewTag: Int)
     case sendLogs

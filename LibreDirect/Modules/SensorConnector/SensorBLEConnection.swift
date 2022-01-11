@@ -9,17 +9,7 @@ import Foundation
 
 // MARK: - SensorBLEConnectionBase
 
-typealias SensorBLEConnectionBase = SensorBLEConnectionBaseProtocol & SensorBLEConnectionBaseClass
-
-// MARK: - SensorBLEConnectionBaseProtocol
-
-protocol SensorBLEConnectionBaseProtocol {
-    var peripheralName: String { get }
-}
-
-// MARK: - SensorBLEConnectionBaseClass
-
-class SensorBLEConnectionBaseClass: NSObject, SensorBLEConnection, CBCentralManagerDelegate, CBPeripheralDelegate {
+class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDelegate, CBPeripheralDelegate {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<AppAction, AppError>, serviceUuid: CBUUID) {
@@ -50,6 +40,10 @@ class SensorBLEConnectionBaseClass: NSObject, SensorBLEConnection, CBCentralMana
     var stayConnected = false
     var sensor: Sensor?
     var connectionMode: ConnectionMode = .unknown
+
+    var peripheralName: String {
+        preconditionFailure("This property must be overridden")
+    }
 
     var peripheral: CBPeripheral? {
         didSet {
@@ -104,12 +98,14 @@ class SensorBLEConnectionBaseClass: NSObject, SensorBLEConnection, CBCentralMana
             return
         }
 
-        if let connectedPeripheral = manager.retrieveConnectedPeripherals(withServices: [serviceUuid]).first {
+        /*if let connectedPeripheral = manager.retrieveConnectedPeripherals(withServices: [serviceUuid]).first(where: { $0.name?.lowercased().starts(with: peripheralName) ?? false }) {
             AppLog.info("Connect from retrievePeripherals")
 
             connectionMode = .alreadyConnectedDevice
             connect(connectedPeripheral)
-        } else if let peripheralUuidString = UserDefaults.standard.peripheralUuid,
+        } else*/
+        
+        if let peripheralUuidString = UserDefaults.standard.peripheralUuid,
                   let peripheralUuid = UUID(uuidString: peripheralUuidString),
                   let retrievedPeripheral = manager.retrievePeripherals(withIdentifiers: [peripheralUuid]).first
         {
@@ -202,6 +198,18 @@ class SensorBLEConnectionBaseClass: NSObject, SensorBLEConnection, CBCentralMana
         default:
             sendUpdate(connectionState: .unknown)
         }
+    }
+
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
+        dispatchPrecondition(condition: .onQueue(managerQueue))
+        AppLog.info("Peripheral: \(peripheral)")
+
+        guard peripheral.name?.lowercased().starts(with: peripheralName) ?? false else {
+            return
+        }
+
+        manager.stopScan()
+        connect(peripheral)
     }
 
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {

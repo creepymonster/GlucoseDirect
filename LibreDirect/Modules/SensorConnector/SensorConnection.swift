@@ -13,17 +13,21 @@ protocol SensorConnection {
     var subject: PassthroughSubject<AppAction, AppError>? { get }
 }
 
-protocol SensorBluetoothConnection : SensorConnection {
+// MARK: - SensorBluetoothConnection
+
+protocol SensorBLEConnection: SensorConnection {
     func pairSensor()
     func connectSensor(sensor: Sensor)
     func disconnectSensor()
 }
 
-protocol SensorNfcConnection: SensorConnection {
+// MARK: - SensorNfcConnection
+
+protocol SensorNFCConnection: SensorConnection {
     func scanSensor()
 }
 
-extension SensorBluetoothConnection {
+extension SensorBLEConnection {
     func sendUpdate(connectionState: SensorConnectionState) {
         AppLog.info("ConnectionState: \(connectionState.description)")
 
@@ -52,22 +56,22 @@ extension SensorBluetoothConnection {
         subject?.send(.setSensorState(sensorAge: age, sensorState: state))
     }
 
-    func sendUpdate(nextReading: SensorReading?) {
+    func sendUpdate(sensorSerial: String, nextReading: SensorReading?) {
         AppLog.info("NextReading: \(nextReading)")
 
         if let nextReading = nextReading {
-            subject?.send(.addSensorReadings(trendReadings: [nextReading], historyReadings: []))
+            subject?.send(.addSensorReadings(sensorSerial: sensorSerial, trendReadings: [nextReading], historyReadings: []))
         } else {
             subject?.send(.addMissedReading)
         }
     }
 
-    func sendUpdate(trendReadings: [SensorReading] = [], historyReadings: [SensorReading] = []) {
+    func sendUpdate(sensorSerial: String, trendReadings: [SensorReading] = [], historyReadings: [SensorReading] = []) {
         AppLog.info("SensorTrendReadings: \(trendReadings)")
         AppLog.info("SensorHistoryReadings: \(historyReadings)")
 
         if !trendReadings.isEmpty, !historyReadings.isEmpty {
-            subject?.send(.addSensorReadings(trendReadings: trendReadings, historyReadings: historyReadings))
+            subject?.send(.addSensorReadings(sensorSerial: sensorSerial, trendReadings: trendReadings, historyReadings: historyReadings))
         } else {
             subject?.send(.addMissedReading)
         }

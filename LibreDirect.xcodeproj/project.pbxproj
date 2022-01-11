@@ -68,6 +68,7 @@
 		E2C19FB52735684500B70A73 /* Glucose.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C19FB42735684500B70A73 /* Glucose.swift */; };
 		E2C19FBC273568BF00B70A73 /* FactoryCalibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C19FBB273568BF00B70A73 /* FactoryCalibration.swift */; };
 		E2C5935F273696FE00CAFFD4 /* CalibrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C5935E273696FE00CAFFD4 /* CalibrationService.swift */; };
+		E2C8F5FE278CD63000519ABD /* BellmanNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C8F5FD278CD63000519ABD /* BellmanNotification.swift */; };
 		E2CDA01A27722FB900A1E694 /* ReadAloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CDA01927722FB900A1E694 /* ReadAloud.swift */; };
 		E2D34BC4274D6BB500151895 /* GlucoeOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D34BC3274D6BB500151895 /* GlucoeOverviewView.swift */; };
 		E2D34BC6274D6BC000151895 /* CalibrationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D34BC5274D6BC000151895 /* CalibrationsView.swift */; };
@@ -204,6 +205,7 @@
 		E2C19FB42735684500B70A73 /* Glucose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Glucose.swift; sourceTree = "<group>"; };
 		E2C19FBB273568BF00B70A73 /* FactoryCalibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryCalibration.swift; sourceTree = "<group>"; };
 		E2C5935E273696FE00CAFFD4 /* CalibrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationService.swift; sourceTree = "<group>"; };
+		E2C8F5FD278CD63000519ABD /* BellmanNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BellmanNotification.swift; sourceTree = "<group>"; };
 		E2CDA01927722FB900A1E694 /* ReadAloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadAloud.swift; sourceTree = "<group>"; };
 		E2D34BC3274D6BB500151895 /* GlucoeOverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoeOverviewView.swift; sourceTree = "<group>"; };
 		E2D34BC5274D6BC000151895 /* CalibrationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationsView.swift; sourceTree = "<group>"; };
@@ -416,6 +418,14 @@
 			path = Calibrations;
 			sourceTree = "<group>";
 		};
+		E2C8F5FC278CD62200519ABD /* BellmanNotification */ = {
+			isa = PBXGroup;
+			children = (
+				E2C8F5FD278CD63000519ABD /* BellmanNotification.swift */,
+			);
+			path = BellmanNotification;
+			sourceTree = "<group>";
+		};
 		E2CDA01827722FA100A1E694 /* ReadAloud */ = {
 			isa = PBXGroup;
 			children = (
@@ -498,6 +508,7 @@
 				E2646F39275FD2D100ADE451 /* CalendarExport */,
 				E2FCAC4A2707422000FE1CBF /* AppGroupSharing */,
 				E25FC4AD27842665004A19DB /* HttpServer */,
+				E2C8F5FC278CD62200519ABD /* BellmanNotification */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -758,6 +769,7 @@
 				E2FCAC652707427D00FE1CBF /* ConnectionNotification.swift in Sources */,
 				E24B532126B863C00091417F /* GlucoseSettingsView.swift in Sources */,
 				E2FCAC422707420100FE1CBF /* StoredAppState.swift in Sources */,
+				E2C8F5FE278CD63000519ABD /* BellmanNotification.swift in Sources */,
 				E2FCAC30270741D200FE1CBF /* String.swift in Sources */,
 				E2FCAC36270741D200FE1CBF /* LocalizedString.swift in Sources */,
 				E28C1299278AE6A900ECE0DF /* ConnectionView.swift in Sources */,
@@ -988,7 +1000,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LibreDirect/App.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_ASSET_PATHS = "\"LibreDirect/Preview Content\"";
 				DEVELOPMENT_TEAM = "${DEVELOPMENT_TEAM}";
 				ENABLE_PREVIEWS = YES;
@@ -1016,7 +1028,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LibreDirect/App.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_ASSET_PATHS = "\"LibreDirect/Preview Content\"";
 				DEVELOPMENT_TEAM = "${DEVELOPMENT_TEAM}";
 				ENABLE_PREVIEWS = YES;

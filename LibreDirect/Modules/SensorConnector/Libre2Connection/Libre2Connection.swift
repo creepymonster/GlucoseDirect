@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - Libre2Connection
 
-final class Libre2Connection: SensorBLEConnection, SensorNfcConnection {
+final class Libre2Connection: SensorBLEConnectionBase, SensorNFCConnection {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<AppAction, AppError>) {
@@ -20,6 +20,10 @@ final class Libre2Connection: SensorBLEConnection, SensorNfcConnection {
     }
 
     // MARK: Internal
+
+    override var peripheralName: String {
+        "abbott"
+    }
 
     func scanSensor() {
         dispatchPrecondition(condition: .notOnQueue(managerQueue))
@@ -63,7 +67,7 @@ final class Libre2Connection: SensorBLEConnection, SensorNfcConnection {
         return Data(unlockPayload)
     }
 
-    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
+    override func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
         AppLog.info("Found peripheral: \(peripheral.name ?? "-")")
 
@@ -78,7 +82,7 @@ final class Libre2Connection: SensorBLEConnection, SensorNfcConnection {
             var foundUUID = manufacturerData.subdata(in: 2 ..< 8)
             foundUUID.append(contentsOf: [0x07, 0xe0])
 
-            let result = foundUUID == sensor.uuid && peripheral.name?.lowercased().starts(with: "abbott") ?? false
+            let result = foundUUID == sensor.uuid && peripheral.name?.lowercased().starts(with: peripheralName) ?? false
             if result {
                 manager.stopScan()
                 connect(peripheral)
@@ -118,7 +122,7 @@ final class Libre2Connection: SensorBLEConnection, SensorNfcConnection {
                 if characteristic.uuid == writeCharacteristicUuid {
                     writeCharacteristic = characteristic
 
-                    if let unlock = unlock() {
+                    if connectionMode != .alreadyConnectedDevice, let unlock = unlock() {
                         peripheral.writeValue(unlock, for: characteristic, type: .withResponse)
                     }
                 }
@@ -180,7 +184,7 @@ final class Libre2Connection: SensorBLEConnection, SensorNfcConnection {
 
                     } else if parsedBLE.age > sensor.warmupTime {
                         sendUpdate(age: parsedBLE.age, state: .ready)
-                        sendUpdate(trendReadings: parsedBLE.trend, historyReadings: parsedBLE.history)
+                        sendUpdate(sensorSerial: sensor.serial ?? "", trendReadings: parsedBLE.trend, historyReadings: parsedBLE.history)
 
                     } else if parsedBLE.age <= sensor.warmupTime {
                         sendUpdate(age: parsedBLE.age, state: .starting)

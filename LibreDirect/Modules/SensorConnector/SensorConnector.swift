@@ -61,7 +61,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
                     .eraseToAnyPublisher()
             }
 
-        case .addSensorReadings(trendReadings: let trendReadings, historyReadings: let historyReadings):
+        case .addSensorReadings(sensorSerial: _, trendReadings: let trendReadings, historyReadings: let historyReadings):
             if !trendReadings.isEmpty, !historyReadings.isEmpty {
                 let missingHistory = historyReadings.filter { reading in
                     if state.currentGlucose == nil || reading.timestamp > state.currentGlucose!.timestamp, reading.timestamp < trendReadings.first!.timestamp {
@@ -112,7 +112,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
                 break
             }
 
-            if let sensorConnection = sensorConnection as? SensorNfcConnection {
+            if let sensorConnection = sensorConnection as? SensorNFCConnection {
                 sensorConnection.scanSensor()
             }
 
@@ -152,7 +152,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
     }
 }
 
-typealias SensorConnectionCreator = (PassthroughSubject<AppAction, AppError>) -> SensorBluetoothConnection
+typealias SensorConnectionCreator = (PassthroughSubject<AppAction, AppError>) -> SensorBLEConnection
 
 // MARK: - SensorConnectionInfo
 

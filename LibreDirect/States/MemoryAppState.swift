@@ -36,7 +36,7 @@ struct MemoryAppState: AppState {
     var nightscoutUrl = ""
     var readGlucose = false
     var selectedCalendarTarget: String?
-    var selectedConnection: SensorBluetoothConnection?
+    var selectedConnection: SensorBLEConnection?
     var selectedConnectionId: String?
     var selectedView = 1
     var sensor: Sensor?
