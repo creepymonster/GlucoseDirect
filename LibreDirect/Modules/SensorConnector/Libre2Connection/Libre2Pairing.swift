@@ -138,7 +138,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                                     }
                                     
                                     guard fram.count >= 344 else {
-                                        AppLog.error("Invalid patchInfo (patchInfo not > 6)")
+                                        AppLog.error("Invalid fram (fram not >= 344)")
                                         self.subject?.send(.setConnectionError(errorMessage: "Invalid fram (fram not >= 344)", errorTimestamp: Date(), errorIsCritical: false))
 
                                         if !self.noPairing {
