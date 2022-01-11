@@ -136,6 +136,17 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
 
                                         return
                                     }
+                                    
+                                    guard fram.count >= 344 else {
+                                        AppLog.error("Invalid patchInfo (patchInfo not > 6)")
+                                        self.subject?.send(.setConnectionError(errorMessage: "Invalid fram (fram not >= 344)", errorTimestamp: Date(), errorIsCritical: false))
+
+                                        if !self.noPairing {
+                                            self.subject?.send(.setConnectionState(connectionState: .disconnected))
+                                        }
+
+                                        return
+                                    }
 
                                     let type = SensorType(patchInfo)
                                     guard type == .libre2EU || (type == .libre1 && self.noPairing) else {
@@ -156,7 +167,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                                         session.invalidate()
 
                                         self.subject?.send(.setSensor(sensor: sensor))
-                                        self.subject?.send(.addSensorReadings(trendReadings: sensorReadings.trend, historyReadings: sensorReadings.history))
+                                        self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", trendReadings: sensorReadings.trend, historyReadings: sensorReadings.history))
                                     } else {
                                         let subCmd: Subcommand = .enableStreaming
                                         let cmd = self.nfcCommand(subCmd, unlockCode: self.unlockCode, patchInfo: patchInfo, sensorUID: sensorUID)
@@ -176,7 +187,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                                             }
 
                                             self.subject?.send(.setSensor(sensor: sensor, isPaired: true))
-                                            self.subject?.send(.addSensorReadings(trendReadings: sensorReadings.trend, historyReadings: sensorReadings.history))
+                                            self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", trendReadings: sensorReadings.trend, historyReadings: sensorReadings.history))
                                             self.subject?.send(.setConnectionState(connectionState: .disconnected))
                                         }
                                     }
