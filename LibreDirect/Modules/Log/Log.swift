@@ -18,7 +18,7 @@ private func logMiddleware(service: SendLogsService) -> Middleware<AppState, App
 
         switch action {
         case .startup:
-            AppLog.info("Logfile size: \(AppLog.getLogsSize())")
+            service.deleteLogs()
 
         case .deleteLogs:
             service.deleteLogs()
