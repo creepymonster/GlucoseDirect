@@ -8,31 +8,31 @@
 "%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
 
 /* (No Comment) */
-"0 - Unknown" = "0 - Unknown";
+"0 - Unknown" = "0 - Неизвестно";
 
 /* (No Comment) */
-"1 - European" = "1 - European";
+"1 - European" = "1 - европейский";
 
 /* (No Comment) */
-"2 - USA" = "2 - USA";
+"2 - USA" = "2 - США";
 
 /* (No Comment) */
-"4 - Australian" = "4 - Australia/Canada";
+"4 - Australian" = "4 - Австралия/Канада";
 
 /* (No Comment) */
-"8 - Eastern" = "8 - Middle East, Asia";
+"8 - Eastern" = "8 - Ближний Восток, Азия";
 
 /* (No Comment) */
-"Add" = "Add";
+"Add" = "Добавить";
 
 /* (No Comment) */
-"Add glucose for calibration" = "Add glucose for calibration";
+"Add glucose for calibration" = "Добавьте глюкозу для калибровки";
 
 /* (No Comment) */
-"Add glucose value" = "Add glucose value";
+"Add glucose value" = "Добавьте значение глюкозы";
 
 /* (No Comment) */
-"Alarm Settings" = "Alarm Settings";
+"Alarm Settings" = "Настройки оповещения";
 
 /* (No Comment) */
 "Alert, high glucose" = "Alert, high glucose";
@@ -77,16 +77,16 @@
 "Cancel" = "Cancel";
 
 /* (No Comment) */
-"Chart (%1$@)" = "Chart";
+"Chart (%1$@)" = "График";
 
 /* (No Comment) */
-"Connect sensor" = "Connect sensor";
+"Connect sensor" = "Подключите датчик";
 
 /* (No Comment) */
-"Connected" = "Connected";
+"Connected" = "Подключено";
 
 /* (No Comment) */
-"Connecting" = "Connecting";
+"Connecting" = "Подключение…";
 
 /* (No Comment) */
 "Connection alarm" = "Connection alarm";
