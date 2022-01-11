@@ -35,13 +35,13 @@
 "Alarm Settings" = "Настройки оповещения";
 
 /* (No Comment) */
-"Alert, high glucose" = "Alert, high glucose";
+"Alert, high glucose" = "Тревога, высокий уровень глюкозы";
 
 /* (No Comment) */
-"Alert, low blood glucose" = "Alert, low blood glucose";
+"Alert, low blood glucose" = "Тревога, низкий уровень глюкозы в крови";
 
 /* (No Comment) */
-"Alert, sensor connection lost" = "Alert, sensor connection lost";
+"Alert, sensor connection lost" = "Тревога, соединение с датчиком потеряно";
 
 /* (No Comment) */
 "Alert, sensor expired" = "Alert, sensor expired";
