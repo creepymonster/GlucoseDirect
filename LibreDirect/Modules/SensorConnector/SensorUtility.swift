@@ -16,7 +16,7 @@ enum SensorUtility {
     // https://github.com/gui-dos/DiaBLE/blob/master/DiaBLE/Libre2.swift
 
     static func decryptFRAM(uuid: Data, patchInfo: Data, fram: Data) -> Data? {
-        guard uuid.count == 8, patchInfo.count == 6, fram.count == 344 else {
+        guard uuid.count == 8, patchInfo.count == 6, SensorType(patchInfo) != .libre1, fram.count == 344 else {
             return nil
         }
 
