@@ -635,7 +635,7 @@
 "Please wait..." = "Var god vänta...";
 
 /* (No Comment) */
-"Scan sensor" = "Skanna sensor";
+"Scan sensor once" = "Skanna sensor";
 
 /* (No Comment) */
 "Retry NFC scan" = "Retry NFC scan";
