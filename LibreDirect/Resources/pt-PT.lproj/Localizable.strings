@@ -17,10 +17,10 @@
 "2 - USA" = "2 - Estados Unidos";
 
 /* (No Comment) */
-"4 - Australian" = "4 - Australia/Canada";
+"4 - Australian" = "4 - Austrália/Canadá";
 
 /* (No Comment) */
-"8 - Eastern" = "8 - Middle East, Asia";
+"8 - Eastern" = "8 - Oriente Médio, Ásia";
 
 /* (No Comment) */
 "Add" = "Adicionar";
@@ -332,7 +332,7 @@
 "Warning, sensor missed %1$@ readings" = "Aviso, sensor falhou %1$@ leituras";
 
 /* (No Comment) */
-"Wearing time alarm" = "Idade do sensor";
+"Wearing time alarm" = "Alterar som de alarme";
 
 /* (No Comment) */
 "Your current glucose is %1$@ (%2$@)." = "A tua glicose actual é %1$@ (%2$@).";
@@ -554,10 +554,10 @@
 "App facebook group" = "Facebook";
 
 /* (No Comment) */
-"App email" = "eMail";
+"App email" = "e-mail";
 
 /* (No Comment) */
-"Internal http server" = "Internal http server";
+"Internal http server" = "Servidor http interno";
 
 /* (No Comment) */
 "Low glucose alarm" = "Low glucose alarm";
