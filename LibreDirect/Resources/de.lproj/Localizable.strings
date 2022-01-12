@@ -110,7 +110,7 @@
 "Disconnect" = "Verbindung trennen";
 
 /* (No Comment) */
-"Disconnect sensor" = "Sensorverbindung trennen";
+"Disconnect sensor" = "Sensor trennen";
 
 /* (No Comment) */
 "Disconnected" = "Unterbrochen";
@@ -636,3 +636,12 @@
 
 /* (No Comment) */
 "Scan sensor" = "Sensor scannen";
+
+/* (No Comment) */
+"Retry NFC scan" = "NFC Scan wiederholen";
+
+/* (No Comment) */
+"Scanned sensor expired" = "Sensor abgelaufen";
+
+/* (No Comment) */
+"Ignore mute" = "Stummschaltung ignorieren";
