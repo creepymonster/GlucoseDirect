@@ -1,23 +1,23 @@
 /* Bundle display name */
-"CFBundleDisplayName" = "Glucose Direct";
+"CFBundleDisplayName" = "Глюкоза прямая";
 
 /* Bundle name */
-"CFBundleName" = "Glucose Direct";
+"CFBundleName" = "Глюкоза прямая";
 
 /* Privacy - NFC Scan Usage Description */
-"NFCReaderUsageDescription" = "The NFC function is required to read out all connection settings before a Bluetooth connection.";
+"NFCReaderUsageDescription" = "Функция NFC необходима для считывания всех настроек соединения перед подключением Bluetooth.";
 
 /* Privacy - Bluetooth Always Usage Description */
-"NSBluetoothAlwaysUsageDescription" = "The Bluetooth function is needed to connect to the supported devices.";
+"NSBluetoothAlwaysUsageDescription" = "Функция Bluetooth необходима для подключения к поддерживаемым устройствам.";
 
 /* Privacy - Bluetooth Peripheral Usage Description */
-"NSBluetoothPeripheralUsageDescription" = "The Bluetooth function is needed to connect to the supported devices.";
+"NSBluetoothPeripheralUsageDescription" = "Функция Bluetooth необходима для подключения к поддерживаемым устройствам.";
 
 /* Privacy - Calendars Usage Description */
-"NSCalendarsUsageDescription" = "Access to the calendar is required to display up-to-date glucose values on the Apple Watch.";
+"NSCalendarsUsageDescription" = "Доступ к календарю необходим для отображения актуальных значений глюкозы на Apple Watch.";
 
 /* Privacy - Location Always and When In Use Usage Description */
-"NSLocationAlwaysAndWhenInUseUsageDescription" = "Access to the location while the app is open and in the background is required.";
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "Необходим доступ к местоположению, пока приложение открыто и работает в фоновом режиме.";
 
 /* Privacy - Location When In Use Usage Description */
-"NSLocationWhenInUseUsageDescription" = "Access to the location while the app is open is required.";
+"NSLocationWhenInUseUsageDescription" = "Требуется доступ к месту, когда приложение открыто.";
