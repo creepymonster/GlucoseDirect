@@ -14,24 +14,30 @@ protocol AppState {
     var alarmSnoozeUntil: Date? { get set }
     var calendarExport: Bool { get set }
     var chartShowLines: Bool { get set }
-    var connectionAlarm: Bool { get set }
+    var chartZoomLevel: Int { get set }
+    var connectionAlarmSound: NotificationSound { get set }
     var connectionError: String? { get set }
     var connectionErrorIsCritical: Bool { get set }
     var connectionErrorTimestamp: Date? { get set }
     var connectionInfos: [SensorConnectionInfo] { get set }
     var connectionState: SensorConnectionState { get set }
-    var expiringAlarm: Bool { get set }
-    var glucoseAlarm: Bool { get set }
+    var customCalibration: [CustomCalibration] { get set }
+    var expiringAlarmSound: NotificationSound { get set }
     var glucoseBadge: Bool { get set }
     var glucoseUnit: GlucoseUnit { get set }
     var glucoseValues: [Glucose] { get set }
+    var highGlucoseAlarmSound: NotificationSound { get set }
+    var internalHttpServer: Bool { get set }
+    var isPaired: Bool { get set }
+    var ignoreMute: Bool { get set }
+    var lowGlucoseAlarmSound: NotificationSound { get set }
     var missedReadings: Int { get set }
     var nightscoutApiSecret: String { get set }
-    var nightscoutUrl: String { get set }
     var nightscoutUpload: Bool { get set }
+    var nightscoutUrl: String { get set }
     var readGlucose: Bool { get set }
     var selectedCalendarTarget: String? { get set }
-    var selectedConnection: SensorConnection? { get set }
+    var selectedConnection: SensorBLEConnection? { get set }
     var selectedConnectionId: String? { get set }
     var selectedView: Int { get set }
     var sensor: Sensor? { get set }
@@ -40,7 +46,25 @@ protocol AppState {
 }
 
 extension AppState {
-    var currentGlucose: Glucose? { glucoseValues.last }
+    var currentGlucose: Glucose? {
+        glucoseValues.last(where: { $0.type == .cgm })
+    }
+
+    var connectionAlarm: Bool {
+        connectionAlarmSound != .none
+    }
+
+    var expiringAlarm: Bool {
+        expiringAlarmSound != .none
+    }
+
+    var highGlucoseAlarm: Bool {
+        highGlucoseAlarmSound != .none
+    }
+
+    var lowGlucoseAlarm: Bool {
+        lowGlucoseAlarmSound != .none
+    }
 
     var isConnectable: Bool {
         if transmitter != nil, connectableStates.contains(connectionState) {
@@ -62,16 +86,16 @@ extension AppState {
         disconnectableStates.contains(connectionState)
     }
 
-    var isPaired: Bool {
-        isSensorPaired || isTransmitterPaired
+    var isScanable: Bool {
+        selectedConnection is SensorNFCConnection
+    }
+    
+    var isPairable: Bool {
+        !isPaired && !(connectionState != .disconnected && connectionState != .pairing && connectionState != .scanning && connectionState != .connecting)
     }
 
-    var isSensorPaired: Bool {
-        sensor != nil
-    }
-
-    var isTransmitterPaired: Bool {
-        transmitter != nil
+    var isBusy: Bool {
+        !(connectionState != .pairing && connectionState != .scanning && connectionState != .connecting)
     }
 
     var isReady: Bool {
@@ -79,7 +103,7 @@ extension AppState {
     }
 
     var lastGlucose: Glucose? {
-        glucoseValues.suffix(2).first
+        glucoseValues.last(where: { $0.type == .cgm && $0 != currentGlucose })
     }
 
     var limitedGlucoseValues: [Glucose] {

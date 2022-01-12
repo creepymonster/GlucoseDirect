@@ -24,10 +24,10 @@ struct CalendarExportSettingsView: View {
 
                 if store.state.calendarExport {
                     HStack {
-                        Text(LocalizedString("Selected calendar"))
+                        Text("Selected calendar")
                         Spacer()
 
-                        Picker(LocalizedString("Selected calendar"), selection: selectedCalendar) {
+                        Picker("", selection: selectedCalendar) {
                             if store.state.selectedCalendarTarget == nil {
                                 Text("Please select")
                             }

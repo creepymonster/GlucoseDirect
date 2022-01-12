@@ -9,33 +9,52 @@ import Foundation
 
 // MARK: - Libre2Connection
 
-final class Libre2Connection: SensorBLEConnection {
+final class Libre2Connection: SensorBLEConnectionBase, SensorNFCConnection {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<AppAction, AppError>) {
         AppLog.info("init")
 
         pairingService = Libre2Pairing(subject: subject)
-        super.init(subject: subject, serviceUuid: CBUUID(string: "FDE3"), restoreIdentifier: "libre-direct.libre2.restore-identifier")
+        super.init(subject: subject, serviceUuid: CBUUID(string: "FDE3"))
     }
 
     // MARK: Internal
+
+    override var peripheralName: String {
+        "abbott"
+    }
+
+    func scanSensor() {
+        dispatchPrecondition(condition: .notOnQueue(managerQueue))
+        AppLog.info("ReadSensor")
+
+        pairingService.readSensor(noPairing: true)
+    }
 
     override func pairSensor() {
         dispatchPrecondition(condition: .notOnQueue(managerQueue))
         AppLog.info("PairSensor")
 
-        UserDefaults.standard.peripheralUuid = nil
+        UserDefaults.standard.sensorPeripheralUuid = nil
         UserDefaults.standard.libre2UnlockCount = 0
 
         sendUpdate(connectionState: .pairing)
-        pairingService.pairSensor()
+        pairingService.readSensor(noPairing: false)
     }
 
     override func resetBuffer() {
         firstBuffer = Data()
         secondBuffer = Data()
         thirdBuffer = Data()
+    }
+
+    override func checkRetrievedPeripheral(peripheral: CBPeripheral) -> Bool {
+        if let sensorSerial = sensor?.serial {
+            return peripheral.name == "ABBOTT\(sensorSerial)"
+        }
+
+        return false
     }
 
     func unlock() -> Data? {
@@ -56,9 +75,9 @@ final class Libre2Connection: SensorBLEConnection {
         return Data(unlockPayload)
     }
 
-    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
+    override func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        AppLog.info("Peripheral: \(peripheral)")
+        AppLog.info("Found peripheral: \(peripheral.name ?? "-")")
 
         guard let sensor = sensor, let manufacturerData = advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data else {
             return
@@ -71,7 +90,7 @@ final class Libre2Connection: SensorBLEConnection {
             var foundUUID = manufacturerData.subdata(in: 2 ..< 8)
             foundUUID.append(contentsOf: [0x07, 0xe0])
 
-            let result = foundUUID == sensor.uuid && peripheral.name?.lowercased().starts(with: "abbott") ?? false
+            let result = foundUUID == sensor.uuid && peripheral.name?.lowercased().starts(with: peripheralName) ?? false
             if result {
                 manager.stopScan()
                 connect(peripheral)
@@ -111,7 +130,7 @@ final class Libre2Connection: SensorBLEConnection {
                 if characteristic.uuid == writeCharacteristicUuid {
                     writeCharacteristic = characteristic
 
-                    if let unlock = unlock() {
+                    if connectionMode != .alreadyConnectedDevice, let unlock = unlock() {
                         peripheral.writeValue(unlock, for: characteristic, type: .withResponse)
                     }
                 }
@@ -168,12 +187,12 @@ final class Libre2Connection: SensorBLEConnection {
                     let decryptedBLE = Data(try SensorUtility.decryptBLE(uuid: sensor.uuid, data: rxBuffer))
                     let parsedBLE = SensorUtility.parseBLE(calibration: sensor.factoryCalibration, data: decryptedBLE)
 
-                    if parsedBLE.age >= sensor.lifetime {
+                    if (parsedBLE.age + 15) >= sensor.lifetime {
                         sendUpdate(age: parsedBLE.age, state: .expired)
 
                     } else if parsedBLE.age > sensor.warmupTime {
                         sendUpdate(age: parsedBLE.age, state: .ready)
-                        sendUpdate(trendReadings: parsedBLE.trend, historyReadings: parsedBLE.history)
+                        sendUpdate(sensorSerial: sensor.serial ?? "", trendReadings: parsedBLE.trend, historyReadings: parsedBLE.history)
 
                     } else if parsedBLE.age <= sensor.warmupTime {
                         sendUpdate(age: parsedBLE.age, state: .starting)
@@ -182,7 +201,7 @@ final class Libre2Connection: SensorBLEConnection {
                     AppLog.error("Cannot process BLE data: \(error.localizedDescription)")
                 }
             }
-            
+
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
                 self.resetBuffer()
             }

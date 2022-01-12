@@ -16,8 +16,8 @@ func connectionNotificationMiddelware() -> Middleware<AppState, AppAction> {
 private func connectionNotificationMiddelware(service: ConnectionNotificationService) -> Middleware<AppState, AppAction> {
     return { state, action, lastState in
         switch action {
-        case .setConnectionAlarm(enabled: let enabled):
-            if !enabled {
+        case .setConnectionAlarmSound(sound: let sound):
+            if sound == .none {
                 service.clearAlarm()
             }
 
@@ -27,7 +27,7 @@ private func connectionNotificationMiddelware(service: ConnectionNotificationSer
                 break
             }
 
-            service.setSensorConnectionLostAlarm(errorIsCritical: errorIsCritical)
+            service.setSensorConnectionLostAlarm(errorIsCritical: errorIsCritical, ignoreMute: state.ignoreMute, sound: state.connectionAlarmSound)
 
         case .setConnectionState(connectionState: let connectionState):
             guard state.connectionAlarm else {
@@ -36,7 +36,7 @@ private func connectionNotificationMiddelware(service: ConnectionNotificationSer
             }
 
             if lastState.connectionState == .connected, connectionState == .disconnected {
-                service.setSensorConnectionLostAlarm()
+                service.setSensorConnectionLostAlarm(errorIsCritical: false, ignoreMute: state.ignoreMute, sound: state.connectionAlarmSound)
 
             } else if lastState.connectionState != .connected, connectionState == .connected {
                 service.clearAlarm()
@@ -49,7 +49,7 @@ private func connectionNotificationMiddelware(service: ConnectionNotificationSer
             }
 
             if state.missedReadings % 5 == 0 {
-                service.setSensorMissedReadingsAlarm(missedReadings: state.missedReadings)
+                service.setSensorMissedReadingsAlarm(missedReadings: state.missedReadings, ignoreMute: state.ignoreMute, sound: state.connectionAlarmSound)
             }
 
         default:
@@ -71,7 +71,7 @@ private class ConnectionNotificationService {
         UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [Identifier.sensorConnectionAlarm.rawValue])
     }
 
-    func setSensorConnectionLostAlarm(errorIsCritical: Bool = false) {
+    func setSensorConnectionLostAlarm(errorIsCritical: Bool, ignoreMute: Bool, sound: NotificationSound) {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
         NotificationService.shared.ensureCanSendNotification { state in
@@ -102,7 +102,7 @@ private class ConnectionNotificationService {
             NotificationService.shared.add(identifier: Identifier.sensorConnectionAlarm.rawValue, content: notification)
 
             if state == .sound && errorIsCritical {
-                NotificationService.shared.playAlarmSound()
+                NotificationService.shared.playSound(ignoreMute: ignoreMute, sound: sound)
             }
         }
     }
@@ -131,7 +131,7 @@ private class ConnectionNotificationService {
         }
     }
 
-    func setSensorMissedReadingsAlarm(missedReadings: Int) {
+    func setSensorMissedReadingsAlarm(missedReadings: Int, ignoreMute: Bool, sound: NotificationSound) {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
         NotificationService.shared.ensureCanSendNotification { state in
@@ -154,7 +154,7 @@ private class ConnectionNotificationService {
             NotificationService.shared.add(identifier: Identifier.sensorConnectionAlarm.rawValue, content: notification)
 
             if state == .sound {
-                NotificationService.shared.playNegativeSound()
+                NotificationService.shared.playSound(ignoreMute: ignoreMute, sound: sound)
             }
         }
     }

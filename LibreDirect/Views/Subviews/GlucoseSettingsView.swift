@@ -16,10 +16,10 @@ struct GlucoseSettingsView: View {
         Section(
             content: {
                 HStack {
-                    Text(LocalizedString("Glucose unit"))
+                    Text("Glucose unit")
                     Spacer()
 
-                    Picker(LocalizedString("Glucose unit"), selection: selectedGlucoseUnit) {
+                    Picker("", selection: selectedGlucoseUnit) {
                         Text(GlucoseUnit.mgdL.localizedString).tag(GlucoseUnit.mgdL.rawValue)
                         Text(GlucoseUnit.mmolL.localizedString).tag(GlucoseUnit.mmolL.rawValue)
                     }

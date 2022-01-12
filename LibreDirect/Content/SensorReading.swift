@@ -7,24 +7,24 @@ import Foundation
 
 final class SensorReading: CustomStringConvertible, Codable {
     // MARK: Lifecycle
-    
+
     init(id: UUID, timestamp: Date, quality: GlucoseQuality) {
         self.id = id
-        self.timestamp = timestamp.rounded(on: 1, .minute)
+        self.timestamp = timestamp.toRounded(on: 1, .minute)
         self.readGlucoseValue = nil
         self.quality = quality
     }
 
     init(id: UUID, timestamp: Date, glucoseValue: Double, quality: GlucoseQuality = .OK) {
         self.id = id
-        self.timestamp = timestamp.rounded(on: 1, .minute)
-        
+        self.timestamp = timestamp.toRounded(on: 1, .minute)
+
         if quality == .OK {
             self.readGlucoseValue = glucoseValue
         } else {
             self.readGlucoseValue = nil
         }
-        
+
         self.quality = quality
     }
 
@@ -40,7 +40,7 @@ final class SensorReading: CustomStringConvertible, Codable {
             AppLog.info("Guard: readGlucoseValue is nil")
             return nil
         }
-        
+
         let minReadableGlucose = Double(AppConfig.minReadableGlucose)
         let maxReadableGlucose = Double(AppConfig.maxReadableGlucose)
 
@@ -56,10 +56,9 @@ final class SensorReading: CustomStringConvertible, Codable {
     var description: String {
         [
             "id: \(id)",
-            "timestamp: \(timestamp.localTime)",
+            "timestamp: \(timestamp.toLocalTime())",
             "glucoseValue: \(glucoseValue?.description ?? "-")",
             "quality: \(quality.description)"
         ].joined(separator: ", ")
     }
 }
-

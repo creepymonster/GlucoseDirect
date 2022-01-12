@@ -30,6 +30,9 @@ func calendarExportMiddleware(service: CalendarExportService) -> Middleware<AppS
                 }.eraseToAnyPublisher()
 
             } else {
+                // clear events on disable
+                service.clearGlucoseEvents()
+
                 return Just(AppAction.selectCalendarTarget(id: nil))
                     .setFailureType(to: AppError.self)
                     .eraseToAnyPublisher()
@@ -40,12 +43,12 @@ func calendarExportMiddleware(service: CalendarExportService) -> Middleware<AppS
                 AppLog.info("Guard: state.calendarExport disabled")
                 break
             }
-            
+
             guard let glucose = glucoseValues.last else {
                 AppLog.info("Guard: glucoseValues.last is nil")
                 break
             }
-            
+
             guard glucose.type == .cgm else {
                 AppLog.info("Guard: glucose.type is not .cgm")
                 break
@@ -129,7 +132,12 @@ class CalendarExportService {
         }
 
         let event = EKEvent(eventStore: eventStore)
-        event.title = "\(glucose.trend.description) \(glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)) (\(glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) ?? ""))"
+        event.title = "\(glucose.trend.description) \(glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true))"
+
+        if let minuteChange = glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
+            event.location = minuteChange
+        }
+
         event.calendar = calendar
         event.url = AppConfig.appSchemaUrl
         event.startDate = Date()

@@ -13,33 +13,20 @@ struct ActionsView: View {
     @EnvironmentObject var store: AppStore
 
     var body: some View {
-        HStack {
-            if store.state.hasSelectedConnection && store.state.isPaired {
-                if !store.state.isDisconnectable {
-                    Button(
-                        action: {
-                            showingUnpairSensorAlert = true
-                        },
-                        label: {
-                            Label("Unpair sensor", systemImage: "arrow.uturn.backward")
-                        }
-                    ).alert(isPresented: $showingUnpairSensorAlert) {
-                        Alert(
-                            title: Text("Are you sure you want to unpair the sensor?"),
-                            primaryButton: .destructive(Text("Unpair")) {
-                                withAnimation {
-                                    store.dispatch(.resetTransmitter)
-                                    store.dispatch(.resetSensor)
-                                }
-                            },
-                            secondaryButton: .cancel()
-                        )
+        if store.state.hasSelectedConnection {
+            if store.state.isScanable && store.state.connectionState != .connected {
+                Button(
+                    action: {
+                        store.dispatch(.scanSensor)
+                    },
+                    label: {
+                        Label("Scan sensor once", systemImage: "viewfinder")
                     }
-                }
+                )
+            }
 
+            if store.state.isPaired {
                 if store.state.isConnectable {
-                    Spacer()
-
                     Button(
                         action: {
                             withAnimation {
@@ -50,6 +37,29 @@ struct ActionsView: View {
                             Label("Connect sensor", systemImage: "play")
                         }
                     )
+
+                    Button(
+                        action: {
+                            showingUnpairSensorAlert = true
+                        },
+                        label: {
+                            Label("Unpair sensor", systemImage: "nosign")
+                        }
+                    ).alert(isPresented: $showingUnpairSensorAlert) {
+                        Alert(
+                            title: Text("Are you sure you want to unpair the sensor?"),
+                            primaryButton: .destructive(Text("Unpair")) {
+                                withAnimation {
+                                    if store.state.isDisconnectable {
+                                        store.dispatch(.disconnectSensor)
+                                    }
+
+                                    store.dispatch(.resetSensor)
+                                }
+                            },
+                            secondaryButton: .cancel()
+                        )
+                    }
                 } else if store.state.isDisconnectable {
                     Button(
                         action: {
@@ -70,7 +80,7 @@ struct ActionsView: View {
                         )
                     }
                 }
-            } else if store.state.hasSelectedConnection && store.state.connectionState != .pairing && store.state.connectionState != .scanning && store.state.connectionState != .connecting {
+            } else {
                 Button(
                     action: {
                         withAnimation {
@@ -78,14 +88,11 @@ struct ActionsView: View {
                         }
                     },
                     label: {
-                        Label("Pair sensor", systemImage: "arrow.uturn.forward")
+                        Label("Pair sensor", systemImage: "link")
                     }
                 )
-            } else {
-                Text("...")
             }
         }
-        .padding([.top, .horizontal])
     }
 
     // MARK: Private

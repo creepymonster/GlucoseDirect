@@ -10,14 +10,19 @@ struct GlucoeOverviewView: View {
 
     var body: some View {
         VStack {
-            ActionsView()
-
             List {
+
+                
                 if store.state.currentGlucose != nil {
                     GlucoseView().frame(maxWidth: .infinity)
                 }
 
+                if (store.state.isPaired || store.state.isScanable) && !store.state.glucoseValues.isEmpty {
+                    SnoozeView()
+                }
+                
                 ChartView()
+                ConnectionView()
                 SensorView()
             }.listStyle(.grouped)
         }

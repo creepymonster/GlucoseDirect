@@ -635,10 +635,10 @@
 "Please wait..." = "Bitte warten...";
 
 /* (No Comment) */
-"Scan sensor once" = "Scan sensor once";
+"Scan sensor once" = "Sensor scannen";
 
 /* (No Comment) */
-"Retry pairing" = "Retry pairing";
+"Retry pairing" = Koppeln wiederholen";
 
 /* (No Comment) */
 "Scanned sensor expired" = "Sensor abgelaufen";

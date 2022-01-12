@@ -7,18 +7,19 @@ import Combine
 import CoreBluetooth
 import Foundation
 
-// MARK: - SensorBLEConnection
+// MARK: - SensorBLEConnectionBase
 
-class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate, CBPeripheralDelegate {
+class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDelegate, CBPeripheralDelegate {
     // MARK: Lifecycle
 
-    init(subject: PassthroughSubject<AppAction, AppError>, serviceUuid: CBUUID, restoreIdentifier: String) {
+    init(subject: PassthroughSubject<AppAction, AppError>, serviceUuid: CBUUID) {
         AppLog.info("init")
+
         super.init()
 
         self.subject = subject
         self.serviceUuid = serviceUuid
-        self.manager = CBCentralManager(delegate: self, queue: managerQueue, options: [CBCentralManagerOptionShowPowerAlertKey: true, CBCentralManagerOptionRestoreIdentifierKey: restoreIdentifier])
+        self.manager = CBCentralManager(delegate: self, queue: managerQueue, options: [CBCentralManagerOptionShowPowerAlertKey: true])
     }
 
     deinit {
@@ -33,18 +34,24 @@ class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate,
 
     var serviceUuid: CBUUID!
     var manager: CBCentralManager!
+
     let managerQueue = DispatchQueue(label: "libre-direct.sensor-ble-connection.queue")
     weak var subject: PassthroughSubject<AppAction, AppError>?
 
     var stayConnected = false
     var sensor: Sensor?
+    var connectionMode: ConnectionMode = .unknown
+
+    var peripheralName: String {
+        preconditionFailure("This property must be overridden")
+    }
 
     var peripheral: CBPeripheral? {
         didSet {
             oldValue?.delegate = nil
             peripheral?.delegate = self
 
-            UserDefaults.standard.peripheralUuid = peripheral?.identifier.uuidString
+            UserDefaults.standard.sensorPeripheralUuid = peripheral?.identifier.uuidString
         }
     }
 
@@ -52,7 +59,7 @@ class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate,
         dispatchPrecondition(condition: .notOnQueue(managerQueue))
         AppLog.info("PairSensor")
 
-        UserDefaults.standard.peripheralUuid = nil
+        UserDefaults.standard.sensorPeripheralUuid = nil
 
         sendUpdate(connectionState: .pairing)
 
@@ -92,14 +99,26 @@ class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate,
             return
         }
 
-        if let peripheralUuidString = UserDefaults.standard.peripheralUuid,
+        /* if let connectedPeripheral = manager.retrieveConnectedPeripherals(withServices: [serviceUuid]).first(where: { $0.name?.lowercased().starts(with: peripheralName) ?? false }) {
+             AppLog.info("Connect from retrievePeripherals")
+
+             connectionMode = .alreadyConnectedDevice
+             connect(connectedPeripheral)
+         } else */
+
+        if let peripheralUuidString = UserDefaults.standard.sensorPeripheralUuid,
            let peripheralUuid = UUID(uuidString: peripheralUuidString),
-           let retrievedPeripheral = manager.retrievePeripherals(withIdentifiers: [peripheralUuid]).first
+           let retrievedPeripheral = manager.retrievePeripherals(withIdentifiers: [peripheralUuid]).first,
+           checkRetrievedPeripheral(peripheral: retrievedPeripheral)
         {
             AppLog.info("Connect from retrievePeripherals")
+
+            connectionMode = .knownDevice
             connect(retrievedPeripheral)
         } else {
             AppLog.info("Scan for peripherals")
+
+            connectionMode = .foundDevice
             scan()
         }
     }
@@ -163,10 +182,12 @@ class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate,
         self.stayConnected = stayConnected
     }
 
+    func checkRetrievedPeripheral(peripheral: CBPeripheral) -> Bool {
+        preconditionFailure("This property must be overridden")
+    }
+
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-
-        AppLog.info("State: \(manager.state.rawValue)")
 
         switch manager.state {
         case .poweredOff:
@@ -185,14 +206,16 @@ class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate,
         }
     }
 
-    func centralManager(_ central: CBCentralManager, willRestoreState dict: [String: Any]) {
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
-        AppLog.info("Peripheral: \(peripheral), willRestoreState")
+        AppLog.info("Peripheral: \(peripheral)")
 
-        let connectedperipherals = dict[CBCentralManagerRestoredStatePeripheralsKey] as? [CBPeripheral]
-        if let peripheral = connectedperipherals?.first {
-            connect(peripheral)
+        guard peripheral.name?.lowercased().starts(with: peripheralName) ?? false else {
+            return
         }
+
+        manager.stopScan()
+        connect(peripheral)
     }
 
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
@@ -234,12 +257,21 @@ class SensorBLEConnection: NSObject, SensorConnection, CBCentralManagerDelegate,
     }
 }
 
+// MARK: - ConnectionMode
+
+enum ConnectionMode {
+    case unknown
+    case knownDevice
+    case alreadyConnectedDevice
+    case foundDevice
+}
+
 extension UserDefaults {
     private enum Keys: String {
         case devicePeripheralUuid = "libre-direct.sensor-ble-connection.peripheral-uuid"
     }
 
-    var peripheralUuid: String? {
+    var sensorPeripheralUuid: String? {
         get {
             return UserDefaults.standard.string(forKey: Keys.devicePeripheralUuid.rawValue)
         }

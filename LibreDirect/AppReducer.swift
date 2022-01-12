@@ -21,7 +21,7 @@ func appReducer(state: inout AppState, action: AppAction) {
             break
         }
         
-        state.sensor!.customCalibration.append(CustomCalibration(x: Double(factoryCalibratedGlucoseValue), y: Double(glucoseValue)))
+        state.customCalibration.append(CustomCalibration(x: Double(factoryCalibratedGlucoseValue), y: Double(glucoseValue)))
         
     case .addGlucoseValues(glucoseValues: let addedGlucoseValues):
         if !addedGlucoseValues.isEmpty {
@@ -48,18 +48,24 @@ func appReducer(state: inout AppState, action: AppAction) {
             break
         }
         
-        state.sensor!.customCalibration = []
+        state.customCalibration = []
         
     case .clearGlucoseValues:
         state.glucoseValues = []
         
     case .connectSensor:
         break
+        
+    case .deleteLogs:
+        break
 
     case .disconnectSensor:
         break
 
     case .pairSensor:
+        break
+        
+    case .scanSensor:
         break
         
     case .registerConnectionInfo(infos: let infos):
@@ -71,11 +77,9 @@ func appReducer(state: inout AppState, action: AppAction) {
             break
         }
         
-        let customCalibration = state.sensor!.customCalibration.filter { item in
+        state.customCalibration = state.customCalibration.filter { item in
             item.id != id
         }
-        
-        state.sensor!.customCalibration = customCalibration
         
     case .removeGlucose(id: let id):
         state.glucoseValues = state.glucoseValues.filter { item in
@@ -83,13 +87,12 @@ func appReducer(state: inout AppState, action: AppAction) {
         }
         
     case .resetSensor:
+        state.isPaired = false
         state.sensor = nil
+        state.customCalibration = []
         state.connectionError = nil
         state.connectionErrorIsCritical = false
         state.connectionErrorTimestamp = nil
-        
-    case .resetTransmitter:
-        state.transmitter = nil
         
     case .selectCalendarTarget(id: let id):
         state.selectedCalendarTarget = id
@@ -101,7 +104,9 @@ func appReducer(state: inout AppState, action: AppAction) {
         }
         
     case .selectConnectionId(id: _):
+        state.isPaired = false
         state.sensor = nil
+        state.customCalibration = []
         state.transmitter = nil
         state.connectionError = nil
         state.connectionErrorIsCritical = false
@@ -109,9 +114,6 @@ func appReducer(state: inout AppState, action: AppAction) {
         
     case .selectView(viewTag: let viewTag):
         state.selectedView = viewTag
-        
-    case .deleteLogs:
-        break
         
     case .sendLogs:
         break
@@ -121,10 +123,7 @@ func appReducer(state: inout AppState, action: AppAction) {
 
     case .setAlarmLow(lowerLimit: let lowerLimit):
         state.alarmLow = lowerLimit
-        
-    case .setCalendarExport(enabled: let enabled):
-        state.calendarExport = enabled
-        
+
     case .setAlarmSnoozeUntil(untilDate: let untilDate, autosnooze: _):
         if let untilDate = untilDate {
             state.alarmSnoozeUntil = untilDate
@@ -132,11 +131,17 @@ func appReducer(state: inout AppState, action: AppAction) {
             state.alarmSnoozeUntil = nil
         }
         
+    case .setCalendarExport(enabled: let enabled):
+        state.calendarExport = enabled
+        
     case .setChartShowLines(enabled: let enabled):
         state.chartShowLines = enabled
         
-    case .setConnectionAlarm(enabled: let enabled):
-        state.connectionAlarm = enabled
+    case .setChartZoomLevel(level: let level):
+        state.chartZoomLevel = level
+        
+    case .setConnectionAlarmSound(sound: let sound):
+        state.connectionAlarmSound = sound
         
     case .setConnectionError(errorMessage: let errorMessage, errorTimestamp: let errorTimestamp, errorIsCritical: let errorIsCritical):
         state.connectionError = errorMessage
@@ -152,20 +157,26 @@ func appReducer(state: inout AppState, action: AppAction) {
             state.connectionErrorTimestamp = nil
         }
         
-    case .setExpiringAlarm(enabled: let enabled):
-        state.expiringAlarm = enabled
-        
-    case .setGlucoseAlarm(enabled: let enabled):
-        state.glucoseAlarm = enabled
-        
+    case .setExpiringAlarmSound(sound: let sound):
+        state.expiringAlarmSound = sound
+               
     case .setGlucoseBadge(enabled: let enabled):
         state.glucoseBadge = enabled
         
     case .setGlucoseUnit(unit: let unit):
         state.glucoseUnit = unit
         
-    case .setNightscoutUrl(url: let url):
-        state.nightscoutUrl = url
+    case .setHighGlucoseAlarmSound(sound: let sound):
+        state.highGlucoseAlarmSound = sound
+        
+    case .setInternalHttpServer(enabled: let enabled):
+        state.internalHttpServer = enabled
+        
+    case .setIgnoreMute(enabled: let enabled):
+        state.ignoreMute = enabled
+        
+    case .setLowGlucoseAlarmSound(sound: let sound):
+        state.lowGlucoseAlarmSound = sound
 
     case .setNightscoutSecret(apiSecret: let apiSecret):
         state.nightscoutApiSecret = apiSecret
@@ -173,11 +184,25 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setNightscoutUpload(enabled: let enabled):
         state.nightscoutUpload = enabled
         
+    case .setNightscoutUrl(url: let url):
+        state.nightscoutUrl = url
+        
     case .setReadGlucose(enabled: let enabled):
         state.readGlucose = enabled
         
-    case .setSensor(sensor: let sensor):
+    case .setSensor(sensor: let sensor, wasCoupled: let wasCoupled):
+        let isModifiedSensor = state.isScanable && !wasCoupled && (state.sensor == nil || state.sensor?.serial != sensor.serial)
+        
         state.sensor = sensor
+        state.connectionError = nil
+        state.connectionErrorIsCritical = false
+        state.connectionErrorTimestamp = nil
+        
+        if isModifiedSensor {
+            state.isPaired = false
+        } else if wasCoupled {
+            state.isPaired = true
+        }
 
     case .setSensorState(sensorAge: let sensorAge, sensorState: let sensorState):
         guard state.sensor != nil else {
@@ -196,6 +221,7 @@ func appReducer(state: inout AppState, action: AppAction) {
         }
 
     case .setTransmitter(transmitter: let transmitter):
+        state.isPaired = true
         state.transmitter = transmitter
         
     case .startup:

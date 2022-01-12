@@ -27,6 +27,6 @@ enum SensorConnectionState: String {
     }
 
     var localizedString: String {
-        NSLocalizedString(self.rawValue, comment: "")
+        LocalizedString(self.rawValue)
     }
 }

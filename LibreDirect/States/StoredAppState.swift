@@ -21,12 +21,14 @@ struct StoredAppState: AppState {
 
         self.calendarExport = UserDefaults.standard.calendarExport
         self.chartShowLines = UserDefaults.standard.chartShowLines
-        self.connectionAlarm = UserDefaults.standard.connectionAlarm
-        self.expiringAlarm = UserDefaults.standard.expiringAlarm
+        self.chartZoomLevel = UserDefaults.standard.chartZoomLevel
+        self.customCalibration = UserDefaults.standard.customCalibration
         self.glucoseValues = UserDefaults.standard.glucoseValues
-        self.glucoseAlarm = UserDefaults.standard.glucoseAlarm
         self.glucoseBadge = UserDefaults.standard.glucoseBadge
         self.glucoseUnit = UserDefaults.standard.glucoseUnit
+        self.internalHttpServer = UserDefaults.standard.internalHttpServer
+        self.isPaired = UserDefaults.standard.isPaired
+        self.ignoreMute = UserDefaults.standard.ignoreMute
         self.nightscoutApiSecret = UserDefaults.standard.nightscoutApiSecret
         self.nightscoutUrl = UserDefaults.standard.nightscoutUrl
         self.nightscoutUpload = UserDefaults.standard.nightscoutUpload
@@ -36,6 +38,10 @@ struct StoredAppState: AppState {
         self.selectedView = UserDefaults.standard.selectedView
         self.sensor = UserDefaults.standard.sensor
         self.transmitter = UserDefaults.standard.transmitter
+        self.connectionAlarmSound = UserDefaults.standard.connectionAlarmSound
+        self.expiringAlarmSound = UserDefaults.standard.expiringAlarmSound
+        self.highGlucoseAlarmSound = UserDefaults.standard.highGlucoseAlarmSound
+        self.lowGlucoseAlarmSound = UserDefaults.standard.lowGlucoseAlarmSound
     }
 
     // MARK: Internal
@@ -47,7 +53,7 @@ struct StoredAppState: AppState {
     var connectionInfos: [SensorConnectionInfo] = []
     var connectionState: SensorConnectionState = .disconnected
     var missedReadings: Int = 0
-    var selectedConnection: SensorConnection?
+    var selectedConnection: SensorBLEConnection?
     var targetValue: Int = 100
 
     var alarmHigh: Int = 160 {
@@ -74,21 +80,39 @@ struct StoredAppState: AppState {
         }
     }
 
-    var connectionAlarm: Bool {
+    var chartZoomLevel: Int {
         didSet {
-            UserDefaults.standard.connectionAlarm = connectionAlarm
+            UserDefaults.standard.chartZoomLevel = chartZoomLevel
         }
     }
 
-    var expiringAlarm: Bool {
+    var connectionAlarmSound: NotificationSound {
         didSet {
-            UserDefaults.standard.expiringAlarm = expiringAlarm
+            UserDefaults.standard.connectionAlarmSound = connectionAlarmSound
+        }
+    }
+    
+    var customCalibration: [CustomCalibration] {
+        didSet {
+            UserDefaults.standard.customCalibration = customCalibration
         }
     }
 
-    var glucoseAlarm: Bool {
+    var expiringAlarmSound: NotificationSound {
         didSet {
-            UserDefaults.standard.glucoseAlarm = glucoseAlarm
+            UserDefaults.standard.expiringAlarmSound = expiringAlarmSound
+        }
+    }
+
+    var highGlucoseAlarmSound: NotificationSound {
+        didSet {
+            UserDefaults.standard.highGlucoseAlarmSound = highGlucoseAlarmSound
+        }
+    }
+    
+    var lowGlucoseAlarmSound: NotificationSound {
+        didSet {
+            UserDefaults.standard.lowGlucoseAlarmSound = lowGlucoseAlarmSound
         }
     }
 
@@ -107,6 +131,24 @@ struct StoredAppState: AppState {
     var glucoseValues: [Glucose] {
         didSet {
             UserDefaults.standard.glucoseValues = glucoseValues
+        }
+    }
+
+    var internalHttpServer: Bool {
+        didSet {
+            UserDefaults.standard.internalHttpServer = internalHttpServer
+        }
+    }
+    
+    var isPaired: Bool {
+        didSet {
+            UserDefaults.standard.isPaired = isPaired
+        }
+    }
+    
+    var ignoreMute: Bool {
+        didSet {
+            UserDefaults.standard.ignoreMute = ignoreMute
         }
     }
 

@@ -9,13 +9,14 @@ App programmed in Swift/SwiftUI for using Libre 1/2 blood glucose sensors. I try
 ## Current features
 - Libre 2 EU support (without transmitter)
 - Libre 1 support with transmitter (supported transmitter bubble)
+- Libre 1, manual scans without transmitter
 - Add manual bgm values
 - Manage bgm/cgm values
 - Units mg/dL or mmol/L
 - Upload glucose values to Nightscout
 - Upload sensor start to Nightscout
 - FreeAPS X support (with Shared App Groups)
-- Calendar export
+- Calendar export (to support Apple Watch)
 - Glucose read aloud
 - Glucose badge
 - Glucose chart
@@ -63,6 +64,7 @@ I am very happy to receive feedback - suggestions for improvement or reports of 
 - **Timmy_otoole** and **albertodeviaje2** for your translation into Spanish
 - **goldshotter** and **ferdytao** for your translation into Italian
 - **Fcourela** for your translation into Portuguese
+- **Thanks to all Paypal supporters**
 - **All** who contribute to the app with their ideas
 
 ## Todo
@@ -81,7 +83,94 @@ I am very happy to receive feedback - suggestions for improvement or reports of 
 ![Screenshot](/Screenshots/settings.png?raw=true)
 
 ## I use sounds from the following sources (incl. licenses):
-- SpliceSound https://freesound.org/people/SpliceSound/sounds/369848, Licence: http://creativecommons.org/publicdomain/zero/1.0/
-- ui interface positive https://freesound.org/people/JavierZumer/sounds/257227, Licence: http://creativecommons.org/licenses/by/3.0/
-- ui interface negative https://freesound.org/people/JavierZumer/sounds/257235, Licence: http://creativecommons.org/licenses/by/3.0/
-- Power Loss https://freesound.org/people/LorenzoTheGreat/sounds/417791, Licence: http://creativecommons.org/licenses/by/3.0/
+_Source:_ https://freesound.org/people/SpliceSound/sounds/369848
+_Author:_ SpliceSound
+_License:_ CC0 1.0 Universal, http://creativecommons.org/publicdomain/zero/1.0/
+
+_Source:_ https://freesound.org/people/JavierZumer/sounds/257227
+_Author:_ JavierZumer
+_License:_ Attribution 3.0 Unported, http://creativecommons.org/licenses/by/3.0/
+
+_Source:_ https://freesound.org/people/JavierZumer/sounds/257235
+_Author:_ JavierZumer
+_License:_ Attribution 3.0 Unported, http://creativecommons.org/licenses/by/3.0/
+
+_Source:_ https://freesound.org/people/LorenzoTheGreat/sounds/417791
+_Author:_ LorenzoTheGreat
+_License:_ Attribution 3.0 Unported, http://creativecommons.org/licenses/by/3.0/
+
+_Source:_ https://freesound.org/people/LittleRobotSoundFactory/sounds/270329/
+_Author:_ LittleRobotSoundFactory
+_License:_ Attribution 3.0 Unported, http://creativecommons.org/licenses/by/3.0/
+
+_Source:_ https://freesound.org/people/LittleRobotSoundFactory/sounds/270327/
+_Author:_ LittleRobotSoundFactory
+_License:_ Attribution 3.0 Unported, http://creativecommons.org/licenses/by/3.0/
+
+_Source:_ https://freesound.org/people/LittleRobotSoundFactory/sounds/270323/
+_Author:_ LittleRobotSoundFactory
+_License:_ Attribution 3.0 Unported, http://creativecommons.org/licenses/by/3.0/
+
+_Source:_ https://freesound.org/people/LittleRobotSoundFactory/sounds/270319/
+_Author:_ LittleRobotSoundFactory
+_License:_ Attribution 3.0 Unported, http://creativecommons.org/licenses/by/3.0/
+
+_Source:_ https://freesound.org/people/LittleRobotSoundFactory/sounds/270330/
+_Author:_ LittleRobotSoundFactory
+_License:_ Attribution 3.0 Unported, http://creativecommons.org/licenses/by/3.0/
+
+_Source:_ https://freesound.org/people/LittleRobotSoundFactory/sounds/270305/
+_Author:_ LittleRobotSoundFactory
+_License:_ Attribution 3.0 Unported, http://creativecommons.org/licenses/by/3.0/
+
+_Source:_ https://freesound.org/people/LittleRobotSoundFactory/sounds/270304/
+_Author:_ LittleRobotSoundFactory
+_License:_ Attribution 3.0 Unported, http://creativecommons.org/licenses/by/3.0/
+
+_Source:_ https://freesound.org/people/ProjectsU012/sounds/341629/
+_Author:_ ProjectsU012
+_License:_ Attribution 3.0 Unported, http://creativecommons.org/licenses/by/3.0/
+
+_Source:_ https://freesound.org/people/ProjectsU012/sounds/334261/
+_Author:_ ProjectsU012
+_License:_ Attribution 3.0 Unported, http://creativecommons.org/licenses/by/3.0/
+
+_Source:_ https://freesound.org/people/ProjectsU012/sounds/360964/
+_Author:_ ProjectsU012
+_License:_ Attribution 3.0 Unported, http://creativecommons.org/licenses/by/3.0/
+
+_Source:_ https://freesound.org/people/ProjectsU012/sounds/333785/
+_Author:_ ProjectsU012
+_License:_ Attribution 3.0 Unported, http://creativecommons.org/licenses/by/3.0/
+
+_Source:_ https://freesound.org/people/TannerSound/sounds/478262/
+_Author:_ TannerSound
+_License:_ Attribution 3.0 Unported, http://creativecommons.org/licenses/by/3.0/
+
+_Source:_ https://freesound.org/people/andersmmg/sounds/511491/
+_Author:_ andersmmg
+_License:_ Attribution 3.0 Unported, http://creativecommons.org/licenses/by/3.0/
+
+_Source:_ https://freesound.org/people/shinephoenixstormcrow/sounds/337050/
+_Author:_ shinephoenixstormcrow
+_License:_ Attribution 3.0 Unported, http://creativecommons.org/licenses/by/3.0/
+
+_Source:_ https://freesound.org/people/soneproject/sounds/346425/
+_Author:_ soneproject
+_License:_ Attribution 3.0 Unported, http://creativecommons.org/licenses/by/3.0/
+
+_Source:_ https://freesound.org/people/ying16/sounds/353069/
+_Author:_ ying16
+_License:_ Attribution 3.0 Unported, http://creativecommons.org/licenses/by/3.0/
+
+_Source:_ https://freesound.org/people/queenoyster/sounds/582986/
+_Author:_ queenoyster
+_License:_ CC0 1.0 Universal, http://creativecommons.org/publicdomain/zero/1.0/
+
+_Source:_ https://freesound.org/people/walkingdistance/sounds/185197/
+_Author:_ walkingdistance
+_License:_ Attribution 3.0 Unported, http://creativecommons.org/licenses/by/3.0/
+
+_Source:_ https://freesound.org/people/melokacool/sounds/613653
+_Author:_ melokacool
+_License:_ CC0 1.0 Universal, http://creativecommons.org/publicdomain/zero/1.0/

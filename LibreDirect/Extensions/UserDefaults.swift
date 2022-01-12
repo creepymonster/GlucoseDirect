@@ -12,16 +12,22 @@ private enum Keys: String {
     case alarmLow = "libre-direct.settings.alarm-low"
     case calendarExport = "libre-direct.settings.calendar-export"
     case chartShowLines = "libre-direct.settings.chart-show-lines"
-    case connectionAlarm = "libre-direct.settings.connection-alarm"
-    case expiringAlarm = "libre-direct.settings.expiring-alarm"
-    case latestReadings
-    case glucoseAlarm = "libre-direct.settings.glucose-alarm"
+    case chartZoomLevel = "libre-direct.settings.chart-zoom-level"
+    case connectionAlarmSound = "libre-direct.settings.connection-alarm-sound"
+    case customCalibration = "libre-direct.settings.custom-calibration"
+    case expiringAlarmSound = "libre-direct.settings.expiring-alarm-sound"
     case glucoseBadge = "libre-direct.settings.glucose-badge"
     case glucoseUnit = "libre-direct.settings.glucose-unit"
     case glucoseValues = "libre-direct.settings.glucose-value-array"
+    case highGlucoseAlarmSound = "libre-direct.settings.high-glucose-alarm-sound"
+    case internalHttpServer = "libre-direct.settings.internal-http-server"
+    case isPaired = "libre-direct.settings.is-paired"
+    case ignoreMute = "libre-direct.settings.ignore-mute"
+    case latestReadings
+    case lowGlucoseAlarmSound = "libre-direct.settings.low-glucose-alarm-sound"
     case nightscoutApiSecret = "libre-direct.settings.nightscout-api-secret"
-    case nightscoutUrl = "libre-direct.settings.nightscout-host"
     case nightscoutUpload = "libre-direct.settings.nightscout-upload-enabled"
+    case nightscoutUrl = "libre-direct.settings.nightscout-host"
     case readGlucose = "libre-direct.settings.read-glucose"
     case selectedCalendarTarget = "libre-direct.settings.selected-calendar-target"
     case selectedConnectionId = "libre-direct.settings.selected-connection-id"
@@ -91,42 +97,77 @@ extension UserDefaults {
         }
     }
 
-    var connectionAlarm: Bool {
+    var chartZoomLevel: Int {
         get {
-            if object(forKey: Keys.connectionAlarm.rawValue) != nil {
-                return bool(forKey: Keys.connectionAlarm.rawValue)
+            if object(forKey: Keys.chartZoomLevel.rawValue) != nil {
+                return integer(forKey: Keys.chartZoomLevel.rawValue)
             }
 
-            return true
+            return 1
         }
         set {
-            set(newValue, forKey: Keys.connectionAlarm.rawValue)
+            set(newValue, forKey: Keys.chartZoomLevel.rawValue)
         }
     }
 
-    var expiringAlarm: Bool {
+    var connectionAlarmSound: NotificationSound {
         get {
-            if object(forKey: Keys.expiringAlarm.rawValue) != nil {
-                return bool(forKey: Keys.expiringAlarm.rawValue)
+            if let soundRawValue = object(forKey: Keys.connectionAlarmSound.rawValue) as? String, let sound = NotificationSound(rawValue: soundRawValue) {
+                return sound
             }
 
-            return true
+            return .alarm
         }
         set {
-            set(newValue, forKey: Keys.expiringAlarm.rawValue)
+            set(newValue.rawValue, forKey: Keys.connectionAlarmSound.rawValue)
+        }
+    }
+    
+    var customCalibration: [CustomCalibration] {
+        get {
+            return getArray(forKey: Keys.customCalibration.rawValue) ?? []
+        }
+        set {
+            setArray(newValue, forKey: Keys.customCalibration.rawValue)
         }
     }
 
-    var glucoseAlarm: Bool {
+    var expiringAlarmSound: NotificationSound {
         get {
-            if object(forKey: Keys.glucoseAlarm.rawValue) != nil {
-                return bool(forKey: Keys.glucoseAlarm.rawValue)
+            if let soundRawValue = object(forKey: Keys.expiringAlarmSound.rawValue) as? String, let sound = NotificationSound(rawValue: soundRawValue) {
+                return sound
             }
 
-            return true
+            return .expiring
         }
         set {
-            set(newValue, forKey: Keys.glucoseAlarm.rawValue)
+            set(newValue.rawValue, forKey: Keys.expiringAlarmSound.rawValue)
+        }
+    }
+
+    var highGlucoseAlarmSound: NotificationSound {
+        get {
+            if let soundRawValue = object(forKey: Keys.highGlucoseAlarmSound.rawValue) as? String, let sound = NotificationSound(rawValue: soundRawValue) {
+                return sound
+            }
+
+            return .alarm
+        }
+        set {
+            set(newValue.rawValue, forKey: Keys.highGlucoseAlarmSound.rawValue)
+        }
+    }
+    
+    var lowGlucoseAlarmSound: NotificationSound {
+        get {
+            if let soundRawValue = object(forKey: Keys.lowGlucoseAlarmSound.rawValue) as? String, let sound = NotificationSound(rawValue: soundRawValue) {
+                return sound
+            }
+
+            return .alarm
+        }
+        set {
+            set(newValue.rawValue, forKey: Keys.lowGlucoseAlarmSound.rawValue)
         }
     }
 
@@ -164,7 +205,46 @@ extension UserDefaults {
             setArray(newValue, forKey: Keys.glucoseValues.rawValue)
         }
     }
+    
+    var internalHttpServer: Bool {
+        get {
+            if object(forKey: Keys.internalHttpServer.rawValue) != nil {
+                return bool(forKey: Keys.internalHttpServer.rawValue)
+            }
 
+            return false
+        }
+        set {
+            set(newValue, forKey: Keys.internalHttpServer.rawValue)
+        }
+    }
+    
+    var isPaired: Bool {
+        get {
+            if object(forKey: Keys.isPaired.rawValue) != nil {
+                return bool(forKey: Keys.isPaired.rawValue)
+            }
+
+            return false
+        }
+        set {
+            set(newValue, forKey: Keys.isPaired.rawValue)
+        }
+    }
+    
+    var ignoreMute: Bool {
+        get {
+            if object(forKey: Keys.ignoreMute.rawValue) != nil {
+                return bool(forKey: Keys.ignoreMute.rawValue)
+            }
+
+            return false
+        }
+        set {
+            set(newValue, forKey: Keys.ignoreMute.rawValue)
+        }
+    }
+    
     var latestReadings: Data? {
         get {
             return data(forKey: Keys.latestReadings.rawValue)
@@ -216,7 +296,7 @@ extension UserDefaults {
             set(newValue, forKey: Keys.nightscoutUpload.rawValue)
         }
     }
-    
+
     var readGlucose: Bool {
         get {
             if object(forKey: Keys.readGlucose.rawValue) != nil {
@@ -308,7 +388,7 @@ extension UserDefaults {
         guard let data = data(forKey: key) else {
             return nil
         }
-        
+
         return try? JSONDecoder().decode([Element].self, from: data)
     }
 
@@ -321,7 +401,7 @@ extension UserDefaults {
         guard let data = data(forKey: key) else {
             return nil
         }
-        
+
         return try? JSONDecoder().decode(Element.self, from: data)
     }
 
@@ -329,15 +409,7 @@ extension UserDefaults {
         guard let value = Bundle.main.object(forInfoDictionaryKey: key) as? String else {
             fatalError("Invalid value or undefined key")
         }
-        
+
         return value
     }
 }
-
-private var keyFormatter: DateFormatter = {
-    let dateFormatter = DateFormatter()
-    dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
-    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-
-    return dateFormatter
-}()

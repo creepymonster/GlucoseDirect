@@ -20,10 +20,11 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
 
     // MARK: Internal
 
-    func pairSensor() {
-        guard subject != nil else {
-            AppLog.error("Pairing, subject is nil")
+    func readSensor(noPairing: Bool) {
+        noStreaming = noPairing
 
+        guard subject != nil else {
+            logErrorAndDisconnect("Pairing, subject is nil")
             return
         }
 
@@ -40,121 +41,129 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
         if let readerError = error as? NFCReaderError, readerError.code != .readerSessionInvalidationErrorUserCanceled {
             session.invalidate(errorMessage: "Connection failure: \(readerError.localizedDescription)")
 
-            AppLog.error("Reader session didInvalidateWithError: \(readerError.localizedDescription))")
-            subject?.send(.setConnectionError(errorMessage: readerError.localizedDescription, errorTimestamp: Date(), errorIsCritical: false))
-            subject?.send(.setConnectionState(connectionState: .disconnected))
-        } else {
-            AppLog.info("Reader session didInvalidate")
-            subject?.send(.setConnectionState(connectionState: .disconnected))
+            logErrorAndDisconnect("Reader session didInvalidateWithError: \(readerError.localizedDescription))")
         }
     }
 
     func tagReaderSession(_ session: NFCTagReaderSession, didDetect tags: [NFCTag]) {
-        guard let firstTag = tags.first else {
-            AppLog.error("No tag")
-            subject?.send(.setConnectionError(errorMessage: "No tag", errorTimestamp: Date(), errorIsCritical: false))
-            subject?.send(.setConnectionState(connectionState: .disconnected))
-
-            return
-        }
-
-        guard case .iso15693(let tag) = firstTag else {
-            AppLog.error("No ISO15693 tag")
-            subject?.send(.setConnectionError(errorMessage: "No ISO15693 tag", errorTimestamp: Date(), errorIsCritical: false))
-            subject?.send(.setConnectionState(connectionState: .disconnected))
-
-            return
-        }
-
-        let blocks = 43
-        let requestBlocks = 3
-
-        let requests = Int(ceil(Double(blocks) / Double(requestBlocks)))
-        let remainder = blocks % requestBlocks
-        var dataArray = [Data](repeating: Data(), count: blocks)
-
-        session.connect(to: firstTag) { error in
-            if error != nil {
+        Task {
+            guard let firstTag = tags.first else {
+                logErrorAndDisconnect("No tag found")
                 return
             }
 
-            tag.getSystemInfo(requestFlags: [.address, .highDataRate]) { result in
-                switch result {
-                case .failure:
-                    return
+            guard case .iso15693(let tag) = firstTag else {
+                logErrorAndDisconnect("No ISO15693 tag found")
+                return
+            }
 
-                case .success:
-                    tag.customCommand(requestFlags: .highDataRate, customCommandCode: 0xA1, customRequestParameters: Data()) { response, error in
-                        for i in 0 ..< requests {
-                            let requestFlags: NFCISO15693RequestFlag = [.highDataRate, .address]
-                            let blockRange = NSRange(UInt8(i * requestBlocks) ... UInt8(i * requestBlocks + (i == requests - 1 ? (remainder == 0 ? requestBlocks : remainder) : requestBlocks) - (requestBlocks > 1 ? 1 : 0)))
+            do {
+                try await session.connect(to: firstTag)
+            } catch {
+                logErrorAndDisconnect("Failed to connect to tag")
+                return
+            }
 
-                            tag.readMultipleBlocks(requestFlags: requestFlags, blockRange: blockRange) { blockArray, error in
-                                if error != nil {
-                                    if i != requests - 1 { return }
-                                } else {
-                                    for j in 0 ..< blockArray.count {
-                                        dataArray[i * requestBlocks + j] = blockArray[j]
-                                    }
-                                }
+            let sensorUID = Data(tag.identifier.reversed())
+            var patchInfo = Data()
 
-                                if i == requests - 1 {
-                                    var fram = Data()
+            do {
+                patchInfo = try await tag.customCommand(requestFlags: .highDataRate, customCommandCode: 0xA1, customRequestParameters: Data())
+            } catch {
+                logErrorAndDisconnect("Invalid patchInfo")
+                return
+            }
 
-                                    for (_, data) in dataArray.enumerated() {
-                                        if !data.isEmpty {
-                                            fram.append(data)
-                                        }
-                                    }
+            guard patchInfo.count >= 6 else {
+                logErrorAndDisconnect("Invalid patchInfo")
+                return
+            }
 
-                                    // get sensorUID and patchInfo and send to delegate
-                                    let sensorUID = Data(tag.identifier.reversed())
-                                    let patchInfo = response
+            let type = SensorType(patchInfo)
+            guard type == .libre2EU || (type == .libre1 && self.noStreaming) else {
+                logErrorAndDisconnect("Invalid sensor type")
+                return
+            }
 
-                                    // patchInfo should have length 6, which sometimes is not the case, as there are occuring crashes in nfcCommand and Libre2BLEUtilities.streamingUnlockPayload
-                                    guard patchInfo.count >= 6 else {
-                                        AppLog.error("Invalid patchInfo (patchInfo not > 6)")
-                                        self.subject?.send(.setConnectionError(errorMessage: "Invalid patchInfo (patchInfo not > 6)", errorTimestamp: Date(), errorIsCritical: false))
-                                        self.subject?.send(.setConnectionState(connectionState: .disconnected))
+            let blocks = 43
+            let requestBlocks = 3
 
-                                        return
-                                    }
-                                    
-                                    let type = SensorType(patchInfo)
-                                    guard type == .libre2EU else {
-                                        AppLog.error("Invalid sensor type: \(type.localizedString)")
-                                        self.subject?.send(.setConnectionError(errorMessage: "Invalid sensor type: \(type.localizedString)", errorTimestamp: Date(), errorIsCritical: false))
-                                        self.subject?.send(.setConnectionState(connectionState: .disconnected))
+            let requests = Int(ceil(Double(blocks) / Double(requestBlocks)))
+            let remainder = blocks % requestBlocks
+            var dataArray = [Data](repeating: Data(), count: blocks)
 
-                                        return
-                                    }
+            for i in 0 ..< requests {
+                let requestFlags: NFCISO15693RequestFlag = [.highDataRate, .address]
+                let blockRange = NSRange(UInt8(i * requestBlocks) ... UInt8(i * requestBlocks + (i == requests - 1 ? (remainder == 0 ? requestBlocks : remainder) : requestBlocks) - (requestBlocks > 1 ? 1 : 0)))
 
-                                    let subCmd: Subcommand = .enableStreaming
-                                    let cmd = self.nfcCommand(subCmd, unlockCode: self.unlockCode, patchInfo: patchInfo, sensorUID: sensorUID)
+                var failedRead: Bool
+                var failedRetries = 5
 
-                                    tag.customCommand(requestFlags: .highDataRate, customCommandCode: Int(cmd.code), customRequestParameters: cmd.parameters) { response, _ in
-                                        let streamingEnabled = subCmd == .enableStreaming && response.count == 6
-
-                                        session.invalidate()
-
-                                        guard streamingEnabled else {
-                                            AppLog.error("Streaming not enabled")
-                                            self.subject?.send(.setConnectionError(errorMessage: "Streaming not enabled", errorTimestamp: Date(), errorIsCritical: false))
-                                            self.subject?.send(.setConnectionState(connectionState: .disconnected))
-
-                                            return
-                                        }
-
-                                        let decryptedFram = SensorUtility.decryptFRAM(uuid: sensorUID, patchInfo: patchInfo, fram: fram)
-                                        if let decryptedFram = decryptedFram {
-                                            AppLog.info("Success (from decrypted fram)")
-                                            self.subject?.send(.setSensor(sensor: Sensor(uuid: sensorUID, patchInfo: patchInfo, fram: decryptedFram)))
-                                            self.subject?.send(.setConnectionState(connectionState: .disconnected))
-                                        }
-                                    }
-                                }
-                            }
+                repeat {
+                    failedRead = false
+                    failedRetries -= 1
+                    
+                    do {
+                        let blockArray = try await tag.readMultipleBlocks(requestFlags: requestFlags, blockRange: blockRange)
+                        for j in 0 ..< blockArray.count {
+                            dataArray[i * requestBlocks + j] = blockArray[j]
                         }
+                    } catch {
+                        failedRead = true
+                    }
+                } while failedRead && failedRetries > 0
+                
+                if failedRead {
+                    logErrorAndDisconnect("Failed to read multiple tags")
+                    return
+                }
+
+                if i == requests - 1 {
+                    AppLog.info("create fram")
+
+                    var fram = Data()
+                    for (_, data) in dataArray.enumerated() {
+                        if !data.isEmpty {
+                            fram.append(data)
+                        }
+                    }
+
+                    guard fram.count >= 344 else {
+                        logErrorAndDisconnect("Invalid fram")
+                        return
+                    }
+
+                    AppLog.info("create sensor")
+                    let sensor = Sensor(uuid: sensorUID, patchInfo: patchInfo, fram: SensorUtility.decryptFRAM(uuid: sensorUID, patchInfo: patchInfo, fram: fram) ?? fram)
+
+                    guard sensor.age > sensor.warmupTime, sensor.age < sensor.lifetime else {
+                        logErrorAndDisconnect(LocalizedString("Scanned sensor expired"), showToUser: true)
+                        return
+                    }
+
+                    AppLog.info("parse sensor readings")
+                    let sensorReadings = SensorUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: sensor.fram!)
+
+                    if self.noStreaming {
+                        session.invalidate()
+
+                        self.subject?.send(.setSensor(sensor: sensor))
+                        self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", trendReadings: sensorReadings.trend, historyReadings: sensorReadings.history))
+                    } else {
+                        let streamingCmd = self.nfcCommand(.enableStreaming, unlockCode: self.unlockCode, patchInfo: patchInfo, sensorUID: sensorUID)
+                        let streaminResponse = try await tag.customCommand(requestFlags: .highDataRate, customCommandCode: Int(streamingCmd.code), customRequestParameters: streamingCmd.parameters)
+                        let streamingEnabled = streaminResponse.count == 6
+
+                        session.invalidate()
+
+                        guard streamingEnabled else {
+                            logErrorAndDisconnect("Streaming not enabled")
+                            return
+                        }
+
+                        self.subject?.send(.setSensor(sensor: sensor, wasCoupled: true))
+                        self.subject?.send(.setConnectionState(connectionState: .disconnected))
+                        self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", trendReadings: sensorReadings.trend, historyReadings: sensorReadings.history))
                     }
                 }
             }
@@ -168,6 +177,16 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
 
     private let nfcQueue = DispatchQueue(label: "libre-direct.nfc-queue")
     private let unlockCode: UInt32 = 42
+    private var noStreaming = false
+
+    private func logErrorAndDisconnect(_ message: String, showToUser: Bool = false) {
+        AppLog.error(message)
+
+        session?.invalidate()
+
+        subject?.send(.setConnectionError(errorMessage: showToUser ? message : LocalizedString("Retry pairing"), errorTimestamp: Date(), errorIsCritical: false))
+        subject?.send(.setConnectionState(connectionState: .disconnected))
+    }
 
     private func nfcCommand(_ code: Subcommand, unlockCode: UInt32, patchInfo: Data, sensorUID: Data) -> NFCCommand {
         var parameters = Data([code.rawValue])

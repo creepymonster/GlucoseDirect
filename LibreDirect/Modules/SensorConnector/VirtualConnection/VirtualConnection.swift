@@ -8,7 +8,7 @@ import Foundation
 
 // MARK: - VirtualLibreConnection
 
-final class VirtualLibreConnection: SensorConnection {
+final class VirtualLibreConnection: SensorBLEConnection {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<AppAction, AppError>) {
@@ -25,7 +25,6 @@ final class VirtualLibreConnection: SensorConnection {
             uuid: Data(hexString: "e9ad9b6c79bd93aa")!,
             patchInfo: Data(hexString: "448cd1")!,
             factoryCalibration: FactoryCalibration(i1: 1, i2: 2, i3: 4, i4: 8, i5: 16, i6: 32),
-            customCalibration: [],
             family: .unknown,
             type: .virtual,
             region: .european,
@@ -36,11 +35,11 @@ final class VirtualLibreConnection: SensorConnection {
             warmupTime: warmupTime
         )
 
-        sendUpdate(sensor: sensor)
+        sendUpdate(sensor: sensor, wasCoupled: true)
     }
 
     func connectSensor(sensor: Sensor) {
-        let fireDate = Date().rounded(on: 1, .minute).addingTimeInterval(60)
+        let fireDate = Date().toRounded(on: 1, .minute).addingTimeInterval(60)
         let timer = Timer(fire: fireDate, interval: glucoseInterval, repeats: true) { _ in
             AppLog.info("fires at \(Date())")
 
@@ -87,7 +86,7 @@ final class VirtualLibreConnection: SensorConnection {
                 ? .INVALID_DATA
                 : .OK
 
-            sendUpdate(nextReading: SensorReading(id: UUID(), timestamp: Date(), glucoseValue: Double(currentGlucose), quality: badQuality))
+            sendUpdate(sensorSerial: sensor?.serial ?? "", nextReading: SensorReading(id: UUID(), timestamp: Date(), glucoseValue: Double(currentGlucose), quality: badQuality))
         }
 
         let nextAddition = direction == .up ? 1 : -1

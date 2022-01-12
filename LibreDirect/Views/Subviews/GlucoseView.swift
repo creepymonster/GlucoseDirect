@@ -43,23 +43,12 @@ struct GlucoseView: View {
                                 }
                             }.foregroundColor(glucoseForegroundColor)
 
-                            HStack(spacing: 20) {
-                                if store.state.connectionState == .connected {
-                                    Text(String(format: LocalizedString("%1$@ a clock"), currentGlucose.timestamp.localTime))
-                                    if let minuteChange = currentGlucose.minuteChange?.asMinuteChange(glucoseUnit: store.state.glucoseUnit), currentGlucose.trend != .unknown {
-                                        Text(minuteChange)
-                                    } else {
-                                        Text(String(format: LocalizedString("%1$@/min."), "?"))
-                                    }
-                                } else if store.state.isPaired {
-                                    Text(store.state.connectionState.localizedString)
-                                        .foregroundColor(Color.ui.red)
-                                }
-                            }.padding(.bottom)
-                        }
-
-                        if store.state.glucoseAlarm && store.state.isPaired {
-                            SnoozeView().padding(.bottom, 5)
+                            if let minuteChange = currentGlucose.minuteChange?.asMinuteChange(glucoseUnit: store.state.glucoseUnit), currentGlucose.trend != .unknown {
+                                HStack(spacing: 20) {
+                                    Text(String(format: LocalizedString("%1$@ a clock"), currentGlucose.timestamp.toLocalTime()))
+                                    Text(minuteChange)
+                                }.padding(.bottom)
+                            }
                         }
                     } else {
                         VStack(alignment: .center, spacing: 0) {
@@ -70,7 +59,7 @@ struct GlucoseView: View {
                             Text("Attention, the sensor sends faulty values. Please wait 10 minutes.")
                                 .padding(.vertical)
 
-                            Text(String(format: LocalizedString("%1$@ a clock"), currentGlucose.timestamp.localTime))
+                            Text(String(format: LocalizedString("%1$@ a clock"), currentGlucose.timestamp.toLocalTime()))
                         }.padding(.vertical)
                     }
                 }

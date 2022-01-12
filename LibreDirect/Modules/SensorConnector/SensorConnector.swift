@@ -61,8 +61,8 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
                     .eraseToAnyPublisher()
             }
 
-        case .addSensorReadings(trendReadings: let trendReadings, historyReadings: let historyReadings):
-            if let sensor = state.sensor, !trendReadings.isEmpty, !historyReadings.isEmpty {
+        case .addSensorReadings(sensorSerial: _, trendReadings: let trendReadings, historyReadings: let historyReadings):
+            if !trendReadings.isEmpty, !historyReadings.isEmpty {
                 let missingHistory = historyReadings.filter { reading in
                     if state.currentGlucose == nil || reading.timestamp > state.currentGlucose!.timestamp, reading.timestamp < trendReadings.first!.timestamp {
                         return true
@@ -84,7 +84,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
                 var missedGlucosValues: [Glucose] = []
 
                 missingHistory.forEach { reading in
-                    let glucose = calibrationService.calibrate(sensor: sensor, nextReading: reading, currentGlucose: previousGlucose)
+                    let glucose = calibrationService.calibrate(customCalibration: state.customCalibration, nextReading: reading, currentGlucose: previousGlucose)
                     missedGlucosValues.append(glucose)
 
                     if glucose.quality == .OK {
@@ -93,7 +93,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
                 }
 
                 missingTrend.forEach { reading in
-                    let glucose = calibrationService.calibrate(sensor: sensor, nextReading: reading, currentGlucose: previousGlucose)
+                    let glucose = calibrationService.calibrate(customCalibration: state.customCalibration, nextReading: reading, currentGlucose: previousGlucose)
                     missedGlucosValues.append(glucose)
 
                     if glucose.quality == .OK {
@@ -104,6 +104,16 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
                 return Just(.addGlucoseValues(glucoseValues: missedGlucosValues))
                     .setFailureType(to: AppError.self)
                     .eraseToAnyPublisher()
+            }
+            
+        case .scanSensor:
+            guard let sensorConnection = state.selectedConnection else {
+                AppLog.info("Guard: state.selectedConnection is nil")
+                break
+            }
+
+            if let sensorConnection = sensorConnection as? SensorNFCConnection {
+                sensorConnection.scanSensor()
             }
 
         case .pairSensor:
@@ -142,7 +152,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
     }
 }
 
-typealias SensorConnectionCreator = (PassthroughSubject<AppAction, AppError>) -> SensorConnection
+typealias SensorConnectionCreator = (PassthroughSubject<AppAction, AppError>) -> SensorBLEConnection
 
 // MARK: - SensorConnectionInfo
 

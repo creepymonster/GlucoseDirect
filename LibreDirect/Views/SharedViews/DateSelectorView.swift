@@ -31,13 +31,13 @@ struct DateSelectorView: View {
             Text(key)
 
             Stepper(onIncrement: {
-                let date = (value ?? Date()).rounded(on: 15, .minute).addingTimeInterval(30 * 60)
+                let date = (value ?? Date()).toRounded(on: 15, .minute).addingTimeInterval(30 * 60)
 
                 if let completionHandler = completionHandler {
                     completionHandler(date)
                 }
             }, onDecrement: {
-                let date = (value ?? Date()).rounded(on: 15, .minute).addingTimeInterval(-30 * 60)
+                let date = (value ?? Date()).toRounded(on: 15, .minute).addingTimeInterval(-30 * 60)
 
                 if let completionHandler = completionHandler {
                     completionHandler(date)
@@ -57,6 +57,6 @@ struct DateSelectorView: View {
 
 struct DateSelectorView_Previews: PreviewProvider {
     static var previews: some View {
-        DateSelectorView(key: "Key", value: Date(), displayValue: Date().localTime)
+        DateSelectorView(key: "Key", value: Date(), displayValue: Date().toLocalTime())
     }
 }

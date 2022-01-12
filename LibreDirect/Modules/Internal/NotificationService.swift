@@ -3,6 +3,7 @@
 //  LibreDirect
 //
 
+import AudioToolbox
 import AVFoundation
 import Foundation
 import UIKit
@@ -13,7 +14,12 @@ import UserNotifications
 class NotificationService {
     // MARK: Lifecycle
 
-    private init() {}
+    private init() {
+        if let soundURL = FrameworkBundle.main.url(forResource: "mute", withExtension: "aiff"), AudioServicesCreateSystemSoundID(soundURL as CFURL, &muteSoundId) == kAudioServicesNoError {
+            var yes: UInt32 = 1
+            AudioServicesSetProperty(kAudioServicesPropertyIsUISound, UInt32(MemoryLayout.size(ofValue: muteSoundId)), &muteSoundId, UInt32(MemoryLayout.size(ofValue: yes)), &yes)
+        }
+    }
 
     // MARK: Internal
 
@@ -42,24 +48,16 @@ class NotificationService {
         }
     }
 
-    func playSilentSound() {
-        playSound(named: "silent")
-    }
+    func playSound(ignoreMute: Bool, sound: NotificationSound) {
+        guard sound != .none else {
+            return
+        }
 
-    func playAlarmSound() {
-        playSound(named: "alarm")
-    }
-
-    func playExpiringSound() {
-        playSound(named: "expiring")
-    }
-
-    func playNegativeSound() {
-        playSound(named: "negative")
-    }
-
-    func playPositiveSound() {
-        playSound(named: "positive")
+        if sound == .vibration {
+            vibrate()
+        } else {
+            playSound(ignoreMute: ignoreMute, named: sound.rawValue)
+        }
     }
 
     func add(identifier: String, content: UNMutableNotificationContent) {
@@ -95,29 +93,64 @@ class NotificationService {
 
     // MARK: Private
 
+    private var muteCheckStart: TimeInterval = 0
+    private var muteSoundId: SystemSoundID = 0
+
+    private var isMuted = false
     private var player: AVAudioPlayer?
 
-    private func playSound(named: String) {
-        guard let soundURL = FrameworkBundle.main.url(forResource: named, withExtension: "aiff") else {
-            AppLog.info("Guard: FrameworkBundle.main.url(forResource: \(named), withExtension: aiff) is nil")
+    private func checkMute(_ completion: @escaping (_ isMuted: Bool) -> Void) {
+        muteCheckStart = Date.timeIntervalSinceReferenceDate
+
+        AudioServicesPlaySystemSoundWithCompletion(muteSoundId) { [weak self] in
+            if let self = self {
+                let elapsed = Date.timeIntervalSinceReferenceDate - self.muteCheckStart
+                let isMuted = elapsed < 0.1
+
+                completion(isMuted)
+            }
+        }
+    }
+
+    private func vibrate(times: Int = 10) {
+        if times == 0 {
             return
         }
 
-        do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, options: [.mixWithOthers])
-            try AVAudioSession.sharedInstance().setActive(true)
-        } catch {
-            AppLog.error("NotificationCenter, could not set AVAudioSession category to playback and mixwithOthers, error = \(error.localizedDescription)")
+        AudioServicesPlaySystemSoundWithCompletion(1352) {
+            self.vibrate(times: times - 1)
         }
+    }
 
-        do {
-            let player = try AVAudioPlayer(contentsOf: soundURL)
-            player.volume = 0.5
-            player.play()
+    private func playSound(ignoreMute: Bool, named: String) {
+        checkMute { isMuted in
+            guard !isMuted || ignoreMute else {
+                AppLog.info("Guard: Audio is muted")
+                return
+            }
 
-            self.player = player
-        } catch {
-            AppLog.error("NotificationCenter, exception while trying to play sound, error = \(error.localizedDescription)")
+            guard let soundURL = FrameworkBundle.main.url(forResource: named, withExtension: "aiff") else {
+                AppLog.info("Guard: FrameworkBundle.main.url(forResource: \(named), withExtension: aiff) is nil")
+                return
+            }
+
+            do {
+                try AVAudioSession.sharedInstance().setCategory(.playback, options: [.mixWithOthers])
+                try AVAudioSession.sharedInstance().setActive(true)
+            } catch {
+                AppLog.error("NotificationCenter, could not set AVAudioSession category to playback and mixwithOthers, error = \(error.localizedDescription)")
+            }
+
+            do {
+                let player = try AVAudioPlayer(contentsOf: soundURL)
+                player.volume = 0.2
+                player.prepareToPlay()
+                player.play()
+
+                self.player = player
+            } catch {
+                AppLog.error("NotificationCenter, exception while trying to play sound, error = \(error.localizedDescription)")
+            }
         }
     }
 }
@@ -128,4 +161,41 @@ enum NotificationState {
     case none
     case silent
     case sound
+}
+
+// MARK: - NotificationSound
+
+enum NotificationSound: String, Codable, CaseIterable {
+    case positive
+    case ping
+    case negative
+    case lowBattery = "low-battery"
+    case lose
+    case longAlarm = "long-alarm"
+    case jump
+    case hit
+    case highlight
+    case future
+    case failure
+    case expiring
+    case collectPoint = "collect-point"
+    case coinInsert = "coin-insert"
+    case coinChime = "coin-chime"
+    case climbRope = "climb-rope"
+    case chiptone
+    case buzzBeep = "buzz-beep"
+    case alarm
+    case achievement
+    case vibration
+    case none
+
+    // MARK: Internal
+
+    var description: String {
+        rawValue
+    }
+
+    var localizedString: String {
+        LocalizedString("Sound: \(rawValue)")
+    }
 }

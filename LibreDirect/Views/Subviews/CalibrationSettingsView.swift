@@ -18,16 +18,16 @@ struct CalibrationSettingsView: View {
     @EnvironmentObject var store: AppStore
 
     var slope: Double {
-        Double(round(CalibrationSettingsView.factor * store.state.sensor!.customCalibration.slope) / CalibrationSettingsView.factor)
+        Double(round(CalibrationSettingsView.factor * store.state.customCalibration.slope) / CalibrationSettingsView.factor)
     }
     
     var intercept: Double {
-        Double(round(CalibrationSettingsView.factor * store.state.sensor!.customCalibration.intercept) / CalibrationSettingsView.factor)
+        Double(round(CalibrationSettingsView.factor * store.state.customCalibration.intercept) / CalibrationSettingsView.factor)
     }
 
     var body: some View {
         Group {
-            if let sensor = store.state.sensor, let lastGlucose = store.state.lastGlucose {
+            if let sensor = store.state.sensor {
                 if showingAddCalibrationView {
                     Section(
                         content: {
@@ -91,9 +91,9 @@ struct CalibrationSettingsView: View {
                             Text(intercept.description)
                         }
                     
-                        ForEach(sensor.customCalibration) { calibration in
+                        ForEach(store.state.customCalibration) { calibration in
                             HStack {
-                                Text(calibration.timestamp.localDateTime)
+                                Text(calibration.timestamp.toLocalDateTime())
                                 Spacer()
                                 Text("\(calibration.x.asGlucose(glucoseUnit: store.state.glucoseUnit)) = \(calibration.y.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))")
                             }
@@ -101,7 +101,7 @@ struct CalibrationSettingsView: View {
                             AppLog.info("onDelete: \(offsets)")
                             
                             let ids = offsets.map { i in
-                                sensor.customCalibration[i].id
+                                store.state.customCalibration[i].id
                             }
                             
                             DispatchQueue.main.async {
@@ -115,13 +115,13 @@ struct CalibrationSettingsView: View {
                         HStack {
                             Label("Sensor custom calibration", systemImage: "person")
                         
-                            if !showingAddCalibrationView {
+                            if let currentGlucose = store.state.currentGlucose, !showingAddCalibrationView {
                                 Spacer()
                         
                                 Button(
                                     action: {
                                         withAnimation {
-                                            value = lastGlucose.glucoseValue ?? 100
+                                            value = currentGlucose.glucoseValue ?? 100
                                             showingAddCalibrationView = true
                                         }
                                     },
@@ -133,26 +133,24 @@ struct CalibrationSettingsView: View {
                         }
                     },
                     footer: {
-                        if !showingAddCalibrationView {
-                            if let sensor = store.state.sensor, !sensor.customCalibration.isEmpty {
-                                Button(
-                                    action: {
-                                        showingDeleteCalibrationsAlert = true
-                                    },
-                                    label: {
-                                        Label("Delete all", systemImage: "trash.fill")
-                                    }
-                                ).alert(isPresented: $showingDeleteCalibrationsAlert) {
-                                    Alert(
-                                        title: Text("Are you sure you want to delete all calibrations?"),
-                                        primaryButton: .destructive(Text("Delete")) {
-                                            withAnimation {
-                                                store.dispatch(.clearCalibrations)
-                                            }
-                                        },
-                                        secondaryButton: .cancel()
-                                    )
+                        if !showingAddCalibrationView && !store.state.customCalibration.isEmpty {
+                            Button(
+                                action: {
+                                    showingDeleteCalibrationsAlert = true
+                                },
+                                label: {
+                                    Label("Delete all", systemImage: "trash.fill")
                                 }
+                            ).alert(isPresented: $showingDeleteCalibrationsAlert) {
+                                Alert(
+                                    title: Text("Are you sure you want to delete all calibrations?"),
+                                    primaryButton: .destructive(Text("Delete")) {
+                                        withAnimation {
+                                            store.dispatch(.clearCalibrations)
+                                        }
+                                    },
+                                    secondaryButton: .cancel()
+                                )
                             }
                         }
                     }
