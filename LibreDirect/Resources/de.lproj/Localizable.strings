@@ -113,7 +113,7 @@
 "Disconnect sensor" = "Sensor trennen";
 
 /* (No Comment) */
-"Disconnected" = "Unterbrochen";
+"Disconnected" = "Verbindung getrennt";
 
 /* (No Comment) */
 "Factory calibration i1" = "i1";
@@ -635,7 +635,7 @@
 "Please wait..." = "Bitte warten...";
 
 /* (No Comment) */
-"Scan sensor once" = "Sensor scannen";
+"Scan sensor once" = "Sensor einmal scannen";
 
 /* (No Comment) */
 "Retry pairing" = "Koppeln wiederholen";
