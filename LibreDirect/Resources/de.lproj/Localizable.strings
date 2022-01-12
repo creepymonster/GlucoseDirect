@@ -635,10 +635,10 @@
 "Please wait..." = "Bitte warten...";
 
 /* (No Comment) */
-"Scan sensor" = "Sensor scannen";
+"Scan sensor once" = "Scan sensor once";
 
 /* (No Comment) */
-"Retry NFC scan" = "NFC Scan wiederholen";
+"Retry pairing" = "Retry pairing";
 
 /* (No Comment) */
 "Scanned sensor expired" = "Sensor abgelaufen";
