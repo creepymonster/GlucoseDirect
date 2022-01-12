@@ -11,16 +11,7 @@ struct GlucoeOverviewView: View {
     var body: some View {
         VStack {
             List {
-                if store.state.isScanable {
-                    Button(
-                        action: {
-                            store.dispatch(.scanSensor)
-                        },
-                        label: {
-                            Label("Scan sensor", systemImage: "viewfinder")
-                        }
-                    )
-                }
+
                 
                 if store.state.currentGlucose != nil {
                     GlucoseView().frame(maxWidth: .infinity)

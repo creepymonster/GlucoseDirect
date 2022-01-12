@@ -14,6 +14,17 @@ struct ActionsView: View {
 
     var body: some View {
         if store.state.hasSelectedConnection {
+            if store.state.isScanable {
+                Button(
+                    action: {
+                        store.dispatch(.scanSensor)
+                    },
+                    label: {
+                        Label("Scan sensor", systemImage: "viewfinder")
+                    }
+                )
+            }
+
             if store.state.isPaired {
                 if store.state.isConnectable {
                     Button(
@@ -46,43 +57,26 @@ struct ActionsView: View {
                         )
                     }
                 }
-
-                Button(
-                    action: {
-                        showingUnpairSensorAlert = true
-                    },
-                    label: {
-                        Label("Unpair sensor", systemImage: "nosign")
-                    }
-                ).alert(isPresented: $showingUnpairSensorAlert) {
-                    Alert(
-                        title: Text("Are you sure you want to unpair the sensor?"),
-                        primaryButton: .destructive(Text("Unpair")) {
-                            withAnimation {
-                                if store.state.isDisconnectable {
-                                    store.dispatch(.disconnectSensor)
-                                }
-
-                                store.dispatch(.resetSensor)
-                            }
-                        },
-                        secondaryButton: .cancel()
-                    )
-                }
-            } else if store.state.isPairable && !store.state.isBusy {
-                Button(
-                    action: {
-                        withAnimation {
-                            store.dispatch(.pairSensor)
-                        }
-                    },
-                    label: {
-                        Label("Pair sensor", systemImage: "link")
-                    }
-                )
-            } else {
-                Label("Please wait...", systemImage: "hourglass")
             }
+
+            Button(
+                action: {
+                    withAnimation {
+                        if store.state.isDisconnectable {
+                            store.dispatch(.disconnectSensor)
+                        }
+
+                        if store.state.isPaired {
+                            store.dispatch(.resetSensor)
+                        }
+
+                        store.dispatch(.pairSensor)
+                    }
+                },
+                label: {
+                    Label("Connect sensor", systemImage: "link")
+                }
+            )
         }
     }
 
