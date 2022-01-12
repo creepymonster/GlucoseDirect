@@ -24,7 +24,7 @@ struct ActionsView: View {
                     }
                 )
             }
-            
+
             if store.state.isPaired {
                 if store.state.isConnectable {
                     Button(
@@ -37,7 +37,7 @@ struct ActionsView: View {
                             Label("Connect sensor", systemImage: "play")
                         }
                     )
-                    
+
                     Button(
                         action: {
                             showingUnpairSensorAlert = true
