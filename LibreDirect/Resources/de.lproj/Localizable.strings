@@ -636,3 +636,12 @@
 
 /* (No Comment) */
 "Scan sensor" = "Sensor scannen";
+
+/* (No Comment) */
+"Retry NFC scan" = "NFC Scan wiederholen";
+
+/* (No Comment) */
+"Scanned sensor expired" = "Sensor expired";
+
+/* (No Comment) */
+"Ignore mute" = "Ignore mute";
