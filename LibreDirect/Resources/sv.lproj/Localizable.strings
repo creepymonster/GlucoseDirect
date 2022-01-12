@@ -635,10 +635,10 @@
 "Please wait..." = "Var god vänta...";
 
 /* (No Comment) */
-"Scan sensor" = "Skanna sensor";
+"Scan sensor once" = "Scan sensor once";
 
 /* (No Comment) */
-"Retry NFC scan" = "Retry NFC scan";
+"Retry pairing" = "Retry pairing";
 
 /* (No Comment) */
 "Scanned sensor expired" = "Sensor expired";
