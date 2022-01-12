@@ -14,17 +14,6 @@ struct ActionsView: View {
 
     var body: some View {
         if store.state.hasSelectedConnection {
-            if store.state.isScanable {
-                Button(
-                    action: {
-                        store.dispatch(.scanSensor)
-                    },
-                    label: {
-                        Label("Scan sensor", systemImage: "viewfinder")
-                    }
-                )
-            }
-
             if store.state.isPaired {
                 if store.state.isConnectable {
                     Button(
@@ -74,9 +63,20 @@ struct ActionsView: View {
                     }
                 },
                 label: {
-                    Label("Connect sensor", systemImage: "link")
+                    Label("Pair sensor", systemImage: "link")
                 }
             )
+            
+            if store.state.isScanable {
+                Button(
+                    action: {
+                        store.dispatch(.scanSensor)
+                    },
+                    label: {
+                        Label("Scan sensor", systemImage: "viewfinder")
+                    }
+                )
+            }
         }
     }
 
