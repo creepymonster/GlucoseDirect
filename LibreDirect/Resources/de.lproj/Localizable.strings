@@ -638,7 +638,7 @@
 "Scan sensor once" = "Sensor scannen";
 
 /* (No Comment) */
-"Retry NFC scan" = "NFC Scan wiederholen";
+"Retry pairing" = "NFC Scan wiederholen";
 
 /* (No Comment) */
 "Scanned sensor expired" = "Sensor abgelaufen";

@@ -184,7 +184,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
 
         session?.invalidate()
 
-        subject?.send(.setConnectionError(errorMessage: showToUser ? message : LocalizedString("Retry NFC scan"), errorTimestamp: Date(), errorIsCritical: false))
+        subject?.send(.setConnectionError(errorMessage: showToUser ? message : LocalizedString("Retry pairing"), errorTimestamp: Date(), errorIsCritical: false))
         subject?.send(.setConnectionState(connectionState: .disconnected))
     }
 
