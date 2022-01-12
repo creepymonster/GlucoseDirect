@@ -641,7 +641,7 @@
 "Retry NFC scan" = "NFC Scan wiederholen";
 
 /* (No Comment) */
-"Scanned sensor expired" = "Sensor expired";
+"Scanned sensor expired" = "Sensor abgelaufen";
 
 /* (No Comment) */
-"Ignore mute" = "Ignore mute";
+"Ignore mute" = "Stummschaltung ignorieren";
