@@ -46,26 +46,28 @@ struct ActionsView: View {
                         )
                     }
                 }
-                
-                if !store.state.isDisconnectable {
-                    Button(
-                        action: {
-                            showingUnpairSensorAlert = true
-                        },
-                        label: {
-                            Label("Unpair sensor", systemImage: "nosign")
-                        }
-                    ).alert(isPresented: $showingUnpairSensorAlert) {
-                        Alert(
-                            title: Text("Are you sure you want to unpair the sensor?"),
-                            primaryButton: .destructive(Text("Unpair")) {
-                                withAnimation {
-                                    store.dispatch(.resetSensor)
-                                }
-                            },
-                            secondaryButton: .cancel()
-                        )
+
+                Button(
+                    action: {
+                        showingUnpairSensorAlert = true
+                    },
+                    label: {
+                        Label("Unpair sensor", systemImage: "nosign")
                     }
+                ).alert(isPresented: $showingUnpairSensorAlert) {
+                    Alert(
+                        title: Text("Are you sure you want to unpair the sensor?"),
+                        primaryButton: .destructive(Text("Unpair")) {
+                            withAnimation {
+                                if store.state.isDisconnectable {
+                                    store.dispatch(.disconnectSensor)
+                                }
+
+                                store.dispatch(.resetSensor)
+                            }
+                        },
+                        secondaryButton: .cancel()
+                    )
                 }
             } else if store.state.isPairable && !store.state.isBusy {
                 Button(

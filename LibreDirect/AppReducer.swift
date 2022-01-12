@@ -172,6 +172,9 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setInternalHttpServer(enabled: let enabled):
         state.internalHttpServer = enabled
         
+    case .setIgnoreMute(enabled: let enabled):
+        state.ignoreMute = enabled
+        
     case .setLowGlucoseAlarmSound(sound: let sound):
         state.lowGlucoseAlarmSound = sound
 
@@ -187,10 +190,17 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setReadGlucose(enabled: let enabled):
         state.readGlucose = enabled
         
-    case .setSensor(sensor: let sensor, isPaired: let isPaired):
-        state.sensor = sensor
+    case .setSensor(sensor: let sensor, wasCoupled: let wasCoupled):
+        let isModifiedSensor = state.isScanable && !wasCoupled && (state.sensor == nil || state.sensor?.serial != sensor.serial)
         
-        if isPaired {
+        state.sensor = sensor
+        state.connectionError = nil
+        state.connectionErrorIsCritical = false
+        state.connectionErrorTimestamp = nil
+        
+        if isModifiedSensor {
+            state.isPaired = false
+        } else if wasCoupled {
             state.isPaired = true
         }
 

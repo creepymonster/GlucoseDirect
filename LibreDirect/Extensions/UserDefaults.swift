@@ -1,5 +1,3 @@
-
-
 //
 //  UserDefaults.swift
 //  LibreDirect
@@ -24,6 +22,7 @@ private enum Keys: String {
     case highGlucoseAlarmSound = "libre-direct.settings.high-glucose-alarm-sound"
     case internalHttpServer = "libre-direct.settings.internal-http-server"
     case isPaired = "libre-direct.settings.is-paired"
+    case ignoreMute = "libre-direct.settings.ignore-mute"
     case latestReadings
     case lowGlucoseAlarmSound = "libre-direct.settings.low-glucose-alarm-sound"
     case nightscoutApiSecret = "libre-direct.settings.nightscout-api-secret"
@@ -230,6 +229,19 @@ extension UserDefaults {
         }
         set {
             set(newValue, forKey: Keys.isPaired.rawValue)
+        }
+    }
+    
+    var ignoreMute: Bool {
+        get {
+            if object(forKey: Keys.ignoreMute.rawValue) != nil {
+                return bool(forKey: Keys.ignoreMute.rawValue)
+            }
+
+            return false
+        }
+        set {
+            set(newValue, forKey: Keys.ignoreMute.rawValue)
         }
     }
     

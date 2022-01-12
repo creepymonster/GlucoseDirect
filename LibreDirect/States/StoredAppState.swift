@@ -28,6 +28,7 @@ struct StoredAppState: AppState {
         self.glucoseUnit = UserDefaults.standard.glucoseUnit
         self.internalHttpServer = UserDefaults.standard.internalHttpServer
         self.isPaired = UserDefaults.standard.isPaired
+        self.ignoreMute = UserDefaults.standard.ignoreMute
         self.nightscoutApiSecret = UserDefaults.standard.nightscoutApiSecret
         self.nightscoutUrl = UserDefaults.standard.nightscoutUrl
         self.nightscoutUpload = UserDefaults.standard.nightscoutUpload
@@ -142,6 +143,12 @@ struct StoredAppState: AppState {
     var isPaired: Bool {
         didSet {
             UserDefaults.standard.isPaired = isPaired
+        }
+    }
+    
+    var ignoreMute: Bool {
+        didSet {
+            UserDefaults.standard.ignoreMute = ignoreMute
         }
     }
 

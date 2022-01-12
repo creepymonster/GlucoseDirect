@@ -13,7 +13,7 @@ protocol SensorConnection {
     var subject: PassthroughSubject<AppAction, AppError>? { get }
 }
 
-// MARK: - SensorBluetoothConnection
+// MARK: - SensorBLEConnection
 
 protocol SensorBLEConnection: SensorConnection {
     func pairSensor()
@@ -21,7 +21,7 @@ protocol SensorBLEConnection: SensorConnection {
     func disconnectSensor()
 }
 
-// MARK: - SensorNfcConnection
+// MARK: - SensorNFCConnection
 
 protocol SensorNFCConnection: SensorConnection {
     func scanSensor()
@@ -34,11 +34,11 @@ extension SensorBLEConnection {
         subject?.send(.setConnectionState(connectionState: connectionState))
     }
 
-    func sendUpdate(sensor: Sensor?, isPaired: Bool = false) {
+    func sendUpdate(sensor: Sensor?, wasCoupled: Bool = false) {
         AppLog.info("Sensor: \(sensor?.description ?? "-")")
 
         if let sensor = sensor {
-            subject?.send(.setSensor(sensor: sensor, isPaired: isPaired))
+            subject?.send(.setSensor(sensor: sensor, wasCoupled: wasCoupled))
         } else {
             subject?.send(.resetSensor)
         }

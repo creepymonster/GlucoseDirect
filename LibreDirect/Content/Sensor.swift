@@ -13,6 +13,16 @@ struct Sensor: Codable {
     init(uuid: Data, patchInfo: Data, fram: Data) {
         let family = SensorFamily(Int(patchInfo[2] >> 4))
 
+        var age = 0
+        if fram.count >= 318 {
+            age = Int(fram[316]) + Int(fram[317]) << 8
+        }
+
+        var lifetime = 20_160
+        if fram.count >= 328 {
+            lifetime = Int(fram[326]) + Int(fram[327]) << 8
+        }
+
         self.init(
             fram: fram,
             uuid: uuid,
@@ -23,8 +33,8 @@ struct Sensor: Codable {
             region: SensorRegion(patchInfo[3]),
             serial: sensorSerialNumber(uuid: uuid, sensorFamily: family),
             state: SensorState(fram[4]),
-            age: Int(fram[316]) + Int(fram[317]) << 8,
-            lifetime: Int(fram[326]) + Int(fram[327]) << 8
+            age: age,
+            lifetime: lifetime
         )
     }
 

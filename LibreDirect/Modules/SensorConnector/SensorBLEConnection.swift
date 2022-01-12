@@ -15,8 +15,11 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     init(subject: PassthroughSubject<AppAction, AppError>, serviceUuid: CBUUID) {
         AppLog.info("init")
 
+        super.init()
+
         self.subject = subject
         self.serviceUuid = serviceUuid
+        self.manager = CBCentralManager(delegate: self, queue: managerQueue, options: [CBCentralManagerOptionShowPowerAlertKey: true])
     }
 
     deinit {
@@ -29,10 +32,8 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
 
     // MARK: Internal
 
-    var serviceUuid: CBUUID
-    lazy var manager: CBCentralManager = {
-        CBCentralManager(delegate: self, queue: managerQueue, options: [CBCentralManagerOptionShowPowerAlertKey: true])
-    }()
+    var serviceUuid: CBUUID!
+    var manager: CBCentralManager!
 
     let managerQueue = DispatchQueue(label: "libre-direct.sensor-ble-connection.queue")
     weak var subject: PassthroughSubject<AppAction, AppError>?
@@ -50,7 +51,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
             oldValue?.delegate = nil
             peripheral?.delegate = self
 
-            UserDefaults.standard.peripheralUuid = peripheral?.identifier.uuidString
+            UserDefaults.standard.sensorPeripheralUuid = peripheral?.identifier.uuidString
         }
     }
 
@@ -58,7 +59,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
         dispatchPrecondition(condition: .notOnQueue(managerQueue))
         AppLog.info("PairSensor")
 
-        UserDefaults.standard.peripheralUuid = nil
+        UserDefaults.standard.sensorPeripheralUuid = nil
 
         sendUpdate(connectionState: .pairing)
 
@@ -98,16 +99,17 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
             return
         }
 
-        /*if let connectedPeripheral = manager.retrieveConnectedPeripherals(withServices: [serviceUuid]).first(where: { $0.name?.lowercased().starts(with: peripheralName) ?? false }) {
-            AppLog.info("Connect from retrievePeripherals")
+        /* if let connectedPeripheral = manager.retrieveConnectedPeripherals(withServices: [serviceUuid]).first(where: { $0.name?.lowercased().starts(with: peripheralName) ?? false }) {
+             AppLog.info("Connect from retrievePeripherals")
 
-            connectionMode = .alreadyConnectedDevice
-            connect(connectedPeripheral)
-        } else*/
-        
-        if let peripheralUuidString = UserDefaults.standard.peripheralUuid,
-                  let peripheralUuid = UUID(uuidString: peripheralUuidString),
-                  let retrievedPeripheral = manager.retrievePeripherals(withIdentifiers: [peripheralUuid]).first
+             connectionMode = .alreadyConnectedDevice
+             connect(connectedPeripheral)
+         } else */
+
+        if let peripheralUuidString = UserDefaults.standard.sensorPeripheralUuid,
+           let peripheralUuid = UUID(uuidString: peripheralUuidString),
+           let retrievedPeripheral = manager.retrievePeripherals(withIdentifiers: [peripheralUuid]).first,
+           checkRetrievedPeripheral(peripheral: retrievedPeripheral)
         {
             AppLog.info("Connect from retrievePeripherals")
 
@@ -178,6 +180,10 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     func setStayConnected(stayConnected: Bool) {
         AppLog.info("StayConnected: \(stayConnected.description)")
         self.stayConnected = stayConnected
+    }
+
+    func checkRetrievedPeripheral(peripheral: CBPeripheral) -> Bool {
+        preconditionFailure("This property must be overridden")
     }
 
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
@@ -265,7 +271,7 @@ extension UserDefaults {
         case devicePeripheralUuid = "libre-direct.sensor-ble-connection.peripheral-uuid"
     }
 
-    var peripheralUuid: String? {
+    var sensorPeripheralUuid: String? {
         get {
             return UserDefaults.standard.string(forKey: Keys.devicePeripheralUuid.rawValue)
         }

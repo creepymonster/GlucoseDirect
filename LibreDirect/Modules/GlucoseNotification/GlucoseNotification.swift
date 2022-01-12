@@ -76,7 +76,7 @@ private func glucoseNotificationMiddelware(service: GlucoseNotificationService) 
                 AppLog.info("Glucose alert, low: \(glucose.glucoseValue) < \(state.alarmLow)")
 
                 service.clearBadge()
-                service.setLowGlucoseAlarm(glucose: glucose, glucoseUnit: state.glucoseUnit, sound: state.lowGlucoseAlarmSound)
+                service.setLowGlucoseAlarm(glucose: glucose, glucoseUnit: state.glucoseUnit, ignoreMute: state.ignoreMute, sound: state.lowGlucoseAlarmSound)
 
                 return Just(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).toRounded(on: 1, .minute), autosnooze: true))
                     .setFailureType(to: AppError.self)
@@ -86,7 +86,7 @@ private func glucoseNotificationMiddelware(service: GlucoseNotificationService) 
                 AppLog.info("Glucose alert, high: \(glucose.glucoseValue) > \(state.alarmHigh)")
 
                 service.clearBadge()
-                service.setHighGlucoseAlarm(glucose: glucose, glucoseUnit: state.glucoseUnit, sound: state.highGlucoseAlarmSound)
+                service.setHighGlucoseAlarm(glucose: glucose, glucoseUnit: state.glucoseUnit, ignoreMute: state.ignoreMute, sound: state.highGlucoseAlarmSound)
 
                 return Just(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).toRounded(on: 1, .minute), autosnooze: true))
                     .setFailureType(to: AppError.self)
@@ -166,7 +166,7 @@ private class GlucoseNotificationService {
         }
     }
 
-    func setLowGlucoseAlarm(glucose: Glucose, glucoseUnit: GlucoseUnit, sound: NotificationSound) {
+    func setLowGlucoseAlarm(glucose: Glucose, glucoseUnit: GlucoseUnit, ignoreMute: Bool, sound: NotificationSound) {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
         NotificationService.shared.ensureCanSendNotification { state in
@@ -204,12 +204,12 @@ private class GlucoseNotificationService {
             NotificationService.shared.add(identifier: Identifier.sensorGlucoseAlarm.rawValue, content: notification)
 
             if state == .sound {
-                NotificationService.shared.playSound(sound: sound)
+                NotificationService.shared.playSound(ignoreMute: ignoreMute, sound: sound)
             }
         }
     }
 
-    func setHighGlucoseAlarm(glucose: Glucose, glucoseUnit: GlucoseUnit, sound: NotificationSound) {
+    func setHighGlucoseAlarm(glucose: Glucose, glucoseUnit: GlucoseUnit, ignoreMute: Bool, sound: NotificationSound) {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
 
         NotificationService.shared.ensureCanSendNotification { state in
@@ -247,7 +247,7 @@ private class GlucoseNotificationService {
             NotificationService.shared.add(identifier: Identifier.sensorGlucoseAlarm.rawValue, content: notification)
 
             if state == .sound {
-                NotificationService.shared.playSound(sound: sound)
+                NotificationService.shared.playSound(ignoreMute: ignoreMute, sound: sound)
             }
         }
     }

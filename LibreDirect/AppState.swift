@@ -29,6 +29,7 @@ protocol AppState {
     var highGlucoseAlarmSound: NotificationSound { get set }
     var internalHttpServer: Bool { get set }
     var isPaired: Bool { get set }
+    var ignoreMute: Bool { get set }
     var lowGlucoseAlarmSound: NotificationSound { get set }
     var missedReadings: Int { get set }
     var nightscoutApiSecret: String { get set }

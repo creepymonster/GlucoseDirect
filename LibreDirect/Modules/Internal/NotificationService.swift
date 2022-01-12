@@ -48,7 +48,7 @@ class NotificationService {
         }
     }
 
-    func playSound(sound: NotificationSound, ignoreMute: Bool = false) {
+    func playSound(ignoreMute: Bool, sound: NotificationSound) {
         guard sound != .none else {
             return
         }
@@ -56,7 +56,7 @@ class NotificationService {
         if sound == .vibration {
             vibrate()
         } else {
-            playSound(named: sound.rawValue, ignoreMute: ignoreMute)
+            playSound(ignoreMute: ignoreMute, named: sound.rawValue)
         }
     }
 
@@ -112,11 +112,17 @@ class NotificationService {
         }
     }
 
-    private func vibrate() {
-        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+    private func vibrate(times: Int = 10) {
+        if times == 0 {
+            return
+        }
+
+        AudioServicesPlaySystemSoundWithCompletion(1352) {
+            self.vibrate(times: times - 1)
+        }
     }
 
-    private func playSound(named: String, ignoreMute: Bool) {
+    private func playSound(ignoreMute: Bool, named: String) {
         checkMute { isMuted in
             guard !isMuted || ignoreMute else {
                 AppLog.info("Guard: Audio is muted")

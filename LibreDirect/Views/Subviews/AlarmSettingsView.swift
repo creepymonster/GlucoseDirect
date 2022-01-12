@@ -66,6 +66,10 @@ struct AlarmSettingsView: View {
                     .pickerStyle(.menu)
                     .labelsHidden()
                 }
+                
+                ToggleView(key: LocalizedString("Ignore mute"), value: store.state.ignoreMute) { value -> Void in
+                    store.dispatch(.setIgnoreMute(enabled: value))
+                }
             },
             header: {
                 Label("Alarm Settings", systemImage: "alarm")
@@ -82,7 +86,7 @@ struct AlarmSettingsView: View {
                 let sound = NotificationSound(rawValue: $0)!
                 
                 store.dispatch(.setLowGlucoseAlarmSound(sound: sound))
-                NotificationService.shared.playSound(sound: sound, ignoreMute: true)
+                NotificationService.shared.playSound(ignoreMute: true, sound: sound)
             }
         )
     }
@@ -94,7 +98,7 @@ struct AlarmSettingsView: View {
                 let sound = NotificationSound(rawValue: $0)!
                 
                 store.dispatch(.setHighGlucoseAlarmSound(sound: sound))
-                NotificationService.shared.playSound(sound: sound, ignoreMute: true)
+                NotificationService.shared.playSound(ignoreMute: true, sound: sound)
             }
         )
     }
@@ -106,7 +110,7 @@ struct AlarmSettingsView: View {
                 let sound = NotificationSound(rawValue: $0)!
                 
                 store.dispatch(.setConnectionAlarmSound(sound: sound))
-                NotificationService.shared.playSound(sound: sound, ignoreMute: true)
+                NotificationService.shared.playSound(ignoreMute: true, sound: sound)
             }
         )
     }
@@ -118,7 +122,7 @@ struct AlarmSettingsView: View {
                 let sound = NotificationSound(rawValue: $0)!
                 
                 store.dispatch(.setExpiringAlarmSound(sound: sound))
-                NotificationService.shared.playSound(sound: sound, ignoreMute: true)
+                NotificationService.shared.playSound(ignoreMute: true, sound: sound)
             }
         )
     }

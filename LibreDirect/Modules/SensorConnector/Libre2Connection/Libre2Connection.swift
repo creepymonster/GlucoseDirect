@@ -36,7 +36,7 @@ final class Libre2Connection: SensorBLEConnectionBase, SensorNFCConnection {
         dispatchPrecondition(condition: .notOnQueue(managerQueue))
         AppLog.info("PairSensor")
 
-        UserDefaults.standard.peripheralUuid = nil
+        UserDefaults.standard.sensorPeripheralUuid = nil
         UserDefaults.standard.libre2UnlockCount = 0
 
         sendUpdate(connectionState: .pairing)
@@ -47,6 +47,14 @@ final class Libre2Connection: SensorBLEConnectionBase, SensorNFCConnection {
         firstBuffer = Data()
         secondBuffer = Data()
         thirdBuffer = Data()
+    }
+
+    override func checkRetrievedPeripheral(peripheral: CBPeripheral) -> Bool {
+        if let sensorSerial = sensor?.serial {
+            return peripheral.name == "ABBOTT\(sensorSerial)"
+        }
+
+        return false
     }
 
     func unlock() -> Data? {

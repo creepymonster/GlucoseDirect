@@ -27,21 +27,21 @@ struct ConnectionView: View {
                             Text(store.state.missedReadings.description)
                         }
                     }
+                }
 
-                    if let connectionError = store.state.connectionError {
-                        HStack {
-                            Text("Connection error")
-                            Spacer()
-                            Text(connectionError)
-                        }
+                if let connectionError = store.state.connectionError,
+                   let connectionErrorTimestamp = store.state.connectionErrorTimestamp?.toLocalTime()
+                {
+                    HStack {
+                        Text("Connection error")
+                        Spacer()
+                        Text(connectionError)
                     }
 
-                    if let connectionErrorTimestamp = store.state.connectionErrorTimestamp?.toLocalTime() {
-                        HStack {
-                            Text("Connection error timestamp")
-                            Spacer()
-                            Text(connectionErrorTimestamp)
-                        }
+                    HStack {
+                        Text("Connection error timestamp")
+                        Spacer()
+                        Text(connectionErrorTimestamp)
                     }
                 }
 

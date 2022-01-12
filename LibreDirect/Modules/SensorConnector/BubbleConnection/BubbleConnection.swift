@@ -27,6 +27,10 @@ class BubbleConnection: SensorBLEConnectionBase {
         rxBuffer = Data()
     }
 
+    override func checkRetrievedPeripheral(peripheral: CBPeripheral) -> Bool {
+        return peripheral.name == peripheralName
+    }
+
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         dispatchPrecondition(condition: .onQueue(managerQueue))
         AppLog.info("Peripheral: \(peripheral)")
@@ -187,7 +191,7 @@ class BubbleConnection: SensorBLEConnectionBase {
 private enum BubbleResponseType: UInt8 {
     case dataInfo = 128 // = wakeUp + device info
     case dataPacket = 130
-    //case decryptedDataPacket = 0x88
+    // case decryptedDataPacket = 0x88
     case noSensor = 191
     case patchInfo = 193 // 0xC1
     case serialNumber = 192

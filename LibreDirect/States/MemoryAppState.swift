@@ -29,6 +29,7 @@ struct MemoryAppState: AppState {
     var highGlucoseAlarmSound: NotificationSound = .alarm
     var internalHttpServer = false
     var isPaired = false
+    var ignoreMute = false
     var lowGlucoseAlarmSound: NotificationSound = .alarm
     var missedReadings = 0
     var nightscoutApiSecret = ""
