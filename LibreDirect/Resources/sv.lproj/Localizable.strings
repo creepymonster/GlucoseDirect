@@ -635,13 +635,13 @@
 "Please wait..." = "Var god vänta...";
 
 /* (No Comment) */
-"Scan sensor once" = "Scan sensor once";
+"Scan sensor once" = "Skanna sensorn en gång";
 
 /* (No Comment) */
-"Retry pairing" = "Retry pairing";
+"Retry pairing" = "Försök att parkoppla igen";
 
 /* (No Comment) */
-"Scanned sensor expired" = "Sensor expired";
+"Scanned sensor expired" = "Sensorn har gått ut";
 
 /* (No Comment) */
-"Ignore mute" = "Ignore mute";
+"Ignore mute" = "Ignorera tyst läge";
