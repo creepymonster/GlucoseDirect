@@ -30,12 +30,12 @@ struct SensorConnectorSettings: View {
                     }
                     
                     HStack {
-                        Text("Sensor interval")
+                        Text("Retrieval interval")
                         Spacer()
 
                         Picker("", selection: selectedSensorInterval) {
-                            ForEach([1, 5], id: \.self) { interval in
-                                Text("Sensor interval, \(interval)")
+                            ForEach([1, 5, 10], id: \.self) { interval in
+                                Text("Retrieval interval, \(interval) minutes")
                             }
                         }
                         .pickerStyle(.menu)

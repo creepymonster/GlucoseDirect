@@ -647,10 +647,13 @@
 "Ignore mute" = "Ignore mute";
 
 /* (No Comment) */
-"Sensor interval" = "Sensor interval";
+"Retrieval interval" = "Retrieval interval";
 
 /* (No Comment) */
-"Sensor interval, 1" = "Every minute";
+"Retrieval interval, 1 minutes" = "Every minute";
 
 /* (No Comment) */
-"Sensor interval, 5" = "Every 5 minutes";
+"Retrieval interval, 5 minutes" = "Every 5 minutes";
+
+/* (No Comment) */
+"Retrieval interval, 10 minutes" = "Every 10 minutes";
