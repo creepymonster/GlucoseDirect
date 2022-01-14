@@ -41,6 +41,7 @@ protocol AppState {
     var selectedConnectionId: String? { get set }
     var selectedView: Int { get set }
     var sensor: Sensor? { get set }
+    var sensorInterval: Int { get set }
     var targetValue: Int { get set }
     var transmitter: Transmitter? { get set }
 }

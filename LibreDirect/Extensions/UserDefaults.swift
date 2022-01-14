@@ -33,6 +33,7 @@ private enum Keys: String {
     case selectedConnectionId = "libre-direct.settings.selected-connection-id"
     case selectedView = "libre-direct.settings.selected-view"
     case sensor = "libre-direct.settings.sensor"
+    case sensorInterval = "libre-direct.settings.sensor-interval"
     case transmitter = "libre-direct.settings.transmitter"
 }
 
@@ -359,6 +360,19 @@ extension UserDefaults {
             } else {
                 removeObject(forKey: Keys.sensor.rawValue)
             }
+        }
+    }
+    
+    var sensorInterval: Int {
+        get {
+            if object(forKey: Keys.sensorInterval.rawValue) != nil {
+                return integer(forKey: Keys.sensorInterval.rawValue)
+            }
+
+            return 1
+        }
+        set {
+            set(newValue, forKey: Keys.sensorInterval.rawValue)
         }
     }
 

@@ -17,7 +17,7 @@ protocol SensorConnection {
 
 protocol SensorBLEConnection: SensorConnection {
     func pairSensor()
-    func connectSensor(sensor: Sensor)
+    func connectSensor(sensor: Sensor, sensorInterval: Int)
     func disconnectSensor()
 }
 

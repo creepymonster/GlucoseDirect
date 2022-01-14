@@ -132,7 +132,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             }
 
             if let sensor = state.sensor {
-                sensorConnection.connectSensor(sensor: sensor)
+                sensorConnection.connectSensor(sensor: sensor, sensorInterval: state.sensorInterval)
             } else {
                 sensorConnection.pairSensor()
             }

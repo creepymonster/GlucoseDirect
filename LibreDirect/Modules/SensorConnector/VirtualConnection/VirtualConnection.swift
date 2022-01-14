@@ -38,7 +38,9 @@ final class VirtualLibreConnection: SensorBLEConnection {
         sendUpdate(sensor: sensor, wasCoupled: true)
     }
 
-    func connectSensor(sensor: Sensor) {
+    func connectSensor(sensor: Sensor, sensorInterval: Int) {
+        self.glucoseInterval = TimeInterval(sensorInterval * 60)
+        
         let fireDate = Date().toRounded(on: 1, .minute).addingTimeInterval(60)
         let timer = Timer(fire: fireDate, interval: glucoseInterval, repeats: true) { _ in
             AppLog.info("fires at \(Date())")
@@ -63,7 +65,7 @@ final class VirtualLibreConnection: SensorBLEConnection {
     private var initAge = 0
     private var warmupTime = 5
     private var age = 0
-    private let glucoseInterval = TimeInterval(60)
+    private var glucoseInterval = TimeInterval(60)
     private var sensor: Sensor?
     private var timer: Timer?
     private var direction: VirtualLibreDirection = .up
