@@ -181,6 +181,17 @@ final class Libre2Connection: SensorBLEConnectionBase, SensorNFCConnection {
 
         if !firstBuffer.isEmpty, !secondBuffer.isEmpty, !thirdBuffer.isEmpty {
             let rxBuffer = firstBuffer + secondBuffer + thirdBuffer
+            
+            let intervalSeconds = sensorInterval * 60 - 45
+            guard sensorInterval == 1 || lastTimestamp == nil || lastTimestamp! + Double(intervalSeconds) <= Date() else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+                    self.resetBuffer()
+                }
+                
+                return
+            }
+            
+            lastTimestamp = Date()
 
             if let sensor = sensor {
                 do {
@@ -202,7 +213,7 @@ final class Libre2Connection: SensorBLEConnectionBase, SensorNFCConnection {
                 }
             }
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
                 self.resetBuffer()
             }
         }
@@ -221,6 +232,8 @@ final class Libre2Connection: SensorBLEConnectionBase, SensorNFCConnection {
     private var firstBuffer = Data()
     private var secondBuffer = Data()
     private var thirdBuffer = Data()
+
+    private var lastTimestamp: Date?
 }
 
 private extension UserDefaults {
