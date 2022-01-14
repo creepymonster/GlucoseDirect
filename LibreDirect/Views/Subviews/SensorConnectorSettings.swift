@@ -28,6 +28,19 @@ struct SensorConnectorSettings: View {
                         .pickerStyle(.menu)
                         .labelsHidden()
                     }
+                    
+                    HStack {
+                        Text("Sensor interval")
+                        Spacer()
+
+                        Picker("", selection: selectedSensorInterval) {
+                            ForEach([1, 5], id: \.self) { interval in
+                                Text("Sensor interval, \(interval)")
+                            }
+                        }
+                        .pickerStyle(.menu)
+                        .labelsHidden()
+                    }
                 },
                 header: {
                     Label("Sensor connection", systemImage: "app.connected.to.app.below.fill")
@@ -42,6 +55,13 @@ struct SensorConnectorSettings: View {
         Binding(
             get: { store.state.selectedConnectionId ?? "" },
             set: { store.dispatch(.selectConnectionId(id: $0)) }
+        )
+    }
+    
+    private var selectedSensorInterval: Binding<Int> {
+        Binding(
+            get: { store.state.sensorInterval },
+            set: { store.dispatch(.setSensorInterval(interval: $0)) }
         )
     }
 }

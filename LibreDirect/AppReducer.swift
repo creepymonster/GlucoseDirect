@@ -203,6 +203,9 @@ func appReducer(state: inout AppState, action: AppAction) {
         } else if wasCoupled {
             state.isPaired = true
         }
+        
+    case .setSensorInterval(interval: let interval):
+        state.sensorInterval = interval
 
     case .setSensorState(sensorAge: let sensorAge, sensorState: let sensorState):
         guard state.sensor != nil else {

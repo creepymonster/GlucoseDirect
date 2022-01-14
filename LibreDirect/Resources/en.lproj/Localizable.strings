@@ -645,3 +645,12 @@
 
 /* (No Comment) */
 "Ignore mute" = "Ignore mute";
+
+/* (No Comment) */
+"Sensor interval" = "Sensor interval";
+
+/* (No Comment) */
+"Sensor interval, 1" = "Every minute";
+
+/* (No Comment) */
+"Sensor interval, 5" = "Every 5 minutes";
