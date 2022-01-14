@@ -124,6 +124,15 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             }
 
             sensorConnection.pairSensor()
+            
+        case .setSensorInterval(interval: _):
+            if state.isDisconnectable, let sensorConnection = state.selectedConnection {
+                sensorConnection.disconnectSensor()
+                
+                return Just(.connectSensor)
+                    .setFailureType(to: AppError.self)
+                    .eraseToAnyPublisher()
+            }
 
         case .connectSensor:
             guard let sensorConnection = state.selectedConnection else {
