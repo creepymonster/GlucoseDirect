@@ -113,7 +113,8 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             }
 
             if let sensorConnection = sensorConnection as? SensorNFCConnection {
-                sensorConnection.scanSensor()
+                AppLog.info("no Pairing: \(!state.isPaired)")
+                sensorConnection.scanSensor(noPairing: !state.isPaired)
             }
 
         case .pairSensor:

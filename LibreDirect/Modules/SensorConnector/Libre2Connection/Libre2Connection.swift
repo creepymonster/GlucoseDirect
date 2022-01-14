@@ -25,11 +25,11 @@ final class Libre2Connection: SensorBLEConnectionBase, SensorNFCConnection {
         "abbott"
     }
 
-    func scanSensor() {
+    func scanSensor(noPairing: Bool) {
         dispatchPrecondition(condition: .notOnQueue(managerQueue))
         AppLog.info("ReadSensor")
 
-        pairingService.readSensor(noPairing: true)
+        pairingService.readSensor(noPairing: noPairing)
     }
 
     override func pairSensor() {

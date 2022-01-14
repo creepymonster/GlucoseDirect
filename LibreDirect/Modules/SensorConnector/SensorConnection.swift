@@ -24,7 +24,7 @@ protocol SensorBLEConnection: SensorConnection {
 // MARK: - SensorNFCConnection
 
 protocol SensorNFCConnection: SensorConnection {
-    func scanSensor()
+    func scanSensor(noPairing: Bool)
 }
 
 extension SensorBLEConnection {

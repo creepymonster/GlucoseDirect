@@ -80,7 +80,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
             }
 
             let type = SensorType(patchInfo)
-            guard type == .libre2EU || (type == .libre1 && self.noStreaming) else {
+            guard type == .libre2EU || type == .libre1 else {
                 logErrorAndDisconnect("Invalid sensor type")
                 return
             }
@@ -144,7 +144,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                     AppLog.info("parse sensor readings")
                     let sensorReadings = SensorUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: sensor.fram!)
 
-                    if self.noStreaming {
+                    if self.noStreaming || type == .libre1 {
                         session.invalidate()
 
                         self.subject?.send(.setSensor(sensor: sensor))
