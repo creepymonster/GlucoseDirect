@@ -647,13 +647,13 @@
 "Ignore mute" = "Ignorera tyst läge";
 
 /* (No Comment) */
-"Retrieval interval" = "Retrieval interval";
+"Retrieval interval" = "Uppdateringsintervall";
 
 /* (No Comment) */
-"Retrieval interval, 1 minutes" = "Every minute";
+"Retrieval interval, 1 minutes" = "Varje minut";
 
 /* (No Comment) */
-"Retrieval interval, 5 minutes" = "Every 5 minutes";
+"Retrieval interval, 5 minutes" = "Var 5:e minut";
 
 /* (No Comment) */
-"Retrieval interval, 10 minutes" = "Every 10 minutes";
+"Retrieval interval, 10 minutes" = "Var 10:e minut";
