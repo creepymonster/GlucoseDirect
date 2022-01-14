@@ -37,7 +37,7 @@ private func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppS
                     }
 
                     service.addGlucose(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: filteredGlucoseValues)
-                } else if let glucose = glucoseValues.first, (glucose.type == .cgm && glucose.is5Minutely) || glucose.type == .bgm {
+                } else if let glucose = glucoseValues.first, (glucose.type == .cgm && glucose.is5Minutely || state.sensorInterval > 1) || glucose.type == .bgm {
                     service.addGlucose(nightscoutUrl: nightscoutUrl, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: [glucose])
                 }
 
