@@ -20,4 +20,4 @@
 "NSLocationAlwaysAndWhenInUseUsageDescription" = "Pääsy sijaintitietoihin, kun sovellus on auki ja taustalla on tarpeen.";
 
 /* Privacy - Location When In Use Usage Description */
-"NSLocationWhenInUseUsageDescription" = "Access to the location while the app is open is required.";
+"NSLocationWhenInUseUsageDescription" = "Pääsy sijaintitietoihin, kun sovellus on auki ja taustalla on tarpeen.";
