@@ -179,13 +179,13 @@
 "Libre US 14d" = "Libre US 14d";
 
 /* (No Comment) */
-"Lower limit" = "Low";
+"Lower limit" = "Matala";
 
 /* (No Comment) */
 "mg/dL" = "mg/dL";
 
 /* (No Comment) */
-"mmol/L" = "mmol/L";
+"mmol/L" = "mmol//L";
 
 /* (No Comment) */
 "New calibration" = "New calibration";
@@ -197,10 +197,10 @@
 "Nightscout url" = "Url";
 
 /* (No Comment) */
-"Nightscout settings" = "Nightscout settings";
+"Nightscout settings" = "Nightscout asetukset";
 
 /* (No Comment) */
-"Nightscout upload enabled" = "Upload";
+"Nightscout upload enabled" = "Lähetä";
 
 /* (No Comment) */
 "Now" = "Now";
@@ -209,13 +209,13 @@
 "OK, sensor connection established" = "OK, sensor connection established";
 
 /* (No Comment) */
-"Pair sensor" = "Pair sensor";
+"Pair sensor" = "Yhdistä sensori";
 
 /* (No Comment) */
 "Power off" = "Power off";
 
 /* (No Comment) */
-"Scanning" = "Scanning";
+"Scanning" = "Skannaa";
 
 /* (No Comment) */
 "Sensor age" = "Sensor age";
@@ -251,7 +251,7 @@
 "Sensor is expired" = "Sensor is expired";
 
 /* (No Comment) */
-"Sensor is ready" = "Sensor is ready";
+"Sensor is ready" = "Sensori on valmis käytettäväksi";
 
 /* (No Comment) */
 "Sensor is shut down" = "Sensor is expired";
