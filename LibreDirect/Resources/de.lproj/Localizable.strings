@@ -650,10 +650,7 @@
 "Retrieval interval" = "Aktualisierungs-Intervall";
 
 /* (No Comment) */
-"Retrieval interval, 1 minutes" = "Jede Minute";
+"Retrieval interval, every minute" = "Every minute";
 
 /* (No Comment) */
-"Retrieval interval, 5 minutes" = "Alle 5 Minuten";
-
-/* (No Comment) */
-"Retrieval interval, 10 minutes" = "Alle 10 Minuten";
+"Retrieval interval, every %1$@ minutes" = "Every %1$@ minutes";
