@@ -5,19 +5,19 @@
 "CFBundleName" = "Glucose Direct";
 
 /* Privacy - NFC Scan Usage Description */
-"NFCReaderUsageDescription" = "The NFC function is required to read out all connection settings before a Bluetooth connection.";
+"NFCReaderUsageDescription" = "NFC-toimintoa edellytetään kaikkien yhteyksien asetuksiin ennen Bluetooth yhteyttä.";
 
 /* Privacy - Bluetooth Always Usage Description */
-"NSBluetoothAlwaysUsageDescription" = "The Bluetooth function is needed to connect to the supported devices.";
+"NSBluetoothAlwaysUsageDescription" = "Bluetooth toimintoa tarvitaan tuettuihin laitteisiin yhdistämiseen.";
 
 /* Privacy - Bluetooth Peripheral Usage Description */
-"NSBluetoothPeripheralUsageDescription" = "The Bluetooth function is needed to connect to the supported devices.";
+"NSBluetoothPeripheralUsageDescription" = "Bluetooth toimintoa tarvitaan tuettuihin laitteisiin yhdistämiseen.";
 
 /* Privacy - Calendars Usage Description */
-"NSCalendarsUsageDescription" = "Access to the calendar is required to display up-to-date glucose values on the Apple Watch.";
+"NSCalendarsUsageDescription" = "Kalenterin käyttö on tarpeen, jotta Apple Watchissa voidaan näyttää ajantasaiset glukoosiarvot.";
 
 /* Privacy - Location Always and When In Use Usage Description */
-"NSLocationAlwaysAndWhenInUseUsageDescription" = "Access to the location while the app is open and in the background is required.";
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "Pääsy sijaintitietoihin, kun sovellus on auki ja taustalla on tarpeen.";
 
 /* Privacy - Location When In Use Usage Description */
 "NSLocationWhenInUseUsageDescription" = "Access to the location while the app is open is required.";
