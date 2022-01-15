@@ -30,7 +30,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
 
         if NFCTagReaderSession.readingAvailable {
             session = NFCTagReaderSession(pollingOption: .iso15693, delegate: self, queue: nfcQueue)
-            session?.alertMessage = LocalizedString("Hold the top edge of your iPhone close to the sensor.", comment: "")
+            session?.alertMessage = LocalizedString("Hold the top edge of your iPhone close to the sensor.")
             session?.begin()
         }
     }

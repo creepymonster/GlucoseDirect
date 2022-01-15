@@ -83,20 +83,20 @@ private class ConnectionNotificationService {
 
             let notification = UNMutableNotificationContent()
             notification.sound = NotificationService.SilentSound
-            notification.title = LocalizedString("Alert, sensor connection lost", comment: "")
+            notification.title = LocalizedString("Alert, sensor connection lost")
 
             if errorIsCritical {
                 if #available(iOS 15.0, *) {
                     notification.interruptionLevel = .critical
                 }
 
-                notification.body = LocalizedString("The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor.", comment: "")
+                notification.body = LocalizedString("The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor.")
             } else {
                 if #available(iOS 15.0, *) {
                     notification.interruptionLevel = .passive
                 }
 
-                notification.body = LocalizedString("The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired.", comment: "")
+                notification.body = LocalizedString("The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired.")
             }
 
             NotificationService.shared.add(identifier: Identifier.sensorConnectionAlarm.rawValue, content: notification)
@@ -124,8 +124,8 @@ private class ConnectionNotificationService {
                 notification.interruptionLevel = .passive
             }
 
-            notification.title = LocalizedString("OK, sensor connection established", comment: "")
-            notification.body = LocalizedString("The connection to the sensor has been successfully established and glucose data is received.", comment: "")
+            notification.title = LocalizedString("OK, sensor connection established")
+            notification.body = LocalizedString("The connection to the sensor has been successfully established and glucose data is received.")
 
             NotificationService.shared.add(identifier: Identifier.sensorConnectionAlarm.rawValue, content: notification)
         }
@@ -148,8 +148,8 @@ private class ConnectionNotificationService {
                 notification.interruptionLevel = .timeSensitive
             }
 
-            notification.title = String(format: LocalizedString("Warning, sensor missed %1$@ readings", comment: ""), missedReadings.description)
-            notification.body = LocalizedString("The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause.", comment: "")
+            notification.title = String(format: LocalizedString("Warning, sensor missed %1$@ readings"), missedReadings.description)
+            notification.body = LocalizedString("The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause.")
 
             NotificationService.shared.add(identifier: Identifier.sensorConnectionAlarm.rawValue, content: notification)
 

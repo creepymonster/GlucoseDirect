@@ -100,8 +100,8 @@ private class ExpiringNotificationService {
                 notification.interruptionLevel = .critical
             }
 
-            notification.title = LocalizedString("Alert, sensor expired", comment: "")
-            notification.body = LocalizedString("Your sensor has expired and needs to be replaced as soon as possible", comment: "")
+            notification.title = LocalizedString("Alert, sensor expired")
+            notification.body = LocalizedString("Your sensor has expired and needs to be replaced as soon as possible")
 
             NotificationService.shared.add(identifier: Identifier.sensorExpiringAlarm.rawValue, content: notification)
 
@@ -145,7 +145,7 @@ private class ExpiringNotificationService {
                 }
             }
 
-            notification.title = LocalizedString("Alert, sensor expiring soon", comment: "")
+            notification.title = LocalizedString("Alert, sensor expiring soon")
             notification.body = body
 
             NotificationService.shared.add(identifier: Identifier.sensorExpiringAlarm.rawValue, content: notification)

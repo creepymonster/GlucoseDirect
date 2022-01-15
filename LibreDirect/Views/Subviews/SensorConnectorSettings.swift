@@ -38,7 +38,7 @@ struct SensorConnectorSettings: View {
                                 if interval == 1 {
                                     Text("Retrieval interval, every minute")
                                 } else {
-                                    Text("Retrieval interval, every \(interval) minutes")
+                                    Text(String(format: LocalizedString("Retrieval interval, every %1$@ minutes"), interval.description))
                                 }
                             }
                         }
