@@ -653,4 +653,5 @@
 "Retrieval interval, every minute" = "Varje minut";
 
 /* (No Comment) */
-"Retrieval interval, every %1$@ minutes" = "Var %1$s:e minut";
+"Retrieval interval, every %1$@ minutes" = "Var %1$@ minut";
+ 
