@@ -650,7 +650,7 @@
 "Retrieval interval" = "Uppdateringsintervall";
 
 /* (No Comment) */
-"Retrieval interval, every minute" = "Every minute";
+"Retrieval interval, every minute" = "Varje minut";
 
 /* (No Comment) */
-"Retrieval interval, every %1$@ minutes" = "Every %1$@ minutes";
+"Retrieval interval, every %1$@ minutes" = "Var %1$s:e minut";
