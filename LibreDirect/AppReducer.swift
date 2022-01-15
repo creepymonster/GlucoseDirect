@@ -193,6 +193,10 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setSensor(sensor: let sensor, wasPaired: let wasPaired):
         let isModifiedSensor = state.isScanable && !wasPaired && (state.sensor == nil || state.sensor?.serial != sensor.serial)
         
+        if let sensorSerial = state.sensor?.serial, sensorSerial != sensor.serial {
+            state.customCalibration = []
+        }
+        
         state.sensor = sensor
         state.connectionError = nil
         state.connectionErrorIsCritical = false
