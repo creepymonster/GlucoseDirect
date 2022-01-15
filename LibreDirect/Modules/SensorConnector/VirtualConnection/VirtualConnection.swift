@@ -35,7 +35,7 @@ final class VirtualLibreConnection: SensorBLEConnection {
             warmupTime: warmupTime
         )
 
-        sendUpdate(sensor: sensor, wasCoupled: true)
+        sendUpdate(sensor: sensor, wasPaired: true)
     }
 
     func connectSensor(sensor: Sensor, sensorInterval: Int) {

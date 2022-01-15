@@ -34,7 +34,7 @@ struct SensorConnectorSettings: View {
                         Spacer()
 
                         Picker("", selection: selectedSensorInterval) {
-                            ForEach([1, 5, 10], id: \.self) { interval in
+                            ForEach([1, 5], id: \.self) { interval in
                                 Text("Retrieval interval, \(interval) minutes")
                             }
                         }

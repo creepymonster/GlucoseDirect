@@ -190,8 +190,8 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setReadGlucose(enabled: let enabled):
         state.readGlucose = enabled
         
-    case .setSensor(sensor: let sensor, wasCoupled: let wasCoupled):
-        let isModifiedSensor = state.isScanable && !wasCoupled && (state.sensor == nil || state.sensor?.serial != sensor.serial)
+    case .setSensor(sensor: let sensor, wasPaired: let wasPaired):
+        let isModifiedSensor = state.isScanable && !wasPaired && (state.sensor == nil || state.sensor?.serial != sensor.serial)
         
         state.sensor = sensor
         state.connectionError = nil
@@ -200,7 +200,7 @@ func appReducer(state: inout AppState, action: AppAction) {
         
         if isModifiedSensor {
             state.isPaired = false
-        } else if wasCoupled {
+        } else if wasPaired {
             state.isPaired = true
         }
         

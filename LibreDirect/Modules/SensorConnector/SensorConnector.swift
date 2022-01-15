@@ -153,6 +153,16 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             }
 
             sensorConnection.disconnectSensor()
+            
+        case .setSensor(sensor: _, wasPaired: let wasPaired):
+            guard wasPaired else {
+                AppLog.info("Guard: sensor was not paired, no auto connect")
+                break
+            }
+            
+            return Just(.connectSensor)
+                .setFailureType(to: AppError.self)
+                .eraseToAnyPublisher()
 
         default:
             break

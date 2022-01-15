@@ -34,11 +34,11 @@ extension SensorBLEConnection {
         subject?.send(.setConnectionState(connectionState: connectionState))
     }
 
-    func sendUpdate(sensor: Sensor?, wasCoupled: Bool = false) {
+    func sendUpdate(sensor: Sensor?, wasPaired: Bool = false) {
         AppLog.info("Sensor: \(sensor?.description ?? "-")")
 
         if let sensor = sensor {
-            subject?.send(.setSensor(sensor: sensor, wasCoupled: wasCoupled))
+            subject?.send(.setSensor(sensor: sensor, wasPaired: wasPaired))
         } else {
             subject?.send(.resetSensor)
         }
