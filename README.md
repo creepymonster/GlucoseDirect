@@ -56,6 +56,7 @@ I am very happy to receive feedback - suggestions for improvement or reports of 
 
 ## Support?
 - I appreciate all the translations I get. Just drop by Crowdin, every translation helps :) https://crwd.in/glucose-direct-app
+- [__Buy me a coffee :coffee:__](https://www.buymeacoffee.com/reimarmetzen)
 
 ## Many thanks goes to
 - **Richard** for the design of the app icon
