@@ -645,3 +645,15 @@
 
 /* (No Comment) */
 "Ignore mute" = "Stummschaltung ignorieren";
+
+/* (No Comment) */
+"Retrieval interval" = "Aktualisierungs-Intervall";
+
+/* (No Comment) */
+"Retrieval interval, 1 minutes" = "Jede Minute";
+
+/* (No Comment) */
+"Retrieval interval, 5 minutes" = "Alle 5 Minuten";
+
+/* (No Comment) */
+"Retrieval interval, 10 minutes" = "Alle 10 Minuten";
