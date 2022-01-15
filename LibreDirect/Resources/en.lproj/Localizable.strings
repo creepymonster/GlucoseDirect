@@ -645,3 +645,12 @@
 
 /* (No Comment) */
 "Ignore mute" = "Ignore mute";
+
+/* (No Comment) */
+"Retrieval interval" = "Retrieval interval";
+
+/* (No Comment) */
+"Retrieval interval, every minute" = "Every minute";
+
+/* (No Comment) */
+"Retrieval interval, every %1$@ minutes" = "Every %1$@ minutes";

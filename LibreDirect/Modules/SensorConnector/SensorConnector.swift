@@ -113,7 +113,8 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             }
 
             if let sensorConnection = sensorConnection as? SensorNFCConnection {
-                sensorConnection.scanSensor()
+                AppLog.info("no Pairing: \(!state.isPaired)")
+                sensorConnection.scanSensor(noPairing: state.isPaired)
             }
 
         case .pairSensor:
@@ -123,6 +124,15 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             }
 
             sensorConnection.pairSensor()
+            
+        case .setSensorInterval(interval: _):
+            if state.isDisconnectable, let sensorConnection = state.selectedConnection {
+                sensorConnection.disconnectSensor()
+                
+                return Just(.connectSensor)
+                    .setFailureType(to: AppError.self)
+                    .eraseToAnyPublisher()
+            }
 
         case .connectSensor:
             guard let sensorConnection = state.selectedConnection else {
@@ -131,7 +141,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             }
 
             if let sensor = state.sensor {
-                sensorConnection.connectSensor(sensor: sensor)
+                sensorConnection.connectSensor(sensor: sensor, sensorInterval: state.sensorInterval)
             } else {
                 sensorConnection.pairSensor()
             }
@@ -143,6 +153,16 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             }
 
             sensorConnection.disconnectSensor()
+            
+        case .setSensor(sensor: _, wasPaired: let wasPaired):
+            guard wasPaired else {
+                AppLog.info("Guard: sensor was not paired, no auto connect")
+                break
+            }
+            
+            return Just(.connectSensor)
+                .setFailureType(to: AppError.self)
+                .eraseToAnyPublisher()
 
         default:
             break

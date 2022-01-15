@@ -41,6 +41,7 @@ struct MemoryAppState: AppState {
     var selectedConnectionId: String?
     var selectedView = 1
     var sensor: Sensor?
+    var sensorInterval = 1
     var targetValue = 100
     var transmitter: Transmitter?
 }

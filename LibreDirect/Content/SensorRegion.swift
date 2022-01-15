@@ -59,6 +59,6 @@ enum SensorRegion: String, Codable {
     }
 
     var localizedString: String {
-        NSLocalizedString(self.rawValue, comment: "")
+        LocalizedString(self.rawValue)
     }
 }

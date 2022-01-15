@@ -21,7 +21,7 @@ private func readGlucoseMiddelware(service: ReadAloudService) -> Middleware<AppS
                 break
             }
 
-            service.readGlucoseValues(glucoseValues: glucoseValues, glucoseUnit: state.glucoseUnit, alarmLow: state.alarmLow, alarmHigh: state.alarmHigh)
+            service.readGlucoseValues(sensorInterval: state.sensorInterval, glucoseValues: glucoseValues, glucoseUnit: state.glucoseUnit, alarmLow: state.alarmLow, alarmHigh: state.alarmHigh)
 
         default:
             break
@@ -36,7 +36,7 @@ private func readGlucoseMiddelware(service: ReadAloudService) -> Middleware<AppS
 private class ReadAloudService {
     // MARK: Internal
 
-    func readGlucoseValues(glucoseValues: [Glucose], glucoseUnit: GlucoseUnit, alarmLow: Int, alarmHigh: Int) {
+    func readGlucoseValues(sensorInterval: Int, glucoseValues: [Glucose], glucoseUnit: GlucoseUnit, alarmLow: Int, alarmHigh: Int) {
         AppLog.info("readGlucoseValues: \(glucoseValues.count) \(glucoseUnit.localizedString)")
 
         guard let glucose = glucoseValues.last else {
@@ -61,7 +61,7 @@ private class ReadAloudService {
             alarm = .high
         }
 
-        if alarm != self.alarm || (glucose.is5Minutely && alarm != .none) {
+        if alarm != self.alarm || (glucose.is5Minutely && alarm != .none) || sensorInterval > 1 {
             read(glucoseValue: glucoseValue, glucoseUnit: glucoseUnit, glucoseTrend: glucose.trend, alarm: alarm)
 
             self.glucose = glucose

@@ -37,6 +37,7 @@ struct StoredAppState: AppState {
         self.selectedConnectionId = UserDefaults.standard.selectedConnectionId ?? "libre2"
         self.selectedView = UserDefaults.standard.selectedView
         self.sensor = UserDefaults.standard.sensor
+        self.sensorInterval = UserDefaults.standard.sensorInterval
         self.transmitter = UserDefaults.standard.transmitter
         self.connectionAlarmSound = UserDefaults.standard.connectionAlarmSound
         self.expiringAlarmSound = UserDefaults.standard.expiringAlarmSound
@@ -197,6 +198,12 @@ struct StoredAppState: AppState {
     var sensor: Sensor? {
         didSet {
             UserDefaults.standard.sensor = sensor
+        }
+    }
+    
+    var sensorInterval: Int {
+        didSet {
+            UserDefaults.standard.sensorInterval = sensorInterval
         }
     }
 

@@ -21,7 +21,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
     // MARK: Internal
 
     func readSensor(noPairing: Bool) {
-        noStreaming = noPairing
+        self.noPairing = noPairing
 
         guard subject != nil else {
             logErrorAndDisconnect("Pairing, subject is nil")
@@ -30,7 +30,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
 
         if NFCTagReaderSession.readingAvailable {
             session = NFCTagReaderSession(pollingOption: .iso15693, delegate: self, queue: nfcQueue)
-            session?.alertMessage = LocalizedString("Hold the top edge of your iPhone close to the sensor.", comment: "")
+            session?.alertMessage = LocalizedString("Hold the top edge of your iPhone close to the sensor.")
             session?.begin()
         }
     }
@@ -80,7 +80,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
             }
 
             let type = SensorType(patchInfo)
-            guard type == .libre2EU || (type == .libre1 && self.noStreaming) else {
+            guard type == .libre2EU || type == .libre1 else {
                 logErrorAndDisconnect("Invalid sensor type")
                 return
             }
@@ -102,7 +102,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                 repeat {
                     failedRead = false
                     failedRetries -= 1
-                    
+
                     do {
                         let blockArray = try await tag.readMultipleBlocks(requestFlags: requestFlags, blockRange: blockRange)
                         for j in 0 ..< blockArray.count {
@@ -112,7 +112,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                         failedRead = true
                     }
                 } while failedRead && failedRetries > 0
-                
+
                 if failedRead {
                     logErrorAndDisconnect("Failed to read multiple tags")
                     return
@@ -144,7 +144,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                     AppLog.info("parse sensor readings")
                     let sensorReadings = SensorUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: sensor.fram!)
 
-                    if self.noStreaming {
+                    if self.noPairing || type == .libre1 {
                         session.invalidate()
 
                         self.subject?.send(.setSensor(sensor: sensor))
@@ -161,7 +161,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                             return
                         }
 
-                        self.subject?.send(.setSensor(sensor: sensor, wasCoupled: true))
+                        self.subject?.send(.setSensor(sensor: sensor, wasPaired: true))
                         self.subject?.send(.setConnectionState(connectionState: .disconnected))
                         self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", trendReadings: sensorReadings.trend, historyReadings: sensorReadings.history))
                     }
@@ -177,7 +177,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
 
     private let nfcQueue = DispatchQueue(label: "libre-direct.nfc-queue")
     private let unlockCode: UInt32 = 42
-    private var noStreaming = false
+    private var noPairing = false
 
     private func logErrorAndDisconnect(_ message: String, showToUser: Bool = false) {
         AppLog.error(message)

@@ -40,9 +40,9 @@ extension Double {
         }
 
         if withUnit {
-            return String(format: LocalizedString("%1$@ %2$@/min.", comment: ""), formattedMinuteChange, glucoseUnit.localizedString)
+            return String(format: LocalizedString("%1$@ %2$@/min."), formattedMinuteChange, glucoseUnit.localizedString)
         }
         
-        return String(format: LocalizedString("%1$@/min.", comment: ""), formattedMinuteChange)
+        return String(format: LocalizedString("%1$@/min."), formattedMinuteChange)
     }
 }

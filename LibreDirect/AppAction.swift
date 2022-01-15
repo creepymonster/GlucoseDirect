@@ -47,7 +47,8 @@ enum AppAction {
     case setNightscoutUpload(enabled: Bool)
     case setNightscoutUrl(url: String)
     case setReadGlucose(enabled: Bool)
-    case setSensor(sensor: Sensor, wasCoupled: Bool = false)
+    case setSensor(sensor: Sensor, wasPaired: Bool = false)
+    case setSensorInterval(interval: Int)
     case setSensorState(sensorAge: Int, sensorState: SensorState?)
     case setTransmitter(transmitter: Transmitter)
     case startup

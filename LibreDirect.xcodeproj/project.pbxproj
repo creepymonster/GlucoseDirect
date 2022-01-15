@@ -158,6 +158,8 @@
 		E2646F3C275FD3E800ADE451 /* CalendarExportSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarExportSettingsView.swift; sourceTree = "<group>"; };
 		E265EADB277A309300AC307B /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		E265EADC277A309300AC307B /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		E26690672792F6D9009C0FE1 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E26690682792F6D9009C0FE1 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E271581E275F7FD000E8620E /* OtherSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherSettingsView.swift; sourceTree = "<group>"; };
 		E27325A6275543D600D3C41D /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		E27BFC0226B1407E00F8FBEF /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -671,6 +673,7 @@
 				"zh-Hant",
 				"pt-PT",
 				ru,
+				fi,
 			);
 			mainGroup = E20B8531266F4A9800AA4224;
 			packageReferences = (
@@ -845,6 +848,7 @@
 				E2ABC152276F4602003DBFA5 /* zh-Hant */,
 				E265EADC277A309300AC307B /* pt-PT */,
 				E2F441D7277DF65800256F48 /* ru */,
+				E26690682792F6D9009C0FE1 /* fi */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -863,6 +867,7 @@
 				E2ABC151276F4602003DBFA5 /* zh-Hant */,
 				E265EADB277A309300AC307B /* pt-PT */,
 				E2F441D6277DF65800256F48 /* ru */,
+				E26690672792F6D9009C0FE1 /* fi */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

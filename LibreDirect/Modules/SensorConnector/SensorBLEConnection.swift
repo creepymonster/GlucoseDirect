@@ -40,6 +40,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
 
     var stayConnected = false
     var sensor: Sensor?
+    var sensorInterval = 1
     var connectionMode: ConnectionMode = .unknown
 
     var peripheralName: String {
@@ -68,11 +69,12 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
         }
     }
 
-    func connectSensor(sensor: Sensor) {
+    func connectSensor(sensor: Sensor, sensorInterval: Int) {
         dispatchPrecondition(condition: .notOnQueue(managerQueue))
         AppLog.info("ConnectSensor: \(sensor)")
 
         self.sensor = sensor
+        self.sensorInterval = sensorInterval
 
         managerQueue.async {
             self.find()
