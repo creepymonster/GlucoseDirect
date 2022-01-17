@@ -65,6 +65,8 @@ I am very happy to receive feedback - suggestions for improvement or reports of 
 - **Timmy_otoole** and **albertodeviaje2** for your translation into Spanish
 - **goldshotter** and **ferdytao** for your translation into Italian
 - **Fcourela** for your translation into Portuguese
+- **keyzersemen**, **georgin303** and **anton-tony_v** for your translation into Russian
+- **mrfrostt** and **Mrzurgon** for your translation into Finnish
 - **Thanks to all Paypal supporters**
 - **All** who contribute to the app with their ideas
 
