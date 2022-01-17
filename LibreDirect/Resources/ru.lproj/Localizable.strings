@@ -32,7 +32,7 @@
 "Add glucose value" = "Добавьте значение глюкозы";
 
 /* (No Comment) */
-"Alarm Settings" = "Настройки оповещения";
+"Alarm Settings" = "Настройки сигнализации";
 
 /* (No Comment) */
 "Alert, high glucose" = "Тревога, высокий уровень глюкозы";
@@ -353,67 +353,67 @@
 "Your sensor is about to expire. Replace sensor in %1$@ days." = "Срок действия вашего датчика истекает. Замените датчик через %1$@ дней.";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ hour." = "Your sensor is about to expire. Replace sensor in %1$@ hour.";
+"Your sensor is about to expire. Replace sensor in %1$@ hour." = "Срок действия вашего датчика истекает. Замените датчик через  %1$@ час.";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ hours." = "Your sensor is about to expire. Replace sensor in %1$@ hours.";
+"Your sensor is about to expire. Replace sensor in %1$@ hours." = "Срок действия вашего датчика истекает. Замените датчик через %1$@ часов.";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Your sensor is about to expire. Replace sensor in %1$@ minutes.";
+"Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Срок действия вашего датчика истекает. Замените датчик через %1$@ минут.";
 
 /* (No Comment) */
-"Other Settings" = "Other Settings";
+"Other Settings" = "Другие параметры";
 
 /* (No Comment) */
-"Glucose badge" = "Glucose badge";
+"Glucose badge" = "Значок глюкозы";
 
 /* (No Comment) */
-"Are you sure you want to add the new blood glucose value?" = "Are you sure you want to add the new blood glucose value?";
+"Are you sure you want to add the new blood glucose value?" = "Вы уверены, что хотите добавить новое значение глюкозы крови?";
 
 /* (No Comment) */
-"Chart presentation" = "Chart presentation";
+"Chart presentation" = "Диаграмма";
 
 /* (No Comment) */
-"Line" = "Line";
+"Line" = "Линия";
 
 /* (No Comment) */
-"Points" = "Points";
+"Points" = "Точки";
 
 /* (No Comment) */
-"Transmitter name" = "Name";
+"Transmitter name" = "Имя";
 
 /* (No Comment) */
-"Transmitter battery" = "Battery";
+"Transmitter battery" = "Аккумулятор";
 
 /* (No Comment) */
-"Transmitter hardware" = "Hardware";
+"Transmitter hardware" = "Аппаратура";
 
 /* (No Comment) */
-"Transmitter firmware" = "Firmware";
+"Transmitter firmware" = "Прошивка";
 
 /* (No Comment) */
-"Transmitter" = "Transmitter";
+"Transmitter" = "Передатчик";
 
 /* (No Comment) */
-"Sensor connection" = "Sensor connection";
+"Sensor connection" = "Подключение датчика";
 
 /* (No Comment) */
-"Without transmitter" = "Without transmitter";
+"Without transmitter" = "Без передатчика";
 
 /* (No Comment) */
-"Bubble transmitter" = "Bubble transmitter";
+"Bubble transmitter" = "Передатчик Bubble";
 
 /* (No Comment) */
-"Pairing" = "Pairing";
+"Pairing" = "Сопряжение";
 
 /* (No Comment) */
-"Calendar export" = "Calendar export";
+"Calendar export" = "Экспорт в Календарь ";
 
 /* (No Comment) */
-"Calendar export enabled" = "Export";
+"Calendar export enabled" = "Экспорт";
 
 /* (No Comment) */
-"Selected calendar" = "Calendar";
+"Selected calendar" = "Календарь";
 
 /* (No Comment) */
 "Please select" = "Пожалуйста, выберите";
@@ -566,19 +566,19 @@
 "High glucose alarm" = "Сигнал тревоги о высоком ГК";
 
 /* (No Comment) */
-"Sound: achievement" = "Achievement";
+"Sound: achievement" = "Достижения";
 
 /* (No Comment) */
-"Sound: none" = "None";
+"Sound: none" = "Ничего";
 
 /* (No Comment) */
-"Sound: alarm" = "Alarm";
+"Sound: alarm" = "Тревога";
 
 /* (No Comment) */
-"Sound: buzz-beep" = "Buzz-Beep";
+"Sound: buzz-beep" = "Бип-Бип";
 
 /* (No Comment) */
-"Sound: chiptone" = "Chiptone";
+"Sound: chiptone" = "Чиптон";
 
 /* (No Comment) */
 "Sound: climb-rope" = "Climb-Rope";
@@ -593,10 +593,10 @@
 "Sound: collect-point" = "Collect-Point";
 
 /* (No Comment) */
-"Sound: expiring" = "Expiring";
+"Sound: expiring" = "Истекающий";
 
 /* (No Comment) */
-"Sound: failure" = "Failure";
+"Sound: failure" = "Ошибка";
 
 /* (No Comment) */
 "Sound: future" = "Future";
@@ -617,7 +617,7 @@
 "Sound: lose" = "Lose";
 
 /* (No Comment) */
-"Sound: low-battery" = "Low-Battery";
+"Sound: low-battery" = "Низкий заряд аккумулятора";
 
 /* (No Comment) */
 "Sound: negative" = "Negative";
@@ -629,28 +629,28 @@
 "Sound: positive" = "Positive";
 
 /* (No Comment) */
-"Sound: vibration" = "Vibrate only";
+"Sound: vibration" = "Только вибрация";
 
 /* (No Comment) */
-"Please wait..." = "Please wait...";
+"Please wait..." = "Пожалуйста, подождите....";
 
 /* (No Comment) */
-"Scan sensor once" = "Scan sensor once";
+"Scan sensor once" = "Сканировать один раз";
 
 /* (No Comment) */
-"Retry pairing" = "Retry pairing";
+"Retry pairing" = "Повторное сопряжение";
 
 /* (No Comment) */
-"Scanned sensor expired" = "Sensor expired";
+"Scanned sensor expired" = "Сенсор закончился";
 
 /* (No Comment) */
-"Ignore mute" = "Ignore mute";
+"Ignore mute" = "Игнорировать отключение звука";
 
 /* (No Comment) */
-"Retrieval interval" = "Retrieval interval";
+"Retrieval interval" = "Интервал обновления";
 
 /* (No Comment) */
-"Retrieval interval, every minute" = "Every minute";
+"Retrieval interval, every minute" = "Каждую минуту";
 
 /* (No Comment) */
-"Retrieval interval, every %1$@ minutes" = "Every %1$@ minutes";
+"Retrieval interval, every %1$@ minutes" = "Каждые %1$@ минут";
