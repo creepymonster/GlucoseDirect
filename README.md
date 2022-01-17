@@ -34,13 +34,15 @@ App programmed in Swift/SwiftUI for using Libre 1/2 blood glucose sensors. I try
 - Snooze for glucose alerts
 
 ## Available languages
-- English
-- German
 - Swedish
-- Chinese (simplified and traditional)
 - Spanish
-- Italian
+- Russian
 - Portuguese
+- Italian
+- German
+- Finnish
+- English
+- Chinese (simplified and traditional)
 
 ## Requirements
 - Apple iPhone with iOS 15
