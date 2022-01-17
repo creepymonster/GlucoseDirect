@@ -44,25 +44,25 @@
 "Alert, sensor connection lost" = "Тревога, соединение с датчиком потеряно";
 
 /* (No Comment) */
-"Alert, sensor expired" = "Alert, sensor expired";
+"Alert, sensor expired" = "Тревога, сенсор закончился";
 
 /* (No Comment) */
-"Alert, sensor expiring soon" = "Alert, sensor expiring soon";
+"Alert, sensor expiring soon" = "Тревога, сенсор скоро закончится";
 
 /* (No Comment) */
-"Are you sure you want to add the new calibration?" = "Are you sure you want to add the new calibration?";
+"Are you sure you want to add the new calibration?" = "Вы уверены что хотите добавить новую калибровку?";
 
 /* (No Comment) */
-"Are you sure you want to delete all calibrations?" = "Are you sure you want to delete all calibrations?";
+"Are you sure you want to delete all calibrations?" = "Вы уверены что хотите удалить все калибровки?";
 
 /* (No Comment) */
-"Are you sure you want to delete all log files?" = "Are you sure you want to delete all log files?";
+"Are you sure you want to delete all log files?" = "Вы уверены что хотите удалить все журналы?";
 
 /* (No Comment) */
-"Are you sure you want to delete all glucose values?" = "Are you sure you want to delete all glucose values?";
+"Are you sure you want to delete all glucose values?" = "Вы уверены, что хотите удалить все значения глюкозы?";
 
 /* (No Comment) */
-"Are you sure you want to disconnect the sensor?" = "Are you sure you want to disconnect the sensor?";
+"Are you sure you want to disconnect the sensor?" = "Вы уверены, что хотите отсоединить датчик?";
 
 /* (No Comment) */
 "Are you sure you want to unpair the sensor?" = "Are you sure you want to unpair the sensor?";
