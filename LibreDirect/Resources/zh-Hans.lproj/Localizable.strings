@@ -654,3 +654,7 @@
 
 /* (No Comment) */
 "Retrieval interval, every %1$@ minutes" = "Every %1$@ minutes";
+
+/* (No Comment) */
+"App donate" = "Donate";
+

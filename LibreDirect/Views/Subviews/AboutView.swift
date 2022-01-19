@@ -28,7 +28,7 @@ struct AboutView: View {
                         Text(appAuthor)
                     }
                 }
-                
+
                 if let appSupportMail = AppConfig.appSupportMail, !appSupportMail.isEmpty {
                     HStack {
                         Text("App email")
@@ -46,7 +46,7 @@ struct AboutView: View {
                         .lineLimit(1)
                         .truncationMode(.head)
                 }
-                
+
                 HStack {
                     Text("App faq")
                     Spacer()
@@ -54,11 +54,19 @@ struct AboutView: View {
                         .lineLimit(1)
                         .truncationMode(.head)
                 }
-                
+
                 HStack {
                     Text("App facebook group")
                     Spacer()
                     Link("Facebook", destination: URL(string: AppConfig.facebookUrl)!)
+                        .lineLimit(1)
+                        .truncationMode(.head)
+                }
+
+                HStack {
+                    Text("App donate")
+                    Spacer()
+                    Link("PayPal", destination: URL(string: AppConfig.donateUrl)!)
                         .lineLimit(1)
                         .truncationMode(.head)
                 }
