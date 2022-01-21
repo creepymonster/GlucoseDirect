@@ -10,6 +10,7 @@ import Foundation
 private enum Keys: String {
     case alarmHigh = "libre-direct.settings.alarm-high"
     case alarmLow = "libre-direct.settings.alarm-low"
+    case bellmanNotification = "libre-direct.settings.bellman-notification"
     case calendarExport = "libre-direct.settings.calendar-export"
     case chartShowLines = "libre-direct.settings.chart-show-lines"
     case chartZoomLevel = "libre-direct.settings.chart-zoom-level"
@@ -69,6 +70,19 @@ extension UserDefaults {
             } else {
                 removeObject(forKey: Keys.alarmLow.rawValue)
             }
+        }
+    }
+    
+    var bellmanNotification: Bool {
+        get {
+            if object(forKey: Keys.bellmanNotification.rawValue) != nil {
+                return bool(forKey: Keys.bellmanNotification.rawValue)
+            }
+
+            return false
+        }
+        set {
+            set(newValue, forKey: Keys.bellmanNotification.rawValue)
         }
     }
 

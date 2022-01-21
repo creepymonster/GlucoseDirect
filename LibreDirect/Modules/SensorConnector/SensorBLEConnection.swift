@@ -73,6 +73,8 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
 
         self.sensor = sensor
         self.sensorInterval = sensorInterval
+        
+        setStayConnected(stayConnected: true)
 
         managerQueue.async {
             self.find()
@@ -81,6 +83,8 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
 
     func disconnectSensor() {
         AppLog.info("DisconnectSensor")
+        
+        setStayConnected(stayConnected: false)
 
         managerQueue.sync {
             self.disconnect()
@@ -88,9 +92,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     }
 
     func find() {
-        AppLog.info("find")
-
-        setStayConnected(stayConnected: true)
+        AppLog.info("Find")
 
         guard manager.state == .poweredOn else {
             AppLog.error("Guard: manager.state \(manager.state.rawValue) is not .poweredOn")
@@ -131,8 +133,6 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     func disconnect() {
         AppLog.info("Disconnect")
 
-        setStayConnected(stayConnected: false)
-
         if manager.isScanning {
             manager.stopScan()
         }
@@ -159,9 +159,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     func connect(_ peripheral: CBPeripheral) {
         AppLog.info("Connect: \(peripheral)")
 
-        if self.peripheral != peripheral {
-            self.peripheral = peripheral
-        }
+        self.peripheral = peripheral
 
         manager.connect(peripheral, options: nil)
         sendUpdate(connectionState: .connecting)
@@ -181,20 +179,22 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     }
 
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        switch manager.state {
-        case .poweredOff:
-            sendUpdate(connectionState: .powerOff)
+        if let manager = manager {
+            switch manager.state {
+            case .poweredOff:
+                sendUpdate(connectionState: .powerOff)
 
-        case .poweredOn:
-            sendUpdate(connectionState: .disconnected)
+            case .poweredOn:
+                sendUpdate(connectionState: .disconnected)
 
-            guard stayConnected else {
-                break
+                guard stayConnected else {
+                    break
+                }
+
+                find()
+            default:
+                sendUpdate(connectionState: .unknown)
             }
-
-            find()
-        default:
-            sendUpdate(connectionState: .unknown)
         }
     }
 

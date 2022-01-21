@@ -42,6 +42,9 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .addSensorReadings:
         break
         
+    case .bellmanNotification:
+        break
+        
     case .clearCalibrations:
         guard state.sensor != nil else {
             AppLog.info("Guard: state.sensor is nil")
@@ -123,6 +126,9 @@ func appReducer(state: inout AppState, action: AppAction) {
 
     case .setAlarmLow(lowerLimit: let lowerLimit):
         state.alarmLow = lowerLimit
+        
+    case .setBellmanNotification(enabled: let enabled):
+        state.bellmanNotification = enabled
 
     case .setAlarmSnoozeUntil(untilDate: let untilDate, autosnooze: _):
         if let untilDate = untilDate {

@@ -19,6 +19,7 @@ struct StoredAppState: AppState {
             self.alarmLow = alarmLow
         }
 
+        //self.bellmanNotification = UserDefaults.standard.bellmanNotification
         self.calendarExport = UserDefaults.standard.calendarExport
         self.chartShowLines = UserDefaults.standard.chartShowLines
         self.chartZoomLevel = UserDefaults.standard.chartZoomLevel
@@ -66,6 +67,12 @@ struct StoredAppState: AppState {
     var alarmLow: Int = 80 {
         didSet {
             UserDefaults.standard.alarmLow = alarmLow
+        }
+    }
+    
+    var bellmanNotification = false {
+        didSet {
+            UserDefaults.standard.bellmanNotification = bellmanNotification
         }
     }
 

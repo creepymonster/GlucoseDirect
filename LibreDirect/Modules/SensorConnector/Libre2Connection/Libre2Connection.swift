@@ -215,9 +215,9 @@ final class Libre2Connection: SensorBLEConnectionBase, SensorNFCConnection {
     private let writeCharacteristicUuid = CBUUID(string: "F001")
     private let readCharacteristicUuid = CBUUID(string: "F002")
 
-    private var readCharacteristic: CBCharacteristic?
     private var writeCharacteristic: CBCharacteristic?
-
+    private var readCharacteristic: CBCharacteristic?
+    
     private let pairingService: Libre2Pairing
 
     private var firstBuffer = Data()
