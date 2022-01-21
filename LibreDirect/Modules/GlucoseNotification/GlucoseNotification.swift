@@ -129,8 +129,6 @@ private class GlucoseNotificationService {
     }
 
     func setGlucoseBadge(glucose: Glucose, glucoseUnit: GlucoseUnit) {
-        dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
-
         NotificationService.shared.ensureCanSendNotification { state in
             AppLog.info("Glucose info, state: \(state)")
 
@@ -167,8 +165,6 @@ private class GlucoseNotificationService {
     }
 
     func setLowGlucoseAlarm(glucose: Glucose, glucoseUnit: GlucoseUnit, ignoreMute: Bool, sound: NotificationSound) {
-        dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
-
         NotificationService.shared.ensureCanSendNotification { state in
             AppLog.info("Glucose alert, state: \(state)")
 
@@ -210,8 +206,6 @@ private class GlucoseNotificationService {
     }
 
     func setHighGlucoseAlarm(glucose: Glucose, glucoseUnit: GlucoseUnit, ignoreMute: Bool, sound: NotificationSound) {
-        dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
-
         NotificationService.shared.ensureCanSendNotification { state in
             AppLog.info("Glucose alert, state: \(state)")
 

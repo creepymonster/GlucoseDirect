@@ -113,45 +113,6 @@ struct SensorView: View {
                 Section(
                     content: {
                         HStack {
-                            Text("Sensor type")
-                            Spacer()
-                            Text(sensor.type.localizedString)
-                        }
-
-                        HStack {
-                            Text("Sensor region")
-                            Spacer()
-                            Text(sensor.region.localizedString)
-                        }
-
-                        HStack {
-                            Text("Sensor UID")
-                            Spacer()
-                            Text(sensor.uuid.hex)
-                        }
-
-                        HStack {
-                            Text("Sensor PatchInfo")
-                            Spacer()
-                            Text(sensor.patchInfo.hex)
-                        }
-
-                        if let serial = sensor.serial {
-                            HStack {
-                                Text("Sensor serial")
-                                Spacer()
-                                Text(serial.description)
-                            }
-                        }
-                    },
-                    header: {
-                        Label("Sensor details", systemImage: "text.magnifyingglass")
-                    }
-                )
-
-                Section(
-                    content: {
-                        HStack {
                             Text("Sensor state")
                             Spacer()
                             Text(sensor.state.localizedString)
@@ -249,6 +210,47 @@ struct SensorView: View {
                     },
                     header: {
                         Label("Sensor lifetime", systemImage: "timer")
+                    }
+                )
+            }
+            
+            if let sensor = store.state.sensor {
+                Section(
+                    content: {
+                        HStack {
+                            Text("Sensor type")
+                            Spacer()
+                            Text(sensor.type.localizedString)
+                        }
+
+                        HStack {
+                            Text("Sensor region")
+                            Spacer()
+                            Text(sensor.region.localizedString)
+                        }
+
+                        HStack {
+                            Text("Sensor UID")
+                            Spacer()
+                            Text(sensor.uuid.hex)
+                        }
+
+                        HStack {
+                            Text("Sensor PatchInfo")
+                            Spacer()
+                            Text(sensor.patchInfo.hex)
+                        }
+
+                        if let serial = sensor.serial {
+                            HStack {
+                                Text("Sensor serial")
+                                Spacer()
+                                Text(serial.description)
+                            }
+                        }
+                    },
+                    header: {
+                        Label("Sensor details", systemImage: "text.magnifyingglass")
                     }
                 )
             }

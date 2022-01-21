@@ -78,8 +78,6 @@ private class ExpiringNotificationService {
     }
 
     func setSensorExpiredAlarm(ignoreMute: Bool, sound: NotificationSound) {
-        dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
-
         guard nextExpiredAlert == nil || Date() >= nextExpiredAlert! else {
             return
         }
@@ -112,8 +110,6 @@ private class ExpiringNotificationService {
     }
 
     func setSensorExpiringAlarm(body: String, ignoreMute: Bool, sound: NotificationSound) {
-        dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
-
         guard lastExpiringAlert != body else {
             return
         }

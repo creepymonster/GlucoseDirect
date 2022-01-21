@@ -51,37 +51,7 @@ private class BellmanNotificationService: NSObject, CBCentralManagerDelegate, CB
         }
     }
 
-    /*func find() {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
-        AppLog.info("find")
-
-        if let connectedPeripheral = manager.retrieveConnectedPeripherals(withServices: [serviceUuid]).first(where: { $0.name?.lowercased().starts(with: peripheralName) ?? false }) {
-            AppLog.info("Connect from retrievePeripherals")
-            connect(connectedPeripheral)
-
-        } else if let peripheralUuidString = UserDefaults.standard.sensorPeripheralUuid,
-                  let peripheralUuid = UUID(uuidString: peripheralUuidString),
-                  let retrievedPeripheral = manager.retrievePeripherals(withIdentifiers: [peripheralUuid]).first {
-            AppLog.info("Connect from retrievePeripherals")
-            connect(retrievedPeripheral)
-
-        }
-    }
-    
-    func connect(_ peripheral: CBPeripheral) {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
-        AppLog.info("Connect: \(peripheral)")
-
-        if self.peripheral != peripheral {
-            self.peripheral = peripheral
-        }
-
-        manager.connect(peripheral, options: nil)
-    }*/
-
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
-
         switch manager.state {
         case .poweredOff:
             AppLog.info("poweredOff")

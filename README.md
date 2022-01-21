@@ -34,13 +34,15 @@ App programmed in Swift/SwiftUI for using Libre 1/2 blood glucose sensors. I try
 - Snooze for glucose alerts
 
 ## Available languages
-- English
-- German
 - Swedish
-- Chinese (simplified and traditional)
 - Spanish
-- Italian
+- Russian
 - Portuguese
+- Italian
+- German
+- Finnish
+- English
+- Chinese (simplified and traditional)
 
 ## Requirements
 - Apple iPhone with iOS 15
@@ -56,6 +58,7 @@ I am very happy to receive feedback - suggestions for improvement or reports of 
 
 ## Support?
 - I appreciate all the translations I get. Just drop by Crowdin, every translation helps :) https://crwd.in/glucose-direct-app
+- [__Buy me a coffee :coffee:__](https://www.buymeacoffee.com/reimarmetzen)
 
 ## Many thanks goes to
 - **Richard** for the design of the app icon
@@ -64,11 +67,12 @@ I am very happy to receive feedback - suggestions for improvement or reports of 
 - **Timmy_otoole** and **albertodeviaje2** for your translation into Spanish
 - **goldshotter** and **ferdytao** for your translation into Italian
 - **Fcourela** for your translation into Portuguese
+- **keyzersemen**, **georgin303** and **anton-tony_v** for your translation into Russian
+- **mrfrostt** and **Mrzurgon** for your translation into Finnish
 - **Thanks to all Paypal supporters**
 - **All** who contribute to the app with their ideas
 
 ## Todo
-- Read out blood glucose values (**in progress**)
 - Cache Nightscout uploads without an Internet connection and run them later
 - Connect to Apple Health
 - Transmitter battery notifications

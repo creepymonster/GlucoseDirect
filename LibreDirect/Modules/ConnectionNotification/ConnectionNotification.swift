@@ -72,8 +72,6 @@ private class ConnectionNotificationService {
     }
 
     func setSensorConnectionLostAlarm(errorIsCritical: Bool, ignoreMute: Bool, sound: NotificationSound) {
-        dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
-
         NotificationService.shared.ensureCanSendNotification { state in
             AppLog.info("Sensor connection lost alert, state: \(state)")
 
@@ -108,8 +106,6 @@ private class ConnectionNotificationService {
     }
 
     func setSensorConnectionRestoredAlarm() {
-        dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
-
         NotificationService.shared.ensureCanSendNotification { state in
             AppLog.info("Sensor connection lost alert, state: \(state)")
 
@@ -132,8 +128,6 @@ private class ConnectionNotificationService {
     }
 
     func setSensorMissedReadingsAlarm(missedReadings: Int, ignoreMute: Bool, sound: NotificationSound) {
-        dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
-
         NotificationService.shared.ensureCanSendNotification { state in
             AppLog.info("Sensor missed readings, state: \(state)")
 

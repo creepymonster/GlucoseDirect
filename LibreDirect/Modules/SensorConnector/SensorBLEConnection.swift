@@ -57,7 +57,6 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     }
 
     func pairSensor() {
-        dispatchPrecondition(condition: .notOnQueue(managerQueue))
         AppLog.info("PairSensor")
 
         UserDefaults.standard.sensorPeripheralUuid = nil
@@ -70,7 +69,6 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     }
 
     func connectSensor(sensor: Sensor, sensorInterval: Int) {
-        dispatchPrecondition(condition: .notOnQueue(managerQueue))
         AppLog.info("ConnectSensor: \(sensor)")
 
         self.sensor = sensor
@@ -82,7 +80,6 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     }
 
     func disconnectSensor() {
-        dispatchPrecondition(condition: .notOnQueue(managerQueue))
         AppLog.info("DisconnectSensor")
 
         managerQueue.sync {
@@ -91,7 +88,6 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     }
 
     func find() {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
         AppLog.info("find")
 
         setStayConnected(stayConnected: true)
@@ -126,7 +122,6 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     }
 
     func scan() {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
         AppLog.info("scan")
 
         sendUpdate(connectionState: .scanning)
@@ -134,7 +129,6 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     }
 
     func disconnect() {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
         AppLog.info("Disconnect")
 
         setStayConnected(stayConnected: false)
@@ -153,7 +147,6 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     }
 
     func connect() {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
         AppLog.info("Connect")
 
         if let peripheral = peripheral {
@@ -164,7 +157,6 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     }
 
     func connect(_ peripheral: CBPeripheral) {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
         AppLog.info("Connect: \(peripheral)")
 
         if self.peripheral != peripheral {
@@ -189,8 +181,6 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     }
 
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
-
         switch manager.state {
         case .poweredOff:
             sendUpdate(connectionState: .powerOff)
@@ -209,7 +199,6 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     }
 
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
         AppLog.info("Peripheral: \(peripheral)")
 
         guard peripheral.name?.lowercased().starts(with: peripheralName) ?? false else {
@@ -221,7 +210,6 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     }
 
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
         AppLog.info("Peripheral: \(peripheral), didFailToConnect")
 
         sendUpdate(connectionState: .disconnected)
@@ -235,7 +223,6 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     }
 
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
         AppLog.info("Peripheral: \(peripheral), didDisconnectPeripheral")
 
         sendUpdate(connectionState: .disconnected)
@@ -249,7 +236,6 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     }
 
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        dispatchPrecondition(condition: .onQueue(managerQueue))
         AppLog.info("Peripheral: \(peripheral)")
 
         resetBuffer()
