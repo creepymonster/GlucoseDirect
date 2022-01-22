@@ -130,20 +130,20 @@ private class BellmanNotificationService: NSObject, CBCentralManagerDelegate, CB
     }
 
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
-        AppLog.info("DidFailToConnect peripheral: \(peripheral), didFailToConnect")
+        AppLog.info("DidFailToConnect peripheral: \(peripheral)")
 
         if let error = error {
-            AppLog.error(error.localizedDescription)
+            AppLog.error("DidFailToConnect error: \(error.localizedDescription)")
         }
 
         isConnected = false
     }
 
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        AppLog.info("DidDisconnectPeripheral peripheral: \(peripheral), didDisconnectPeripheral")
+        AppLog.info("DidDisconnectPeripheral peripheral: \(peripheral)")
 
         if let error = error {
-            AppLog.error(error.localizedDescription)
+            AppLog.error("DidDisconnectPeripheral error: \(error.localizedDescription)")
         }
 
         isConnected = false
@@ -153,26 +153,32 @@ private class BellmanNotificationService: NSObject, CBCentralManagerDelegate, CB
         AppLog.info("DidConnect peripheral: \(peripheral)")
 
         isConnected = true
-        peripheral.discoverServices([serviceUuid])
+        peripheral.discoverServices([commandServiceUuid, deviceServiceUuid])
     }
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         AppLog.info("DidDiscoverServices peripheral: \(peripheral)")
+        
+        if let error = error {
+            AppLog.error("DidDiscoverServices error: \(error.localizedDescription)")
+        }
 
         if let services = peripheral.services {
             for service in services {
                 AppLog.info("Service Uuid: \(service.uuid.description)")
                 AppLog.info("Service: \(service)")
 
-                if service.uuid == serviceUuid {
-                    peripheral.discoverCharacteristics(nil, for: service)
-                }
+                peripheral.discoverCharacteristics(nil, for: service)
             }
         }
     }
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         AppLog.info("DidDiscoverCharacteristicsFor peripheral: \(peripheral)")
+        
+        if let error = error {
+            AppLog.error("DidDiscoverCharacteristicsFor error: \(error.localizedDescription)")
+        }
 
         if let characteristics = service.characteristics {
             for characteristic in characteristics {
@@ -182,17 +188,117 @@ private class BellmanNotificationService: NSObject, CBCentralManagerDelegate, CB
                 if characteristic.uuid == commandCharacteristicUuid {
                     AppLog.info("Characteristic: commandCharacteristicUuid")
                     commandCharacteristic = characteristic
+                    
+                    peripheral.setNotifyValue(true, for: characteristic)
                 }
 
                 if characteristic.uuid == writeCharacteristicUuid {
                     AppLog.info("Characteristic: writeCharacteristicUuid")
                     writeCharacteristic = characteristic
-
-                    // try to send notification
-                    peripheral.writeValue(Data([152, 6, 0, 36, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 0, 2, 129, 0, 1, 1]), for: characteristic, type: .withoutResponse)
+                }
+                
+                if characteristic.uuid == firmwareCharacteristicUuid {
+                    AppLog.info("Characteristic: firmwareCharacteristicUuid")
+                    firmwareCharacteristic = characteristic
+                    
+                    peripheral.writeValue(Data([]), for: characteristic, type: .withResponse)
                 }
             }
         }
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
+        AppLog.info("DidUpdateNotificationStateFor peripheral: \(peripheral)")
+        
+        if let error = error {
+            AppLog.error("DidUpdateNotificationStateFor error: \(error.localizedDescription)")
+        }
+        
+        guard let data = characteristic.value else {
+            return
+        }
+        
+        AppLog.info("DidUpdateNotificationStateFor data: \(data.hex)")
+        AppLog.info("DidUpdateNotificationStateFor data.count: \(data.count)")
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
+        AppLog.info("DidWriteValueFor peripheral: \(peripheral)")
+        
+        if let error = error {
+            AppLog.error("DidWriteValueFor error: \(error.localizedDescription)")
+        }
+        
+        guard let data = characteristic.value else {
+            return
+        }
+        
+        AppLog.info("DidWriteValueFor data: \(data.hex)")
+        AppLog.info("DidWriteValueFor data.count: \(data.count)")
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        AppLog.info("DidUpdateValueFor peripheral: \(peripheral)")
+        
+        if let error = error {
+            AppLog.error("DidUpdateValueFor error: \(error.localizedDescription)")
+        }
+        
+        guard let data = characteristic.value else {
+            return
+        }
+                       
+        AppLog.info("DidUpdateValueFor data: \(data.hex)")
+        AppLog.info("DidUpdateValueFor data.count: \(data.count)")
+    }
+    
+    /*private func parseInfo(_ value: [UInt8]) {
+        var bytes = subBytes(value, 11, value.count - 11)
+        
+        String conver2HexStr2 = conver2HexStr(bytes2BigEnd(subBytes(bytes, 0, 3)));
+        
+        guard value.count >= 7 else {
+            return
+        }
+        
+        let sender = bytesToHex(subBytes(value, 4, 3))
+        AppLog.info("Sender: \(sender)")
+
+        guard value.count >= 10 else {
+            return
+        }
+        
+        let receiver = bytesToHex(subBytes(value, 7, 3))
+        AppLog.info("Receiver: \(receiver)")
+    }*/
+    
+    private func bytes2BigEnd(_ bArr: [UInt8]) -> [UInt8] {
+        return bArr.reversed();
+    }
+    
+    private func bytesToHex(_ bArr: [UInt8]) -> String {
+        var hex = ""
+        
+        for b in bArr {
+            let hexPart = String(format:"%02X", b & 255)
+            if hexPart.count < 2 {
+                hex += "0"
+            }
+            
+            hex += hexPart
+        }
+        
+        return hex
+    }
+    
+    private func subBytes(_ bArr: [UInt8], _ i: Int, _ i2: Int) -> [UInt8] {
+        var bArr2 = [UInt8](repeating: 0, count: i2)
+        
+        for i3 in i ..< i + i2 {
+            bArr2[i3 - i] = bArr[i3];
+        }
+        
+        return bArr2;
     }
 
     // MARK: Private
@@ -200,8 +306,12 @@ private class BellmanNotificationService: NSObject, CBCentralManagerDelegate, CB
     private var manager: CBCentralManager!
     private let managerQueue = DispatchQueue(label: "libre-direct.bellman-connection.queue")
 
-    private var serviceUuid = CBUUID(string: "6e400001-b5a3-f393-e0a9-e50e24dcca9e")
-
+    private var commandServiceUuid = CBUUID(string: "6e400001-b5a3-f393-e0a9-e50e24dcca9e")
+    private var deviceServiceUuid = CBUUID(string: "0000180a-0000-1000-8000-00805f9b34fb")
+    
+    private let firmwareCharacteristicUuid = CBUUID(string: "00002a26-0000-1000-8000-00805f9b34fb")
+    private var firmwareCharacteristic: CBCharacteristic?
+    
     private let writeCharacteristicUuid = CBUUID(string: "6e400002-b5a3-f393-e0a9-e50e24dcca9e")
     private var writeCharacteristic: CBCharacteristic?
 
@@ -220,7 +330,7 @@ private class BellmanNotificationService: NSObject, CBCentralManagerDelegate, CB
             return
         }
 
-        if let connectedPeripheral = manager.retrieveConnectedPeripherals(withServices: [serviceUuid]).first {
+        if let connectedPeripheral = manager.retrieveConnectedPeripherals(withServices: [commandServiceUuid]).first {
             AppLog.info("Connect from retrievePeripherals: \(connectedPeripheral)")
 
             connect(connectedPeripheral)
