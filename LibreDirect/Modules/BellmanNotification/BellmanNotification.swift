@@ -218,6 +218,7 @@ private class BellmanNotificationService: NSObject, CBCentralManagerDelegate, CB
             return
         }
         
+        AppLog.info("DidUpdateNotificationStateFor characteristic: \(characteristic.uuid.description)")
         AppLog.info("DidUpdateNotificationStateFor data: \(data.hex)")
         AppLog.info("DidUpdateNotificationStateFor data.count: \(data.count)")
     }
@@ -233,6 +234,7 @@ private class BellmanNotificationService: NSObject, CBCentralManagerDelegate, CB
             return
         }
         
+        AppLog.info("DidWriteValueFor characteristic: \(characteristic.uuid.description)")
         AppLog.info("DidWriteValueFor data: \(data.hex)")
         AppLog.info("DidWriteValueFor data.count: \(data.count)")
     }
@@ -248,6 +250,7 @@ private class BellmanNotificationService: NSObject, CBCentralManagerDelegate, CB
             return
         }
                        
+        AppLog.info("DidUpdateValueFor characteristic: \(characteristic.uuid.description)")
         AppLog.info("DidUpdateValueFor data: \(data.hex)")
         AppLog.info("DidUpdateValueFor data.count: \(data.count)")
     }
