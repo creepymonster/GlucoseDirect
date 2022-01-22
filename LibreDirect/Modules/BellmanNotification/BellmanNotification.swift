@@ -296,9 +296,11 @@ private class BellmanNotificationService: NSObject, CBCentralManagerDelegate, CB
 
     private func conver2HexStr(_ bArr: [UInt8]) -> String {
         var hex = ""
+        
         for s in bArr {
             hex += String(s & 255, radix: 2)
         }
+        
         return hex
     }
 
