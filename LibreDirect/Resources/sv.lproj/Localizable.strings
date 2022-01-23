@@ -656,13 +656,13 @@
 "Retrieval interval, every %1$@ minutes" = "Var %1$s:e minut";
 
 /* (No Comment) */
-"App donate" = "Donate";
+"App donate" = "Donera";
 
 /* (No Comment) */
-"Bellman Visit alarm" = "Alarm";
+"Bellman Visit alarm" = "Larm";
 
 /* (No Comment) */
-"Bellman Visit test alarm" = "Test alarm";
+"Bellman Visit test alarm" = "Testa larm";
 
 /* (No Comment) */
 "Bellman Visit BT (required)" = "Bellman Visit BT (required)";
