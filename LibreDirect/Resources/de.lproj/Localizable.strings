@@ -656,13 +656,13 @@
 "Retrieval interval, every %1$@ minutes" = "Alle %1$@ Minuten";
 
 /* (No Comment) */
-"App donate" = "Donate";
+"App donate" = "Spenden";
 
 /* (No Comment) */
 "Bellman alarm" = "Alarm";
 
 /* (No Comment) */
-"Bellman test alarm" = "Test alarm";
+"Bellman test alarm" = "Alarm testen";
 
 /* (No Comment) */
 "Bellman telephone transceiver BT" = "Bellman Transceiver BT";
