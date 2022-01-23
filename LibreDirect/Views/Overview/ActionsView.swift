@@ -97,8 +97,8 @@ struct ActionsView: View {
 
     // MARK: Private
 
-    @State private var showingDisconnectSensorAlert = false
-    @State private var showingUnpairSensorAlert = false
+    @State var showingDisconnectSensorAlert = false
+    @State var showingUnpairSensorAlert = false
 }
 
 // MARK: - ActionsView_Previews

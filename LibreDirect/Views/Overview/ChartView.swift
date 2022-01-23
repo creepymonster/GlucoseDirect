@@ -61,10 +61,9 @@ struct SizePreferenceKey: PreferenceKey {
 struct ChartView: View {
     // MARK: Internal
 
-    @EnvironmentObject var store: AppStore
-
     @Environment(\.colorScheme) var colorScheme
 
+    @EnvironmentObject var store: AppStore
     @StateObject var updater = MinuteUpdater()
     @State var alarmHighGridPath = Path()
     @State var alarmLowGridPath = Path()
@@ -174,63 +173,58 @@ struct ChartView: View {
 
     var body: some View {
         if !store.state.glucoseValues.isEmpty {
-            Section(
-                content: {
-                    chartView
-                        .padding(.leading, 5)
-                        .padding(.trailing, 0)
-                        .padding(.top, 15)
-                        .padding(.bottom, 5)
-                        .frame(height: Config.height)
+            Section {
+                chartView
+                    .padding(.leading, 5)
+                    .padding(.trailing, 0)
+                    .padding(.top, 15)
+                    .padding(.bottom, 5)
+                    .frame(height: Config.height)
 
-                    HStack {
-                        ForEach(Config.zoomLevels, id: \.level) { zoom in
-                            Button(
-                                action: {
-                                    store.dispatch(.setChartZoomLevel(level: zoom.level))
-                                },
-                                label: {
-                                    Circle()
-                                        .if(store.state.chartZoomLevel == zoom.level) {
-                                            $0.fill(Config.y.textColor)
-                                        } else: {
-                                            $0.stroke(Config.y.textColor)
-                                        }
-                                        .frame(width: 12, height: 12)
-
-                                    Text(zoom.title)
-                                        .font(.subheadline)
-                                        .foregroundColor(Config.y.textColor)
-                                }
-                            ).buttonStyle(.plain)
-
-                            Spacer()
-                        }
-
+                HStack {
+                    ForEach(Config.zoomLevels, id: \.level) { zoom in
                         Button(
                             action: {
-                                store.dispatch(.setChartShowLines(enabled: !store.state.chartShowLines))
+                                store.dispatch(.setChartZoomLevel(level: zoom.level))
                             },
                             label: {
-                                Rectangle()
-                                    .if(store.state.chartShowLines) {
+                                Circle()
+                                    .if(store.state.chartZoomLevel == zoom.level) {
                                         $0.fill(Config.y.textColor)
                                     } else: {
                                         $0.stroke(Config.y.textColor)
                                     }
                                     .frame(width: 12, height: 12)
 
-                                Text("Line")
+                                Text(zoom.title)
                                     .font(.subheadline)
                                     .foregroundColor(Config.y.textColor)
                             }
                         ).buttonStyle(.plain)
+
+                        Spacer()
                     }
-                },
-                header: {
-                    Label(String(format: LocalizedString("Chart (%1$@)"), store.state.glucoseValues.count), systemImage: "chart.bar.xaxis")
+
+                    Button(
+                        action: {
+                            store.dispatch(.setChartShowLines(enabled: !store.state.chartShowLines))
+                        },
+                        label: {
+                            Rectangle()
+                                .if(store.state.chartShowLines) {
+                                    $0.fill(Config.y.textColor)
+                                } else: {
+                                    $0.stroke(Config.y.textColor)
+                                }
+                                .frame(width: 12, height: 12)
+
+                            Text("Line")
+                                .font(.subheadline)
+                                .foregroundColor(Config.y.textColor)
+                        }
+                    ).buttonStyle(.plain)
                 }
-            )
+            }
         }
     }
 

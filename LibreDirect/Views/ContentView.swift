@@ -13,13 +13,27 @@ struct ContentView: View {
 
     @EnvironmentObject var store: AppStore
 
-    var contentView: some View {
+    var body: some View {
+        #if targetEnvironment(simulator) || targetEnvironment(macCatalyst)
+            contentView
+        #else
+            if NFCTagReaderSession.readingAvailable {
+                contentView
+            } else {
+                errorView
+            }
+        #endif
+    }
+
+    // MARK: Private
+
+    private var contentView: some View {
         TabView(selection: selectedView) {
-            GlucoeOverviewView().tabItem {
+            OverviewView().tabItem {
                 Label("Glucose overview", systemImage: "waveform.path.ecg")
             }.tag(1)
 
-            GlucoseListView().tabItem {
+            ListView().tabItem {
                 Label("Glucose list view", systemImage: "list.dash")
             }.tag(2)
 
@@ -44,7 +58,7 @@ struct ContentView: View {
         .animation(.default, value: store.state.selectedView)
     }
 
-    var errorView: some View {
+    private var errorView: some View {
         ZStack {
             Rectangle()
                 .foregroundColor(Color.ui.red)
@@ -57,20 +71,6 @@ struct ContentView: View {
             .foregroundColor(Color.white)
         }.padding()
     }
-
-    var body: some View {
-#if targetEnvironment(simulator) || targetEnvironment(macCatalyst)
-        contentView
-#else
-        if NFCTagReaderSession.readingAvailable {
-            contentView
-        } else {
-            errorView
-        }
-#endif
-    }
-
-    // MARK: Private
 
     private var selectedView: Binding<Int> {
         Binding(

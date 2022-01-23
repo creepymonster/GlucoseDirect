@@ -113,7 +113,7 @@ struct AboutView: View {
 
     // MARK: Private
 
-    @State private var showingDeleteLogsAlert = false
+    @State var showingDeleteLogsAlert = false
 }
 
 // MARK: - SendingLogsView

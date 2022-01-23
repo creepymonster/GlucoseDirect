@@ -11,7 +11,8 @@ struct CalibrationsView: View {
     var body: some View {
         VStack {
             List {
-                CalibrationSettingsView()
+                CustomCalibrationView()
+                FactoryCalibrationView()
             }.listStyle(.grouped)
         }
     }

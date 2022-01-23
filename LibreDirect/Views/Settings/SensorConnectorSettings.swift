@@ -28,7 +28,7 @@ struct SensorConnectorSettings: View {
                         .pickerStyle(.menu)
                         .labelsHidden()
                     }
-                    
+
                     HStack {
                         Text("Retrieval interval")
                         Spacer()
@@ -61,7 +61,7 @@ struct SensorConnectorSettings: View {
             set: { store.dispatch(.selectConnectionId(id: $0)) }
         )
     }
-    
+
     private var selectedSensorInterval: Binding<Int> {
         Binding(
             get: { store.state.sensorInterval },
