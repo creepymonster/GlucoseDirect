@@ -38,7 +38,7 @@ struct ContentView: View {
             }.tag(2)
 
             if store.state.isPaired && !store.state.glucoseValues.isEmpty && store.state.isConnectable || store.state.isDisconnectable {
-                CalibrationsView().tabItem {
+                CalibrationView().tabItem {
                     Label("Calibration view", systemImage: "tuningfork")
                 }.tag(3)
             }

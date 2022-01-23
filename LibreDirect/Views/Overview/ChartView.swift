@@ -7,55 +7,6 @@ import Accelerate
 import Combine
 import SwiftUI
 
-// MARK: - Glucose + Equatable
-
-extension Glucose: Equatable {
-    static func == (lhs: Glucose, rhs: Glucose) -> Bool {
-        lhs.timestamp == rhs.timestamp
-    }
-}
-
-extension Date {
-    static func dates(from fromDate: Date, to toDate: Date, step: Int) -> [Date] {
-        var dates: [Date] = []
-        var date = fromDate
-
-        while date <= toDate {
-            dates.append(date)
-            guard let newDate = Calendar.current.date(byAdding: .minute, value: step, to: date) else {
-                break
-            }
-            date = newDate
-        }
-
-        return dates
-    }
-}
-
-// MARK: - TextInfo
-
-struct TextInfo {
-    let description: String
-    let x: CGFloat
-    let y: CGFloat
-    let highlight: Bool
-}
-
-// MARK: - GlucoseInfo
-
-struct GlucoseInfo {
-    let x: CGFloat
-    let glucose: Glucose
-}
-
-// MARK: - SizePreferenceKey
-
-struct SizePreferenceKey: PreferenceKey {
-    static var defaultValue: CGSize = .zero
-
-    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {}
-}
-
 // MARK: - ChartView
 
 struct ChartView: View {
@@ -760,6 +711,55 @@ struct ChartView: View {
 
         return 0
     }
+}
+
+// MARK: - Glucose + Equatable
+
+extension Glucose: Equatable {
+    static func == (lhs: Glucose, rhs: Glucose) -> Bool {
+        lhs.timestamp == rhs.timestamp
+    }
+}
+
+extension Date {
+    static func dates(from fromDate: Date, to toDate: Date, step: Int) -> [Date] {
+        var dates: [Date] = []
+        var date = fromDate
+
+        while date <= toDate {
+            dates.append(date)
+            guard let newDate = Calendar.current.date(byAdding: .minute, value: step, to: date) else {
+                break
+            }
+            date = newDate
+        }
+
+        return dates
+    }
+}
+
+// MARK: - TextInfo
+
+struct TextInfo {
+    let description: String
+    let x: CGFloat
+    let y: CGFloat
+    let highlight: Bool
+}
+
+// MARK: - GlucoseInfo
+
+struct GlucoseInfo {
+    let x: CGFloat
+    let glucose: Glucose
+}
+
+// MARK: - SizePreferenceKey
+
+struct SizePreferenceKey: PreferenceKey {
+    static var defaultValue: CGSize = .zero
+
+    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {}
 }
 
 // MARK: - ZoomLevel

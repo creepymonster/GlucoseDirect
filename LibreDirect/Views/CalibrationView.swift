@@ -1,11 +1,11 @@
 //
-//  CalibrationsView.swift
+//  CalibrationView.swift
 //  LibreDirect
 //
 
 import SwiftUI
 
-struct CalibrationsView: View {
+struct CalibrationView: View {
     @EnvironmentObject var store: AppStore
 
     var body: some View {
