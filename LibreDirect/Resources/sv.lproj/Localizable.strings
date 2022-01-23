@@ -653,7 +653,16 @@
 "Retrieval interval, every minute" = "Varje minut";
 
 /* (No Comment) */
-"Retrieval interval, every %1$@ minutes" = "Var %1$@ minut";
- 
+"Retrieval interval, every %1$@ minutes" = "Var %1$s:e minut";
+
 /* (No Comment) */
-"App donate" = "Donate";
+"App donate" = "Donera";
+
+/* (No Comment) */
+"Bellman alarm" = "Alarm";
+
+/* (No Comment) */
+"Bellman test alarm" = "Test alarm";
+
+/* (No Comment) */
+"Bellman Telephone Transceiver BT" = "Bellman Telephone Transceiver BT";
