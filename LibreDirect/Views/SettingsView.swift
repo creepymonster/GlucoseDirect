@@ -17,8 +17,8 @@ struct SettingsView: View {
                 NightscoutSettingsView()
                 CalendarExportSettingsView()
                 ReadAloudSettingsView()
-                OtherSettingsView()
                 BellmanSettingsView()
+                OtherSettingsView()
                 AboutView()
             }.listStyle(.grouped)
         }

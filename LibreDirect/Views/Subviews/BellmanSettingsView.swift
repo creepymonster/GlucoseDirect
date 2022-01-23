@@ -13,7 +13,7 @@ struct BellmanSettingsView: View {
     var body: some View {
         Section(
             content: {
-                ToggleView(key: LocalizedString("Bellman alarm"), value: store.state.bellmanAlarm) { value -> Void in
+                ToggleView(key: LocalizedString("Bellman Visit alarm"), value: store.state.bellmanAlarm) { value -> Void in
                     store.dispatch(.setBellmanNotification(enabled: value))
                 }
 
@@ -31,13 +31,13 @@ struct BellmanSettingsView: View {
                             store.dispatch(.bellmanTestAlarm)
                         },
                         label: {
-                            Label("Bellman test alarm", systemImage: "ear.badge.checkmark")
+                            Label("Bellman Visit test alarm", systemImage: "ear.badge.checkmark")
                         }
                     )
                 }
             },
             header: {
-                Label("Bellman Visit BT", systemImage: "hearingdevice.ear")
+                Label("Bellman Visit BT (required)", systemImage: "hearingdevice.ear")
             }
         )
     }

@@ -32,7 +32,7 @@ struct ReadAloudSettingsView: View {
                 }
             },
             header: {
-                Label("Read aloud", systemImage: "ear")
+                Label("Read aloud", systemImage: "mouth")
             }
         )
     }
