@@ -62,7 +62,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             }
 
         case .addSensorReadings(sensorSerial: _, trendReadings: let trendReadings, historyReadings: let historyReadings):
-            if !trendReadings.isEmpty, !historyReadings.isEmpty {
+            if !trendReadings.isEmpty {
                 let missingHistory = historyReadings.filter { reading in
                     if state.currentGlucose == nil || reading.timestamp > state.currentGlucose!.timestamp, reading.timestamp < trendReadings.first!.timestamp {
                         return true

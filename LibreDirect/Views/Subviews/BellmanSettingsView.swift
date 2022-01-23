@@ -37,7 +37,7 @@ struct BellmanSettingsView: View {
                 }
             },
             header: {
-                Label("Bellman Visit BT (required)", systemImage: "hearingdevice.ear")
+                Label("Bellman Telephone Transceiver BT", systemImage: "hearingdevice.ear")
             }
         )
     }
