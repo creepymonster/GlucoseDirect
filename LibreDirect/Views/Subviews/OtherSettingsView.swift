@@ -16,10 +16,6 @@ struct OtherSettingsView: View {
                 ToggleView(key: LocalizedString("Glucose badge"), value: store.state.glucoseBadge) { value -> Void in
                     store.dispatch(.setGlucoseBadge(enabled: value))
                 }
-                
-                ToggleView(key: LocalizedString("Bellman notification"), value: store.state.bellmanNotification) { value -> Void in
-                    store.dispatch(.setBellmanNotification(enabled: value))
-                }
 
                 /*
                 ToggleView(key: LocalizedString("Internal http server"), value: store.state.internalHttpServer) { value -> Void in

@@ -18,6 +18,7 @@ struct SettingsView: View {
                 CalendarExportSettingsView()
                 ReadAloudSettingsView()
                 OtherSettingsView()
+                BellmanSettingsView()
                 AboutView()
             }.listStyle(.grouped)
         }

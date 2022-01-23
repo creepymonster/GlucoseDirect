@@ -12,7 +12,8 @@ struct PreviewAppState: AppState {
     var alarmHigh = 160
     var alarmLow = 80
     var alarmSnoozeUntil: Date?
-    var bellmanNotification = false
+    var bellmanAlarm = false
+    var bellmanConnectionState: BellmanConnectionState = .disconnected
     var calendarExport = false
     var chartShowLines = false
     var chartZoomLevel = 1

@@ -7,15 +7,45 @@ import Combine
 import CoreBluetooth
 import Foundation
 
-func bellmanNotificationMiddelware() -> Middleware<AppState, AppAction> {
-    return bellmanNotificationMiddelware(service: {
-        BellmanNotificationService()
-    }())
+func bellmanAlarmMiddelware() -> Middleware<AppState, AppAction> {
+    let subject = PassthroughSubject<AppAction, AppError>()
+
+    return bellmanAlarmMiddelware(service: {
+        BellmanAlarmService(subject: subject)
+    }(), subject: subject)
 }
 
-private func bellmanNotificationMiddelware(service: BellmanNotificationService) -> Middleware<AppState, AppAction> {
-    return { _, action, _ in
+// MARK: - BellmanConnectionState
+
+enum BellmanConnectionState: String {
+    case connected = "Connected"
+    case connecting = "Connecting"
+    case disconnected = "Disconnected"
+    case unknown = "Unknown"
+
+    // MARK: Lifecycle
+
+    init() {
+        self = .unknown
+    }
+
+    // MARK: Internal
+
+    var description: String {
+        rawValue
+    }
+
+    var localizedString: String {
+        LocalizedString(rawValue)
+    }
+}
+
+private func bellmanAlarmMiddelware(service: BellmanAlarmService, subject: PassthroughSubject<AppAction, AppError>) -> Middleware<AppState, AppAction> {
+    return { state, action, _ in
         switch action {
+        case .startup:
+            return subject.eraseToAnyPublisher()
+
         case .setBellmanNotification(enabled: let enabled):
             if enabled {
                 service.connectDevice()
@@ -23,8 +53,48 @@ private func bellmanNotificationMiddelware(service: BellmanNotificationService) 
                 service.disconnectDevice()
             }
 
-        case .bellmanNotification:
+        case .bellmanTestAlarm:
             service.notifyDevice()
+
+        case .addGlucoseValues(glucoseValues: let glucoseValues):
+            guard state.bellmanAlarm else {
+                break
+            }
+            
+            guard let glucose = glucoseValues.last else {
+                AppLog.info("Guard: glucoseValues.last is nil")
+                break
+            }
+
+            guard glucose.type == .cgm else {
+                AppLog.info("Guard: glucose.type is not .cgm")
+                break
+            }
+
+            guard let glucoseValue = glucose.glucoseValue else {
+                AppLog.info("Guard: glucose.glucoseValue is nil")
+                break
+            }
+
+            var isSnoozed = false
+            if let snoozeUntil = state.alarmSnoozeUntil, Date() < snoozeUntil {
+                isSnoozed = true
+            }
+
+            guard !isSnoozed else {
+                break
+            }
+
+            if glucoseValue < state.alarmLow {
+                AppLog.info("Glucose alert, low: \(glucose.glucoseValue) < \(state.alarmLow)")
+
+                service.notifyDevice()
+
+            } else if glucoseValue > state.alarmHigh {
+                AppLog.info("Glucose alert, high: \(glucose.glucoseValue) > \(state.alarmHigh)")
+
+                service.notifyDevice()
+            }
 
         default:
             break
@@ -36,12 +106,13 @@ private func bellmanNotificationMiddelware(service: BellmanNotificationService) 
 
 // MARK: - BellmanNotificationService
 
-private class BellmanNotificationService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
+private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     // MARK: Lifecycle
 
-    override init() {
+    init(subject: PassthroughSubject<AppAction, AppError>) {
         super.init()
 
+        self.subject = subject
         manager = CBCentralManager(delegate: self, queue: managerQueue, options: [CBCentralManagerOptionShowPowerAlertKey: true])
     }
 
@@ -136,7 +207,13 @@ private class BellmanNotificationService: NSObject, CBCentralManagerDelegate, CB
             AppLog.error("DidFailToConnect error: \(error.localizedDescription)")
         }
 
-        isConnected = false
+        setConnectionState(connectionState: .disconnected)
+
+        guard stayConnected else {
+            return
+        }
+
+        connect()
     }
 
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
@@ -146,13 +223,19 @@ private class BellmanNotificationService: NSObject, CBCentralManagerDelegate, CB
             AppLog.error("DidDisconnectPeripheral error: \(error.localizedDescription)")
         }
 
-        isConnected = false
+        setConnectionState(connectionState: .disconnected)
+
+        guard stayConnected else {
+            return
+        }
+
+        connect()
     }
 
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         AppLog.info("DidConnect peripheral: \(peripheral)")
 
-        isConnected = true
+        setConnectionState(connectionState: .connected)
         peripheral.discoverServices([commandServiceUuid, deviceServiceUuid])
     }
 
@@ -219,7 +302,7 @@ private class BellmanNotificationService: NSObject, CBCentralManagerDelegate, CB
         if let error = error {
             AppLog.error("DidUpdateNotificationStateFor error: \(error.localizedDescription)")
         }
-        
+
         guard let data = characteristic.value else {
             return
         }
@@ -227,7 +310,7 @@ private class BellmanNotificationService: NSObject, CBCentralManagerDelegate, CB
         AppLog.info("DidUpdateNotificationStateFor characteristic: \(characteristic.uuid.description)")
         AppLog.info("DidUpdateNotificationStateFor data: \(data.hex)")
         AppLog.info("DidUpdateNotificationStateFor data.count: \(data.count)")
-        
+
         if characteristic.uuid == commandCharacteristicUuid {
             analysis([UInt8](data))
         }
@@ -265,7 +348,21 @@ private class BellmanNotificationService: NSObject, CBCentralManagerDelegate, CB
         AppLog.info("DidUpdateValueFor data.count: \(data.count)")
     }
 
+    func connect() {
+        AppLog.info("Connect")
+
+        setConnectionState(connectionState: .connecting)
+
+        if let peripheral = peripheral {
+            connect(peripheral)
+        } else {
+            find()
+        }
+    }
+
     // MARK: Private
+
+    private weak var subject: PassthroughSubject<AppAction, AppError>?
 
     private var manager: CBCentralManager!
     private let managerQueue = DispatchQueue(label: "libre-direct.bellman-connection.queue")
@@ -296,11 +393,11 @@ private class BellmanNotificationService: NSObject, CBCentralManagerDelegate, CB
 
     private func conver2HexStr(_ bArr: [UInt8]) -> String {
         var hex = ""
-        
+
         for s in bArr {
             hex += String(s & 255, radix: 2)
         }
-        
+
         return hex
     }
 
@@ -333,21 +430,29 @@ private class BellmanNotificationService: NSObject, CBCentralManagerDelegate, CB
         return bArr2
     }
 
-    private func connect() {
-        AppLog.info("Connect")
+    private func find() {
+        AppLog.info("Find")
 
         guard manager.state == .poweredOn else {
             AppLog.error("Guard: manager.state \(manager.state.rawValue) is not .poweredOn")
             return
         }
 
-        if let connectedPeripheral = manager.retrieveConnectedPeripherals(withServices: [commandServiceUuid]).first {
+        if let connectedPeripheral = manager.retrieveConnectedPeripherals(withServices: [commandServiceUuid]).first(where: {
+            guard let name = $0.name?.lowercased() else {
+                return false
+            }
+            
+            AppLog.info("Found peripheral, name: '\(name)' and searching for: '\(peripheralName)'")
+            
+            return name == peripheralName
+        }) {
             AppLog.info("Connect from retrievePeripherals: \(connectedPeripheral)")
 
             connect(connectedPeripheral)
-        } else {
+        } else if stayConnected {
             managerQueue.asyncAfter(deadline: .now() + .seconds(5)) {
-                self.connect()
+                self.find()
             }
         }
     }
@@ -370,6 +475,8 @@ private class BellmanNotificationService: NSObject, CBCentralManagerDelegate, CB
             manager.cancelPeripheralConnection(peripheral)
             self.peripheral = nil
         }
+
+        setConnectionState(connectionState: .disconnected)
     }
 
     private func notify(type: CBCharacteristicWriteType) {
@@ -378,8 +485,17 @@ private class BellmanNotificationService: NSObject, CBCentralManagerDelegate, CB
         setShouldNotify(shouldNotify: false)
 
         if let peripheral = peripheral, let writeCharacteristic = writeCharacteristic {
-            peripheral.writeValue(Data([112, 6, 0, 36, 175, 9, 0, 0, 0, 128, 0, 2, 129, 0, 1, 1]), for: writeCharacteristic, type: type)
+            // without sender
+            peripheral.writeValue(Data([218, 6, 0, 36, 0, 0, 0, 0, 0, 128, 0, 2, 129, 0, 1, 1]), for: writeCharacteristic, type: type)
+            
+            // with sender
+            // peripheral.writeValue(Data([112, 6, 0, 36, 175, 9, 0, 0, 0, 128, 0, 2, 129, 0, 1, 1]), for: writeCharacteristic, type: type)
         }
+    }
+
+    private func setConnectionState(connectionState: BellmanConnectionState) {
+        subject?.send(.setBellmanConnectionState(connectionState: connectionState))
+        isConnected = connectionState == .connected
     }
 
     private func setShouldNotify(shouldNotify: Bool) {

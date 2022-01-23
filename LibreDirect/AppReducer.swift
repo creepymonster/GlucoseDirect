@@ -42,7 +42,7 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .addSensorReadings:
         break
         
-    case .bellmanNotification:
+    case .bellmanTestAlarm:
         break
         
     case .clearCalibrations:
@@ -126,9 +126,6 @@ func appReducer(state: inout AppState, action: AppAction) {
 
     case .setAlarmLow(lowerLimit: let lowerLimit):
         state.alarmLow = lowerLimit
-        
-    case .setBellmanNotification(enabled: let enabled):
-        state.bellmanNotification = enabled
 
     case .setAlarmSnoozeUntil(untilDate: let untilDate, autosnooze: _):
         if let untilDate = untilDate {
@@ -136,6 +133,12 @@ func appReducer(state: inout AppState, action: AppAction) {
         } else {
             state.alarmSnoozeUntil = nil
         }
+        
+    case .setBellmanNotification(enabled: let enabled):
+        state.bellmanAlarm = enabled
+        
+    case .setBellmanConnectionState(connectionState: let connectionState):
+        state.bellmanConnectionState = connectionState
         
     case .setCalendarExport(enabled: let enabled):
         state.calendarExport = enabled

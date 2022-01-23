@@ -49,6 +49,7 @@ struct StoredAppState: AppState {
     // MARK: Internal
 
     var alarmSnoozeUntil: Date?
+    var bellmanConnectionState: BellmanConnectionState = .disconnected
     var connectionError: String?
     var connectionErrorIsCritical = false
     var connectionErrorTimestamp: Date?
@@ -70,9 +71,9 @@ struct StoredAppState: AppState {
         }
     }
     
-    var bellmanNotification = false {
+    var bellmanAlarm = false {
         didSet {
-            UserDefaults.standard.bellmanNotification = bellmanNotification
+            UserDefaults.standard.bellmanNotification = bellmanAlarm
         }
     }
 

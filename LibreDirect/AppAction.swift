@@ -11,7 +11,7 @@ enum AppAction {
     case addGlucoseValues(glucoseValues: [Glucose])
     case addMissedReading
     case addSensorReadings(sensorSerial: String, trendReadings: [SensorReading], historyReadings: [SensorReading])
-    case bellmanNotification
+    case bellmanTestAlarm
     case clearCalibrations
     case clearGlucoseValues
     case connectSensor
@@ -32,6 +32,7 @@ enum AppAction {
     case setAlarmLow(lowerLimit: Int)
     case setAlarmSnoozeUntil(untilDate: Date?, autosnooze: Bool = false)
     case setBellmanNotification(enabled: Bool)
+    case setBellmanConnectionState(connectionState: BellmanConnectionState)
     case setCalendarExport(enabled: Bool)
     case setChartShowLines(enabled: Bool)
     case setChartZoomLevel(level: Int)
