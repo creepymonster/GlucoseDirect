@@ -659,10 +659,10 @@
 "App donate" = "Donera";
 
 /* (No Comment) */
-"Bellman Visit alarm" = "Larm";
+"Bellman alarm" = "Alarm";
 
 /* (No Comment) */
-"Bellman Visit test alarm" = "Testa larm";
+"Bellman test alarm" = "Test alarm";
 
 /* (No Comment) */
-"Bellman Visit BT (required)" = "Bellman Visit BT (required)";
+"Bellman Telephone Transceiver BT" = "Bellman Telephone Transceiver BT";
