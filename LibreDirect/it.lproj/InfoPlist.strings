@@ -17,7 +17,7 @@
 "NSCalendarsUsageDescription" = "L'accesso al calendario è richiesto per mostrare i valori di glucosio su Apple Watch.";
 
 /* Privacy - Location Always and When In Use Usage Description */
-"NSLocationAlwaysAndWhenInUseUsageDescription" = "Access to the location while the app is open and in the background is required.";
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "L'accesso alla posizione mentre l'app è aperta e in background è necessario.";
 
 /* Privacy - Location When In Use Usage Description */
-"NSLocationWhenInUseUsageDescription" = "Access to the location while the app is open is required.";
+"NSLocationWhenInUseUsageDescription" = "È richiesto l'accesso alla posizione mentre l'app è aperta.";
