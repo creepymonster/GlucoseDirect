@@ -635,7 +635,7 @@
 "Please wait..." = "Пожалуйста, подождите....";
 
 /* (No Comment) */
-"Scan sensor once" = "Сканировать один раз";
+"Scan sensor" = "Scan sensor";
 
 /* (No Comment) */
 "Retry pairing" = "Повторное сопряжение";
@@ -666,3 +666,15 @@
 
 /* (No Comment) */
 "Bellman telephone transceiver BT" = "Bellman Transceiver BT";
+
+/* (No Comment) */
+"Find transmitter" = "Find transmitter";
+
+/* (No Comment) */
+"Connect transmitter" = "Connect transmitter";
+
+/* (No Comment) */
+"Disconnect transmitter" = "Disconnect transmitter";
+
+/* (No Comment) */
+"Rescan the sensor" = "Rescan the sensor";
