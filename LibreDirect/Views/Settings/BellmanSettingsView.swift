@@ -42,15 +42,3 @@ struct BellmanSettingsView: View {
         )
     }
 }
-
-// MARK: - BellmanSettingsView_Previews
-
-struct BellmanSettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        let store = AppStore(initialState: PreviewAppState())
-
-        ForEach(ColorScheme.allCases, id: \.self) {
-            BellmanSettingsView().environmentObject(store).preferredColorScheme($0)
-        }
-    }
-}

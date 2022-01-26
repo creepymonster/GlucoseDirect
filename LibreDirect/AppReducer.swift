@@ -68,9 +68,6 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .pairSensor:
         break
         
-    case .scanSensor:
-        break
-        
     case .registerConnectionInfo(infos: let infos):
         state.connectionInfos.append(contentsOf: infos)
         
@@ -101,12 +98,12 @@ func appReducer(state: inout AppState, action: AppAction) {
         state.selectedCalendarTarget = id
         
     case .selectConnection(id: let id, connection: let connection):
-        if id != state.selectedConnectionId || state.selectedConnection == nil {
-            state.selectedConnectionId = id
+        if id != state.selectedConnectionID || state.selectedConnection == nil {
+            state.selectedConnectionID = id
             state.selectedConnection = connection
         }
         
-    case .selectConnectionId(id: _):
+    case .selectConnectionID(id: _):
         state.isPaired = false
         state.sensor = nil
         state.customCalibration = []
@@ -193,29 +190,25 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setNightscoutUpload(enabled: let enabled):
         state.nightscoutUpload = enabled
         
-    case .setNightscoutUrl(url: let url):
-        state.nightscoutUrl = url
+    case .setNightscoutURL(url: let url):
+        state.nightscoutURL = url
         
     case .setReadGlucose(enabled: let enabled):
         state.readGlucose = enabled
         
     case .setSensor(sensor: let sensor, wasPaired: let wasPaired):
-        let isModifiedSensor = state.isScanable && !wasPaired && (state.sensor == nil || state.sensor?.serial != sensor.serial)
-        
         if let sensorSerial = state.sensor?.serial, sensorSerial != sensor.serial {
             state.customCalibration = []
+            
+            // reset store peripheral uuid
+            UserDefaults.standard.sensorPeripheralUuid = nil
         }
         
         state.sensor = sensor
         state.connectionError = nil
         state.connectionErrorIsCritical = false
         state.connectionErrorTimestamp = nil
-        
-        if isModifiedSensor {
-            state.isPaired = false
-        } else if wasPaired {
-            state.isPaired = true
-        }
+        state.isPaired = wasPaired
         
     case .setSensorInterval(interval: let interval):
         state.sensorInterval = interval

@@ -53,15 +53,3 @@ struct ConnectionView: View {
         )
     }
 }
-
-// MARK: - ConnectionView_Previews
-
-struct ConnectionView_Previews: PreviewProvider {
-    static var previews: some View {
-        let store = AppStore(initialState: PreviewAppState())
-
-        ForEach(ColorScheme.allCases, id: \.self) {
-            ConnectionView().environmentObject(store).preferredColorScheme($0)
-        }
-    }
-}

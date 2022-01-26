@@ -15,7 +15,7 @@ struct NightscoutSettingsView: View {
     var body: some View {
         Section(
             content: {
-                ToggleView(key: LocalizedString("Nightscout upload enabled"), value: store.state.nightscoutUpload) { value -> Void in
+                ToggleView(key: LocalizedString("Nightscout upload enabled"), value: store.state.nightscoutUpload) { value in
                     withAnimation {
                         store.dispatch(.setNightscoutUpload(enabled: value))
                     }
@@ -25,7 +25,7 @@ struct NightscoutSettingsView: View {
                     HStack {
                         Text("Nightscout url")
                         Spacer()
-                        TextField("https://my-nightscout.herokuapp.com", text: nightscoutUrl)
+                        TextField("https://my-nightscout.herokuapp.com", text: nightscoutURL)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                     }
@@ -47,10 +47,10 @@ struct NightscoutSettingsView: View {
 
     // MARK: Private
 
-    private var nightscoutUrl: Binding<String> {
+    private var nightscoutURL: Binding<String> {
         Binding(
-            get: { store.state.nightscoutUrl },
-            set: { store.dispatch(.setNightscoutUrl(url: $0)) }
+            get: { store.state.nightscoutURL },
+            set: { store.dispatch(.setNightscoutURL(url: $0)) }
         )
     }
 
@@ -59,17 +59,5 @@ struct NightscoutSettingsView: View {
             get: { store.state.nightscoutApiSecret },
             set: { store.dispatch(.setNightscoutSecret(apiSecret: $0)) }
         )
-    }
-}
-
-// MARK: - NightscoutView_Previews
-
-struct NightscoutView_Previews: PreviewProvider {
-    static var previews: some View {
-        let store = AppStore(initialState: PreviewAppState())
-
-        ForEach(ColorScheme.allCases, id: \.self) {
-            NightscoutSettingsView().environmentObject(store).preferredColorScheme($0)
-        }
     }
 }

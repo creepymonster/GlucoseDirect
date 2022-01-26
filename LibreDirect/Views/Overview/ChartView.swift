@@ -7,64 +7,14 @@ import Accelerate
 import Combine
 import SwiftUI
 
-// MARK: - Glucose + Equatable
-
-extension Glucose: Equatable {
-    static func == (lhs: Glucose, rhs: Glucose) -> Bool {
-        lhs.timestamp == rhs.timestamp
-    }
-}
-
-extension Date {
-    static func dates(from fromDate: Date, to toDate: Date, step: Int) -> [Date] {
-        var dates: [Date] = []
-        var date = fromDate
-
-        while date <= toDate {
-            dates.append(date)
-            guard let newDate = Calendar.current.date(byAdding: .minute, value: step, to: date) else {
-                break
-            }
-            date = newDate
-        }
-
-        return dates
-    }
-}
-
-// MARK: - TextInfo
-
-struct TextInfo {
-    let description: String
-    let x: CGFloat
-    let y: CGFloat
-    let highlight: Bool
-}
-
-// MARK: - GlucoseInfo
-
-struct GlucoseInfo {
-    let x: CGFloat
-    let glucose: Glucose
-}
-
-// MARK: - SizePreferenceKey
-
-struct SizePreferenceKey: PreferenceKey {
-    static var defaultValue: CGSize = .zero
-
-    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {}
-}
-
 // MARK: - ChartView
 
 struct ChartView: View {
     // MARK: Internal
 
-    @EnvironmentObject var store: AppStore
-
     @Environment(\.colorScheme) var colorScheme
 
+    @EnvironmentObject var store: AppStore
     @StateObject var updater = MinuteUpdater()
     @State var alarmHighGridPath = Path()
     @State var alarmLowGridPath = Path()
@@ -174,63 +124,58 @@ struct ChartView: View {
 
     var body: some View {
         if !store.state.glucoseValues.isEmpty {
-            Section(
-                content: {
-                    chartView
-                        .padding(.leading, 5)
-                        .padding(.trailing, 0)
-                        .padding(.top, 15)
-                        .padding(.bottom, 5)
-                        .frame(height: Config.height)
+            Section {
+                chartView
+                    .padding(.leading, 5)
+                    .padding(.trailing, 0)
+                    .padding(.top, 15)
+                    .padding(.bottom, 5)
+                    .frame(height: Config.height)
 
-                    HStack {
-                        ForEach(Config.zoomLevels, id: \.level) { zoom in
-                            Button(
-                                action: {
-                                    store.dispatch(.setChartZoomLevel(level: zoom.level))
-                                },
-                                label: {
-                                    Circle()
-                                        .if(store.state.chartZoomLevel == zoom.level) {
-                                            $0.fill(Config.y.textColor)
-                                        } else: {
-                                            $0.stroke(Config.y.textColor)
-                                        }
-                                        .frame(width: 12, height: 12)
-
-                                    Text(zoom.title)
-                                        .font(.subheadline)
-                                        .foregroundColor(Config.y.textColor)
-                                }
-                            ).buttonStyle(.plain)
-
-                            Spacer()
-                        }
-
+                HStack {
+                    ForEach(Config.zoomLevels, id: \.level) { zoom in
                         Button(
                             action: {
-                                store.dispatch(.setChartShowLines(enabled: !store.state.chartShowLines))
+                                store.dispatch(.setChartZoomLevel(level: zoom.level))
                             },
                             label: {
-                                Rectangle()
-                                    .if(store.state.chartShowLines) {
+                                Circle()
+                                    .if(store.state.chartZoomLevel == zoom.level) {
                                         $0.fill(Config.y.textColor)
                                     } else: {
                                         $0.stroke(Config.y.textColor)
                                     }
                                     .frame(width: 12, height: 12)
 
-                                Text("Line")
+                                Text(zoom.title)
                                     .font(.subheadline)
                                     .foregroundColor(Config.y.textColor)
                             }
                         ).buttonStyle(.plain)
+
+                        Spacer()
                     }
-                },
-                header: {
-                    Label(String(format: LocalizedString("Chart (%1$@)"), store.state.glucoseValues.count), systemImage: "chart.bar.xaxis")
+
+                    Button(
+                        action: {
+                            store.dispatch(.setChartShowLines(enabled: !store.state.chartShowLines))
+                        },
+                        label: {
+                            Rectangle()
+                                .if(store.state.chartShowLines) {
+                                    $0.fill(Config.y.textColor)
+                                } else: {
+                                    $0.stroke(Config.y.textColor)
+                                }
+                                .frame(width: 12, height: 12)
+
+                            Text("Line")
+                                .font(.subheadline)
+                                .foregroundColor(Config.y.textColor)
+                        }
+                    ).buttonStyle(.plain)
                 }
-            )
+            }
         }
     }
 
@@ -768,6 +713,55 @@ struct ChartView: View {
     }
 }
 
+// MARK: - Glucose + Equatable
+
+extension Glucose: Equatable {
+    static func == (lhs: Glucose, rhs: Glucose) -> Bool {
+        lhs.timestamp == rhs.timestamp
+    }
+}
+
+extension Date {
+    static func dates(from fromDate: Date, to toDate: Date, step: Int) -> [Date] {
+        var dates: [Date] = []
+        var date = fromDate
+
+        while date <= toDate {
+            dates.append(date)
+            guard let newDate = Calendar.current.date(byAdding: .minute, value: step, to: date) else {
+                break
+            }
+            date = newDate
+        }
+
+        return dates
+    }
+}
+
+// MARK: - TextInfo
+
+struct TextInfo {
+    let description: String
+    let x: CGFloat
+    let y: CGFloat
+    let highlight: Bool
+}
+
+// MARK: - GlucoseInfo
+
+struct GlucoseInfo {
+    let x: CGFloat
+    let glucose: Glucose
+}
+
+// MARK: - SizePreferenceKey
+
+struct SizePreferenceKey: PreferenceKey {
+    static var defaultValue: CGSize = .zero
+
+    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {}
+}
+
 // MARK: - ZoomLevel
 
 struct ZoomLevel {
@@ -796,16 +790,4 @@ class MinuteUpdater: ObservableObject {
     // MARK: Internal
 
     var timer: Timer?
-}
-
-// MARK: - ChartView_Previews
-
-struct ChartView_Previews: PreviewProvider {
-    static var previews: some View {
-        let store = AppStore(initialState: PreviewAppState())
-
-        ForEach(ColorScheme.allCases, id: \.self) {
-            ChartView().environmentObject(store).preferredColorScheme($0)
-        }
-    }
 }

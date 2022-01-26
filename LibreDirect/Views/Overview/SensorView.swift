@@ -9,48 +9,11 @@ import SwiftUI
 
 struct SensorView: View {
     // MARK: Internal
-
-    @EnvironmentObject var store: AppStore
-
+    
     @Environment(\.colorScheme) var colorScheme
 
+    @EnvironmentObject var store: AppStore
     @State var deviceColorScheme = ColorScheme.light
-
-    var batteryEndAngle: Double? {
-        if let transmitter = store.state.transmitter {
-            let angle = 3.6 * Double(transmitter.battery)
-            return angle
-        }
-
-        return nil
-    }
-
-    var remainingWarmupEndAngle: Double? {
-        if let sensor = store.state.sensor, let remainingWarmupTime = sensor.remainingWarmupTime {
-            let angle = (360.0 / Double(sensor.warmupTime)) * Double(remainingWarmupTime)
-            return angle
-        }
-
-        return nil
-    }
-
-    var remainingEndAngle: Double? {
-        if let sensor = store.state.sensor, let remainingLifetime = sensor.remainingLifetime {
-            let angle = (360.0 / Double(sensor.lifetime)) * Double(remainingLifetime)
-            return angle
-        }
-
-        return nil
-    }
-
-    var elapsedEndAngle: Double? {
-        if let sensor = store.state.sensor, let elapsedLifetime = sensor.elapsedLifetime {
-            let angle = (360.0 / Double(sensor.lifetime)) * Double(elapsedLifetime)
-            return angle
-        }
-
-        return nil
-    }
 
     var body: some View {
         Group {
@@ -213,7 +176,7 @@ struct SensorView: View {
                     }
                 )
             }
-            
+
             if let sensor = store.state.sensor {
                 Section(
                     content: {
@@ -270,16 +233,40 @@ struct SensorView: View {
 
         static var color: Color { Color(hex: "#E4E6EB") | Color(hex: "#404040") }
     }
-}
 
-// MARK: - SensorView_Previews
-
-struct SensorView_Previews: PreviewProvider {
-    static var previews: some View {
-        let store = AppStore(initialState: PreviewAppState())
-
-        ForEach(ColorScheme.allCases, id: \.self) {
-            SensorView().environmentObject(store).preferredColorScheme($0)
+    private var batteryEndAngle: Double? {
+        if let transmitter = store.state.transmitter {
+            let angle = 3.6 * Double(transmitter.battery)
+            return angle
         }
+
+        return nil
+    }
+
+    private var remainingWarmupEndAngle: Double? {
+        if let sensor = store.state.sensor, let remainingWarmupTime = sensor.remainingWarmupTime {
+            let angle = (360.0 / Double(sensor.warmupTime)) * Double(remainingWarmupTime)
+            return angle
+        }
+
+        return nil
+    }
+
+    private var remainingEndAngle: Double? {
+        if let sensor = store.state.sensor, let remainingLifetime = sensor.remainingLifetime {
+            let angle = (360.0 / Double(sensor.lifetime)) * Double(remainingLifetime)
+            return angle
+        }
+
+        return nil
+    }
+
+    private var elapsedEndAngle: Double? {
+        if let sensor = store.state.sensor, let elapsedLifetime = sensor.elapsedLifetime {
+            let angle = (360.0 / Double(sensor.lifetime)) * Double(elapsedLifetime)
+            return angle
+        }
+
+        return nil
     }
 }

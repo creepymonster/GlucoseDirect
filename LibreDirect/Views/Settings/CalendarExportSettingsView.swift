@@ -56,11 +56,3 @@ struct CalendarExportSettingsView: View {
         )
     }
 }
-
-// MARK: - CalendarExportSettings_Previews
-
-struct CalendarExportSettings_Previews: PreviewProvider {
-    static var previews: some View {
-        CalendarExportSettingsView()
-    }
-}

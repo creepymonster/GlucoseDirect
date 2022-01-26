@@ -36,11 +36,11 @@ protocol AppState {
     var missedReadings: Int { get set }
     var nightscoutApiSecret: String { get set }
     var nightscoutUpload: Bool { get set }
-    var nightscoutUrl: String { get set }
+    var nightscoutURL: String { get set }
     var readGlucose: Bool { get set }
     var selectedCalendarTarget: String? { get set }
     var selectedConnection: SensorBLEConnection? { get set }
-    var selectedConnectionId: String? { get set }
+    var selectedConnectionID: String? { get set }
     var selectedView: Int { get set }
     var sensor: Sensor? { get set }
     var sensorInterval: Int { get set }
@@ -89,10 +89,14 @@ extension AppState {
         disconnectableStates.contains(connectionState)
     }
 
-    var isScanable: Bool {
-        selectedConnection is SensorNFCConnection
+    var isSensor: Bool {
+        selectedConnection is IsSensor
     }
-    
+
+    var isTransmitter: Bool {
+        selectedConnection is IsTransmitter
+    }
+
     var isPairable: Bool {
         !isPaired && !(connectionState != .disconnected && connectionState != .pairing && connectionState != .scanning && connectionState != .connecting)
     }

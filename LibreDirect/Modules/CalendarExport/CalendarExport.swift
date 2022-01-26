@@ -8,9 +8,7 @@ import EventKit
 import Foundation
 
 func calendarExportMiddleware() -> Middleware<AppState, AppAction> {
-    return calendarExportMiddleware(service: {
-        CalendarExportService()
-    }())
+    return calendarExportMiddleware(service: CalendarExportService())
 }
 
 func calendarExportMiddleware(service: CalendarExportService) -> Middleware<AppState, AppAction> {
@@ -78,9 +76,7 @@ typealias CalendarExportHandler = (_ granted: Bool) -> Void
 class CalendarExportService {
     // MARK: Internal
 
-    lazy var eventStore: EKEventStore = {
-        EKEventStore()
-    }()
+    lazy var eventStore: EKEventStore = .init()
 
     func requestAccess(completionHandler: @escaping CalendarExportHandler) {
         eventStore.requestAccess(to: EKEntityType.event, completion: { granted, error in
@@ -106,7 +102,7 @@ class CalendarExportService {
         let events = eventStore.events(matching: predicate)
 
         for event in events {
-            if event.url == AppConfig.appSchemaUrl {
+            if event.url == AppConfig.appSchemaURL {
                 do {
                     try eventStore.remove(event, span: .thisEvent)
                 } catch {
@@ -139,7 +135,7 @@ class CalendarExportService {
         }
 
         event.calendar = calendar
-        event.url = AppConfig.appSchemaUrl
+        event.url = AppConfig.appSchemaURL
         event.startDate = Date()
         event.endDate = Date(timeIntervalSinceNow: 60 * 10)
 

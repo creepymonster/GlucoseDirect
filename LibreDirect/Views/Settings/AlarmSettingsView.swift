@@ -15,6 +15,10 @@ struct AlarmSettingsView: View {
     var body: some View {
         Section(
             content: {
+                ToggleView(key: LocalizedString("Ignore mute"), value: store.state.ignoreMute) { value -> Void in
+                    store.dispatch(.setIgnoreMute(enabled: value))
+                }
+                
                 HStack {
                     Text("Low glucose alarm")
                     Spacer()
@@ -65,10 +69,6 @@ struct AlarmSettingsView: View {
                     }
                     .pickerStyle(.menu)
                     .labelsHidden()
-                }
-                
-                ToggleView(key: LocalizedString("Ignore mute"), value: store.state.ignoreMute) { value -> Void in
-                    store.dispatch(.setIgnoreMute(enabled: value))
                 }
             },
             header: {

@@ -18,14 +18,13 @@ enum AppAction {
     case deleteLogs
     case disconnectSensor
     case pairSensor
-    case scanSensor
     case registerConnectionInfo(infos: [SensorConnectionInfo])
     case removeCalibration(id: UUID)
     case removeGlucose(id: UUID)
     case resetSensor
     case selectCalendarTarget(id: String?)
     case selectConnection(id: String, connection: SensorBLEConnection)
-    case selectConnectionId(id: String)
+    case selectConnectionID(id: String)
     case selectView(viewTag: Int)
     case sendLogs
     case setAlarmHigh(upperLimit: Int)
@@ -48,7 +47,7 @@ enum AppAction {
     case setLowGlucoseAlarmSound(sound: NotificationSound)
     case setNightscoutSecret(apiSecret: String)
     case setNightscoutUpload(enabled: Bool)
-    case setNightscoutUrl(url: String)
+    case setNightscoutURL(url: String)
     case setReadGlucose(enabled: Bool)
     case setSensor(sensor: Sensor, wasPaired: Bool = false)
     case setSensorInterval(interval: Int)

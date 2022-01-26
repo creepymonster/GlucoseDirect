@@ -1,16 +1,71 @@
+
+
 //
 //  UserDefaultsAppState.swift
 //  LibreDirect
 //
 
 import Combine
+import CoreNFC
 import Foundation
 import UserNotifications
 
-struct StoredAppState: AppState {
+// MARK: - DatabaseState
+
+struct DatabaseState: AppState {
+    var alarmHigh: Int = 160
+    var alarmLow: Int = 80
+    var alarmSnoozeUntil: Date?
+    var bellmanAlarm = false
+    var bellmanConnectionState: BellmanConnectionState = .disconnected
+    var calendarExport: Bool = false
+    var chartShowLines: Bool
+    var chartZoomLevel: Int
+    var connectionAlarmSound: NotificationSound
+    var connectionError: String?
+    var connectionErrorIsCritical = false
+    var connectionErrorTimestamp: Date?
+    var connectionInfos: [SensorConnectionInfo] = []
+    var connectionState: SensorConnectionState = .disconnected
+    var customCalibration: [CustomCalibration]
+    var expiringAlarmSound: NotificationSound
+    var glucoseBadge: Bool
+    var glucoseUnit: GlucoseUnit
+    var glucoseValues: [Glucose]
+    var highGlucoseAlarmSound: NotificationSound
+    var ignoreMute: Bool
+    var internalHttpServer: Bool
+    var isPaired: Bool
+    var lowGlucoseAlarmSound: NotificationSound
+    var missedReadings: Int = 0
+    var nightscoutApiSecret: String
+    var nightscoutUpload: Bool
+    var nightscoutURL: String
+    var readGlucose: Bool
+    var selectedCalendarTarget: String?
+    var selectedConnection: SensorBLEConnection?
+    var selectedConnectionID: String?
+    var selectedView: Int
+    var sensor: Sensor?
+    var sensorInterval: Int
+    var targetValue: Int = 100
+    var transmitter: Transmitter?
+}
+
+// MARK: - UserDefaultsState
+
+struct UserDefaultsState: AppState {
     // MARK: Lifecycle
 
     init() {
+        #if targetEnvironment(simulator)
+            let defaultConnectionID = "virtual"
+        #else
+            let defaultConnectionID = NFCTagReaderSession.readingAvailable
+                ? "libre2"
+                : "bubble"
+        #endif
+
         if let alarmHigh = UserDefaults.standard.alarmHigh {
             self.alarmHigh = alarmHigh
         }
@@ -19,7 +74,7 @@ struct StoredAppState: AppState {
             self.alarmLow = alarmLow
         }
 
-        //self.bellmanNotification = UserDefaults.standard.bellmanNotification
+        self.bellmanAlarm = UserDefaults.standard.bellmanAlarm
         self.calendarExport = UserDefaults.standard.calendarExport
         self.chartShowLines = UserDefaults.standard.chartShowLines
         self.chartZoomLevel = UserDefaults.standard.chartZoomLevel
@@ -31,11 +86,11 @@ struct StoredAppState: AppState {
         self.isPaired = UserDefaults.standard.isPaired
         self.ignoreMute = UserDefaults.standard.ignoreMute
         self.nightscoutApiSecret = UserDefaults.standard.nightscoutApiSecret
-        self.nightscoutUrl = UserDefaults.standard.nightscoutUrl
+        self.nightscoutURL = UserDefaults.standard.nightscoutURL
         self.nightscoutUpload = UserDefaults.standard.nightscoutUpload
         self.readGlucose = UserDefaults.standard.readGlucose
         self.selectedCalendarTarget = UserDefaults.standard.selectedCalendarTarget
-        self.selectedConnectionId = UserDefaults.standard.selectedConnectionId ?? "libre2"
+        self.selectedConnectionID = UserDefaults.standard.selectedConnectionID ?? defaultConnectionID
         self.selectedView = UserDefaults.standard.selectedView
         self.sensor = UserDefaults.standard.sensor
         self.sensorInterval = UserDefaults.standard.sensorInterval
@@ -49,14 +104,19 @@ struct StoredAppState: AppState {
     // MARK: Internal
 
     var alarmSnoozeUntil: Date?
+
     var bellmanConnectionState: BellmanConnectionState = .disconnected
+
     var connectionError: String?
     var connectionErrorIsCritical = false
     var connectionErrorTimestamp: Date?
     var connectionInfos: [SensorConnectionInfo] = []
     var connectionState: SensorConnectionState = .disconnected
+
     var missedReadings: Int = 0
+
     var selectedConnection: SensorBLEConnection?
+
     var targetValue: Int = 100
 
     var alarmHigh: Int = 160 {
@@ -70,10 +130,10 @@ struct StoredAppState: AppState {
             UserDefaults.standard.alarmLow = alarmLow
         }
     }
-    
+
     var bellmanAlarm = false {
         didSet {
-            UserDefaults.standard.bellmanNotification = bellmanAlarm
+            UserDefaults.standard.bellmanAlarm = bellmanAlarm
         }
     }
 
@@ -100,7 +160,7 @@ struct StoredAppState: AppState {
             UserDefaults.standard.connectionAlarmSound = connectionAlarmSound
         }
     }
-    
+
     var customCalibration: [CustomCalibration] {
         didSet {
             UserDefaults.standard.customCalibration = customCalibration
@@ -110,18 +170,6 @@ struct StoredAppState: AppState {
     var expiringAlarmSound: NotificationSound {
         didSet {
             UserDefaults.standard.expiringAlarmSound = expiringAlarmSound
-        }
-    }
-
-    var highGlucoseAlarmSound: NotificationSound {
-        didSet {
-            UserDefaults.standard.highGlucoseAlarmSound = highGlucoseAlarmSound
-        }
-    }
-    
-    var lowGlucoseAlarmSound: NotificationSound {
-        didSet {
-            UserDefaults.standard.lowGlucoseAlarmSound = lowGlucoseAlarmSound
         }
     }
 
@@ -143,21 +191,33 @@ struct StoredAppState: AppState {
         }
     }
 
+    var highGlucoseAlarmSound: NotificationSound {
+        didSet {
+            UserDefaults.standard.highGlucoseAlarmSound = highGlucoseAlarmSound
+        }
+    }
+
+    var ignoreMute: Bool {
+        didSet {
+            UserDefaults.standard.ignoreMute = ignoreMute
+        }
+    }
+
     var internalHttpServer: Bool {
         didSet {
             UserDefaults.standard.internalHttpServer = internalHttpServer
         }
     }
-    
+
     var isPaired: Bool {
         didSet {
             UserDefaults.standard.isPaired = isPaired
         }
     }
-    
-    var ignoreMute: Bool {
+
+    var lowGlucoseAlarmSound: NotificationSound {
         didSet {
-            UserDefaults.standard.ignoreMute = ignoreMute
+            UserDefaults.standard.lowGlucoseAlarmSound = lowGlucoseAlarmSound
         }
     }
 
@@ -167,9 +227,9 @@ struct StoredAppState: AppState {
         }
     }
 
-    var nightscoutUrl: String {
+    var nightscoutURL: String {
         didSet {
-            UserDefaults.standard.nightscoutUrl = nightscoutUrl
+            UserDefaults.standard.nightscoutURL = nightscoutURL
         }
     }
 
@@ -191,9 +251,9 @@ struct StoredAppState: AppState {
         }
     }
 
-    var selectedConnectionId: String? {
+    var selectedConnectionID: String? {
         didSet {
-            UserDefaults.standard.selectedConnectionId = selectedConnectionId
+            UserDefaults.standard.selectedConnectionID = selectedConnectionID
         }
     }
 
@@ -208,7 +268,7 @@ struct StoredAppState: AppState {
             UserDefaults.standard.sensor = sensor
         }
     }
-    
+
     var sensorInterval: Int {
         didSet {
             UserDefaults.standard.sensorInterval = sensorInterval

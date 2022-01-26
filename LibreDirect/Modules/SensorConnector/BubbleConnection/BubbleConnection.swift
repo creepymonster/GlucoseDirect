@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - BubbleConnection
 
-class BubbleConnection: SensorBLEConnectionBase {
+class BubbleConnection: SensorBLEConnectionBase, IsTransmitter {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<AppAction, AppError>) {
@@ -135,7 +135,7 @@ class BubbleConnection: SensorBLEConnectionBase {
 
                 if let fram = fram {
                     let sensor = Sensor(uuid: uuid, patchInfo: patchInfo, fram: fram)
-                    sendUpdate(sensor: sensor)
+                    sendUpdate(sensor: sensor, wasPaired: true)
 
                     if sensor.age > sensor.warmupTime {
                         let readings = SensorUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)

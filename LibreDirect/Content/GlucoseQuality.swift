@@ -26,19 +26,45 @@ struct GlucoseQuality: OptionSet, Codable {
     var description: String {
         var outputs: [String] = []
 
-        if self.contains(.SD14_FIFO_OVERFLOW) { outputs.append("SD14_FIFO_OVERFLOW") }
-        if self.contains(.FILTER_DELTA) { outputs.append("FILTER_DELTA") }
-        if self.contains(.WORK_VOLTAGE) { outputs.append("WORK_VOLTAGE") }
-        if self.contains(.PEAK_DELTA_EXCEEDED) { outputs.append("PEAK_DELTA_EXCEEDED") }
-        if self.contains(.AVG_DELTA_EXCEEDED) { outputs.append("AVG_DELTA_EXCEEDED") }
-        if self.contains(.RF) { outputs.append("RF") }
-        if self.contains(.REF_R) { outputs.append("REF_R") }
-        if self.contains(.SIGNAL_SATURATED) { outputs.append("SIGNAL_SATURATED") }
-        if self.contains(.SENSOR_SIGNAL_LOW) { outputs.append("SENSOR_SIGNAL_LOW") }
-        if self.contains(.THERMISTOR_OUT_OF_RANGE) { outputs.append("THERMISTOR_OUT_OF_RANGE") }
-        if self.contains(.TEMP_HIGH) { outputs.append("TEMP_HIGH") }
-        if self.contains(.TEMP_LOW) { outputs.append("TEMP_LOW") }
-        if self.contains(.INVALID_DATA) { outputs.append("INVALID_DATA") }
+        if self.contains(.SD14_FIFO_OVERFLOW) {
+            outputs.append("SD14_FIFO_OVERFLOW")
+        }
+        if self.contains(.FILTER_DELTA) {
+            outputs.append("FILTER_DELTA")
+        }
+        if self.contains(.WORK_VOLTAGE) {
+            outputs.append("WORK_VOLTAGE")
+        }
+        if self.contains(.PEAK_DELTA_EXCEEDED) {
+            outputs.append("PEAK_DELTA_EXCEEDED")
+        }
+        if self.contains(.AVG_DELTA_EXCEEDED) {
+            outputs.append("AVG_DELTA_EXCEEDED")
+        }
+        if self.contains(.RF) {
+            outputs.append("RF")
+        }
+        if self.contains(.REF_R) {
+            outputs.append("REF_R")
+        }
+        if self.contains(.SIGNAL_SATURATED) {
+            outputs.append("SIGNAL_SATURATED")
+        }
+        if self.contains(.SENSOR_SIGNAL_LOW) {
+            outputs.append("SENSOR_SIGNAL_LOW")
+        }
+        if self.contains(.THERMISTOR_OUT_OF_RANGE) {
+            outputs.append("THERMISTOR_OUT_OF_RANGE")
+        }
+        if self.contains(.TEMP_HIGH) {
+            outputs.append("TEMP_HIGH")
+        }
+        if self.contains(.TEMP_LOW) {
+            outputs.append("TEMP_LOW")
+        }
+        if self.contains(.INVALID_DATA) {
+            outputs.append("INVALID_DATA")
+        }
 
         return outputs.joined(separator: ", ")
     }
