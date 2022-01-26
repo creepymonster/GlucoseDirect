@@ -270,15 +270,3 @@ struct SensorView: View {
         return nil
     }
 }
-
-// MARK: - SensorView_Previews
-
-struct SensorView_Previews: PreviewProvider {
-    static var previews: some View {
-        let store = AppStore(initialState: PreviewAppState())
-
-        ForEach(ColorScheme.allCases, id: \.self) {
-            SensorView().environmentObject(store).preferredColorScheme($0)
-        }
-    }
-}

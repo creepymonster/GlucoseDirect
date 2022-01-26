@@ -168,11 +168,3 @@ struct CustomCalibrationView: View {
         Double(round(CustomCalibrationView.factor * customCalibration.intercept) / CustomCalibrationView.factor)
     }
 }
-
-// MARK: - CustomCalibrationView_Previews
-
-struct CustomCalibrationView_Previews: PreviewProvider {
-    static var previews: some View {
-        CustomCalibrationView()
-    }
-}

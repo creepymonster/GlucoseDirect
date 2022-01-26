@@ -32,7 +32,7 @@ enum AppLog {
         fileLogger.deleteLogs()
     }
 
-    static func getLogsUrl() -> URL {
+    static func getLogsURL() -> URL {
         return fileLogger.allLogsFileURL
     }
 
@@ -42,13 +42,11 @@ enum AppLog {
 
     // MARK: Private
 
-    private static let fileLogger: FileLogger = {
-        FileLogger()
-    }()
+    private static let fileLogger: FileLogger = .init()
 
     private static func log(message: String, type: OSLogType, log: OSLog, error: Error?, file: String, line: Int, function: String) {
         // Console logging
-        let meta: String = "[\(file):\(line)]" // [\(function)]
+        let meta = "[\(file):\(line)]" // [\(function)]
 
         // obviously we have to disable swiftline here:
         // swiftlint:disable:next no_direct_oslog
@@ -124,7 +122,7 @@ struct FileLogger {
     }()
 
     func log(_ logMessage: String, logType: OSLogType, file: String? = nil, line: Int? = nil, function: String? = nil) {
-        var meta: String = ""
+        var meta = ""
         if let file = file, let line = line, let function = function {
             meta = "[\(file):\(line)] [\(function)]\n"
         }

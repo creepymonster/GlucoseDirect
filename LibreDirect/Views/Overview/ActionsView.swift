@@ -14,16 +14,24 @@ struct ActionsView: View {
 
     var body: some View {
         if store.state.hasSelectedConnection {
-            if store.state.isScanable && store.state.connectionState != .connected {
-                Button(
-                    action: {
-                        store.dispatch(.scanSensor)
-                    },
-                    label: {
-                        Label("Scan sensor once", systemImage: "viewfinder")
+            Button(
+                action: {
+                    withAnimation {
+                        if store.state.isDisconnectable {
+                            store.dispatch(.disconnectSensor)
+                        }
+                        
+                        store.dispatch(.pairSensor)
                     }
-                )
-            }
+                },
+                label: {
+                    if store.state.isTransmitter {
+                        Label("Find transmitter", systemImage: "magnifyingglass")
+                    } else {
+                        Label("Scan sensor", systemImage: "viewfinder")
+                    }
+                }
+            )
 
             if store.state.isPaired {
                 if store.state.isConnectable {
@@ -34,39 +42,24 @@ struct ActionsView: View {
                             }
                         },
                         label: {
-                            Label("Connect sensor", systemImage: "play")
+                            if store.state.isTransmitter {
+                                Label("Connect transmitter", systemImage: "play")
+                            } else {
+                                Label("Connect sensor", systemImage: "play")
+                            }
                         }
                     )
-
-                    Button(
-                        action: {
-                            showingUnpairSensorAlert = true
-                        },
-                        label: {
-                            Label("Unpair sensor", systemImage: "nosign")
-                        }
-                    ).alert(isPresented: $showingUnpairSensorAlert) {
-                        Alert(
-                            title: Text("Are you sure you want to unpair the sensor?"),
-                            primaryButton: .destructive(Text("Unpair")) {
-                                withAnimation {
-                                    if store.state.isDisconnectable {
-                                        store.dispatch(.disconnectSensor)
-                                    }
-
-                                    store.dispatch(.resetSensor)
-                                }
-                            },
-                            secondaryButton: .cancel()
-                        )
-                    }
                 } else if store.state.isDisconnectable {
                     Button(
                         action: {
                             showingDisconnectSensorAlert = true
                         },
                         label: {
-                            Label("Disconnect sensor", systemImage: "stop")
+                            if store.state.isTransmitter {
+                                Label("Disconnect transmitter", systemImage: "stop")
+                            } else {
+                                Label("Disconnect sensor", systemImage: "stop")
+                            }
                         }
                     ).alert(isPresented: $showingDisconnectSensorAlert) {
                         Alert(
@@ -80,30 +73,7 @@ struct ActionsView: View {
                         )
                     }
                 }
-            } else {
-                Button(
-                    action: {
-                        withAnimation {
-                            store.dispatch(.pairSensor)
-                        }
-                    },
-                    label: {
-                        Label("Pair sensor", systemImage: "link")
-                    }
-                )
             }
-        }
-    }
-}
-
-// MARK: - ActionsView_Previews
-
-struct ActionsView_Previews: PreviewProvider {
-    static var previews: some View {
-        let store = AppStore(initialState: PreviewAppState())
-
-        ForEach(ColorScheme.allCases, id: \.self) {
-            ActionsView().environmentObject(store).preferredColorScheme($0)
         }
     }
 }

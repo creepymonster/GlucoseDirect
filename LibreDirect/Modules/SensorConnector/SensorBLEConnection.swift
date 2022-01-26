@@ -41,7 +41,6 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     var stayConnected = false
     var sensor: Sensor?
     var sensorInterval = 1
-    var connectionMode: ConnectionMode = .unknown
 
     var peripheralName: String {
         preconditionFailure("This property must be overridden")
@@ -52,14 +51,14 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
             oldValue?.delegate = nil
             peripheral?.delegate = self
 
-            UserDefaults.standard.sensorPeripheralUuid = peripheral?.identifier.uuidString
+            if let sensorPeripheralUuid = self.peripheral?.identifier.uuidString {
+                UserDefaults.standard.sensorPeripheralUuid = sensorPeripheralUuid
+            }
         }
     }
 
     func pairSensor() {
         AppLog.info("PairSensor")
-
-        UserDefaults.standard.sensorPeripheralUuid = nil
 
         sendUpdate(connectionState: .pairing)
 
@@ -99,26 +98,15 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
             return
         }
 
-        /* if let connectedPeripheral = manager.retrieveConnectedPeripherals(withServices: [serviceUuid]).first(where: { $0.name?.lowercased().starts(with: peripheralName) ?? false }) {
-             AppLog.info("Connect from retrievePeripherals")
-
-             connectionMode = .alreadyConnectedDevice
-             connect(connectedPeripheral)
-         } else */
-
         if let peripheralUuidString = UserDefaults.standard.sensorPeripheralUuid,
            let peripheralUuid = UUID(uuidString: peripheralUuidString),
            let retrievedPeripheral = manager.retrievePeripherals(withIdentifiers: [peripheralUuid]).first,
            checkRetrievedPeripheral(peripheral: retrievedPeripheral)
         {
             AppLog.info("Connect from retrievePeripherals")
-
-            connectionMode = .knownDevice
             connect(retrievedPeripheral)
         } else {
             AppLog.info("Scan for peripherals")
-
-            connectionMode = .foundDevice
             scan()
         }
     }
@@ -242,33 +230,5 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
 
         sendUpdate(connectionState: .connected)
         peripheral.discoverServices([serviceUuid])
-    }
-}
-
-// MARK: - ConnectionMode
-
-enum ConnectionMode {
-    case unknown
-    case knownDevice
-    case alreadyConnectedDevice
-    case foundDevice
-}
-
-extension UserDefaults {
-    private enum Keys: String {
-        case devicePeripheralUuid = "libre-direct.sensor-ble-connection.peripheral-uuid"
-    }
-
-    var sensorPeripheralUuid: String? {
-        get {
-            return UserDefaults.standard.string(forKey: Keys.devicePeripheralUuid.rawValue)
-        }
-        set {
-            if let newValue = newValue {
-                UserDefaults.standard.setValue(newValue, forKey: Keys.devicePeripheralUuid.rawValue)
-            } else {
-                UserDefaults.standard.removeObject(forKey: Keys.devicePeripheralUuid.rawValue)
-            }
-        }
     }
 }

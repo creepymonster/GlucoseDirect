@@ -32,7 +32,7 @@ enum SensorFamily: Int, Codable {
             self = .unknown
         }
     }
-    
+
     init(_ patchInfo: Data) {
         let family = Int(patchInfo[2] >> 4)
 

@@ -635,7 +635,7 @@
 "Please wait..." = "Please wait...";
 
 /* (No Comment) */
-"Scan sensor once" = "Scan sensor once";
+"Scan sensor" = "Scan sensor";
 
 /* (No Comment) */
 "Retry pairing" = "Retry pairing";
@@ -666,3 +666,6 @@
 
 /* (No Comment) */
 "Bellman Telephone Transceiver BT" = "Bellman Telephone Transceiver BT";
+
+/* (No Comment) */
+"Find transmitter" = "Find transmitter";

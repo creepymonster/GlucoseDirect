@@ -71,15 +71,3 @@ struct GlucoseView: View {
         return Color.primary
     }
 }
-
-// MARK: - GlucoseView_Previews
-
-struct GlucoseView_Previews: PreviewProvider {
-    static var previews: some View {
-        let store = AppStore(initialState: PreviewAppState())
-
-        ForEach(ColorScheme.allCases, id: \.self) {
-            GlucoseView().environmentObject(store).preferredColorScheme($0)
-        }
-    }
-}

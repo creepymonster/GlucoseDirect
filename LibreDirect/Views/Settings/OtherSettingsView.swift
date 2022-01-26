@@ -57,15 +57,3 @@ struct OtherSettingsView: View {
         )
     }
 }
-
-// MARK: - OtherSettings_Previews
-
-struct OtherSettings_Previews: PreviewProvider {
-    static var previews: some View {
-        let store = AppStore(initialState: PreviewAppState())
-
-        ForEach(ColorScheme.allCases, id: \.self) {
-            OtherSettingsView().environmentObject(store).preferredColorScheme($0)
-        }
-    }
-}

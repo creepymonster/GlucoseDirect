@@ -791,15 +791,3 @@ class MinuteUpdater: ObservableObject {
 
     var timer: Timer?
 }
-
-// MARK: - ChartView_Previews
-
-struct ChartView_Previews: PreviewProvider {
-    static var previews: some View {
-        let store = AppStore(initialState: PreviewAppState())
-
-        ForEach(ColorScheme.allCases, id: \.self) {
-            ChartView().environmentObject(store).preferredColorScheme($0)
-        }
-    }
-}

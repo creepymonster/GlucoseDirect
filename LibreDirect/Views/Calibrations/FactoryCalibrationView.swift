@@ -57,11 +57,3 @@ struct FactoryCalibrationView: View {
         }
     }
 }
-
-// MARK: - FactoryCalibrationView_Previews
-
-struct FactoryCalibrationView_Previews: PreviewProvider {
-    static var previews: some View {
-        FactoryCalibrationView()
-    }
-}

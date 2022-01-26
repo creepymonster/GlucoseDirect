@@ -22,7 +22,7 @@ struct FactoryCalibration: Codable {
         let i4 = Double(readBits(fram, 0x150, 8, 0xe))
         let i5 = Double(readBits(fram, 0x150, 0x28, 0xc) << 2)
         let i6 = Double(readBits(fram, 0x150, 0x34, 0xc) << 2)
-        
+
         self.i1 = i1
         self.i2 = i2
         self.i3 = i3
@@ -30,7 +30,7 @@ struct FactoryCalibration: Codable {
         self.i5 = i5
         self.i6 = i6
     }
-    
+
     init(i1: Int, i2: Int, i3: Double, i4: Double, i5: Double, i6: Double) {
         self.i1 = i1
         self.i2 = i2
