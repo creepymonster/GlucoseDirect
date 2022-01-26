@@ -85,7 +85,11 @@ extension SensorBLEConnection {
         }
 
         if let errorCode = CBError.Code(rawValue: (error as NSError).code) {
-            sendUpdate(errorMessage: LocalizedString("Rescan the sensor"), errorIsCritical: errorCode.rawValue == 7)
+            if errorCode.rawValue == 7 {
+                sendUpdate(errorMessage: LocalizedString("Rescan the sensor"), errorIsCritical: true)
+            } else {
+                sendUpdate(errorMessage: LocalizedString("Connection timeout"), errorIsCritical: true)  
+            }
         }
     }
 
