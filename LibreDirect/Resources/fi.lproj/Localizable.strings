@@ -23,34 +23,34 @@
 "8 - Eastern" = "8 - Middle East, Asia";
 
 /* (No Comment) */
-"Add" = "Add";
+"Add" = "Lisää";
 
 /* (No Comment) */
-"Add glucose for calibration" = "Add glucose for calibration";
+"Add glucose for calibration" = "Lisää vs-arvo kalibrointia varten";
 
 /* (No Comment) */
-"Add glucose value" = "Add glucose value";
+"Add glucose value" = "Lisää vs-arvo";
 
 /* (No Comment) */
-"Alarm Settings" = "Alarm Settings";
+"Alarm Settings" = "Hälytysten asetukset";
 
 /* (No Comment) */
-"Alert, high glucose" = "Alert, high glucose";
+"Alert, high glucose" = "Hälytys, korkea glukoosi";
 
 /* (No Comment) */
-"Alert, low blood glucose" = "Alert, low blood glucose";
+"Alert, low blood glucose" = "Hälytys matala verensokeri";
 
 /* (No Comment) */
-"Alert, sensor connection lost" = "Alert, sensor connection lost";
+"Alert, sensor connection lost" = "Hälytys yhteys katkennut";
 
 /* (No Comment) */
-"Alert, sensor expired" = "Alert, sensor expired";
+"Alert, sensor expired" = "Sensori loppunut hälytys";
 
 /* (No Comment) */
-"Alert, sensor expiring soon" = "Alert, sensor expiring soon";
+"Alert, sensor expiring soon" = "Sensori loppuu pian hälytys";
 
 /* (No Comment) */
-"Are you sure you want to add the new calibration?" = "Are you sure you want to add the new calibration?";
+"Are you sure you want to add the new calibration?" = "Haluatko varmasti lisätä uuden kalibroinnin?";
 
 /* (No Comment) */
 "Are you sure you want to delete all calibrations?" = "Are you sure you want to delete all calibrations?";
@@ -62,13 +62,13 @@
 "Are you sure you want to delete all glucose values?" = "Are you sure you want to delete all glucose values?";
 
 /* (No Comment) */
-"Are you sure you want to disconnect the sensor?" = "Are you sure you want to disconnect the sensor?";
+"Are you sure you want to disconnect the sensor?" = "Haluatko varmasti katkaista sensorin yhteyden?";
 
 /* (No Comment) */
 "Are you sure you want to unpair the sensor?" = "Are you sure you want to unpair the sensor?";
 
 /* (No Comment) */
-"Blood glucose: %1$@" = "Blood glucose: %1$@";
+"Blood glucose: %1$@" = "Verensokeri: %1$@";
 
 /* (No Comment) */
 "Calibration view" = "Calibration";
