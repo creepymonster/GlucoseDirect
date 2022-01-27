@@ -635,7 +635,7 @@
 "Please wait..." = "Var god vänta...";
 
 /* (No Comment) */
-"Scan sensor" = "Scan sensor";
+"Scan sensor" = "Skanna sensor";
 
 /* (No Comment) */
 "Retry pairing" = "Försök att parkoppla igen";
@@ -668,13 +668,13 @@
 "Bellman telephone transceiver BT" = "Bellman sändare/mottagare BT";
 
 /* (No Comment) */
-"Find transmitter" = "Find transmitter";
+"Find transmitter" = "Hitta sändare";
 
 /* (No Comment) */
-"Connect transmitter" = "Connect transmitter";
+"Connect transmitter" = "Anslut sändare";
 
 /* (No Comment) */
-"Disconnect transmitter" = "Disconnect transmitter";
+"Disconnect transmitter" = "Koppla från sändare";
 
 /* (No Comment) */
-"Rescan the sensor" = "Rescan the sensor";
+"Rescan the sensor" = "Skanna om sensorn";
