@@ -17,10 +17,10 @@
 "2 - USA" = "2 – USA";
 
 /* (No Comment) */
-"4 - Australian" = "4 - Australia/Canada";
+"4 - Australian" = "4 - Australia/Kanada";
 
 /* (No Comment) */
-"8 - Eastern" = "8 - Middle East, Asia";
+"8 - Eastern" = "8 - Lähi-itä, Aasia";
 
 /* (No Comment) */
 "Add" = "Lisää";
@@ -53,67 +53,67 @@
 "Are you sure you want to add the new calibration?" = "Haluatko varmasti lisätä uuden kalibroinnin?";
 
 /* (No Comment) */
-"Are you sure you want to delete all calibrations?" = "Are you sure you want to delete all calibrations?";
+"Are you sure you want to delete all calibrations?" = "Oletko varma, että haluat poistaa kaikki kalibroinnit?";
 
 /* (No Comment) */
-"Are you sure you want to delete all log files?" = "Are you sure you want to delete all log files?";
+"Are you sure you want to delete all log files?" = "Oletko varma, että haluat poistaa kaikki lokitiedostot?";
 
 /* (No Comment) */
-"Are you sure you want to delete all glucose values?" = "Are you sure you want to delete all glucose values?";
+"Are you sure you want to delete all glucose values?" = "Oletko varma, että haluat poistaa kaikki glukoosiarvot?";
 
 /* (No Comment) */
 "Are you sure you want to disconnect the sensor?" = "Haluatko varmasti katkaista sensorin yhteyden?";
 
 /* (No Comment) */
-"Are you sure you want to unpair the sensor?" = "Are you sure you want to unpair the sensor?";
+"Are you sure you want to unpair the sensor?" = "Oletko varma, että haluat poistaa sensorin pariliitoksen?";
 
 /* (No Comment) */
 "Blood glucose: %1$@" = "Verensokeri: %1$@";
 
 /* (No Comment) */
-"Calibration view" = "Calibration";
+"Calibration view" = "Kalibrointi";
 
 /* (No Comment) */
-"Cancel" = "Cancel";
+"Cancel" = "Peruuta";
 
 /* (No Comment) */
 "Chart (%1$@)" = "Chart";
 
 /* (No Comment) */
-"Connect sensor" = "Connect sensor";
+"Connect sensor" = "Yhdistä sensori";
 
 /* (No Comment) */
-"Connected" = "Connected";
+"Connected" = "Yhdistetty";
 
 /* (No Comment) */
-"Connecting" = "Connecting";
+"Connecting" = "Yhdistetään";
 
 /* (No Comment) */
-"Connection alarm" = "Connection alarm";
+"Connection alarm" = "Yhteysongelma";
 
 /* (No Comment) */
-"Custom calibration" = "Calibration";
+"Custom calibration" = "Kalibrointi";
 
 /* (No Comment) */
 "Custom calibration intercept" = "Intercept";
 
 /* (No Comment) */
-"Custom calibration slope" = "Slope";
+"Custom calibration slope" = "Kulma";
 
 /* (No Comment) */
-"Delete" = "Delete";
+"Delete" = "Poista";
 
 /* (No Comment) */
-"Delete all" = "Delete all";
+"Delete all" = "Poista kaikki";
 
 /* (No Comment) */
-"Disconnect" = "Disconnect";
+"Disconnect" = "Katkaise yhteys";
 
 /* (No Comment) */
-"Disconnect sensor" = "Disconnect sensor";
+"Disconnect sensor" = "Katkaise yhteys sensoriin";
 
 /* (No Comment) */
-"Disconnected" = "Disconnected";
+"Disconnected" = "Yhteys katkaistu";
 
 /* (No Comment) */
 "Factory calibration i1" = "i1";
@@ -134,25 +134,25 @@
 "Factory calibration i6" = "i6";
 
 /* (No Comment) */
-"Glucose alarm" = "Glucose alarm";
+"Glucose alarm" = "Glukoosihälytys";
 
 /* (No Comment) */
-"Glucose list view" = "List";
+"Glucose list view" = "Luettelo";
 
 /* (No Comment) */
-"Glucose overview" = "Overview";
+"Glucose overview" = "Yleiskatsaus";
 
 /* (No Comment) */
-"Glucose settings" = "Glucose settings";
+"Glucose settings" = "Verensokeri asetukset";
 
 /* (No Comment) */
-"Glucose unit" = "Unit";
+"Glucose unit" = "Yksikkö";
 
 /* (No Comment) */
-"Glucose values" = "Glucose values";
+"Glucose values" = "Verensokeriarvot";
 
 /* (No Comment) */
-"Hold the top edge of your iPhone close to the sensor." = "Hold the top edge of your iPhone close to the sensor.";
+"Hold the top edge of your iPhone close to the sensor." = "Pidä iPhonen yläreunaa lähellä sensoria ja pidä paikallaan hetki.";
 
 /* (No Comment) */
 "Libre 1" = "Libre 1";
@@ -188,10 +188,10 @@
 "mmol/L" = "mmol//L";
 
 /* (No Comment) */
-"New calibration" = "New calibration";
+"New calibration" = "Uusi kalibrointi";
 
 /* (No Comment) */
-"Nightscout API-Secret" = "API-Secret";
+"Nightscout API-Secret" = "API-salasana";
 
 /* (No Comment) */
 "Nightscout url" = "Url";
@@ -203,7 +203,7 @@
 "Nightscout upload enabled" = "Lähetä";
 
 /* (No Comment) */
-"Now" = "Now";
+"Now" = "Nyt";
 
 /* (No Comment) */
 "OK, sensor connection established" = "OK, sensor connection established";
