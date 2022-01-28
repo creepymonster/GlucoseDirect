@@ -8,112 +8,112 @@
 "%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
 
 /* (No Comment) */
-"0 - Unknown" = "0 - Unknown";
+"0 - Unknown" = "0 - Tuntematon";
 
 /* (No Comment) */
-"1 - European" = "1 - European";
+"1 - European" = "1 – Eurooppalainen";
 
 /* (No Comment) */
-"2 - USA" = "2 - USA";
+"2 - USA" = "2 – USA";
 
 /* (No Comment) */
-"4 - Australian" = "4 - Australia/Canada";
+"4 - Australian" = "4 - Australia/Kanada";
 
 /* (No Comment) */
-"8 - Eastern" = "8 - Middle East, Asia";
+"8 - Eastern" = "8 - Lähi-itä, Aasia";
 
 /* (No Comment) */
-"Add" = "Add";
+"Add" = "Lisää";
 
 /* (No Comment) */
-"Add glucose for calibration" = "Add glucose for calibration";
+"Add glucose for calibration" = "Lisää vs-arvo kalibrointia varten";
 
 /* (No Comment) */
-"Add glucose value" = "Add glucose value";
+"Add glucose value" = "Lisää vs-arvo";
 
 /* (No Comment) */
-"Alarm Settings" = "Alarm Settings";
+"Alarm Settings" = "Hälytysten asetukset";
 
 /* (No Comment) */
-"Alert, high glucose" = "Alert, high glucose";
+"Alert, high glucose" = "Hälytys, korkea glukoosi";
 
 /* (No Comment) */
-"Alert, low blood glucose" = "Alert, low blood glucose";
+"Alert, low blood glucose" = "Hälytys matala verensokeri";
 
 /* (No Comment) */
-"Alert, sensor connection lost" = "Alert, sensor connection lost";
+"Alert, sensor connection lost" = "Hälytys yhteys katkennut";
 
 /* (No Comment) */
-"Alert, sensor expired" = "Alert, sensor expired";
+"Alert, sensor expired" = "Sensori loppunut hälytys";
 
 /* (No Comment) */
-"Alert, sensor expiring soon" = "Alert, sensor expiring soon";
+"Alert, sensor expiring soon" = "Sensori loppuu pian hälytys";
 
 /* (No Comment) */
-"Are you sure you want to add the new calibration?" = "Are you sure you want to add the new calibration?";
+"Are you sure you want to add the new calibration?" = "Haluatko varmasti lisätä uuden kalibroinnin?";
 
 /* (No Comment) */
-"Are you sure you want to delete all calibrations?" = "Are you sure you want to delete all calibrations?";
+"Are you sure you want to delete all calibrations?" = "Oletko varma, että haluat poistaa kaikki kalibroinnit?";
 
 /* (No Comment) */
-"Are you sure you want to delete all log files?" = "Are you sure you want to delete all log files?";
+"Are you sure you want to delete all log files?" = "Oletko varma, että haluat poistaa kaikki lokitiedostot?";
 
 /* (No Comment) */
-"Are you sure you want to delete all glucose values?" = "Are you sure you want to delete all glucose values?";
+"Are you sure you want to delete all glucose values?" = "Oletko varma, että haluat poistaa kaikki glukoosiarvot?";
 
 /* (No Comment) */
-"Are you sure you want to disconnect the sensor?" = "Are you sure you want to disconnect the sensor?";
+"Are you sure you want to disconnect the sensor?" = "Haluatko varmasti katkaista sensorin yhteyden?";
 
 /* (No Comment) */
-"Are you sure you want to unpair the sensor?" = "Are you sure you want to unpair the sensor?";
+"Are you sure you want to unpair the sensor?" = "Oletko varma, että haluat poistaa sensorin pariliitoksen?";
 
 /* (No Comment) */
-"Blood glucose: %1$@" = "Blood glucose: %1$@";
+"Blood glucose: %1$@" = "Verensokeri: %1$@";
 
 /* (No Comment) */
-"Calibration view" = "Calibration";
+"Calibration view" = "Kalibrointi";
 
 /* (No Comment) */
-"Cancel" = "Cancel";
+"Cancel" = "Peruuta";
 
 /* (No Comment) */
 "Chart (%1$@)" = "Chart";
 
 /* (No Comment) */
-"Connect sensor" = "Connect sensor";
+"Connect sensor" = "Yhdistä sensori";
 
 /* (No Comment) */
-"Connected" = "Connected";
+"Connected" = "Yhdistetty";
 
 /* (No Comment) */
-"Connecting" = "Connecting";
+"Connecting" = "Yhdistetään";
 
 /* (No Comment) */
-"Connection alarm" = "Connection alarm";
+"Connection alarm" = "Yhteysongelma";
 
 /* (No Comment) */
-"Custom calibration" = "Calibration";
+"Custom calibration" = "Kalibrointi";
 
 /* (No Comment) */
 "Custom calibration intercept" = "Intercept";
 
 /* (No Comment) */
-"Custom calibration slope" = "Slope";
+"Custom calibration slope" = "Kulma";
 
 /* (No Comment) */
-"Delete" = "Delete";
+"Delete" = "Poista";
 
 /* (No Comment) */
-"Delete all" = "Delete all";
+"Delete all" = "Poista kaikki";
 
 /* (No Comment) */
-"Disconnect" = "Disconnect";
+"Disconnect" = "Katkaise yhteys";
 
 /* (No Comment) */
-"Disconnect sensor" = "Disconnect sensor";
+"Disconnect sensor" = "Katkaise yhteys sensoriin";
 
 /* (No Comment) */
-"Disconnected" = "Disconnected";
+"Disconnected" = "Yhteys katkaistu";
 
 /* (No Comment) */
 "Factory calibration i1" = "i1";
@@ -134,25 +134,25 @@
 "Factory calibration i6" = "i6";
 
 /* (No Comment) */
-"Glucose alarm" = "Glucose alarm";
+"Glucose alarm" = "Glukoosihälytys";
 
 /* (No Comment) */
-"Glucose list view" = "List";
+"Glucose list view" = "Luettelo";
 
 /* (No Comment) */
-"Glucose overview" = "Overview";
+"Glucose overview" = "Yleiskatsaus";
 
 /* (No Comment) */
-"Glucose settings" = "Glucose settings";
+"Glucose settings" = "Verensokeri asetukset";
 
 /* (No Comment) */
-"Glucose unit" = "Unit";
+"Glucose unit" = "Yksikkö";
 
 /* (No Comment) */
-"Glucose values" = "Glucose values";
+"Glucose values" = "Verensokeriarvot";
 
 /* (No Comment) */
-"Hold the top edge of your iPhone close to the sensor." = "Hold the top edge of your iPhone close to the sensor.";
+"Hold the top edge of your iPhone close to the sensor." = "Pidä iPhonen yläreunaa lähellä sensoria ja pidä paikallaan hetki.";
 
 /* (No Comment) */
 "Libre 1" = "Libre 1";
@@ -188,10 +188,10 @@
 "mmol/L" = "mmol//L";
 
 /* (No Comment) */
-"New calibration" = "New calibration";
+"New calibration" = "Uusi kalibrointi";
 
 /* (No Comment) */
-"Nightscout API-Secret" = "API-Secret";
+"Nightscout API-Secret" = "API-salasana";
 
 /* (No Comment) */
 "Nightscout url" = "Url";
@@ -203,49 +203,49 @@
 "Nightscout upload enabled" = "Lähetä";
 
 /* (No Comment) */
-"Now" = "Now";
+"Now" = "Nyt";
 
 /* (No Comment) */
-"OK, sensor connection established" = "OK, sensor connection established";
+"OK, sensor connection established" = "OK, sensoriyhteys muodostettu";
 
 /* (No Comment) */
 "Pair sensor" = "Yhdistä sensori";
 
 /* (No Comment) */
-"Power off" = "Power off";
+"Power off" = "Sammuta";
 
 /* (No Comment) */
 "Scanning" = "Skannaa";
 
 /* (No Comment) */
-"Sensor age" = "Sensor age";
+"Sensor age" = "Sensori aloitettu";
 
 /* (No Comment) */
-"Connection" = "Connection";
+"Connection" = "Yhteyd";
 
 /* (No Comment) */
-"Connection error" = "Error";
+"Connection error" = "Virhe";
 
 /* (No Comment) */
-"Connection error timestamp" = "Time";
+"Connection error timestamp" = "Aika";
 
 /* (No Comment) */
-"Connection state" = "State";
+"Connection state" = "Tila";
 
 /* (No Comment) */
-"Sensor custom calibration" = "Custom Calibration";
+"Sensor custom calibration" = "Mukautettu Kalibrointi";
 
 /* (No Comment) */
-"Sensor details" = "Sensor details";
+"Sensor details" = "Sensorin tiedot";
 
 /* (No Comment) */
-"Sensor factory calibration" = "Factory Calibration";
+"Sensor factory calibration" = "Tehdaskalibrointi";
 
 /* (No Comment) */
-"Sensor has failure" = "Sensor has failure";
+"Sensor has failure" = "Sensorivirhe";
 
 /* (No Comment) */
-"Sensor in starting phase" = "Sensor in starting phase";
+"Sensor in starting phase" = "Sensori alkuvaiheessa";
 
 /* (No Comment) */
 "Sensor is expired" = "Sensor is expired";
@@ -263,7 +263,7 @@
 "Missed readings" = "Missed";
 
 /* (No Comment) */
-"Sensor not yet startet" = "Sensor not yet startet";
+"Sensor not yet startet" = "Sensori ei ole vielä käynnistynyt";
 
 /* (No Comment) */
 "Sensor PatchInfo" = "PatchInfo";
@@ -272,40 +272,40 @@
 "Sensor possible lifetime" = "Lifetime";
 
 /* (No Comment) */
-"Sensor region" = "Region";
+"Sensor region" = "Alue";
 
 /* (No Comment) */
-"Sensor remaining lifetime" = "Remaining";
+"Sensor remaining lifetime" = "Jäljellä";
 
 /* (No Comment) */
-"Sensor remaining warmup time" = "Warmup";
+"Sensor remaining warmup time" = "Käynnistys";
 
 /* (No Comment) */
-"Sensor serial" = "Serial";
+"Sensor serial" = "Sarjanumero";
 
 /* (No Comment) */
-"Sensor state" = "State";
+"Sensor state" = "Tila";
 
 /* (No Comment) */
-"Sensor type" = "Type";
+"Sensor type" = "Malli";
 
 /* (No Comment) */
 "Sensor UID" = "UID";
 
 /* (No Comment) */
-"Settings view" = "Settings";
+"Settings view" = "Asetukset";
 
 /* (No Comment) */
-"Snooze until" = "Snooze";
+"Snooze until" = "Torkuta";
 
 /* (No Comment) */
-"Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "Unfortunately, an NFC-enabled iPhone is required to use the app :'(";
+"Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "Valitettavasti sovelluksen käyttäminen edellyttää NFC-yhteensopivaa iPhonea :'(";
 
 /* (No Comment) */
-"The connection to the sensor has been successfully established and glucose data is received." = "The connection to the sensor has been successfully established and glucose data is received.";
+"The connection to the sensor has been successfully established and glucose data is received." = "Yhteys sensoriin on muodostettu onnistuneesti ja glukoositiedot on vastaanotettu.";
 
 /* (No Comment) */
-"The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause." = "The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause.";
+"The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause." = "Yhteys sensoriin näyttää olevan olemassa, mutta arvoja ei ole vastaanotettu. Virheelliset anturitiedot voivat olla syy.";
 
 /* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired.";
@@ -377,13 +377,13 @@
 "Line" = "Line";
 
 /* (No Comment) */
-"Points" = "Points";
+"Points" = "Pisteet";
 
 /* (No Comment) */
-"Transmitter name" = "Name";
+"Transmitter name" = "Nimi";
 
 /* (No Comment) */
-"Transmitter battery" = "Battery";
+"Transmitter battery" = "Patteri";
 
 /* (No Comment) */
 "Transmitter hardware" = "Hardware";
@@ -392,40 +392,40 @@
 "Transmitter firmware" = "Firmware";
 
 /* (No Comment) */
-"Transmitter" = "Transmitter";
+"Transmitter" = "Lähetin";
 
 /* (No Comment) */
-"Sensor connection" = "Sensor connection";
+"Sensor connection" = "Sensorin yhteys";
 
 /* (No Comment) */
-"Without transmitter" = "Without transmitter";
+"Without transmitter" = "Ilman lähetintä";
 
 /* (No Comment) */
-"Bubble transmitter" = "Bubble transmitter";
+"Bubble transmitter" = "Bubble";
 
 /* (No Comment) */
-"Pairing" = "Pairing";
+"Pairing" = "Paritetaan";
 
 /* (No Comment) */
-"Calendar export" = "Calendar export";
+"Calendar export" = "Kalenteriin lähetys";
 
 /* (No Comment) */
-"Calendar export enabled" = "Export";
+"Calendar export enabled" = "Lähetä";
 
 /* (No Comment) */
-"Selected calendar" = "Calendar";
+"Selected calendar" = "Kalenteri";
 
 /* (No Comment) */
-"Please select" = "Please select";
+"Please select" = "Valitse";
 
 /* (No Comment) */
-"About %@" = "About %@";
+"About %@" = "Noin %@";
 
 /* (No Comment) */
-"App version" = "Version";
+"App version" = "Versio";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "Tuntematon";
 
 /* (No Comment) */
 "Invalid parameters" = "Invalid parameters";
@@ -434,46 +434,46 @@
 "Invalid handle" = "Invalid handle";
 
 /* (No Comment) */
-"Not connected" = "Not connected";
+"Not connected" = "Ei yhdistetty";
 
 /* (No Comment) */
-"Out of space" = "Out of space";
+"Out of space" = "Tila loppu";
 
 /* (No Comment) */
-"Operation cancelled" = "Operation cancelled";
+"Operation cancelled" = "Peruttu";
 
 /* (No Comment) */
-"Connection timeout" = "Connection timeout";
+"Connection timeout" = "Yhteyden aikakatkaisu";
 
 /* (No Comment) */
 "Peripheral disconnected" = "Peripheral disconnected";
 
 /* (No Comment) */
-"UUID not allowed" = "UUID not allowed";
+"UUID not allowed" = "UUID ei ole saatavilla";
 
 /* (No Comment) */
 "Already advertising" = "Already advertising";
 
 /* (No Comment) */
-"Connection failed" = "Connection failed";
+"Connection failed" = "Yhteys epäonnistui";
 
 /* (No Comment) */
 "Connection limit reached" = "Connection limit reached";
 
 /* (No Comment) */
-"Operation not supported" = "Operation not supported";
+"Operation not supported" = "Toiminto ei sallittu";
 
 /* (No Comment) */
-"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Attention, the sensor sends faulty values. Please wait 10 minutes.";
+"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Sensori antaa typeriä lukemia. Kokeile uudellen 10 min kuluttua.";
 
 /* (No Comment) */
-"App website" = "Website";
+"App website" = "Verkkosivu";
 
 /* (No Comment) */
 "Send log file" = "Send log file";
 
 /* (No Comment) */
-"Sensor starting date" = "Starting date";
+"Sensor starting date" = "Aloituspäivä";
 
 /* (No Comment) */
 "Delete log files" = "Delete log files";
@@ -665,7 +665,16 @@
 "Bellman test alarm" = "Test alarm";
 
 /* (No Comment) */
-"Bellman Telephone Transceiver BT" = "Bellman Telephone Transceiver BT";
+"Bellman telephone transceiver BT" = "Bellman Transceiver BT";
 
 /* (No Comment) */
 "Find transmitter" = "Find transmitter";
+
+/* (No Comment) */
+"Connect transmitter" = "Connect transmitter";
+
+/* (No Comment) */
+"Disconnect transmitter" = "Disconnect transmitter";
+
+/* (No Comment) */
+"Rescan the sensor" = "Rescan the sensor";

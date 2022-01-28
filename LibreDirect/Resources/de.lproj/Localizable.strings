@@ -665,7 +665,16 @@
 "Bellman test alarm" = "Alarm testen";
 
 /* (No Comment) */
-"Bellman Telephone Transceiver BT" = "Bellman Telephone Transceiver BT";
+"Bellman telephone transceiver BT" = "Bellman Transceiver BT";
 
 /* (No Comment) */
 "Find transmitter" = "Find transmitter";
+
+/* (No Comment) */
+"Connect transmitter" = "Connect transmitter";
+
+/* (No Comment) */
+"Disconnect transmitter" = "Disconnect transmitter";
+
+/* (No Comment) */
+"Rescan the sensor" = "Rescan the sensor";
