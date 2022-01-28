@@ -635,7 +635,7 @@
 "Please wait..." = "Please wait...";
 
 /* (No Comment) */
-"Scan sensor once" = "Scan sensor once";
+"Scan sensor" = "Scan sensor";
 
 /* (No Comment) */
 "Retry pairing" = "Retry pairing";
@@ -658,3 +658,23 @@
 /* (No Comment) */
 "App donate" = "Donate";
 
+/* (No Comment) */
+"Bellman alarm" = "Alarm";
+
+/* (No Comment) */
+"Bellman test alarm" = "Test alarm";
+
+/* (No Comment) */
+"Bellman telephone transceiver BT" = "Bellman Transceiver BT";
+
+/* (No Comment) */
+"Find transmitter" = "Find transmitter";
+
+/* (No Comment) */
+"Connect transmitter" = "Connect transmitter";
+
+/* (No Comment) */
+"Disconnect transmitter" = "Disconnect transmitter";
+
+/* (No Comment) */
+"Rescan the sensor" = "Rescan the sensor";

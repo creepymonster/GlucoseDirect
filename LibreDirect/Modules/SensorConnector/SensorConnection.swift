@@ -21,11 +21,13 @@ protocol SensorBLEConnection: SensorConnection {
     func disconnectSensor()
 }
 
-// MARK: - SensorNFCConnection
+// MARK: - IsSensor
 
-protocol SensorNFCConnection: SensorConnection {
-    func scanSensor(noPairing: Bool)
-}
+protocol IsSensor {}
+
+// MARK: - IsTransmitter
+
+protocol IsTransmitter {}
 
 extension SensorBLEConnection {
     func sendUpdate(connectionState: SensorConnectionState) {
@@ -83,22 +85,18 @@ extension SensorBLEConnection {
         }
 
         if let errorCode = CBError.Code(rawValue: (error as NSError).code) {
-            sendUpdate(errorCode: errorCode.rawValue, errorIsCritical: errorCode.rawValue == 7)
-        } else {
-            sendUpdate(errorMessage: error.localizedDescription)
+            if errorCode.rawValue == 7 {
+                sendUpdate(errorMessage: LocalizedString("Rescan the sensor"), errorIsCritical: true)
+            } else {
+                sendUpdate(errorMessage: LocalizedString("Connection timeout"), errorIsCritical: true)  
+            }
         }
     }
 
-    func sendUpdate(errorMessage: String) {
+    func sendUpdate(errorMessage: String, errorIsCritical: Bool = false) {
         AppLog.error("ErrorMessage: \(errorMessage)")
 
         subject?.send(.setConnectionError(errorMessage: errorMessage, errorTimestamp: Date(), errorIsCritical: false))
-    }
-
-    func sendUpdate(errorCode: Int, errorIsCritical: Bool = false) {
-        AppLog.error("ErrorCode: \(errorCode)")
-
-        subject?.send(.setConnectionError(errorMessage: translateError(errorCode), errorTimestamp: Date(), errorIsCritical: false))
     }
 
     func sendMissedUpdate() {

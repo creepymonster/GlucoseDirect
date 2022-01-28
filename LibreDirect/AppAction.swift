@@ -11,25 +11,27 @@ enum AppAction {
     case addGlucoseValues(glucoseValues: [Glucose])
     case addMissedReading
     case addSensorReadings(sensorSerial: String, trendReadings: [SensorReading], historyReadings: [SensorReading])
+    case bellmanTestAlarm
     case clearCalibrations
     case clearGlucoseValues
     case connectSensor
     case deleteLogs
     case disconnectSensor
     case pairSensor
-    case scanSensor
     case registerConnectionInfo(infos: [SensorConnectionInfo])
     case removeCalibration(id: UUID)
     case removeGlucose(id: UUID)
     case resetSensor
     case selectCalendarTarget(id: String?)
     case selectConnection(id: String, connection: SensorBLEConnection)
-    case selectConnectionId(id: String)
+    case selectConnectionID(id: String)
     case selectView(viewTag: Int)
     case sendLogs
     case setAlarmHigh(upperLimit: Int)
     case setAlarmLow(lowerLimit: Int)
     case setAlarmSnoozeUntil(untilDate: Date?, autosnooze: Bool = false)
+    case setBellmanNotification(enabled: Bool)
+    case setBellmanConnectionState(connectionState: BellmanConnectionState)
     case setCalendarExport(enabled: Bool)
     case setChartShowLines(enabled: Bool)
     case setChartZoomLevel(level: Int)
@@ -45,7 +47,7 @@ enum AppAction {
     case setLowGlucoseAlarmSound(sound: NotificationSound)
     case setNightscoutSecret(apiSecret: String)
     case setNightscoutUpload(enabled: Bool)
-    case setNightscoutUrl(url: String)
+    case setNightscoutURL(url: String)
     case setReadGlucose(enabled: Bool)
     case setSensor(sensor: Sensor, wasPaired: Bool = false)
     case setSensorInterval(interval: Int)

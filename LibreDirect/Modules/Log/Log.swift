@@ -24,7 +24,7 @@ private func logMiddleware(service: SendLogsService) -> Middleware<AppState, App
             service.deleteLogs()
 
         case .sendLogs:
-            service.sendLog(fileUrl: AppLog.getLogsUrl())
+            service.sendLog(fileURL: AppLog.getLogsURL())
 
         default:
             break
@@ -41,8 +41,8 @@ private class SendLogsService {
         AppLog.deleteLogs()
     }
 
-    func sendLog(fileUrl: URL) {
-        let activityViewController = UIActivityViewController(activityItems: [fileUrl], applicationActivities: nil)
+    func sendLog(fileURL: URL) {
+        let activityViewController = UIActivityViewController(activityItems: [fileURL], applicationActivities: nil)
 
         let foregroundWindow = UIApplication.shared.connectedScenes
             .filter { $0.activationState == .foregroundActive }

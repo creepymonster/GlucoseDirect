@@ -36,7 +36,7 @@ extension Date {
     func toLocalTime() -> String {
         return Date.localTimeFormatter.string(from: self)
     }
-    
+
     private func floorAllComponents(before component: Calendar.Component) -> Date {
         // All components to round ordered by length
         let components = [Calendar.Component.year, .month, .day, .hour, .minute, .second, .nanosecond]

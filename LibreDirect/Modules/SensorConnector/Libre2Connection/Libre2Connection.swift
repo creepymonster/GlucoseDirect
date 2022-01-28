@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - Libre2Connection
 
-final class Libre2Connection: SensorBLEConnectionBase, SensorNFCConnection {
+final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<AppAction, AppError>) {
@@ -25,20 +25,13 @@ final class Libre2Connection: SensorBLEConnectionBase, SensorNFCConnection {
         "abbott"
     }
 
-    func scanSensor(noPairing: Bool) {
-        AppLog.info("ReadSensor")
-
-        pairingService.readSensor(noPairing: noPairing)
-    }
-
     override func pairSensor() {
         AppLog.info("PairSensor")
 
-        UserDefaults.standard.sensorPeripheralUuid = nil
         UserDefaults.standard.libre2UnlockCount = 0
 
         sendUpdate(connectionState: .pairing)
-        pairingService.readSensor(noPairing: false)
+        pairingService.readSensor()
     }
 
     override func resetBuffer() {
@@ -124,7 +117,7 @@ final class Libre2Connection: SensorBLEConnectionBase, SensorNFCConnection {
                 if characteristic.uuid == writeCharacteristicUuid {
                     writeCharacteristic = characteristic
 
-                    if connectionMode != .alreadyConnectedDevice, let unlock = unlock() {
+                    if let unlock = unlock() {
                         peripheral.writeValue(unlock, for: characteristic, type: .withResponse)
                     }
                 }
@@ -215,9 +208,9 @@ final class Libre2Connection: SensorBLEConnectionBase, SensorNFCConnection {
     private let writeCharacteristicUuid = CBUUID(string: "F001")
     private let readCharacteristicUuid = CBUUID(string: "F002")
 
-    private var readCharacteristic: CBCharacteristic?
     private var writeCharacteristic: CBCharacteristic?
-
+    private var readCharacteristic: CBCharacteristic?
+    
     private let pairingService: Libre2Pairing
 
     private var firstBuffer = Data()

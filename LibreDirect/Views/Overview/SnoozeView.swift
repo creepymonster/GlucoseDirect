@@ -8,15 +8,9 @@ import SwiftUI
 // MARK: - SnoozeView
 
 struct SnoozeView: View {
+    // MARK: Internal
+
     @EnvironmentObject var store: AppStore
-
-    var snoozeTime: String {
-        if let localSnoozeTime = store.state.alarmSnoozeUntil?.toLocalTime() {
-            return String(format: LocalizedString("%1$@ a clock"), localSnoozeTime)
-        }
-
-        return ""
-    }
 
     var body: some View {
         Group {
@@ -24,5 +18,15 @@ struct SnoozeView: View {
                 store.dispatch(.setAlarmSnoozeUntil(untilDate: value))
             }
         }
+    }
+
+    // MARK: Private
+
+    private var snoozeTime: String {
+        if let localSnoozeTime = store.state.alarmSnoozeUntil?.toLocalTime() {
+            return String(format: LocalizedString("%1$@ a clock"), localSnoozeTime)
+        }
+
+        return ""
     }
 }

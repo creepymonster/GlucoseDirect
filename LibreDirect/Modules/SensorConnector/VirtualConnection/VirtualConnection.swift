@@ -63,7 +63,7 @@ final class VirtualLibreConnection: SensorBLEConnection {
     // MARK: Private
 
     private var initAge = 0
-    private var warmupTime = 5
+    private var warmupTime = 1
     private var age = 0
     private var glucoseInterval = TimeInterval(60)
     private var sensor: Sensor?

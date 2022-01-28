@@ -4,6 +4,7 @@
 //
 
 import CoreBluetooth
+import CoreNFC
 import SwiftUI
 
 // MARK: - LibreDirectApp
@@ -14,20 +15,24 @@ final class LibreDirectApp: App {
 
     init() {
         store = LibreDirectApp.createStore()
-        notificationCenterDelegate = LibreDirectNotificationCenter(store: store)
 
+        notificationCenterDelegate = LibreDirectNotificationCenter(store: store)
         UNUserNotificationCenter.current().delegate = notificationCenterDelegate
 
         store.dispatch(.startup)
+    }
+
+    deinit {
+        UNUserNotificationCenter.current().delegate = nil
     }
 
     // MARK: Internal
 
     static var isSimulator: Bool {
         #if targetEnvironment(simulator)
-        return true
+            return true
         #else
-        return false
+            return false
         #endif
     }
 
@@ -47,53 +52,65 @@ final class LibreDirectApp: App {
 
     private static func createStore() -> AppStore {
         if isSimulator {
-            return createPreviewStore()
+            return createSimulatorAppStore()
         }
 
         return createAppStore()
     }
 
-    private static func createPreviewStore() -> AppStore {
+    private static func createSimulatorAppStore() -> AppStore {
         AppLog.info("Create preview store")
 
-        return AppStore(initialState: MemoryAppState(), reducer: appReducer, middlewares: [
-            // required middlewares
+        var middlewares = [
             logMiddleware(),
-            sensorConnectorMiddelware([
-                SensorConnectionInfo(id: "virtual", name: "Virtual") { VirtualLibreConnection(subject: $0) },
-            ]),
-
-            expiringNotificationMiddelware(),
-            glucoseNotificationMiddelware(),
-            connectionNotificationMiddelware(),
-            calendarExportMiddleware(),
-            readAloudMiddelware()
-            //httpServerMiddleware(),
-        ])
-    }
-
-    private static func createAppStore() -> AppStore {
-        AppLog.info("Create app store")
-
-        return AppStore(initialState: StoredAppState(), reducer: appReducer, middlewares: [
-            // required middlewares
-            logMiddleware(),
-            sensorConnectorMiddelware([
-                SensorConnectionInfo(id: "libre2", name: LocalizedString("Without transmitter")) { Libre2Connection(subject: $0) },
-                SensorConnectionInfo(id: "bubble", name: LocalizedString("Bubble transmitter")) { BubbleConnection(subject: $0) },
-            ]),
-
             expiringNotificationMiddelware(),
             glucoseNotificationMiddelware(),
             connectionNotificationMiddelware(),
             calendarExportMiddleware(),
             readAloudMiddelware(),
-            //httpServerMiddleware(),
+            bellmanAlarmMiddelware(),
 
-            // export middlewares
+            // httpServerMiddleware(),
+        ]
+
+        middlewares.append(sensorConnectorMiddelware([
+            SensorConnectionInfo(id: "virtual", name: "Virtual") { VirtualLibreConnection(subject: $0) },
+            SensorConnectionInfo(id: "bubble", name: LocalizedString("Bubble transmitter")) { BubbleConnection(subject: $0) },
+        ]))
+
+        return AppStore(initialState: UserDefaultsState(), reducer: appReducer, middlewares: middlewares)
+    }
+
+    private static func createAppStore() -> AppStore {
+        AppLog.info("Create app store")
+
+        var middlewares = [
+            logMiddleware(),
+            expiringNotificationMiddelware(),
+            glucoseNotificationMiddelware(),
+            connectionNotificationMiddelware(),
+            calendarExportMiddleware(),
+            readAloudMiddelware(),
+            bellmanAlarmMiddelware(),
+
             nightscoutMiddleware(),
             appGroupSharingMiddleware(),
-        ])
+
+            // httpServerMiddleware(),
+        ]
+
+        if NFCTagReaderSession.readingAvailable {
+            middlewares.append(sensorConnectorMiddelware([
+                SensorConnectionInfo(id: "libre2", name: LocalizedString("Without transmitter")) { Libre2Connection(subject: $0) },
+                SensorConnectionInfo(id: "bubble", name: LocalizedString("Bubble transmitter")) { BubbleConnection(subject: $0) },
+            ]))
+        } else {
+            middlewares.append(sensorConnectorMiddelware([
+                SensorConnectionInfo(id: "bubble", name: LocalizedString("Bubble transmitter")) { BubbleConnection(subject: $0) },
+            ]))
+        }
+
+        return AppStore(initialState: UserDefaultsState(), reducer: appReducer, middlewares: middlewares)
     }
 }
 
@@ -118,7 +135,6 @@ final class LibreDirectNotificationCenter: NSObject, UNUserNotificationCenterDel
             store.dispatch(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(30 * 60).toRounded(on: 1, .minute)))
         }
 
-        
         completionHandler()
     }
 

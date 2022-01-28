@@ -8,23 +8,9 @@ import SwiftUI
 // MARK: - GlucoseView
 
 struct GlucoseView: View {
+    // MARK: Internal
+
     @EnvironmentObject var store: AppStore
-
-    var isAlarm: Bool {
-        if let glucose = store.state.currentGlucose, let glucoseValue = glucose.glucoseValue, glucoseValue < store.state.alarmLow || glucoseValue > store.state.alarmHigh {
-            return true
-        }
-
-        return false
-    }
-
-    var glucoseForegroundColor: Color {
-        if isAlarm {
-            return Color.ui.red
-        }
-
-        return Color.primary
-    }
 
     var body: some View {
         Group {
@@ -66,16 +52,22 @@ struct GlucoseView: View {
             }
         }
     }
-}
 
-// MARK: - GlucoseView_Previews
+    // MARK: Private
 
-struct GlucoseView_Previews: PreviewProvider {
-    static var previews: some View {
-        let store = AppStore(initialState: PreviewAppState())
-
-        ForEach(ColorScheme.allCases, id: \.self) {
-            GlucoseView().environmentObject(store).preferredColorScheme($0)
+    private var isAlarm: Bool {
+        if let glucose = store.state.currentGlucose, let glucoseValue = glucose.glucoseValue, glucoseValue < store.state.alarmLow || glucoseValue > store.state.alarmHigh {
+            return true
         }
+
+        return false
+    }
+
+    private var glucoseForegroundColor: Color {
+        if isAlarm {
+            return Color.ui.red
+        }
+
+        return Color.primary
     }
 }

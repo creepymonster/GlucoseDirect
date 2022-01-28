@@ -8,9 +8,9 @@ import SwiftUI
 // MARK: - AboutView
 
 struct AboutView: View {
-    // MARK: Internal
-
     @EnvironmentObject var store: AppStore
+
+    @State var showingDeleteLogsAlert = false
 
     var body: some View {
         Section(
@@ -42,7 +42,7 @@ struct AboutView: View {
                 HStack {
                     Text("App website")
                     Spacer()
-                    Link("GitHub", destination: URL(string: AppConfig.githubUrl)!)
+                    Link("GitHub", destination: URL(string: AppConfig.githubURL)!)
                         .lineLimit(1)
                         .truncationMode(.head)
                 }
@@ -50,7 +50,7 @@ struct AboutView: View {
                 HStack {
                     Text("App faq")
                     Spacer()
-                    Link("GitHub", destination: URL(string: AppConfig.faqUrl)!)
+                    Link("GitHub", destination: URL(string: AppConfig.faqURL)!)
                         .lineLimit(1)
                         .truncationMode(.head)
                 }
@@ -58,7 +58,7 @@ struct AboutView: View {
                 HStack {
                     Text("App facebook group")
                     Spacer()
-                    Link("Facebook", destination: URL(string: AppConfig.facebookUrl)!)
+                    Link("Facebook", destination: URL(string: AppConfig.facebookURL)!)
                         .lineLimit(1)
                         .truncationMode(.head)
                 }
@@ -66,7 +66,7 @@ struct AboutView: View {
                 HStack {
                     Text("App donate")
                     Spacer()
-                    Link("PayPal", destination: URL(string: AppConfig.donateUrl)!)
+                    Link("PayPal", destination: URL(string: AppConfig.donateURL)!)
                         .lineLimit(1)
                         .truncationMode(.head)
                 }
@@ -74,7 +74,7 @@ struct AboutView: View {
                 HStack {
                     Text("App translation")
                     Spacer()
-                    Link("Crowdin", destination: URL(string: AppConfig.crowdinUrl)!)
+                    Link("Crowdin", destination: URL(string: AppConfig.crowdinURL)!)
                         .lineLimit(1)
                         .truncationMode(.head)
                 }
@@ -109,29 +109,5 @@ struct AboutView: View {
                 Label("About \(AppConfig.appName)", systemImage: "info")
             }
         )
-    }
-
-    // MARK: Private
-
-    @State private var showingDeleteLogsAlert = false
-}
-
-// MARK: - SendingLogsView
-
-struct SendingLogsView: View {
-    var body: some View {
-        Text("Processing logs")
-    }
-}
-
-// MARK: - AboutView_Previews
-
-struct AboutView_Previews: PreviewProvider {
-    static var previews: some View {
-        let store = AppStore(initialState: PreviewAppState())
-
-        ForEach(ColorScheme.allCases, id: \.self) {
-            AboutView().environmentObject(store).preferredColorScheme($0)
-        }
     }
 }

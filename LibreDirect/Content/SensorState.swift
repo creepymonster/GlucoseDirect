@@ -19,7 +19,7 @@ enum SensorState: String, Codable {
     init() {
         self = .unknown
     }
-    
+
     init(_ state: UInt8) {
         switch state {
         case 01:

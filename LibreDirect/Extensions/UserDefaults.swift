@@ -10,6 +10,7 @@ import Foundation
 private enum Keys: String {
     case alarmHigh = "libre-direct.settings.alarm-high"
     case alarmLow = "libre-direct.settings.alarm-low"
+    case bellmanAlarm = "libre-direct.settings.bellman-alarm"
     case calendarExport = "libre-direct.settings.calendar-export"
     case chartShowLines = "libre-direct.settings.chart-show-lines"
     case chartZoomLevel = "libre-direct.settings.chart-zoom-level"
@@ -27,17 +28,31 @@ private enum Keys: String {
     case lowGlucoseAlarmSound = "libre-direct.settings.low-glucose-alarm-sound"
     case nightscoutApiSecret = "libre-direct.settings.nightscout-api-secret"
     case nightscoutUpload = "libre-direct.settings.nightscout-upload-enabled"
-    case nightscoutUrl = "libre-direct.settings.nightscout-host"
+    case nightscoutURL = "libre-direct.settings.nightscout-host"
     case readGlucose = "libre-direct.settings.read-glucose"
     case selectedCalendarTarget = "libre-direct.settings.selected-calendar-target"
-    case selectedConnectionId = "libre-direct.settings.selected-connection-id"
+    case selectedConnectionID = "libre-direct.settings.selected-connection-id"
     case selectedView = "libre-direct.settings.selected-view"
     case sensor = "libre-direct.settings.sensor"
     case sensorInterval = "libre-direct.settings.sensor-interval"
     case transmitter = "libre-direct.settings.transmitter"
+    case devicePeripheralUuid = "libre-direct.sensor-ble-connection.peripheral-uuid"
 }
 
 extension UserDefaults {
+    var sensorPeripheralUuid: String? {
+        get {
+            return UserDefaults.standard.string(forKey: Keys.devicePeripheralUuid.rawValue)
+        }
+        set {
+            if let newValue = newValue {
+                UserDefaults.standard.setValue(newValue, forKey: Keys.devicePeripheralUuid.rawValue)
+            } else {
+                UserDefaults.standard.removeObject(forKey: Keys.devicePeripheralUuid.rawValue)
+            }
+        }
+    }
+    
     var alarmHigh: Int? {
         get {
             if object(forKey: Keys.alarmHigh.rawValue) != nil {
@@ -69,6 +84,19 @@ extension UserDefaults {
             } else {
                 removeObject(forKey: Keys.alarmLow.rawValue)
             }
+        }
+    }
+
+    var bellmanAlarm: Bool {
+        get {
+            if object(forKey: Keys.bellmanAlarm.rawValue) != nil {
+                return bool(forKey: Keys.bellmanAlarm.rawValue)
+            }
+
+            return false
+        }
+        set {
+            set(newValue, forKey: Keys.bellmanAlarm.rawValue)
         }
     }
 
@@ -123,7 +151,7 @@ extension UserDefaults {
             set(newValue.rawValue, forKey: Keys.connectionAlarmSound.rawValue)
         }
     }
-    
+
     var customCalibration: [CustomCalibration] {
         get {
             return getArray(forKey: Keys.customCalibration.rawValue) ?? []
@@ -158,7 +186,7 @@ extension UserDefaults {
             set(newValue.rawValue, forKey: Keys.highGlucoseAlarmSound.rawValue)
         }
     }
-    
+
     var lowGlucoseAlarmSound: NotificationSound {
         get {
             if let soundRawValue = object(forKey: Keys.lowGlucoseAlarmSound.rawValue) as? String, let sound = NotificationSound(rawValue: soundRawValue) {
@@ -206,7 +234,7 @@ extension UserDefaults {
             setArray(newValue, forKey: Keys.glucoseValues.rawValue)
         }
     }
-    
+
     var internalHttpServer: Bool {
         get {
             if object(forKey: Keys.internalHttpServer.rawValue) != nil {
@@ -219,7 +247,7 @@ extension UserDefaults {
             set(newValue, forKey: Keys.internalHttpServer.rawValue)
         }
     }
-    
+
     var isPaired: Bool {
         get {
             if object(forKey: Keys.isPaired.rawValue) != nil {
@@ -232,7 +260,7 @@ extension UserDefaults {
             set(newValue, forKey: Keys.isPaired.rawValue)
         }
     }
-    
+
     var ignoreMute: Bool {
         get {
             if object(forKey: Keys.ignoreMute.rawValue) != nil {
@@ -245,7 +273,7 @@ extension UserDefaults {
             set(newValue, forKey: Keys.ignoreMute.rawValue)
         }
     }
-    
+
     var latestReadings: Data? {
         get {
             return data(forKey: Keys.latestReadings.rawValue)
@@ -272,15 +300,15 @@ extension UserDefaults {
         }
     }
 
-    var nightscoutUrl: String {
+    var nightscoutURL: String {
         get {
-            return string(forKey: Keys.nightscoutUrl.rawValue) ?? ""
+            return string(forKey: Keys.nightscoutURL.rawValue) ?? ""
         }
         set {
             if newValue.isEmpty {
-                removeObject(forKey: Keys.nightscoutUrl.rawValue)
+                removeObject(forKey: Keys.nightscoutURL.rawValue)
             } else {
-                set(newValue, forKey: Keys.nightscoutUrl.rawValue)
+                set(newValue, forKey: Keys.nightscoutURL.rawValue)
             }
         }
     }
@@ -324,15 +352,15 @@ extension UserDefaults {
         }
     }
 
-    var selectedConnectionId: String? {
+    var selectedConnectionID: String? {
         get {
-            return string(forKey: Keys.selectedConnectionId.rawValue)
+            return string(forKey: Keys.selectedConnectionID.rawValue)
         }
         set {
             if let newValue = newValue {
-                set(newValue, forKey: Keys.selectedConnectionId.rawValue)
+                set(newValue, forKey: Keys.selectedConnectionID.rawValue)
             } else {
-                removeObject(forKey: Keys.selectedConnectionId.rawValue)
+                removeObject(forKey: Keys.selectedConnectionID.rawValue)
             }
         }
     }
@@ -362,7 +390,7 @@ extension UserDefaults {
             }
         }
     }
-    
+
     var sensorInterval: Int {
         get {
             if object(forKey: Keys.sensorInterval.rawValue) != nil {

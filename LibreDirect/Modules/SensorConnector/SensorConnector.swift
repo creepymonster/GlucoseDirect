@@ -7,9 +7,7 @@ import Combine
 import Foundation
 
 func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo]) -> Middleware<AppState, AppAction> {
-    return sensorConnectorMiddelware(infos, subject: PassthroughSubject<AppAction, AppError>(), calibrationService: {
-        CalibrationService()
-    }())
+    return sensorConnectorMiddelware(infos, subject: PassthroughSubject<AppAction, AppError>(), calibrationService: CalibrationService())
 }
 
 private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject: PassthroughSubject<AppAction, AppError>, calibrationService: CalibrationService) -> Middleware<AppState, AppAction> {
@@ -19,7 +17,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             let registerConnectionInfo = Just(AppAction.registerConnectionInfo(infos: infos))
             var selectConnection: Just<AppAction>?
 
-            if let id = state.selectedConnectionId, let connectionInfo = infos.first(where: { $0.id == id }) {
+            if let id = state.selectedConnectionID, let connectionInfo = infos.first(where: { $0.id == id }) {
                 AppLog.info("Select startup connection: \(connectionInfo.name)")
                 selectConnection = Just(.selectConnection(id: connectionInfo.id, connection: connectionInfo.connectionCreator(subject)))
 
@@ -45,7 +43,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
                 .merge(with: subject)
                 .eraseToAnyPublisher()
 
-        case .selectConnectionId(id: let id):
+        case .selectConnectionID(id: let id):
             if let connectionInfo = state.connectionInfos.first(where: { $0.id == id }) {
                 let connection = connectionInfo.connectionCreator(subject)
 
@@ -62,7 +60,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             }
 
         case .addSensorReadings(sensorSerial: _, trendReadings: let trendReadings, historyReadings: let historyReadings):
-            if !trendReadings.isEmpty, !historyReadings.isEmpty {
+            if !trendReadings.isEmpty {
                 let missingHistory = historyReadings.filter { reading in
                     if state.currentGlucose == nil || reading.timestamp > state.currentGlucose!.timestamp, reading.timestamp < trendReadings.first!.timestamp {
                         return true
@@ -105,17 +103,6 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
                     .setFailureType(to: AppError.self)
                     .eraseToAnyPublisher()
             }
-            
-        case .scanSensor:
-            guard let sensorConnection = state.selectedConnection else {
-                AppLog.info("Guard: state.selectedConnection is nil")
-                break
-            }
-
-            if let sensorConnection = sensorConnection as? SensorNFCConnection {
-                AppLog.info("no Pairing: \(!state.isPaired)")
-                sensorConnection.scanSensor(noPairing: state.isPaired)
-            }
 
         case .pairSensor:
             guard let sensorConnection = state.selectedConnection else {
@@ -124,11 +111,11 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             }
 
             sensorConnection.pairSensor()
-            
+
         case .setSensorInterval(interval: _):
             if state.isDisconnectable, let sensorConnection = state.selectedConnection {
                 sensorConnection.disconnectSensor()
-                
+
                 return Just(.connectSensor)
                     .setFailureType(to: AppError.self)
                     .eraseToAnyPublisher()
@@ -153,13 +140,13 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             }
 
             sensorConnection.disconnectSensor()
-            
+
         case .setSensor(sensor: _, wasPaired: let wasPaired):
-            guard wasPaired else {
+            guard wasPaired && state.isConnectable else {
                 AppLog.info("Guard: sensor was not paired, no auto connect")
                 break
             }
-            
+
             return Just(.connectSensor)
                 .setFailureType(to: AppError.self)
                 .eraseToAnyPublisher()
