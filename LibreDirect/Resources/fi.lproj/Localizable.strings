@@ -8,13 +8,13 @@
 "%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
 
 /* (No Comment) */
-"0 - Unknown" = "0 - Unknown";
+"0 - Unknown" = "0 - Tuntematon";
 
 /* (No Comment) */
-"1 - European" = "1 - European";
+"1 - European" = "1 – Eurooppalainen";
 
 /* (No Comment) */
-"2 - USA" = "2 - USA";
+"2 - USA" = "2 – USA";
 
 /* (No Comment) */
 "4 - Australian" = "4 - Australia/Canada";
