@@ -227,16 +227,16 @@
 "Connection error" = "Virhe";
 
 /* (No Comment) */
-"Connection error timestamp" = "Time";
+"Connection error timestamp" = "Aika";
 
 /* (No Comment) */
 "Connection state" = "Tila";
 
 /* (No Comment) */
-"Sensor custom calibration" = "Custom Calibration";
+"Sensor custom calibration" = "Mukautettu Kalibrointi";
 
 /* (No Comment) */
-"Sensor details" = "Sensor details";
+"Sensor details" = "Sensorin tiedot";
 
 /* (No Comment) */
 "Sensor factory calibration" = "Factory Calibration";
