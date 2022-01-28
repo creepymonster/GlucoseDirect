@@ -239,13 +239,13 @@
 "Sensor details" = "Sensorin tiedot";
 
 /* (No Comment) */
-"Sensor factory calibration" = "Factory Calibration";
+"Sensor factory calibration" = "Tehdaskalibrointi";
 
 /* (No Comment) */
-"Sensor has failure" = "Sensor has failure";
+"Sensor has failure" = "Sensorivirhe";
 
 /* (No Comment) */
-"Sensor in starting phase" = "Sensor in starting phase";
+"Sensor in starting phase" = "Sensori alkuvaiheessa";
 
 /* (No Comment) */
 "Sensor is expired" = "Sensor is expired";
@@ -263,7 +263,7 @@
 "Missed readings" = "Missed";
 
 /* (No Comment) */
-"Sensor not yet startet" = "Sensor not yet startet";
+"Sensor not yet startet" = "Sensori ei ole vielä käynnistynyt";
 
 /* (No Comment) */
 "Sensor PatchInfo" = "PatchInfo";
@@ -272,40 +272,40 @@
 "Sensor possible lifetime" = "Lifetime";
 
 /* (No Comment) */
-"Sensor region" = "Region";
+"Sensor region" = "Alue";
 
 /* (No Comment) */
-"Sensor remaining lifetime" = "Remaining";
+"Sensor remaining lifetime" = "Jäljellä";
 
 /* (No Comment) */
-"Sensor remaining warmup time" = "Warmup";
+"Sensor remaining warmup time" = "Käynnistys";
 
 /* (No Comment) */
-"Sensor serial" = "Serial";
+"Sensor serial" = "Sarjanumero";
 
 /* (No Comment) */
-"Sensor state" = "State";
+"Sensor state" = "Tila";
 
 /* (No Comment) */
-"Sensor type" = "Type";
+"Sensor type" = "Malli";
 
 /* (No Comment) */
 "Sensor UID" = "UID";
 
 /* (No Comment) */
-"Settings view" = "Settings";
+"Settings view" = "Asetukset";
 
 /* (No Comment) */
-"Snooze until" = "Snooze";
+"Snooze until" = "Torkuta";
 
 /* (No Comment) */
-"Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "Unfortunately, an NFC-enabled iPhone is required to use the app :'(";
+"Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "Valitettavasti sovelluksen käyttäminen edellyttää NFC-yhteensopivaa iPhonea :'(";
 
 /* (No Comment) */
-"The connection to the sensor has been successfully established and glucose data is received." = "The connection to the sensor has been successfully established and glucose data is received.";
+"The connection to the sensor has been successfully established and glucose data is received." = "Yhteys sensoriin on muodostettu onnistuneesti ja glukoositiedot on vastaanotettu.";
 
 /* (No Comment) */
-"The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause." = "The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause.";
+"The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause." = "Yhteys sensoriin näyttää olevan olemassa, mutta arvoja ei ole vastaanotettu. Virheelliset anturitiedot voivat olla syy.";
 
 /* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired.";
