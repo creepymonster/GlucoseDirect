@@ -206,31 +206,31 @@
 "Now" = "Nyt";
 
 /* (No Comment) */
-"OK, sensor connection established" = "OK, sensor connection established";
+"OK, sensor connection established" = "OK, sensoriyhteys muodostettu";
 
 /* (No Comment) */
 "Pair sensor" = "Yhdistä sensori";
 
 /* (No Comment) */
-"Power off" = "Power off";
+"Power off" = "Sammuta";
 
 /* (No Comment) */
 "Scanning" = "Skannaa";
 
 /* (No Comment) */
-"Sensor age" = "Sensor age";
+"Sensor age" = "Sensori aloitettu";
 
 /* (No Comment) */
-"Connection" = "Connection";
+"Connection" = "Yhteyd";
 
 /* (No Comment) */
-"Connection error" = "Error";
+"Connection error" = "Virhe";
 
 /* (No Comment) */
 "Connection error timestamp" = "Time";
 
 /* (No Comment) */
-"Connection state" = "State";
+"Connection state" = "Tila";
 
 /* (No Comment) */
 "Sensor custom calibration" = "Custom Calibration";
@@ -377,13 +377,13 @@
 "Line" = "Line";
 
 /* (No Comment) */
-"Points" = "Points";
+"Points" = "Pisteet";
 
 /* (No Comment) */
-"Transmitter name" = "Name";
+"Transmitter name" = "Nimi";
 
 /* (No Comment) */
-"Transmitter battery" = "Battery";
+"Transmitter battery" = "Patteri";
 
 /* (No Comment) */
 "Transmitter hardware" = "Hardware";
@@ -392,40 +392,40 @@
 "Transmitter firmware" = "Firmware";
 
 /* (No Comment) */
-"Transmitter" = "Transmitter";
+"Transmitter" = "Lähetin";
 
 /* (No Comment) */
-"Sensor connection" = "Sensor connection";
+"Sensor connection" = "Sensorin yhteys";
 
 /* (No Comment) */
-"Without transmitter" = "Without transmitter";
+"Without transmitter" = "Ilman lähetintä";
 
 /* (No Comment) */
-"Bubble transmitter" = "Bubble transmitter";
+"Bubble transmitter" = "Bubble";
 
 /* (No Comment) */
-"Pairing" = "Pairing";
+"Pairing" = "Paritetaan";
 
 /* (No Comment) */
-"Calendar export" = "Calendar export";
+"Calendar export" = "Kalenteriin lähetys";
 
 /* (No Comment) */
-"Calendar export enabled" = "Export";
+"Calendar export enabled" = "Lähetä";
 
 /* (No Comment) */
-"Selected calendar" = "Calendar";
+"Selected calendar" = "Kalenteri";
 
 /* (No Comment) */
-"Please select" = "Please select";
+"Please select" = "Valitse";
 
 /* (No Comment) */
-"About %@" = "About %@";
+"About %@" = "Noin %@";
 
 /* (No Comment) */
-"App version" = "Version";
+"App version" = "Versio";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "Tuntematon";
 
 /* (No Comment) */
 "Invalid parameters" = "Invalid parameters";
@@ -434,46 +434,46 @@
 "Invalid handle" = "Invalid handle";
 
 /* (No Comment) */
-"Not connected" = "Not connected";
+"Not connected" = "Ei yhdistetty";
 
 /* (No Comment) */
-"Out of space" = "Out of space";
+"Out of space" = "Tila loppu";
 
 /* (No Comment) */
-"Operation cancelled" = "Operation cancelled";
+"Operation cancelled" = "Peruttu";
 
 /* (No Comment) */
-"Connection timeout" = "Connection timeout";
+"Connection timeout" = "Yhteyden aikakatkaisu";
 
 /* (No Comment) */
 "Peripheral disconnected" = "Peripheral disconnected";
 
 /* (No Comment) */
-"UUID not allowed" = "UUID not allowed";
+"UUID not allowed" = "UUID ei ole saatavilla";
 
 /* (No Comment) */
 "Already advertising" = "Already advertising";
 
 /* (No Comment) */
-"Connection failed" = "Connection failed";
+"Connection failed" = "Yhteys epäonnistui";
 
 /* (No Comment) */
 "Connection limit reached" = "Connection limit reached";
 
 /* (No Comment) */
-"Operation not supported" = "Operation not supported";
+"Operation not supported" = "Toiminto ei sallittu";
 
 /* (No Comment) */
-"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Attention, the sensor sends faulty values. Please wait 10 minutes.";
+"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Sensori antaa typeriä lukemia. Kokeile uudellen 10 min kuluttua.";
 
 /* (No Comment) */
-"App website" = "Website";
+"App website" = "Verkkosivu";
 
 /* (No Comment) */
 "Send log file" = "Send log file";
 
 /* (No Comment) */
-"Sensor starting date" = "Starting date";
+"Sensor starting date" = "Aloituspäivä";
 
 /* (No Comment) */
 "Delete log files" = "Delete log files";
