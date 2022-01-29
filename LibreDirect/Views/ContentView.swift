@@ -34,12 +34,10 @@ struct ContentView: View {
             }.tag(4)
         }
         .onAppear {
-            if #available(iOS 15.0, *) {
-                let apparence = UITabBarAppearance()
-                apparence.configureWithOpaqueBackground()
+            let apparence = UITabBarAppearance()
+            apparence.configureWithOpaqueBackground()
 
-                UITabBar.appearance().scrollEdgeAppearance = apparence
-            }
+            UITabBar.appearance().scrollEdgeAppearance = apparence
         }
         .animation(.default, value: store.state.selectedView)
     }

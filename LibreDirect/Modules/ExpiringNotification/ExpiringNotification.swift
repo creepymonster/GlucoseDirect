@@ -93,10 +93,7 @@ private class ExpiringNotificationService {
 
             let notification = UNMutableNotificationContent()
             notification.sound = NotificationService.SilentSound
-
-            if #available(iOS 15.0, *) {
-                notification.interruptionLevel = .critical
-            }
+            notification.interruptionLevel = .critical
 
             notification.title = LocalizedString("Alert, sensor expired")
             notification.body = LocalizedString("Your sensor has expired and needs to be replaced as soon as possible")
@@ -132,13 +129,9 @@ private class ExpiringNotificationService {
             notification.sound = NotificationService.SilentSound
 
             if sound != .none {
-                if #available(iOS 15.0, *) {
-                    notification.interruptionLevel = .timeSensitive
-                }
+                notification.interruptionLevel = .timeSensitive
             } else {
-                if #available(iOS 15.0, *) {
-                    notification.interruptionLevel = .passive
-                }
+                notification.interruptionLevel = .passive
             }
 
             notification.title = LocalizedString("Alert, sensor expiring soon")
