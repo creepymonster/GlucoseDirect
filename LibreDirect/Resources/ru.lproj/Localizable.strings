@@ -635,7 +635,7 @@
 "Please wait..." = "Пожалуйста, подождите....";
 
 /* (No Comment) */
-"Scan sensor" = "Сканировать один раз";
+"Scan sensor" = "Scan sensor";
 
 /* (No Comment) */
 "Retry pairing" = "Повторное сопряжение";
@@ -678,3 +678,12 @@
 
 /* (No Comment) */
 "Rescan the sensor" = "Rescan the sensor";
+
+/* (No Comment) */
+"Apple export settings" = "Apple export settings";
+
+/* (No Comment) */
+"Export to Apple Health" = "Export to Apple Health";
+
+/* (No Comment) */
+"Export to Apple Calendar" = "Export to Apple Calendar";
