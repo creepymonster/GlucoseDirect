@@ -16,8 +16,8 @@
 /* Privacy - Calendars Usage Description */
 "NSCalendarsUsageDescription" = "Kalenterin käyttö on tarpeen, jotta Apple Watchissa voidaan näyttää ajantasaiset glukoosiarvot.";
 
-/* Privacy - Location Always and When In Use Usage Description */
-"NSLocationAlwaysAndWhenInUseUsageDescription" = "Pääsy sijaintitietoihin, kun sovellus on auki ja taustalla on tarpeen.";
+/* Privacy - Health Share Usage Description */
+"NSHealthShareUsageDescription" = "Access to Apple Health is required if glucose data should be exported.";
 
-/* Privacy - Location When In Use Usage Description */
-"NSLocationWhenInUseUsageDescription" = "Pääsy sijaintitietoihin, kun sovellus on auki ja taustalla on tarpeen.";
+/* Privacy - Health Update Usage Description */
+"NSHealthUpdateUsageDescription" = "Access to Apple Health is required if glucose data should be exported.";
