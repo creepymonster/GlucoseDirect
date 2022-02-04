@@ -140,7 +140,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                     AppLog.info("sensor, age: \(sensor.age)")
                     AppLog.info("sensor, lifetime: \(sensor.lifetime)")
 
-                    guard sensor.state == .expired else {
+                    guard sensor.state != .expired else {
                         logErrorAndDisconnect(LocalizedString("Scanned sensor expired"), showToUser: true)
 
                         return
