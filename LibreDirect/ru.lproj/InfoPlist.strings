@@ -16,8 +16,8 @@
 /* Privacy - Calendars Usage Description */
 "NSCalendarsUsageDescription" = "Доступ к календарю необходим для отображения актуальных значений глюкозы на Apple Watch.";
 
-/* Privacy - Location Always and When In Use Usage Description */
-"NSLocationAlwaysAndWhenInUseUsageDescription" = "Необходим доступ к местоположению, пока приложение открыто и работает в фоновом режиме.";
+/* Privacy - Health Share Usage Description */
+"NSHealthShareUsageDescription" = "Access to Apple Health is required if glucose data should be exported.";
 
-/* Privacy - Location When In Use Usage Description */
-"NSLocationWhenInUseUsageDescription" = "Требуется доступ к месту, когда приложение открыто.";
+/* Privacy - Health Update Usage Description */
+"NSHealthUpdateUsageDescription" = "Access to Apple Health is required if glucose data should be exported.";
