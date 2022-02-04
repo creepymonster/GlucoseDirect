@@ -16,8 +16,8 @@
 /* Privacy - Calendars Usage Description */
 "NSCalendarsUsageDescription" = "L'accesso al calendario è richiesto per mostrare i valori di glucosio su Apple Watch.";
 
-/* Privacy - Location Always and When In Use Usage Description */
-"NSLocationAlwaysAndWhenInUseUsageDescription" = "L'accesso alla posizione mentre l'app è aperta e in background è necessario.";
+/* Privacy - Health Share Usage Description */
+"NSHealthShareUsageDescription" = "Access to Apple Health is required if glucose data should be exported.";
 
-/* Privacy - Location When In Use Usage Description */
-"NSLocationWhenInUseUsageDescription" = "È richiesto l'accesso alla posizione mentre l'app è aperta.";
+/* Privacy - Health Update Usage Description */
+"NSHealthUpdateUsageDescription" = "Access to Apple Health is required if glucose data should be exported.";
