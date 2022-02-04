@@ -131,14 +131,17 @@ func appReducer(state: inout AppState, action: AppAction) {
             state.alarmSnoozeUntil = nil
         }
         
+    case .setAppleHealthExport(enabled: let enabled):
+        state.appleHealthExport = enabled
+        
     case .setBellmanNotification(enabled: let enabled):
         state.bellmanAlarm = enabled
         
     case .setBellmanConnectionState(connectionState: let connectionState):
         state.bellmanConnectionState = connectionState
         
-    case .setCalendarExport(enabled: let enabled):
-        state.calendarExport = enabled
+    case .setAppleCalendarExport(enabled: let enabled):
+        state.appleCalendarExport = enabled
         
     case .setChartShowLines(enabled: let enabled):
         state.chartShowLines = enabled
@@ -175,9 +178,6 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setHighGlucoseAlarmSound(sound: let sound):
         state.highGlucoseAlarmSound = sound
         
-    case .setInternalHttpServer(enabled: let enabled):
-        state.internalHttpServer = enabled
-        
     case .setIgnoreMute(enabled: let enabled):
         state.ignoreMute = enabled
         
@@ -201,7 +201,7 @@ func appReducer(state: inout AppState, action: AppAction) {
             state.customCalibration = []
             
             // reset store peripheral uuid
-            UserDefaults.standard.sensorPeripheralUuid = nil
+            UserDefaults.standard.sensorPeripheralUUID = nil
         }
         
         state.sensor = sensor

@@ -4,8 +4,11 @@
 //
 
 import CoreBluetooth
-import CoreNFC
 import SwiftUI
+
+#if canImport(CoreNFC)
+    import CoreNFC
+#endif
 
 // MARK: - LibreDirectApp
 
@@ -66,11 +69,10 @@ final class LibreDirectApp: App {
             expiringNotificationMiddelware(),
             glucoseNotificationMiddelware(),
             connectionNotificationMiddelware(),
-            calendarExportMiddleware(),
+            appleCalendarExportMiddleware(),
+            appleHealthExportMiddleware(),
             readAloudMiddelware(),
             bellmanAlarmMiddelware(),
-
-            // httpServerMiddleware(),
         ]
 
         middlewares.append(sensorConnectorMiddelware([
@@ -89,26 +91,31 @@ final class LibreDirectApp: App {
             expiringNotificationMiddelware(),
             glucoseNotificationMiddelware(),
             connectionNotificationMiddelware(),
-            calendarExportMiddleware(),
+            appleCalendarExportMiddleware(),
+            appleHealthExportMiddleware(),
             readAloudMiddelware(),
             bellmanAlarmMiddelware(),
 
             nightscoutMiddleware(),
             appGroupSharingMiddleware(),
-
-            // httpServerMiddleware(),
         ]
 
-        if NFCTagReaderSession.readingAvailable {
+        #if canImport(CoreNFC)
+            if NFCTagReaderSession.readingAvailable {
+                middlewares.append(sensorConnectorMiddelware([
+                    SensorConnectionInfo(id: "libre2", name: LocalizedString("Without transmitter")) { Libre2Connection(subject: $0) },
+                    SensorConnectionInfo(id: "bubble", name: LocalizedString("Bubble transmitter")) { BubbleConnection(subject: $0) },
+                ]))
+            } else {
+                middlewares.append(sensorConnectorMiddelware([
+                    SensorConnectionInfo(id: "bubble", name: LocalizedString("Bubble transmitter")) { BubbleConnection(subject: $0) },
+                ]))
+            }
+        #else
             middlewares.append(sensorConnectorMiddelware([
-                SensorConnectionInfo(id: "libre2", name: LocalizedString("Without transmitter")) { Libre2Connection(subject: $0) },
                 SensorConnectionInfo(id: "bubble", name: LocalizedString("Bubble transmitter")) { BubbleConnection(subject: $0) },
             ]))
-        } else {
-            middlewares.append(sensorConnectorMiddelware([
-                SensorConnectionInfo(id: "bubble", name: LocalizedString("Bubble transmitter")) { BubbleConnection(subject: $0) },
-            ]))
-        }
+        #endif
 
         return AppStore(initialState: UserDefaultsState(), reducer: appReducer, middlewares: middlewares)
     }

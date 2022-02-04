@@ -8,7 +8,7 @@ import SwiftUI
 
 // MARK: - CalendarExportSettingsView
 
-struct CalendarExportSettingsView: View {
+struct AppleExportSettingsView: View {
     // MARK: Internal
 
     @EnvironmentObject var store: AppStore
@@ -16,13 +16,17 @@ struct CalendarExportSettingsView: View {
     var body: some View {
         Section(
             content: {
-                ToggleView(key: LocalizedString("Calendar export enabled"), value: store.state.calendarExport) { value -> Void in
+                ToggleView(key: LocalizedString("Export to Apple Health"), value: store.state.appleHealthExport) { value in
+                    store.dispatch(.setAppleHealthExport(enabled: value))
+                }
+
+                ToggleView(key: LocalizedString("Export to Apple Calendar"), value: store.state.appleCalendarExport) { value in
                     withAnimation {
-                        store.dispatch(.setCalendarExport(enabled: value))
+                        store.dispatch(.setAppleCalendarExport(enabled: value))
                     }
                 }
 
-                if store.state.calendarExport {
+                if store.state.appleCalendarExport {
                     HStack {
                         Text("Selected calendar")
                         Spacer()
@@ -42,7 +46,7 @@ struct CalendarExportSettingsView: View {
                 }
             },
             header: {
-                Label("Calendar export", systemImage: "calendar")
+                Label("Apple export settings", systemImage: "square.and.arrow.up")
             }
         )
     }

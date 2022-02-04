@@ -12,13 +12,13 @@ import Foundation
 class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDelegate, CBPeripheralDelegate {
     // MARK: Lifecycle
 
-    init(subject: PassthroughSubject<AppAction, AppError>, serviceUuid: CBUUID) {
+    init(subject: PassthroughSubject<AppAction, AppError>, serviceUUID: CBUUID) {
         AppLog.info("init")
 
         super.init()
 
         self.subject = subject
-        self.serviceUuid = serviceUuid
+        self.serviceUUID = serviceUUID
         self.manager = CBCentralManager(delegate: self, queue: managerQueue, options: [CBCentralManagerOptionShowPowerAlertKey: true])
     }
 
@@ -32,7 +32,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
 
     // MARK: Internal
 
-    var serviceUuid: CBUUID!
+    var serviceUUID: CBUUID!
     var manager: CBCentralManager!
 
     let managerQueue = DispatchQueue(label: "libre-direct.sensor-ble-connection.queue")
@@ -51,8 +51,8 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
             oldValue?.delegate = nil
             peripheral?.delegate = self
 
-            if let sensorPeripheralUuid = self.peripheral?.identifier.uuidString {
-                UserDefaults.standard.sensorPeripheralUuid = sensorPeripheralUuid
+            if let sensorPeripheralUUID = peripheral?.identifier.uuidString {
+                UserDefaults.standard.sensorPeripheralUUID = sensorPeripheralUUID
             }
         }
     }
@@ -72,7 +72,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
 
         self.sensor = sensor
         self.sensorInterval = sensorInterval
-        
+
         setStayConnected(stayConnected: true)
 
         managerQueue.async {
@@ -82,7 +82,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
 
     func disconnectSensor() {
         AppLog.info("DisconnectSensor")
-        
+
         setStayConnected(stayConnected: false)
 
         managerQueue.sync {
@@ -98,9 +98,9 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
             return
         }
 
-        if let peripheralUuidString = UserDefaults.standard.sensorPeripheralUuid,
-           let peripheralUuid = UUID(uuidString: peripheralUuidString),
-           let retrievedPeripheral = manager.retrievePeripherals(withIdentifiers: [peripheralUuid]).first,
+        if let peripheralUUIDString = UserDefaults.standard.sensorPeripheralUUID,
+           let peripheralUUID = UUID(uuidString: peripheralUUIDString),
+           let retrievedPeripheral = manager.retrievePeripherals(withIdentifiers: [peripheralUUID]).first,
            checkRetrievedPeripheral(peripheral: retrievedPeripheral)
         {
             AppLog.info("Connect from retrievePeripherals")
@@ -115,7 +115,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
         AppLog.info("scan")
 
         sendUpdate(connectionState: .scanning)
-        manager.scanForPeripherals(withServices: [serviceUuid], options: nil)
+        manager.scanForPeripherals(withServices: [serviceUUID], options: nil)
     }
 
     func disconnect() {
@@ -229,6 +229,6 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
         resetBuffer()
 
         sendUpdate(connectionState: .connected)
-        peripheral.discoverServices([serviceUuid])
+        peripheral.discoverServices([serviceUUID])
     }
 }

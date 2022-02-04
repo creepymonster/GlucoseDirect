@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E201769127AAB96000E6A756 /* AppleHealthExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = E201769027AAB96000E6A756 /* AppleHealthExport.swift */; };
 		E20786232686283F004EEF1C /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20786222686283F004EEF1C /* ActionsView.swift */; };
 		E20B853E266F4A9800AA4224 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B853D266F4A9800AA4224 /* App.swift */; };
 		E20B8540266F4A9800AA4224 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B853F266F4A9800AA4224 /* ContentView.swift */; };
@@ -23,14 +24,14 @@
 		E24B532526B864020091417F /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532426B864020091417F /* ToggleView.swift */; };
 		E257088E278354B600896696 /* mute.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E257088D278354B600896696 /* mute.aiff */; };
 		E25762D5279D519200A2E249 /* BellmanSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25762D4279D519200A2E249 /* BellmanSettingsView.swift */; };
-		E25FC4AF27842690004A19DB /* HttpServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25FC4AE27842690004A19DB /* HttpServer.swift */; };
 		E26089A42748DCB500749025 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26089A32748DCB500749025 /* Double.swift */; };
 		E26205102773C80400AD631B /* silent.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E262050F2773C80400AD631B /* silent.aiff */; };
 		E2645D842763F4EF0058BFC7 /* GlucoseQuality.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2645D832763F4EF0058BFC7 /* GlucoseQuality.swift */; };
-		E2646F3B275FD2EC00ADE451 /* CalendarExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2646F3A275FD2EC00ADE451 /* CalendarExport.swift */; };
-		E2646F3D275FD3E800ADE451 /* CalendarExportSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2646F3C275FD3E800ADE451 /* CalendarExportSettingsView.swift */; };
+		E2646F3B275FD2EC00ADE451 /* AppleCalendarExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2646F3A275FD2EC00ADE451 /* AppleCalendarExport.swift */; };
+		E2646F3D275FD3E800ADE451 /* AppleExportSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2646F3C275FD3E800ADE451 /* AppleExportSettingsView.swift */; };
 		E271581F275F7FD000E8620E /* OtherSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E271581E275F7FD000E8620E /* OtherSettingsView.swift */; };
 		E27325A7275543D600D3C41D /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27325A6275543D600D3C41D /* Color.swift */; };
+		E27BBA8027AD7DDA00A6B8EE /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E27BBA7F27AD7DDA00A6B8EE /* HealthKit.framework */; };
 		E27ED9732758A41B0099149C /* VirtualConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27ED9722758A41B0099149C /* VirtualConnection.swift */; };
 		E27ED9752758A4270099149C /* BubbleConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27ED9742758A4270099149C /* BubbleConnection.swift */; };
 		E27ED9782758A4360099149C /* Libre2Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27ED9772758A4360099149C /* Libre2Connection.swift */; };
@@ -77,7 +78,6 @@
 		E2D34BC8274D6BCB00151895 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D34BC7274D6BCB00151895 /* ListView.swift */; };
 		E2D34BCA274D6C1300151895 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D34BC9274D6C1300151895 /* SettingsView.swift */; };
 		E2DE3CA327594E5500FAC82E /* SensorConnectorSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DE3CA227594E5500FAC82E /* SensorConnectorSettings.swift */; };
-		E2F03BFD27862AC6009C80C2 /* Swifter in Frameworks */ = {isa = PBXBuildFile; productRef = E2F03BFC27862AC6009C80C2 /* Swifter */; };
 		E2F5F3D126A70AC400834A74 /* DateSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F5F3D026A70AC400834A74 /* DateSelectorView.swift */; };
 		E2FCAC1C270741BC00FE1CBF /* SensorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC12270741BC00FE1CBF /* SensorType.swift */; };
 		E2FCAC1D270741BC00FE1CBF /* Sensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC13270741BC00FE1CBF /* Sensor.swift */; };
@@ -130,6 +130,7 @@
 /* Begin PBXFileReference section */
 		1938BB6F2752F8D10047059C /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1938BB702752F8D20047059C /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E201769027AAB96000E6A756 /* AppleHealthExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleHealthExport.swift; sourceTree = "<group>"; };
 		E20786222686283F004EEF1C /* ActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsView.swift; sourceTree = "<group>"; };
 		E20B853A266F4A9800AA4224 /* LibreDirect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LibreDirect.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E20B853D266F4A9800AA4224 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
@@ -150,18 +151,18 @@
 		E24B532426B864020091417F /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
 		E257088D278354B600896696 /* mute.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = mute.aiff; sourceTree = "<group>"; };
 		E25762D4279D519200A2E249 /* BellmanSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BellmanSettingsView.swift; sourceTree = "<group>"; };
-		E25FC4AE27842690004A19DB /* HttpServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpServer.swift; sourceTree = "<group>"; };
 		E26089A32748DCB500749025 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		E262050F2773C80400AD631B /* silent.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = silent.aiff; sourceTree = "<group>"; };
 		E2645D832763F4EF0058BFC7 /* GlucoseQuality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseQuality.swift; sourceTree = "<group>"; };
-		E2646F3A275FD2EC00ADE451 /* CalendarExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarExport.swift; sourceTree = "<group>"; };
-		E2646F3C275FD3E800ADE451 /* CalendarExportSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarExportSettingsView.swift; sourceTree = "<group>"; };
+		E2646F3A275FD2EC00ADE451 /* AppleCalendarExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleCalendarExport.swift; sourceTree = "<group>"; };
+		E2646F3C275FD3E800ADE451 /* AppleExportSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleExportSettingsView.swift; sourceTree = "<group>"; };
 		E265EADB277A309300AC307B /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		E265EADC277A309300AC307B /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		E26690672792F6D9009C0FE1 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E26690682792F6D9009C0FE1 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E271581E275F7FD000E8620E /* OtherSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherSettingsView.swift; sourceTree = "<group>"; };
 		E27325A6275543D600D3C41D /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		E27BBA7F27AD7DDA00A6B8EE /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		E27BFC0226B1407E00F8FBEF /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		E27BFC0426B1407E00F8FBEF /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		E27ED9722758A41B0099149C /* VirtualConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualConnection.swift; sourceTree = "<group>"; };
@@ -267,7 +268,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2F03BFD27862AC6009C80C2 /* Swifter in Frameworks */,
+				E27BBA8027AD7DDA00A6B8EE /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,20 +326,13 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		E25FC4AD27842665004A19DB /* HttpServer */ = {
+		E21B2FD227AD9CD000E996DA /* AppleExport */ = {
 			isa = PBXGroup;
 			children = (
-				E25FC4AE27842690004A19DB /* HttpServer.swift */,
+				E201769027AAB96000E6A756 /* AppleHealthExport.swift */,
+				E2646F3A275FD2EC00ADE451 /* AppleCalendarExport.swift */,
 			);
-			path = HttpServer;
-			sourceTree = "<group>";
-		};
-		E2646F39275FD2D100ADE451 /* CalendarExport */ = {
-			isa = PBXGroup;
-			children = (
-				E2646F3A275FD2EC00ADE451 /* CalendarExport.swift */,
-			);
-			path = CalendarExport;
+			path = AppleExport;
 			sourceTree = "<group>";
 		};
 		E264775B274A9C6F0053BF6F /* States */ = {
@@ -352,6 +346,7 @@
 		E27BFC0126B1407E00F8FBEF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E27BBA7F27AD7DDA00A6B8EE /* HealthKit.framework */,
 				E27BFC0226B1407E00F8FBEF /* WidgetKit.framework */,
 				E27BFC0426B1407E00F8FBEF /* SwiftUI.framework */,
 			);
@@ -409,14 +404,14 @@
 		E298CF02279DEB7400C1C218 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				E2DE3CA227594E5500FAC82E /* SensorConnectorSettings.swift */,
-				E24B532026B863C00091417F /* GlucoseSettingsView.swift */,
-				E24B532226B863E20091417F /* AlarmSettingsView.swift */,
-				E24B531D26B863910091417F /* NightscoutSettingsView.swift */,
-				E2646F3C275FD3E800ADE451 /* CalendarExportSettingsView.swift */,
-				E25762D4279D519200A2E249 /* BellmanSettingsView.swift */,
-				E271581E275F7FD000E8620E /* OtherSettingsView.swift */,
 				E216E50927654AF60056A61D /* AboutView.swift */,
+				E24B532226B863E20091417F /* AlarmSettingsView.swift */,
+				E2646F3C275FD3E800ADE451 /* AppleExportSettingsView.swift */,
+				E25762D4279D519200A2E249 /* BellmanSettingsView.swift */,
+				E24B532026B863C00091417F /* GlucoseSettingsView.swift */,
+				E24B531D26B863910091417F /* NightscoutSettingsView.swift */,
+				E271581E275F7FD000E8620E /* OtherSettingsView.swift */,
+				E2DE3CA227594E5500FAC82E /* SensorConnectorSettings.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -424,12 +419,12 @@
 		E298CF07279DEC3300C1C218 /* Overview */ = {
 			isa = PBXGroup;
 			children = (
-				E29ED230268C754F00CBD3F1 /* GlucoseView.swift */,
-				E28728A926DE499200269F47 /* SnoozeView.swift */,
+				E20786222686283F004EEF1C /* ActionsView.swift */,
 				E283306626AF058500244343 /* ChartView.swift */,
 				E28C1298278AE6A900ECE0DF /* ConnectionView.swift */,
+				E29ED230268C754F00CBD3F1 /* GlucoseView.swift */,
 				E223F866267A4D9800EC9BCA /* SensorView.swift */,
-				E20786222686283F004EEF1C /* ActionsView.swift */,
+				E28728A926DE499200269F47 /* SnoozeView.swift */,
 			);
 			path = Overview;
 			sourceTree = "<group>";
@@ -510,18 +505,17 @@
 		E2FCAC3C270741F000FE1CBF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				E2FCAC682707429800FE1CBF /* Internal */,
-				E2FCAC472707420800FE1CBF /* Log */,
-				E27ED96E2758A3EE0099149C /* SensorConnector */,
-				E2FCAC4C2707422D00FE1CBF /* GlucoseNotification */,
-				E2FCAC492707421600FE1CBF /* ExpiringNotification */,
-				E2FCAC482707420D00FE1CBF /* ConnectionNotification */,
-				E2CDA01827722FA100A1E694 /* ReadAloud */,
-				E2FCAC4F2707424000FE1CBF /* Nightscout */,
-				E2646F39275FD2D100ADE451 /* CalendarExport */,
 				E2FCAC4A2707422000FE1CBF /* AppGroupSharing */,
-				E25FC4AD27842665004A19DB /* HttpServer */,
+				E21B2FD227AD9CD000E996DA /* AppleExport */,
 				E2C8F5FC278CD62200519ABD /* BellmanAlarm */,
+				E2FCAC482707420D00FE1CBF /* ConnectionNotification */,
+				E2FCAC492707421600FE1CBF /* ExpiringNotification */,
+				E2FCAC4C2707422D00FE1CBF /* GlucoseNotification */,
+				E2FCAC472707420800FE1CBF /* Log */,
+				E2FCAC4F2707424000FE1CBF /* Nightscout */,
+				E2CDA01827722FA100A1E694 /* ReadAloud */,
+				E27ED96E2758A3EE0099149C /* SensorConnector */,
+				E2FCAC682707429800FE1CBF /* Utility */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -574,13 +568,13 @@
 			path = Nightscout;
 			sourceTree = "<group>";
 		};
-		E2FCAC682707429800FE1CBF /* Internal */ = {
+		E2FCAC682707429800FE1CBF /* Utility */ = {
 			isa = PBXGroup;
 			children = (
 				E2FCAC3E2707420100FE1CBF /* NotificationService.swift */,
 				E2C5935E273696FE00CAFFD4 /* CalibrationService.swift */,
 			);
-			path = Internal;
+			path = Utility;
 			sourceTree = "<group>";
 		};
 		E2FCAC742707439300FE1CBF /* Resources */ = {
@@ -649,7 +643,6 @@
 			);
 			name = LibreDirect;
 			packageProductDependencies = (
-				E2F03BFC27862AC6009C80C2 /* Swifter */,
 			);
 			productName = LibreDirect;
 			productReference = E20B853A266F4A9800AA4224 /* LibreDirect.app */;
@@ -690,7 +683,6 @@
 			);
 			mainGroup = E20B8531266F4A9800AA4224;
 			packageReferences = (
-				E2F03BFB27862AC6009C80C2 /* XCRemoteSwiftPackageReference "swifter" */,
 			);
 			productRefGroup = E20B853B266F4A9800AA4224 /* Products */;
 			projectDirPath = "";
@@ -775,6 +767,7 @@
 				E283306726AF058500244343 /* ChartView.swift in Sources */,
 				E2FCAC1C270741BC00FE1CBF /* SensorType.swift in Sources */,
 				E24B532526B864020091417F /* ToggleView.swift in Sources */,
+				E201769127AAB96000E6A756 /* AppleHealthExport.swift in Sources */,
 				E2FCAC632707427500FE1CBF /* ExpiringNotification.swift in Sources */,
 				E2FCAC34270741D200FE1CBF /* View.swift in Sources */,
 				E27ED97F2758ADF40099149C /* SensorConnection.swift in Sources */,
@@ -805,7 +798,7 @@
 				E2D34BC4274D6BB500151895 /* OverviewView.swift in Sources */,
 				E298CF04279DEBF500C1C218 /* FactoryCalibrationView.swift in Sources */,
 				E2FCAC5B2707425900FE1CBF /* Libre2Pairing.swift in Sources */,
-				E2646F3D275FD3E800ADE451 /* CalendarExportSettingsView.swift in Sources */,
+				E2646F3D275FD3E800ADE451 /* AppleExportSettingsView.swift in Sources */,
 				E27ED9752758A4270099149C /* BubbleConnection.swift in Sources */,
 				E2CDA01A27722FB900A1E694 /* ReadAloud.swift in Sources */,
 				E2FCAC732707438A00FE1CBF /* AppStore.swift in Sources */,
@@ -816,7 +809,7 @@
 				E29F4FA2274D6C8B00AE0E39 /* GlucoseValueType.swift in Sources */,
 				E27ED9732758A41B0099149C /* VirtualConnection.swift in Sources */,
 				E2FCAC31270741D200FE1CBF /* Date.swift in Sources */,
-				E2646F3B275FD2EC00ADE451 /* CalendarExport.swift in Sources */,
+				E2646F3B275FD2EC00ADE451 /* AppleCalendarExport.swift in Sources */,
 				E20786232686283F004EEF1C /* ActionsView.swift in Sources */,
 				E2FCAC672707428500FE1CBF /* Log.swift in Sources */,
 				E2FCAC32270741D200FE1CBF /* UserDefaults.swift in Sources */,
@@ -831,7 +824,6 @@
 				E28728AA26DE499200269F47 /* SnoozeView.swift in Sources */,
 				E2FCAC702707438A00FE1CBF /* AppState.swift in Sources */,
 				E271581F275F7FD000E8620E /* OtherSettingsView.swift in Sources */,
-				E25FC4AF27842690004A19DB /* HttpServer.swift in Sources */,
 				E2FCAC612707426F00FE1CBF /* AppGroupSharing.swift in Sources */,
 				E292E1B226A608C400011F64 /* NumberSelectorView.swift in Sources */,
 				E2FCAC1D270741BC00FE1CBF /* Sensor.swift in Sources */,
@@ -1085,25 +1077,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		E2F03BFB27862AC6009C80C2 /* XCRemoteSwiftPackageReference "swifter" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/httpswift/swifter.git";
-			requirement = {
-				branch = stable;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		E2F03BFC27862AC6009C80C2 /* Swifter */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E2F03BFB27862AC6009C80C2 /* XCRemoteSwiftPackageReference "swifter" */;
-			productName = Swifter;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E20B8532266F4A9800AA4224 /* Project object */;
 }

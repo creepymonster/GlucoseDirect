@@ -12,9 +12,10 @@ protocol AppState {
     var alarmHigh: Int { get set }
     var alarmLow: Int { get set }
     var alarmSnoozeUntil: Date? { get set }
+    var appleCalendarExport: Bool { get set }
+    var appleHealthExport: Bool { get set }
     var bellmanAlarm: Bool { get set }
     var bellmanConnectionState: BellmanConnectionState { get set }
-    var calendarExport: Bool { get set }
     var chartShowLines: Bool { get set }
     var chartZoomLevel: Int { get set }
     var connectionAlarmSound: NotificationSound { get set }
@@ -29,7 +30,6 @@ protocol AppState {
     var glucoseUnit: GlucoseUnit { get set }
     var glucoseValues: [Glucose] { get set }
     var highGlucoseAlarmSound: NotificationSound { get set }
-    var internalHttpServer: Bool { get set }
     var isPaired: Bool { get set }
     var ignoreMute: Bool { get set }
     var lowGlucoseAlarmSound: NotificationSound { get set }

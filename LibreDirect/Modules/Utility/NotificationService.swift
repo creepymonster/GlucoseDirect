@@ -15,9 +15,9 @@ class NotificationService {
     // MARK: Lifecycle
 
     private init() {
-        if let soundURL = FrameworkBundle.main.url(forResource: "mute", withExtension: "aiff"), AudioServicesCreateSystemSoundID(soundURL as CFURL, &muteSoundId) == kAudioServicesNoError {
+        if let soundURL = FrameworkBundle.main.url(forResource: "mute", withExtension: "aiff"), AudioServicesCreateSystemSoundID(soundURL as CFURL, &muteSoundID) == kAudioServicesNoError {
             var yes: UInt32 = 1
-            AudioServicesSetProperty(kAudioServicesPropertyIsUISound, UInt32(MemoryLayout.size(ofValue: muteSoundId)), &muteSoundId, UInt32(MemoryLayout.size(ofValue: yes)), &yes)
+            AudioServicesSetProperty(kAudioServicesPropertyIsUISound, UInt32(MemoryLayout.size(ofValue: muteSoundID)), &muteSoundID, UInt32(MemoryLayout.size(ofValue: yes)), &yes)
         }
     }
 
@@ -25,9 +25,9 @@ class NotificationService {
 
     static let shared = NotificationService()
 
-    static let SilentSound: UNNotificationSound = {
+    static var SilentSound: UNNotificationSound {
         UNNotificationSound(named: UNNotificationSoundName(rawValue: "silent.aiff"))
-    }()
+    }
 
     func isPlaying() -> Bool {
         if let player = player {
@@ -94,7 +94,7 @@ class NotificationService {
     // MARK: Private
 
     private var muteCheckStart: TimeInterval = 0
-    private var muteSoundId: SystemSoundID = 0
+    private var muteSoundID: SystemSoundID = 0
 
     private var isMuted = false
     private var player: AVAudioPlayer?
@@ -102,7 +102,7 @@ class NotificationService {
     private func checkMute(_ completion: @escaping (_ isMuted: Bool) -> Void) {
         muteCheckStart = Date.timeIntervalSinceReferenceDate
 
-        AudioServicesPlaySystemSoundWithCompletion(muteSoundId) { [weak self] in
+        AudioServicesPlaySystemSoundWithCompletion(muteSoundID) { [weak self] in
             if let self = self {
                 let elapsed = Date.timeIntervalSinceReferenceDate - self.muteCheckStart
                 let isMuted = elapsed < 0.1

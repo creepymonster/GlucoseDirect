@@ -7,9 +7,7 @@ import Combine
 import Foundation
 
 func appGroupSharingMiddleware() -> Middleware<AppState, AppAction> {
-    return appGroupSharingMiddleware(service: {
-        AppGroupSharingService()
-    }())
+    return appGroupSharingMiddleware(service: AppGroupSharingService())
 }
 
 private func appGroupSharingMiddleware(service: AppGroupSharingService) -> Middleware<AppState, AppAction> {

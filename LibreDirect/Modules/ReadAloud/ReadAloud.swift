@@ -8,9 +8,7 @@ import Combine
 import Foundation
 
 func readAloudMiddelware() -> Middleware<AppState, AppAction> {
-    return readGlucoseMiddelware(service: {
-        ReadAloudService()
-    }())
+    return readGlucoseMiddelware(service: ReadAloudService())
 }
 
 private func readGlucoseMiddelware(service: ReadAloudService) -> Middleware<AppState, AppAction> {
@@ -80,14 +78,14 @@ private class ReadAloudService {
 
     // MARK: Private
 
-    private var speechSynthesizer: AVSpeechSynthesizer = {
+    private lazy var speechSynthesizer: AVSpeechSynthesizer = {
         AVSpeechSynthesizer()
     }()
 
     private var glucose: Glucose?
     private var alarm: AlarmType = .none
 
-    private var voice: AVSpeechSynthesisVoice? = {
+    private lazy var voice: AVSpeechSynthesisVoice? = {
         for availableVoice in AVSpeechSynthesisVoice.speechVoices() {
             if availableVoice.language == AVSpeechSynthesisVoice.currentLanguageCode(), availableVoice.quality == AVSpeechSynthesisVoiceQuality.enhanced {
                 AppLog.info("Found enhanced voice: \(availableVoice.name)")

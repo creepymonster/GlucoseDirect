@@ -15,7 +15,7 @@ struct SettingsView: View {
                 GlucoseSettingsView()
                 AlarmSettingsView()
                 NightscoutSettingsView()
-                CalendarExportSettingsView()
+                AppleExportSettingsView()
                 BellmanSettingsView()
                 OtherSettingsView()
                 AboutView()

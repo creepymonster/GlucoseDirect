@@ -8,9 +8,7 @@ import Foundation
 import UserNotifications
 
 func connectionNotificationMiddelware() -> Middleware<AppState, AppAction> {
-    return connectionNotificationMiddelware(service: {
-        ConnectionNotificationService()
-    }())
+    return connectionNotificationMiddelware(service: ConnectionNotificationService())
 }
 
 private func connectionNotificationMiddelware(service: ConnectionNotificationService) -> Middleware<AppState, AppAction> {

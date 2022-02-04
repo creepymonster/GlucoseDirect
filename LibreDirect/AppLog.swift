@@ -42,7 +42,9 @@ enum AppLog {
 
     // MARK: Private
 
-    private static let fileLogger: FileLogger = .init()
+    private static let fileLogger: FileLogger = {
+        FileLogger()
+    }()
 
     private static func log(message: String, type: OSLogType, log: OSLog, error: Error?, file: String, line: Int, function: String) {
         // Console logging

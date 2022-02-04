@@ -7,19 +7,19 @@ import Combine
 import EventKit
 import Foundation
 
-func calendarExportMiddleware() -> Middleware<AppState, AppAction> {
-    return calendarExportMiddleware(service: CalendarExportService())
+func appleCalendarExportMiddleware() -> Middleware<AppState, AppAction> {
+    return appleCalendarExportMiddleware(service: AppleCalendarExportService())
 }
 
-func calendarExportMiddleware(service: CalendarExportService) -> Middleware<AppState, AppAction> {
+func appleCalendarExportMiddleware(service: AppleCalendarExportService) -> Middleware<AppState, AppAction> {
     return { state, action, _ in
         switch action {
-        case .setCalendarExport(enabled: let enabled):
+        case .setAppleCalendarExport(enabled: let enabled):
             if enabled {
                 return Future<AppAction, AppError> { promise in
                     service.requestAccess { granted in
                         if !granted {
-                            promise(.success(.setCalendarExport(enabled: false)))
+                            promise(.success(.setAppleCalendarExport(enabled: false)))
 
                         } else {
                             promise(.failure(.withMessage("Calendar access declined")))
@@ -37,7 +37,7 @@ func calendarExportMiddleware(service: CalendarExportService) -> Middleware<AppS
             }
 
         case .addGlucoseValues(glucoseValues: let glucoseValues):
-            guard state.calendarExport else {
+            guard state.appleCalendarExport else {
                 AppLog.info("Guard: state.calendarExport disabled")
                 break
             }
@@ -71,9 +71,9 @@ func calendarExportMiddleware(service: CalendarExportService) -> Middleware<AppS
 
 typealias CalendarExportHandler = (_ granted: Bool) -> Void
 
-// MARK: - CalendarExportService
+// MARK: - AppleCalendarExportService
 
-class CalendarExportService {
+class AppleCalendarExportService {
     // MARK: Internal
 
     lazy var eventStore: EKEventStore = .init()

@@ -6,8 +6,10 @@
 //
 
 import Combine
-import CoreNFC
 import Foundation
+
+#if canImport(CoreNFC)
+import CoreNFC
 
 // MARK: - Libre2Pairing
 
@@ -133,14 +135,14 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
 
                     AppLog.info("create sensor")
                     let sensor = Sensor(uuid: sensorUID, patchInfo: patchInfo, fram: SensorUtility.decryptFRAM(uuid: sensorUID, patchInfo: patchInfo, fram: fram) ?? fram)
-                    
+
                     AppLog.info("sensor: \(sensor)")
                     AppLog.info("sensor, age: \(sensor.age)")
                     AppLog.info("sensor, lifetime: \(sensor.lifetime)")
 
-                    guard sensor.age > sensor.warmupTime, sensor.age < sensor.lifetime else {
+                    guard sensor.state == .expired else {
                         logErrorAndDisconnect(LocalizedString("Scanned sensor expired"), showToUser: true)
-                        
+
                         return
                     }
 
@@ -151,7 +153,10 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                         session.invalidate()
 
                         self.subject?.send(.setSensor(sensor: sensor))
-                        self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", trendReadings: sensorReadings.trend, historyReadings: sensorReadings.history))
+
+                        if sensor.state == .ready {
+                            self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", trendReadings: sensorReadings.trend, historyReadings: sensorReadings.history))
+                        }
                     } else {
                         let streamingCmd = self.nfcCommand(.enableStreaming, unlockCode: self.unlockCode, patchInfo: patchInfo, sensorUID: sensorUID)
                         let streaminResponse = try await tag.customCommand(requestFlags: .highDataRate, customCommandCode: Int(streamingCmd.code), customRequestParameters: streamingCmd.parameters)
@@ -166,7 +171,10 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
 
                         self.subject?.send(.setConnectionState(connectionState: .disconnected))
                         self.subject?.send(.setSensor(sensor: sensor, wasPaired: true))
-                        self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", trendReadings: sensorReadings.trend, historyReadings: sensorReadings.history))
+
+                        if sensor.state == .ready {
+                            self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", trendReadings: sensorReadings.trend, historyReadings: sensorReadings.history))
+                        }
                     }
                 }
             }
@@ -248,3 +256,17 @@ private enum Subcommand: UInt8, CustomStringConvertible {
         }
     }
 }
+
+#else
+
+final class Libre2Pairing: NSObject {
+    // MARK: Lifecycle
+
+    init(subject: PassthroughSubject<AppAction, AppError>) {}
+
+    // MARK: Internal
+
+    func readSensor() {}
+}
+
+#endif

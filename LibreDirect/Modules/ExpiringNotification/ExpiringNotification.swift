@@ -8,9 +8,7 @@ import Foundation
 import UserNotifications
 
 func expiringNotificationMiddelware() -> Middleware<AppState, AppAction> {
-    return expiringNotificationMiddelware(service: {
-        ExpiringNotificationService()
-    }())
+    return expiringNotificationMiddelware(service: ExpiringNotificationService())
 }
 
 private func expiringNotificationMiddelware(service: ExpiringNotificationService) -> Middleware<AppState, AppAction> {

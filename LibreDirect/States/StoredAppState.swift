@@ -4,51 +4,12 @@
 //
 
 import Combine
-import CoreNFC
 import Foundation
 import UserNotifications
 
-// MARK: - DatabaseState
-
-struct DatabaseState: AppState {
-    var alarmHigh: Int = 160
-    var alarmLow: Int = 80
-    var alarmSnoozeUntil: Date?
-    var bellmanAlarm = false
-    var bellmanConnectionState: BellmanConnectionState = .disconnected
-    var calendarExport: Bool = false
-    var chartShowLines: Bool
-    var chartZoomLevel: Int
-    var connectionAlarmSound: NotificationSound
-    var connectionError: String?
-    var connectionErrorIsCritical = false
-    var connectionErrorTimestamp: Date?
-    var connectionInfos: [SensorConnectionInfo] = []
-    var connectionState: SensorConnectionState = .disconnected
-    var customCalibration: [CustomCalibration]
-    var expiringAlarmSound: NotificationSound
-    var glucoseBadge: Bool
-    var glucoseUnit: GlucoseUnit
-    var glucoseValues: [Glucose]
-    var highGlucoseAlarmSound: NotificationSound
-    var ignoreMute: Bool
-    var internalHttpServer: Bool
-    var isPaired: Bool
-    var lowGlucoseAlarmSound: NotificationSound
-    var missedReadings: Int = 0
-    var nightscoutApiSecret: String
-    var nightscoutUpload: Bool
-    var nightscoutURL: String
-    var readGlucose: Bool
-    var selectedCalendarTarget: String?
-    var selectedConnection: SensorBLEConnection?
-    var selectedConnectionID: String?
-    var selectedView: Int
-    var sensor: Sensor?
-    var sensorInterval: Int
-    var targetValue: Int = 100
-    var transmitter: Transmitter?
-}
+#if canImport(CoreNFC)
+    import CoreNFC
+#endif
 
 // MARK: - UserDefaultsState
 
@@ -56,12 +17,14 @@ struct UserDefaultsState: AppState {
     // MARK: Lifecycle
 
     init() {
-        #if targetEnvironment(simulator)
-            let defaultConnectionID = "virtual"
-        #else
-            let defaultConnectionID = NFCTagReaderSession.readingAvailable
+        var defaultConnectionID = "virtual"
+
+        #if canImport(CoreNFC)
+            defaultConnectionID = NFCTagReaderSession.readingAvailable
                 ? "libre2"
                 : "bubble"
+        #else
+            defaultConnectionID = "bubble"
         #endif
 
         if let alarmHigh = UserDefaults.standard.alarmHigh {
@@ -73,14 +36,14 @@ struct UserDefaultsState: AppState {
         }
 
         self.bellmanAlarm = UserDefaults.standard.bellmanAlarm
-        self.calendarExport = UserDefaults.standard.calendarExport
+        self.appleCalendarExport = UserDefaults.standard.appleCalendarExport
+        self.appleHealthExport = UserDefaults.standard.appleHealthExport
         self.chartShowLines = UserDefaults.standard.chartShowLines
         self.chartZoomLevel = UserDefaults.standard.chartZoomLevel
         self.customCalibration = UserDefaults.standard.customCalibration
         self.glucoseValues = UserDefaults.standard.glucoseValues
         self.glucoseBadge = UserDefaults.standard.glucoseBadge
         self.glucoseUnit = UserDefaults.standard.glucoseUnit
-        self.internalHttpServer = UserDefaults.standard.internalHttpServer
         self.isPaired = UserDefaults.standard.isPaired
         self.ignoreMute = UserDefaults.standard.ignoreMute
         self.nightscoutApiSecret = UserDefaults.standard.nightscoutApiSecret
@@ -106,9 +69,13 @@ struct UserDefaultsState: AppState {
     var bellmanConnectionState: BellmanConnectionState = .disconnected
 
     var connectionError: String?
+
     var connectionErrorIsCritical = false
+
     var connectionErrorTimestamp: Date?
+
     var connectionInfos: [SensorConnectionInfo] = []
+
     var connectionState: SensorConnectionState = .disconnected
 
     var missedReadings: Int = 0
@@ -116,6 +83,18 @@ struct UserDefaultsState: AppState {
     var selectedConnection: SensorBLEConnection?
 
     var targetValue: Int = 100
+
+    var appleCalendarExport: Bool = false {
+        didSet {
+            UserDefaults.standard.appleCalendarExport = appleCalendarExport
+        }
+    }
+
+    var appleHealthExport = false {
+        didSet {
+            UserDefaults.standard.appleHealthExport = appleHealthExport
+        }
+    }
 
     var alarmHigh: Int = 160 {
         didSet {
@@ -132,12 +111,6 @@ struct UserDefaultsState: AppState {
     var bellmanAlarm = false {
         didSet {
             UserDefaults.standard.bellmanAlarm = bellmanAlarm
-        }
-    }
-
-    var calendarExport: Bool = false {
-        didSet {
-            UserDefaults.standard.calendarExport = calendarExport
         }
     }
 
@@ -198,12 +171,6 @@ struct UserDefaultsState: AppState {
     var ignoreMute: Bool {
         didSet {
             UserDefaults.standard.ignoreMute = ignoreMute
-        }
-    }
-
-    var internalHttpServer: Bool {
-        didSet {
-            UserDefaults.standard.internalHttpServer = internalHttpServer
         }
     }
 

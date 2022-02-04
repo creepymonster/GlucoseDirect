@@ -14,7 +14,7 @@ class BubbleConnection: SensorBLEConnectionBase, IsTransmitter {
 
     init(subject: PassthroughSubject<AppAction, AppError>) {
         AppLog.info("init")
-        super.init(subject: subject, serviceUuid: CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E"))
+        super.init(subject: subject, serviceUUID: CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E"))
     }
 
     // MARK: Internal
@@ -40,7 +40,7 @@ class BubbleConnection: SensorBLEConnectionBase, IsTransmitter {
             for service in services {
                 AppLog.info("Service Uuid: \(service.uuid)")
 
-                peripheral.discoverCharacteristics([writeCharacteristicUuid, readCharacteristicUuid], for: service)
+                peripheral.discoverCharacteristics([writeCharacteristicUUID, readCharacteristicUUID], for: service)
             }
         }
     }
@@ -54,12 +54,12 @@ class BubbleConnection: SensorBLEConnectionBase, IsTransmitter {
             for characteristic in characteristics {
                 AppLog.info("Characteristic Uuid: \(characteristic.uuid.description)")
 
-                if characteristic.uuid == readCharacteristicUuid {
+                if characteristic.uuid == readCharacteristicUUID {
                     readCharacteristic = characteristic
                     peripheral.setNotifyValue(true, for: characteristic)
                 }
 
-                if characteristic.uuid == writeCharacteristicUuid {
+                if characteristic.uuid == writeCharacteristicUUID {
                     writeCharacteristic = characteristic
                 }
             }
@@ -167,8 +167,8 @@ class BubbleConnection: SensorBLEConnectionBase, IsTransmitter {
 
     private let expectedBufferSize = 344
 
-    private let writeCharacteristicUuid = CBUUID(string: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E")
-    private let readCharacteristicUuid = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
+    private let writeCharacteristicUUID = CBUUID(string: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E")
+    private let readCharacteristicUUID = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
 
     private var readCharacteristic: CBCharacteristic?
     private var writeCharacteristic: CBCharacteristic?

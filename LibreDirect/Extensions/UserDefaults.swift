@@ -10,6 +10,7 @@ import Foundation
 private enum Keys: String {
     case alarmHigh = "libre-direct.settings.alarm-high"
     case alarmLow = "libre-direct.settings.alarm-low"
+    case appleHealthExport = "libre-direct.settings.apple-health-export"
     case bellmanAlarm = "libre-direct.settings.bellman-alarm"
     case calendarExport = "libre-direct.settings.calendar-export"
     case chartShowLines = "libre-direct.settings.chart-show-lines"
@@ -21,7 +22,6 @@ private enum Keys: String {
     case glucoseUnit = "libre-direct.settings.glucose-unit"
     case glucoseValues = "libre-direct.settings.glucose-value-array"
     case highGlucoseAlarmSound = "libre-direct.settings.high-glucose-alarm-sound"
-    case internalHttpServer = "libre-direct.settings.internal-http-server"
     case isPaired = "libre-direct.settings.is-paired"
     case ignoreMute = "libre-direct.settings.ignore-mute"
     case latestReadings
@@ -36,23 +36,23 @@ private enum Keys: String {
     case sensor = "libre-direct.settings.sensor"
     case sensorInterval = "libre-direct.settings.sensor-interval"
     case transmitter = "libre-direct.settings.transmitter"
-    case devicePeripheralUuid = "libre-direct.sensor-ble-connection.peripheral-uuid"
+    case devicePeripheralUUID = "libre-direct.sensor-ble-connection.peripheral-uuid"
 }
 
 extension UserDefaults {
-    var sensorPeripheralUuid: String? {
+    var sensorPeripheralUUID: String? {
         get {
-            return UserDefaults.standard.string(forKey: Keys.devicePeripheralUuid.rawValue)
+            return UserDefaults.standard.string(forKey: Keys.devicePeripheralUUID.rawValue)
         }
         set {
             if let newValue = newValue {
-                UserDefaults.standard.setValue(newValue, forKey: Keys.devicePeripheralUuid.rawValue)
+                UserDefaults.standard.setValue(newValue, forKey: Keys.devicePeripheralUUID.rawValue)
             } else {
-                UserDefaults.standard.removeObject(forKey: Keys.devicePeripheralUuid.rawValue)
+                UserDefaults.standard.removeObject(forKey: Keys.devicePeripheralUUID.rawValue)
             }
         }
     }
-    
+
     var alarmHigh: Int? {
         get {
             if object(forKey: Keys.alarmHigh.rawValue) != nil {
@@ -87,6 +87,19 @@ extension UserDefaults {
         }
     }
 
+    var appleHealthExport: Bool {
+        get {
+            if object(forKey: Keys.appleHealthExport.rawValue) != nil {
+                return bool(forKey: Keys.appleHealthExport.rawValue)
+            }
+
+            return false
+        }
+        set {
+            set(newValue, forKey: Keys.appleHealthExport.rawValue)
+        }
+    }
+
     var bellmanAlarm: Bool {
         get {
             if object(forKey: Keys.bellmanAlarm.rawValue) != nil {
@@ -100,7 +113,7 @@ extension UserDefaults {
         }
     }
 
-    var calendarExport: Bool {
+    var appleCalendarExport: Bool {
         get {
             if object(forKey: Keys.calendarExport.rawValue) != nil {
                 return bool(forKey: Keys.calendarExport.rawValue)
@@ -232,19 +245,6 @@ extension UserDefaults {
         }
         set {
             setArray(newValue, forKey: Keys.glucoseValues.rawValue)
-        }
-    }
-
-    var internalHttpServer: Bool {
-        get {
-            if object(forKey: Keys.internalHttpServer.rawValue) != nil {
-                return bool(forKey: Keys.internalHttpServer.rawValue)
-            }
-
-            return false
-        }
-        set {
-            set(newValue, forKey: Keys.internalHttpServer.rawValue)
         }
     }
 

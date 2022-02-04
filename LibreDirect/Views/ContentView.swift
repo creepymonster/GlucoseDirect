@@ -3,7 +3,6 @@
 //  LibreDirect
 //
 
-import CoreNFC
 import SwiftUI
 
 // MARK: - ContentView

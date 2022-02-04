@@ -15,8 +15,7 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
     init(subject: PassthroughSubject<AppAction, AppError>) {
         AppLog.info("init")
 
-        pairingService = Libre2Pairing(subject: subject)
-        super.init(subject: subject, serviceUuid: CBUUID(string: "FDE3"))
+        super.init(subject: subject, serviceUUID: CBUUID(string: "FDE3"))
     }
 
     // MARK: Internal
@@ -31,7 +30,7 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
         UserDefaults.standard.libre2UnlockCount = 0
 
         sendUpdate(connectionState: .pairing)
-        pairingService.readSensor()
+        pairingService?.readSensor()
     }
 
     override func resetBuffer() {
@@ -96,7 +95,7 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
             for service in services {
                 AppLog.info("Service Uuid: \(service.uuid)")
 
-                peripheral.discoverCharacteristics([readCharacteristicUuid, writeCharacteristicUuid], for: service)
+                peripheral.discoverCharacteristics([readCharacteristicUUID, writeCharacteristicUUID], for: service)
             }
         }
     }
@@ -110,11 +109,11 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
             for characteristic in characteristics {
                 AppLog.info("Characteristic Uuid: \(characteristic.uuid.description)")
 
-                if characteristic.uuid == readCharacteristicUuid {
+                if characteristic.uuid == readCharacteristicUUID {
                     readCharacteristic = characteristic
                 }
 
-                if characteristic.uuid == writeCharacteristicUuid {
+                if characteristic.uuid == writeCharacteristicUUID {
                     writeCharacteristic = characteristic
 
                     if let unlock = unlock() {
@@ -136,7 +135,7 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
 
         sendUpdate(error: error)
 
-        if characteristic.uuid == writeCharacteristicUuid {
+        if characteristic.uuid == writeCharacteristicUUID {
             peripheral.setNotifyValue(true, for: readCharacteristic!)
         }
     }
@@ -165,16 +164,16 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
 
         if !firstBuffer.isEmpty, !secondBuffer.isEmpty, !thirdBuffer.isEmpty {
             let rxBuffer = firstBuffer + secondBuffer + thirdBuffer
-            
+
             let intervalSeconds = sensorInterval * 60 - 45
             guard sensorInterval == 1 || lastTimestamp == nil || lastTimestamp! + Double(intervalSeconds) <= Date() else {
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
                     self.resetBuffer()
                 }
-                
+
                 return
             }
-            
+
             lastTimestamp = Date()
 
             if let sensor = sensor {
@@ -205,13 +204,19 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
 
     // MARK: Private
 
-    private let writeCharacteristicUuid = CBUUID(string: "F001")
-    private let readCharacteristicUuid = CBUUID(string: "F002")
+    private let writeCharacteristicUUID = CBUUID(string: "F001")
+    private let readCharacteristicUUID = CBUUID(string: "F002")
 
     private var writeCharacteristic: CBCharacteristic?
     private var readCharacteristic: CBCharacteristic?
-    
-    private let pairingService: Libre2Pairing
+
+    private lazy var pairingService: Libre2Pairing? = {
+        if let subject = subject {
+            return Libre2Pairing(subject: subject)
+        }
+
+        return nil
+    }()
 
     private var firstBuffer = Data()
     private var secondBuffer = Data()

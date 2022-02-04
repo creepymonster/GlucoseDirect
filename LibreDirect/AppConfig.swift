@@ -37,8 +37,6 @@ enum AppConfig {
         Bundle.main.infoDictionary?["AppSupportMail"] as? String
     }()
 
-    static var internalHttpServerPort: UInt16 = 1979
-
     static var minReadableGlucose: Int { 40 }
     static var maxReadableGlucose: Int { 500 }
     static var expiredNotificationInterval: Double { 1 * 60 * 60 } // in seconds
