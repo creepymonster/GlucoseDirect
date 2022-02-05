@@ -14,7 +14,7 @@
 "NSBluetoothPeripheralUsageDescription" = "De Bluetooth-functie is nodig om verbinding te maken met de ondersteunde apparaten.";
 
 /* Privacy - Calendars Usage Description */
-"NSCalendarsUsageDescription" = "Toegang tot de kalender is vereist om actuele glucosewaarden op de Apple Watch weer te geven.";
+"NSCalendarsUsageDescription" = "Toegang tot de agenda is vereist om actuele glucosewaarden op de Apple Watch weer te geven.";
 
 /* Privacy - Health Share Usage Description */
 "NSHealthShareUsageDescription" = "Toegang tot Apple Health is vereist als glucosegegevens moeten worden geëxporteerd.";
