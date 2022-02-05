@@ -11,109 +11,109 @@
 "0 - Unknown" = "0 - Unknown";
 
 /* (No Comment) */
-"1 - European" = "1 - European";
+"1 - European" = "Auto - Europees";
 
 /* (No Comment) */
 "2 - USA" = "2 - USA";
 
 /* (No Comment) */
-"4 - Australian" = "4 - Australia/Canada";
+"4 - Australian" = "4 - Australië/Canada";
 
 /* (No Comment) */
-"8 - Eastern" = "8 - Middle East, Asia";
+"8 - Eastern" = "8 - Midden-Oosten, Azië";
 
 /* (No Comment) */
-"Add" = "Add";
+"Add" = "Voeg toe";
 
 /* (No Comment) */
-"Add glucose for calibration" = "Add glucose for calibration";
+"Add glucose for calibration" = "Glucose voor kalibratie toevoegen";
 
 /* (No Comment) */
-"Add glucose value" = "Add glucose value";
+"Add glucose value" = "Voeg glucosewaarde toe";
 
 /* (No Comment) */
-"Alarm Settings" = "Alarm Settings";
+"Alarm Settings" = "Alarminstellingen";
 
 /* (No Comment) */
-"Alert, high glucose" = "Alert, high glucose";
+"Alert, high glucose" = "Alarm, hoge glucosewaarde";
 
 /* (No Comment) */
-"Alert, low blood glucose" = "Alert, low blood glucose";
+"Alert, low blood glucose" = "Alarm, lage glucosewaarde";
 
 /* (No Comment) */
-"Alert, sensor connection lost" = "Alert, sensor connection lost";
+"Alert, sensor connection lost" = "Alarm, sensorverbinding verbroken";
 
 /* (No Comment) */
-"Alert, sensor expired" = "Alert, sensor expired";
+"Alert, sensor expired" = "Alarm, sensor verlopen";
 
 /* (No Comment) */
-"Alert, sensor expiring soon" = "Alert, sensor expiring soon";
+"Alert, sensor expiring soon" = "Alert, sensor verloopt binnenkort";
 
 /* (No Comment) */
-"Are you sure you want to add the new calibration?" = "Are you sure you want to add the new calibration?";
+"Are you sure you want to add the new calibration?" = "Weet je het zeker dat je de nieuwe kalibratiewaarde wilt toevoegen?";
 
 /* (No Comment) */
-"Are you sure you want to delete all calibrations?" = "Are you sure you want to delete all calibrations?";
+"Are you sure you want to delete all calibrations?" = "Weet je het zeker dat je alle kalibratiewaarden wilt wissen?";
 
 /* (No Comment) */
-"Are you sure you want to delete all log files?" = "Are you sure you want to delete all log files?";
+"Are you sure you want to delete all log files?" = "Weet je het zeker dat je alle logfiles wilt wissen?";
 
 /* (No Comment) */
-"Are you sure you want to delete all glucose values?" = "Are you sure you want to delete all glucose values?";
+"Are you sure you want to delete all glucose values?" = "Weet je het zeker dat je alle glucosewaarden wilt wissen?";
 
 /* (No Comment) */
-"Are you sure you want to disconnect the sensor?" = "Are you sure you want to disconnect the sensor?";
+"Are you sure you want to disconnect the sensor?" = "Weet je het zeker dat je de sensor wilt ontkoppelen?";
 
 /* (No Comment) */
-"Are you sure you want to unpair the sensor?" = "Are you sure you want to unpair the sensor?";
+"Are you sure you want to unpair the sensor?" = "Weet je het zeker dat je de sensor wilt ontkoppelen?";
 
 /* (No Comment) */
-"Blood glucose: %1$@" = "Blood glucose: %1$@";
+"Blood glucose: %1$@" = "Bloedglucose: %1$@";
 
 /* (No Comment) */
-"Calibration view" = "Calibration";
+"Calibration view" = "Kalibratie";
 
 /* (No Comment) */
-"Cancel" = "Cancel";
+"Cancel" = "Annuleer";
 
 /* (No Comment) */
-"Chart (%1$@)" = "Chart";
+"Chart (%1$@)" = "Grafiek";
 
 /* (No Comment) */
-"Connect sensor" = "Connect sensor";
+"Connect sensor" = "Sensor verbinden";
 
 /* (No Comment) */
-"Connected" = "Connected";
+"Connected" = "Verbonden";
 
 /* (No Comment) */
-"Connecting" = "Connecting";
+"Connecting" = "Bezig met verbinden";
 
 /* (No Comment) */
-"Connection alarm" = "Connection alarm";
+"Connection alarm" = "Verbindingsalarm";
 
 /* (No Comment) */
-"Custom calibration" = "Calibration";
+"Custom calibration" = "Kalibratie";
 
 /* (No Comment) */
-"Custom calibration intercept" = "Intercept";
+"Custom calibration intercept" = "Onderscheppen";
 
 /* (No Comment) */
-"Custom calibration slope" = "Slope";
+"Custom calibration slope" = "Helling";
 
 /* (No Comment) */
-"Delete" = "Delete";
+"Delete" = "Wis";
 
 /* (No Comment) */
-"Delete all" = "Delete all";
+"Delete all" = "Verwijder alles";
 
 /* (No Comment) */
-"Disconnect" = "Disconnect";
+"Disconnect" = "Verbreek verbinding";
 
 /* (No Comment) */
-"Disconnect sensor" = "Disconnect sensor";
+"Disconnect sensor" = "Ontkoppel sensor";
 
 /* (No Comment) */
-"Disconnected" = "Disconnected";
+"Disconnected" = "Verbinding verbroken";
 
 /* (No Comment) */
 "Factory calibration i1" = "i1";
@@ -137,22 +137,22 @@
 "Glucose alarm" = "Glucose alarm";
 
 /* (No Comment) */
-"Glucose list view" = "List";
+"Glucose list view" = "Lijst";
 
 /* (No Comment) */
-"Glucose overview" = "Overview";
+"Glucose overview" = "Overzicht";
 
 /* (No Comment) */
-"Glucose settings" = "Glucose settings";
+"Glucose settings" = "Glucose-instellingen";
 
 /* (No Comment) */
-"Glucose unit" = "Unit";
+"Glucose unit" = "Eenheid";
 
 /* (No Comment) */
-"Glucose values" = "Glucose values";
+"Glucose values" = "Glucosewaarden";
 
 /* (No Comment) */
-"Hold the top edge of your iPhone close to the sensor." = "Hold the top edge of your iPhone close to the sensor.";
+"Hold the top edge of your iPhone close to the sensor." = "Houd de bovenkant van je iPhone dicht bij de sensor.";
 
 /* (No Comment) */
 "Libre 1" = "Libre 1";
@@ -317,25 +317,25 @@
 "Unknown" = "Unknown";
 
 /* (No Comment) */
-"Unpair" = "Unpair";
+"Unpair" = "Ontkoppelen";
 
 /* (No Comment) */
-"Unpair sensor" = "Unpair sensor";
+"Unpair sensor" = "Ontkoppel sensor";
 
 /* (No Comment) */
-"Upper limit" = "High";
+"Upper limit" = "Hoog";
 
 /* (No Comment) */
-"Virtual Sensor" = "Virtual Sensor";
+"Virtual Sensor" = "Virtuele sensor";
 
 /* (No Comment) */
-"Warning, sensor missed %1$@ readings" = "Warning, sensor missed %1$@ readings";
+"Warning, sensor missed %1$@ readings" = "Waarschuwing, sensor mist %1$@ metingen";
 
 /* (No Comment) */
-"Wearing time alarm" = "Wearing time alarm";
+"Wearing time alarm" = "Draagtijd alarm";
 
 /* (No Comment) */
-"Your current glucose is %1$@ (%2$@)." = "Your current glucose is %1$@ (%2$@).";
+"Your current glucose is %1$@ (%2$@)." = "Je huidige glucose is %1$@ (%2$@).";
 
 /* (No Comment) */
 "Your glucose %1$@ (%2$@) is dangerously high and needs to be treated." = "Your glucose, %1$@ (%2$@), is dangerously high and needs to be treated.";
