@@ -338,52 +338,52 @@
 "Your current glucose is %1$@ (%2$@)." = "Je huidige glucose is %1$@ (%2$@).";
 
 /* (No Comment) */
-"Your glucose %1$@ (%2$@) is dangerously high and needs to be treated." = "Your glucose, %1$@ (%2$@), is dangerously high and needs to be treated.";
+"Your glucose %1$@ (%2$@) is dangerously high and needs to be treated." = "Je glucose, %1$@ (%2$@), is erg hoog. Onderneem actie.";
 
 /* (No Comment) */
-"Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "Your glucose, %1$@ (%2$@), is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal.";
+"Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "Je glucose, %1$@ (%2$@), is erg laag. Met dextrose kun je je waarde vaak weer naar normaal krijgen.";
 
 /* (No Comment) */
-"Your sensor has expired and needs to be replaced as soon as possible" = "Your sensor has expired and needs to be replaced as soon as possible";
+"Your sensor has expired and needs to be replaced as soon as possible" = "Uw sensor is verlopen en moet zo snel mogelijk worden vervangen";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ day." = "Your sensor is about to expire. Replace sensor in %1$@ day.";
+"Your sensor is about to expire. Replace sensor in %1$@ day." = "Je sensor is bijna verlopen. Vervang de sensor in %1$@ dag.";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ days." = "Your sensor is about to expire. Replace sensor in %1$@ days.";
+"Your sensor is about to expire. Replace sensor in %1$@ days." = "Je sensor is bijna verlopen. Vervang de sensor in %1$@ dagen.";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ hour." = "Your sensor is about to expire. Replace sensor in %1$@ hour.";
+"Your sensor is about to expire. Replace sensor in %1$@ hour." = "Je sensor is bijna verlopen. Vervang de sensor binnen %1$@ uur.";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ hours." = "Your sensor is about to expire. Replace sensor in %1$@ hours.";
+"Your sensor is about to expire. Replace sensor in %1$@ hours." = "Je sensor is bijna verlopen. Vervang de sensor binnen %1$@ uren.";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Your sensor is about to expire. Replace sensor in %1$@ minutes.";
+"Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Je sensor is bijna verlopen. Vervang de sensor binnen %1$@ minuten.";
 
 /* (No Comment) */
-"Other Settings" = "Other Settings";
+"Other Settings" = "Andere instellingen";
 
 /* (No Comment) */
 "Glucose badge" = "Glucose badge";
 
 /* (No Comment) */
-"Are you sure you want to add the new blood glucose value?" = "Are you sure you want to add the new blood glucose value?";
+"Are you sure you want to add the new blood glucose value?" = "Weet je zeker dat je deze nieuwe glucosewaarde wilt toevoegen?";
 
 /* (No Comment) */
-"Chart presentation" = "Chart presentation";
+"Chart presentation" = "Grafiek presentatie";
 
 /* (No Comment) */
-"Line" = "Line";
+"Line" = "Lijn";
 
 /* (No Comment) */
-"Points" = "Points";
+"Points" = "Punten";
 
 /* (No Comment) */
-"Transmitter name" = "Name";
+"Transmitter name" = "Naam";
 
 /* (No Comment) */
-"Transmitter battery" = "Battery";
+"Transmitter battery" = "Batterij";
 
 /* (No Comment) */
 "Transmitter hardware" = "Hardware";
@@ -392,79 +392,79 @@
 "Transmitter firmware" = "Firmware";
 
 /* (No Comment) */
-"Transmitter" = "Transmitter";
+"Transmitter" = "Zender";
 
 /* (No Comment) */
-"Sensor connection" = "Sensor connection";
+"Sensor connection" = "Sensorverbinding";
 
 /* (No Comment) */
-"Without transmitter" = "Without transmitter";
+"Without transmitter" = "Zonder zender";
 
 /* (No Comment) */
-"Bubble transmitter" = "Bubble transmitter";
+"Bubble transmitter" = "Bubble zender";
 
 /* (No Comment) */
-"Pairing" = "Pairing";
+"Pairing" = "Koppelen";
 
 /* (No Comment) */
-"Calendar export" = "Calendar export";
+"Calendar export" = "Agenda export";
 
 /* (No Comment) */
-"Calendar export enabled" = "Export";
+"Calendar export enabled" = "Exporteren";
 
 /* (No Comment) */
-"Selected calendar" = "Calendar";
+"Selected calendar" = "Agenda";
 
 /* (No Comment) */
-"Please select" = "Please select";
+"Please select" = "Maak een keuze";
 
 /* (No Comment) */
-"About %@" = "About %@";
+"About %@" = "Over %@";
 
 /* (No Comment) */
-"App version" = "Version";
+"App version" = "Versie";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "Onbekend";
 
 /* (No Comment) */
-"Invalid parameters" = "Invalid parameters";
+"Invalid parameters" = "Ongeldige parameters";
 
 /* (No Comment) */
 "Invalid handle" = "Invalid handle";
 
 /* (No Comment) */
-"Not connected" = "Not connected";
+"Not connected" = "Geen verbinding";
 
 /* (No Comment) */
-"Out of space" = "Out of space";
+"Out of space" = "Geen ruimte beschikbaar";
 
 /* (No Comment) */
-"Operation cancelled" = "Operation cancelled";
+"Operation cancelled" = "Opdracht geannuleerd";
 
 /* (No Comment) */
-"Connection timeout" = "Connection timeout";
+"Connection timeout" = "Time-out van de verbinding";
 
 /* (No Comment) */
-"Peripheral disconnected" = "Peripheral disconnected";
+"Peripheral disconnected" = "Peripheral losgekoppeld";
 
 /* (No Comment) */
-"UUID not allowed" = "UUID not allowed";
+"UUID not allowed" = "UUID niet toegestaan";
 
 /* (No Comment) */
 "Already advertising" = "Already advertising";
 
 /* (No Comment) */
-"Connection failed" = "Connection failed";
+"Connection failed" = "Verbinden mislukt";
 
 /* (No Comment) */
-"Connection limit reached" = "Connection limit reached";
+"Connection limit reached" = "Verbindingslimiet bereikt";
 
 /* (No Comment) */
-"Operation not supported" = "Operation not supported";
+"Operation not supported" = "Bewerking niet ondersteund";
 
 /* (No Comment) */
-"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Attention, the sensor sends faulty values. Please wait 10 minutes.";
+"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Let op, de sensor geeft foutieve waarden. Wacht 10 minuten.";
 
 /* (No Comment) */
 "App website" = "Website";
@@ -617,46 +617,46 @@
 "Sound: lose" = "Lose";
 
 /* (No Comment) */
-"Sound: low-battery" = "Low-Battery";
+"Sound: low-battery" = "Batterij bijna leeg";
 
 /* (No Comment) */
-"Sound: negative" = "Negative";
+"Sound: negative" = "Negatief";
 
 /* (No Comment) */
 "Sound: ping" = "Ping";
 
 /* (No Comment) */
-"Sound: positive" = "Positive";
+"Sound: positive" = "Positief";
 
 /* (No Comment) */
-"Sound: vibration" = "Vibrate only";
+"Sound: vibration" = "Alleen trillen";
 
 /* (No Comment) */
-"Please wait..." = "Please wait...";
+"Please wait..." = "Even geduld...";
 
 /* (No Comment) */
 "Scan sensor" = "Scan sensor";
 
 /* (No Comment) */
-"Retry pairing" = "Retry pairing";
+"Retry pairing" = "Probeer opnieuw te koppelen";
 
 /* (No Comment) */
-"Scanned sensor expired" = "Sensor expired";
+"Scanned sensor expired" = "Sensor verlopen";
 
 /* (No Comment) */
-"Ignore mute" = "Ignore mute";
+"Ignore mute" = "Negeer dempen";
 
 /* (No Comment) */
-"Retrieval interval" = "Retrieval interval";
+"Retrieval interval" = "Interval voor vernieuwen";
 
 /* (No Comment) */
-"Retrieval interval, every minute" = "Every minute";
+"Retrieval interval, every minute" = "Elke minuut";
 
 /* (No Comment) */
-"Retrieval interval, every %1$@ minutes" = "Every %1$@ minutes";
+"Retrieval interval, every %1$@ minutes" = "Elke %1$@ minuten";
 
 /* (No Comment) */
-"App donate" = "Donate";
+"App donate" = "Doneer";
 
 /* (No Comment) */
 "Bellman alarm" = "Alarm";
@@ -665,25 +665,25 @@
 "Bellman test alarm" = "Test alarm";
 
 /* (No Comment) */
-"Bellman telephone transceiver BT" = "Bellman Transceiver BT";
+"Bellman telephone transceiver BT" = "Bellman ontvanger BT";
 
 /* (No Comment) */
-"Find transmitter" = "Find transmitter";
+"Find transmitter" = "Zoek zender";
 
 /* (No Comment) */
-"Connect transmitter" = "Connect transmitter";
+"Connect transmitter" = "Verbind zender";
 
 /* (No Comment) */
-"Disconnect transmitter" = "Disconnect transmitter";
+"Disconnect transmitter" = "Zender loskoppelen";
 
 /* (No Comment) */
-"Rescan the sensor" = "Rescan the sensor";
+"Rescan the sensor" = "Scan de sensor opnieuw";
 
 /* (No Comment) */
-"Apple export settings" = "Apple export settings";
+"Apple export settings" = "Apple export instellingen";
 
 /* (No Comment) */
-"Export to Apple Health" = "Export to Apple Health";
+"Export to Apple Health" = "Exporteer naar Apple Health";
 
 /* (No Comment) */
-"Export to Apple Calendar" = "Export to Apple Calendar";
+"Export to Apple Calendar" = "Exporteer naar Apple Agenda";
