@@ -123,7 +123,7 @@ private class GlucoseNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
-            notification.sound = NotificationService.SilentSound
+            notification.sound = .none
             notification.interruptionLevel = .passive
 
             if glucoseUnit == .mgdL {
@@ -155,7 +155,7 @@ private class GlucoseNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
-            notification.sound = NotificationService.SilentSound
+            notification.sound = .none
             notification.userInfo = self.actions
             notification.interruptionLevel = sound == .none ? .passive : .critical
 
@@ -192,7 +192,7 @@ private class GlucoseNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
-            notification.sound = NotificationService.SilentSound
+            notification.sound = .none
             notification.userInfo = self.actions
             notification.interruptionLevel = sound == .none ? .passive : .critical
 

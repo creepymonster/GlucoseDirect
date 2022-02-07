@@ -90,7 +90,7 @@ private class ExpiringNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
-            notification.sound = NotificationService.SilentSound
+            notification.sound = .none
             notification.interruptionLevel = .critical
 
             notification.title = LocalizedString("Alert, sensor expired")
@@ -124,7 +124,7 @@ private class ExpiringNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
-            notification.sound = NotificationService.SilentSound
+            notification.sound = .none
 
             if sound != .none {
                 notification.interruptionLevel = .timeSensitive

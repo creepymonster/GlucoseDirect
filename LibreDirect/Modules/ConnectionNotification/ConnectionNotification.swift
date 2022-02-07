@@ -78,7 +78,7 @@ private class ConnectionNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
-            notification.sound = NotificationService.SilentSound
+            notification.sound = .none
             notification.title = LocalizedString("Alert, sensor connection lost")
 
             if errorIsCritical {
@@ -106,7 +106,7 @@ private class ConnectionNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
-            notification.sound = NotificationService.SilentSound
+            notification.sound = .none
             notification.interruptionLevel = .passive
             notification.title = LocalizedString("OK, sensor connection established")
             notification.body = LocalizedString("The connection to the sensor has been successfully established and glucose data is received.")
@@ -124,7 +124,7 @@ private class ConnectionNotificationService {
             }
 
             let notification = UNMutableNotificationContent()
-            notification.sound = NotificationService.SilentSound
+            notification.sound = .none
             notification.interruptionLevel = .timeSensitive
             notification.title = String(format: LocalizedString("Warning, sensor missed %1$@ readings"), missedReadings.description)
             notification.body = LocalizedString("The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause.")

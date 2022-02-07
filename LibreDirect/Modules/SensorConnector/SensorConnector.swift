@@ -61,22 +61,25 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
 
         case .addSensorReadings(sensorSerial: _, trendReadings: let trendReadings, historyReadings: let historyReadings):
             if !trendReadings.isEmpty {
+                let idlePeriod = state.sensorInterval == 1
+                    ? 0
+                    : (state.sensorInterval - 1) * 60
+
                 let missingHistory = historyReadings.filter { reading in
-                    if state.currentGlucose == nil || reading.timestamp > state.currentGlucose!.timestamp, reading.timestamp < trendReadings.first!.timestamp {
+                    if state.currentGlucose == nil || reading.timestamp > (state.currentGlucose!.timestamp + Double(idlePeriod)), reading.timestamp < trendReadings.first!.timestamp {
                         return true
                     }
 
                     return false
                 }
 
-                let missingTrend = trendReadings
-                    .filter { reading in
-                        if state.currentGlucose == nil || reading.timestamp > state.currentGlucose!.timestamp {
-                            return true
-                        }
-
-                        return false
+                let missingTrend = trendReadings.filter { reading in
+                    if state.currentGlucose == nil || reading.timestamp > (state.currentGlucose!.timestamp + Double(idlePeriod)) {
+                        return true
                     }
+
+                    return false
+                }
 
                 var previousGlucose = state.currentGlucose
                 var missedGlucosValues: [Glucose] = []
