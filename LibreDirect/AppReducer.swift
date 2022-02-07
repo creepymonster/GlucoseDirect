@@ -124,11 +124,15 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setAlarmLow(lowerLimit: let lowerLimit):
         state.alarmLow = lowerLimit
 
-    case .setAlarmSnoozeUntil(untilDate: let untilDate, autosnooze: _):
+    case .setAlarmSnoozeUntil(untilDate: let untilDate, autosnooze: let autosnooze):
         if let untilDate = untilDate {
             state.alarmSnoozeUntil = untilDate
         } else {
             state.alarmSnoozeUntil = nil
+        }
+        
+        if !autosnooze {
+            NotificationService.shared.stopSound()
         }
         
     case .setAppleHealthExport(enabled: let enabled):

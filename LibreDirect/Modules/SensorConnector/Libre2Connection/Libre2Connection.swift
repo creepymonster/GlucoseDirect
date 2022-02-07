@@ -66,6 +66,11 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
 
     override func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         AppLog.info("Found peripheral: \(peripheral.name ?? "-")")
+        
+        guard manager != nil else {
+            AppLog.error("Guard: manager is nil")
+            return
+        }
 
         guard let sensor = sensor, let manufacturerData = advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data else {
             return

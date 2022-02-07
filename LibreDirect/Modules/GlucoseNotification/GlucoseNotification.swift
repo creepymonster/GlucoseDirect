@@ -30,12 +30,6 @@ private func glucoseNotificationMiddelware(service: GlucoseNotificationService) 
                 service.clear()
             }
 
-        case .setAlarmSnoozeUntil(untilDate: let untilDate, autosnooze: _):
-            guard untilDate != nil else {
-                AppLog.info("Guard: untilDate is nil")
-                break
-            }
-
         case .setGlucoseUnit(unit: let unit):
             guard let glucose = state.currentGlucose else {
                 break

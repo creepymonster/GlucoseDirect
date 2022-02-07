@@ -92,6 +92,11 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
 
     func find() {
         AppLog.info("Find")
+        
+        guard manager != nil else {
+            AppLog.error("Guard: manager is nil")
+            return
+        }
 
         guard manager.state == .poweredOn else {
             AppLog.error("Guard: manager.state \(manager.state.rawValue) is not .poweredOn")
@@ -113,6 +118,11 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
 
     func scan() {
         AppLog.info("scan")
+        
+        guard manager != nil else {
+            AppLog.error("Guard: manager is nil")
+            return
+        }
 
         sendUpdate(connectionState: .scanning)
         manager.scanForPeripherals(withServices: [serviceUUID], options: nil)
@@ -120,6 +130,11 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
 
     func disconnect() {
         AppLog.info("Disconnect")
+        
+        guard manager != nil else {
+            AppLog.error("Guard: manager is nil")
+            return
+        }
 
         if manager.isScanning {
             manager.stopScan()
@@ -134,18 +149,13 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
         sensor = nil
     }
 
-    func connect() {
-        AppLog.info("Connect")
-
-        if let peripheral = peripheral {
-            connect(peripheral)
-        } else {
-            find()
-        }
-    }
-
     func connect(_ peripheral: CBPeripheral) {
         AppLog.info("Connect: \(peripheral)")
+        
+        guard manager != nil else {
+            AppLog.error("Guard: manager is nil")
+            return
+        }
 
         self.peripheral = peripheral
 
@@ -167,6 +177,11 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     }
 
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        guard manager != nil else {
+            AppLog.error("Guard: manager is nil")
+            return
+        }
+        
         if let manager = manager {
             switch manager.state {
             case .poweredOff:
@@ -188,6 +203,11 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
 
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         AppLog.info("Peripheral: \(peripheral)")
+        
+        guard manager != nil else {
+            AppLog.error("Guard: manager is nil")
+            return
+        }
 
         guard peripheral.name?.lowercased().starts(with: peripheralName) ?? false else {
             return
@@ -207,7 +227,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
             return
         }
 
-        connect()
+        connect(peripheral)
     }
 
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
@@ -220,7 +240,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
             return
         }
 
-        connect()
+        connect(peripheral)
     }
 
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
