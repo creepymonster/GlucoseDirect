@@ -8,22 +8,24 @@ import Foundation
 import HealthKit
 
 func appleHealthExportMiddleware() -> Middleware<AppState, AppAction> {
-    return appleHealthExportMiddleware(service: AppleHealthExportService())
+    return appleHealthExportMiddleware(service: LazyService<AppleHealthExportService>(initialization: {
+        AppleHealthExportService()
+    }))
 }
 
-private func appleHealthExportMiddleware(service: AppleHealthExportService) -> Middleware<AppState, AppAction> {
+private func appleHealthExportMiddleware(service: LazyService<AppleHealthExportService>) -> Middleware<AppState, AppAction> {
     return { state, action, _ in
         switch action {
         case .setAppleHealthExport(enabled: let enabled):
             if enabled {
-                if !service.healthStoreAvailable {
+                if !service.value.healthStoreAvailable {
                     return Just(AppAction.setAppleHealthExport(enabled: false))
                         .setFailureType(to: AppError.self)
                         .eraseToAnyPublisher()
                 }
 
                 return Future<AppAction, AppError> { promise in
-                    service.requestAccess { granted in
+                    service.value.requestAccess { granted in
                         if !granted {
                             promise(.success(.setAppleHealthExport(enabled: false)))
 
@@ -40,7 +42,7 @@ private func appleHealthExportMiddleware(service: AppleHealthExportService) -> M
                 break
             }
 
-            guard service.healthStoreAvailable else {
+            guard service.value.healthStoreAvailable else {
                 AppLog.info("Guard: HKHealthStore.isHealthDataAvailable is false")
                 break
             }
@@ -50,9 +52,9 @@ private func appleHealthExportMiddleware(service: AppleHealthExportService) -> M
                     glucose.type != .none
                 }
 
-                service.addGlucose(glucoseValues: filteredGlucoseValues)
+                service.value.addGlucose(glucoseValues: filteredGlucoseValues)
             } else if let glucose = glucoseValues.first, (glucose.type == .cgm && glucose.is5Minutely || state.sensorInterval > 1) || glucose.type == .bgm {
-                service.addGlucose(glucoseValues: [glucose])
+                service.value.addGlucose(glucoseValues: [glucose])
             }
 
         default:
@@ -70,6 +72,12 @@ typealias AppleHealthExportHandler = (_ granted: Bool) -> Void
 // MARK: - AppleHealthExportService
 
 private class AppleHealthExportService {
+    // MARK: Lifecycle
+
+    init() {
+        AppLog.info("Create AppleHealthExportService")
+    }
+
     // MARK: Internal
 
     static var glucoseType = HKObjectType.quantityType(forIdentifier: .bloodGlucose)!

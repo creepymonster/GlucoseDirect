@@ -9,25 +9,27 @@ import UIKit
 import UserNotifications
 
 func glucoseNotificationMiddelware() -> Middleware<AppState, AppAction> {
-    return glucoseNotificationMiddelware(service: GlucoseNotificationService())
+    return glucoseNotificationMiddelware(service: LazyService<GlucoseNotificationService>(initialization: {
+        GlucoseNotificationService()
+    }))
 }
 
-private func glucoseNotificationMiddelware(service: GlucoseNotificationService) -> Middleware<AppState, AppAction> {
+private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificationService>) -> Middleware<AppState, AppAction> {
     return { state, action, _ in
         switch action {
         case .setHighGlucoseAlarmSound(sound: let sound):
             if sound == .none {
-                service.clear()
+                service.value.clear()
             }
 
         case .setLowGlucoseAlarmSound(sound: let sound):
             if sound == .none {
-                service.clear()
+                service.value.clear()
             }
 
         case .setGlucoseBadge(enabled: let enabled):
             if !enabled {
-                service.clear()
+                service.value.clear()
             }
 
         case .setGlucoseUnit(unit: let unit):
@@ -35,7 +37,7 @@ private func glucoseNotificationMiddelware(service: GlucoseNotificationService) 
                 break
             }
 
-            service.setGlucoseBadge(glucose: glucose, glucoseUnit: unit)
+            service.value.setGlucoseBadge(glucose: glucose, glucoseUnit: unit)
 
         case .addGlucoseValues(glucoseValues: let glucoseValues):
             guard let glucose = glucoseValues.last else {
@@ -63,7 +65,7 @@ private func glucoseNotificationMiddelware(service: GlucoseNotificationService) 
             if state.lowGlucoseAlarm, glucoseValue < state.alarmLow {
                 AppLog.info("Glucose alert, low: \(glucose.glucoseValue) < \(state.alarmLow)")
 
-                service.setLowGlucoseAlarm(glucose: glucose, glucoseUnit: state.glucoseUnit, ignoreMute: state.ignoreMute, sound: isSnoozed ? .none : state.lowGlucoseAlarmSound)
+                service.value.setLowGlucoseAlarm(glucose: glucose, glucoseUnit: state.glucoseUnit, ignoreMute: state.ignoreMute, sound: isSnoozed ? .none : state.lowGlucoseAlarmSound)
 
                 if !isSnoozed {
                     return Just(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).toRounded(on: 1, .minute), autosnooze: true))
@@ -74,7 +76,7 @@ private func glucoseNotificationMiddelware(service: GlucoseNotificationService) 
             } else if state.highGlucoseAlarm, glucoseValue > state.alarmHigh {
                 AppLog.info("Glucose alert, high: \(glucose.glucoseValue) > \(state.alarmHigh)")
 
-                service.setHighGlucoseAlarm(glucose: glucose, glucoseUnit: state.glucoseUnit, ignoreMute: state.ignoreMute, sound: isSnoozed ? .none : state.highGlucoseAlarmSound)
+                service.value.setHighGlucoseAlarm(glucose: glucose, glucoseUnit: state.glucoseUnit, ignoreMute: state.ignoreMute, sound: isSnoozed ? .none : state.highGlucoseAlarmSound)
 
                 if !isSnoozed {
                     return Just(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).toRounded(on: 1, .minute), autosnooze: true))
@@ -83,7 +85,7 @@ private func glucoseNotificationMiddelware(service: GlucoseNotificationService) 
                 }
 
             } else if state.glucoseBadge {
-                service.setGlucoseBadge(glucose: glucose, glucoseUnit: state.glucoseUnit)
+                service.value.setGlucoseBadge(glucose: glucose, glucoseUnit: state.glucoseUnit)
             }
 
         default:
@@ -97,6 +99,12 @@ private func glucoseNotificationMiddelware(service: GlucoseNotificationService) 
 // MARK: - GlucoseNotificationService
 
 private class GlucoseNotificationService {
+    // MARK: Lifecycle
+
+    init() {
+        AppLog.info("Create GlucoseNotificationService")
+    }
+
     // MARK: Internal
 
     enum Identifier: String {

@@ -8,15 +8,17 @@ import Foundation
 import UserNotifications
 
 func connectionNotificationMiddelware() -> Middleware<AppState, AppAction> {
-    return connectionNotificationMiddelware(service: ConnectionNotificationService())
+    return connectionNotificationMiddelware(service: LazyService<ConnectionNotificationService>(initialization: {
+        ConnectionNotificationService()
+    }))
 }
 
-private func connectionNotificationMiddelware(service: ConnectionNotificationService) -> Middleware<AppState, AppAction> {
+private func connectionNotificationMiddelware(service: LazyService<ConnectionNotificationService>) -> Middleware<AppState, AppAction> {
     return { state, action, lastState in
         switch action {
         case .setConnectionAlarmSound(sound: let sound):
             if sound == .none {
-                service.clearAlarm()
+                service.value.clearAlarm()
             }
 
         case .setConnectionError(errorMessage: _, errorTimestamp: _, errorIsCritical: let errorIsCritical):
@@ -25,7 +27,7 @@ private func connectionNotificationMiddelware(service: ConnectionNotificationSer
                 break
             }
 
-            service.setSensorConnectionLostAlarm(errorIsCritical: errorIsCritical, ignoreMute: state.ignoreMute, sound: state.connectionAlarmSound)
+            service.value.setSensorConnectionLostAlarm(errorIsCritical: errorIsCritical, ignoreMute: state.ignoreMute, sound: state.connectionAlarmSound)
 
         case .setConnectionState(connectionState: let connectionState):
             guard state.connectionAlarm else {
@@ -34,10 +36,10 @@ private func connectionNotificationMiddelware(service: ConnectionNotificationSer
             }
 
             if lastState.connectionState == .connected, connectionState == .disconnected {
-                service.setSensorConnectionLostAlarm(errorIsCritical: false, ignoreMute: state.ignoreMute, sound: state.connectionAlarmSound)
+                service.value.setSensorConnectionLostAlarm(errorIsCritical: false, ignoreMute: state.ignoreMute, sound: state.connectionAlarmSound)
 
             } else if lastState.connectionState != .connected, connectionState == .connected {
-                service.clearAlarm()
+                service.value.clearAlarm()
             }
 
         case .addMissedReading:
@@ -47,7 +49,7 @@ private func connectionNotificationMiddelware(service: ConnectionNotificationSer
             }
 
             if state.missedReadings % 5 == 0 {
-                service.setSensorMissedReadingsAlarm(missedReadings: state.missedReadings, ignoreMute: state.ignoreMute, sound: state.connectionAlarmSound)
+                service.value.setSensorMissedReadingsAlarm(missedReadings: state.missedReadings, ignoreMute: state.ignoreMute, sound: state.connectionAlarmSound)
             }
 
         default:
@@ -61,6 +63,14 @@ private func connectionNotificationMiddelware(service: ConnectionNotificationSer
 // MARK: - ConnectionNotificationService
 
 private class ConnectionNotificationService {
+    // MARK: Lifecycle
+
+    init() {
+        AppLog.info("Create ConnectionNotificationService")
+    }
+
+    // MARK: Internal
+
     enum Identifier: String {
         case sensorConnectionAlarm = "libre-direct.notifications.sensor-connection-alarm"
     }

@@ -8,16 +8,18 @@ import EventKit
 import Foundation
 
 func appleCalendarExportMiddleware() -> Middleware<AppState, AppAction> {
-    return appleCalendarExportMiddleware(service: AppleCalendarExportService())
+    return appleCalendarExportMiddleware(service: LazyService<AppleCalendarExportService>(initialization: {
+        AppleCalendarExportService()
+    }))
 }
 
-func appleCalendarExportMiddleware(service: AppleCalendarExportService) -> Middleware<AppState, AppAction> {
+private func appleCalendarExportMiddleware(service: LazyService<AppleCalendarExportService>) -> Middleware<AppState, AppAction> {
     return { state, action, _ in
         switch action {
         case .setAppleCalendarExport(enabled: let enabled):
             if enabled {
                 return Future<AppAction, AppError> { promise in
-                    service.requestAccess { granted in
+                    service.value.requestAccess { granted in
                         if !granted {
                             promise(.success(.setAppleCalendarExport(enabled: false)))
 
@@ -29,7 +31,7 @@ func appleCalendarExportMiddleware(service: AppleCalendarExportService) -> Middl
 
             } else {
                 // clear events on disable
-                service.clearGlucoseEvents()
+                service.value.clearGlucoseEvents()
 
                 return Just(AppAction.selectCalendarTarget(id: nil))
                     .setFailureType(to: AppError.self)
@@ -57,7 +59,7 @@ func appleCalendarExportMiddleware(service: AppleCalendarExportService) -> Middl
                 break
             }
 
-            service.createGlucoseEvent(calendarTarget: calendarTarget, glucose: glucose, glucoseUnit: state.glucoseUnit)
+            service.value.createGlucoseEvent(calendarTarget: calendarTarget, glucose: glucose, glucoseUnit: state.glucoseUnit)
 
         default:
             break
@@ -74,6 +76,12 @@ typealias CalendarExportHandler = (_ granted: Bool) -> Void
 // MARK: - AppleCalendarExportService
 
 class AppleCalendarExportService {
+    // MARK: Lifecycle
+
+    init() {
+        AppLog.info("Create AppleCalendarExportService")
+    }
+
     // MARK: Internal
 
     lazy var eventStore: EKEventStore = .init()

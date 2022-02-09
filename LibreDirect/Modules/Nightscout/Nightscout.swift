@@ -7,10 +7,12 @@ import Combine
 import Foundation
 
 func nightscoutMiddleware() -> Middleware<AppState, AppAction> {
-    return nightscoutMiddleware(service: NightscoutService())
+    return nightscoutMiddleware(service: LazyService<NightscoutService>(initialization: {
+        NightscoutService()
+    }))
 }
 
-private func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppState, AppAction> {
+private func nightscoutMiddleware(service: LazyService<NightscoutService>) -> Middleware<AppState, AppAction> {
     return { state, action, lastState in
         let nightscoutURL = state.nightscoutURL.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
         let nightscoutApiSecret = state.nightscoutApiSecret
@@ -23,10 +25,10 @@ private func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppS
                     break
                 }
 
-                service.removeGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), date: glucose.timestamp)
+                service.value.removeGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), date: glucose.timestamp)
 
             case .clearGlucoseValues:
-                service.clearGlucoseValues(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1())
+                service.value.clearGlucoseValues(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1())
 
             case .addGlucoseValues(glucoseValues: let glucoseValues):
                 if glucoseValues.count > 1 {
@@ -34,9 +36,9 @@ private func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppS
                         glucose.type != .none
                     }
 
-                    service.addGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: filteredGlucoseValues)
+                    service.value.addGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: filteredGlucoseValues)
                 } else if let glucose = glucoseValues.first, (glucose.type == .cgm && glucose.is5Minutely || state.sensorInterval > 1) || glucose.type == .bgm {
-                    service.addGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: [glucose])
+                    service.value.addGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: [glucose])
                 }
 
             case .setSensorState(sensorAge: _, sensorState: _):
@@ -55,9 +57,9 @@ private func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppS
                     break
                 }
 
-                service.isSensorStarted(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), serial: serial) { isStarted in
+                service.value.isSensorStarted(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), serial: serial) { isStarted in
                     if let isStarted = isStarted, !isStarted {
-                        service.setSensorStart(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), sensor: sensor)
+                        service.value.setSensorStart(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), sensor: sensor)
                     }
                 }
 
@@ -73,6 +75,12 @@ private func nightscoutMiddleware(service: NightscoutService) -> Middleware<AppS
 // MARK: - NightscoutService
 
 private class NightscoutService {
+    // MARK: Lifecycle
+
+    init() {
+        AppLog.info("Create NightscoutService")
+    }
+
     // MARK: Internal
 
     func setSensorStart(nightscoutURL: String, apiSecret: String, sensor: Sensor) {

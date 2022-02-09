@@ -7,17 +7,19 @@ import Combine
 import Foundation
 
 func appGroupSharingMiddleware() -> Middleware<AppState, AppAction> {
-    return appGroupSharingMiddleware(service: AppGroupSharingService())
+    return appGroupSharingMiddleware(service: LazyService<AppGroupSharingService>(initialization: {
+        AppGroupSharingService()
+    }))
 }
 
-private func appGroupSharingMiddleware(service: AppGroupSharingService) -> Middleware<AppState, AppAction> {
+private func appGroupSharingMiddleware(service: LazyService<AppGroupSharingService>) -> Middleware<AppState, AppAction> {
     return { _, action, _ in
         switch action {
         case .disconnectSensor:
-            service.clearGlucoseValues()
+            service.value.clearGlucoseValues()
 
         case .pairSensor:
-            service.clearGlucoseValues()
+            service.value.clearGlucoseValues()
 
         case .addGlucoseValues(glucoseValues: let glucoseValues):
             guard let glucose = glucoseValues.last else {
@@ -25,7 +27,7 @@ private func appGroupSharingMiddleware(service: AppGroupSharingService) -> Middl
                 break
             }
 
-            service.addGlucose(glucoseValues: [glucose])
+            service.value.addGlucose(glucoseValues: [glucose])
 
         default:
             break
@@ -38,6 +40,14 @@ private func appGroupSharingMiddleware(service: AppGroupSharingService) -> Middl
 // MARK: - AppGroupSharingService
 
 private class AppGroupSharingService {
+    // MARK: Lifecycle
+
+    init() {
+        AppLog.info("Create AppGroupSharingService")
+    }
+
+    // MARK: Internal
+
     func clearGlucoseValues() {
         UserDefaults.shared.latestReadings = nil
     }

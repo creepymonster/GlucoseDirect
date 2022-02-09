@@ -10,35 +10,12 @@ import Foundation
 func bellmanAlarmMiddelware() -> Middleware<AppState, AppAction> {
     let subject = PassthroughSubject<AppAction, AppError>()
 
-    return bellmanAlarmMiddelware(service: BellmanAlarmService(subject: subject), subject: subject)
+    return bellmanAlarmMiddelware(service: LazyService<BellmanAlarmService>(initialization: {
+        BellmanAlarmService(subject: subject)
+    }), subject: subject)
 }
 
-// MARK: - BellmanConnectionState
-
-enum BellmanConnectionState: String {
-    case connected = "Connected"
-    case connecting = "Connecting"
-    case disconnected = "Disconnected"
-    case unknown = "Unknown"
-
-    // MARK: Lifecycle
-
-    init() {
-        self = .unknown
-    }
-
-    // MARK: Internal
-
-    var description: String {
-        rawValue
-    }
-
-    var localizedString: String {
-        LocalizedString(rawValue)
-    }
-}
-
-private func bellmanAlarmMiddelware(service: BellmanAlarmService, subject: PassthroughSubject<AppAction, AppError>) -> Middleware<AppState, AppAction> {
+private func bellmanAlarmMiddelware(service: LazyService<BellmanAlarmService>, subject: PassthroughSubject<AppAction, AppError>) -> Middleware<AppState, AppAction> {
     return { state, action, _ in
         switch action {
         case .startup:
@@ -46,13 +23,13 @@ private func bellmanAlarmMiddelware(service: BellmanAlarmService, subject: Passt
 
         case .setBellmanNotification(enabled: let enabled):
             if enabled {
-                service.connectDevice()
+                service.value.connectDevice()
             } else {
-                service.disconnectDevice()
+                service.value.disconnectDevice()
             }
 
         case .bellmanTestAlarm:
-            service.notifyDevice()
+            service.value.notifyDevice()
 
         case .addGlucoseValues(glucoseValues: let glucoseValues):
             guard state.bellmanAlarm else {
@@ -86,12 +63,12 @@ private func bellmanAlarmMiddelware(service: BellmanAlarmService, subject: Passt
             if glucoseValue < state.alarmLow {
                 AppLog.info("Glucose alert, low: \(glucose.glucoseValue) < \(state.alarmLow)")
 
-                service.notifyDevice()
+                service.value.notifyDevice()
 
             } else if glucoseValue > state.alarmHigh {
                 AppLog.info("Glucose alert, high: \(glucose.glucoseValue) > \(state.alarmHigh)")
 
-                service.notifyDevice()
+                service.value.notifyDevice()
             }
 
         default:
@@ -102,12 +79,38 @@ private func bellmanAlarmMiddelware(service: BellmanAlarmService, subject: Passt
     }
 }
 
+// MARK: - BellmanConnectionState
+
+enum BellmanConnectionState: String {
+    case connected = "Connected"
+    case connecting = "Connecting"
+    case disconnected = "Disconnected"
+    case unknown = "Unknown"
+
+    // MARK: Lifecycle
+
+    init() {
+        self = .unknown
+    }
+
+    // MARK: Internal
+
+    var description: String {
+        rawValue
+    }
+
+    var localizedString: String {
+        LocalizedString(rawValue)
+    }
+}
+
 // MARK: - BellmanAlarmService
 
 private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<AppAction, AppError>) {
+        AppLog.info("Create BellmanAlarmService")
         super.init()
 
         self.subject = subject
