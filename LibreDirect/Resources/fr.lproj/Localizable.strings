@@ -392,7 +392,7 @@
 "Transmitter firmware" = "Firmware";
 
 /* (No Comment) */
-"Transmitter" = "Transmitter";
+"Transmitter" = "Émetteur : ";
 
 /* (No Comment) */
 "Sensor connection" = "Sensor connection";

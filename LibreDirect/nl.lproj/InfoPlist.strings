@@ -5,19 +5,19 @@
 "CFBundleName" = "Glucose Direct";
 
 /* Privacy - NFC Scan Usage Description */
-"NFCReaderUsageDescription" = "The NFC function is required to read out all connection settings before a Bluetooth connection.";
+"NFCReaderUsageDescription" = "De NFC-functie is nodig om alle verbindingsinstellingen uit te lezen voordat een Bluetooth-verbinding tot stand komt.";
 
 /* Privacy - Bluetooth Always Usage Description */
-"NSBluetoothAlwaysUsageDescription" = "The Bluetooth function is needed to connect to the supported devices.";
+"NSBluetoothAlwaysUsageDescription" = "De Bluetooth-functie is nodig om verbinding te maken met de ondersteunde apparaten.";
 
 /* Privacy - Bluetooth Peripheral Usage Description */
-"NSBluetoothPeripheralUsageDescription" = "The Bluetooth function is needed to connect to the supported devices.";
+"NSBluetoothPeripheralUsageDescription" = "De Bluetooth-functie is nodig om verbinding te maken met de ondersteunde apparaten.";
 
 /* Privacy - Calendars Usage Description */
-"NSCalendarsUsageDescription" = "Access to the calendar is required to display up-to-date glucose values on the Apple Watch.";
+"NSCalendarsUsageDescription" = "Toegang tot de agenda is vereist om actuele glucosewaarden op de Apple Watch weer te geven.";
 
 /* Privacy - Health Share Usage Description */
-"NSHealthShareUsageDescription" = "Access to Apple Health is required if glucose data should be exported.";
+"NSHealthShareUsageDescription" = "Toegang tot Apple Health is vereist als glucosegegevens moeten worden geëxporteerd.";
 
 /* Privacy - Health Update Usage Description */
-"NSHealthUpdateUsageDescription" = "Access to Apple Health is required if glucose data should be exported.";
+"NSHealthUpdateUsageDescription" = "Toegang tot Apple Health is vereist als glucosegegevens moeten worden geëxporteerd.";
