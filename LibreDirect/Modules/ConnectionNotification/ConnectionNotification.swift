@@ -92,7 +92,7 @@ private class ConnectionNotificationService {
             notification.title = LocalizedString("Alert, sensor connection lost")
 
             if errorIsCritical {
-                notification.interruptionLevel = .critical
+                notification.interruptionLevel = .timeSensitive
                 notification.body = LocalizedString("The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor.")
             } else {
                 notification.interruptionLevel = .passive

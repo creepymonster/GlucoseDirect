@@ -163,7 +163,7 @@ private class GlucoseNotificationService {
             let notification = UNMutableNotificationContent()
             notification.sound = .none
             notification.userInfo = self.actions
-            notification.interruptionLevel = sound == .none ? .passive : .critical
+            notification.interruptionLevel = sound == .none ? .passive : .timeSensitive
 
             if glucoseUnit == .mgdL {
                 notification.badge = glucoseValue as NSNumber
@@ -200,7 +200,7 @@ private class GlucoseNotificationService {
             let notification = UNMutableNotificationContent()
             notification.sound = .none
             notification.userInfo = self.actions
-            notification.interruptionLevel = sound == .none ? .passive : .critical
+            notification.interruptionLevel = sound == .none ? .passive : .timeSensitive
 
             if glucoseUnit == .mgdL {
                 notification.badge = glucoseValue as NSNumber
