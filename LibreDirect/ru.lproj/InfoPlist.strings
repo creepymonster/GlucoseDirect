@@ -1,8 +1,8 @@
 /* Bundle display name */
-"CFBundleDisplayName" = "Глюкоза прямая";
+"CFBundleDisplayName" = "Прямые глюкозы";
 
 /* Bundle name */
-"CFBundleName" = "Глюкоза прямая";
+"CFBundleName" = "Glucose Direct";
 
 /* Privacy - NFC Scan Usage Description */
 "NFCReaderUsageDescription" = "Функция NFC необходима для считывания всех настроек соединения перед подключением Bluetooth.";
@@ -17,7 +17,7 @@
 "NSCalendarsUsageDescription" = "Доступ к календарю необходим для отображения актуальных значений глюкозы на Apple Watch.";
 
 /* Privacy - Health Share Usage Description */
-"NSHealthShareUsageDescription" = "Access to Apple Health is required if glucose data should be exported.";
+"NSHealthShareUsageDescription" = "Для экспорта данных о глюкозе необходим доступ к Apple Health.";
 
 /* Privacy - Health Update Usage Description */
-"NSHealthUpdateUsageDescription" = "Access to Apple Health is required if glucose data should be exported.";
+"NSHealthUpdateUsageDescription" = "Для экспорта данных о глюкозе необходим доступ к Apple Health.";
