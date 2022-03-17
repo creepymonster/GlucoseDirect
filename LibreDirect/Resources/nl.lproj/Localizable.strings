@@ -179,7 +179,7 @@
 "Libre US 14d" = "Libre US 14d";
 
 /* (No Comment) */
-"Lower limit" = "Low";
+"Lower limit" = "Laag";
 
 /* (No Comment) */
 "mg/dL" = "mg/dL";
@@ -188,7 +188,7 @@
 "mmol/L" = "mmol/L";
 
 /* (No Comment) */
-"New calibration" = "New calibration";
+"New calibration" = "Nieuwe kalibratie";
 
 /* (No Comment) */
 "Nightscout API-Secret" = "API-Secret";
@@ -197,7 +197,7 @@
 "Nightscout url" = "Url";
 
 /* (No Comment) */
-"Nightscout settings" = "Nightscout settings";
+"Nightscout settings" = "Nightscout instellingen";
 
 /* (No Comment) */
 "Nightscout upload enabled" = "Upload";
@@ -206,7 +206,7 @@
 "Now" = "Now";
 
 /* (No Comment) */
-"OK, sensor connection established" = "OK, sensor connection established";
+"OK, sensor connection established" = "OK, sensorverbinding tot stand gebracht";
 
 /* (No Comment) */
 "Pair sensor" = "Pair sensor";
