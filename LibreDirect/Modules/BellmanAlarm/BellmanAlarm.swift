@@ -170,6 +170,11 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
     }
 
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        guard manager != nil else {
+            AppLog.error("Guard: manager is nil")
+            return
+        }
+
         switch manager.state {
         case .poweredOff:
             AppLog.info("PoweredOff")

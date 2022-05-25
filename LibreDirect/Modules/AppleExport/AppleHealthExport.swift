@@ -47,15 +47,15 @@ private func appleHealthExportMiddleware(service: LazyService<AppleHealthExportS
                 break
             }
 
-            if glucoseValues.count > 1 {
-                let filteredGlucoseValues = glucoseValues.filter { glucose in
-                    glucose.type != .none
-                }
-
-                service.value.addGlucose(glucoseValues: filteredGlucoseValues)
-            } else if let glucose = glucoseValues.first, (glucose.type == .cgm && glucose.is5Minutely || state.sensorInterval > 1) || glucose.type == .bgm {
-                service.value.addGlucose(glucoseValues: [glucose])
+            let filteredGlucoseValues = glucoseValues.filter { glucose in
+                glucose.type != .none
             }
+
+            guard !filteredGlucoseValues.isEmpty else {
+                break
+            }
+
+            service.value.addGlucose(glucoseValues: filteredGlucoseValues)
 
         default:
             break
@@ -80,9 +80,11 @@ private class AppleHealthExportService {
 
     // MARK: Internal
 
-    static var glucoseType = HKObjectType.quantityType(forIdentifier: .bloodGlucose)!
+    var glucoseType: HKQuantityType {
+        HKObjectType.quantityType(forIdentifier: .bloodGlucose)!
+    }
 
-    static var requiredPermissions: Set<HKSampleType> {
+    var requiredPermissions: Set<HKSampleType> {
         Set([glucoseType].compactMap { $0 })
     }
 
@@ -91,7 +93,11 @@ private class AppleHealthExportService {
     }
 
     func requestAccess(completionHandler: @escaping AppleHealthExportHandler) {
-        healthStore?.requestAuthorization(toShare: AppleHealthExportService.requiredPermissions, read: nil) { granted, error in
+        guard let healthStore = healthStore else {
+            return
+        }
+
+        healthStore.requestAuthorization(toShare: requiredPermissions, read: nil) { granted, error in
             if granted, error == nil {
                 completionHandler(true)
             } else {
@@ -101,7 +107,16 @@ private class AppleHealthExportService {
     }
 
     func addGlucose(glucoseValues: [Glucose]) {
-        healthStore?.requestAuthorization(toShare: AppleHealthExportService.requiredPermissions, read: nil) { granted, error in
+        guard !glucoseValues.isEmpty else {
+            AppLog.info("Guard: glucoseValues.count not > 0")
+            return
+        }
+
+        guard let healthStore = healthStore else {
+            return
+        }
+
+        healthStore.requestAuthorization(toShare: requiredPermissions, read: nil) { granted, error in
             guard granted else {
                 AppLog.info("Guard: HKHealthStore.requestAuthorization failed, error: \(error?.localizedDescription)")
                 return
@@ -109,7 +124,7 @@ private class AppleHealthExportService {
 
             let healthGlucoseValues = glucoseValues.map {
                 HKQuantitySample(
-                    type: AppleHealthExportService.glucoseType,
+                    type: self.glucoseType,
                     quantity: HKQuantity(unit: .milligramsPerDeciliter, doubleValue: Double($0.glucoseValue!)),
                     start: $0.timestamp,
                     end: $0.timestamp,
@@ -121,7 +136,12 @@ private class AppleHealthExportService {
                 )
             }
 
-            self.healthStore?.save(healthGlucoseValues) { success, error in
+            guard !healthGlucoseValues.isEmpty else {
+                AppLog.info("Guard: healthGlucoseValues.count not > 0")
+                return
+            }
+
+            healthStore.save(healthGlucoseValues) { success, error in
                 if !success {
                     AppLog.info("Guard: Writing data to apple health store failed, error: \(error?.localizedDescription)")
                 }
@@ -141,7 +161,5 @@ private class AppleHealthExportService {
 }
 
 private extension HKUnit {
-    static let milligramsPerDeciliter: HKUnit = {
-        HKUnit.gramUnit(with: .milli).unitDivided(by: .literUnit(with: .deci))
-    }()
+    static let milligramsPerDeciliter: HKUnit = HKUnit.gramUnit(with: .milli).unitDivided(by: .literUnit(with: .deci))
 }

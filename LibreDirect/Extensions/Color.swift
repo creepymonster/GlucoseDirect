@@ -15,33 +15,13 @@ extension Color {
     }
 
     struct UI {
-        let red = Color(hex: "#FF5722")
-        let green = Color(hex: "#42B549")
-        let blue = Color(hex: "#3094C3")
-    }
+        // #FF5722, R 255, G 87, B 34
+        let red = Color(.sRGB, red: 1.0, green: 0.34, blue: 0.13)
 
-    init(hex: String) {
-        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-        var int: UInt64 = 0
-        Scanner(string: hex).scanHexInt64(&int)
-        let a, r, g, b: UInt64
-        switch hex.count {
-        case 3: // RGB (12-bit)
-            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
-        case 6: // RGB (24-bit)
-            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
-        case 8: // ARGB (32-bit)
-            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
-        default:
-            (a, r, g, b) = (1, 1, 1, 0)
-        }
+        // #42B549, R 66, G 181, B 73
+        let green = Color(.sRGB, red: 0.26, green: 0.71, blue: 0.29)
 
-        self.init(
-            .sRGB,
-            red: Double(r) / 255,
-            green: Double(g) / 255,
-            blue: Double(b) / 255,
-            opacity: Double(a) / 255
-        )
+        // #3094C3, R 48, G 148, B 195
+        let blue = Color(.sRGB, red: 0.19, green: 0.58, blue: 0.76)
     }
 }

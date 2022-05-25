@@ -19,13 +19,23 @@ struct GlucoseView: View {
                     if let glucoseValue = currentGlucose.glucoseValue {
                         VStack(alignment: .trailing, spacing: 0) {
                             HStack(alignment: .lastTextBaseline) {
-                                Text(glucoseValue.asGlucose(unit: store.state.glucoseUnit))
-                                    .font(.system(size: 96))
+                                if currentGlucose.isHIGH {
+                                    Text("HIGH")
+                                        .font(.system(size: 96))
+                                        .foregroundColor(Color.ui.red)
+                                } else if currentGlucose.isLOW {
+                                    Text("LOW")
+                                        .font(.system(size: 96))
+                                        .foregroundColor(Color.ui.red)
+                                } else {
+                                    Text(glucoseValue.asGlucose(unit: store.state.glucoseUnit))
+                                        .font(.system(size: 96))
 
-                                VStack(alignment: .leading) {
-                                    Text(currentGlucose.trend.description).font(.system(size: 48))
+                                    VStack(alignment: .leading) {
+                                        Text(currentGlucose.trend.description).font(.system(size: 48))
 
-                                    Text(store.state.glucoseUnit.localizedString)
+                                        Text(store.state.glucoseUnit.localizedString)
+                                    }
                                 }
                             }.foregroundColor(glucoseForegroundColor)
 

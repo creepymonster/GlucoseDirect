@@ -80,13 +80,21 @@ final class Glucose: CustomStringConvertible, Codable, Identifiable {
             return nil
         }
 
-        if calibratedGlucoseValue < AppConfig.minReadableGlucose {
+        if calibratedGlucoseValue <= AppConfig.minReadableGlucose {
             return AppConfig.minReadableGlucose
-        } else if calibratedGlucoseValue > AppConfig.maxReadableGlucose {
+        } else if calibratedGlucoseValue >= AppConfig.maxReadableGlucose {
             return AppConfig.maxReadableGlucose
         }
 
         return calibratedGlucoseValue
+    }
+
+    var isHIGH: Bool {
+        glucoseValue == AppConfig.maxReadableGlucose
+    }
+
+    var isLOW: Bool {
+        glucoseValue == AppConfig.minReadableGlucose
     }
 
     var description: String {

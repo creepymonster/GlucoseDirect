@@ -31,15 +31,15 @@ private func nightscoutMiddleware(service: LazyService<NightscoutService>) -> Mi
                 service.value.clearGlucoseValues(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1())
 
             case .addGlucoseValues(glucoseValues: let glucoseValues):
-                if glucoseValues.count > 1 {
-                    let filteredGlucoseValues = glucoseValues.filter { glucose in
-                        glucose.type != .none
-                    }
-
-                    service.value.addGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: filteredGlucoseValues)
-                } else if let glucose = glucoseValues.first, (glucose.type == .cgm && glucose.is5Minutely || state.sensorInterval > 1) || glucose.type == .bgm {
-                    service.value.addGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: [glucose])
+                let filteredGlucoseValues = glucoseValues.filter { glucose in
+                    glucose.type != .none
                 }
+
+                guard !filteredGlucoseValues.isEmpty else {
+                    break
+                }
+
+                service.value.addGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: filteredGlucoseValues)
 
             case .setSensorState(sensorAge: _, sensorState: _):
                 guard let sensor = state.sensor, sensor.startTimestamp != nil else {
@@ -319,32 +319,10 @@ private extension Glucose {
             nightscout["type"] = "sgv"
             nightscout["sgv"] = glucoseValue
             nightscout["rawbg"] = initialGlucoseValue
-            nightscout["direction"] = trend.toNightscout()
+            nightscout["direction"] = trend.toNightscoutDirection()
+            nightscout["trend"] = trend.toNightscoutTrend()
         }
 
         return nightscout
-    }
-}
-
-private extension SensorTrend {
-    func toNightscout() -> String {
-        switch self {
-        case .rapidlyRising:
-            return "DoubleUp"
-        case .fastRising:
-            return "SingleUp"
-        case .rising:
-            return "FortyFiveUp"
-        case .constant:
-            return "Flat"
-        case .falling:
-            return "FortyFiveDown"
-        case .fastFalling:
-            return "SingleDown"
-        case .rapidlyFalling:
-            return "DoubleDown"
-        case .unknown:
-            return "NONE"
-        }
     }
 }

@@ -44,9 +44,9 @@ final class SensorReading: CustomStringConvertible, Codable {
         let minReadableGlucose = Double(AppConfig.minReadableGlucose)
         let maxReadableGlucose = Double(AppConfig.maxReadableGlucose)
 
-        if readGlucoseValue < minReadableGlucose {
+        if readGlucoseValue <= minReadableGlucose {
             return minReadableGlucose
-        } else if readGlucoseValue > maxReadableGlucose {
+        } else if readGlucoseValue >= maxReadableGlucose {
             return maxReadableGlucose
         }
 

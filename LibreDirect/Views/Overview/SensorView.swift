@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SensorView: View {
     // MARK: Internal
-    
+
     @Environment(\.colorScheme) var colorScheme
 
     @EnvironmentObject var store: AppStore
@@ -231,7 +231,7 @@ struct SensorView: View {
     private enum Config {
         static let size: CGFloat = 20
 
-        static var color: Color { Color(hex: "#E4E6EB") | Color(hex: "#404040") }
+        static var color: Color { Color(.sRGB, red: 0.89, green: 0.90, blue: 0.92) | Color(.sRGB, red: 0.25, green: 0.25, blue: 0.25) }
     }
 
     private var batteryEndAngle: Double? {

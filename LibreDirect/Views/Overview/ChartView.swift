@@ -203,14 +203,14 @@ struct ChartView: View {
         enum dot {
             static let size: CGFloat = 3.5
 
-            static var cgmColor: Color { Color(hex: "#36454F") | Color(hex: "#E5E4E2") }
+            static var cgmColor: Color { Color(.sRGB, red: 0.21, green: 0.27, blue: 0.31) | Color(.sRGB, red: 0.90, green: 0.89, blue: 0.89) }
             static var bgmColor: Color { Color.ui.red }
         }
 
         enum line {
             static var size = 2.5
 
-            static var cgmColor: Color { Color(hex: "#36454F") | Color(hex: "#E5E4E2") }
+            static var cgmColor: Color { Color(.sRGB, red: 0.21, green: 0.27, blue: 0.31) | Color(.sRGB, red: 0.90, green: 0.89, blue: 0.89) }
             static var bgmColor: Color { Color.ui.red }
         }
 
@@ -219,8 +219,8 @@ struct ChartView: View {
             static let strokeStyle = StrokeStyle(lineWidth: lineWidth)
             static let stepWidth: Double = 5
 
-            static var color: Color { Color(hex: "#E4E6EB") | Color(hex: "#404040") } // .opacity(opacity)
-            static var textColor: Color { Color(hex: "#181818") | Color(hex: "#A0A0A0") }
+            static var color: Color { Color(.sRGB, red: 0.89, green: 0.90, blue: 0.92) | Color(.sRGB, red: 0.25, green: 0.25, blue: 0.25) } // .opacity(opacity)
+            static var textColor: Color { Color(.sRGB, red: 0.09, green: 0.09, blue: 0.09) | Color(.sRGB, red: 0.63, green: 0.63, blue: 0.63) }
         }
 
         enum y {
@@ -230,11 +230,11 @@ struct ChartView: View {
             static let padding: CGFloat = 20
             static let strokeStyle = StrokeStyle(lineWidth: lineWidth)
 
-            static let mgdLGrid: [Int] = [0, 50, 100, 150, 200, 250, 300, 350]
-            static let mmolLGrid: [Int] = [0, 54, 108, 162, 216, 270, 324]
+            static let mgdLGrid: [Int] = [0, 50, 100, 150, 200, 250, 300, 350, 400]
+            static let mmolLGrid: [Int] = [0, 54, 108, 162, 216, 270, 324, 378]
 
-            static var color: Color { Color(hex: "#E4E6EB") | Color(hex: "#404040") }
-            static var textColor: Color { Color(hex: "#181818") | Color(hex: "#A0A0A0") }
+            static var color: Color { Color(.sRGB, red: 0.89, green: 0.90, blue: 0.92) | Color(.sRGB, red: 0.25, green: 0.25, blue: 0.25) }
+            static var textColor: Color { Color(.sRGB, red: 0.09, green: 0.09, blue: 0.09) | Color(.sRGB, red: 0.63, green: 0.63, blue: 0.63) }
         }
 
         static let zoomGridStep: [Int: Double] = [
@@ -254,11 +254,11 @@ struct ChartView: View {
         static let endID = "End"
         static let height: CGFloat = 350
         static let lineWidth = 0.1
-        static let maxGlucose = 350
+        static let maxGlucose = 400
         static let minGlucose = 0
         static let opacity = 0.5
 
-        static var backgroundColor: Color { Color(hex: "#F5F5F5") | Color(hex: "#181818") }
+        static var backgroundColor: Color { Color(.sRGB, red: 0.96, green: 0.96, blue: 0.96) | Color(.sRGB, red: 0.09, green: 0.09, blue: 0.09) }
     }
 
     private let calculationQueue = DispatchQueue(label: "libre-direct.chart-calculation")
@@ -673,7 +673,7 @@ struct ChartView: View {
 
             var yGridTexts: [TextInfo] = []
             for i in gridParts {
-                if i < AppConfig.minReadableGlucose {
+                if i <= AppConfig.minReadableGlucose {
                     continue
                 }
 

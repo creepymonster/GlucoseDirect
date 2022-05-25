@@ -83,56 +83,12 @@ private extension Glucose {
 
         let freeAPSGlucose: [String: Any] = [
             "Value": glucoseValue,
-            "Trend": trend.toFreeAPS(),
+            "Trend": trend.toNightscoutTrend(),
             "DT": date,
-            "direction": trend.toFreeAPSX(),
+            "direction": trend.toNightscoutDirection(),
             "from": AppConfig.projectName
         ]
 
         return freeAPSGlucose
-    }
-}
-
-private extension SensorTrend {
-    func toFreeAPS() -> Int {
-        switch self {
-        case .rapidlyRising:
-            return 1
-        case .fastRising:
-            return 2
-        case .rising:
-            return 3
-        case .constant:
-            return 4
-        case .falling:
-            return 5
-        case .fastFalling:
-            return 6
-        case .rapidlyFalling:
-            return 7
-        case .unknown:
-            return 0
-        }
-    }
-
-    func toFreeAPSX() -> String {
-        switch self {
-        case .rapidlyRising:
-            return "DoubleUp"
-        case .fastRising:
-            return "SingleUp"
-        case .rising:
-            return "FortyFiveUp"
-        case .constant:
-            return "Flat"
-        case .falling:
-            return "FortyFiveDown"
-        case .fastFalling:
-            return "SingleDown"
-        case .rapidlyFalling:
-            return "DoubleDown"
-        case .unknown:
-            return "NONE"
-        }
     }
 }

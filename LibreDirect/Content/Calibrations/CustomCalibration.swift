@@ -113,11 +113,11 @@ extension Array where Element == CustomCalibration {
     private func linearRegression(_ x: Double) -> Double {
         let result = intercept + slope * x
 
-        if result < minReadableGlucose {
+        if result <= minReadableGlucose {
             return minReadableGlucose
         }
 
-        if result > maxReadableGlucose {
+        if result >= maxReadableGlucose {
             return maxReadableGlucose
         }
 

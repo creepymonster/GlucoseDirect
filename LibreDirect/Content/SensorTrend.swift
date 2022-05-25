@@ -34,6 +34,50 @@ enum SensorTrend: String, Codable {
     }
 }
 
+extension SensorTrend {
+    func toNightscoutTrend() -> Int {
+        switch self {
+        case .rapidlyRising:
+            return 1
+        case .fastRising:
+            return 2
+        case .rising:
+            return 3
+        case .constant:
+            return 4
+        case .falling:
+            return 5
+        case .fastFalling:
+            return 6
+        case .rapidlyFalling:
+            return 7
+        case .unknown:
+            return 0
+        }
+    }
+
+    func toNightscoutDirection() -> String {
+        switch self {
+        case .rapidlyRising:
+            return "DoubleUp"
+        case .fastRising:
+            return "SingleUp"
+        case .rising:
+            return "FortyFiveUp"
+        case .constant:
+            return "Flat"
+        case .falling:
+            return "FortyFiveDown"
+        case .fastFalling:
+            return "SingleDown"
+        case .rapidlyFalling:
+            return "DoubleDown"
+        case .unknown:
+            return "NONE"
+        }
+    }
+}
+
 private func translateSlope(slope: Double) -> SensorTrend {
     if slope > 3.5 {
         return .rapidlyRising
