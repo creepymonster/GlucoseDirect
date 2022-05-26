@@ -26,7 +26,7 @@ protocol AppState {
     var connectionState: SensorConnectionState { get set }
     var customCalibration: [CustomCalibration] { get set }
     var expiringAlarmSound: NotificationSound { get set }
-    var glucoseBadge: Bool { get set }
+    var glucoseNotification: Bool { get set }
     var glucoseUnit: GlucoseUnit { get set }
     var glucoseValues: [Glucose] { get set }
     var highGlucoseAlarmSound: NotificationSound { get set }

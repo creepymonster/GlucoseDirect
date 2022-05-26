@@ -18,7 +18,7 @@ private enum Keys: String {
     case connectionAlarmSound = "libre-direct.settings.connection-alarm-sound"
     case customCalibration = "libre-direct.settings.custom-calibration"
     case expiringAlarmSound = "libre-direct.settings.expiring-alarm-sound"
-    case glucoseBadge = "libre-direct.settings.glucose-badge"
+    case glucoseNotification = "libre-direct.settings.glucose-badge"
     case glucoseUnit = "libre-direct.settings.glucose-unit"
     case glucoseValues = "libre-direct.settings.glucose-value-array"
     case highGlucoseAlarmSound = "libre-direct.settings.high-glucose-alarm-sound"
@@ -213,16 +213,16 @@ extension UserDefaults {
         }
     }
 
-    var glucoseBadge: Bool {
+    var glucoseNotification: Bool {
         get {
-            if object(forKey: Keys.glucoseBadge.rawValue) != nil {
-                return bool(forKey: Keys.glucoseBadge.rawValue)
+            if object(forKey: Keys.glucoseNotification.rawValue) != nil {
+                return bool(forKey: Keys.glucoseNotification.rawValue)
             }
 
             return true
         }
         set {
-            set(newValue, forKey: Keys.glucoseBadge.rawValue)
+            set(newValue, forKey: Keys.glucoseNotification.rawValue)
         }
     }
 

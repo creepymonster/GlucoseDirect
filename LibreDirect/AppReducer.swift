@@ -173,8 +173,8 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setExpiringAlarmSound(sound: let sound):
         state.expiringAlarmSound = sound
                
-    case .setGlucoseBadge(enabled: let enabled):
-        state.glucoseBadge = enabled
+    case .setGlucoseNotification(enabled: let enabled):
+        state.glucoseNotification = enabled
         
     case .setGlucoseUnit(unit: let unit):
         state.glucoseUnit = unit

@@ -17,61 +17,6 @@ struct SensorView: View {
 
     var body: some View {
         Group {
-            if let transmitter = store.state.transmitter {
-                Section(
-                    content: {
-                        HStack {
-                            Text("Transmitter name")
-                            Spacer()
-                            Text(transmitter.name)
-                        }
-
-                        HStack {
-                            Text("Transmitter battery")
-                            Spacer()
-                            Text(transmitter.battery.description)
-
-                            if let endAngle = batteryEndAngle {
-                                ZStack {
-                                    GeometryReader { geo in
-                                        Circle()
-                                            .fill(Config.color)
-                                            .position(x: geo.size.width / 2, y: geo.size.height / 2)
-                                            .frame(width: geo.size.width, height: geo.size.width)
-
-                                        Path { path in
-                                            path.move(to: CGPoint(x: geo.size.width / 2, y: geo.size.height / 2))
-                                            path.addArc(center: CGPoint(x: geo.size.width / 2, y: geo.size.height / 2), radius: geo.size.width / 2, startAngle: .degrees(0), endAngle: .degrees(endAngle), clockwise: false)
-                                        }
-                                        .rotation(.degrees(-90))
-                                        .fill(Color.accentColor)
-                                    }
-                                }.frame(width: Config.size, height: Config.size)
-                            }
-                        }
-
-                        if let hardware = transmitter.hardware {
-                            HStack {
-                                Text("Transmitter hardware")
-                                Spacer()
-                                Text(hardware.description)
-                            }
-                        }
-
-                        if let firmware = transmitter.firmware {
-                            HStack {
-                                Text("Transmitter firmware")
-                                Spacer()
-                                Text(firmware.description)
-                            }
-                        }
-                    },
-                    header: {
-                        Label("Transmitter Details", systemImage: "antenna.radiowaves.left.and.right.circle")
-                    }
-                )
-            }
-
             if let sensor = store.state.sensor {
                 Section(
                     content: {
@@ -214,6 +159,61 @@ struct SensorView: View {
                     },
                     header: {
                         Label("Sensor details", systemImage: "text.magnifyingglass")
+                    }
+                )
+            }
+
+            if let transmitter = store.state.transmitter {
+                Section(
+                    content: {
+                        HStack {
+                            Text("Transmitter name")
+                            Spacer()
+                            Text(transmitter.name)
+                        }
+
+                        HStack {
+                            Text("Transmitter battery")
+                            Spacer()
+                            Text(transmitter.battery.description)
+
+                            if let endAngle = batteryEndAngle {
+                                ZStack {
+                                    GeometryReader { geo in
+                                        Circle()
+                                            .fill(Config.color)
+                                            .position(x: geo.size.width / 2, y: geo.size.height / 2)
+                                            .frame(width: geo.size.width, height: geo.size.width)
+
+                                        Path { path in
+                                            path.move(to: CGPoint(x: geo.size.width / 2, y: geo.size.height / 2))
+                                            path.addArc(center: CGPoint(x: geo.size.width / 2, y: geo.size.height / 2), radius: geo.size.width / 2, startAngle: .degrees(0), endAngle: .degrees(endAngle), clockwise: false)
+                                        }
+                                        .rotation(.degrees(-90))
+                                        .fill(Color.accentColor)
+                                    }
+                                }.frame(width: Config.size, height: Config.size)
+                            }
+                        }
+
+                        if let hardware = transmitter.hardware {
+                            HStack {
+                                Text("Transmitter hardware")
+                                Spacer()
+                                Text(hardware.description)
+                            }
+                        }
+
+                        if let firmware = transmitter.firmware {
+                            HStack {
+                                Text("Transmitter firmware")
+                                Spacer()
+                                Text(firmware.description)
+                            }
+                        }
+                    },
+                    header: {
+                        Label("Transmitter Details", systemImage: "antenna.radiowaves.left.and.right.circle")
                     }
                 )
             }

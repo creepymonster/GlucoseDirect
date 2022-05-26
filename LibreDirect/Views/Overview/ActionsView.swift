@@ -14,24 +14,39 @@ struct ActionsView: View {
 
     var body: some View {
         if store.state.hasSelectedConnection {
-            Button(
-                action: {
-                    withAnimation {
-                        if store.state.isDisconnectable {
-                            store.dispatch(.disconnectSensor)
+            if store.state.isTransmitter && !store.state.isPaired {
+                Button(
+                    action: {
+                        withAnimation {
+                            if store.state.isDisconnectable {
+                                store.dispatch(.disconnectSensor)
+                            }
+
+                            store.dispatch(.pairSensor)
                         }
-                        
-                        store.dispatch(.pairSensor)
-                    }
-                },
-                label: {
-                    if store.state.isTransmitter {
+                    },
+                    label: {
                         Label("Find transmitter", systemImage: "magnifyingglass")
-                    } else {
+                    }
+                )
+            }
+
+            if store.state.isSensor {
+                Button(
+                    action: {
+                        withAnimation {
+                            if store.state.isDisconnectable {
+                                store.dispatch(.disconnectSensor)
+                            }
+
+                            store.dispatch(.pairSensor)
+                        }
+                    },
+                    label: {
                         Label("Scan sensor", systemImage: "viewfinder")
                     }
-                }
-            )
+                )
+            }
 
             if store.state.isPaired {
                 if store.state.isConnectable {

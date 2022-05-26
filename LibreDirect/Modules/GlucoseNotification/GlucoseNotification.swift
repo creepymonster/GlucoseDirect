@@ -27,7 +27,7 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
                 service.value.clear()
             }
 
-        case .setGlucoseBadge(enabled: let enabled):
+        case .setGlucoseNotification(enabled: let enabled):
             if !enabled {
                 service.value.clear()
             }
@@ -37,7 +37,7 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
                 break
             }
 
-            service.value.setGlucoseBadge(glucose: glucose, glucoseUnit: unit)
+            service.value.setGlucoseNotification(glucose: glucose, glucoseUnit: unit)
 
         case .addGlucoseValues(glucoseValues: let glucoseValues):
             guard let glucose = glucoseValues.last else {
@@ -84,8 +84,8 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
                         .eraseToAnyPublisher()
                 }
 
-            } else if state.glucoseBadge {
-                service.value.setGlucoseBadge(glucose: glucose, glucoseUnit: state.glucoseUnit)
+            } else if state.glucoseNotification {
+                service.value.setGlucoseNotification(glucose: glucose, glucoseUnit: state.glucoseUnit)
             }
 
         default:
@@ -116,7 +116,7 @@ private class GlucoseNotificationService {
         UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [Identifier.sensorGlucoseAlarm.rawValue])
     }
 
-    func setGlucoseBadge(glucose: Glucose, glucoseUnit: GlucoseUnit) {
+    func setGlucoseNotification(glucose: Glucose, glucoseUnit: GlucoseUnit) {
         NotificationService.shared.ensureCanSendNotification { state in
             AppLog.info("Glucose info, state: \(state)")
 

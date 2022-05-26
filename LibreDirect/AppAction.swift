@@ -40,7 +40,7 @@ enum AppAction {
     case setConnectionError(errorMessage: String, errorTimestamp: Date, errorIsCritical: Bool)
     case setConnectionState(connectionState: SensorConnectionState)
     case setExpiringAlarmSound(sound: NotificationSound)
-    case setGlucoseBadge(enabled: Bool)
+    case setGlucoseNotification(enabled: Bool)
     case setGlucoseUnit(unit: GlucoseUnit)
     case setHighGlucoseAlarmSound(sound: NotificationSound)
     case setIgnoreMute(enabled: Bool)

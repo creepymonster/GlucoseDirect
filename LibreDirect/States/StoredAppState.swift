@@ -42,7 +42,7 @@ struct UserDefaultsState: AppState {
         self.chartZoomLevel = UserDefaults.standard.chartZoomLevel
         self.customCalibration = UserDefaults.standard.customCalibration
         self.glucoseValues = UserDefaults.standard.glucoseValues
-        self.glucoseBadge = UserDefaults.standard.glucoseBadge
+        self.glucoseNotification = UserDefaults.standard.glucoseNotification
         self.glucoseUnit = UserDefaults.standard.glucoseUnit
         self.isPaired = UserDefaults.standard.isPaired
         self.ignoreMute = UserDefaults.standard.ignoreMute
@@ -144,9 +144,9 @@ struct UserDefaultsState: AppState {
         }
     }
 
-    var glucoseBadge: Bool {
+    var glucoseNotification: Bool {
         didSet {
-            UserDefaults.standard.glucoseBadge = glucoseBadge
+            UserDefaults.standard.glucoseNotification = glucoseNotification
         }
     }
 

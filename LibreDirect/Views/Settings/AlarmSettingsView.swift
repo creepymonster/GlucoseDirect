@@ -15,10 +15,6 @@ struct AlarmSettingsView: View {
     var body: some View {
         Section(
             content: {
-                ToggleView(key: LocalizedString("Ignore mute"), value: store.state.ignoreMute) { value -> Void in
-                    store.dispatch(.setIgnoreMute(enabled: value))
-                }
-                
                 HStack {
                     Text("Low glucose alarm")
                     Spacer()
@@ -31,7 +27,7 @@ struct AlarmSettingsView: View {
                     .pickerStyle(.menu)
                     .labelsHidden()
                 }
-                
+
                 HStack {
                     Text("High glucose alarm")
                     Spacer()
@@ -44,7 +40,7 @@ struct AlarmSettingsView: View {
                     .pickerStyle(.menu)
                     .labelsHidden()
                 }
-                
+
                 HStack {
                     Text("Connection alarm")
                     Spacer()
@@ -57,7 +53,7 @@ struct AlarmSettingsView: View {
                     .pickerStyle(.menu)
                     .labelsHidden()
                 }
-                
+
                 HStack {
                     Text("Wearing time alarm")
                     Spacer()
@@ -70,9 +66,13 @@ struct AlarmSettingsView: View {
                     .pickerStyle(.menu)
                     .labelsHidden()
                 }
+
+                ToggleView(key: LocalizedString("Ignore mute"), value: store.state.ignoreMute) { value in
+                    store.dispatch(.setIgnoreMute(enabled: value))
+                }
             },
             header: {
-                Label("Alarm Settings", systemImage: "alarm")
+                Label("Alarm settings", systemImage: "alarm")
             }
         )
     }
@@ -84,7 +84,7 @@ struct AlarmSettingsView: View {
             get: { store.state.lowGlucoseAlarmSound.rawValue },
             set: {
                 let sound = NotificationSound(rawValue: $0)!
-                
+
                 store.dispatch(.setLowGlucoseAlarmSound(sound: sound))
                 NotificationService.shared.playSound(ignoreMute: true, sound: sound)
             }
@@ -96,7 +96,7 @@ struct AlarmSettingsView: View {
             get: { store.state.highGlucoseAlarmSound.rawValue },
             set: {
                 let sound = NotificationSound(rawValue: $0)!
-                
+
                 store.dispatch(.setHighGlucoseAlarmSound(sound: sound))
                 NotificationService.shared.playSound(ignoreMute: true, sound: sound)
             }
@@ -108,7 +108,7 @@ struct AlarmSettingsView: View {
             get: { store.state.connectionAlarmSound.rawValue },
             set: {
                 let sound = NotificationSound(rawValue: $0)!
-                
+
                 store.dispatch(.setConnectionAlarmSound(sound: sound))
                 NotificationService.shared.playSound(ignoreMute: true, sound: sound)
             }
@@ -120,7 +120,7 @@ struct AlarmSettingsView: View {
             get: { store.state.expiringAlarmSound.rawValue },
             set: {
                 let sound = NotificationSound(rawValue: $0)!
-                
+
                 store.dispatch(.setExpiringAlarmSound(sound: sound))
                 NotificationService.shared.playSound(ignoreMute: true, sound: sound)
             }
