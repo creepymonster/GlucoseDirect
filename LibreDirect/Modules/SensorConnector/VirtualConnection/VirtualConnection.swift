@@ -39,8 +39,8 @@ final class VirtualLibreConnection: SensorBLEConnection {
     }
 
     func connectSensor(sensor: Sensor, sensorInterval: Int) {
-        self.glucoseInterval = TimeInterval(sensorInterval * 60)
-        
+        glucoseInterval = TimeInterval(sensorInterval * 60)
+
         let fireDate = Date().toRounded(on: 1, .minute).addingTimeInterval(60)
         let timer = Timer(fire: fireDate, interval: glucoseInterval, repeats: true) { _ in
             AppLog.info("fires at \(Date())")
@@ -88,7 +88,7 @@ final class VirtualLibreConnection: SensorBLEConnection {
                 ? .INVALID_DATA
                 : .OK
 
-            sendUpdate(sensorSerial: sensor?.serial ?? "", nextReading: SensorReading(id: UUID(), timestamp: Date(), glucoseValue: Double(currentGlucose), quality: badQuality))
+            sendUpdate(sensorSerial: sensor?.serial ?? "", reading: SensorReading(id: UUID(), timestamp: Date(), glucoseValue: Double(currentGlucose), quality: badQuality))
         }
 
         let nextAddition = direction == .up ? 1 : -1

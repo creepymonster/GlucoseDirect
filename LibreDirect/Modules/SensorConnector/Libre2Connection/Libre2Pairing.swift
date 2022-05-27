@@ -154,8 +154,8 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
 
                         self.subject?.send(.setSensor(sensor: sensor))
 
-                        if sensor.state == .ready {
-                            self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", trendReadings: sensorReadings.trend, historyReadings: sensorReadings.history))
+                        if let lastSensorReading = sensorReadings.trend.last, sensor.state == .ready {
+                            self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", readings: [lastSensorReading]))
                         }
                     } else {
                         let streamingCmd = self.nfcCommand(.enableStreaming, unlockCode: self.unlockCode, patchInfo: patchInfo, sensorUID: sensorUID)
@@ -172,8 +172,8 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                         self.subject?.send(.setConnectionState(connectionState: .disconnected))
                         self.subject?.send(.setSensor(sensor: sensor, wasPaired: true))
 
-                        if sensor.state == .ready {
-                            self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", trendReadings: sensorReadings.trend, historyReadings: sensorReadings.history))
+                        if let lastSensorReading = sensorReadings.trend.last, sensor.state == .ready {
+                            self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", readings: [lastSensorReading]))
                         }
                     }
                 }

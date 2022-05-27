@@ -96,6 +96,12 @@ struct ListView: View {
 
                         DispatchQueue.main.async {
                             ids.forEach { id in
+                                if let index = glucoseValues.firstIndex(where: { value in
+                                    value.id == id
+                                }) {
+                                    glucoseValues.remove(at: index)
+                                }
+                                
                                 store.dispatch(.removeGlucose(id: id))
                             }
                         }

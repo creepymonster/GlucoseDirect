@@ -97,6 +97,12 @@ struct CustomCalibrationView: View {
 
                     DispatchQueue.main.async {
                         ids.forEach { id in
+                            if let index = customCalibration.firstIndex(where: { value in
+                                value.id == id
+                            }) {
+                                customCalibration.remove(at: index)
+                            }
+                            
                             store.dispatch(.removeCalibration(id: id))
                         }
                     }

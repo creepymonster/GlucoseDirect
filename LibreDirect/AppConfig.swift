@@ -38,7 +38,7 @@ enum AppConfig {
     }()
 
     static var minReadableGlucose: Int { 39 }
-    static var maxReadableGlucose: Int { 401 }
+    static var maxReadableGlucose: Int { 501 }
     static var expiredNotificationInterval: Double { 1 * 60 * 60 } // in seconds
     static var numberOfGlucoseValues: Int { 48 * 60 } // every minute a value
 }

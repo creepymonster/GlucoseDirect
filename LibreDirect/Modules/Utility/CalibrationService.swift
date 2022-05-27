@@ -10,39 +10,56 @@ import Foundation
 class CalibrationService {
     // MARK: Internal
 
-    func calibrate(customCalibration: [CustomCalibration], nextReading: SensorReading, currentGlucose: Glucose? = nil) -> Glucose {
-        if let nextGlucoseValue = nextReading.glucoseValue, nextReading.quality == .OK, !nextGlucoseValue.isNaN, !nextGlucoseValue.isInfinite {
-            let nextCalibratedGlucoseValue = calibrate(customCalibration: customCalibration, glucoseValue: nextGlucoseValue)
-            var nextMinuteChange: Double?
-
-            if let currentGlucose = currentGlucose, let currentGlucoseValue = currentGlucose.glucoseValue {
-                nextMinuteChange = calculateSlope(
-                    currentTimestamp: currentGlucose.timestamp,
-                    currentGlucoseValue: currentGlucoseValue,
-                    nextTimestamp: nextReading.timestamp,
-                    nextGlucoseValue: Int(nextCalibratedGlucoseValue)
-                )
-            }
-
-            let nextGlucose = Glucose(
-                id: nextReading.id,
-                timestamp: nextReading.timestamp,
-                minuteChange: nextMinuteChange,
-                initialGlucoseValue: Int(nextGlucoseValue),
-                calibratedGlucoseValue: Int(nextCalibratedGlucoseValue),
-                type: .cgm,
-                quality: nextReading.quality
-            )
-
+    func withMinuteChange(nextGlucose: Glucose, previousGlucose: Glucose? = nil) -> Glucose {
+        guard let nextGlucoseValue = nextGlucose.calibratedGlucoseValue else {
             return nextGlucose
         }
 
-        return Glucose(id: nextReading.id, timestamp: nextReading.timestamp, type: .none, quality: nextReading.quality)
+        guard let previousGlucose = previousGlucose else {
+            return nextGlucose
+        }
+
+        guard let previousGlucoseValue = previousGlucose.calibratedGlucoseValue else {
+            return nextGlucose
+        }
+
+        return Glucose(
+            id: nextGlucose.id,
+            timestamp: nextGlucose.timestamp,
+            minuteChange: minuteChange(previousTimestamp: previousGlucose.timestamp, previousGlucoseValue: previousGlucoseValue, nextTimestamp: nextGlucose.timestamp, nextGlucoseValue: nextGlucoseValue),
+            initialGlucoseValue: nextGlucose.initialGlucoseValue,
+            calibratedGlucoseValue: nextGlucose.calibratedGlucoseValue,
+            type: nextGlucose.type,
+            quality: nextGlucose.quality
+        )
+    }
+
+    func withCalibration(customCalibration: [CustomCalibration], reading: SensorReading) -> Glucose {
+        guard let glucoseValue = reading.glucoseValue else {
+            return Glucose(id: reading.id, timestamp: reading.timestamp, quality: reading.quality)
+        }
+
+        guard !glucoseValue.isNaN else {
+            return Glucose(id: reading.id, timestamp: reading.timestamp, quality: reading.quality)
+        }
+
+        guard !glucoseValue.isInfinite else {
+            return Glucose(id: reading.id, timestamp: reading.timestamp, quality: reading.quality)
+        }
+
+        return Glucose(
+            id: reading.id,
+            timestamp: reading.timestamp,
+            initialGlucoseValue: Int(glucoseValue),
+            calibratedGlucoseValue: Int(calibration(customCalibration: customCalibration, glucoseValue: glucoseValue)),
+            type: .cgm,
+            quality: reading.quality
+        )
     }
 
     // MARK: Private
 
-    private func calibrate(customCalibration: [CustomCalibration], glucoseValue: Double) -> Double {
+    private func calibration(customCalibration: [CustomCalibration], glucoseValue: Double) -> Double {
         let calibratedGlucoseValue = customCalibration.calibrate(sensorGlucose: glucoseValue)
 
         if calibratedGlucoseValue.isNaN || calibratedGlucoseValue.isInfinite {
@@ -52,19 +69,19 @@ class CalibrationService {
         return calibratedGlucoseValue
     }
 
-    private func calculateSlope(currentTimestamp: Date, currentGlucoseValue: Int, nextTimestamp: Date, nextGlucoseValue: Int) -> Double {
-        if currentTimestamp == nextTimestamp {
+    private func minuteChange(previousTimestamp: Date, previousGlucoseValue: Int, nextTimestamp: Date, nextGlucoseValue: Int) -> Double {
+        if previousTimestamp == nextTimestamp {
             return 0.0
         }
 
-        let glucoseDiff = Double(nextGlucoseValue) - Double(currentGlucoseValue)
-        let minutesDiff = calculateDiffInMinutes(old: currentTimestamp, new: nextTimestamp)
+        let glucoseDiff = Double(nextGlucoseValue) - Double(previousGlucoseValue)
+        let minutesDiff = calculateDiffInMinutes(previousTimestamp: previousTimestamp, nextTimestamp: nextTimestamp)
 
         return glucoseDiff / minutesDiff
     }
 
-    private func calculateDiffInMinutes(old: Date, new: Date) -> Double {
-        let diff = new.timeIntervalSince(old)
+    private func calculateDiffInMinutes(previousTimestamp: Date, nextTimestamp: Date) -> Double {
+        let diff = nextTimestamp.timeIntervalSince(previousTimestamp)
         return diff / 60
     }
 }

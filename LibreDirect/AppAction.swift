@@ -10,7 +10,7 @@ enum AppAction {
     case addCalibration(glucoseValue: Int)
     case addGlucoseValues(glucoseValues: [Glucose])
     case addMissedReading
-    case addSensorReadings(sensorSerial: String, trendReadings: [SensorReading], historyReadings: [SensorReading])
+    case addSensorReadings(sensorSerial: String, readings: [SensorReading])
     case bellmanTestAlarm
     case clearCalibrations
     case clearGlucoseValues

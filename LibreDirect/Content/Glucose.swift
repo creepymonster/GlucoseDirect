@@ -10,21 +10,21 @@ import Foundation
 final class Glucose: CustomStringConvertible, Codable, Identifiable {
     // MARK: Lifecycle
 
-    init(id: UUID, timestamp: Date, type: GlucoseValueType, quality: GlucoseQuality) {
+    init(id: UUID, timestamp: Date, quality: GlucoseQuality) {
         self.id = id
         self.timestamp = timestamp.toRounded(on: 1, .minute)
-
         self.minuteChange = nil
+
         self.calibratedGlucoseValue = nil
         self.initialGlucoseValue = nil
-        self.type = type
+
+        self.type = .none
         self.quality = quality
     }
 
     init(id: UUID, timestamp: Date, glucose: Int, type: GlucoseValueType, quality: GlucoseQuality = .OK) {
         self.id = id
         self.timestamp = timestamp.toRounded(on: 1, .minute)
-
         self.minuteChange = nil
 
         if quality == .OK {
@@ -39,10 +39,26 @@ final class Glucose: CustomStringConvertible, Codable, Identifiable {
         self.quality = quality
     }
 
-    init(id: UUID, timestamp: Date, minuteChange: Double?, initialGlucoseValue: Int, calibratedGlucoseValue: Int, type: GlucoseValueType, quality: GlucoseQuality = .OK) {
+    init(id: UUID, timestamp: Date, initialGlucoseValue: Int?, calibratedGlucoseValue: Int?, type: GlucoseValueType, quality: GlucoseQuality = .OK) {
         self.id = id
         self.timestamp = timestamp.toRounded(on: 1, .minute)
+        self.minuteChange = nil
 
+        if quality == .OK {
+            self.initialGlucoseValue = initialGlucoseValue
+            self.calibratedGlucoseValue = calibratedGlucoseValue
+        } else {
+            self.calibratedGlucoseValue = nil
+            self.initialGlucoseValue = nil
+        }
+
+        self.type = type
+        self.quality = quality
+    }
+
+    init(id: UUID, timestamp: Date, minuteChange: Double?, initialGlucoseValue: Int?, calibratedGlucoseValue: Int?, type: GlucoseValueType, quality: GlucoseQuality = .OK) {
+        self.id = id
+        self.timestamp = timestamp.toRounded(on: 1, .minute)
         self.minuteChange = minuteChange
 
         if quality == .OK {
@@ -76,25 +92,33 @@ final class Glucose: CustomStringConvertible, Codable, Identifiable {
     }
 
     var glucoseValue: Int? {
-        guard let calibratedGlucoseValue = calibratedGlucoseValue else {
+        guard let initialGlucoseValue = initialGlucoseValue else {
             return nil
         }
 
-        if calibratedGlucoseValue <= AppConfig.minReadableGlucose {
+        if initialGlucoseValue <= AppConfig.minReadableGlucose {
             return AppConfig.minReadableGlucose
-        } else if calibratedGlucoseValue >= AppConfig.maxReadableGlucose {
-            return AppConfig.maxReadableGlucose
+        } else if initialGlucoseValue >= AppConfig.maxReadableGlucose {
+            return nil
         }
 
         return calibratedGlucoseValue
     }
 
     var isHIGH: Bool {
-        glucoseValue == AppConfig.maxReadableGlucose
+        guard let initialGlucoseValue = initialGlucoseValue else {
+            return false
+        }
+
+        return initialGlucoseValue >= AppConfig.maxReadableGlucose
     }
 
     var isLOW: Bool {
-        glucoseValue == AppConfig.minReadableGlucose
+        guard let initialGlucoseValue = initialGlucoseValue else {
+            return false
+        }
+
+        return initialGlucoseValue <= AppConfig.minReadableGlucose
     }
 
     var description: String {

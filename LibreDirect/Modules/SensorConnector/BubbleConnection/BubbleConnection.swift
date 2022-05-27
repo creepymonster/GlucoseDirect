@@ -139,7 +139,7 @@ class BubbleConnection: SensorBLEConnectionBase, IsTransmitter {
 
                     if sensor.age > sensor.warmupTime {
                         let readings = SensorUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
-                        sendUpdate(sensorSerial: sensor.serial ?? "", trendReadings: readings.trend, historyReadings: readings.history)
+                        sendUpdate(sensorSerial: sensor.serial ?? "", readings: readings.trend.suffix(5))
                     }
                 }
 

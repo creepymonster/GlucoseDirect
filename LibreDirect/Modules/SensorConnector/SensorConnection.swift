@@ -58,22 +58,19 @@ extension SensorBLEConnection {
         subject?.send(.setSensorState(sensorAge: age, sensorState: state))
     }
 
-    func sendUpdate(sensorSerial: String, nextReading: SensorReading?) {
-        AppLog.info("NextReading: \(nextReading)")
-
-        if let nextReading = nextReading {
-            subject?.send(.addSensorReadings(sensorSerial: sensorSerial, trendReadings: [nextReading], historyReadings: []))
+    func sendUpdate(sensorSerial: String, reading: SensorReading?) {
+        if let reading = reading {
+            sendUpdate(sensorSerial: sensorSerial, readings: [reading])
         } else {
-            subject?.send(.addMissedReading)
+            sendUpdate(sensorSerial: sensorSerial, readings: [])
         }
     }
 
-    func sendUpdate(sensorSerial: String, trendReadings: [SensorReading] = [], historyReadings: [SensorReading] = []) {
-        AppLog.info("SensorTrendReadings: \(trendReadings)")
-        AppLog.info("SensorHistoryReadings: \(historyReadings)")
+    func sendUpdate(sensorSerial: String, readings: [SensorReading] = []) {
+        AppLog.info("SensorReadings: \(readings)")
 
-        if !trendReadings.isEmpty, !historyReadings.isEmpty {
-            subject?.send(.addSensorReadings(sensorSerial: sensorSerial, trendReadings: trendReadings, historyReadings: historyReadings))
+        if !readings.isEmpty {
+            subject?.send(.addSensorReadings(sensorSerial: sensorSerial, readings: readings))
         } else {
             subject?.send(.addMissedReading)
         }
@@ -88,7 +85,7 @@ extension SensorBLEConnection {
             if errorCode.rawValue == 7 {
                 sendUpdate(errorMessage: LocalizedString("Rescan the sensor"), errorIsCritical: true)
             } else {
-                sendUpdate(errorMessage: LocalizedString("Connection timeout"), errorIsCritical: true)  
+                sendUpdate(errorMessage: LocalizedString("Connection timeout"), errorIsCritical: true)
             }
         }
     }

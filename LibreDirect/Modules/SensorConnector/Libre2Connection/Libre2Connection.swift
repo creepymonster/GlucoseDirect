@@ -34,6 +34,8 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
     }
 
     override func resetBuffer() {
+        AppLog.info("ResetBuffer")
+
         firstBuffer = Data()
         secondBuffer = Data()
         thirdBuffer = Data()
@@ -66,7 +68,7 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
 
     override func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         AppLog.info("Found peripheral: \(peripheral.name ?? "-")")
-        
+
         guard manager != nil else {
             AppLog.error("Guard: manager is nil")
             return
@@ -170,17 +172,6 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
         if !firstBuffer.isEmpty, !secondBuffer.isEmpty, !thirdBuffer.isEmpty {
             let rxBuffer = firstBuffer + secondBuffer + thirdBuffer
 
-            let intervalSeconds = sensorInterval * 60 - 45
-            guard sensorInterval == 1 || lastTimestamp == nil || lastTimestamp! + Double(intervalSeconds) <= Date() else {
-                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
-                    self.resetBuffer()
-                }
-
-                return
-            }
-
-            lastTimestamp = Date()
-
             if let sensor = sensor {
                 do {
                     let decryptedBLE = Data(try SensorUtility.decryptBLE(uuid: sensor.uuid, data: rxBuffer))
@@ -188,16 +179,31 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
 
                     if (parsedBLE.age + 15) >= sensor.lifetime {
                         sendUpdate(age: parsedBLE.age, state: .expired)
+                        lastReadings = []
 
-                    } else if parsedBLE.age > sensor.warmupTime {
+                    } else if let lastReading = parsedBLE.trend.last, parsedBLE.age > sensor.warmupTime {
                         sendUpdate(age: parsedBLE.age, state: .ready)
-                        sendUpdate(sensorSerial: sensor.serial ?? "", trendReadings: parsedBLE.trend, historyReadings: parsedBLE.history)
 
+                        var calculationReadings = lastReadings + [lastReading]
+
+                        let overLimit = calculationReadings.count - 5
+                        if overLimit > 0 {
+                            calculationReadings = Array(calculationReadings.dropFirst(overLimit))
+                        }
+
+                        lastReadings = calculationReadings
                     } else if parsedBLE.age <= sensor.warmupTime {
                         sendUpdate(age: parsedBLE.age, state: .starting)
+                        lastReadings = []
                     }
                 } catch {
                     AppLog.error("Cannot process BLE data: \(error.localizedDescription)")
+                }
+
+                let intervalSeconds = sensorInterval * 60 - 45
+                if sensorInterval == 1 || lastUpdate == nil || lastUpdate! + Double(intervalSeconds) <= Date() {
+                    lastUpdate = Date()
+                    sendUpdate(sensorSerial: sensor.serial ?? "", readings: lastReadings)
                 }
             }
 
@@ -227,7 +233,8 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
     private var secondBuffer = Data()
     private var thirdBuffer = Data()
 
-    private var lastTimestamp: Date?
+    private var lastUpdate: Date?
+    private var lastReadings: [SensorReading] = []
 }
 
 private extension UserDefaults {

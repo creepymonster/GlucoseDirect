@@ -60,12 +60,12 @@ private func bellmanAlarmMiddelware(service: LazyService<BellmanAlarmService>, s
                 break
             }
 
-            if glucoseValue < state.alarmLow {
+            if glucoseValue < state.alarmLow || glucose.isLOW {
                 AppLog.info("Glucose alert, low: \(glucose.glucoseValue) < \(state.alarmLow)")
 
                 service.value.notifyDevice()
 
-            } else if glucoseValue > state.alarmHigh {
+            } else if glucoseValue > state.alarmHigh || glucose.isHIGH {
                 AppLog.info("Glucose alert, high: \(glucose.glucoseValue) > \(state.alarmHigh)")
 
                 service.value.notifyDevice()

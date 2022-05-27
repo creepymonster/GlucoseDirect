@@ -62,7 +62,7 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
 
             AppLog.info("isSnoozed: \(isSnoozed)")
 
-            if state.lowGlucoseAlarm, glucoseValue < state.alarmLow {
+            if state.lowGlucoseAlarm, glucoseValue < state.alarmLow || glucose.isLOW {
                 AppLog.info("Glucose alert, low: \(glucose.glucoseValue) < \(state.alarmLow)")
 
                 service.value.setLowGlucoseAlarm(glucose: glucose, glucoseUnit: state.glucoseUnit, ignoreMute: state.ignoreMute, sound: isSnoozed ? .none : state.lowGlucoseAlarmSound)
@@ -73,7 +73,7 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
                         .eraseToAnyPublisher()
                 }
 
-            } else if state.highGlucoseAlarm, glucoseValue > state.alarmHigh {
+            } else if state.highGlucoseAlarm, glucoseValue > state.alarmHigh || glucose.isHIGH {
                 AppLog.info("Glucose alert, high: \(glucose.glucoseValue) > \(state.alarmHigh)")
 
                 service.value.setHighGlucoseAlarm(glucose: glucose, glucoseUnit: state.glucoseUnit, ignoreMute: state.ignoreMute, sound: isSnoozed ? .none : state.highGlucoseAlarmSound)

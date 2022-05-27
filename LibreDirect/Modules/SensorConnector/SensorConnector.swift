@@ -59,52 +59,44 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
                     .eraseToAnyPublisher()
             }
 
-        case .addSensorReadings(sensorSerial: _, trendReadings: let trendReadings, historyReadings: let historyReadings):
-            if !trendReadings.isEmpty {
-                let idlePeriod = state.sensorInterval == 1
-                    ? 0
-                    : (state.sensorInterval - 1) * 60
-
-                let missingHistory = historyReadings.filter { reading in
-                    if state.currentGlucose == nil || reading.timestamp > (state.currentGlucose!.timestamp + Double(idlePeriod)), reading.timestamp < trendReadings.first!.timestamp {
-                        return true
-                    }
-
-                    return false
+        case .addSensorReadings(sensorSerial: _, readings: let readings):
+            if !readings.isEmpty {
+                let calibratedGlucose = readings.map { reading in
+                    calibrationService.withCalibration(customCalibration: state.customCalibration, reading: reading)
                 }
 
-                let missingTrend = trendReadings.filter { reading in
-                    if state.currentGlucose == nil || reading.timestamp > (state.currentGlucose!.timestamp + Double(idlePeriod)) {
-                        return true
-                    }
-
-                    return false
+                guard let lastCalibratedGlucose = calibratedGlucose.last else {
+                    break
                 }
 
-                var previousGlucose = state.currentGlucose
-                var missedGlucosValues: [Glucose] = []
-
-                missingHistory.forEach { reading in
-                    let glucose = calibrationService.calibrate(customCalibration: state.customCalibration, nextReading: reading, currentGlucose: previousGlucose)
-                    missedGlucosValues.append(glucose)
-
-                    if glucose.quality == .OK {
-                        previousGlucose = glucose
-                    }
+                guard let lastCalibratedGlucoseValue = lastCalibratedGlucose.glucoseValue, lastCalibratedGlucose.quality == .OK else {
+                    return Just(.addGlucoseValues(glucoseValues: [lastCalibratedGlucose]))
+                        .setFailureType(to: AppError.self)
+                        .eraseToAnyPublisher()
                 }
 
-                missingTrend.forEach { reading in
-                    let glucose = calibrationService.calibrate(customCalibration: state.customCalibration, nextReading: reading, currentGlucose: previousGlucose)
-                    missedGlucosValues.append(glucose)
-
-                    if glucose.quality == .OK {
-                        previousGlucose = glucose
-                    }
+                let filteredGlucose = calibratedGlucose.filter { glucose in
+                    glucose.quality == .OK && glucose.glucoseValue != nil
                 }
 
-                return Just(.addGlucoseValues(glucoseValues: missedGlucosValues))
-                    .setFailureType(to: AppError.self)
-                    .eraseToAnyPublisher()
+                let summedGlucose = lastCalibratedGlucoseValue + filteredGlucose.map { glucose in
+                    glucose.glucoseValue!
+                }.reduce(0, +)
+
+                let nextGlucose = Glucose(
+                    id: lastCalibratedGlucose.id,
+                    timestamp: lastCalibratedGlucose.timestamp,
+                    initialGlucoseValue: lastCalibratedGlucose.initialGlucoseValue,
+                    calibratedGlucoseValue: Int(Double(summedGlucose) / Double(1 + filteredGlucose.count)),
+                    type: lastCalibratedGlucose.type,
+                    quality: lastCalibratedGlucose.quality
+                )
+
+                return Just(.addGlucoseValues(glucoseValues: [
+                    calibrationService.withMinuteChange(nextGlucose: nextGlucose, previousGlucose: state.currentGlucose)
+                ]))
+                .setFailureType(to: AppError.self)
+                .eraseToAnyPublisher()
             }
 
         case .pairSensor:

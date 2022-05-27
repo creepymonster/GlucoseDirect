@@ -19,23 +19,13 @@ struct GlucoseView: View {
                     if let glucoseValue = currentGlucose.glucoseValue {
                         VStack(alignment: .trailing, spacing: 0) {
                             HStack(alignment: .lastTextBaseline) {
-                                if currentGlucose.isHIGH {
-                                    Text("HIGH")
-                                        .font(.system(size: 96))
-                                        .foregroundColor(Color.ui.red)
-                                } else if currentGlucose.isLOW {
-                                    Text("LOW")
-                                        .font(.system(size: 96))
-                                        .foregroundColor(Color.ui.red)
-                                } else {
-                                    Text(glucoseValue.asGlucose(unit: store.state.glucoseUnit))
-                                        .font(.system(size: 96))
+                                Text(glucoseValue.asGlucose(unit: store.state.glucoseUnit))
+                                    .font(.system(size: 96))
 
-                                    VStack(alignment: .leading) {
-                                        Text(currentGlucose.trend.description).font(.system(size: 48))
+                                VStack(alignment: .leading) {
+                                    Text(currentGlucose.trend.description).font(.system(size: 48))
 
-                                        Text(store.state.glucoseUnit.localizedString)
-                                    }
+                                    Text(store.state.glucoseUnit.localizedString)
                                 }
                             }.foregroundColor(glucoseForegroundColor)
 
@@ -45,6 +35,28 @@ struct GlucoseView: View {
                                     Text(minuteChange)
                                 }.padding(.bottom)
                             }
+                        }
+                    } else if currentGlucose.isHIGH || currentGlucose.isLOW {
+                        VStack(alignment: .trailing, spacing: 0) {
+                            HStack(alignment: .lastTextBaseline) {
+                                if currentGlucose.isHIGH {
+                                    VStack(alignment: .center, spacing: 0) {
+                                        Text("HIGH")
+                                            .font(.system(size: 96))
+                                            .foregroundColor(Color.ui.red)
+
+                                        Text("Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter.")
+                                            .padding(.vertical)
+                                        
+                                        Text("The value from the blood glucose meter can then be added via 'List', at the top 'Add'.")
+                                            .padding(.vertical)
+                                    }
+                                } else if currentGlucose.isLOW {
+                                    Text("LOW")
+                                        .font(.system(size: 96))
+                                        .foregroundColor(Color.ui.red)
+                                }
+                            }.foregroundColor(glucoseForegroundColor)
                         }
                     } else {
                         VStack(alignment: .center, spacing: 0) {
