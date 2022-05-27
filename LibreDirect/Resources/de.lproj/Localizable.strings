@@ -635,7 +635,7 @@
 "Please wait..." = "Bitte warten...";
 
 /* (No Comment) */
-"Scan sensor" = "Scan sensor";
+"Scan sensor" = "Sensor scannen";
 
 /* (No Comment) */
 "Retry pairing" = "Koppeln wiederholen";
@@ -668,40 +668,40 @@
 "Bellman telephone transceiver BT" = "Bellman Transceiver BT";
 
 /* (No Comment) */
-"Find transmitter" = "Find transmitter";
+"Find transmitter" = "Transmitter finden";
 
 /* (No Comment) */
-"Connect transmitter" = "Connect transmitter";
+"Connect transmitter" = "Transmitter verbinden";
 
 /* (No Comment) */
-"Disconnect transmitter" = "Disconnect transmitter";
+"Disconnect transmitter" = "Transmitter trennen";
 
 /* (No Comment) */
-"Rescan the sensor" = "Rescan the sensor";
+"Rescan the sensor" = "Sensor erneut scannen";
 
 /* (No Comment) */
-"Apple export settings" = "Apple export settings";
+"Apple export settings" = "Apple Export-Einstellungen";
 
 /* (No Comment) */
-"Export to Apple Health" = "Export to Apple Health";
+"Export to Apple Health" = "Apple Health Export";
 
 /* (No Comment) */
-"Export to Apple Calendar" = "Export to Apple Calendar";
+"Export to Apple Calendar" = "Apple Kalender Export";
 
 /* (No Comment) */
-"Glucose notification" = "Glucose notification";
+"Glucose notification" = "Glukose-Mitteilungen";
 
 /* (No Comment) */
-"Notification settings" = "Notification settings";
+"Notification settings" = "Mitteilungseinstellungen";
 
 /* (No Comment) */
-"HIGH" = "HIGH";
+"HIGH" = "HOCH";
 
 /* (No Comment) */
-"LOW" = "LOW";
+"LOW" = "TIEF";
 
 /* (No Comment) */
-"Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter.";
+"Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Achtung, ein plötzlich auftretender, extrem hoher Blutzuckerwert kann auf einen Sensorfehler hinweisen. Bitte überprüfen Sie diesen Wert mit einem Blutzuckermessgerät.";
 
 /* (No Comment) */
-"The value from the blood glucose meter can then be added via 'List', at the top 'Add'." = "The value from the blood glucose meter can then be added via 'List', at the top 'Add'.";
+"The value from the blood glucose meter can then be added via 'List', at the top 'Add'." = "Der Wert aus dem Blutzuckermessgerät kann dann über \"Liste\", oben \"Hinzufügen\", hinzugefügt werden.";
