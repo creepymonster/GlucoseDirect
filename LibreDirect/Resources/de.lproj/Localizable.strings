@@ -687,3 +687,21 @@
 
 /* (No Comment) */
 "Export to Apple Calendar" = "Export to Apple Calendar";
+
+/* (No Comment) */
+"Glucose notification" = "Glucose notification";
+
+/* (No Comment) */
+"Notification settings" = "Notification settings";
+
+/* (No Comment) */
+"HIGH" = "HIGH";
+
+/* (No Comment) */
+"LOW" = "LOW";
+
+/* (No Comment) */
+"Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter.";
+
+/* (No Comment) */
+"The value from the blood glucose meter can then be added via 'List', at the top 'Add'." = "The value from the blood glucose meter can then be added via 'List', at the top 'Add'.";
