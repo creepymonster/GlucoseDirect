@@ -5,34 +5,34 @@
 "%1$@/min." = "%1$@/dk.";
 
 /* (No Comment) */
-"%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
+"%1$@d %2$@h %3$@min" = "%1$@g %2$@sa %3$@dk";
 
 /* (No Comment) */
-"0 - Unknown" = "0 - Unknown";
+"0 - Unknown" = "0 - Bilinmiyor";
 
 /* (No Comment) */
-"1 - European" = "1 - European";
+"1 - European" = "1 - Avrupa";
 
 /* (No Comment) */
-"2 - USA" = "2 - USA";
+"2 - USA" = "2 - ABD";
 
 /* (No Comment) */
-"4 - Australian" = "4 - Australia/Canada";
+"4 - Australian" = "4 - Avustralya/Kanada";
 
 /* (No Comment) */
-"8 - Eastern" = "8 - Middle East, Asia";
+"8 - Eastern" = "8 - Orta Doğu, Asya";
 
 /* (No Comment) */
-"Add" = "Add";
+"Add" = "Ekle";
 
 /* (No Comment) */
-"Add glucose for calibration" = "Add glucose for calibration";
+"Add glucose for calibration" = "Kalibrasyon için glikoz ekleyin";
 
 /* (No Comment) */
-"Add glucose value" = "Add glucose value";
+"Add glucose value" = "Glikoz değeri ekleyin";
 
 /* (No Comment) */
-"Alarm Settings" = "Alarm Settings";
+"Alarm Settings" = "Alarm Ayarları";
 
 /* (No Comment) */
 "Alert, high glucose" = "Alert, high glucose";
@@ -134,7 +134,7 @@
 "Factory calibration i6" = "i6";
 
 /* (No Comment) */
-"Glucose alarm" = "Glucose alarm";
+"Glucose alarm" = "Glikoz alarmı";
 
 /* (No Comment) */
 "Glucose list view" = "List";
@@ -146,7 +146,7 @@
 "Glucose settings" = "Glucose settings";
 
 /* (No Comment) */
-"Glucose unit" = "Unit";
+"Glucose unit" = "Birim";
 
 /* (No Comment) */
 "Glucose values" = "Glucose values";
@@ -197,40 +197,40 @@
 "Nightscout url" = "Url";
 
 /* (No Comment) */
-"Nightscout settings" = "Nightscout settings";
+"Nightscout settings" = "Nightscout ayarları";
 
 /* (No Comment) */
-"Nightscout upload enabled" = "Upload";
+"Nightscout upload enabled" = "Yükle";
 
 /* (No Comment) */
-"Now" = "Now";
+"Now" = "Şimdi";
 
 /* (No Comment) */
-"OK, sensor connection established" = "OK, sensor connection established";
+"OK, sensor connection established" = "Tamam, sensör bağlantısı kuruldu";
 
 /* (No Comment) */
-"Pair sensor" = "Pair sensor";
+"Pair sensor" = "Sensör eşleştir";
 
 /* (No Comment) */
-"Power off" = "Power off";
+"Power off" = "Kapalı";
 
 /* (No Comment) */
-"Scanning" = "Scanning";
+"Scanning" = "Taranıyor";
 
 /* (No Comment) */
-"Sensor age" = "Sensor age";
+"Sensor age" = "Sensör yaşı";
 
 /* (No Comment) */
-"Connection" = "Connection";
+"Connection" = "Bağlantı";
 
 /* (No Comment) */
-"Connection error" = "Error";
+"Connection error" = "Hata";
 
 /* (No Comment) */
 "Connection error timestamp" = "Time";
 
 /* (No Comment) */
-"Connection state" = "State";
+"Connection state" = "Durum";
 
 /* (No Comment) */
 "Sensor custom calibration" = "Custom Calibration";
@@ -239,19 +239,19 @@
 "Sensor details" = "Sensor details";
 
 /* (No Comment) */
-"Sensor factory calibration" = "Factory Calibration";
+"Sensor factory calibration" = "Fabrika Kalibrasyonu";
 
 /* (No Comment) */
-"Sensor has failure" = "Sensor has failure";
+"Sensor has failure" = "Sensör arızalı";
 
 /* (No Comment) */
 "Sensor in starting phase" = "Sensor in starting phase";
 
 /* (No Comment) */
-"Sensor is expired" = "Sensor is expired";
+"Sensor is expired" = "Sensör süresi doldu";
 
 /* (No Comment) */
-"Sensor is ready" = "Sensor is ready";
+"Sensor is ready" = "Sensör hazır";
 
 /* (No Comment) */
 "Sensor is shut down" = "Sensor is expired";
@@ -278,49 +278,49 @@
 "Sensor remaining lifetime" = "Remaining";
 
 /* (No Comment) */
-"Sensor remaining warmup time" = "Warmup";
+"Sensor remaining warmup time" = "Isınma";
 
 /* (No Comment) */
-"Sensor serial" = "Serial";
+"Sensor serial" = "Seri no";
 
 /* (No Comment) */
-"Sensor state" = "State";
+"Sensor state" = "Durum";
 
 /* (No Comment) */
-"Sensor type" = "Type";
+"Sensor type" = "Türü";
 
 /* (No Comment) */
 "Sensor UID" = "UID";
 
 /* (No Comment) */
-"Settings view" = "Settings";
+"Settings view" = "Ayarlar";
 
 /* (No Comment) */
-"Snooze until" = "Snooze";
+"Snooze until" = "Erteleme";
 
 /* (No Comment) */
 "Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "Unfortunately, an NFC-enabled iPhone is required to use the app :'(";
 
 /* (No Comment) */
-"The connection to the sensor has been successfully established and glucose data is received." = "The connection to the sensor has been successfully established and glucose data is received.";
+"The connection to the sensor has been successfully established and glucose data is received." = "Sensöre bağlantı başarıyla kuruldu ve glikoz verileri alındı.";
 
 /* (No Comment) */
-"The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause." = "The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause.";
+"The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause." = "Sensöre bağlantı var gibi görünüyor, ancak hiçbir değer alınmıyor. Arızalı sensör verileri bunun nedeni olabilir.";
 
 /* (No Comment) */
-"The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired.";
+"The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "Sensörle bağlantı kesildi. Normalde bu sensör menzil dışında olduğunda veya iletim gücü bozulduğunda olur.";
 
 /* (No Comment) */
-"The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor." = "The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor.";
+"The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor." = "Sensör bağlanamıyor ve tüm bağlantı girişimlerini reddediyor. Bu sorun, sensörün yeniden eşleştirilmesini gerekli kılmaktadır.";
 
 /* (No Comment) */
 "Unknown" = "Unknown";
 
 /* (No Comment) */
-"Unpair" = "Unpair";
+"Unpair" = "Eşleşmeyi kaldır";
 
 /* (No Comment) */
-"Unpair sensor" = "Unpair sensor";
+"Unpair sensor" = "Sensör eşleşmesini kaldır";
 
 /* (No Comment) */
 "Upper limit" = "High";
@@ -344,34 +344,34 @@
 "Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "Your glucose, %1$@ (%2$@), is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal.";
 
 /* (No Comment) */
-"Your sensor has expired and needs to be replaced as soon as possible" = "Your sensor has expired and needs to be replaced as soon as possible";
+"Your sensor has expired and needs to be replaced as soon as possible" = "Sensörünüzün kullanım süresi doldu ve mümkün olan en kısa sürede değiştirilmesi gerekiyor";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ day." = "Your sensor is about to expire. Replace sensor in %1$@ day.";
+"Your sensor is about to expire. Replace sensor in %1$@ day." = "Sensörünüzün süresi dolmak üzere. Sensörü %1$@ gün içinde değiştirin.";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ days." = "Your sensor is about to expire. Replace sensor in %1$@ days.";
+"Your sensor is about to expire. Replace sensor in %1$@ days." = "Sensörünüzün süresi dolmak üzere. Sensörü %1$@ gün içinde değiştirin.";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ hour." = "Your sensor is about to expire. Replace sensor in %1$@ hour.";
+"Your sensor is about to expire. Replace sensor in %1$@ hour." = "Sensörünüzün süresi dolmak üzere. Sensörü %1$@ saat içinde değiştirin.";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ hours." = "Your sensor is about to expire. Replace sensor in %1$@ hours.";
+"Your sensor is about to expire. Replace sensor in %1$@ hours." = "Sensörünüzün süresi dolmak üzere. Sensörü %1$@ saat içinde değiştirin.";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Your sensor is about to expire. Replace sensor in %1$@ minutes.";
+"Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Sensörünüzün süresi dolmak üzere. Sensörü %1$@ dakika içinde değiştirin.";
 
 /* (No Comment) */
-"Other Settings" = "Other Settings";
+"Other Settings" = "Diğer Ayarlar";
 
 /* (No Comment) */
-"Glucose badge" = "Glucose badge";
+"Glucose badge" = "Glikoz rozeti";
 
 /* (No Comment) */
-"Are you sure you want to add the new blood glucose value?" = "Are you sure you want to add the new blood glucose value?";
+"Are you sure you want to add the new blood glucose value?" = "Yeni kan şekeri değerini eklemek istediğinizden emin misiniz?";
 
 /* (No Comment) */
-"Chart presentation" = "Chart presentation";
+"Chart presentation" = "Grafik sunum seçenekleri";
 
 /* (No Comment) */
 "Line" = "Line";
@@ -380,52 +380,52 @@
 "Points" = "Points";
 
 /* (No Comment) */
-"Transmitter name" = "Name";
+"Transmitter name" = "İsim";
 
 /* (No Comment) */
-"Transmitter battery" = "Battery";
+"Transmitter battery" = "Pil";
 
 /* (No Comment) */
-"Transmitter hardware" = "Hardware";
+"Transmitter hardware" = "Donanım";
 
 /* (No Comment) */
-"Transmitter firmware" = "Firmware";
+"Transmitter firmware" = "Aygıt Yazılımı";
 
 /* (No Comment) */
-"Transmitter" = "Transmitter";
+"Transmitter" = "Verici";
 
 /* (No Comment) */
-"Sensor connection" = "Sensor connection";
+"Sensor connection" = "Sensör bağlantısı";
 
 /* (No Comment) */
-"Without transmitter" = "Without transmitter";
+"Without transmitter" = "Vericisisiz";
 
 /* (No Comment) */
 "Bubble transmitter" = "Bubble transmitter";
 
 /* (No Comment) */
-"Pairing" = "Pairing";
+"Pairing" = "Eşleştiriliyor";
 
 /* (No Comment) */
-"Calendar export" = "Calendar export";
+"Calendar export" = "Takvime Dışa Aktar";
 
 /* (No Comment) */
-"Calendar export enabled" = "Export";
+"Calendar export enabled" = "Dışa Aktar";
 
 /* (No Comment) */
-"Selected calendar" = "Calendar";
+"Selected calendar" = "Takvim";
 
 /* (No Comment) */
-"Please select" = "Please select";
+"Please select" = "Lütfen seçiniz";
 
 /* (No Comment) */
-"About %@" = "About %@";
+"About %@" = "Hakkında %@";
 
 /* (No Comment) */
-"App version" = "Version";
+"App version" = "Sürüm";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "Bilinmeyen";
 
 /* (No Comment) */
 "Invalid parameters" = "Invalid parameters";
@@ -437,7 +437,7 @@
 "Not connected" = "Not connected";
 
 /* (No Comment) */
-"Out of space" = "Out of space";
+"Out of space" = "Yetersiz alan";
 
 /* (No Comment) */
 "Operation cancelled" = "Operation cancelled";
@@ -467,10 +467,10 @@
 "Attention, the sensor sends faulty values. Please wait 10 minutes." = "Attention, the sensor sends faulty values. Please wait 10 minutes.";
 
 /* (No Comment) */
-"App website" = "Website";
+"App website" = "Web sitesi";
 
 /* (No Comment) */
-"Send log file" = "Send log file";
+"Send log file" = "Günlük dosyası gönder";
 
 /* (No Comment) */
 "Sensor starting date" = "Starting date";
@@ -479,16 +479,16 @@
 "Delete log files" = "Delete log files";
 
 /* (No Comment) */
-"Readable glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@";
+"Readable glucose: %1$@ %2$@" = "Glikoz: %1$@ %2$@";
 
 /* (No Comment) */
-"Readable glucose with trend: %1$@ %2$@, %3$@" = "Glucose: %1$@ %2$@, %3$@";
+"Readable glucose with trend: %1$@ %2$@, %3$@" = "Glikoz: %1$@ %2$@, %3$@";
 
 /* (No Comment) */
-"Readable low glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, Hypoglycemia!";
+"Readable low glucose: %1$@ %2$@" = "Glikoz: %1$@ %2$@. Dikkat, Hipoglisemi!";
 
 /* (No Comment) */
-"Readable high glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, Hyperglycemia!";
+"Readable high glucose: %1$@ %2$@" = "Glikoz: %1$@ %2$@. Dikkat, Hiperglisemi!";
 
 /* (No Comment) */
 "Readable miligram" = "miligram";
@@ -536,28 +536,28 @@
 "When a new alarm is triggered" = "- When a new alarm is triggered";
 
 /* (No Comment) */
-"App author" = "Author";
+"App author" = "Yazar";
 
 /* (No Comment) */
-"App support mail" = "Support";
+"App support mail" = "Destek";
 
 /* (No Comment) */
-"Attention, faulty value received" = "Attention, faulty value received";
+"Attention, faulty value received" = "Dikkat, hatalı değer alındı";
 
 /* (No Comment) */
-"App translation" = "Translation";
+"App translation" = "Çeviri";
 
 /* (No Comment) */
-"App faq" = "FAQ";
+"App faq" = "SSS";
 
 /* (No Comment) */
-"App facebook group" = "Facebook group";
+"App facebook group" = "Facebook Grubu";
 
 /* (No Comment) */
-"App email" = "eMail";
+"App email" = "e-posta";
 
 /* (No Comment) */
-"Internal http server" = "Internal http server";
+"Internal http server" = "Dahili http sunucusu";
 
 /* (No Comment) */
 "Low glucose alarm" = "Low glucose alarm";
@@ -593,7 +593,7 @@
 "Sound: collect-point" = "Collect-Point";
 
 /* (No Comment) */
-"Sound: expiring" = "Expiring";
+"Sound: expiring" = "Süre doluyor";
 
 /* (No Comment) */
 "Sound: failure" = "Failure";
@@ -617,7 +617,7 @@
 "Sound: lose" = "Lose";
 
 /* (No Comment) */
-"Sound: low-battery" = "Low-Battery";
+"Sound: low-battery" = "Düşük-Pil";
 
 /* (No Comment) */
 "Sound: negative" = "Negative";
@@ -626,7 +626,7 @@
 "Sound: ping" = "Ping";
 
 /* (No Comment) */
-"Sound: positive" = "Positive";
+"Sound: positive" = "Pozitif";
 
 /* (No Comment) */
 "Sound: vibration" = "Vibrate only";
@@ -656,25 +656,25 @@
 "Retrieval interval, every %1$@ minutes" = "Every %1$@ minutes";
 
 /* (No Comment) */
-"App donate" = "Donate";
+"App donate" = "Bağışta Bulun";
 
 /* (No Comment) */
 "Bellman alarm" = "Alarm";
 
 /* (No Comment) */
-"Bellman test alarm" = "Test alarm";
+"Bellman test alarm" = "Deneme alarmı";
 
 /* (No Comment) */
-"Bellman telephone transceiver BT" = "Bellman Transceiver BT";
+"Bellman telephone transceiver BT" = "Bellman Alıcı-Verici BT";
 
 /* (No Comment) */
-"Find transmitter" = "Find transmitter";
+"Find transmitter" = "Verici bul";
 
 /* (No Comment) */
-"Connect transmitter" = "Connect transmitter";
+"Connect transmitter" = "Vericiyi bağla";
 
 /* (No Comment) */
-"Disconnect transmitter" = "Disconnect transmitter";
+"Disconnect transmitter" = "Verici bağlantısını kopar";
 
 /* (No Comment) */
 "Rescan the sensor" = "Rescan the sensor";
@@ -695,13 +695,13 @@
 "Notification settings" = "Notification settings";
 
 /* (No Comment) */
-"HIGH" = "HIGH";
+"HIGH" = "YÜKSEK";
 
 /* (No Comment) */
-"LOW" = "LOW";
+"LOW" = "DÜŞÜK";
 
 /* (No Comment) */
-"Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter.";
+"Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Dikkat, ani, aşırı yüksek bir glikoz değeri bir sensör hatasına işaret edebilir. Lütfen bu değeri bir kan şekeri ölçüm cihazı ile kontrol edin.";
 
 /* (No Comment) */
-"The value from the blood glucose meter can then be added via 'List', at the top 'Add'." = "The value from the blood glucose meter can then be added via 'List', at the top 'Add'.";
+"The value from the blood glucose meter can then be added via 'List', at the top 'Add'." = "Kan şekeri ölçüm cihazından alınan değer, daha sonra 'Ekle'nin üst kısmındaki 'Liste' ye eklenebilir.";
