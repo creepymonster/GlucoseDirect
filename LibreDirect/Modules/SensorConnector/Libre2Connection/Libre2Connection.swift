@@ -181,17 +181,25 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
                         sendUpdate(age: parsedBLE.age, state: .expired)
                         lastReadings = []
 
-                    } else if let lastReading = parsedBLE.trend.last, parsedBLE.age > sensor.warmupTime {
+                    } else if let nextReading = parsedBLE.trend.last, parsedBLE.age > sensor.warmupTime {
                         sendUpdate(age: parsedBLE.age, state: .ready)
+                        
+                        if let lastReading = lastReadings.last, (nextReading.timestamp.timeIntervalSince1970 - lastReading.timestamp.timeIntervalSince1970) > 90 {
+                            AppLog.info("Time difference of the read values too large: \(nextReading.timestamp.timeIntervalSince1970 - lastReading.timestamp.timeIntervalSince1970)")
+                            
+                            lastReadings = [nextReading]
+                        } else {
+                            AppLog.info("Time difference of the read values is OK or this is the first read")
+                            
+                            var lastReadings = self.lastReadings + [nextReading]
 
-                        var calculationReadings = lastReadings + [lastReading]
+                            let overLimit = lastReadings.count - 5
+                            if overLimit > 0 {
+                                lastReadings = Array(lastReadings.dropFirst(overLimit))
+                            }
 
-                        let overLimit = calculationReadings.count - 5
-                        if overLimit > 0 {
-                            calculationReadings = Array(calculationReadings.dropFirst(overLimit))
+                            self.lastReadings = lastReadings
                         }
-
-                        lastReadings = calculationReadings
                     } else if parsedBLE.age <= sensor.warmupTime {
                         sendUpdate(age: parsedBLE.age, state: .starting)
                         lastReadings = []
