@@ -44,31 +44,31 @@
 "Alert, sensor connection lost" = "Uyarı, sensör bağlantısı kesildi";
 
 /* (No Comment) */
-"Alert, sensor expired" = "Alert, sensor expired";
+"Alert, sensor expired" = "Uyarı, sensör süresi doldu";
 
 /* (No Comment) */
-"Alert, sensor expiring soon" = "Alert, sensor expiring soon";
+"Alert, sensor expiring soon" = "Uyarı, sensör süresi yakında sona eriyor";
 
 /* (No Comment) */
-"Are you sure you want to add the new calibration?" = "Are you sure you want to add the new calibration?";
+"Are you sure you want to add the new calibration?" = "Yeni kalibrasyonu eklemek istediğinizden emin misiniz?";
 
 /* (No Comment) */
-"Are you sure you want to delete all calibrations?" = "Are you sure you want to delete all calibrations?";
+"Are you sure you want to delete all calibrations?" = "Tüm kalibrasyonları silmek istediğinizden emin misiniz?";
 
 /* (No Comment) */
-"Are you sure you want to delete all log files?" = "Are you sure you want to delete all log files?";
+"Are you sure you want to delete all log files?" = "Tüm günlük dosyalarını silmek istediğinizden emin misiniz?";
 
 /* (No Comment) */
-"Are you sure you want to delete all glucose values?" = "Are you sure you want to delete all glucose values?";
+"Are you sure you want to delete all glucose values?" = "Tüm glikoz değerlerini silmek istediğinizden emin misiniz?";
 
 /* (No Comment) */
-"Are you sure you want to disconnect the sensor?" = "Are you sure you want to disconnect the sensor?";
+"Are you sure you want to disconnect the sensor?" = "Sensörün bağlantısını kesmek istediğinizden emin misiniz?";
 
 /* (No Comment) */
-"Are you sure you want to unpair the sensor?" = "Are you sure you want to unpair the sensor?";
+"Are you sure you want to unpair the sensor?" = "Sensörün eşleşmesini kaldırmak istediğinizden emin misiniz?";
 
 /* (No Comment) */
-"Blood glucose: %1$@" = "Blood glucose: %1$@";
+"Blood glucose: %1$@" = "KŞ: %1$@";
 
 /* (No Comment) */
 "Calibration view" = "Kalibrasyon";
@@ -98,7 +98,7 @@
 "Custom calibration intercept" = "Kesişme";
 
 /* (No Comment) */
-"Custom calibration slope" = "Slope";
+"Custom calibration slope" = "Eğim";
 
 /* (No Comment) */
 "Delete" = "Sil";
@@ -140,19 +140,19 @@
 "Glucose list view" = "Liste";
 
 /* (No Comment) */
-"Glucose overview" = "Overview";
+"Glucose overview" = "Genel Bakış";
 
 /* (No Comment) */
-"Glucose settings" = "Glucose settings";
+"Glucose settings" = "Glikoz ayarları";
 
 /* (No Comment) */
 "Glucose unit" = "Birim";
 
 /* (No Comment) */
-"Glucose values" = "Glucose values";
+"Glucose values" = "Glikoz değerleri";
 
 /* (No Comment) */
-"Hold the top edge of your iPhone close to the sensor." = "Hold the top edge of your iPhone close to the sensor.";
+"Hold the top edge of your iPhone close to the sensor." = "iPhone'unuzun üst kenarını sensöre yakın tutun.";
 
 /* (No Comment) */
 "Libre 1" = "Libre 1";
@@ -188,7 +188,7 @@
 "mmol/L" = "mmol/L";
 
 /* (No Comment) */
-"New calibration" = "New calibration";
+"New calibration" = "Yeni kalibrasyon";
 
 /* (No Comment) */
 "Nightscout API-Secret" = "API-Parolası";
@@ -227,13 +227,13 @@
 "Connection error" = "Hata";
 
 /* (No Comment) */
-"Connection error timestamp" = "Time";
+"Connection error timestamp" = "Zaman";
 
 /* (No Comment) */
 "Connection state" = "Durum";
 
 /* (No Comment) */
-"Sensor custom calibration" = "Custom Calibration";
+"Sensor custom calibration" = "Bireysel Kalibrasyon";
 
 /* (No Comment) */
 "Sensor details" = "Sensör detayları";
@@ -314,7 +314,7 @@
 "The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor." = "Sensör bağlanamıyor ve tüm bağlantı girişimlerini reddediyor. Bu sorun, sensörün yeniden eşleştirilmesini gerekli kılmaktadır.";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "Bilinmeyen";
 
 /* (No Comment) */
 "Unpair" = "Eşleşmeyi kaldır";
@@ -329,13 +329,13 @@
 "Virtual Sensor" = "Sanal Sensör";
 
 /* (No Comment) */
-"Warning, sensor missed %1$@ readings" = "Warning, sensor missed %1$@ readings";
+"Warning, sensor missed %1$@ readings" = "Uyarı, sensör %1$@ okuma kaçırdı";
 
 /* (No Comment) */
-"Wearing time alarm" = "Wearing time alarm";
+"Wearing time alarm" = "Giyme zaman alarmı";
 
 /* (No Comment) */
-"Your current glucose is %1$@ (%2$@)." = "Your current glucose is %1$@ (%2$@).";
+"Your current glucose is %1$@ (%2$@)." = "Şu anki KŞ'iniz %1$@ (%2$@).";
 
 /* (No Comment) */
 "Your glucose %1$@ (%2$@) is dangerously high and needs to be treated." = "KŞ'iniz, %1$@ (%2$@), tehlikeli derecede yüksek ve ilgilenilmesi gerekmekte.";
@@ -374,10 +374,10 @@
 "Chart presentation" = "Grafik sunum seçenekleri";
 
 /* (No Comment) */
-"Line" = "Line";
+"Line" = "Çizgi";
 
 /* (No Comment) */
-"Points" = "Points";
+"Points" = "Noktalar";
 
 /* (No Comment) */
 "Transmitter name" = "İsim";
@@ -401,7 +401,7 @@
 "Without transmitter" = "Vericisisiz";
 
 /* (No Comment) */
-"Bubble transmitter" = "Bubble transmitter";
+"Bubble transmitter" = "Bubble vericisi";
 
 /* (No Comment) */
 "Pairing" = "Eşleştiriliyor";
@@ -428,10 +428,10 @@
 "Unknown" = "Bilinmeyen";
 
 /* (No Comment) */
-"Invalid parameters" = "Invalid parameters";
+"Invalid parameters" = "Geçersiz parametreler";
 
 /* (No Comment) */
-"Invalid handle" = "Invalid handle";
+"Invalid handle" = "Geçersiz işlem";
 
 /* (No Comment) */
 "Not connected" = "Bağlı değil";
