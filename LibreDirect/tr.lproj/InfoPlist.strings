@@ -5,19 +5,19 @@
 "CFBundleName" = "Glucose Direct";
 
 /* Privacy - NFC Scan Usage Description */
-"NFCReaderUsageDescription" = "The NFC function is required to read out all connection settings before a Bluetooth connection.";
+"NFCReaderUsageDescription" = "Bluetooth bağlantısından önce tüm bağlantı ayarlarını okumak için NFC özelliği gereklidir.";
 
 /* Privacy - Bluetooth Always Usage Description */
-"NSBluetoothAlwaysUsageDescription" = "The Bluetooth function is needed to connect to the supported devices.";
+"NSBluetoothAlwaysUsageDescription" = "Desteklenen cihazlara bağlanmak için Bluetooth özelliği gereklidir.";
 
 /* Privacy - Bluetooth Peripheral Usage Description */
-"NSBluetoothPeripheralUsageDescription" = "The Bluetooth function is needed to connect to the supported devices.";
+"NSBluetoothPeripheralUsageDescription" = "Desteklenen cihazlara bağlanmak için Bluetooth özelliği gereklidir.";
 
 /* Privacy - Calendars Usage Description */
-"NSCalendarsUsageDescription" = "Access to the calendar is required to display up-to-date glucose values on the Apple Watch.";
+"NSCalendarsUsageDescription" = "Apple Watch'ta güncel glikoz değerlerini görüntülemek için takvime erişim gerekir.";
 
 /* Privacy - Health Share Usage Description */
-"NSHealthShareUsageDescription" = "Access to Apple Health is required if glucose data should be exported.";
+"NSHealthShareUsageDescription" = "Glikoz verilerinin dışa aktarılması gerekiyorsa Apple Health'e erişim gerekir.";
 
 /* Privacy - Health Update Usage Description */
-"NSHealthUpdateUsageDescription" = "Access to Apple Health is required if glucose data should be exported.";
+"NSHealthUpdateUsageDescription" = "Glikoz verilerinin dışa aktarılması gerekiyorsa Apple Health'e erişim gerekir.";
