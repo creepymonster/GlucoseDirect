@@ -73,6 +73,8 @@ final class LibreDirectApp: App {
             appleHealthExportMiddleware(),
             readAloudMiddelware(),
             bellmanAlarmMiddelware(),
+            nightscoutMiddleware(),
+            appGroupSharingMiddleware()
         ]
 
         middlewares.append(sensorConnectorMiddelware([
@@ -94,9 +96,8 @@ final class LibreDirectApp: App {
             appleHealthExportMiddleware(),
             readAloudMiddelware(),
             bellmanAlarmMiddelware(),
-
             nightscoutMiddleware(),
-            appGroupSharingMiddleware(),
+            appGroupSharingMiddleware()
         ]
 
         #if canImport(CoreNFC)
