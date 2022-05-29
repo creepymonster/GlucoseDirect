@@ -76,8 +76,7 @@ final class LibreDirectApp: App {
         ]
 
         middlewares.append(sensorConnectorMiddelware([
-            SensorConnectionInfo(id: "virtual", name: "Virtual") { VirtualLibreConnection(subject: $0) },
-            SensorConnectionInfo(id: "bubble", name: LocalizedString("Bubble transmitter")) { BubbleConnection(subject: $0) },
+            SensorConnectionInfo(id: "virtual", name: "Virtual") { VirtualLibreConnection(subject: $0) }
         ]))
 
         return AppStore(initialState: UserDefaultsState(), reducer: appReducer, middlewares: middlewares)

@@ -17,14 +17,16 @@ struct UserDefaultsState: AppState {
     // MARK: Lifecycle
 
     init() {
-        var defaultConnectionID = "virtual"
-
-        #if canImport(CoreNFC)
-            defaultConnectionID = NFCTagReaderSession.readingAvailable
-                ? "libre2"
-                : "bubble"
+        #if targetEnvironment(simulator)
+            let defaultConnectionID = "virtual"
         #else
-            defaultConnectionID = "bubble"
+            #if canImport(CoreNFC)
+                let defaultConnectionID = NFCTagReaderSession.readingAvailable
+                    ? "libre2"
+                    : "bubble"
+            #else
+                let defaultConnectionID = "bubble"
+            #endif
         #endif
 
         if let alarmHigh = UserDefaults.standard.alarmHigh {

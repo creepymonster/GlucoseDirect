@@ -92,33 +92,33 @@ final class Glucose: CustomStringConvertible, Codable, Identifiable {
     }
 
     var glucoseValue: Int? {
-        guard let initialGlucoseValue = initialGlucoseValue else {
+        guard let calibratedGlucoseValue = calibratedGlucoseValue else {
             return nil
         }
 
-        if initialGlucoseValue <= AppConfig.minReadableGlucose {
+        if calibratedGlucoseValue <= AppConfig.minReadableGlucose {
             return AppConfig.minReadableGlucose
-        } else if initialGlucoseValue >= AppConfig.maxReadableGlucose {
-            return nil
+        } else if calibratedGlucoseValue >= AppConfig.maxReadableGlucose {
+            return AppConfig.maxReadableGlucose
         }
 
         return calibratedGlucoseValue
     }
 
     var isHIGH: Bool {
-        guard let initialGlucoseValue = initialGlucoseValue else {
+        guard let calibratedGlucoseValue = calibratedGlucoseValue else {
             return false
         }
 
-        return initialGlucoseValue >= AppConfig.maxReadableGlucose
+        return calibratedGlucoseValue >= AppConfig.maxReadableGlucose
     }
 
     var isLOW: Bool {
-        guard let initialGlucoseValue = initialGlucoseValue else {
+        guard let calibratedGlucoseValue = calibratedGlucoseValue else {
             return false
         }
 
-        return initialGlucoseValue <= AppConfig.minReadableGlucose
+        return calibratedGlucoseValue <= AppConfig.minReadableGlucose
     }
 
     var description: String {
