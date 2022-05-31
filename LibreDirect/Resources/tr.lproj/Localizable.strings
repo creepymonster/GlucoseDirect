@@ -212,7 +212,7 @@
 "Pair sensor" = "Sensör eşleştir";
 
 /* (No Comment) */
-"Power off" = "Kapalı";
+"Power off" = "Kapat";
 
 /* (No Comment) */
 "Scanning" = "Taranıyor";
@@ -257,7 +257,7 @@
 "Sensor is shut down" = "Sensör süresi doldu";
 
 /* (No Comment) */
-"Sensor lifetime" = "Ömrü";
+"Sensor lifetime" = "Kullanım ömrü";
 
 /* (No Comment) */
 "Missed readings" = "Kaçan";
@@ -269,13 +269,13 @@
 "Sensor PatchInfo" = "PatchInfo";
 
 /* (No Comment) */
-"Sensor possible lifetime" = "Ömrü";
+"Sensor possible lifetime" = "Kullanım ömrü";
 
 /* (No Comment) */
 "Sensor region" = "Bölge";
 
 /* (No Comment) */
-"Sensor remaining lifetime" = "Geriye kalan";
+"Sensor remaining lifetime" = "Kalan";
 
 /* (No Comment) */
 "Sensor remaining warmup time" = "Isınma";
@@ -287,7 +287,7 @@
 "Sensor state" = "Durum";
 
 /* (No Comment) */
-"Sensor type" = "Türü";
+"Sensor type" = "Tip";
 
 /* (No Comment) */
 "Sensor UID" = "UID";
@@ -311,7 +311,7 @@
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "Sensörle bağlantı kesildi. Normalde bu sensör menzil dışında olduğunda veya iletim gücü bozulduğunda olur.";
 
 /* (No Comment) */
-"The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor." = "Sensör bağlanamıyor ve tüm bağlantı girişimlerini reddediyor. Bu sorun, sensörün yeniden eşleştirilmesini gerekli kılmaktadır.";
+"The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor." = "Sensör bağlanamıyor ve tüm bağlantı girişimlerini reddediyor. Sensörün yeniden eşleştirilmesi gerekmektedir.";
 
 /* (No Comment) */
 "Unknown" = "Bilinmeyen";
@@ -338,10 +338,10 @@
 "Your current glucose is %1$@ (%2$@)." = "Şu anki KŞ'iniz %1$@ (%2$@).";
 
 /* (No Comment) */
-"Your glucose %1$@ (%2$@) is dangerously high and needs to be treated." = "KŞ'iniz, %1$@ (%2$@), tehlikeli derecede yüksek ve ilgilenilmesi gerekmekte.";
+"Your glucose %1$@ (%2$@) is dangerously high and needs to be treated." = "KŞ'niz, %1$@ (%2$@), tehlikeli derecede yüksek ve ilgilenilmesi gerekmekte.";
 
 /* (No Comment) */
-"Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "KŞ'iniz %1$@ (%2$@), tehlikeli derecede düşük. Şekerli içecekler veya dekstroz ile kan şekeri seviyeleri genellikle normale dönebilir.";
+"Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "KŞ'niz %1$@ (%2$@), tehlikeli derecede düşük. Şekerli içecekler veya dekstroz ile kan şekeri seviyeleri genellikle normale dönebilir.";
 
 /* (No Comment) */
 "Your sensor has expired and needs to be replaced as soon as possible" = "Sensörünüzün kullanım süresi doldu ve mümkün olan en kısa sürede değiştirilmesi gerekiyor";
@@ -398,7 +398,7 @@
 "Sensor connection" = "Sensör bağlantısı";
 
 /* (No Comment) */
-"Without transmitter" = "Vericisisiz";
+"Without transmitter" = "Vericisiz";
 
 /* (No Comment) */
 "Bubble transmitter" = "Bubble vericisi";
@@ -407,7 +407,7 @@
 "Pairing" = "Eşleştiriliyor";
 
 /* (No Comment) */
-"Calendar export" = "Takvime Dışa Aktar";
+"Calendar export" = "Takvim dışa aktarma";
 
 /* (No Comment) */
 "Calendar export enabled" = "Dışa Aktar";
@@ -452,7 +452,7 @@
 "UUID not allowed" = "UUID'ye izin verilmiyor";
 
 /* (No Comment) */
-"Already advertising" = "Zaten reklamı yapılıyor";
+"Already advertising" = "Zaten duyuruldu";
 
 /* (No Comment) */
 "Connection failed" = "Bağlantı başarısız";
@@ -566,7 +566,7 @@
 "High glucose alarm" = "Yüksek glikoz alarmı";
 
 /* (No Comment) */
-"Sound: achievement" = "Achievement";
+"Sound: achievement" = "Başarım";
 
 /* (No Comment) */
 "Sound: none" = "Yok";
@@ -608,13 +608,13 @@
 "Sound: hit" = "Tıklanma";
 
 /* (No Comment) */
-"Sound: jump" = "Jump";
+"Sound: jump" = "Zıpla";
 
 /* (No Comment) */
 "Sound: long-alarm" = "Uzun-Alarm";
 
 /* (No Comment) */
-"Sound: lose" = "Lose";
+"Sound: lose" = "Kayıp";
 
 /* (No Comment) */
 "Sound: low-battery" = "Düşük-Pil";
@@ -674,7 +674,7 @@
 "Connect transmitter" = "Vericiyi bağla";
 
 /* (No Comment) */
-"Disconnect transmitter" = "Verici bağlantısını kopar";
+"Disconnect transmitter" = "Verici bağlantısını kes";
 
 /* (No Comment) */
 "Rescan the sensor" = "Sensörü yeniden tara";
@@ -683,7 +683,7 @@
 "Apple export settings" = "Apple dışa aktarma ayarları";
 
 /* (No Comment) */
-"Export to Apple Health" = "Apple Sağlığa Aktar";
+"Export to Apple Health" = "Apple Health'e Aktar";
 
 /* (No Comment) */
 "Export to Apple Calendar" = "Apple Takvime Aktar";
@@ -704,4 +704,4 @@
 "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Dikkat, ani, aşırı yüksek bir glikoz değeri bir sensör hatasına işaret edebilir. Lütfen bu değeri bir kan şekeri ölçüm cihazı ile kontrol edin.";
 
 /* (No Comment) */
-"The value from the blood glucose meter can then be added via 'List', at the top 'Add'." = "Kan şekeri ölçüm cihazından alınan değer, daha sonra 'Ekle'nin üst kısmındaki 'Liste' ye eklenebilir.";
+"The value from the blood glucose meter can then be added via 'List', at the top 'Add'." = "Kan şekeri ölçüm cihazından alınan değer, daha sonra 'Liste'ye üst kısımdaki 'Ekle' ile eklenebilir.";
