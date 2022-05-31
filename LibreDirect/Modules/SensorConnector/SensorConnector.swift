@@ -74,6 +74,10 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
                         .setFailureType(to: AppError.self)
                         .eraseToAnyPublisher()
                 }
+                
+                if let currentGlucose = state.currentGlucose, currentGlucose.timestamp >= lastCalibratedGlucose.timestamp {
+                    break
+                }
 
                 let filteredGlucose = calibratedGlucose.filter { glucose in
                     glucose.quality == .OK && glucose.glucoseValue != nil
