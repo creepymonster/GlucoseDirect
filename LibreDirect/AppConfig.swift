@@ -18,7 +18,7 @@ enum AppConfig {
     static var projectName = "GlucoseDirect"
 
     static var appName: String = {
-        Bundle.main.infoDictionary?["CFBundleDisplayName"] as! String
+        Bundle.main.localizedInfoDictionary?["CFBundleDisplayName"] as! String
     }()
 
     static var appVersion: String = {
