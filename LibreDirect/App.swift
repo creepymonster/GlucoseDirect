@@ -99,21 +99,25 @@ final class LibreDirectApp: App {
             nightscoutMiddleware(),
             appGroupSharingMiddleware()
         ]
+        
+        let withoutTransmitter = LocalizedString("Without transmitter")
+        let bubbleTransmitter = LocalizedString("Bubble transmitter")
+        
 
         #if canImport(CoreNFC)
             if NFCTagReaderSession.readingAvailable {
                 middlewares.append(sensorConnectorMiddelware([
-                    SensorConnectionInfo(id: "libre2", name: LocalizedString("Without transmitter")) { Libre2Connection(subject: $0) },
-                    SensorConnectionInfo(id: "bubble", name: LocalizedString("Bubble transmitter")) { BubbleConnection(subject: $0) },
+                    SensorConnectionInfo(id: "libre2", name: withoutTransmitter) { Libre2Connection(subject: $0) },
+                    SensorConnectionInfo(id: "bubble", name: bubbleTransmitter) { BubbleConnection(subject: $0) },
                 ]))
             } else {
                 middlewares.append(sensorConnectorMiddelware([
-                    SensorConnectionInfo(id: "bubble", name: LocalizedString("Bubble transmitter")) { BubbleConnection(subject: $0) },
+                    SensorConnectionInfo(id: "bubble", name: bubbleTransmitter) { BubbleConnection(subject: $0) },
                 ]))
             }
         #else
             middlewares.append(sensorConnectorMiddelware([
-                SensorConnectionInfo(id: "bubble", name: LocalizedString("Bubble transmitter")) { BubbleConnection(subject: $0) },
+                SensorConnectionInfo(id: "bubble", name: bubbleTransmitter) { BubbleConnection(subject: $0) },
             ]))
         #endif
 
