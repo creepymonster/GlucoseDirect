@@ -212,7 +212,7 @@
 "Pair sensor" = "Sensör eşleştir";
 
 /* (No Comment) */
-"Power off" = "Kapalı";
+"Power off" = "Kapat";
 
 /* (No Comment) */
 "Scanning" = "Taranıyor";
@@ -257,7 +257,7 @@
 "Sensor is shut down" = "Sensör süresi doldu";
 
 /* (No Comment) */
-"Sensor lifetime" = "Ömrü";
+"Sensor lifetime" = "Kullanım ömrü";
 
 /* (No Comment) */
 "Missed readings" = "Kaçan";
@@ -269,13 +269,13 @@
 "Sensor PatchInfo" = "PatchInfo";
 
 /* (No Comment) */
-"Sensor possible lifetime" = "Ömrü";
+"Sensor possible lifetime" = "Kullanım ömrü";
 
 /* (No Comment) */
 "Sensor region" = "Bölge";
 
 /* (No Comment) */
-"Sensor remaining lifetime" = "Geriye kalan";
+"Sensor remaining lifetime" = "Kalan";
 
 /* (No Comment) */
 "Sensor remaining warmup time" = "Isınma";
@@ -287,7 +287,7 @@
 "Sensor state" = "Durum";
 
 /* (No Comment) */
-"Sensor type" = "Türü";
+"Sensor type" = "Tip";
 
 /* (No Comment) */
 "Sensor UID" = "UID";
@@ -566,7 +566,7 @@
 "High glucose alarm" = "Yüksek glikoz alarmı";
 
 /* (No Comment) */
-"Sound: achievement" = "Achievement";
+"Sound: achievement" = "Başarım";
 
 /* (No Comment) */
 "Sound: none" = "Yok";
