@@ -24,7 +24,16 @@ private enum Keys: String {
     case highGlucoseAlarmSound = "libre-direct.settings.high-glucose-alarm-sound"
     case isPaired = "libre-direct.settings.is-paired"
     case ignoreMute = "libre-direct.settings.ignore-mute"
-    case latestReadings
+    case sharedGlucose = "latestReadings"
+    case sharedSensor = "glucosedirect--sensor"
+    case sharedSensorState = "glucosedirect--sensor-state"
+    case sharedSensorConnectionState = "glucosedirect--sensor-connection-state"
+    case sharedApp = "glucosedirect--app"
+    case sharedAppVersion = "glucosedirect--app-version"
+    case sharedTransmitter = "glucosedirect--transmitter"
+    case sharedTransmitterBattery = "glucosedirect--transmitter-battery"
+    case sharedTransmitterHardware = "glucosedirect--transmitter-hardware"
+    case sharedTransmitterFirmware = "glucosedirect--transmitter-firmware"
     case lowGlucoseAlarmSound = "libre-direct.settings.low-glucose-alarm-sound"
     case nightscoutApiSecret = "libre-direct.settings.nightscout-api-secret"
     case nightscoutUpload = "libre-direct.settings.nightscout-upload-enabled"
@@ -274,15 +283,132 @@ extension UserDefaults {
         }
     }
 
-    var latestReadings: Data? {
+    var sharedGlucose: Data? {
         get {
-            return data(forKey: Keys.latestReadings.rawValue)
+            return data(forKey: Keys.sharedGlucose.rawValue)
         }
         set {
             if let newValue = newValue {
-                set(newValue, forKey: Keys.latestReadings.rawValue)
+                set(newValue, forKey: Keys.sharedGlucose.rawValue)
             } else {
-                removeObject(forKey: Keys.latestReadings.rawValue)
+                removeObject(forKey: Keys.sharedGlucose.rawValue)
+            }
+        }
+    }
+    
+    var sharedSensor: String? {
+        get {
+            return string(forKey: Keys.sharedSensor.rawValue)
+        }
+        set {
+            if let newValue = newValue {
+                set(newValue, forKey: Keys.sharedSensor.rawValue)
+            } else {
+                removeObject(forKey: Keys.sharedSensor.rawValue)
+            }
+        }
+    }
+    
+    var sharedSensorState: String? {
+        get {
+            return string(forKey: Keys.sharedSensorState.rawValue)
+        }
+        set {
+            if let newValue = newValue {
+                set(newValue, forKey: Keys.sharedSensorState.rawValue)
+            } else {
+                removeObject(forKey: Keys.sharedSensorState.rawValue)
+            }
+        }
+    }
+    
+    var sharedSensorConnectionState: String? {
+        get {
+            return string(forKey: Keys.sharedSensorConnectionState.rawValue)
+        }
+        set {
+            if let newValue = newValue {
+                set(newValue, forKey: Keys.sharedSensorConnectionState.rawValue)
+            } else {
+                removeObject(forKey: Keys.sharedSensorConnectionState.rawValue)
+            }
+        }
+    }
+        
+    var sharedApp: String? {
+        get {
+            return string(forKey: Keys.sharedApp.rawValue)
+        }
+        set {
+            if let newValue = newValue {
+                set(newValue, forKey: Keys.sharedApp.rawValue)
+            } else {
+                removeObject(forKey: Keys.sharedApp.rawValue)
+            }
+        }
+    }
+    
+    var sharedAppVersion: String? {
+        get {
+            return string(forKey: Keys.sharedAppVersion.rawValue)
+        }
+        set {
+            if let newValue = newValue {
+                set(newValue, forKey: Keys.sharedAppVersion.rawValue)
+            } else {
+                removeObject(forKey: Keys.sharedAppVersion.rawValue)
+            }
+        }
+    }
+    
+    var sharedTransmitter: String? {
+        get {
+            return string(forKey: Keys.sharedTransmitter.rawValue)
+        }
+        set {
+            if let newValue = newValue {
+                set(newValue, forKey: Keys.sharedTransmitter.rawValue)
+            } else {
+                removeObject(forKey: Keys.sharedTransmitter.rawValue)
+            }
+        }
+    }
+    
+    var sharedTransmitterBattery: String? {
+        get {
+            return string(forKey: Keys.sharedTransmitterBattery.rawValue)
+        }
+        set {
+            if let newValue = newValue {
+                set(newValue, forKey: Keys.sharedTransmitterBattery.rawValue)
+            } else {
+                removeObject(forKey: Keys.sharedTransmitterBattery.rawValue)
+            }
+        }
+    }
+    
+    var sharedTransmitterHardware: String? {
+        get {
+            return string(forKey: Keys.sharedTransmitterHardware.rawValue)
+        }
+        set {
+            if let newValue = newValue {
+                set(newValue, forKey: Keys.sharedTransmitterHardware.rawValue)
+            } else {
+                removeObject(forKey: Keys.sharedTransmitterHardware.rawValue)
+            }
+        }
+    }
+    
+    var sharedTransmitterFirmware: String? {
+        get {
+            return string(forKey: Keys.sharedTransmitterFirmware.rawValue)
+        }
+        set {
+            if let newValue = newValue {
+                set(newValue, forKey: Keys.sharedTransmitterFirmware.rawValue)
+            } else {
+                removeObject(forKey: Keys.sharedTransmitterFirmware.rawValue)
             }
         }
     }
