@@ -53,8 +53,8 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             }
 
         case .selectConnection(id: _, connection: _):
-            if state.isPaired, state.isConnectable {
-                return Just(.connectSensor)
+            if state.isConnectionPaired, state.isConnectable {
+                return Just(.connectConnection)
                     .setFailureType(to: AppError.self)
                     .eraseToAnyPublisher()
             }
@@ -103,50 +103,50 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
                 .eraseToAnyPublisher()
             }
 
-        case .pairSensor:
+        case .pairConnection:
             guard let sensorConnection = state.selectedConnection else {
                 AppLog.info("Guard: state.selectedConnection is nil")
                 break
             }
 
-            sensorConnection.pairSensor()
+            sensorConnection.pairConnection()
 
         case .setSensorInterval(interval: _):
             if state.isDisconnectable, let sensorConnection = state.selectedConnection {
-                sensorConnection.disconnectSensor()
+                sensorConnection.disconnectConnection()
 
-                return Just(.connectSensor)
+                return Just(.connectConnection)
                     .setFailureType(to: AppError.self)
                     .eraseToAnyPublisher()
             }
 
-        case .connectSensor:
+        case .connectConnection:
             guard let sensorConnection = state.selectedConnection else {
                 AppLog.info("Guard: state.selectedConnection is nil")
                 break
             }
 
             if let sensor = state.sensor {
-                sensorConnection.connectSensor(sensor: sensor, sensorInterval: state.sensorInterval)
+                sensorConnection.connectConnection(sensor: sensor, sensorInterval: state.sensorInterval)
             } else {
-                sensorConnection.pairSensor()
+                sensorConnection.pairConnection()
             }
 
-        case .disconnectSensor:
+        case .disconnectConnection:
             guard let sensorConnection = state.selectedConnection else {
                 AppLog.info("Guard: state.selectedConnection is nil")
                 break
             }
 
-            sensorConnection.disconnectSensor()
+            sensorConnection.disconnectConnection()
 
-        case .setSensor(sensor: _, wasPaired: let wasPaired):
-            guard wasPaired && state.isConnectable else {
+        case .setConnectionPaired(isPaired: let isPaired):
+            guard isPaired && state.isConnectable else {
                 AppLog.info("Guard: sensor was not paired, no auto connect")
                 break
             }
 
-            return Just(.connectSensor)
+            return Just(.connectConnection)
                 .setFailureType(to: AppError.self)
                 .eraseToAnyPublisher()
 

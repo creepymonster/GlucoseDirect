@@ -51,13 +51,13 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
             oldValue?.delegate = nil
             peripheral?.delegate = self
 
-            if let sensorPeripheralUUID = peripheral?.identifier.uuidString {
-                UserDefaults.standard.sensorPeripheralUUID = sensorPeripheralUUID
+            if let peripheralUUID = peripheral?.identifier.uuidString {
+                sendUpdate(peripheralUUID: peripheralUUID)
             }
         }
     }
 
-    func pairSensor() {
+    func pairConnection() {
         AppLog.info("PairSensor")
 
         sendUpdate(connectionState: .pairing)
@@ -67,7 +67,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
         }
     }
 
-    func connectSensor(sensor: Sensor, sensorInterval: Int) {
+    func connectConnection(sensor: Sensor, sensorInterval: Int) {
         AppLog.info("ConnectSensor: \(sensor)")
 
         self.sensor = sensor
@@ -80,8 +80,8 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
         }
     }
 
-    func disconnectSensor() {
-        AppLog.info("DisconnectSensor")
+    func disconnectConnection() {
+        AppLog.info("DisconnectConnection")
 
         setStayConnected(stayConnected: false)
 
@@ -103,7 +103,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
             return
         }
 
-        if let peripheralUUIDString = UserDefaults.standard.sensorPeripheralUUID,
+        if let peripheralUUIDString = UserDefaults.standard.connectionPeripheralUUID,
            let peripheralUUID = UUID(uuidString: peripheralUUIDString),
            let retrievedPeripheral = manager.retrievePeripherals(withIdentifiers: [peripheralUUID]).first,
            checkRetrievedPeripheral(peripheral: retrievedPeripheral)

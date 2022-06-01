@@ -20,7 +20,7 @@ final class VirtualLibreConnection: SensorBLEConnection, IsSensor {
 
     weak var subject: PassthroughSubject<AppAction, AppError>?
 
-    func pairSensor() {
+    func pairConnection() {
         let sensor = Sensor(
             uuid: Data(hexString: "e9ad9b6c79bd93aa")!,
             patchInfo: Data(hexString: "448cd1")!,
@@ -35,10 +35,11 @@ final class VirtualLibreConnection: SensorBLEConnection, IsSensor {
             warmupTime: warmupTime
         )
 
-        sendUpdate(sensor: sensor, wasPaired: true)
+        sendUpdate(sensor: sensor)
+        sendUpdate(isPaired: true)
     }
 
-    func connectSensor(sensor: Sensor, sensorInterval: Int) {
+    func connectConnection(sensor: Sensor, sensorInterval: Int) {
         glucoseInterval = TimeInterval(sensorInterval * 60)
 
         let fireDate = Date().toRounded(on: 1, .minute).addingTimeInterval(60)
@@ -53,7 +54,7 @@ final class VirtualLibreConnection: SensorBLEConnection, IsSensor {
         sendUpdate(connectionState: .connected)
     }
 
-    func disconnectSensor() {
+    func disconnectConnection() {
         timer?.invalidate()
         timer = nil
 

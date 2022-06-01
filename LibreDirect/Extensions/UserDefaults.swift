@@ -22,7 +22,7 @@ private enum Keys: String {
     case glucoseUnit = "libre-direct.settings.glucose-unit"
     case glucoseValues = "libre-direct.settings.glucose-value-array"
     case highGlucoseAlarmSound = "libre-direct.settings.high-glucose-alarm-sound"
-    case isPaired = "libre-direct.settings.is-paired"
+    case isConnectionPaired = "libre-direct.settings.is-paired"
     case ignoreMute = "libre-direct.settings.ignore-mute"
     case sharedGlucose = "latestReadings"
     case sharedSensor = "glucosedirect--sensor"
@@ -45,19 +45,19 @@ private enum Keys: String {
     case sensor = "libre-direct.settings.sensor"
     case sensorInterval = "libre-direct.settings.sensor-interval"
     case transmitter = "libre-direct.settings.transmitter"
-    case devicePeripheralUUID = "libre-direct.sensor-ble-connection.peripheral-uuid"
+    case connectionPeripheralUUID = "libre-direct.sensor-ble-connection.peripheral-uuid"
 }
 
 extension UserDefaults {
-    var sensorPeripheralUUID: String? {
+    var connectionPeripheralUUID: String? {
         get {
-            return UserDefaults.standard.string(forKey: Keys.devicePeripheralUUID.rawValue)
+            return UserDefaults.standard.string(forKey: Keys.connectionPeripheralUUID.rawValue)
         }
         set {
             if let newValue = newValue {
-                UserDefaults.standard.setValue(newValue, forKey: Keys.devicePeripheralUUID.rawValue)
+                UserDefaults.standard.setValue(newValue, forKey: Keys.connectionPeripheralUUID.rawValue)
             } else {
-                UserDefaults.standard.removeObject(forKey: Keys.devicePeripheralUUID.rawValue)
+                UserDefaults.standard.removeObject(forKey: Keys.connectionPeripheralUUID.rawValue)
             }
         }
     }
@@ -257,16 +257,16 @@ extension UserDefaults {
         }
     }
 
-    var isPaired: Bool {
+    var isConnectionPaired: Bool {
         get {
-            if object(forKey: Keys.isPaired.rawValue) != nil {
-                return bool(forKey: Keys.isPaired.rawValue)
+            if object(forKey: Keys.isConnectionPaired.rawValue) != nil {
+                return bool(forKey: Keys.isConnectionPaired.rawValue)
             }
 
             return false
         }
         set {
-            set(newValue, forKey: Keys.isPaired.rawValue)
+            set(newValue, forKey: Keys.isConnectionPaired.rawValue)
         }
     }
 

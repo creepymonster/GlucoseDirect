@@ -9,20 +9,19 @@ import SwiftUI
 
 struct ActionsView: View {
     @EnvironmentObject var store: AppStore
-    @State var showingDisconnectSensorAlert = false
-    @State var showingUnpairSensorAlert = false
+    @State var showingDisconnectConnectionAlert = false
 
     var body: some View {
         if store.state.hasSelectedConnection {
-            if store.state.isTransmitter && !store.state.isPaired {
+            if store.state.isTransmitter && !store.state.isConnectionPaired {
                 Button(
                     action: {
                         withAnimation {
                             if store.state.isDisconnectable {
-                                store.dispatch(.disconnectSensor)
+                                store.dispatch(.disconnectConnection)
                             }
 
-                            store.dispatch(.pairSensor)
+                            store.dispatch(.pairConnection)
                         }
                     },
                     label: {
@@ -36,10 +35,10 @@ struct ActionsView: View {
                     action: {
                         withAnimation {
                             if store.state.isDisconnectable {
-                                store.dispatch(.disconnectSensor)
+                                store.dispatch(.disconnectConnection)
                             }
 
-                            store.dispatch(.pairSensor)
+                            store.dispatch(.pairConnection)
                         }
                     },
                     label: {
@@ -48,12 +47,12 @@ struct ActionsView: View {
                 )
             }
 
-            if store.state.isPaired {
+            if store.state.isConnectionPaired {
                 if store.state.isConnectable {
                     Button(
                         action: {
                             withAnimation {
-                                store.dispatch(.connectSensor)
+                                store.dispatch(.connectConnection)
                             }
                         },
                         label: {
@@ -67,7 +66,7 @@ struct ActionsView: View {
                 } else if store.state.isDisconnectable {
                     Button(
                         action: {
-                            showingDisconnectSensorAlert = true
+                            showingDisconnectConnectionAlert = true
                         },
                         label: {
                             if store.state.isTransmitter {
@@ -76,12 +75,12 @@ struct ActionsView: View {
                                 Label("Disconnect sensor", systemImage: "stop")
                             }
                         }
-                    ).alert(isPresented: $showingDisconnectSensorAlert) {
+                    ).alert(isPresented: $showingDisconnectConnectionAlert) {
                         Alert(
                             title: Text("Are you sure you want to disconnect the sensor?"),
                             primaryButton: .destructive(Text("Disconnect")) {
                                 withAnimation {
-                                    store.dispatch(.disconnectSensor)
+                                    store.dispatch(.disconnectConnection)
                                 }
                             },
                             secondaryButton: .cancel()

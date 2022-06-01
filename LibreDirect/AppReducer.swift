@@ -56,16 +56,16 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .clearGlucoseValues:
         state.glucoseValues = []
         
-    case .connectSensor:
+    case .connectConnection:
         break
         
     case .deleteLogs:
         break
 
-    case .disconnectSensor:
+    case .disconnectConnection:
         break
 
-    case .pairSensor:
+    case .pairConnection:
         break
         
     case .registerConnectionInfo(infos: let infos):
@@ -87,7 +87,6 @@ func appReducer(state: inout AppState, action: AppAction) {
         }
         
     case .resetSensor:
-        state.isPaired = false
         state.sensor = nil
         state.customCalibration = []
         state.connectionError = nil
@@ -104,10 +103,10 @@ func appReducer(state: inout AppState, action: AppAction) {
         }
         
     case .selectConnectionID(id: _):
-        state.isPaired = false
+        state.isConnectionPaired = false
         state.sensor = nil
-        state.customCalibration = []
         state.transmitter = nil
+        state.customCalibration = []
         state.connectionError = nil
         state.connectionErrorIsCritical = false
         state.connectionErrorTimestamp = nil
@@ -170,6 +169,9 @@ func appReducer(state: inout AppState, action: AppAction) {
             state.connectionErrorTimestamp = nil
         }
         
+    case .setConnectionPeripheralUUID(peripheralUUID: let peripheralUUID):
+        state.connectionPeripheralUUID = peripheralUUID
+        
     case .setExpiringAlarmSound(sound: let sound):
         state.expiringAlarmSound = sound
                
@@ -197,22 +199,25 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setNightscoutURL(url: let url):
         state.nightscoutURL = url
         
+    case .setConnectionPaired(isPaired: let isPaired):
+        state.isConnectionPaired = isPaired
+        
     case .setReadGlucose(enabled: let enabled):
         state.readGlucose = enabled
         
-    case .setSensor(sensor: let sensor, wasPaired: let wasPaired):
+    case .setSensor(sensor: let sensor, keepDevice: let keepDevice):
         if let sensorSerial = state.sensor?.serial, sensorSerial != sensor.serial {
             state.customCalibration = []
             
-            // reset store peripheral uuid
-            UserDefaults.standard.sensorPeripheralUUID = nil
+            if !keepDevice {
+                state.connectionPeripheralUUID = nil
+            }
         }
         
         state.sensor = sensor
         state.connectionError = nil
         state.connectionErrorIsCritical = false
         state.connectionErrorTimestamp = nil
-        state.isPaired = wasPaired
         
     case .setSensorInterval(interval: let interval):
         state.sensorInterval = interval
@@ -234,9 +239,8 @@ func appReducer(state: inout AppState, action: AppAction) {
         }
 
     case .setTransmitter(transmitter: let transmitter):
-        state.isPaired = true
         state.transmitter = transmitter
-        
+               
     case .startup:
         break
     }

@@ -172,6 +172,14 @@ struct SensorView: View {
                             Text(transmitter.name)
                         }
 
+                        if let peripheralUUID = store.state.connectionPeripheralUUID {
+                            HStack {
+                                Text("Transmitter UUID")
+                                Spacer()
+                                Text(peripheralUUID)
+                            }
+                        }
+
                         HStack {
                             Text("Transmitter battery")
                             Spacer()

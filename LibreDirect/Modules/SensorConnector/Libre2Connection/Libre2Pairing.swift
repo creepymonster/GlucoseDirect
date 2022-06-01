@@ -153,6 +153,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                         session.invalidate()
 
                         self.subject?.send(.setSensor(sensor: sensor))
+                        self.subject?.send(.setConnectionPaired(isPaired: false))
 
                         if let lastSensorReading = sensorReadings.trend.last, sensor.state == .ready {
                             self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", readings: [lastSensorReading]))
@@ -169,8 +170,9 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                             return
                         }
 
+                        self.subject?.send(.setSensor(sensor: sensor))
                         self.subject?.send(.setConnectionState(connectionState: .disconnected))
-                        self.subject?.send(.setSensor(sensor: sensor, wasPaired: true))
+                        self.subject?.send(.setConnectionPaired(isPaired: true))
 
                         if let lastSensorReading = sensorReadings.trend.last, sensor.state == .ready {
                             self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", readings: [lastSensorReading]))

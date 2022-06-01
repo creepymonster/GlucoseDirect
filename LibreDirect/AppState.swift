@@ -25,12 +25,13 @@ protocol AppState {
     var connectionInfos: [SensorConnectionInfo] { get set }
     var connectionState: SensorConnectionState { get set }
     var customCalibration: [CustomCalibration] { get set }
+    var connectionPeripheralUUID: String? { get set }
     var expiringAlarmSound: NotificationSound { get set }
     var glucoseNotification: Bool { get set }
     var glucoseUnit: GlucoseUnit { get set }
     var glucoseValues: [Glucose] { get set }
     var highGlucoseAlarmSound: NotificationSound { get set }
-    var isPaired: Bool { get set }
+    var isConnectionPaired: Bool { get set }
     var ignoreMute: Bool { get set }
     var lowGlucoseAlarmSound: NotificationSound { get set }
     var missedReadings: Int { get set }
@@ -98,7 +99,7 @@ extension AppState {
     }
 
     var isPairable: Bool {
-        !isPaired && !(connectionState != .disconnected && connectionState != .pairing && connectionState != .scanning && connectionState != .connecting)
+        !isConnectionPaired && !(connectionState != .disconnected && connectionState != .pairing && connectionState != .scanning && connectionState != .connecting)
     }
 
     var isBusy: Bool {

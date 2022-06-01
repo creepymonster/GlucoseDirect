@@ -28,7 +28,7 @@ class BubbleConnection: SensorBLEConnectionBase, IsTransmitter {
     }
 
     override func checkRetrievedPeripheral(peripheral: CBPeripheral) -> Bool {
-        return peripheral.name == peripheralName
+        return peripheral.name?.lowercased() == peripheralName
     }
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
@@ -107,6 +107,7 @@ class BubbleConnection: SensorBLEConnectionBase, IsTransmitter {
 
             let transmitter = Transmitter(name: peripheral.name ?? "Bubble", battery: battery, firmware: firmware, hardware: hardware)
             sendUpdate(transmitter: transmitter)
+            sendUpdate(isPaired: true)
 
             if let writeCharacteristic = writeCharacteristic {
                 peripheral.writeValue(Data([0x02, 0x00, 0x00, 0x00, 0x00, 0x2b]), for: writeCharacteristic, type: .withResponse)
@@ -135,7 +136,7 @@ class BubbleConnection: SensorBLEConnectionBase, IsTransmitter {
 
                 if let fram = fram {
                     let sensor = Sensor(uuid: uuid, patchInfo: patchInfo, fram: fram)
-                    sendUpdate(sensor: sensor, wasPaired: true)
+                    sendUpdate(sensor: sensor, keepDevice: true)
 
                     if sensor.age > sensor.warmupTime {
                         let readings = SensorUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
@@ -147,7 +148,7 @@ class BubbleConnection: SensorBLEConnectionBase, IsTransmitter {
             }
 
         case .noSensor:
-            sendMissedUpdate()
+            sendUpdate(sensor: nil)
             resetBuffer()
 
         case .serialNumber:

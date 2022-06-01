@@ -24,7 +24,7 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
         "abbott"
     }
 
-    override func pairSensor() {
+    override func pairConnection() {
         AppLog.info("PairSensor")
 
         UserDefaults.standard.libre2UnlockCount = 0

@@ -43,10 +43,11 @@ struct UserDefaultsState: AppState {
         self.chartShowLines = UserDefaults.standard.chartShowLines
         self.chartZoomLevel = UserDefaults.standard.chartZoomLevel
         self.customCalibration = UserDefaults.standard.customCalibration
+        self.connectionPeripheralUUID = UserDefaults.standard.connectionPeripheralUUID
         self.glucoseValues = UserDefaults.standard.glucoseValues
         self.glucoseNotification = UserDefaults.standard.glucoseNotification
         self.glucoseUnit = UserDefaults.standard.glucoseUnit
-        self.isPaired = UserDefaults.standard.isPaired
+        self.isConnectionPaired = UserDefaults.standard.isConnectionPaired
         self.ignoreMute = UserDefaults.standard.ignoreMute
         self.nightscoutApiSecret = UserDefaults.standard.nightscoutApiSecret
         self.nightscoutURL = UserDefaults.standard.nightscoutURL
@@ -139,6 +140,12 @@ struct UserDefaultsState: AppState {
             UserDefaults.standard.customCalibration = customCalibration
         }
     }
+    
+    var connectionPeripheralUUID: String? {
+        didSet {
+            UserDefaults.standard.connectionPeripheralUUID = connectionPeripheralUUID
+        }
+    }
 
     var expiringAlarmSound: NotificationSound {
         didSet {
@@ -176,9 +183,9 @@ struct UserDefaultsState: AppState {
         }
     }
 
-    var isPaired: Bool {
+    var isConnectionPaired: Bool {
         didSet {
-            UserDefaults.standard.isPaired = isPaired
+            UserDefaults.standard.isConnectionPaired = isConnectionPaired
         }
     }
 

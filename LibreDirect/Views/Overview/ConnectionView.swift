@@ -13,7 +13,7 @@ struct ConnectionView: View {
     var body: some View {
         Section(
             content: {
-                if store.state.isPaired {
+                if store.state.isConnectionPaired {
                     HStack {
                         Text("Connection state")
                         Spacer()

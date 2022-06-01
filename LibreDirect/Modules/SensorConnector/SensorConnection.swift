@@ -16,9 +16,9 @@ protocol SensorConnection {
 // MARK: - SensorBLEConnection
 
 protocol SensorBLEConnection: SensorConnection {
-    func pairSensor()
-    func connectSensor(sensor: Sensor, sensorInterval: Int)
-    func disconnectSensor()
+    func pairConnection()
+    func connectConnection(sensor: Sensor, sensorInterval: Int)
+    func disconnectConnection()
 }
 
 // MARK: - IsSensor
@@ -36,11 +36,17 @@ extension SensorBLEConnection {
         subject?.send(.setConnectionState(connectionState: connectionState))
     }
 
-    func sendUpdate(sensor: Sensor?, wasPaired: Bool = false) {
+    func sendUpdate(isPaired: Bool) {
+        AppLog.info("IsPaired: \(isPaired)")
+
+        subject?.send(.setConnectionPaired(isPaired: isPaired))
+    }
+
+    func sendUpdate(sensor: Sensor?, keepDevice: Bool = false) {
         AppLog.info("Sensor: \(sensor?.description ?? "-")")
 
         if let sensor = sensor {
-            subject?.send(.setSensor(sensor: sensor, wasPaired: wasPaired))
+            subject?.send(.setSensor(sensor: sensor, keepDevice: keepDevice))
         } else {
             subject?.send(.resetSensor)
         }
@@ -94,6 +100,12 @@ extension SensorBLEConnection {
         AppLog.error("ErrorMessage: \(errorMessage)")
 
         subject?.send(.setConnectionError(errorMessage: errorMessage, errorTimestamp: Date(), errorIsCritical: false))
+    }
+
+    func sendUpdate(peripheralUUID: String?) {
+        AppLog.error("PeripheralUUID: \(peripheralUUID)")
+
+        subject?.send(.setConnectionPeripheralUUID(peripheralUUID: peripheralUUID))
     }
 
     func sendMissedUpdate() {
