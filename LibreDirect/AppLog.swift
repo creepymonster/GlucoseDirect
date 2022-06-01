@@ -46,7 +46,7 @@ enum AppLog {
         FileLogger()
     }()
 
-    private static func log(message: String, type: OSLogType, log: OSLog, file: String, line: Int, function: String) {
+    private static func log(message: String, type: OSLogType, log: OSLog, error: Error? = nil, file: String, line: Int, function: String) {
         // Console logging
         let meta = "[\(file):\(line)]" // [\(function)]
 
