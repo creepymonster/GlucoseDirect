@@ -705,3 +705,6 @@
 
 /* (No Comment) */
 "The value from the blood glucose meter can then be added via 'List', at the top 'Add'." = "The value from the blood glucose meter can then be added via 'List', at the top 'Add'.";
+
+/* (No Comment) */
+"Transmitter UUID" = "UUID";
