@@ -707,4 +707,4 @@
 "The value from the blood glucose meter can then be added via 'List', at the top 'Add'." = "Der Wert aus dem Blutzuckermessgerät kann dann über \"Liste\", oben \"Hinzufügen\", hinzugefügt werden.";
 
 /* (No Comment) */
-"Transmitter UUID" = "UUID";
+"Transmitter ID" = "Identifier";
