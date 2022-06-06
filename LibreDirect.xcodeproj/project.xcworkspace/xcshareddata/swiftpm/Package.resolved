@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "any-base-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jrikhof/any-base-swift",
+      "state" : {
+        "revision" : "d7a582bfbf594189ca0fcb7aaaa4453505f20764",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "short-uuid-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jrikhof/short-uuid-swift",
+      "state" : {
+        "revision" : "f2bc9f3958906c2fd5e99baafc79293e3614d608",
+        "version" : "1.0.0"
+      }
+    }
+  ],
+  "version" : 2
+}

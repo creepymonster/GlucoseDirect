@@ -57,8 +57,7 @@ private func appGroupSharingMiddleware(service: LazyService<AppGroupSharingServi
                 break
             }
             
-            guard !glucose.isHIGH else {
-                AppLog.info("Guard: glucose.isHIGH")
+            if glucose.type == .cgm && glucose.isHIGH {
                 break
             }
 

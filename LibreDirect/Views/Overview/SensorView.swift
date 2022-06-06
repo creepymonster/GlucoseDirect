@@ -3,6 +3,7 @@
 //  LibreDirect
 //
 
+import ShortUUID
 import SwiftUI
 
 // MARK: - SensorView
@@ -172,11 +173,11 @@ struct SensorView: View {
                             Text(transmitter.name)
                         }
 
-                        if let peripheralUUID = store.state.connectionPeripheralUUID {
+                        if let peripheralUUIDS = store.state.connectionPeripheralUUID, let peripheralUUID = UUID(uuidString: peripheralUUIDS) {
                             HStack {
-                                Text("Transmitter UUID")
+                                Text("Transmitter ID")
                                 Spacer()
-                                Text(peripheralUUID)
+                                Text(uuidTranslator.fromUUID(peripheralUUID))
                             }
                         }
 
@@ -241,6 +242,8 @@ struct SensorView: View {
 
         static var color: Color { Color(.sRGB, red: 0.89, green: 0.90, blue: 0.92) | Color(.sRGB, red: 0.25, green: 0.25, blue: 0.25) }
     }
+
+    let uuidTranslator = ShortUUID()
 
     private var batteryEndAngle: Double? {
         if let transmitter = store.state.transmitter {

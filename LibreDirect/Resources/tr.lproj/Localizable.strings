@@ -707,4 +707,4 @@
 "The value from the blood glucose meter can then be added via 'List', at the top 'Add'." = "Kan şekeri ölçüm cihazından alınan değer, daha sonra 'Liste'ye üst kısımdaki 'Ekle' ile eklenebilir.";
 
 /* (No Comment) */
-"Transmitter UUID" = "UUID";
+"Transmitter ID" = "Identifier";
