@@ -15,36 +15,7 @@
 		E20B8545266F4A9900AA4224 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E20B8544266F4A9900AA4224 /* Preview Assets.xcassets */; };
 		E21656C5275377A90007AF43 /* Transmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21656C4275377A90007AF43 /* Transmitter.swift */; };
 		E216E50A27654AF60056A61D /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E216E50927654AF60056A61D /* AboutView.swift */; };
-		E2218B88284FA08A00DB5A55 /* DirectConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC6E2707438A00FE1CBF /* DirectConfig.swift */; };
-		E2218B89284FA08F00DB5A55 /* DirectLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC39270741E600FE1CBF /* DirectLog.swift */; };
-		E2218B95284FA0B300DB5A55 /* Lazy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E278848227B4646E00E07DDC /* Lazy.swift */; };
-		E2218B96284FA0B300DB5A55 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC27270741D200FE1CBF /* Data.swift */; };
-		E2218B97284FA0B300DB5A55 /* LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC2E270741D200FE1CBF /* LocalizedString.swift */; };
-		E2218B98284FA0B300DB5A55 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC28270741D200FE1CBF /* String.swift */; };
-		E2218B99284FA0B300DB5A55 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26089A32748DCB500749025 /* Double.swift */; };
-		E2218B9A284FA0B300DB5A55 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC2B270741D200FE1CBF /* Int.swift */; };
-		E2218B9B284FA0B300DB5A55 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC2C270741D200FE1CBF /* View.swift */; };
-		E2218B9C284FA0B300DB5A55 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC29270741D200FE1CBF /* Date.swift */; };
-		E2218B9D284FA0B300DB5A55 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC2A270741D200FE1CBF /* UserDefaults.swift */; };
-		E2218B9E284FA0B300DB5A55 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27325A6275543D600D3C41D /* Color.swift */; };
-		E2218B9F284FA0B300DB5A55 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC2D270741D200FE1CBF /* State.swift */; };
-		E2218BA0284FA0BE00DB5A55 /* SensorFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC17270741BC00FE1CBF /* SensorFamily.swift */; };
-		E2218BA1284FA0BE00DB5A55 /* SensorRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC15270741BC00FE1CBF /* SensorRegion.swift */; };
-		E2218BA2284FA0BE00DB5A55 /* GlucoseUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC18270741BC00FE1CBF /* GlucoseUnit.swift */; };
-		E2218BA3284FA0BE00DB5A55 /* Sensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC13270741BC00FE1CBF /* Sensor.swift */; };
-		E2218BA4284FA0BE00DB5A55 /* Transmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21656C4275377A90007AF43 /* Transmitter.swift */; };
-		E2218BA5284FA0BE00DB5A55 /* GlucoseQuality.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2645D832763F4EF0058BFC7 /* GlucoseQuality.swift */; };
-		E2218BA6284FA0BE00DB5A55 /* SensorReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C19FB2273567FE00B70A73 /* SensorReading.swift */; };
-		E2218BA7284FA0BE00DB5A55 /* Glucose.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C19FB42735684500B70A73 /* Glucose.swift */; };
-		E2218BA8284FA0BE00DB5A55 /* SensorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC12270741BC00FE1CBF /* SensorType.swift */; };
-		E2218BA9284FA0BE00DB5A55 /* SensorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC19270741BC00FE1CBF /* SensorState.swift */; };
-		E2218BAA284FA0BE00DB5A55 /* GlucoseValueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29F4FA1274D6C8B00AE0E39 /* GlucoseValueType.swift */; };
-		E2218BAB284FA0BE00DB5A55 /* SensorTrend.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC1B270741BC00FE1CBF /* SensorTrend.swift */; };
-		E2218BAC284FA0BE00DB5A55 /* SensorConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC14270741BC00FE1CBF /* SensorConnectionState.swift */; };
-		E2218BAD284FA0C200DB5A55 /* CustomCalibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B63A87273E3EB100DDAA70 /* CustomCalibration.swift */; };
-		E2218BAE284FA0C200DB5A55 /* FactoryCalibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C19FBB273568BF00B70A73 /* FactoryCalibration.swift */; };
 		E2218BB0284FA16900DB5A55 /* NotificationSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2218BAF284FA16900DB5A55 /* NotificationSound.swift */; };
-		E2218BB1284FA16900DB5A55 /* NotificationSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2218BAF284FA16900DB5A55 /* NotificationSound.swift */; };
 		E223F867267A4D9800EC9BCA /* SensorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E223F866267A4D9800EC9BCA /* SensorView.swift */; };
 		E2330A33275E88CF0050A391 /* SensorBLEConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2330A32275E88CF0050A391 /* SensorBLEConnection.swift */; };
 		E24077B326B881C2001767C0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E24077B126B881C2001767C0 /* InfoPlist.strings */; };
@@ -52,9 +23,6 @@
 		E24B532126B863C00091417F /* GlucoseSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532026B863C00091417F /* GlucoseSettingsView.swift */; };
 		E24B532326B863E20091417F /* AlarmSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532226B863E20091417F /* AlarmSettingsView.swift */; };
 		E24B532526B864020091417F /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532426B864020091417F /* ToggleView.swift */; };
-		E24C1507284F9B6A0012FCB6 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E27BFC0226B1407E00F8FBEF /* WidgetKit.framework */; };
-		E24C1508284F9B6A0012FCB6 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E27BFC0426B1407E00F8FBEF /* SwiftUI.framework */; };
-		E24C1514284F9B6B0012FCB6 /* GlucoseDirectWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E24C1506284F9B6A0012FCB6 /* GlucoseDirectWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E257088E278354B600896696 /* mute.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E257088D278354B600896696 /* mute.aiff */; };
 		E25762D5279D519200A2E249 /* BellmanSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25762D4279D519200A2E249 /* BellmanSettingsView.swift */; };
 		E26089A42748DCB500749025 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26089A32748DCB500749025 /* Double.swift */; };
@@ -147,16 +115,6 @@
 		E2FCAC87270743E200FE1CBF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E2FCAC89270743E200FE1CBF /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		E24C1512284F9B6B0012FCB6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E20B8532266F4A9800AA4224 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E24C1505284F9B6A0012FCB6;
-			remoteInfo = GlucoseDirectWidgetExtension;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		E27BFC1526B1407F00F8FBEF /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -164,7 +122,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				E24C1514284F9B6B0012FCB6 /* GlucoseDirectWidgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -194,7 +151,6 @@
 		E24B532026B863C00091417F /* GlucoseSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseSettingsView.swift; sourceTree = "<group>"; };
 		E24B532226B863E20091417F /* AlarmSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingsView.swift; sourceTree = "<group>"; };
 		E24B532426B864020091417F /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
-		E24C1506284F9B6A0012FCB6 /* GlucoseDirectWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GlucoseDirectWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E257088D278354B600896696 /* mute.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = mute.aiff; sourceTree = "<group>"; };
 		E25762D4279D519200A2E249 /* BellmanSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BellmanSettingsView.swift; sourceTree = "<group>"; };
 		E26089A32748DCB500749025 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
@@ -320,15 +276,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E24C1503284F9B6A0012FCB6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E24C1508284F9B6A0012FCB6 /* SwiftUI.framework in Frameworks */,
-				E24C1507284F9B6A0012FCB6 /* WidgetKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -347,7 +294,6 @@
 			isa = PBXGroup;
 			children = (
 				E20B853A266F4A9800AA4224 /* GlucoseDirectApp.app */,
-				E24C1506284F9B6A0012FCB6 /* GlucoseDirectWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -706,7 +652,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				E24C1513284F9B6B0012FCB6 /* PBXTargetDependency */,
 			);
 			name = GlucoseDirectApp;
 			packageProductDependencies = (
@@ -714,23 +659,6 @@
 			productName = GlucoseDirect;
 			productReference = E20B853A266F4A9800AA4224 /* GlucoseDirectApp.app */;
 			productType = "com.apple.product-type.application";
-		};
-		E24C1505284F9B6A0012FCB6 /* GlucoseDirectWidgetExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E24C1517284F9B6B0012FCB6 /* Build configuration list for PBXNativeTarget "GlucoseDirectWidgetExtension" */;
-			buildPhases = (
-				E24C1502284F9B6A0012FCB6 /* Sources */,
-				E24C1503284F9B6A0012FCB6 /* Frameworks */,
-				E24C1504284F9B6A0012FCB6 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = GlucoseDirectWidgetExtension;
-			productName = GlucoseDirectWidgetExtension;
-			productReference = E24C1506284F9B6A0012FCB6 /* GlucoseDirectWidgetExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -743,9 +671,6 @@
 				TargetAttributes = {
 					E20B8539266F4A9800AA4224 = {
 						CreatedOnToolsVersion = 12.5;
-					};
-					E24C1505284F9B6A0012FCB6 = {
-						CreatedOnToolsVersion = 13.4.1;
 					};
 				};
 			};
@@ -777,7 +702,6 @@
 			projectRoot = "";
 			targets = (
 				E20B8539266F4A9800AA4224 /* GlucoseDirectApp */,
-				E24C1505284F9B6A0012FCB6 /* GlucoseDirectWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -814,13 +738,6 @@
 				E2A6993B278760A300409F33 /* climb-rope.aiff in Resources */,
 				E2FCAC7D270743B100FE1CBF /* sensor.png in Resources */,
 				E2A69939278760A300409F33 /* achievement.aiff in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E24C1504284F9B6A0012FCB6 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -912,51 +829,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E24C1502284F9B6A0012FCB6 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E2218BA4284FA0BE00DB5A55 /* Transmitter.swift in Sources */,
-				E2218BA3284FA0BE00DB5A55 /* Sensor.swift in Sources */,
-				E2218B96284FA0B300DB5A55 /* Data.swift in Sources */,
-				E2218BAC284FA0BE00DB5A55 /* SensorConnectionState.swift in Sources */,
-				E2218BAD284FA0C200DB5A55 /* CustomCalibration.swift in Sources */,
-				E2218BA5284FA0BE00DB5A55 /* GlucoseQuality.swift in Sources */,
-				E2218B97284FA0B300DB5A55 /* LocalizedString.swift in Sources */,
-				E2218B9D284FA0B300DB5A55 /* UserDefaults.swift in Sources */,
-				E2218B88284FA08A00DB5A55 /* DirectConfig.swift in Sources */,
-				E2218BB1284FA16900DB5A55 /* NotificationSound.swift in Sources */,
-				E2218BAB284FA0BE00DB5A55 /* SensorTrend.swift in Sources */,
-				E2218B89284FA08F00DB5A55 /* DirectLog.swift in Sources */,
-				E2218BA1284FA0BE00DB5A55 /* SensorRegion.swift in Sources */,
-				E2218B98284FA0B300DB5A55 /* String.swift in Sources */,
-				E2218B9F284FA0B300DB5A55 /* State.swift in Sources */,
-				E2218BA0284FA0BE00DB5A55 /* SensorFamily.swift in Sources */,
-				E2218BAA284FA0BE00DB5A55 /* GlucoseValueType.swift in Sources */,
-				E2218B9C284FA0B300DB5A55 /* Date.swift in Sources */,
-				E2218BAE284FA0C200DB5A55 /* FactoryCalibration.swift in Sources */,
-				E2218BA8284FA0BE00DB5A55 /* SensorType.swift in Sources */,
-				E2218B9E284FA0B300DB5A55 /* Color.swift in Sources */,
-				E2218B9A284FA0B300DB5A55 /* Int.swift in Sources */,
-				E2218BA2284FA0BE00DB5A55 /* GlucoseUnit.swift in Sources */,
-				E2218B99284FA0B300DB5A55 /* Double.swift in Sources */,
-				E2218BA9284FA0BE00DB5A55 /* SensorState.swift in Sources */,
-				E2218B9B284FA0B300DB5A55 /* View.swift in Sources */,
-				E2218BA6284FA0BE00DB5A55 /* SensorReading.swift in Sources */,
-				E2218BA7284FA0BE00DB5A55 /* Glucose.swift in Sources */,
-				E2218B95284FA0B300DB5A55 /* Lazy.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		E24C1513284F9B6B0012FCB6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E24C1505284F9B6A0012FCB6 /* GlucoseDirectWidgetExtension */;
-			targetProxy = E24C1512284F9B6B0012FCB6 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		E24077B126B881C2001767C0 /* InfoPlist.strings */ = {
@@ -1178,66 +1051,6 @@
 			};
 			name = Release;
 		};
-		E24C1515284F9B6B0012FCB6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E247D8E426B7D70A00BDAF89 /* GlucoseDirect.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = "${APP_BUILD}";
-				DEVELOPMENT_TEAM = "${DEVELOPMENT_TEAM}";
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Widget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = GlucoseDirectWidget;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = "${APP_VERSION}";
-				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_BUNDLE_IDENTIFIER}.GlucoseDirectWidget";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		E24C1516284F9B6B0012FCB6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E247D8E426B7D70A00BDAF89 /* GlucoseDirect.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = "${APP_BUILD}";
-				DEVELOPMENT_TEAM = "${DEVELOPMENT_TEAM}";
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Widget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = GlucoseDirectWidget;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = "${APP_VERSION}";
-				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_BUNDLE_IDENTIFIER}.GlucoseDirectWidget";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1255,15 +1068,6 @@
 			buildConfigurations = (
 				E20B854A266F4A9900AA4224 /* Debug */,
 				E20B854B266F4A9900AA4224 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E24C1517284F9B6B0012FCB6 /* Build configuration list for PBXNativeTarget "GlucoseDirectWidgetExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E24C1515284F9B6B0012FCB6 /* Debug */,
-				E24C1516284F9B6B0012FCB6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
