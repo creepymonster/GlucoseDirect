@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,7 +15,6 @@
 		E20B8545266F4A9900AA4224 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E20B8544266F4A9900AA4224 /* Preview Assets.xcassets */; };
 		E21656C5275377A90007AF43 /* Transmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21656C4275377A90007AF43 /* Transmitter.swift */; };
 		E216E50A27654AF60056A61D /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E216E50927654AF60056A61D /* AboutView.swift */; };
-		E218CD422848CA2200B3E9E4 /* ShortUUID in Frameworks */ = {isa = PBXBuildFile; productRef = E218CD412848CA2200B3E9E4 /* ShortUUID */; };
 		E223F867267A4D9800EC9BCA /* SensorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E223F866267A4D9800EC9BCA /* SensorView.swift */; };
 		E2330A33275E88CF0050A391 /* SensorBLEConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2330A32275E88CF0050A391 /* SensorBLEConnection.swift */; };
 		E24077B326B881C2001767C0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E24077B126B881C2001767C0 /* InfoPlist.strings */; };
@@ -271,7 +270,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E218CD422848CA2200B3E9E4 /* ShortUUID in Frameworks */,
 				E27BBA8027AD7DDA00A6B8EE /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -647,7 +645,6 @@
 			);
 			name = LibreDirect;
 			packageProductDependencies = (
-				E218CD412848CA2200B3E9E4 /* ShortUUID */,
 			);
 			productName = LibreDirect;
 			productReference = E20B853A266F4A9800AA4224 /* LibreDirect.app */;
@@ -689,7 +686,6 @@
 			);
 			mainGroup = E20B8531266F4A9800AA4224;
 			packageReferences = (
-				E218CD402848CA2200B3E9E4 /* XCRemoteSwiftPackageReference "short-uuid-swift" */,
 			);
 			productRefGroup = E20B853B266F4A9800AA4224 /* Products */;
 			projectDirPath = "";
@@ -1086,25 +1082,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		E218CD402848CA2200B3E9E4 /* XCRemoteSwiftPackageReference "short-uuid-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/jrikhof/short-uuid-swift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		E218CD412848CA2200B3E9E4 /* ShortUUID */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E218CD402848CA2200B3E9E4 /* XCRemoteSwiftPackageReference "short-uuid-swift" */;
-			productName = ShortUUID;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E20B8532266F4A9800AA4224 /* Project object */;
 }

@@ -3,7 +3,6 @@
 //  LibreDirect
 //
 
-import ShortUUID
 import SwiftUI
 
 // MARK: - SensorView
@@ -171,14 +170,6 @@ struct SensorView: View {
                             Text("Transmitter name")
                             Spacer()
                             Text(transmitter.name)
-                        }
-
-                        if let peripheralUUIDS = store.state.connectionPeripheralUUID, let peripheralUUID = UUID(uuidString: peripheralUUIDS) {
-                            HStack {
-                                Text("Transmitter ID")
-                                Spacer()
-                                Text(uuidTranslator.fromUUID(peripheralUUID))
-                            }
                         }
 
                         HStack {
