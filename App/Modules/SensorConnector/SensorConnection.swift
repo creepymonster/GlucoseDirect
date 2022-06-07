@@ -31,19 +31,19 @@ protocol IsTransmitter {}
 
 extension SensorBLEConnection {
     func sendUpdate(connectionState: SensorConnectionState) {
-        AppLog.info("ConnectionState: \(connectionState.description)")
+        DirectLog.info("ConnectionState: \(connectionState.description)")
 
         subject?.send(.setConnectionState(connectionState: connectionState))
     }
 
     func sendUpdate(isPaired: Bool) {
-        AppLog.info("IsPaired: \(isPaired)")
+        DirectLog.info("IsPaired: \(isPaired)")
 
         subject?.send(.setConnectionPaired(isPaired: isPaired))
     }
 
     func sendUpdate(sensor: Sensor?, keepDevice: Bool = false) {
-        AppLog.info("Sensor: \(sensor?.description ?? "-")")
+        DirectLog.info("Sensor: \(sensor?.description ?? "-")")
 
         if let sensor = sensor {
             subject?.send(.setSensor(sensor: sensor, keepDevice: keepDevice))
@@ -53,13 +53,13 @@ extension SensorBLEConnection {
     }
 
     func sendUpdate(transmitter: Transmitter) {
-        AppLog.info("Transmitter: \(transmitter.description)")
+        DirectLog.info("Transmitter: \(transmitter.description)")
 
         subject?.send(.setTransmitter(transmitter: transmitter))
     }
 
     func sendUpdate(age: Int, state: SensorState) {
-        AppLog.info("SensorAge: \(age.description)")
+        DirectLog.info("SensorAge: \(age.description)")
 
         subject?.send(.setSensorState(sensorAge: age, sensorState: state))
     }
@@ -73,7 +73,7 @@ extension SensorBLEConnection {
     }
 
     func sendUpdate(sensorSerial: String, readings: [SensorReading] = []) {
-        AppLog.info("SensorReadings: \(readings)")
+        DirectLog.info("SensorReadings: \(readings)")
 
         if !readings.isEmpty {
             subject?.send(.addSensorReadings(sensorSerial: sensorSerial, readings: readings))
@@ -97,19 +97,19 @@ extension SensorBLEConnection {
     }
 
     func sendUpdate(errorMessage: String, errorIsCritical: Bool = false) {
-        AppLog.error("ErrorMessage: \(errorMessage)")
+        DirectLog.error("ErrorMessage: \(errorMessage)")
 
         subject?.send(.setConnectionError(errorMessage: errorMessage, errorTimestamp: Date(), errorIsCritical: false))
     }
 
     func sendUpdate(peripheralUUID: String?) {
-        AppLog.error("PeripheralUUID: \(peripheralUUID)")
+        DirectLog.error("PeripheralUUID: \(peripheralUUID)")
 
         subject?.send(.setConnectionPeripheralUUID(peripheralUUID: peripheralUUID))
     }
 
     func sendMissedUpdate() {
-        AppLog.error("Missed update")
+        DirectLog.error("Missed update")
 
         subject?.send(.addMissedReading)
     }

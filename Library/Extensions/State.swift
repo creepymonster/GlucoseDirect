@@ -57,7 +57,7 @@ final class Store<State, Action>: ObservableObject {
                     receiveCompletion: { completion in
                         switch completion {
                         case .failure(.withMessage(message: let message)):
-                            AppLog.error(message)
+                            DirectLog.error(message)
                         default:
                             break
                         }

@@ -89,7 +89,7 @@ struct CustomCalibrationView: View {
                         Text("\(calibration.x.asGlucose(glucoseUnit: store.state.glucoseUnit)) = \(calibration.y.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))")
                     }
                 }.onDelete { offsets in
-                    AppLog.info("onDelete: \(offsets)")
+                    DirectLog.info("onDelete: \(offsets)")
 
                     let ids = offsets.map { i in
                         customCalibration[i].id
@@ -153,11 +153,11 @@ struct CustomCalibrationView: View {
             }
         )
         .onAppear {
-            AppLog.info("onAppear")
+            DirectLog.info("onAppear")
             self.customCalibration = store.state.customCalibration.reversed()
         }
         .onChange(of: store.state.customCalibration) { customCalibration in
-            AppLog.info("onChange")
+            DirectLog.info("onChange")
             self.customCalibration = customCalibration.reversed()
         }
     }

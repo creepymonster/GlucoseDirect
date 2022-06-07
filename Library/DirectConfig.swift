@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - AppConfig
 
-enum AppConfig {
+enum DirectConfig {
     static var appSchemaURL = URL(string: "glucosedirect://")
     static var githubURL = "https://github.com/creepymonster/GlucoseDirectApp"
     static var faqURL = "https://github.com/creepymonster/GlucoseDirectApp"
@@ -19,6 +19,10 @@ enum AppConfig {
 
     static var appName: String = {
         Bundle.main.localizedInfoDictionary?["CFBundleDisplayName"] as! String
+    }()
+    
+    static var widgetName: String = {
+       "\(appName) Widget"
     }()
 
     static var appVersion: String = {

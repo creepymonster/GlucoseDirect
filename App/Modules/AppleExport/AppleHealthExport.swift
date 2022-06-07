@@ -38,12 +38,12 @@ private func appleHealthExportMiddleware(service: LazyService<AppleHealthExportS
 
         case .addGlucoseValues(glucoseValues: let glucoseValues):
             guard state.appleHealthExport else {
-                AppLog.info("Guard: state.appleHealth is false")
+                DirectLog.info("Guard: state.appleHealth is false")
                 break
             }
 
             guard service.value.healthStoreAvailable else {
-                AppLog.info("Guard: HKHealthStore.isHealthDataAvailable is false")
+                DirectLog.info("Guard: HKHealthStore.isHealthDataAvailable is false")
                 break
             }
 
@@ -75,7 +75,7 @@ private class AppleHealthExportService {
     // MARK: Lifecycle
 
     init() {
-        AppLog.info("Create AppleHealthExportService")
+        DirectLog.info("Create AppleHealthExportService")
     }
 
     // MARK: Internal
@@ -108,7 +108,7 @@ private class AppleHealthExportService {
 
     func addGlucose(glucoseValues: [Glucose]) {
         guard !glucoseValues.isEmpty else {
-            AppLog.info("Guard: glucoseValues.count not > 0")
+            DirectLog.info("Guard: glucoseValues.count not > 0")
             return
         }
 
@@ -118,7 +118,7 @@ private class AppleHealthExportService {
 
         healthStore.requestAuthorization(toShare: requiredPermissions, read: nil) { granted, error in
             guard granted else {
-                AppLog.info("Guard: HKHealthStore.requestAuthorization failed, error: \(error?.localizedDescription)")
+                DirectLog.info("Guard: HKHealthStore.requestAuthorization failed, error: \(error?.localizedDescription)")
                 return
             }
 
@@ -137,13 +137,13 @@ private class AppleHealthExportService {
             }
 
             guard !healthGlucoseValues.isEmpty else {
-                AppLog.info("Guard: healthGlucoseValues.count not > 0")
+                DirectLog.info("Guard: healthGlucoseValues.count not > 0")
                 return
             }
 
             healthStore.save(healthGlucoseValues) { success, error in
                 if !success {
-                    AppLog.info("Guard: Writing data to apple health store failed, error: \(error?.localizedDescription)")
+                    DirectLog.info("Guard: Writing data to apple health store failed, error: \(error?.localizedDescription)")
                 }
             }
         }

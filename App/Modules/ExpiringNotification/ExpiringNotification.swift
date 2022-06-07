@@ -23,25 +23,25 @@ private func expiringNotificationMiddelware(service: LazyService<ExpiringNotific
 
         case .setSensorState(sensorAge: let sensorAge, sensorState: _):
             guard state.expiringAlarm else {
-                AppLog.info("Guard: expiringAlarm disabled")
+                DirectLog.info("Guard: expiringAlarm disabled")
                 break
             }
 
             guard let sensor = state.sensor else {
-                AppLog.info("Guard: state.sensor is nil")
+                DirectLog.info("Guard: state.sensor is nil")
                 break
             }
 
-            AppLog.info("Sensor expiring alert check, age: \(sensorAge)")
+            DirectLog.info("Sensor expiring alert check, age: \(sensorAge)")
 
             let remainingMinutes = max(0, sensor.lifetime - sensorAge)
             if remainingMinutes == 0 { // expired
-                AppLog.info("Sensor is expired")
+                DirectLog.info("Sensor is expired")
 
                 service.value.setSensorExpiredAlarm(ignoreMute: state.ignoreMute, sound: state.expiringAlarmSound)
 
             } else if remainingMinutes <= (8 * 60 + 1) { // less than 8 hours
-                AppLog.info("Sensor is expiring in less than 8 hours")
+                DirectLog.info("Sensor is expiring in less than 8 hours")
 
                 if remainingMinutes.inHours == 0 {
                     service.value.setSensorExpiringAlarm(body: String(format: LocalizedString("Your sensor is about to expire. Replace sensor in %1$@ minutes."), remainingMinutes.inMinutes.description), ignoreMute: state.ignoreMute, sound: state.expiringAlarmSound)
@@ -50,7 +50,7 @@ private func expiringNotificationMiddelware(service: LazyService<ExpiringNotific
                 }
 
             } else if remainingMinutes <= (24 * 60 + 1) { // less than 24 hours
-                AppLog.info("Sensor is expiring in less than 24 hours")
+                DirectLog.info("Sensor is expiring in less than 24 hours")
 
                 service.value.setSensorExpiringAlarm(body: String(format: LocalizedString("Your sensor is about to expire. Replace sensor in %1$@ hours."), remainingMinutes.inHours.description), ignoreMute: state.ignoreMute, sound: .none)
             }
@@ -69,7 +69,7 @@ private class ExpiringNotificationService {
     // MARK: Lifecycle
 
     init() {
-        AppLog.info("Create ExpiringNotificationService")
+        DirectLog.info("Create ExpiringNotificationService")
     }
 
     // MARK: Internal
@@ -90,10 +90,10 @@ private class ExpiringNotificationService {
             return
         }
 
-        nextExpiredAlert = Date().addingTimeInterval(AppConfig.expiredNotificationInterval)
+        nextExpiredAlert = Date().addingTimeInterval(DirectConfig.expiredNotificationInterval)
 
         NotificationService.shared.ensureCanSendNotification { state in
-            AppLog.info("Sensor expired alert, state: \(state)")
+            DirectLog.info("Sensor expired alert, state: \(state)")
 
             guard state != .none else {
                 return
@@ -124,10 +124,10 @@ private class ExpiringNotificationService {
         }
 
         lastExpiringAlert = body
-        nextExpiredAlert = Date().addingTimeInterval(AppConfig.expiredNotificationInterval)
+        nextExpiredAlert = Date().addingTimeInterval(DirectConfig.expiredNotificationInterval)
 
         NotificationService.shared.ensureCanSendNotification { state in
-            AppLog.info("Sensor expired alert, state: \(state)")
+            DirectLog.info("Sensor expired alert, state: \(state)")
 
             guard state != .none else {
                 return

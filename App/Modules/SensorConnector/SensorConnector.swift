@@ -18,15 +18,15 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             var selectConnection: Just<AppAction>?
 
             if let id = state.selectedConnectionID, let connectionInfo = infos.first(where: { $0.id == id }) {
-                AppLog.info("Select startup connection: \(connectionInfo.name)")
+                DirectLog.info("Select startup connection: \(connectionInfo.name)")
                 selectConnection = Just(.selectConnection(id: connectionInfo.id, connection: connectionInfo.connectionCreator(subject)))
 
             } else if infos.count == 1, let connectionInfo = infos.first {
-                AppLog.info("Select single startup connection: \(connectionInfo.name)")
+                DirectLog.info("Select single startup connection: \(connectionInfo.name)")
                 selectConnection = Just(.selectConnection(id: connectionInfo.id, connection: connectionInfo.connectionCreator(subject)))
 
             } else if let connectionInfo = infos.first {
-                AppLog.info("Select first startup connection: \(connectionInfo.name)")
+                DirectLog.info("Select first startup connection: \(connectionInfo.name)")
                 selectConnection = Just(.selectConnection(id: connectionInfo.id, connection: connectionInfo.connectionCreator(subject)))
             }
 
@@ -105,7 +105,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
 
         case .pairConnection:
             guard let sensorConnection = state.selectedConnection else {
-                AppLog.info("Guard: state.selectedConnection is nil")
+                DirectLog.info("Guard: state.selectedConnection is nil")
                 break
             }
 
@@ -122,7 +122,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
 
         case .connectConnection:
             guard let sensorConnection = state.selectedConnection else {
-                AppLog.info("Guard: state.selectedConnection is nil")
+                DirectLog.info("Guard: state.selectedConnection is nil")
                 break
             }
 
@@ -134,7 +134,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
 
         case .disconnectConnection:
             guard let sensorConnection = state.selectedConnection else {
-                AppLog.info("Guard: state.selectedConnection is nil")
+                DirectLog.info("Guard: state.selectedConnection is nil")
                 break
             }
 
@@ -142,7 +142,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
 
         case .setConnectionPaired(isPaired: let isPaired):
             guard isPaired && state.isConnectable else {
-                AppLog.info("Guard: sensor was not paired, no auto connect")
+                DirectLog.info("Guard: sensor was not paired, no auto connect")
                 break
             }
 

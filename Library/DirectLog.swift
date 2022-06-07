@@ -9,7 +9,7 @@ import OSLog
 
 // MARK: - AppLog
 
-enum AppLog {
+enum DirectLog {
     // MARK: Internal
 
     static func debug(_ message: String, log: OSLog = .default, file: String = #fileID, line: Int = #line, function: String = #function) {
@@ -182,7 +182,7 @@ struct FileLogger {
 
             return fileSize
         } catch {
-            AppLog.error("Failed to get file size: \(error.localizedDescription)")
+            DirectLog.error("Failed to get file size: \(error.localizedDescription)")
         }
 
         return 0
@@ -194,13 +194,13 @@ struct FileLogger {
                 do {
                     try FileManager.default.removeItem(at: oldLogsFileURL)
                 } catch {
-                    AppLog.error("Failed to remove file: \(error.localizedDescription)")
+                    DirectLog.error("Failed to remove file: \(error.localizedDescription)")
                 }
             }
 
             try FileManager.default.removeItem(at: logFileBaseURL)
         } catch {
-            AppLog.error("Can't remove logs at \(logFileBaseURL)", log: .default, error: error)
+            DirectLog.error("Can't remove logs at \(logFileBaseURL)", log: .default, error: error)
         }
     }
 
@@ -233,7 +233,7 @@ struct FileLogger {
             let fileHandle = try? FileHandle(forWritingTo: url)
             return fileHandle
         } catch {
-            AppLog.error("File handle error", log: .default, error: error)
+            DirectLog.error("File handle error", log: .default, error: error)
             return nil
         }
     }
@@ -247,7 +247,7 @@ struct FileLogger {
         do {
             return try FileHandle(forReadingFrom: url)
         } catch {
-            AppLog.error("File handle error", log: .default, error: error)
+            DirectLog.error("File handle error", log: .default, error: error)
             return nil
         }
     }

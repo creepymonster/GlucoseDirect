@@ -13,7 +13,7 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<AppAction, AppError>) {
-        AppLog.info("init")
+        DirectLog.info("init")
 
         super.init(subject: subject, serviceUUID: CBUUID(string: "FDE3"))
     }
@@ -25,7 +25,7 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
     }
 
     override func pairConnection() {
-        AppLog.info("PairSensor")
+        DirectLog.info("PairSensor")
 
         UserDefaults.standard.libre2UnlockCount = 0
 
@@ -34,7 +34,7 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
     }
 
     override func resetBuffer() {
-        AppLog.info("ResetBuffer")
+        DirectLog.info("ResetBuffer")
 
         firstBuffer = Data()
         secondBuffer = Data()
@@ -50,7 +50,7 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
     }
 
     func unlock() -> Data? {
-        AppLog.info("Unlock, count: \(UserDefaults.standard.libre2UnlockCount)")
+        DirectLog.info("Unlock, count: \(UserDefaults.standard.libre2UnlockCount)")
 
         if sensor == nil {
             return nil
@@ -61,16 +61,16 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
 
         UserDefaults.standard.libre2UnlockCount = unlockCount
 
-        AppLog.info("Unlock done, count: \(UserDefaults.standard.libre2UnlockCount)")
+        DirectLog.info("Unlock done, count: \(UserDefaults.standard.libre2UnlockCount)")
 
         return Data(unlockPayload)
     }
 
     override func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
-        AppLog.info("Found peripheral: \(peripheral.name ?? "-")")
+        DirectLog.info("Found peripheral: \(peripheral.name ?? "-")")
 
         guard manager != nil else {
-            AppLog.error("Guard: manager is nil")
+            DirectLog.error("Guard: manager is nil")
             return
         }
 
@@ -78,8 +78,8 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
             return
         }
 
-        AppLog.info("Sensor: \(sensor)")
-        AppLog.info("ManufacturerData: \(manufacturerData)")
+        DirectLog.info("Sensor: \(sensor)")
+        DirectLog.info("ManufacturerData: \(manufacturerData)")
 
         if manufacturerData.count == 8 {
             var foundUUID = manufacturerData.subdata(in: 2 ..< 8)
@@ -94,13 +94,13 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
     }
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
-        AppLog.info("Peripheral: \(peripheral)")
+        DirectLog.info("Peripheral: \(peripheral)")
 
         sendUpdate(error: error)
 
         if let services = peripheral.services {
             for service in services {
-                AppLog.info("Service Uuid: \(service.uuid)")
+                DirectLog.info("Service Uuid: \(service.uuid)")
 
                 peripheral.discoverCharacteristics([readCharacteristicUUID, writeCharacteristicUUID], for: service)
             }
@@ -108,13 +108,13 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
     }
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
-        AppLog.info("Peripheral: \(peripheral)")
+        DirectLog.info("Peripheral: \(peripheral)")
 
         sendUpdate(error: error)
 
         if let characteristics = service.characteristics {
             for characteristic in characteristics {
-                AppLog.info("Characteristic Uuid: \(characteristic.uuid.description)")
+                DirectLog.info("Characteristic Uuid: \(characteristic.uuid.description)")
 
                 if characteristic.uuid == readCharacteristicUUID {
                     readCharacteristic = characteristic
@@ -132,13 +132,13 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
     }
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
-        AppLog.info("Peripheral: \(peripheral)")
+        DirectLog.info("Peripheral: \(peripheral)")
 
         sendUpdate(error: error)
     }
 
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
-        AppLog.info("Peripheral: \(peripheral)")
+        DirectLog.info("Peripheral: \(peripheral)")
 
         sendUpdate(error: error)
 
@@ -148,7 +148,7 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
     }
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        AppLog.info("Peripheral: \(peripheral)")
+        DirectLog.info("Peripheral: \(peripheral)")
 
         sendUpdate(error: error)
 
@@ -164,10 +164,10 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
             thirdBuffer = value
         }
 
-        AppLog.info("Value: \(value.count)")
-        AppLog.info("First buffer: \(firstBuffer.count)")
-        AppLog.info("Second buffer: \(secondBuffer.count)")
-        AppLog.info("Third buffer: \(thirdBuffer.count)")
+        DirectLog.info("Value: \(value.count)")
+        DirectLog.info("First buffer: \(firstBuffer.count)")
+        DirectLog.info("Second buffer: \(secondBuffer.count)")
+        DirectLog.info("Third buffer: \(thirdBuffer.count)")
 
         if !firstBuffer.isEmpty, !secondBuffer.isEmpty, !thirdBuffer.isEmpty {
             let rxBuffer = firstBuffer + secondBuffer + thirdBuffer
@@ -185,11 +185,11 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
                         sendUpdate(age: parsedBLE.age, state: .ready)
                         
                         if let lastReading = lastReadings.last, (nextReading.timestamp.timeIntervalSince1970 - lastReading.timestamp.timeIntervalSince1970) > 90 {
-                            AppLog.info("Time difference of the read values too large: \(nextReading.timestamp.timeIntervalSince1970 - lastReading.timestamp.timeIntervalSince1970)")
+                            DirectLog.info("Time difference of the read values too large: \(nextReading.timestamp.timeIntervalSince1970 - lastReading.timestamp.timeIntervalSince1970)")
                             
                             lastReadings = [nextReading]
                         } else {
-                            AppLog.info("Time difference of the read values is OK or this is the first read")
+                            DirectLog.info("Time difference of the read values is OK or this is the first read")
                             
                             var lastReadings = self.lastReadings + [nextReading]
 
@@ -205,7 +205,7 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
                         lastReadings = []
                     }
                 } catch {
-                    AppLog.error("Cannot process BLE data: \(error.localizedDescription)")
+                    DirectLog.error("Cannot process BLE data: \(error.localizedDescription)")
                 }
 
                 let intervalSeconds = sensorInterval * 60 - 45

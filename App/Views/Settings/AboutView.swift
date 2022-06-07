@@ -18,10 +18,10 @@ struct AboutView: View {
                 HStack {
                     Text("App version")
                     Spacer()
-                    Text("\(AppConfig.appVersion) (\(AppConfig.appBuild))")
+                    Text("\(DirectConfig.appVersion) (\(DirectConfig.appBuild))")
                 }
 
-                if let appAuthor = AppConfig.appAuthor, !appAuthor.isEmpty {
+                if let appAuthor = DirectConfig.appAuthor, !appAuthor.isEmpty {
                     HStack {
                         Text("App author")
                         Spacer()
@@ -29,7 +29,7 @@ struct AboutView: View {
                     }
                 }
 
-                if let appSupportMail = AppConfig.appSupportMail, !appSupportMail.isEmpty {
+                if let appSupportMail = DirectConfig.appSupportMail, !appSupportMail.isEmpty {
                     HStack {
                         Text("App email")
                         Spacer()
@@ -42,7 +42,7 @@ struct AboutView: View {
                 HStack {
                     Text("App website")
                     Spacer()
-                    Link("GitHub", destination: URL(string: AppConfig.githubURL)!)
+                    Link("GitHub", destination: URL(string: DirectConfig.githubURL)!)
                         .lineLimit(1)
                         .truncationMode(.head)
                 }
@@ -50,7 +50,7 @@ struct AboutView: View {
                 HStack {
                     Text("App faq")
                     Spacer()
-                    Link("GitHub", destination: URL(string: AppConfig.faqURL)!)
+                    Link("GitHub", destination: URL(string: DirectConfig.faqURL)!)
                         .lineLimit(1)
                         .truncationMode(.head)
                 }
@@ -58,7 +58,7 @@ struct AboutView: View {
                 HStack {
                     Text("App facebook group")
                     Spacer()
-                    Link("Facebook", destination: URL(string: AppConfig.facebookURL)!)
+                    Link("Facebook", destination: URL(string: DirectConfig.facebookURL)!)
                         .lineLimit(1)
                         .truncationMode(.head)
                 }
@@ -66,7 +66,7 @@ struct AboutView: View {
                 HStack {
                     Text("App donate")
                     Spacer()
-                    Link("PayPal", destination: URL(string: AppConfig.donateURL)!)
+                    Link("PayPal", destination: URL(string: DirectConfig.donateURL)!)
                         .lineLimit(1)
                         .truncationMode(.head)
                 }
@@ -74,7 +74,7 @@ struct AboutView: View {
                 HStack {
                     Text("App translation")
                     Spacer()
-                    Link("Crowdin", destination: URL(string: AppConfig.crowdinURL)!)
+                    Link("Crowdin", destination: URL(string: DirectConfig.crowdinURL)!)
                         .lineLimit(1)
                         .truncationMode(.head)
                 }
@@ -106,7 +106,7 @@ struct AboutView: View {
                 }
             },
             header: {
-                Label("About \(AppConfig.appName)", systemImage: "info")
+                Label("About \(DirectConfig.appName)", systemImage: "info")
             }
         )
     }

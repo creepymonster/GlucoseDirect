@@ -95,11 +95,11 @@ extension Array where Element == CustomCalibration {
     // MARK: Private
 
     private var minReadableGlucose: Double {
-        Double(AppConfig.minReadableGlucose)
+        Double(DirectConfig.minReadableGlucose)
     }
 
     private var maxReadableGlucose: Double {
-        Double(AppConfig.maxReadableGlucose)
+        Double(DirectConfig.maxReadableGlucose)
     }
 
     private func average(_ input: [Double]) -> Double {

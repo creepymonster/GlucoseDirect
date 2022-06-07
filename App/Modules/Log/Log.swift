@@ -14,7 +14,7 @@ func logMiddleware() -> Middleware<AppState, AppAction> {
 
 private func logMiddleware(service: SendLogsService) -> Middleware<AppState, AppAction> {
     return { _, action, _ in
-        AppLog.info("Triggered action: \(action)")
+        DirectLog.info("Triggered action: \(action)")
 
         switch action {
         case .startup:
@@ -24,7 +24,7 @@ private func logMiddleware(service: SendLogsService) -> Middleware<AppState, App
             service.deleteLogs()
 
         case .sendLogs:
-            service.sendLog(fileURL: AppLog.getLogsURL())
+            service.sendLog(fileURL: DirectLog.getLogsURL())
 
         default:
             break
@@ -38,7 +38,7 @@ private func logMiddleware(service: SendLogsService) -> Middleware<AppState, App
 
 private class SendLogsService {
     func deleteLogs() {
-        AppLog.deleteLogs()
+        DirectLog.deleteLogs()
     }
 
     func sendLog(fileURL: URL) {

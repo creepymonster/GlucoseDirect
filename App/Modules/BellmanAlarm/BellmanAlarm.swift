@@ -37,17 +37,17 @@ private func bellmanAlarmMiddelware(service: LazyService<BellmanAlarmService>, s
             }
 
             guard let glucose = glucoseValues.last else {
-                AppLog.info("Guard: glucoseValues.last is nil")
+                DirectLog.info("Guard: glucoseValues.last is nil")
                 break
             }
 
             guard glucose.type == .cgm else {
-                AppLog.info("Guard: glucose.type is not .cgm")
+                DirectLog.info("Guard: glucose.type is not .cgm")
                 break
             }
 
             guard let glucoseValue = glucose.glucoseValue else {
-                AppLog.info("Guard: glucose.glucoseValue is nil")
+                DirectLog.info("Guard: glucose.glucoseValue is nil")
                 break
             }
 
@@ -61,12 +61,12 @@ private func bellmanAlarmMiddelware(service: LazyService<BellmanAlarmService>, s
             }
 
             if glucoseValue < state.alarmLow || glucose.isLOW {
-                AppLog.info("Glucose alert, low: \(glucose.glucoseValue) < \(state.alarmLow)")
+                DirectLog.info("Glucose alert, low: \(glucose.glucoseValue) < \(state.alarmLow)")
 
                 service.value.notifyDevice()
 
             } else if glucoseValue > state.alarmHigh || glucose.isHIGH {
-                AppLog.info("Glucose alert, high: \(glucose.glucoseValue) > \(state.alarmHigh)")
+                DirectLog.info("Glucose alert, high: \(glucose.glucoseValue) > \(state.alarmHigh)")
 
                 service.value.notifyDevice()
             }
@@ -110,7 +110,7 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<AppAction, AppError>) {
-        AppLog.info("Create BellmanAlarmService")
+        DirectLog.info("Create BellmanAlarmService")
         super.init()
 
         self.subject = subject
@@ -133,7 +133,7 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
     }
 
     func connectDevice() {
-        AppLog.info("ConnectDevice")
+        DirectLog.info("ConnectDevice")
 
         setStayConnected(stayConnected: true)
 
@@ -143,7 +143,7 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
     }
 
     func disconnectDevice() {
-        AppLog.info("DisconnectDevice")
+        DirectLog.info("DisconnectDevice")
 
         setStayConnected(stayConnected: false)
 
@@ -153,10 +153,10 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
     }
 
     func notifyDevice() {
-        AppLog.info("NotifyDevice")
+        DirectLog.info("NotifyDevice")
 
         guard isConnected else {
-            AppLog.info("NotifyDevice, device is not connected")
+            DirectLog.info("NotifyDevice, device is not connected")
 
             setShouldNotify(shouldNotify: true)
             connectDevice()
@@ -171,16 +171,16 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
 
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         guard manager != nil else {
-            AppLog.error("Guard: manager is nil")
+            DirectLog.error("Guard: manager is nil")
             return
         }
 
         switch manager.state {
         case .poweredOff:
-            AppLog.info("PoweredOff")
+            DirectLog.info("PoweredOff")
 
         case .poweredOn:
-            AppLog.info("PoweredOn")
+            DirectLog.info("PoweredOn")
 
             guard stayConnected else {
                 break
@@ -194,9 +194,9 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
     }
 
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
-        AppLog.info("DidDiscover peripheral: \(peripheral)")
-        AppLog.info("AdvertisementData: \(advertisementData)")
-        AppLog.info("RSSI: \(RSSI)")
+        DirectLog.info("DidDiscover peripheral: \(peripheral)")
+        DirectLog.info("AdvertisementData: \(advertisementData)")
+        DirectLog.info("RSSI: \(RSSI)")
 
         guard peripheral.name?.lowercased().starts(with: peripheralName) ?? false else {
             return
@@ -207,10 +207,10 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
     }
 
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
-        AppLog.info("DidFailToConnect peripheral: \(peripheral)")
+        DirectLog.info("DidFailToConnect peripheral: \(peripheral)")
 
         if let error = error {
-            AppLog.error("DidFailToConnect error: \(error.localizedDescription)")
+            DirectLog.error("DidFailToConnect error: \(error.localizedDescription)")
         }
 
         setConnectionState(connectionState: .disconnected)
@@ -223,10 +223,10 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
     }
 
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        AppLog.info("DidDisconnectPeripheral peripheral: \(peripheral)")
+        DirectLog.info("DidDisconnectPeripheral peripheral: \(peripheral)")
 
         if let error = error {
-            AppLog.error("DidDisconnectPeripheral error: \(error.localizedDescription)")
+            DirectLog.error("DidDisconnectPeripheral error: \(error.localizedDescription)")
         }
 
         setConnectionState(connectionState: .disconnected)
@@ -239,23 +239,23 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
     }
 
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        AppLog.info("DidConnect peripheral: \(peripheral)")
+        DirectLog.info("DidConnect peripheral: \(peripheral)")
 
         setConnectionState(connectionState: .connected)
         peripheral.discoverServices([commandServiceUUID, deviceServiceUUID])
     }
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
-        AppLog.info("DidDiscoverServices peripheral: \(peripheral)")
+        DirectLog.info("DidDiscoverServices peripheral: \(peripheral)")
 
         if let error = error {
-            AppLog.error("DidDiscoverServices error: \(error.localizedDescription)")
+            DirectLog.error("DidDiscoverServices error: \(error.localizedDescription)")
         }
 
         if let services = peripheral.services {
             for service in services {
-                AppLog.info("Service Uuid: \(service.uuid.description)")
-                AppLog.info("Service: \(service)")
+                DirectLog.info("Service Uuid: \(service.uuid.description)")
+                DirectLog.info("Service: \(service)")
 
                 peripheral.discoverCharacteristics(nil, for: service)
             }
@@ -263,26 +263,26 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
     }
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
-        AppLog.info("DidDiscoverCharacteristicsFor peripheral: \(peripheral)")
+        DirectLog.info("DidDiscoverCharacteristicsFor peripheral: \(peripheral)")
 
         if let error = error {
-            AppLog.error("DidDiscoverCharacteristicsFor error: \(error.localizedDescription)")
+            DirectLog.error("DidDiscoverCharacteristicsFor error: \(error.localizedDescription)")
         }
 
         if let characteristics = service.characteristics {
             for characteristic in characteristics {
-                AppLog.info("Characteristic Uuid: \(characteristic.uuid.description)")
-                AppLog.info("Characteristic: \(characteristic)")
+                DirectLog.info("Characteristic Uuid: \(characteristic.uuid.description)")
+                DirectLog.info("Characteristic: \(characteristic)")
 
                 if characteristic.uuid == commandCharacteristicUUID {
-                    AppLog.info("Characteristic: commandCharacteristicUuid")
+                    DirectLog.info("Characteristic: commandCharacteristicUuid")
                     commandCharacteristic = characteristic
 
                     peripheral.setNotifyValue(true, for: characteristic)
                 }
 
                 if characteristic.uuid == writeCharacteristicUUID {
-                    AppLog.info("Characteristic: writeCharacteristicUuid")
+                    DirectLog.info("Characteristic: writeCharacteristicUuid")
                     writeCharacteristic = characteristic
 
                     if shouldNotify {
@@ -293,7 +293,7 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
                 }
 
                 if characteristic.uuid == firmwareCharacteristicUUID {
-                    AppLog.info("Characteristic: firmwareCharacteristicUuid")
+                    DirectLog.info("Characteristic: firmwareCharacteristicUuid")
                     firmwareCharacteristic = characteristic
 
                     peripheral.writeValue(Data([]), for: characteristic, type: .withResponse)
@@ -303,19 +303,19 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
     }
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
-        AppLog.info("DidUpdateNotificationStateFor peripheral: \(peripheral)")
+        DirectLog.info("DidUpdateNotificationStateFor peripheral: \(peripheral)")
 
         if let error = error {
-            AppLog.error("DidUpdateNotificationStateFor error: \(error.localizedDescription)")
+            DirectLog.error("DidUpdateNotificationStateFor error: \(error.localizedDescription)")
         }
 
         guard let data = characteristic.value else {
             return
         }
 
-        AppLog.info("DidUpdateNotificationStateFor characteristic: \(characteristic.uuid.description)")
-        AppLog.info("DidUpdateNotificationStateFor data: \(data.hex)")
-        AppLog.info("DidUpdateNotificationStateFor data.count: \(data.count)")
+        DirectLog.info("DidUpdateNotificationStateFor characteristic: \(characteristic.uuid.description)")
+        DirectLog.info("DidUpdateNotificationStateFor data: \(data.hex)")
+        DirectLog.info("DidUpdateNotificationStateFor data.count: \(data.count)")
 
         if characteristic.uuid == commandCharacteristicUUID {
             analysis([UInt8](data))
@@ -323,39 +323,39 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
     }
 
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
-        AppLog.info("DidWriteValueFor peripheral: \(peripheral)")
+        DirectLog.info("DidWriteValueFor peripheral: \(peripheral)")
 
         if let error = error {
-            AppLog.error("DidWriteValueFor error: \(error.localizedDescription)")
+            DirectLog.error("DidWriteValueFor error: \(error.localizedDescription)")
         }
 
         guard let data = characteristic.value else {
             return
         }
 
-        AppLog.info("DidWriteValueFor characteristic: \(characteristic.uuid.description)")
-        AppLog.info("DidWriteValueFor data: \(data.hex)")
-        AppLog.info("DidWriteValueFor data.count: \(data.count)")
+        DirectLog.info("DidWriteValueFor characteristic: \(characteristic.uuid.description)")
+        DirectLog.info("DidWriteValueFor data: \(data.hex)")
+        DirectLog.info("DidWriteValueFor data.count: \(data.count)")
     }
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        AppLog.info("DidUpdateValueFor peripheral: \(peripheral)")
+        DirectLog.info("DidUpdateValueFor peripheral: \(peripheral)")
 
         if let error = error {
-            AppLog.error("DidUpdateValueFor error: \(error.localizedDescription)")
+            DirectLog.error("DidUpdateValueFor error: \(error.localizedDescription)")
         }
 
         guard let data = characteristic.value else {
             return
         }
 
-        AppLog.info("DidUpdateValueFor characteristic: \(characteristic.uuid.description)")
-        AppLog.info("DidUpdateValueFor data: \(data.hex)")
-        AppLog.info("DidUpdateValueFor data.count: \(data.count)")
+        DirectLog.info("DidUpdateValueFor characteristic: \(characteristic.uuid.description)")
+        DirectLog.info("DidUpdateValueFor data: \(data.hex)")
+        DirectLog.info("DidUpdateValueFor data.count: \(data.count)")
     }
 
     func connect() {
-        AppLog.info("Connect")
+        DirectLog.info("Connect")
 
         setConnectionState(connectionState: .connecting)
 
@@ -391,10 +391,10 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
 
     private func analysis(_ bArr: [UInt8]) {
         let sender = bytesToHex(subBytes(bArr, 4, 3))
-        AppLog.info("Sender: \(sender)")
+        DirectLog.info("Sender: \(sender)")
 
         let receiver = bytesToHex(subBytes(bArr, 7, 3))
-        AppLog.info("Receiver: \(receiver)")
+        DirectLog.info("Receiver: \(receiver)")
     }
 
     private func conver2HexStr(_ bArr: [UInt8]) -> String {
@@ -437,10 +437,10 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
     }
 
     private func find() {
-        AppLog.info("Find")
+        DirectLog.info("Find")
 
         guard manager.state == .poweredOn else {
-            AppLog.error("Guard: manager.state \(manager.state.rawValue) is not .poweredOn")
+            DirectLog.error("Guard: manager.state \(manager.state.rawValue) is not .poweredOn")
             return
         }
 
@@ -449,11 +449,11 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
                 return false
             }
 
-            AppLog.info("Found peripheral, name: '\(name)' and searching for: '\(peripheralName)'")
+            DirectLog.info("Found peripheral, name: '\(name)' and searching for: '\(peripheralName)'")
 
             return name == peripheralName
         }) {
-            AppLog.info("Connect from retrievePeripherals: \(connectedPeripheral)")
+            DirectLog.info("Connect from retrievePeripherals: \(connectedPeripheral)")
 
             connect(connectedPeripheral)
         } else if stayConnected {
@@ -464,14 +464,14 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
     }
 
     private func connect(_ peripheral: CBPeripheral) {
-        AppLog.info("Connect: \(peripheral)")
+        DirectLog.info("Connect: \(peripheral)")
 
         self.peripheral = peripheral
         manager.connect(peripheral, options: nil)
     }
 
     private func disconnect() {
-        AppLog.info("Disconnect")
+        DirectLog.info("Disconnect")
 
         if manager.isScanning {
             manager.stopScan()
@@ -486,7 +486,7 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
     }
 
     private func notify(type: CBCharacteristicWriteType) {
-        AppLog.info("Notify")
+        DirectLog.info("Notify")
 
         setShouldNotify(shouldNotify: false)
 
@@ -505,13 +505,13 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
     }
 
     private func setShouldNotify(shouldNotify: Bool) {
-        AppLog.info("ShouldNotify: \(shouldNotify.description)")
+        DirectLog.info("ShouldNotify: \(shouldNotify.description)")
 
         self.shouldNotify = shouldNotify
     }
 
     private func setStayConnected(stayConnected: Bool) {
-        AppLog.info("StayConnected: \(stayConnected.description)")
+        DirectLog.info("StayConnected: \(stayConnected.description)")
 
         self.stayConnected = stayConnected
     }

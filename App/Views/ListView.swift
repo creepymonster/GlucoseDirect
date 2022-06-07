@@ -88,7 +88,7 @@ struct ListView: View {
                             }
                         }
                     }.onDelete { offsets in
-                        AppLog.info("onDelete: \(offsets)")
+                        DirectLog.info("onDelete: \(offsets)")
 
                         let ids = offsets.map { i in
                             glucoseValues[i].id
@@ -153,11 +153,11 @@ struct ListView: View {
         }
         .listStyle(.grouped)
         .onAppear {
-            AppLog.info("onAppear")
+            DirectLog.info("onAppear")
             self.glucoseValues = store.state.glucoseValues.reversed()
         }
         .onChange(of: store.state.glucoseValues) { glucoseValues in
-            AppLog.info("onChange")
+            DirectLog.info("onChange")
             self.glucoseValues = glucoseValues.reversed()
         }
     }

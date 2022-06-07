@@ -13,7 +13,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<AppAction, AppError>, serviceUUID: CBUUID) {
-        AppLog.info("init")
+        DirectLog.info("init")
 
         super.init()
 
@@ -23,7 +23,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     }
 
     deinit {
-        AppLog.info("deinit")
+        DirectLog.info("deinit")
 
         managerQueue.sync {
             disconnect()
@@ -58,7 +58,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     }
 
     func pairConnection() {
-        AppLog.info("PairSensor")
+        DirectLog.info("PairSensor")
 
         sendUpdate(connectionState: .pairing)
 
@@ -68,7 +68,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     }
 
     func connectConnection(sensor: Sensor, sensorInterval: Int) {
-        AppLog.info("ConnectSensor: \(sensor)")
+        DirectLog.info("ConnectSensor: \(sensor)")
 
         self.sensor = sensor
         self.sensorInterval = sensorInterval
@@ -81,7 +81,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     }
 
     func disconnectConnection() {
-        AppLog.info("DisconnectConnection")
+        DirectLog.info("DisconnectConnection")
 
         setStayConnected(stayConnected: false)
 
@@ -91,15 +91,15 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     }
 
     func find() {
-        AppLog.info("Find")
+        DirectLog.info("Find")
         
         guard manager != nil else {
-            AppLog.error("Guard: manager is nil")
+            DirectLog.error("Guard: manager is nil")
             return
         }
 
         guard manager.state == .poweredOn else {
-            AppLog.error("Guard: manager.state \(manager.state.rawValue) is not .poweredOn")
+            DirectLog.error("Guard: manager.state \(manager.state.rawValue) is not .poweredOn")
             return
         }
 
@@ -108,19 +108,19 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
            let retrievedPeripheral = manager.retrievePeripherals(withIdentifiers: [peripheralUUID]).first,
            checkRetrievedPeripheral(peripheral: retrievedPeripheral)
         {
-            AppLog.info("Connect from retrievePeripherals")
+            DirectLog.info("Connect from retrievePeripherals")
             connect(retrievedPeripheral)
         } else {
-            AppLog.info("Scan for peripherals")
+            DirectLog.info("Scan for peripherals")
             scan()
         }
     }
 
     func scan() {
-        AppLog.info("scan")
+        DirectLog.info("scan")
         
         guard manager != nil else {
-            AppLog.error("Guard: manager is nil")
+            DirectLog.error("Guard: manager is nil")
             return
         }
 
@@ -129,10 +129,10 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     }
 
     func disconnect() {
-        AppLog.info("Disconnect")
+        DirectLog.info("Disconnect")
         
         guard manager != nil else {
-            AppLog.error("Guard: manager is nil")
+            DirectLog.error("Guard: manager is nil")
             return
         }
 
@@ -150,10 +150,10 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     }
 
     func connect(_ peripheral: CBPeripheral) {
-        AppLog.info("Connect: \(peripheral)")
+        DirectLog.info("Connect: \(peripheral)")
         
         guard manager != nil else {
-            AppLog.error("Guard: manager is nil")
+            DirectLog.error("Guard: manager is nil")
             return
         }
 
@@ -168,7 +168,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     }
 
     func setStayConnected(stayConnected: Bool) {
-        AppLog.info("StayConnected: \(stayConnected.description)")
+        DirectLog.info("StayConnected: \(stayConnected.description)")
         self.stayConnected = stayConnected
     }
 
@@ -178,7 +178,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
 
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         guard manager != nil else {
-            AppLog.error("Guard: manager is nil")
+            DirectLog.error("Guard: manager is nil")
             return
         }
         
@@ -202,10 +202,10 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     }
 
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
-        AppLog.info("Peripheral: \(peripheral)")
+        DirectLog.info("Peripheral: \(peripheral)")
         
         guard manager != nil else {
-            AppLog.error("Guard: manager is nil")
+            DirectLog.error("Guard: manager is nil")
             return
         }
 
@@ -218,7 +218,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     }
 
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
-        AppLog.info("Peripheral: \(peripheral), didFailToConnect")
+        DirectLog.info("Peripheral: \(peripheral), didFailToConnect")
 
         sendUpdate(connectionState: .disconnected)
         sendUpdate(error: error)
@@ -231,7 +231,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     }
 
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        AppLog.info("Peripheral: \(peripheral), didDisconnectPeripheral")
+        DirectLog.info("Peripheral: \(peripheral), didDisconnectPeripheral")
 
         sendUpdate(connectionState: .disconnected)
         sendUpdate(error: error)
@@ -244,7 +244,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     }
 
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        AppLog.info("Peripheral: \(peripheral)")
+        DirectLog.info("Peripheral: \(peripheral)")
 
         resetBuffer()
 

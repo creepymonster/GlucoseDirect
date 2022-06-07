@@ -12,7 +12,7 @@ final class VirtualLibreConnection: SensorBLEConnection, IsSensor {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<AppAction, AppError>) {
-        AppLog.info("init")
+        DirectLog.info("init")
         self.subject = subject
     }
 
@@ -44,7 +44,7 @@ final class VirtualLibreConnection: SensorBLEConnection, IsSensor {
 
         let fireDate = Date().toRounded(on: 1, .minute).addingTimeInterval(60)
         let timer = Timer(fire: fireDate, interval: glucoseInterval, repeats: true) { _ in
-            AppLog.info("fires at \(Date())")
+            DirectLog.info("fires at \(Date())")
 
             self.sendNextGlucose()
         }
@@ -75,10 +75,10 @@ final class VirtualLibreConnection: SensorBLEConnection, IsSensor {
     private var lastGlucose = 100
 
     private func sendNextGlucose() {
-        AppLog.info("direction: \(direction)")
+        DirectLog.info("direction: \(direction)")
 
         let currentGlucose = nextGlucose
-        AppLog.info("currentGlucose: \(currentGlucose)")
+        DirectLog.info("currentGlucose: \(currentGlucose)")
 
         age = age + 1
 
@@ -97,18 +97,18 @@ final class VirtualLibreConnection: SensorBLEConnection, IsSensor {
         nextGlucose = currentGlucose + (nextAddition * Int.random(in: 0 ..< 12))
         lastGlucose = currentGlucose
 
-        AppLog.info("nextGlucose: \(nextGlucose)")
+        DirectLog.info("nextGlucose: \(nextGlucose)")
 
         if direction == .up, currentGlucose > nextRotation {
             direction = .down
             nextRotation = Int.random(in: 50 ..< 80)
 
-            AppLog.info("nextRotation: \(nextRotation)")
+            DirectLog.info("nextRotation: \(nextRotation)")
         } else if direction == .down, currentGlucose < nextRotation {
             direction = .up
             nextRotation = Int.random(in: 160 ..< 240)
 
-            AppLog.info("nextRotation: \(nextRotation)")
+            DirectLog.info("nextRotation: \(nextRotation)")
         }
     }
 }

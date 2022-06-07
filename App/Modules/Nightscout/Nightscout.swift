@@ -21,7 +21,7 @@ private func nightscoutMiddleware(service: LazyService<NightscoutService>) -> Mi
             switch action {
             case .removeGlucose(id: let id):
                 guard let glucose = lastState.glucoseValues.first(where: { $0.id == id }) else {
-                    AppLog.info("Guard: lastState.glucoseValues.first with id \(id) not found")
+                    DirectLog.info("Guard: lastState.glucoseValues.first with id \(id) not found")
                     break
                 }
 
@@ -43,17 +43,17 @@ private func nightscoutMiddleware(service: LazyService<NightscoutService>) -> Mi
 
             case .setSensorState(sensorAge: _, sensorState: _):
                 guard let sensor = state.sensor, sensor.startTimestamp != nil else {
-                    AppLog.info("Guard: state.sensor or sensor.startTimestamp is nil")
+                    DirectLog.info("Guard: state.sensor or sensor.startTimestamp is nil")
                     break
                 }
 
                 guard lastState.sensor == nil || lastState.sensor!.startTimestamp == nil else {
-                    AppLog.info("Guard: lastState.sensor and lastState.sensor!.startTimestamp not nil")
+                    DirectLog.info("Guard: lastState.sensor and lastState.sensor!.startTimestamp not nil")
                     break
                 }
 
                 guard let serial = sensor.serial else {
-                    AppLog.info("Guard: sensor.serial is nil")
+                    DirectLog.info("Guard: sensor.serial is nil")
                     break
                 }
 
@@ -78,7 +78,7 @@ private class NightscoutService {
     // MARK: Lifecycle
 
     init() {
-        AppLog.info("Create NightscoutService")
+        DirectLog.info("Create NightscoutService")
     }
 
     // MARK: Internal
@@ -98,7 +98,7 @@ private class NightscoutService {
 
         let urlString = "\(nightscoutURL)/api/v1/treatments"
         guard let url = URL(string: urlString) else {
-            AppLog.error("Nightscout, bad nightscout url")
+            DirectLog.error("Nightscout, bad nightscout url")
             return
         }
 
@@ -106,7 +106,7 @@ private class NightscoutService {
 
         let task = session.uploadTask(with: request, from: nightscoutJson) { data, response, error in
             if let error = error {
-                AppLog.info("Nightscout error: \(error.localizedDescription)")
+                DirectLog.info("Nightscout error: \(error.localizedDescription)")
                 return
             }
 
@@ -115,7 +115,7 @@ private class NightscoutService {
 
                 if status != 200, let data = data {
                     let responseString = String(data: data, encoding: .utf8)
-                    AppLog.info("Nightscout error: \(response.statusCode) \(responseString)")
+                    DirectLog.info("Nightscout error: \(response.statusCode) \(responseString)")
                 }
             }
         }
@@ -126,9 +126,9 @@ private class NightscoutService {
     func clearGlucoseValues(nightscoutURL: String, apiSecret: String) {
         let session = URLSession.shared
 
-        let urlString = "\(nightscoutURL)/api/v1/entries?find[device]=\(AppConfig.projectName)"
+        let urlString = "\(nightscoutURL)/api/v1/entries?find[device]=\(DirectConfig.projectName)"
         guard let url = URL(string: urlString) else {
-            AppLog.error("Nightscout, bad nightscout url")
+            DirectLog.error("Nightscout, bad nightscout url")
             return
         }
 
@@ -136,7 +136,7 @@ private class NightscoutService {
 
         let task = session.dataTask(with: request) { data, response, error in
             if let error = error {
-                AppLog.info("Nightscout error: \(error.localizedDescription)")
+                DirectLog.info("Nightscout error: \(error.localizedDescription)")
                 return
             }
 
@@ -144,7 +144,7 @@ private class NightscoutService {
                 let status = response.statusCode
                 if status != 200, let data = data {
                     let responseString = String(data: data, encoding: .utf8)
-                    AppLog.info("Nightscout error: \(response.statusCode) \(responseString)")
+                    DirectLog.info("Nightscout error: \(response.statusCode) \(responseString)")
                 }
             }
         }
@@ -155,9 +155,9 @@ private class NightscoutService {
     func removeGlucose(nightscoutURL: String, apiSecret: String, date: Date) {
         let session = URLSession.shared
 
-        let urlString = "\(nightscoutURL)/api/v1/entries?find[device]=\(AppConfig.projectName)&find[dateString]=\(date.toISOStringFromDate())"
+        let urlString = "\(nightscoutURL)/api/v1/entries?find[device]=\(DirectConfig.projectName)&find[dateString]=\(date.toISOStringFromDate())"
         guard let url = URL(string: urlString) else {
-            AppLog.error("Nightscout, bad nightscout url")
+            DirectLog.error("Nightscout, bad nightscout url")
             return
         }
 
@@ -165,7 +165,7 @@ private class NightscoutService {
 
         let task = session.dataTask(with: request) { data, response, error in
             if let error = error {
-                AppLog.info("Nightscout error: \(error.localizedDescription)")
+                DirectLog.info("Nightscout error: \(error.localizedDescription)")
                 return
             }
 
@@ -173,7 +173,7 @@ private class NightscoutService {
                 let status = response.statusCode
                 if status != 200, let data = data {
                     let responseString = String(data: data, encoding: .utf8)
-                    AppLog.info("Nightscout error: \(response.statusCode) \(responseString)")
+                    DirectLog.info("Nightscout error: \(response.statusCode) \(responseString)")
                 }
             }
         }
@@ -192,7 +192,7 @@ private class NightscoutService {
 
         let urlString = "\(nightscoutURL)/api/v1/entries"
         guard let url = URL(string: urlString) else {
-            AppLog.error("Nightscout, bad nightscout url")
+            DirectLog.error("Nightscout, bad nightscout url")
             return
         }
 
@@ -200,14 +200,14 @@ private class NightscoutService {
 
         let task = session.uploadTask(with: request, from: nightscoutJson) { data, response, error in
             if let error = error {
-                AppLog.info("Nightscout error: \(error.localizedDescription)")
+                DirectLog.info("Nightscout error: \(error.localizedDescription)")
                 return
             }
 
             if let response = response as? HTTPURLResponse {
                 if response.statusCode != 200, let data = data {
                     let responseString = String(data: data, encoding: .utf8)
-                    AppLog.info("Nightscout error: \(response.statusCode) \(responseString)")
+                    DirectLog.info("Nightscout error: \(response.statusCode) \(responseString)")
                 }
             }
         }
@@ -220,7 +220,7 @@ private class NightscoutService {
 
         let urlString = "\(nightscoutURL)/api/v1/treatments?find[_id][$in][]=\(serial)&find[eventType][$in][]=Sensor%20Start"
         guard let url = URL(string: urlString) else {
-            AppLog.error("Nightscout, bad nightscout url")
+            DirectLog.error("Nightscout, bad nightscout url")
 
             completionHandler(nil)
             return
@@ -230,7 +230,7 @@ private class NightscoutService {
 
         let task = session.dataTask(with: request) { data, response, error in
             if let error = error {
-                AppLog.info("Nightscout error: \(error.localizedDescription)")
+                DirectLog.info("Nightscout error: \(error.localizedDescription)")
 
                 completionHandler(nil)
                 return
@@ -241,14 +241,14 @@ private class NightscoutService {
                 if status != 200 {
                     let responseString = String(data: data, encoding: .utf8)
 
-                    AppLog.info("Nightscout error: \(response.statusCode) \(responseString)")
+                    DirectLog.info("Nightscout error: \(response.statusCode) \(responseString)")
                     completionHandler(nil)
                 } else {
                     do {
                         let results = try JSONDecoder().decode([Treatment].self, from: data)
                         completionHandler(!results.isEmpty)
                     } catch {
-                        AppLog.info("Nightscout, json decode failed: \(error.localizedDescription)")
+                        DirectLog.info("Nightscout, json decode failed: \(error.localizedDescription)")
                         completionHandler(nil)
                     }
                 }
@@ -296,7 +296,7 @@ private extension Sensor {
             "_id": serial,
             "eventType": "Sensor Start",
             "created_at": startTimestamp.toISOStringFromDate(),
-            "enteredBy": AppConfig.projectName
+            "enteredBy": DirectConfig.projectName
         ]
 
         return nightscout
@@ -307,7 +307,7 @@ private extension Glucose {
     func toNightscoutGlucose() -> [String: Any] {
         var nightscout: [String: Any] = [
             "_id": id.uuidString,
-            "device": AppConfig.projectName,
+            "device": DirectConfig.projectName,
             "date": timestamp.toMillisecondsAsInt64(),
             "dateString": timestamp.toISOStringFromDate()
         ]

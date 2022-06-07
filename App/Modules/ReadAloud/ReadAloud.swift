@@ -37,26 +37,26 @@ private class ReadAloudService {
     // MARK: Lifecycle
 
     init() {
-        AppLog.info("Create ReadAloudService")
+        DirectLog.info("Create ReadAloudService")
     }
 
     // MARK: Internal
 
     func readGlucoseValues(sensorInterval: Int, glucoseValues: [Glucose], glucoseUnit: GlucoseUnit, alarmLow: Int, alarmHigh: Int) {
-        AppLog.info("readGlucoseValues: \(glucoseValues.count) \(glucoseUnit.localizedString)")
+        DirectLog.info("readGlucoseValues: \(glucoseValues.count) \(glucoseUnit.localizedString)")
 
         guard let glucose = glucoseValues.last else {
-            AppLog.info("Guard: glucoseValues.last is nil")
+            DirectLog.info("Guard: glucoseValues.last is nil")
             return
         }
 
         guard glucose.type != .bgm else {
-            AppLog.info("Guard: glucose.type is .bgm")
+            DirectLog.info("Guard: glucose.type is .bgm")
             return
         }
 
         guard let glucoseValue = glucose.glucoseValue else {
-            AppLog.info("Guard: glucose.glucoseValue is nil")
+            DirectLog.info("Guard: glucose.glucoseValue is nil")
             return
         }
 
@@ -96,12 +96,12 @@ private class ReadAloudService {
     private lazy var voice: AVSpeechSynthesisVoice? = {
         for availableVoice in AVSpeechSynthesisVoice.speechVoices() {
             if availableVoice.language == AVSpeechSynthesisVoice.currentLanguageCode(), availableVoice.quality == AVSpeechSynthesisVoiceQuality.enhanced {
-                AppLog.info("Found enhanced voice: \(availableVoice.name)")
+                DirectLog.info("Found enhanced voice: \(availableVoice.name)")
                 return availableVoice
             }
         }
 
-        AppLog.info("Use default voice for language")
+        DirectLog.info("Use default voice for language")
         return AVSpeechSynthesisVoice(language: AVSpeechSynthesisVoice.currentLanguageCode())
     }()
 
@@ -115,7 +115,7 @@ private class ReadAloudService {
     }
 
     private func read(glucoseValue: Int, glucoseUnit: GlucoseUnit, glucoseTrend: SensorTrend? = nil, alarm: AlarmType = .none) {
-        AppLog.info("read: \(glucoseValue.asGlucose(unit: glucoseUnit)) \(glucoseUnit.readable) \(glucoseTrend?.readable)")
+        DirectLog.info("read: \(glucoseValue.asGlucose(unit: glucoseUnit)) \(glucoseUnit.readable) \(glucoseTrend?.readable)")
 
         var glucoseString: String
 

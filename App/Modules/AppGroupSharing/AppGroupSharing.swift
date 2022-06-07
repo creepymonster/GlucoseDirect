@@ -17,8 +17,8 @@ private func appGroupSharingMiddleware(service: LazyService<AppGroupSharingServi
         switch action {
         case .startup:
             service.value.clearAll()
-            service.value.setApp(value: AppConfig.appName)
-            service.value.setAppVersion(value: "\(AppConfig.appVersion) (\(AppConfig.appBuild))")
+            service.value.setApp(value: DirectConfig.appName)
+            service.value.setAppVersion(value: "\(DirectConfig.appVersion) (\(DirectConfig.appBuild))")
 
         case .selectConnection(id: _, connection: _):
             service.value.clearAll()
@@ -53,7 +53,7 @@ private func appGroupSharingMiddleware(service: LazyService<AppGroupSharingServi
 
         case .addGlucoseValues(glucoseValues: let glucoseValues):
             guard let glucose = glucoseValues.last else {
-                AppLog.info("Guard: glucoseValues.last is nil")
+                DirectLog.info("Guard: glucoseValues.last is nil")
                 break
             }
             
@@ -91,7 +91,7 @@ private class AppGroupSharingService {
     // MARK: Lifecycle
 
     init() {
-        AppLog.info("Create AppGroupSharingService")
+        DirectLog.info("Create AppGroupSharingService")
     }
 
     // MARK: Internal
@@ -160,13 +160,13 @@ private class AppGroupSharingService {
             return
         }
 
-        AppLog.info("Shared values, values: \(sharedValues)")
+        DirectLog.info("Shared values, values: \(sharedValues)")
 
         guard let sharedValuesJson = try? JSONSerialization.data(withJSONObject: sharedValues) else {
             return
         }
 
-        AppLog.info("Shared values, json: \(sharedValuesJson)")
+        DirectLog.info("Shared values, json: \(sharedValuesJson)")
 
         UserDefaults.shared.sharedGlucose = sharedValuesJson
     }
@@ -185,7 +185,7 @@ private extension Glucose {
             "Trend": trend.toNightscoutTrend(),
             "DT": date,
             "direction": trend.toNightscoutDirection(),
-            "from": AppConfig.projectName
+            "from": DirectConfig.projectName
         ]
 
         return freeAPSGlucose

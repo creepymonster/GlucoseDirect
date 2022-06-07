@@ -62,7 +62,7 @@ final class GlucoseDirectApp: App {
     }
 
     private static func createSimulatorAppStore() -> AppStore {
-        AppLog.info("Create preview store")
+        DirectLog.info("Create preview store")
 
         var middlewares = [
             logMiddleware(),
@@ -85,7 +85,7 @@ final class GlucoseDirectApp: App {
     }
 
     private static func createAppStore() -> AppStore {
-        AppLog.info("Create app store")
+        DirectLog.info("Create app store")
 
         var middlewares = [
             logMiddleware(),
@@ -158,15 +158,15 @@ final class GlucoseDirectNotificationCenter: NSObject, UNUserNotificationCenterD
 
 final class GlucoseDirectAppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-        AppLog.info("Application did finish launching with options")
+        DirectLog.info("Application did finish launching with options")
         return true
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        AppLog.info("Application will terminate")
+        DirectLog.info("Application will terminate")
     }
 
     func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
-        AppLog.info("Application did receive memory warning")
+        DirectLog.info("Application did receive memory warning")
     }
 }

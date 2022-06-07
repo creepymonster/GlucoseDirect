@@ -41,17 +41,17 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
 
         case .addGlucoseValues(glucoseValues: let glucoseValues):
             guard let glucose = glucoseValues.last else {
-                AppLog.info("Guard: glucoseValues.last is nil")
+                DirectLog.info("Guard: glucoseValues.last is nil")
                 break
             }
 
             guard glucose.type == .cgm else {
-                AppLog.info("Guard: glucose.type is not .cgm")
+                DirectLog.info("Guard: glucose.type is not .cgm")
                 break
             }
 
             guard let glucoseValue = glucose.glucoseValue else {
-                AppLog.info("Guard: glucose.glucoseValue is nil")
+                DirectLog.info("Guard: glucose.glucoseValue is nil")
                 break
             }
 
@@ -60,10 +60,10 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
                 isSnoozed = true
             }
 
-            AppLog.info("isSnoozed: \(isSnoozed)")
+            DirectLog.info("isSnoozed: \(isSnoozed)")
 
             if state.lowGlucoseAlarm, glucoseValue < state.alarmLow || glucose.isLOW {
-                AppLog.info("Glucose alert, low: \(glucose.glucoseValue) < \(state.alarmLow)")
+                DirectLog.info("Glucose alert, low: \(glucose.glucoseValue) < \(state.alarmLow)")
 
                 service.value.setLowGlucoseAlarm(glucose: glucose, glucoseUnit: state.glucoseUnit, ignoreMute: state.ignoreMute, sound: isSnoozed ? .none : state.lowGlucoseAlarmSound)
 
@@ -74,7 +74,7 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
                 }
 
             } else if state.highGlucoseAlarm, glucoseValue > state.alarmHigh || glucose.isHIGH {
-                AppLog.info("Glucose alert, high: \(glucose.glucoseValue) > \(state.alarmHigh)")
+                DirectLog.info("Glucose alert, high: \(glucose.glucoseValue) > \(state.alarmHigh)")
 
                 service.value.setHighGlucoseAlarm(glucose: glucose, glucoseUnit: state.glucoseUnit, ignoreMute: state.ignoreMute, sound: isSnoozed ? .none : state.highGlucoseAlarmSound)
 
@@ -102,7 +102,7 @@ private class GlucoseNotificationService {
     // MARK: Lifecycle
 
     init() {
-        AppLog.info("Create GlucoseNotificationService")
+        DirectLog.info("Create GlucoseNotificationService")
     }
 
     // MARK: Internal
@@ -118,7 +118,7 @@ private class GlucoseNotificationService {
 
     func setGlucoseNotification(glucose: Glucose, glucoseUnit: GlucoseUnit) {
         NotificationService.shared.ensureCanSendNotification { state in
-            AppLog.info("Glucose info, state: \(state)")
+            DirectLog.info("Glucose info, state: \(state)")
 
             guard state != .none else {
                 return
@@ -150,7 +150,7 @@ private class GlucoseNotificationService {
 
     func setLowGlucoseAlarm(glucose: Glucose, glucoseUnit: GlucoseUnit, ignoreMute: Bool, sound: NotificationSound) {
         NotificationService.shared.ensureCanSendNotification { state in
-            AppLog.info("Glucose alert, state: \(state)")
+            DirectLog.info("Glucose alert, state: \(state)")
 
             guard state != .none else {
                 return
@@ -187,7 +187,7 @@ private class GlucoseNotificationService {
 
     func setHighGlucoseAlarm(glucose: Glucose, glucoseUnit: GlucoseUnit, ignoreMute: Bool, sound: NotificationSound) {
         NotificationService.shared.ensureCanSendNotification { state in
-            AppLog.info("Glucose alert, state: \(state)")
+            DirectLog.info("Glucose alert, state: \(state)")
 
             guard state != .none else {
                 return

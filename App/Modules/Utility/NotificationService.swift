@@ -39,7 +39,7 @@ class NotificationService {
 
     func stopSound() {
         guard let player = player else {
-            AppLog.info("Guard: player is nil")
+            DirectLog.info("Guard: player is nil")
             return
         }
 
@@ -64,8 +64,8 @@ class NotificationService {
         let center = UNUserNotificationCenter.current()
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
 
-        AppLog.info("NotificationCenter, identifier: \(identifier)")
-        AppLog.info("NotificationCenter, content: \(content)")
+        DirectLog.info("NotificationCenter, identifier: \(identifier)")
+        DirectLog.info("NotificationCenter, content: \(content)")
 
         center.removeDeliveredNotifications(withIdentifiers: [identifier])
         center.removePendingNotificationRequests(withIdentifiers: [identifier])
@@ -125,12 +125,12 @@ class NotificationService {
     private func playSound(ignoreMute: Bool, named: String) {
         checkMute { isMuted in
             guard !isMuted || ignoreMute else {
-                AppLog.info("Guard: Audio is muted")
+                DirectLog.info("Guard: Audio is muted")
                 return
             }
 
             guard let soundURL = FrameworkBundle.main.url(forResource: named, withExtension: "aiff") else {
-                AppLog.info("Guard: FrameworkBundle.main.url(forResource: \(named), withExtension: aiff) is nil")
+                DirectLog.info("Guard: FrameworkBundle.main.url(forResource: \(named), withExtension: aiff) is nil")
                 return
             }
 
@@ -138,7 +138,7 @@ class NotificationService {
                 try AVAudioSession.sharedInstance().setCategory(.playback, options: [.mixWithOthers])
                 try AVAudioSession.sharedInstance().setActive(true)
             } catch {
-                AppLog.error("NotificationCenter, could not set AVAudioSession category to playback and mixwithOthers, error = \(error.localizedDescription)")
+                DirectLog.error("NotificationCenter, could not set AVAudioSession category to playback and mixwithOthers, error = \(error.localizedDescription)")
             }
 
             do {
@@ -149,7 +149,7 @@ class NotificationService {
 
                 self.player = player
             } catch {
-                AppLog.error("NotificationCenter, exception while trying to play sound, error = \(error.localizedDescription)")
+                DirectLog.error("NotificationCenter, exception while trying to play sound, error = \(error.localizedDescription)")
             }
         }
     }
@@ -161,41 +161,4 @@ enum NotificationState {
     case none
     case silent
     case sound
-}
-
-// MARK: - NotificationSound
-
-enum NotificationSound: String, Codable, CaseIterable {
-    case positive
-    case ping
-    case negative
-    case lowBattery = "low-battery"
-    case lose
-    case longAlarm = "long-alarm"
-    case jump
-    case hit
-    case highlight
-    case future
-    case failure
-    case expiring
-    case collectPoint = "collect-point"
-    case coinInsert = "coin-insert"
-    case coinChime = "coin-chime"
-    case climbRope = "climb-rope"
-    case chiptone
-    case buzzBeep = "buzz-beep"
-    case alarm
-    case achievement
-    case vibration
-    case none
-
-    // MARK: Internal
-
-    var description: String {
-        rawValue
-    }
-
-    var localizedString: String {
-        LocalizedString("Sound: \(rawValue)")
-    }
 }

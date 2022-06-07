@@ -23,7 +23,7 @@ private func connectionNotificationMiddelware(service: LazyService<ConnectionNot
 
         case .setConnectionError(errorMessage: _, errorTimestamp: _, errorIsCritical: let errorIsCritical):
             guard state.connectionAlarm else {
-                AppLog.info("Guard: connectionAlarm disabled")
+                DirectLog.info("Guard: connectionAlarm disabled")
                 break
             }
 
@@ -31,7 +31,7 @@ private func connectionNotificationMiddelware(service: LazyService<ConnectionNot
 
         case .setConnectionState(connectionState: let connectionState):
             guard state.connectionAlarm else {
-                AppLog.info("Guard: connectionAlarm disabled")
+                DirectLog.info("Guard: connectionAlarm disabled")
                 break
             }
 
@@ -44,7 +44,7 @@ private func connectionNotificationMiddelware(service: LazyService<ConnectionNot
 
         case .addMissedReading:
             guard state.connectionAlarm else {
-                AppLog.info("Guard: connectionAlarm disabled")
+                DirectLog.info("Guard: connectionAlarm disabled")
                 break
             }
 
@@ -66,7 +66,7 @@ private class ConnectionNotificationService {
     // MARK: Lifecycle
 
     init() {
-        AppLog.info("Create ConnectionNotificationService")
+        DirectLog.info("Create ConnectionNotificationService")
     }
 
     // MARK: Internal
@@ -81,7 +81,7 @@ private class ConnectionNotificationService {
 
     func setSensorConnectionLostAlarm(errorIsCritical: Bool, ignoreMute: Bool, sound: NotificationSound) {
         NotificationService.shared.ensureCanSendNotification { state in
-            AppLog.info("Sensor connection lost alert, state: \(state)")
+            DirectLog.info("Sensor connection lost alert, state: \(state)")
 
             guard state != .none else {
                 return
@@ -109,7 +109,7 @@ private class ConnectionNotificationService {
 
     func setSensorConnectionRestoredAlarm() {
         NotificationService.shared.ensureCanSendNotification { state in
-            AppLog.info("Sensor connection lost alert, state: \(state)")
+            DirectLog.info("Sensor connection lost alert, state: \(state)")
 
             guard state != .none else {
                 return
@@ -127,7 +127,7 @@ private class ConnectionNotificationService {
 
     func setSensorMissedReadingsAlarm(missedReadings: Int, ignoreMute: Bool, sound: NotificationSound) {
         NotificationService.shared.ensureCanSendNotification { state in
-            AppLog.info("Sensor missed readings, state: \(state)")
+            DirectLog.info("Sensor missed readings, state: \(state)")
 
             guard state != .none else {
                 return

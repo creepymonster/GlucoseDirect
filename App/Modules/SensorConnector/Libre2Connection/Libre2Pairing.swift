@@ -119,7 +119,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                 }
 
                 if i == requests - 1 {
-                    AppLog.info("create fram")
+                    DirectLog.info("create fram")
 
                     var fram = Data()
                     for (_, data) in dataArray.enumerated() {
@@ -133,12 +133,12 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                         return
                     }
 
-                    AppLog.info("create sensor")
+                    DirectLog.info("create sensor")
                     let sensor = Sensor(uuid: sensorUID, patchInfo: patchInfo, fram: SensorUtility.decryptFRAM(uuid: sensorUID, patchInfo: patchInfo, fram: fram) ?? fram)
 
-                    AppLog.info("sensor: \(sensor)")
-                    AppLog.info("sensor, age: \(sensor.age)")
-                    AppLog.info("sensor, lifetime: \(sensor.lifetime)")
+                    DirectLog.info("sensor: \(sensor)")
+                    DirectLog.info("sensor, age: \(sensor.age)")
+                    DirectLog.info("sensor, lifetime: \(sensor.lifetime)")
 
                     guard sensor.state != .expired else {
                         logErrorAndDisconnect(LocalizedString("Scanned sensor expired"), showToUser: true)
@@ -146,7 +146,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                         return
                     }
 
-                    AppLog.info("parse sensor readings")
+                    DirectLog.info("parse sensor readings")
                     let sensorReadings = SensorUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: sensor.fram!)
 
                     if type == .libre1 {
@@ -192,7 +192,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
     private let unlockCode: UInt32 = 42
 
     private func logErrorAndDisconnect(_ message: String, showToUser: Bool = false) {
-        AppLog.error(message)
+        DirectLog.error(message)
 
         session?.invalidate()
 

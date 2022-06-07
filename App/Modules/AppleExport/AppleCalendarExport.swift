@@ -40,22 +40,22 @@ private func appleCalendarExportMiddleware(service: LazyService<AppleCalendarExp
 
         case .addGlucoseValues(glucoseValues: let glucoseValues):
             guard state.appleCalendarExport else {
-                AppLog.info("Guard: state.calendarExport disabled")
+                DirectLog.info("Guard: state.calendarExport disabled")
                 break
             }
 
             guard let glucose = glucoseValues.last else {
-                AppLog.info("Guard: glucoseValues.last is nil")
+                DirectLog.info("Guard: glucoseValues.last is nil")
                 break
             }
 
             guard glucose.type == .cgm else {
-                AppLog.info("Guard: glucose.type is not .cgm")
+                DirectLog.info("Guard: glucose.type is not .cgm")
                 break
             }
 
             guard let calendarTarget = state.selectedCalendarTarget else {
-                AppLog.info("Guard: state.selectedCalendarTarget is nil")
+                DirectLog.info("Guard: state.selectedCalendarTarget is nil")
                 break
             }
 
@@ -79,7 +79,7 @@ class AppleCalendarExportService {
     // MARK: Lifecycle
 
     init() {
-        AppLog.info("Create AppleCalendarExportService")
+        DirectLog.info("Create AppleCalendarExportService")
     }
 
     // MARK: Internal
@@ -110,11 +110,11 @@ class AppleCalendarExportService {
         let events = eventStore.events(matching: predicate)
 
         for event in events {
-            if event.url == AppConfig.appSchemaURL {
+            if event.url == DirectConfig.appSchemaURL {
                 do {
                     try eventStore.remove(event, span: .thisEvent)
                 } catch {
-                    AppLog.error("Cannot remove calendar event: \(error)")
+                    DirectLog.error("Cannot remove calendar event: \(error)")
                 }
             }
         }
@@ -143,14 +143,14 @@ class AppleCalendarExportService {
         }
 
         event.calendar = calendar
-        event.url = AppConfig.appSchemaURL
+        event.url = DirectConfig.appSchemaURL
         event.startDate = Date()
         event.endDate = Date(timeIntervalSinceNow: 60 * 10)
 
         do {
             try eventStore.save(event, span: .thisEvent)
         } catch {
-            AppLog.error("Cannot create calendar event: \(error)")
+            DirectLog.error("Cannot create calendar event: \(error)")
         }
     }
 

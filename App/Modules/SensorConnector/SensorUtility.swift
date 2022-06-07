@@ -208,7 +208,7 @@ enum SensorUtility {
         let historyDelay = 2
         let age = Int(word(data[41], data[40]))
 
-        AppLog.info("crc: \(word(data[43], data[42]))")
+        DirectLog.info("crc: \(word(data[43], data[42]))")
 
         var trendReadings: [SensorReading] = []
         var historyReadings: [SensorReading] = []
@@ -239,10 +239,10 @@ enum SensorUtility {
                 : SensorReading(id: UUID(), timestamp: timestamp, quality: quality)
 
             if i < 7 {
-                AppLog.info("Sensor trend reading: \(reading.description))")
+                DirectLog.info("Sensor trend reading: \(reading.description))")
                 trendReadings.append(reading)
             } else {
-                AppLog.info("Sensor history reading: \(reading.description))")
+                DirectLog.info("Sensor history reading: \(reading.description))")
                 historyReadings.append(reading)
             }
         }

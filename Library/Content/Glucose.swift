@@ -96,10 +96,10 @@ final class Glucose: CustomStringConvertible, Codable, Identifiable {
             return nil
         }
 
-        if calibratedGlucoseValue <= AppConfig.minReadableGlucose {
-            return AppConfig.minReadableGlucose
-        } else if calibratedGlucoseValue >= AppConfig.maxReadableGlucose {
-            return AppConfig.maxReadableGlucose
+        if calibratedGlucoseValue <= DirectConfig.minReadableGlucose {
+            return DirectConfig.minReadableGlucose
+        } else if calibratedGlucoseValue >= DirectConfig.maxReadableGlucose {
+            return DirectConfig.maxReadableGlucose
         }
 
         return calibratedGlucoseValue
@@ -110,7 +110,7 @@ final class Glucose: CustomStringConvertible, Codable, Identifiable {
             return false
         }
 
-        return calibratedGlucoseValue >= AppConfig.maxReadableGlucose
+        return calibratedGlucoseValue >= DirectConfig.maxReadableGlucose
     }
 
     var isLOW: Bool {
@@ -118,7 +118,7 @@ final class Glucose: CustomStringConvertible, Codable, Identifiable {
             return false
         }
 
-        return calibratedGlucoseValue <= AppConfig.minReadableGlucose
+        return calibratedGlucoseValue <= DirectConfig.minReadableGlucose
     }
 
     var description: String {
