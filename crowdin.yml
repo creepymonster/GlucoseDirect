@@ -1,7 +1,7 @@
 files:
-  - source: /LibreDirect/en.lproj/InfoPlist.strings
-    translation: /LibreDirect/%osx_locale%.lproj/InfoPlist.strings
-  - source: /LibreDirect/Resources/en.lproj/Localizable.strings
-    translation: /LibreDirect/Resources/%osx_locale%.lproj/Localizable.strings
-  - source: /LibreDirect/Resources/Settings.bundle/en.lproj/Root.strings
-    translation: /LibreDirect/Resources/Settings.bundle/%osx_locale%.lproj/Root.strings
+  - source: /GlucoseDirect/en.lproj/InfoPlist.strings
+    translation: /GlucoseDirect/%osx_locale%.lproj/InfoPlist.strings
+  - source: /GlucoseDirect/Resources/en.lproj/Localizable.strings
+    translation: /GlucoseDirect/Resources/%osx_locale%.lproj/Localizable.strings
+  - source: /GlucoseDirect/Resources/Settings.bundle/en.lproj/Root.strings
+    translation: /GlucoseDirect/Resources/Settings.bundle/%osx_locale%.lproj/Root.strings
