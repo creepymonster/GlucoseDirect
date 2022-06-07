@@ -54,7 +54,7 @@ struct GlucoseDirectWidget: Widget {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
             GlucoseDirectWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("My Widget")
+        .configurationDisplayName(DirectConfig.widgetName)
         .description("This is an example widget.")
     }
 }

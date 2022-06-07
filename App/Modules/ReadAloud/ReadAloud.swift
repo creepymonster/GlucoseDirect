@@ -97,11 +97,13 @@ private class ReadAloudService {
         for availableVoice in AVSpeechSynthesisVoice.speechVoices() {
             if availableVoice.language == AVSpeechSynthesisVoice.currentLanguageCode(), availableVoice.quality == AVSpeechSynthesisVoiceQuality.enhanced {
                 DirectLog.info("Found enhanced voice: \(availableVoice.name)")
+                
                 return availableVoice
             }
         }
 
         DirectLog.info("Use default voice for language")
+        
         return AVSpeechSynthesisVoice(language: AVSpeechSynthesisVoice.currentLanguageCode())
     }()
 

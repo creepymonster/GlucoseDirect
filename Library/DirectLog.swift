@@ -7,7 +7,7 @@ import Combine
 import Foundation
 import OSLog
 
-// MARK: - AppLog
+// MARK: - DirectLog
 
 enum DirectLog {
     // MARK: Internal
@@ -42,9 +42,7 @@ enum DirectLog {
 
     // MARK: Private
 
-    private static let fileLogger: FileLogger = {
-        FileLogger()
-    }()
+    private static let fileLogger: FileLogger = .init()
 
     private static func log(message: String, type: OSLogType, log: OSLog, error: Error? = nil, file: String, line: Int, function: String) {
         // Console logging
@@ -268,7 +266,7 @@ class StreamReader {
     init?(at url: URL, delimiter: String = "\n", encoding: String.Encoding = .utf8, chunkSize: Int = 4096) {
         do {
             let initFileHandle = try FileHandle(forReadingFrom: url)
-            
+
             guard
                 let delimData = delimiter.data(using: encoding),
                 let buffer = NSMutableData(capacity: chunkSize)
@@ -276,7 +274,7 @@ class StreamReader {
                 preconditionFailure("Cannot initialize StreamReader for file at \(url)")
                 return nil
             }
-            
+
             self.chunkSize = chunkSize
             self.encoding = encoding
             self.fileHandle = initFileHandle
