@@ -54,10 +54,6 @@
 		E24B532526B864020091417F /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532426B864020091417F /* ToggleView.swift */; };
 		E24C1507284F9B6A0012FCB6 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E27BFC0226B1407E00F8FBEF /* WidgetKit.framework */; };
 		E24C1508284F9B6A0012FCB6 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E27BFC0426B1407E00F8FBEF /* SwiftUI.framework */; };
-		E24C150B284F9B6A0012FCB6 /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24C150A284F9B6A0012FCB6 /* Widget.swift */; };
-		E24C150E284F9B6B0012FCB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E24C150D284F9B6B0012FCB6 /* Assets.xcassets */; };
-		E24C1510284F9B6B0012FCB6 /* Widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = E24C150C284F9B6A0012FCB6 /* Widget.intentdefinition */; };
-		E24C1511284F9B6B0012FCB6 /* Widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = E24C150C284F9B6A0012FCB6 /* Widget.intentdefinition */; };
 		E24C1514284F9B6B0012FCB6 /* GlucoseDirectWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E24C1506284F9B6A0012FCB6 /* GlucoseDirectWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E257088E278354B600896696 /* mute.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E257088D278354B600896696 /* mute.aiff */; };
 		E25762D5279D519200A2E249 /* BellmanSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25762D4279D519200A2E249 /* BellmanSettingsView.swift */; };
@@ -199,10 +195,6 @@
 		E24B532226B863E20091417F /* AlarmSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingsView.swift; sourceTree = "<group>"; };
 		E24B532426B864020091417F /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
 		E24C1506284F9B6A0012FCB6 /* GlucoseDirectWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GlucoseDirectWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		E24C150A284F9B6A0012FCB6 /* Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget.swift; sourceTree = "<group>"; };
-		E24C150C284F9B6A0012FCB6 /* Widget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Widget.intentdefinition; sourceTree = "<group>"; };
-		E24C150D284F9B6B0012FCB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		E24C150F284F9B6B0012FCB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E257088D278354B600896696 /* mute.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = mute.aiff; sourceTree = "<group>"; };
 		E25762D4279D519200A2E249 /* BellmanSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BellmanSettingsView.swift; sourceTree = "<group>"; };
 		E26089A32748DCB500749025 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
@@ -345,7 +337,6 @@
 			children = (
 				E247D8E426B7D70A00BDAF89 /* GlucoseDirect.xcconfig */,
 				E20B853C266F4A9800AA4224 /* App */,
-				E24C1509284F9B6A0012FCB6 /* Widget */,
 				E2218B87284F9E7300DB5A55 /* Library */,
 				E27BFC0126B1407E00F8FBEF /* Frameworks */,
 				E20B853B266F4A9800AA4224 /* Products */,
@@ -408,17 +399,6 @@
 				E2FCAC26270741C700FE1CBF /* Extensions */,
 			);
 			path = Library;
-			sourceTree = "<group>";
-		};
-		E24C1509284F9B6A0012FCB6 /* Widget */ = {
-			isa = PBXGroup;
-			children = (
-				E24C150A284F9B6A0012FCB6 /* Widget.swift */,
-				E24C150C284F9B6A0012FCB6 /* Widget.intentdefinition */,
-				E24C150D284F9B6B0012FCB6 /* Assets.xcassets */,
-				E24C150F284F9B6B0012FCB6 /* Info.plist */,
-			);
-			path = Widget;
 			sourceTree = "<group>";
 		};
 		E264775B274A9C6F0053BF6F /* States */ = {
@@ -841,7 +821,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E24C150E284F9B6B0012FCB6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -883,7 +862,6 @@
 				E2FCAC432707420100FE1CBF /* NotificationService.swift in Sources */,
 				E25762D5279D519200A2E249 /* BellmanSettingsView.swift in Sources */,
 				E2FCAC1F270741BC00FE1CBF /* SensorRegion.swift in Sources */,
-				E24C1511284F9B6B0012FCB6 /* Widget.intentdefinition in Sources */,
 				E2DE3CA327594E5500FAC82E /* SensorConnectorSettings.swift in Sources */,
 				E2C5935F273696FE00CAFFD4 /* CalibrationService.swift in Sources */,
 				E26089A42748DCB500749025 /* Double.swift in Sources */,
@@ -938,11 +916,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E24C1510284F9B6B0012FCB6 /* Widget.intentdefinition in Sources */,
 				E2218BA4284FA0BE00DB5A55 /* Transmitter.swift in Sources */,
 				E2218BA3284FA0BE00DB5A55 /* Sensor.swift in Sources */,
 				E2218B96284FA0B300DB5A55 /* Data.swift in Sources */,
-				E24C150B284F9B6A0012FCB6 /* Widget.swift in Sources */,
 				E2218BAC284FA0BE00DB5A55 /* SensorConnectionState.swift in Sources */,
 				E2218BAD284FA0C200DB5A55 /* CustomCalibration.swift in Sources */,
 				E2218BA5284FA0BE00DB5A55 /* GlucoseQuality.swift in Sources */,
