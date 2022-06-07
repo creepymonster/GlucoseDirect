@@ -10,4 +10,4 @@ APP_GROUP_ID = group.com.$(DEVELOPMENT_TEAM).loopkit.LoopGroup
 APP_VERSION = 0.8.0
 APP_BUILD = 98
 
-#include? "../AppConfigOverride.xcconfig"
+#include? "GlucoseDirectOverride.xcconfig"
