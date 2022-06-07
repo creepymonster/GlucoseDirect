@@ -8,4 +8,5 @@ PRODUCT_BUNDLE_IDENTIFIER = com.${DEVELOPMENT_TEAM}.libre-direct
 APP_GROUP_ID = group.com.$(DEVELOPMENT_TEAM).loopkit.LoopGroup
 APP_VERSION = 0.8.0
 
+#include? "AppConfigOverride.xcconfig"
 #include? "../AppConfigOverride.xcconfig"
