@@ -77,7 +77,7 @@
 "Cancel" = "Отмена";
 
 /* (No Comment) */
-"Chart (%1$@)" = "График";
+"Chart (%1$@)" = "График (%1$@)";
 
 /* (No Comment) */
 "Connect sensor" = "Подключите датчик";

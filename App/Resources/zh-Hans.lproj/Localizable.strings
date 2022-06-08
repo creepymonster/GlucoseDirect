@@ -77,7 +77,7 @@
 "Cancel" = "取消";
 
 /* (No Comment) */
-"Chart (%1$@)" = "图表";
+"Chart (%1$@)" = "图表 (%1$@)";
 
 /* (No Comment) */
 "Connect sensor" = "连接传感器";

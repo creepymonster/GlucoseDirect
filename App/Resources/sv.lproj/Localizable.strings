@@ -77,7 +77,7 @@
 "Cancel" = "Avbryt";
 
 /* (No Comment) */
-"Chart (%1$@)" = "Diagram";
+"Chart (%1$@)" = "Diagram (%1$@)";
 
 /* (No Comment) */
 "Connect sensor" = "Anslut sensor";
