@@ -154,3 +154,11 @@ extension Glucose {
         return minutes % 15 == 0
     }
 }
+
+// MARK: Equatable
+
+extension Glucose: Equatable {
+    static func == (lhs: Glucose, rhs: Glucose) -> Bool {
+        lhs.timestamp == rhs.timestamp
+    }
+}
