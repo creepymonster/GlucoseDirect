@@ -19,7 +19,10 @@ struct OverviewView: View {
                     SnoozeView()
                 }
 
-                ChartView()
+                if !store.state.glucoseValues.isEmpty {
+                    ChartView()
+                }
+                
                 ConnectionView()
                 SensorView()
             }.listStyle(.grouped)
