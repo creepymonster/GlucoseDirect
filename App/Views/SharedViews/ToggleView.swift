@@ -42,7 +42,7 @@ struct ToggleView: View {
             return Color.clear
         }
 
-        return Color.accentColor
+        return Color.ui.accent
     }
 
     var body: some View {
@@ -79,3 +79,5 @@ struct ToggleView_Previews: PreviewProvider {
         ToggleView(key: "Key", value: false, trueValue: "mg/dl", falseValue: "mmol")
     }
 }
+
+// TEST

@@ -29,6 +29,18 @@ struct ChartView: View {
     var glucoseUnit: GlucoseUnit {
         store.state.glucoseUnit
     }
+    
+    var alarmLow: Int {
+        store.state.alarmLow
+    }
+    
+    var alarmHigh: Int {
+        store.state.alarmHigh
+    }
+    
+    var glucoseValues: [Glucose] {
+        store.state.glucoseValues
+    }
 
     @available(iOS 16.0, *)
     var ChartView: some View {
@@ -36,31 +48,21 @@ struct ChartView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 ScrollViewReader { scrollViewProxy in
                     Chart {
-                        RuleMark(y: .value("Lower limit", store.state.alarmLow))
-                            .foregroundStyle(.red)
+                        RuleMark(y: .value("Lower limit", alarmLow))
+                            .foregroundStyle(Color.ui.orange)
                             .lineStyle(Config.ruleStyle)
 
-                        RuleMark(y: .value("Upper limit", store.state.alarmHigh))
-                            .foregroundStyle(.red)
+                        RuleMark(y: .value("Upper limit", alarmHigh))
+                            .foregroundStyle(Color.ui.orange)
                             .lineStyle(Config.ruleStyle)
 
                         ForEach(cgmSeries) { value in
-                            if showLines {
-                                LineMark(
-                                    x: .value("Time", value.valueX),
-                                    y: .value("Glucose", value.valueY)
-                                )
-                                .lineStyle(Config.lineStyle)
-                                .interpolationMethod(.catmullRom)
-                                .foregroundStyle(.primary)
-                            } else {
-                                PointMark(
-                                    x: .value("Time", value.valueX),
-                                    y: .value("Glucose", value.valueY)
-                                )
-                                .symbolSize(Config.symbolSize)
-                                .foregroundStyle(.primary)
-                            }
+                            LineMark(
+                                x: .value("Time", value.valueX),
+                                y: .value("Glucose", value.valueY)
+                            )
+                            .lineStyle(Config.lineStyle)
+                            .foregroundStyle(Color.ui.blue)
                         }
 
                         ForEach(bgmSeries) { value in
@@ -69,7 +71,7 @@ struct ChartView: View {
                                 y: .value("Glucose", value.valueY)
                             )
                             .symbolSize(Config.symbolSize)
-                            .foregroundStyle(.red)
+                            .foregroundStyle(Color.ui.red)
                         }
                     }
                     .chartPlotStyle { plotArea in
@@ -116,39 +118,20 @@ struct ChartView: View {
                     label: {
                         Circle()
                             .if(isSelectedZoomLevel(level: zoom.level)) {
-                                $0.fill(.primary)
+                                $0.fill(Color.ui.label)
                             } else: {
-                                $0.stroke(.primary)
+                                $0.stroke(Color.ui.label)
                             }
                             .frame(width: 12, height: 12)
 
                         Text(zoom.name)
                             .font(.subheadline)
-                            .foregroundColor(.primary)
+                            .foregroundColor(Color.ui.label)
                     }
-                ).buttonStyle(.plain)
-
-                Spacer()
+                )
+                .buttonStyle(.plain)
+                .frame(maxWidth: .infinity)
             }
-
-            Button(
-                action: {
-                    store.dispatch(.setChartShowLines(enabled: !showLines))
-                },
-                label: {
-                    Rectangle()
-                        .if(showLines) {
-                            $0.fill(.primary)
-                        } else: {
-                            $0.stroke(.primary)
-                        }
-                        .frame(width: 12, height: 12)
-
-                    Text("Line")
-                        .font(.subheadline)
-                        .foregroundColor(.primary)
-                }
-            ).buttonStyle(.plain)
         }
     }
 
@@ -158,14 +141,14 @@ struct ChartView: View {
                 if #available(iOS 16.0, *) {
                     VStack {
                         ChartView.frame(height: 300)
-                        ZoomLevelsView.padding(.top)
+                        ZoomLevelsView
                     }
                 } else {
                     Text("A new iOS update is now available. Please update to iOS 16.")
                 }
             },
             header: {
-                Label("Chart (\(store.state.glucoseValues.count))", systemImage: "chart.xyaxis.line")
+                Label("Chart", systemImage: "chart.xyaxis.line")
             }
         )
     }
@@ -174,16 +157,17 @@ struct ChartView: View {
 
     private enum Config {
         static let chartID = "chart"
-        static let symbolSize: CGFloat = 10
+        static let symbolSize: CGFloat = 15
         static let spacerWidth: CGFloat = 50
-        static let lineStyle: StrokeStyle = .init(lineWidth: 2)
+        static let lineStyle: StrokeStyle = .init(lineWidth: 2.5, lineCap: .round)
         static let ruleStyle: StrokeStyle = .init(lineWidth: 0.5, dash: [2])
 
         static let zoomLevels: [ZoomLevel] = [
             ZoomLevel(level: 1, name: LocalizedString("1h"), visibleHours: 1, labelEveryHours: 1),
-            ZoomLevel(level: 5, name: LocalizedString("6h"), visibleHours: 6, labelEveryHours: 1),
-            ZoomLevel(level: 15, name: LocalizedString("12h"), visibleHours: 12, labelEveryHours: 2),
-            ZoomLevel(level: 30, name: LocalizedString("24h"), visibleHours: 24, labelEveryHours: 4),
+            ZoomLevel(level: 6, name: LocalizedString("6h"), visibleHours: 6, labelEveryHours: 1),
+            ZoomLevel(level: 12, name: LocalizedString("12h"), visibleHours: 12, labelEveryHours: 2),
+            ZoomLevel(level: 24, name: LocalizedString("24h"), visibleHours: 24, labelEveryHours: 4)
+            //ZoomLevel(level: 48, name: LocalizedString("48h"), visibleHours: 48, labelEveryHours: 8),
         ]
     }
 
@@ -204,7 +188,7 @@ struct ChartView: View {
     }
 
     private func updateSeries(viewWidth: CGFloat, scrollViewProxy: ScrollViewProxy?) {
-        let glucoseValues = store.state.glucoseValues.filter { value in
+        let glucoseValues = glucoseValues.filter { value in
             value.isValidCGM() || value.isValidBGM()
         }
 
@@ -218,14 +202,7 @@ struct ChartView: View {
             seriesWidth = CGFloat(minuteWidth * chartMinutes)
         }
 
-        if isSelectedZoomLevel(level: 1) {
-            cgmSeries = populateValues(glucoseValues: glucoseValues.filter { $0.type == .cgm })
-        } else if let zoomLevel = zoomLevel {
-            cgmSeries = populateZoomedValues(glucoseValues: glucoseValues.filter { $0.type == .cgm }, glucoseValueType: .cgm, groupMinutes: zoomLevel.level)
-        } else {
-            cgmSeries = populateValues(glucoseValues: glucoseValues.filter { $0.type == .cgm })
-        }
-
+        cgmSeries = populateValues(glucoseValues: glucoseValues.filter { $0.type == .cgm })
         bgmSeries = populateValues(glucoseValues: glucoseValues.filter { $0.type == .bgm })
 
         if let scrollProxy = scrollViewProxy {
@@ -313,3 +290,5 @@ extension Glucose {
         )
     }
 }
+
+// TEST

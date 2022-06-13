@@ -68,36 +68,15 @@ struct UserDefaultsState: AppState {
     // MARK: Internal
 
     var alarmSnoozeUntil: Date?
-
     var bellmanConnectionState: BellmanConnectionState = .disconnected
-
     var connectionError: String?
-
     var connectionErrorIsCritical = false
-
     var connectionErrorTimestamp: Date?
-
     var connectionInfos: [SensorConnectionInfo] = []
-
     var connectionState: SensorConnectionState = .disconnected
-
     var missedReadings: Int = 0
-
     var selectedConnection: SensorBLEConnection?
-
     var targetValue: Int = 100
-
-    var appleCalendarExport: Bool = false {
-        didSet {
-            UserDefaults.standard.appleCalendarExport = appleCalendarExport
-        }
-    }
-
-    var appleHealthExport = false {
-        didSet {
-            UserDefaults.standard.appleHealthExport = appleHealthExport
-        }
-    }
 
     var alarmHigh: Int = 160 {
         didSet {
@@ -108,6 +87,18 @@ struct UserDefaultsState: AppState {
     var alarmLow: Int = 80 {
         didSet {
             UserDefaults.standard.alarmLow = alarmLow
+        }
+    }
+
+    var appleCalendarExport: Bool = false {
+        didSet {
+            UserDefaults.standard.appleCalendarExport = appleCalendarExport
+        }
+    }
+
+    var appleHealthExport = false {
+        didSet {
+            UserDefaults.standard.appleHealthExport = appleHealthExport
         }
     }
 
@@ -135,15 +126,15 @@ struct UserDefaultsState: AppState {
         }
     }
 
-    var customCalibration: [CustomCalibration] {
-        didSet {
-            UserDefaults.standard.customCalibration = customCalibration
-        }
-    }
-    
     var connectionPeripheralUUID: String? {
         didSet {
             UserDefaults.standard.connectionPeripheralUUID = connectionPeripheralUUID
+        }
+    }
+
+    var customCalibration: [CustomCalibration] {
+        didSet {
+            UserDefaults.standard.customCalibration = customCalibration
         }
     }
 
@@ -201,15 +192,15 @@ struct UserDefaultsState: AppState {
         }
     }
 
-    var nightscoutURL: String {
-        didSet {
-            UserDefaults.standard.nightscoutURL = nightscoutURL
-        }
-    }
-
     var nightscoutUpload: Bool {
         didSet {
             UserDefaults.standard.nightscoutUpload = nightscoutUpload
+        }
+    }
+
+    var nightscoutURL: String {
+        didSet {
+            UserDefaults.standard.nightscoutURL = nightscoutURL
         }
     }
 
@@ -255,3 +246,53 @@ struct UserDefaultsState: AppState {
         }
     }
 }
+
+// MARK: - PreviewAppState
+
+struct PreviewAppState: AppState {
+    var alarmHigh = 160
+    var alarmLow = 80
+    var alarmSnoozeUntil: Date?
+    var appleCalendarExport = false
+    var appleHealthExport = false
+    var bellmanAlarm = false
+    var bellmanConnectionState: BellmanConnectionState = .disconnected
+    var calendarExport = false
+    var chartShowLines = false
+    var chartZoomLevel = 1
+    var connectionAlarm = true
+    var connectionAlarmSound: NotificationSound = .alarm
+    var connectionError: String?
+    var connectionErrorIsCritical = false
+    var connectionErrorTimestamp: Date? = Date()
+    var connectionInfos: [SensorConnectionInfo] = []
+    var connectionPeripheralUUID: String? = nil
+    var connectionState: SensorConnectionState = .connected
+    var customCalibration: [CustomCalibration] = []
+    var expiringAlarm = true
+    var expiringAlarmSound: NotificationSound = .alarm
+    var glucoseAlarm = true
+    var glucoseBadge = true
+    var glucoseNotification = false
+    var glucoseUnit: GlucoseUnit = .mgdL
+    var glucoseValues: [Glucose] = []
+    var highGlucoseAlarmSound: NotificationSound = .alarm
+    var ignoreMute = false
+    var isConnectionPaired = true
+    var lowGlucoseAlarmSound: NotificationSound = .alarm
+    var missedReadings = 0
+    var nightscoutApiSecret = ""
+    var nightscoutUpload = false
+    var nightscoutURL = ""
+    var readGlucose = false
+    var selectedCalendarTarget: String?
+    var selectedConnection: SensorBLEConnection? = nil
+    var selectedConnectionID: String? = "virtual"
+    var selectedView = 1
+    var sensor: Sensor? = Sensor(uuid: Data(hexString: "e9ad9b6c79bd93aa")!, patchInfo: Data(hexString: "448cd1")!, factoryCalibration: FactoryCalibration(i1: 1, i2: 2, i3: 4, i4: 8, i5: 16, i6: 32), family: .unknown, type: .virtual, region: .european, serial: "OBIR2PO", state: .ready, age: 120, lifetime: 24 * 60)
+    var sensorInterval: Int = 1
+    var targetValue = 100
+    var transmitter: Transmitter?
+}
+
+// TEST
