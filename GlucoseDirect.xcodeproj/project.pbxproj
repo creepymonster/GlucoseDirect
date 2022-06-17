@@ -39,6 +39,8 @@
 		E2645D842763F4EF0058BFC7 /* SensorReadingQuality.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2645D832763F4EF0058BFC7 /* SensorReadingQuality.swift */; };
 		E2646F3B275FD2EC00ADE451 /* AppleCalendarExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2646F3A275FD2EC00ADE451 /* AppleCalendarExport.swift */; };
 		E2646F3D275FD3E800ADE451 /* AppleExportSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2646F3C275FD3E800ADE451 /* AppleExportSettingsView.swift */; };
+		E26BCC33285D1F760058AF0C /* LibreLinkConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26BCC32285D1F760058AF0C /* LibreLinkConnection.swift */; };
+		E26BCC35285D1F820058AF0C /* LibreLinkPairing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26BCC34285D1F820058AF0C /* LibreLinkPairing.swift */; };
 		E27325A7275543D600D3C41D /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27325A6275543D600D3C41D /* Color.swift */; };
 		E278848327B4646E00E07DDC /* Lazy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E278848227B4646E00E07DDC /* Lazy.swift */; };
 		E27BBA8027AD7DDA00A6B8EE /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E27BBA7F27AD7DDA00A6B8EE /* HealthKit.framework */; };
@@ -217,6 +219,8 @@
 		E265EADC277A309300AC307B /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		E26690672792F6D9009C0FE1 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E26690682792F6D9009C0FE1 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E26BCC32285D1F760058AF0C /* LibreLinkConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibreLinkConnection.swift; sourceTree = "<group>"; };
+		E26BCC34285D1F820058AF0C /* LibreLinkPairing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibreLinkPairing.swift; sourceTree = "<group>"; };
 		E27325A6275543D600D3C41D /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		E278848227B4646E00E07DDC /* Lazy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lazy.swift; sourceTree = "<group>"; };
 		E27BBA7F27AD7DDA00A6B8EE /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
@@ -436,6 +440,15 @@
 			path = States;
 			sourceTree = "<group>";
 		};
+		E26BCC31285D1F430058AF0C /* LibreLinkConnection */ = {
+			isa = PBXGroup;
+			children = (
+				E26BCC32285D1F760058AF0C /* LibreLinkConnection.swift */,
+				E26BCC34285D1F820058AF0C /* LibreLinkPairing.swift */,
+			);
+			path = LibreLinkConnection;
+			sourceTree = "<group>";
+		};
 		E27BFC0126B1407E00F8FBEF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -455,6 +468,7 @@
 				E27ED97C2758A4660099149C /* SensorUtility.swift */,
 				E27ED9712758A40E0099149C /* VirtualConnection */,
 				E27ED9702758A4090099149C /* BubbleConnection */,
+				E26BCC31285D1F430058AF0C /* LibreLinkConnection */,
 				E27ED96F2758A4010099149C /* Libre2Connection */,
 			);
 			path = SensorConnector;
@@ -910,11 +924,13 @@
 				E27ED97D2758A4660099149C /* SensorUtility.swift in Sources */,
 				E24B531E26B863910091417F /* NightscoutSettingsView.swift in Sources */,
 				E2FCAC25270741BC00FE1CBF /* SensorTrend.swift in Sources */,
+				E26BCC33285D1F760058AF0C /* LibreLinkConnection.swift in Sources */,
 				E29F4FA2274D6C8B00AE0E39 /* GlucoseValueType.swift in Sources */,
 				E27ED9732758A41B0099149C /* VirtualConnection.swift in Sources */,
 				E2FCAC31270741D200FE1CBF /* Date.swift in Sources */,
 				E2646F3B275FD2EC00ADE451 /* AppleCalendarExport.swift in Sources */,
 				E20786232686283F004EEF1C /* ActionsView.swift in Sources */,
+				E26BCC35285D1F820058AF0C /* LibreLinkPairing.swift in Sources */,
 				E2FCAC672707428500FE1CBF /* Log.swift in Sources */,
 				E2FCAC32270741D200FE1CBF /* UserDefaults.swift in Sources */,
 				E2FCAC35270741D200FE1CBF /* State.swift in Sources */,
