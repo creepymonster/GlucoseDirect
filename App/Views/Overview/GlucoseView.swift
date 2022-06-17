@@ -51,34 +51,52 @@ struct GlucoseView: View {
                 }.padding(.bottom, 30)
 
                 HStack {
-                    Image(systemName: "lock.slash")
-                        .font(.headline)
-                        .opacity(store.state.preventScreenLock ? 1 : 0.25)
-                        .onTapGesture {
-                            store.dispatch(.setPreventScreenLock(enabled: !store.state.preventScreenLock))
+                    Group {
+                        Image(systemName: "lock.slash")
+                            .font(.headline)
+                            .opacity(store.state.preventScreenLock ? 1 : 0.25)
+
+                        if store.state.preventScreenLock {
+                            Text("No screen lock")
                         }
+                    }.onTapGesture {
+                        store.dispatch(.setPreventScreenLock(enabled: !store.state.preventScreenLock))
+                    }
 
                     Spacer()
 
                     Group {
-                        if let alarmSnoozeUntil = store.state.alarmSnoozeUntil {
-                            Text(String(format: LocalizedString("%1$@ a clock"), alarmSnoozeUntil.toLocalTime()))
-                            Image(systemName: "speaker.slash")
-                                .font(.headline)
-                        } else {
-                            Image(systemName: "speaker.slash")
-                                .font(.headline)
+                        if store.state.alarmSnoozeUntil != nil {
+                            Image(systemName: "xmark")
+                                .opacity(0.25)
+                                .onTapGesture {
+                                    store.dispatch(.setAlarmSnoozeUntil(untilDate: nil))
+                                }
                         }
-                    }
-                    .opacity(store.state.alarmSnoozeUntil == nil ? 0.25 : 1)
-                    .onTapGesture {
-                        let date = (store.state.alarmSnoozeUntil ?? Date()).toRounded(on: 15, .minute)
-                        let nextDate = Calendar.current.date(byAdding: .minute, value: 30, to: date)
-
-                        store.dispatch(.setAlarmSnoozeUntil(untilDate: nextDate))
-                    }
-                    .onLongPressGesture {
-                        store.dispatch(.setAlarmSnoozeUntil(untilDate: nil))
+                        
+                        Group {
+                            if let alarmSnoozeUntil = store.state.alarmSnoozeUntil {
+                                Text(String(format: LocalizedString("%1$@ a clock"), alarmSnoozeUntil.toLocalTime()))
+                                Image(systemName: "speaker.slash")
+                                    .font(.headline)
+                            } else {
+                                Image(systemName: "speaker.slash")
+                                    .font(.headline)
+                            }
+                        }
+                        .opacity(store.state.alarmSnoozeUntil == nil ? 0.25 : 1)
+                        .onTapGesture {
+                            let date = (store.state.alarmSnoozeUntil ?? Date()).toRounded(on: 1, .minute)
+                            let nextDate = Calendar.current.date(byAdding: .minute, value: 30, to: date)
+                            
+                            store.dispatch(.setAlarmSnoozeUntil(untilDate: nextDate))
+                        }
+                        .onTapGesture(count: 2) {
+                            store.dispatch(.setAlarmSnoozeUntil(untilDate: nil))
+                        }
+                        .onLongPressGesture {
+                            store.dispatch(.setAlarmSnoozeUntil(untilDate: nil))
+                        }
                     }
                 }.padding(.bottom, 5)
             }
