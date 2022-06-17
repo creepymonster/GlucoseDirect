@@ -11,10 +11,6 @@ extension Data {
         map { String(format: "%02X", $0) }.joined(separator: " ")
     }
 
-    func toBase64() -> String {
-        self.base64EncodedString()
-    }
-
     init?(hexString: String) {
         let length = hexString.count / 2
         var data = Data(capacity: length)
@@ -34,3 +30,5 @@ extension Data {
         self = data
     }
 }
+
+// TEST

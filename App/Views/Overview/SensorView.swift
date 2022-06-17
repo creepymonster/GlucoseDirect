@@ -8,10 +8,7 @@ import SwiftUI
 // MARK: - SensorView
 
 struct SensorView: View {
-    @Environment(\.colorScheme) var colorScheme
-
     @EnvironmentObject var store: AppStore
-    @State var deviceColorScheme = ColorScheme.light
 
     var body: some View {
         Group {
@@ -33,18 +30,16 @@ struct SensorView: View {
                         }
 
                         if let remainingWarmupTime = sensor.remainingWarmupTime, sensor.state == .starting {
-                            HStack {
-                                Text("Sensor remaining warmup time")
-                                Spacer()
-
-                                if #available(iOS 16.0, *) {
-                                    Gauge(value: 50, in: 0...100) {
-                                        Text(remainingWarmupTime.inTime)
-                                    }.gaugeStyle(.accessoryLinearCapacity)
-                                } else {
+                            VStack {
+                                HStack {
+                                    Text("Sensor remaining warmup time")
+                                    Spacer()
                                     Text(remainingWarmupTime.inTime)
                                 }
+
+                                ProgressView("", value: remainingWarmupTime.inPercent(of: sensor.warmupTime), total: 100)
                             }
+
                         } else if sensor.state != .expired && sensor.state != .shutdown && sensor.state != .unknown {
                             HStack {
                                 Text("Sensor possible lifetime")
@@ -52,32 +47,24 @@ struct SensorView: View {
                                 Text(sensor.lifetime.inTime)
                             }
 
-                            HStack {
-                                Text("Sensor age")
-                                Spacer()
-
-                                if #available(iOS 16.0, *) {
-                                    Gauge(value: 50, in: 0...100) {
-                                        Text(sensor.age.inTime)
-                                    }.gaugeStyle(.accessoryLinearCapacity)
-                                } else {
+                            VStack {
+                                HStack {
+                                    Text("Sensor age")
+                                    Spacer()
                                     Text(sensor.age.inTime)
                                 }
+
+                                ProgressView("", value: sensor.age.inPercent(of: sensor.lifetime), total: 100)
                             }
 
-                            if let remainingLifetime = sensor.remainingLifetime {
+                            VStack {
                                 HStack {
                                     Text("Sensor remaining lifetime")
                                     Spacer()
-
-                                    if #available(iOS 16.0, *) {
-                                        Gauge(value: 50, in: 0...100) {
-                                            Text(remainingLifetime.inTime)
-                                        }.gaugeStyle(.accessoryLinearCapacity)
-                                    } else {
-                                        Text(remainingLifetime.inTime)
-                                    }
+                                    Text(sensor.remainingLifetime.inTime)
                                 }
+
+                                ProgressView("", value: sensor.remainingLifetime.inPercent(of: sensor.lifetime), total: 100)
                             }
                         }
                     },
@@ -137,17 +124,14 @@ struct SensorView: View {
                             Text(transmitter.name)
                         }
 
-                        HStack {
-                            Text("Transmitter battery")
-                            Spacer()
-
-                            if #available(iOS 16.0, *) {
-                                Gauge(value: 50, in: 0...100) {
-                                    Text("\(transmitter.battery)%")
-                                }.gaugeStyle(.accessoryLinearCapacity)
-                            } else {
+                        VStack {
+                            HStack {
+                                Text("Transmitter battery")
+                                Spacer()
                                 Text("\(transmitter.battery)%")
                             }
+
+                            ProgressView("", value: Double(transmitter.battery), total: 100)
                         }
 
                         if let hardware = transmitter.hardware {
@@ -167,16 +151,35 @@ struct SensorView: View {
                         }
                     },
                     header: {
-                        Label("Transmitter Details", systemImage: "antenna.radiowaves.left.and.right.circle")
+                        Label("Transmitter details", systemImage: "antenna.radiowaves.left.and.right.circle")
                     }
                 )
             }
-        }.onChange(of: colorScheme) { scheme in
-            if deviceColorScheme != scheme {
-                DirectLog.info("onChange colorScheme: \(scheme)")
+        }
+    }
+}
 
-                deviceColorScheme = scheme
+// MARK: - ColoredProgressView
+
+struct ColoredProgressView: View {
+    var value: Double
+    var colors: [Color]
+
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack(alignment: .leading) {
+                Rectangle()
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+                    .foregroundColor(Color.ui.gray)
+
+                LinearGradient(colors: colors, startPoint: .leading, endPoint: .trailing)
+                    .mask(alignment: .leading) {
+                        Rectangle()
+                            .frame(width: min(CGFloat(self.value) * geometry.size.width, geometry.size.width), height: geometry.size.height)
+                    }
             }
+            .frame(height: 4)
+            .cornerRadius(45.0)
         }
     }
 }

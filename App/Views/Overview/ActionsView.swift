@@ -25,7 +25,7 @@ struct ActionsView: View {
                         }
                     },
                     label: {
-                        Label("Find transmitter", systemImage: "magnifyingglass")
+                        Text("Find transmitter")
                     }
                 )
             }
@@ -42,7 +42,7 @@ struct ActionsView: View {
                         }
                     },
                     label: {
-                        Label("Scan sensor", systemImage: "viewfinder")
+                        Text("Scan sensor")
                     }
                 )
             }
@@ -57,9 +57,9 @@ struct ActionsView: View {
                         },
                         label: {
                             if store.state.isTransmitter {
-                                Label("Connect transmitter", systemImage: "play")
+                                Text("Connect transmitter")
                             } else {
-                                Label("Connect sensor", systemImage: "play")
+                                Text("Connect sensor")
                             }
                         }
                     )
@@ -70,9 +70,9 @@ struct ActionsView: View {
                         },
                         label: {
                             if store.state.isTransmitter {
-                                Label("Disconnect transmitter", systemImage: "stop")
+                                Text("Disconnect transmitter")
                             } else {
-                                Label("Disconnect sensor", systemImage: "stop")
+                                Text("Disconnect sensor")
                             }
                         }
                     ).alert(isPresented: $showingDisconnectConnectionAlert) {
@@ -91,3 +91,5 @@ struct ActionsView: View {
         }
     }
 }
+
+// TEST

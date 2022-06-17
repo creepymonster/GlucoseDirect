@@ -11,21 +11,19 @@ struct OverviewView: View {
     var body: some View {
         VStack {
             List {
-                if store.state.currentGlucose != nil {
-                    GlucoseView().frame(maxWidth: .infinity)
-                }
-
-                if store.state.isConnectionPaired && !store.state.glucoseValues.isEmpty {
-                    SnoozeView()
+                if store.state.latestSensorGlucose != nil {
+                    GlucoseView()
                 }
 
                 if !store.state.glucoseValues.isEmpty {
                     ChartView()
                 }
-                
+
                 ConnectionView()
                 SensorView()
             }.listStyle(.grouped)
         }
     }
 }
+
+// TEST

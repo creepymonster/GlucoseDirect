@@ -78,10 +78,6 @@ class BubbleConnection: SensorBLEConnectionBase, IsTransmitter {
         peripheral.writeValue(Data([0x00, 0x00, UInt8(sensorInterval)]), for: writeCharacteristic, type: .withResponse)
     }
 
-    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
-        DirectLog.info("Peripheral: \(peripheral)")
-    }
-
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         DirectLog.info("Peripheral: \(peripheral)")
 
@@ -192,3 +188,5 @@ private enum BubbleResponseType: UInt8 {
     case patchInfo = 193 // 0xC1
     case serialNumber = 192
 }
+
+// TEST

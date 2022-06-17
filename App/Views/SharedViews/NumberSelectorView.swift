@@ -50,7 +50,7 @@ struct NumberSelectorView: View {
                 if let displayValue = displayValue {
                     Text(displayValue)
                 }
-            }.padding(.top, 5)
+            }
 
             HStack {
                 Button {
@@ -90,3 +90,5 @@ struct NumberSelectorView_Previews: PreviewProvider {
         NumberSelectorView(key: "Key", value: 10, step: 5, displayValue: "10 mg/dl")
     }
 }
+
+// TEST

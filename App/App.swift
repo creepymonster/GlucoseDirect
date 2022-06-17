@@ -74,11 +74,11 @@ final class GlucoseDirectApp: App {
             readAloudMiddelware(),
             bellmanAlarmMiddelware(),
             nightscoutMiddleware(),
-            appGroupSharingMiddleware()
+            appGroupSharingMiddleware(),
         ]
 
         middlewares.append(sensorConnectorMiddelware([
-            SensorConnectionInfo(id: "virtual", name: "Virtual") { VirtualLibreConnection(subject: $0) }
+            SensorConnectionInfo(id: "virtual", name: "Virtual") { VirtualLibreConnection(subject: $0) },
         ]))
 
         return AppStore(initialState: UserDefaultsState(), reducer: appReducer, middlewares: middlewares)
@@ -97,12 +97,11 @@ final class GlucoseDirectApp: App {
             readAloudMiddelware(),
             bellmanAlarmMiddelware(),
             nightscoutMiddleware(),
-            appGroupSharingMiddleware()
+            appGroupSharingMiddleware(),
         ]
-        
+
         let withoutTransmitter = LocalizedString("Without transmitter")
         let bubbleTransmitter = LocalizedString("Bubble transmitter")
-        
 
         #if canImport(CoreNFC)
             if NFCTagReaderSession.readingAvailable {
@@ -170,3 +169,5 @@ final class GlucoseDirectAppDelegate: NSObject, UIApplicationDelegate {
         DirectLog.info("Application did receive memory warning")
     }
 }
+
+// TEST

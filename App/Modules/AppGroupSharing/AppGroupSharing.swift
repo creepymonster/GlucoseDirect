@@ -17,33 +17,23 @@ private func appGroupSharingMiddleware(service: LazyService<AppGroupSharingServi
         switch action {
         case .startup:
             service.value.clearAll()
-            service.value.setApp(value: DirectConfig.appName)
-            service.value.setAppVersion(value: "\(DirectConfig.appVersion) (\(DirectConfig.appBuild))")
+            service.value.setApp(app: DirectConfig.appName, appVersion: "\(DirectConfig.appVersion) (\(DirectConfig.appBuild))")
+
+            if let glucose = state.latestGlucose {
+                service.value.addGlucose(glucoseValues: [glucose])
+            }
 
         case .selectConnection(id: _, connection: _):
             service.value.clearAll()
 
         case .setConnectionState(connectionState: let connectionState):
-            if let sensor = state.sensor {
-                service.value.setSensor(value: sensor.type.localizedString)
-                service.value.setSensorState(value: sensor.state.localizedString)
-                service.value.setSensorConnectionState(value: connectionState.localizedString)
-            } else {
-                service.value.setSensor(value: nil)
-                service.value.setSensorState(value: nil)
-                service.value.setSensorConnectionState(value: nil)
-            }
+            service.value.setConnectionState(value: connectionState.localizedString)
 
         case .setSensor(sensor: let sensor, keepDevice: _):
-            service.value.setSensor(value: sensor.type.localizedString)
-            service.value.setSensorState(value: sensor.state.localizedString)
-            service.value.setSensorConnectionState(value: state.connectionState.localizedString)
+            service.value.setSensor(sensor: sensor.type.localizedString, sensorState: sensor.state.localizedString, sensorConnectionState: state.connectionState.localizedString)
 
         case .setTransmitter(transmitter: let transmitter):
-            service.value.setTransmitter(value: transmitter.name)
-            service.value.setTransmitterBattery(value: "\(transmitter.battery)%")
-            service.value.setTransmitterHardware(value: transmitter.hardware?.description)
-            service.value.setTransmitterFirmware(value: transmitter.firmware?.description)
+            service.value.setTransmitter(transmitter: transmitter.name, transmitterBattery: "\(transmitter.battery)%", transmitterHardware: transmitter.hardware?.description, transmitterFirmware: transmitter.firmware?.description)
 
         case .disconnectConnection:
             service.value.clearGlucoseValues()
@@ -51,29 +41,18 @@ private func appGroupSharingMiddleware(service: LazyService<AppGroupSharingServi
         case .pairConnection:
             service.value.clearGlucoseValues()
 
-        case .addGlucoseValues(glucoseValues: let glucoseValues):
-            guard let glucose = glucoseValues.last else {
-                DirectLog.info("Guard: glucoseValues.last is nil")
-                break
-            }
-            
-            if glucose.type == .cgm && glucose.isHIGH {
-                break
-            }
-
-            service.value.setSensor(value: state.sensor?.type.localizedString)
-            service.value.setSensorState(value: state.sensor?.state.localizedString)
-            service.value.setSensorConnectionState(value: state.connectionState.localizedString)
-
-            service.value.setTransmitter(value: state.transmitter?.name)
-
-            if let transmitterBattery = state.transmitter?.battery {
-                service.value.setTransmitterBattery(value: "\(transmitterBattery)%")
+        case .addGlucose(glucose: let glucose):
+            if let sensor = state.sensor {
+                service.value.setSensor(sensor: sensor.type.localizedString, sensorState: sensor.state.localizedString, sensorConnectionState: state.connectionState.localizedString)
             } else {
-                service.value.setTransmitterBattery(value: nil)
+                service.value.setSensor(sensor: nil, sensorState: nil, sensorConnectionState: nil)
             }
-            service.value.setTransmitterHardware(value: state.transmitter?.hardware?.description)
-            service.value.setTransmitterFirmware(value: state.transmitter?.firmware?.description)
+
+            if let transmitter = state.transmitter {
+                service.value.setTransmitter(transmitter: transmitter.name, transmitterBattery: "\(transmitter.battery)%", transmitterHardware: transmitter.hardware?.description, transmitterFirmware: transmitter.firmware?.description)
+            } else {
+                service.value.setTransmitter(transmitter: nil, transmitterBattery: nil, transmitterHardware: nil, transmitterFirmware: nil)
+            }
 
             service.value.addGlucose(glucoseValues: [glucose])
 
@@ -115,40 +94,26 @@ private class AppGroupSharingService {
         clearOthers()
     }
 
-    func setApp(value: String?) {
-        UserDefaults.shared.sharedApp = value
-    }
-    
-    func setAppVersion(value: String?) {
-        UserDefaults.shared.sharedAppVersion = value
+    func setApp(app: String?, appVersion: String?) {
+        UserDefaults.shared.sharedApp = app
+        UserDefaults.shared.sharedAppVersion = appVersion
     }
 
-    func setSensor(value: String?) {
-        UserDefaults.shared.sharedSensor = value
+    func setSensor(sensor: String?, sensorState: String?, sensorConnectionState: String?) {
+        UserDefaults.shared.sharedSensor = sensor
+        UserDefaults.shared.sharedSensorState = sensorState
+        UserDefaults.shared.sharedSensorConnectionState = sensorConnectionState
     }
 
-    func setSensorState(value: String?) {
-        UserDefaults.shared.sharedSensorState = value
-    }
-
-    func setSensorConnectionState(value: String?) {
+    func setConnectionState(value: String?) {
         UserDefaults.shared.sharedSensorConnectionState = value
     }
 
-    func setTransmitter(value: String?) {
-        UserDefaults.shared.sharedTransmitter = value
-    }
-
-    func setTransmitterBattery(value: String?) {
-        UserDefaults.shared.sharedTransmitterBattery = value
-    }
-
-    func setTransmitterHardware(value: String?) {
-        UserDefaults.shared.sharedTransmitterHardware = value
-    }
-
-    func setTransmitterFirmware(value: String?) {
-        UserDefaults.shared.sharedTransmitterFirmware = value
+    func setTransmitter(transmitter: String?, transmitterBattery: String?, transmitterHardware: String?, transmitterFirmware: String?) {
+        UserDefaults.shared.sharedTransmitter = transmitter
+        UserDefaults.shared.sharedTransmitterBattery = transmitterBattery
+        UserDefaults.shared.sharedTransmitterHardware = transmitterHardware
+        UserDefaults.shared.sharedTransmitterFirmware = transmitterFirmware
     }
 
     func addGlucose(glucoseValues: [Glucose]) {
@@ -156,17 +121,9 @@ private class AppGroupSharingService {
             .map { $0.toFreeAPS() }
             .compactMap { $0 }
 
-        if sharedValues.isEmpty {
-            return
-        }
-
-        DirectLog.info("Shared values, values: \(sharedValues)")
-
         guard let sharedValuesJson = try? JSONSerialization.data(withJSONObject: sharedValues) else {
             return
         }
-
-        DirectLog.info("Shared values, json: \(sharedValuesJson)")
 
         UserDefaults.shared.sharedGlucose = sharedValuesJson
     }
@@ -174,7 +131,7 @@ private class AppGroupSharingService {
 
 private extension Glucose {
     func toFreeAPS() -> [String: Any]? {
-        guard let glucoseValue = glucoseValue else {
+        guard let glucoseValue = glucoseValue, !isFaultyGlucose else {
             return nil
         }
 
@@ -191,3 +148,5 @@ private extension Glucose {
         return freeAPSGlucose
     }
 }
+
+// TEST

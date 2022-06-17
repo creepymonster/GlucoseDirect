@@ -37,32 +37,33 @@ struct UserDefaultsState: AppState {
             self.alarmLow = alarmLow
         }
 
-        self.bellmanAlarm = UserDefaults.standard.bellmanAlarm
         self.appleCalendarExport = UserDefaults.standard.appleCalendarExport
         self.appleHealthExport = UserDefaults.standard.appleHealthExport
+        self.bellmanAlarm = UserDefaults.standard.bellmanAlarm
         self.chartShowLines = UserDefaults.standard.chartShowLines
         self.chartZoomLevel = UserDefaults.standard.chartZoomLevel
-        self.customCalibration = UserDefaults.standard.customCalibration
+        self.connectionAlarmSound = UserDefaults.standard.connectionAlarmSound
         self.connectionPeripheralUUID = UserDefaults.standard.connectionPeripheralUUID
-        self.glucoseValues = UserDefaults.standard.glucoseValues
+        self.customCalibration = UserDefaults.standard.customCalibration
+        self.expiringAlarmSound = UserDefaults.standard.expiringAlarmSound
         self.glucoseNotification = UserDefaults.standard.glucoseNotification
-        self.glucoseUnit = UserDefaults.standard.glucoseUnit
-        self.isConnectionPaired = UserDefaults.standard.isConnectionPaired
+        self.highGlucoseAlarmSound = UserDefaults.standard.highGlucoseAlarmSound
         self.ignoreMute = UserDefaults.standard.ignoreMute
+        self.isConnectionPaired = UserDefaults.standard.isConnectionPaired
+        self.lowGlucoseAlarmSound = UserDefaults.standard.lowGlucoseAlarmSound
         self.nightscoutApiSecret = UserDefaults.standard.nightscoutApiSecret
-        self.nightscoutURL = UserDefaults.standard.nightscoutURL
         self.nightscoutUpload = UserDefaults.standard.nightscoutUpload
+        self.nightscoutURL = UserDefaults.standard.nightscoutURL
         self.readGlucose = UserDefaults.standard.readGlucose
         self.selectedCalendarTarget = UserDefaults.standard.selectedCalendarTarget
         self.selectedConnectionID = UserDefaults.standard.selectedConnectionID ?? defaultConnectionID
         self.selectedView = UserDefaults.standard.selectedView
-        self.sensor = UserDefaults.standard.sensor
         self.sensorInterval = UserDefaults.standard.sensorInterval
-        self.transmitter = UserDefaults.standard.transmitter
-        self.connectionAlarmSound = UserDefaults.standard.connectionAlarmSound
-        self.expiringAlarmSound = UserDefaults.standard.expiringAlarmSound
-        self.highGlucoseAlarmSound = UserDefaults.standard.highGlucoseAlarmSound
-        self.lowGlucoseAlarmSound = UserDefaults.standard.lowGlucoseAlarmSound
+
+        self.glucoseUnit = UserDefaults.shared.glucoseUnit ?? UserDefaults.standard.glucoseUnit ?? .mgdL
+        self.glucoseValues = UserDefaults.shared.glucoseValues
+        self.sensor = UserDefaults.shared.sensor ?? UserDefaults.standard.sensor
+        self.transmitter = UserDefaults.shared.transmitter ?? UserDefaults.standard.transmitter
     }
 
     // MARK: Internal
@@ -74,9 +75,10 @@ struct UserDefaultsState: AppState {
     var connectionErrorTimestamp: Date?
     var connectionInfos: [SensorConnectionInfo] = []
     var connectionState: SensorConnectionState = .disconnected
-    var missedReadings: Int = 0
+    var missedReadings = 0
+    var preventScreenLock = false
     var selectedConnection: SensorBLEConnection?
-    var targetValue: Int = 100
+    var targetValue = 100
 
     var alarmHigh: Int = 160 {
         didSet {
@@ -152,13 +154,14 @@ struct UserDefaultsState: AppState {
 
     var glucoseUnit: GlucoseUnit {
         didSet {
-            UserDefaults.standard.glucoseUnit = glucoseUnit
+            UserDefaults.shared.glucoseUnit = glucoseUnit
         }
     }
 
     var glucoseValues: [Glucose] {
         didSet {
-            UserDefaults.standard.glucoseValues = glucoseValues
+            UserDefaults.shared.glucoseValues = glucoseValues
+            UserDefaults.shared.latestGlucose = glucoseValues.last
         }
     }
 
@@ -230,7 +233,7 @@ struct UserDefaultsState: AppState {
 
     var sensor: Sensor? {
         didSet {
-            UserDefaults.standard.sensor = sensor
+            UserDefaults.shared.sensor = sensor
         }
     }
 
@@ -242,7 +245,7 @@ struct UserDefaultsState: AppState {
 
     var transmitter: Transmitter? {
         didSet {
-            UserDefaults.standard.transmitter = transmitter
+            UserDefaults.shared.transmitter = transmitter
         }
     }
 }
@@ -284,6 +287,7 @@ struct PreviewAppState: AppState {
     var nightscoutApiSecret = ""
     var nightscoutUpload = false
     var nightscoutURL = ""
+    var preventScreenLock = false
     var readGlucose = false
     var selectedCalendarTarget: String?
     var selectedConnection: SensorBLEConnection? = nil

@@ -13,50 +13,30 @@ struct GlucoseView: View {
     @EnvironmentObject var store: AppStore
 
     var body: some View {
-        Group {
-            if let currentGlucose = store.state.currentGlucose {
-                VStack(alignment: .center) {
-                    if let glucoseValue = currentGlucose.glucoseValue {
-                        VStack(alignment: .trailing, spacing: 0) {
+        if let latestGlucose = store.state.latestGlucose {
+            ZStack(alignment: .bottom) {
+                Group {
+                    if let glucoseValue = latestGlucose.glucoseValue, !latestGlucose.isFaultyGlucose {
+                        VStack(alignment: .center, spacing: 0) {
                             HStack(alignment: .lastTextBaseline) {
                                 Text(glucoseValue.asGlucose(unit: store.state.glucoseUnit))
                                     .font(.system(size: 96))
 
                                 VStack(alignment: .leading) {
-                                    Text(currentGlucose.trend.description).font(.system(size: 48))
-
+                                    Text(latestGlucose.trend.description).font(.system(size: 48))
                                     Text(store.state.glucoseUnit.localizedString)
                                 }
                             }.foregroundColor(glucoseForegroundColor)
 
-                            if let minuteChange = currentGlucose.minuteChange?.asMinuteChange(glucoseUnit: store.state.glucoseUnit), currentGlucose.trend != .unknown {
+                            if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: store.state.glucoseUnit), latestGlucose.trend != .unknown {
                                 HStack(spacing: 20) {
-                                    Text(String(format: LocalizedString("%1$@ a clock"), currentGlucose.timestamp.toLocalTime()))
+                                    Spacer()
+                                    Text(String(format: LocalizedString("%1$@ a clock"), latestGlucose.timestamp.toLocalTime()))
+                                    Spacer()
                                     Text(minuteChange)
+                                    Spacer()
                                 }.padding(.bottom)
                             }
-                        }
-                    } else if currentGlucose.isHIGH || currentGlucose.isLOW {
-                        VStack(alignment: .trailing, spacing: 0) {
-                            HStack(alignment: .lastTextBaseline) {
-                                if currentGlucose.isHIGH {
-                                    VStack(alignment: .center, spacing: 0) {
-                                        Text("HIGH")
-                                            .font(.system(size: 96))
-                                            .foregroundColor(Color.ui.red)
-
-                                        Text("Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter.")
-                                            .padding(.vertical)
-                                        
-                                        Text("The value from the blood glucose meter can then be added via 'List', at the top 'Add'.")
-                                            .padding(.vertical)
-                                    }
-                                } else if currentGlucose.isLOW {
-                                    Text("LOW")
-                                        .font(.system(size: 96))
-                                        .foregroundColor(Color.ui.red)
-                                }
-                            }.foregroundColor(glucoseForegroundColor)
                         }
                     } else {
                         VStack(alignment: .center, spacing: 0) {
@@ -65,12 +45,42 @@ struct GlucoseView: View {
                                 .font(.system(size: 112))
 
                             Text("Attention, the sensor sends faulty values. Please wait 10 minutes.")
-                                .padding(.vertical)
-
-                            Text(String(format: LocalizedString("%1$@ a clock"), currentGlucose.timestamp.toLocalTime()))
-                        }.padding(.vertical)
+                                .padding(.top)
+                        }
                     }
-                }
+                }.padding(.bottom, 30)
+
+                HStack {
+                    Image(systemName: "lock.slash")
+                        .font(.headline)
+                        .opacity(store.state.preventScreenLock ? 1 : 0.25)
+                        .onTapGesture {
+                            store.dispatch(.setPreventScreenLock(enabled: !store.state.preventScreenLock))
+                        }
+
+                    Spacer()
+
+                    Group {
+                        if let alarmSnoozeUntil = store.state.alarmSnoozeUntil {
+                            Text(String(format: LocalizedString("%1$@ a clock"), alarmSnoozeUntil.toLocalTime()))
+                            Image(systemName: "speaker.slash")
+                                .font(.headline)
+                        } else {
+                            Image(systemName: "speaker.slash")
+                                .font(.headline)
+                        }
+                    }
+                    .opacity(store.state.alarmSnoozeUntil == nil ? 0.25 : 1)
+                    .onTapGesture {
+                        let date = (store.state.alarmSnoozeUntil ?? Date()).toRounded(on: 15, .minute)
+                        let nextDate = Calendar.current.date(byAdding: .minute, value: 30, to: date)
+
+                        store.dispatch(.setAlarmSnoozeUntil(untilDate: nextDate))
+                    }
+                    .onLongPressGesture {
+                        store.dispatch(.setAlarmSnoozeUntil(untilDate: nil))
+                    }
+                }.padding(.bottom, 5)
             }
         }
     }
@@ -78,7 +88,7 @@ struct GlucoseView: View {
     // MARK: Private
 
     private var isAlarm: Bool {
-        if let glucose = store.state.currentGlucose, let glucoseValue = glucose.glucoseValue, glucoseValue < store.state.alarmLow || glucoseValue > store.state.alarmHigh {
+        if let glucose = store.state.latestSensorGlucose, let glucoseValue = glucose.glucoseValue, glucoseValue < store.state.alarmLow || glucoseValue > store.state.alarmHigh {
             return true
         }
 
@@ -93,3 +103,5 @@ struct GlucoseView: View {
         return Color.primary
     }
 }
+
+// TEST

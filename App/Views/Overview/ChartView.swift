@@ -11,7 +11,6 @@ import SwiftUI
 struct ChartView: View {
     // MARK: Internal
 
-    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var store: AppStore
 
     @State var seriesWidth: CGFloat = 0
@@ -29,15 +28,15 @@ struct ChartView: View {
     var glucoseUnit: GlucoseUnit {
         store.state.glucoseUnit
     }
-    
+
     var alarmLow: Int {
         store.state.alarmLow
     }
-    
+
     var alarmHigh: Int {
         store.state.alarmHigh
     }
-    
+
     var glucoseValues: [Glucose] {
         store.state.glucoseValues
     }
@@ -61,6 +60,7 @@ struct ChartView: View {
                                 x: .value("Time", value.valueX),
                                 y: .value("Glucose", value.valueY)
                             )
+                            .interpolationMethod(.linear)
                             .lineStyle(Config.lineStyle)
                             .foregroundStyle(Color.ui.blue)
                         }
@@ -164,10 +164,10 @@ struct ChartView: View {
 
         static let zoomLevels: [ZoomLevel] = [
             ZoomLevel(level: 1, name: LocalizedString("1h"), visibleHours: 1, labelEveryHours: 1),
-            ZoomLevel(level: 6, name: LocalizedString("6h"), visibleHours: 6, labelEveryHours: 1),
-            ZoomLevel(level: 12, name: LocalizedString("12h"), visibleHours: 12, labelEveryHours: 2),
-            ZoomLevel(level: 24, name: LocalizedString("24h"), visibleHours: 24, labelEveryHours: 4)
-            //ZoomLevel(level: 48, name: LocalizedString("48h"), visibleHours: 48, labelEveryHours: 8),
+            ZoomLevel(level: 6, name: LocalizedString("6h"), visibleHours: 6, labelEveryHours: 2),
+            ZoomLevel(level: 12, name: LocalizedString("12h"), visibleHours: 12, labelEveryHours: 3),
+            ZoomLevel(level: 24, name: LocalizedString("24h"), visibleHours: 24, labelEveryHours: 6),
+            ZoomLevel(level: 48, name: LocalizedString("48h"), visibleHours: 48, labelEveryHours: 8)
         ]
     }
 
@@ -215,21 +215,6 @@ struct ChartView: View {
             value.toDatapoint(glucoseUnit: glucoseUnit)
         }.compactMap { $0 }
     }
-
-    private func populateZoomedValues(glucoseValues: [Glucose], glucoseValueType: GlucoseValueType, groupMinutes: Int) -> [ChartDatapoint] {
-        let filteredValues = glucoseValues.map { value in
-            (value.timestamp.toRounded(on: groupMinutes, .minute), value.glucoseValue!)
-        }
-
-        let groupedValues: [Date: [(Date, Int)]] = Dictionary(grouping: filteredValues, by: { $0.0 })
-
-        return groupedValues.map { group in
-            let sum = group.value.reduce(0) { $0 + $1.1 }
-            let mean = sum / group.value.count
-
-            return Glucose(id: UUID(), timestamp: group.key, glucose: mean, type: glucoseValueType).toDatapoint(glucoseUnit: glucoseUnit)
-        }.compactMap { $0 }.sorted(by: { $0.valueX < $1.valueX })
-    }
 }
 
 // MARK: - ZoomLevel
@@ -259,7 +244,7 @@ extension ChartDatapoint: Equatable {
 
 extension Glucose {
     func isValidCGM() -> Bool {
-        type == .cgm && quality == .OK && glucoseValue != nil
+        type == .cgm && glucoseValue != nil
     }
 
     func isValidBGM() -> Bool {

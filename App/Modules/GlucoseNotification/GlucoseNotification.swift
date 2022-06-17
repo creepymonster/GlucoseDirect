@@ -33,18 +33,13 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
             }
 
         case .setGlucoseUnit(unit: let unit):
-            guard let glucose = state.currentGlucose else {
+            guard let glucose = state.latestSensorGlucose else {
                 break
             }
 
             service.value.setGlucoseNotification(glucose: glucose, glucoseUnit: unit)
 
-        case .addGlucoseValues(glucoseValues: let glucoseValues):
-            guard let glucose = glucoseValues.last else {
-                DirectLog.info("Guard: glucoseValues.last is nil")
-                break
-            }
-
+        case .addGlucose(glucose: let glucose):
             guard glucose.type == .cgm else {
                 DirectLog.info("Guard: glucose.type is not .cgm")
                 break
@@ -62,7 +57,7 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
 
             DirectLog.info("isSnoozed: \(isSnoozed)")
 
-            if state.lowGlucoseAlarm, glucoseValue < state.alarmLow || glucose.isLOW {
+            if state.lowGlucoseAlarm, glucoseValue < state.alarmLow {
                 DirectLog.info("Glucose alert, low: \(glucose.glucoseValue) < \(state.alarmLow)")
 
                 service.value.setLowGlucoseAlarm(glucose: glucose, glucoseUnit: state.glucoseUnit, ignoreMute: state.ignoreMute, sound: isSnoozed ? .none : state.lowGlucoseAlarmSound)
@@ -73,7 +68,7 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
                         .eraseToAnyPublisher()
                 }
 
-            } else if state.highGlucoseAlarm, glucoseValue > state.alarmHigh || glucose.isHIGH {
+            } else if state.highGlucoseAlarm, glucoseValue > state.alarmHigh {
                 DirectLog.info("Glucose alert, high: \(glucose.glucoseValue) > \(state.alarmHigh)")
 
                 service.value.setHighGlucoseAlarm(glucose: glucose, glucoseUnit: state.glucoseUnit, ignoreMute: state.ignoreMute, sound: isSnoozed ? .none : state.highGlucoseAlarmSound)
@@ -86,6 +81,8 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
 
             } else if state.glucoseNotification {
                 service.value.setGlucoseNotification(glucose: glucose, glucoseUnit: state.glucoseUnit)
+            } else {
+                service.value.clear()
             }
 
         default:
@@ -112,8 +109,25 @@ private class GlucoseNotificationService {
     }
 
     func clear() {
-        UIApplication.shared.applicationIconBadgeNumber = 0
         UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [Identifier.sensorGlucoseAlarm.rawValue])
+    }
+
+    func setGlucoseBadge(glucose: Glucose, glucoseUnit: GlucoseUnit) {
+        NotificationService.shared.ensureCanSendNotification { state in
+            DirectLog.info("Glucose info, state: \(state)")
+
+            guard state != .none else {
+                return
+            }
+
+            guard let glucoseValue = glucose.glucoseValue else {
+                return
+            }
+
+            if glucoseUnit == .mgdL {
+                UIApplication.shared.applicationIconBadgeNumber = glucoseValue
+            }
+        }
     }
 
     func setGlucoseNotification(glucose: Glucose, glucoseUnit: GlucoseUnit) {
@@ -237,3 +251,5 @@ private extension Int {
         return round(value * divisor) / divisor
     }
 }
+
+// TEST

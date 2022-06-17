@@ -9,6 +9,10 @@ extension Double {
     var asMmolL: Decimal {
         return Decimal(self * GlucoseUnit.exchangeRate)
     }
+    
+    var asMgdL: Decimal {
+        return Decimal(self)
+    }
 
     func asGlucose(glucoseUnit: GlucoseUnit, withUnit: Bool = false, precise: Bool = false) -> String {
         var glucose: String
@@ -46,3 +50,5 @@ extension Double {
         return String(format: LocalizedString("%1$@/min."), formattedMinuteChange)
     }
 }
+
+// TEST

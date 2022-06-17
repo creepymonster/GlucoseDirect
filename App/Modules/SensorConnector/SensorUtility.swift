@@ -142,7 +142,7 @@ enum SensorUtility {
 
             let rawGlucoseValue = readBits(fram, offset, 0, 0xe)
             let rawTemperature = readBits(fram, offset, 0x1a, 0xc) << 2
-            let quality = rawGlucoseValue == 0 ? GlucoseQuality(rawValue: rawTemperature >> 2) : .OK
+            let quality = rawGlucoseValue == 0 ? SensorReadingQuality(rawValue: rawTemperature >> 2) : .OK
 
             // let quality = UInt16(readBits(fram, offset, 0xe, 0xb)) & 0x1FF
             // let qualityFlags = (readBits(fram, offset, 0xe, 0xb) & 0x600) >> 9
@@ -157,8 +157,8 @@ enum SensorUtility {
 
             let glucoseValue = calibration.calibrate(rawValue: Double(rawGlucoseValue), rawTemperature: Double(rawTemperature), rawTemperatureAdjustment: Double(rawTemperatureAdjustment))
             let reading = quality == .OK
-                ? SensorReading(id: UUID(), timestamp: timestamp, glucoseValue: glucoseValue, quality: quality)
-                : SensorReading(id: UUID(), timestamp: timestamp, quality: quality)
+                ? SensorReading.createGlucoseReading(timestamp: timestamp, glucoseValue: glucoseValue)
+                : SensorReading.createFaultyReading(timestamp: timestamp, quality: quality)
 
             trendReadings.append(reading)
         }
@@ -176,7 +176,7 @@ enum SensorUtility {
 
             let rawGlucoseValue = readBits(fram, offset, 0, 0xe)
             let rawTemperature = readBits(fram, offset, 0x1a, 0xc) << 2
-            let quality = rawGlucoseValue == 0 ? GlucoseQuality(rawValue: rawTemperature >> 2) : .OK
+            let quality = rawGlucoseValue == 0 ? SensorReadingQuality(rawValue: rawTemperature >> 2) : .OK
 
             // let quality = UInt16(readBits(fram, offset, 0xe, 0xb)) & 0x1ff
             // let qualityFlags = (readBits(fram, offset, 0xe, 0xb) & 0x600) >> 9
@@ -192,8 +192,8 @@ enum SensorUtility {
 
             let glucoseValue = calibration.calibrate(rawValue: Double(rawGlucoseValue), rawTemperature: Double(rawTemperature), rawTemperatureAdjustment: Double(rawTemperatureAdjustment))
             let reading = quality == .OK
-                ? SensorReading(id: UUID(), timestamp: timestamp, glucoseValue: glucoseValue, quality: quality)
-                : SensorReading(id: UUID(), timestamp: timestamp, quality: quality)
+                ? SensorReading.createGlucoseReading(timestamp: timestamp, glucoseValue: glucoseValue)
+                : SensorReading.createFaultyReading(timestamp: timestamp, quality: quality)
 
             historyReadings.append(reading)
         }
@@ -216,7 +216,7 @@ enum SensorUtility {
         for i in 0 ..< 10 {
             let rawGlucoseValue = Double(readBits(data, i * 4, 0, 0xe))
             let rawTemperature = readBits(data, i * 4, 0xe, 0xc) << 2
-            let quality = rawGlucoseValue == 0 ? GlucoseQuality(rawValue: rawTemperature >> 2) : .OK
+            let quality = rawGlucoseValue == 0 ? SensorReadingQuality(rawValue: rawTemperature >> 2) : .OK
 
             var rawTemperatureAdjustment = readBits(data, i * 4, 0x1a, 0x5) << 2
             let negativeAdjustment = readBits(data, i * 4, 0x1f, 0x1)
@@ -235,8 +235,8 @@ enum SensorUtility {
 
             let glucoseValue = calibration.calibrate(rawValue: Double(rawGlucoseValue), rawTemperature: Double(rawTemperature), rawTemperatureAdjustment: Double(rawTemperatureAdjustment))
             let reading = quality == .OK
-                ? SensorReading(id: UUID(), timestamp: timestamp, glucoseValue: glucoseValue, quality: quality)
-                : SensorReading(id: UUID(), timestamp: timestamp, quality: quality)
+                ? SensorReading.createGlucoseReading(timestamp: timestamp, glucoseValue: glucoseValue)
+                : SensorReading.createFaultyReading(timestamp: timestamp, quality: quality)
 
             if i < 7 {
                 DirectLog.info("Sensor trend reading: \(reading.description))")
@@ -374,3 +374,5 @@ private func crc16(_ data: Data) -> UInt16 {
 
     return reverseCrc.byteSwapped
 }
+
+// TEST

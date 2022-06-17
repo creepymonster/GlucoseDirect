@@ -29,7 +29,7 @@ final class VirtualLibreConnection: SensorBLEConnection, IsSensor {
             type: .virtual,
             region: .european,
             serial: "OBIR2PO",
-            state: .starting,
+            state: .ready,
             age: initAge,
             lifetime: 24 * 60,
             warmupTime: warmupTime
@@ -85,11 +85,11 @@ final class VirtualLibreConnection: SensorBLEConnection, IsSensor {
         sendUpdate(age: age, state: age > warmupTime ? .ready : .starting)
 
         if age > warmupTime {
-            let badQuality: GlucoseQuality = Int.random(in: 0 ..< 100) < 2
-                ? .INVALID_DATA
-                : .OK
+            let sensorReading = Int.random(in: 0 ..< 100) < 2
+                ? SensorReading.createFaultyReading(timestamp: Date(), quality: .AVG_DELTA_EXCEEDED)
+                : SensorReading.createGlucoseReading(timestamp: Date(), glucoseValue: Double(currentGlucose))
 
-            sendUpdate(sensorSerial: sensor?.serial ?? "", reading: SensorReading(id: UUID(), timestamp: Date(), glucoseValue: Double(currentGlucose), quality: badQuality))
+            sendUpdate(sensorSerial: sensor?.serial ?? "", reading: sensorReading)
         }
 
         let nextAddition = direction == .up ? 1 : -1
@@ -119,3 +119,5 @@ private enum VirtualGlucoseDirection: String {
     case up = "Up"
     case down = "Down"
 }
+
+// TEST

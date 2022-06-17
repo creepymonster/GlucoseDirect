@@ -124,23 +124,19 @@ struct Sensor: Codable {
     let warmupTime: Int
 
     var remainingWarmupTime: Int? {
-        if age < warmupTime {
-            return warmupTime - age
+        if age <= warmupTime {
+            return max(0, warmupTime - age)
         }
 
         return nil
     }
 
-    var elapsedLifetime: Int? {
-        if let remainingLifetime = remainingLifetime {
-            return max(0, lifetime - remainingLifetime)
-        }
-
-        return nil
+    var elapsedLifetime: Int {
+        return max(0, lifetime - remainingLifetime)
     }
 
-    var remainingLifetime: Int? {
-        max(0, lifetime - age)
+    var remainingLifetime: Int {
+        return max(0, lifetime - age)
     }
 
     var description: String {
@@ -188,3 +184,5 @@ private func sensorSerialNumber(uuid: Data, sensorFamily: SensorFamily) -> Strin
         $0 + lookupTable[Int(0x1f & $1)]
     }
 }
+
+// TEST

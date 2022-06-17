@@ -26,7 +26,7 @@ extension Date {
     }
 
     func toMillisecondsAsDouble() -> Double {
-        Double(self.timeIntervalSince1970 * 1000)
+        return Double(self.timeIntervalSince1970 * 1000)
     }
 
     func toLocalDateTime() -> String {
@@ -83,3 +83,5 @@ extension Date {
         return format
     }()
 }
+
+// TEST

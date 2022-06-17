@@ -123,27 +123,15 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
                 if characteristic.uuid == writeCharacteristicUUID {
                     writeCharacteristic = characteristic
 
-                    if let unlock = unlock() {
+                    if peripheralType != .connectedPeripheral, let unlock = unlock() {
                         peripheral.writeValue(unlock, for: characteristic, type: .withResponse)
                     }
                 }
             }
         }
-    }
 
-    func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
-        DirectLog.info("Peripheral: \(peripheral)")
-
-        sendUpdate(error: error)
-    }
-
-    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
-        DirectLog.info("Peripheral: \(peripheral)")
-
-        sendUpdate(error: error)
-
-        if characteristic.uuid == writeCharacteristicUUID {
-            peripheral.setNotifyValue(true, for: readCharacteristic!)
+        if let readCharacteristic = readCharacteristic {
+            peripheral.setNotifyValue(true, for: readCharacteristic)
         }
     }
 
@@ -177,20 +165,20 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
                     let decryptedBLE = Data(try SensorUtility.decryptBLE(uuid: sensor.uuid, data: rxBuffer))
                     let parsedBLE = SensorUtility.parseBLE(calibration: sensor.factoryCalibration, data: decryptedBLE)
 
-                    if (parsedBLE.age + 15) >= sensor.lifetime {
+                    if (parsedBLE.age + 30) >= sensor.lifetime {
                         sendUpdate(age: parsedBLE.age, state: .expired)
                         lastReadings = []
 
                     } else if let nextReading = parsedBLE.trend.last, parsedBLE.age > sensor.warmupTime {
                         sendUpdate(age: parsedBLE.age, state: .ready)
-                        
+
                         if let lastReading = lastReadings.last, (nextReading.timestamp.timeIntervalSince1970 - lastReading.timestamp.timeIntervalSince1970) > 90 {
                             DirectLog.info("Time difference of the read values too large: \(nextReading.timestamp.timeIntervalSince1970 - lastReading.timestamp.timeIntervalSince1970)")
-                            
+
                             lastReadings = [nextReading]
                         } else {
                             DirectLog.info("Time difference of the read values is OK or this is the first read")
-                            
+
                             var lastReadings = self.lastReadings + [nextReading]
 
                             let overLimit = lastReadings.count - 5
@@ -210,7 +198,7 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
 
                 let intervalSeconds = sensorInterval * 60 - 45
                 if sensorInterval == 1 || lastUpdate == nil || lastUpdate! + Double(intervalSeconds) <= Date() {
-                    lastUpdate = Date()
+                    lastUpdate = Date()                   
                     sendUpdate(sensorSerial: sensor.serial ?? "", readings: lastReadings)
                 }
             }
@@ -259,3 +247,5 @@ private extension UserDefaults {
         }
     }
 }
+
+// TEST

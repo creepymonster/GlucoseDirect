@@ -29,6 +29,12 @@
 "Add glucose for calibration" = "Add glucose for calibration";
 
 /* (No Comment) */
+"Add calibration" = "Add calibration";
+
+/* (No Comment) */
+"Add blood glucose" = "Add blood glucose";
+
+/* (No Comment) */
 "Add glucose value" = "Add glucose value";
 
 /* (No Comment) */
@@ -714,3 +720,32 @@
 
 /* (No Comment) */
 "Glucose" = "Glucose";
+
+/* (No Comment) */
+"Transmitter details" = "Transmitter details";
+
+/* (No Comment) */
+"Sensor" = "Sensor";
+
+/* (No Comment) */
+"Glucose widget" = "Glucose";
+
+/* (No Comment) */
+"Glucose widget description" = "Displays the last glucose value.";
+
+/* (No Comment) */
+"Sensor lifetime widget" = "Sensor Lifetime";
+
+/* (No Comment) */
+"Sensor lifetime widget description" = "Displays the remaining lifetime of the current sensor as a countdown.";
+
+/* (No Comment) */
+"Transmitter battery widget" = "Transmitter Battery";
+
+/* (No Comment) */
+"Transmitter battery widget description" = "Displays the remaining battery charge of the transmitter as a countdown.";
+
+/* (No Comment) */
+"Warmup" = "Warmup";
+
+/* TEST */

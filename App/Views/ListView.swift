@@ -11,8 +11,6 @@ struct ListView: View {
     @EnvironmentObject var store: AppStore
     @State var value: Int = 0
     @State var showingAddBloodGlucoseView = false
-    @State var showingAddBloodGlucoseAlert = false
-    @State var showingDeleteGlucoseValuesAlert = false
     @State var glucoseValues: [Glucose] = []
 
     var body: some View {
@@ -25,7 +23,7 @@ struct ListView: View {
                         }
                     },
                     header: {
-                        Label("Add glucose value", systemImage: "drop.fill")
+                        Label("Add blood glucose", systemImage: "drop.fill")
                     },
                     footer: {
                         HStack {
@@ -41,28 +39,27 @@ struct ListView: View {
 
                             Button(
                                 action: {
-                                    showingAddBloodGlucoseAlert = true
+                                    withAnimation {
+                                        let glucose = Glucose.createBloodGlucose(timestamp: Date(), glucoseValue: value)
+                                        store.dispatch(.addGlucose(glucose: glucose))
+
+                                        showingAddBloodGlucoseView = false
+                                    }
                                 },
                                 label: {
                                     Label("Add", systemImage: "checkmark")
                                 }
-                            ).alert(isPresented: $showingAddBloodGlucoseAlert) {
-                                Alert(
-                                    title: Text("Are you sure you want to add the new blood glucose value?"),
-                                    primaryButton: .destructive(Text("Add")) {
-                                        withAnimation {
-                                            let glucose = Glucose(id: UUID(), timestamp: Date(), glucose: value, type: .bgm)
-                                            store.dispatch(.addGlucoseValues(glucoseValues: [glucose]))
-
-                                            showingAddBloodGlucoseView = false
-                                        }
-                                    },
-                                    secondaryButton: .cancel()
-                                )
-                            }
-                        }
+                            )
+                        }.padding(.bottom)
                     }
                 )
+            } else {
+                Button("Add blood glucose", action: {
+                    withAnimation {
+                        value = 100
+                        showingAddBloodGlucoseView = true
+                    }
+                })
             }
 
             Section(
@@ -101,53 +98,14 @@ struct ListView: View {
                                 }) {
                                     glucoseValues.remove(at: index)
                                 }
-                                
+
                                 store.dispatch(.removeGlucose(id: id))
                             }
                         }
                     }
                 },
                 header: {
-                    HStack {
-                        Label("Glucose values", systemImage: "drop")
-                        Spacer()
-
-                        if !showingAddBloodGlucoseView {
-                            Button(
-                                action: {
-                                    withAnimation {
-                                        value = 100
-                                        showingAddBloodGlucoseView = true
-                                    }
-                                },
-                                label: {
-                                    Label("Add", systemImage: "plus")
-                                }
-                            )
-                        }
-                    }
-                },
-                footer: {
-                    if !glucoseValues.isEmpty {
-                        Button(
-                            action: {
-                                showingDeleteGlucoseValuesAlert = true
-                            },
-                            label: {
-                                Label("Delete all", systemImage: "trash.fill")
-                            }
-                        ).alert(isPresented: $showingDeleteGlucoseValuesAlert) {
-                            Alert(
-                                title: Text("Are you sure you want to delete all glucose values?"),
-                                primaryButton: .destructive(Text("Delete")) {
-                                    withAnimation {
-                                        store.dispatch(.clearGlucoseValues)
-                                    }
-                                },
-                                secondaryButton: .cancel()
-                            )
-                        }
-                    }
+                    Label("Glucose values", systemImage: "drop")
                 }
             )
         }
@@ -180,3 +138,5 @@ struct ListView: View {
         return glucoseValue.isAlmost(store.state.alarmLow, store.state.alarmHigh)
     }
 }
+
+// TEST

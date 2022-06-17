@@ -5,21 +5,21 @@
 
 import Foundation
 
-struct GlucoseQuality: OptionSet, Codable {
-    static let OK = GlucoseQuality([])
-    static let SD14_FIFO_OVERFLOW = GlucoseQuality(rawValue: 1 << 0)
-    static let FILTER_DELTA = GlucoseQuality(rawValue: 1 << 1)
-    static let WORK_VOLTAGE = GlucoseQuality(rawValue: 1 << 2)
-    static let PEAK_DELTA_EXCEEDED = GlucoseQuality(rawValue: 1 << 3)
-    static let AVG_DELTA_EXCEEDED = GlucoseQuality(rawValue: 1 << 4)
-    static let RF = GlucoseQuality(rawValue: 1 << 5)
-    static let REF_R = GlucoseQuality(rawValue: 1 << 6)
-    static let SIGNAL_SATURATED = GlucoseQuality(rawValue: 1 << 7)
-    static let SENSOR_SIGNAL_LOW = GlucoseQuality(rawValue: 1 << 8)
-    static let THERMISTOR_OUT_OF_RANGE = GlucoseQuality(rawValue: 1 << 11)
-    static let TEMP_HIGH = GlucoseQuality(rawValue: 1 << 13)
-    static let TEMP_LOW = GlucoseQuality(rawValue: 1 << 14)
-    static let INVALID_DATA = GlucoseQuality(rawValue: 1 << 15)
+struct SensorReadingQuality: OptionSet, Codable {
+    static let OK = SensorReadingQuality([])
+    static let SD14_FIFO_OVERFLOW = SensorReadingQuality(rawValue: 1 << 0)
+    static let FILTER_DELTA = SensorReadingQuality(rawValue: 1 << 1)
+    static let WORK_VOLTAGE = SensorReadingQuality(rawValue: 1 << 2)
+    static let PEAK_DELTA_EXCEEDED = SensorReadingQuality(rawValue: 1 << 3)
+    static let AVG_DELTA_EXCEEDED = SensorReadingQuality(rawValue: 1 << 4)
+    static let RF = SensorReadingQuality(rawValue: 1 << 5)
+    static let REF_R = SensorReadingQuality(rawValue: 1 << 6)
+    static let SIGNAL_SATURATED = SensorReadingQuality(rawValue: 1 << 7)
+    static let SENSOR_SIGNAL_LOW = SensorReadingQuality(rawValue: 1 << 8)
+    static let THERMISTOR_OUT_OF_RANGE = SensorReadingQuality(rawValue: 1 << 11)
+    static let TEMP_HIGH = SensorReadingQuality(rawValue: 1 << 13)
+    static let TEMP_LOW = SensorReadingQuality(rawValue: 1 << 14)
+    static let INVALID_DATA = SensorReadingQuality(rawValue: 1 << 15)
 
     let rawValue: Int
 
@@ -69,3 +69,5 @@ struct GlucoseQuality: OptionSet, Codable {
         return outputs.joined(separator: ", ")
     }
 }
+
+// TEST

@@ -30,16 +30,12 @@ private func nightscoutMiddleware(service: LazyService<NightscoutService>) -> Mi
             case .clearGlucoseValues:
                 service.value.clearGlucoseValues(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1())
 
-            case .addGlucoseValues(glucoseValues: let glucoseValues):
-                let filteredGlucoseValues = glucoseValues.filter { glucose in
-                    glucose.type != .none
-                }
-
-                guard !filteredGlucoseValues.isEmpty else {
+            case .addGlucose(glucose: let glucose):
+                guard glucose.type == .cgm || glucose.type == .bgm else {
                     break
                 }
 
-                service.value.addGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: filteredGlucoseValues)
+                service.value.addGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), glucose: glucose)
 
             case .setSensorState(sensorAge: _, sensorState: _):
                 guard let sensor = state.sensor, sensor.startTimestamp != nil else {
@@ -181,8 +177,8 @@ private class NightscoutService {
         task.resume()
     }
 
-    func addGlucose(nightscoutURL: String, apiSecret: String, glucoseValues: [Glucose]) {
-        let nightscoutValues = glucoseValues.map { $0.toNightscoutGlucose() }
+    func addGlucose(nightscoutURL: String, apiSecret: String, glucose: Glucose) {
+        let nightscoutValues = glucose.toNightscoutGlucose()
 
         guard let nightscoutJson = try? JSONSerialization.data(withJSONObject: nightscoutValues) else {
             return
@@ -318,7 +314,7 @@ private extension Glucose {
         } else if type == .cgm {
             nightscout["type"] = "sgv"
             nightscout["sgv"] = glucoseValue
-            nightscout["rawbg"] = initialGlucoseValue
+            nightscout["rawbg"] = rawGlucoseValue
             nightscout["direction"] = trend.toNightscoutDirection()
             nightscout["trend"] = trend.toNightscoutTrend()
         }
@@ -326,3 +322,5 @@ private extension Glucose {
         return nightscout
     }
 }
+
+// TEST

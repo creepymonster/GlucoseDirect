@@ -7,10 +7,10 @@ import Combine
 import Foundation
 
 func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo]) -> Middleware<AppState, AppAction> {
-    return sensorConnectorMiddelware(infos, subject: PassthroughSubject<AppAction, AppError>(), calibrationService: CalibrationService())
+    return sensorConnectorMiddelware(infos, subject: PassthroughSubject<AppAction, AppError>())
 }
 
-private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject: PassthroughSubject<AppAction, AppError>, calibrationService: CalibrationService) -> Middleware<AppState, AppAction> {
+private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject: PassthroughSubject<AppAction, AppError>) -> Middleware<AppState, AppAction> {
     return { state, action, _ in
         switch action {
         case .startup:
@@ -61,44 +61,40 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
 
         case .addSensorReadings(sensorSerial: _, readings: let readings):
             if !readings.isEmpty {
-                let calibratedGlucose = readings.map { reading in
-                    calibrationService.withCalibration(customCalibration: state.customCalibration, reading: reading)
+                let glucoseValues = readings.map { reading in
+                    reading.calibrate(customCalibration: state.customCalibration)
                 }
 
-                guard let lastCalibratedGlucose = calibratedGlucose.last else {
+                guard let latestGlucose = glucoseValues.last else {
                     break
                 }
 
-                guard let lastCalibratedGlucoseValue = lastCalibratedGlucose.glucoseValue, lastCalibratedGlucose.quality == .OK else {
-                    return Just(.addGlucoseValues(glucoseValues: [lastCalibratedGlucose]))
+                guard let latestRawGlucoseValue = latestGlucose.rawGlucoseValue,
+                      let latestGlucoseValue = latestGlucose.glucoseValue,
+                      latestGlucose.type == .cgm
+                else {
+                    return Just(.addGlucose(glucose: latestGlucose))
                         .setFailureType(to: AppError.self)
                         .eraseToAnyPublisher()
                 }
-                
-                if let currentGlucose = state.currentGlucose, currentGlucose.timestamp >= lastCalibratedGlucose.timestamp {
+
+                if let currentGlucose = state.latestSensorGlucose, currentGlucose.timestamp >= latestGlucose.timestamp {
                     break
                 }
 
-                let filteredGlucose = calibratedGlucose.filter { glucose in
-                    glucose.quality == .OK && glucose.glucoseValue != nil
+                let filteredGlucose = glucoseValues.filter { glucose in
+                    glucose.type == .cgm && glucose.glucoseValue != nil
                 }
 
-                let summedGlucose = lastCalibratedGlucoseValue + filteredGlucose.map { glucose in
+                let summedGlucose = latestGlucoseValue + filteredGlucose.map { glucose in
                     glucose.glucoseValue!
                 }.reduce(0, +)
 
-                let nextGlucose = Glucose(
-                    id: lastCalibratedGlucose.id,
-                    timestamp: lastCalibratedGlucose.timestamp,
-                    initialGlucoseValue: lastCalibratedGlucose.initialGlucoseValue,
-                    calibratedGlucoseValue: Int(Double(summedGlucose) / Double(1 + filteredGlucose.count)),
-                    type: lastCalibratedGlucose.type,
-                    quality: lastCalibratedGlucose.quality
-                )
-
-                return Just(.addGlucoseValues(glucoseValues: [
-                    calibrationService.withMinuteChange(nextGlucose: nextGlucose, previousGlucose: state.currentGlucose)
-                ]))
+                return Just(.addGlucose(glucose:
+                    Glucose
+                        .createSensorGlucose(timestamp: latestGlucose.timestamp, rawGlucoseValue: latestRawGlucoseValue, glucoseValue: Int(Double(summedGlucose) / Double(1 + filteredGlucose.count)), minuteChange: nil)
+                        .populateChange(previousGlucose: state.latestSensorGlucose)
+                ))
                 .setFailureType(to: AppError.self)
                 .eraseToAnyPublisher()
             }
@@ -177,3 +173,5 @@ class SensorConnectionInfo: Identifiable {
     let name: String
     let connectionCreator: SensorConnectionCreator
 }
+
+// TEST

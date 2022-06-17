@@ -7,8 +7,8 @@ import Foundation
 import OSLog
 
 enum AppAction {
-    case addCalibration(glucoseValue: Int)
-    case addGlucoseValues(glucoseValues: [Glucose])
+    case addCalibration(bloodGlucoseValue: Int)
+    case addGlucose(glucose: Glucose)
     case addMissedReading
     case addSensorReadings(sensorSerial: String, readings: [SensorReading])
     case bellmanTestAlarm
@@ -21,6 +21,8 @@ enum AppAction {
     case registerConnectionInfo(infos: [SensorConnectionInfo])
     case removeCalibration(id: UUID)
     case removeGlucose(id: UUID)
+    case requestAppleCalendarAccess(enabled: Bool)
+    case requestAppleHealthAccess(enabled: Bool)
     case resetSensor
     case selectCalendarTarget(id: String?)
     case selectConnection(id: String, connection: SensorBLEConnection)
@@ -38,9 +40,9 @@ enum AppAction {
     case setChartZoomLevel(level: Int)
     case setConnectionAlarmSound(sound: NotificationSound)
     case setConnectionError(errorMessage: String, errorTimestamp: Date, errorIsCritical: Bool)
-    case setConnectionState(connectionState: SensorConnectionState)
     case setConnectionPaired(isPaired: Bool)
     case setConnectionPeripheralUUID(peripheralUUID: String?)
+    case setConnectionState(connectionState: SensorConnectionState)
     case setExpiringAlarmSound(sound: NotificationSound)
     case setGlucoseNotification(enabled: Bool)
     case setGlucoseUnit(unit: GlucoseUnit)
@@ -50,6 +52,7 @@ enum AppAction {
     case setNightscoutSecret(apiSecret: String)
     case setNightscoutUpload(enabled: Bool)
     case setNightscoutURL(url: String)
+    case setPreventScreenLock(enabled: Bool)
     case setReadGlucose(enabled: Bool)
     case setSensor(sensor: Sensor, keepDevice: Bool = false)
     case setSensorInterval(interval: Int)
@@ -57,3 +60,5 @@ enum AppAction {
     case setTransmitter(transmitter: Transmitter)
     case startup
 }
+
+// TEST

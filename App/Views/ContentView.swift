@@ -31,14 +31,12 @@ struct ContentView: View {
             SettingsView().tabItem {
                 Label("Settings view", systemImage: "gearshape")
             }.tag(4)
-        }
-        .onAppear {
+        }.onAppear {
             let apparence = UITabBarAppearance()
             apparence.configureWithOpaqueBackground()
 
             UITabBar.appearance().scrollEdgeAppearance = apparence
-        }
-        .animation(.default, value: store.state.selectedView)
+        }.animation(.default, value: store.state.selectedView)
     }
 
     // MARK: Private
@@ -50,3 +48,5 @@ struct ContentView: View {
         )
     }
 }
+
+// TEST
