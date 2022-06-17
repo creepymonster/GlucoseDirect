@@ -153,5 +153,3 @@ private class AppleHealthExportService {
 private extension HKUnit {
     static let milligramsPerDeciliter: HKUnit = HKUnit.gramUnit(with: .milli).unitDivided(by: .literUnit(with: .deci))
 }
-
-// TEST

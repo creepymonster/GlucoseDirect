@@ -274,5 +274,3 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
         peripheral.discoverServices([serviceUUID])
     }
 }
-
-// TEST

@@ -322,5 +322,3 @@ private extension Glucose {
         return nightscout
     }
 }
-
-// TEST

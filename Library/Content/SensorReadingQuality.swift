@@ -69,5 +69,3 @@ struct SensorReadingQuality: OptionSet, Codable {
         return outputs.joined(separator: ", ")
     }
 }
-
-// TEST

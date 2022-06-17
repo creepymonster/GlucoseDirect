@@ -83,5 +83,3 @@ extension Date {
         return format
     }()
 }
-
-// TEST

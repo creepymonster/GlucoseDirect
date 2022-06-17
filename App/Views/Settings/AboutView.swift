@@ -102,5 +102,3 @@ struct AboutView: View {
         }
     }
 }
-
-// TEST

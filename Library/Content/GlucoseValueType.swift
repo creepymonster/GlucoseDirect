@@ -23,5 +23,3 @@ enum GlucoseType: Equatable, Codable {
         }
     }
 }
-
-// TEST

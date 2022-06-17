@@ -50,5 +50,3 @@ extension Double {
         return String(format: LocalizedString("%1$@/min."), formattedMinuteChange)
     }
 }
-
-// TEST

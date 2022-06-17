@@ -188,5 +188,3 @@ private enum BubbleResponseType: UInt8 {
     case patchInfo = 193 // 0xC1
     case serialNumber = 192
 }
-
-// TEST

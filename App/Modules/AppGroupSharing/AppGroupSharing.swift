@@ -148,5 +148,3 @@ private extension Glucose {
         return freeAPSGlucose
     }
 }
-
-// TEST

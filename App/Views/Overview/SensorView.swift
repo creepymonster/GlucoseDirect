@@ -183,5 +183,3 @@ struct ColoredProgressView: View {
         }
     }
 }
-
-// TEST

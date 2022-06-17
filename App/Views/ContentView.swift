@@ -55,5 +55,3 @@ struct ContentView: View {
         )
     }
 }
-
-// TEST

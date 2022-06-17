@@ -173,5 +173,3 @@ class SensorConnectionInfo: Identifiable {
     let name: String
     let connectionCreator: SensorConnectionCreator
 }
-
-// TEST

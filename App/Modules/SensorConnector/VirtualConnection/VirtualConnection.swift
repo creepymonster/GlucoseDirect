@@ -119,5 +119,3 @@ private enum VirtualGlucoseDirection: String {
     case up = "Up"
     case down = "Down"
 }
-
-// TEST

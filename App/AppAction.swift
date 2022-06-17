@@ -60,5 +60,3 @@ enum AppAction {
     case setTransmitter(transmitter: Transmitter)
     case startup
 }
-
-// TEST

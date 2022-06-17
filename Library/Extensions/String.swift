@@ -18,5 +18,3 @@ extension String {
         return hexBytes.joined()
     }
 }
-
-// TEST

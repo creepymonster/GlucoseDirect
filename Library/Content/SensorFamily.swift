@@ -71,5 +71,3 @@ enum SensorFamily: Int, Codable {
         LocalizedString(self.description)
     }
 }
-
-// TEST

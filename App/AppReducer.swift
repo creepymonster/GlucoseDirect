@@ -259,5 +259,3 @@ func appReducer(state: inout AppState, action: AppAction) {
 
 private var resetableStates: Set<SensorConnectionState> = [.connected, .powerOff, .scanning]
 private var disconnectedStates: Set<SensorConnectionState> = [.disconnected, .scanning]
-
-// TEST

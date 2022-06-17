@@ -125,5 +125,3 @@ extension AppState {
 private var sensorConnectableStates: Set<SensorState> = [.starting, .ready]
 private var connectableStates: Set<SensorConnectionState> = [.disconnected]
 private var disconnectableStates: Set<SensorConnectionState> = [.connected, .connecting, .scanning]
-
-// TEST

@@ -79,5 +79,3 @@ struct ToggleView_Previews: PreviewProvider {
         ToggleView(key: "Key", value: false, trueValue: "mg/dl", falseValue: "mmol")
     }
 }
-
-// TEST

@@ -22,5 +22,3 @@ extension Color {
         static let gray = Color("Gray")
     }
 }
-
-// TEST

@@ -129,5 +129,3 @@ struct CustomCalibrationView: View {
         Double(round(CustomCalibrationView.factor * customCalibration.intercept) / CustomCalibrationView.factor)
     }
 }
-
-// TEST

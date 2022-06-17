@@ -165,5 +165,3 @@ extension SensorTrend {
         }
     }
 }
-
-// TEST

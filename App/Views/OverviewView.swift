@@ -25,5 +25,3 @@ struct OverviewView: View {
         }
     }
 }
-
-// TEST

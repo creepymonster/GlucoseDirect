@@ -68,5 +68,3 @@ extension SensorReading {
         return calibratedGlucoseValue
     }
 }
-
-// TEST

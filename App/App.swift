@@ -169,5 +169,3 @@ final class GlucoseDirectAppDelegate: NSObject, UIApplicationDelegate {
         DirectLog.info("Application did receive memory warning")
     }
 }
-
-// TEST

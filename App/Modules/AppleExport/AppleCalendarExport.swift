@@ -153,5 +153,3 @@ class AppleCalendarExportService {
 
     private var calendar: EKCalendar?
 }
-
-// TEST

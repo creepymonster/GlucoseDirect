@@ -161,5 +161,3 @@ extension Glucose: Equatable {
         lhs.id == rhs.id
     }
 }
-
-// TEST

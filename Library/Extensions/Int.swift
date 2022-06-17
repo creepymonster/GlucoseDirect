@@ -130,5 +130,3 @@ extension UInt64 {
         return String(format: "%4.2f %@", convertedValue, tokens[multiplyFactor])
     }
 }
-
-// TEST

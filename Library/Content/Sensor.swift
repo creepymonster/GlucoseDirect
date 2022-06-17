@@ -184,5 +184,3 @@ private func sensorSerialNumber(uuid: Data, sensorFamily: SensorFamily) -> Strin
         $0 + lookupTable[Int(0x1f & $1)]
     }
 }
-
-// TEST

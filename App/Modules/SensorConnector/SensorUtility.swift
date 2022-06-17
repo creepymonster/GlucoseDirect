@@ -374,5 +374,3 @@ private func crc16(_ data: Data) -> UInt16 {
 
     return reverseCrc.byteSwapped
 }
-
-// TEST

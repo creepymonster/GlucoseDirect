@@ -298,5 +298,3 @@ struct PreviewAppState: AppState {
     var targetValue = 100
     var transmitter: Transmitter?
 }
-
-// TEST

@@ -90,5 +90,3 @@ struct NumberSelectorView_Previews: PreviewProvider {
         NumberSelectorView(key: "Key", value: 10, step: 5, displayValue: "10 mg/dl")
     }
 }
-
-// TEST

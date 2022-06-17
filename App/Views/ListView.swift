@@ -138,5 +138,3 @@ struct ListView: View {
         return glucoseValue.isAlmost(store.state.alarmLow, store.state.alarmHigh)
     }
 }
-
-// TEST
