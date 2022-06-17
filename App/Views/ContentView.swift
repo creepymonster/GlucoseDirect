@@ -11,6 +11,7 @@ struct ContentView: View {
     // MARK: Internal
 
     @EnvironmentObject var store: AppStore
+    @Environment(\.scenePhase) var scenePhase
 
     var body: some View {
         TabView(selection: selectedView) {
@@ -31,7 +32,13 @@ struct ContentView: View {
             SettingsView().tabItem {
                 Label("Settings view", systemImage: "gearshape")
             }.tag(4)
-        }.onAppear {
+        }
+        .onChange(of: scenePhase) { newPhase in
+            if newPhase == .background && store.state.preventScreenLock {
+                store.dispatch(.setPreventScreenLock(enabled: false))
+            }
+        }
+        .onAppear {
             let apparence = UITabBarAppearance()
             apparence.configureWithOpaqueBackground()
 
