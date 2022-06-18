@@ -138,7 +138,6 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
 
         case .setConnectionPaired(isPaired: let isPaired):
             guard isPaired && state.isConnectable else {
-                DirectLog.info("Guard: sensor was not paired, no auto connect")
                 break
             }
 
