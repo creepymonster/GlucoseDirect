@@ -60,41 +60,16 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             }
 
         case .addSensorReadings(sensorSerial: _, readings: let readings):
-            if !readings.isEmpty {
-                let glucoseValues = readings.map { reading in
-                    reading.calibrate(customCalibration: state.customCalibration)
-                }
-
-                guard let latestGlucose = glucoseValues.last else {
+            if let nextSensorGlucose = readings.last?
+                .calibrate(customCalibration: state.customCalibration)
+                .populateChange(previousGlucose: state.latestSensorGlucose)
+            {
+                let latestSensorGlucose = state.latestSensorGlucose
+                guard latestSensorGlucose == nil || latestSensorGlucose!.timestamp < nextSensorGlucose.timestamp else {
                     break
                 }
-
-                guard let latestRawGlucoseValue = latestGlucose.rawGlucoseValue,
-                      let latestGlucoseValue = latestGlucose.glucoseValue,
-                      latestGlucose.type == .cgm
-                else {
-                    return Just(.addGlucose(glucose: latestGlucose))
-                        .setFailureType(to: AppError.self)
-                        .eraseToAnyPublisher()
-                }
-
-                if let currentGlucose = state.latestSensorGlucose, currentGlucose.timestamp >= latestGlucose.timestamp {
-                    break
-                }
-
-                let filteredGlucose = glucoseValues.filter { glucose in
-                    glucose.type == .cgm && glucose.glucoseValue != nil
-                }
-
-                let summedGlucose = latestGlucoseValue + filteredGlucose.map { glucose in
-                    glucose.glucoseValue!
-                }.reduce(0, +)
-
-                return Just(.addGlucose(glucose:
-                    Glucose
-                        .createSensorGlucose(timestamp: latestGlucose.timestamp, rawGlucoseValue: latestRawGlucoseValue, glucoseValue: Int(Double(summedGlucose) / Double(1 + filteredGlucose.count)), minuteChange: nil)
-                        .populateChange(previousGlucose: state.latestSensorGlucose)
-                ))
+                
+                return Just(.addGlucose(glucose: nextSensorGlucose))
                 .setFailureType(to: AppError.self)
                 .eraseToAnyPublisher()
             }
@@ -137,7 +112,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             sensorConnection.disconnectConnection()
 
         case .setConnectionPaired(isPaired: let isPaired):
-            guard isPaired && state.isConnectable else {
+            guard isPaired, state.isConnectable else {
                 break
             }
 

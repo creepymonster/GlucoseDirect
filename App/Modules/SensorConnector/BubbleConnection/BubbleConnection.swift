@@ -134,9 +134,16 @@ class BubbleConnection: SensorBLEConnectionBase, IsTransmitter {
                     let sensor = Sensor(uuid: uuid, patchInfo: patchInfo, fram: fram)
                     sendUpdate(sensor: sensor, keepDevice: true)
 
-                    if sensor.age > sensor.warmupTime {
+                    if (sensor.age + 30) >= sensor.lifetime {
+                        sendUpdate(age: sensor.age, state: .expired)
+
+                    } else if sensor.age > sensor.warmupTime {
+                        sendUpdate(age: sensor.age, state: .ready)
+
                         let readings = SensorUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
-                        sendUpdate(sensorSerial: sensor.serial ?? "", readings: readings.trend.suffix(5))
+                        sendUpdate(sensorSerial: sensor.serial ?? "", readings: readings.trend)
+                    } else if sensor.age <= sensor.warmupTime {
+                        sendUpdate(age: sensor.age, state: .starting)
                     }
                 }
 

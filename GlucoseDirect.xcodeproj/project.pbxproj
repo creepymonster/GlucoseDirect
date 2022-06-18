@@ -350,7 +350,6 @@
 		E20B8531266F4A9800AA4224 = {
 			isa = PBXGroup;
 			children = (
-				E2E8DC032859F62C002C84FD /* WidgetsExtension.entitlements */,
 				E247D8E426B7D70A00BDAF89 /* GlucoseDirect.xcconfig */,
 				E20B853C266F4A9800AA4224 /* App */,
 				E24474432859CA9600F8891C /* AppWidgets */,
@@ -426,6 +425,7 @@
 				E2016FD5285BA7C600079195 /* SensorWidget.swift */,
 				E2016FD7285BA7EE00079195 /* GlucoseWidget.swift */,
 				E2016FDB285BA82600079195 /* TransmitterWidget.swift */,
+				E2E8DC032859F62C002C84FD /* WidgetsExtension.entitlements */,
 				E24474462859CA9700F8891C /* Assets.xcassets */,
 				E24474482859CA9700F8891C /* Info.plist */,
 			);
@@ -1232,7 +1232,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CODE_SIGN_ENTITLEMENTS = WidgetsExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = AppWidgets/WidgetsExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "${DEVELOPMENT_TEAM}";
@@ -1264,7 +1264,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CODE_SIGN_ENTITLEMENTS = WidgetsExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = AppWidgets/WidgetsExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "${DEVELOPMENT_TEAM}";
