@@ -60,19 +60,23 @@ struct GlucoseView: View {
                             Text("No screen lock")
                         }
                     }.onTapGesture {
-                        store.dispatch(.setPreventScreenLock(enabled: !store.state.preventScreenLock))
+                        withAnimation {
+                            store.dispatch(.setPreventScreenLock(enabled: !store.state.preventScreenLock))
+                        }
                     }
 
                     Spacer()
 
                     Group {
-                        /* if store.state.alarmSnoozeUntil != nil {
+                        if store.state.alarmSnoozeUntil != nil {
                              Image(systemName: "xmark")
                                  .opacity(0.25)
                                  .onTapGesture {
-                                     store.dispatch(.setAlarmSnoozeUntil(untilDate: nil))
+                                     withAnimation {
+                                         store.dispatch(.setAlarmSnoozeUntil(untilDate: nil))
+                                     }
                                  }
-                         } */
+                         }
 
                         Group {
                             if let alarmSnoozeUntil = store.state.alarmSnoozeUntil {
@@ -86,30 +90,19 @@ struct GlucoseView: View {
                         }
                         .opacity(store.state.alarmSnoozeUntil == nil ? 0.25 : 1)
                         .onTapGesture {
-                            if store.state.alarmSnoozeUntil == nil {
-                                let date = Date().toRounded(on: 1, .minute)
-                                let nextDate = Calendar.current.date(byAdding: .minute, value: 60, to: date)
-
-                                store.dispatch(.setAlarmSnoozeUntil(untilDate: nextDate))
-                            } else {
-                                store.dispatch(.setAlarmSnoozeUntil(untilDate: nil))
-                            }
-                        }
-                        .onLongPressGesture {
                             let date = (store.state.alarmSnoozeUntil ?? Date()).toRounded(on: 1, .minute)
                             let nextDate = Calendar.current.date(byAdding: .minute, value: 60, to: date)
 
-                            store.dispatch(.setAlarmSnoozeUntil(untilDate: nextDate))
-                        }/*.gesture(
-                            DragGesture().onChanged { value in
-                                if value.location.x > 0 {
-                                    let date = (store.state.alarmSnoozeUntil ?? Date()).toRounded(on: 1, .minute)
-
-                                    let nextDate = Calendar.current.date(byAdding: .minute, value: 1, to: date)
-                                    store.dispatch(.setAlarmSnoozeUntil(untilDate: nextDate))
-                                }
+                            withAnimation {
+                                store.dispatch(.setAlarmSnoozeUntil(untilDate: nextDate))
                             }
-                        )*/
+                        }
+                        .onLongPressGesture {
+                            
+                            withAnimation {
+                                store.dispatch(.setAlarmSnoozeUntil(untilDate: nil))
+                            }
+                        }
                     }
                 }.padding(.bottom, 5)
             }
