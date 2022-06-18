@@ -81,7 +81,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
 
             let type = SensorType(patchInfo)
             guard type == .libre2EU || type == .libre1 else {
-                logErrorAndDisconnect("Invalid sensor type")
+                logErrorAndDisconnect("Unsupported: \(type.localizedString)", showToUser: true)
                 return
             }
 
