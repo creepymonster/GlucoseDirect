@@ -80,7 +80,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
             }
 
             let type = SensorType(patchInfo)
-            guard type == .libre2EU || type == .libre1 || type == .libreProH else {
+            guard type == .libre2EU || type == .libre1 || type == .libreUS14day else {
                 logErrorAndDisconnect("Unsupported: \(type.localizedString)", showToUser: true)
                 return
             }
@@ -149,7 +149,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                     DirectLog.info("parse sensor readings")
                     let sensorReadings = SensorUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: sensor.fram!)
 
-                    if type == .libre1 || type == .libreProH {
+                    if type == .libre1 || type == .libreUS14day {
                         session.invalidate()
 
                         self.subject?.send(.setSensor(sensor: sensor))
