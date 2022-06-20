@@ -16,6 +16,12 @@ struct ChartView: View {
     @State var seriesWidth: CGFloat = 0
     @State var cgmSeries: [ChartDatapoint] = []
     @State var bgmSeries: [ChartDatapoint] = []
+    
+    @State var selectedPoint: ChartDatapoint? = nil {
+        didSet {
+            store.dispatch(.selectGlucose(glucose: selectedPoint?.glucose))
+        }
+    }
 
     var showLines: Bool {
         store.state.chartShowLines
@@ -29,12 +35,20 @@ struct ChartView: View {
         store.state.glucoseUnit
     }
 
-    var alarmLow: Int {
-        store.state.alarmLow
+    var alarmLow: Decimal {
+        if glucoseUnit == .mmolL {
+            return store.state.alarmLow.asMmolL
+        }
+        
+        return store.state.alarmLow.asMgdL
     }
 
-    var alarmHigh: Int {
-        store.state.alarmHigh
+    var alarmHigh: Decimal {
+        if glucoseUnit == .mmolL {
+            return store.state.alarmHigh.asMmolL
+        }
+        
+        return store.state.alarmHigh.asMgdL
     }
 
     var glucoseValues: [Glucose] {
@@ -43,65 +57,89 @@ struct ChartView: View {
 
     @available(iOS 16.0, *)
     var ChartView: some View {
-        GeometryReader { geometryProxy in
-            ScrollView(.horizontal, showsIndicators: false) {
-                ScrollViewReader { scrollViewProxy in
-                    Chart {
-                        RuleMark(y: .value("Lower limit", alarmLow))
-                            .foregroundStyle(Color.ui.orange)
-                            .lineStyle(Config.ruleStyle)
+        ZStack(alignment: .topLeading) {
+            GeometryReader { geometryProxy in
+                ScrollView(.horizontal, showsIndicators: false) {
+                    ScrollViewReader { scrollViewProxy in
+                        Chart {
+                            RuleMark(y: .value("Lower limit", alarmLow))
+                                .foregroundStyle(Color.ui.orange)
+                                .lineStyle(Config.ruleStyle)
 
-                        RuleMark(y: .value("Upper limit", alarmHigh))
-                            .foregroundStyle(Color.ui.orange)
-                            .lineStyle(Config.ruleStyle)
+                            RuleMark(y: .value("Upper limit", alarmHigh))
+                                .foregroundStyle(Color.ui.orange)
+                                .lineStyle(Config.ruleStyle)
 
-                        ForEach(cgmSeries) { value in
-                            LineMark(
-                                x: .value("Time", value.valueX),
-                                y: .value("Glucose", value.valueY)
-                            )
-                            .interpolationMethod(.linear)
-                            .lineStyle(Config.lineStyle)
-                            .foregroundStyle(Color.ui.blue)
-                        }
+                            ForEach(cgmSeries) { value in
+                                LineMark(
+                                    x: .value("Time", value.valueX),
+                                    y: .value("Glucose", value.valueY)
+                                )
+                                .interpolationMethod(.linear)
+                                .lineStyle(Config.lineStyle)
+                                .foregroundStyle(Color.ui.blue)
+                            }
 
-                        ForEach(bgmSeries) { value in
-                            PointMark(
-                                x: .value("Time", value.valueX),
-                                y: .value("Glucose", value.valueY)
-                            )
-                            .symbolSize(Config.symbolSize)
-                            .foregroundStyle(Color.ui.red)
-                        }
-                    }
-                    .chartPlotStyle { plotArea in
-                        plotArea.padding(.vertical)
-                    }
-                    .chartXAxis {
-                        AxisMarks(values: .stride(by: .hour)) { value in
-                            if let dateValue = value.as(Date.self), let zoomLevel = zoomLevel, Calendar.current.component(.hour, from: dateValue) % zoomLevel.labelEveryHours == 0 {
-                                AxisGridLine()
-                                AxisTick()
-                                AxisValueLabel(dateValue.toLocalTime())
+                            ForEach(bgmSeries) { value in
+                                PointMark(
+                                    x: .value("Time", value.valueX),
+                                    y: .value("Glucose", value.valueY)
+                                )
+                                .symbolSize(Config.symbolSize)
+                                .foregroundStyle(Color.ui.red)
+                            }
+
+                            if let selectedPoint = selectedPoint {
+                                RectangleMark(
+                                    x: .value("Time", selectedPoint.valueX),
+                                    y: .value("Glucose", selectedPoint.valueY),
+                                    width: 7.5,
+                                    height: 7.5
+                                )
+                                .foregroundStyle(Color.ui.blue)
+                                .opacity(0.75)
                             }
                         }
-                    }
-                    .id(Config.chartID)
-                    .frame(width: max(0, geometryProxy.size.width, seriesWidth))
-                    .onChange(of: store.state.glucoseUnit) { _ in
-                        updateSeries(viewWidth: geometryProxy.size.width, scrollViewProxy: scrollViewProxy)
+                        .chartPlotStyle { plotArea in
+                            plotArea.padding(.vertical)
+                        }
+                        .chartXAxis {
+                            AxisMarks(values: .stride(by: zoomLevel?.labelEveryUnit ?? .hour, count: zoomLevel?.labelEvery ?? 1))
+                        }
+                        .id(Config.chartID)
+                        .frame(width: max(0, geometryProxy.size.width, seriesWidth))
+                        .onChange(of: store.state.glucoseUnit) { _ in
+                            updateSeries(viewWidth: geometryProxy.size.width, scrollViewProxy: scrollViewProxy)
 
-                    }.onChange(of: store.state.glucoseValues) { _ in
-                        updateSeries(viewWidth: geometryProxy.size.width, scrollViewProxy: scrollViewProxy)
+                        }.onChange(of: store.state.glucoseValues) { _ in
+                            updateSeries(viewWidth: geometryProxy.size.width, scrollViewProxy: scrollViewProxy)
 
-                    }.onChange(of: store.state.chartShowLines) { _ in
-                        updateSeries(viewWidth: geometryProxy.size.width, scrollViewProxy: scrollViewProxy)
+                        }.onChange(of: store.state.chartShowLines) { _ in
+                            updateSeries(viewWidth: geometryProxy.size.width, scrollViewProxy: scrollViewProxy)
 
-                    }.onChange(of: store.state.chartZoomLevel) { _ in
-                        updateSeries(viewWidth: geometryProxy.size.width, scrollViewProxy: scrollViewProxy)
+                        }.onChange(of: store.state.chartZoomLevel) { _ in
+                            updateSeries(viewWidth: geometryProxy.size.width, scrollViewProxy: scrollViewProxy)
 
-                    }.onAppear {
-                        updateSeries(viewWidth: geometryProxy.size.width, scrollViewProxy: scrollViewProxy)
+                        }.onAppear {
+                            updateSeries(viewWidth: geometryProxy.size.width, scrollViewProxy: scrollViewProxy)
+
+                        }.chartOverlay { proxy in
+                            GeometryReader { geometryProxy in
+                                Rectangle().fill(.clear).contentShape(Rectangle())
+                                    .gesture(DragGesture()
+                                        .onChanged { value in
+                                            let currentX = value.location.x - geometryProxy[proxy.plotAreaFrame].origin.x
+
+                                            if let currentDate: Date = proxy.value(atX: currentX), let currentPoint = cgmSeries.last(where: { $0.valueX == currentDate.toRounded(on: 1, .minute) }) {
+                                                selectedPoint = currentPoint
+                                            }
+                                        }
+                                        .onEnded { _ in
+                                            selectedPoint = nil
+                                        }
+                                    )
+                            }
+                        }
                     }
                 }
             }
@@ -163,13 +201,15 @@ struct ChartView: View {
         static let ruleStyle: StrokeStyle = .init(lineWidth: 0.5, dash: [2])
 
         static let zoomLevels: [ZoomLevel] = [
-            ZoomLevel(level: 1, name: LocalizedString("1h"), visibleHours: 1, labelEveryHours: 1),
-            ZoomLevel(level: 6, name: LocalizedString("6h"), visibleHours: 6, labelEveryHours: 2),
-            ZoomLevel(level: 12, name: LocalizedString("12h"), visibleHours: 12, labelEveryHours: 3),
-            ZoomLevel(level: 24, name: LocalizedString("24h"), visibleHours: 24, labelEveryHours: 6),
-            ZoomLevel(level: 48, name: LocalizedString("48h"), visibleHours: 48, labelEveryHours: 8)
+            ZoomLevel(level: 1, name: LocalizedString("1h"), visibleHours: 1, labelEvery: 30, labelEveryUnit: .minute),
+            ZoomLevel(level: 6, name: LocalizedString("6h"), visibleHours: 6, labelEvery: 2, labelEveryUnit: .hour),
+            ZoomLevel(level: 12, name: LocalizedString("12h"), visibleHours: 12, labelEvery: 3, labelEveryUnit: .hour),
+            ZoomLevel(level: 24, name: LocalizedString("24h"), visibleHours: 24, labelEvery: 6, labelEveryUnit: .hour),
+            ZoomLevel(level: 48, name: LocalizedString("48h"), visibleHours: 48, labelEvery: 8, labelEveryUnit: .hour)
         ]
     }
+
+    private let calculationQueue = DispatchQueue(label: "libre-direct.chart-calculation")
 
     private func isSelectedZoomLevel(level: Int) -> Bool {
         if let zoomLevel = zoomLevel, zoomLevel.level == level {
@@ -188,25 +228,27 @@ struct ChartView: View {
     }
 
     private func updateSeries(viewWidth: CGFloat, scrollViewProxy: ScrollViewProxy?) {
-        let glucoseValues = glucoseValues.filter { value in
-            value.isValidCGM() || value.isValidBGM()
-        }
+        calculationQueue.async {
+            let glucoseValues = self.glucoseValues.filter { value in
+                value.isValidCGM() || value.isValidBGM()
+            }
 
-        if let startTime = glucoseValues.first?.timestamp.timeIntervalSince1970,
-           let endTime = glucoseValues.last?.timestamp.timeIntervalSince1970,
-           let zoomLevel = zoomLevel
-        {
-            let minuteWidth = (viewWidth / CGFloat(zoomLevel.visibleHours * 60))
-            let chartMinutes = CGFloat((endTime - startTime) / 60)
+            if let startTime = glucoseValues.first?.timestamp.timeIntervalSince1970,
+               let endTime = glucoseValues.last?.timestamp.timeIntervalSince1970,
+               let zoomLevel = zoomLevel
+            {
+                let minuteWidth = (viewWidth / CGFloat(zoomLevel.visibleHours * 60))
+                let chartMinutes = CGFloat((endTime - startTime) / 60)
 
-            seriesWidth = CGFloat(minuteWidth * chartMinutes)
-        }
+                self.seriesWidth = CGFloat(minuteWidth * chartMinutes)
+            }
 
-        cgmSeries = populateValues(glucoseValues: glucoseValues.filter { $0.type == .cgm })
-        bgmSeries = populateValues(glucoseValues: glucoseValues.filter { $0.type == .bgm })
+            self.cgmSeries = populateValues(glucoseValues: glucoseValues.filter { $0.type == .cgm })
+            self.bgmSeries = populateValues(glucoseValues: glucoseValues.filter { $0.type == .bgm })
 
-        if let scrollProxy = scrollViewProxy {
-            scrollToEnd(scrollViewProxy: scrollProxy)
+            if let scrollProxy = scrollViewProxy {
+                self.scrollToEnd(scrollViewProxy: scrollProxy)
+            }
         }
     }
 
@@ -223,7 +265,8 @@ struct ZoomLevel {
     let level: Int
     let name: String
     let visibleHours: Int
-    let labelEveryHours: Int
+    let labelEvery: Int
+    let labelEveryUnit: Calendar.Component
 }
 
 // MARK: - ChartDatapoint
@@ -232,6 +275,7 @@ struct ChartDatapoint: Identifiable {
     let id: String
     let valueX: Date
     let valueY: Decimal
+    let glucose: Glucose
 }
 
 // MARK: Equatable
@@ -264,14 +308,16 @@ extension Glucose {
             return ChartDatapoint(
                 id: toDatapointID(glucoseUnit: glucoseUnit),
                 valueX: timestamp,
-                valueY: glucoseValue.asMmolL
+                valueY: glucoseValue.asMmolL,
+                glucose: self
             )
         }
 
         return ChartDatapoint(
             id: toDatapointID(glucoseUnit: glucoseUnit),
             valueX: timestamp,
-            valueY: Decimal(glucoseValue)
+            valueY: glucoseValue.asMgdL,
+            glucose: self
         )
     }
 }

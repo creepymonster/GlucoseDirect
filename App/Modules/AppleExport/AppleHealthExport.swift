@@ -38,7 +38,7 @@ private func appleHealthExportMiddleware(service: LazyService<AppleHealthExportS
                     .eraseToAnyPublisher()
             }
 
-        case .addGlucose(glucose: let glucose):
+        case .addGlucose(glucoseValues: let glucoseValues):
             guard state.appleHealthExport else {
                 DirectLog.info("Guard: state.appleHealth is false")
                 break
@@ -49,11 +49,7 @@ private func appleHealthExportMiddleware(service: LazyService<AppleHealthExportS
                 break
             }
 
-            guard glucose.type == .cgm || glucose.type == .bgm else {
-                break
-            }
-
-            service.value.addGlucose(glucose: glucose)
+            service.value.addGlucose(glucoseValues: glucoseValues)
 
         default:
             break
@@ -104,12 +100,8 @@ private class AppleHealthExportService {
         }
     }
 
-    func addGlucose(glucose: Glucose) {
+    func addGlucose(glucoseValues: [Glucose]) {
         guard let healthStore = healthStore else {
-            return
-        }
-
-        guard let glucoseValue = glucose.glucoseValue else {
             return
         }
 
@@ -119,17 +111,25 @@ private class AppleHealthExportService {
                 return
             }
 
-            let healthGlucoseValues = HKQuantitySample(
-                type: self.glucoseType,
-                quantity: HKQuantity(unit: .milligramsPerDeciliter, doubleValue: Double(glucoseValue)),
-                start: glucose.timestamp,
-                end: glucose.timestamp,
-                metadata: [
-                    HKMetadataKeyExternalUUID: glucose.id.uuidString,
-                    HKMetadataKeySyncIdentifier: glucose.id.uuidString,
-                    HKMetadataKeySyncVersion: 1
-                ]
-            )
+            let healthGlucoseValues = glucoseValues.filter { glucose in
+                (glucose.type == .bgm || glucose.type == .cgm) && glucose.glucoseValue != nil
+            }.map { glucose in
+                HKQuantitySample(
+                    type: self.glucoseType,
+                    quantity: HKQuantity(unit: .milligramsPerDeciliter, doubleValue: Double(glucose.glucoseValue!)),
+                    start: glucose.timestamp,
+                    end: glucose.timestamp,
+                    metadata: [
+                        HKMetadataKeyExternalUUID: glucose.id.uuidString,
+                        HKMetadataKeySyncIdentifier: glucose.id.uuidString,
+                        HKMetadataKeySyncVersion: 1
+                    ]
+                )
+            }.compactMap { $0 }
+
+            guard !healthGlucoseValues.isEmpty else {
+                return
+            }
 
             healthStore.save(healthGlucoseValues) { success, error in
                 if !success {

@@ -19,9 +19,8 @@ func appReducer(state: inout AppState, action: AppAction) {
         
         state.customCalibration.append(CustomCalibration(x: Double(latestRawGlucoseValue), y: Double(bloodGlucoseValue)))
         
-    case .addGlucose(glucose: let addedGlucoseValues):
-        var glucoseValues = state.glucoseValues
-        glucoseValues.append(addedGlucoseValues)
+    case .addGlucose(glucoseValues: let addedGlucoseValues):
+        var glucoseValues = state.glucoseValues + addedGlucoseValues
             
         let overLimit = glucoseValues.count - DirectConfig.numberOfGlucoseValues
         if overLimit > 0 {
@@ -111,6 +110,9 @@ func appReducer(state: inout AppState, action: AppAction) {
         state.connectionError = nil
         state.connectionErrorIsCritical = false
         state.connectionErrorTimestamp = nil
+        
+    case .selectGlucose(glucose: let glucose):
+        state.selectedGlucose = glucose
         
     case .selectView(viewTag: let viewTag):
         state.selectedView = viewTag

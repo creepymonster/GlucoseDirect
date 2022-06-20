@@ -161,3 +161,25 @@ extension Glucose: Equatable {
         lhs.id == rhs.id
     }
 }
+
+extension Array where Element: Glucose {
+    var doubleValues: [Double] {
+        map {
+            $0.glucoseValue
+        }.compactMap {
+            $0
+        }.map {
+            Double($0)
+        }
+    }
+
+    var stdev: Double {
+        let glucoseValues = doubleValues
+
+        let length = Double(glucoseValues.count)
+        let avg = glucoseValues.reduce(0, +) / length
+        let sumOfSquaredAvgDiff = glucoseValues.map { pow($0 - avg, 2.0) }.reduce(0) { $0 + $1 }
+
+        return sqrt(sumOfSquaredAvgDiff / (length - 1))
+    }
+}

@@ -16,8 +16,12 @@ func readAloudMiddelware() -> Middleware<AppState, AppAction> {
 private func readAloudMiddelware(service: LazyService<ReadAloudService>) -> Middleware<AppState, AppAction> {
     return { state, action, _ in
         switch action {
-        case .addGlucose(glucose: let glucose):
+        case .addGlucose(glucoseValues: let glucoseValues):
             guard state.readGlucose else {
+                break
+            }
+            
+            guard let glucose = glucoseValues.last else {
                 break
             }
 

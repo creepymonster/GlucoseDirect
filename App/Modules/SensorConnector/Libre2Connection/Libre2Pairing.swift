@@ -155,8 +155,8 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                         self.subject?.send(.setSensor(sensor: sensor))
                         self.subject?.send(.setConnectionPaired(isPaired: false))
 
-                        if let lastSensorReading = sensorReadings.trend.last, sensor.state == .ready, sensor.age > sensor.warmupTime {
-                            self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", readings: [lastSensorReading]))
+                        if sensor.state == .ready, sensor.age > sensor.warmupTime {
+                            self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", readings: sensorReadings.history + sensorReadings.trend))
                         } else if sensor.age <= sensor.warmupTime {
                             self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: .starting))
                         }
@@ -176,8 +176,8 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                         self.subject?.send(.setConnectionState(connectionState: .disconnected))
                         self.subject?.send(.setConnectionPaired(isPaired: true))
 
-                        if let lastSensorReading = sensorReadings.trend.last, sensor.state == .ready, sensor.age > sensor.warmupTime {
-                            self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", readings: [lastSensorReading]))
+                        if sensor.state == .ready, sensor.age > sensor.warmupTime {
+                            self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", readings: sensorReadings.history + sensorReadings.trend))
                         } else if sensor.age <= sensor.warmupTime {
                             self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: .starting))
                         }

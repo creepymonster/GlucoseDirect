@@ -41,7 +41,7 @@ private func appGroupSharingMiddleware(service: LazyService<AppGroupSharingServi
         case .pairConnection:
             service.value.clearGlucoseValues()
 
-        case .addGlucose(glucose: let glucose):
+        case .addGlucose(glucoseValues: let glucoseValues):
             if let sensor = state.sensor {
                 service.value.setSensor(sensor: sensor.type.localizedString, sensorState: sensor.state.localizedString, sensorConnectionState: state.connectionState.localizedString)
             } else {
@@ -52,6 +52,10 @@ private func appGroupSharingMiddleware(service: LazyService<AppGroupSharingServi
                 service.value.setTransmitter(transmitter: transmitter.name, transmitterBattery: "\(transmitter.battery)%", transmitterHardware: transmitter.hardware?.description, transmitterFirmware: transmitter.firmware?.description)
             } else {
                 service.value.setTransmitter(transmitter: nil, transmitterBattery: nil, transmitterHardware: nil, transmitterFirmware: nil)
+            }
+
+            guard let glucose = glucoseValues.last else {
+                break
             }
 
             service.value.addGlucose(glucoseValues: [glucose])

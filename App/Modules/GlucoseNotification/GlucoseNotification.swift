@@ -39,7 +39,11 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
 
             service.value.setGlucoseNotification(glucose: glucose, glucoseUnit: unit)
 
-        case .addGlucose(glucose: let glucose):
+        case .addGlucose(glucoseValues: let glucoseValues):
+            guard let glucose = glucoseValues.last else {
+                break
+            }
+
             guard glucose.type == .cgm else {
                 DirectLog.info("Guard: glucose.type is not .cgm")
                 break

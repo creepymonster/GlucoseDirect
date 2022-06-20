@@ -41,7 +41,7 @@ struct ListView: View {
                                 action: {
                                     withAnimation {
                                         let glucose = Glucose.createBloodGlucose(timestamp: Date(), glucoseValue: value)
-                                        store.dispatch(.addGlucose(glucose: glucose))
+                                        store.dispatch(.addGlucose(glucoseValues: [glucose]))
 
                                         showingAddBloodGlucoseView = false
                                     }

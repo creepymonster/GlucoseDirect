@@ -31,8 +31,12 @@ private func bellmanAlarmMiddelware(service: LazyService<BellmanAlarmService>, s
         case .bellmanTestAlarm:
             service.value.notifyDevice()
 
-        case .addGlucose(glucose: let glucose):
+        case .addGlucose(glucoseValues: let glucoseValues):
             guard state.bellmanAlarm else {
+                break
+            }
+
+            guard let glucose = glucoseValues.last else {
                 break
             }
 

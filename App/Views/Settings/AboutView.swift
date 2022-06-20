@@ -96,6 +96,7 @@ struct AboutView: View {
                 title: Text("Are you sure you want to delete all log files?"),
                 primaryButton: .destructive(Text("Delete all")) {
                     store.dispatch(.deleteLogs)
+                    store.dispatch(.clearGlucoseValues)
                 },
                 secondaryButton: .cancel()
             )

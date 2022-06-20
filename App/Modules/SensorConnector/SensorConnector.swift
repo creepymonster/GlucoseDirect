@@ -60,19 +60,36 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             }
 
         case .addSensorReadings(sensorSerial: _, readings: let readings):
-            if let nextSensorGlucose = readings.last?
-                .calibrate(customCalibration: state.customCalibration)
-                .populateChange(previousGlucose: state.latestSensorGlucose)
-            {
-                let latestSensorGlucose = state.latestSensorGlucose
-                guard latestSensorGlucose == nil || latestSensorGlucose!.timestamp < nextSensorGlucose.timestamp else {
-                    break
-                }
-                
-                return Just(.addGlucose(glucose: nextSensorGlucose))
+            let readGlucoseValues = readings.map { reading in
+                reading.calibrate(customCalibration: state.customCalibration)
+            }
+
+            let stdev = readGlucoseValues.suffix(5).stdev
+            let intervalSeconds = Double(state.sensorInterval * 60 - 30)
+
+            DirectLog.info("Stdev \(stdev) of \(readGlucoseValues.suffix(5).doubleValues)")
+
+            var previousGlucose = state.latestSensorGlucose
+            let glucoseValues = readGlucoseValues.filter { reading in
+                previousGlucose == nil || previousGlucose!.timestamp + intervalSeconds < reading.timestamp
+            }.map {
+                let glucose = $0.populateChange(previousGlucose: previousGlucose)
+                previousGlucose = glucose
+
+                return glucose
+            }
+
+            guard !glucoseValues.isEmpty else {
+                break
+            }
+
+            guard stdev < 100 else {
+                break
+            }
+
+            return Just(.addGlucose(glucoseValues: glucoseValues))
                 .setFailureType(to: AppError.self)
                 .eraseToAnyPublisher()
-            }
 
         case .pairConnection:
             guard let sensorConnection = state.selectedConnection else {

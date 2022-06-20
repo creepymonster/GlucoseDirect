@@ -160,7 +160,7 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
 
         if !firstBuffer.isEmpty, !secondBuffer.isEmpty, !thirdBuffer.isEmpty {
             let rxBuffer = firstBuffer + secondBuffer + thirdBuffer
-            
+
             if let sensor = sensor {
                 do {
                     let decryptedBLE = Data(try SensorUtility.decryptBLE(uuid: sensor.uuid, data: rxBuffer))
@@ -172,10 +172,10 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
                     } else if parsedBLE.age > sensor.warmupTime {
                         sendUpdate(age: parsedBLE.age, state: .ready)
 
-                        let intervalSeconds = sensorInterval * 60 - 45
-                        if sensorInterval == 1 || lastUpdate == nil || lastUpdate! + Double(intervalSeconds) <= Date() {
+                        let intervalSeconds = Double(sensorInterval * 60 - 30)
+                        if sensorInterval == 1 || lastUpdate == nil || lastUpdate! + intervalSeconds <= Date() {
                             lastUpdate = Date()
-                            sendUpdate(sensorSerial: sensor.serial ?? "", readings: parsedBLE.trend)
+                            sendUpdate(sensorSerial: sensor.serial ?? "", readings: parsedBLE.history + parsedBLE.trend)
                         }
                     } else if parsedBLE.age <= sensor.warmupTime {
                         sendUpdate(age: parsedBLE.age, state: .starting)

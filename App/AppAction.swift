@@ -8,7 +8,7 @@ import OSLog
 
 enum AppAction {
     case addCalibration(bloodGlucoseValue: Int)
-    case addGlucose(glucose: Glucose)
+    case addGlucose(glucoseValues: [Glucose])
     case addMissedReading
     case addSensorReadings(sensorSerial: String, readings: [SensorReading])
     case bellmanTestAlarm
@@ -58,5 +58,6 @@ enum AppAction {
     case setSensorInterval(interval: Int)
     case setSensorState(sensorAge: Int, sensorState: SensorState?)
     case setTransmitter(transmitter: Transmitter)
+    case selectGlucose(glucose: Glucose?)
     case startup
 }

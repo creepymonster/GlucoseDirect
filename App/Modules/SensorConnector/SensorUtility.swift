@@ -199,7 +199,7 @@ enum SensorUtility {
         }
 
         let trend = trendReadings.sorted(by: { $0.timestamp < $1.timestamp })
-        let history = historyReadings.sorted(by: { $0.timestamp < $1.timestamp })
+        let history = historyReadings.sorted(by: { $0.timestamp < $1.timestamp }).filter({ $0.timestamp < (trend.first?.timestamp ?? Date()) })
 
         return (trend, history)
     }
@@ -248,7 +248,7 @@ enum SensorUtility {
         }
 
         let trend = trendReadings.sorted(by: { $0.timestamp < $1.timestamp })
-        let history = historyReadings.sorted(by: { $0.timestamp < $1.timestamp })
+        let history = historyReadings.sorted(by: { $0.timestamp < $1.timestamp }).filter({ $0.timestamp < (trend.first?.timestamp ?? Date()) })
 
         return (age, trend, history)
     }

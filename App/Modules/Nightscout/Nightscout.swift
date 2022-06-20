@@ -30,12 +30,8 @@ private func nightscoutMiddleware(service: LazyService<NightscoutService>) -> Mi
             case .clearGlucoseValues:
                 service.value.clearGlucoseValues(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1())
 
-            case .addGlucose(glucose: let glucose):
-                guard glucose.type == .cgm || glucose.type == .bgm else {
-                    break
-                }
-
-                service.value.addGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), glucose: glucose)
+            case .addGlucose(glucoseValues: let glucoseValues):
+                service.value.addGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: glucoseValues)
 
             case .setSensorState(sensorAge: _, sensorState: _):
                 guard let sensor = state.sensor, sensor.startTimestamp != nil else {
@@ -177,8 +173,10 @@ private class NightscoutService {
         task.resume()
     }
 
-    func addGlucose(nightscoutURL: String, apiSecret: String, glucose: Glucose) {
-        let nightscoutValues = glucose.toNightscoutGlucose()
+    func addGlucose(nightscoutURL: String, apiSecret: String, glucoseValues: [Glucose]) {
+        let nightscoutValues = glucoseValues.map { glucose in
+            glucose.toNightscoutGlucose()
+        }.compactMap { $0 }
 
         guard let nightscoutJson = try? JSONSerialization.data(withJSONObject: nightscoutValues) else {
             return
@@ -300,7 +298,11 @@ private extension Sensor {
 }
 
 private extension Glucose {
-    func toNightscoutGlucose() -> [String: Any] {
+    func toNightscoutGlucose() -> [String: Any]? {
+        guard let glucoseValue = glucoseValue else {
+            return nil
+        }
+
         var nightscout: [String: Any] = [
             "_id": id.uuidString,
             "device": DirectConfig.projectName,

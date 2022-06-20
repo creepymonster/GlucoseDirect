@@ -38,7 +38,7 @@ private func appleCalendarExportMiddleware(service: LazyService<AppleCalendarExp
                     .eraseToAnyPublisher()
             }
 
-        case .addGlucose(glucose: let glucose):
+        case .addGlucose(glucoseValues: let glucoseValues):
             guard state.appleCalendarExport else {
                 DirectLog.info("Guard: state.calendarExport disabled")
                 break
@@ -46,6 +46,10 @@ private func appleCalendarExportMiddleware(service: LazyService<AppleCalendarExp
 
             guard let calendarTarget = state.selectedCalendarTarget else {
                 DirectLog.info("Guard: state.selectedCalendarTarget is nil")
+                break
+            }
+
+            guard let glucose = glucoseValues.last else {
                 break
             }
 

@@ -13,7 +13,7 @@ struct GlucoseView: View {
     @EnvironmentObject var store: AppStore
 
     var body: some View {
-        if let latestGlucose = store.state.latestGlucose {
+        if let latestGlucose = store.state.selectedGlucose ?? store.state.latestGlucose {
             ZStack(alignment: .bottom) {
                 Group {
                     if let glucoseValue = latestGlucose.glucoseValue, !latestGlucose.isFaultyGlucose {
@@ -26,7 +26,7 @@ struct GlucoseView: View {
                                     Text(latestGlucose.trend.description).font(.system(size: 48))
                                     Text(store.state.glucoseUnit.localizedString)
                                 }
-                            }.foregroundColor(glucoseForegroundColor)
+                            }.foregroundColor(getGlucoseColor(glucose: latestGlucose))
 
                             if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: store.state.glucoseUnit), latestGlucose.trend != .unknown {
                                 HStack(spacing: 20) {
@@ -51,58 +51,69 @@ struct GlucoseView: View {
                 }.padding(.bottom, 30)
 
                 HStack {
-                    Group {
-                        Image(systemName: "lock.slash")
-                            .font(.headline)
-                            .opacity(store.state.preventScreenLock ? 1 : 0.25)
+                    if store.state.selectedGlucose == nil {
+                        Group {
+                            Image(systemName: "lock.slash")
+                                .font(.headline)
+                                .opacity(store.state.preventScreenLock ? 1 : 0.25)
 
-                        if store.state.preventScreenLock {
-                            Text("No screen lock")
+                            if store.state.preventScreenLock {
+                                Text("No screen lock")
+                            }
+                        }.onTapGesture {
+                            withAnimation {
+                                store.dispatch(.setPreventScreenLock(enabled: !store.state.preventScreenLock))
+                            }
                         }
-                    }.onTapGesture {
-                        withAnimation {
-                            store.dispatch(.setPreventScreenLock(enabled: !store.state.preventScreenLock))
-                        }
-                    }
 
-                    Spacer()
-
-                    Group {
-                        if store.state.alarmSnoozeUntil != nil {
-                             Image(systemName: "xmark")
-                                 .opacity(0.25)
-                                 .onTapGesture {
-                                     withAnimation {
-                                         store.dispatch(.setAlarmSnoozeUntil(untilDate: nil))
-                                     }
-                                 }
-                         }
+                        Spacer()
 
                         Group {
-                            if let alarmSnoozeUntil = store.state.alarmSnoozeUntil {
-                                Text(String(format: LocalizedString("%1$@ a clock"), alarmSnoozeUntil.toLocalTime()))
-                                Image(systemName: "speaker.slash")
-                                    .font(.headline)
-                            } else {
-                                Image(systemName: "speaker.slash")
-                                    .font(.headline)
+                            if store.state.alarmSnoozeUntil != nil {
+                                Image(systemName: "xmark")
+                                    .opacity(0.25)
+                                    .onTapGesture {
+                                        withAnimation {
+                                            store.dispatch(.setAlarmSnoozeUntil(untilDate: nil))
+                                        }
+                                    }
                             }
-                        }
-                        .opacity(store.state.alarmSnoozeUntil == nil ? 0.25 : 1)
-                        .onTapGesture {
-                            let date = (store.state.alarmSnoozeUntil ?? Date()).toRounded(on: 1, .minute)
-                            let nextDate = Calendar.current.date(byAdding: .minute, value: 60, to: date)
 
-                            withAnimation {
-                                store.dispatch(.setAlarmSnoozeUntil(untilDate: nextDate))
+                            Group {
+                                if let alarmSnoozeUntil = store.state.alarmSnoozeUntil {
+                                    Text(String(format: LocalizedString("%1$@ a clock"), alarmSnoozeUntil.toLocalTime()))
+                                    Image(systemName: "speaker.slash")
+                                        .font(.headline)
+                                } else {
+                                    Image(systemName: "speaker.slash")
+                                        .font(.headline)
+                                }
+                            }
+                            .opacity(store.state.alarmSnoozeUntil == nil ? 0.25 : 1)
+                            .onTapGesture {
+                                let date = (store.state.alarmSnoozeUntil ?? Date()).toRounded(on: 1, .minute)
+                                let nextDate = Calendar.current.date(byAdding: .minute, value: 60, to: date)
+
+                                withAnimation {
+                                    store.dispatch(.setAlarmSnoozeUntil(untilDate: nextDate))
+                                }
+                            }
+                            .onLongPressGesture {
+                                withAnimation {
+                                    store.dispatch(.setAlarmSnoozeUntil(untilDate: nil))
+                                }
                             }
                         }
-                        .onLongPressGesture {
-                            
-                            withAnimation {
-                                store.dispatch(.setAlarmSnoozeUntil(untilDate: nil))
-                            }
-                        }
+                    } else {
+                        Text("History")
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 5)
+                            .font(.footnote)
+                            .foregroundColor(.white)
+                            .background(
+                                RoundedRectangle(cornerRadius: 5, style: .continuous)
+                                    .fill(Color.ui.blue)
+                            )
                     }
                 }.padding(.bottom, 5)
             }
@@ -111,16 +122,16 @@ struct GlucoseView: View {
 
     // MARK: Private
 
-    private var isAlarm: Bool {
-        if let glucose = store.state.latestSensorGlucose, let glucoseValue = glucose.glucoseValue, glucoseValue < store.state.alarmLow || glucoseValue > store.state.alarmHigh {
+    private func isAlarm(glucose: Glucose) -> Bool {
+        if let glucoseValue = glucose.glucoseValue, glucoseValue < store.state.alarmLow || glucoseValue > store.state.alarmHigh {
             return true
         }
 
         return false
     }
 
-    private var glucoseForegroundColor: Color {
-        if isAlarm {
+    private func getGlucoseColor(glucose: Glucose) -> Color {
+        if isAlarm(glucose: glucose) {
             return Color.ui.red
         }
 
