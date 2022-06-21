@@ -10,6 +10,10 @@ extension Data {
     var hex: String {
         map { String(format: "%02X", $0) }.joined(separator: " ")
     }
+    
+    var utf8: String {
+        String(decoding: self, as: UTF8.self)
+    }
 
     init?(hexString: String) {
         let length = hexString.count / 2

@@ -13,7 +13,7 @@ import CoreNFC
 
 // MARK: - Libre2Pairing
 
-final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
+class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<AppAction, AppError>) {
@@ -119,35 +119,34 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                 }
 
                 if i == requests - 1 {
-                    DirectLog.info("create fram")
+                    DirectLog.info("Create fram")
 
-                    var fram = Data()
+                    var rxBuffer = Data()
                     for (_, data) in dataArray.enumerated() {
                         if !data.isEmpty {
-                            fram.append(data)
+                            rxBuffer.append(data)
                         }
                     }
 
-                    guard fram.count >= 344 else {
-                        logErrorAndDisconnect("Invalid fram")
+                    guard rxBuffer.count >= 344 else {
+                        logErrorAndDisconnect("Invalid rxBuffer")
                         return
                     }
 
-                    DirectLog.info("create sensor")
-                    let sensor = Sensor(uuid: sensorUID, patchInfo: patchInfo, fram: SensorUtility.decryptFRAM(uuid: sensorUID, patchInfo: patchInfo, fram: fram) ?? fram)
-
-                    DirectLog.info("sensor: \(sensor)")
-                    DirectLog.info("sensor, age: \(sensor.age)")
-                    DirectLog.info("sensor, lifetime: \(sensor.lifetime)")
-
-                    guard sensor.state != .expired else {
-                        logErrorAndDisconnect(LocalizedString("Scanned sensor expired"), showToUser: true)
-
+                    guard let fram = type == .libre1
+                        ? rxBuffer
+                        : Libre2EUtility.decryptFRAM(uuid: sensorUID, patchInfo: patchInfo, fram: rxBuffer)
+                    else {
+                        logErrorAndDisconnect("Cannot create useable fram")
                         return
                     }
 
-                    DirectLog.info("parse sensor readings")
-                    let sensorReadings = SensorUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: sensor.fram!)
+                    DirectLog.info("Create sensor")
+                    let sensor = Sensor.libreStyleSensor(uuid: sensorUID, patchInfo: patchInfo, fram: fram)
+
+                    DirectLog.info("Sensor: \(sensor)")
+                    DirectLog.info("Sensor, age: \(sensor.age)")
+                    DirectLog.info("Sensor, lifetime: \(sensor.lifetime)")
 
                     if type == .libre1 || type == .libreUS14day {
                         session.invalidate()
@@ -155,8 +154,15 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                         self.subject?.send(.setSensor(sensor: sensor))
                         self.subject?.send(.setConnectionPaired(isPaired: false))
 
-                        if sensor.state == .ready, sensor.age > sensor.warmupTime {
-                            self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", readings: sensorReadings.history + sensorReadings.trend))
+                        if (sensor.age + 30) >= sensor.lifetime {
+                            self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: .expired))
+
+                        } else if sensor.age > sensor.warmupTime {
+                            let readings = LibreUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
+
+                            self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: .ready))
+                            self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", readings: readings.history + readings.trend))
+
                         } else if sensor.age <= sensor.warmupTime {
                             self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: .starting))
                         }
@@ -176,8 +182,15 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                         self.subject?.send(.setConnectionState(connectionState: .disconnected))
                         self.subject?.send(.setConnectionPaired(isPaired: true))
 
-                        if sensor.state == .ready, sensor.age > sensor.warmupTime {
-                            self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", readings: sensorReadings.history + sensorReadings.trend))
+                        if (sensor.age + 30) >= sensor.lifetime {
+                            self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: .expired))
+
+                        } else if sensor.age > sensor.warmupTime {
+                            let readings = LibreUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
+
+                            self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: .ready))
+                            self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", readings: readings.history + readings.trend))
+
                         } else if sensor.age <= sensor.warmupTime {
                             self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: .starting))
                         }
@@ -230,7 +243,7 @@ final class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
         }
 
         if code.rawValue < 0x20 {
-            let d = SensorUtility.usefulFunction(uuid: sensorUID, x: UInt16(code.rawValue), y: y)
+            let d = Libre2EUtility.usefulFunction(uuid: sensorUID, x: UInt16(code.rawValue), y: y)
             parameters += d
         }
 
@@ -265,7 +278,7 @@ private enum Subcommand: UInt8, CustomStringConvertible {
 
 #else
 
-final class Libre2Pairing: NSObject {
+class Libre2Pairing: NSObject {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<AppAction, AppError>) {}

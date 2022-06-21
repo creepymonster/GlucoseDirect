@@ -11,9 +11,7 @@ import Foundation
 #if canImport(CoreNFC)
 import CoreNFC
 
-// MARK: - Libre2Pairing
-
-final class LibreLinkPairing: NSObject, NFCTagReaderSessionDelegate {
+class LibreLinkPairing: NSObject, NFCTagReaderSessionDelegate {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<AppAction, AppError>) {
@@ -119,35 +117,34 @@ final class LibreLinkPairing: NSObject, NFCTagReaderSessionDelegate {
                 }
 
                 if i == requests - 1 {
-                    DirectLog.info("create fram")
+                    DirectLog.info("Create fram")
 
-                    var fram = Data()
+                    var rxBuffer = Data()
                     for (_, data) in dataArray.enumerated() {
                         if !data.isEmpty {
-                            fram.append(data)
+                            rxBuffer.append(data)
                         }
                     }
 
-                    guard fram.count >= 344 else {
-                        logErrorAndDisconnect("Invalid fram")
+                    guard rxBuffer.count >= 344 else {
+                        logErrorAndDisconnect("Invalid rxBuffer")
                         return
                     }
 
-                    DirectLog.info("create sensor")
-                    let sensor = Sensor(uuid: sensorUID, patchInfo: patchInfo, fram: SensorUtility.decryptFRAM(uuid: sensorUID, patchInfo: patchInfo, fram: fram) ?? fram)
-
-                    DirectLog.info("sensor: \(sensor)")
-                    DirectLog.info("sensor, age: \(sensor.age)")
-                    DirectLog.info("sensor, lifetime: \(sensor.lifetime)")
-
-                    guard sensor.state != .expired else {
-                        logErrorAndDisconnect(LocalizedString("Scanned sensor expired"), showToUser: true)
-
+                    guard let fram = type == .libre1
+                        ? rxBuffer
+                        : Libre2EUtility.decryptFRAM(uuid: sensorUID, patchInfo: patchInfo, fram: rxBuffer)
+                    else {
+                        logErrorAndDisconnect("Cannot create useable fram")
                         return
                     }
 
-                    DirectLog.info("parse sensor readings")
-                    let sensorReadings = SensorUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: sensor.fram!)
+                    DirectLog.info("Create sensor")
+                    let sensor = Sensor.libreStyleSensor(uuid: sensorUID, patchInfo: patchInfo, fram: fram)
+
+                    DirectLog.info("Sensor: \(sensor)")
+                    DirectLog.info("Sensor, age: \(sensor.age)")
+                    DirectLog.info("Sensor, lifetime: \(sensor.lifetime)")
 
                     if type == .libre1 || type == .libreUS14day {
                         session.invalidate()
@@ -155,8 +152,15 @@ final class LibreLinkPairing: NSObject, NFCTagReaderSessionDelegate {
                         self.subject?.send(.setSensor(sensor: sensor))
                         self.subject?.send(.setConnectionPaired(isPaired: false))
 
-                        if sensor.state == .ready, sensor.age > sensor.warmupTime {
-                            self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", readings: sensorReadings.history + sensorReadings.trend))
+                        if (sensor.age + 30) >= sensor.lifetime {
+                            self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: .expired))
+
+                        } else if sensor.age > sensor.warmupTime {
+                            let readings = LibreUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
+
+                            self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: .ready))
+                            self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", readings: readings.history + readings.trend))
+
                         } else if sensor.age <= sensor.warmupTime {
                             self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: .starting))
                         }
@@ -167,8 +171,15 @@ final class LibreLinkPairing: NSObject, NFCTagReaderSessionDelegate {
                         self.subject?.send(.setConnectionState(connectionState: .disconnected))
                         self.subject?.send(.setConnectionPaired(isPaired: true))
 
-                        if sensor.state == .ready, sensor.age > sensor.warmupTime {
-                            self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", readings: sensorReadings.history + sensorReadings.trend))
+                        if (sensor.age + 30) >= sensor.lifetime {
+                            self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: .expired))
+
+                        } else if sensor.age > sensor.warmupTime {
+                            let readings = LibreUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
+
+                            self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: .ready))
+                            self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", readings: readings.history + readings.trend))
+
                         } else if sensor.age <= sensor.warmupTime {
                             self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: .starting))
                         }
@@ -194,69 +205,11 @@ final class LibreLinkPairing: NSObject, NFCTagReaderSessionDelegate {
         subject?.send(.setConnectionError(errorMessage: showToUser ? message : LocalizedString("Retry pairing"), errorTimestamp: Date(), errorIsCritical: false))
         subject?.send(.setConnectionState(connectionState: .disconnected))
     }
-
-    private func nfcCommand(_ code: Subcommand, unlockCode: UInt32, patchInfo: Data, sensorUID: Data) -> NFCCommand {
-        var parameters = Data([code.rawValue])
-
-        var b: [UInt8] = []
-        var y: UInt16
-
-        if code == .enableStreaming {
-            // Enables Bluetooth on Libre 2. Returns peripheral MAC address to connect to.
-            // unlockCode could be any 32 bit value. The unlockCode and sensor Uid / patchInfo
-            // will have also to be provided to the login function when connecting to peripheral.
-            b = [
-                UInt8(unlockCode & 0xFF),
-                UInt8((unlockCode >> 8) & 0xFF),
-                UInt8((unlockCode >> 16) & 0xFF),
-                UInt8((unlockCode >> 24) & 0xFF)
-            ]
-            y = UInt16(patchInfo[4 ... 5]) ^ UInt16(b[1], b[0])
-        } else {
-            y = 0x1B6A
-        }
-
-        if !b.isEmpty {
-            parameters += b
-        }
-
-        if code.rawValue < 0x20 {
-            let d = SensorUtility.usefulFunction(uuid: sensorUID, x: UInt16(code.rawValue), y: y)
-            parameters += d
-        }
-
-        return NFCCommand(code: 0xA1, parameters: parameters)
-    }
-}
-
-// MARK: - NFCCommand
-
-private struct NFCCommand {
-    let code: UInt8
-    let parameters: Data
-}
-
-// MARK: - Subcommand
-
-private enum Subcommand: UInt8, CustomStringConvertible {
-    case activate = 0x1B
-    case enableStreaming = 0x1E
-
-    // MARK: Internal
-
-    var description: String {
-        switch self {
-        case .activate:
-            return "activate"
-        case .enableStreaming:
-            return "enable BLE streaming"
-        }
-    }
 }
 
 #else
 
-final class Libre2Pairing: NSObject {
+class LibreLinkPairing: NSObject {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<AppAction, AppError>) {}

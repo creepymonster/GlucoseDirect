@@ -53,6 +53,7 @@
 		E283306726AF058500244343 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E283306626AF058500244343 /* ChartView.swift */; };
 		E28728AA26DE499200269F47 /* SnoozeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28728A926DE499200269F47 /* SnoozeView.swift */; };
 		E28C1299278AE6A900ECE0DF /* ConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28C1298278AE6A900ECE0DF /* ConnectionView.swift */; };
+		E28C99F12862429B00632384 /* ChartViewCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28C99F02862429B00632384 /* ChartViewCompatibility.swift */; };
 		E292E1B226A608C400011F64 /* NumberSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E292E1B126A608C400011F64 /* NumberSelectorView.swift */; };
 		E298CF04279DEBF500C1C218 /* FactoryCalibrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E298CF03279DEBF500C1C218 /* FactoryCalibrationView.swift */; };
 		E298CF06279DEBFE00C1C218 /* CustomCalibrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E298CF05279DEBFE00C1C218 /* CustomCalibrationView.swift */; };
@@ -235,6 +236,7 @@
 		E283306626AF058500244343 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		E28728A926DE499200269F47 /* SnoozeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnoozeView.swift; sourceTree = "<group>"; };
 		E28C1298278AE6A900ECE0DF /* ConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionView.swift; sourceTree = "<group>"; };
+		E28C99F02862429B00632384 /* ChartViewCompatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewCompatibility.swift; sourceTree = "<group>"; };
 		E28D3D91276DF9B70092D862 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		E28D3D92276DF9B70092D862 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		E2920481284121CC00DFCCA6 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -527,6 +529,7 @@
 			children = (
 				E20786222686283F004EEF1C /* ActionsView.swift */,
 				E283306626AF058500244343 /* ChartView.swift */,
+				E28C99F02862429B00632384 /* ChartViewCompatibility.swift */,
 				E28C1298278AE6A900ECE0DF /* ConnectionView.swift */,
 				E29ED230268C754F00CBD3F1 /* GlucoseView.swift */,
 				E223F866267A4D9800EC9BCA /* SensorView.swift */,
@@ -929,6 +932,7 @@
 				E27ED9732758A41B0099149C /* VirtualConnection.swift in Sources */,
 				E2FCAC31270741D200FE1CBF /* Date.swift in Sources */,
 				E2646F3B275FD2EC00ADE451 /* AppleCalendarExport.swift in Sources */,
+				E28C99F12862429B00632384 /* ChartViewCompatibility.swift in Sources */,
 				E20786232686283F004EEF1C /* ActionsView.swift in Sources */,
 				E26BCC35285D1F820058AF0C /* LibreLinkPairing.swift in Sources */,
 				E2FCAC672707428500FE1CBF /* Log.swift in Sources */,

@@ -50,12 +50,12 @@ extension SensorReading {
 
     func calibrate(customCalibration: [CustomCalibration]) -> Glucose {
         if quality != .OK {
-            return Glucose.createFaultyGlucose(timestamp: timestamp, quality: quality)
+            return Glucose.faultySensorGlucose(timestamp: timestamp, quality: quality)
         }
         
         let calibratedGlucoseValue = Int(calibration(glucoseValue: glucoseValue, customCalibration: customCalibration))
         
-        return Glucose.createSensorGlucose(timestamp: timestamp, rawGlucoseValue: Int(glucoseValue), glucoseValue: calibratedGlucoseValue, minuteChange: nil)
+        return Glucose.sensorGlucose(timestamp: timestamp, rawGlucoseValue: Int(glucoseValue), glucoseValue: calibratedGlucoseValue, minuteChange: nil)
     }
 
     private func calibration(glucoseValue: Double, customCalibration: [CustomCalibration]) -> Double {

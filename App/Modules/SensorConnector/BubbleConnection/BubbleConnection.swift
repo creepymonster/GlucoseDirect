@@ -125,26 +125,28 @@ class BubbleConnection: SensorBLEConnectionBase, IsTransmitter {
                     resetBuffer()
                     return
                 }
-
-                let fram = type == .libre1
+                
+                guard let fram = type == .libre1
                     ? rxBuffer[..<expectedBufferSize]
-                    : SensorUtility.decryptFRAM(uuid: uuid, patchInfo: patchInfo, fram: rxBuffer[..<expectedBufferSize])
+                    : Libre2EUtility.decryptFRAM(uuid: uuid, patchInfo: patchInfo, fram: rxBuffer[..<expectedBufferSize])
+                else {
+                    resetBuffer()
+                    return
+                }
 
-                if let fram = fram {
-                    let sensor = Sensor(uuid: uuid, patchInfo: patchInfo, fram: fram)
-                    sendUpdate(sensor: sensor, keepDevice: true)
+                let sensor = Sensor.libreStyleSensor(uuid: uuid, patchInfo: patchInfo, fram: fram)
+                sendUpdate(sensor: sensor, keepDevice: true)
 
-                    if (sensor.age + 30) >= sensor.lifetime {
-                        sendUpdate(age: sensor.age, state: .expired)
+                if (sensor.age + 30) >= sensor.lifetime {
+                    sendUpdate(age: sensor.age, state: .expired)
 
-                    } else if sensor.age > sensor.warmupTime {
-                        sendUpdate(age: sensor.age, state: .ready)
-
-                        let readings = SensorUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
-                        sendUpdate(sensorSerial: sensor.serial ?? "", readings: readings.history + readings.trend)
-                    } else if sensor.age <= sensor.warmupTime {
-                        sendUpdate(age: sensor.age, state: .starting)
-                    }
+                } else if sensor.age > sensor.warmupTime {
+                    let readings = LibreUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
+                    
+                    sendUpdate(age: sensor.age, state: .ready)
+                    sendUpdate(sensorSerial: sensor.serial ?? "", readings: readings.history + readings.trend)
+                } else if sensor.age <= sensor.warmupTime {
+                    sendUpdate(age: sensor.age, state: .starting)
                 }
 
                 resetBuffer()

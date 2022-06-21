@@ -112,7 +112,8 @@ struct GlucoseView: View {
                             .foregroundColor(.white)
                             .background(
                                 RoundedRectangle(cornerRadius: 5, style: .continuous)
-                                    .fill(Color.ui.blue)
+                                    .foregroundStyle(Color.ui.blue)
+                                    .opacity(0.5)
                             )
                     }
                 }.padding(.bottom, 5)

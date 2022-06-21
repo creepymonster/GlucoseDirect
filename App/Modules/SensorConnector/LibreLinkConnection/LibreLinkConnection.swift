@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - LibreLinkConnection
 
-final class LibreLinkConnection: SensorBLEConnectionBase, IsSensor {
+class LibreLinkConnection: SensorBLEConnectionBase, IsSensor {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<AppAction, AppError>) {
@@ -168,8 +168,8 @@ final class LibreLinkConnection: SensorBLEConnectionBase, IsSensor {
 
             if let sensor = sensor {
                 do {
-                    let decryptedBLE = Data(try SensorUtility.decryptBLE(uuid: sensor.uuid, data: rxBuffer))
-                    let parsedBLE = SensorUtility.parseBLE(calibration: sensor.factoryCalibration, data: decryptedBLE)
+                    let decryptedBLE = Data(try Libre2EUtility.decryptBLE(uuid: sensor.uuid, data: rxBuffer))
+                    let parsedBLE = Libre2EUtility.parseBLE(calibration: sensor.factoryCalibration, data: decryptedBLE)
 
                     if (parsedBLE.age + 30) >= sensor.lifetime {
                         sendUpdate(age: parsedBLE.age, state: .expired)

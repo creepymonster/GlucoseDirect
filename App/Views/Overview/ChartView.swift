@@ -8,6 +8,7 @@ import SwiftUI
 
 // MARK: - ChartView
 
+@available(iOS 16.0, *)
 struct ChartView: View {
     // MARK: Internal
 
@@ -16,7 +17,7 @@ struct ChartView: View {
     @State var seriesWidth: CGFloat = 0
     @State var cgmSeries: [ChartDatapoint] = []
     @State var bgmSeries: [ChartDatapoint] = []
-    
+
     @State var selectedPoint: ChartDatapoint? = nil {
         didSet {
             store.dispatch(.selectGlucose(glucose: selectedPoint?.glucose))
@@ -39,7 +40,7 @@ struct ChartView: View {
         if glucoseUnit == .mmolL {
             return store.state.alarmLow.asMmolL
         }
-        
+
         return store.state.alarmLow.asMgdL
     }
 
@@ -47,7 +48,7 @@ struct ChartView: View {
         if glucoseUnit == .mmolL {
             return store.state.alarmHigh.asMmolL
         }
-        
+
         return store.state.alarmHigh.asMgdL
     }
 
@@ -55,7 +56,6 @@ struct ChartView: View {
         store.state.glucoseValues
     }
 
-    @available(iOS 16.0, *)
     var ChartView: some View {
         ZStack(alignment: .topLeading) {
             GeometryReader { geometryProxy in
@@ -75,9 +75,9 @@ struct ChartView: View {
                                     x: .value("Time", value.valueX),
                                     y: .value("Glucose", value.valueY)
                                 )
+                                .foregroundStyle(Color.ui.blue)
                                 .interpolationMethod(.linear)
                                 .lineStyle(Config.lineStyle)
-                                .foregroundStyle(Color.ui.blue)
                             }
 
                             ForEach(bgmSeries) { value in
@@ -90,21 +90,31 @@ struct ChartView: View {
                             }
 
                             if let selectedPoint = selectedPoint {
-                                RectangleMark(
+                                PointMark(
                                     x: .value("Time", selectedPoint.valueX),
-                                    y: .value("Glucose", selectedPoint.valueY),
-                                    width: 7.5,
-                                    height: 7.5
+                                    y: .value("Glucose", selectedPoint.valueY)
                                 )
+                                .symbolSize(64)
                                 .foregroundStyle(Color.ui.blue)
-                                .opacity(0.75)
+                                .opacity(0.5)
                             }
+
+                            RuleMark(
+                                x: .value("Spacing", Calendar.current.date(byAdding: .minute, value: 15, to: Date())!)
+                            )
+                            .foregroundStyle(.clear)
                         }
                         .chartPlotStyle { plotArea in
                             plotArea.padding(.vertical)
                         }
                         .chartXAxis {
-                            AxisMarks(values: .stride(by: zoomLevel?.labelEveryUnit ?? .hour, count: zoomLevel?.labelEvery ?? 1))
+                            AxisMarks(values: .stride(by: zoomLevel?.labelEveryUnit ?? .hour, count: zoomLevel?.labelEvery ?? 1)) { value in
+                                if let dateValue = value.as(Date.self) {
+                                    AxisGridLine()
+                                    AxisTick()
+                                    AxisValueLabel(dateValue.toLocalTime())
+                                }
+                            }
                         }
                         .id(Config.chartID)
                         .frame(width: max(0, geometryProxy.size.width, seriesWidth))
@@ -112,9 +122,6 @@ struct ChartView: View {
                             updateSeries(viewWidth: geometryProxy.size.width, scrollViewProxy: scrollViewProxy)
 
                         }.onChange(of: store.state.glucoseValues) { _ in
-                            updateSeries(viewWidth: geometryProxy.size.width, scrollViewProxy: scrollViewProxy)
-
-                        }.onChange(of: store.state.chartShowLines) { _ in
                             updateSeries(viewWidth: geometryProxy.size.width, scrollViewProxy: scrollViewProxy)
 
                         }.onChange(of: store.state.chartZoomLevel) { _ in
@@ -176,13 +183,9 @@ struct ChartView: View {
     var body: some View {
         Section(
             content: {
-                if #available(iOS 16.0, *) {
-                    VStack {
-                        ChartView.frame(height: 300)
-                        ZoomLevelsView
-                    }
-                } else {
-                    Text("A new iOS update is now available. Please update to iOS 16.")
+                VStack {
+                    ChartView.frame(height: 300)
+                    ZoomLevelsView
                 }
             },
             header: {
@@ -205,7 +208,7 @@ struct ChartView: View {
             ZoomLevel(level: 6, name: LocalizedString("6h"), visibleHours: 6, labelEvery: 2, labelEveryUnit: .hour),
             ZoomLevel(level: 12, name: LocalizedString("12h"), visibleHours: 12, labelEvery: 3, labelEveryUnit: .hour),
             ZoomLevel(level: 24, name: LocalizedString("24h"), visibleHours: 24, labelEvery: 6, labelEveryUnit: .hour),
-            ZoomLevel(level: 48, name: LocalizedString("48h"), visibleHours: 48, labelEvery: 8, labelEveryUnit: .hour)
+            ZoomLevel(level: 48, name: LocalizedString("48h"), visibleHours: 48, labelEvery: 8, labelEveryUnit: .hour),
         ]
     }
 
@@ -254,7 +257,7 @@ struct ChartView: View {
 
     private func populateValues(glucoseValues: [Glucose]) -> [ChartDatapoint] {
         glucoseValues.map { value in
-            value.toDatapoint(glucoseUnit: glucoseUnit)
+            value.toDatapoint(glucoseUnit: glucoseUnit, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh)
         }.compactMap { $0 }
     }
 }
@@ -276,6 +279,7 @@ struct ChartDatapoint: Identifiable {
     let valueX: Date
     let valueY: Decimal
     let glucose: Glucose
+    let isAlarm: Bool
 }
 
 // MARK: Equatable
@@ -299,17 +303,20 @@ extension Glucose {
         "\(id.uuidString)-\(glucoseUnit.rawValue)"
     }
 
-    func toDatapoint(glucoseUnit: GlucoseUnit) -> ChartDatapoint? {
+    func toDatapoint(glucoseUnit: GlucoseUnit, alarmLow: Int, alarmHigh: Int) -> ChartDatapoint? {
         guard let glucoseValue = glucoseValue else {
             return nil
         }
+
+        let isAlarm = glucoseValue < alarmLow || glucoseValue > alarmHigh
 
         if glucoseUnit == .mmolL {
             return ChartDatapoint(
                 id: toDatapointID(glucoseUnit: glucoseUnit),
                 valueX: timestamp,
                 valueY: glucoseValue.asMmolL,
-                glucose: self
+                glucose: self,
+                isAlarm: isAlarm
             )
         }
 
@@ -317,7 +324,8 @@ extension Glucose {
             id: toDatapointID(glucoseUnit: glucoseUnit),
             valueX: timestamp,
             valueY: glucoseValue.asMgdL,
-            glucose: self
+            glucose: self,
+            isAlarm: isAlarm
         )
     }
 }

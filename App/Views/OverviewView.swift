@@ -16,7 +16,11 @@ struct OverviewView: View {
                 }
 
                 if !store.state.glucoseValues.isEmpty {
-                    ChartView()
+                    if #available(iOS 16.0, *) {
+                        ChartView()
+                    } else {
+                        ChartViewCompatibility()
+                    }
                 }
 
                 ConnectionView()

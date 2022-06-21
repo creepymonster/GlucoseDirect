@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - Libre2Connection
 
-final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
+class Libre2Connection: SensorBLEConnectionBase, IsSensor {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<AppAction, AppError>) {
@@ -57,7 +57,7 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
         }
 
         let unlockCount = UserDefaults.standard.libre2UnlockCount + 1
-        let unlockPayload = SensorUtility.streamingUnlockPayload(uuid: sensor!.uuid, patchInfo: sensor!.patchInfo, enableTime: 42, unlockCount: UInt16(unlockCount))
+        let unlockPayload = Libre2EUtility.streamingUnlockPayload(uuid: sensor!.uuid, patchInfo: sensor!.patchInfo, enableTime: 42, unlockCount: UInt16(unlockCount))
 
         UserDefaults.standard.libre2UnlockCount = unlockCount
 
@@ -163,8 +163,8 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
 
             if let sensor = sensor {
                 do {
-                    let decryptedBLE = Data(try SensorUtility.decryptBLE(uuid: sensor.uuid, data: rxBuffer))
-                    let parsedBLE = SensorUtility.parseBLE(calibration: sensor.factoryCalibration, data: decryptedBLE)
+                    let decryptedBLE = Data(try Libre2EUtility.decryptBLE(uuid: sensor.uuid, data: rxBuffer))
+                    let parsedBLE = Libre2EUtility.parseBLE(calibration: sensor.factoryCalibration, data: decryptedBLE)
 
                     if (parsedBLE.age + 30) >= sensor.lifetime {
                         sendUpdate(age: parsedBLE.age, state: .expired)

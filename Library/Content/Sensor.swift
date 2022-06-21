@@ -10,37 +10,10 @@ import Foundation
 struct Sensor: Codable {
     // MARK: Lifecycle
 
-    init(uuid: Data, patchInfo: Data, fram: Data) {
-        let family = SensorFamily(Int(patchInfo[2] >> 4))
-
-        var age = 0
-        if fram.count >= 318 {
-            age = Int(fram[316]) + Int(fram[317]) << 8
-        }
-
-        var lifetime = 20_160
-        if fram.count >= 328 {
-            lifetime = Int(fram[326]) + Int(fram[327]) << 8
-        }
-
-        self.init(
-            fram: fram,
-            uuid: uuid,
-            patchInfo: patchInfo,
-            factoryCalibration: FactoryCalibration(fram: fram),
-            family: family,
-            type: SensorType(patchInfo),
-            region: SensorRegion(patchInfo[3]),
-            serial: sensorSerialNumber(uuid: uuid, sensorFamily: family),
-            state: SensorState(fram[4]),
-            age: age,
-            lifetime: lifetime
-        )
-    }
-
     init(uuid: Data, patchInfo: Data, factoryCalibration: FactoryCalibration, family: SensorFamily, type: SensorType, region: SensorRegion, serial: String?, state: SensorState, age: Int, lifetime: Int, warmupTime: Int = 60) {
         pairingTimestamp = Date()
         fram = nil
+        
         self.uuid = uuid
         self.patchInfo = patchInfo
         self.factoryCalibration = factoryCalibration
@@ -56,6 +29,7 @@ struct Sensor: Codable {
 
     init(fram: Data, uuid: Data, patchInfo: Data, factoryCalibration: FactoryCalibration, family: SensorFamily, type: SensorType, region: SensorRegion, serial: String?, state: SensorState, age: Int, lifetime: Int, warmupTime: Int = 60) {
         pairingTimestamp = Date()
+        
         self.fram = fram
         self.uuid = uuid
         self.patchInfo = patchInfo
@@ -151,6 +125,66 @@ struct Sensor: Codable {
             "state: \(state.description)",
             "lifetime: \(lifetime.inTime)",
         ].joined(separator: ", ")
+    }
+}
+
+extension Sensor {
+    static func libreStyleSensor(uuid: Data, patchInfo: Data, fram: Data) -> Sensor {
+        let family = SensorFamily(Int(patchInfo[2] >> 4))
+
+        var age = 0
+        if fram.count >= 318 {
+            age = Int(fram[316]) + Int(fram[317]) << 8
+        }
+
+        var lifetime = 20_160
+        if fram.count >= 328 {
+            lifetime = Int(fram[326]) + Int(fram[327]) << 8
+        }
+
+        return Sensor(
+            fram: fram,
+            uuid: uuid,
+            patchInfo: patchInfo,
+            factoryCalibration: FactoryCalibration.libreStyleCalibration(fram: fram),
+            family: family,
+            type: SensorType(patchInfo),
+            region: SensorRegion(patchInfo[3]),
+            serial: sensorSerialNumber(uuid: uuid, sensorFamily: family),
+            state: SensorState(fram[4]),
+            age: age,
+            lifetime: lifetime
+        )
+    }
+    
+    static func libreProSensor(uuid: Data, patchInfo: Data, fram: Data) -> Sensor {
+        let family = SensorFamily(Int(patchInfo[2] >> 4))
+        
+        var age = 0
+        if fram.count >= 76 {
+            age = Int(fram[74]) + Int(fram[75]) << 8
+        }
+        
+        var lifetime = 20_160
+        if fram.count >= 48 {
+            lifetime = Int(fram[46]) + Int(fram[47]) << 8
+        }
+        
+        let serial = Data(fram[24...39])
+
+        return Sensor(
+            fram: fram,
+            uuid: uuid,
+            patchInfo: patchInfo,
+            factoryCalibration: FactoryCalibration.libreProCalibration(fram: fram),
+            family: family,
+            type: SensorType(patchInfo),
+            region: SensorRegion(fram[43]),
+            serial: "\(serial[...13].utf8) + 0x\(serial.suffix(2).hex)",
+            state: SensorState(fram[4]),
+            age: age,
+            lifetime: lifetime
+        )
     }
 }
 

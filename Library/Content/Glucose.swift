@@ -63,11 +63,11 @@ class Glucose: CustomStringConvertible, Codable, Identifiable {
 }
 
 extension Glucose {
-    static func createSensorGlucose(timestamp: Date, rawGlucoseValue: Int, minuteChange: Double?) -> Glucose {
+    static func sensorGlucose(timestamp: Date, rawGlucoseValue: Int, minuteChange: Double?) -> Glucose {
         return Glucose(timestamp: timestamp, rawGlucoseValue: rawGlucoseValue, glucoseValue: nil, minuteChange: minuteChange, type: .cgm)
     }
 
-    static func createSensorGlucose(timestamp: Date, rawGlucoseValue: Int, glucoseValue: Int, minuteChange: Double?) -> Glucose {
+    static func sensorGlucose(timestamp: Date, rawGlucoseValue: Int, glucoseValue: Int, minuteChange: Double?) -> Glucose {
         if glucoseValue <= DirectConfig.minReadableGlucose {
             return Glucose(timestamp: timestamp, rawGlucoseValue: rawGlucoseValue, glucoseValue: DirectConfig.minReadableGlucose, minuteChange: minuteChange, type: .cgm)
         } else if glucoseValue >= DirectConfig.maxReadableGlucose {
@@ -77,11 +77,11 @@ extension Glucose {
         return Glucose(timestamp: timestamp, rawGlucoseValue: rawGlucoseValue, glucoseValue: glucoseValue, minuteChange: minuteChange, type: .cgm)
     }
 
-    static func createBloodGlucose(timestamp: Date, glucoseValue: Int) -> Glucose {
+    static func bloodGlucose(timestamp: Date, glucoseValue: Int) -> Glucose {
         return Glucose(timestamp: timestamp, rawGlucoseValue: glucoseValue, glucoseValue: glucoseValue, minuteChange: nil, type: .bgm)
     }
 
-    static func createFaultyGlucose(timestamp: Date, quality: SensorReadingQuality) -> Glucose {
+    static func faultySensorGlucose(timestamp: Date, quality: SensorReadingQuality) -> Glucose {
         return Glucose(timestamp: timestamp, rawGlucoseValue: nil, glucoseValue: nil, minuteChange: nil, type: .faulty(quality))
     }
 
@@ -132,7 +132,7 @@ extension Glucose {
             return self
         }
 
-        return Glucose.createSensorGlucose(timestamp: timestamp, rawGlucoseValue: rawGlucoseValue, glucoseValue: glucoseValue, minuteChange: minuteChange(previousTimestamp: previousGlucose.timestamp, previousGlucoseValue: previousGlucoseValue, nextTimestamp: timestamp, nextGlucoseValue: glucoseValue))
+        return Glucose.sensorGlucose(timestamp: timestamp, rawGlucoseValue: rawGlucoseValue, glucoseValue: glucoseValue, minuteChange: minuteChange(previousTimestamp: previousGlucose.timestamp, previousGlucoseValue: previousGlucoseValue, nextTimestamp: timestamp, nextGlucoseValue: glucoseValue))
     }
 
     // MARK: Private

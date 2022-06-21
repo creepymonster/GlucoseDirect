@@ -8,7 +8,7 @@ import Foundation
 
 // MARK: - VirtualLibreConnection
 
-final class VirtualLibreConnection: SensorBLEConnection, IsSensor {
+class VirtualLibreConnection: SensorBLEConnection, IsSensor {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<AppAction, AppError>) {

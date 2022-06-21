@@ -29,6 +29,7 @@ func appReducer(state: inout AppState, action: AppAction) {
             
         state.missedReadings = 0
         state.glucoseValues = glucoseValues
+        state.selectedGlucose = nil
         
     case .addMissedReading:
         state.missedReadings += 1

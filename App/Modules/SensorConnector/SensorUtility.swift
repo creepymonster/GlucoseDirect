@@ -3,17 +3,98 @@
 //  GlucoseDirect
 //
 //  Special thanks to: guidos, ivalkou and dabear and many others
+//  https://github.com/ivalkou/LibreTools/blob/master/Sources/LibreTools/Sensor/Libre2.swift
+//  https://github.com/gui-dos/DiaBLE/blob/master/DiaBLE/Libre2.swift
 //
 
 import Foundation
 
-// MARK: - SensorUtility
+// MARK: - LibreUtility
 
-enum SensorUtility {
+enum LibreUtility {
+    static func parseFRAM(calibration: FactoryCalibration, pairingTimestamp: Date, fram: Data) -> (trend: [SensorReading], history: [SensorReading]) {
+        let age = Int(fram[316]) + Int(fram[317]) << 8
+        let startDate = pairingTimestamp - Double(age) * 60
+
+        var trendReadings: [SensorReading] = []
+        var historyReadings: [SensorReading] = []
+
+        let trendIndex = Int(fram[26]) // body[2]
+        for i in 0 ... 15 {
+            var j = trendIndex - 1 - i
+            if j < 0 {
+                j += 16
+            }
+
+            let offset = 28 + j * 6 // body[4 ..< 100]
+            let rawGlucoseValue = readBits(fram, offset, 0, 0xe)
+            let rawTemperature = readBits(fram, offset, 0x1a, 0xc) << 2
+            let quality = rawGlucoseValue == 0 ? SensorReadingQuality(rawValue: rawTemperature >> 2) : .OK
+
+            // let quality = UInt16(readBits(fram, offset, 0xe, 0xb)) & 0x1FF
+            // let qualityFlags = (readBits(fram, offset, 0xe, 0xb) & 0x600) >> 9
+            // let hasError = readBits(fram, offset, 0x19, 0x1) != 0
+            
+            var rawTemperatureAdjustment = readBits(fram, offset, 0x26, 0x9) << 2
+            if readBits(fram, offset, 0x2f, 0x1) != 0 {
+                rawTemperatureAdjustment = -rawTemperatureAdjustment
+            }
+
+            let timestamp = startDate + Double(age - i) * 60
+
+            let glucoseValue = calibration.calibrate(rawValue: Double(rawGlucoseValue), rawTemperature: Double(rawTemperature), rawTemperatureAdjustment: Double(rawTemperatureAdjustment))
+            let reading = quality == .OK
+                ? SensorReading.createGlucoseReading(timestamp: timestamp, glucoseValue: glucoseValue)
+                : SensorReading.createFaultyReading(timestamp: timestamp, quality: quality)
+
+            trendReadings.append(reading)
+        }
+
+        let delay = (age - 3) % 15 + 3
+
+        let historyIndex = Int(fram[27]) // body[3]
+        for i in 0 ... 31 {
+            var j = historyIndex - 1 - i
+            if j < 0 {
+                j += 32
+            }
+
+            let offset = 124 + j * 6 // body[100 ..< 292]
+            let rawGlucoseValue = readBits(fram, offset, 0, 0xe)
+            let rawTemperature = readBits(fram, offset, 0x1a, 0xc) << 2
+            let quality = rawGlucoseValue == 0 ? SensorReadingQuality(rawValue: rawTemperature >> 2) : .OK
+
+            // let quality = UInt16(readBits(fram, offset, 0xe, 0xb)) & 0x1ff
+            // let qualityFlags = (readBits(fram, offset, 0xe, 0xb) & 0x600) >> 9
+            // let hasError = readBits(fram, offset, 0x19, 0x1) != 0
+            
+            var rawTemperatureAdjustment = readBits(fram, offset, 0x26, 0x9) << 2
+            if readBits(fram, offset, 0x2f, 0x1) != 0 {
+                rawTemperatureAdjustment = -rawTemperatureAdjustment
+            }
+
+            let id = age - delay - i * 15
+            let timestamp = id > -1 ? pairingTimestamp - Double(i) * 15 * 60 : pairingTimestamp
+
+            let glucoseValue = calibration.calibrate(rawValue: Double(rawGlucoseValue), rawTemperature: Double(rawTemperature), rawTemperatureAdjustment: Double(rawTemperatureAdjustment))
+            let reading = quality == .OK
+                ? SensorReading.createGlucoseReading(timestamp: timestamp, glucoseValue: glucoseValue)
+                : SensorReading.createFaultyReading(timestamp: timestamp, quality: quality)
+
+            historyReadings.append(reading)
+        }
+
+        let trend = trendReadings.sorted(by: { $0.timestamp < $1.timestamp })
+        let history = historyReadings.sorted(by: { $0.timestamp < $1.timestamp }).filter({ $0.timestamp < (trend.first?.timestamp ?? Date()) })
+
+        return (trend, history)
+    }
+}
+
+// MARK: - Libre2EUtility
+
+enum Libre2EUtility {
     // MARK: Internal
-
-    // https://github.com/ivalkou/LibreTools/blob/master/Sources/LibreTools/Sensor/Libre2.swift
-    // https://github.com/gui-dos/DiaBLE/blob/master/DiaBLE/Libre2.swift
 
     static func decryptFRAM(uuid: Data, patchInfo: Data, fram: Data) -> Data? {
         guard uuid.count == 8, patchInfo.count == 6, SensorType(patchInfo) != .libre1, fram.count == 344 else {
@@ -42,9 +123,9 @@ enum SensorUtility {
                 s1 = UInt16(ss1 & 0xffff)
             }
 
-            let s2 = UInt16((word(uuid[3], uuid[2]) + UInt64(self.keys[2])) & 0xffff)
+            let s2 = UInt16((word(uuid[3], uuid[2]) + UInt64(keys[2])) & 0xffff)
             let s3 = UInt16((word(uuid[1], uuid[0]) + (i64 << 1)) & 0xffff)
-            let s4 = (0x241a ^ self.keys[3])
+            let s4 = (0x241a ^ keys[3])
 
             let key = self.processCrypto(input: [s1, s2, s3, s4])
             result.append(fram[i * 8 + 0] ^ UInt8(key[0] & 0xff))
@@ -124,86 +205,6 @@ enum SensorUtility {
         return [b[0], b[1], b[2], b[3], res[0], res[1], res[2], res[3], res[4], res[5], res[6], res[7]]
     }
 
-    static func parseFRAM(calibration: FactoryCalibration, pairingTimestamp: Date, fram: Data) -> (trend: [SensorReading], history: [SensorReading]) {
-        let age = Int(fram[316]) + Int(fram[317]) << 8
-        let startDate = pairingTimestamp - Double(age) * 60
-
-        var trendReadings: [SensorReading] = []
-        var historyReadings: [SensorReading] = []
-
-        let trendIndex = Int(fram[26]) // body[2]
-        for i in 0 ... 15 {
-            var j = trendIndex - 1 - i
-            if j < 0 {
-                j += 16
-            }
-
-            let offset = 28 + j * 6 // body[4 ..< 100]
-
-            let rawGlucoseValue = readBits(fram, offset, 0, 0xe)
-            let rawTemperature = readBits(fram, offset, 0x1a, 0xc) << 2
-            let quality = rawGlucoseValue == 0 ? SensorReadingQuality(rawValue: rawTemperature >> 2) : .OK
-
-            // let quality = UInt16(readBits(fram, offset, 0xe, 0xb)) & 0x1FF
-            // let qualityFlags = (readBits(fram, offset, 0xe, 0xb) & 0x600) >> 9
-            // let hasError = readBits(fram, offset, 0x19, 0x1) != 0
-
-            var rawTemperatureAdjustment = readBits(fram, offset, 0x26, 0x9) << 2
-            if readBits(fram, offset, 0x2f, 0x1) != 0 {
-                rawTemperatureAdjustment = -rawTemperatureAdjustment
-            }
-
-            let timestamp = startDate + Double(age - i) * 60
-
-            let glucoseValue = calibration.calibrate(rawValue: Double(rawGlucoseValue), rawTemperature: Double(rawTemperature), rawTemperatureAdjustment: Double(rawTemperatureAdjustment))
-            let reading = quality == .OK
-                ? SensorReading.createGlucoseReading(timestamp: timestamp, glucoseValue: glucoseValue)
-                : SensorReading.createFaultyReading(timestamp: timestamp, quality: quality)
-
-            trendReadings.append(reading)
-        }
-
-        let delay = (age - 3) % 15 + 3
-
-        let historyIndex = Int(fram[27]) // body[3]
-        for i in 0 ... 31 {
-            var j = historyIndex - 1 - i
-            if j < 0 {
-                j += 32
-            }
-
-            let offset = 124 + j * 6 // body[100 ..< 292]
-
-            let rawGlucoseValue = readBits(fram, offset, 0, 0xe)
-            let rawTemperature = readBits(fram, offset, 0x1a, 0xc) << 2
-            let quality = rawGlucoseValue == 0 ? SensorReadingQuality(rawValue: rawTemperature >> 2) : .OK
-
-            // let quality = UInt16(readBits(fram, offset, 0xe, 0xb)) & 0x1ff
-            // let qualityFlags = (readBits(fram, offset, 0xe, 0xb) & 0x600) >> 9
-            // let hasError = readBits(fram, offset, 0x19, 0x1) != 0
-
-            var rawTemperatureAdjustment = readBits(fram, offset, 0x26, 0x9) << 2
-            if readBits(fram, offset, 0x2f, 0x1) != 0 {
-                rawTemperatureAdjustment = -rawTemperatureAdjustment
-            }
-
-            let id = age - delay - i * 15
-            let timestamp = id > -1 ? pairingTimestamp - Double(i) * 15 * 60 : pairingTimestamp
-
-            let glucoseValue = calibration.calibrate(rawValue: Double(rawGlucoseValue), rawTemperature: Double(rawTemperature), rawTemperatureAdjustment: Double(rawTemperatureAdjustment))
-            let reading = quality == .OK
-                ? SensorReading.createGlucoseReading(timestamp: timestamp, glucoseValue: glucoseValue)
-                : SensorReading.createFaultyReading(timestamp: timestamp, quality: quality)
-
-            historyReadings.append(reading)
-        }
-
-        let trend = trendReadings.sorted(by: { $0.timestamp < $1.timestamp })
-        let history = historyReadings.sorted(by: { $0.timestamp < $1.timestamp }).filter({ $0.timestamp < (trend.first?.timestamp ?? Date()) })
-
-        return (trend, history)
-    }
-
     static func parseBLE(calibration: FactoryCalibration, data: Data) -> (age: Int, trend: [SensorReading], history: [SensorReading]) {
         let historyDelay = 2
         let age = Int(word(data[41], data[40]))
@@ -248,7 +249,7 @@ enum SensorUtility {
         }
 
         let trend = trendReadings.sorted(by: { $0.timestamp < $1.timestamp })
-        let history = historyReadings.sorted(by: { $0.timestamp < $1.timestamp }).filter({ $0.timestamp < (trend.first?.timestamp ?? Date()) })
+        let history = historyReadings.sorted(by: { $0.timestamp < $1.timestamp }).filter { $0.timestamp < (trend.first?.timestamp ?? Date()) }
 
         return (age, trend, history)
     }
@@ -269,35 +270,37 @@ enum SensorUtility {
         ]
     }
 
-    static func prepareVariables(uuid: Data, x: UInt16, y: UInt16) -> [UInt16] {
+    // MARK: Private
+
+    private static func prepareVariables(uuid: Data, x: UInt16, y: UInt16) -> [UInt16] {
         let s1 = UInt16(truncatingIfNeeded: UInt(UInt16(uuid[5], uuid[4])) + UInt(x) + UInt(y))
-        let s2 = UInt16(truncatingIfNeeded: UInt(UInt16(uuid[3], uuid[2])) + UInt(self.keys[2]))
+        let s2 = UInt16(truncatingIfNeeded: UInt(UInt16(uuid[3], uuid[2])) + UInt(keys[2]))
         let s3 = UInt16(truncatingIfNeeded: UInt(UInt16(uuid[1], uuid[0])) + UInt(x) * 2)
-        let s4 = 0x241a ^ self.keys[3]
+        let s4 = 0x241a ^ keys[3]
 
         return [s1, s2, s3, s4]
     }
 
-    static func prepareVariables(uuid: Data, i1: UInt16, i2: UInt16, i3: UInt16, i4: UInt16) -> [UInt16] {
+    private static func prepareVariables(uuid: Data, i1: UInt16, i2: UInt16, i3: UInt16, i4: UInt16) -> [UInt16] {
         let s1 = UInt16(truncatingIfNeeded: UInt(UInt16(uuid[5], uuid[4])) + UInt(i1))
         let s2 = UInt16(truncatingIfNeeded: UInt(UInt16(uuid[3], uuid[2])) + UInt(i2))
-        let s3 = UInt16(truncatingIfNeeded: UInt(UInt16(uuid[1], uuid[0])) + UInt(i3) + UInt(self.keys[2]))
-        let s4 = UInt16(truncatingIfNeeded: UInt(i4) + UInt(self.keys[3]))
+        let s3 = UInt16(truncatingIfNeeded: UInt(UInt16(uuid[1], uuid[0])) + UInt(i3) + UInt(keys[2]))
+        let s4 = UInt16(truncatingIfNeeded: UInt(i4) + UInt(keys[3]))
 
         return [s1, s2, s3, s4]
     }
 
-    static func processCrypto(input: [UInt16]) -> [UInt16] {
+    private static func processCrypto(input: [UInt16]) -> [UInt16] {
         func op(_ value: UInt16) -> UInt16 {
             // We check for last 2 bits and do the xor with specific value if bit is 1
             var res = value >> 2 // Result does not include these last 2 bits
 
             if value & 1 != 0 { // If last bit is 1
-                res = res ^ self.keys[1]
+                res = res ^ keys[1]
             }
 
             if value & 2 != 0 { // If second last bit is 1
-                res = res ^ self.keys[0]
+                res = res ^ keys[0]
             }
 
             return res
@@ -319,13 +322,11 @@ enum SensorUtility {
 
         return [f4, f3, f2, f1]
     }
-
-    // MARK: Private
-
-    private static let keys: [UInt16] = [0xa0c5, 0x6860, 0x0000, 0x14c6]
 }
 
 // MARK: - fileprivate
+
+private let keys: [UInt16] = [0xa0c5, 0x6860, 0x0000, 0x14c6]
 
 private func word(_ high: UInt8, _ low: UInt8) -> UInt64 {
     return (UInt64(high) << 8) + UInt64(low & 0xff)

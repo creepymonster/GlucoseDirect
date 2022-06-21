@@ -6,9 +6,9 @@
 import SwiftUI
 import WidgetKit
 
-private let placeholderLowGlucose = Glucose.createSensorGlucose(timestamp: Date(), rawGlucoseValue: 70, glucoseValue: 80, minuteChange: 2)
-private let placeholderGlucose = Glucose.createSensorGlucose(timestamp: Date(), rawGlucoseValue: 100, glucoseValue: 110, minuteChange: 5)
-private let placeholderHighGlucose = Glucose.createSensorGlucose(timestamp: Date(), rawGlucoseValue: 400, glucoseValue: 410, minuteChange: 5)
+private let placeholderLowGlucose = Glucose.sensorGlucose(timestamp: Date(), rawGlucoseValue: 70, glucoseValue: 80, minuteChange: 2)
+private let placeholderGlucose = Glucose.sensorGlucose(timestamp: Date(), rawGlucoseValue: 100, glucoseValue: 110, minuteChange: 5)
+private let placeholderHighGlucose = Glucose.sensorGlucose(timestamp: Date(), rawGlucoseValue: 400, glucoseValue: 410, minuteChange: 5)
 private let placeholderGlucoseUnit = GlucoseUnit.mgdL
 
 // MARK: - GlucoseEntry
