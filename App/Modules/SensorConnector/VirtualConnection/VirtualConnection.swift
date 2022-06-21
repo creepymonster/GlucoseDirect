@@ -42,7 +42,7 @@ class VirtualLibreConnection: SensorBLEConnection, IsSensor {
     func connectConnection(sensor: Sensor, sensorInterval: Int) {
         glucoseInterval = TimeInterval(sensorInterval * 60)
 
-        let fireDate = Date().toRounded(on: 1, .minute).addingTimeInterval(60)
+        let fireDate = Date()
         let timer = Timer(fire: fireDate, interval: glucoseInterval, repeats: true) { _ in
             DirectLog.info("fires at \(Date())")
 

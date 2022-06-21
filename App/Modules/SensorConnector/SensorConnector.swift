@@ -64,7 +64,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
                 reading.calibrate(customCalibration: state.customCalibration)
             }
 
-            let stdev = readGlucoseValues.suffix(5).stdev
+            let stdev = readGlucoseValues.count >= 5 ? readGlucoseValues.suffix(5).stdev : 0
             let intervalSeconds = Double(state.sensorInterval * 60 - 30)
 
             DirectLog.info("Stdev \(stdev) of \(readGlucoseValues.suffix(5).doubleValues)")
