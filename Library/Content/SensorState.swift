@@ -61,10 +61,10 @@ enum SensorState: String, Codable {
     // MARK: Internal
 
     var description: String {
-        self.rawValue
+        rawValue
     }
 
     var localizedString: String {
-        LocalizedString(self.rawValue)
+        LocalizedString(rawValue)
     }
 }

@@ -56,6 +56,6 @@ enum SensorType: String, Codable {
     }
 
     var localizedString: String {
-        rawValue
+        LocalizedString(rawValue)
     }
 }
