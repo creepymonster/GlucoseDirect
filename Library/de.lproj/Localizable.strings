@@ -29,10 +29,10 @@
 "Add glucose for calibration" = "Glukose für Kalibrierung hinzufügen";
 
 /* (No Comment) */
-"Add calibration" = "Add calibration";
+"Add calibration" = "Kalibrierung hinzufügen";
 
 /* (No Comment) */
-"Add blood glucose" = "Add blood glucose";
+"Add blood glucose" = "Blutzucker hinzufügen";
 
 /* (No Comment) */
 "Add glucose value" = "Glukose hinzufügen";
@@ -120,24 +120,6 @@
 
 /* (No Comment) */
 "Disconnected" = "Verbindung getrennt";
-
-/* (No Comment) */
-"Factory calibration i1" = "i1";
-
-/* (No Comment) */
-"Factory calibration i2" = "i2";
-
-/* (No Comment) */
-"Factory calibration i3" = "i3";
-
-/* (No Comment) */
-"Factory calibration i4" = "i4";
-
-/* (No Comment) */
-"Factory calibration i5" = "i5";
-
-/* (No Comment) */
-"Factory calibration i6" = "i6";
 
 /* (No Comment) */
 "Glucose alarm" = "Glukose Alarm";
@@ -431,7 +413,7 @@
 "App version" = "Version";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "Unbekannt";
 
 /* (No Comment) */
 "Invalid parameters" = "Ungültige Parameter";
@@ -572,69 +554,6 @@
 "High glucose alarm" = "Hoher Glukose Alarm";
 
 /* (No Comment) */
-"Sound: achievement" = "Achievement";
-
-/* (No Comment) */
-"Sound: none" = "Kein Alarm";
-
-/* (No Comment) */
-"Sound: alarm" = "Alarm";
-
-/* (No Comment) */
-"Sound: buzz-beep" = "Buzz-Beep";
-
-/* (No Comment) */
-"Sound: chiptone" = "Chiptone";
-
-/* (No Comment) */
-"Sound: climb-rope" = "Climb-Rope";
-
-/* (No Comment) */
-"Sound: coin-chime" = "Coin-Chime";
-
-/* (No Comment) */
-"Sound: coin-insert" = "Coin-Insert";
-
-/* (No Comment) */
-"Sound: collect-point" = "Collect-Point";
-
-/* (No Comment) */
-"Sound: expiring" = "Expiring";
-
-/* (No Comment) */
-"Sound: failure" = "Failure";
-
-/* (No Comment) */
-"Sound: future" = "Future";
-
-/* (No Comment) */
-"Sound: highlight" = "Highlight";
-
-/* (No Comment) */
-"Sound: hit" = "Hit";
-
-/* (No Comment) */
-"Sound: jump" = "Jump";
-
-/* (No Comment) */
-"Sound: long-alarm" = "Long-Alarm";
-
-/* (No Comment) */
-"Sound: lose" = "Lose";
-
-/* (No Comment) */
-"Sound: low-battery" = "Low-Battery";
-
-/* (No Comment) */
-"Sound: negative" = "Negative";
-
-/* (No Comment) */
-"Sound: ping" = "Ping";
-
-/* (No Comment) */
-"Sound: positive" = "Positive";
-
-/* (No Comment) */
 "Sound: vibration" = "Vibrieren";
 
 /* (No Comment) */
@@ -713,43 +632,43 @@
 "The value from the blood glucose meter can then be added via 'List', at the top 'Add'." = "Der Wert aus dem Blutzuckermessgerät kann dann über \"Liste\", oben \"Hinzufügen\", hinzugefügt werden.";
 
 /* (No Comment) */
-"Transmitter ID" = "Identifier";
+"Transmitter ID" = "Kennung";
 
 /* (No Comment) */
-"Time" = "Time";
+"Time" = "Zeit";
 
 /* (No Comment) */
-"Glucose" = "Glucose";
+"Glucose" = "Glukose";
 
 /* (No Comment) */
-"Transmitter details" = "Transmitter details";
+"Transmitter details" = "Transmitter Details";
 
 /* (No Comment) */
 "Sensor" = "Sensor";
 
 /* (No Comment) */
-"Glucose widget" = "Glucose";
+"Glucose widget" = "Glukose";
 
 /* (No Comment) */
-"Glucose widget description" = "Displays the last glucose value.";
+"Glucose widget description" = "Zeigt den letzten Glukosewert an.";
 
 /* (No Comment) */
-"Sensor lifetime widget" = "Sensor Lifetime";
+"Sensor lifetime widget" = "Lebensdauer";
 
 /* (No Comment) */
-"Sensor lifetime widget description" = "Displays the remaining lifetime of the current sensor as a countdown.";
+"Sensor lifetime widget description" = "Zeigt die verbleibende Lebensdauer des aktuellen Sensors in Form eines Countdowns an.";
 
 /* (No Comment) */
-"Transmitter battery widget" = "Transmitter Battery";
+"Transmitter battery widget" = "Batterie";
 
 /* (No Comment) */
-"Transmitter battery widget description" = "Displays the remaining battery charge of the transmitter as a countdown.";
+"Transmitter battery widget description" = "Zeigt die verbleibende Batterieladung des Senders in Form eines Countdowns an.";
 
 /* (No Comment) */
-"Warmup" = "Warmup";
+"Warmup" = "Aufwärmzeit";
 
 /* (No Comment) */
-"No screen lock" = "No screen lock";
+"No screen lock" = "Keine Displaysperre";
 
 /* (No Comment) */
 "LibreLink transmitter" = "LibreLink Transmitter";
