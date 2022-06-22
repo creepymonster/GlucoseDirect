@@ -122,24 +122,6 @@
 "Disconnected" = "Отключен";
 
 /* (No Comment) */
-"Factory calibration i1" = "i1";
-
-/* (No Comment) */
-"Factory calibration i2" = "i2";
-
-/* (No Comment) */
-"Factory calibration i3" = "i3";
-
-/* (No Comment) */
-"Factory calibration i4" = "i4";
-
-/* (No Comment) */
-"Factory calibration i5" = "i5";
-
-/* (No Comment) */
-"Factory calibration i6" = "i6";
-
-/* (No Comment) */
 "Glucose alarm" = "Тревога по ГК";
 
 /* (No Comment) */
@@ -570,69 +552,6 @@
 
 /* (No Comment) */
 "High glucose alarm" = "Сигнал тревоги о высоком ГК";
-
-/* (No Comment) */
-"Sound: achievement" = "Достижения";
-
-/* (No Comment) */
-"Sound: none" = "Ничего";
-
-/* (No Comment) */
-"Sound: alarm" = "Тревога";
-
-/* (No Comment) */
-"Sound: buzz-beep" = "Бип-Бип";
-
-/* (No Comment) */
-"Sound: chiptone" = "Чиптон";
-
-/* (No Comment) */
-"Sound: climb-rope" = "Climb-Rope";
-
-/* (No Comment) */
-"Sound: coin-chime" = "Coin-Chime";
-
-/* (No Comment) */
-"Sound: coin-insert" = "Coin-Insert";
-
-/* (No Comment) */
-"Sound: collect-point" = "Collect-Point";
-
-/* (No Comment) */
-"Sound: expiring" = "Истекающий";
-
-/* (No Comment) */
-"Sound: failure" = "Ошибка";
-
-/* (No Comment) */
-"Sound: future" = "Future";
-
-/* (No Comment) */
-"Sound: highlight" = "Highlight";
-
-/* (No Comment) */
-"Sound: hit" = "Hit";
-
-/* (No Comment) */
-"Sound: jump" = "Jump";
-
-/* (No Comment) */
-"Sound: long-alarm" = "Long-alarm";
-
-/* (No Comment) */
-"Sound: lose" = "Lose";
-
-/* (No Comment) */
-"Sound: low-battery" = "Низкий заряд аккумулятора";
-
-/* (No Comment) */
-"Sound: negative" = "Negative";
-
-/* (No Comment) */
-"Sound: ping" = "Ping";
-
-/* (No Comment) */
-"Sound: positive" = "Positive";
 
 /* (No Comment) */
 "Sound: vibration" = "Только вибрация";
