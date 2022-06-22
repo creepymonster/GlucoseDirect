@@ -1,0 +1,755 @@
+/* (No Comment) */
+"%1$@ a clock" = "%1$@";
+
+/* (No Comment) */
+"%1$@/min." = "%1$@/min.";
+
+/* (No Comment) */
+"%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
+
+/* (No Comment) */
+"0 - Unknown" = "0 - Okänd";
+
+/* (No Comment) */
+"1 - European" = "1 - Europeisk";
+
+/* (No Comment) */
+"2 - USA" = "2 - USA";
+
+/* (No Comment) */
+"4 - Australian" = "4 - Australien/Kanada";
+
+/* (No Comment) */
+"8 - Eastern" = "8 - Mellanöstern, Asien";
+
+/* (No Comment) */
+"Add" = "Lägg till";
+
+/* (No Comment) */
+"Add glucose for calibration" = "Lägg till blodglukos för kalibrering";
+
+/* (No Comment) */
+"Add calibration" = "Add calibration";
+
+/* (No Comment) */
+"Add blood glucose" = "Add blood glucose";
+
+/* (No Comment) */
+"Add glucose value" = "Lägg till blodglukosvärde";
+
+/* (No Comment) */
+"Alarm Settings" = "Larminställningar";
+
+/* (No Comment) */
+"Alert, high glucose" = "Varning, högt blodsocker";
+
+/* (No Comment) */
+"Alert, low blood glucose" = "Varrning, lågt blodsocker";
+
+/* (No Comment) */
+"Alert, sensor connection lost" = "Varning, tappat sensoranslutning";
+
+/* (No Comment) */
+"Alert, sensor expired" = "Varning, sensor har utgått";
+
+/* (No Comment) */
+"Alert, sensor expiring soon" = "Varning, sensor behöver snart bytas";
+
+/* (No Comment) */
+"Are you sure you want to add the new calibration?" = "Bekräfta att du vill lägga till ny kalibrering";
+
+/* (No Comment) */
+"Are you sure you want to delete all calibrations?" = "Bekräfta att du vill ta bort alla kalibreringar";
+
+/* (No Comment) */
+"Are you sure you want to delete all log files?" = "Bekräfta att du vill rensa loggfiler";
+
+/* (No Comment) */
+"Are you sure you want to delete all glucose values?" = "Bekräfta att du vill ta bort alla glukosvärden";
+
+/* (No Comment) */
+"Are you sure you want to disconnect the sensor?" = "Bekräfta att du vill koppla ifrån sensorn";
+
+/* (No Comment) */
+"Are you sure you want to unpair the sensor?" = "Bekräfta att du vill glömma parkoppling med sensor";
+
+/* (No Comment) */
+"Blood glucose: %1$@" = "Blodsocker: %1$@";
+
+/* (No Comment) */
+"Calibration view" = "Kalibrering";
+
+/* (No Comment) */
+"Cancel" = "Avbryt";
+
+/* (No Comment) */
+"Chart" = "Diagram";
+
+/* (No Comment) */
+"Connect sensor" = "Anslut sensor";
+
+/* (No Comment) */
+"Connected" = "Ansluten";
+
+/* (No Comment) */
+"Connecting" = "Ansluter";
+
+/* (No Comment) */
+"Connection alarm" = "Anslutningslarm";
+
+/* (No Comment) */
+"Custom calibration" = "Egen kalibrering";
+
+/* (No Comment) */
+"Custom calibration intercept" = "Skärningspunkt";
+
+/* (No Comment) */
+"Custom calibration slope" = "Lutning";
+
+/* (No Comment) */
+"Delete" = "Ta bort";
+
+/* (No Comment) */
+"Delete all" = "Ta bort alla";
+
+/* (No Comment) */
+"Disconnect" = "Koppla ifrån";
+
+/* (No Comment) */
+"Disconnect sensor" = "Koppla ifrån sensor";
+
+/* (No Comment) */
+"Disconnected" = "Frånkopplad";
+
+/* (No Comment) */
+"Factory calibration i1" = "i1";
+
+/* (No Comment) */
+"Factory calibration i2" = "i2";
+
+/* (No Comment) */
+"Factory calibration i3" = "i3";
+
+/* (No Comment) */
+"Factory calibration i4" = "i4";
+
+/* (No Comment) */
+"Factory calibration i5" = "i5";
+
+/* (No Comment) */
+"Factory calibration i6" = "i6";
+
+/* (No Comment) */
+"Glucose alarm" = "Blodsockerlarm";
+
+/* (No Comment) */
+"Glucose list view" = "Lista";
+
+/* (No Comment) */
+"Glucose overview" = "Översikt";
+
+/* (No Comment) */
+"Glucose settings" = "Glukosinställningar";
+
+/* (No Comment) */
+"Glucose unit" = "Enhet";
+
+/* (No Comment) */
+"Glucose values" = "Glukosvärden";
+
+/* (No Comment) */
+"Hold the top edge of your iPhone close to the sensor." = "Håll toppen av telefonen nära sensorn.";
+
+/* (No Comment) */
+"Libre 1" = "Libre 1";
+
+/* (No Comment) */
+"Libre 2 CA" = "Libre 2 CA";
+
+/* (No Comment) */
+"Libre 2 EU" = "Libre 2 EU";
+
+/* (No Comment) */
+"Libre 2 US" = "Libre 2 US";
+
+/* (No Comment) */
+"Libre 3" = "Libre 3";
+
+/* (No Comment) */
+"Libre Pro/H" = "Libre Pro/H";
+
+/* (No Comment) */
+"Libre Sense" = "Libre Sense";
+
+/* (No Comment) */
+"Libre US 14d" = "Libre US 14d";
+
+/* (No Comment) */
+"Lower limit" = "Lågt";
+
+/* (No Comment) */
+"mg/dL" = "mg/dL";
+
+/* (No Comment) */
+"mmol/L" = "mmol/L";
+
+/* (No Comment) */
+"New calibration" = "Ny Kalibrering";
+
+/* (No Comment) */
+"Nightscout API-Secret" = "API-lösen";
+
+/* (No Comment) */
+"Nightscout url" = "URL";
+
+/* (No Comment) */
+"Nightscout settings" = "Nightscout-inställningar";
+
+/* (No Comment) */
+"Nightscout upload enabled" = "Ladda upp";
+
+/* (No Comment) */
+"Now" = "Nu";
+
+/* (No Comment) */
+"OK, sensor connection established" = "OK, sensoranslutning etablerad";
+
+/* (No Comment) */
+"Pair sensor" = "Parkoppla sensor";
+
+/* (No Comment) */
+"Power off" = "Ingen ström";
+
+/* (No Comment) */
+"Scanning" = "Scannar";
+
+/* (No Comment) */
+"Sensor age" = "Sensorålder";
+
+/* (No Comment) */
+"Connection" = "Sensoranslutning";
+
+/* (No Comment) */
+"Connection error" = "Fel";
+
+/* (No Comment) */
+"Connection error timestamp" = "Tid";
+
+/* (No Comment) */
+"Connection state" = "Tillstånd";
+
+/* (No Comment) */
+"Sensor custom calibration" = "Egen kalibrering";
+
+/* (No Comment) */
+"Sensor details" = "Sensordetaljer";
+
+/* (No Comment) */
+"Sensor factory calibration" = "Fabrikskalibrering";
+
+/* (No Comment) */
+"Sensor has failure" = "Sensor har fel";
+
+/* (No Comment) */
+"Sensor in starting phase" = "Sensor i startläge";
+
+/* (No Comment) */
+"Sensor is expired" = "Sensor har utgått";
+
+/* (No Comment) */
+"Sensor is ready" = "Sensor är redo";
+
+/* (No Comment) */
+"Sensor is shut down" = "Sensor har stängts av";
+
+/* (No Comment) */
+"Sensor lifetime" = "Livstid";
+
+/* (No Comment) */
+"Missed readings" = "Missad";
+
+/* (No Comment) */
+"Sensor not yet startet" = "Sensor har inte startat ännu";
+
+/* (No Comment) */
+"Sensor PatchInfo" = "PatchInfo";
+
+/* (No Comment) */
+"Sensor possible lifetime" = "Sensorns livstid";
+
+/* (No Comment) */
+"Sensor region" = "Region";
+
+/* (No Comment) */
+"Sensor remaining lifetime" = "Återstående";
+
+/* (No Comment) */
+"Sensor remaining warmup time" = "Sensors återstående tid för uppvärmning";
+
+/* (No Comment) */
+"Sensor serial" = "Serienummer";
+
+/* (No Comment) */
+"Sensor state" = "Sensortillstånd";
+
+/* (No Comment) */
+"Sensor type" = "Typ";
+
+/* (No Comment) */
+"Sensor UID" = "Sensorns UID";
+
+/* (No Comment) */
+"Settings view" = "Inställningar";
+
+/* (No Comment) */
+"Snooze until" = "Snooza tills";
+
+/* (No Comment) */
+"Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "Tyvärr, en iPhone med NFC krävs för att använda denna app :'(";
+
+/* (No Comment) */
+"The connection to the sensor has been successfully established and glucose data is received." = "Anslutning till sensor har etablerats och glukosdata har mottagits";
+
+/* (No Comment) */
+"The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause." = "En anslutning till sensor verkar finnas, men inga värden har erhållits";
+
+/* (No Comment) */
+"The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "Anslutningen till sensorn har avbrutits. Normalt händer detta när sensorn är utom räckvidd eller när dess överföringskapacitet är nedsatt.";
+
+/* (No Comment) */
+"The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor." = "Sensorn kan inte anslutas och avvisar alla anslutningsförsök. Detta problem gör det nödvändigt att göra en ny parkoppling av sensorn. ";
+
+/* (No Comment) */
+"Unknown" = "Okänd";
+
+/* (No Comment) */
+"Unpair" = "Koppla ifrån";
+
+/* (No Comment) */
+"Unpair sensor" = "Koppla ifrån sensor";
+
+/* (No Comment) */
+"Upper limit" = "Högt";
+
+/* (No Comment) */
+"Virtual Sensor" = "Virtuell sensor";
+
+/* (No Comment) */
+"Warning, sensor missed %1$@ readings" = "Varning, sensor har missat %1$@ avläsningar";
+
+/* (No Comment) */
+"Wearing time alarm" = "Larm för brukstid";
+
+/* (No Comment) */
+"Your current glucose is %1$@ (%2$@)." = "Ditt nuvarande blodsocker är %1$@ (%2$@).";
+
+/* (No Comment) */
+"Your glucose %1$@ (%2$@) is dangerously high and needs to be treated." = "Ditt blodsocker, %1$@ (%2$@), är oroväckande högt och behöver behandlas.";
+
+/* (No Comment) */
+"Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "Ditt blodsocker, %1$@ (%2$@), är farligt lågt. Med sötade drycker eller druvsocker kan blodsockret ofta normaliseras";
+
+/* (No Comment) */
+"Your sensor has expired and needs to be replaced as soon as possible" = "Din sensor har utgått och behöver bytas snarast möjligast";
+
+/* (No Comment) */
+"Your sensor is about to expire. Replace sensor in %1$@ day." = "Din sensor går snart ut. Byt sensor om %1$@ dag.";
+
+/* (No Comment) */
+"Your sensor is about to expire. Replace sensor in %1$@ days." = "Din sensor går snart ut. Byt sensor om %1$@ dagar.";
+
+/* (No Comment) */
+"Your sensor is about to expire. Replace sensor in %1$@ hour." = "Din sensor går snart ut. Byt sensor om %1$@ timme.";
+
+/* (No Comment) */
+"Your sensor is about to expire. Replace sensor in %1$@ hours." = "Din sensor går snart ut. Byt sensor om %1$@ timmar.";
+
+/* (No Comment) */
+"Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Din sensor går snart ut. Byt sensor om %1$@ minuter.";
+
+/* (No Comment) */
+"Other Settings" = "Andra inställningar";
+
+/* (No Comment) */
+"Glucose badge" = "Visa blodsocker på ikon";
+
+/* (No Comment) */
+"Are you sure you want to add the new blood glucose value?" = "Bekräfta att du vill lägga till ett nytt glukosvärde.";
+
+/* (No Comment) */
+"Chart presentation" = "Diagram";
+
+/* (No Comment) */
+"Line" = "Linje";
+
+/* (No Comment) */
+"Points" = "Punkter";
+
+/* (No Comment) */
+"Transmitter name" = "Namn";
+
+/* (No Comment) */
+"Transmitter battery" = "Batteri";
+
+/* (No Comment) */
+"Transmitter hardware" = "Hårdvara";
+
+/* (No Comment) */
+"Transmitter firmware" = "Firmware";
+
+/* (No Comment) */
+"Transmitter" = "Sändare";
+
+/* (No Comment) */
+"Sensor connection" = "Sensoranslutning";
+
+/* (No Comment) */
+"Without transmitter" = "Utan sändare";
+
+/* (No Comment) */
+"Bubble transmitter" = "Bubbel-sändare";
+
+/* (No Comment) */
+"Pairing" = "Parkopplar";
+
+/* (No Comment) */
+"Calendar export" = "Exportera kalender";
+
+/* (No Comment) */
+"Calendar export enabled" = "Exportera";
+
+/* (No Comment) */
+"Selected calendar" = "Kalender";
+
+/* (No Comment) */
+"Please select" = "Välj";
+
+/* (No Comment) */
+"About %@" = "Om %@";
+
+/* (No Comment) */
+"App version" = "Version";
+
+/* (No Comment) */
+"Unknown" = "Unknown";
+
+/* (No Comment) */
+"Invalid parameters" = "Ogiltiga parametrar";
+
+/* (No Comment) */
+"Invalid handle" = "Ogiltig behandling";
+
+/* (No Comment) */
+"Not connected" = "Inte ansluten";
+
+/* (No Comment) */
+"Out of space" = "Slut på utrymme";
+
+/* (No Comment) */
+"Operation cancelled" = "Åtgärd avbruten";
+
+/* (No Comment) */
+"Connection timeout" = "Anslutningen tog för lång tid";
+
+/* (No Comment) */
+"Peripheral disconnected" = "Perifer enhet frånkopplad";
+
+/* (No Comment) */
+"UUID not allowed" = "UUID inte tillåten";
+
+/* (No Comment) */
+"Already advertising" = "Annonserar redan";
+
+/* (No Comment) */
+"Connection failed" = "Anslutningen misslyckades";
+
+/* (No Comment) */
+"Connection limit reached" = "Anslutningsgräns nådd";
+
+/* (No Comment) */
+"Operation not supported" = "Åtgärden stöds inte";
+
+/* (No Comment) */
+"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Varning, sensorn skickar felaktiga värden. Vänta 10 minuter.";
+
+/* (No Comment) */
+"App website" = "Hemsida";
+
+/* (No Comment) */
+"Send log file" = "Skicka loggfil";
+
+/* (No Comment) */
+"Sensor starting date" = "Startdatum";
+
+/* (No Comment) */
+"Delete log files" = "Ta bort loggfiler";
+
+/* (No Comment) */
+"Readable glucose: %1$@ %2$@" = "Glukos: %1$@ %2$@";
+
+/* (No Comment) */
+"Readable glucose with trend: %1$@ %2$@, %3$@" = "Glukos: %1$@ %2$@, %3$@";
+
+/* (No Comment) */
+"Readable low glucose: %1$@ %2$@" = "Glukos: %1$@ %2$@. Varning, Lågt blodsocker!";
+
+/* (No Comment) */
+"Readable high glucose: %1$@ %2$@" = "Glukos: %1$@ %2$@. Varning, Högt blodsocker!";
+
+/* (No Comment) */
+"Readable miligram" = "milligram";
+
+/* (No Comment) */
+"Readable milimol" = "millimol";
+
+/* (No Comment) */
+"Readable falling" = "sjunkande";
+
+/* (No Comment) */
+"Readable fast falling" = "snabbt sjunkande";
+
+/* (No Comment) */
+"Readable rapidly falling" = "hastigt sjunkande";
+
+/* (No Comment) */
+"Readable rising" = "stigande";
+
+/* (No Comment) */
+"Readable fast rising" = "snabbt stigande";
+
+/* (No Comment) */
+"Readable rapidly rising" = "hastigt stigande";
+
+/* (No Comment) */
+"Read aloud" = "Läs upp";
+
+/* (No Comment) */
+"Glucose read aloud" = "Glukos läses upp";
+
+/* (No Comment) */
+"Glucose values are read aloud:" = "Glukosvärden läses upp:";
+
+/* (No Comment) */
+"Every 10 minutes" = "Var 10: e minut";
+
+/* (No Comment) */
+"After disconnections" = "- Efter frånkopplingar";
+
+/* (No Comment) */
+"When the glucose trend changes" = "- När glukostrend förändras";
+
+/* (No Comment) */
+"When a new alarm is triggered" = "- När ett nytt larm utlöses";
+
+/* (No Comment) */
+"App author" = "Upphovsman";
+
+/* (No Comment) */
+"App support mail" = "Support";
+
+/* (No Comment) */
+"Attention, faulty value received" = "Observera, felvärde mottaget";
+
+/* (No Comment) */
+"App translation" = "Översättning";
+
+/* (No Comment) */
+"App faq" = "FAQ";
+
+/* (No Comment) */
+"App facebook group" = "Facebook";
+
+/* (No Comment) */
+"App email" = "E-post";
+
+/* (No Comment) */
+"Internal http server" = "Intern http-server";
+
+/* (No Comment) */
+"Low glucose alarm" = "Lågt blodsockerlarm";
+
+/* (No Comment) */
+"High glucose alarm" = "Högt blodsockerlarm";
+
+/* (No Comment) */
+"Sound: achievement" = "Uppnått mål";
+
+/* (No Comment) */
+"Sound: none" = "Inget";
+
+/* (No Comment) */
+"Sound: alarm" = "Larm";
+
+/* (No Comment) */
+"Sound: buzz-beep" = "Surrande pip";
+
+/* (No Comment) */
+"Sound: chiptone" = "Flisa";
+
+/* (No Comment) */
+"Sound: climb-rope" = "Klättra i rep";
+
+/* (No Comment) */
+"Sound: coin-chime" = "Mynt";
+
+/* (No Comment) */
+"Sound: coin-insert" = "Mynt läggs in";
+
+/* (No Comment) */
+"Sound: collect-point" = "Samlingspunkt";
+
+/* (No Comment) */
+"Sound: expiring" = "Går ut";
+
+/* (No Comment) */
+"Sound: failure" = "Fel";
+
+/* (No Comment) */
+"Sound: future" = "Framtid";
+
+/* (No Comment) */
+"Sound: highlight" = "Höjdpunkt";
+
+/* (No Comment) */
+"Sound: hit" = "Slå";
+
+/* (No Comment) */
+"Sound: jump" = "Hoppa";
+
+/* (No Comment) */
+"Sound: long-alarm" = "Långt larm";
+
+/* (No Comment) */
+"Sound: lose" = "Lös";
+
+/* (No Comment) */
+"Sound: low-battery" = "Lågt batteri";
+
+/* (No Comment) */
+"Sound: negative" = "Negativ";
+
+/* (No Comment) */
+"Sound: ping" = "Ping-ljud";
+
+/* (No Comment) */
+"Sound: positive" = "Positiv";
+
+/* (No Comment) */
+"Sound: vibration" = "Endast vibration";
+
+/* (No Comment) */
+"Please wait..." = "Var god vänta...";
+
+/* (No Comment) */
+"Scan sensor" = "Skanna sensor";
+
+/* (No Comment) */
+"Retry pairing" = "Försök att parkoppla igen";
+
+/* (No Comment) */
+"Scanned sensor expired" = "Sensorn har gått ut";
+
+/* (No Comment) */
+"Ignore mute" = "Ignorera tyst läge";
+
+/* (No Comment) */
+"Retrieval interval" = "Uppdateringsintervall";
+
+/* (No Comment) */
+"Retrieval interval, every minute" = "Varje minut";
+
+/* (No Comment) */
+"Retrieval interval, every %1$@ minutes" = "Var %1$s:e minut";
+
+/* (No Comment) */
+"App donate" = "Donera";
+
+/* (No Comment) */
+"Bellman alarm" = "Larm";
+
+/* (No Comment) */
+"Bellman test alarm" = "Testa larm";
+
+/* (No Comment) */
+"Bellman telephone transceiver BT" = "Bellman sändare/mottagare BT";
+
+/* (No Comment) */
+"Find transmitter" = "Hitta sändare";
+
+/* (No Comment) */
+"Connect transmitter" = "Anslut sändare";
+
+/* (No Comment) */
+"Disconnect transmitter" = "Koppla från sändare";
+
+/* (No Comment) */
+"Rescan the sensor" = "Skanna om sensorn";
+
+/* (No Comment) */
+"Apple export settings" = "Apple Hälsa exportinställningar";
+
+/* (No Comment) */
+"Export to Apple Health" = "Exportera till Apple Hälsa";
+
+/* (No Comment) */
+"Export to Apple Calendar" = "Skapa kalenderhändelser";
+
+/* (No Comment) */
+"Glucose notification" = "Glucose notification";
+
+/* (No Comment) */
+"Notification settings" = "Notification settings";
+
+/* (No Comment) */
+"HIGH" = "HIGH";
+
+/* (No Comment) */
+"LOW" = "LOW";
+
+/* (No Comment) */
+"Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter.";
+
+/* (No Comment) */
+"The value from the blood glucose meter can then be added via 'List', at the top 'Add'." = "The value from the blood glucose meter can then be added via 'List', at the top 'Add'.";
+
+/* (No Comment) */
+"Transmitter ID" = "Identifier";
+
+/* (No Comment) */
+"Time" = "Time";
+
+/* (No Comment) */
+"Glucose" = "Glucose";
+
+/* (No Comment) */
+"Transmitter details" = "Transmitter details";
+
+/* (No Comment) */
+"Sensor" = "Sensor";
+
+/* (No Comment) */
+"Glucose widget" = "Glucose";
+
+/* (No Comment) */
+"Glucose widget description" = "Displays the last glucose value.";
+
+/* (No Comment) */
+"Sensor lifetime widget" = "Sensor Lifetime";
+
+/* (No Comment) */
+"Sensor lifetime widget description" = "Displays the remaining lifetime of the current sensor as a countdown.";
+
+/* (No Comment) */
+"Transmitter battery widget" = "Transmitter Battery";
+
+/* (No Comment) */
+"Transmitter battery widget description" = "Displays the remaining battery charge of the transmitter as a countdown.";
+
+/* (No Comment) */
+"Warmup" = "Warmup";
+
+/* (No Comment) */
+"No screen lock" = "No screen lock";
+
+/* (No Comment) */
+"LibreLink transmitter" = "LibreLink Transmitter";
