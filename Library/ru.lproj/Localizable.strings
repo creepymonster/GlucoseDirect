@@ -326,7 +326,7 @@
 "App version" = "Версия";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "Неизвестно";
 
 /* (No Comment) */
 "Invalid parameters" = "Неправильные параметры";
@@ -494,7 +494,7 @@
 "App donate" = "Donate";
 
 /* (No Comment) */
-"Bellman alarm" = "Alarm";
+"Bellman alarm" = "Тревога";
 
 /* (No Comment) */
 "Bellman test alarm" = "Test alarm";

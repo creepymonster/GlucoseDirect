@@ -14,7 +14,7 @@
 "Add glucose for calibration" = "新增校準血糖值";
 
 /* (No Comment) */
-"Add calibration" = "Add calibration";
+"Add calibration" = "新的校準值";
 
 /* (No Comment) */
 "Add blood glucose" = "Add blood glucose";
@@ -326,7 +326,7 @@
 "App version" = "版本";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "未知";
 
 /* (No Comment) */
 "Invalid parameters" = "無效參數";
@@ -539,7 +539,7 @@
 "Transmitter ID" = "Identifier";
 
 /* (No Comment) */
-"Time" = "Time";
+"Time" = "時間";
 
 /* (No Comment) */
 "Glucose" = "Glucose";
