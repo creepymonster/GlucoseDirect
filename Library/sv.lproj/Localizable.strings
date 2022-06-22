@@ -35,22 +35,10 @@
 "Alert, sensor expiring soon" = "Varning, sensor behöver snart bytas";
 
 /* (No Comment) */
-"Are you sure you want to add the new calibration?" = "Bekräfta att du vill lägga till ny kalibrering";
-
-/* (No Comment) */
-"Are you sure you want to delete all calibrations?" = "Bekräfta att du vill ta bort alla kalibreringar";
-
-/* (No Comment) */
 "Are you sure you want to delete all log files?" = "Bekräfta att du vill rensa loggfiler";
 
 /* (No Comment) */
-"Are you sure you want to delete all glucose values?" = "Bekräfta att du vill ta bort alla glukosvärden";
-
-/* (No Comment) */
 "Are you sure you want to disconnect the sensor?" = "Bekräfta att du vill koppla ifrån sensorn";
-
-/* (No Comment) */
-"Are you sure you want to unpair the sensor?" = "Bekräfta att du vill glömma parkoppling med sensor";
 
 /* (No Comment) */
 "Blood glucose: %1$@" = "Blodsocker: %1$@";
@@ -338,7 +326,7 @@
 "App version" = "Version";
 
 /* (No Comment) */
-"Unknown" = "Okänd";
+"Unknown" = "Unknown";
 
 /* (No Comment) */
 "Invalid parameters" = "Ogiltiga parametrar";
