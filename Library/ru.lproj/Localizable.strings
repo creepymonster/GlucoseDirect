@@ -8,21 +8,6 @@
 "%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
 
 /* (No Comment) */
-"0 - Unknown" = "0 - Неизвестно";
-
-/* (No Comment) */
-"1 - European" = "1 - европейский";
-
-/* (No Comment) */
-"2 - USA" = "2 - США";
-
-/* (No Comment) */
-"4 - Australian" = "4 - Австралия/Канада";
-
-/* (No Comment) */
-"8 - Eastern" = "8 - Ближний Восток, Азия";
-
-/* (No Comment) */
 "Add" = "Добавить";
 
 /* (No Comment) */
@@ -33,12 +18,6 @@
 
 /* (No Comment) */
 "Add blood glucose" = "Add blood glucose";
-
-/* (No Comment) */
-"Add glucose value" = "Добавьте значение глюкозы";
-
-/* (No Comment) */
-"Alarm Settings" = "Настройки сигнализации";
 
 /* (No Comment) */
 "Alert, high glucose" = "Тревога, высокий уровень глюкозы";
@@ -56,22 +35,10 @@
 "Alert, sensor expiring soon" = "Тревога, сенсор скоро закончится";
 
 /* (No Comment) */
-"Are you sure you want to add the new calibration?" = "Вы уверены что хотите добавить новую калибровку?";
-
-/* (No Comment) */
-"Are you sure you want to delete all calibrations?" = "Вы уверены что хотите удалить все калибровки?";
-
-/* (No Comment) */
 "Are you sure you want to delete all log files?" = "Вы уверены что хотите удалить все журналы?";
 
 /* (No Comment) */
-"Are you sure you want to delete all glucose values?" = "Вы уверены, что хотите удалить все значения глюкозы?";
-
-/* (No Comment) */
 "Are you sure you want to disconnect the sensor?" = "Вы уверены, что хотите отсоединить датчик?";
-
-/* (No Comment) */
-"Are you sure you want to unpair the sensor?" = "Вы уверены, что хотите разорвать связь с сенсором?";
 
 /* (No Comment) */
 "Blood glucose: %1$@" = "Глюкоза в крови: %1$@";
@@ -96,9 +63,6 @@
 
 /* (No Comment) */
 "Connection alarm" = "Тревога потери связи";
-
-/* (No Comment) */
-"Custom calibration" = "Калибровка";
 
 /* (No Comment) */
 "Custom calibration intercept" = "Смещение";
@@ -143,40 +107,7 @@
 "Hold the top edge of your iPhone close to the sensor." = "Держите верхнюю часть вашего iPhone рядом с сенсором.";
 
 /* (No Comment) */
-"Libre 1" = "Libre 1";
-
-/* (No Comment) */
-"Libre 2 CA" = "Libre 2 CA";
-
-/* (No Comment) */
-"Libre 2 EU" = "Libre 2 EU";
-
-/* (No Comment) */
-"Libre 2 US" = "Libre 2 США";
-
-/* (No Comment) */
-"Libre 3" = "Libre 3";
-
-/* (No Comment) */
-"Libre Pro/H" = "Libre Pro/H";
-
-/* (No Comment) */
-"Libre Sense" = "Libre Sense";
-
-/* (No Comment) */
-"Libre US 14d" = "Libre US 14d";
-
-/* (No Comment) */
 "Lower limit" = "Граница Низкого";
-
-/* (No Comment) */
-"mg/dL" = "mg/dl";
-
-/* (No Comment) */
-"mmol/L" = "ммоль/л";
-
-/* (No Comment) */
-"New calibration" = "Новая калибровка";
 
 /* (No Comment) */
 "Nightscout API-Secret" = "API secret";
@@ -195,9 +126,6 @@
 
 /* (No Comment) */
 "OK, sensor connection established" = "Соединение с сенсором установлено";
-
-/* (No Comment) */
-"Pair sensor" = "Подключить сенсор";
 
 /* (No Comment) */
 "Power off" = "Выключить";
@@ -305,12 +233,6 @@
 "Unknown" = "Неизвестно";
 
 /* (No Comment) */
-"Unpair" = "Отсоединить";
-
-/* (No Comment) */
-"Unpair sensor" = "Отключить сенсор";
-
-/* (No Comment) */
 "Upper limit" = "Высокий";
 
 /* (No Comment) */
@@ -350,22 +272,13 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Срок действия вашего датчика истекает. Замените датчик через %1$@ минут.";
 
 /* (No Comment) */
-"Other Settings" = "Другие параметры";
-
-/* (No Comment) */
 "Glucose badge" = "Значок глюкозы";
 
 /* (No Comment) */
 "Are you sure you want to add the new blood glucose value?" = "Вы уверены, что хотите добавить новое значение глюкозы крови?";
 
 /* (No Comment) */
-"Chart presentation" = "Диаграмма";
-
-/* (No Comment) */
 "Line" = "Линия";
-
-/* (No Comment) */
-"Points" = "Точки";
 
 /* (No Comment) */
 "Transmitter name" = "Имя";
@@ -618,12 +531,6 @@
 
 /* (No Comment) */
 "Notification settings" = "Notification settings";
-
-/* (No Comment) */
-"HIGH" = "HIGH";
-
-/* (No Comment) */
-"LOW" = "LOW";
 
 /* (No Comment) */
 "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter.";
