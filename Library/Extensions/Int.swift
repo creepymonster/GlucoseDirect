@@ -59,11 +59,19 @@ extension Int {
     }
 
     var inTime: String {
-        String(format: LocalizedString("%1$@d %2$@h %3$@min"), self.inDays.description, self.inHours.description, self.inMinutes.description)
+        return String(format: LocalizedString("%1$@d %2$@h %3$@min"), self.inDays.description, self.inHours.description, self.inMinutes.description)
     }
 
     var asMmolL: Decimal {
-        Double(self).asMmolL
+        return Double(self).asMmolL
+    }
+    
+    var asMgdL: Decimal {
+        return Decimal(self)
+    }
+    
+    func inPercent(of: Int) -> Double {
+        return 100.0 / Double(of) * Double(self)
     }
 
     func isAlmost(_ lower: Int, _ upper: Int) -> Bool {

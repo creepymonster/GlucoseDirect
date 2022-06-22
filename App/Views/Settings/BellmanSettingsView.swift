@@ -13,7 +13,7 @@ struct BellmanSettingsView: View {
     var body: some View {
         Section(
             content: {
-                ToggleView(key: LocalizedString("Bellman alarm"), value: store.state.bellmanAlarm) { value -> Void in
+                ToggleView(key: LocalizedString("Bellman alarm"), value: store.state.bellmanAlarm) { value in
                     store.dispatch(.setBellmanNotification(enabled: value))
                 }
 

@@ -7,6 +7,15 @@ import Combine
 import CoreBluetooth
 import Foundation
 
+// MARK: - SensorPeripheralType
+
+enum SensorPeripheralType {
+    case unknown
+    case foundPeripheral
+    case knownPeripheral
+    case connectedPeripheral
+}
+
 // MARK: - SensorBLEConnectionBase
 
 class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDelegate, CBPeripheralDelegate {
@@ -41,6 +50,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     var stayConnected = false
     var sensor: Sensor?
     var sensorInterval = 1
+    var peripheralType: SensorPeripheralType = .unknown
 
     var peripheralName: String {
         preconditionFailure("This property must be overridden")
@@ -92,7 +102,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
 
     func find() {
         DirectLog.info("Find")
-        
+
         guard manager != nil else {
             DirectLog.error("Guard: manager is nil")
             return
@@ -109,16 +119,28 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
            checkRetrievedPeripheral(peripheral: retrievedPeripheral)
         {
             DirectLog.info("Connect from retrievePeripherals")
+
+            if let connectedPeripheral = manager.retrieveConnectedPeripherals(withServices: [serviceUUID]).first,
+               connectedPeripheral.identifier == retrievedPeripheral.identifier
+            {
+                peripheralType = .connectedPeripheral
+            } else {
+                peripheralType = .knownPeripheral
+            }
+
             connect(retrievedPeripheral)
+
         } else {
             DirectLog.info("Scan for peripherals")
+
+            peripheralType = .foundPeripheral
             scan()
         }
     }
 
     func scan() {
         DirectLog.info("scan")
-        
+
         guard manager != nil else {
             DirectLog.error("Guard: manager is nil")
             return
@@ -130,7 +152,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
 
     func disconnect() {
         DirectLog.info("Disconnect")
-        
+
         guard manager != nil else {
             DirectLog.error("Guard: manager is nil")
             return
@@ -151,7 +173,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
 
     func connect(_ peripheral: CBPeripheral) {
         DirectLog.info("Connect: \(peripheral)")
-        
+
         guard manager != nil else {
             DirectLog.error("Guard: manager is nil")
             return
@@ -181,7 +203,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
             DirectLog.error("Guard: manager is nil")
             return
         }
-        
+
         if let manager = manager {
             switch manager.state {
             case .poweredOff:
@@ -203,7 +225,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
 
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         DirectLog.info("Peripheral: \(peripheral)")
-        
+
         guard manager != nil else {
             DirectLog.error("Guard: manager is nil")
             return

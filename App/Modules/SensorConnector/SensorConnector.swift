@@ -7,10 +7,10 @@ import Combine
 import Foundation
 
 func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo]) -> Middleware<AppState, AppAction> {
-    return sensorConnectorMiddelware(infos, subject: PassthroughSubject<AppAction, AppError>(), calibrationService: CalibrationService())
+    return sensorConnectorMiddelware(infos, subject: PassthroughSubject<AppAction, AppError>())
 }
 
-private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject: PassthroughSubject<AppAction, AppError>, calibrationService: CalibrationService) -> Middleware<AppState, AppAction> {
+private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject: PassthroughSubject<AppAction, AppError>) -> Middleware<AppState, AppAction> {
     return { state, action, _ in
         switch action {
         case .startup:
@@ -60,48 +60,36 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             }
 
         case .addSensorReadings(sensorSerial: _, readings: let readings):
-            if !readings.isEmpty {
-                let calibratedGlucose = readings.map { reading in
-                    calibrationService.withCalibration(customCalibration: state.customCalibration, reading: reading)
-                }
+            let readGlucoseValues = readings.map { reading in
+                reading.calibrate(customCalibration: state.customCalibration)
+            }
 
-                guard let lastCalibratedGlucose = calibratedGlucose.last else {
-                    break
-                }
+            let stdev = readGlucoseValues.count >= 5 ? readGlucoseValues.suffix(5).stdev : 0
+            let intervalSeconds = Double(state.sensorInterval * 60 - 30)
 
-                guard let lastCalibratedGlucoseValue = lastCalibratedGlucose.glucoseValue, lastCalibratedGlucose.quality == .OK else {
-                    return Just(.addGlucoseValues(glucoseValues: [lastCalibratedGlucose]))
-                        .setFailureType(to: AppError.self)
-                        .eraseToAnyPublisher()
-                }
-                
-                if let currentGlucose = state.currentGlucose, currentGlucose.timestamp >= lastCalibratedGlucose.timestamp {
-                    break
-                }
+            DirectLog.info("Stdev \(stdev) of \(readGlucoseValues.suffix(5).doubleValues)")
 
-                let filteredGlucose = calibratedGlucose.filter { glucose in
-                    glucose.quality == .OK && glucose.glucoseValue != nil
-                }
+            var previousGlucose = state.latestSensorGlucose
+            let glucoseValues = readGlucoseValues.filter { reading in
+                previousGlucose == nil || previousGlucose!.timestamp + intervalSeconds < reading.timestamp
+            }.map {
+                let glucose = $0.populateChange(previousGlucose: previousGlucose)
+                previousGlucose = glucose
 
-                let summedGlucose = lastCalibratedGlucoseValue + filteredGlucose.map { glucose in
-                    glucose.glucoseValue!
-                }.reduce(0, +)
+                return glucose
+            }
 
-                let nextGlucose = Glucose(
-                    id: lastCalibratedGlucose.id,
-                    timestamp: lastCalibratedGlucose.timestamp,
-                    initialGlucoseValue: lastCalibratedGlucose.initialGlucoseValue,
-                    calibratedGlucoseValue: Int(Double(summedGlucose) / Double(1 + filteredGlucose.count)),
-                    type: lastCalibratedGlucose.type,
-                    quality: lastCalibratedGlucose.quality
-                )
+            guard !glucoseValues.isEmpty else {
+                break
+            }
 
-                return Just(.addGlucoseValues(glucoseValues: [
-                    calibrationService.withMinuteChange(nextGlucose: nextGlucose, previousGlucose: state.currentGlucose)
-                ]))
+            guard stdev < 100 else {
+                break
+            }
+
+            return Just(.addGlucose(glucoseValues: glucoseValues))
                 .setFailureType(to: AppError.self)
                 .eraseToAnyPublisher()
-            }
 
         case .pairConnection:
             guard let sensorConnection = state.selectedConnection else {
@@ -141,8 +129,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             sensorConnection.disconnectConnection()
 
         case .setConnectionPaired(isPaired: let isPaired):
-            guard isPaired && state.isConnectable else {
-                DirectLog.info("Guard: sensor was not paired, no auto connect")
+            guard isPaired, state.isConnectable else {
                 break
             }
 

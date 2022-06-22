@@ -8,8 +8,9 @@ import SwiftUI
 // MARK: - ActionsView
 
 struct ActionsView: View {
+    // MARK: Internal
+
     @EnvironmentObject var store: AppStore
-    @State var showingDisconnectConnectionAlert = false
 
     var body: some View {
         if store.state.hasSelectedConnection {
@@ -25,9 +26,9 @@ struct ActionsView: View {
                         }
                     },
                     label: {
-                        Label("Find transmitter", systemImage: "magnifyingglass")
+                        Text("Find transmitter")
                     }
-                )
+                ).disabled(store.state.isBusy)
             }
 
             if store.state.isSensor {
@@ -42,7 +43,7 @@ struct ActionsView: View {
                         }
                     },
                     label: {
-                        Label("Scan sensor", systemImage: "viewfinder")
+                        Text("Scan sensor")
                     }
                 )
             }
@@ -57,9 +58,9 @@ struct ActionsView: View {
                         },
                         label: {
                             if store.state.isTransmitter {
-                                Label("Connect transmitter", systemImage: "play")
+                                Text("Connect transmitter")
                             } else {
-                                Label("Connect sensor", systemImage: "play")
+                                Text("Connect sensor")
                             }
                         }
                     )
@@ -70,9 +71,9 @@ struct ActionsView: View {
                         },
                         label: {
                             if store.state.isTransmitter {
-                                Label("Disconnect transmitter", systemImage: "stop")
+                                Text("Disconnect transmitter")
                             } else {
-                                Label("Disconnect sensor", systemImage: "stop")
+                                Text("Disconnect sensor")
                             }
                         }
                     ).alert(isPresented: $showingDisconnectConnectionAlert) {
@@ -90,4 +91,8 @@ struct ActionsView: View {
             }
         }
     }
+
+    // MARK: Private
+
+    @State private var showingDisconnectConnectionAlert = false
 }

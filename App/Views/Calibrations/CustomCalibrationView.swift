@@ -12,12 +12,6 @@ struct CustomCalibrationView: View {
 
     @EnvironmentObject var store: AppStore
 
-    @State var value: Int = 0
-    @State var showingDeleteCalibrationsAlert = false
-    @State var showingAddCalibrationView = false
-    @State var showingAddCalibrationsAlert = false
-    @State var customCalibration: [CustomCalibration] = []
-
     var body: some View {
         if showingAddCalibrationView {
             Section(
@@ -46,26 +40,25 @@ struct CustomCalibrationView: View {
 
                         Button(
                             action: {
-                                showingAddCalibrationsAlert = true
+                                withAnimation {
+                                    store.dispatch(.addCalibration(bloodGlucoseValue: value))
+                                    showingAddCalibrationView = false
+                                }
                             },
                             label: {
                                 Label("Add", systemImage: "checkmark")
                             }
-                        ).alert(isPresented: $showingAddCalibrationsAlert) {
-                            Alert(
-                                title: Text("Are you sure you want to add the new calibration?"),
-                                primaryButton: .destructive(Text("Add")) {
-                                    withAnimation {
-                                        store.dispatch(.addCalibration(glucoseValue: value))
-                                        showingAddCalibrationView = false
-                                    }
-                                },
-                                secondaryButton: .cancel()
-                            )
-                        }
-                    }
+                        )
+                    }.padding(.bottom)
                 }
             )
+        } else {
+            Button("Add calibration", action: {
+                withAnimation {
+                    value = 100
+                    showingAddCalibrationView = true
+                }
+            })
         }
 
         Section(
@@ -102,61 +95,19 @@ struct CustomCalibrationView: View {
                             }) {
                                 customCalibration.remove(at: index)
                             }
-                            
+
                             store.dispatch(.removeCalibration(id: id))
                         }
                     }
                 }
             },
             header: {
-                HStack {
-                    Label("Sensor custom calibration", systemImage: "person")
-
-                    if let currentGlucose = store.state.currentGlucose, !showingAddCalibrationView {
-                        Spacer()
-
-                        Button(
-                            action: {
-                                withAnimation {
-                                    value = currentGlucose.glucoseValue ?? 100
-                                    showingAddCalibrationView = true
-                                }
-                            },
-                            label: {
-                                Label("Add", systemImage: "plus")
-                            }
-                        )
-                    }
-                }
-            },
-            footer: {
-                if !showingAddCalibrationView && !customCalibration.isEmpty {
-                    Button(
-                        action: {
-                            showingDeleteCalibrationsAlert = true
-                        },
-                        label: {
-                            Label("Delete all", systemImage: "trash.fill")
-                        }
-                    ).alert(isPresented: $showingDeleteCalibrationsAlert) {
-                        Alert(
-                            title: Text("Are you sure you want to delete all calibrations?"),
-                            primaryButton: .destructive(Text("Delete")) {
-                                withAnimation {
-                                    store.dispatch(.clearCalibrations)
-                                }
-                            },
-                            secondaryButton: .cancel()
-                        )
-                    }
-                }
+                Label("Sensor custom calibration", systemImage: "person")
             }
-        )
-        .onAppear {
+        ).onAppear {
             DirectLog.info("onAppear")
             self.customCalibration = store.state.customCalibration.reversed()
-        }
-        .onChange(of: store.state.customCalibration) { customCalibration in
+        }.onChange(of: store.state.customCalibration) { customCalibration in
             DirectLog.info("onChange")
             self.customCalibration = customCalibration.reversed()
         }
@@ -165,6 +116,10 @@ struct CustomCalibrationView: View {
     // MARK: Private
 
     private static let factor: Double = 1_000_000
+
+    @State private var value: Int = 0
+    @State private var showingAddCalibrationView = false
+    @State private var customCalibration: [CustomCalibration] = []
 
     private var slope: Double {
         Double(round(CustomCalibrationView.factor * customCalibration.slope) / CustomCalibrationView.factor)

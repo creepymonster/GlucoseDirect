@@ -10,27 +10,6 @@ import Foundation
 struct FactoryCalibration: Codable {
     // MARK: Lifecycle
 
-    init(fram: Data) {
-        let i1 = readBits(fram, 2, 0, 3)
-        let i2 = readBits(fram, 2, 3, 0xa)
-
-        var i3 = Double(readBits(fram, 0x150, 0, 8))
-        if readBits(fram, 0x150, 0x21, 1) != 0 {
-            i3 = -i3
-        }
-
-        let i4 = Double(readBits(fram, 0x150, 8, 0xe))
-        let i5 = Double(readBits(fram, 0x150, 0x28, 0xc) << 2)
-        let i6 = Double(readBits(fram, 0x150, 0x34, 0xc) << 2)
-
-        self.i1 = i1
-        self.i2 = i2
-        self.i3 = i3
-        self.i4 = i4
-        self.i5 = i5
-        self.i6 = i6
-    }
-
     init(i1: Int, i2: Int, i3: Double, i4: Double, i5: Double, i6: Double) {
         self.i1 = i1
         self.i2 = i2
@@ -88,6 +67,41 @@ struct FactoryCalibration: Codable {
     }
 
     // MARK: Private
+}
+
+extension FactoryCalibration {
+    static func libreStyleCalibration(fram: Data) -> FactoryCalibration {
+        let i1 = readBits(fram, 2, 0, 3)
+        let i2 = readBits(fram, 2, 3, 0xa)
+
+        var i3 = Double(readBits(fram, 0x150, 0, 8))
+        if readBits(fram, 0x150, 0x21, 1) != 0 {
+            i3 = -i3
+        }
+
+        let i4 = Double(readBits(fram, 0x150, 8, 0xe))
+        let i5 = Double(readBits(fram, 0x150, 0x28, 0xc) << 2)
+        let i6 = Double(readBits(fram, 0x150, 0x34, 0xc) << 2)
+
+        return FactoryCalibration(i1: i1, i2: i2, i3: i3, i4: i4, i5: i5, i6: i6)
+    }
+    
+    static func libreProCalibration(fram: Data) -> FactoryCalibration {
+        let b = 14 + 42
+        let i1 = readBits(fram, 26, 0, 3)
+        let i2 = readBits(fram, 26, 3, 0xa)
+        
+        var i3 = Double(readBits(fram, b, 0, 8))
+        if readBits(fram, b, 0x21, 1) != 0 {
+            i3 = -i3
+        }
+        
+        let i4 = Double(readBits(fram, b, 8, 0xe))
+        let i5 = Double(readBits(fram, b, 0x28, 0xc) << 2)
+        let i6 = Double(readBits(fram, b, 0x34, 0xc) << 2)
+
+        return FactoryCalibration(i1: i1, i2: i2, i3: i3, i4: i4, i5: i5, i6: i6)
+    }
 }
 
 private func readBits(_ buffer: Data, _ byteOffset: Int, _ bitOffset: Int, _ bitCount: Int) -> Int {

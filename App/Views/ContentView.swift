@@ -11,6 +11,7 @@ struct ContentView: View {
     // MARK: Internal
 
     @EnvironmentObject var store: AppStore
+    @Environment(\.scenePhase) var scenePhase
 
     var body: some View {
         TabView(selection: selectedView) {
@@ -32,13 +33,17 @@ struct ContentView: View {
                 Label("Settings view", systemImage: "gearshape")
             }.tag(4)
         }
+        .onChange(of: scenePhase) { newPhase in
+            if newPhase == .background && store.state.preventScreenLock {
+                store.dispatch(.setPreventScreenLock(enabled: false))
+            }
+        }
         .onAppear {
             let apparence = UITabBarAppearance()
             apparence.configureWithOpaqueBackground()
 
             UITabBar.appearance().scrollEdgeAppearance = apparence
-        }
-        .animation(.default, value: store.state.selectedView)
+        }.animation(.default, value: store.state.selectedView)
     }
 
     // MARK: Private

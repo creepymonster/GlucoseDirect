@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - Libre2Connection
 
-final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
+class Libre2Connection: SensorBLEConnectionBase, IsSensor {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<AppAction, AppError>) {
@@ -57,7 +57,7 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
         }
 
         let unlockCount = UserDefaults.standard.libre2UnlockCount + 1
-        let unlockPayload = SensorUtility.streamingUnlockPayload(uuid: sensor!.uuid, patchInfo: sensor!.patchInfo, enableTime: 42, unlockCount: UInt16(unlockCount))
+        let unlockPayload = Libre2EUtility.streamingUnlockPayload(uuid: sensor!.uuid, patchInfo: sensor!.patchInfo, enableTime: 42, unlockCount: UInt16(unlockCount))
 
         UserDefaults.standard.libre2UnlockCount = unlockCount
 
@@ -123,27 +123,16 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
                 if characteristic.uuid == writeCharacteristicUUID {
                     writeCharacteristic = characteristic
 
-                    if let unlock = unlock() {
+                    if peripheralType != .connectedPeripheral, let unlock = unlock() {
                         peripheral.writeValue(unlock, for: characteristic, type: .withResponse)
                     }
                 }
             }
         }
-    }
 
-    func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
-        DirectLog.info("Peripheral: \(peripheral)")
-
-        sendUpdate(error: error)
-    }
-
-    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
-        DirectLog.info("Peripheral: \(peripheral)")
-
-        sendUpdate(error: error)
-
-        if characteristic.uuid == writeCharacteristicUUID {
-            peripheral.setNotifyValue(true, for: readCharacteristic!)
+        if let readCharacteristic = readCharacteristic {
+            peripheral.setNotifyValue(true, for: readCharacteristic)
+            lastUpdate = nil
         }
     }
 
@@ -174,44 +163,25 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
 
             if let sensor = sensor {
                 do {
-                    let decryptedBLE = Data(try SensorUtility.decryptBLE(uuid: sensor.uuid, data: rxBuffer))
-                    let parsedBLE = SensorUtility.parseBLE(calibration: sensor.factoryCalibration, data: decryptedBLE)
+                    let decryptedBLE = Data(try Libre2EUtility.decryptBLE(uuid: sensor.uuid, data: rxBuffer))
+                    let parsedBLE = Libre2EUtility.parseBLE(calibration: sensor.factoryCalibration, data: decryptedBLE)
 
-                    if (parsedBLE.age + 15) >= sensor.lifetime {
+                    if (parsedBLE.age + 30) >= sensor.lifetime {
                         sendUpdate(age: parsedBLE.age, state: .expired)
-                        lastReadings = []
 
-                    } else if let nextReading = parsedBLE.trend.last, parsedBLE.age > sensor.warmupTime {
+                    } else if parsedBLE.age > sensor.warmupTime {
                         sendUpdate(age: parsedBLE.age, state: .ready)
-                        
-                        if let lastReading = lastReadings.last, (nextReading.timestamp.timeIntervalSince1970 - lastReading.timestamp.timeIntervalSince1970) > 90 {
-                            DirectLog.info("Time difference of the read values too large: \(nextReading.timestamp.timeIntervalSince1970 - lastReading.timestamp.timeIntervalSince1970)")
-                            
-                            lastReadings = [nextReading]
-                        } else {
-                            DirectLog.info("Time difference of the read values is OK or this is the first read")
-                            
-                            var lastReadings = self.lastReadings + [nextReading]
 
-                            let overLimit = lastReadings.count - 5
-                            if overLimit > 0 {
-                                lastReadings = Array(lastReadings.dropFirst(overLimit))
-                            }
-
-                            self.lastReadings = lastReadings
+                        let intervalSeconds = Double(sensorInterval * 60 - 30)
+                        if sensorInterval == 1 || lastUpdate == nil || lastUpdate! + intervalSeconds <= Date() {
+                            lastUpdate = Date()
+                            sendUpdate(sensorSerial: sensor.serial ?? "", readings: parsedBLE.history + parsedBLE.trend)
                         }
                     } else if parsedBLE.age <= sensor.warmupTime {
                         sendUpdate(age: parsedBLE.age, state: .starting)
-                        lastReadings = []
                     }
                 } catch {
                     DirectLog.error("Cannot process BLE data: \(error.localizedDescription)")
-                }
-
-                let intervalSeconds = sensorInterval * 60 - 45
-                if sensorInterval == 1 || lastUpdate == nil || lastUpdate! + Double(intervalSeconds) <= Date() {
-                    lastUpdate = Date()
-                    sendUpdate(sensorSerial: sensor.serial ?? "", readings: lastReadings)
                 }
             }
 
@@ -242,7 +212,6 @@ final class Libre2Connection: SensorBLEConnectionBase, IsSensor {
     private var thirdBuffer = Data()
 
     private var lastUpdate: Date?
-    private var lastReadings: [SensorReading] = []
 }
 
 private extension UserDefaults {

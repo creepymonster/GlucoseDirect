@@ -16,27 +16,29 @@ func appleHealthExportMiddleware() -> Middleware<AppState, AppAction> {
 private func appleHealthExportMiddleware(service: LazyService<AppleHealthExportService>) -> Middleware<AppState, AppAction> {
     return { state, action, _ in
         switch action {
-        case .setAppleHealthExport(enabled: let enabled):
+        case .requestAppleHealthAccess(enabled: let enabled):
             if enabled {
                 if !service.value.healthStoreAvailable {
-                    return Just(AppAction.setAppleHealthExport(enabled: false))
-                        .setFailureType(to: AppError.self)
-                        .eraseToAnyPublisher()
+                    break
                 }
 
                 return Future<AppAction, AppError> { promise in
                     service.value.requestAccess { granted in
                         if !granted {
-                            promise(.success(.setAppleHealthExport(enabled: false)))
+                            promise(.failure(.withMessage("Calendar access declined")))
 
                         } else {
-                            promise(.failure(.withMessage("Calendar access declined")))
+                            promise(.success(.setAppleHealthExport(enabled: true)))
                         }
                     }
                 }.eraseToAnyPublisher()
+            } else {
+                return Just(AppAction.setAppleHealthExport(enabled: false))
+                    .setFailureType(to: AppError.self)
+                    .eraseToAnyPublisher()
             }
 
-        case .addGlucoseValues(glucoseValues: let glucoseValues):
+        case .addGlucose(glucoseValues: let glucoseValues):
             guard state.appleHealthExport else {
                 DirectLog.info("Guard: state.appleHealth is false")
                 break
@@ -47,15 +49,7 @@ private func appleHealthExportMiddleware(service: LazyService<AppleHealthExportS
                 break
             }
 
-            let filteredGlucoseValues = glucoseValues.filter { glucose in
-                glucose.type != .none
-            }
-
-            guard !filteredGlucoseValues.isEmpty else {
-                break
-            }
-
-            service.value.addGlucose(glucoseValues: filteredGlucoseValues)
+            service.value.addGlucose(glucoseValues: glucoseValues)
 
         default:
             break
@@ -85,7 +79,7 @@ private class AppleHealthExportService {
     }
 
     var requiredPermissions: Set<HKSampleType> {
-        Set([glucoseType].compactMap { $0 })
+        Set([glucoseType])
     }
 
     var healthStoreAvailable: Bool {
@@ -107,11 +101,6 @@ private class AppleHealthExportService {
     }
 
     func addGlucose(glucoseValues: [Glucose]) {
-        guard !glucoseValues.isEmpty else {
-            DirectLog.info("Guard: glucoseValues.count not > 0")
-            return
-        }
-
         guard let healthStore = healthStore else {
             return
         }
@@ -122,22 +111,23 @@ private class AppleHealthExportService {
                 return
             }
 
-            let healthGlucoseValues = glucoseValues.map {
+            let healthGlucoseValues = glucoseValues.filter { glucose in
+                (glucose.type == .bgm || glucose.type == .cgm) && glucose.glucoseValue != nil
+            }.map { glucose in
                 HKQuantitySample(
                     type: self.glucoseType,
-                    quantity: HKQuantity(unit: .milligramsPerDeciliter, doubleValue: Double($0.glucoseValue!)),
-                    start: $0.timestamp,
-                    end: $0.timestamp,
+                    quantity: HKQuantity(unit: .milligramsPerDeciliter, doubleValue: Double(glucose.glucoseValue!)),
+                    start: glucose.timestamp,
+                    end: glucose.timestamp,
                     metadata: [
-                        HKMetadataKeyExternalUUID: $0.id.uuidString,
-                        HKMetadataKeySyncIdentifier: $0.id.uuidString,
+                        HKMetadataKeyExternalUUID: glucose.id.uuidString,
+                        HKMetadataKeySyncIdentifier: glucose.id.uuidString,
                         HKMetadataKeySyncVersion: 1
                     ]
                 )
-            }
+            }.compactMap { $0 }
 
             guard !healthGlucoseValues.isEmpty else {
-                DirectLog.info("Guard: healthGlucoseValues.count not > 0")
                 return
             }
 
