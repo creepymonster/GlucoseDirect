@@ -326,7 +326,7 @@
 "App version" = "Sürüm";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "Bilinmeyen";
 
 /* (No Comment) */
 "Invalid parameters" = "Geçersiz parametreler";
@@ -569,7 +569,7 @@
 "Transmitter battery widget description" = "Displays the remaining battery charge of the transmitter as a countdown.";
 
 /* (No Comment) */
-"Warmup" = "Warmup";
+"Warmup" = "Isınma";
 
 /* (No Comment) */
 "No screen lock" = "No screen lock";
