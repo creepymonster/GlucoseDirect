@@ -8,21 +8,6 @@
 "%1$@d %2$@h %3$@min" = "%1$@d %2$@小时 %3$@分钟";
 
 /* (No Comment) */
-"0 - Unknown" = "0 - 未知";
-
-/* (No Comment) */
-"1 - European" = "1 - 欧洲";
-
-/* (No Comment) */
-"2 - USA" = "2 - 美国";
-
-/* (No Comment) */
-"4 - Australian" = "4 - Australia/Canada";
-
-/* (No Comment) */
-"8 - Eastern" = "8 - Middle East, Asia";
-
-/* (No Comment) */
 "Add" = "添加";
 
 /* (No Comment) */
@@ -33,12 +18,6 @@
 
 /* (No Comment) */
 "Add blood glucose" = "Add blood glucose";
-
-/* (No Comment) */
-"Add glucose value" = "添加葡萄糖值";
-
-/* (No Comment) */
-"Alarm Settings" = "报警设置";
 
 /* (No Comment) */
 "Alert, high glucose" = "警告，高血糖";
@@ -56,22 +35,10 @@
 "Alert, sensor expiring soon" = "警报，传感器即将到期";
 
 /* (No Comment) */
-"Are you sure you want to add the new calibration?" = "你确定你要添加新的校准吗？";
-
-/* (No Comment) */
-"Are you sure you want to delete all calibrations?" = "您确定要删除所有校准吗？";
-
-/* (No Comment) */
 "Are you sure you want to delete all log files?" = "你确定你要删除所有的日志文件吗？";
 
 /* (No Comment) */
-"Are you sure you want to delete all glucose values?" = "你确定你要删除所有的葡萄糖值吗？";
-
-/* (No Comment) */
 "Are you sure you want to disconnect the sensor?" = "你确定你要断开传感器的连接吗？";
-
-/* (No Comment) */
-"Are you sure you want to unpair the sensor?" = "你确定你要解除传感器的配对吗？";
 
 /* (No Comment) */
 "Blood glucose: %1$@" = "血糖。 %1$@";
@@ -96,9 +63,6 @@
 
 /* (No Comment) */
 "Connection alarm" = "连接报警";
-
-/* (No Comment) */
-"Custom calibration" = "校准";
 
 /* (No Comment) */
 "Custom calibration intercept" = "截距";
@@ -143,40 +107,7 @@
 "Hold the top edge of your iPhone close to the sensor." = "握住你的iPhone顶部边缘，靠近传感器。";
 
 /* (No Comment) */
-"Libre 1" = "Libre 1";
-
-/* (No Comment) */
-"Libre 2 CA" = "Libre 2 CA";
-
-/* (No Comment) */
-"Libre 2 EU" = "Libre 2 EU";
-
-/* (No Comment) */
-"Libre 2 US" = "Libre 2 US";
-
-/* (No Comment) */
-"Libre 3" = "Libre 3";
-
-/* (No Comment) */
-"Libre Pro/H" = "Libre Pro/H";
-
-/* (No Comment) */
-"Libre Sense" = "Libre Sense";
-
-/* (No Comment) */
-"Libre US 14d" = "Libre US 14d";
-
-/* (No Comment) */
 "Lower limit" = "低";
-
-/* (No Comment) */
-"mg/dL" = "mg/dL";
-
-/* (No Comment) */
-"mmol/L" = "mmol/L";
-
-/* (No Comment) */
-"New calibration" = "新校准";
 
 /* (No Comment) */
 "Nightscout API-Secret" = "API密钥";
@@ -195,9 +126,6 @@
 
 /* (No Comment) */
 "OK, sensor connection established" = "OK，传感器连接建立";
-
-/* (No Comment) */
-"Pair sensor" = "配对传感器";
 
 /* (No Comment) */
 "Power off" = "关机";
@@ -305,12 +233,6 @@
 "Unknown" = "未知";
 
 /* (No Comment) */
-"Unpair" = "取消配对";
-
-/* (No Comment) */
-"Unpair sensor" = "解除配对传感器";
-
-/* (No Comment) */
 "Upper limit" = "高";
 
 /* (No Comment) */
@@ -350,22 +272,13 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "您的传感器即将过期。在 %1$@ 分钟内更换传感器。";
 
 /* (No Comment) */
-"Other Settings" = "其它设置";
-
-/* (No Comment) */
 "Glucose badge" = "Glucose 标志";
 
 /* (No Comment) */
 "Are you sure you want to add the new blood glucose value?" = "你确定要添加新的血糖值吗？";
 
 /* (No Comment) */
-"Chart presentation" = "图表展示";
-
-/* (No Comment) */
 "Line" = "线";
-
-/* (No Comment) */
-"Points" = "点";
 
 /* (No Comment) */
 "Transmitter name" = "名称";
@@ -618,12 +531,6 @@
 
 /* (No Comment) */
 "Notification settings" = "Notification settings";
-
-/* (No Comment) */
-"HIGH" = "HIGH";
-
-/* (No Comment) */
-"LOW" = "LOW";
 
 /* (No Comment) */
 "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter.";
