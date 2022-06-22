@@ -35,22 +35,10 @@
 "Alert, sensor expiring soon" = "Uyarı, sensör süresi yakında sona eriyor";
 
 /* (No Comment) */
-"Are you sure you want to add the new calibration?" = "Yeni kalibrasyonu eklemek istediğinizden emin misiniz?";
-
-/* (No Comment) */
-"Are you sure you want to delete all calibrations?" = "Tüm kalibrasyonları silmek istediğinizden emin misiniz?";
-
-/* (No Comment) */
 "Are you sure you want to delete all log files?" = "Tüm günlük dosyalarını silmek istediğinizden emin misiniz?";
 
 /* (No Comment) */
-"Are you sure you want to delete all glucose values?" = "Tüm glikoz değerlerini silmek istediğinizden emin misiniz?";
-
-/* (No Comment) */
 "Are you sure you want to disconnect the sensor?" = "Sensörün bağlantısını kesmek istediğinizden emin misiniz?";
-
-/* (No Comment) */
-"Are you sure you want to unpair the sensor?" = "Sensörün eşleşmesini kaldırmak istediğinizden emin misiniz?";
 
 /* (No Comment) */
 "Blood glucose: %1$@" = "KŞ: %1$@";
@@ -338,7 +326,7 @@
 "App version" = "Sürüm";
 
 /* (No Comment) */
-"Unknown" = "Bilinmeyen";
+"Unknown" = "Unknown";
 
 /* (No Comment) */
 "Invalid parameters" = "Geçersiz parametreler";
