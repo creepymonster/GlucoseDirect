@@ -35,22 +35,10 @@
 "Alert, sensor expiring soon" = "Alert, sensor expiring soon";
 
 /* (No Comment) */
-"Are you sure you want to add the new calibration?" = "Are you sure you want to add the new calibration?";
-
-/* (No Comment) */
-"Are you sure you want to delete all calibrations?" = "Are you sure you want to delete all calibrations?";
-
-/* (No Comment) */
 "Are you sure you want to delete all log files?" = "Are you sure you want to delete all log files?";
 
 /* (No Comment) */
-"Are you sure you want to delete all glucose values?" = "Are you sure you want to delete all glucose values?";
-
-/* (No Comment) */
 "Are you sure you want to disconnect the sensor?" = "Are you sure you want to disconnect the sensor?";
-
-/* (No Comment) */
-"Are you sure you want to unpair the sensor?" = "Are you sure you want to unpair the sensor?";
 
 /* (No Comment) */
 "Blood glucose: %1$@" = "Blood glucose: %1$@";
