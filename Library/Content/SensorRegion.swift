@@ -9,7 +9,7 @@ enum SensorRegion: String, Codable {
     case unknown = "0 - Unknown"
     case european = "1 - European"
     case usa = "2 - USA"
-    case australian = "4 - Australian"
+    case australian = "4 - Australia/Canada"
     case eastern = "8 - Eastern"
 
     // MARK: Lifecycle
