@@ -29,7 +29,7 @@
 "Add glucose for calibration" = "Glucose voor kalibratie toevoegen";
 
 /* (No Comment) */
-"Add calibration" = "Add calibration";
+"Add calibration" = "Kalibratie toevoegen";
 
 /* (No Comment) */
 "Add blood glucose" = "Add blood glucose";
@@ -122,25 +122,7 @@
 "Disconnected" = "Verbinding verbroken";
 
 /* (No Comment) */
-"Factory calibration i1" = "i1";
-
-/* (No Comment) */
-"Factory calibration i2" = "i2";
-
-/* (No Comment) */
-"Factory calibration i3" = "i3";
-
-/* (No Comment) */
-"Factory calibration i4" = "i4";
-
-/* (No Comment) */
-"Factory calibration i5" = "i5";
-
-/* (No Comment) */
-"Factory calibration i6" = "i6";
-
-/* (No Comment) */
-"Glucose alarm" = "Glucose alarm";
+"Glucose alarm" = "Glucosewaarden";
 
 /* (No Comment) */
 "Glucose list view" = "Lijst";
@@ -254,13 +236,13 @@
 "Sensor in starting phase" = "Sensor in starting phase";
 
 /* (No Comment) */
-"Sensor is expired" = "Sensor is expired";
+"Sensor is expired" = "Sensor verlopen";
 
 /* (No Comment) */
 "Sensor is ready" = "Sensor is ready";
 
 /* (No Comment) */
-"Sensor is shut down" = "Sensor is expired";
+"Sensor is shut down" = "Sensor verlopen";
 
 /* (No Comment) */
 "Sensor lifetime" = "Lifetime";
@@ -570,69 +552,6 @@
 
 /* (No Comment) */
 "High glucose alarm" = "High glucose alarm";
-
-/* (No Comment) */
-"Sound: achievement" = "Achievement";
-
-/* (No Comment) */
-"Sound: none" = "None";
-
-/* (No Comment) */
-"Sound: alarm" = "Alarm";
-
-/* (No Comment) */
-"Sound: buzz-beep" = "Buzz-Beep";
-
-/* (No Comment) */
-"Sound: chiptone" = "Chiptone";
-
-/* (No Comment) */
-"Sound: climb-rope" = "Climb-Rope";
-
-/* (No Comment) */
-"Sound: coin-chime" = "Coin-Chime";
-
-/* (No Comment) */
-"Sound: coin-insert" = "Coin-Insert";
-
-/* (No Comment) */
-"Sound: collect-point" = "Collect-Point";
-
-/* (No Comment) */
-"Sound: expiring" = "Expiring";
-
-/* (No Comment) */
-"Sound: failure" = "Failure";
-
-/* (No Comment) */
-"Sound: future" = "Future";
-
-/* (No Comment) */
-"Sound: highlight" = "Highlight";
-
-/* (No Comment) */
-"Sound: hit" = "Hit";
-
-/* (No Comment) */
-"Sound: jump" = "Jump";
-
-/* (No Comment) */
-"Sound: long-alarm" = "Long-alarm";
-
-/* (No Comment) */
-"Sound: lose" = "Lose";
-
-/* (No Comment) */
-"Sound: low-battery" = "Batterij bijna leeg";
-
-/* (No Comment) */
-"Sound: negative" = "Negatief";
-
-/* (No Comment) */
-"Sound: ping" = "Ping";
-
-/* (No Comment) */
-"Sound: positive" = "Positief";
 
 /* (No Comment) */
 "Sound: vibration" = "Alleen trillen";
