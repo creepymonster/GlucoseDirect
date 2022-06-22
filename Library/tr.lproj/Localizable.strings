@@ -122,24 +122,6 @@
 "Disconnected" = "Bağlantı kesildi";
 
 /* (No Comment) */
-"Factory calibration i1" = "i1";
-
-/* (No Comment) */
-"Factory calibration i2" = "i2";
-
-/* (No Comment) */
-"Factory calibration i3" = "i3";
-
-/* (No Comment) */
-"Factory calibration i4" = "i4";
-
-/* (No Comment) */
-"Factory calibration i5" = "i5";
-
-/* (No Comment) */
-"Factory calibration i6" = "i6";
-
-/* (No Comment) */
 "Glucose alarm" = "Glikoz alarmı";
 
 /* (No Comment) */
@@ -570,69 +552,6 @@
 
 /* (No Comment) */
 "High glucose alarm" = "Yüksek glikoz alarmı";
-
-/* (No Comment) */
-"Sound: achievement" = "Başarım";
-
-/* (No Comment) */
-"Sound: none" = "Yok";
-
-/* (No Comment) */
-"Sound: alarm" = "Alarm";
-
-/* (No Comment) */
-"Sound: buzz-beep" = "Buzz-Beep";
-
-/* (No Comment) */
-"Sound: chiptone" = "Chiptone";
-
-/* (No Comment) */
-"Sound: climb-rope" = "Climb-Rope";
-
-/* (No Comment) */
-"Sound: coin-chime" = "Coin-Chime";
-
-/* (No Comment) */
-"Sound: coin-insert" = "Coin-Insert";
-
-/* (No Comment) */
-"Sound: collect-point" = "Collect-Point";
-
-/* (No Comment) */
-"Sound: expiring" = "Süre doluyor";
-
-/* (No Comment) */
-"Sound: failure" = "Hatalı";
-
-/* (No Comment) */
-"Sound: future" = "İleride";
-
-/* (No Comment) */
-"Sound: highlight" = "Vurgula";
-
-/* (No Comment) */
-"Sound: hit" = "Tıklanma";
-
-/* (No Comment) */
-"Sound: jump" = "Zıpla";
-
-/* (No Comment) */
-"Sound: long-alarm" = "Uzun-Alarm";
-
-/* (No Comment) */
-"Sound: lose" = "Kayıp";
-
-/* (No Comment) */
-"Sound: low-battery" = "Düşük-Pil";
-
-/* (No Comment) */
-"Sound: negative" = "Negatif";
-
-/* (No Comment) */
-"Sound: ping" = "Ping";
-
-/* (No Comment) */
-"Sound: positive" = "Pozitif";
 
 /* (No Comment) */
 "Sound: vibration" = "Sadece titreşim";
