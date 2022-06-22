@@ -16,12 +16,20 @@ func readAloudMiddelware() -> Middleware<AppState, AppAction> {
 private func readAloudMiddelware(service: LazyService<ReadAloudService>) -> Middleware<AppState, AppAction> {
     return { state, action, _ in
         switch action {
-        case .addGlucoseValues(glucoseValues: let glucoseValues):
+        case .addGlucose(glucoseValues: let glucoseValues):
             guard state.readGlucose else {
                 break
             }
+            
+            guard let glucose = glucoseValues.last else {
+                break
+            }
 
-            service.value.readGlucoseValues(sensorInterval: state.sensorInterval, glucoseValues: glucoseValues, glucoseUnit: state.glucoseUnit, alarmLow: state.alarmLow, alarmHigh: state.alarmHigh)
+            guard glucose.type == .cgm else {
+                break
+            }
+
+            service.value.readGlucose(sensorInterval: state.sensorInterval, glucose: glucose, glucoseUnit: state.glucoseUnit, alarmLow: state.alarmLow, alarmHigh: state.alarmHigh)
 
         default:
             break
@@ -42,19 +50,7 @@ private class ReadAloudService {
 
     // MARK: Internal
 
-    func readGlucoseValues(sensorInterval: Int, glucoseValues: [Glucose], glucoseUnit: GlucoseUnit, alarmLow: Int, alarmHigh: Int) {
-        DirectLog.info("readGlucoseValues: \(glucoseValues.count) \(glucoseUnit.localizedString)")
-
-        guard let glucose = glucoseValues.last else {
-            DirectLog.info("Guard: glucoseValues.last is nil")
-            return
-        }
-
-        guard glucose.type != .bgm else {
-            DirectLog.info("Guard: glucose.type is .bgm")
-            return
-        }
-
+    func readGlucose(sensorInterval: Int, glucose: Glucose, glucoseUnit: GlucoseUnit, alarmLow: Int, alarmHigh: Int) {
         guard let glucoseValue = glucose.glucoseValue else {
             DirectLog.info("Guard: glucose.glucoseValue is nil")
             return
@@ -67,17 +63,13 @@ private class ReadAloudService {
             alarm = .high
         }
 
-        if alarm != self.alarm || (glucose.is5Minutely && alarm != .none) || sensorInterval > 1 {
+        if glucose.is5Minutely && alarm != .none || alarm != self.alarm || sensorInterval > 1 {
             read(glucoseValue: glucoseValue, glucoseUnit: glucoseUnit, glucoseTrend: glucose.trend, alarm: alarm)
 
             self.glucose = glucose
             self.alarm = alarm
-        } else if glucoseValues.count > 1 || glucose.is10Minutely || self.glucose == nil || self.glucose!.trend != glucose.trend || self.glucose!.type != glucose.type {
-            if glucose.type == .cgm {
-                read(glucoseValue: glucoseValue, glucoseUnit: glucoseUnit, glucoseTrend: glucose.trend)
-            } else if glucose.type == .none {
-                read(text: LocalizedString("Attention, faulty value received"))
-            }
+        } else if glucose.is10Minutely || self.glucose == nil || self.glucose?.trend != glucose.trend || self.glucose?.type != glucose.type {
+            read(glucoseValue: glucoseValue, glucoseUnit: glucoseUnit, glucoseTrend: glucose.trend)
 
             self.glucose = glucose
             self.alarm = alarm
@@ -86,9 +78,7 @@ private class ReadAloudService {
 
     // MARK: Private
 
-    private lazy var speechSynthesizer: AVSpeechSynthesizer = {
-        AVSpeechSynthesizer()
-    }()
+    private lazy var speechSynthesizer: AVSpeechSynthesizer = .init()
 
     private var glucose: Glucose?
     private var alarm: AlarmType = .none
@@ -97,13 +87,13 @@ private class ReadAloudService {
         for availableVoice in AVSpeechSynthesisVoice.speechVoices() {
             if availableVoice.language == AVSpeechSynthesisVoice.currentLanguageCode(), availableVoice.quality == AVSpeechSynthesisVoiceQuality.enhanced {
                 DirectLog.info("Found enhanced voice: \(availableVoice.name)")
-                
+
                 return availableVoice
             }
         }
 
         DirectLog.info("Use default voice for language")
-        
+
         return AVSpeechSynthesisVoice(language: AVSpeechSynthesisVoice.currentLanguageCode())
     }()
 

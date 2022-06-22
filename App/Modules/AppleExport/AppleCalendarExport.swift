@@ -16,15 +16,15 @@ func appleCalendarExportMiddleware() -> Middleware<AppState, AppAction> {
 private func appleCalendarExportMiddleware(service: LazyService<AppleCalendarExportService>) -> Middleware<AppState, AppAction> {
     return { state, action, _ in
         switch action {
-        case .setAppleCalendarExport(enabled: let enabled):
+        case .requestAppleCalendarAccess(enabled: let enabled):
             if enabled {
                 return Future<AppAction, AppError> { promise in
                     service.value.requestAccess { granted in
                         if !granted {
-                            promise(.success(.setAppleCalendarExport(enabled: false)))
+                            promise(.failure(.withMessage("Calendar access declined")))
 
                         } else {
-                            promise(.failure(.withMessage("Calendar access declined")))
+                            promise(.success(.setAppleCalendarExport(enabled: true)))
                         }
                     }
                 }.eraseToAnyPublisher()
@@ -33,24 +33,14 @@ private func appleCalendarExportMiddleware(service: LazyService<AppleCalendarExp
                 // clear events on disable
                 service.value.clearGlucoseEvents()
 
-                return Just(AppAction.selectCalendarTarget(id: nil))
+                return Just(AppAction.setAppleCalendarExport(enabled: false))
                     .setFailureType(to: AppError.self)
                     .eraseToAnyPublisher()
             }
 
-        case .addGlucoseValues(glucoseValues: let glucoseValues):
+        case .addGlucose(glucoseValues: let glucoseValues):
             guard state.appleCalendarExport else {
                 DirectLog.info("Guard: state.calendarExport disabled")
-                break
-            }
-
-            guard let glucose = glucoseValues.last else {
-                DirectLog.info("Guard: glucoseValues.last is nil")
-                break
-            }
-
-            guard glucose.type == .cgm else {
-                DirectLog.info("Guard: glucose.type is not .cgm")
                 break
             }
 
@@ -59,7 +49,16 @@ private func appleCalendarExportMiddleware(service: LazyService<AppleCalendarExp
                 break
             }
 
-            service.value.createGlucoseEvent(calendarTarget: calendarTarget, glucose: glucose, glucoseUnit: state.glucoseUnit)
+            guard let glucose = glucoseValues.last else {
+                break
+            }
+
+            guard glucose.type == .cgm else {
+                DirectLog.info("Guard: glucose.type is not .cgm")
+                break
+            }
+
+            service.value.addGlucose(calendarTarget: calendarTarget, glucose: glucose, glucoseUnit: state.glucoseUnit)
 
         default:
             break
@@ -120,7 +119,7 @@ class AppleCalendarExportService {
         }
     }
 
-    func createGlucoseEvent(calendarTarget: String, glucose: Glucose, glucoseUnit: GlucoseUnit) {
+    func addGlucose(calendarTarget: String, glucose: Glucose, glucoseUnit: GlucoseUnit) {
         if calendar == nil || calendar?.title != calendarTarget {
             calendar = eventStore.calendars(for: .event).first(where: { $0.title == calendarTarget })
         }

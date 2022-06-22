@@ -30,16 +30,8 @@ private func nightscoutMiddleware(service: LazyService<NightscoutService>) -> Mi
             case .clearGlucoseValues:
                 service.value.clearGlucoseValues(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1())
 
-            case .addGlucoseValues(glucoseValues: let glucoseValues):
-                let filteredGlucoseValues = glucoseValues.filter { glucose in
-                    glucose.type != .none
-                }
-
-                guard !filteredGlucoseValues.isEmpty else {
-                    break
-                }
-
-                service.value.addGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: filteredGlucoseValues)
+            case .addGlucose(glucoseValues: let glucoseValues):
+                service.value.addGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: glucoseValues)
 
             case .setSensorState(sensorAge: _, sensorState: _):
                 guard let sensor = state.sensor, sensor.startTimestamp != nil else {
@@ -182,7 +174,9 @@ private class NightscoutService {
     }
 
     func addGlucose(nightscoutURL: String, apiSecret: String, glucoseValues: [Glucose]) {
-        let nightscoutValues = glucoseValues.map { $0.toNightscoutGlucose() }
+        let nightscoutValues = glucoseValues.map { glucose in
+            glucose.toNightscoutGlucose()
+        }.compactMap { $0 }
 
         guard let nightscoutJson = try? JSONSerialization.data(withJSONObject: nightscoutValues) else {
             return
@@ -304,7 +298,11 @@ private extension Sensor {
 }
 
 private extension Glucose {
-    func toNightscoutGlucose() -> [String: Any] {
+    func toNightscoutGlucose() -> [String: Any]? {
+        guard let glucoseValue = glucoseValue else {
+            return nil
+        }
+
         var nightscout: [String: Any] = [
             "_id": id.uuidString,
             "device": DirectConfig.projectName,
@@ -318,7 +316,7 @@ private extension Glucose {
         } else if type == .cgm {
             nightscout["type"] = "sgv"
             nightscout["sgv"] = glucoseValue
-            nightscout["rawbg"] = initialGlucoseValue
+            nightscout["rawbg"] = rawGlucoseValue
             nightscout["direction"] = trend.toNightscoutDirection()
             nightscout["trend"] = trend.toNightscoutTrend()
         }

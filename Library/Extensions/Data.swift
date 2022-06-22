@@ -10,9 +10,9 @@ extension Data {
     var hex: String {
         map { String(format: "%02X", $0) }.joined(separator: " ")
     }
-
-    func toBase64() -> String {
-        self.base64EncodedString()
+    
+    var utf8: String {
+        String(decoding: self, as: UTF8.self)
     }
 
     init?(hexString: String) {

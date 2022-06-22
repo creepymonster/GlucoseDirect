@@ -16,24 +16,16 @@ private enum Keys: String {
     case chartShowLines = "libre-direct.settings.chart-show-lines"
     case chartZoomLevel = "libre-direct.settings.chart-zoom-level"
     case connectionAlarmSound = "libre-direct.settings.connection-alarm-sound"
+    case connectionPeripheralUUID = "libre-direct.sensor-ble-connection.peripheral-uuid"
     case customCalibration = "libre-direct.settings.custom-calibration"
     case expiringAlarmSound = "libre-direct.settings.expiring-alarm-sound"
     case glucoseNotification = "libre-direct.settings.glucose-badge"
     case glucoseUnit = "libre-direct.settings.glucose-unit"
-    case glucoseValues = "libre-direct.settings.glucose-value-array"
+    case glucoseValues = "libre-direct.settings.glucose-values"
     case highGlucoseAlarmSound = "libre-direct.settings.high-glucose-alarm-sound"
-    case isConnectionPaired = "libre-direct.settings.is-paired"
     case ignoreMute = "libre-direct.settings.ignore-mute"
-    case sharedGlucose = "latestReadings"
-    case sharedSensor = "glucosedirect--sensor"
-    case sharedSensorState = "glucosedirect--sensor-state"
-    case sharedSensorConnectionState = "glucosedirect--sensor-connection-state"
-    case sharedApp = "glucosedirect--app"
-    case sharedAppVersion = "glucosedirect--app-version"
-    case sharedTransmitter = "glucosedirect--transmitter"
-    case sharedTransmitterBattery = "glucosedirect--transmitter-battery"
-    case sharedTransmitterHardware = "glucosedirect--transmitter-hardware"
-    case sharedTransmitterFirmware = "glucosedirect--transmitter-firmware"
+    case isConnectionPaired = "libre-direct.settings.is-paired"
+    case latestGlucose = "libre-direct.settings.latest-glucose"
     case lowGlucoseAlarmSound = "libre-direct.settings.low-glucose-alarm-sound"
     case nightscoutApiSecret = "libre-direct.settings.nightscout-api-secret"
     case nightscoutUpload = "libre-direct.settings.nightscout-upload-enabled"
@@ -44,8 +36,17 @@ private enum Keys: String {
     case selectedView = "libre-direct.settings.selected-view"
     case sensor = "libre-direct.settings.sensor"
     case sensorInterval = "libre-direct.settings.sensor-interval"
+    case sharedApp = "glucosedirect--app"
+    case sharedAppVersion = "glucosedirect--app-version"
+    case sharedGlucose = "latestReadings"
+    case sharedSensor = "glucosedirect--sensor"
+    case sharedSensorConnectionState = "glucosedirect--sensor-connection-state"
+    case sharedSensorState = "glucosedirect--sensor-state"
+    case sharedTransmitter = "glucosedirect--transmitter"
+    case sharedTransmitterBattery = "glucosedirect--transmitter-battery"
+    case sharedTransmitterFirmware = "glucosedirect--transmitter-firmware"
+    case sharedTransmitterHardware = "glucosedirect--transmitter-hardware"
     case transmitter = "libre-direct.settings.transmitter"
-    case connectionPeripheralUUID = "libre-direct.sensor-ble-connection.peripheral-uuid"
 }
 
 extension UserDefaults {
@@ -235,16 +236,20 @@ extension UserDefaults {
         }
     }
 
-    var glucoseUnit: GlucoseUnit {
+    var glucoseUnit: GlucoseUnit? {
         get {
             if let glucoseUnitValue = object(forKey: Keys.glucoseUnit.rawValue) as? String {
                 return GlucoseUnit(rawValue: glucoseUnitValue)!
             }
 
-            return .mgdL
+            return nil
         }
         set {
-            set(newValue.rawValue, forKey: Keys.glucoseUnit.rawValue)
+            if let newValue = newValue {
+                set(newValue.rawValue, forKey: Keys.glucoseUnit.rawValue)
+            } else {
+                removeObject(forKey: Keys.glucoseUnit.rawValue)
+            }
         }
     }
 
@@ -267,6 +272,15 @@ extension UserDefaults {
         }
         set {
             set(newValue, forKey: Keys.isConnectionPaired.rawValue)
+        }
+    }
+    
+    var latestGlucose: Glucose? {
+        get {
+            getObject(forKey: Keys.latestGlucose.rawValue)
+        }
+        set {
+            setObject(newValue, forKey: Keys.latestGlucose.rawValue)
         }
     }
 

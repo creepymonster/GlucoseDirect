@@ -17,12 +17,12 @@ struct AppleExportSettingsView: View {
         Section(
             content: {
                 ToggleView(key: LocalizedString("Export to Apple Health"), value: store.state.appleHealthExport) { value in
-                    store.dispatch(.setAppleHealthExport(enabled: value))
+                    store.dispatch(.requestAppleHealthAccess(enabled: value))
                 }
 
                 ToggleView(key: LocalizedString("Export to Apple Calendar"), value: store.state.appleCalendarExport) { value in
                     withAnimation {
-                        store.dispatch(.setAppleCalendarExport(enabled: value))
+                        store.dispatch(.requestAppleCalendarAccess(enabled: value))
                     }
                 }
 
@@ -30,14 +30,13 @@ struct AppleExportSettingsView: View {
                     HStack {
                         Text("Selected calendar")
                         Spacer()
-
                         Picker("", selection: selectedCalendar) {
                             if store.state.selectedCalendarTarget == nil {
                                 Text("Please select")
                             }
 
-                            ForEach(EKEventStore().calendars(for: .event), id: \.title) { cal in
-                                Text(cal.title)
+                            ForEach(calendars, id: \.self) { cal in
+                                Text(cal)
                             }
                         }
                         .pickerStyle(.menu)
@@ -52,6 +51,10 @@ struct AppleExportSettingsView: View {
     }
 
     // MARK: Private
+
+    private var calendars: [String] {
+        EKEventStore().calendars(for: .event).map { $0.title }
+    }
 
     private var selectedCalendar: Binding<String> {
         Binding(

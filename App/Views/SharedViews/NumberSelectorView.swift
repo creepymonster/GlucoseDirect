@@ -50,7 +50,7 @@ struct NumberSelectorView: View {
                 if let displayValue = displayValue {
                     Text(displayValue)
                 }
-            }.padding(.top, 5)
+            }
 
             HStack {
                 Button {

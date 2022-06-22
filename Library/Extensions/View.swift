@@ -45,28 +45,22 @@ extension View {
             self
         }
     }
-}
-
-// MARK: - DeviceRotationViewModifier
-
-struct DeviceRotationViewModifier: ViewModifier {
-    let action: (UIDeviceOrientation) -> Void
-
-    func body(content: Content) -> some View {
-        content
-            .onAppear()
-            .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
-                if UIDevice.current.orientation != .unknown {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {
-                        action(UIDevice.current.orientation)
-                    }
-                }
-            }
+    
+    func info(_ message: String) -> some View {
+        DirectLog.info(message)
+        
+        return self
     }
-}
-
-extension View {
-    func onRotate(perform action: @escaping (UIDeviceOrientation) -> Void) -> some View {
-        self.modifier(DeviceRotationViewModifier(action: action))
+    
+    func debug(_ message: String) -> some View {
+        DirectLog.debug(message)
+        
+        return self
+    }
+    
+    func error(_ message: String) -> some View {
+        DirectLog.error(message)
+        
+        return self
     }
 }

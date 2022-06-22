@@ -8,12 +8,7 @@ import SwiftUI
 // MARK: - SensorView
 
 struct SensorView: View {
-    // MARK: Internal
-
-    @Environment(\.colorScheme) var colorScheme
-
     @EnvironmentObject var store: AppStore
-    @State var deviceColorScheme = ColorScheme.light
 
     var body: some View {
         Group {
@@ -35,29 +30,16 @@ struct SensorView: View {
                         }
 
                         if let remainingWarmupTime = sensor.remainingWarmupTime, sensor.state == .starting {
-                            HStack {
-                                Text("Sensor remaining warmup time")
-                                Spacer()
-                                Text(remainingWarmupTime.inTime)
-
-                                if let endAngle = remainingWarmupEndAngle {
-                                    ZStack {
-                                        GeometryReader { geo in
-                                            Circle()
-                                                .fill(Config.color)
-                                                .position(x: geo.size.width / 2, y: geo.size.height / 2)
-                                                .frame(width: geo.size.width, height: geo.size.width)
-
-                                            Path { path in
-                                                path.move(to: CGPoint(x: geo.size.width / 2, y: geo.size.height / 2))
-                                                path.addArc(center: CGPoint(x: geo.size.width / 2, y: geo.size.height / 2), radius: geo.size.width / 2, startAngle: .degrees(0), endAngle: .degrees(endAngle), clockwise: false)
-                                            }
-                                            .rotation(.degrees(-90))
-                                            .fill(Color.accentColor)
-                                        }
-                                    }.frame(width: Config.size, height: Config.size)
+                            VStack {
+                                HStack {
+                                    Text("Sensor remaining warmup time")
+                                    Spacer()
+                                    Text(remainingWarmupTime.inTime)
                                 }
+
+                                ProgressView("", value: remainingWarmupTime.inPercent(of: sensor.warmupTime), total: 100)
                             }
+
                         } else if sensor.state != .expired && sensor.state != .shutdown && sensor.state != .unknown {
                             HStack {
                                 Text("Sensor possible lifetime")
@@ -65,54 +47,24 @@ struct SensorView: View {
                                 Text(sensor.lifetime.inTime)
                             }
 
-                            HStack {
-                                Text("Sensor age")
-                                Spacer()
-                                Text(sensor.age.inTime)
-
-                                if let endAngle = elapsedEndAngle {
-                                    ZStack {
-                                        GeometryReader { geo in
-                                            Circle()
-                                                .fill(Config.color)
-                                                .position(x: geo.size.width / 2, y: geo.size.height / 2)
-                                                .frame(width: geo.size.width, height: geo.size.width)
-
-                                            Path { path in
-                                                path.move(to: CGPoint(x: geo.size.width / 2, y: geo.size.height / 2))
-                                                path.addArc(center: CGPoint(x: geo.size.width / 2, y: geo.size.height / 2), radius: geo.size.width / 2, startAngle: .degrees(360), endAngle: .degrees(endAngle), clockwise: false)
-                                            }
-                                            .rotation(.degrees(-90))
-                                            .fill(Color.accentColor)
-                                        }
-                                    }.frame(width: Config.size, height: Config.size)
+                            VStack {
+                                HStack {
+                                    Text("Sensor age")
+                                    Spacer()
+                                    Text(sensor.age.inTime)
                                 }
+
+                                ProgressView("", value: sensor.age.inPercent(of: sensor.lifetime), total: 100)
                             }
 
-                            if let remainingLifetime = sensor.remainingLifetime {
+                            VStack {
                                 HStack {
                                     Text("Sensor remaining lifetime")
                                     Spacer()
-                                    Text(remainingLifetime.inTime)
-
-                                    if let endAngle = remainingEndAngle {
-                                        ZStack {
-                                            GeometryReader { geo in
-                                                Circle()
-                                                    .fill(Config.color)
-                                                    .position(x: geo.size.width / 2, y: geo.size.height / 2)
-                                                    .frame(width: geo.size.width, height: geo.size.width)
-
-                                                Path { path in
-                                                    path.move(to: CGPoint(x: geo.size.width / 2, y: geo.size.height / 2))
-                                                    path.addArc(center: CGPoint(x: geo.size.width / 2, y: geo.size.height / 2), radius: geo.size.width / 2, startAngle: .degrees(360), endAngle: .degrees(endAngle), clockwise: false)
-                                                }
-                                                .rotation(.degrees(-90))
-                                                .fill(Color.accentColor)
-                                            }
-                                        }.frame(width: Config.size, height: Config.size)
-                                    }
+                                    Text(sensor.remainingLifetime.inTime)
                                 }
+
+                                ProgressView("", value: sensor.remainingLifetime.inPercent(of: sensor.lifetime), total: 100)
                             }
                         }
                     },
@@ -172,28 +124,14 @@ struct SensorView: View {
                             Text(transmitter.name)
                         }
 
-                        HStack {
-                            Text("Transmitter battery")
-                            Spacer()
-                            Text(transmitter.battery.description)
-
-                            if let endAngle = batteryEndAngle {
-                                ZStack {
-                                    GeometryReader { geo in
-                                        Circle()
-                                            .fill(Config.color)
-                                            .position(x: geo.size.width / 2, y: geo.size.height / 2)
-                                            .frame(width: geo.size.width, height: geo.size.width)
-
-                                        Path { path in
-                                            path.move(to: CGPoint(x: geo.size.width / 2, y: geo.size.height / 2))
-                                            path.addArc(center: CGPoint(x: geo.size.width / 2, y: geo.size.height / 2), radius: geo.size.width / 2, startAngle: .degrees(0), endAngle: .degrees(endAngle), clockwise: false)
-                                        }
-                                        .rotation(.degrees(-90))
-                                        .fill(Color.accentColor)
-                                    }
-                                }.frame(width: Config.size, height: Config.size)
+                        VStack {
+                            HStack {
+                                Text("Transmitter battery")
+                                Spacer()
+                                Text("\(transmitter.battery)%")
                             }
+
+                            ProgressView("", value: Double(transmitter.battery), total: 100)
                         }
 
                         if let hardware = transmitter.hardware {
@@ -213,60 +151,39 @@ struct SensorView: View {
                         }
                     },
                     header: {
-                        Label("Transmitter Details", systemImage: "antenna.radiowaves.left.and.right.circle")
+                        Label("Transmitter details", systemImage: "antenna.radiowaves.left.and.right.circle")
                     }
                 )
             }
-        }.onChange(of: colorScheme) { scheme in
-            if deviceColorScheme != scheme {
-                DirectLog.info("onChange colorScheme: \(scheme)")
+        }
+    }
+}
 
-                deviceColorScheme = scheme
+// MARK: - ColoredProgressView
+
+private struct ColoredProgressView: View {
+    // MARK: Internal
+
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack(alignment: .leading) {
+                Rectangle()
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+                    .foregroundColor(Color.ui.gray)
+
+                LinearGradient(colors: colors, startPoint: .leading, endPoint: .trailing)
+                    .mask(alignment: .leading) {
+                        Rectangle()
+                            .frame(width: min(CGFloat(self.value) * geometry.size.width, geometry.size.width), height: geometry.size.height)
+                    }
             }
+            .frame(height: 4)
+            .cornerRadius(45.0)
         }
     }
 
     // MARK: Private
 
-    private enum Config {
-        static let size: CGFloat = 20
-
-        static var color: Color { Color(.sRGB, red: 0.89, green: 0.90, blue: 0.92) | Color(.sRGB, red: 0.25, green: 0.25, blue: 0.25) }
-    }
-
-    private var batteryEndAngle: Double? {
-        if let transmitter = store.state.transmitter {
-            let angle = 3.6 * Double(transmitter.battery)
-            return angle
-        }
-
-        return nil
-    }
-
-    private var remainingWarmupEndAngle: Double? {
-        if let sensor = store.state.sensor, let remainingWarmupTime = sensor.remainingWarmupTime {
-            let angle = (360.0 / Double(sensor.warmupTime)) * Double(remainingWarmupTime)
-            return angle
-        }
-
-        return nil
-    }
-
-    private var remainingEndAngle: Double? {
-        if let sensor = store.state.sensor, let remainingLifetime = sensor.remainingLifetime {
-            let angle = (360.0 / Double(sensor.lifetime)) * Double(remainingLifetime)
-            return angle
-        }
-
-        return nil
-    }
-
-    private var elapsedEndAngle: Double? {
-        if let sensor = store.state.sensor, let elapsedLifetime = sensor.elapsedLifetime {
-            let angle = (360.0 / Double(sensor.lifetime)) * Double(elapsedLifetime)
-            return angle
-        }
-
-        return nil
-    }
+    private let value: Double
+    private let colors: [Color]
 }

@@ -1,4 +1,4 @@
-# Glucose Direct App
+# Glucose Direct
 
 **Warning, This project is highly experimental. Please use this app with caution and extreme care.
 Do not mindlessly make decisions based on software.
