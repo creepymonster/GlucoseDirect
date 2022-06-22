@@ -326,7 +326,7 @@
 "App version" = "Version";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "Okänd";
 
 /* (No Comment) */
 "Invalid parameters" = "Ogiltiga parametrar";
@@ -458,9 +458,6 @@
 "App email" = "E-post";
 
 /* (No Comment) */
-"Internal http server" = "Intern http-server";
-
-/* (No Comment) */
 "Low glucose alarm" = "Lågt blodsockerlarm";
 
 /* (No Comment) */
@@ -572,7 +569,7 @@
 "Transmitter battery widget description" = "Displays the remaining battery charge of the transmitter as a countdown.";
 
 /* (No Comment) */
-"Warmup" = "Warmup";
+"Warmup" = "Sensors återstående tid för uppvärmning";
 
 /* (No Comment) */
 "No screen lock" = "No screen lock";
