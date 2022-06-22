@@ -326,7 +326,7 @@
 "App version" = "版本";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "未知";
 
 /* (No Comment) */
 "Invalid parameters" = "参数无效";
@@ -456,9 +456,6 @@
 
 /* (No Comment) */
 "App email" = "eMail";
-
-/* (No Comment) */
-"Internal http server" = "Internal http server";
 
 /* (No Comment) */
 "Low glucose alarm" = "Low glucose alarm";
