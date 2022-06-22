@@ -8,21 +8,6 @@
 "%1$@d %2$@h %3$@min" = "%1$@g %2$@sa %3$@dk";
 
 /* (No Comment) */
-"0 - Unknown" = "0 - Bilinmiyor";
-
-/* (No Comment) */
-"1 - European" = "1 - Avrupa";
-
-/* (No Comment) */
-"2 - USA" = "2 - ABD";
-
-/* (No Comment) */
-"4 - Australian" = "4 - Avustralya/Kanada";
-
-/* (No Comment) */
-"8 - Eastern" = "8 - Orta Doğu, Asya";
-
-/* (No Comment) */
 "Add" = "Ekle";
 
 /* (No Comment) */
@@ -33,12 +18,6 @@
 
 /* (No Comment) */
 "Add blood glucose" = "Add blood glucose";
-
-/* (No Comment) */
-"Add glucose value" = "Glikoz değeri ekleyin";
-
-/* (No Comment) */
-"Alarm Settings" = "Alarm Ayarları";
 
 /* (No Comment) */
 "Alert, high glucose" = "Uyarı, yüksek glikoz";
@@ -56,22 +35,10 @@
 "Alert, sensor expiring soon" = "Uyarı, sensör süresi yakında sona eriyor";
 
 /* (No Comment) */
-"Are you sure you want to add the new calibration?" = "Yeni kalibrasyonu eklemek istediğinizden emin misiniz?";
-
-/* (No Comment) */
-"Are you sure you want to delete all calibrations?" = "Tüm kalibrasyonları silmek istediğinizden emin misiniz?";
-
-/* (No Comment) */
 "Are you sure you want to delete all log files?" = "Tüm günlük dosyalarını silmek istediğinizden emin misiniz?";
 
 /* (No Comment) */
-"Are you sure you want to delete all glucose values?" = "Tüm glikoz değerlerini silmek istediğinizden emin misiniz?";
-
-/* (No Comment) */
 "Are you sure you want to disconnect the sensor?" = "Sensörün bağlantısını kesmek istediğinizden emin misiniz?";
-
-/* (No Comment) */
-"Are you sure you want to unpair the sensor?" = "Sensörün eşleşmesini kaldırmak istediğinizden emin misiniz?";
 
 /* (No Comment) */
 "Blood glucose: %1$@" = "KŞ: %1$@";
@@ -96,9 +63,6 @@
 
 /* (No Comment) */
 "Connection alarm" = "Bağlantı alarmı";
-
-/* (No Comment) */
-"Custom calibration" = "Kalibrasyon";
 
 /* (No Comment) */
 "Custom calibration intercept" = "Kesişme";
@@ -143,40 +107,7 @@
 "Hold the top edge of your iPhone close to the sensor." = "iPhone'unuzun üst kenarını sensöre yakın tutun.";
 
 /* (No Comment) */
-"Libre 1" = "Libre 1";
-
-/* (No Comment) */
-"Libre 2 CA" = "Libre 2 CA";
-
-/* (No Comment) */
-"Libre 2 EU" = "Libre 2 EU";
-
-/* (No Comment) */
-"Libre 2 US" = "Libre 2 US";
-
-/* (No Comment) */
-"Libre 3" = "Libre 3";
-
-/* (No Comment) */
-"Libre Pro/H" = "Libre Pro/H";
-
-/* (No Comment) */
-"Libre Sense" = "Libre Sense";
-
-/* (No Comment) */
-"Libre US 14d" = "Libre US 14d";
-
-/* (No Comment) */
 "Lower limit" = "Düşük";
-
-/* (No Comment) */
-"mg/dL" = "mg/dL";
-
-/* (No Comment) */
-"mmol/L" = "mmol/L";
-
-/* (No Comment) */
-"New calibration" = "Yeni kalibrasyon";
 
 /* (No Comment) */
 "Nightscout API-Secret" = "API-Parolası";
@@ -195,9 +126,6 @@
 
 /* (No Comment) */
 "OK, sensor connection established" = "Tamam, sensör bağlantısı kuruldu";
-
-/* (No Comment) */
-"Pair sensor" = "Sensör eşleştir";
 
 /* (No Comment) */
 "Power off" = "Kapat";
@@ -305,12 +233,6 @@
 "Unknown" = "Bilinmeyen";
 
 /* (No Comment) */
-"Unpair" = "Eşleşmeyi kaldır";
-
-/* (No Comment) */
-"Unpair sensor" = "Sensör eşleşmesini kaldır";
-
-/* (No Comment) */
 "Upper limit" = "Yüksek";
 
 /* (No Comment) */
@@ -350,22 +272,13 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Sensörünüzün süresi dolmak üzere. Sensörü %1$@ dakika içinde değiştirin.";
 
 /* (No Comment) */
-"Other Settings" = "Diğer Ayarlar";
-
-/* (No Comment) */
 "Glucose badge" = "Glikoz rozeti";
 
 /* (No Comment) */
 "Are you sure you want to add the new blood glucose value?" = "Yeni kan şekeri değerini eklemek istediğinizden emin misiniz?";
 
 /* (No Comment) */
-"Chart presentation" = "Grafik sunum seçenekleri";
-
-/* (No Comment) */
 "Line" = "Çizgi";
-
-/* (No Comment) */
-"Points" = "Noktalar";
 
 /* (No Comment) */
 "Transmitter name" = "İsim";
@@ -618,12 +531,6 @@
 
 /* (No Comment) */
 "Notification settings" = "Bildirim ayarları";
-
-/* (No Comment) */
-"HIGH" = "YÜKSEK";
-
-/* (No Comment) */
-"LOW" = "DÜŞÜK";
 
 /* (No Comment) */
 "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Dikkat, ani, aşırı yüksek bir glikoz değeri bir sensör hatasına işaret edebilir. Lütfen bu değeri bir kan şekeri ölçüm cihazı ile kontrol edin.";
