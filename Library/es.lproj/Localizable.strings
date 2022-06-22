@@ -326,7 +326,7 @@
 "App version" = "Versión";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "Desconocido";
 
 /* (No Comment) */
 "Invalid parameters" = "Parámetros inválidos";
@@ -456,9 +456,6 @@
 
 /* (No Comment) */
 "App email" = "eMail";
-
-/* (No Comment) */
-"Internal http server" = "Internal http server";
 
 /* (No Comment) */
 "Low glucose alarm" = "Low glucose alarm";
