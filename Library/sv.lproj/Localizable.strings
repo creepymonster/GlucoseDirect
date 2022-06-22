@@ -8,31 +8,16 @@
 "%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
 
 /* (No Comment) */
-"0 - Unknown" = "0 - Okänd";
-
-/* (No Comment) */
-"1 - European" = "1 - Europeisk";
-
-/* (No Comment) */
-"2 - USA" = "2 - USA";
-
-/* (No Comment) */
-"4 - Australian" = "4 - Australien/Kanada";
-
-/* (No Comment) */
-"8 - Eastern" = "8 - Mellanöstern, Asien";
-
-/* (No Comment) */
 "Add" = "Lägg till";
 
 /* (No Comment) */
 "Add glucose for calibration" = "Lägg till blodglukos för kalibrering";
 
 /* (No Comment) */
-"Add glucose value" = "Lägg till blodglukosvärde";
+"Add calibration" = "Add calibration";
 
 /* (No Comment) */
-"Alarm Settings" = "Larminställningar";
+"Add blood glucose" = "Add blood glucose";
 
 /* (No Comment) */
 "Alert, high glucose" = "Varning, högt blodsocker";
@@ -92,9 +77,6 @@
 "Connection alarm" = "Anslutningslarm";
 
 /* (No Comment) */
-"Custom calibration" = "Egen kalibrering";
-
-/* (No Comment) */
 "Custom calibration intercept" = "Skärningspunkt";
 
 /* (No Comment) */
@@ -114,24 +96,6 @@
 
 /* (No Comment) */
 "Disconnected" = "Frånkopplad";
-
-/* (No Comment) */
-"Factory calibration i1" = "i1";
-
-/* (No Comment) */
-"Factory calibration i2" = "i2";
-
-/* (No Comment) */
-"Factory calibration i3" = "i3";
-
-/* (No Comment) */
-"Factory calibration i4" = "i4";
-
-/* (No Comment) */
-"Factory calibration i5" = "i5";
-
-/* (No Comment) */
-"Factory calibration i6" = "i6";
 
 /* (No Comment) */
 "Glucose alarm" = "Blodsockerlarm";
@@ -155,40 +119,7 @@
 "Hold the top edge of your iPhone close to the sensor." = "Håll toppen av telefonen nära sensorn.";
 
 /* (No Comment) */
-"Libre 1" = "Libre 1";
-
-/* (No Comment) */
-"Libre 2 CA" = "Libre 2 CA";
-
-/* (No Comment) */
-"Libre 2 EU" = "Libre 2 EU";
-
-/* (No Comment) */
-"Libre 2 US" = "Libre 2 US";
-
-/* (No Comment) */
-"Libre 3" = "Libre 3";
-
-/* (No Comment) */
-"Libre Pro/H" = "Libre Pro/H";
-
-/* (No Comment) */
-"Libre Sense" = "Libre Sense";
-
-/* (No Comment) */
-"Libre US 14d" = "Libre US 14d";
-
-/* (No Comment) */
 "Lower limit" = "Lågt";
-
-/* (No Comment) */
-"mg/dL" = "mg/dL";
-
-/* (No Comment) */
-"mmol/L" = "mmol/L";
-
-/* (No Comment) */
-"New calibration" = "Ny Kalibrering";
 
 /* (No Comment) */
 "Nightscout API-Secret" = "API-lösen";
@@ -207,9 +138,6 @@
 
 /* (No Comment) */
 "OK, sensor connection established" = "OK, sensoranslutning etablerad";
-
-/* (No Comment) */
-"Pair sensor" = "Parkoppla sensor";
 
 /* (No Comment) */
 "Power off" = "Ingen ström";
@@ -317,12 +245,6 @@
 "Unknown" = "Okänd";
 
 /* (No Comment) */
-"Unpair" = "Koppla ifrån";
-
-/* (No Comment) */
-"Unpair sensor" = "Koppla ifrån sensor";
-
-/* (No Comment) */
 "Upper limit" = "Högt";
 
 /* (No Comment) */
@@ -362,22 +284,13 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Din sensor går snart ut. Byt sensor om %1$@ minuter.";
 
 /* (No Comment) */
-"Other Settings" = "Andra inställningar";
-
-/* (No Comment) */
 "Glucose badge" = "Visa blodsocker på ikon";
 
 /* (No Comment) */
 "Are you sure you want to add the new blood glucose value?" = "Bekräfta att du vill lägga till ett nytt glukosvärde.";
 
 /* (No Comment) */
-"Chart presentation" = "Diagram";
-
-/* (No Comment) */
 "Line" = "Linje";
-
-/* (No Comment) */
-"Points" = "Punkter";
 
 /* (No Comment) */
 "Transmitter name" = "Namn";
@@ -566,69 +479,6 @@
 "High glucose alarm" = "Högt blodsockerlarm";
 
 /* (No Comment) */
-"Sound: achievement" = "Uppnått mål";
-
-/* (No Comment) */
-"Sound: none" = "Inget";
-
-/* (No Comment) */
-"Sound: alarm" = "Larm";
-
-/* (No Comment) */
-"Sound: buzz-beep" = "Surrande pip";
-
-/* (No Comment) */
-"Sound: chiptone" = "Flisa";
-
-/* (No Comment) */
-"Sound: climb-rope" = "Klättra i rep";
-
-/* (No Comment) */
-"Sound: coin-chime" = "Mynt";
-
-/* (No Comment) */
-"Sound: coin-insert" = "Mynt läggs in";
-
-/* (No Comment) */
-"Sound: collect-point" = "Samlingspunkt";
-
-/* (No Comment) */
-"Sound: expiring" = "Går ut";
-
-/* (No Comment) */
-"Sound: failure" = "Fel";
-
-/* (No Comment) */
-"Sound: future" = "Framtid";
-
-/* (No Comment) */
-"Sound: highlight" = "Höjdpunkt";
-
-/* (No Comment) */
-"Sound: hit" = "Slå";
-
-/* (No Comment) */
-"Sound: jump" = "Hoppa";
-
-/* (No Comment) */
-"Sound: long-alarm" = "Långt larm";
-
-/* (No Comment) */
-"Sound: lose" = "Lös";
-
-/* (No Comment) */
-"Sound: low-battery" = "Lågt batteri";
-
-/* (No Comment) */
-"Sound: negative" = "Negativ";
-
-/* (No Comment) */
-"Sound: ping" = "Ping-ljud";
-
-/* (No Comment) */
-"Sound: positive" = "Positiv";
-
-/* (No Comment) */
 "Sound: vibration" = "Endast vibration";
 
 /* (No Comment) */
@@ -695,12 +545,6 @@
 "Notification settings" = "Notification settings";
 
 /* (No Comment) */
-"HIGH" = "HIGH";
-
-/* (No Comment) */
-"LOW" = "LOW";
-
-/* (No Comment) */
 "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter.";
 
 /* (No Comment) */
@@ -708,3 +552,42 @@
 
 /* (No Comment) */
 "Transmitter ID" = "Identifier";
+
+/* (No Comment) */
+"Time" = "Time";
+
+/* (No Comment) */
+"Glucose" = "Glucose";
+
+/* (No Comment) */
+"Transmitter details" = "Transmitter details";
+
+/* (No Comment) */
+"Sensor" = "Sensor";
+
+/* (No Comment) */
+"Glucose widget" = "Glucose";
+
+/* (No Comment) */
+"Glucose widget description" = "Displays the last glucose value.";
+
+/* (No Comment) */
+"Sensor lifetime widget" = "Sensor Lifetime";
+
+/* (No Comment) */
+"Sensor lifetime widget description" = "Displays the remaining lifetime of the current sensor as a countdown.";
+
+/* (No Comment) */
+"Transmitter battery widget" = "Transmitter Battery";
+
+/* (No Comment) */
+"Transmitter battery widget description" = "Displays the remaining battery charge of the transmitter as a countdown.";
+
+/* (No Comment) */
+"Warmup" = "Warmup";
+
+/* (No Comment) */
+"No screen lock" = "No screen lock";
+
+/* (No Comment) */
+"LibreLink transmitter" = "LibreLink Transmitter";

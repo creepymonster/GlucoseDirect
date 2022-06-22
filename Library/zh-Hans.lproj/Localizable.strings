@@ -8,31 +8,16 @@
 "%1$@d %2$@h %3$@min" = "%1$@d %2$@小时 %3$@分钟";
 
 /* (No Comment) */
-"0 - Unknown" = "0 - 未知";
-
-/* (No Comment) */
-"1 - European" = "1 - 欧洲";
-
-/* (No Comment) */
-"2 - USA" = "2 - 美国";
-
-/* (No Comment) */
-"4 - Australian" = "4 - Australia/Canada";
-
-/* (No Comment) */
-"8 - Eastern" = "8 - Middle East, Asia";
-
-/* (No Comment) */
 "Add" = "添加";
 
 /* (No Comment) */
 "Add glucose for calibration" = "添加血糖以进行校准";
 
 /* (No Comment) */
-"Add glucose value" = "添加葡萄糖值";
+"Add calibration" = "Add calibration";
 
 /* (No Comment) */
-"Alarm Settings" = "报警设置";
+"Add blood glucose" = "Add blood glucose";
 
 /* (No Comment) */
 "Alert, high glucose" = "警告，高血糖";
@@ -92,9 +77,6 @@
 "Connection alarm" = "连接报警";
 
 /* (No Comment) */
-"Custom calibration" = "校准";
-
-/* (No Comment) */
 "Custom calibration intercept" = "截距";
 
 /* (No Comment) */
@@ -114,24 +96,6 @@
 
 /* (No Comment) */
 "Disconnected" = "已断开连接";
-
-/* (No Comment) */
-"Factory calibration i1" = "i1";
-
-/* (No Comment) */
-"Factory calibration i2" = "i2";
-
-/* (No Comment) */
-"Factory calibration i3" = "i3";
-
-/* (No Comment) */
-"Factory calibration i4" = "i4";
-
-/* (No Comment) */
-"Factory calibration i5" = "i5";
-
-/* (No Comment) */
-"Factory calibration i6" = "i6";
 
 /* (No Comment) */
 "Glucose alarm" = "葡萄糖报警";
@@ -155,40 +119,7 @@
 "Hold the top edge of your iPhone close to the sensor." = "握住你的iPhone顶部边缘，靠近传感器。";
 
 /* (No Comment) */
-"Libre 1" = "Libre 1";
-
-/* (No Comment) */
-"Libre 2 CA" = "Libre 2 CA";
-
-/* (No Comment) */
-"Libre 2 EU" = "Libre 2 EU";
-
-/* (No Comment) */
-"Libre 2 US" = "Libre 2 US";
-
-/* (No Comment) */
-"Libre 3" = "Libre 3";
-
-/* (No Comment) */
-"Libre Pro/H" = "Libre Pro/H";
-
-/* (No Comment) */
-"Libre Sense" = "Libre Sense";
-
-/* (No Comment) */
-"Libre US 14d" = "Libre US 14d";
-
-/* (No Comment) */
 "Lower limit" = "低";
-
-/* (No Comment) */
-"mg/dL" = "mg/dL";
-
-/* (No Comment) */
-"mmol/L" = "mmol/L";
-
-/* (No Comment) */
-"New calibration" = "新校准";
 
 /* (No Comment) */
 "Nightscout API-Secret" = "API密钥";
@@ -207,9 +138,6 @@
 
 /* (No Comment) */
 "OK, sensor connection established" = "OK，传感器连接建立";
-
-/* (No Comment) */
-"Pair sensor" = "配对传感器";
 
 /* (No Comment) */
 "Power off" = "关机";
@@ -317,12 +245,6 @@
 "Unknown" = "未知";
 
 /* (No Comment) */
-"Unpair" = "取消配对";
-
-/* (No Comment) */
-"Unpair sensor" = "解除配对传感器";
-
-/* (No Comment) */
 "Upper limit" = "高";
 
 /* (No Comment) */
@@ -362,22 +284,13 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "您的传感器即将过期。在 %1$@ 分钟内更换传感器。";
 
 /* (No Comment) */
-"Other Settings" = "其它设置";
-
-/* (No Comment) */
 "Glucose badge" = "Glucose 标志";
 
 /* (No Comment) */
 "Are you sure you want to add the new blood glucose value?" = "你确定要添加新的血糖值吗？";
 
 /* (No Comment) */
-"Chart presentation" = "图表展示";
-
-/* (No Comment) */
 "Line" = "线";
-
-/* (No Comment) */
-"Points" = "点";
 
 /* (No Comment) */
 "Transmitter name" = "名称";
@@ -566,69 +479,6 @@
 "High glucose alarm" = "High glucose alarm";
 
 /* (No Comment) */
-"Sound: achievement" = "Achievement";
-
-/* (No Comment) */
-"Sound: none" = "None";
-
-/* (No Comment) */
-"Sound: alarm" = "Alarm";
-
-/* (No Comment) */
-"Sound: buzz-beep" = "Buzz-Beep";
-
-/* (No Comment) */
-"Sound: chiptone" = "Chiptone";
-
-/* (No Comment) */
-"Sound: climb-rope" = "Climb-Rope";
-
-/* (No Comment) */
-"Sound: coin-chime" = "Coin-Chime";
-
-/* (No Comment) */
-"Sound: coin-insert" = "Coin-Insert";
-
-/* (No Comment) */
-"Sound: collect-point" = "Collect-Point";
-
-/* (No Comment) */
-"Sound: expiring" = "Expiring";
-
-/* (No Comment) */
-"Sound: failure" = "Failure";
-
-/* (No Comment) */
-"Sound: future" = "Future";
-
-/* (No Comment) */
-"Sound: highlight" = "Highlight";
-
-/* (No Comment) */
-"Sound: hit" = "Hit";
-
-/* (No Comment) */
-"Sound: jump" = "Jump";
-
-/* (No Comment) */
-"Sound: long-alarm" = "Long-alarm";
-
-/* (No Comment) */
-"Sound: lose" = "Lose";
-
-/* (No Comment) */
-"Sound: low-battery" = "Low-Battery";
-
-/* (No Comment) */
-"Sound: negative" = "Negative";
-
-/* (No Comment) */
-"Sound: ping" = "Ping";
-
-/* (No Comment) */
-"Sound: positive" = "Positive";
-
-/* (No Comment) */
 "Sound: vibration" = "Vibrate only";
 
 /* (No Comment) */
@@ -695,12 +545,6 @@
 "Notification settings" = "Notification settings";
 
 /* (No Comment) */
-"HIGH" = "HIGH";
-
-/* (No Comment) */
-"LOW" = "LOW";
-
-/* (No Comment) */
 "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter.";
 
 /* (No Comment) */
@@ -708,3 +552,42 @@
 
 /* (No Comment) */
 "Transmitter ID" = "Identifier";
+
+/* (No Comment) */
+"Time" = "Time";
+
+/* (No Comment) */
+"Glucose" = "Glucose";
+
+/* (No Comment) */
+"Transmitter details" = "Transmitter details";
+
+/* (No Comment) */
+"Sensor" = "Sensor";
+
+/* (No Comment) */
+"Glucose widget" = "Glucose";
+
+/* (No Comment) */
+"Glucose widget description" = "Displays the last glucose value.";
+
+/* (No Comment) */
+"Sensor lifetime widget" = "Sensor Lifetime";
+
+/* (No Comment) */
+"Sensor lifetime widget description" = "Displays the remaining lifetime of the current sensor as a countdown.";
+
+/* (No Comment) */
+"Transmitter battery widget" = "Transmitter Battery";
+
+/* (No Comment) */
+"Transmitter battery widget description" = "Displays the remaining battery charge of the transmitter as a countdown.";
+
+/* (No Comment) */
+"Warmup" = "Warmup";
+
+/* (No Comment) */
+"No screen lock" = "No screen lock";
+
+/* (No Comment) */
+"LibreLink transmitter" = "LibreLink Transmitter";

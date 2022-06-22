@@ -8,31 +8,16 @@
 "%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
 
 /* (No Comment) */
-"0 - Unknown" = "0 - Unknown";
-
-/* (No Comment) */
-"1 - European" = "Auto - Europees";
-
-/* (No Comment) */
-"2 - USA" = "2 - USA";
-
-/* (No Comment) */
-"4 - Australian" = "4 - Australië/Canada";
-
-/* (No Comment) */
-"8 - Eastern" = "8 - Midden-Oosten, Azië";
-
-/* (No Comment) */
 "Add" = "Voeg toe";
 
 /* (No Comment) */
 "Add glucose for calibration" = "Glucose voor kalibratie toevoegen";
 
 /* (No Comment) */
-"Add glucose value" = "Voeg glucosewaarde toe";
+"Add calibration" = "Kalibratie toevoegen";
 
 /* (No Comment) */
-"Alarm Settings" = "Alarminstellingen";
+"Add blood glucose" = "Add blood glucose";
 
 /* (No Comment) */
 "Alert, high glucose" = "Alarm, hoge glucosewaarde";
@@ -92,9 +77,6 @@
 "Connection alarm" = "Verbindingsalarm";
 
 /* (No Comment) */
-"Custom calibration" = "Kalibratie";
-
-/* (No Comment) */
 "Custom calibration intercept" = "Onderscheppen";
 
 /* (No Comment) */
@@ -116,25 +98,7 @@
 "Disconnected" = "Verbinding verbroken";
 
 /* (No Comment) */
-"Factory calibration i1" = "i1";
-
-/* (No Comment) */
-"Factory calibration i2" = "i2";
-
-/* (No Comment) */
-"Factory calibration i3" = "i3";
-
-/* (No Comment) */
-"Factory calibration i4" = "i4";
-
-/* (No Comment) */
-"Factory calibration i5" = "i5";
-
-/* (No Comment) */
-"Factory calibration i6" = "i6";
-
-/* (No Comment) */
-"Glucose alarm" = "Glucose alarm";
+"Glucose alarm" = "Glucosewaarden";
 
 /* (No Comment) */
 "Glucose list view" = "Lijst";
@@ -155,40 +119,7 @@
 "Hold the top edge of your iPhone close to the sensor." = "Houd de bovenkant van je iPhone dicht bij de sensor.";
 
 /* (No Comment) */
-"Libre 1" = "Libre 1";
-
-/* (No Comment) */
-"Libre 2 CA" = "Libre 2 CA";
-
-/* (No Comment) */
-"Libre 2 EU" = "Libre 2 EU";
-
-/* (No Comment) */
-"Libre 2 US" = "Libre 2 US";
-
-/* (No Comment) */
-"Libre 3" = "Libre 3";
-
-/* (No Comment) */
-"Libre Pro/H" = "Libre Pro/H";
-
-/* (No Comment) */
-"Libre Sense" = "Libre Sense";
-
-/* (No Comment) */
-"Libre US 14d" = "Libre US 14d";
-
-/* (No Comment) */
 "Lower limit" = "Laag";
-
-/* (No Comment) */
-"mg/dL" = "mg/dL";
-
-/* (No Comment) */
-"mmol/L" = "mmol/L";
-
-/* (No Comment) */
-"New calibration" = "Nieuwe kalibratie";
 
 /* (No Comment) */
 "Nightscout API-Secret" = "API-Secret";
@@ -207,9 +138,6 @@
 
 /* (No Comment) */
 "OK, sensor connection established" = "OK, sensorverbinding tot stand gebracht";
-
-/* (No Comment) */
-"Pair sensor" = "Pair sensor";
 
 /* (No Comment) */
 "Power off" = "Power off";
@@ -248,13 +176,13 @@
 "Sensor in starting phase" = "Sensor in starting phase";
 
 /* (No Comment) */
-"Sensor is expired" = "Sensor is expired";
+"Sensor is expired" = "Sensor verlopen";
 
 /* (No Comment) */
 "Sensor is ready" = "Sensor is ready";
 
 /* (No Comment) */
-"Sensor is shut down" = "Sensor is expired";
+"Sensor is shut down" = "Sensor verlopen";
 
 /* (No Comment) */
 "Sensor lifetime" = "Lifetime";
@@ -314,13 +242,7 @@
 "The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor." = "The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor.";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
-
-/* (No Comment) */
-"Unpair" = "Ontkoppelen";
-
-/* (No Comment) */
-"Unpair sensor" = "Ontkoppel sensor";
+"Unknown" = "Onbekend";
 
 /* (No Comment) */
 "Upper limit" = "Hoog";
@@ -362,22 +284,13 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Je sensor is bijna verlopen. Vervang de sensor binnen %1$@ minuten.";
 
 /* (No Comment) */
-"Other Settings" = "Andere instellingen";
-
-/* (No Comment) */
 "Glucose badge" = "Glucose badge";
 
 /* (No Comment) */
 "Are you sure you want to add the new blood glucose value?" = "Weet je zeker dat je deze nieuwe glucosewaarde wilt toevoegen?";
 
 /* (No Comment) */
-"Chart presentation" = "Grafiek presentatie";
-
-/* (No Comment) */
 "Line" = "Lijn";
-
-/* (No Comment) */
-"Points" = "Punten";
 
 /* (No Comment) */
 "Transmitter name" = "Naam";
@@ -566,69 +479,6 @@
 "High glucose alarm" = "High glucose alarm";
 
 /* (No Comment) */
-"Sound: achievement" = "Achievement";
-
-/* (No Comment) */
-"Sound: none" = "None";
-
-/* (No Comment) */
-"Sound: alarm" = "Alarm";
-
-/* (No Comment) */
-"Sound: buzz-beep" = "Buzz-Beep";
-
-/* (No Comment) */
-"Sound: chiptone" = "Chiptone";
-
-/* (No Comment) */
-"Sound: climb-rope" = "Climb-Rope";
-
-/* (No Comment) */
-"Sound: coin-chime" = "Coin-Chime";
-
-/* (No Comment) */
-"Sound: coin-insert" = "Coin-Insert";
-
-/* (No Comment) */
-"Sound: collect-point" = "Collect-Point";
-
-/* (No Comment) */
-"Sound: expiring" = "Expiring";
-
-/* (No Comment) */
-"Sound: failure" = "Failure";
-
-/* (No Comment) */
-"Sound: future" = "Future";
-
-/* (No Comment) */
-"Sound: highlight" = "Highlight";
-
-/* (No Comment) */
-"Sound: hit" = "Hit";
-
-/* (No Comment) */
-"Sound: jump" = "Jump";
-
-/* (No Comment) */
-"Sound: long-alarm" = "Long-alarm";
-
-/* (No Comment) */
-"Sound: lose" = "Lose";
-
-/* (No Comment) */
-"Sound: low-battery" = "Batterij bijna leeg";
-
-/* (No Comment) */
-"Sound: negative" = "Negatief";
-
-/* (No Comment) */
-"Sound: ping" = "Ping";
-
-/* (No Comment) */
-"Sound: positive" = "Positief";
-
-/* (No Comment) */
 "Sound: vibration" = "Alleen trillen";
 
 /* (No Comment) */
@@ -695,12 +545,6 @@
 "Notification settings" = "Notification settings";
 
 /* (No Comment) */
-"HIGH" = "HIGH";
-
-/* (No Comment) */
-"LOW" = "LOW";
-
-/* (No Comment) */
 "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter.";
 
 /* (No Comment) */
@@ -708,3 +552,42 @@
 
 /* (No Comment) */
 "Transmitter ID" = "Identifier";
+
+/* (No Comment) */
+"Time" = "Time";
+
+/* (No Comment) */
+"Glucose" = "Glucose";
+
+/* (No Comment) */
+"Transmitter details" = "Transmitter details";
+
+/* (No Comment) */
+"Sensor" = "Sensor";
+
+/* (No Comment) */
+"Glucose widget" = "Glucose";
+
+/* (No Comment) */
+"Glucose widget description" = "Displays the last glucose value.";
+
+/* (No Comment) */
+"Sensor lifetime widget" = "Sensor Lifetime";
+
+/* (No Comment) */
+"Sensor lifetime widget description" = "Displays the remaining lifetime of the current sensor as a countdown.";
+
+/* (No Comment) */
+"Transmitter battery widget" = "Transmitter Battery";
+
+/* (No Comment) */
+"Transmitter battery widget description" = "Displays the remaining battery charge of the transmitter as a countdown.";
+
+/* (No Comment) */
+"Warmup" = "Warmup";
+
+/* (No Comment) */
+"No screen lock" = "No screen lock";
+
+/* (No Comment) */
+"LibreLink transmitter" = "LibreLink Transmitter";

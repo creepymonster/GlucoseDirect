@@ -8,31 +8,16 @@
 "%1$@d %2$@h %3$@min" = "%1$@g %2$@sa %3$@dk";
 
 /* (No Comment) */
-"0 - Unknown" = "0 - Bilinmiyor";
-
-/* (No Comment) */
-"1 - European" = "1 - Avrupa";
-
-/* (No Comment) */
-"2 - USA" = "2 - ABD";
-
-/* (No Comment) */
-"4 - Australian" = "4 - Avustralya/Kanada";
-
-/* (No Comment) */
-"8 - Eastern" = "8 - Orta Doğu, Asya";
-
-/* (No Comment) */
 "Add" = "Ekle";
 
 /* (No Comment) */
 "Add glucose for calibration" = "Kalibrasyon için glikoz ekleyin";
 
 /* (No Comment) */
-"Add glucose value" = "Glikoz değeri ekleyin";
+"Add calibration" = "Add calibration";
 
 /* (No Comment) */
-"Alarm Settings" = "Alarm Ayarları";
+"Add blood glucose" = "Add blood glucose";
 
 /* (No Comment) */
 "Alert, high glucose" = "Uyarı, yüksek glikoz";
@@ -92,9 +77,6 @@
 "Connection alarm" = "Bağlantı alarmı";
 
 /* (No Comment) */
-"Custom calibration" = "Kalibrasyon";
-
-/* (No Comment) */
 "Custom calibration intercept" = "Kesişme";
 
 /* (No Comment) */
@@ -114,24 +96,6 @@
 
 /* (No Comment) */
 "Disconnected" = "Bağlantı kesildi";
-
-/* (No Comment) */
-"Factory calibration i1" = "i1";
-
-/* (No Comment) */
-"Factory calibration i2" = "i2";
-
-/* (No Comment) */
-"Factory calibration i3" = "i3";
-
-/* (No Comment) */
-"Factory calibration i4" = "i4";
-
-/* (No Comment) */
-"Factory calibration i5" = "i5";
-
-/* (No Comment) */
-"Factory calibration i6" = "i6";
 
 /* (No Comment) */
 "Glucose alarm" = "Glikoz alarmı";
@@ -155,40 +119,7 @@
 "Hold the top edge of your iPhone close to the sensor." = "iPhone'unuzun üst kenarını sensöre yakın tutun.";
 
 /* (No Comment) */
-"Libre 1" = "Libre 1";
-
-/* (No Comment) */
-"Libre 2 CA" = "Libre 2 CA";
-
-/* (No Comment) */
-"Libre 2 EU" = "Libre 2 EU";
-
-/* (No Comment) */
-"Libre 2 US" = "Libre 2 US";
-
-/* (No Comment) */
-"Libre 3" = "Libre 3";
-
-/* (No Comment) */
-"Libre Pro/H" = "Libre Pro/H";
-
-/* (No Comment) */
-"Libre Sense" = "Libre Sense";
-
-/* (No Comment) */
-"Libre US 14d" = "Libre US 14d";
-
-/* (No Comment) */
 "Lower limit" = "Düşük";
-
-/* (No Comment) */
-"mg/dL" = "mg/dL";
-
-/* (No Comment) */
-"mmol/L" = "mmol/L";
-
-/* (No Comment) */
-"New calibration" = "Yeni kalibrasyon";
 
 /* (No Comment) */
 "Nightscout API-Secret" = "API-Parolası";
@@ -207,9 +138,6 @@
 
 /* (No Comment) */
 "OK, sensor connection established" = "Tamam, sensör bağlantısı kuruldu";
-
-/* (No Comment) */
-"Pair sensor" = "Sensör eşleştir";
 
 /* (No Comment) */
 "Power off" = "Kapat";
@@ -317,12 +245,6 @@
 "Unknown" = "Bilinmeyen";
 
 /* (No Comment) */
-"Unpair" = "Eşleşmeyi kaldır";
-
-/* (No Comment) */
-"Unpair sensor" = "Sensör eşleşmesini kaldır";
-
-/* (No Comment) */
 "Upper limit" = "Yüksek";
 
 /* (No Comment) */
@@ -362,22 +284,13 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Sensörünüzün süresi dolmak üzere. Sensörü %1$@ dakika içinde değiştirin.";
 
 /* (No Comment) */
-"Other Settings" = "Diğer Ayarlar";
-
-/* (No Comment) */
 "Glucose badge" = "Glikoz rozeti";
 
 /* (No Comment) */
 "Are you sure you want to add the new blood glucose value?" = "Yeni kan şekeri değerini eklemek istediğinizden emin misiniz?";
 
 /* (No Comment) */
-"Chart presentation" = "Grafik sunum seçenekleri";
-
-/* (No Comment) */
 "Line" = "Çizgi";
-
-/* (No Comment) */
-"Points" = "Noktalar";
 
 /* (No Comment) */
 "Transmitter name" = "İsim";
@@ -566,69 +479,6 @@
 "High glucose alarm" = "Yüksek glikoz alarmı";
 
 /* (No Comment) */
-"Sound: achievement" = "Başarım";
-
-/* (No Comment) */
-"Sound: none" = "Yok";
-
-/* (No Comment) */
-"Sound: alarm" = "Alarm";
-
-/* (No Comment) */
-"Sound: buzz-beep" = "Buzz-Beep";
-
-/* (No Comment) */
-"Sound: chiptone" = "Chiptone";
-
-/* (No Comment) */
-"Sound: climb-rope" = "Climb-Rope";
-
-/* (No Comment) */
-"Sound: coin-chime" = "Coin-Chime";
-
-/* (No Comment) */
-"Sound: coin-insert" = "Coin-Insert";
-
-/* (No Comment) */
-"Sound: collect-point" = "Collect-Point";
-
-/* (No Comment) */
-"Sound: expiring" = "Süre doluyor";
-
-/* (No Comment) */
-"Sound: failure" = "Hatalı";
-
-/* (No Comment) */
-"Sound: future" = "İleride";
-
-/* (No Comment) */
-"Sound: highlight" = "Vurgula";
-
-/* (No Comment) */
-"Sound: hit" = "Tıklanma";
-
-/* (No Comment) */
-"Sound: jump" = "Zıpla";
-
-/* (No Comment) */
-"Sound: long-alarm" = "Uzun-Alarm";
-
-/* (No Comment) */
-"Sound: lose" = "Kayıp";
-
-/* (No Comment) */
-"Sound: low-battery" = "Düşük-Pil";
-
-/* (No Comment) */
-"Sound: negative" = "Negatif";
-
-/* (No Comment) */
-"Sound: ping" = "Ping";
-
-/* (No Comment) */
-"Sound: positive" = "Pozitif";
-
-/* (No Comment) */
 "Sound: vibration" = "Sadece titreşim";
 
 /* (No Comment) */
@@ -695,12 +545,6 @@
 "Notification settings" = "Bildirim ayarları";
 
 /* (No Comment) */
-"HIGH" = "YÜKSEK";
-
-/* (No Comment) */
-"LOW" = "DÜŞÜK";
-
-/* (No Comment) */
 "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Dikkat, ani, aşırı yüksek bir glikoz değeri bir sensör hatasına işaret edebilir. Lütfen bu değeri bir kan şekeri ölçüm cihazı ile kontrol edin.";
 
 /* (No Comment) */
@@ -708,3 +552,42 @@
 
 /* (No Comment) */
 "Transmitter ID" = "Identifier";
+
+/* (No Comment) */
+"Time" = "Time";
+
+/* (No Comment) */
+"Glucose" = "Glucose";
+
+/* (No Comment) */
+"Transmitter details" = "Transmitter details";
+
+/* (No Comment) */
+"Sensor" = "Sensor";
+
+/* (No Comment) */
+"Glucose widget" = "Glucose";
+
+/* (No Comment) */
+"Glucose widget description" = "Displays the last glucose value.";
+
+/* (No Comment) */
+"Sensor lifetime widget" = "Sensor Lifetime";
+
+/* (No Comment) */
+"Sensor lifetime widget description" = "Displays the remaining lifetime of the current sensor as a countdown.";
+
+/* (No Comment) */
+"Transmitter battery widget" = "Transmitter Battery";
+
+/* (No Comment) */
+"Transmitter battery widget description" = "Displays the remaining battery charge of the transmitter as a countdown.";
+
+/* (No Comment) */
+"Warmup" = "Warmup";
+
+/* (No Comment) */
+"No screen lock" = "No screen lock";
+
+/* (No Comment) */
+"LibreLink transmitter" = "LibreLink Transmitter";

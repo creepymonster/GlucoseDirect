@@ -8,31 +8,16 @@
 "%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
 
 /* (No Comment) */
-"0 - Unknown" = "0 - Неизвестно";
-
-/* (No Comment) */
-"1 - European" = "1 - европейский";
-
-/* (No Comment) */
-"2 - USA" = "2 - США";
-
-/* (No Comment) */
-"4 - Australian" = "4 - Австралия/Канада";
-
-/* (No Comment) */
-"8 - Eastern" = "8 - Ближний Восток, Азия";
-
-/* (No Comment) */
 "Add" = "Добавить";
 
 /* (No Comment) */
 "Add glucose for calibration" = "Добавьте глюкозу для калибровки";
 
 /* (No Comment) */
-"Add glucose value" = "Добавьте значение глюкозы";
+"Add calibration" = "Add calibration";
 
 /* (No Comment) */
-"Alarm Settings" = "Настройки сигнализации";
+"Add blood glucose" = "Add blood glucose";
 
 /* (No Comment) */
 "Alert, high glucose" = "Тревога, высокий уровень глюкозы";
@@ -92,9 +77,6 @@
 "Connection alarm" = "Тревога потери связи";
 
 /* (No Comment) */
-"Custom calibration" = "Калибровка";
-
-/* (No Comment) */
 "Custom calibration intercept" = "Смещение";
 
 /* (No Comment) */
@@ -114,24 +96,6 @@
 
 /* (No Comment) */
 "Disconnected" = "Отключен";
-
-/* (No Comment) */
-"Factory calibration i1" = "i1";
-
-/* (No Comment) */
-"Factory calibration i2" = "i2";
-
-/* (No Comment) */
-"Factory calibration i3" = "i3";
-
-/* (No Comment) */
-"Factory calibration i4" = "i4";
-
-/* (No Comment) */
-"Factory calibration i5" = "i5";
-
-/* (No Comment) */
-"Factory calibration i6" = "i6";
 
 /* (No Comment) */
 "Glucose alarm" = "Тревога по ГК";
@@ -155,40 +119,7 @@
 "Hold the top edge of your iPhone close to the sensor." = "Держите верхнюю часть вашего iPhone рядом с сенсором.";
 
 /* (No Comment) */
-"Libre 1" = "Libre 1";
-
-/* (No Comment) */
-"Libre 2 CA" = "Libre 2 CA";
-
-/* (No Comment) */
-"Libre 2 EU" = "Libre 2 EU";
-
-/* (No Comment) */
-"Libre 2 US" = "Libre 2 США";
-
-/* (No Comment) */
-"Libre 3" = "Libre 3";
-
-/* (No Comment) */
-"Libre Pro/H" = "Libre Pro/H";
-
-/* (No Comment) */
-"Libre Sense" = "Libre Sense";
-
-/* (No Comment) */
-"Libre US 14d" = "Libre US 14d";
-
-/* (No Comment) */
 "Lower limit" = "Граница Низкого";
-
-/* (No Comment) */
-"mg/dL" = "mg/dl";
-
-/* (No Comment) */
-"mmol/L" = "ммоль/л";
-
-/* (No Comment) */
-"New calibration" = "Новая калибровка";
 
 /* (No Comment) */
 "Nightscout API-Secret" = "API secret";
@@ -207,9 +138,6 @@
 
 /* (No Comment) */
 "OK, sensor connection established" = "Соединение с сенсором установлено";
-
-/* (No Comment) */
-"Pair sensor" = "Подключить сенсор";
 
 /* (No Comment) */
 "Power off" = "Выключить";
@@ -317,12 +245,6 @@
 "Unknown" = "Неизвестно";
 
 /* (No Comment) */
-"Unpair" = "Отсоединить";
-
-/* (No Comment) */
-"Unpair sensor" = "Отключить сенсор";
-
-/* (No Comment) */
 "Upper limit" = "Высокий";
 
 /* (No Comment) */
@@ -362,22 +284,13 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Срок действия вашего датчика истекает. Замените датчик через %1$@ минут.";
 
 /* (No Comment) */
-"Other Settings" = "Другие параметры";
-
-/* (No Comment) */
 "Glucose badge" = "Значок глюкозы";
 
 /* (No Comment) */
 "Are you sure you want to add the new blood glucose value?" = "Вы уверены, что хотите добавить новое значение глюкозы крови?";
 
 /* (No Comment) */
-"Chart presentation" = "Диаграмма";
-
-/* (No Comment) */
 "Line" = "Линия";
-
-/* (No Comment) */
-"Points" = "Точки";
 
 /* (No Comment) */
 "Transmitter name" = "Имя";
@@ -566,69 +479,6 @@
 "High glucose alarm" = "Сигнал тревоги о высоком ГК";
 
 /* (No Comment) */
-"Sound: achievement" = "Достижения";
-
-/* (No Comment) */
-"Sound: none" = "Ничего";
-
-/* (No Comment) */
-"Sound: alarm" = "Тревога";
-
-/* (No Comment) */
-"Sound: buzz-beep" = "Бип-Бип";
-
-/* (No Comment) */
-"Sound: chiptone" = "Чиптон";
-
-/* (No Comment) */
-"Sound: climb-rope" = "Climb-Rope";
-
-/* (No Comment) */
-"Sound: coin-chime" = "Coin-Chime";
-
-/* (No Comment) */
-"Sound: coin-insert" = "Coin-Insert";
-
-/* (No Comment) */
-"Sound: collect-point" = "Collect-Point";
-
-/* (No Comment) */
-"Sound: expiring" = "Истекающий";
-
-/* (No Comment) */
-"Sound: failure" = "Ошибка";
-
-/* (No Comment) */
-"Sound: future" = "Future";
-
-/* (No Comment) */
-"Sound: highlight" = "Highlight";
-
-/* (No Comment) */
-"Sound: hit" = "Hit";
-
-/* (No Comment) */
-"Sound: jump" = "Jump";
-
-/* (No Comment) */
-"Sound: long-alarm" = "Long-alarm";
-
-/* (No Comment) */
-"Sound: lose" = "Lose";
-
-/* (No Comment) */
-"Sound: low-battery" = "Низкий заряд аккумулятора";
-
-/* (No Comment) */
-"Sound: negative" = "Negative";
-
-/* (No Comment) */
-"Sound: ping" = "Ping";
-
-/* (No Comment) */
-"Sound: positive" = "Positive";
-
-/* (No Comment) */
 "Sound: vibration" = "Только вибрация";
 
 /* (No Comment) */
@@ -695,12 +545,6 @@
 "Notification settings" = "Notification settings";
 
 /* (No Comment) */
-"HIGH" = "HIGH";
-
-/* (No Comment) */
-"LOW" = "LOW";
-
-/* (No Comment) */
 "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter.";
 
 /* (No Comment) */
@@ -708,3 +552,42 @@
 
 /* (No Comment) */
 "Transmitter ID" = "Identifier";
+
+/* (No Comment) */
+"Time" = "Time";
+
+/* (No Comment) */
+"Glucose" = "Glucose";
+
+/* (No Comment) */
+"Transmitter details" = "Transmitter details";
+
+/* (No Comment) */
+"Sensor" = "Sensor";
+
+/* (No Comment) */
+"Glucose widget" = "Glucose";
+
+/* (No Comment) */
+"Glucose widget description" = "Displays the last glucose value.";
+
+/* (No Comment) */
+"Sensor lifetime widget" = "Sensor Lifetime";
+
+/* (No Comment) */
+"Sensor lifetime widget description" = "Displays the remaining lifetime of the current sensor as a countdown.";
+
+/* (No Comment) */
+"Transmitter battery widget" = "Transmitter Battery";
+
+/* (No Comment) */
+"Transmitter battery widget description" = "Displays the remaining battery charge of the transmitter as a countdown.";
+
+/* (No Comment) */
+"Warmup" = "Warmup";
+
+/* (No Comment) */
+"No screen lock" = "No screen lock";
+
+/* (No Comment) */
+"LibreLink transmitter" = "LibreLink Transmitter";
