@@ -122,24 +122,6 @@
 "Disconnected" = "Frånkopplad";
 
 /* (No Comment) */
-"Factory calibration i1" = "i1";
-
-/* (No Comment) */
-"Factory calibration i2" = "i2";
-
-/* (No Comment) */
-"Factory calibration i3" = "i3";
-
-/* (No Comment) */
-"Factory calibration i4" = "i4";
-
-/* (No Comment) */
-"Factory calibration i5" = "i5";
-
-/* (No Comment) */
-"Factory calibration i6" = "i6";
-
-/* (No Comment) */
 "Glucose alarm" = "Blodsockerlarm";
 
 /* (No Comment) */
@@ -570,69 +552,6 @@
 
 /* (No Comment) */
 "High glucose alarm" = "Högt blodsockerlarm";
-
-/* (No Comment) */
-"Sound: achievement" = "Uppnått mål";
-
-/* (No Comment) */
-"Sound: none" = "Inget";
-
-/* (No Comment) */
-"Sound: alarm" = "Larm";
-
-/* (No Comment) */
-"Sound: buzz-beep" = "Surrande pip";
-
-/* (No Comment) */
-"Sound: chiptone" = "Flisa";
-
-/* (No Comment) */
-"Sound: climb-rope" = "Klättra i rep";
-
-/* (No Comment) */
-"Sound: coin-chime" = "Mynt";
-
-/* (No Comment) */
-"Sound: coin-insert" = "Mynt läggs in";
-
-/* (No Comment) */
-"Sound: collect-point" = "Samlingspunkt";
-
-/* (No Comment) */
-"Sound: expiring" = "Går ut";
-
-/* (No Comment) */
-"Sound: failure" = "Fel";
-
-/* (No Comment) */
-"Sound: future" = "Framtid";
-
-/* (No Comment) */
-"Sound: highlight" = "Höjdpunkt";
-
-/* (No Comment) */
-"Sound: hit" = "Slå";
-
-/* (No Comment) */
-"Sound: jump" = "Hoppa";
-
-/* (No Comment) */
-"Sound: long-alarm" = "Långt larm";
-
-/* (No Comment) */
-"Sound: lose" = "Lös";
-
-/* (No Comment) */
-"Sound: low-battery" = "Lågt batteri";
-
-/* (No Comment) */
-"Sound: negative" = "Negativ";
-
-/* (No Comment) */
-"Sound: ping" = "Ping-ljud";
-
-/* (No Comment) */
-"Sound: positive" = "Positiv";
 
 /* (No Comment) */
 "Sound: vibration" = "Endast vibration";
