@@ -87,9 +87,6 @@ struct GlucoseView: View {
            let glucoseValue = glucose.glucoseValue
         {
             switch size {
-            case .accessoryInline:
-                Text("systemSmall \(glucose.timestamp.description)")
-
             case .accessoryRectangular:
                 HStack(alignment: .lastTextBaseline) {
                     Text(glucoseValue.asGlucose(unit: glucoseUnit))
