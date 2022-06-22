@@ -326,7 +326,7 @@
 "App version" = "Версия";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "Неизвестно";
 
 /* (No Comment) */
 "Invalid parameters" = "Неправильные параметры";
@@ -458,9 +458,6 @@
 "App email" = "эл. почта";
 
 /* (No Comment) */
-"Internal http server" = "Внутренний http-сервер";
-
-/* (No Comment) */
 "Low glucose alarm" = "Сигнал тревоги о низком ГК";
 
 /* (No Comment) */
@@ -497,7 +494,7 @@
 "App donate" = "Donate";
 
 /* (No Comment) */
-"Bellman alarm" = "Alarm";
+"Bellman alarm" = "Тревога";
 
 /* (No Comment) */
 "Bellman test alarm" = "Test alarm";
