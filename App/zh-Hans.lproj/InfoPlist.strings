@@ -1,0 +1,23 @@
+/* Bundle display name */
+"CFBundleDisplayName" = "Glucose Direct";
+
+/* Bundle name */
+"CFBundleName" = "Glucose Direct";
+
+/* Privacy - NFC Scan Usage Description */
+"NFCReaderUsageDescription" = "在进行蓝牙连接之前，需要用NFC功能读出所有的连接设置。";
+
+/* Privacy - Bluetooth Always Usage Description */
+"NSBluetoothAlwaysUsageDescription" = "需要使用蓝牙功能来连接到支持的设备。";
+
+/* Privacy - Bluetooth Peripheral Usage Description */
+"NSBluetoothPeripheralUsageDescription" = "需要使用蓝牙功能来连接到支持的设备。";
+
+/* Privacy - Calendars Usage Description */
+"NSCalendarsUsageDescription" = "要在Apple Watch上显示最新的葡萄糖值，需要访问日历。";
+
+/* Privacy - Health Share Usage Description */
+"NSHealthShareUsageDescription" = "如需导出血糖数据，须登录苹果健康。";
+
+/* Privacy - Health Update Usage Description */
+"NSHealthUpdateUsageDescription" = "如需导出血糖数据，须登录苹果健康。";
