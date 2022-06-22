@@ -68,6 +68,6 @@ enum SensorFamily: Int, Codable {
     }
 
     var localizedString: String {
-        LocalizedString(self.description)
+        description
     }
 }
