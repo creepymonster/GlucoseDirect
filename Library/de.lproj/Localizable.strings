@@ -35,10 +35,22 @@
 "Alert, sensor expiring soon" = "Alert, Sensor läuft bald ab";
 
 /* (No Comment) */
+"Are you sure you want to add the new calibration?" = "Sind Sie sicher, dass Sie die neue Kalibrierung hinzufügen möchten?";
+
+/* (No Comment) */
+"Are you sure you want to delete all calibrations?" = "Sind Sie sicher, dass Sie alle Kalibrierungen löschen wollen?";
+
+/* (No Comment) */
 "Are you sure you want to delete all log files?" = "Sind Sie sicher, dass Sie alle Protokolldateien löschen wollen?";
 
 /* (No Comment) */
+"Are you sure you want to delete all glucose values?" = "Sind Sie sicher, dass Sie alle Glukosewerte löschen wollen?";
+
+/* (No Comment) */
 "Are you sure you want to disconnect the sensor?" = "Sind Sie sicher, dass Sie die Verbindung zum Sensor trennen wollen?";
+
+/* (No Comment) */
+"Are you sure you want to unpair the sensor?" = "Sind Sie sicher, dass Sie die Kopplung des Sensors aufheben wollen?";
 
 /* (No Comment) */
 "Blood glucose: %1$@" = "Blutzucker: %1$@";
@@ -278,7 +290,13 @@
 "Are you sure you want to add the new blood glucose value?" = "Sind Sie sicher, dass Sie den neuen Blutzuckerwert hinzufügen möchten?";
 
 /* (No Comment) */
+"Chart presentation" = "Diagramm";
+
+/* (No Comment) */
 "Line" = "Linie";
+
+/* (No Comment) */
+"Points" = "Punkte";
 
 /* (No Comment) */
 "Transmitter name" = "Name";

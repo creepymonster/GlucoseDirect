@@ -35,10 +35,22 @@
 "Alert, sensor expiring soon" = "Sensori loppuu pian hälytys";
 
 /* (No Comment) */
+"Are you sure you want to add the new calibration?" = "Haluatko varmasti lisätä uuden kalibroinnin?";
+
+/* (No Comment) */
+"Are you sure you want to delete all calibrations?" = "Oletko varma, että haluat poistaa kaikki kalibroinnit?";
+
+/* (No Comment) */
 "Are you sure you want to delete all log files?" = "Oletko varma, että haluat poistaa kaikki lokitiedostot?";
 
 /* (No Comment) */
+"Are you sure you want to delete all glucose values?" = "Oletko varma, että haluat poistaa kaikki glukoosiarvot?";
+
+/* (No Comment) */
 "Are you sure you want to disconnect the sensor?" = "Haluatko varmasti katkaista sensorin yhteyden?";
+
+/* (No Comment) */
+"Are you sure you want to unpair the sensor?" = "Oletko varma, että haluat poistaa sensorin pariliitoksen?";
 
 /* (No Comment) */
 "Blood glucose: %1$@" = "Verensokeri: %1$@";
@@ -63,6 +75,9 @@
 
 /* (No Comment) */
 "Connection alarm" = "Yhteysongelma";
+
+/* (No Comment) */
+"Custom calibration" = "Kalibrointi";
 
 /* (No Comment) */
 "Custom calibration intercept" = "Intercept";
@@ -326,7 +341,7 @@
 "App version" = "Versio";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "Tuntematon";
 
 /* (No Comment) */
 "Invalid parameters" = "Invalid parameters";

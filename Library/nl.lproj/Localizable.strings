@@ -35,10 +35,22 @@
 "Alert, sensor expiring soon" = "Alert, sensor verloopt binnenkort";
 
 /* (No Comment) */
+"Are you sure you want to add the new calibration?" = "Weet je het zeker dat je de nieuwe kalibratiewaarde wilt toevoegen?";
+
+/* (No Comment) */
+"Are you sure you want to delete all calibrations?" = "Weet je het zeker dat je alle kalibratiewaarden wilt wissen?";
+
+/* (No Comment) */
 "Are you sure you want to delete all log files?" = "Weet je het zeker dat je alle logfiles wilt wissen?";
 
 /* (No Comment) */
+"Are you sure you want to delete all glucose values?" = "Weet je het zeker dat je alle glucosewaarden wilt wissen?";
+
+/* (No Comment) */
 "Are you sure you want to disconnect the sensor?" = "Weet je het zeker dat je de sensor wilt ontkoppelen?";
+
+/* (No Comment) */
+"Are you sure you want to unpair the sensor?" = "Weet je het zeker dat je de sensor wilt ontkoppelen?";
 
 /* (No Comment) */
 "Blood glucose: %1$@" = "Bloedglucose: %1$@";
@@ -326,7 +338,7 @@
 "App version" = "Versie";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "Onbekend";
 
 /* (No Comment) */
 "Invalid parameters" = "Ongeldige parameters";

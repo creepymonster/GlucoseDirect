@@ -1,0 +1,56 @@
+//
+//  ActionAppLog.swift
+//  GlucoseDirect
+//
+
+import Combine
+import Foundation
+import OSLog
+import SwiftUI
+
+func logMiddleware() -> Middleware<AppState, AppAction> {
+    return logMiddleware(service: SendLogsService())
+}
+
+private func logMiddleware(service: SendLogsService) -> Middleware<AppState, AppAction> {
+    return { _, action, _ in
+        DirectLog.info("Triggered action: \(action)")
+
+        switch action {
+        case .startup:
+            service.deleteLogs()
+
+        case .deleteLogs:
+            service.deleteLogs()
+
+        case .sendLogs:
+            service.sendLog(fileURL: DirectLog.getLogsURL())
+
+        default:
+            break
+        }
+
+        return Empty().eraseToAnyPublisher()
+    }
+}
+
+// MARK: - SendLogsService
+
+private class SendLogsService {
+    func deleteLogs() {
+        DirectLog.deleteLogs()
+    }
+
+    func sendLog(fileURL: URL) {
+        let activityViewController = UIActivityViewController(activityItems: [fileURL], applicationActivities: nil)
+
+        let foregroundWindow = UIApplication.shared.connectedScenes
+            .filter { $0.activationState == .foregroundActive }
+            .map { $0 as? UIWindowScene }
+            .compactMap { $0 }
+            .first?.windows
+            .filter { $0.isKeyWindow }.first
+
+        foregroundWindow?.rootViewController?.present(activityViewController, animated: true, completion: nil)
+    }
+}

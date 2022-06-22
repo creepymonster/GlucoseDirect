@@ -35,10 +35,22 @@
 "Alert, sensor expiring soon" = "警报，传感器即将到期";
 
 /* (No Comment) */
+"Are you sure you want to add the new calibration?" = "你确定你要添加新的校准吗？";
+
+/* (No Comment) */
+"Are you sure you want to delete all calibrations?" = "您确定要删除所有校准吗？";
+
+/* (No Comment) */
 "Are you sure you want to delete all log files?" = "你确定你要删除所有的日志文件吗？";
 
 /* (No Comment) */
+"Are you sure you want to delete all glucose values?" = "你确定你要删除所有的葡萄糖值吗？";
+
+/* (No Comment) */
 "Are you sure you want to disconnect the sensor?" = "你确定你要断开传感器的连接吗？";
+
+/* (No Comment) */
+"Are you sure you want to unpair the sensor?" = "你确定你要解除传感器的配对吗？";
 
 /* (No Comment) */
 "Blood glucose: %1$@" = "血糖。 %1$@";
@@ -326,7 +338,7 @@
 "App version" = "版本";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "未知";
 
 /* (No Comment) */
 "Invalid parameters" = "参数无效";

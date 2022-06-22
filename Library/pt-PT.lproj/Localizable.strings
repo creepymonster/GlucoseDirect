@@ -35,10 +35,22 @@
 "Alert, sensor expiring soon" = "Alerta, sensor a expirar em breve";
 
 /* (No Comment) */
+"Are you sure you want to add the new calibration?" = "Tens a certeza que pretendes adicionar uma nova calibração? ";
+
+/* (No Comment) */
+"Are you sure you want to delete all calibrations?" = "Tens a certeza que pretendes eliminar todas as calibrações? ";
+
+/* (No Comment) */
 "Are you sure you want to delete all log files?" = "Tens a certeza que pretendes eliminar todos os ficheiros de arquivo? ";
 
 /* (No Comment) */
+"Are you sure you want to delete all glucose values?" = "Tens a certeza que pretendes eliminar todos os valores de glicemia? ";
+
+/* (No Comment) */
 "Are you sure you want to disconnect the sensor?" = "Tens a certeza que pretendes desconectar o sensor? ";
+
+/* (No Comment) */
+"Are you sure you want to unpair the sensor?" = "Tens a certeza que pretendes desemparelhar o sensor? ";
 
 /* (No Comment) */
 "Blood glucose: %1$@" = "Glicose no sangue: %1$@";
@@ -326,7 +338,7 @@
 "App version" = "Versão";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "Desconhecido";
 
 /* (No Comment) */
 "Invalid parameters" = "Parâmetros inválidos";

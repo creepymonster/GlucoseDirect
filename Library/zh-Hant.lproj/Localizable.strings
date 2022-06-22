@@ -35,10 +35,22 @@
 "Alert, sensor expiring soon" = "警報，感測器即將失效";
 
 /* (No Comment) */
+"Are you sure you want to add the new calibration?" = "你確定要新增的校準值嗎？";
+
+/* (No Comment) */
+"Are you sure you want to delete all calibrations?" = "您確定要刪除全部校準值嗎？";
+
+/* (No Comment) */
 "Are you sure you want to delete all log files?" = "請確認要刪除檔案?";
 
 /* (No Comment) */
+"Are you sure you want to delete all glucose values?" = "確實要刪除全部的血糖數值嗎?";
+
+/* (No Comment) */
 "Are you sure you want to disconnect the sensor?" = "您確定要斷開感測器連結嗎？";
+
+/* (No Comment) */
+"Are you sure you want to unpair the sensor?" = "你是否確定要解除感測器繫結嗎？";
 
 /* (No Comment) */
 "Blood glucose: %1$@" = "血糖:%1$@";
@@ -326,7 +338,7 @@
 "App version" = "版本";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "未知";
 
 /* (No Comment) */
 "Invalid parameters" = "無效參數";
