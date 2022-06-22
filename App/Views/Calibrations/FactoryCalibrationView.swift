@@ -15,37 +15,37 @@ struct FactoryCalibrationView: View {
             Section(
                 content: {
                     HStack {
-                        Text("Factory calibration i1")
+                        Text("i1")
                         Spacer()
                         Text(sensor.factoryCalibration.i1.description)
                     }
 
                     HStack {
-                        Text("Factory calibration i2")
+                        Text("i2")
                         Spacer()
                         Text(sensor.factoryCalibration.i2.description)
                     }
 
                     HStack {
-                        Text("Factory calibration i3")
+                        Text("i3")
                         Spacer()
                         Text(sensor.factoryCalibration.i3.description)
                     }
 
                     HStack {
-                        Text("Factory calibration i4")
+                        Text("i4")
                         Spacer()
                         Text(sensor.factoryCalibration.i4.description)
                     }
 
                     HStack {
-                        Text("Factory calibration i5")
+                        Text("i5")
                         Spacer()
                         Text(sensor.factoryCalibration.i5.description)
                     }
 
                     HStack {
-                        Text("Factory calibration i6")
+                        Text("i6")
                         Spacer()
                         Text(sensor.factoryCalibration.i6.description)
                     }
