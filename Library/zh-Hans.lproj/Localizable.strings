@@ -1,0 +1,755 @@
+/* (No Comment) */
+"%1$@ a clock" = "%1$@";
+
+/* (No Comment) */
+"%1$@/min." = "%1$@/分钟";
+
+/* (No Comment) */
+"%1$@d %2$@h %3$@min" = "%1$@d %2$@小时 %3$@分钟";
+
+/* (No Comment) */
+"0 - Unknown" = "0 - 未知";
+
+/* (No Comment) */
+"1 - European" = "1 - 欧洲";
+
+/* (No Comment) */
+"2 - USA" = "2 - 美国";
+
+/* (No Comment) */
+"4 - Australian" = "4 - Australia/Canada";
+
+/* (No Comment) */
+"8 - Eastern" = "8 - Middle East, Asia";
+
+/* (No Comment) */
+"Add" = "添加";
+
+/* (No Comment) */
+"Add glucose for calibration" = "添加血糖以进行校准";
+
+/* (No Comment) */
+"Add calibration" = "Add calibration";
+
+/* (No Comment) */
+"Add blood glucose" = "Add blood glucose";
+
+/* (No Comment) */
+"Add glucose value" = "添加葡萄糖值";
+
+/* (No Comment) */
+"Alarm Settings" = "报警设置";
+
+/* (No Comment) */
+"Alert, high glucose" = "警告，高血糖";
+
+/* (No Comment) */
+"Alert, low blood glucose" = "警告，低血糖";
+
+/* (No Comment) */
+"Alert, sensor connection lost" = "警报，传感器连接丢失";
+
+/* (No Comment) */
+"Alert, sensor expired" = "警报，传感器过期";
+
+/* (No Comment) */
+"Alert, sensor expiring soon" = "警报，传感器即将到期";
+
+/* (No Comment) */
+"Are you sure you want to add the new calibration?" = "你确定你要添加新的校准吗？";
+
+/* (No Comment) */
+"Are you sure you want to delete all calibrations?" = "您确定要删除所有校准吗？";
+
+/* (No Comment) */
+"Are you sure you want to delete all log files?" = "你确定你要删除所有的日志文件吗？";
+
+/* (No Comment) */
+"Are you sure you want to delete all glucose values?" = "你确定你要删除所有的葡萄糖值吗？";
+
+/* (No Comment) */
+"Are you sure you want to disconnect the sensor?" = "你确定你要断开传感器的连接吗？";
+
+/* (No Comment) */
+"Are you sure you want to unpair the sensor?" = "你确定你要解除传感器的配对吗？";
+
+/* (No Comment) */
+"Blood glucose: %1$@" = "血糖。 %1$@";
+
+/* (No Comment) */
+"Calibration view" = "校准";
+
+/* (No Comment) */
+"Cancel" = "取消";
+
+/* (No Comment) */
+"Chart" = "图表";
+
+/* (No Comment) */
+"Connect sensor" = "连接传感器";
+
+/* (No Comment) */
+"Connected" = "已连接";
+
+/* (No Comment) */
+"Connecting" = "正在连接";
+
+/* (No Comment) */
+"Connection alarm" = "连接报警";
+
+/* (No Comment) */
+"Custom calibration" = "校准";
+
+/* (No Comment) */
+"Custom calibration intercept" = "截距";
+
+/* (No Comment) */
+"Custom calibration slope" = "斜率";
+
+/* (No Comment) */
+"Delete" = "删除";
+
+/* (No Comment) */
+"Delete all" = "删除所有";
+
+/* (No Comment) */
+"Disconnect" = "断开连接";
+
+/* (No Comment) */
+"Disconnect sensor" = "断开传感器的连接";
+
+/* (No Comment) */
+"Disconnected" = "已断开连接";
+
+/* (No Comment) */
+"Factory calibration i1" = "i1";
+
+/* (No Comment) */
+"Factory calibration i2" = "i2";
+
+/* (No Comment) */
+"Factory calibration i3" = "i3";
+
+/* (No Comment) */
+"Factory calibration i4" = "i4";
+
+/* (No Comment) */
+"Factory calibration i5" = "i5";
+
+/* (No Comment) */
+"Factory calibration i6" = "i6";
+
+/* (No Comment) */
+"Glucose alarm" = "葡萄糖报警";
+
+/* (No Comment) */
+"Glucose list view" = "列表";
+
+/* (No Comment) */
+"Glucose overview" = "概览";
+
+/* (No Comment) */
+"Glucose settings" = "葡萄糖设置";
+
+/* (No Comment) */
+"Glucose unit" = "单位";
+
+/* (No Comment) */
+"Glucose values" = "葡萄糖值";
+
+/* (No Comment) */
+"Hold the top edge of your iPhone close to the sensor." = "握住你的iPhone顶部边缘，靠近传感器。";
+
+/* (No Comment) */
+"Libre 1" = "Libre 1";
+
+/* (No Comment) */
+"Libre 2 CA" = "Libre 2 CA";
+
+/* (No Comment) */
+"Libre 2 EU" = "Libre 2 EU";
+
+/* (No Comment) */
+"Libre 2 US" = "Libre 2 US";
+
+/* (No Comment) */
+"Libre 3" = "Libre 3";
+
+/* (No Comment) */
+"Libre Pro/H" = "Libre Pro/H";
+
+/* (No Comment) */
+"Libre Sense" = "Libre Sense";
+
+/* (No Comment) */
+"Libre US 14d" = "Libre US 14d";
+
+/* (No Comment) */
+"Lower limit" = "低";
+
+/* (No Comment) */
+"mg/dL" = "mg/dL";
+
+/* (No Comment) */
+"mmol/L" = "mmol/L";
+
+/* (No Comment) */
+"New calibration" = "新校准";
+
+/* (No Comment) */
+"Nightscout API-Secret" = "API密钥";
+
+/* (No Comment) */
+"Nightscout url" = "网址";
+
+/* (No Comment) */
+"Nightscout settings" = "Nightscout 设置";
+
+/* (No Comment) */
+"Nightscout upload enabled" = "上载";
+
+/* (No Comment) */
+"Now" = "现在";
+
+/* (No Comment) */
+"OK, sensor connection established" = "OK，传感器连接建立";
+
+/* (No Comment) */
+"Pair sensor" = "配对传感器";
+
+/* (No Comment) */
+"Power off" = "关机";
+
+/* (No Comment) */
+"Scanning" = "正在扫描";
+
+/* (No Comment) */
+"Sensor age" = "传感器使用时间";
+
+/* (No Comment) */
+"Connection" = "连接";
+
+/* (No Comment) */
+"Connection error" = "错误";
+
+/* (No Comment) */
+"Connection error timestamp" = "时间";
+
+/* (No Comment) */
+"Connection state" = "状态";
+
+/* (No Comment) */
+"Sensor custom calibration" = "自定义校准";
+
+/* (No Comment) */
+"Sensor details" = "传感器详情";
+
+/* (No Comment) */
+"Sensor factory calibration" = "工厂校准";
+
+/* (No Comment) */
+"Sensor has failure" = "传感器已失败";
+
+/* (No Comment) */
+"Sensor in starting phase" = "传感器正在启动";
+
+/* (No Comment) */
+"Sensor is expired" = "传感器已过期";
+
+/* (No Comment) */
+"Sensor is ready" = "传感器已就绪";
+
+/* (No Comment) */
+"Sensor is shut down" = "传感器已过期";
+
+/* (No Comment) */
+"Sensor lifetime" = "寿命";
+
+/* (No Comment) */
+"Missed readings" = "错过了";
+
+/* (No Comment) */
+"Sensor not yet startet" = "传感器尚未启动";
+
+/* (No Comment) */
+"Sensor PatchInfo" = "PatchInfo";
+
+/* (No Comment) */
+"Sensor possible lifetime" = "寿命";
+
+/* (No Comment) */
+"Sensor region" = "地区";
+
+/* (No Comment) */
+"Sensor remaining lifetime" = "剩余";
+
+/* (No Comment) */
+"Sensor remaining warmup time" = "启动中";
+
+/* (No Comment) */
+"Sensor serial" = "序列号";
+
+/* (No Comment) */
+"Sensor state" = "状态";
+
+/* (No Comment) */
+"Sensor type" = "类型";
+
+/* (No Comment) */
+"Sensor UID" = "UID";
+
+/* (No Comment) */
+"Settings view" = "设置";
+
+/* (No Comment) */
+"Snooze until" = "静默报警";
+
+/* (No Comment) */
+"Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "抱歉，您的iPhone不支持NFC :' (";
+
+/* (No Comment) */
+"The connection to the sensor has been successfully established and glucose data is received." = "与传感器的连接已经成功建立，并收到了葡萄糖数据。";
+
+/* (No Comment) */
+"The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause." = "与传感器的连接已建立，但没有收到任何数值。可能因为传感器数据有问题。";
+
+/* (No Comment) */
+"The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "与传感器的连接已被中断。通常这种情况发生在传感器超出范围或其传输功率受损的情况下。";
+
+/* (No Comment) */
+"The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor." = "传感器不能被连接，并拒绝所有的连接尝试。请重新配对传感器。";
+
+/* (No Comment) */
+"Unknown" = "未知";
+
+/* (No Comment) */
+"Unpair" = "取消配对";
+
+/* (No Comment) */
+"Unpair sensor" = "解除配对传感器";
+
+/* (No Comment) */
+"Upper limit" = "高";
+
+/* (No Comment) */
+"Virtual Sensor" = "虚拟传感器";
+
+/* (No Comment) */
+"Warning, sensor missed %1$@ readings" = "警告，传感器错过了 %1$@ 次读";
+
+/* (No Comment) */
+"Wearing time alarm" = "佩戴时间报警";
+
+/* (No Comment) */
+"Your current glucose is %1$@ (%2$@)." = "你当前的葡萄糖是 %1$@ (%2$@) 。";
+
+/* (No Comment) */
+"Your glucose %1$@ (%2$@) is dangerously high and needs to be treated." = "您的葡萄糖, %1$@ (%2$@), 很危险, 需要处理。";
+
+/* (No Comment) */
+"Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "你的葡萄糖， %1$@ (%2$@)，是危险的低。使用加糖饮料或葡萄糖，血糖水平往往可以恢复正常。";
+
+/* (No Comment) */
+"Your sensor has expired and needs to be replaced as soon as possible" = "您的传感器已经过期，需要尽快更换";
+
+/* (No Comment) */
+"Your sensor is about to expire. Replace sensor in %1$@ day." = "您的传感器即将过期。在 %1$@ 天内替换传感器。";
+
+/* (No Comment) */
+"Your sensor is about to expire. Replace sensor in %1$@ days." = "您的传感器即将过期。在 %1$@ 天内更换传感器。";
+
+/* (No Comment) */
+"Your sensor is about to expire. Replace sensor in %1$@ hour." = "您的传感器即将过期。在 %1$@ 小时内更换传感器。";
+
+/* (No Comment) */
+"Your sensor is about to expire. Replace sensor in %1$@ hours." = "您的传感器即将过期。在 %1$@ 小时内更换传感器。";
+
+/* (No Comment) */
+"Your sensor is about to expire. Replace sensor in %1$@ minutes." = "您的传感器即将过期。在 %1$@ 分钟内更换传感器。";
+
+/* (No Comment) */
+"Other Settings" = "其它设置";
+
+/* (No Comment) */
+"Glucose badge" = "Glucose 标志";
+
+/* (No Comment) */
+"Are you sure you want to add the new blood glucose value?" = "你确定要添加新的血糖值吗？";
+
+/* (No Comment) */
+"Chart presentation" = "图表展示";
+
+/* (No Comment) */
+"Line" = "线";
+
+/* (No Comment) */
+"Points" = "点";
+
+/* (No Comment) */
+"Transmitter name" = "名称";
+
+/* (No Comment) */
+"Transmitter battery" = "电池";
+
+/* (No Comment) */
+"Transmitter hardware" = "硬件";
+
+/* (No Comment) */
+"Transmitter firmware" = "固件";
+
+/* (No Comment) */
+"Transmitter" = "发射器";
+
+/* (No Comment) */
+"Sensor connection" = "传感器连接";
+
+/* (No Comment) */
+"Without transmitter" = "无发射器";
+
+/* (No Comment) */
+"Bubble transmitter" = "Bubble发射器";
+
+/* (No Comment) */
+"Pairing" = "配对";
+
+/* (No Comment) */
+"Calendar export" = "导出日历";
+
+/* (No Comment) */
+"Calendar export enabled" = "导出";
+
+/* (No Comment) */
+"Selected calendar" = "日历";
+
+/* (No Comment) */
+"Please select" = "请选择";
+
+/* (No Comment) */
+"About %@" = "约 %@";
+
+/* (No Comment) */
+"App version" = "版本";
+
+/* (No Comment) */
+"Unknown" = "Unknown";
+
+/* (No Comment) */
+"Invalid parameters" = "参数无效";
+
+/* (No Comment) */
+"Invalid handle" = "无效处理";
+
+/* (No Comment) */
+"Not connected" = "未连接";
+
+/* (No Comment) */
+"Out of space" = "空间不足";
+
+/* (No Comment) */
+"Operation cancelled" = "操作已取消。";
+
+/* (No Comment) */
+"Connection timeout" = "连接超时";
+
+/* (No Comment) */
+"Peripheral disconnected" = "发射器已断开";
+
+/* (No Comment) */
+"UUID not allowed" = "UUID无效";
+
+/* (No Comment) */
+"Already advertising" = "一直广播";
+
+/* (No Comment) */
+"Connection failed" = "连接失败";
+
+/* (No Comment) */
+"Connection limit reached" = "达到连接限制";
+
+/* (No Comment) */
+"Operation not supported" = "不支持此操作";
+
+/* (No Comment) */
+"Attention, the sensor sends faulty values. Please wait 10 minutes." = "注意，传感器发送错误的数值。请等待10分钟。";
+
+/* (No Comment) */
+"App website" = "网站";
+
+/* (No Comment) */
+"Send log file" = "发送日志文件";
+
+/* (No Comment) */
+"Sensor starting date" = "开始日期";
+
+/* (No Comment) */
+"Delete log files" = "删除日志文件";
+
+/* (No Comment) */
+"Readable glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@";
+
+/* (No Comment) */
+"Readable glucose with trend: %1$@ %2$@, %3$@" = "Glucose: %1$@ %2$@, %3$@";
+
+/* (No Comment) */
+"Readable low glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, Hypoglycemia!";
+
+/* (No Comment) */
+"Readable high glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, Hyperglycemia!";
+
+/* (No Comment) */
+"Readable miligram" = "miligram";
+
+/* (No Comment) */
+"Readable milimol" = "milimol";
+
+/* (No Comment) */
+"Readable falling" = "falling";
+
+/* (No Comment) */
+"Readable fast falling" = "fast falling";
+
+/* (No Comment) */
+"Readable rapidly falling" = "rapidly falling";
+
+/* (No Comment) */
+"Readable rising" = "rising";
+
+/* (No Comment) */
+"Readable fast rising" = "fast rising";
+
+/* (No Comment) */
+"Readable rapidly rising" = "rapidly rising";
+
+/* (No Comment) */
+"Read aloud" = "Read aloud";
+
+/* (No Comment) */
+"Glucose read aloud" = "Glucose read aloud";
+
+/* (No Comment) */
+"Glucose values are read aloud:" = "Glucose values are read aloud:";
+
+/* (No Comment) */
+"Every 10 minutes" = "- Every 10 minutes";
+
+/* (No Comment) */
+"After disconnections" = "- After disconnections";
+
+/* (No Comment) */
+"When the glucose trend changes" = "- When the glucose trend changes";
+
+/* (No Comment) */
+"When a new alarm is triggered" = "- When a new alarm is triggered";
+
+/* (No Comment) */
+"App author" = "Author";
+
+/* (No Comment) */
+"App support mail" = "Support";
+
+/* (No Comment) */
+"Attention, faulty value received" = "Attention, faulty value received";
+
+/* (No Comment) */
+"App translation" = "Translation";
+
+/* (No Comment) */
+"App faq" = "FAQ";
+
+/* (No Comment) */
+"App facebook group" = "Facebook group";
+
+/* (No Comment) */
+"App email" = "eMail";
+
+/* (No Comment) */
+"Internal http server" = "Internal http server";
+
+/* (No Comment) */
+"Low glucose alarm" = "Low glucose alarm";
+
+/* (No Comment) */
+"High glucose alarm" = "High glucose alarm";
+
+/* (No Comment) */
+"Sound: achievement" = "Achievement";
+
+/* (No Comment) */
+"Sound: none" = "None";
+
+/* (No Comment) */
+"Sound: alarm" = "Alarm";
+
+/* (No Comment) */
+"Sound: buzz-beep" = "Buzz-Beep";
+
+/* (No Comment) */
+"Sound: chiptone" = "Chiptone";
+
+/* (No Comment) */
+"Sound: climb-rope" = "Climb-Rope";
+
+/* (No Comment) */
+"Sound: coin-chime" = "Coin-Chime";
+
+/* (No Comment) */
+"Sound: coin-insert" = "Coin-Insert";
+
+/* (No Comment) */
+"Sound: collect-point" = "Collect-Point";
+
+/* (No Comment) */
+"Sound: expiring" = "Expiring";
+
+/* (No Comment) */
+"Sound: failure" = "Failure";
+
+/* (No Comment) */
+"Sound: future" = "Future";
+
+/* (No Comment) */
+"Sound: highlight" = "Highlight";
+
+/* (No Comment) */
+"Sound: hit" = "Hit";
+
+/* (No Comment) */
+"Sound: jump" = "Jump";
+
+/* (No Comment) */
+"Sound: long-alarm" = "Long-alarm";
+
+/* (No Comment) */
+"Sound: lose" = "Lose";
+
+/* (No Comment) */
+"Sound: low-battery" = "Low-Battery";
+
+/* (No Comment) */
+"Sound: negative" = "Negative";
+
+/* (No Comment) */
+"Sound: ping" = "Ping";
+
+/* (No Comment) */
+"Sound: positive" = "Positive";
+
+/* (No Comment) */
+"Sound: vibration" = "Vibrate only";
+
+/* (No Comment) */
+"Please wait..." = "Please wait...";
+
+/* (No Comment) */
+"Scan sensor" = "Scan sensor";
+
+/* (No Comment) */
+"Retry pairing" = "Retry pairing";
+
+/* (No Comment) */
+"Scanned sensor expired" = "Sensor expired";
+
+/* (No Comment) */
+"Ignore mute" = "Ignore mute";
+
+/* (No Comment) */
+"Retrieval interval" = "Retrieval interval";
+
+/* (No Comment) */
+"Retrieval interval, every minute" = "Every minute";
+
+/* (No Comment) */
+"Retrieval interval, every %1$@ minutes" = "Every %1$@ minutes";
+
+/* (No Comment) */
+"App donate" = "Donate";
+
+/* (No Comment) */
+"Bellman alarm" = "Alarm";
+
+/* (No Comment) */
+"Bellman test alarm" = "Test alarm";
+
+/* (No Comment) */
+"Bellman telephone transceiver BT" = "Bellman Transceiver BT";
+
+/* (No Comment) */
+"Find transmitter" = "Find transmitter";
+
+/* (No Comment) */
+"Connect transmitter" = "Connect transmitter";
+
+/* (No Comment) */
+"Disconnect transmitter" = "Disconnect transmitter";
+
+/* (No Comment) */
+"Rescan the sensor" = "Rescan the sensor";
+
+/* (No Comment) */
+"Apple export settings" = "Apple export settings";
+
+/* (No Comment) */
+"Export to Apple Health" = "Export to Apple Health";
+
+/* (No Comment) */
+"Export to Apple Calendar" = "Export to Apple Calendar";
+
+/* (No Comment) */
+"Glucose notification" = "Glucose notification";
+
+/* (No Comment) */
+"Notification settings" = "Notification settings";
+
+/* (No Comment) */
+"HIGH" = "HIGH";
+
+/* (No Comment) */
+"LOW" = "LOW";
+
+/* (No Comment) */
+"Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter.";
+
+/* (No Comment) */
+"The value from the blood glucose meter can then be added via 'List', at the top 'Add'." = "The value from the blood glucose meter can then be added via 'List', at the top 'Add'.";
+
+/* (No Comment) */
+"Transmitter ID" = "Identifier";
+
+/* (No Comment) */
+"Time" = "Time";
+
+/* (No Comment) */
+"Glucose" = "Glucose";
+
+/* (No Comment) */
+"Transmitter details" = "Transmitter details";
+
+/* (No Comment) */
+"Sensor" = "Sensor";
+
+/* (No Comment) */
+"Glucose widget" = "Glucose";
+
+/* (No Comment) */
+"Glucose widget description" = "Displays the last glucose value.";
+
+/* (No Comment) */
+"Sensor lifetime widget" = "Sensor Lifetime";
+
+/* (No Comment) */
+"Sensor lifetime widget description" = "Displays the remaining lifetime of the current sensor as a countdown.";
+
+/* (No Comment) */
+"Transmitter battery widget" = "Transmitter Battery";
+
+/* (No Comment) */
+"Transmitter battery widget description" = "Displays the remaining battery charge of the transmitter as a countdown.";
+
+/* (No Comment) */
+"Warmup" = "Warmup";
+
+/* (No Comment) */
+"No screen lock" = "No screen lock";
+
+/* (No Comment) */
+"LibreLink transmitter" = "LibreLink Transmitter";
