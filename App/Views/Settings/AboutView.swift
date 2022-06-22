@@ -8,9 +8,9 @@ import SwiftUI
 // MARK: - AboutView
 
 struct AboutView: View {
-    @EnvironmentObject var store: AppStore
+    // MARK: Internal
 
-    @State var showingDeleteLogsAlert = false
+    @EnvironmentObject var store: AppStore
 
     var body: some View {
         Section(
@@ -96,10 +96,13 @@ struct AboutView: View {
                 title: Text("Are you sure you want to delete all log files?"),
                 primaryButton: .destructive(Text("Delete all")) {
                     store.dispatch(.deleteLogs)
-                    store.dispatch(.clearGlucoseValues)
                 },
                 secondaryButton: .cancel()
             )
         }
     }
+
+    // MARK: Private
+
+    @State private var showingDeleteLogsAlert = false
 }

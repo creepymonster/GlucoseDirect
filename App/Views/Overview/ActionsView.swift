@@ -8,8 +8,9 @@ import SwiftUI
 // MARK: - ActionsView
 
 struct ActionsView: View {
+    // MARK: Internal
+
     @EnvironmentObject var store: AppStore
-    @State var showingDisconnectConnectionAlert = false
 
     var body: some View {
         if store.state.hasSelectedConnection {
@@ -90,4 +91,8 @@ struct ActionsView: View {
             }
         }
     }
+
+    // MARK: Private
+
+    @State private var showingDisconnectConnectionAlert = false
 }

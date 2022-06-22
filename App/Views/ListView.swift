@@ -9,9 +9,6 @@ struct ListView: View {
     // MARK: Internal
 
     @EnvironmentObject var store: AppStore
-    @State var value: Int = 0
-    @State var showingAddBloodGlucoseView = false
-    @State var glucoseValues: [Glucose] = []
 
     var body: some View {
         List {
@@ -121,6 +118,10 @@ struct ListView: View {
     }
 
     // MARK: Private
+
+    @State private var value: Int = 0
+    @State private var showingAddBloodGlucoseView = false
+    @State private var glucoseValues: [Glucose] = []
 
     private func isPrecise(glucose: Glucose) -> Bool {
         if glucose.type == .none {

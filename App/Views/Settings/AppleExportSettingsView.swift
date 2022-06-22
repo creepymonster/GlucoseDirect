@@ -13,10 +13,6 @@ struct AppleExportSettingsView: View {
 
     @EnvironmentObject var store: AppStore
 
-    var calendars: [String] {
-        EKEventStore().calendars(for: .event).map { $0.title }
-    }
-
     var body: some View {
         Section(
             content: {
@@ -55,6 +51,10 @@ struct AppleExportSettingsView: View {
     }
 
     // MARK: Private
+
+    private var calendars: [String] {
+        EKEventStore().calendars(for: .event).map { $0.title }
+    }
 
     private var selectedCalendar: Binding<String> {
         Binding(

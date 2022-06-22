@@ -161,9 +161,8 @@ struct SensorView: View {
 
 // MARK: - ColoredProgressView
 
-struct ColoredProgressView: View {
-    var value: Double
-    var colors: [Color]
+private struct ColoredProgressView: View {
+    // MARK: Internal
 
     var body: some View {
         GeometryReader { geometry in
@@ -182,4 +181,9 @@ struct ColoredProgressView: View {
             .cornerRadius(45.0)
         }
     }
+
+    // MARK: Private
+
+    private let value: Double
+    private let colors: [Color]
 }

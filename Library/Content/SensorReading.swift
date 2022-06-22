@@ -5,6 +5,8 @@
 
 import Foundation
 
+// MARK: - SensorReading
+
 class SensorReading: CustomStringConvertible, Codable {
     // MARK: Lifecycle
 
@@ -43,7 +45,7 @@ extension SensorReading {
     static func createGlucoseReading(timestamp: Date, glucoseValue: Double) -> SensorReading {
         return SensorReading(timestamp: timestamp, glucoseValue: glucoseValue)
     }
-    
+
     static func createFaultyReading(timestamp: Date, quality: SensorReadingQuality) -> SensorReading {
         return SensorReading(timestamp: timestamp, quality: quality)
     }
@@ -52,10 +54,10 @@ extension SensorReading {
         if quality != .OK {
             return Glucose.faultySensorGlucose(timestamp: timestamp, quality: quality)
         }
-        
+
         let calibratedGlucoseValue = Int(calibration(glucoseValue: glucoseValue, customCalibration: customCalibration))
-        
-        return Glucose.sensorGlucose(timestamp: timestamp, rawGlucoseValue: Int(glucoseValue), glucoseValue: calibratedGlucoseValue, minuteChange: nil)
+
+        return Glucose.sensorGlucose(timestamp: timestamp, rawGlucoseValue: Int(glucoseValue), glucoseValue: calibratedGlucoseValue)
     }
 
     private func calibration(glucoseValue: Double, customCalibration: [CustomCalibration]) -> Double {

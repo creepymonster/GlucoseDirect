@@ -1,5 +1,5 @@
 //
-//  ChartViewCompatibility.swift
+//  ChartViewFallback.swift
 //  App
 //
 
@@ -7,34 +7,14 @@ import Accelerate
 import Combine
 import SwiftUI
 
-// MARK: - ChartViewCompatibility
+// MARK: - ChartViewFallback
 
-struct ChartViewCompatibility: View {
+struct ChartViewFallback: View {
     // MARK: Internal
 
     @Environment(\.colorScheme) var colorScheme
 
     @EnvironmentObject var store: AppStore
-    @StateObject var updater = MinuteUpdaterCompatibility()
-    @State var alarmHighGridPath = Path()
-    @State var alarmLowGridPath = Path()
-    @State var firstTimeStamp: Date? = nil
-    @State var cgmPath = Path()
-    @State var bgmPath = Path()
-    @State var glucoseSteps: Int = 0
-    @State var lastTimeStamp: Date? = nil
-    @State var targetGridPath = Path()
-    @State var xGridPath = Path()
-    @State var xGridTexts: [TextInfoCompatibility] = []
-    @State var yGridPath = Path()
-    @State var yGridTexts: [TextInfoCompatibility] = []
-    @State var deviceOrientation = UIDevice.current.orientation
-    @State var deviceColorScheme = ColorScheme.light
-    @State var cgmValues: [Glucose] = []
-    @State var cgmInfos: [GlucoseInfoCompatibility] = []
-    @State var glucoseInfo: GlucoseInfoCompatibility? = nil
-    @State var bgmValues: [Glucose] = []
-    @State var zoomGridStep = Config.zoomGridStep[Config.zoomLevels.first!.level]!
 
     var chartView: some View {
         GeometryReader { geo in
@@ -244,11 +224,11 @@ struct ChartViewCompatibility: View {
             30: 360,
         ]
 
-        static let zoomLevels: [ZoomLevelCompatibility] = [
-            ZoomLevelCompatibility(level: 1, title: "1m"),
-            ZoomLevelCompatibility(level: 5, title: "5m"),
-            ZoomLevelCompatibility(level: 15, title: "15m"),
-            ZoomLevelCompatibility(level: 30, title: "30m"),
+        static let zoomLevels: [ZoomLevelFallback] = [
+            ZoomLevelFallback(level: 1, title: "1m"),
+            ZoomLevelFallback(level: 5, title: "5m"),
+            ZoomLevelFallback(level: 15, title: "15m"),
+            ZoomLevelFallback(level: 30, title: "30m"),
         ]
 
         static let endID = "End"
@@ -260,6 +240,27 @@ struct ChartViewCompatibility: View {
 
         static var backgroundColor: Color { Color(.sRGB, red: 0.96, green: 0.96, blue: 0.96) | Color(.sRGB, red: 0.09, green: 0.09, blue: 0.09) }
     }
+
+    @StateObject private var updater = MinuteUpdaterFallback()
+    @State private var alarmHighGridPath = Path()
+    @State private var alarmLowGridPath = Path()
+    @State private var firstTimeStamp: Date? = nil
+    @State private var cgmPath = Path()
+    @State private var bgmPath = Path()
+    @State private var glucoseSteps: Int = 0
+    @State private var lastTimeStamp: Date? = nil
+    @State private var targetGridPath = Path()
+    @State private var xGridPath = Path()
+    @State private var xGridTexts: [TextInfoFallback] = []
+    @State private var yGridPath = Path()
+    @State private var yGridTexts: [TextInfoFallback] = []
+    @State private var deviceOrientation = UIDevice.current.orientation
+    @State private var deviceColorScheme = ColorScheme.light
+    @State private var cgmValues: [Glucose] = []
+    @State private var cgmInfos: [GlucoseInfoFallback] = []
+    @State private var glucoseInfo: GlucoseInfoFallback? = nil
+    @State private var bgmValues: [Glucose] = []
+    @State private var zoomGridStep = Config.zoomGridStep[Config.zoomLevels.first!.level]!
 
     private let calculationQueue = DispatchQueue(label: "libre-direct.chart-calculation")
 
@@ -334,11 +335,6 @@ struct ChartViewCompatibility: View {
     private func cgmDotsView() -> some View {
         cgmPath
             .fill(Config.dot.cgmColor)
-    }
-
-    private func bgmLineView() -> some View {
-        bgmPath
-            .stroke(Config.line.bgmColor, lineWidth: Config.line.size)
     }
 
     private func bgmDotsView() -> some View {
@@ -462,7 +458,7 @@ struct ChartViewCompatibility: View {
 
                     let meanGlucoseValues = sumGlucoseValues / group.value.count
 
-                    return Glucose.sensorGlucose(timestamp: group.key, rawGlucoseValue: meanGlucoseValues, minuteChange: nil)
+                    return Glucose.sensorGlucose(timestamp: group.key, glucoseValue: meanGlucoseValues)
                 }.sorted(by: { $0.timestamp < $1.timestamp })
 
                 // bgm values
@@ -523,7 +519,7 @@ struct ChartViewCompatibility: View {
         var isFirst = true
 
         calculationQueue.async {
-            var cgmInfo: [GlucoseInfoCompatibility] = []
+            var cgmInfo: [GlucoseInfoFallback] = []
 
             let cgmPath = Path { path in
                 for glucose in glucoseValues {
@@ -534,7 +530,7 @@ struct ChartViewCompatibility: View {
                     let x = self.translateTimeStampToX(timestamp: glucose.timestamp)
                     let y = self.translateGlucoseToY(fullSize: fullSize, glucose: CGFloat(glucoseValue))
 
-                    cgmInfo.append(GlucoseInfoCompatibility(x: x, glucose: glucose))
+                    cgmInfo.append(GlucoseInfoFallback(x: x, glucose: glucose))
 
                     if store.state.chartShowLines {
                         if isFirst {
@@ -559,8 +555,6 @@ struct ChartViewCompatibility: View {
     private func updateBgmPath(fullSize: CGSize, glucoseValues: [Glucose]) {
         DirectLog.info("updateBgmPath")
 
-        var isFirst = true
-
         calculationQueue.async {
             let cgmPath = Path { path in
                 for glucose in glucoseValues {
@@ -571,16 +565,7 @@ struct ChartViewCompatibility: View {
                     let x = self.translateTimeStampToX(timestamp: glucose.timestamp)
                     let y = self.translateGlucoseToY(fullSize: fullSize, glucose: CGFloat(glucoseValue))
 
-                    if store.state.chartShowLines {
-                        if isFirst {
-                            isFirst = false
-                            path.move(to: CGPoint(x: x, y: y))
-                        }
-
-                        path.addLine(to: CGPoint(x: x, y: y))
-                    } else {
-                        path.addEllipse(in: CGRect(x: x - Config.dot.size / 2, y: y - Config.dot.size / 2, width: Config.dot.size, height: Config.dot.size))
-                    }
+                    path.addEllipse(in: CGRect(x: x - Config.dot.size, y: y - Config.dot.size, width: Config.dot.size * 2, height: Config.dot.size * 2))
                 }
             }
 
@@ -614,9 +599,10 @@ struct ChartViewCompatibility: View {
 
         calculationQueue.async {
             if let firstTimeStamp = firstTimeStamp, let lastTimeStamp = lastTimeStamp {
-                let allHours = Date.dates(
+                let allHours = Date.valuesBetween(
                     from: firstTimeStamp.toRounded(on: Int(zoomGridStep), .minute).addingTimeInterval(-3600),
                     to: lastTimeStamp.toRounded(on: Int(zoomGridStep), .minute).addingTimeInterval(3600),
+                    component: .minute,
                     step: Int(zoomGridStep)
                 )
 
@@ -631,12 +617,12 @@ struct ChartViewCompatibility: View {
                     }
                 }
 
-                var xGridTexts: [TextInfoCompatibility] = []
+                var xGridTexts: [TextInfoFallback] = []
                 for hour in allHours {
                     let highlight = Calendar.current.component(.minute, from: hour) == 0
                     let x = self.translateTimeStampToX(timestamp: hour)
                     let y = fullSize.height - Config.y.fontSize
-                    xGridTexts.append(TextInfoCompatibility(description: hour.toLocalTime(), x: x, y: y, highlight: highlight))
+                    xGridTexts.append(TextInfoFallback(description: hour.toLocalTime(), x: x, y: y, highlight: highlight))
                 }
 
                 DispatchQueue.main.async {
@@ -668,14 +654,14 @@ struct ChartViewCompatibility: View {
                 }
             }
 
-            var yGridTexts: [TextInfoCompatibility] = []
+            var yGridTexts: [TextInfoFallback] = []
             for i in gridParts {
                 if i <= DirectConfig.minReadableGlucose {
                     continue
                 }
 
                 let y = self.translateGlucoseToY(fullSize: fullSize, glucose: CGFloat(i))
-                yGridTexts.append(TextInfoCompatibility(description: i.asGlucose(unit: glucoseUnit), x: 0, y: y, highlight: false))
+                yGridTexts.append(TextInfoFallback(description: i.asGlucose(unit: glucoseUnit), x: 0, y: y, highlight: false))
             }
 
             DispatchQueue.main.async {
@@ -710,57 +696,32 @@ struct ChartViewCompatibility: View {
     }
 }
 
-extension Date {
-    static func dates(from fromDate: Date, to toDate: Date, step: Int) -> [Date] {
-        var dates: [Date] = []
-        var date = fromDate
+// MARK: - TextInfoFallback
 
-        while date <= toDate {
-            dates.append(date)
-            guard let newDate = Calendar.current.date(byAdding: .minute, value: step, to: date) else {
-                break
-            }
-            date = newDate
-        }
-
-        return dates
-    }
-}
-
-// MARK: - TextInfoCompatibility
-
-struct TextInfoCompatibility {
+private struct TextInfoFallback {
     let description: String
     let x: CGFloat
     let y: CGFloat
     let highlight: Bool
 }
 
-// MARK: - GlucoseInfoCompatibility
+// MARK: - GlucoseInfoFallback
 
-struct GlucoseInfoCompatibility {
+private struct GlucoseInfoFallback {
     let x: CGFloat
     let glucose: Glucose
 }
 
-// MARK: - SizePreferenceKeyCompatibility
+// MARK: - ZoomLevelFallback
 
-struct SizePreferenceKeyCompatibility: PreferenceKey {
-    static var defaultValue: CGSize = .zero
-
-    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {}
-}
-
-// MARK: - ZoomLevelCompatibility
-
-struct ZoomLevelCompatibility {
+private struct ZoomLevelFallback {
     let level: Int
     let title: String
 }
 
-// MARK: - MinuteUpdaterCompatibility
+// MARK: - MinuteUpdaterFallback
 
-class MinuteUpdaterCompatibility: ObservableObject {
+private class MinuteUpdaterFallback: ObservableObject {
     // MARK: Lifecycle
 
     init() {
@@ -782,7 +743,7 @@ class MinuteUpdaterCompatibility: ObservableObject {
 }
 
 infix operator |: AdditionPrecedence
-extension Color {
+private extension Color {
     /// Easily define two colors for both light and dark mode.
     /// - Parameters:
     ///   - lightMode: The color to use in light mode.

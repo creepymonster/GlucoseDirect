@@ -14,20 +14,6 @@ struct ChartView: View {
 
     @EnvironmentObject var store: AppStore
 
-    @State var seriesWidth: CGFloat = 0
-    @State var cgmSeries: [ChartDatapoint] = []
-    @State var bgmSeries: [ChartDatapoint] = []
-
-    @State var selectedPoint: ChartDatapoint? = nil {
-        didSet {
-            store.dispatch(.selectGlucose(glucose: selectedPoint?.glucose))
-        }
-    }
-
-    var showLines: Bool {
-        store.state.chartShowLines
-    }
-
     var zoomLevel: ZoomLevel? {
         Config.zoomLevels.first(where: { $0.level == store.state.chartZoomLevel })
     }
@@ -62,6 +48,13 @@ struct ChartView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     ScrollViewReader { scrollViewProxy in
                         Chart {
+                            if let firstTimestamp = glucoseValues.first?.timestamp {
+                                RuleMark(
+                                    x: .value("Spacing", Calendar.current.date(byAdding: .minute, value: -15, to: firstTimestamp)!)
+                                )
+                                .foregroundStyle(.clear)
+                            }
+
                             RuleMark(y: .value("Lower limit", alarmLow))
                                 .foregroundStyle(Color.ui.orange)
                                 .lineStyle(Config.ruleStyle)
@@ -94,7 +87,7 @@ struct ChartView: View {
                                     x: .value("Time", selectedPoint.valueX),
                                     y: .value("Glucose", selectedPoint.valueY)
                                 )
-                                .symbolSize(64)
+                                .symbolSize(Config.selectionSize)
                                 .foregroundStyle(Color.ui.blue)
                                 .opacity(0.5)
                             }
@@ -196,11 +189,22 @@ struct ChartView: View {
 
     // MARK: Private
 
+    @State private var seriesWidth: CGFloat = 0
+    @State private var cgmSeries: [ChartDatapoint] = []
+    @State private var bgmSeries: [ChartDatapoint] = []
+
+    @State private var selectedPoint: ChartDatapoint? = nil {
+        didSet {
+            store.dispatch(.selectGlucose(glucose: selectedPoint?.glucose))
+        }
+    }
+
     private enum Config {
         static let chartID = "chart"
         static let symbolSize: CGFloat = 15
+        static let selectionSize: CGFloat = 100
         static let spacerWidth: CGFloat = 50
-        static let lineStyle: StrokeStyle = .init(lineWidth: 2.5, lineCap: .round)
+        static let lineStyle: StrokeStyle = .init(lineWidth: 3.5, lineCap: .round)
         static let ruleStyle: StrokeStyle = .init(lineWidth: 0.5, dash: [2])
 
         static let zoomLevels: [ZoomLevel] = [
@@ -236,8 +240,10 @@ struct ChartView: View {
                 value.isValidCGM() || value.isValidBGM()
             }
 
-            if let startTime = glucoseValues.first?.timestamp.timeIntervalSince1970,
-               let endTime = glucoseValues.last?.timestamp.timeIntervalSince1970,
+            if let firstTime = glucoseValues.first?.timestamp,
+               let lastTime = glucoseValues.last?.timestamp,
+               let startTime = Calendar.current.date(byAdding: .minute, value: -15, to: firstTime)?.timeIntervalSince1970,
+               let endTime = Calendar.current.date(byAdding: .minute, value: 15, to: lastTime)?.timeIntervalSince1970,
                let zoomLevel = zoomLevel
             {
                 let minuteWidth = (viewWidth / CGFloat(zoomLevel.visibleHours * 60))
@@ -258,7 +264,8 @@ struct ChartView: View {
     private func populateValues(glucoseValues: [Glucose]) -> [ChartDatapoint] {
         glucoseValues.map { value in
             value.toDatapoint(glucoseUnit: glucoseUnit, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh)
-        }.compactMap { $0 }
+        }
+        .compactMap { $0 }
     }
 }
 

@@ -63,17 +63,15 @@ class Glucose: CustomStringConvertible, Codable, Identifiable {
 }
 
 extension Glucose {
-    static func sensorGlucose(timestamp: Date, rawGlucoseValue: Int, minuteChange: Double?) -> Glucose {
+    static func sensorGlucose(timestamp: Date, rawGlucoseValue: Int, minuteChange: Double? = nil) -> Glucose {
         return Glucose(timestamp: timestamp, rawGlucoseValue: rawGlucoseValue, glucoseValue: nil, minuteChange: minuteChange, type: .cgm)
     }
 
-    static func sensorGlucose(timestamp: Date, rawGlucoseValue: Int, glucoseValue: Int, minuteChange: Double?) -> Glucose {
-        if glucoseValue <= DirectConfig.minReadableGlucose {
-            return Glucose(timestamp: timestamp, rawGlucoseValue: rawGlucoseValue, glucoseValue: DirectConfig.minReadableGlucose, minuteChange: minuteChange, type: .cgm)
-        } else if glucoseValue >= DirectConfig.maxReadableGlucose {
-            return Glucose(timestamp: timestamp, rawGlucoseValue: rawGlucoseValue, glucoseValue: DirectConfig.maxReadableGlucose, minuteChange: minuteChange, type: .cgm)
-        }
+    static func sensorGlucose(timestamp: Date, glucoseValue: Int, minuteChange: Double? = nil) -> Glucose {
+        return Glucose(timestamp: timestamp, rawGlucoseValue: glucoseValue, glucoseValue: glucoseValue, minuteChange: minuteChange, type: .cgm)
+    }
 
+    static func sensorGlucose(timestamp: Date, rawGlucoseValue: Int, glucoseValue: Int, minuteChange: Double? = nil) -> Glucose {
         return Glucose(timestamp: timestamp, rawGlucoseValue: rawGlucoseValue, glucoseValue: glucoseValue, minuteChange: minuteChange, type: .cgm)
     }
 

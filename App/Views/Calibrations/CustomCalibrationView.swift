@@ -12,10 +12,6 @@ struct CustomCalibrationView: View {
 
     @EnvironmentObject var store: AppStore
 
-    @State var value: Int = 0
-    @State var showingAddCalibrationView = false
-    @State var customCalibration: [CustomCalibration] = []
-
     var body: some View {
         if showingAddCalibrationView {
             Section(
@@ -120,6 +116,10 @@ struct CustomCalibrationView: View {
     // MARK: Private
 
     private static let factor: Double = 1_000_000
+
+    @State private var value: Int = 0
+    @State private var showingAddCalibrationView = false
+    @State private var customCalibration: [CustomCalibration] = []
 
     private var slope: Double {
         Double(round(CustomCalibrationView.factor * customCalibration.slope) / CustomCalibrationView.factor)
