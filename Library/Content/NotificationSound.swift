@@ -36,6 +36,6 @@ enum NotificationSound: String, Codable, CaseIterable {
     }
 
     var localizedString: String {
-        LocalizedString("Sound: \(rawValue)")
+        rawValue
     }
 }
