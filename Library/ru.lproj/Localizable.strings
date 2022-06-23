@@ -464,10 +464,7 @@
 "High glucose alarm" = "Сигнал тревоги о высоком ГК";
 
 /* (No Comment) */
-"Sound: vibration" = "Только вибрация";
-
-/* (No Comment) */
-"Please wait..." = "Пожалуйста, подождите....";
+"Vibration" = "Vibrate only";
 
 /* (No Comment) */
 "Scan sensor" = "Scan sensor";
