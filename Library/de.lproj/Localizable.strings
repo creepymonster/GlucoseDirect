@@ -464,10 +464,7 @@
 "High glucose alarm" = "Hoher Glukose Alarm";
 
 /* (No Comment) */
-"Sound: vibration" = "Vibrieren";
-
-/* (No Comment) */
-"Please wait..." = "Bitte warten...";
+"Vibration" = "Vibrate only";
 
 /* (No Comment) */
 "Scan sensor" = "Sensor scannen";
