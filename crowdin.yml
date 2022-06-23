@@ -1,5 +1,8 @@
 files:
   - source: /App/en.lproj/InfoPlist.strings
     translation: /App/%osx_locale%.lproj/InfoPlist.strings
+  - source: /AppWidgets/en.lproj/InfoPlist.strings
+    translation: /AppWidgets/%osx_locale%.lproj/InfoPlist.strings
   - source: /Library/en.lproj/Localizable.strings
     translation: /Library/%osx_locale%.lproj/Localizable.strings
+
