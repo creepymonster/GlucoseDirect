@@ -21,3 +21,4 @@
 
 /* Privacy - Health Update Usage Description */
 "NSHealthUpdateUsageDescription" = "Для экспорта данных о глюкозе необходим доступ к Apple Health.";
+

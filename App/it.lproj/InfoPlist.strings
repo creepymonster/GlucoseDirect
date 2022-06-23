@@ -21,3 +21,4 @@
 
 /* Privacy - Health Update Usage Description */
 "NSHealthUpdateUsageDescription" = "Access to Apple Health is required if glucose data should be exported.";
+

@@ -1,3 +1,9 @@
+/* No comment provided by engineer. */
+"%@ (%@)" = "%@ (%@)";
+
+/* No comment provided by engineer. */
+"%@ = %@" = "%@ = %@";
+
 /* (No Comment) */
 "%1$@ a clock" = "%1$@ Uhr";
 
@@ -7,17 +13,26 @@
 /* (No Comment) */
 "%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
 
+/* No comment provided by engineer. */
+"%lld%%" = "%lld%%";
+
+/* (No Comment) */
+"About %@" = "Über %@";
+
 /* (No Comment) */
 "Add" = "Hinzufügen";
 
 /* (No Comment) */
-"Add glucose for calibration" = "Glukose für Kalibrierung hinzufügen";
+"Add blood glucose" = "Blutzucker hinzufügen";
 
 /* (No Comment) */
 "Add calibration" = "Kalibrierung hinzufügen";
 
 /* (No Comment) */
-"Add blood glucose" = "Blutzucker hinzufügen";
+"Add glucose for calibration" = "Glukose für Kalibrierung hinzufügen";
+
+/* (No Comment) */
+"After disconnections" = "- Nach Verbindungsabbrüchen";
 
 /* (No Comment) */
 "Alert, high glucose" = "Achtung, hoher Blutzucker";
@@ -35,13 +50,73 @@
 "Alert, sensor expiring soon" = "Alert, Sensor läuft bald ab";
 
 /* (No Comment) */
+"Already advertising" = "Bereits annonciert";
+
+/* (No Comment) */
+"App author" = "Autor";
+
+/* (No Comment) */
+"App donate" = "Spenden";
+
+/* (No Comment) */
+"App email" = "E-Mail";
+
+/* (No Comment) */
+"App facebook group" = "Facebook";
+
+/* (No Comment) */
+"App faq" = "FAQ";
+
+/* (No Comment) */
+"App support mail" = "Support";
+
+/* (No Comment) */
+"App translation" = "Übersetzung";
+
+/* (No Comment) */
+"App version" = "Version";
+
+/* (No Comment) */
+"App website" = "Webseite";
+
+/* (No Comment) */
+"Apple export settings" = "Apple Export-Einstellungen";
+
+/* (No Comment) */
+"Are you sure you want to add the new blood glucose value?" = "Sind Sie sicher, dass Sie den neuen Blutzuckerwert hinzufügen möchten?";
+
+/* (No Comment) */
 "Are you sure you want to delete all log files?" = "Sind Sie sicher, dass Sie alle Protokolldateien löschen wollen?";
 
 /* (No Comment) */
 "Are you sure you want to disconnect the sensor?" = "Sind Sie sicher, dass Sie die Verbindung zum Sensor trennen wollen?";
 
 /* (No Comment) */
+"Attention, faulty value received" = "Achtung, fehlerhafter Wert";
+
+/* (No Comment) */
+"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Achtung, der Sensor sendet fehlerhafte Werte. Bitte warten Sie 10 Minuten.";
+
+/* (No Comment) */
+"Bellman alarm" = "Alarm";
+
+/* (No Comment) */
+"Bellman telephone transceiver BT" = "Bellman Transceiver BT";
+
+/* (No Comment) */
+"Bellman test alarm" = "Alarm testen";
+
+/* (No Comment) */
 "Blood glucose: %1$@" = "Blutzucker: %1$@";
+
+/* (No Comment) */
+"Bubble transmitter" = "Bubble Transmitter";
+
+/* (No Comment) */
+"Calendar export" = "Kalender Export";
+
+/* (No Comment) */
+"Calendar export enabled" = "Export";
 
 /* (No Comment) */
 "Calibration view" = "Kalibrierung";
@@ -50,10 +125,16 @@
 "Cancel" = "Abbrechen";
 
 /* (No Comment) */
+"Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Achtung, ein plötzlich auftretender, extrem hoher Blutzuckerwert kann auf einen Sensorfehler hinweisen. Bitte überprüfen Sie diesen Wert mit einem Blutzuckermessgerät.";
+
+/* (No Comment) */
 "Chart" = "Diagramm";
 
 /* (No Comment) */
 "Connect sensor" = "Sensor verbinden";
+
+/* (No Comment) */
+"Connect transmitter" = "Transmitter verbinden";
 
 /* (No Comment) */
 "Connected" = "Verbunden";
@@ -62,7 +143,28 @@
 "Connecting" = "Verbinde...";
 
 /* (No Comment) */
+"Connection" = "Verbindung";
+
+/* (No Comment) */
 "Connection alarm" = "Verbindungsalarm";
+
+/* (No Comment) */
+"Connection error" = "Fehler";
+
+/* (No Comment) */
+"Connection error timestamp" = "Zeit";
+
+/* (No Comment) */
+"Connection failed" = "Verbindung fehlgeschlagen";
+
+/* (No Comment) */
+"Connection limit reached" = "Verbindungslimit erreicht";
+
+/* (No Comment) */
+"Connection state" = "Status";
+
+/* (No Comment) */
+"Connection timeout" = "Zeitüberschreitung";
 
 /* (No Comment) */
 "Custom calibration intercept" = "Schnittpunkt";
@@ -77,22 +179,52 @@
 "Delete all" = "Alle löschen";
 
 /* (No Comment) */
+"Delete log files" = "Fehlerberichte löschen";
+
+/* (No Comment) */
 "Disconnect" = "Verbindung trennen";
 
 /* (No Comment) */
 "Disconnect sensor" = "Sensor trennen";
 
 /* (No Comment) */
+"Disconnect transmitter" = "Transmitter trennen";
+
+/* (No Comment) */
 "Disconnected" = "Verbindung getrennt";
+
+/* (No Comment) */
+"Every 10 minutes" = "- Alle 10 Minuten";
+
+/* (No Comment) */
+"Export to Apple Calendar" = "Apple Kalender";
+
+/* (No Comment) */
+"Export to Apple Health" = "Apple Health";
+
+/* (No Comment) */
+"Find transmitter" = "Transmitter finden";
+
+/* (No Comment) */
+"Glucose" = "Glukose";
 
 /* (No Comment) */
 "Glucose alarm" = "Glukose Alarm";
 
 /* (No Comment) */
+"Glucose badge" = "Glukose Badge";
+
+/* (No Comment) */
 "Glucose list view" = "Liste";
 
 /* (No Comment) */
+"Glucose notification" = "Glukose Mitteilungen";
+
+/* (No Comment) */
 "Glucose overview" = "Übersicht";
+
+/* (No Comment) */
+"Glucose read aloud" = "Glukose vorlesen";
 
 /* (No Comment) */
 "Glucose settings" = "Glukose Einstellungen";
@@ -104,16 +236,46 @@
 "Glucose values" = "Glukose Werte";
 
 /* (No Comment) */
+"Glucose values are read aloud:" = "Die Glukosewerte werden vorgelesen:";
+
+/* (No Comment) */
+"Glucose widget" = "Glukose";
+
+/* (No Comment) */
+"Glucose widget description" = "Zeigt den letzten Glukosewert an.";
+
+/* (No Comment) */
+"High glucose alarm" = "Hoher Glukose Alarm";
+
+/* (No Comment) */
 "Hold the top edge of your iPhone close to the sensor." = "Halten Sie den oberen Rand Ihres iPhones nahe an den Sensor.";
+
+/* (No Comment) */
+"Ignore mute" = "Stummschaltung ignorieren";
+
+/* (No Comment) */
+"Invalid handle" = "Ungültiges Handle";
+
+/* (No Comment) */
+"Invalid parameters" = "Ungültige Parameter";
+
+/* (No Comment) */
+"LibreLink transmitter" = "LibreLink Transmitter";
+
+/* (No Comment) */
+"Line" = "Linie";
+
+/* (No Comment) */
+"Low glucose alarm" = "Niedrige Glukose Alarm";
 
 /* (No Comment) */
 "Lower limit" = "Niedrig";
 
 /* (No Comment) */
-"Nightscout API-Secret" = "API-Secret";
+"Missed readings" = "Verpasst";
 
 /* (No Comment) */
-"Nightscout url" = "Url";
+"Nightscout API-Secret" = "API-Secret";
 
 /* (No Comment) */
 "Nightscout settings" = "Nightscout Einstellungen";
@@ -122,31 +284,124 @@
 "Nightscout upload enabled" = "Upload";
 
 /* (No Comment) */
+"Nightscout url" = "Url";
+
+/* (No Comment) */
+"No screen lock" = "Keine Displaysperre";
+
+/* (No Comment) */
+"Not connected" = "Nicht verbunden";
+
+/* (No Comment) */
+"Notification settings" = "Mitteilungseinstellungen";
+
+/* (No Comment) */
 "Now" = "Jetzt";
 
 /* (No Comment) */
 "OK, sensor connection established" = "Ok, Sensorverbindung hergestellt";
 
 /* (No Comment) */
+"Operation cancelled" = "Operation abgebrochen";
+
+/* (No Comment) */
+"Operation not supported" = "Operation nicht unterstützt";
+
+/* (No Comment) */
+"Out of space" = "Zu wenig Speicherplatz";
+
+/* (No Comment) */
+"Pairing" = "Wird gekoppelt";
+
+/* (No Comment) */
+"Peripheral disconnected" = "Verbindung getrennt";
+
+/* (No Comment) */
+"Please select" = "Bitte auswählen";
+
+/* (No Comment) */
+"Please wait..." = "Bitte warten...";
+
+/* (No Comment) */
 "Power off" = "Stromlos";
+
+/* (No Comment) */
+"Read aloud" = "Laut vorlesen";
+
+/* (No Comment) */
+"Readable falling" = "fallend";
+
+/* (No Comment) */
+"Readable fast falling" = "schnell fallend";
+
+/* (No Comment) */
+"Readable fast rising" = "schnell steigend";
+
+/* (No Comment) */
+"Readable glucose with trend: %1$@ %2$@, %3$@" = "Glukose: %1$@ %2$@, %3$@";
+
+/* (No Comment) */
+"Readable glucose: %1$@ %2$@" = "Glukose: %1$@ %2$@";
+
+/* (No Comment) */
+"Readable high glucose: %1$@ %2$@" = "Glukose: %1$@ %2$@. Achtung, Überzuckerung!";
+
+/* (No Comment) */
+"Readable low glucose: %1$@ %2$@" = "Glukose: %1$@ %2$@. Achtung, Unterzuckerung!";
+
+/* (No Comment) */
+"Readable miligram" = "miligram";
+
+/* (No Comment) */
+"Readable milimol" = "milimol";
+
+/* (No Comment) */
+"Readable rapidly falling" = "rapide fallend";
+
+/* (No Comment) */
+"Readable rapidly rising" = "rapide steigend";
+
+/* (No Comment) */
+"Readable rising" = "steigend";
+
+/* (No Comment) */
+"Rescan the sensor" = "Sensor erneut scannen";
+
+/* (No Comment) */
+"Retrieval interval" = "Aktualisierungs-Intervall";
+
+/* (No Comment) */
+"Retrieval interval, every %1$@ minutes" = "Alle %1$@ Minuten";
+
+/* (No Comment) */
+"Retrieval interval, every minute" = "Jede Minute";
+
+/* (No Comment) */
+"Retry pairing" = "Koppeln wiederholen";
+
+/* (No Comment) */
+"Scan sensor" = "Sensor scannen";
+
+/* (No Comment) */
+"Scanned sensor expired" = "Sensor abgelaufen";
 
 /* (No Comment) */
 "Scanning" = "Scanne...";
 
 /* (No Comment) */
+"Selected calendar" = "Kalender";
+
+/* (No Comment) */
+"Send log file" = "Fehlerbericht senden";
+
+/* (No Comment) */
+"Sensor" = "Sensor";
+
+/* (No Comment) */
 "Sensor age" = "Alter";
 
 /* (No Comment) */
-"Connection" = "Verbindung";
-
-/* (No Comment) */
-"Connection error" = "Fehler";
-
-/* (No Comment) */
-"Connection error timestamp" = "Zeit";
-
-/* (No Comment) */
-"Connection state" = "Status";
+"Sensor connection" = "Sensor Verbindung";
 
 /* (No Comment) */
 "Sensor custom calibration" = "Individuelle Kalibrierung";
@@ -176,7 +431,10 @@
 "Sensor lifetime" = "Lebensdauer";
 
 /* (No Comment) */
-"Missed readings" = "Verpasst";
+"Sensor lifetime widget" = "Lebensdauer";
+
+/* (No Comment) */
+"Sensor lifetime widget description" = "Zeigt die verbleibende Lebensdauer des aktuellen Sensors in Form eines Countdowns an.";
 
 /* (No Comment) */
 "Sensor not yet startet" = "Nicht gestartet";
@@ -200,6 +458,9 @@
 "Sensor serial" = "Seriennummer";
 
 /* (No Comment) */
+"Sensor starting date" = "Startdatum";
+
+/* (No Comment) */
 "Sensor state" = "Status";
 
 /* (No Comment) */
@@ -215,7 +476,7 @@
 "Snooze until" = "Schlummern";
 
 /* (No Comment) */
-"Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "Leider ist für die Nutzung der App ein NFC-fähiges iPhone erforderlich :'(";
+"Sound: vibration" = "Vibrieren";
 
 /* (No Comment) */
 "The connection to the sensor has been successfully established and glucose data is received." = "Die Verbindung zum Sensor wurde erfolgreich hergestellt und es werden Glukosedaten empfangen.";
@@ -230,19 +491,70 @@
 "The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor." = "Der Sensor kann nicht verbunden werden und lehnt alle Verbindungsversuche ab. Dieses Problem macht es notwendig, den Sensor neu zu koppeln.";
 
 /* (No Comment) */
+"The value from the blood glucose meter can then be added via 'List', at the top 'Add'." = "Der Wert aus dem Blutzuckermessgerät kann dann über \"Liste\", oben \"Hinzufügen\", hinzugefügt werden.";
+
+/* (No Comment) */
+"Time" = "Zeit";
+
+/* (No Comment) */
+"Transmitter" = "Transmitter";
+
+/* (No Comment) */
+"Transmitter battery" = "Batterie";
+
+/* (No Comment) */
+"Transmitter battery widget" = "Batterie";
+
+/* (No Comment) */
+"Transmitter battery widget description" = "Zeigt die verbleibende Batterieladung des Senders in Form eines Countdowns an.";
+
+/* (No Comment) */
+"Transmitter details" = "Transmitter Details";
+
+/* (No Comment) */
+"Transmitter firmware" = "Firmware";
+
+/* (No Comment) */
+"Transmitter hardware" = "Hardware";
+
+/* (No Comment) */
+"Transmitter ID" = "Kennung";
+
+/* (No Comment) */
+"Transmitter name" = "Name";
+
+/* (No Comment) */
+"Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "Leider ist für die Nutzung der App ein NFC-fähiges iPhone erforderlich :'(";
+
+/* (No Comment)(No Comment) */
 "Unknown" = "Unbekannt";
 
 /* (No Comment) */
 "Upper limit" = "Hoch";
 
 /* (No Comment) */
+"UUID not allowed" = "UUID nicht zulässig";
+
+/* (No Comment) */
 "Virtual Sensor" = "Virtueller Sensor";
+
+/* (No Comment) */
+"Warmup" = "Aufwärmzeit";
 
 /* (No Comment) */
 "Warning, sensor missed %1$@ readings" = "Warnung, Sensor hat %1$@ Messwerte nicht erfasst.";
 
 /* (No Comment) */
 "Wearing time alarm" = "Tragedauer Alarm";
+
+/* (No Comment) */
+"When a new alarm is triggered" = "- Wenn ein neuer Alarm ausgelöst wird";
+
+/* (No Comment) */
+"When the glucose trend changes" = "- Wenn sich der Glukosetrend ändert";
+
+/* (No Comment) */
+"Without transmitter" = "Ohne Transmitter";
 
 /* (No Comment) */
 "Your current glucose is %1$@ (%2$@)." = "Ihr aktueller Blutzuckerwert ist %1$@ (%2$@).";
@@ -271,308 +583,3 @@
 /* (No Comment) */
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Ihr Sensor läuft demnächst ab. Ersetzen Sie den Sensor in %1$@ Minuten.";
 
-/* (No Comment) */
-"Glucose badge" = "Glukose Badge";
-
-/* (No Comment) */
-"Are you sure you want to add the new blood glucose value?" = "Sind Sie sicher, dass Sie den neuen Blutzuckerwert hinzufügen möchten?";
-
-/* (No Comment) */
-"Line" = "Linie";
-
-/* (No Comment) */
-"Transmitter name" = "Name";
-
-/* (No Comment) */
-"Transmitter battery" = "Batterie";
-
-/* (No Comment) */
-"Transmitter hardware" = "Hardware";
-
-/* (No Comment) */
-"Transmitter firmware" = "Firmware";
-
-/* (No Comment) */
-"Transmitter" = "Transmitter";
-
-/* (No Comment) */
-"Sensor connection" = "Sensor Verbindung";
-
-/* (No Comment) */
-"Without transmitter" = "Ohne Transmitter";
-
-/* (No Comment) */
-"Bubble transmitter" = "Bubble Transmitter";
-
-/* (No Comment) */
-"Pairing" = "Wird gekoppelt";
-
-/* (No Comment) */
-"Calendar export" = "Kalender Export";
-
-/* (No Comment) */
-"Calendar export enabled" = "Export";
-
-/* (No Comment) */
-"Selected calendar" = "Kalender";
-
-/* (No Comment) */
-"Please select" = "Bitte auswählen";
-
-/* (No Comment) */
-"About %@" = "Über %@";
-
-/* (No Comment) */
-"App version" = "Version";
-
-/* (No Comment) */
-"Unknown" = "Unbekannt";
-
-/* (No Comment) */
-"Invalid parameters" = "Ungültige Parameter";
-
-/* (No Comment) */
-"Invalid handle" = "Ungültiges Handle";
-
-/* (No Comment) */
-"Not connected" = "Nicht verbunden";
-
-/* (No Comment) */
-"Out of space" = "Zu wenig Speicherplatz";
-
-/* (No Comment) */
-"Operation cancelled" = "Operation abgebrochen";
-
-/* (No Comment) */
-"Connection timeout" = "Zeitüberschreitung";
-
-/* (No Comment) */
-"Peripheral disconnected" = "Verbindung getrennt";
-
-/* (No Comment) */
-"UUID not allowed" = "UUID nicht zulässig";
-
-/* (No Comment) */
-"Already advertising" = "Bereits annonciert";
-
-/* (No Comment) */
-"Connection failed" = "Verbindung fehlgeschlagen";
-
-/* (No Comment) */
-"Connection limit reached" = "Verbindungslimit erreicht";
-
-/* (No Comment) */
-"Operation not supported" = "Operation nicht unterstützt";
-
-/* (No Comment) */
-"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Achtung, der Sensor sendet fehlerhafte Werte. Bitte warten Sie 10 Minuten.";
-
-/* (No Comment) */
-"App website" = "Webseite";
-
-/* (No Comment) */
-"Send log file" = "Fehlerbericht senden";
-
-/* (No Comment) */
-"Sensor starting date" = "Startdatum";
-
-/* (No Comment) */
-"Delete log files" = "Fehlerberichte löschen";
-
-/* (No Comment) */
-"Readable glucose: %1$@ %2$@" = "Glukose: %1$@ %2$@";
-
-/* (No Comment) */
-"Readable glucose with trend: %1$@ %2$@, %3$@" = "Glukose: %1$@ %2$@, %3$@";
-
-/* (No Comment) */
-"Readable low glucose: %1$@ %2$@" = "Glukose: %1$@ %2$@. Achtung, Unterzuckerung!";
-
-/* (No Comment) */
-"Readable high glucose: %1$@ %2$@" = "Glukose: %1$@ %2$@. Achtung, Überzuckerung!";
-
-/* (No Comment) */
-"Readable miligram" = "miligram";
-
-/* (No Comment) */
-"Readable milimol" = "milimol";
-
-/* (No Comment) */
-"Readable falling" = "fallend";
-
-/* (No Comment) */
-"Readable fast falling" = "schnell fallend";
-
-/* (No Comment) */
-"Readable rapidly falling" = "rapide fallend";
-
-/* (No Comment) */
-"Readable rising" = "steigend";
-
-/* (No Comment) */
-"Readable fast rising" = "schnell steigend";
-
-/* (No Comment) */
-"Readable rapidly rising" = "rapide steigend";
-
-/* (No Comment) */
-"Read aloud" = "Laut vorlesen";
-
-/* (No Comment) */
-"Glucose read aloud" = "Glukose vorlesen";
-
-/* (No Comment) */
-"Glucose values are read aloud:" = "Die Glukosewerte werden vorgelesen:";
-
-/* (No Comment) */
-"Every 10 minutes" = "- Alle 10 Minuten";
-
-/* (No Comment) */
-"After disconnections" = "- Nach Verbindungsabbrüchen";
-
-/* (No Comment) */
-"When the glucose trend changes" = "- Wenn sich der Glukosetrend ändert";
-
-/* (No Comment) */
-"When a new alarm is triggered" = "- Wenn ein neuer Alarm ausgelöst wird";
-
-/* (No Comment) */
-"App author" = "Autor";
-
-/* (No Comment) */
-"App support mail" = "Support";
-
-/* (No Comment) */
-"Attention, faulty value received" = "Achtung, fehlerhafter Wert";
-
-/* (No Comment) */
-"App translation" = "Übersetzung";
-
-/* (No Comment) */
-"App faq" = "FAQ";
-
-/* (No Comment) */
-"App facebook group" = "Facebook";
-
-/* (No Comment) */
-"App email" = "E-Mail";
-
-/* (No Comment) */
-"Low glucose alarm" = "Niedrige Glukose Alarm";
-
-/* (No Comment) */
-"High glucose alarm" = "Hoher Glukose Alarm";
-
-/* (No Comment) */
-"Sound: vibration" = "Vibrieren";
-
-/* (No Comment) */
-"Please wait..." = "Bitte warten...";
-
-/* (No Comment) */
-"Scan sensor" = "Sensor scannen";
-
-/* (No Comment) */
-"Retry pairing" = "Koppeln wiederholen";
-
-/* (No Comment) */
-"Scanned sensor expired" = "Sensor abgelaufen";
-
-/* (No Comment) */
-"Ignore mute" = "Stummschaltung ignorieren";
-
-/* (No Comment) */
-"Retrieval interval" = "Aktualisierungs-Intervall";
-
-/* (No Comment) */
-"Retrieval interval, every minute" = "Jede Minute";
-
-/* (No Comment) */
-"Retrieval interval, every %1$@ minutes" = "Alle %1$@ Minuten";
-
-/* (No Comment) */
-"App donate" = "Spenden";
-
-/* (No Comment) */
-"Bellman alarm" = "Alarm";
-
-/* (No Comment) */
-"Bellman test alarm" = "Alarm testen";
-
-/* (No Comment) */
-"Bellman telephone transceiver BT" = "Bellman Transceiver BT";
-
-/* (No Comment) */
-"Find transmitter" = "Transmitter finden";
-
-/* (No Comment) */
-"Connect transmitter" = "Transmitter verbinden";
-
-/* (No Comment) */
-"Disconnect transmitter" = "Transmitter trennen";
-
-/* (No Comment) */
-"Rescan the sensor" = "Sensor erneut scannen";
-
-/* (No Comment) */
-"Apple export settings" = "Apple Export-Einstellungen";
-
-/* (No Comment) */
-"Export to Apple Health" = "Apple Health";
-
-/* (No Comment) */
-"Export to Apple Calendar" = "Apple Kalender";
-
-/* (No Comment) */
-"Glucose notification" = "Glukose Mitteilungen";
-
-/* (No Comment) */
-"Notification settings" = "Mitteilungseinstellungen";
-
-/* (No Comment) */
-"Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Achtung, ein plötzlich auftretender, extrem hoher Blutzuckerwert kann auf einen Sensorfehler hinweisen. Bitte überprüfen Sie diesen Wert mit einem Blutzuckermessgerät.";
-
-/* (No Comment) */
-"The value from the blood glucose meter can then be added via 'List', at the top 'Add'." = "Der Wert aus dem Blutzuckermessgerät kann dann über \"Liste\", oben \"Hinzufügen\", hinzugefügt werden.";
-
-/* (No Comment) */
-"Transmitter ID" = "Kennung";
-
-/* (No Comment) */
-"Time" = "Zeit";
-
-/* (No Comment) */
-"Glucose" = "Glukose";
-
-/* (No Comment) */
-"Transmitter details" = "Transmitter Details";
-
-/* (No Comment) */
-"Sensor" = "Sensor";
-
-/* (No Comment) */
-"Glucose widget" = "Glukose";
-
-/* (No Comment) */
-"Glucose widget description" = "Zeigt den letzten Glukosewert an.";
-
-/* (No Comment) */
-"Sensor lifetime widget" = "Lebensdauer";
-
-/* (No Comment) */
-"Sensor lifetime widget description" = "Zeigt die verbleibende Lebensdauer des aktuellen Sensors in Form eines Countdowns an.";
-
-/* (No Comment) */
-"Transmitter battery widget" = "Batterie";
-
-/* (No Comment) */
-"Transmitter battery widget description" = "Zeigt die verbleibende Batterieladung des Senders in Form eines Countdowns an.";
-
-/* (No Comment) */
-"Warmup" = "Aufwärmzeit";
-
-/* (No Comment) */
-"No screen lock" = "Keine Displaysperre";
-
-/* (No Comment) */
-"LibreLink transmitter" = "LibreLink Transmitter";
