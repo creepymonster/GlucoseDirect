@@ -2,7 +2,7 @@
 "CFBundleDisplayName" = "Прямые глюкозы";
 
 /* Bundle name */
-"CFBundleName" = "Glucose Direct";
+"CFBundleName" = "Прямые глюкозы";
 
 /* Privacy - NFC Scan Usage Description */
 "NFCReaderUsageDescription" = "Функция NFC необходима для считывания всех настроек соединения перед подключением Bluetooth.";
@@ -21,4 +21,3 @@
 
 /* Privacy - Health Update Usage Description */
 "NSHealthUpdateUsageDescription" = "Для экспорта данных о глюкозе необходим доступ к Apple Health.";
-
