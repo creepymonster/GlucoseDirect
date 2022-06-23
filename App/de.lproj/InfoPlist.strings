@@ -21,3 +21,4 @@
 
 /* Privacy - Health Update Usage Description */
 "NSHealthUpdateUsageDescription" = "Für den Export von Glukosedaten ist ein Zugang zu Apple Health erforderlich.";
+

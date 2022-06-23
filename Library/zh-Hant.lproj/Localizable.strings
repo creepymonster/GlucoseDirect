@@ -1,3 +1,9 @@
+/* No comment provided by engineer. */
+"%@ (%@)" = "%@ (%@)";
+
+/* No comment provided by engineer. */
+"%@ = %@" = "%@ = %@";
+
 /* (No Comment) */
 "%1$@ a clock" = "%1$@";
 
@@ -7,17 +13,26 @@
 /* (No Comment) */
 "%1$@d %2$@h %3$@min" = "%1$@天%2$@小時%3$@分鐘";
 
+/* No comment provided by engineer. */
+"%lld%%" = "%lld%%";
+
+/* (No Comment) */
+"About %@" = "關於%@";
+
 /* (No Comment) */
 "Add" = "新增";
 
 /* (No Comment) */
-"Add glucose for calibration" = "新增校準血糖值";
+"Add blood glucose" = "Add blood glucose";
 
 /* (No Comment) */
 "Add calibration" = "新的校準值";
 
 /* (No Comment) */
-"Add blood glucose" = "Add blood glucose";
+"Add glucose for calibration" = "新增校準血糖值";
+
+/* (No Comment) */
+"After disconnections" = "- After disconnections";
 
 /* (No Comment) */
 "Alert, high glucose" = "警報，高血糖";
@@ -35,13 +50,73 @@
 "Alert, sensor expiring soon" = "警報，感測器即將失效";
 
 /* (No Comment) */
+"Already advertising" = "已經開始廣播";
+
+/* (No Comment) */
+"App author" = "Author";
+
+/* (No Comment) */
+"App donate" = "Donate";
+
+/* (No Comment) */
+"App email" = "eMail";
+
+/* (No Comment) */
+"App facebook group" = "Facebook group";
+
+/* (No Comment) */
+"App faq" = "FAQ";
+
+/* (No Comment) */
+"App support mail" = "Support";
+
+/* (No Comment) */
+"App translation" = "Translation";
+
+/* (No Comment) */
+"App version" = "版本";
+
+/* (No Comment) */
+"App website" = "網址";
+
+/* (No Comment) */
+"Apple export settings" = "Apple export settings";
+
+/* (No Comment) */
+"Are you sure you want to add the new blood glucose value?" = "您確定要新增血糖值嗎？";
+
+/* (No Comment) */
 "Are you sure you want to delete all log files?" = "請確認要刪除檔案?";
 
 /* (No Comment) */
 "Are you sure you want to disconnect the sensor?" = "您確定要斷開感測器連結嗎？";
 
 /* (No Comment) */
+"Attention, faulty value received" = "Attention, faulty value received";
+
+/* (No Comment) */
+"Attention, the sensor sends faulty values. Please wait 10 minutes." = "注意，感測器傳送了錯誤的資料，請等待10分鐘";
+
+/* (No Comment) */
+"Bellman alarm" = "Alarm";
+
+/* (No Comment) */
+"Bellman telephone transceiver BT" = "Bellman Transceiver BT";
+
+/* (No Comment) */
+"Bellman test alarm" = "Test alarm";
+
+/* (No Comment) */
 "Blood glucose: %1$@" = "血糖:%1$@";
+
+/* (No Comment) */
+"Bubble transmitter" = "Bubble發射機";
+
+/* (No Comment) */
+"Calendar export" = "導出日歷";
+
+/* (No Comment) */
+"Calendar export enabled" = "導出";
 
 /* (No Comment) */
 "Calibration view" = "校準";
@@ -50,10 +125,16 @@
 "Cancel" = "取消";
 
 /* (No Comment) */
+"Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter.";
+
+/* (No Comment) */
 "Chart" = "圖表";
 
 /* (No Comment) */
 "Connect sensor" = "連線感測器";
+
+/* (No Comment) */
+"Connect transmitter" = "Connect transmitter";
 
 /* (No Comment) */
 "Connected" = "已連線";
@@ -62,7 +143,28 @@
 "Connecting" = "連結中";
 
 /* (No Comment) */
+"Connection" = "連線";
+
+/* (No Comment) */
 "Connection alarm" = "連線警報";
+
+/* (No Comment) */
+"Connection error" = "錯誤";
+
+/* (No Comment) */
+"Connection error timestamp" = "時間";
+
+/* (No Comment) */
+"Connection failed" = "連結失敗";
+
+/* (No Comment) */
+"Connection limit reached" = "達到連線數階段限制";
+
+/* (No Comment) */
+"Connection state" = "狀態";
+
+/* (No Comment) */
+"Connection timeout" = "連接超時";
 
 /* (No Comment) */
 "Custom calibration intercept" = "截距";
@@ -77,22 +179,52 @@
 "Delete all" = "刪除全部";
 
 /* (No Comment) */
+"Delete log files" = "删除所有的日志文件？";
+
+/* (No Comment) */
 "Disconnect" = "中斷連線";
 
 /* (No Comment) */
 "Disconnect sensor" = "斷開感測器連線";
 
 /* (No Comment) */
+"Disconnect transmitter" = "Disconnect transmitter";
+
+/* (No Comment) */
 "Disconnected" = "連線已中斷";
+
+/* (No Comment) */
+"Every 10 minutes" = "- Every 10 minutes";
+
+/* (No Comment) */
+"Export to Apple Calendar" = "Export to Apple Calendar";
+
+/* (No Comment) */
+"Export to Apple Health" = "Export to Apple Health";
+
+/* (No Comment) */
+"Find transmitter" = "Find transmitter";
+
+/* (No Comment) */
+"Glucose" = "Glucose";
 
 /* (No Comment) */
 "Glucose alarm" = "血糖警報";
 
 /* (No Comment) */
+"Glucose badge" = "血糖角標";
+
+/* (No Comment) */
 "Glucose list view" = "列表";
 
 /* (No Comment) */
+"Glucose notification" = "Glucose notification";
+
+/* (No Comment) */
 "Glucose overview" = "總覽";
+
+/* (No Comment) */
+"Glucose read aloud" = "Glucose read aloud";
 
 /* (No Comment) */
 "Glucose settings" = "血糖設定";
@@ -104,16 +236,46 @@
 "Glucose values" = "血糖值";
 
 /* (No Comment) */
+"Glucose values are read aloud:" = "Glucose values are read aloud:";
+
+/* (No Comment) */
+"Glucose widget" = "Glucose";
+
+/* (No Comment) */
+"Glucose widget description" = "Displays the last glucose value.";
+
+/* (No Comment) */
+"High glucose alarm" = "High glucose alarm";
+
+/* (No Comment) */
 "Hold the top edge of your iPhone close to the sensor." = "請握持您的手機讓頂部靠近感測器";
+
+/* (No Comment) */
+"Ignore mute" = "Ignore mute";
+
+/* (No Comment) */
+"Invalid handle" = "無效操作";
+
+/* (No Comment) */
+"Invalid parameters" = "無效參數";
+
+/* (No Comment) */
+"LibreLink transmitter" = "LibreLink Transmitter";
+
+/* (No Comment) */
+"Line" = "線條";
+
+/* (No Comment) */
+"Low glucose alarm" = "Low glucose alarm";
 
 /* (No Comment) */
 "Lower limit" = "低";
 
 /* (No Comment) */
-"Nightscout API-Secret" = "API-密鑰";
+"Missed readings" = "錯過";
 
 /* (No Comment) */
-"Nightscout url" = "網址";
+"Nightscout API-Secret" = "API-密鑰";
 
 /* (No Comment) */
 "Nightscout settings" = "Nightscout 設定";
@@ -122,31 +284,124 @@
 "Nightscout upload enabled" = "上傳";
 
 /* (No Comment) */
+"Nightscout url" = "網址";
+
+/* (No Comment) */
+"No screen lock" = "No screen lock";
+
+/* (No Comment) */
+"Not connected" = "未連接";
+
+/* (No Comment) */
+"Notification settings" = "Notification settings";
+
+/* (No Comment) */
 "Now" = "現在";
 
 /* (No Comment) */
 "OK, sensor connection established" = "好的，感測器連線已建立";
 
 /* (No Comment) */
+"Operation cancelled" = "操作已取消";
+
+/* (No Comment) */
+"Operation not supported" = "不支援此作業";
+
+/* (No Comment) */
+"Out of space" = "空間不足";
+
+/* (No Comment) */
+"Pairing" = "正在配對";
+
+/* (No Comment) */
+"Peripheral disconnected" = "外部裝置已斷開";
+
+/* (No Comment) */
+"Please select" = "請選擇";
+
+/* (No Comment) */
+"Please wait..." = "Please wait...";
+
+/* (No Comment) */
 "Power off" = "關閉";
+
+/* (No Comment) */
+"Read aloud" = "Read aloud";
+
+/* (No Comment) */
+"Readable falling" = "falling";
+
+/* (No Comment) */
+"Readable fast falling" = "fast falling";
+
+/* (No Comment) */
+"Readable fast rising" = "fast rising";
+
+/* (No Comment) */
+"Readable glucose with trend: %1$@ %2$@, %3$@" = "Glucose: %1$@ %2$@, %3$@";
+
+/* (No Comment) */
+"Readable glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@";
+
+/* (No Comment) */
+"Readable high glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, Hyperglycemia!";
+
+/* (No Comment) */
+"Readable low glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, Hypoglycemia!";
+
+/* (No Comment) */
+"Readable miligram" = "miligram";
+
+/* (No Comment) */
+"Readable milimol" = "milimol";
+
+/* (No Comment) */
+"Readable rapidly falling" = "rapidly falling";
+
+/* (No Comment) */
+"Readable rapidly rising" = "rapidly rising";
+
+/* (No Comment) */
+"Readable rising" = "rising";
+
+/* (No Comment) */
+"Rescan the sensor" = "Rescan the sensor";
+
+/* (No Comment) */
+"Retrieval interval" = "Retrieval interval";
+
+/* (No Comment) */
+"Retrieval interval, every %1$@ minutes" = "Every %1$@ minutes";
+
+/* (No Comment) */
+"Retrieval interval, every minute" = "Every minute";
+
+/* (No Comment) */
+"Retry pairing" = "Retry pairing";
+
+/* (No Comment) */
+"Scan sensor" = "Scan sensor";
+
+/* (No Comment) */
+"Scanned sensor expired" = "Sensor expired";
 
 /* (No Comment) */
 "Scanning" = "掃描中";
 
 /* (No Comment) */
+"Selected calendar" = "日曆";
+
+/* (No Comment) */
+"Send log file" = "發送日誌檔案";
+
+/* (No Comment) */
+"Sensor" = "Sensor";
+
+/* (No Comment) */
 "Sensor age" = "感測器壽命";
 
 /* (No Comment) */
-"Connection" = "連線";
-
-/* (No Comment) */
-"Connection error" = "錯誤";
-
-/* (No Comment) */
-"Connection error timestamp" = "時間";
-
-/* (No Comment) */
-"Connection state" = "狀態";
+"Sensor connection" = "感測器連線";
 
 /* (No Comment) */
 "Sensor custom calibration" = "自定義校準";
@@ -176,7 +431,10 @@
 "Sensor lifetime" = "壽命";
 
 /* (No Comment) */
-"Missed readings" = "錯過";
+"Sensor lifetime widget" = "Sensor Lifetime";
+
+/* (No Comment) */
+"Sensor lifetime widget description" = "Displays the remaining lifetime of the current sensor as a countdown.";
 
 /* (No Comment) */
 "Sensor not yet startet" = "感測器尚未啟動";
@@ -200,6 +458,9 @@
 "Sensor serial" = "序號";
 
 /* (No Comment) */
+"Sensor starting date" = "開始日期";
+
+/* (No Comment) */
 "Sensor state" = "狀態";
 
 /* (No Comment) */
@@ -215,7 +476,7 @@
 "Snooze until" = "稍後提醒";
 
 /* (No Comment) */
-"Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "您的手機不支援NFC :'(";
+"Sound: vibration" = "Vibrate only";
 
 /* (No Comment) */
 "The connection to the sensor has been successfully established and glucose data is received." = "感測器連線已建立且收到了血糖資料";
@@ -230,19 +491,70 @@
 "The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor." = "感測器拒絕與手機連線，請使用NFC掃描重新建立連線";
 
 /* (No Comment) */
+"The value from the blood glucose meter can then be added via 'List', at the top 'Add'." = "The value from the blood glucose meter can then be added via 'List', at the top 'Add'.";
+
+/* (No Comment) */
+"Time" = "時間";
+
+/* (No Comment) */
+"Transmitter" = "發射機";
+
+/* (No Comment) */
+"Transmitter battery" = "電量";
+
+/* (No Comment) */
+"Transmitter battery widget" = "Transmitter Battery";
+
+/* (No Comment) */
+"Transmitter battery widget description" = "Displays the remaining battery charge of the transmitter as a countdown.";
+
+/* (No Comment) */
+"Transmitter details" = "Transmitter details";
+
+/* (No Comment) */
+"Transmitter firmware" = "固件";
+
+/* (No Comment) */
+"Transmitter hardware" = "硬體";
+
+/* (No Comment) */
+"Transmitter ID" = "Identifier";
+
+/* (No Comment) */
+"Transmitter name" = "名稱";
+
+/* (No Comment) */
+"Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "您的手機不支援NFC :'(";
+
+/* (No Comment)(No Comment) */
 "Unknown" = "未知";
 
 /* (No Comment) */
 "Upper limit" = "高";
 
 /* (No Comment) */
+"UUID not allowed" = "UUID不允許";
+
+/* (No Comment) */
 "Virtual Sensor" = "虛擬感測器";
+
+/* (No Comment) */
+"Warmup" = "Warmup";
 
 /* (No Comment) */
 "Warning, sensor missed %1$@ readings" = "注意，錯過了%1$@讀數";
 
 /* (No Comment) */
 "Wearing time alarm" = "佩戴時間警報";
+
+/* (No Comment) */
+"When a new alarm is triggered" = "- When a new alarm is triggered";
+
+/* (No Comment) */
+"When the glucose trend changes" = "- When the glucose trend changes";
+
+/* (No Comment) */
+"Without transmitter" = "沒有發射機";
 
 /* (No Comment) */
 "Your current glucose is %1$@ (%2$@)." = "您當前的血糖值為%1$@ (%2$@).";
@@ -271,308 +583,3 @@
 /* (No Comment) */
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "您的感測器即將到期, 請在%1$@分鐘後更換";
 
-/* (No Comment) */
-"Glucose badge" = "血糖角標";
-
-/* (No Comment) */
-"Are you sure you want to add the new blood glucose value?" = "您確定要新增血糖值嗎？";
-
-/* (No Comment) */
-"Line" = "線條";
-
-/* (No Comment) */
-"Transmitter name" = "名稱";
-
-/* (No Comment) */
-"Transmitter battery" = "電量";
-
-/* (No Comment) */
-"Transmitter hardware" = "硬體";
-
-/* (No Comment) */
-"Transmitter firmware" = "固件";
-
-/* (No Comment) */
-"Transmitter" = "發射機";
-
-/* (No Comment) */
-"Sensor connection" = "感測器連線";
-
-/* (No Comment) */
-"Without transmitter" = "沒有發射機";
-
-/* (No Comment) */
-"Bubble transmitter" = "Bubble發射機";
-
-/* (No Comment) */
-"Pairing" = "正在配對";
-
-/* (No Comment) */
-"Calendar export" = "導出日歷";
-
-/* (No Comment) */
-"Calendar export enabled" = "導出";
-
-/* (No Comment) */
-"Selected calendar" = "日曆";
-
-/* (No Comment) */
-"Please select" = "請選擇";
-
-/* (No Comment) */
-"About %@" = "關於%@";
-
-/* (No Comment) */
-"App version" = "版本";
-
-/* (No Comment) */
-"Unknown" = "未知";
-
-/* (No Comment) */
-"Invalid parameters" = "無效參數";
-
-/* (No Comment) */
-"Invalid handle" = "無效操作";
-
-/* (No Comment) */
-"Not connected" = "未連接";
-
-/* (No Comment) */
-"Out of space" = "空間不足";
-
-/* (No Comment) */
-"Operation cancelled" = "操作已取消";
-
-/* (No Comment) */
-"Connection timeout" = "連接超時";
-
-/* (No Comment) */
-"Peripheral disconnected" = "外部裝置已斷開";
-
-/* (No Comment) */
-"UUID not allowed" = "UUID不允許";
-
-/* (No Comment) */
-"Already advertising" = "已經開始廣播";
-
-/* (No Comment) */
-"Connection failed" = "連結失敗";
-
-/* (No Comment) */
-"Connection limit reached" = "達到連線數階段限制";
-
-/* (No Comment) */
-"Operation not supported" = "不支援此作業";
-
-/* (No Comment) */
-"Attention, the sensor sends faulty values. Please wait 10 minutes." = "注意，感測器傳送了錯誤的資料，請等待10分鐘";
-
-/* (No Comment) */
-"App website" = "網址";
-
-/* (No Comment) */
-"Send log file" = "發送日誌檔案";
-
-/* (No Comment) */
-"Sensor starting date" = "開始日期";
-
-/* (No Comment) */
-"Delete log files" = "删除所有的日志文件？";
-
-/* (No Comment) */
-"Readable glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@";
-
-/* (No Comment) */
-"Readable glucose with trend: %1$@ %2$@, %3$@" = "Glucose: %1$@ %2$@, %3$@";
-
-/* (No Comment) */
-"Readable low glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, Hypoglycemia!";
-
-/* (No Comment) */
-"Readable high glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, Hyperglycemia!";
-
-/* (No Comment) */
-"Readable miligram" = "miligram";
-
-/* (No Comment) */
-"Readable milimol" = "milimol";
-
-/* (No Comment) */
-"Readable falling" = "falling";
-
-/* (No Comment) */
-"Readable fast falling" = "fast falling";
-
-/* (No Comment) */
-"Readable rapidly falling" = "rapidly falling";
-
-/* (No Comment) */
-"Readable rising" = "rising";
-
-/* (No Comment) */
-"Readable fast rising" = "fast rising";
-
-/* (No Comment) */
-"Readable rapidly rising" = "rapidly rising";
-
-/* (No Comment) */
-"Read aloud" = "Read aloud";
-
-/* (No Comment) */
-"Glucose read aloud" = "Glucose read aloud";
-
-/* (No Comment) */
-"Glucose values are read aloud:" = "Glucose values are read aloud:";
-
-/* (No Comment) */
-"Every 10 minutes" = "- Every 10 minutes";
-
-/* (No Comment) */
-"After disconnections" = "- After disconnections";
-
-/* (No Comment) */
-"When the glucose trend changes" = "- When the glucose trend changes";
-
-/* (No Comment) */
-"When a new alarm is triggered" = "- When a new alarm is triggered";
-
-/* (No Comment) */
-"App author" = "Author";
-
-/* (No Comment) */
-"App support mail" = "Support";
-
-/* (No Comment) */
-"Attention, faulty value received" = "Attention, faulty value received";
-
-/* (No Comment) */
-"App translation" = "Translation";
-
-/* (No Comment) */
-"App faq" = "FAQ";
-
-/* (No Comment) */
-"App facebook group" = "Facebook group";
-
-/* (No Comment) */
-"App email" = "eMail";
-
-/* (No Comment) */
-"Low glucose alarm" = "Low glucose alarm";
-
-/* (No Comment) */
-"High glucose alarm" = "High glucose alarm";
-
-/* (No Comment) */
-"Sound: vibration" = "Vibrate only";
-
-/* (No Comment) */
-"Please wait..." = "Please wait...";
-
-/* (No Comment) */
-"Scan sensor" = "Scan sensor";
-
-/* (No Comment) */
-"Retry pairing" = "Retry pairing";
-
-/* (No Comment) */
-"Scanned sensor expired" = "Sensor expired";
-
-/* (No Comment) */
-"Ignore mute" = "Ignore mute";
-
-/* (No Comment) */
-"Retrieval interval" = "Retrieval interval";
-
-/* (No Comment) */
-"Retrieval interval, every minute" = "Every minute";
-
-/* (No Comment) */
-"Retrieval interval, every %1$@ minutes" = "Every %1$@ minutes";
-
-/* (No Comment) */
-"App donate" = "Donate";
-
-/* (No Comment) */
-"Bellman alarm" = "Alarm";
-
-/* (No Comment) */
-"Bellman test alarm" = "Test alarm";
-
-/* (No Comment) */
-"Bellman telephone transceiver BT" = "Bellman Transceiver BT";
-
-/* (No Comment) */
-"Find transmitter" = "Find transmitter";
-
-/* (No Comment) */
-"Connect transmitter" = "Connect transmitter";
-
-/* (No Comment) */
-"Disconnect transmitter" = "Disconnect transmitter";
-
-/* (No Comment) */
-"Rescan the sensor" = "Rescan the sensor";
-
-/* (No Comment) */
-"Apple export settings" = "Apple export settings";
-
-/* (No Comment) */
-"Export to Apple Health" = "Export to Apple Health";
-
-/* (No Comment) */
-"Export to Apple Calendar" = "Export to Apple Calendar";
-
-/* (No Comment) */
-"Glucose notification" = "Glucose notification";
-
-/* (No Comment) */
-"Notification settings" = "Notification settings";
-
-/* (No Comment) */
-"Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter.";
-
-/* (No Comment) */
-"The value from the blood glucose meter can then be added via 'List', at the top 'Add'." = "The value from the blood glucose meter can then be added via 'List', at the top 'Add'.";
-
-/* (No Comment) */
-"Transmitter ID" = "Identifier";
-
-/* (No Comment) */
-"Time" = "時間";
-
-/* (No Comment) */
-"Glucose" = "Glucose";
-
-/* (No Comment) */
-"Transmitter details" = "Transmitter details";
-
-/* (No Comment) */
-"Sensor" = "Sensor";
-
-/* (No Comment) */
-"Glucose widget" = "Glucose";
-
-/* (No Comment) */
-"Glucose widget description" = "Displays the last glucose value.";
-
-/* (No Comment) */
-"Sensor lifetime widget" = "Sensor Lifetime";
-
-/* (No Comment) */
-"Sensor lifetime widget description" = "Displays the remaining lifetime of the current sensor as a countdown.";
-
-/* (No Comment) */
-"Transmitter battery widget" = "Transmitter Battery";
-
-/* (No Comment) */
-"Transmitter battery widget description" = "Displays the remaining battery charge of the transmitter as a countdown.";
-
-/* (No Comment) */
-"Warmup" = "Warmup";
-
-/* (No Comment) */
-"No screen lock" = "No screen lock";
-
-/* (No Comment) */
-"LibreLink transmitter" = "LibreLink Transmitter";
