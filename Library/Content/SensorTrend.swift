@@ -15,7 +15,7 @@ enum SensorTrend: String, Codable {
     case falling = "↘︎"
     case fastFalling = "↓"
     case rapidlyFalling = "↓↓"
-    case unknown = ""
+    case unknown = "?"
 
     // MARK: Lifecycle
 

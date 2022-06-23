@@ -464,10 +464,7 @@
 "High glucose alarm" = "Yüksek glikoz alarmı";
 
 /* (No Comment) */
-"Sound: vibration" = "Sadece titreşim";
-
-/* (No Comment) */
-"Please wait..." = "Lütfen bekleyin...";
+"Vibration" = "Sadece titreşim";
 
 /* (No Comment) */
 "Scan sensor" = "Sensörü tara";

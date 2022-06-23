@@ -58,6 +58,5 @@ enum AppAction {
     case setSensorInterval(interval: Int)
     case setSensorState(sensorAge: Int, sensorState: SensorState?)
     case setTransmitter(transmitter: Transmitter)
-    case selectGlucose(glucose: Glucose?)
     case startup
 }

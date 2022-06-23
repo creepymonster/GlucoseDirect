@@ -13,7 +13,7 @@ struct GlucoseView: View {
     @EnvironmentObject var store: AppStore
 
     var body: some View {
-        if let latestGlucose = store.state.selectedGlucose ?? store.state.latestGlucose {
+        if let latestGlucose = store.state.latestGlucose {
             ZStack(alignment: .bottom) {
                 Group {
                     if let glucoseValue = latestGlucose.glucoseValue, !latestGlucose.isFaultyGlucose {
@@ -22,22 +22,32 @@ struct GlucoseView: View {
                                 Text(glucoseValue.asGlucose(unit: store.state.glucoseUnit))
                                     .font(.system(size: 96))
 
-                                VStack(alignment: .leading) {
-                                    Text(latestGlucose.trend.description).font(.system(size: 48))
+                                VStack(alignment: .center) {
+                                    Text(latestGlucose.trend.description)
+                                        .font(.system(size: 52))
+                                        .bold()
+
                                     Text(store.state.glucoseUnit.localizedString)
-                                }
+                                        .foregroundStyle(Color.primary)
+                                }.padding(.leading, 5)
                             }.foregroundColor(getGlucoseColor(glucose: latestGlucose))
 
-                            if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: store.state.glucoseUnit), latestGlucose.trend != .unknown {
-                                HStack(spacing: 20) {
-                                    Spacer()
-                                    Text(String(format: LocalizedString("%1$@ a clock"), latestGlucose.timestamp.toLocalTime()))
-                                    Spacer()
+                            HStack(spacing: 20) {
+                                Spacer()
+                                Text(latestGlucose.timestamp.toLocalTime())
+                                Spacer()
+
+                                if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: store.state.glucoseUnit), latestGlucose.trend != .unknown {
                                     Text(minuteChange)
-                                    Spacer()
-                                }.padding(.bottom)
+                                } else {
+                                    Text("?".asMinuteChange())
+                                }
+
+                                Spacer()
                             }
-                        }
+                            .padding(.bottom)
+                            .opacity(0.5)
+                        }.frame(maxWidth: .infinity)
                     } else {
                         VStack(alignment: .center, spacing: 0) {
                             Image(systemName: "exclamationmark.triangle")
@@ -51,72 +61,46 @@ struct GlucoseView: View {
                 }.padding(.bottom, 30)
 
                 HStack {
-                    if store.state.selectedGlucose == nil {
-                        Group {
+                    Button(action: {
+                        store.dispatch(.setPreventScreenLock(enabled: !store.state.preventScreenLock))
+                    }, label: {
+                        if store.state.preventScreenLock {
                             Image(systemName: "lock.slash")
-                                .font(.headline)
-                                .opacity(store.state.preventScreenLock ? 1 : 0.25)
-
-                            if store.state.preventScreenLock {
-                                Text("No screen lock")
-                            }
-                        }.onTapGesture {
-                            withAnimation {
-                                store.dispatch(.setPreventScreenLock(enabled: !store.state.preventScreenLock))
-                            }
+                            Text("No screen lock")
+                        } else {
+                            Image(systemName: "lock")
                         }
+                    })
+                    .opacity(store.state.preventScreenLock ? 1 : 0.5)
 
-                        Spacer()
+                    Spacer()
 
-                        Group {
-                            if store.state.alarmSnoozeUntil != nil {
-                                Image(systemName: "xmark")
-                                    .opacity(0.25)
-                                    .onTapGesture {
-                                        withAnimation {
-                                            store.dispatch(.setAlarmSnoozeUntil(untilDate: nil))
-                                        }
-                                    }
-                            }
-
-                            Group {
-                                if let alarmSnoozeUntil = store.state.alarmSnoozeUntil {
-                                    Text(String(format: LocalizedString("%1$@ a clock"), alarmSnoozeUntil.toLocalTime()))
-                                    Image(systemName: "speaker.slash")
-                                        .font(.headline)
-                                } else {
-                                    Image(systemName: "speaker.slash")
-                                        .font(.headline)
-                                }
-                            }
-                            .opacity(store.state.alarmSnoozeUntil == nil ? 0.25 : 1)
-                            .onTapGesture {
-                                let date = (store.state.alarmSnoozeUntil ?? Date()).toRounded(on: 1, .minute)
-                                let nextDate = Calendar.current.date(byAdding: .minute, value: 60, to: date)
-
-                                withAnimation {
-                                    store.dispatch(.setAlarmSnoozeUntil(untilDate: nextDate))
-                                }
-                            }
-                            .onLongPressGesture {
-                                withAnimation {
-                                    store.dispatch(.setAlarmSnoozeUntil(untilDate: nil))
-                                }
-                            }
-                        }
-                    } else {
-                        Text("History")
-                            .padding(.horizontal, 10)
-                            .padding(.vertical, 5)
-                            .font(.footnote)
-                            .foregroundColor(.white)
-                            .background(
-                                RoundedRectangle(cornerRadius: 5, style: .continuous)
-                                    .foregroundStyle(Color.ui.blue)
-                                    .opacity(0.5)
-                            )
+                    if store.state.alarmSnoozeUntil != nil {
+                        Button(action: {
+                            store.dispatch(.setAlarmSnoozeUntil(untilDate: nil))
+                        }, label: {
+                            Image(systemName: "xmark")
+                        })
+                        .opacity(0.5)
                     }
-                }.padding(.bottom, 5)
+
+                    Button(action: {
+                        let date = (store.state.alarmSnoozeUntil ?? Date()).toRounded(on: 1, .minute)
+                        let nextDate = Calendar.current.date(byAdding: .minute, value: 60, to: date)
+
+                        store.dispatch(.setAlarmSnoozeUntil(untilDate: nextDate))
+                    }, label: {
+                        if let alarmSnoozeUntil = store.state.alarmSnoozeUntil {
+                            Text(alarmSnoozeUntil.toLocalTime())
+                            Image(systemName: "speaker.slash")
+                        } else {
+                            Image(systemName: "speaker.wave.2")
+                        }
+                    })
+                    .opacity(store.state.alarmSnoozeUntil == nil ? 0.5 : 1)
+                }
+                .buttonStyle(.plain)
+                .padding(.bottom, 5)
             }
         }
     }
