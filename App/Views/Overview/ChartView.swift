@@ -81,14 +81,18 @@ struct ChartView: View {
                                 .foregroundStyle(Color.ui.red)
                             }
 
-                            if let selectedPoint = selectedPoint {
+                            if let selectedPoint = selectedPoint, let glucoseValue = selectedPoint.glucose.glucoseValue {
                                 PointMark(
                                     x: .value("Time", selectedPoint.valueX),
                                     y: .value("Glucose", selectedPoint.valueY)
                                 )
                                 .symbolSize(Config.selectionSize)
-                                .foregroundStyle(Color.ui.blue)
                                 .opacity(0.5)
+                                .foregroundStyle(
+                                    (glucoseValue < store.state.alarmLow || glucoseValue > store.state.alarmHigh)
+                                        ? Color.ui.red
+                                        : Color.ui.blue
+                                )
                             }
 
                             if let lastTimestamp = glucoseValues.last?.timestamp {
@@ -143,23 +147,25 @@ struct ChartView: View {
                     }
                 }
             }
-            
+
             if let selectedPoint = selectedPoint, let glucoseValue = selectedPoint.glucose.glucoseValue {
                 VStack(alignment: .leading) {
                     Text(selectedPoint.glucose.timestamp.toLocalDateTime())
                     Text(glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)).bold()
                 }
                 .padding(.horizontal, 10)
-                    .padding(.vertical, 5)
-                    .foregroundColor(.white)
-                    .font(.footnote)
-                    .background(
-                        RoundedRectangle(cornerRadius: 5, style: .continuous)
-                            .foregroundStyle(Color.ui.blue)
-                            .opacity(0.5)
-                    )
-                
-
+                .padding(.vertical, 5)
+                .foregroundColor(.white)
+                .font(.footnote)
+                .background(
+                    RoundedRectangle(cornerRadius: 5, style: .continuous)
+                        .foregroundStyle(
+                            (glucoseValue < store.state.alarmLow || glucoseValue > store.state.alarmHigh)
+                                ? Color.ui.red
+                                : Color.ui.blue
+                        )
+                        .opacity(0.5)
+                )
             }
         }
     }
@@ -207,11 +213,6 @@ struct ChartView: View {
 
     // MARK: Private
 
-    @State private var seriesWidth: CGFloat = 0
-    @State private var cgmSeries: [ChartDatapoint] = []
-    @State private var bgmSeries: [ChartDatapoint] = []
-    @State private var selectedPoint: ChartDatapoint? = nil
-
     private enum Config {
         static let chartID = "chart"
         static let symbolSize: CGFloat = 15
@@ -228,6 +229,11 @@ struct ChartView: View {
             ZoomLevel(level: 48, name: LocalizedString("48h"), visibleHours: 48, labelEvery: 8, labelEveryUnit: .hour),
         ]
     }
+
+    @State private var seriesWidth: CGFloat = 0
+    @State private var cgmSeries: [ChartDatapoint] = []
+    @State private var bgmSeries: [ChartDatapoint] = []
+    @State private var selectedPoint: ChartDatapoint? = nil
 
     private let calculationQueue = DispatchQueue(label: "libre-direct.chart-calculation")
 
