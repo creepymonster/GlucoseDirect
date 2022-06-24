@@ -14,7 +14,7 @@ struct SnoozeView: View {
 
     var body: some View {
         Group {
-            DateSelectorView(key: LocalizedString("Snooze until"), value: store.state.alarmSnoozeUntil, displayValue: snoozeTime) { value -> Void in
+            DateSelectorView(key: LocalizedString("Snooze until"), value: store.state.alarmSnoozeUntil, displayValue: snoozeTime) { value in
                 store.dispatch(.setAlarmSnoozeUntil(untilDate: value))
             }
         }
@@ -24,7 +24,7 @@ struct SnoozeView: View {
 
     private var snoozeTime: String {
         if let localSnoozeTime = store.state.alarmSnoozeUntil?.toLocalTime() {
-            return String(format: LocalizedString("%1$@ a clock"), localSnoozeTime)
+            return localSnoozeTime
         }
 
         return ""

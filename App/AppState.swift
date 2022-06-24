@@ -43,7 +43,6 @@ protocol AppState {
     var selectedCalendarTarget: String? { get set }
     var selectedConnection: SensorBLEConnection? { get set }
     var selectedConnectionID: String? { get set }
-    var selectedGlucose: Glucose? { get set }
     var selectedView: Int { get set }
     var sensor: Sensor? { get set }
     var sensorInterval: Int { get set }

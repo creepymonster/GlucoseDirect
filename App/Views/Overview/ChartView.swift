@@ -50,9 +50,8 @@ struct ChartView: View {
                         Chart {
                             if let firstTimestamp = glucoseValues.first?.timestamp {
                                 RuleMark(
-                                    x: .value("Spacing", Calendar.current.date(byAdding: .minute, value: -15, to: firstTimestamp)!)
-                                )
-                                .foregroundStyle(.clear)
+                                    x: .value("", Calendar.current.date(byAdding: .minute, value: -15, to: firstTimestamp)!)
+                                ).foregroundStyle(.clear)
                             }
 
                             RuleMark(y: .value("Lower limit", alarmLow))
@@ -92,10 +91,11 @@ struct ChartView: View {
                                 .opacity(0.5)
                             }
 
-                            RuleMark(
-                                x: .value("Spacing", Calendar.current.date(byAdding: .minute, value: 15, to: Date())!)
-                            )
-                            .foregroundStyle(.clear)
+                            if let lastTimestamp = glucoseValues.last?.timestamp {
+                                RuleMark(
+                                    x: .value("", Calendar.current.date(byAdding: .minute, value: 15, to: lastTimestamp)!)
+                                ).foregroundStyle(.clear)
+                            }
                         }
                         .chartPlotStyle { plotArea in
                             plotArea.padding(.vertical)
@@ -142,6 +142,24 @@ struct ChartView: View {
                         }
                     }
                 }
+            }
+            
+            if let selectedPoint = selectedPoint, let glucoseValue = selectedPoint.glucose.glucoseValue {
+                VStack(alignment: .leading) {
+                    Text(selectedPoint.glucose.timestamp.toLocalDateTime())
+                    Text(glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)).bold()
+                }
+                .padding(.horizontal, 10)
+                    .padding(.vertical, 5)
+                    .foregroundColor(.white)
+                    .font(.footnote)
+                    .background(
+                        RoundedRectangle(cornerRadius: 5, style: .continuous)
+                            .foregroundStyle(Color.ui.blue)
+                            .opacity(0.5)
+                    )
+                
+
             }
         }
     }
@@ -192,12 +210,7 @@ struct ChartView: View {
     @State private var seriesWidth: CGFloat = 0
     @State private var cgmSeries: [ChartDatapoint] = []
     @State private var bgmSeries: [ChartDatapoint] = []
-
-    @State private var selectedPoint: ChartDatapoint? = nil {
-        didSet {
-            store.dispatch(.selectGlucose(glucose: selectedPoint?.glucose))
-        }
-    }
+    @State private var selectedPoint: ChartDatapoint? = nil
 
     private enum Config {
         static let chartID = "chart"

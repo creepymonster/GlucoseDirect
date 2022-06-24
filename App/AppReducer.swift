@@ -29,7 +29,6 @@ func appReducer(state: inout AppState, action: AppAction) {
             
         state.missedReadings = 0
         state.glucoseValues = glucoseValues
-        state.selectedGlucose = nil
         
     case .addMissedReading:
         state.missedReadings += 1
@@ -111,9 +110,6 @@ func appReducer(state: inout AppState, action: AppAction) {
         state.connectionError = nil
         state.connectionErrorIsCritical = false
         state.connectionErrorTimestamp = nil
-        
-    case .selectGlucose(glucose: let glucose):
-        state.selectedGlucose = glucose
         
     case .selectView(viewTag: let viewTag):
         state.selectedView = viewTag

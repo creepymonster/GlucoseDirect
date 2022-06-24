@@ -99,7 +99,7 @@ struct GlucoseView: View {
                             .font(.system(size: 15))
                             .bold()
 
-                        Text(String(format: LocalizedString("%1$@ a clock"), glucose.timestamp.toLocalTime()))
+                        Text(glucose.timestamp.toLocalTime())
                             .font(.system(size: 10))
                     }
                 }
@@ -111,12 +111,12 @@ struct GlucoseView: View {
                         .font(.system(size: 25))
                         .bold()
 
-                    Text(String(format: LocalizedString("%1$@ a clock"), glucose.timestamp.toLocalTime()))
+                    Text(glucose.timestamp.toLocalTime())
                         .font(.system(size: 10))
                 }
 
             default:
-                Text("Unknown size")
+                Text("")
             }
         }
     }
@@ -146,13 +146,13 @@ struct GlucoseWidget_Previews: PreviewProvider {
 
         GlucoseView(entry: GlucoseEntry(date: Date(), glucose: placeholderLowGlucose, glucoseUnit: .mmolL))
             .previewContext(WidgetPreviewContext(family: .accessoryRectangular))
-        
+
         GlucoseView(entry: GlucoseEntry(date: Date(), glucose: placeholderGlucose, glucoseUnit: .mgdL))
             .previewContext(WidgetPreviewContext(family: .accessoryRectangular))
 
         GlucoseView(entry: GlucoseEntry(date: Date(), glucose: placeholderGlucose, glucoseUnit: .mmolL))
             .previewContext(WidgetPreviewContext(family: .accessoryRectangular))
-        
+
         GlucoseView(entry: GlucoseEntry(date: Date(), glucose: placeholderHighGlucose, glucoseUnit: .mgdL))
             .previewContext(WidgetPreviewContext(family: .accessoryRectangular))
 

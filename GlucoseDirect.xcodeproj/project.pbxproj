@@ -26,7 +26,6 @@
 		E24474412859CA9600F8891C /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E27BFC0226B1407E00F8FBEF /* WidgetKit.framework */; };
 		E24474422859CA9600F8891C /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E27BFC0426B1407E00F8FBEF /* SwiftUI.framework */; };
 		E24474452859CA9600F8891C /* AppWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24474442859CA9600F8891C /* AppWidgets.swift */; };
-		E24474472859CA9700F8891C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E24474462859CA9700F8891C /* Assets.xcassets */; };
 		E244744B2859CA9700F8891C /* WidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E24474402859CA9600F8891C /* WidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E24B531E26B863910091417F /* NightscoutSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B531D26B863910091417F /* NightscoutSettingsView.swift */; };
 		E24B532126B863C00091417F /* GlucoseSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532026B863C00091417F /* GlucoseSettingsView.swift */; };
@@ -36,6 +35,7 @@
 		E25762D5279D519200A2E249 /* BellmanSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25762D4279D519200A2E249 /* BellmanSettingsView.swift */; };
 		E26089A42748DCB500749025 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26089A32748DCB500749025 /* Double.swift */; };
 		E26205102773C80400AD631B /* silent.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E262050F2773C80400AD631B /* silent.aiff */; };
+		E2641A5328646E73003C86E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E20B8541266F4A9900AA4224 /* Assets.xcassets */; };
 		E2645D842763F4EF0058BFC7 /* SensorReadingQuality.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2645D832763F4EF0058BFC7 /* SensorReadingQuality.swift */; };
 		E2646F3B275FD2EC00ADE451 /* AppleCalendarExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2646F3A275FD2EC00ADE451 /* AppleCalendarExport.swift */; };
 		E2646F3D275FD3E800ADE451 /* AppleExportSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2646F3C275FD3E800ADE451 /* AppleExportSettingsView.swift */; };
@@ -203,7 +203,6 @@
 		E24077B726B881CB001767C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E24474402859CA9600F8891C /* WidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E24474442859CA9600F8891C /* AppWidgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppWidgets.swift; sourceTree = "<group>"; };
-		E24474462859CA9700F8891C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E24474482859CA9700F8891C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E247D8E426B7D70A00BDAF89 /* GlucoseDirect.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = GlucoseDirect.xcconfig; sourceTree = "<group>"; };
 		E24B531D26B863910091417F /* NightscoutSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightscoutSettingsView.swift; sourceTree = "<group>"; };
@@ -294,7 +293,7 @@
 		E2D34BC7274D6BCB00151895 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		E2D34BC9274D6C1300151895 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		E2DE3CA227594E5500FAC82E /* SensorConnectorSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorConnectorSettings.swift; sourceTree = "<group>"; };
-		E2E8DC032859F62C002C84FD /* WidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetsExtension.entitlements; sourceTree = "<group>"; };
+		E2E8DC032859F62C002C84FD /* AppWidgets.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppWidgets.entitlements; sourceTree = "<group>"; };
 		E2EB0F68275B643D00226E9C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E2EB0F69275B643D00226E9C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E2EB0F6A275B644A00226E9C /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -398,7 +397,6 @@
 				E2FCAC742707439300FE1CBF /* Resources */,
 				E20B8543266F4A9900AA4224 /* Preview Content */,
 				E2BF22DF266F9CA20060866F /* App.entitlements */,
-				E20B8541266F4A9900AA4224 /* Assets.xcassets */,
 				E20B8546266F4A9900AA4224 /* Info.plist */,
 				E24077B126B881C2001767C0 /* InfoPlist.strings */,
 			);
@@ -429,6 +427,7 @@
 				E2FCAC39270741E600FE1CBF /* DirectLog.swift */,
 				E2FCAC112707419800FE1CBF /* Content */,
 				E2FCAC26270741C700FE1CBF /* Extensions */,
+				E20B8541266F4A9900AA4224 /* Assets.xcassets */,
 				E2FCAC89270743E200FE1CBF /* Localizable.strings */,
 			);
 			path = Library;
@@ -441,8 +440,7 @@
 				E2016FD5285BA7C600079195 /* SensorWidget.swift */,
 				E2016FD7285BA7EE00079195 /* GlucoseWidget.swift */,
 				E2016FDB285BA82600079195 /* TransmitterWidget.swift */,
-				E2E8DC032859F62C002C84FD /* WidgetsExtension.entitlements */,
-				E24474462859CA9700F8891C /* Assets.xcassets */,
+				E2E8DC032859F62C002C84FD /* AppWidgets.entitlements */,
 				E24474482859CA9700F8891C /* Info.plist */,
 				E2B5BF5C28639C2A006C9C7F /* InfoPlist.strings */,
 			);
@@ -878,8 +876,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E24474472859CA9700F8891C /* Assets.xcassets in Resources */,
 				E2B5BF5E28639C2A006C9C7F /* InfoPlist.strings in Resources */,
+				E2641A5328646E73003C86E3 /* Assets.xcassets in Resources */,
 				E214BB68285A15800004F7AB /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1272,7 +1270,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CODE_SIGN_ENTITLEMENTS = AppWidgets/WidgetsExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = AppWidgets/AppWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "${DEVELOPMENT_TEAM}";
@@ -1304,7 +1302,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CODE_SIGN_ENTITLEMENTS = AppWidgets/WidgetsExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = AppWidgets/AppWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "${DEVELOPMENT_TEAM}";
