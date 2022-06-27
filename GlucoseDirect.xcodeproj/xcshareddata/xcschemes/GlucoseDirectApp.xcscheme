@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E20B8539266F4A9800AA4224"
-               BuildableName = "App.app"
+               BuildableName = "GlucoseDirectApp.app"
                BlueprintName = "GlucoseDirectApp"
                ReferencedContainer = "container:GlucoseDirect.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E20B8539266F4A9800AA4224"
-            BuildableName = "App.app"
+            BuildableName = "GlucoseDirectApp.app"
             BlueprintName = "GlucoseDirectApp"
             ReferencedContainer = "container:GlucoseDirect.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E20B8539266F4A9800AA4224"
-            BuildableName = "App.app"
+            BuildableName = "GlucoseDirectApp.app"
             BlueprintName = "GlucoseDirectApp"
             ReferencedContainer = "container:GlucoseDirect.xcodeproj">
          </BuildableReference>
