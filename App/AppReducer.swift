@@ -5,36 +5,30 @@
 
 import Combine
 import Foundation
+import UIKit
 
 // MARK: - appReducer
 
 func appReducer(state: inout AppState, action: AppAction) {
     switch action {
-    case .addCalibration(glucoseValue: let glucoseValue):
-        guard state.sensor != nil else {
-            DirectLog.info("Guard: state.sensor is nil")
-            break
-        }
-        
-        guard let factoryCalibratedGlucoseValue = state.currentGlucose?.initialGlucoseValue else {
+    case .addCalibration(bloodGlucoseValue: let bloodGlucoseValue):
+        guard let latestRawGlucoseValue = state.latestSensorGlucose?.rawGlucoseValue else {
             DirectLog.info("Guard: state.currentGlucose.initialGlucoseValue is nil")
             break
         }
         
-        state.customCalibration.append(CustomCalibration(x: Double(factoryCalibratedGlucoseValue), y: Double(glucoseValue)))
+        state.customCalibration.append(CustomCalibration(x: Double(latestRawGlucoseValue), y: Double(bloodGlucoseValue)))
         
-    case .addGlucoseValues(glucoseValues: let addedGlucoseValues):
-        if !addedGlucoseValues.isEmpty {
-            var glucoseValues = state.glucoseValues + addedGlucoseValues
+    case .addGlucose(glucoseValues: let addedGlucoseValues):
+        var glucoseValues = state.glucoseValues + addedGlucoseValues
             
-            let overLimit = glucoseValues.count - DirectConfig.numberOfGlucoseValues
-            if overLimit > 0 {
-                glucoseValues = Array(glucoseValues.dropFirst(overLimit))
-            }
-            
-            state.missedReadings = 0
-            state.glucoseValues = glucoseValues
+        let overLimit = glucoseValues.count - DirectConfig.numberOfGlucoseValues
+        if overLimit > 0 {
+            glucoseValues = Array(glucoseValues.dropFirst(overLimit))
         }
+            
+        state.missedReadings = 0
+        state.glucoseValues = glucoseValues
         
     case .addMissedReading:
         state.missedReadings += 1
@@ -86,6 +80,12 @@ func appReducer(state: inout AppState, action: AppAction) {
             item.id != id
         }
         
+    case .requestAppleCalendarAccess(enabled: _):
+        break
+        
+    case .requestAppleHealthAccess(enabled: _):
+        break
+        
     case .resetSensor:
         state.sensor = nil
         state.customCalibration = []
@@ -134,18 +134,18 @@ func appReducer(state: inout AppState, action: AppAction) {
             NotificationService.shared.stopSound()
         }
         
+    case .setAppleCalendarExport(enabled: let enabled):
+        state.appleCalendarExport = enabled
+        
     case .setAppleHealthExport(enabled: let enabled):
         state.appleHealthExport = enabled
-        
-    case .setBellmanNotification(enabled: let enabled):
-        state.bellmanAlarm = enabled
         
     case .setBellmanConnectionState(connectionState: let connectionState):
         state.bellmanConnectionState = connectionState
         
-    case .setAppleCalendarExport(enabled: let enabled):
-        state.appleCalendarExport = enabled
-        
+    case .setBellmanNotification(enabled: let enabled):
+        state.bellmanAlarm = enabled
+           
     case .setChartShowLines(enabled: let enabled):
         state.chartShowLines = enabled
         
@@ -160,6 +160,12 @@ func appReducer(state: inout AppState, action: AppAction) {
         state.connectionErrorTimestamp = errorTimestamp
         state.connectionErrorIsCritical = errorIsCritical
         
+    case .setConnectionPaired(isPaired: let isPaired):
+        state.isConnectionPaired = isPaired
+        
+    case .setConnectionPeripheralUUID(peripheralUUID: let peripheralUUID):
+        state.connectionPeripheralUUID = peripheralUUID
+        
     case .setConnectionState(connectionState: let connectionState):
         state.connectionState = connectionState
 
@@ -168,9 +174,6 @@ func appReducer(state: inout AppState, action: AppAction) {
             state.connectionErrorIsCritical = false
             state.connectionErrorTimestamp = nil
         }
-        
-    case .setConnectionPeripheralUUID(peripheralUUID: let peripheralUUID):
-        state.connectionPeripheralUUID = peripheralUUID
         
     case .setExpiringAlarmSound(sound: let sound):
         state.expiringAlarmSound = sound
@@ -199,9 +202,10 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .setNightscoutURL(url: let url):
         state.nightscoutURL = url
         
-    case .setConnectionPaired(isPaired: let isPaired):
-        state.isConnectionPaired = isPaired
-        
+    case .setPreventScreenLock(enabled: let enabled):
+        state.preventScreenLock = enabled
+        UIApplication.shared.isIdleTimerDisabled = enabled
+
     case .setReadGlucose(enabled: let enabled):
         state.readGlucose = enabled
         

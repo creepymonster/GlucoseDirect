@@ -7,16 +7,12 @@ import CommonCrypto
 import Foundation
 
 extension String {
-    func toBase64() -> String {
-        return Data(self.utf8).base64EncodedString()
+    func capitalizingFirstLetter() -> String {
+        return prefix(1).capitalized + dropFirst()
     }
 
-    func fromBase64() -> Data? {
-        guard let data = Data(base64Encoded: self) else {
-            return nil
-        }
-
-        return data
+    func asMinuteChange() -> String {
+        return String(format: LocalizedString("%1$@/min."), self)
     }
 
     func toSha1() -> String {

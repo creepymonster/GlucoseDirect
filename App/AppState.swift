@@ -38,6 +38,7 @@ protocol AppState {
     var nightscoutApiSecret: String { get set }
     var nightscoutUpload: Bool { get set }
     var nightscoutURL: String { get set }
+    var preventScreenLock: Bool { get set }
     var readGlucose: Bool { get set }
     var selectedCalendarTarget: String? { get set }
     var selectedConnection: SensorBLEConnection? { get set }
@@ -50,8 +51,16 @@ protocol AppState {
 }
 
 extension AppState {
-    var currentGlucose: Glucose? {
+    var latestGlucose: Glucose? {
+        glucoseValues.last
+    }
+
+    var latestSensorGlucose: Glucose? {
         glucoseValues.last(where: { $0.type == .cgm })
+    }
+
+    var latestBloodGlucose: Glucose? {
+        glucoseValues.last(where: { $0.type == .bgm })
     }
 
     var connectionAlarm: Bool {
@@ -108,16 +117,6 @@ extension AppState {
 
     var isReady: Bool {
         sensor != nil && sensor!.state == .ready
-    }
-
-    var lastGlucose: Glucose? {
-        glucoseValues.last(where: { $0.type == .cgm && $0 != currentGlucose })
-    }
-
-    var limitedGlucoseValues: [Glucose] {
-        glucoseValues.filter { glucose in
-            glucose.is5Minutely
-        }
     }
 }
 

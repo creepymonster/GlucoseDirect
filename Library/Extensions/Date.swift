@@ -6,6 +6,21 @@
 import Foundation
 
 extension Date {
+    static func valuesBetween(from fromDate: Date, to toDate: Date, component: Calendar.Component, step: Int) -> [Date] {
+        var dates: [Date] = []
+        var date = fromDate
+
+        while date <= toDate {
+            dates.append(date)
+            guard let newDate = Calendar.current.date(byAdding: component, value: step, to: date) else {
+                break
+            }
+            date = newDate
+        }
+
+        return dates
+    }
+
     func toMillisecondsAsInt64() -> Int64 {
         Int64((self.timeIntervalSince1970 * 1000.0).rounded())
     }
@@ -26,7 +41,7 @@ extension Date {
     }
 
     func toMillisecondsAsDouble() -> Double {
-        Double(self.timeIntervalSince1970 * 1000)
+        return Double(self.timeIntervalSince1970 * 1000)
     }
 
     func toLocalDateTime() -> String {

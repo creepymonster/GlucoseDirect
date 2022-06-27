@@ -8,9 +8,9 @@ import SwiftUI
 // MARK: - AboutView
 
 struct AboutView: View {
-    @EnvironmentObject var store: AppStore
+    // MARK: Internal
 
-    @State var showingDeleteLogsAlert = false
+    @EnvironmentObject var store: AppStore
 
     var body: some View {
         Section(
@@ -78,36 +78,31 @@ struct AboutView: View {
                         .lineLimit(1)
                         .truncationMode(.head)
                 }
-
-                Button(
-                    action: {
-                        store.dispatch(.sendLogs)
-                    },
-                    label: {
-                        Label("Send log file", systemImage: "square.and.arrow.up")
-                    }
-                )
-
-                Button(
-                    action: {
-                        showingDeleteLogsAlert = true
-                    },
-                    label: {
-                        Label("Delete log files", systemImage: "trash")
-                    }
-                ).alert(isPresented: $showingDeleteLogsAlert) {
-                    Alert(
-                        title: Text("Are you sure you want to delete all log files?"),
-                        primaryButton: .destructive(Text("Delete all")) {
-                            store.dispatch(.deleteLogs)
-                        },
-                        secondaryButton: .cancel()
-                    )
-                }
             },
             header: {
                 Label("About \(DirectConfig.appName)", systemImage: "info")
             }
         )
+
+        Button("Send log file", action: {
+            store.dispatch(.sendLogs)
+        })
+
+        Button("Delete log files", action: {
+            showingDeleteLogsAlert = true
+
+        }).alert(isPresented: $showingDeleteLogsAlert) {
+            Alert(
+                title: Text("Are you sure you want to delete all log files?"),
+                primaryButton: .destructive(Text("Delete all")) {
+                    store.dispatch(.deleteLogs)
+                },
+                secondaryButton: .cancel()
+            )
+        }
     }
+
+    // MARK: Private
+
+    @State private var showingDeleteLogsAlert = false
 }

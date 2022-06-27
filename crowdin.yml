@@ -1,7 +1,8 @@
 files:
   - source: /App/en.lproj/InfoPlist.strings
     translation: /App/%osx_locale%.lproj/InfoPlist.strings
-  - source: /App/Resources/en.lproj/Localizable.strings
-    translation: /App/Resources/%osx_locale%.lproj/Localizable.strings
-  - source: /App/Resources/Settings.bundle/en.lproj/Root.strings
-    translation: /App/Resources/Settings.bundle/%osx_locale%.lproj/Root.strings
+  - source: /AppWidgets/en.lproj/InfoPlist.strings
+    translation: /AppWidgets/%osx_locale%.lproj/InfoPlist.strings
+  - source: /Library/en.lproj/Localizable.strings
+    translation: /Library/%osx_locale%.lproj/Localizable.strings
+
