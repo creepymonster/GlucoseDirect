@@ -17,7 +17,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E244743F2859CA9600F8891C"
                BuildableName = "WidgetsExtension.appex"
-               BlueprintName = "WidgetsExtension"
+               BlueprintName = "GlucoseDirectWidget"
                ReferencedContainer = "container:GlucoseDirect.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -31,7 +31,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E20B8539266F4A9800AA4224"
                BuildableName = "App.app"
-               BlueprintName = "App"
+               BlueprintName = "GlucoseDirectApp"
                ReferencedContainer = "container:GlucoseDirect.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -63,7 +63,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E20B8539266F4A9800AA4224"
             BuildableName = "App.app"
-            BlueprintName = "App"
+            BlueprintName = "GlucoseDirectApp"
             ReferencedContainer = "container:GlucoseDirect.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -98,7 +98,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E20B8539266F4A9800AA4224"
             BuildableName = "App.app"
-            BlueprintName = "App"
+            BlueprintName = "GlucoseDirectApp"
             ReferencedContainer = "container:GlucoseDirect.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
