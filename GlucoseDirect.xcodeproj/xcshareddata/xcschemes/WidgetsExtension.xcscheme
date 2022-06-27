@@ -16,7 +16,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E244743F2859CA9600F8891C"
-               BuildableName = "WidgetsExtension.appex"
+               BuildableName = "GlucoseDirectWidget.appex"
                BlueprintName = "GlucoseDirectWidget"
                ReferencedContainer = "container:GlucoseDirect.xcodeproj">
             </BuildableReference>

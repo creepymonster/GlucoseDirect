@@ -188,7 +188,7 @@
 		E2016FDB285BA82600079195 /* TransmitterWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransmitterWidget.swift; sourceTree = "<group>"; };
 		E201769027AAB96000E6A756 /* AppleHealthExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleHealthExport.swift; sourceTree = "<group>"; };
 		E20786222686283F004EEF1C /* ActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsView.swift; sourceTree = "<group>"; };
-		E20B853A266F4A9800AA4224 /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E20B853A266F4A9800AA4224 /* GlucoseDirectApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlucoseDirectApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E20B853D266F4A9800AA4224 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		E20B853F266F4A9800AA4224 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E20B8541266F4A9900AA4224 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -749,9 +749,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E20B8539266F4A9800AA4224 /* App */ = {
+		E20B8539266F4A9800AA4224 /* GlucoseDirectApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E20B8549266F4A9900AA4224 /* Build configuration list for PBXNativeTarget "App" */;
+			buildConfigurationList = E20B8549266F4A9900AA4224 /* Build configuration list for PBXNativeTarget "GlucoseDirectApp" */;
 			buildPhases = (
 				E20B8536266F4A9800AA4224 /* Sources */,
 				E20B8537266F4A9800AA4224 /* Frameworks */,
@@ -763,11 +763,11 @@
 			dependencies = (
 				E244744A2859CA9700F8891C /* PBXTargetDependency */,
 			);
-			name = App;
+			name = GlucoseDirectApp;
 			packageProductDependencies = (
 			);
 			productName = GlucoseDirect;
-			productReference = E20B853A266F4A9800AA4224 /* App.app */;
+			productReference = E20B853A266F4A9800AA4224 /* GlucoseDirectApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 		E244743F2859CA9600F8891C /* GlucoseDirectWidget */ = {
@@ -1338,7 +1338,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E20B8549266F4A9900AA4224 /* Build configuration list for PBXNativeTarget "App" */ = {
+		E20B8549266F4A9900AA4224 /* Build configuration list for PBXNativeTarget "GlucoseDirectApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E20B854A266F4A9900AA4224 /* Debug */,
