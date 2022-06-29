@@ -255,7 +255,16 @@ extension UserDefaults {
 
     var glucoseValues: [Glucose] {
         get {
-            return getArray(forKey: Keys.glucoseValues.rawValue) ?? []
+            if var storedGlucoseValues: [Glucose] = getArray(forKey: Keys.glucoseValues.rawValue) {
+                storedGlucoseValues.reserveCapacity(DirectConfig.numberOfGlucoseValues)
+                
+                return storedGlucoseValues
+            }
+            
+            var glucoseValues = Array<Glucose>()
+            glucoseValues.reserveCapacity(DirectConfig.numberOfGlucoseValues)
+            
+            return glucoseValues
         }
         set {
             setArray(newValue, forKey: Keys.glucoseValues.rawValue)

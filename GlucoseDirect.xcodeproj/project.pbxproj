@@ -1276,7 +1276,6 @@
 				DEVELOPMENT_TEAM = "${DEVELOPMENT_TEAM}";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AppWidgets/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = AppWidgets;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1308,7 +1307,6 @@
 				DEVELOPMENT_TEAM = "${DEVELOPMENT_TEAM}";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AppWidgets/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = AppWidgets;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
