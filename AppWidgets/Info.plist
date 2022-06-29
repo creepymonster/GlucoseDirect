@@ -5,7 +5,7 @@
 	<key>APP_GROUP_ID</key>
 	<string>$(APP_GROUP_ID)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Glucose Direct</string>
+	<string>Glucose Direct</string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionPointIdentifier</key>
