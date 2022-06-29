@@ -20,11 +20,13 @@ func appReducer(state: inout AppState, action: AppAction) {
         state.customCalibration.append(CustomCalibration(x: Double(latestRawGlucoseValue), y: Double(bloodGlucoseValue)))
         
     case .addGlucose(glucoseValues: let addedGlucoseValues):
-        var glucoseValues = state.glucoseValues + addedGlucoseValues
+        var glucoseValues: [Glucose]
             
-        let overLimit = glucoseValues.count - DirectConfig.numberOfGlucoseValues
+        let overLimit = state.glucoseValues.count + addedGlucoseValues.count - DirectConfig.numberOfGlucoseValues
         if overLimit > 0 {
-            glucoseValues = Array(glucoseValues.dropFirst(overLimit))
+            glucoseValues = Array(state.glucoseValues.dropFirst(overLimit) + addedGlucoseValues)
+        } else {
+            glucoseValues = state.glucoseValues + addedGlucoseValues
         }
             
         state.missedReadings = 0
