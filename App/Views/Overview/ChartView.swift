@@ -91,7 +91,7 @@ struct ChartView: View {
                                 .opacity(0.5)
                                 .foregroundStyle(Color.ui.blue)
                             }
-                            
+
                             if let selectedPointInfo = selectedBGMPoint {
                                 PointMark(
                                     x: .value("Time", selectedPointInfo.valueX),
@@ -124,59 +124,45 @@ struct ChartView: View {
                         .frame(width: max(0, geometryProxy.size.width, seriesWidth))
                         .onChange(of: store.state.glucoseUnit) { glucoseUnit in
                             DirectLog.info("onChange(\(glucoseUnit))")
-                            
+
                             if shouldUpdate() {
                                 updateSeries(viewWidth: geometryProxy.size.width, scrollViewProxy: scrollViewProxy)
                             }
 
                         }.onChange(of: store.state.glucoseValues) { glucoseValues in
                             DirectLog.info("onChange(\(glucoseValues.count))")
-                            
+
                             if shouldUpdate() {
                                 updateSeries(viewWidth: geometryProxy.size.width, scrollViewProxy: scrollViewProxy)
                             }
 
                         }.onChange(of: store.state.chartZoomLevel) { chartZoomLevel in
                             DirectLog.info("onChange(\(chartZoomLevel))")
-                            
+
                             if shouldUpdate() {
                                 updateSeries(viewWidth: geometryProxy.size.width, scrollViewProxy: scrollViewProxy)
                             }
-                          
+
                         }.onChange(of: scenePhase) { newScenePhase in
                             DirectLog.info("onChange(\(newScenePhase))")
-                            
+
                             if shouldUpdate(newScenePhase: newScenePhase) {
                                 updateSeries(viewWidth: geometryProxy.size.width, scrollViewProxy: scrollViewProxy)
                             }
-                            
-                        /*}.onAppear {
-                            DirectLog.info("onAppear()")
-                            
-                            if shouldUpdate(currentScenePhase: scenePhase) {
-                                updateSeries(viewWidth: geometryProxy.size.width, scrollViewProxy: scrollViewProxy)
-                            }*/
 
                         }.chartOverlay { proxy in
                             GeometryReader { geometryProxy in
                                 Rectangle().fill(.clear).contentShape(Rectangle())
                                     .gesture(DragGesture()
                                         .onChanged { value in
-                                            calculationQueue.async {
-                                                let currentX = value.location.x - geometryProxy[proxy.plotAreaFrame].origin.x
-                                                
-                                                if let currentDate: Date = proxy.value(atX: currentX) {
-                                                    let selectedCGMPoint = cgmPointInfos[currentDate.toRounded(on: 1, .minute)]
-                                                    let selectedBGMPoint = bgmPointInfos[currentDate.toRounded(on: 1, .minute)]
-                                                    
-                                                    DispatchQueue.main.async {
-                                                        if let selectedCGMPoint = selectedCGMPoint {
-                                                            self.selectedCGMPoint = selectedCGMPoint
-                                                        }
-                                                        
-                                                        self.selectedBGMPoint = selectedBGMPoint
-                                                    }
-                                                }
+                                            let currentX = value.location.x - geometryProxy[proxy.plotAreaFrame].origin.x
+
+                                            if let currentDate: Date = proxy.value(atX: currentX) {
+                                                let selectedCGMPoint = cgmPointInfos[currentDate.toRounded(on: 1, .minute)]
+                                                let selectedBGMPoint = bgmPointInfos[currentDate.toRounded(on: 1, .minute)]
+
+                                                self.selectedCGMPoint = selectedCGMPoint
+                                                self.selectedBGMPoint = selectedBGMPoint
                                             }
                                         }
                                         .onEnded { _ in
@@ -190,12 +176,12 @@ struct ChartView: View {
                 }
             }
 
-            if selectedCGMPoint?.glucose != nil || selectedBGMPoint?.glucose != nil {
+            if selectedCGMPoint != nil || selectedBGMPoint != nil {
                 HStack {
-                    if let selectedGlucose = selectedCGMPoint?.glucose, let glucoseValue = selectedGlucose.glucoseValue {
+                    if let selectedCGMPoint = selectedCGMPoint {
                         VStack(alignment: .leading) {
-                            Text(selectedGlucose.timestamp.toLocalDateTime())
-                            Text(glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)).bold()
+                            Text(selectedCGMPoint.valueX.toLocalDateTime())
+                            Text(selectedCGMPoint.info).bold()
                         }
                         .padding(.horizontal, 10)
                         .padding(.vertical, 5)
@@ -207,15 +193,15 @@ struct ChartView: View {
                                 .opacity(0.5)
                         )
                     }
-                    
-                    if let selectedGlucose = selectedBGMPoint?.glucose, let glucoseValue = selectedGlucose.glucoseValue {
+
+                    if let selectedBGMPoint = selectedBGMPoint {
                         HStack {
                             Image(systemName: "drop.fill")
                                 .foregroundColor(Color.white)
-                            
+
                             VStack(alignment: .leading) {
-                                Text(selectedGlucose.timestamp.toLocalDateTime())
-                                Text(glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)).bold()
+                                Text(selectedBGMPoint.valueX.toLocalDateTime())
+                                Text(selectedBGMPoint.info).bold()
                             }
                             .foregroundColor(Color.white)
                             .font(.footnote)
@@ -289,28 +275,28 @@ struct ChartView: View {
             ZoomLevel(level: 6, name: LocalizedString("6h"), visibleHours: 6, labelEvery: 2, labelEveryUnit: .hour),
             ZoomLevel(level: 12, name: LocalizedString("12h"), visibleHours: 12, labelEvery: 3, labelEveryUnit: .hour),
             ZoomLevel(level: 24, name: LocalizedString("24h"), visibleHours: 24, labelEvery: 6, labelEveryUnit: .hour),
-            //ZoomLevel(level: 48, name: LocalizedString("48h"), visibleHours: 48, labelEvery: 8, labelEveryUnit: .hour),
+            // ZoomLevel(level: 48, name: LocalizedString("48h"), visibleHours: 48, labelEvery: 8, labelEveryUnit: .hour),
         ]
     }
 
     @State private var seriesWidth: CGFloat = 0
     @State private var cgmSeries: [ChartDatapoint] = []
     @State private var bgmSeries: [ChartDatapoint] = []
-    
+
     @State private var cgmPointInfos: [Date: ChartDatapoint] = [:]
     @State private var bgmPointInfos: [Date: ChartDatapoint] = [:]
-    
+
     @State private var selectedCGMPoint: ChartDatapoint? = nil
     @State private var selectedBGMPoint: ChartDatapoint? = nil
 
-    private let calculationQueue = DispatchQueue(label: "libre-direct.chart-calculation")
-    
+    private let calculationQueue = DispatchQueue(label: "libre-direct.chart-calculation", qos: .utility)
+
     private func shouldUpdate(newScenePhase: ScenePhase? = nil) -> Bool {
         let isRightView = store.state.selectedView == 1
         let isActiveView = (newScenePhase ?? scenePhase) == .active
-        
+
         DirectLog.info("shouldUpdate \(isRightView && isActiveView) (\(isRightView) && \(isActiveView))")
-        
+
         return isRightView && isActiveView
     }
 
@@ -332,7 +318,7 @@ struct ChartView: View {
 
     private func updateSeries(viewWidth: CGFloat, scrollViewProxy: ScrollViewProxy?) {
         DirectLog.info("updateSeries()")
-        
+
         calculationQueue.async {
             let glucoseValues = self.glucoseValues.filter { value in
                 value.isValidCGM() || value.isValidBGM()
@@ -350,18 +336,29 @@ struct ChartView: View {
                 self.seriesWidth = CGFloat(minuteWidth * chartMinutes)
             }
 
+            var cgmPointInfos: [Date: ChartDatapoint] = [:]
             let cgmSeries = populateValues(glucoseValues: glucoseValues.filter { $0.type == .cgm })
+            cgmSeries.forEach { value in
+                if cgmPointInfos[value.valueX] == nil {
+                    cgmPointInfos[value.valueX] = value
+                }
+            }
+
+            var bgmPointInfos: [Date: ChartDatapoint] = [:]
             let bgmSeries = populateValues(glucoseValues: glucoseValues.filter { $0.type == .bgm })
-            
-            let cgmInfos = Dictionary(uniqueKeysWithValues: cgmSeries.map{ ($0.valueX, $0) })
-            let bgmInfos = Dictionary(uniqueKeysWithValues: bgmSeries.map{ ($0.valueX, $0) })
-            
+            bgmSeries.forEach { value in
+                if bgmPointInfos[value.valueX] == nil {
+                    bgmPointInfos[value.valueX] = value
+                }
+            }
+
             DispatchQueue.main.async {
                 self.cgmSeries = cgmSeries
+                self.cgmPointInfos = cgmPointInfos
+
                 self.bgmSeries = bgmSeries
-                self.cgmPointInfos = cgmInfos
-                self.bgmPointInfos = bgmInfos
-                
+                self.bgmPointInfos = bgmPointInfos
+
                 if let scrollProxy = scrollViewProxy {
                     self.scrollToEnd(scrollViewProxy: scrollProxy)
                 }
@@ -393,8 +390,7 @@ struct ChartDatapoint: Identifiable {
     let id: String
     let valueX: Date
     let valueY: Decimal
-    let glucose: Glucose
-    let isAlarm: Bool
+    let info: String
 }
 
 // MARK: Equatable
@@ -423,15 +419,12 @@ extension Glucose {
             return nil
         }
 
-        let isAlarm = glucoseValue < alarmLow || glucoseValue > alarmHigh
-
         if glucoseUnit == .mmolL {
             return ChartDatapoint(
                 id: toDatapointID(glucoseUnit: glucoseUnit),
                 valueX: timestamp,
                 valueY: glucoseValue.asMmolL,
-                glucose: self,
-                isAlarm: isAlarm
+                info: glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)
             )
         }
 
@@ -439,8 +432,7 @@ extension Glucose {
             id: toDatapointID(glucoseUnit: glucoseUnit),
             valueX: timestamp,
             valueY: glucoseValue.asMgdL,
-            glucose: self,
-            isAlarm: isAlarm
+            info: glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)
         )
     }
 }
