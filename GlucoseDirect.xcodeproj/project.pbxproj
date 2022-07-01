@@ -52,7 +52,7 @@
 		E27ED97F2758ADF40099149C /* SensorConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27ED97E2758ADF40099149C /* SensorConnection.swift */; };
 		E283306726AF058500244343 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E283306626AF058500244343 /* ChartView.swift */; };
 		E28728AA26DE499200269F47 /* SnoozeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28728A926DE499200269F47 /* SnoozeView.swift */; };
-		E28BA1B9286F52C700F6273F /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28BA1B8286F52C700F6273F /* Widget.swift */; };
+		E28BA1B9286F52C700F6273F /* WidgetCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28BA1B8286F52C700F6273F /* WidgetCenter.swift */; };
 		E28C1299278AE6A900ECE0DF /* ConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28C1298278AE6A900ECE0DF /* ConnectionView.swift */; };
 		E28C99F12862429B00632384 /* ChartViewCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28C99F02862429B00632384 /* ChartViewCompatibility.swift */; };
 		E292E1B226A608C400011F64 /* NumberSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E292E1B126A608C400011F64 /* NumberSelectorView.swift */; };
@@ -236,7 +236,7 @@
 		E27ED97E2758ADF40099149C /* SensorConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorConnection.swift; sourceTree = "<group>"; };
 		E283306626AF058500244343 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		E28728A926DE499200269F47 /* SnoozeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnoozeView.swift; sourceTree = "<group>"; };
-		E28BA1B8286F52C700F6273F /* Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget.swift; sourceTree = "<group>"; };
+		E28BA1B8286F52C700F6273F /* WidgetCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetCenter.swift; sourceTree = "<group>"; };
 		E28C1298278AE6A900ECE0DF /* ConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionView.swift; sourceTree = "<group>"; };
 		E28C99F02862429B00632384 /* ChartViewCompatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewCompatibility.swift; sourceTree = "<group>"; };
 		E28D3D91276DF9B70092D862 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -516,12 +516,12 @@
 			path = VirtualConnection;
 			sourceTree = "<group>";
 		};
-		E28BA1B7286F52AC00F6273F /* Widget */ = {
+		E28BA1B7286F52AC00F6273F /* WidgetCenter */ = {
 			isa = PBXGroup;
 			children = (
-				E28BA1B8286F52C700F6273F /* Widget.swift */,
+				E28BA1B8286F52C700F6273F /* WidgetCenter.swift */,
 			);
-			path = Widget;
+			path = WidgetCenter;
 			sourceTree = "<group>";
 		};
 		E298CF01279DEB6600C1C218 /* Calibrations */ = {
@@ -649,7 +649,7 @@
 				E2FCAC4F2707424000FE1CBF /* Nightscout */,
 				E2CDA01827722FA100A1E694 /* ReadAloud */,
 				E27ED96E2758A3EE0099149C /* SensorConnector */,
-				E28BA1B7286F52AC00F6273F /* Widget */,
+				E28BA1B7286F52AC00F6273F /* WidgetCenter */,
 				E2FCAC682707429800FE1CBF /* Utility */,
 			);
 			path = Modules;
@@ -929,7 +929,7 @@
 				E2FCAC36270741D200FE1CBF /* LocalizedString.swift in Sources */,
 				E28C1299278AE6A900ECE0DF /* ConnectionView.swift in Sources */,
 				E2FCAC432707420100FE1CBF /* NotificationService.swift in Sources */,
-				E28BA1B9286F52C700F6273F /* Widget.swift in Sources */,
+				E28BA1B9286F52C700F6273F /* WidgetCenter.swift in Sources */,
 				E25762D5279D519200A2E249 /* BellmanSettingsView.swift in Sources */,
 				E2FCAC1F270741BC00FE1CBF /* SensorRegion.swift in Sources */,
 				E2DE3CA327594E5500FAC82E /* SensorConnectorSettings.swift in Sources */,

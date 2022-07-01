@@ -7,7 +7,7 @@ import Combine
 import Foundation
 import WidgetKit
 
-func widgetMiddleware() -> Middleware<AppState, AppAction> {
+func widgetCenterMiddleware() -> Middleware<AppState, AppAction> {
     return { _, action, _ in
         DirectLog.info("Triggered action: \(action)")
 
