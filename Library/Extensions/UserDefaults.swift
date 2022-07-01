@@ -286,10 +286,7 @@ extension UserDefaults {
     
     var latestGlucose: Glucose? {
         get {
-            getObject(forKey: Keys.latestGlucose.rawValue)
-        }
-        set {
-            setObject(newValue, forKey: Keys.latestGlucose.rawValue)
+            return glucoseValues.last
         }
     }
 
