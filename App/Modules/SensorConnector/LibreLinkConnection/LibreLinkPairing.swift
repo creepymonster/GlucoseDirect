@@ -158,11 +158,11 @@ class LibreLinkPairing: NSObject, NFCTagReaderSessionDelegate {
                         } else if sensor.age > sensor.warmupTime {
                             let readings = LibreUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
 
-                            self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: .ready))
+                            self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: sensor.state))
                             self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", readings: readings.history + readings.trend))
 
                         } else if sensor.age <= sensor.warmupTime {
-                            self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: .starting))
+                            self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: sensor.state))
                         }
                     } else {
                         session.invalidate()
@@ -177,11 +177,11 @@ class LibreLinkPairing: NSObject, NFCTagReaderSessionDelegate {
                         } else if sensor.age > sensor.warmupTime {
                             let readings = LibreUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
 
-                            self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: .ready))
+                            self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: sensor.state))
                             self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", readings: readings.history + readings.trend))
 
                         } else if sensor.age <= sensor.warmupTime {
-                            self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: .starting))
+                            self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: sensor.state))
                         }
                     }
                 }

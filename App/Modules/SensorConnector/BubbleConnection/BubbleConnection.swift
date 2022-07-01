@@ -143,10 +143,10 @@ class BubbleConnection: SensorBLEConnectionBase, IsTransmitter {
                 } else if sensor.age > sensor.warmupTime {
                     let readings = LibreUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
                     
-                    sendUpdate(age: sensor.age, state: .ready)
+                    sendUpdate(age: sensor.age, state: sensor.state)
                     sendUpdate(sensorSerial: sensor.serial ?? "", readings: readings.history + readings.trend)
                 } else if sensor.age <= sensor.warmupTime {
-                    sendUpdate(age: sensor.age, state: .starting)
+                    sendUpdate(age: sensor.age, state: sensor.state)
                 }
 
                 resetBuffer()

@@ -28,7 +28,19 @@ struct UserDefaultsState: AppState {
                 let defaultConnectionID = "bubble"
             #endif
         #endif
-
+        
+        if UserDefaults.shared.glucoseUnit == nil {
+            UserDefaults.shared.glucoseUnit = UserDefaults.standard.glucoseUnit ?? .mgdL
+        }
+        
+        if let sensor = UserDefaults.standard.sensor, UserDefaults.shared.sensor == nil {
+            UserDefaults.shared.sensor = sensor
+        }
+        
+        if let transmitter = UserDefaults.standard.transmitter, UserDefaults.shared.transmitter == nil {
+            UserDefaults.shared.transmitter = transmitter
+        }
+        
         if let alarmHigh = UserDefaults.standard.alarmHigh {
             self.alarmHigh = alarmHigh
         }
@@ -47,6 +59,8 @@ struct UserDefaultsState: AppState {
         self.customCalibration = UserDefaults.standard.customCalibration
         self.expiringAlarmSound = UserDefaults.standard.expiringAlarmSound
         self.glucoseNotification = UserDefaults.standard.glucoseNotification
+        self.glucoseUnit = UserDefaults.shared.glucoseUnit ?? .mgdL
+        self.glucoseValues = UserDefaults.shared.glucoseValues
         self.highGlucoseAlarmSound = UserDefaults.standard.highGlucoseAlarmSound
         self.ignoreMute = UserDefaults.standard.ignoreMute
         self.isConnectionPaired = UserDefaults.standard.isConnectionPaired
@@ -58,12 +72,9 @@ struct UserDefaultsState: AppState {
         self.selectedCalendarTarget = UserDefaults.standard.selectedCalendarTarget
         self.selectedConnectionID = UserDefaults.standard.selectedConnectionID ?? defaultConnectionID
         self.selectedView = UserDefaults.standard.selectedView
+        self.sensor = UserDefaults.shared.sensor
         self.sensorInterval = UserDefaults.standard.sensorInterval
-
-        self.glucoseUnit = UserDefaults.shared.glucoseUnit ?? UserDefaults.standard.glucoseUnit ?? .mgdL
-        self.glucoseValues = UserDefaults.shared.glucoseValues
-        self.sensor = UserDefaults.shared.sensor ?? UserDefaults.standard.sensor
-        self.transmitter = UserDefaults.shared.transmitter ?? UserDefaults.standard.transmitter
+        self.transmitter = UserDefaults.shared.transmitter
     }
 
     // MARK: Internal
