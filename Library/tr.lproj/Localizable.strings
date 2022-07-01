@@ -573,3 +573,6 @@
 
 /* (No Comment) */
 "LibreLink transmitter" = "LibreLink Vericisi";
+
+/* (No Comment) */
+"Use LibreLink to start the sensor" = "Use LibreLink to start the sensor";
