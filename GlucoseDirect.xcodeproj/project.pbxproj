@@ -639,7 +639,6 @@
 		E2FCAC3C270741F000FE1CBF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				E28BA1B7286F52AC00F6273F /* Widget */,
 				E2FCAC4A2707422000FE1CBF /* AppGroupSharing */,
 				E21B2FD227AD9CD000E996DA /* AppleExport */,
 				E2C8F5FC278CD62200519ABD /* BellmanAlarm */,
@@ -650,6 +649,7 @@
 				E2FCAC4F2707424000FE1CBF /* Nightscout */,
 				E2CDA01827722FA100A1E694 /* ReadAloud */,
 				E27ED96E2758A3EE0099149C /* SensorConnector */,
+				E28BA1B7286F52AC00F6273F /* Widget */,
 				E2FCAC682707429800FE1CBF /* Utility */,
 			);
 			path = Modules;

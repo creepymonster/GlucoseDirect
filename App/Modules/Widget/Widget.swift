@@ -15,6 +15,9 @@ func widgetMiddleware() -> Middleware<AppState, AppAction> {
         case .startup:
             WidgetCenter.shared.reloadAllTimelines()
 
+        case .setGlucoseUnit(unit: _):
+            WidgetCenter.shared.reloadAllTimelines()
+
         default:
             break
         }
