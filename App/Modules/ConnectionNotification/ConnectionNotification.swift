@@ -16,10 +16,7 @@ func connectionNotificationMiddelware() -> Middleware<AppState, AppAction> {
 
 private func connectionNotificationMiddelware(service: LazyService<ConnectionNotificationService>) -> Middleware<AppState, AppAction> {
     return { state, action, lastState in
-        switch action {
-        case .startup:
-            WidgetCenter.shared.reloadAllTimelines()
-            
+        switch action {           
         case .setConnectionAlarmSound(sound: let sound):
             if sound == .none {
                 service.value.clearAlarm()
@@ -44,7 +41,6 @@ private func connectionNotificationMiddelware(service: LazyService<ConnectionNot
 
             } else if lastState.connectionState != .connected, connectionState == .connected {
                 service.value.clearAlarm()
-                WidgetCenter.shared.reloadAllTimelines()
             }
 
         case .addMissedReading:

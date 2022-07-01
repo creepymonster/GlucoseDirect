@@ -75,6 +75,7 @@ final class GlucoseDirectApp: App {
             bellmanAlarmMiddelware(),
             nightscoutMiddleware(),
             appGroupSharingMiddleware(),
+            widgetMiddleware()
         ]
 
         middlewares.append(sensorConnectorMiddelware([
@@ -98,6 +99,7 @@ final class GlucoseDirectApp: App {
             bellmanAlarmMiddelware(),
             nightscoutMiddleware(),
             appGroupSharingMiddleware(),
+            widgetMiddleware()
         ]
 
         let bubbleTransmitter = LocalizedString("Bubble transmitter")
