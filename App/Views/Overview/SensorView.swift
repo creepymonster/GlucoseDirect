@@ -21,50 +21,60 @@ struct SensorView: View {
                             Text(sensor.state.localizedString)
                         }
 
-                        if let startTimestamp = sensor.startTimestamp {
+                        if sensor.state == .notYetStarted {
                             HStack {
-                                Text("Sensor starting date")
-                                Spacer()
-                                Text(startTimestamp.toLocalDateTime())
-                            }
-                        }
+                                Image(systemName: "hand.raised.square")
 
-                        if let remainingWarmupTime = sensor.remainingWarmupTime, sensor.state == .starting {
-                            VStack {
+                                Text("Use LibreLink to start the sensor")
+                                    .bold()
+                            }
+                            .foregroundColor(Color.ui.red)
+                        } else {
+                            if let startTimestamp = sensor.startTimestamp {
                                 HStack {
-                                    Text("Sensor remaining warmup time")
+                                    Text("Sensor starting date")
                                     Spacer()
-                                    Text(remainingWarmupTime.inTime)
+                                    Text(startTimestamp.toLocalDateTime())
+                                }
+                            }
+
+                            if let remainingWarmupTime = sensor.remainingWarmupTime, sensor.state == .starting {
+                                VStack {
+                                    HStack {
+                                        Text("Sensor remaining warmup time")
+                                        Spacer()
+                                        Text(remainingWarmupTime.inTime)
+                                    }
+
+                                    ProgressView("", value: remainingWarmupTime.inPercent(of: sensor.warmupTime), total: 100)
                                 }
 
-                                ProgressView("", value: remainingWarmupTime.inPercent(of: sensor.warmupTime), total: 100)
-                            }
-
-                        } else if sensor.state != .expired && sensor.state != .shutdown && sensor.state != .unknown {
-                            HStack {
-                                Text("Sensor possible lifetime")
-                                Spacer()
-                                Text(sensor.lifetime.inTime)
-                            }
-
-                            VStack {
+                            } else if sensor.state != .expired && sensor.state != .shutdown && sensor.state != .unknown {
                                 HStack {
-                                    Text("Sensor age")
+                                    Text("Sensor possible lifetime")
                                     Spacer()
-                                    Text(sensor.age.inTime)
+                                    Text(sensor.lifetime.inTime)
                                 }
 
-                                ProgressView("", value: sensor.age.inPercent(of: sensor.lifetime), total: 100)
-                            }
+                                VStack {
+                                    HStack {
+                                        Text("Sensor age")
+                                        Spacer()
+                                        Text(sensor.age.inTime)
+                                    }
 
-                            VStack {
-                                HStack {
-                                    Text("Sensor remaining lifetime")
-                                    Spacer()
-                                    Text(sensor.remainingLifetime.inTime)
+                                    ProgressView("", value: sensor.age.inPercent(of: sensor.lifetime), total: 100)
                                 }
 
-                                ProgressView("", value: sensor.remainingLifetime.inPercent(of: sensor.lifetime), total: 100)
+                                VStack {
+                                    HStack {
+                                        Text("Sensor remaining lifetime")
+                                        Spacer()
+                                        Text(sensor.remainingLifetime.inTime)
+                                    }
+
+                                    ProgressView("", value: sensor.remainingLifetime.inPercent(of: sensor.lifetime), total: 100)
+                                }
                             }
                         }
                     },
