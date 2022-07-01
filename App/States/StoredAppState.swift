@@ -161,7 +161,6 @@ struct UserDefaultsState: AppState {
     var glucoseValues: [Glucose] {
         didSet {
             UserDefaults.shared.glucoseValues = glucoseValues
-            UserDefaults.shared.latestGlucose = glucoseValues.last
         }
     }
 
