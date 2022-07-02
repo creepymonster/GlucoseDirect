@@ -326,7 +326,7 @@
 "App version" = "Версия";
 
 /* (No Comment) */
-"Unknown" = "Неизвестно";
+"Unknown" = "Unknown";
 
 /* (No Comment) */
 "Invalid parameters" = "Неправильные параметры";
@@ -573,3 +573,6 @@
 
 /* (No Comment) */
 "LibreLink transmitter" = "LibreLink Transmitter";
+
+/* (No Comment) */
+"Use LibreLink to start the sensor" = "Use LibreLink to start the sensor";
