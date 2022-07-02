@@ -326,7 +326,7 @@
 "App version" = "版本";
 
 /* (No Comment) */
-"Unknown" = "未知";
+"Unknown" = "Unknown";
 
 /* (No Comment) */
 "Invalid parameters" = "参数无效";
@@ -573,3 +573,6 @@
 
 /* (No Comment) */
 "LibreLink transmitter" = "LibreLink Transmitter";
+
+/* (No Comment) */
+"Use LibreLink to start the sensor" = "Use LibreLink to start the sensor";
