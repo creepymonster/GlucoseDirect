@@ -14,7 +14,7 @@ struct ChartViewFallback: View {
 
     @Environment(\.colorScheme) var colorScheme
 
-    @EnvironmentObject var store: AppStore
+    @EnvironmentObject var store: DirectStore
 
     var chartView: some View {
         GeometryReader { geo in

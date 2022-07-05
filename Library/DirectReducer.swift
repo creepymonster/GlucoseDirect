@@ -7,9 +7,9 @@ import Combine
 import Foundation
 import UIKit
 
-// MARK: - appReducer
+// MARK: - directReducer
 
-func appReducer(state: inout AppState, action: AppAction) {
+func directReducer(state: inout DirectState, action: DirectAction) {
     switch action {
     case .addCalibration(bloodGlucoseValue: let bloodGlucoseValue):
         guard let latestRawGlucoseValue = state.latestSensorGlucose?.rawGlucoseValue else {
@@ -133,7 +133,7 @@ func appReducer(state: inout AppState, action: AppAction) {
         }
         
         if !autosnooze {
-            NotificationService.shared.stopSound()
+            DirectNotifications.shared.stopSound()
         }
         
     case .setAppleCalendarExport(enabled: let enabled):
@@ -206,7 +206,6 @@ func appReducer(state: inout AppState, action: AppAction) {
         
     case .setPreventScreenLock(enabled: let enabled):
         state.preventScreenLock = enabled
-        UIApplication.shared.isIdleTimerDisabled = enabled
 
     case .setReadGlucose(enabled: let enabled):
         state.readGlucose = enabled

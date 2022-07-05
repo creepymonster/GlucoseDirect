@@ -16,12 +16,12 @@ enum SensorPeripheralType {
     case connectedPeripheral
 }
 
-// MARK: - SensorBLEConnectionBase
+// MARK: - SensorBluetoothConnection
 
-class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDelegate, CBPeripheralDelegate {
+class SensorBluetoothConnection: NSObject, SensorConnectionProtocol, CBCentralManagerDelegate, CBPeripheralDelegate {
     // MARK: Lifecycle
 
-    init(subject: PassthroughSubject<AppAction, AppError>, serviceUUID: CBUUID) {
+    init(subject: PassthroughSubject<DirectAction, AppError>, serviceUUID: CBUUID) {
         DirectLog.info("init")
 
         super.init()
@@ -45,7 +45,7 @@ class SensorBLEConnectionBase: NSObject, SensorBLEConnection, CBCentralManagerDe
     var manager: CBCentralManager!
 
     let managerQueue = DispatchQueue(label: "libre-direct.sensor-ble-connection.queue")
-    weak var subject: PassthroughSubject<AppAction, AppError>?
+    weak var subject: PassthroughSubject<DirectAction, AppError>?
 
     var stayConnected = false
     var sensor: Sensor?

@@ -9,10 +9,10 @@ import Foundation
 
 // MARK: - Libre2Connection
 
-class Libre2Connection: SensorBLEConnectionBase, IsSensor {
+class Libre2Connection: SensorBluetoothConnection, IsSensor {
     // MARK: Lifecycle
 
-    init(subject: PassthroughSubject<AppAction, AppError>) {
+    init(subject: PassthroughSubject<DirectAction, AppError>) {
         DirectLog.info("init")
 
         super.init(subject: subject, serviceUUID: CBUUID(string: "FDE3"))

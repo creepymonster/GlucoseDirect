@@ -6,7 +6,7 @@
 import SwiftUI
 
 struct OverviewView: View {
-    @EnvironmentObject var store: AppStore
+    @EnvironmentObject var store: DirectStore
 
     var body: some View {
         VStack {

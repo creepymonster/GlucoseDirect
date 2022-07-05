@@ -12,7 +12,7 @@ import SwiftUI
 struct ChartView: View {
     // MARK: Internal
 
-    @EnvironmentObject var store: AppStore
+    @EnvironmentObject var store: DirectStore
     @Environment(\.scenePhase) var scenePhase
 
     var zoomLevel: ZoomLevel? {

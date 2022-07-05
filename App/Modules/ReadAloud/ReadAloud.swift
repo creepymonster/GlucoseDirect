@@ -7,20 +7,20 @@ import AVFoundation
 import Combine
 import Foundation
 
-func readAloudMiddelware() -> Middleware<AppState, AppAction> {
+func readAloudMiddelware() -> Middleware<DirectState, DirectAction> {
     return readAloudMiddelware(service: LazyService<ReadAloudService>(initialization: {
         ReadAloudService()
     }))
 }
 
-private func readAloudMiddelware(service: LazyService<ReadAloudService>) -> Middleware<AppState, AppAction> {
+private func readAloudMiddelware(service: LazyService<ReadAloudService>) -> Middleware<DirectState, DirectAction> {
     return { state, action, _ in
         switch action {
         case .addGlucose(glucoseValues: let glucoseValues):
             guard state.readGlucose else {
                 break
             }
-            
+
             guard let glucose = glucoseValues.last else {
                 break
             }

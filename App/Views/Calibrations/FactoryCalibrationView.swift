@@ -8,7 +8,7 @@ import SwiftUI
 // MARK: - FactoryCalibrationView
 
 struct FactoryCalibrationView: View {
-    @EnvironmentObject var store: AppStore
+    @EnvironmentObject var store: DirectStore
 
     var body: some View {
         if let sensor = store.state.sensor {

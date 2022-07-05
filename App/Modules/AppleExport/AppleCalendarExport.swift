@@ -7,18 +7,18 @@ import Combine
 import EventKit
 import Foundation
 
-func appleCalendarExportMiddleware() -> Middleware<AppState, AppAction> {
+func appleCalendarExportMiddleware() -> Middleware<DirectState, DirectAction> {
     return appleCalendarExportMiddleware(service: LazyService<AppleCalendarExportService>(initialization: {
         AppleCalendarExportService()
     }))
 }
 
-private func appleCalendarExportMiddleware(service: LazyService<AppleCalendarExportService>) -> Middleware<AppState, AppAction> {
+private func appleCalendarExportMiddleware(service: LazyService<AppleCalendarExportService>) -> Middleware<DirectState, DirectAction> {
     return { state, action, _ in
         switch action {
         case .requestAppleCalendarAccess(enabled: let enabled):
             if enabled {
-                return Future<AppAction, AppError> { promise in
+                return Future<DirectAction, AppError> { promise in
                     service.value.requestAccess { granted in
                         if !granted {
                             promise(.failure(.withMessage("Calendar access declined")))
@@ -33,7 +33,7 @@ private func appleCalendarExportMiddleware(service: LazyService<AppleCalendarExp
                 // clear events on disable
                 service.value.clearGlucoseEvents()
 
-                return Just(AppAction.setAppleCalendarExport(enabled: false))
+                return Just(DirectAction.setAppleCalendarExport(enabled: false))
                     .setFailureType(to: AppError.self)
                     .eraseToAnyPublisher()
             }

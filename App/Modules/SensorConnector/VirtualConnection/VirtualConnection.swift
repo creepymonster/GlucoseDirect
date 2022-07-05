@@ -8,17 +8,17 @@ import Foundation
 
 // MARK: - VirtualLibreConnection
 
-class VirtualLibreConnection: SensorBLEConnection, IsSensor {
+class VirtualLibreConnection: SensorConnectionProtocol, IsSensor {
     // MARK: Lifecycle
 
-    init(subject: PassthroughSubject<AppAction, AppError>) {
+    init(subject: PassthroughSubject<DirectAction, AppError>) {
         DirectLog.info("init")
         self.subject = subject
     }
 
     // MARK: Internal
 
-    weak var subject: PassthroughSubject<AppAction, AppError>?
+    weak var subject: PassthroughSubject<DirectAction, AppError>?
 
     func pairConnection() {
         let sensor = Sensor(

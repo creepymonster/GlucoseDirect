@@ -10,7 +10,7 @@ import SwiftUI
 struct CustomCalibrationView: View {
     // MARK: Internal
 
-    @EnvironmentObject var store: AppStore
+    @EnvironmentObject var store: DirectStore
 
     var body: some View {
         if showingAddCalibrationView {

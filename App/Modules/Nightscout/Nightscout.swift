@@ -6,13 +6,13 @@
 import Combine
 import Foundation
 
-func nightscoutMiddleware() -> Middleware<AppState, AppAction> {
+func nightscoutMiddleware() -> Middleware<DirectState, DirectAction> {
     return nightscoutMiddleware(service: LazyService<NightscoutService>(initialization: {
         NightscoutService()
     }))
 }
 
-private func nightscoutMiddleware(service: LazyService<NightscoutService>) -> Middleware<AppState, AppAction> {
+private func nightscoutMiddleware(service: LazyService<NightscoutService>) -> Middleware<DirectState, DirectAction> {
     return { state, action, lastState in
         let nightscoutURL = state.nightscoutURL.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
         let nightscoutApiSecret = state.nightscoutApiSecret

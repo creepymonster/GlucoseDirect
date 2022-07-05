@@ -8,7 +8,7 @@ import SwiftUI
 struct ListView: View {
     // MARK: Internal
 
-    @EnvironmentObject var store: AppStore
+    @EnvironmentObject var store: DirectStore
 
     var body: some View {
         List {

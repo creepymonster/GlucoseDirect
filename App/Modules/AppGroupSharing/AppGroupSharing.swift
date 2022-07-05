@@ -6,13 +6,13 @@
 import Combine
 import Foundation
 
-func appGroupSharingMiddleware() -> Middleware<AppState, AppAction> {
+func appGroupSharingMiddleware() -> Middleware<DirectState, DirectAction> {
     return appGroupSharingMiddleware(service: LazyService<AppGroupSharingService>(initialization: {
         AppGroupSharingService()
     }))
 }
 
-private func appGroupSharingMiddleware(service: LazyService<AppGroupSharingService>) -> Middleware<AppState, AppAction> {
+private func appGroupSharingMiddleware(service: LazyService<AppGroupSharingService>) -> Middleware<DirectState, DirectAction> {
     return { state, action, _ in
         switch action {
         case .startup:

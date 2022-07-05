@@ -8,11 +8,11 @@ import Foundation
 import OSLog
 import SwiftUI
 
-func logMiddleware() -> Middleware<AppState, AppAction> {
+func logMiddleware() -> Middleware<DirectState, DirectAction> {
     return logMiddleware(service: SendLogsService())
 }
 
-private func logMiddleware(service: SendLogsService) -> Middleware<AppState, AppAction> {
+private func logMiddleware(service: SendLogsService) -> Middleware<DirectState, DirectAction> {
     return { _, action, _ in
         DirectLog.info("Triggered action: \(action)")
 

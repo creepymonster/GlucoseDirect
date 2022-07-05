@@ -1,12 +1,12 @@
 //
-//  AppAction.swift
+//  DirectAction.swift
 //  GlucoseDirect
 //
 
 import Foundation
 import OSLog
 
-enum AppAction {
+enum DirectAction {
     case addCalibration(bloodGlucoseValue: Int)
     case addGlucose(glucoseValues: [Glucose])
     case addMissedReading
@@ -25,7 +25,7 @@ enum AppAction {
     case requestAppleHealthAccess(enabled: Bool)
     case resetSensor
     case selectCalendarTarget(id: String?)
-    case selectConnection(id: String, connection: SensorBLEConnection)
+    case selectConnection(id: String, connection: SensorConnectionProtocol)
     case selectConnectionID(id: String)
     case selectView(viewTag: Int)
     case sendLogs
