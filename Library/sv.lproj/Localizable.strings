@@ -326,7 +326,7 @@
 "App version" = "Version";
 
 /* (No Comment) */
-"Unknown" = "Okänd";
+"Unknown" = "Unknown";
 
 /* (No Comment) */
 "Invalid parameters" = "Ogiltiga parametrar";
@@ -573,3 +573,6 @@
 
 /* (No Comment) */
 "LibreLink transmitter" = "LibreLink Transmitter";
+
+/* (No Comment) */
+"Use LibreLink to start the sensor" = "Use LibreLink to start the sensor";
