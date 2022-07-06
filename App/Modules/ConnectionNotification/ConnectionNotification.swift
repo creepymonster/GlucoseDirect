@@ -23,7 +23,7 @@ private func connectionNotificationMiddelware(service: LazyService<ConnectionNot
             }
 
         case .setConnectionError(errorMessage: _, errorTimestamp: _, errorIsCritical: let errorIsCritical):
-            guard state.connectionAlarm else {
+            guard state.hasConnectionAlarm else {
                 DirectLog.info("Guard: connectionAlarm disabled")
                 break
             }
@@ -31,7 +31,7 @@ private func connectionNotificationMiddelware(service: LazyService<ConnectionNot
             service.value.setSensorConnectionLostAlarm(errorIsCritical: errorIsCritical, ignoreMute: state.ignoreMute, sound: state.connectionAlarmSound)
 
         case .setConnectionState(connectionState: let connectionState):
-            guard state.connectionAlarm else {
+            guard state.hasConnectionAlarm else {
                 DirectLog.info("Guard: connectionAlarm disabled")
                 break
             }
@@ -44,7 +44,7 @@ private func connectionNotificationMiddelware(service: LazyService<ConnectionNot
             }
 
         case .addMissedReading:
-            guard state.connectionAlarm else {
+            guard state.hasConnectionAlarm else {
                 DirectLog.info("Guard: connectionAlarm disabled")
                 break
             }

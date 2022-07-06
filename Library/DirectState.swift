@@ -57,20 +57,20 @@ extension DirectState {
     var hasGlucoseValues: Bool {
         latestGlucose != nil
     }
-    
-    var connectionAlarm: Bool {
+
+    var hasConnectionAlarm: Bool {
         connectionAlarmSound != .none
     }
 
-    var expiringAlarm: Bool {
+    var hasExpiringAlarm: Bool {
         expiringAlarmSound != .none
     }
 
-    var highGlucoseAlarm: Bool {
+    var hasHighGlucoseAlarm: Bool {
         highGlucoseAlarmSound != .none
     }
 
-    var lowGlucoseAlarm: Bool {
+    var hasLowGlucoseAlarm: Bool {
         lowGlucoseAlarmSound != .none
     }
 

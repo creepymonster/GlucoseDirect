@@ -64,12 +64,14 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
             if glucoseValue < state.alarmLow {
                 DirectLog.info("Glucose alert, low: \(glucose.glucoseValue) < \(state.alarmLow)")
 
-                if state.glucoseNotification {
-                    service.value.setLowGlucoseNotification(glucose: glucose, glucoseUnit: state.glucoseUnit)
-                }
+                if !isSnoozed {
+                    if state.glucoseNotification {
+                        service.value.setLowGlucoseNotification(glucose: glucose, glucoseUnit: state.glucoseUnit)
+                    }
 
-                if state.lowGlucoseAlarm, !isSnoozed {
-                    service.value.setLowGlucoseAlarm(ignoreMute: state.ignoreMute, sound: state.lowGlucoseAlarmSound)
+                    if state.hasLowGlucoseAlarm {
+                        service.value.setLowGlucoseAlarm(ignoreMute: state.ignoreMute, sound: state.lowGlucoseAlarmSound)
+                    }
 
                     return Just(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).toRounded(on: 1, .minute), autosnooze: true))
                         .setFailureType(to: AppError.self)
@@ -79,17 +81,20 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
             } else if glucoseValue > state.alarmHigh {
                 DirectLog.info("Glucose alert, high: \(glucose.glucoseValue) > \(state.alarmHigh)")
 
-                if state.glucoseNotification {
-                    service.value.setHighGlucoseNotification(glucose: glucose, glucoseUnit: state.glucoseUnit)
-                }
+                if !isSnoozed {
+                    if state.glucoseNotification {
+                        service.value.setHighGlucoseNotification(glucose: glucose, glucoseUnit: state.glucoseUnit)
+                    }
 
-                if state.highGlucoseAlarm, !isSnoozed {
-                    service.value.setHighGlucoseAlarm(ignoreMute: state.ignoreMute, sound: state.highGlucoseAlarmSound)
+                    if state.hasHighGlucoseAlarm {
+                        service.value.setHighGlucoseAlarm(ignoreMute: state.ignoreMute, sound: state.highGlucoseAlarmSound)
+                    }
 
                     return Just(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).toRounded(on: 1, .minute), autosnooze: true))
                         .setFailureType(to: AppError.self)
                         .eraseToAnyPublisher()
                 }
+                
             } else if state.glucoseNotification {
                 service.value.setGlucoseNotification(glucose: glucose, glucoseUnit: state.glucoseUnit)
             } else {

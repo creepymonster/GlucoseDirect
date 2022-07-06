@@ -22,7 +22,7 @@ private func expiringNotificationMiddelware(service: LazyService<ExpiringNotific
             }
 
         case .setSensorState(sensorAge: let sensorAge, sensorState: _):
-            guard state.expiringAlarm else {
+            guard state.hasExpiringAlarm else {
                 DirectLog.info("Guard: expiringAlarm disabled")
                 break
             }
