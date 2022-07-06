@@ -23,16 +23,19 @@ protocol DirectState {
     var connectionErrorIsCritical: Bool { get set }
     var connectionErrorTimestamp: Date? { get set }
     var connectionInfos: [SensorConnectionInfo] { get set }
+    var connectionPeripheralUUID: String? { get set }
     var connectionState: SensorConnectionState { get set }
     var customCalibration: [CustomCalibration] { get set }
-    var connectionPeripheralUUID: String? { get set }
     var expiringAlarmSound: NotificationSound { get set }
     var glucoseNotification: Bool { get set }
     var glucoseUnit: GlucoseUnit { get set }
     var glucoseValues: [Glucose] { get set }
     var highGlucoseAlarmSound: NotificationSound { get set }
-    var isConnectionPaired: Bool { get set }
     var ignoreMute: Bool { get set }
+    var isConnectionPaired: Bool { get set }
+    var latestGlucose: Glucose? { get set }
+    var latestBloodGlucose: Glucose? { get set }
+    var latestSensorGlucose: Glucose? { get set }
     var lowGlucoseAlarmSound: NotificationSound { get set }
     var missedReadings: Int { get set }
     var nightscoutApiSecret: String { get set }
@@ -51,18 +54,6 @@ protocol DirectState {
 }
 
 extension DirectState {
-    var latestGlucose: Glucose? {
-        glucoseValues.last
-    }
-
-    var latestSensorGlucose: Glucose? {
-        glucoseValues.last(where: { $0.type == .cgm })
-    }
-
-    var latestBloodGlucose: Glucose? {
-        glucoseValues.last(where: { $0.type == .bgm })
-    }
-
     var connectionAlarm: Bool {
         connectionAlarmSound != .none
     }

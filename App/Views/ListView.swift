@@ -84,20 +84,13 @@ struct ListView: View {
                     }.onDelete { offsets in
                         DirectLog.info("onDelete: \(offsets)")
 
-                        let ids = offsets.map { i in
-                            glucoseValues[i].id
+                        let deletables = offsets.map { i in
+                            (index: i, glucose: glucoseValues[i])
                         }
 
-                        DispatchQueue.main.async {
-                            ids.forEach { id in
-                                if let index = glucoseValues.firstIndex(where: { value in
-                                    value.id == id
-                                }) {
-                                    glucoseValues.remove(at: index)
-                                }
-
-                                store.dispatch(.removeGlucose(id: id))
-                            }
+                        deletables.forEach { delete in
+                            glucoseValues.remove(at: delete.index)
+                            store.dispatch(.removeGlucose(glucose: delete.glucose))
                         }
                     }
                 },

@@ -19,8 +19,8 @@ enum DirectAction {
     case disconnectConnection
     case pairConnection
     case registerConnectionInfo(infos: [SensorConnectionInfo])
-    case removeCalibration(id: UUID)
-    case removeGlucose(id: UUID)
+    case removeCalibration(calibration: CustomCalibration)
+    case removeGlucose(glucose: Glucose)
     case requestAppleCalendarAccess(enabled: Bool)
     case requestAppleHealthAccess(enabled: Bool)
     case resetSensor

@@ -33,6 +33,10 @@ struct AppState: DirectState {
             UserDefaults.shared.glucoseUnit = UserDefaults.standard.glucoseUnit ?? .mgdL
         }
 
+        if UserDefaults.shared.glucoseValues.isEmpty, !UserDefaults.standard.glucoseValues.isEmpty {
+            UserDefaults.shared.glucoseValues = UserDefaults.standard.glucoseValues
+        }
+
         if let sensor = UserDefaults.standard.sensor, UserDefaults.shared.sensor == nil {
             UserDefaults.shared.sensor = sensor
         }
@@ -64,6 +68,9 @@ struct AppState: DirectState {
         self.highGlucoseAlarmSound = UserDefaults.standard.highGlucoseAlarmSound
         self.ignoreMute = UserDefaults.standard.ignoreMute
         self.isConnectionPaired = UserDefaults.standard.isConnectionPaired
+        self.latestGlucose = UserDefaults.shared.latestGlucose
+        self.latestBloodGlucose = UserDefaults.shared.latestBloodGlucose
+        self.latestSensorGlucose = UserDefaults.shared.latestSensorGlucose
         self.lowGlucoseAlarmSound = UserDefaults.standard.lowGlucoseAlarmSound
         self.nightscoutApiSecret = UserDefaults.standard.nightscoutApiSecret
         self.nightscoutUpload = UserDefaults.standard.nightscoutUpload
@@ -190,6 +197,24 @@ struct AppState: DirectState {
     var isConnectionPaired: Bool {
         didSet {
             UserDefaults.standard.isConnectionPaired = isConnectionPaired
+        }
+    }
+
+    var latestGlucose: Glucose? {
+        didSet {
+            UserDefaults.shared.latestGlucose = latestGlucose
+        }
+    }
+
+    var latestBloodGlucose: Glucose? {
+        didSet {
+            UserDefaults.shared.latestBloodGlucose = latestBloodGlucose
+        }
+    }
+
+    var latestSensorGlucose: Glucose? {
+        didSet {
+            UserDefaults.shared.latestSensorGlucose = latestSensorGlucose
         }
     }
 

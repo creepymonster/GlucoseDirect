@@ -28,9 +28,12 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         } else {
             glucoseValues = state.glucoseValues + addedGlucoseValues
         }
-            
-        state.missedReadings = 0
+        
         state.glucoseValues = glucoseValues
+        state.latestGlucose = glucoseValues.last
+        state.latestBloodGlucose = glucoseValues.last(where: { $0.type == .bgm })
+        state.latestSensorGlucose = glucoseValues.last(where: { $0.type == .cgm || $0.type == .faulty })
+        state.missedReadings = 0
         
     case .addMissedReading:
         state.missedReadings += 1
@@ -42,15 +45,13 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         break
         
     case .clearCalibrations:
-        guard state.sensor != nil else {
-            DirectLog.info("Guard: state.sensor is nil")
-            break
-        }
-        
         state.customCalibration = []
         
     case .clearGlucoseValues:
         state.glucoseValues = []
+        state.latestGlucose = nil
+        state.latestBloodGlucose = nil
+        state.latestSensorGlucose = nil
         
     case .connectConnection:
         break
@@ -67,19 +68,14 @@ func directReducer(state: inout DirectState, action: DirectAction) {
     case .registerConnectionInfo(infos: let infos):
         state.connectionInfos.append(contentsOf: infos)
         
-    case .removeCalibration(id: let id):
-        guard state.sensor != nil else {
-            DirectLog.info("Guard: state.sensor is nil")
-            break
-        }
-        
+    case .removeCalibration(calibration: let calibration):
         state.customCalibration = state.customCalibration.filter { item in
-            item.id != id
+            item.id != calibration.id
         }
         
-    case .removeGlucose(id: let id):
+    case .removeGlucose(glucose: let glucose):
         state.glucoseValues = state.glucoseValues.filter { item in
-            item.id != id
+            item.id != glucose.id
         }
         
     case .requestAppleCalendarAccess(enabled: _):

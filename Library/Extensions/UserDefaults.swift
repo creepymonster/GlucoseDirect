@@ -26,6 +26,8 @@ private enum Keys: String {
     case ignoreMute = "libre-direct.settings.ignore-mute"
     case isConnectionPaired = "libre-direct.settings.is-paired"
     case latestGlucose = "libre-direct.settings.latest-glucose"
+    case latestBloodGlucose = "libre-direct.settings.latest-blood-glucose"
+    case latestSensorGlucose = "libre-direct.settings.latest-sensor-glucose"
     case lowGlucoseAlarmSound = "libre-direct.settings.low-glucose-alarm-sound"
     case nightscoutApiSecret = "libre-direct.settings.nightscout-api-secret"
     case nightscoutUpload = "libre-direct.settings.nightscout-upload-enabled"
@@ -286,7 +288,40 @@ extension UserDefaults {
     
     var latestGlucose: Glucose? {
         get {
-            return glucoseValues.last
+            return getObject(forKey: Keys.latestGlucose.rawValue)
+        }
+        set {
+            if let newValue = newValue {
+                setObject(newValue, forKey: Keys.latestGlucose.rawValue)
+            } else {
+                removeObject(forKey: Keys.latestGlucose.rawValue)
+            }
+        }
+    }
+    
+    var latestBloodGlucose: Glucose? {
+        get {
+            return getObject(forKey: Keys.latestBloodGlucose.rawValue)
+        }
+        set {
+            if let newValue = newValue {
+                setObject(newValue, forKey: Keys.latestBloodGlucose.rawValue)
+            } else {
+                removeObject(forKey: Keys.latestBloodGlucose.rawValue)
+            }
+        }
+    }
+    
+    var latestSensorGlucose: Glucose? {
+        get {
+            return getObject(forKey: Keys.latestSensorGlucose.rawValue)
+        }
+        set {
+            if let newValue = newValue {
+                setObject(newValue, forKey: Keys.latestSensorGlucose.rawValue)
+            } else {
+                removeObject(forKey: Keys.latestSensorGlucose.rawValue)
+            }
         }
     }
 

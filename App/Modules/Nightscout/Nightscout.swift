@@ -19,12 +19,7 @@ private func nightscoutMiddleware(service: LazyService<NightscoutService>) -> Mi
 
         if state.nightscoutUpload, !nightscoutURL.isEmpty, !nightscoutApiSecret.isEmpty {
             switch action {
-            case .removeGlucose(id: let id):
-                guard let glucose = lastState.glucoseValues.first(where: { $0.id == id }) else {
-                    DirectLog.info("Guard: lastState.glucoseValues.first with id \(id) not found")
-                    break
-                }
-
+            case .removeGlucose(glucose: let glucose):
                 service.value.removeGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), date: glucose.timestamp)
 
             case .clearGlucoseValues:
