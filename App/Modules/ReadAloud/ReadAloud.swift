@@ -25,7 +25,7 @@ private func readAloudMiddelware(service: LazyService<ReadAloudService>) -> Midd
                 break
             }
 
-            guard glucose.type == .cgm else {
+            guard glucose.isSensorGlucose else {
                 break
             }
 

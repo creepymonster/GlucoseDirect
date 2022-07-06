@@ -31,8 +31,8 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         
         state.glucoseValues = glucoseValues
         state.latestGlucose = glucoseValues.last
-        state.latestBloodGlucose = glucoseValues.last(where: { $0.type == .bgm })
-        state.latestSensorGlucose = glucoseValues.last(where: { $0.type == .cgm || $0.type == .faulty })
+        state.latestBloodGlucose = glucoseValues.last(where: { $0.isBloodGlucose })
+        state.latestSensorGlucose = glucoseValues.last(where: { $0.isSensorGlucose || $0.isFaultyGlucose })
         state.missedReadings = 0
         
     case .addMissedReading:

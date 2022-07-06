@@ -40,7 +40,7 @@ private func bellmanAlarmMiddelware(service: LazyService<BellmanAlarmService>, s
                 break
             }
 
-            guard glucose.type == .cgm else {
+            guard glucose.isSensorGlucose else {
                 DirectLog.info("Guard: glucose.type is not .cgm")
                 break
             }

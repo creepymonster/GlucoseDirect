@@ -30,9 +30,9 @@ class Glucose: CustomStringConvertible, Codable, Identifiable {
 
     var glucoseValue: Int? {
         if let uncheckedGlucoseValue = uncheckedGlucoseValue {
-            if uncheckedGlucoseValue <= DirectConfig.minReadableGlucose, type == .cgm {
+            if uncheckedGlucoseValue <= DirectConfig.minReadableGlucose, isSensorGlucose {
                 return DirectConfig.minReadableGlucose
-            } else if uncheckedGlucoseValue >= DirectConfig.maxReadableGlucose, type == .cgm {
+            } else if uncheckedGlucoseValue >= DirectConfig.maxReadableGlucose, isSensorGlucose {
                 return DirectConfig.maxReadableGlucose
             }
 

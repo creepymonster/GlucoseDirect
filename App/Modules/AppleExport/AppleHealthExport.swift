@@ -112,7 +112,7 @@ private class AppleHealthExportService {
             }
 
             let healthGlucoseValues = glucoseValues.filter { glucose in
-                (glucose.type == .bgm || glucose.type == .cgm) && glucose.glucoseValue != nil
+                (glucose.isBloodGlucose || glucose.isSensorGlucose) && glucose.glucoseValue != nil
             }.map { glucose in
                 HKQuantitySample(
                     type: self.glucoseType,

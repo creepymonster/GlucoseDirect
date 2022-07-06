@@ -431,11 +431,11 @@ struct ChartViewFallback: View {
         calculationQueue.async {
             if store.state.chartZoomLevel == 1 {
                 let cgmValues = glucoseValues.filter { value in
-                    value.type == .cgm && value.glucoseValue != nil
+                    value.isSensorGlucose && value.glucoseValue != nil
                 }
 
                 let bgmValues = glucoseValues.filter { value in
-                    value.type == .bgm && value.glucoseValue != nil
+                    value.isBloodGlucose && value.glucoseValue != nil
                 }
 
                 DispatchQueue.main.async {
@@ -445,7 +445,7 @@ struct ChartViewFallback: View {
             } else {
                 // cgm values
                 let filteredValues = glucoseValues.filter { value in
-                    value.type == .cgm && value.glucoseValue != nil
+                    value.isSensorGlucose && value.glucoseValue != nil
                 }.map { value in
                     (value.timestamp.toRounded(on: store.state.chartZoomLevel, .minute), value.glucoseValue!)
                 }
@@ -463,7 +463,7 @@ struct ChartViewFallback: View {
 
                 // bgm values
                 let bgmValues = glucoseValues.filter { value in
-                    value.type == .bgm && value.glucoseValue != nil
+                    value.isBloodGlucose && value.glucoseValue != nil
                 }.map { value in
                     Glucose.bloodGlucose(timestamp: value.timestamp.toRounded(on: store.state.chartZoomLevel, .minute), glucoseValue: value.glucoseValue!)
                 }

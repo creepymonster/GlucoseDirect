@@ -66,7 +66,7 @@ struct ListView: View {
                             Text(glucose.timestamp.toLocalDateTime())
                             Spacer()
 
-                            if glucose.type == .bgm {
+                            if glucose.isBloodGlucose {
                                 Image(systemName: "drop.fill")
                                     .foregroundColor(Color.ui.red)
                             }
@@ -121,7 +121,7 @@ struct ListView: View {
             return false
         }
 
-        if store.state.glucoseUnit == .mgdL || glucose.type == .bgm {
+        if store.state.glucoseUnit == .mgdL || glucose.isBloodGlucose {
             return false
         }
 

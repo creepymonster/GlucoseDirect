@@ -44,7 +44,7 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
                 break
             }
 
-            guard glucose.type == .cgm else {
+            guard glucose.isSensorGlucose else {
                 DirectLog.info("Guard: glucose.type is not .cgm")
                 break
             }

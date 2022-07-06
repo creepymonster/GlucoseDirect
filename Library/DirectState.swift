@@ -54,6 +54,10 @@ protocol DirectState {
 }
 
 extension DirectState {
+    var hasGlucoseValues: Bool {
+        latestGlucose != nil
+    }
+    
     var connectionAlarm: Bool {
         connectionAlarmSound != .none
     }

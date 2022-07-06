@@ -305,10 +305,10 @@ private extension Glucose {
             "dateString": timestamp.toISOStringFromDate()
         ]
 
-        if type == .bgm {
+        if isBloodGlucose {
             nightscout["type"] = "mbg"
             nightscout["mbg"] = glucoseValue
-        } else if type == .cgm {
+        } else if isSensorGlucose {
             nightscout["type"] = "sgv"
             nightscout["sgv"] = glucoseValue
             nightscout["rawbg"] = rawGlucoseValue
