@@ -23,6 +23,22 @@ struct ChartView: View {
         store.state.glucoseUnit
     }
 
+    var labelEveryUnit: Calendar.Component {
+        if let zoomLevel = zoomLevel {
+            return zoomLevel.labelEveryUnit
+        }
+
+        return .hour
+    }
+
+    var labelEvery: Int {
+        if let zoomLevel = zoomLevel {
+            return zoomLevel.labelEvery
+        }
+
+        return 1
+    }
+
     var alarmLow: Decimal {
         if glucoseUnit == .mmolL {
             return store.state.alarmLow.asMmolL
@@ -69,7 +85,6 @@ struct ChartView: View {
                                     y: .value("Glucose", value.valueY)
                                 )
                                 .foregroundStyle(Color.ui.blue)
-                                .interpolationMethod(.linear)
                                 .lineStyle(Config.lineStyle)
                             }
 
@@ -112,7 +127,7 @@ struct ChartView: View {
                             plotArea.padding(.vertical)
                         }
                         .chartXAxis {
-                            AxisMarks(values: .stride(by: zoomLevel?.labelEveryUnit ?? .hour, count: zoomLevel?.labelEvery ?? 1)) { value in
+                            AxisMarks(values: .stride(by: labelEveryUnit, count: labelEvery)) { value in
                                 if let dateValue = value.as(Date.self) {
                                     AxisGridLine()
                                     AxisTick()
@@ -149,15 +164,14 @@ struct ChartView: View {
                             if shouldUpdate(newScenePhase: newScenePhase) {
                                 updateSeries(viewWidth: geometryProxy.size.width, scrollViewProxy: scrollViewProxy)
                             }
-
-                        }.chartOverlay { proxy in
+                        }.chartOverlay { overlayProxy in
                             GeometryReader { geometryProxy in
                                 Rectangle().fill(.clear).contentShape(Rectangle())
                                     .gesture(DragGesture()
                                         .onChanged { value in
-                                            let currentX = value.location.x - geometryProxy[proxy.plotAreaFrame].origin.x
+                                            let currentX = value.location.x - geometryProxy[overlayProxy.plotAreaFrame].origin.x
 
-                                            if let currentDate: Date = proxy.value(atX: currentX) {
+                                            if let currentDate: Date = overlayProxy.value(atX: currentX) {
                                                 let selectedCGMPoint = cgmPointInfos[currentDate.toRounded(on: 1, .minute)]
                                                 let selectedBGMPoint = bgmPointInfos[currentDate.toRounded(on: 1, .minute)]
 
