@@ -34,7 +34,7 @@ enum LibreUtility {
             // let quality = UInt16(readBits(fram, offset, 0xe, 0xb)) & 0x1FF
             // let qualityFlags = (readBits(fram, offset, 0xe, 0xb) & 0x600) >> 9
             // let hasError = readBits(fram, offset, 0x19, 0x1) != 0
-            
+
             var rawTemperatureAdjustment = readBits(fram, offset, 0x26, 0x9) << 2
             if readBits(fram, offset, 0x2f, 0x1) != 0 {
                 rawTemperatureAdjustment = -rawTemperatureAdjustment
@@ -67,7 +67,7 @@ enum LibreUtility {
             // let quality = UInt16(readBits(fram, offset, 0xe, 0xb)) & 0x1ff
             // let qualityFlags = (readBits(fram, offset, 0xe, 0xb) & 0x600) >> 9
             // let hasError = readBits(fram, offset, 0x19, 0x1) != 0
-            
+
             var rawTemperatureAdjustment = readBits(fram, offset, 0x26, 0x9) << 2
             if readBits(fram, offset, 0x2f, 0x1) != 0 {
                 rawTemperatureAdjustment = -rawTemperatureAdjustment
@@ -85,7 +85,7 @@ enum LibreUtility {
         }
 
         let trend = trendReadings.sorted(by: { $0.timestamp < $1.timestamp })
-        let history = historyReadings.sorted(by: { $0.timestamp < $1.timestamp }).filter({ $0.timestamp < (trend.first?.timestamp ?? Date()) })
+        let history = historyReadings.sorted(by: { $0.timestamp < $1.timestamp }).filter { $0.timestamp < (trend.first?.timestamp ?? Date()) }
 
         return (trend, history)
     }

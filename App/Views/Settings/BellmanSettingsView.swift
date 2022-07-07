@@ -8,7 +8,7 @@ import SwiftUI
 // MARK: - BellmanSettingsView
 
 struct BellmanSettingsView: View {
-    @EnvironmentObject var store: AppStore
+    @EnvironmentObject var store: DirectStore
 
     var body: some View {
         Section(

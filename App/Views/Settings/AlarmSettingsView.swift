@@ -10,7 +10,7 @@ import SwiftUI
 struct AlarmSettingsView: View {
     // MARK: Internal
 
-    @EnvironmentObject var store: AppStore
+    @EnvironmentObject var store: DirectStore
 
     var body: some View {
         Section(
@@ -86,7 +86,7 @@ struct AlarmSettingsView: View {
                 let sound = NotificationSound(rawValue: $0)!
 
                 store.dispatch(.setLowGlucoseAlarmSound(sound: sound))
-                NotificationService.shared.playSound(ignoreMute: true, sound: sound)
+                DirectNotifications.shared.playSound(ignoreMute: true, sound: sound)
             }
         )
     }
@@ -98,7 +98,7 @@ struct AlarmSettingsView: View {
                 let sound = NotificationSound(rawValue: $0)!
 
                 store.dispatch(.setHighGlucoseAlarmSound(sound: sound))
-                NotificationService.shared.playSound(ignoreMute: true, sound: sound)
+                DirectNotifications.shared.playSound(ignoreMute: true, sound: sound)
             }
         )
     }
@@ -110,7 +110,7 @@ struct AlarmSettingsView: View {
                 let sound = NotificationSound(rawValue: $0)!
 
                 store.dispatch(.setConnectionAlarmSound(sound: sound))
-                NotificationService.shared.playSound(ignoreMute: true, sound: sound)
+                DirectNotifications.shared.playSound(ignoreMute: true, sound: sound)
             }
         )
     }
@@ -122,7 +122,7 @@ struct AlarmSettingsView: View {
                 let sound = NotificationSound(rawValue: $0)!
 
                 store.dispatch(.setExpiringAlarmSound(sound: sound))
-                NotificationService.shared.playSound(ignoreMute: true, sound: sound)
+                DirectNotifications.shared.playSound(ignoreMute: true, sound: sound)
             }
         )
     }

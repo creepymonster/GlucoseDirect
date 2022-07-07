@@ -6,25 +6,20 @@
 import Combine
 import Foundation
 
-func nightscoutMiddleware() -> Middleware<AppState, AppAction> {
+func nightscoutMiddleware() -> Middleware<DirectState, DirectAction> {
     return nightscoutMiddleware(service: LazyService<NightscoutService>(initialization: {
         NightscoutService()
     }))
 }
 
-private func nightscoutMiddleware(service: LazyService<NightscoutService>) -> Middleware<AppState, AppAction> {
+private func nightscoutMiddleware(service: LazyService<NightscoutService>) -> Middleware<DirectState, DirectAction> {
     return { state, action, lastState in
         let nightscoutURL = state.nightscoutURL.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
         let nightscoutApiSecret = state.nightscoutApiSecret
 
         if state.nightscoutUpload, !nightscoutURL.isEmpty, !nightscoutApiSecret.isEmpty {
             switch action {
-            case .removeGlucose(id: let id):
-                guard let glucose = lastState.glucoseValues.first(where: { $0.id == id }) else {
-                    DirectLog.info("Guard: lastState.glucoseValues.first with id \(id) not found")
-                    break
-                }
-
+            case .removeGlucose(glucose: let glucose):
                 service.value.removeGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), date: glucose.timestamp)
 
             case .clearGlucoseValues:
@@ -310,10 +305,10 @@ private extension Glucose {
             "dateString": timestamp.toISOStringFromDate()
         ]
 
-        if type == .bgm {
+        if isBloodGlucose {
             nightscout["type"] = "mbg"
             nightscout["mbg"] = glucoseValue
-        } else if type == .cgm {
+        } else if isSensorGlucose {
             nightscout["type"] = "sgv"
             nightscout["sgv"] = glucoseValue
             nightscout["rawbg"] = rawGlucoseValue

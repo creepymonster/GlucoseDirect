@@ -13,7 +13,7 @@ struct Sensor: Codable {
     init(uuid: Data, patchInfo: Data, factoryCalibration: FactoryCalibration, family: SensorFamily, type: SensorType, region: SensorRegion, serial: String?, state: SensorState, age: Int, lifetime: Int, warmupTime: Int = 60) {
         pairingTimestamp = Date()
         fram = nil
-        
+
         self.uuid = uuid
         self.patchInfo = patchInfo
         self.factoryCalibration = factoryCalibration
@@ -29,7 +29,7 @@ struct Sensor: Codable {
 
     init(fram: Data, uuid: Data, patchInfo: Data, factoryCalibration: FactoryCalibration, family: SensorFamily, type: SensorType, region: SensorRegion, serial: String?, state: SensorState, age: Int, lifetime: Int, warmupTime: Int = 60) {
         pairingTimestamp = Date()
-        
+
         self.fram = fram
         self.uuid = uuid
         self.patchInfo = patchInfo
@@ -156,21 +156,21 @@ extension Sensor {
             lifetime: lifetime
         )
     }
-    
+
     static func libreProSensor(uuid: Data, patchInfo: Data, fram: Data) -> Sensor {
         let family = SensorFamily(Int(patchInfo[2] >> 4))
-        
+
         var age = 0
         if fram.count >= 76 {
             age = Int(fram[74]) + Int(fram[75]) << 8
         }
-        
+
         var lifetime = 20_160
         if fram.count >= 48 {
             lifetime = Int(fram[46]) + Int(fram[47]) << 8
         }
-        
-        let serial = Data(fram[24...39])
+
+        let serial = Data(fram[24 ... 39])
 
         return Sensor(
             fram: fram,

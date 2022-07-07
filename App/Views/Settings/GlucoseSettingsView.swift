@@ -10,7 +10,7 @@ import SwiftUI
 struct GlucoseSettingsView: View {
     // MARK: Internal
 
-    @EnvironmentObject var store: AppStore
+    @EnvironmentObject var store: DirectStore
 
     var body: some View {
         Section(

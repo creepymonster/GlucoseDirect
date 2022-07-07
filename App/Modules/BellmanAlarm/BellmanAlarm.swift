@@ -7,15 +7,15 @@ import Combine
 import CoreBluetooth
 import Foundation
 
-func bellmanAlarmMiddelware() -> Middleware<AppState, AppAction> {
-    let subject = PassthroughSubject<AppAction, AppError>()
+func bellmanAlarmMiddelware() -> Middleware<DirectState, DirectAction> {
+    let subject = PassthroughSubject<DirectAction, AppError>()
 
     return bellmanAlarmMiddelware(service: LazyService<BellmanAlarmService>(initialization: {
         BellmanAlarmService(subject: subject)
     }), subject: subject)
 }
 
-private func bellmanAlarmMiddelware(service: LazyService<BellmanAlarmService>, subject: PassthroughSubject<AppAction, AppError>) -> Middleware<AppState, AppAction> {
+private func bellmanAlarmMiddelware(service: LazyService<BellmanAlarmService>, subject: PassthroughSubject<DirectAction, AppError>) -> Middleware<DirectState, DirectAction> {
     return { state, action, _ in
         switch action {
         case .startup:
@@ -40,7 +40,7 @@ private func bellmanAlarmMiddelware(service: LazyService<BellmanAlarmService>, s
                 break
             }
 
-            guard glucose.type == .cgm else {
+            guard glucose.isSensorGlucose else {
                 DirectLog.info("Guard: glucose.type is not .cgm")
                 break
             }
@@ -78,37 +78,12 @@ private func bellmanAlarmMiddelware(service: LazyService<BellmanAlarmService>, s
     }
 }
 
-// MARK: - BellmanConnectionState
-
-enum BellmanConnectionState: String {
-    case connected = "Connected"
-    case connecting = "Connecting"
-    case disconnected = "Disconnected"
-    case unknown = "Unknown"
-
-    // MARK: Lifecycle
-
-    init() {
-        self = .unknown
-    }
-
-    // MARK: Internal
-
-    var description: String {
-        rawValue
-    }
-
-    var localizedString: String {
-        LocalizedString(rawValue)
-    }
-}
-
 // MARK: - BellmanAlarmService
 
 private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     // MARK: Lifecycle
 
-    init(subject: PassthroughSubject<AppAction, AppError>) {
+    init(subject: PassthroughSubject<DirectAction, AppError>) {
         DirectLog.info("Create BellmanAlarmService")
         super.init()
 
@@ -367,7 +342,7 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
 
     // MARK: Private
 
-    private weak var subject: PassthroughSubject<AppAction, AppError>?
+    private weak var subject: PassthroughSubject<DirectAction, AppError>?
 
     private var manager: CBCentralManager!
     private let managerQueue = DispatchQueue(label: "libre-direct.bellman-connection.queue")

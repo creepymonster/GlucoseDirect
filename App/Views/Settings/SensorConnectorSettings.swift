@@ -10,7 +10,7 @@ import SwiftUI
 struct SensorConnectorSettings: View {
     // MARK: Internal
 
-    @EnvironmentObject var store: AppStore
+    @EnvironmentObject var store: DirectStore
 
     var body: some View {
         if store.state.connectionInfos.count > 1 {

@@ -6,21 +6,21 @@
 import SwiftUI
 
 struct OverviewView: View {
-    @EnvironmentObject var store: AppStore
+    @EnvironmentObject var store: DirectStore
 
     var body: some View {
         VStack {
             List {
-                if store.state.latestSensorGlucose != nil {
+                if store.state.hasGlucoseValues {
                     GlucoseView()
-                }
-
-                if !store.state.glucoseValues.isEmpty {
-                    if #available(iOS 16.0, *) {
+                    
+                    /*if #available(iOS 16.0, *) {
                         ChartView()
                     } else {
                         ChartViewFallback()
-                    }
+                    }*/
+                    
+                    ChartViewFallback()
                 }
 
                 ConnectionView()

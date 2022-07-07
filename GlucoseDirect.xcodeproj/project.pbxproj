@@ -21,7 +21,7 @@
 		E216E50A27654AF60056A61D /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E216E50927654AF60056A61D /* AboutView.swift */; };
 		E2218BB0284FA16900DB5A55 /* NotificationSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2218BAF284FA16900DB5A55 /* NotificationSound.swift */; };
 		E223F867267A4D9800EC9BCA /* SensorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E223F866267A4D9800EC9BCA /* SensorView.swift */; };
-		E2330A33275E88CF0050A391 /* SensorBLEConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2330A32275E88CF0050A391 /* SensorBLEConnection.swift */; };
+		E2330A33275E88CF0050A391 /* SensorBluetoothConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2330A32275E88CF0050A391 /* SensorBluetoothConnection.swift */; };
 		E24077B326B881C2001767C0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E24077B126B881C2001767C0 /* InfoPlist.strings */; };
 		E24474412859CA9600F8891C /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E27BFC0226B1407E00F8FBEF /* WidgetKit.framework */; };
 		E24474422859CA9600F8891C /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E27BFC0426B1407E00F8FBEF /* SwiftUI.framework */; };
@@ -33,6 +33,17 @@
 		E24B532526B864020091417F /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532426B864020091417F /* ToggleView.swift */; };
 		E257088E278354B600896696 /* mute.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E257088D278354B600896696 /* mute.aiff */; };
 		E25762D5279D519200A2E249 /* BellmanSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25762D4279D519200A2E249 /* BellmanSettingsView.swift */; };
+		E2591C5428740E200009F27C /* SensorConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27ED97E2758ADF40099149C /* SensorConnection.swift */; };
+		E2591C5528740E370009F27C /* DirectReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC412707420100FE1CBF /* DirectReducer.swift */; };
+		E2591C5628740E3A0009F27C /* DirectAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC6D2707438A00FE1CBF /* DirectAction.swift */; };
+		E2591C5728740E3E0009F27C /* DirectState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC6C2707438A00FE1CBF /* DirectState.swift */; };
+		E2591C5828740E400009F27C /* DirectStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC6F2707438A00FE1CBF /* DirectStore.swift */; };
+		E2591C5A28740E7A0009F27C /* SensorConnectionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2591C5928740E7A0009F27C /* SensorConnectionInfo.swift */; };
+		E2591C5B28740E7A0009F27C /* SensorConnectionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2591C5928740E7A0009F27C /* SensorConnectionInfo.swift */; };
+		E2591C5D28740EBB0009F27C /* BellmanConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2591C5C28740EBB0009F27C /* BellmanConnectionState.swift */; };
+		E2591C5E28740EBB0009F27C /* BellmanConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2591C5C28740EBB0009F27C /* BellmanConnectionState.swift */; };
+		E2591C5F28740EDC0009F27C /* DirectNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC3E2707420100FE1CBF /* DirectNotifications.swift */; };
+		E2591C62287412740009F27C /* ScreenLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2591C61287412740009F27C /* ScreenLock.swift */; };
 		E26089A42748DCB500749025 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26089A32748DCB500749025 /* Double.swift */; };
 		E26205102773C80400AD631B /* silent.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E262050F2773C80400AD631B /* silent.aiff */; };
 		E2641A5328646E73003C86E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E20B8541266F4A9900AA4224 /* Assets.xcassets */; };
@@ -139,9 +150,9 @@
 		E2FCAC35270741D200FE1CBF /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC2D270741D200FE1CBF /* State.swift */; };
 		E2FCAC36270741D200FE1CBF /* LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC2E270741D200FE1CBF /* LocalizedString.swift */; };
 		E2FCAC3B270741E600FE1CBF /* DirectLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC39270741E600FE1CBF /* DirectLog.swift */; };
-		E2FCAC422707420100FE1CBF /* StoredAppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC3D2707420000FE1CBF /* StoredAppState.swift */; };
-		E2FCAC432707420100FE1CBF /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC3E2707420100FE1CBF /* NotificationService.swift */; };
-		E2FCAC462707420100FE1CBF /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC412707420100FE1CBF /* AppReducer.swift */; };
+		E2FCAC422707420100FE1CBF /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC3D2707420000FE1CBF /* AppState.swift */; };
+		E2FCAC432707420100FE1CBF /* DirectNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC3E2707420100FE1CBF /* DirectNotifications.swift */; };
+		E2FCAC462707420100FE1CBF /* DirectReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC412707420100FE1CBF /* DirectReducer.swift */; };
 		E2FCAC512707424800FE1CBF /* Nightscout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC502707424800FE1CBF /* Nightscout.swift */; };
 		E2FCAC5B2707425900FE1CBF /* Libre2Pairing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC572707425900FE1CBF /* Libre2Pairing.swift */; };
 		E2FCAC5D2707426100FE1CBF /* GlucoseNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC5C2707426100FE1CBF /* GlucoseNotification.swift */; };
@@ -149,10 +160,10 @@
 		E2FCAC632707427500FE1CBF /* ExpiringNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC622707427500FE1CBF /* ExpiringNotification.swift */; };
 		E2FCAC652707427D00FE1CBF /* ConnectionNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC642707427D00FE1CBF /* ConnectionNotification.swift */; };
 		E2FCAC672707428500FE1CBF /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC662707428500FE1CBF /* Log.swift */; };
-		E2FCAC702707438A00FE1CBF /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC6C2707438A00FE1CBF /* AppState.swift */; };
-		E2FCAC712707438A00FE1CBF /* AppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC6D2707438A00FE1CBF /* AppAction.swift */; };
+		E2FCAC702707438A00FE1CBF /* DirectState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC6C2707438A00FE1CBF /* DirectState.swift */; };
+		E2FCAC712707438A00FE1CBF /* DirectAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC6D2707438A00FE1CBF /* DirectAction.swift */; };
 		E2FCAC722707438A00FE1CBF /* DirectConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC6E2707438A00FE1CBF /* DirectConfig.swift */; };
-		E2FCAC732707438A00FE1CBF /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC6F2707438A00FE1CBF /* AppStore.swift */; };
+		E2FCAC732707438A00FE1CBF /* DirectStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC6F2707438A00FE1CBF /* DirectStore.swift */; };
 		E2FCAC7D270743B100FE1CBF /* sensor.png in Resources */ = {isa = PBXBuildFile; fileRef = E2FCAC77270743B100FE1CBF /* sensor.png */; };
 		E2FCAC87270743E200FE1CBF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E2FCAC89270743E200FE1CBF /* Localizable.strings */; };
 /* End PBXBuildFile section */
@@ -199,7 +210,7 @@
 		E216E50927654AF60056A61D /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		E2218BAF284FA16900DB5A55 /* NotificationSound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSound.swift; sourceTree = "<group>"; };
 		E223F866267A4D9800EC9BCA /* SensorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorView.swift; sourceTree = "<group>"; };
-		E2330A32275E88CF0050A391 /* SensorBLEConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorBLEConnection.swift; sourceTree = "<group>"; };
+		E2330A32275E88CF0050A391 /* SensorBluetoothConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorBluetoothConnection.swift; sourceTree = "<group>"; };
 		E24077B226B881C2001767C0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E24077B726B881CB001767C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E24474402859CA9600F8891C /* GlucoseDirectWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GlucoseDirectWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -212,6 +223,9 @@
 		E24B532426B864020091417F /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
 		E257088D278354B600896696 /* mute.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = mute.aiff; sourceTree = "<group>"; };
 		E25762D4279D519200A2E249 /* BellmanSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BellmanSettingsView.swift; sourceTree = "<group>"; };
+		E2591C5928740E7A0009F27C /* SensorConnectionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorConnectionInfo.swift; sourceTree = "<group>"; };
+		E2591C5C28740EBB0009F27C /* BellmanConnectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BellmanConnectionState.swift; sourceTree = "<group>"; };
+		E2591C61287412740009F27C /* ScreenLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenLock.swift; sourceTree = "<group>"; };
 		E26089A32748DCB500749025 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		E262050F2773C80400AD631B /* silent.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = silent.aiff; sourceTree = "<group>"; };
 		E2645D832763F4EF0058BFC7 /* SensorReadingQuality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorReadingQuality.swift; sourceTree = "<group>"; };
@@ -324,9 +338,9 @@
 		E2FCAC2D270741D200FE1CBF /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		E2FCAC2E270741D200FE1CBF /* LocalizedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizedString.swift; sourceTree = "<group>"; };
 		E2FCAC39270741E600FE1CBF /* DirectLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectLog.swift; sourceTree = "<group>"; };
-		E2FCAC3D2707420000FE1CBF /* StoredAppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoredAppState.swift; sourceTree = "<group>"; };
-		E2FCAC3E2707420100FE1CBF /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
-		E2FCAC412707420100FE1CBF /* AppReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
+		E2FCAC3D2707420000FE1CBF /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		E2FCAC3E2707420100FE1CBF /* DirectNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectNotifications.swift; sourceTree = "<group>"; };
+		E2FCAC412707420100FE1CBF /* DirectReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectReducer.swift; sourceTree = "<group>"; };
 		E2FCAC502707424800FE1CBF /* Nightscout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Nightscout.swift; sourceTree = "<group>"; };
 		E2FCAC572707425900FE1CBF /* Libre2Pairing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Libre2Pairing.swift; sourceTree = "<group>"; };
 		E2FCAC5C2707426100FE1CBF /* GlucoseNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlucoseNotification.swift; sourceTree = "<group>"; };
@@ -334,10 +348,10 @@
 		E2FCAC622707427500FE1CBF /* ExpiringNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpiringNotification.swift; sourceTree = "<group>"; };
 		E2FCAC642707427D00FE1CBF /* ConnectionNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionNotification.swift; sourceTree = "<group>"; };
 		E2FCAC662707428500FE1CBF /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
-		E2FCAC6C2707438A00FE1CBF /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
-		E2FCAC6D2707438A00FE1CBF /* AppAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAction.swift; sourceTree = "<group>"; };
+		E2FCAC6C2707438A00FE1CBF /* DirectState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectState.swift; sourceTree = "<group>"; };
+		E2FCAC6D2707438A00FE1CBF /* DirectAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectAction.swift; sourceTree = "<group>"; };
 		E2FCAC6E2707438A00FE1CBF /* DirectConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectConfig.swift; sourceTree = "<group>"; };
-		E2FCAC6F2707438A00FE1CBF /* AppStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
+		E2FCAC6F2707438A00FE1CBF /* DirectStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectStore.swift; sourceTree = "<group>"; };
 		E2FCAC77270743B100FE1CBF /* sensor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sensor.png; sourceTree = "<group>"; };
 		E2FCAC88270743E200FE1CBF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E2FCAC8A270743E500FE1CBF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -389,11 +403,7 @@
 			isa = PBXGroup;
 			children = (
 				E20B853D266F4A9800AA4224 /* App.swift */,
-				E2FCAC6F2707438A00FE1CBF /* AppStore.swift */,
-				E2FCAC6C2707438A00FE1CBF /* AppState.swift */,
-				E2FCAC6D2707438A00FE1CBF /* AppAction.swift */,
-				E2FCAC412707420100FE1CBF /* AppReducer.swift */,
-				E264775B274A9C6F0053BF6F /* States */,
+				E2FCAC3D2707420000FE1CBF /* AppState.swift */,
 				E2FCAC3C270741F000FE1CBF /* Modules */,
 				E2FDC933266FAF1C007AA1F5 /* Views */,
 				E2FCAC742707439300FE1CBF /* Resources */,
@@ -425,8 +435,13 @@
 		E2218B87284F9E7300DB5A55 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				E2FCAC6D2707438A00FE1CBF /* DirectAction.swift */,
 				E2FCAC6E2707438A00FE1CBF /* DirectConfig.swift */,
 				E2FCAC39270741E600FE1CBF /* DirectLog.swift */,
+				E2FCAC3E2707420100FE1CBF /* DirectNotifications.swift */,
+				E2FCAC412707420100FE1CBF /* DirectReducer.swift */,
+				E2FCAC6C2707438A00FE1CBF /* DirectState.swift */,
+				E2FCAC6F2707438A00FE1CBF /* DirectStore.swift */,
 				E2FCAC112707419800FE1CBF /* Content */,
 				E2FCAC26270741C700FE1CBF /* Extensions */,
 				E20B8541266F4A9900AA4224 /* Assets.xcassets */,
@@ -449,12 +464,12 @@
 			path = AppWidgets;
 			sourceTree = "<group>";
 		};
-		E264775B274A9C6F0053BF6F /* States */ = {
+		E2591C60287412670009F27C /* ScreenLock */ = {
 			isa = PBXGroup;
 			children = (
-				E2FCAC3D2707420000FE1CBF /* StoredAppState.swift */,
+				E2591C61287412740009F27C /* ScreenLock.swift */,
 			);
-			path = States;
+			path = ScreenLock;
 			sourceTree = "<group>";
 		};
 		E26BCC31285D1F430058AF0C /* LibreLinkConnection */ = {
@@ -480,8 +495,7 @@
 			isa = PBXGroup;
 			children = (
 				E27ED9792758A4470099149C /* SensorConnector.swift */,
-				E27ED97E2758ADF40099149C /* SensorConnection.swift */,
-				E2330A32275E88CF0050A391 /* SensorBLEConnection.swift */,
+				E2330A32275E88CF0050A391 /* SensorBluetoothConnection.swift */,
 				E27ED97C2758A4660099149C /* SensorUtility.swift */,
 				E27ED9712758A40E0099149C /* VirtualConnection */,
 				E27ED9702758A4090099149C /* BubbleConnection */,
@@ -599,18 +613,21 @@
 		E2FCAC112707419800FE1CBF /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				E2591C5C28740EBB0009F27C /* BellmanConnectionState.swift */,
 				E2C19FB42735684500B70A73 /* Glucose.swift */,
 				E2FCAC18270741BC00FE1CBF /* GlucoseUnit.swift */,
 				E29F4FA1274D6C8B00AE0E39 /* GlucoseValueType.swift */,
 				E2FCAC13270741BC00FE1CBF /* Sensor.swift */,
+				E27ED97E2758ADF40099149C /* SensorConnection.swift */,
+				E2591C5928740E7A0009F27C /* SensorConnectionInfo.swift */,
 				E2FCAC14270741BC00FE1CBF /* SensorConnectionState.swift */,
-				E2FCAC12270741BC00FE1CBF /* SensorType.swift */,
 				E2FCAC17270741BC00FE1CBF /* SensorFamily.swift */,
+				E2C19FB2273567FE00B70A73 /* SensorReading.swift */,
+				E2645D832763F4EF0058BFC7 /* SensorReadingQuality.swift */,
 				E2FCAC15270741BC00FE1CBF /* SensorRegion.swift */,
 				E2FCAC19270741BC00FE1CBF /* SensorState.swift */,
 				E2FCAC1B270741BC00FE1CBF /* SensorTrend.swift */,
-				E2C19FB2273567FE00B70A73 /* SensorReading.swift */,
-				E2645D832763F4EF0058BFC7 /* SensorReadingQuality.swift */,
+				E2FCAC12270741BC00FE1CBF /* SensorType.swift */,
 				E21656C4275377A90007AF43 /* Transmitter.swift */,
 				E2218BAF284FA16900DB5A55 /* NotificationSound.swift */,
 				E2C19FB8273568A000B70A73 /* Calibrations */,
@@ -649,8 +666,8 @@
 				E2FCAC4F2707424000FE1CBF /* Nightscout */,
 				E2CDA01827722FA100A1E694 /* ReadAloud */,
 				E27ED96E2758A3EE0099149C /* SensorConnector */,
+				E2591C60287412670009F27C /* ScreenLock */,
 				E28BA1B7286F52AC00F6273F /* WidgetCenter */,
-				E2FCAC682707429800FE1CBF /* Utility */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -701,14 +718,6 @@
 				E2FCAC502707424800FE1CBF /* Nightscout.swift */,
 			);
 			path = Nightscout;
-			sourceTree = "<group>";
-		};
-		E2FCAC682707429800FE1CBF /* Utility */ = {
-			isa = PBXGroup;
-			children = (
-				E2FCAC3E2707420100FE1CBF /* NotificationService.swift */,
-			);
-			path = Utility;
 			sourceTree = "<group>";
 		};
 		E2FCAC742707439300FE1CBF /* Resources */ = {
@@ -900,7 +909,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2330A33275E88CF0050A391 /* SensorBLEConnection.swift in Sources */,
+				E2330A33275E88CF0050A391 /* SensorBluetoothConnection.swift in Sources */,
 				E21656C5275377A90007AF43 /* Transmitter.swift in Sources */,
 				E2218BB0284FA16900DB5A55 /* NotificationSound.swift in Sources */,
 				E2645D842763F4EF0058BFC7 /* SensorReadingQuality.swift in Sources */,
@@ -923,22 +932,23 @@
 				E278848327B4646E00E07DDC /* Lazy.swift in Sources */,
 				E2FCAC652707427D00FE1CBF /* ConnectionNotification.swift in Sources */,
 				E24B532126B863C00091417F /* GlucoseSettingsView.swift in Sources */,
-				E2FCAC422707420100FE1CBF /* StoredAppState.swift in Sources */,
+				E2FCAC422707420100FE1CBF /* AppState.swift in Sources */,
 				E2C8F5FE278CD63000519ABD /* BellmanAlarm.swift in Sources */,
 				E2FCAC30270741D200FE1CBF /* String.swift in Sources */,
 				E2FCAC36270741D200FE1CBF /* LocalizedString.swift in Sources */,
 				E28C1299278AE6A900ECE0DF /* ConnectionView.swift in Sources */,
-				E2FCAC432707420100FE1CBF /* NotificationService.swift in Sources */,
+				E2FCAC432707420100FE1CBF /* DirectNotifications.swift in Sources */,
 				E28BA1B9286F52C700F6273F /* WidgetCenter.swift in Sources */,
 				E25762D5279D519200A2E249 /* BellmanSettingsView.swift in Sources */,
 				E2FCAC1F270741BC00FE1CBF /* SensorRegion.swift in Sources */,
+				E2591C62287412740009F27C /* ScreenLock.swift in Sources */,
 				E2DE3CA327594E5500FAC82E /* SensorConnectorSettings.swift in Sources */,
 				E26089A42748DCB500749025 /* Double.swift in Sources */,
 				E223F867267A4D9800EC9BCA /* SensorView.swift in Sources */,
 				E2FCAC5D2707426100FE1CBF /* GlucoseNotification.swift in Sources */,
 				E2FCAC33270741D200FE1CBF /* Int.swift in Sources */,
 				E2F5F3D126A70AC400834A74 /* DateSelectorView.swift in Sources */,
-				E2FCAC462707420100FE1CBF /* AppReducer.swift in Sources */,
+				E2FCAC462707420100FE1CBF /* DirectReducer.swift in Sources */,
 				E298CF06279DEBFE00C1C218 /* CustomCalibrationView.swift in Sources */,
 				E2FCAC21270741BC00FE1CBF /* SensorFamily.swift in Sources */,
 				E2FCAC3B270741E600FE1CBF /* DirectLog.swift in Sources */,
@@ -948,11 +958,12 @@
 				E2646F3D275FD3E800ADE451 /* AppleExportSettingsView.swift in Sources */,
 				E27ED9752758A4270099149C /* BubbleConnection.swift in Sources */,
 				E2CDA01A27722FB900A1E694 /* ReadAloud.swift in Sources */,
-				E2FCAC732707438A00FE1CBF /* AppStore.swift in Sources */,
+				E2FCAC732707438A00FE1CBF /* DirectStore.swift in Sources */,
 				E20B853E266F4A9800AA4224 /* App.swift in Sources */,
 				E27ED97D2758A4660099149C /* SensorUtility.swift in Sources */,
 				E24B531E26B863910091417F /* NightscoutSettingsView.swift in Sources */,
 				E2FCAC25270741BC00FE1CBF /* SensorTrend.swift in Sources */,
+				E2591C5A28740E7A0009F27C /* SensorConnectionInfo.swift in Sources */,
 				E26BCC33285D1F760058AF0C /* LibreLinkConnection.swift in Sources */,
 				E29F4FA2274D6C8B00AE0E39 /* GlucoseValueType.swift in Sources */,
 				E27ED9732758A41B0099149C /* VirtualConnection.swift in Sources */,
@@ -969,17 +980,18 @@
 				E2C19FBC273568BF00B70A73 /* FactoryCalibration.swift in Sources */,
 				E27325A7275543D600D3C41D /* Color.swift in Sources */,
 				E2C19FB52735684500B70A73 /* Glucose.swift in Sources */,
+				E2591C5D28740EBB0009F27C /* BellmanConnectionState.swift in Sources */,
 				E2C19FB3273567FE00B70A73 /* SensorReading.swift in Sources */,
 				E29ED231268C754F00CBD3F1 /* GlucoseView.swift in Sources */,
 				E28728AA26DE499200269F47 /* SnoozeView.swift in Sources */,
-				E2FCAC702707438A00FE1CBF /* AppState.swift in Sources */,
+				E2FCAC702707438A00FE1CBF /* DirectState.swift in Sources */,
 				E2FCAC612707426F00FE1CBF /* AppGroupSharing.swift in Sources */,
 				E292E1B226A608C400011F64 /* NumberSelectorView.swift in Sources */,
 				E2FCAC1D270741BC00FE1CBF /* Sensor.swift in Sources */,
 				E2D34BCA274D6C1300151895 /* SettingsView.swift in Sources */,
 				E2D34BC8274D6BCB00151895 /* ListView.swift in Sources */,
 				E2FCAC2F270741D200FE1CBF /* Data.swift in Sources */,
-				E2FCAC712707438A00FE1CBF /* AppAction.swift in Sources */,
+				E2FCAC712707438A00FE1CBF /* DirectAction.swift in Sources */,
 				E2FCAC512707424800FE1CBF /* Nightscout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -989,23 +1001,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2E8DBF12859F479002C84FD /* Glucose.swift in Sources */,
+				E2591C5B28740E7A0009F27C /* SensorConnectionInfo.swift in Sources */,
 				E2E8DBFF2859F47D002C84FD /* CustomCalibration.swift in Sources */,
 				E2E8DBE62859F46D002C84FD /* LocalizedString.swift in Sources */,
 				E2E8DBF42859F479002C84FD /* SensorReadingQuality.swift in Sources */,
 				E2016FDA285BA81700079195 /* GlucoseWidget.swift in Sources */,
 				E24474452859CA9600F8891C /* AppWidgets.swift in Sources */,
 				E2E8DBEB2859F46D002C84FD /* Lazy.swift in Sources */,
+				E2591C5828740E400009F27C /* DirectStore.swift in Sources */,
 				E2E8DBF52859F479002C84FD /* SensorFamily.swift in Sources */,
 				E2E8DBFD2859F479002C84FD /* Transmitter.swift in Sources */,
+				E2591C5528740E370009F27C /* DirectReducer.swift in Sources */,
 				E2E8DBF62859F479002C84FD /* GlucoseValueType.swift in Sources */,
 				E2E8DBE72859F46D002C84FD /* View.swift in Sources */,
 				E2E8DBE92859F46D002C84FD /* State.swift in Sources */,
+				E2591C5628740E3A0009F27C /* DirectAction.swift in Sources */,
 				E2E8DBEA2859F46D002C84FD /* Double.swift in Sources */,
 				E2E8DBFE2859F479002C84FD /* SensorTrend.swift in Sources */,
 				E2E8DBF22859F479002C84FD /* SensorRegion.swift in Sources */,
+				E2591C5E28740EBB0009F27C /* BellmanConnectionState.swift in Sources */,
 				E2E8DBF02859F46D002C84FD /* String.swift in Sources */,
 				E2E8DBEE2859F46D002C84FD /* UserDefaults.swift in Sources */,
+				E2591C5428740E200009F27C /* SensorConnection.swift in Sources */,
 				E2E8DBF72859F479002C84FD /* SensorState.swift in Sources */,
+				E2591C5F28740EDC0009F27C /* DirectNotifications.swift in Sources */,
 				E2E8DBF82859F479002C84FD /* GlucoseUnit.swift in Sources */,
 				E2E8DC012859F481002C84FD /* DirectLog.swift in Sources */,
 				E2E8DBF92859F479002C84FD /* NotificationSound.swift in Sources */,
@@ -1015,6 +1034,7 @@
 				E2E8DBFC2859F479002C84FD /* SensorConnectionState.swift in Sources */,
 				E2E8DBEF2859F46D002C84FD /* Date.swift in Sources */,
 				E2E8DBF32859F479002C84FD /* SensorType.swift in Sources */,
+				E2591C5728740E3E0009F27C /* DirectState.swift in Sources */,
 				E2E8DBEC2859F46D002C84FD /* Int.swift in Sources */,
 				E2016FDC285BA82600079195 /* TransmitterWidget.swift in Sources */,
 				E2E8DBFA2859F479002C84FD /* SensorReading.swift in Sources */,

@@ -7,20 +7,6 @@ import Combine
 import CoreBluetooth
 import Foundation
 
-// MARK: - SensorConnection
-
-protocol SensorConnection {
-    var subject: PassthroughSubject<AppAction, AppError>? { get }
-}
-
-// MARK: - SensorBLEConnection
-
-protocol SensorBLEConnection: SensorConnection {
-    func pairConnection()
-    func connectConnection(sensor: Sensor, sensorInterval: Int)
-    func disconnectConnection()
-}
-
 // MARK: - IsSensor
 
 protocol IsSensor {}
@@ -29,7 +15,16 @@ protocol IsSensor {}
 
 protocol IsTransmitter {}
 
-extension SensorBLEConnection {
+// MARK: - SensorConnection
+
+protocol SensorConnectionProtocol {
+    var subject: PassthroughSubject<DirectAction, AppError>? { get }
+    func pairConnection()
+    func connectConnection(sensor: Sensor, sensorInterval: Int)
+    func disconnectConnection()
+}
+
+extension SensorConnectionProtocol {
     func sendUpdate(connectionState: SensorConnectionState) {
         DirectLog.info("ConnectionState: \(connectionState.description)")
 

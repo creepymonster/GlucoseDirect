@@ -8,7 +8,7 @@ import SwiftUI
 struct ListView: View {
     // MARK: Internal
 
-    @EnvironmentObject var store: AppStore
+    @EnvironmentObject var store: DirectStore
 
     var body: some View {
         List {
@@ -66,7 +66,7 @@ struct ListView: View {
                             Text(glucose.timestamp.toLocalDateTime())
                             Spacer()
 
-                            if glucose.type == .bgm {
+                            if glucose.isBloodGlucose {
                                 Image(systemName: "drop.fill")
                                     .foregroundColor(Color.ui.red)
                             }
@@ -84,20 +84,13 @@ struct ListView: View {
                     }.onDelete { offsets in
                         DirectLog.info("onDelete: \(offsets)")
 
-                        let ids = offsets.map { i in
-                            glucoseValues[i].id
+                        let deletables = offsets.map { i in
+                            (index: i, glucose: glucoseValues[i])
                         }
 
-                        DispatchQueue.main.async {
-                            ids.forEach { id in
-                                if let index = glucoseValues.firstIndex(where: { value in
-                                    value.id == id
-                                }) {
-                                    glucoseValues.remove(at: index)
-                                }
-
-                                store.dispatch(.removeGlucose(id: id))
-                            }
+                        deletables.forEach { delete in
+                            glucoseValues.remove(at: delete.index)
+                            store.dispatch(.removeGlucose(glucose: delete.glucose))
                         }
                     }
                 },
@@ -128,7 +121,7 @@ struct ListView: View {
             return false
         }
 
-        if store.state.glucoseUnit == .mgdL || glucose.type == .bgm {
+        if store.state.glucoseUnit == .mgdL || glucose.isBloodGlucose {
             return false
         }
 

@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     // MARK: Internal
 
-    @EnvironmentObject var store: AppStore
+    @EnvironmentObject var store: DirectStore
     @Environment(\.scenePhase) var scenePhase
 
     var body: some View {
@@ -23,7 +23,7 @@ struct ContentView: View {
                 Label("Glucose list view", systemImage: "list.dash")
             }.tag(2)
 
-            if store.state.isConnectionPaired && !store.state.glucoseValues.isEmpty && store.state.isConnectable || store.state.isDisconnectable {
+            if store.state.isConnectionPaired && store.state.hasGlucoseValues && store.state.isConnectable || store.state.isDisconnectable {
                 CalibrationView().tabItem {
                     Label("Calibration view", systemImage: "tuningfork")
                 }.tag(3)

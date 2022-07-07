@@ -8,22 +8,22 @@ import Foundation
 import UserNotifications
 import WidgetKit
 
-func connectionNotificationMiddelware() -> Middleware<AppState, AppAction> {
+func connectionNotificationMiddelware() -> Middleware<DirectState, DirectAction> {
     return connectionNotificationMiddelware(service: LazyService<ConnectionNotificationService>(initialization: {
         ConnectionNotificationService()
     }))
 }
 
-private func connectionNotificationMiddelware(service: LazyService<ConnectionNotificationService>) -> Middleware<AppState, AppAction> {
+private func connectionNotificationMiddelware(service: LazyService<ConnectionNotificationService>) -> Middleware<DirectState, DirectAction> {
     return { state, action, lastState in
-        switch action {           
+        switch action {
         case .setConnectionAlarmSound(sound: let sound):
             if sound == .none {
                 service.value.clearAlarm()
             }
 
         case .setConnectionError(errorMessage: _, errorTimestamp: _, errorIsCritical: let errorIsCritical):
-            guard state.connectionAlarm else {
+            guard state.hasConnectionAlarm else {
                 DirectLog.info("Guard: connectionAlarm disabled")
                 break
             }
@@ -31,7 +31,7 @@ private func connectionNotificationMiddelware(service: LazyService<ConnectionNot
             service.value.setSensorConnectionLostAlarm(errorIsCritical: errorIsCritical, ignoreMute: state.ignoreMute, sound: state.connectionAlarmSound)
 
         case .setConnectionState(connectionState: let connectionState):
-            guard state.connectionAlarm else {
+            guard state.hasConnectionAlarm else {
                 DirectLog.info("Guard: connectionAlarm disabled")
                 break
             }
@@ -44,7 +44,7 @@ private func connectionNotificationMiddelware(service: LazyService<ConnectionNot
             }
 
         case .addMissedReading:
-            guard state.connectionAlarm else {
+            guard state.hasConnectionAlarm else {
                 DirectLog.info("Guard: connectionAlarm disabled")
                 break
             }
@@ -81,7 +81,7 @@ private class ConnectionNotificationService {
     }
 
     func setSensorConnectionLostAlarm(errorIsCritical: Bool, ignoreMute: Bool, sound: NotificationSound) {
-        NotificationService.shared.ensureCanSendNotification { state in
+        DirectNotifications.shared.ensureCanSendNotification { state in
             DirectLog.info("Sensor connection lost alert, state: \(state)")
 
             guard state != .none else {
@@ -100,16 +100,16 @@ private class ConnectionNotificationService {
                 notification.body = LocalizedString("The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired.")
             }
 
-            NotificationService.shared.add(identifier: Identifier.sensorConnectionAlarm.rawValue, content: notification)
+            DirectNotifications.shared.add(identifier: Identifier.sensorConnectionAlarm.rawValue, content: notification)
 
             if state == .sound && errorIsCritical {
-                NotificationService.shared.playSound(ignoreMute: ignoreMute, sound: sound)
+                DirectNotifications.shared.playSound(ignoreMute: ignoreMute, sound: sound)
             }
         }
     }
 
     func setSensorConnectionRestoredAlarm() {
-        NotificationService.shared.ensureCanSendNotification { state in
+        DirectNotifications.shared.ensureCanSendNotification { state in
             DirectLog.info("Sensor connection lost alert, state: \(state)")
 
             guard state != .none else {
@@ -122,12 +122,12 @@ private class ConnectionNotificationService {
             notification.title = LocalizedString("OK, sensor connection established")
             notification.body = LocalizedString("The connection to the sensor has been successfully established and glucose data is received.")
 
-            NotificationService.shared.add(identifier: Identifier.sensorConnectionAlarm.rawValue, content: notification)
+            DirectNotifications.shared.add(identifier: Identifier.sensorConnectionAlarm.rawValue, content: notification)
         }
     }
 
     func setSensorMissedReadingsAlarm(missedReadings: Int, ignoreMute: Bool, sound: NotificationSound) {
-        NotificationService.shared.ensureCanSendNotification { state in
+        DirectNotifications.shared.ensureCanSendNotification { state in
             DirectLog.info("Sensor missed readings, state: \(state)")
 
             guard state != .none else {
@@ -140,10 +140,10 @@ private class ConnectionNotificationService {
             notification.title = String(format: LocalizedString("Warning, sensor missed %1$@ readings"), missedReadings.description)
             notification.body = LocalizedString("The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause.")
 
-            NotificationService.shared.add(identifier: Identifier.sensorConnectionAlarm.rawValue, content: notification)
+            DirectNotifications.shared.add(identifier: Identifier.sensorConnectionAlarm.rawValue, content: notification)
 
             if state == .sound {
-                NotificationService.shared.playSound(ignoreMute: ignoreMute, sound: sound)
+                DirectNotifications.shared.playSound(ignoreMute: ignoreMute, sound: sound)
             }
         }
     }

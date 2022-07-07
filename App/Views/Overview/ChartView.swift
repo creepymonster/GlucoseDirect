@@ -12,7 +12,7 @@ import SwiftUI
 struct ChartView: View {
     // MARK: Internal
 
-    @EnvironmentObject var store: AppStore
+    @EnvironmentObject var store: DirectStore
     @Environment(\.scenePhase) var scenePhase
 
     var zoomLevel: ZoomLevel? {
@@ -337,7 +337,7 @@ struct ChartView: View {
             }
 
             var cgmPointInfos: [Date: ChartDatapoint] = [:]
-            let cgmSeries = populateValues(glucoseValues: glucoseValues.filter { $0.type == .cgm })
+            let cgmSeries = populateValues(glucoseValues: glucoseValues.filter { $0.isSensorGlucose })
             cgmSeries.forEach { value in
                 if cgmPointInfos[value.valueX] == nil {
                     cgmPointInfos[value.valueX] = value
@@ -345,7 +345,7 @@ struct ChartView: View {
             }
 
             var bgmPointInfos: [Date: ChartDatapoint] = [:]
-            let bgmSeries = populateValues(glucoseValues: glucoseValues.filter { $0.type == .bgm })
+            let bgmSeries = populateValues(glucoseValues: glucoseValues.filter { $0.isBloodGlucose })
             bgmSeries.forEach { value in
                 if bgmPointInfos[value.valueX] == nil {
                     bgmPointInfos[value.valueX] = value
@@ -403,11 +403,11 @@ extension ChartDatapoint: Equatable {
 
 extension Glucose {
     func isValidCGM() -> Bool {
-        type == .cgm && glucoseValue != nil
+        isSensorGlucose && glucoseValue != nil
     }
 
     func isValidBGM() -> Bool {
-        type == .bgm && glucoseValue != nil
+        isBloodGlucose && glucoseValue != nil
     }
 
     func toDatapointID(glucoseUnit: GlucoseUnit) -> String {

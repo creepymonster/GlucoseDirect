@@ -7,13 +7,13 @@ import Combine
 import Foundation
 import UserNotifications
 
-func expiringNotificationMiddelware() -> Middleware<AppState, AppAction> {
+func expiringNotificationMiddelware() -> Middleware<DirectState, DirectAction> {
     return expiringNotificationMiddelware(service: LazyService<ExpiringNotificationService>(initialization: {
         ExpiringNotificationService()
     }))
 }
 
-private func expiringNotificationMiddelware(service: LazyService<ExpiringNotificationService>) -> Middleware<AppState, AppAction> {
+private func expiringNotificationMiddelware(service: LazyService<ExpiringNotificationService>) -> Middleware<DirectState, DirectAction> {
     return { state, action, _ in
         switch action {
         case .setExpiringAlarmSound(sound: let sound):
@@ -22,7 +22,7 @@ private func expiringNotificationMiddelware(service: LazyService<ExpiringNotific
             }
 
         case .setSensorState(sensorAge: let sensorAge, sensorState: _):
-            guard state.expiringAlarm else {
+            guard state.hasExpiringAlarm else {
                 DirectLog.info("Guard: expiringAlarm disabled")
                 break
             }
@@ -92,7 +92,7 @@ private class ExpiringNotificationService {
 
         nextExpiredAlert = Date().addingTimeInterval(DirectConfig.expiredNotificationInterval)
 
-        NotificationService.shared.ensureCanSendNotification { state in
+        DirectNotifications.shared.ensureCanSendNotification { state in
             DirectLog.info("Sensor expired alert, state: \(state)")
 
             guard state != .none else {
@@ -101,15 +101,15 @@ private class ExpiringNotificationService {
 
             let notification = UNMutableNotificationContent()
             notification.sound = .none
-            notification.interruptionLevel = .timeSensitive 
+            notification.interruptionLevel = .timeSensitive
 
             notification.title = LocalizedString("Alert, sensor expired")
             notification.body = LocalizedString("Your sensor has expired and needs to be replaced as soon as possible")
 
-            NotificationService.shared.add(identifier: Identifier.sensorExpiringAlarm.rawValue, content: notification)
+            DirectNotifications.shared.add(identifier: Identifier.sensorExpiringAlarm.rawValue, content: notification)
 
             if state == .sound {
-                NotificationService.shared.playSound(ignoreMute: ignoreMute, sound: sound)
+                DirectNotifications.shared.playSound(ignoreMute: ignoreMute, sound: sound)
             }
         }
     }
@@ -126,7 +126,7 @@ private class ExpiringNotificationService {
         lastExpiringAlert = body
         nextExpiredAlert = Date().addingTimeInterval(DirectConfig.expiredNotificationInterval)
 
-        NotificationService.shared.ensureCanSendNotification { state in
+        DirectNotifications.shared.ensureCanSendNotification { state in
             DirectLog.info("Sensor expired alert, state: \(state)")
 
             guard state != .none else {
@@ -145,10 +145,10 @@ private class ExpiringNotificationService {
             notification.title = LocalizedString("Alert, sensor expiring soon")
             notification.body = body
 
-            NotificationService.shared.add(identifier: Identifier.sensorExpiringAlarm.rawValue, content: notification)
+            DirectNotifications.shared.add(identifier: Identifier.sensorExpiringAlarm.rawValue, content: notification)
 
             if state == .sound && sound != .none {
-                NotificationService.shared.playSound(ignoreMute: ignoreMute, sound: sound)
+                DirectNotifications.shared.playSound(ignoreMute: ignoreMute, sound: sound)
             }
         }
     }

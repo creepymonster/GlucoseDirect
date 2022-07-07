@@ -50,10 +50,10 @@ final class GlucoseDirectApp: App {
 
     // MARK: Private
 
-    private let store: AppStore
+    private let store: DirectStore
     private let notificationCenterDelegate: UNUserNotificationCenterDelegate
 
-    private static func createStore() -> AppStore {
+    private static func createStore() -> DirectStore {
         if isSimulator {
             return createSimulatorAppStore()
         }
@@ -61,7 +61,7 @@ final class GlucoseDirectApp: App {
         return createAppStore()
     }
 
-    private static func createSimulatorAppStore() -> AppStore {
+    private static func createSimulatorAppStore() -> DirectStore {
         DirectLog.info("Create preview store")
 
         var middlewares = [
@@ -75,17 +75,18 @@ final class GlucoseDirectApp: App {
             bellmanAlarmMiddelware(),
             nightscoutMiddleware(),
             appGroupSharingMiddleware(),
-            widgetCenterMiddleware()
+            widgetCenterMiddleware(),
+            screenLockMiddleware(),
         ]
 
         middlewares.append(sensorConnectorMiddelware([
             SensorConnectionInfo(id: "virtual", name: "Virtual") { VirtualLibreConnection(subject: $0) },
         ]))
 
-        return AppStore(initialState: UserDefaultsState(), reducer: appReducer, middlewares: middlewares)
+        return DirectStore(initialState: AppState(), reducer: directReducer, middlewares: middlewares)
     }
 
-    private static func createAppStore() -> AppStore {
+    private static func createAppStore() -> DirectStore {
         DirectLog.info("Create app store")
 
         var middlewares = [
@@ -99,7 +100,8 @@ final class GlucoseDirectApp: App {
             bellmanAlarmMiddelware(),
             nightscoutMiddleware(),
             appGroupSharingMiddleware(),
-            widgetCenterMiddleware()
+            widgetCenterMiddleware(),
+            screenLockMiddleware(),
         ]
 
         let bubbleTransmitter = LocalizedString("Bubble transmitter")
@@ -108,7 +110,7 @@ final class GlucoseDirectApp: App {
             if NFCTagReaderSession.readingAvailable {
                 middlewares.append(sensorConnectorMiddelware([
                     SensorConnectionInfo(id: "libre2", name: LocalizedString("Without transmitter")) { Libre2Connection(subject: $0) },
-                    //SensorConnectionInfo(id: "librelink", name: LocalizedString("LibreLink transmitter")) { LibreLinkConnection(subject: $0) },
+                    // SensorConnectionInfo(id: "librelink", name: LocalizedString("LibreLink transmitter")) { LibreLinkConnection(subject: $0) },
                     SensorConnectionInfo(id: "bubble", name: bubbleTransmitter) { BubbleConnection(subject: $0) },
                 ]))
             } else {
@@ -122,7 +124,7 @@ final class GlucoseDirectApp: App {
             ]))
         #endif
 
-        return AppStore(initialState: UserDefaultsState(), reducer: appReducer, middlewares: middlewares)
+        return DirectStore(initialState: AppState(), reducer: directReducer, middlewares: middlewares)
     }
 }
 
@@ -131,7 +133,7 @@ final class GlucoseDirectApp: App {
 final class GlucoseDirectNotificationCenter: NSObject, UNUserNotificationCenterDelegate {
     // MARK: Lifecycle
 
-    init(store: AppStore) {
+    init(store: DirectStore) {
         self.store = store
     }
 
@@ -143,7 +145,7 @@ final class GlucoseDirectNotificationCenter: NSObject, UNUserNotificationCenterD
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         if let store = store, let action = response.notification.request.content.userInfo["action"] as? String, action == "snooze" {
-            NotificationService.shared.stopSound()
+            DirectNotifications.shared.stopSound()
             store.dispatch(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(30 * 60).toRounded(on: 1, .minute)))
         }
 
@@ -152,7 +154,7 @@ final class GlucoseDirectNotificationCenter: NSObject, UNUserNotificationCenterD
 
     // MARK: Private
 
-    private weak var store: AppStore?
+    private weak var store: DirectStore?
 }
 
 // MARK: - GlucoseDirectAppDelegate

@@ -10,7 +10,7 @@ import SwiftUI
 struct CustomCalibrationView: View {
     // MARK: Internal
 
-    @EnvironmentObject var store: AppStore
+    @EnvironmentObject var store: DirectStore
 
     var body: some View {
         if showingAddCalibrationView {
@@ -84,20 +84,13 @@ struct CustomCalibrationView: View {
                 }.onDelete { offsets in
                     DirectLog.info("onDelete: \(offsets)")
 
-                    let ids = offsets.map { i in
-                        customCalibration[i].id
+                    let deletables = offsets.map { i in
+                        (index: i, calibration: customCalibration[i])
                     }
 
-                    DispatchQueue.main.async {
-                        ids.forEach { id in
-                            if let index = customCalibration.firstIndex(where: { value in
-                                value.id == id
-                            }) {
-                                customCalibration.remove(at: index)
-                            }
-
-                            store.dispatch(.removeCalibration(id: id))
-                        }
+                    deletables.forEach { delete in
+                        customCalibration.remove(at: delete.index)
+                        store.dispatch(.removeCalibration(calibration: delete.calibration))
                     }
                 }
             },

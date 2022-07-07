@@ -9,9 +9,9 @@ import Foundation
 import UIKit
 import UserNotifications
 
-// MARK: - NotificationService
+// MARK: - DirectNotifications
 
-class NotificationService {
+class DirectNotifications {
     // MARK: Lifecycle
 
     private init() {
@@ -23,7 +23,7 @@ class NotificationService {
 
     // MARK: Internal
 
-    static let shared = NotificationService()
+    static let shared = DirectNotifications()
 
     static var SilentSound: UNNotificationSound {
         UNNotificationSound(named: UNNotificationSoundName(rawValue: "silent.aiff"))

@@ -6,16 +6,16 @@
 import Combine
 import Foundation
 
-func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo]) -> Middleware<AppState, AppAction> {
-    return sensorConnectorMiddelware(infos, subject: PassthroughSubject<AppAction, AppError>())
+func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo]) -> Middleware<DirectState, DirectAction> {
+    return sensorConnectorMiddelware(infos, subject: PassthroughSubject<DirectAction, AppError>())
 }
 
-private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject: PassthroughSubject<AppAction, AppError>) -> Middleware<AppState, AppAction> {
+private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject: PassthroughSubject<DirectAction, AppError>) -> Middleware<DirectState, DirectAction> {
     return { state, action, _ in
         switch action {
         case .startup:
-            let registerConnectionInfo = Just(AppAction.registerConnectionInfo(infos: infos))
-            var selectConnection: Just<AppAction>?
+            let registerConnectionInfo = Just(DirectAction.registerConnectionInfo(infos: infos))
+            var selectConnection: Just<DirectAction>?
 
             if let id = state.selectedConnectionID, let connectionInfo = infos.first(where: { $0.id == id }) {
                 DirectLog.info("Select startup connection: \(connectionInfo.name)")
@@ -143,24 +143,4 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
 
         return Empty().eraseToAnyPublisher()
     }
-}
-
-typealias SensorConnectionCreator = (PassthroughSubject<AppAction, AppError>) -> SensorBLEConnection
-
-// MARK: - SensorConnectionInfo
-
-class SensorConnectionInfo: Identifiable {
-    // MARK: Lifecycle
-
-    init(id: String, name: String, connectionCreator: @escaping SensorConnectionCreator) {
-        self.id = id
-        self.name = name
-        self.connectionCreator = connectionCreator
-    }
-
-    // MARK: Internal
-
-    let id: String
-    let name: String
-    let connectionCreator: SensorConnectionCreator
 }

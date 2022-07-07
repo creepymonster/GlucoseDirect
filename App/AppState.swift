@@ -1,127 +1,286 @@
 //
-//  AppState.swift
+//  UserDefaultsAppState.swift
 //  GlucoseDirect
 //
 
 import Combine
 import Foundation
+import UserNotifications
+
+#if canImport(CoreNFC)
+    import CoreNFC
+#endif
 
 // MARK: - AppState
 
-protocol AppState {
-    var alarmHigh: Int { get set }
-    var alarmLow: Int { get set }
-    var alarmSnoozeUntil: Date? { get set }
-    var appleCalendarExport: Bool { get set }
-    var appleHealthExport: Bool { get set }
-    var bellmanAlarm: Bool { get set }
-    var bellmanConnectionState: BellmanConnectionState { get set }
-    var chartShowLines: Bool { get set }
-    var chartZoomLevel: Int { get set }
-    var connectionAlarmSound: NotificationSound { get set }
-    var connectionError: String? { get set }
-    var connectionErrorIsCritical: Bool { get set }
-    var connectionErrorTimestamp: Date? { get set }
-    var connectionInfos: [SensorConnectionInfo] { get set }
-    var connectionState: SensorConnectionState { get set }
-    var customCalibration: [CustomCalibration] { get set }
-    var connectionPeripheralUUID: String? { get set }
-    var expiringAlarmSound: NotificationSound { get set }
-    var glucoseNotification: Bool { get set }
-    var glucoseUnit: GlucoseUnit { get set }
-    var glucoseValues: [Glucose] { get set }
-    var highGlucoseAlarmSound: NotificationSound { get set }
-    var isConnectionPaired: Bool { get set }
-    var ignoreMute: Bool { get set }
-    var lowGlucoseAlarmSound: NotificationSound { get set }
-    var missedReadings: Int { get set }
-    var nightscoutApiSecret: String { get set }
-    var nightscoutUpload: Bool { get set }
-    var nightscoutURL: String { get set }
-    var preventScreenLock: Bool { get set }
-    var readGlucose: Bool { get set }
-    var selectedCalendarTarget: String? { get set }
-    var selectedConnection: SensorBLEConnection? { get set }
-    var selectedConnectionID: String? { get set }
-    var selectedView: Int { get set }
-    var sensor: Sensor? { get set }
-    var sensorInterval: Int { get set }
-    var targetValue: Int { get set }
-    var transmitter: Transmitter? { get set }
-}
+struct AppState: DirectState {
+    // MARK: Lifecycle
 
-extension AppState {
-    var latestGlucose: Glucose? {
-        glucoseValues.last
+    init() {
+        #if targetEnvironment(simulator)
+            let defaultConnectionID = "virtual"
+        #else
+            #if canImport(CoreNFC)
+                let defaultConnectionID = NFCTagReaderSession.readingAvailable
+                    ? "libre2"
+                    : "bubble"
+            #else
+                let defaultConnectionID = "bubble"
+            #endif
+        #endif
+
+        if UserDefaults.shared.glucoseUnit == nil {
+            UserDefaults.shared.glucoseUnit = UserDefaults.standard.glucoseUnit ?? .mgdL
+        }
+
+        if UserDefaults.shared.glucoseValues.isEmpty, !UserDefaults.standard.glucoseValues.isEmpty {
+            UserDefaults.shared.glucoseValues = UserDefaults.standard.glucoseValues
+        }
+
+        if let sensor = UserDefaults.standard.sensor, UserDefaults.shared.sensor == nil {
+            UserDefaults.shared.sensor = sensor
+        }
+
+        if let transmitter = UserDefaults.standard.transmitter, UserDefaults.shared.transmitter == nil {
+            UserDefaults.shared.transmitter = transmitter
+        }
+
+        if let alarmHigh = UserDefaults.standard.alarmHigh {
+            self.alarmHigh = alarmHigh
+        }
+
+        if let alarmLow = UserDefaults.standard.alarmLow {
+            self.alarmLow = alarmLow
+        }
+
+        self.appleCalendarExport = UserDefaults.standard.appleCalendarExport
+        self.appleHealthExport = UserDefaults.standard.appleHealthExport
+        self.bellmanAlarm = UserDefaults.standard.bellmanAlarm
+        self.chartShowLines = UserDefaults.standard.chartShowLines
+        self.chartZoomLevel = UserDefaults.standard.chartZoomLevel
+        self.connectionAlarmSound = UserDefaults.standard.connectionAlarmSound
+        self.connectionPeripheralUUID = UserDefaults.standard.connectionPeripheralUUID
+        self.customCalibration = UserDefaults.standard.customCalibration
+        self.expiringAlarmSound = UserDefaults.standard.expiringAlarmSound
+        self.glucoseNotification = UserDefaults.standard.glucoseNotification
+        self.glucoseUnit = UserDefaults.shared.glucoseUnit ?? .mgdL
+        self.glucoseValues = UserDefaults.shared.glucoseValues
+        self.highGlucoseAlarmSound = UserDefaults.standard.highGlucoseAlarmSound
+        self.ignoreMute = UserDefaults.standard.ignoreMute
+        self.isConnectionPaired = UserDefaults.standard.isConnectionPaired
+        self.latestGlucose = UserDefaults.shared.latestGlucose
+        self.latestBloodGlucose = UserDefaults.shared.latestBloodGlucose
+        self.latestSensorGlucose = UserDefaults.shared.latestSensorGlucose
+        self.lowGlucoseAlarmSound = UserDefaults.standard.lowGlucoseAlarmSound
+        self.nightscoutApiSecret = UserDefaults.standard.nightscoutApiSecret
+        self.nightscoutUpload = UserDefaults.standard.nightscoutUpload
+        self.nightscoutURL = UserDefaults.standard.nightscoutURL
+        self.readGlucose = UserDefaults.standard.readGlucose
+        self.selectedCalendarTarget = UserDefaults.standard.selectedCalendarTarget
+        self.selectedConnectionID = UserDefaults.standard.selectedConnectionID ?? defaultConnectionID
+        self.selectedView = UserDefaults.standard.selectedView
+        self.sensor = UserDefaults.shared.sensor
+        self.sensorInterval = UserDefaults.standard.sensorInterval
+        self.transmitter = UserDefaults.shared.transmitter
     }
 
-    var latestSensorGlucose: Glucose? {
-        glucoseValues.last(where: { $0.type == .cgm })
+    // MARK: Internal
+
+    var alarmSnoozeUntil: Date?
+    var bellmanConnectionState: BellmanConnectionState = .disconnected
+    var connectionError: String?
+    var connectionErrorIsCritical = false
+    var connectionErrorTimestamp: Date?
+    var connectionInfos: [SensorConnectionInfo] = []
+    var connectionState: SensorConnectionState = .disconnected
+    var missedReadings = 0
+    var preventScreenLock = false
+    var selectedConnection: SensorConnectionProtocol?
+    var targetValue = 100
+
+    var alarmHigh: Int = 160 {
+        didSet {
+            UserDefaults.standard.alarmHigh = alarmHigh
+        }
+    }
+
+    var alarmLow: Int = 80 {
+        didSet {
+            UserDefaults.standard.alarmLow = alarmLow
+        }
+    }
+
+    var appleCalendarExport: Bool = false {
+        didSet {
+            UserDefaults.standard.appleCalendarExport = appleCalendarExport
+        }
+    }
+
+    var appleHealthExport = false {
+        didSet {
+            UserDefaults.standard.appleHealthExport = appleHealthExport
+        }
+    }
+
+    var bellmanAlarm = false {
+        didSet {
+            UserDefaults.standard.bellmanAlarm = bellmanAlarm
+        }
+    }
+
+    var chartShowLines: Bool {
+        didSet {
+            UserDefaults.standard.chartShowLines = chartShowLines
+        }
+    }
+
+    var chartZoomLevel: Int {
+        didSet {
+            UserDefaults.standard.chartZoomLevel = chartZoomLevel
+        }
+    }
+
+    var connectionAlarmSound: NotificationSound {
+        didSet {
+            UserDefaults.standard.connectionAlarmSound = connectionAlarmSound
+        }
+    }
+
+    var connectionPeripheralUUID: String? {
+        didSet {
+            UserDefaults.standard.connectionPeripheralUUID = connectionPeripheralUUID
+        }
+    }
+
+    var customCalibration: [CustomCalibration] {
+        didSet {
+            UserDefaults.standard.customCalibration = customCalibration
+        }
+    }
+
+    var expiringAlarmSound: NotificationSound {
+        didSet {
+            UserDefaults.standard.expiringAlarmSound = expiringAlarmSound
+        }
+    }
+
+    var glucoseNotification: Bool {
+        didSet {
+            UserDefaults.standard.glucoseNotification = glucoseNotification
+        }
+    }
+
+    var glucoseUnit: GlucoseUnit {
+        didSet {
+            UserDefaults.shared.glucoseUnit = glucoseUnit
+        }
+    }
+
+    var glucoseValues: [Glucose] {
+        didSet {
+            UserDefaults.shared.glucoseValues = glucoseValues
+        }
+    }
+
+    var highGlucoseAlarmSound: NotificationSound {
+        didSet {
+            UserDefaults.standard.highGlucoseAlarmSound = highGlucoseAlarmSound
+        }
+    }
+
+    var ignoreMute: Bool {
+        didSet {
+            UserDefaults.standard.ignoreMute = ignoreMute
+        }
+    }
+
+    var isConnectionPaired: Bool {
+        didSet {
+            UserDefaults.standard.isConnectionPaired = isConnectionPaired
+        }
+    }
+
+    var latestGlucose: Glucose? {
+        didSet {
+            UserDefaults.shared.latestGlucose = latestGlucose
+        }
     }
 
     var latestBloodGlucose: Glucose? {
-        glucoseValues.last(where: { $0.type == .bgm })
-    }
-
-    var connectionAlarm: Bool {
-        connectionAlarmSound != .none
-    }
-
-    var expiringAlarm: Bool {
-        expiringAlarmSound != .none
-    }
-
-    var highGlucoseAlarm: Bool {
-        highGlucoseAlarmSound != .none
-    }
-
-    var lowGlucoseAlarm: Bool {
-        lowGlucoseAlarmSound != .none
-    }
-
-    var isConnectable: Bool {
-        if transmitter != nil, connectableStates.contains(connectionState) {
-            return true
+        didSet {
+            UserDefaults.shared.latestBloodGlucose = latestBloodGlucose
         }
+    }
 
-        if let sensor = sensor {
-            return sensorConnectableStates.contains(sensor.state) && connectableStates.contains(connectionState)
+    var latestSensorGlucose: Glucose? {
+        didSet {
+            UserDefaults.shared.latestSensorGlucose = latestSensorGlucose
         }
-
-        return false
     }
 
-    var hasSelectedConnection: Bool {
-        selectedConnection != nil
+    var lowGlucoseAlarmSound: NotificationSound {
+        didSet {
+            UserDefaults.standard.lowGlucoseAlarmSound = lowGlucoseAlarmSound
+        }
     }
 
-    var isDisconnectable: Bool {
-        disconnectableStates.contains(connectionState)
+    var nightscoutApiSecret: String {
+        didSet {
+            UserDefaults.standard.nightscoutApiSecret = nightscoutApiSecret
+        }
     }
 
-    var isSensor: Bool {
-        selectedConnection is IsSensor
+    var nightscoutUpload: Bool {
+        didSet {
+            UserDefaults.standard.nightscoutUpload = nightscoutUpload
+        }
     }
 
-    var isTransmitter: Bool {
-        selectedConnection is IsTransmitter
+    var nightscoutURL: String {
+        didSet {
+            UserDefaults.standard.nightscoutURL = nightscoutURL
+        }
     }
 
-    var isPairable: Bool {
-        !isConnectionPaired && !(connectionState != .disconnected && connectionState != .pairing && connectionState != .scanning && connectionState != .connecting)
+    var readGlucose: Bool {
+        didSet {
+            UserDefaults.standard.readGlucose = readGlucose
+        }
     }
 
-    var isBusy: Bool {
-        !(connectionState != .pairing && connectionState != .scanning && connectionState != .connecting)
+    var selectedCalendarTarget: String? {
+        didSet {
+            UserDefaults.standard.selectedCalendarTarget = selectedCalendarTarget
+        }
     }
 
-    var isReady: Bool {
-        sensor != nil && sensor!.state == .ready
+    var selectedConnectionID: String? {
+        didSet {
+            UserDefaults.standard.selectedConnectionID = selectedConnectionID
+        }
+    }
+
+    var selectedView: Int {
+        didSet {
+            UserDefaults.standard.selectedView = selectedView
+        }
+    }
+
+    var sensor: Sensor? {
+        didSet {
+            UserDefaults.shared.sensor = sensor
+        }
+    }
+
+    var sensorInterval: Int {
+        didSet {
+            UserDefaults.standard.sensorInterval = sensorInterval
+        }
+    }
+
+    var transmitter: Transmitter? {
+        didSet {
+            UserDefaults.shared.transmitter = transmitter
+        }
     }
 }
-
-// MARK: - private
-
-private var sensorConnectableStates: Set<SensorState> = [.starting, .ready]
-private var connectableStates: Set<SensorConnectionState> = [.disconnected]
-private var disconnectableStates: Set<SensorConnectionState> = [.connected, .connecting, .scanning]

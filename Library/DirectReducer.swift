@@ -7,9 +7,9 @@ import Combine
 import Foundation
 import UIKit
 
-// MARK: - appReducer
+// MARK: - directReducer
 
-func appReducer(state: inout AppState, action: AppAction) {
+func directReducer(state: inout DirectState, action: DirectAction) {
     switch action {
     case .addCalibration(bloodGlucoseValue: let bloodGlucoseValue):
         guard let latestRawGlucoseValue = state.latestSensorGlucose?.rawGlucoseValue else {
@@ -28,9 +28,12 @@ func appReducer(state: inout AppState, action: AppAction) {
         } else {
             glucoseValues = state.glucoseValues + addedGlucoseValues
         }
-            
-        state.missedReadings = 0
+        
         state.glucoseValues = glucoseValues
+        state.latestGlucose = glucoseValues.last
+        state.latestBloodGlucose = glucoseValues.last(where: { $0.isBloodGlucose })
+        state.latestSensorGlucose = glucoseValues.last(where: { $0.isSensorGlucose || $0.isFaultyGlucose })
+        state.missedReadings = 0
         
     case .addMissedReading:
         state.missedReadings += 1
@@ -42,15 +45,13 @@ func appReducer(state: inout AppState, action: AppAction) {
         break
         
     case .clearCalibrations:
-        guard state.sensor != nil else {
-            DirectLog.info("Guard: state.sensor is nil")
-            break
-        }
-        
         state.customCalibration = []
         
     case .clearGlucoseValues:
         state.glucoseValues = []
+        state.latestGlucose = nil
+        state.latestBloodGlucose = nil
+        state.latestSensorGlucose = nil
         
     case .connectConnection:
         break
@@ -67,19 +68,14 @@ func appReducer(state: inout AppState, action: AppAction) {
     case .registerConnectionInfo(infos: let infos):
         state.connectionInfos.append(contentsOf: infos)
         
-    case .removeCalibration(id: let id):
-        guard state.sensor != nil else {
-            DirectLog.info("Guard: state.sensor is nil")
-            break
-        }
-        
+    case .removeCalibration(calibration: let calibration):
         state.customCalibration = state.customCalibration.filter { item in
-            item.id != id
+            item.id != calibration.id
         }
         
-    case .removeGlucose(id: let id):
+    case .removeGlucose(glucose: let glucose):
         state.glucoseValues = state.glucoseValues.filter { item in
-            item.id != id
+            item.id != glucose.id
         }
         
     case .requestAppleCalendarAccess(enabled: _):
@@ -133,7 +129,7 @@ func appReducer(state: inout AppState, action: AppAction) {
         }
         
         if !autosnooze {
-            NotificationService.shared.stopSound()
+            DirectNotifications.shared.stopSound()
         }
         
     case .setAppleCalendarExport(enabled: let enabled):
@@ -206,7 +202,6 @@ func appReducer(state: inout AppState, action: AppAction) {
         
     case .setPreventScreenLock(enabled: let enabled):
         state.preventScreenLock = enabled
-        UIApplication.shared.isIdleTimerDisabled = enabled
 
     case .setReadGlucose(enabled: let enabled):
         state.readGlucose = enabled

@@ -7,13 +7,13 @@ import Combine
 import Foundation
 import HealthKit
 
-func appleHealthExportMiddleware() -> Middleware<AppState, AppAction> {
+func appleHealthExportMiddleware() -> Middleware<DirectState, DirectAction> {
     return appleHealthExportMiddleware(service: LazyService<AppleHealthExportService>(initialization: {
         AppleHealthExportService()
     }))
 }
 
-private func appleHealthExportMiddleware(service: LazyService<AppleHealthExportService>) -> Middleware<AppState, AppAction> {
+private func appleHealthExportMiddleware(service: LazyService<AppleHealthExportService>) -> Middleware<DirectState, DirectAction> {
     return { state, action, _ in
         switch action {
         case .requestAppleHealthAccess(enabled: let enabled):
@@ -22,7 +22,7 @@ private func appleHealthExportMiddleware(service: LazyService<AppleHealthExportS
                     break
                 }
 
-                return Future<AppAction, AppError> { promise in
+                return Future<DirectAction, AppError> { promise in
                     service.value.requestAccess { granted in
                         if !granted {
                             promise(.failure(.withMessage("Calendar access declined")))
@@ -33,7 +33,7 @@ private func appleHealthExportMiddleware(service: LazyService<AppleHealthExportS
                     }
                 }.eraseToAnyPublisher()
             } else {
-                return Just(AppAction.setAppleHealthExport(enabled: false))
+                return Just(DirectAction.setAppleHealthExport(enabled: false))
                     .setFailureType(to: AppError.self)
                     .eraseToAnyPublisher()
             }
@@ -112,7 +112,7 @@ private class AppleHealthExportService {
             }
 
             let healthGlucoseValues = glucoseValues.filter { glucose in
-                (glucose.type == .bgm || glucose.type == .cgm) && glucose.glucoseValue != nil
+                (glucose.isBloodGlucose || glucose.isSensorGlucose) && glucose.glucoseValue != nil
             }.map { glucose in
                 HKQuantitySample(
                     type: self.glucoseType,
