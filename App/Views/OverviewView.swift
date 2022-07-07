@@ -14,11 +14,13 @@ struct OverviewView: View {
                 if store.state.hasGlucoseValues {
                     GlucoseView()
                     
-                    if #available(iOS 16.0, *) {
+                    /*if #available(iOS 16.0, *) {
                         ChartView()
                     } else {
                         ChartViewFallback()
-                    }
+                    }*/
+                    
+                    ChartViewFallback()
                 }
 
                 ConnectionView()
