@@ -69,7 +69,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
 
             DirectLog.info("Stdev \(stdev) of \(readGlucoseValues.suffix(5).doubleValues)")
 
-            var previousGlucose = state.latestSensorGlucose
+            var previousGlucose = state.glucoseValues.last
             let glucoseValues = readGlucoseValues.filter { reading in
                 previousGlucose == nil || previousGlucose!.timestamp + intervalSeconds < reading.timestamp
             }.map {

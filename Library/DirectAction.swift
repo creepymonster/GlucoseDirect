@@ -19,8 +19,8 @@ enum DirectAction {
     case disconnectConnection
     case pairConnection
     case registerConnectionInfo(infos: [SensorConnectionInfo])
-    case removeCalibration(calibration: CustomCalibration)
-    case removeGlucose(glucose: Glucose)
+    case deleteCalibration(calibration: CustomCalibration)
+    case deleteGlucose(glucose: Glucose)
     case requestAppleCalendarAccess(enabled: Bool)
     case requestAppleHealthAccess(enabled: Bool)
     case resetSensor
@@ -46,6 +46,7 @@ enum DirectAction {
     case setExpiringAlarmSound(sound: NotificationSound)
     case setGlucoseNotification(enabled: Bool)
     case setGlucoseUnit(unit: GlucoseUnit)
+    case setGlucoseValues(glucoseValues: [Glucose])
     case setHighGlucoseAlarmSound(sound: NotificationSound)
     case setIgnoreMute(enabled: Bool)
     case setLowGlucoseAlarmSound(sound: NotificationSound)

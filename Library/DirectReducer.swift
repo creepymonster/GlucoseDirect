@@ -20,19 +20,9 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         state.customCalibration.append(CustomCalibration(x: Double(latestRawGlucoseValue), y: Double(bloodGlucoseValue)))
         
     case .addGlucose(glucoseValues: let addedGlucoseValues):
-        var glucoseValues: [Glucose]
-            
-        let overLimit = state.glucoseValues.count + addedGlucoseValues.count - DirectConfig.numberOfGlucoseValues
-        if overLimit > 0 {
-            glucoseValues = Array(state.glucoseValues.dropFirst(overLimit) + addedGlucoseValues)
-        } else {
-            glucoseValues = state.glucoseValues + addedGlucoseValues
-        }
-        
-        state.glucoseValues = glucoseValues
-        state.latestGlucose = glucoseValues.last
-        state.latestBloodGlucose = glucoseValues.last(where: { $0.isBloodGlucose })
-        state.latestSensorGlucose = glucoseValues.last(where: { $0.isSensorGlucose || $0.isFaultyGlucose })
+        state.latestGlucose = addedGlucoseValues.last
+        state.latestBloodGlucose = addedGlucoseValues.last(where: { $0.isBloodGlucose })
+        state.latestSensorGlucose = addedGlucoseValues.last(where: { $0.isSensorGlucose || $0.isFaultyGlucose })
         state.missedReadings = 0
         
     case .addMissedReading:
@@ -48,7 +38,6 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         state.customCalibration = []
         
     case .clearGlucoseValues:
-        state.glucoseValues = []
         state.latestGlucose = nil
         state.latestBloodGlucose = nil
         state.latestSensorGlucose = nil
@@ -68,15 +57,13 @@ func directReducer(state: inout DirectState, action: DirectAction) {
     case .registerConnectionInfo(infos: let infos):
         state.connectionInfos.append(contentsOf: infos)
         
-    case .removeCalibration(calibration: let calibration):
+    case .deleteCalibration(calibration: let calibration):
         state.customCalibration = state.customCalibration.filter { item in
             item.id != calibration.id
         }
         
-    case .removeGlucose(glucose: let glucose):
-        state.glucoseValues = state.glucoseValues.filter { item in
-            item.id != glucose.id
-        }
+    case .deleteGlucose(glucose: _):
+        break
         
     case .requestAppleCalendarAccess(enabled: _):
         break
@@ -181,6 +168,9 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         
     case .setGlucoseUnit(unit: let unit):
         state.glucoseUnit = unit
+        
+    case .setGlucoseValues(glucoseValues: let glucoseValues):
+        state.glucoseValues = glucoseValues
         
     case .setHighGlucoseAlarmSound(sound: let sound):
         state.highGlucoseAlarmSound = sound

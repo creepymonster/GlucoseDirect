@@ -5,21 +5,18 @@
 
 import Foundation
 
-enum GlucoseType: Equatable, Codable {
+enum GlucoseType: String, Codable {
     case cgm
     case bgm
-    case faulty(SensorReadingQuality)
+    case faulty
 
     // MARK: Internal
 
+    var description: String {
+        rawValue
+    }
+
     var localizedString: String {
-        switch self {
-        case .cgm:
-            return LocalizedString("CGM")
-        case .bgm:
-            return LocalizedString("BGM")
-        case .faulty(quality: let quality):
-            return LocalizedString("Failure: \(quality.description)")
-        }
+        LocalizedString(rawValue)
     }
 }

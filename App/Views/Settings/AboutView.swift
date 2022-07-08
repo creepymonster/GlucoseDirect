@@ -100,6 +100,10 @@ struct AboutView: View {
                 secondaryButton: .cancel()
             )
         }
+        
+        Button("Delete glucose values", action: {
+            store.dispatch(.clearGlucoseValues)
+        })
     }
 
     // MARK: Private

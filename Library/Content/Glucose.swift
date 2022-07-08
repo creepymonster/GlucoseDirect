@@ -7,14 +7,23 @@ import Foundation
 
 // MARK: - Glucose
 
-class Glucose: CustomStringConvertible, Codable, Identifiable {
+struct Glucose: CustomStringConvertible, Codable, Identifiable {
     // MARK: Lifecycle
 
-    private init(timestamp: Date, rawGlucoseValue: Int?, glucoseValue: Int?, minuteChange: Double?, type: GlucoseType) {
+    init(timestamp: Date, rawGlucoseValue: Int?, intGlucoseValue: Int?, minuteChange: Double?, type: GlucoseType) {
         self.id = UUID()
         self.timestamp = timestamp.toRounded(on: 1, .minute)
         self.rawGlucoseValue = rawGlucoseValue
-        self.uncheckedGlucoseValue = glucoseValue
+        self.intGlucoseValue = intGlucoseValue
+        self.minuteChange = minuteChange
+        self.type = type
+    }
+
+    init(id: UUID, timestamp: Date, rawGlucoseValue: Int?, intGlucoseValue: Int?, minuteChange: Double?, type: GlucoseType) {
+        self.id = id
+        self.timestamp = timestamp.toRounded(on: 1, .minute)
+        self.rawGlucoseValue = rawGlucoseValue
+        self.intGlucoseValue = intGlucoseValue
         self.minuteChange = minuteChange
         self.type = type
     }
@@ -26,17 +35,17 @@ class Glucose: CustomStringConvertible, Codable, Identifiable {
     let minuteChange: Double?
     let rawGlucoseValue: Int?
     let type: GlucoseType
-    let uncheckedGlucoseValue: Int?
+    let intGlucoseValue: Int?
 
     var glucoseValue: Int? {
-        if let uncheckedGlucoseValue = uncheckedGlucoseValue {
-            if uncheckedGlucoseValue <= DirectConfig.minReadableGlucose, isSensorGlucose {
+        if let intGlucoseValue = intGlucoseValue {
+            if intGlucoseValue <= DirectConfig.minReadableGlucose, isSensorGlucose {
                 return DirectConfig.minReadableGlucose
-            } else if uncheckedGlucoseValue >= DirectConfig.maxReadableGlucose, isSensorGlucose {
+            } else if intGlucoseValue >= DirectConfig.maxReadableGlucose, isSensorGlucose {
                 return DirectConfig.maxReadableGlucose
             }
 
-            return uncheckedGlucoseValue
+            return intGlucoseValue
         }
 
         return nil
@@ -64,23 +73,23 @@ class Glucose: CustomStringConvertible, Codable, Identifiable {
 
 extension Glucose {
     static func sensorGlucose(timestamp: Date, rawGlucoseValue: Int, minuteChange: Double? = nil) -> Glucose {
-        return Glucose(timestamp: timestamp, rawGlucoseValue: rawGlucoseValue, glucoseValue: nil, minuteChange: minuteChange, type: .cgm)
+        return Glucose(timestamp: timestamp, rawGlucoseValue: rawGlucoseValue, intGlucoseValue: nil, minuteChange: minuteChange, type: .cgm)
     }
 
     static func sensorGlucose(timestamp: Date, glucoseValue: Int, minuteChange: Double? = nil) -> Glucose {
-        return Glucose(timestamp: timestamp, rawGlucoseValue: glucoseValue, glucoseValue: glucoseValue, minuteChange: minuteChange, type: .cgm)
+        return Glucose(timestamp: timestamp, rawGlucoseValue: glucoseValue, intGlucoseValue: glucoseValue, minuteChange: minuteChange, type: .cgm)
     }
 
     static func sensorGlucose(timestamp: Date, rawGlucoseValue: Int, glucoseValue: Int, minuteChange: Double? = nil) -> Glucose {
-        return Glucose(timestamp: timestamp, rawGlucoseValue: rawGlucoseValue, glucoseValue: glucoseValue, minuteChange: minuteChange, type: .cgm)
+        return Glucose(timestamp: timestamp, rawGlucoseValue: rawGlucoseValue, intGlucoseValue: glucoseValue, minuteChange: minuteChange, type: .cgm)
     }
 
     static func bloodGlucose(timestamp: Date, glucoseValue: Int) -> Glucose {
-        return Glucose(timestamp: timestamp, rawGlucoseValue: glucoseValue, glucoseValue: glucoseValue, minuteChange: nil, type: .bgm)
+        return Glucose(timestamp: timestamp, rawGlucoseValue: glucoseValue, intGlucoseValue: glucoseValue, minuteChange: nil, type: .bgm)
     }
 
     static func faultySensorGlucose(timestamp: Date, quality: SensorReadingQuality) -> Glucose {
-        return Glucose(timestamp: timestamp, rawGlucoseValue: nil, glucoseValue: nil, minuteChange: nil, type: .faulty(quality))
+        return Glucose(timestamp: timestamp, rawGlucoseValue: nil, intGlucoseValue: nil, minuteChange: nil, type: .faulty)
     }
 
     var isSensorGlucose: Bool {
@@ -92,29 +101,13 @@ extension Glucose {
     }
 
     var isFaultyGlucose: Bool {
-        if case .faulty = type {
-            return true
-        }
-
-        return false
+        type == .faulty
     }
 
-    var is5Minutely: Bool {
+    func isMinutly(ofMinutes: Int) -> Bool {
         let minutes = Calendar.current.component(.minute, from: timestamp)
 
-        return minutes % 5 == 0
-    }
-
-    var is10Minutely: Bool {
-        let minutes = Calendar.current.component(.minute, from: timestamp)
-
-        return minutes % 10 == 0
-    }
-
-    var is15Minutely: Bool {
-        let minutes = Calendar.current.component(.minute, from: timestamp)
-
-        return minutes % 15 == 0
+        return minutes % ofMinutes == 0
     }
 
     func populateChange(previousGlucose: Glucose? = nil) -> Glucose {
@@ -160,7 +153,7 @@ extension Glucose: Equatable {
     }
 }
 
-extension Array where Element: Glucose {
+extension Array where Element == Glucose {
     var doubleValues: [Double] {
         map {
             $0.glucoseValue

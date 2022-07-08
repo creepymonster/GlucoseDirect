@@ -63,12 +63,12 @@ private class ReadAloudService {
             alarm = .high
         }
 
-        if glucose.is5Minutely && alarm != .none || alarm != self.alarm || sensorInterval > 1 {
+        if glucose.isMinutly(ofMinutes: 5) && alarm != .none || alarm != self.alarm || sensorInterval > 1 {
             read(glucoseValue: glucoseValue, glucoseUnit: glucoseUnit, glucoseTrend: glucose.trend, alarm: alarm)
 
             self.glucose = glucose
             self.alarm = alarm
-        } else if glucose.is10Minutely || self.glucose == nil || self.glucose?.trend != glucose.trend || self.glucose?.type != glucose.type {
+        } else if glucose.isMinutly(ofMinutes: 10) || self.glucose == nil || self.glucose?.trend != glucose.trend || self.glucose?.type != glucose.type {
             read(glucoseValue: glucoseValue, glucoseUnit: glucoseUnit, glucoseTrend: glucose.trend)
 
             self.glucose = glucose

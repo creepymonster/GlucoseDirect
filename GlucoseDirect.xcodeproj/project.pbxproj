@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -31,6 +31,7 @@
 		E24B532126B863C00091417F /* GlucoseSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532026B863C00091417F /* GlucoseSettingsView.swift */; };
 		E24B532326B863E20091417F /* AlarmSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532226B863E20091417F /* AlarmSettingsView.swift */; };
 		E24B532526B864020091417F /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532426B864020091417F /* ToggleView.swift */; };
+		E251EEA92878869800E6CDA1 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = E251EEA82878869800E6CDA1 /* GRDB */; };
 		E257088E278354B600896696 /* mute.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E257088D278354B600896696 /* mute.aiff */; };
 		E25762D5279D519200A2E249 /* BellmanSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25762D4279D519200A2E249 /* BellmanSettingsView.swift */; };
 		E2591C5428740E200009F27C /* SensorConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27ED97E2758ADF40099149C /* SensorConnection.swift */; };
@@ -67,6 +68,8 @@
 		E28C1299278AE6A900ECE0DF /* ConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28C1298278AE6A900ECE0DF /* ConnectionView.swift */; };
 		E28C99F12862429B00632384 /* ChartViewCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28C99F02862429B00632384 /* ChartViewCompatibility.swift */; };
 		E292E1B226A608C400011F64 /* NumberSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E292E1B126A608C400011F64 /* NumberSelectorView.swift */; };
+		E294333E2878805A005C8A69 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E294333D2878805A005C8A69 /* DataStore.swift */; };
+		E294334028788066005C8A69 /* GlucoseStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E294333F28788066005C8A69 /* GlucoseStore.swift */; };
 		E298CF04279DEBF500C1C218 /* FactoryCalibrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E298CF03279DEBF500C1C218 /* FactoryCalibrationView.swift */; };
 		E298CF06279DEBFE00C1C218 /* CustomCalibrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E298CF05279DEBFE00C1C218 /* CustomCalibrationView.swift */; };
 		E29ED231268C754F00CBD3F1 /* GlucoseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29ED230268C754F00CBD3F1 /* GlucoseView.swift */; };
@@ -258,6 +261,8 @@
 		E2920481284121CC00DFCCA6 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E2920482284121CC00DFCCA6 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E292E1B126A608C400011F64 /* NumberSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberSelectorView.swift; sourceTree = "<group>"; };
+		E294333D2878805A005C8A69 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		E294333F28788066005C8A69 /* GlucoseStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseStore.swift; sourceTree = "<group>"; };
 		E298CF03279DEBF500C1C218 /* FactoryCalibrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryCalibrationView.swift; sourceTree = "<group>"; };
 		E298CF05279DEBFE00C1C218 /* CustomCalibrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalibrationView.swift; sourceTree = "<group>"; };
 		E29ED230268C754F00CBD3F1 /* GlucoseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseView.swift; sourceTree = "<group>"; };
@@ -363,6 +368,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E27BBA8027AD7DDA00A6B8EE /* HealthKit.framework in Frameworks */,
+				E251EEA92878869800E6CDA1 /* GRDB in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,6 +544,15 @@
 			path = WidgetCenter;
 			sourceTree = "<group>";
 		};
+		E294333C2878803B005C8A69 /* DataStore */ = {
+			isa = PBXGroup;
+			children = (
+				E294333D2878805A005C8A69 /* DataStore.swift */,
+				E294333F28788066005C8A69 /* GlucoseStore.swift */,
+			);
+			path = DataStore;
+			sourceTree = "<group>";
+		};
 		E298CF01279DEB6600C1C218 /* Calibrations */ = {
 			isa = PBXGroup;
 			children = (
@@ -656,6 +671,7 @@
 		E2FCAC3C270741F000FE1CBF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				E294333C2878803B005C8A69 /* DataStore */,
 				E2FCAC4A2707422000FE1CBF /* AppGroupSharing */,
 				E21B2FD227AD9CD000E996DA /* AppleExport */,
 				E2C8F5FC278CD62200519ABD /* BellmanAlarm */,
@@ -785,6 +801,7 @@
 			);
 			name = GlucoseDirectApp;
 			packageProductDependencies = (
+				E251EEA82878869800E6CDA1 /* GRDB */,
 			);
 			productName = GlucoseDirect;
 			productReference = E20B853A266F4A9800AA4224 /* GlucoseDirectApp.app */;
@@ -846,6 +863,7 @@
 			);
 			mainGroup = E20B8531266F4A9800AA4224;
 			packageReferences = (
+				E251EEA72878869800E6CDA1 /* XCRemoteSwiftPackageReference "GRDB" */,
 			);
 			productRefGroup = E20B853B266F4A9800AA4224 /* Products */;
 			projectDirPath = "";
@@ -921,6 +939,7 @@
 				E20B8540266F4A9800AA4224 /* ContentView.swift in Sources */,
 				E283306726AF058500244343 /* ChartView.swift in Sources */,
 				E2FCAC1C270741BC00FE1CBF /* SensorType.swift in Sources */,
+				E294334028788066005C8A69 /* GlucoseStore.swift in Sources */,
 				E24B532526B864020091417F /* ToggleView.swift in Sources */,
 				E201769127AAB96000E6A756 /* AppleHealthExport.swift in Sources */,
 				E2FCAC632707427500FE1CBF /* ExpiringNotification.swift in Sources */,
@@ -979,6 +998,7 @@
 				E2FCAC722707438A00FE1CBF /* DirectConfig.swift in Sources */,
 				E2C19FBC273568BF00B70A73 /* FactoryCalibration.swift in Sources */,
 				E27325A7275543D600D3C41D /* Color.swift in Sources */,
+				E294333E2878805A005C8A69 /* DataStore.swift in Sources */,
 				E2C19FB52735684500B70A73 /* Glucose.swift in Sources */,
 				E2591C5D28740EBB0009F27C /* BellmanConnectionState.swift in Sources */,
 				E2C19FB3273567FE00B70A73 /* SensorReading.swift in Sources */,
@@ -1389,6 +1409,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E251EEA72878869800E6CDA1 /* XCRemoteSwiftPackageReference "GRDB" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/groue/GRDB.swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E251EEA82878869800E6CDA1 /* GRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E251EEA72878869800E6CDA1 /* XCRemoteSwiftPackageReference "GRDB" */;
+			productName = GRDB;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E20B8532266F4A9800AA4224 /* Project object */;
 }

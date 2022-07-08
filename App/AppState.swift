@@ -33,10 +33,6 @@ struct AppState: DirectState {
             UserDefaults.shared.glucoseUnit = UserDefaults.standard.glucoseUnit ?? .mgdL
         }
 
-        if UserDefaults.shared.glucoseValues.isEmpty, !UserDefaults.standard.glucoseValues.isEmpty {
-            UserDefaults.shared.glucoseValues = UserDefaults.standard.glucoseValues
-        }
-
         if let sensor = UserDefaults.standard.sensor, UserDefaults.shared.sensor == nil {
             UserDefaults.shared.sensor = sensor
         }
@@ -64,7 +60,6 @@ struct AppState: DirectState {
         self.expiringAlarmSound = UserDefaults.standard.expiringAlarmSound
         self.glucoseNotification = UserDefaults.standard.glucoseNotification
         self.glucoseUnit = UserDefaults.shared.glucoseUnit ?? .mgdL
-        self.glucoseValues = UserDefaults.shared.glucoseValues
         self.highGlucoseAlarmSound = UserDefaults.standard.highGlucoseAlarmSound
         self.ignoreMute = UserDefaults.standard.ignoreMute
         self.isConnectionPaired = UserDefaults.standard.isConnectionPaired
@@ -93,6 +88,7 @@ struct AppState: DirectState {
     var connectionErrorTimestamp: Date?
     var connectionInfos: [SensorConnectionInfo] = []
     var connectionState: SensorConnectionState = .disconnected
+    var glucoseValues: [Glucose] = []
     var missedReadings = 0
     var preventScreenLock = false
     var selectedConnection: SensorConnectionProtocol?
@@ -173,12 +169,6 @@ struct AppState: DirectState {
     var glucoseUnit: GlucoseUnit {
         didSet {
             UserDefaults.shared.glucoseUnit = glucoseUnit
-        }
-    }
-
-    var glucoseValues: [Glucose] {
-        didSet {
-            UserDefaults.shared.glucoseValues = glucoseValues
         }
     }
 

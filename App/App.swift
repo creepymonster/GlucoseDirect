@@ -66,6 +66,7 @@ final class GlucoseDirectApp: App {
 
         var middlewares = [
             logMiddleware(),
+            glucoseStoreMiddleware(),
             expiringNotificationMiddelware(),
             glucoseNotificationMiddelware(),
             connectionNotificationMiddelware(),
@@ -91,6 +92,7 @@ final class GlucoseDirectApp: App {
 
         var middlewares = [
             logMiddleware(),
+            glucoseStoreMiddleware(),
             expiringNotificationMiddelware(),
             glucoseNotificationMiddelware(),
             connectionNotificationMiddelware(),

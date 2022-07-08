@@ -90,7 +90,7 @@ struct ListView: View {
 
                         deletables.forEach { delete in
                             glucoseValues.remove(at: delete.index)
-                            store.dispatch(.removeGlucose(glucose: delete.glucose))
+                            store.dispatch(.deleteGlucose(glucose: delete.glucose))
                         }
                     }
                 },

@@ -19,8 +19,8 @@ private func nightscoutMiddleware(service: LazyService<NightscoutService>) -> Mi
 
         if state.nightscoutUpload, !nightscoutURL.isEmpty, !nightscoutApiSecret.isEmpty {
             switch action {
-            case .removeGlucose(glucose: let glucose):
-                service.value.removeGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), date: glucose.timestamp)
+            case .deleteGlucose(glucose: let glucose):
+                service.value.deleteGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), date: glucose.timestamp)
 
             case .clearGlucoseValues:
                 service.value.clearGlucoseValues(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1())
@@ -139,7 +139,7 @@ private class NightscoutService {
         task.resume()
     }
 
-    func removeGlucose(nightscoutURL: String, apiSecret: String, date: Date) {
+    func deleteGlucose(nightscoutURL: String, apiSecret: String, date: Date) {
         let session = URLSession.shared
 
         let urlString = "\(nightscoutURL)/api/v1/entries?find[device]=\(DirectConfig.projectName)&find[dateString]=\(date.toISOStringFromDate())"
