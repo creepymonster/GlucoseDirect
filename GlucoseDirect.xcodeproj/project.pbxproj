@@ -390,7 +390,7 @@
 				E247D8E426B7D70A00BDAF89 /* GlucoseDirect.xcconfig */,
 				E20B853C266F4A9800AA4224 /* App */,
 				E24474432859CA9600F8891C /* AppWidgets */,
-				E2218B87284F9E7300DB5A55 /* Library */,
+				E2218B87284F9E7300DB5A55 /* AppLibrary */,
 				E27BFC0126B1407E00F8FBEF /* Frameworks */,
 				E20B853B266F4A9800AA4224 /* Products */,
 			);
@@ -438,7 +438,7 @@
 			path = AppleExport;
 			sourceTree = "<group>";
 		};
-		E2218B87284F9E7300DB5A55 /* Library */ = {
+		E2218B87284F9E7300DB5A55 /* AppLibrary */ = {
 			isa = PBXGroup;
 			children = (
 				E2FCAC6D2707438A00FE1CBF /* DirectAction.swift */,
@@ -453,7 +453,7 @@
 				E20B8541266F4A9900AA4224 /* Assets.xcassets */,
 				E2FCAC89270743E200FE1CBF /* Localizable.strings */,
 			);
-			path = Library;
+			path = AppLibrary;
 			sourceTree = "<group>";
 		};
 		E24474432859CA9600F8891C /* AppWidgets */ = {
