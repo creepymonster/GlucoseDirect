@@ -143,6 +143,7 @@ extension DataStore {
             do {
                 return try dbQueue.read { db in
                     try SensorGlucose
+                        .filter(Column(SensorGlucose.Columns.timestamp.name) > Calendar.current.date(byAdding: .day, value: -3, to: Date())!)
                         .order(Column(SensorGlucose.Columns.timestamp.name))
                         .fetchAll(db)
                 }

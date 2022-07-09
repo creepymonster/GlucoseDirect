@@ -138,6 +138,7 @@ extension DataStore {
             do {
                 return try dbQueue.read { db in
                     try BloodGlucose
+                        .filter(Column(BloodGlucose.Columns.timestamp.name) > Calendar.current.date(byAdding: .day, value: -3, to: Date())!)
                         .order(Column(BloodGlucose.Columns.timestamp.name))
                         .fetchAll(db)
                 }
