@@ -16,6 +16,7 @@ protocol DirectState {
     var appleHealthExport: Bool { get set }
     var bellmanAlarm: Bool { get set }
     var bellmanConnectionState: BellmanConnectionState { get set }
+    var bloodGlucoseValues: [BloodGlucose] { get set }
     var chartShowLines: Bool { get set }
     var chartZoomLevel: Int { get set }
     var connectionAlarmSound: NotificationSound { get set }
@@ -29,13 +30,11 @@ protocol DirectState {
     var expiringAlarmSound: NotificationSound { get set }
     var glucoseNotification: Bool { get set }
     var glucoseUnit: GlucoseUnit { get set }
-    var glucoseValues: [Glucose] { get set }
     var highGlucoseAlarmSound: NotificationSound { get set }
     var ignoreMute: Bool { get set }
     var isConnectionPaired: Bool { get set }
-    var latestGlucose: Glucose? { get set }
-    var latestBloodGlucose: Glucose? { get set }
-    var latestSensorGlucose: Glucose? { get set }
+    var latestBloodGlucose: BloodGlucose? { get set }
+    var latestSensorGlucose: SensorGlucose? { get set }
     var lowGlucoseAlarmSound: NotificationSound { get set }
     var missedReadings: Int { get set }
     var nightscoutApiSecret: String { get set }
@@ -48,14 +47,15 @@ protocol DirectState {
     var selectedConnectionID: String? { get set }
     var selectedView: Int { get set }
     var sensor: Sensor? { get set }
+    var sensorGlucoseValues: [SensorGlucose] { get set }
     var sensorInterval: Int { get set }
     var targetValue: Int { get set }
     var transmitter: Transmitter? { get set }
 }
 
-extension DirectState {
+extension DirectState {   
     var hasGlucoseValues: Bool {
-        latestGlucose != nil
+        !bloodGlucoseValues.isEmpty || !sensorGlucoseValues.isEmpty
     }
 
     var hasConnectionAlarm: Bool {

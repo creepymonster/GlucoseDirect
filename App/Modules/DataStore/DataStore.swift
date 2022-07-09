@@ -17,12 +17,6 @@ class DataStore {
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let path = documentDirectory.appendingPathComponent(filename)
         
-        /*do {
-            try FileManager.default.removeItem(at: path)
-        } catch let error as NSError {
-            print("Error: \(error.domain)")
-        }*/
-
         do {
             dbQueue = try DatabaseQueue(path: path.absoluteString)
         } catch {

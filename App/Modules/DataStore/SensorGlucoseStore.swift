@@ -1,5 +1,5 @@
 //
-//  GlucoseStore.swift
+//  SensorGlucoseStore.swift
 //  GlucoseDirectApp
 //
 //  https://github.com/groue/GRDB.swift
@@ -9,34 +9,34 @@ import Combine
 import Foundation
 import GRDB
 
-func glucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
+func sensorGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
     return { _, action, _ in
         switch action {
         case .startup:
-            DataStore.shared.createGlucoseTable()
+            DataStore.shared.createSensorGlucoseTable()
 
-            return Just(.setGlucoseValues(glucoseValues: DataStore.shared.getGlucose()))
+            return Just(.setSensorGlucoseValues(glucoseValues: DataStore.shared.getSensorGlucose()))
                 .setFailureType(to: AppError.self)
                 .eraseToAnyPublisher()
 
-        case .addGlucose(glucoseValues: let glucoseValues):
-            DataStore.shared.insertGlucose(glucoseValues)
+        case .addSensorGlucose(glucoseValues: let glucoseValues):
+            DataStore.shared.insertSensorGlucose(glucoseValues)
 
-            return Just(.setGlucoseValues(glucoseValues: DataStore.shared.getGlucose()))
+            return Just(.setSensorGlucoseValues(glucoseValues: DataStore.shared.getSensorGlucose()))
                 .setFailureType(to: AppError.self)
                 .eraseToAnyPublisher()
 
-        case .deleteGlucose(glucose: let glucose):
-            DataStore.shared.deleteGlucose(glucose)
+        case .deleteSensorGlucose(glucose: let glucose):
+            DataStore.shared.deleteSensorGlucose(glucose)
 
-            return Just(.setGlucoseValues(glucoseValues: DataStore.shared.getGlucose()))
+            return Just(.setSensorGlucoseValues(glucoseValues: DataStore.shared.getSensorGlucose()))
                 .setFailureType(to: AppError.self)
                 .eraseToAnyPublisher()
             
-        case .clearGlucoseValues:
-            DataStore.shared.deleteAllGlucose()
+        case .clearSensorGlucoseValues:
+            DataStore.shared.deleteAllSensorGlucose()
             
-            return Just(.setGlucoseValues(glucoseValues: []))
+            return Just(.setSensorGlucoseValues(glucoseValues: []))
                 .setFailureType(to: AppError.self)
                 .eraseToAnyPublisher()
 
@@ -48,49 +48,47 @@ func glucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
     }
 }
 
-// MARK: - StoredGlucose
+// MARK: - StoredSensorGlucose
 
-struct StoredGlucose: Codable, FetchableRecord, PersistableRecord {
+struct StoredSensorGlucose: Codable, FetchableRecord, PersistableRecord {
     enum Columns: String, ColumnExpression {
         case id
         case timestamp
         case minuteChange
         case rawGlucoseValue
-        case rawType
         case intGlucoseValue
     }
 
     static var Table: String {
-        "StoredGlucose"
+        "StoredSensorGlucose"
     }
 
     var id: String
     var timestamp: Date
     var minuteChange: Double?
-    var rawGlucoseValue: Int?
-    var rawType: String
-    var intGlucoseValue: Int?
+    var rawGlucoseValue: Int
+    var intGlucoseValue: Int
 }
 
 extension DataStore {
-    func createGlucoseTable() {
+    func createSensorGlucoseTable() {
         if let dbQueue = dbQueue {
             do {
                 try dbQueue.write { db in
-                    try db.create(table: StoredGlucose.Table, ifNotExists: true) { t in
+                    try db.create(table: StoredSensorGlucose.Table, ifNotExists: true) { t in
                         t.autoIncrementedPrimaryKey(primaryKeyColumn)
-                        t.column(StoredGlucose.Columns.id.name, .text)
+                        t.column(StoredSensorGlucose.Columns.id.name, .text)
                             .notNull()
                             .unique()
                             .indexed()
-                        t.column(StoredGlucose.Columns.timestamp.name, .date)
+                        t.column(StoredSensorGlucose.Columns.timestamp.name, .date)
                             .notNull()
                             .indexed()
-                        t.column(StoredGlucose.Columns.minuteChange.name, .double)
-                        t.column(StoredGlucose.Columns.rawGlucoseValue.name, .integer)
-                        t.column(StoredGlucose.Columns.rawType.name, .text)
+                        t.column(StoredSensorGlucose.Columns.minuteChange.name, .double)
+                        t.column(StoredSensorGlucose.Columns.rawGlucoseValue.name, .integer)
                             .notNull()
-                        t.column(StoredGlucose.Columns.intGlucoseValue.name, .integer)
+                        t.column(StoredSensorGlucose.Columns.intGlucoseValue.name, .integer)
+                            .notNull()
                     }
                 }
             } catch {
@@ -99,12 +97,12 @@ extension DataStore {
         }
     }
 
-    func deleteAllGlucose() {
+    func deleteAllSensorGlucose() {
         if let dbQueue = dbQueue {
             do {
                 try dbQueue.write { db in
                     do {
-                        try StoredGlucose.deleteAll(db)
+                        try StoredSensorGlucose.deleteAll(db)
                     } catch {
                         DirectLog.error(error.localizedDescription)
                     }
@@ -115,12 +113,12 @@ extension DataStore {
         }
     }
 
-    func deleteGlucose(_ value: Glucose) {
+    func deleteSensorGlucose(_ value: SensorGlucose) {
         if let dbQueue = dbQueue {
             do {
                 try dbQueue.write { db in
                     do {
-                        try StoredGlucose.deleteOne(db, key: [StoredGlucose.Columns.id.name: value.id.uuidString])
+                        try StoredSensorGlucose.deleteOne(db, key: [StoredSensorGlucose.Columns.id.name: value.id.uuidString])
                     } catch {
                         DirectLog.error(error.localizedDescription)
                     }
@@ -131,13 +129,13 @@ extension DataStore {
         }
     }
 
-    func insertGlucose(_ values: [Glucose]) {
+    func insertSensorGlucose(_ values: [SensorGlucose]) {
         if let dbQueue = dbQueue {
             do {
                 try dbQueue.write { db in
                     values.forEach { value in
                         do {
-                            try StoredGlucose(id: value.id.uuidString, timestamp: value.timestamp, minuteChange: value.minuteChange, rawGlucoseValue: value.rawGlucoseValue, rawType: value.type.rawValue, intGlucoseValue: value.intGlucoseValue).insert(db)
+                            try StoredSensorGlucose(id: value.id.uuidString, timestamp: value.timestamp, minuteChange: value.minuteChange, rawGlucoseValue: value.rawGlucoseValue, intGlucoseValue: value.intGlucoseValue).insert(db)
                         } catch {
                             DirectLog.error(error.localizedDescription)
                         }
@@ -149,17 +147,17 @@ extension DataStore {
         }
     }
 
-    func getGlucose(limit: Int? = nil) -> [Glucose] {
+    func getSensorGlucose(limit: Int? = nil) -> [SensorGlucose] {
         if let dbQueue = dbQueue {
             do {
-                let storedGlucoseValues: [StoredGlucose] = try dbQueue.read { db in
-                    try StoredGlucose
-                        .order(Column(StoredGlucose.Columns.timestamp.name))
+                let StoredSensorGlucoseValues: [StoredSensorGlucose] = try dbQueue.read { db in
+                    try StoredSensorGlucose
+                        .order(Column(StoredSensorGlucose.Columns.timestamp.name))
                         .fetchAll(db)
                 }
 
-                return storedGlucoseValues.map { storedGlucose in
-                    Glucose(id: UUID(uuidString: storedGlucose.id)!, timestamp: storedGlucose.timestamp, rawGlucoseValue: storedGlucose.rawGlucoseValue, intGlucoseValue: storedGlucose.intGlucoseValue, minuteChange: storedGlucose.minuteChange, type: GlucoseType(rawValue: storedGlucose.rawType)!)
+                return StoredSensorGlucoseValues.map { StoredSensorGlucose in
+                    SensorGlucose(id: UUID(uuidString: StoredSensorGlucose.id)!, timestamp: StoredSensorGlucose.timestamp, rawGlucoseValue: StoredSensorGlucose.rawGlucoseValue, intGlucoseValue: StoredSensorGlucose.intGlucoseValue, minuteChange: StoredSensorGlucose.minuteChange)
                 }
             } catch {
                 DirectLog.error(error.localizedDescription)

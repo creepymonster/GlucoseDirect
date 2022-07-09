@@ -63,7 +63,6 @@ struct AppState: DirectState {
         self.highGlucoseAlarmSound = UserDefaults.standard.highGlucoseAlarmSound
         self.ignoreMute = UserDefaults.standard.ignoreMute
         self.isConnectionPaired = UserDefaults.standard.isConnectionPaired
-        self.latestGlucose = UserDefaults.shared.latestGlucose
         self.latestBloodGlucose = UserDefaults.shared.latestBloodGlucose
         self.latestSensorGlucose = UserDefaults.shared.latestSensorGlucose
         self.lowGlucoseAlarmSound = UserDefaults.standard.lowGlucoseAlarmSound
@@ -88,35 +87,17 @@ struct AppState: DirectState {
     var connectionErrorTimestamp: Date?
     var connectionInfos: [SensorConnectionInfo] = []
     var connectionState: SensorConnectionState = .disconnected
-    var glucoseValues: [Glucose] = []
+    var bloodGlucoseValues: [BloodGlucose] = []
+    var sensorGlucoseValues: [SensorGlucose] = []
     var missedReadings = 0
     var preventScreenLock = false
     var selectedConnection: SensorConnectionProtocol?
     var targetValue = 100
 
-    var alarmHigh: Int = 160 {
-        didSet {
-            UserDefaults.standard.alarmHigh = alarmHigh
-        }
-    }
-
-    var alarmLow: Int = 80 {
-        didSet {
-            UserDefaults.standard.alarmLow = alarmLow
-        }
-    }
-
-    var appleCalendarExport: Bool = false {
-        didSet {
-            UserDefaults.standard.appleCalendarExport = appleCalendarExport
-        }
-    }
-
-    var appleHealthExport = false {
-        didSet {
-            UserDefaults.standard.appleHealthExport = appleHealthExport
-        }
-    }
+    var alarmHigh: Int = 160 { didSet { UserDefaults.standard.alarmHigh = alarmHigh } }
+    var alarmLow: Int = 80 { didSet { UserDefaults.standard.alarmLow = alarmLow } }
+    var appleCalendarExport: Bool { didSet { UserDefaults.standard.appleCalendarExport = appleCalendarExport } }
+    var appleHealthExport: Bool { didSet { UserDefaults.standard.appleHealthExport = appleHealthExport } }
 
     var bellmanAlarm = false {
         didSet {
@@ -190,19 +171,13 @@ struct AppState: DirectState {
         }
     }
 
-    var latestGlucose: Glucose? {
-        didSet {
-            UserDefaults.shared.latestGlucose = latestGlucose
-        }
-    }
-
-    var latestBloodGlucose: Glucose? {
+    var latestBloodGlucose: BloodGlucose? {
         didSet {
             UserDefaults.shared.latestBloodGlucose = latestBloodGlucose
         }
     }
 
-    var latestSensorGlucose: Glucose? {
+    var latestSensorGlucose: SensorGlucose? {
         didSet {
             UserDefaults.shared.latestSensorGlucose = latestSensorGlucose
         }

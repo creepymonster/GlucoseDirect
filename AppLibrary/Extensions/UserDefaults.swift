@@ -24,7 +24,6 @@ private enum Keys: String {
     case highGlucoseAlarmSound = "libre-direct.settings.high-glucose-alarm-sound"
     case ignoreMute = "libre-direct.settings.ignore-mute"
     case isConnectionPaired = "libre-direct.settings.is-paired"
-    case latestGlucose = "libre-direct.settings.latest-glucose"
     case latestBloodGlucose = "libre-direct.settings.latest-blood-glucose"
     case latestSensorGlucose = "libre-direct.settings.latest-sensor-glucose"
     case lowGlucoseAlarmSound = "libre-direct.settings.low-glucose-alarm-sound"
@@ -267,20 +266,7 @@ extension UserDefaults {
         }
     }
 
-    var latestGlucose: Glucose? {
-        get {
-            return getObject(forKey: Keys.latestGlucose.rawValue)
-        }
-        set {
-            if let newValue = newValue {
-                setObject(newValue, forKey: Keys.latestGlucose.rawValue)
-            } else {
-                removeObject(forKey: Keys.latestGlucose.rawValue)
-            }
-        }
-    }
-
-    var latestBloodGlucose: Glucose? {
+    var latestBloodGlucose: BloodGlucose? {
         get {
             return getObject(forKey: Keys.latestBloodGlucose.rawValue)
         }
@@ -293,7 +279,7 @@ extension UserDefaults {
         }
     }
 
-    var latestSensorGlucose: Glucose? {
+    var latestSensorGlucose: SensorGlucose? {
         get {
             return getObject(forKey: Keys.latestSensorGlucose.rawValue)
         }

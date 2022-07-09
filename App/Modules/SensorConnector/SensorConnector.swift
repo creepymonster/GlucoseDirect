@@ -60,16 +60,20 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             }
 
         case .addSensorReadings(sensorSerial: _, readings: let readings):
+            guard let lastReading = readings.last, lastReading.quality == .OK else {
+                break
+            }
+            
             let readGlucoseValues = readings.map { reading in
                 reading.calibrate(customCalibration: state.customCalibration)
-            }
+            }.compactMap { $0 }
 
             let stdev = readGlucoseValues.count >= 5 ? readGlucoseValues.suffix(5).stdev : 0
             let intervalSeconds = Double(state.sensorInterval * 60 - 30)
 
             DirectLog.info("Stdev \(stdev) of \(readGlucoseValues.suffix(5).doubleValues)")
 
-            var previousGlucose = state.glucoseValues.last
+            var previousGlucose = state.sensorGlucoseValues.last
             let glucoseValues = readGlucoseValues.filter { reading in
                 previousGlucose == nil || previousGlucose!.timestamp + intervalSeconds < reading.timestamp
             }.map {
@@ -87,7 +91,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
                 break
             }
 
-            return Just(.addGlucose(glucoseValues: glucoseValues))
+            return Just(.addSensorGlucose(glucoseValues: glucoseValues))
                 .setFailureType(to: AppError.self)
                 .eraseToAnyPublisher()
 

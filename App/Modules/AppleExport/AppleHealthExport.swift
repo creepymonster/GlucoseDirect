@@ -38,7 +38,20 @@ private func appleHealthExportMiddleware(service: LazyService<AppleHealthExportS
                     .eraseToAnyPublisher()
             }
 
-        case .addGlucose(glucoseValues: let glucoseValues):
+        case .addBloodGlucose(glucoseValues: let glucoseValues):
+            guard state.appleHealthExport else {
+                DirectLog.info("Guard: state.appleHealth is false")
+                break
+            }
+
+            guard service.value.healthStoreAvailable else {
+                DirectLog.info("Guard: HKHealthStore.isHealthDataAvailable is false")
+                break
+            }
+
+            service.value.addGlucose(glucoseValues: glucoseValues)
+
+        case .addSensorGlucose(glucoseValues: let glucoseValues):
             guard state.appleHealthExport else {
                 DirectLog.info("Guard: state.appleHealth is false")
                 break
@@ -100,7 +113,7 @@ private class AppleHealthExportService {
         }
     }
 
-    func addGlucose(glucoseValues: [Glucose]) {
+    func addGlucose(glucoseValues: [any Glucose]) {
         guard let healthStore = healthStore else {
             return
         }
@@ -111,12 +124,10 @@ private class AppleHealthExportService {
                 return
             }
 
-            let healthGlucoseValues = glucoseValues.filter { glucose in
-                (glucose.isBloodGlucose || glucose.isSensorGlucose) && glucose.glucoseValue != nil
-            }.map { glucose in
+            let healthGlucoseValues = glucoseValues.map { glucose in
                 HKQuantitySample(
                     type: self.glucoseType,
-                    quantity: HKQuantity(unit: .milligramsPerDeciliter, doubleValue: Double(glucose.glucoseValue!)),
+                    quantity: HKQuantity(unit: .milligramsPerDeciliter, doubleValue: Double(glucose.glucoseValue)),
                     start: glucose.timestamp,
                     end: glucose.timestamp,
                     metadata: [

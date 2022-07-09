@@ -102,7 +102,8 @@ struct AboutView: View {
         }
         
         Button("Delete glucose values", action: {
-            store.dispatch(.clearGlucoseValues)
+            store.dispatch(.clearSensorGlucoseValues)
+            store.dispatch(.clearBloodGlucoseValues)
         })
     }
 

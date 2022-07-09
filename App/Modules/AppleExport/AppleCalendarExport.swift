@@ -38,7 +38,7 @@ private func appleCalendarExportMiddleware(service: LazyService<AppleCalendarExp
                     .eraseToAnyPublisher()
             }
 
-        case .addGlucose(glucoseValues: let glucoseValues):
+        case .addSensorGlucose(glucoseValues: let glucoseValues):
             guard state.appleCalendarExport else {
                 DirectLog.info("Guard: state.calendarExport disabled")
                 break
@@ -53,12 +53,7 @@ private func appleCalendarExportMiddleware(service: LazyService<AppleCalendarExp
                 break
             }
 
-            guard glucose.isSensorGlucose else {
-                DirectLog.info("Guard: glucose.type is not .cgm")
-                break
-            }
-
-            service.value.addGlucose(calendarTarget: calendarTarget, glucose: glucose, glucoseUnit: state.glucoseUnit)
+            service.value.addSensorGlucose(calendarTarget: calendarTarget, glucose: glucose, glucoseUnit: state.glucoseUnit)
 
         default:
             break
@@ -119,7 +114,7 @@ class AppleCalendarExportService {
         }
     }
 
-    func addGlucose(calendarTarget: String, glucose: Glucose, glucoseUnit: GlucoseUnit) {
+    func addSensorGlucose(calendarTarget: String, glucose: SensorGlucose, glucoseUnit: GlucoseUnit) {
         if calendar == nil || calendar?.title != calendarTarget {
             calendar = eventStore.calendars(for: .event).first(where: { $0.title == calendarTarget })
         }
@@ -130,12 +125,8 @@ class AppleCalendarExportService {
 
         clearGlucoseEvents()
 
-        guard let glucoseValue = glucose.glucoseValue else {
-            return
-        }
-
         let event = EKEvent(eventStore: eventStore)
-        event.title = "\(glucose.trend.description) \(glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true))"
+        event.title = "\(glucose.trend.description) \(glucose.glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true))"
 
         if let minuteChange = glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
             event.location = minuteChange

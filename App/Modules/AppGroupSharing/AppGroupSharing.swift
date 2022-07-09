@@ -19,10 +19,6 @@ private func appGroupSharingMiddleware(service: LazyService<AppGroupSharingServi
             service.value.clearAll()
             service.value.setApp(app: DirectConfig.appName, appVersion: "\(DirectConfig.appVersion) (\(DirectConfig.appBuild))")
 
-            if let glucose = state.latestGlucose {
-                service.value.addGlucose(glucoseValues: [glucose])
-            }
-
         case .selectConnection(id: _, connection: _):
             service.value.clearAll()
 
@@ -40,8 +36,8 @@ private func appGroupSharingMiddleware(service: LazyService<AppGroupSharingServi
 
         case .pairConnection:
             service.value.clearGlucoseValues()
-
-        case .addGlucose(glucoseValues: let glucoseValues):
+            
+        case .addBloodGlucose(glucoseValues: let glucoseValues):
             if let sensor = state.sensor {
                 service.value.setSensor(sensor: sensor.type.localizedString, sensorState: sensor.state.localizedString, sensorConnectionState: state.connectionState.localizedString)
             } else {
@@ -58,7 +54,26 @@ private func appGroupSharingMiddleware(service: LazyService<AppGroupSharingServi
                 break
             }
 
-            service.value.addGlucose(glucoseValues: [glucose])
+            service.value.addBloodGlucose(glucoseValues: [glucose])
+
+        case .addSensorGlucose(glucoseValues: let glucoseValues):
+            if let sensor = state.sensor {
+                service.value.setSensor(sensor: sensor.type.localizedString, sensorState: sensor.state.localizedString, sensorConnectionState: state.connectionState.localizedString)
+            } else {
+                service.value.setSensor(sensor: nil, sensorState: nil, sensorConnectionState: nil)
+            }
+
+            if let transmitter = state.transmitter {
+                service.value.setTransmitter(transmitter: transmitter.name, transmitterBattery: "\(transmitter.battery)%", transmitterHardware: transmitter.hardware?.description, transmitterFirmware: transmitter.firmware?.description)
+            } else {
+                service.value.setTransmitter(transmitter: nil, transmitterBattery: nil, transmitterHardware: nil, transmitterFirmware: nil)
+            }
+
+            guard let glucose = glucoseValues.last else {
+                break
+            }
+
+            service.value.addSensorGlucose(glucoseValues: [glucose])
 
         default:
             break
@@ -119,8 +134,20 @@ private class AppGroupSharingService {
         UserDefaults.shared.sharedTransmitterHardware = transmitterHardware
         UserDefaults.shared.sharedTransmitterFirmware = transmitterFirmware
     }
+    
+    func addBloodGlucose(glucoseValues: [BloodGlucose]) {
+        let sharedValues = glucoseValues
+            .map { $0.toFreeAPS() }
+            .compactMap { $0 }
 
-    func addGlucose(glucoseValues: [Glucose]) {
+        guard let sharedValuesJson = try? JSONSerialization.data(withJSONObject: sharedValues) else {
+            return
+        }
+
+        UserDefaults.shared.sharedGlucose = sharedValuesJson
+    }
+
+    func addSensorGlucose(glucoseValues: [SensorGlucose]) {
         let sharedValues = glucoseValues
             .map { $0.toFreeAPS() }
             .compactMap { $0 }
@@ -133,12 +160,24 @@ private class AppGroupSharingService {
     }
 }
 
-private extension Glucose {
+private extension BloodGlucose {
     func toFreeAPS() -> [String: Any]? {
-        guard let glucoseValue = glucoseValue, !isFaultyGlucose else {
-            return nil
-        }
+        let date = "/Date(" + Int64(floor(timestamp.toMillisecondsAsDouble() / 1000) * 1000).description + ")/"
 
+        let freeAPSGlucose: [String: Any] = [
+            "Value": glucoseValue,
+            "Trend": SensorTrend.unknown.toNightscoutTrend(),
+            "DT": date,
+            "direction": SensorTrend.unknown.toNightscoutDirection(),
+            "from": DirectConfig.projectName
+        ]
+
+        return freeAPSGlucose
+    }
+}
+
+private extension SensorGlucose {
+    func toFreeAPS() -> [String: Any]? {
         let date = "/Date(" + Int64(floor(timestamp.toMillisecondsAsDouble() / 1000) * 1000).description + ")/"
 
         let freeAPSGlucose: [String: Any] = [
@@ -152,3 +191,4 @@ private extension Glucose {
         return freeAPSGlucose
     }
 }
+

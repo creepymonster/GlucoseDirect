@@ -37,8 +37,8 @@ struct ListView: View {
                             Button(
                                 action: {
                                     withAnimation {
-                                        let glucose = Glucose.bloodGlucose(timestamp: Date(), glucoseValue: value)
-                                        store.dispatch(.addGlucose(glucoseValues: [glucose]))
+                                        let glucose = BloodGlucose(id: UUID(), timestamp: Date(), glucoseValue: value)
+                                        store.dispatch(.addBloodGlucose(glucoseValues: [glucose]))
 
                                         showingAddBloodGlucoseView = false
                                     }
@@ -58,39 +58,59 @@ struct ListView: View {
                     }
                 })
             }
-
+            
             Section(
                 content: {
-                    ForEach(glucoseValues) { glucose in
+                    ForEach(bloodGlucoseValues) { glucose in
                         HStack {
                             Text(glucose.timestamp.toLocalDateTime())
                             Spacer()
 
-                            if glucose.isBloodGlucose {
-                                Image(systemName: "drop.fill")
-                                    .foregroundColor(Color.ui.red)
-                            }
-
-                            if let glucoseValue = glucose.glucoseValue {
-                                Text(glucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true, precise: isPrecise(glucose: glucose)))
-                                    .if(glucoseValue < store.state.alarmLow || glucoseValue > store.state.alarmHigh) { text in
-                                        text.foregroundColor(Color.ui.red)
-                                    }
-                            } else {
-                                Image(systemName: "exclamationmark.triangle")
-                                    .foregroundColor(Color.ui.red)
-                            }
+                            Text(glucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true))
+                                .if(glucose.glucoseValue < store.state.alarmLow || glucose.glucoseValue > store.state.alarmHigh) { text in
+                                    text.foregroundColor(Color.ui.red)
+                                }
                         }
                     }.onDelete { offsets in
                         DirectLog.info("onDelete: \(offsets)")
 
                         let deletables = offsets.map { i in
-                            (index: i, glucose: glucoseValues[i])
+                            (index: i, glucose: bloodGlucoseValues[i])
                         }
 
                         deletables.forEach { delete in
-                            glucoseValues.remove(at: delete.index)
-                            store.dispatch(.deleteGlucose(glucose: delete.glucose))
+                            bloodGlucoseValues.remove(at: delete.index)
+                            store.dispatch(.deleteBloodGlucose(glucose: delete.glucose))
+                        }
+                    }
+                },
+                header: {
+                    Label("Glucose values", systemImage: "drop")
+                }
+            )
+
+            Section(
+                content: {
+                    ForEach(sensorGlucoseValues) { glucose in
+                        HStack {
+                            Text(glucose.timestamp.toLocalDateTime())
+                            Spacer()
+
+                            Text(glucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true, precise: isPrecise(glucose: glucose)))
+                                .if(glucose.glucoseValue < store.state.alarmLow || glucose.glucoseValue > store.state.alarmHigh) { text in
+                                    text.foregroundColor(Color.ui.red)
+                                }
+                        }
+                    }.onDelete { offsets in
+                        DirectLog.info("onDelete: \(offsets)")
+
+                        let deletables = offsets.map { i in
+                            (index: i, glucose: sensorGlucoseValues[i])
+                        }
+
+                        deletables.forEach { delete in
+                            sensorGlucoseValues.remove(at: delete.index)
+                            store.dispatch(.deleteSensorGlucose(glucose: delete.glucose))
                         }
                     }
                 },
@@ -102,11 +122,16 @@ struct ListView: View {
         .listStyle(.grouped)
         .onAppear {
             DirectLog.info("onAppear")
-            self.glucoseValues = store.state.glucoseValues.reversed()
+            self.sensorGlucoseValues = store.state.sensorGlucoseValues.reversed()
+            self.bloodGlucoseValues = store.state.bloodGlucoseValues.reversed()
         }
-        .onChange(of: store.state.glucoseValues) { glucoseValues in
+        .onChange(of: store.state.sensorGlucoseValues) { glucoseValues in
             DirectLog.info("onChange")
-            self.glucoseValues = glucoseValues.reversed()
+            self.sensorGlucoseValues = glucoseValues.reversed()
+        }
+        .onChange(of: store.state.bloodGlucoseValues) { glucoseValues in
+            DirectLog.info("onChange")
+            self.bloodGlucoseValues = glucoseValues.reversed()
         }
     }
 
@@ -114,21 +139,14 @@ struct ListView: View {
 
     @State private var value: Int = 0
     @State private var showingAddBloodGlucoseView = false
-    @State private var glucoseValues: [Glucose] = []
+    @State private var sensorGlucoseValues: [SensorGlucose] = []
+    @State private var bloodGlucoseValues: [BloodGlucose] = []
 
-    private func isPrecise(glucose: Glucose) -> Bool {
-        if glucose.type == .none {
+    private func isPrecise(glucose: SensorGlucose) -> Bool {
+        if store.state.glucoseUnit == .mgdL {
             return false
         }
 
-        if store.state.glucoseUnit == .mgdL || glucose.isBloodGlucose {
-            return false
-        }
-
-        guard let glucoseValue = glucose.glucoseValue else {
-            return false
-        }
-
-        return glucoseValue.isAlmost(store.state.alarmLow, store.state.alarmHigh)
+        return glucose.glucoseValue.isAlmost(store.state.alarmLow, store.state.alarmHigh)
     }
 }

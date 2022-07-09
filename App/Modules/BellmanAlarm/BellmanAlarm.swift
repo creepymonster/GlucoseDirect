@@ -31,22 +31,12 @@ private func bellmanAlarmMiddelware(service: LazyService<BellmanAlarmService>, s
         case .bellmanTestAlarm:
             service.value.notifyDevice()
 
-        case .addGlucose(glucoseValues: let glucoseValues):
+        case .addSensorGlucose(glucoseValues: let glucoseValues):
             guard state.bellmanAlarm else {
                 break
             }
 
             guard let glucose = glucoseValues.last else {
-                break
-            }
-
-            guard glucose.isSensorGlucose else {
-                DirectLog.info("Guard: glucose.type is not .cgm")
-                break
-            }
-
-            guard let glucoseValue = glucose.glucoseValue else {
-                DirectLog.info("Guard: glucose.glucoseValue is nil")
                 break
             }
 
@@ -59,12 +49,12 @@ private func bellmanAlarmMiddelware(service: LazyService<BellmanAlarmService>, s
                 break
             }
 
-            if glucoseValue < state.alarmLow {
+            if glucose.glucoseValue < state.alarmLow {
                 DirectLog.info("Glucose alert, low: \(glucose.glucoseValue) < \(state.alarmLow)")
 
                 service.value.notifyDevice()
 
-            } else if glucoseValue > state.alarmHigh {
+            } else if glucose.glucoseValue > state.alarmHigh {
                 DirectLog.info("Glucose alert, high: \(glucose.glucoseValue) > \(state.alarmHigh)")
 
                 service.value.notifyDevice()
