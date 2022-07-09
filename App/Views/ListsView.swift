@@ -7,18 +7,10 @@ import SwiftUI
 
 // MARK: - ListView
 
-struct ListView: View {
+struct ListsView: View {
     // MARK: Internal
 
     @EnvironmentObject var store: DirectStore
-    
-    private func getTeaser(_ count: Int) -> String {
-        if count == 1 {
-            return "\(count) Entry..."
-        }
-        
-        return "\(count) Entries"
-    }
 
     var body: some View {
         List {
@@ -77,7 +69,7 @@ struct ListView: View {
                         HStack {
                             Text(glucose.timestamp.toLocalDateTime())
                             Spacer()
-                            
+
                             Text(glucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true))
                                 .if(glucose.glucoseValue < store.state.alarmLow || glucose.glucoseValue > store.state.alarmHigh) { text in
                                     text.foregroundColor(Color.ui.red)
@@ -85,11 +77,11 @@ struct ListView: View {
                         }
                     }.onDelete { offsets in
                         DirectLog.info("onDelete: \(offsets)")
-                        
+
                         let deletables = offsets.map { i in
                             (index: i, glucose: bloodGlucoseValues[i])
                         }
-                        
+
                         deletables.forEach { delete in
                             bloodGlucoseValues.remove(at: delete.index)
                             store.dispatch(.deleteBloodGlucose(glucose: delete.glucose))
@@ -106,7 +98,7 @@ struct ListView: View {
                         HStack {
                             Text(glucose.timestamp.toLocalDateTime())
                             Spacer()
-                            
+
                             Text(glucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true, precise: isPrecise(glucose: glucose)))
                                 .if(glucose.glucoseValue < store.state.alarmLow || glucose.glucoseValue > store.state.alarmHigh) { text in
                                     text.foregroundColor(Color.ui.red)
@@ -114,14 +106,39 @@ struct ListView: View {
                         }
                     }.onDelete { offsets in
                         DirectLog.info("onDelete: \(offsets)")
-                        
+
                         let deletables = offsets.map { i in
                             (index: i, glucose: sensorGlucoseValues[i])
                         }
-                        
+
                         deletables.forEach { delete in
                             sensorGlucoseValues.remove(at: delete.index)
                             store.dispatch(.deleteSensorGlucose(glucose: delete.glucose))
+                        }
+                    }
+                }
+            }
+
+            CollapsableSection(teaser: Text(getTeaser(sensorErrorValues.count)), header: Label("Errors", systemImage: "exclamationmark.triangle"), collapsed: true, collapsible: !sensorErrorValues.isEmpty) {
+                if sensorErrorValues.isEmpty {
+                    Text(getTeaser(sensorErrorValues.count))
+                } else {
+                    ForEach(sensorErrorValues) { error in
+                        HStack {
+                            Text(error.timestamp.toLocalDateTime())
+                            Spacer()
+                            Text(":'(")
+                        }
+                    }.onDelete { offsets in
+                        DirectLog.info("onDelete: \(offsets)")
+
+                        let deletables = offsets.map { i in
+                            (index: i, error: sensorErrorValues[i])
+                        }
+
+                        deletables.forEach { delete in
+                            sensorErrorValues.remove(at: delete.index)
+                            store.dispatch(.deleteSensorError(error: delete.error))
                         }
                     }
                 }
@@ -132,6 +149,7 @@ struct ListView: View {
             DirectLog.info("onAppear")
             self.sensorGlucoseValues = store.state.sensorGlucoseValues.reversed()
             self.bloodGlucoseValues = store.state.bloodGlucoseValues.reversed()
+            self.sensorErrorValues = store.state.sensorErrorValues.reversed()
         }
         .onChange(of: store.state.sensorGlucoseValues) { glucoseValues in
             DirectLog.info("onChange")
@@ -141,6 +159,10 @@ struct ListView: View {
             DirectLog.info("onChange")
             self.bloodGlucoseValues = glucoseValues.reversed()
         }
+        .onChange(of: store.state.sensorErrorValues) { errorValues in
+            DirectLog.info("onChange")
+            self.sensorErrorValues = errorValues.reversed()
+        }
     }
 
     // MARK: Private
@@ -149,6 +171,15 @@ struct ListView: View {
     @State private var showingAddBloodGlucoseView = false
     @State private var sensorGlucoseValues: [SensorGlucose] = []
     @State private var bloodGlucoseValues: [BloodGlucose] = []
+    @State private var sensorErrorValues: [SensorError] = []
+
+    private func getTeaser(_ count: Int) -> String {
+        if count == 1 {
+            return "\(count) Entry..."
+        }
+
+        return "\(count) Entries"
+    }
 
     private func isPrecise(glucose: SensorGlucose) -> Bool {
         if store.state.glucoseUnit == .mgdL {

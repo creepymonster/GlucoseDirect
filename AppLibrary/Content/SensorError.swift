@@ -5,6 +5,8 @@
 
 import Foundation
 
+// MARK: - SensorError
+
 struct SensorError: CustomStringConvertible, Codable, Identifiable {
     // MARK: Lifecycle
 
@@ -32,5 +34,19 @@ struct SensorError: CustomStringConvertible, Codable, Identifiable {
             "timestamp: \(timestamp.toLocalTime())",
             "error: \(error.description)"
         ].joined(separator: ", ")
+    }
+}
+
+// MARK: Equatable
+
+extension SensorError: Equatable {
+    func isMinutly(ofMinutes: Int) -> Bool {
+        let minutes = Calendar.current.component(.minute, from: timestamp)
+
+        return minutes % ofMinutes == 0
+    }
+
+    static func == (lhs: SensorError, rhs: SensorError) -> Bool {
+        lhs.id == rhs.id
     }
 }

@@ -19,12 +19,12 @@ struct ContentView: View {
                 Label("Glucose overview", systemImage: "waveform.path.ecg")
             }.tag(1)
 
-            ListView().tabItem {
+            ListsView().tabItem {
                 Label("Glucose list view", systemImage: "list.dash")
             }.tag(2)
 
             if store.state.isConnectionPaired && store.state.hasGlucoseValues && store.state.isConnectable || store.state.isDisconnectable {
-                CalibrationView().tabItem {
+                CalibrationsView().tabItem {
                     Label("Calibration view", systemImage: "tuningfork")
                 }.tag(3)
             }
