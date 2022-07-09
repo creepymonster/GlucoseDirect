@@ -48,22 +48,18 @@ func bloodGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
     }
 }
 
-// MARK: - StoredBloodGlucose
+// MARK: - BloodGlucose + FetchableRecord, PersistableRecord
 
-struct StoredBloodGlucose: Codable, FetchableRecord, PersistableRecord {
+extension BloodGlucose: FetchableRecord, PersistableRecord {
+    static var Table: String {
+        "BloodGlucose"
+    }
+
     enum Columns: String, ColumnExpression {
         case id
         case timestamp
         case glucoseValue
     }
-
-    static var Table: String {
-        "StoredBloodGlucose"
-    }
-
-    var id: String
-    var timestamp: Date
-    var glucoseValue: Int
 }
 
 extension DataStore {
@@ -71,16 +67,13 @@ extension DataStore {
         if let dbQueue = dbQueue {
             do {
                 try dbQueue.write { db in
-                    try db.create(table: StoredBloodGlucose.Table, ifNotExists: true) { t in
-                        t.autoIncrementedPrimaryKey(primaryKeyColumn)
-                        t.column(StoredBloodGlucose.Columns.id.name, .text)
-                            .notNull()
-                            .unique()
-                            .indexed()
-                        t.column(StoredBloodGlucose.Columns.timestamp.name, .date)
+                    try db.create(table: BloodGlucose.Table, ifNotExists: true) { t in
+                        t.column(BloodGlucose.Columns.id.name, .blob)
+                            .primaryKey()
+                        t.column(BloodGlucose.Columns.timestamp.name, .date)
                             .notNull()
                             .indexed()
-                        t.column(StoredBloodGlucose.Columns.glucoseValue.name, .integer)
+                        t.column(BloodGlucose.Columns.glucoseValue.name, .integer)
                             .notNull()
                     }
                 }
@@ -95,7 +88,7 @@ extension DataStore {
             do {
                 try dbQueue.write { db in
                     do {
-                        try StoredBloodGlucose.deleteAll(db)
+                        try BloodGlucose.deleteAll(db)
                     } catch {
                         DirectLog.error(error.localizedDescription)
                     }
@@ -111,7 +104,7 @@ extension DataStore {
             do {
                 try dbQueue.write { db in
                     do {
-                        try StoredBloodGlucose.deleteOne(db, key: [StoredBloodGlucose.Columns.id.name: value.id.uuidString])
+                        try BloodGlucose.deleteOne(db, id: value.id)
                     } catch {
                         DirectLog.error(error.localizedDescription)
                     }
@@ -128,7 +121,7 @@ extension DataStore {
                 try dbQueue.write { db in
                     values.forEach { value in
                         do {
-                            try StoredBloodGlucose(id: value.id.uuidString, timestamp: value.timestamp, glucoseValue: value.glucoseValue).insert(db)
+                            try value.insert(db)
                         } catch {
                             DirectLog.error(error.localizedDescription)
                         }
@@ -143,14 +136,10 @@ extension DataStore {
     func getBloodGlucose(limit: Int? = nil) -> [BloodGlucose] {
         if let dbQueue = dbQueue {
             do {
-                let StoredBloodGlucoseValues: [StoredBloodGlucose] = try dbQueue.read { db in
-                    try StoredBloodGlucose
-                        .order(Column(StoredBloodGlucose.Columns.timestamp.name))
+                return try dbQueue.read { db in
+                    try BloodGlucose
+                        .order(Column(BloodGlucose.Columns.timestamp.name))
                         .fetchAll(db)
-                }
-
-                return StoredBloodGlucoseValues.map { StoredBloodGlucose in
-                    BloodGlucose(id: UUID(uuidString: StoredBloodGlucose.id)!, timestamp: StoredBloodGlucose.timestamp, glucoseValue: StoredBloodGlucose.glucoseValue)
                 }
             } catch {
                 DirectLog.error(error.localizedDescription)

@@ -33,12 +33,11 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
             }
 
         case .setGlucoseUnit(unit: let unit):
-            break
-//            guard let glucose = state.latestSensorGlucose else {
-//                break
-//            }
-//
-//            service.value.setGlucoseNotification(glucose: glucose, glucoseUnit: unit)
+            guard let glucose = state.latestSensorGlucose else {
+                break
+            }
+
+            service.value.setGlucoseNotification(glucose: glucose, glucoseUnit: unit)
 
         case .addSensorGlucose(glucoseValues: let glucoseValues):
             guard let glucose = glucoseValues.last else {
