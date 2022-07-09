@@ -24,6 +24,9 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         
     case .addSensorGlucose(glucoseValues: let glucoseValues):
         state.latestSensorGlucose = glucoseValues.last
+        
+    case .addSensorError(errorValues: let errorValues):
+        state.latestSensorError = errorValues.last
                
     case .addMissedReading:
         state.missedReadings += 1
@@ -42,6 +45,9 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         
     case .clearSensorGlucoseValues:
         state.latestSensorGlucose = nil
+        
+    case .clearSensorErrorValues:
+        state.latestSensorError = nil
         
     case .connectConnection:
         break
@@ -67,6 +73,9 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         break
         
     case .deleteSensorGlucose(glucose: _):
+        break
+        
+    case .deleteSensorError(error: _):
         break
         
     case .requestAppleCalendarAccess(enabled: _):
@@ -178,6 +187,9 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         
     case .setSensorGlucoseValues(glucoseValues: let glucoseValues):
         state.sensorGlucoseValues = glucoseValues
+        
+    case .setSensorErrorValues(errorValues: let errorValues):
+        state.sensorErrorValues = errorValues
         
     case .setHighGlucoseAlarmSound(sound: let sound):
         state.highGlucoseAlarmSound = sound

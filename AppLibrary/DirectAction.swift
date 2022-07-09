@@ -10,12 +10,14 @@ enum DirectAction {
     case addCalibration(bloodGlucoseValue: Int)
     case addBloodGlucose(glucoseValues: [BloodGlucose])
     case addSensorGlucose(glucoseValues: [SensorGlucose])
+    case addSensorError(errorValues: [SensorError])
     case addMissedReading
     case addSensorReadings(sensorSerial: String, readings: [SensorReading])
     case bellmanTestAlarm
     case clearCalibrations
     case clearBloodGlucoseValues
     case clearSensorGlucoseValues
+    case clearSensorErrorValues
     case connectConnection
     case deleteLogs
     case disconnectConnection
@@ -24,6 +26,7 @@ enum DirectAction {
     case deleteCalibration(calibration: CustomCalibration)
     case deleteBloodGlucose(glucose: BloodGlucose)
     case deleteSensorGlucose(glucose: SensorGlucose)
+    case deleteSensorError(error: SensorError)
     case requestAppleCalendarAccess(enabled: Bool)
     case requestAppleHealthAccess(enabled: Bool)
     case resetSensor
@@ -51,6 +54,7 @@ enum DirectAction {
     case setGlucoseUnit(unit: GlucoseUnit)
     case setBloodGlucoseValues(glucoseValues: [BloodGlucose])
     case setSensorGlucoseValues(glucoseValues: [SensorGlucose])
+    case setSensorErrorValues(errorValues: [SensorError])
     case setHighGlucoseAlarmSound(sound: NotificationSound)
     case setIgnoreMute(enabled: Bool)
     case setLowGlucoseAlarmSound(sound: NotificationSound)

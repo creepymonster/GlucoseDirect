@@ -84,8 +84,8 @@ class VirtualLibreConnection: SensorConnectionProtocol, IsSensor {
 
         sendUpdate(age: age, state: age > warmupTime ? .ready : .starting)
 
-        if age > warmupTime {
-            let sensorReading = Int.random(in: 0 ..< 100) < 2
+        if age > warmupTime { // Int.random(in: 0 ..< 100) < 2
+            let sensorReading = true
                 ? SensorReading.createFaultyReading(timestamp: Date(), quality: .AVG_DELTA_EXCEEDED)
                 : SensorReading.createGlucoseReading(timestamp: Date(), glucoseValue: Double(currentGlucose))
 

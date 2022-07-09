@@ -10,18 +10,18 @@ import Foundation
 class SensorReading: CustomStringConvertible, Codable {
     // MARK: Lifecycle
 
-    private init(timestamp: Date, quality: SensorReadingQuality) {
+    private init(timestamp: Date, quality: SensorReadingError) {
         self.id = UUID()
         self.timestamp = timestamp.toRounded(on: 1, .minute)
         self.glucoseValue = 0
-        self.quality = quality
+        self.error = quality
     }
 
     private init(timestamp: Date, glucoseValue: Double) {
         self.id = UUID()
         self.timestamp = timestamp.toRounded(on: 1, .minute)
         self.glucoseValue = glucoseValue
-        self.quality = .OK
+        self.error = .OK
     }
 
     // MARK: Internal
@@ -29,14 +29,14 @@ class SensorReading: CustomStringConvertible, Codable {
     let id: UUID
     let timestamp: Date
     let glucoseValue: Double
-    let quality: SensorReadingQuality
+    let error: SensorReadingError
 
     var description: String {
         [
             "id: \(id)",
             "timestamp: \(timestamp.toLocalTime())",
             "glucoseValue: \(glucoseValue.description)",
-            "quality: \(quality.description)"
+            "quality: \(error.description)"
         ].joined(separator: ", ")
     }
 }
@@ -46,12 +46,12 @@ extension SensorReading {
         return SensorReading(timestamp: timestamp, glucoseValue: glucoseValue)
     }
 
-    static func createFaultyReading(timestamp: Date, quality: SensorReadingQuality) -> SensorReading {
+    static func createFaultyReading(timestamp: Date, quality: SensorReadingError) -> SensorReading {
         return SensorReading(timestamp: timestamp, quality: quality)
     }
 
     func calibrate(customCalibration: [CustomCalibration]) -> SensorGlucose? {
-        guard quality == .OK else {
+        guard error == .OK else {
             return nil
         }
 

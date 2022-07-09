@@ -35,6 +35,7 @@ protocol DirectState {
     var isConnectionPaired: Bool { get set }
     var latestBloodGlucose: BloodGlucose? { get set }
     var latestSensorGlucose: SensorGlucose? { get set }
+    var latestSensorError: SensorError? { get set }
     var lowGlucoseAlarmSound: NotificationSound { get set }
     var missedReadings: Int { get set }
     var nightscoutApiSecret: String { get set }
@@ -47,6 +48,7 @@ protocol DirectState {
     var selectedConnectionID: String? { get set }
     var selectedView: Int { get set }
     var sensor: Sensor? { get set }
+    var sensorErrorValues: [SensorError] { get set }
     var sensorGlucoseValues: [SensorGlucose] { get set }
     var sensorInterval: Int { get set }
     var targetValue: Int { get set }

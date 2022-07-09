@@ -26,6 +26,7 @@ private enum Keys: String {
     case isConnectionPaired = "libre-direct.settings.is-paired"
     case latestBloodGlucose = "libre-direct.settings.latest-blood-glucose"
     case latestSensorGlucose = "libre-direct.settings.latest-sensor-glucose"
+    case latestSensorError = "libre-direct.settings.latest-sensor-error"
     case lowGlucoseAlarmSound = "libre-direct.settings.low-glucose-alarm-sound"
     case nightscoutApiSecret = "libre-direct.settings.nightscout-api-secret"
     case nightscoutUpload = "libre-direct.settings.nightscout-upload-enabled"
@@ -288,6 +289,19 @@ extension UserDefaults {
                 setObject(newValue, forKey: Keys.latestSensorGlucose.rawValue)
             } else {
                 removeObject(forKey: Keys.latestSensorGlucose.rawValue)
+            }
+        }
+    }
+
+    var latestSensorError: SensorError? {
+        get {
+            return getObject(forKey: Keys.latestSensorError.rawValue)
+        }
+        set {
+            if let newValue = newValue {
+                setObject(newValue, forKey: Keys.latestSensorError.rawValue)
+            } else {
+                removeObject(forKey: Keys.latestSensorError.rawValue)
             }
         }
     }

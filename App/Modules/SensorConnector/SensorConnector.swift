@@ -60,10 +60,12 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             }
 
         case .addSensorReadings(sensorSerial: _, readings: let readings):
-            guard let lastReading = readings.last, lastReading.quality == .OK else {
-                break
+            let sensorErrors = readings.filter { reading in
+                reading.error != .OK
+            }.map { reading in
+                SensorError(timestamp: reading.timestamp, error: reading.error)
             }
-            
+
             let readGlucoseValues = readings.map { reading in
                 reading.calibrate(customCalibration: state.customCalibration)
             }.compactMap { $0 }
@@ -83,12 +85,23 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
                 return glucose
             }
 
-            guard !glucoseValues.isEmpty else {
+            guard !glucoseValues.isEmpty, stdev < 100 else {
+                if !sensorErrors.isEmpty {
+                    return Just(.addSensorError(errorValues: sensorErrors))
+                        .setFailureType(to: AppError.self)
+                        .merge(with: subject)
+                        .eraseToAnyPublisher()
+                }
+                
                 break
             }
 
-            guard stdev < 100 else {
-                break
+            if !sensorErrors.isEmpty {
+                return Just(.addSensorError(errorValues: sensorErrors))
+                    .merge(with: Just(.addSensorGlucose(glucoseValues: glucoseValues)))
+                    .setFailureType(to: AppError.self)
+                    .merge(with: subject)
+                    .eraseToAnyPublisher()
             }
 
             return Just(.addSensorGlucose(glucoseValues: glucoseValues))
