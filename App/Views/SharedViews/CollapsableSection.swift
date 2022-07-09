@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CollapsableSection<Parent, Content, Teaser>: View where Parent: View, Content: View, Teaser: View {
     // MARK: Lifecycle
-    
+
     init(teaser: Teaser, header: Parent, collapsed: Bool = false, collapsible: Bool = true, @ViewBuilder content: @escaping () -> Content) {
         self.teaser = teaser
         self.header = header
@@ -29,7 +29,7 @@ struct CollapsableSection<Parent, Content, Teaser>: View where Parent: View, Con
             header: HStack {
                 header
                 Spacer()
-                
+
                 if collapsible {
                     Button(action: {
                         collapsed.toggle()

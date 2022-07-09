@@ -11,6 +11,14 @@ struct ListView: View {
     // MARK: Internal
 
     @EnvironmentObject var store: DirectStore
+    
+    private func getTeaser(_ count: Int) -> String {
+        if count == 1 {
+            return "\(count) Entry..."
+        }
+        
+        return "\(count) Entries"
+    }
 
     var body: some View {
         List {
@@ -61,52 +69,60 @@ struct ListView: View {
                 })
             }
 
-            CollapsableSection(teaser: Text("\(bloodGlucoseValues.count) Entries..."), header: Label("BGM", systemImage: "drop"), collapsed: true, collapsible: bloodGlucoseValues.count > 0) {
-                ForEach(bloodGlucoseValues) { glucose in
-                    HStack {
-                        Text(glucose.timestamp.toLocalDateTime())
-                        Spacer()
-
-                        Text(glucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true))
-                            .if(glucose.glucoseValue < store.state.alarmLow || glucose.glucoseValue > store.state.alarmHigh) { text in
-                                text.foregroundColor(Color.ui.red)
-                            }
-                    }
-                }.onDelete { offsets in
-                    DirectLog.info("onDelete: \(offsets)")
-
-                    let deletables = offsets.map { i in
-                        (index: i, glucose: bloodGlucoseValues[i])
-                    }
-
-                    deletables.forEach { delete in
-                        bloodGlucoseValues.remove(at: delete.index)
-                        store.dispatch(.deleteBloodGlucose(glucose: delete.glucose))
+            CollapsableSection(teaser: Text(getTeaser(bloodGlucoseValues.count)), header: Label("BGM", systemImage: "drop"), collapsed: true, collapsible: !bloodGlucoseValues.isEmpty) {
+                if bloodGlucoseValues.isEmpty {
+                    Text(getTeaser(bloodGlucoseValues.count))
+                } else {
+                    ForEach(bloodGlucoseValues) { glucose in
+                        HStack {
+                            Text(glucose.timestamp.toLocalDateTime())
+                            Spacer()
+                            
+                            Text(glucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true))
+                                .if(glucose.glucoseValue < store.state.alarmLow || glucose.glucoseValue > store.state.alarmHigh) { text in
+                                    text.foregroundColor(Color.ui.red)
+                                }
+                        }
+                    }.onDelete { offsets in
+                        DirectLog.info("onDelete: \(offsets)")
+                        
+                        let deletables = offsets.map { i in
+                            (index: i, glucose: bloodGlucoseValues[i])
+                        }
+                        
+                        deletables.forEach { delete in
+                            bloodGlucoseValues.remove(at: delete.index)
+                            store.dispatch(.deleteBloodGlucose(glucose: delete.glucose))
+                        }
                     }
                 }
             }
 
-            CollapsableSection(teaser: Text("\(sensorGlucoseValues.count) Entries..."), header: Label("CGM", systemImage: "sensor.tag.radiowaves.forward"), collapsed: true, collapsible: sensorGlucoseValues.count > 0) {
-                ForEach(sensorGlucoseValues) { glucose in
-                    HStack {
-                        Text(glucose.timestamp.toLocalDateTime())
-                        Spacer()
-
-                        Text(glucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true, precise: isPrecise(glucose: glucose)))
-                            .if(glucose.glucoseValue < store.state.alarmLow || glucose.glucoseValue > store.state.alarmHigh) { text in
-                                text.foregroundColor(Color.ui.red)
-                            }
-                    }
-                }.onDelete { offsets in
-                    DirectLog.info("onDelete: \(offsets)")
-
-                    let deletables = offsets.map { i in
-                        (index: i, glucose: sensorGlucoseValues[i])
-                    }
-
-                    deletables.forEach { delete in
-                        sensorGlucoseValues.remove(at: delete.index)
-                        store.dispatch(.deleteSensorGlucose(glucose: delete.glucose))
+            CollapsableSection(teaser: Text(getTeaser(sensorGlucoseValues.count)), header: Label("CGM", systemImage: "sensor.tag.radiowaves.forward"), collapsed: true, collapsible: !sensorGlucoseValues.isEmpty) {
+                if sensorGlucoseValues.isEmpty {
+                    Text(getTeaser(sensorGlucoseValues.count))
+                } else {
+                    ForEach(sensorGlucoseValues) { glucose in
+                        HStack {
+                            Text(glucose.timestamp.toLocalDateTime())
+                            Spacer()
+                            
+                            Text(glucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true, precise: isPrecise(glucose: glucose)))
+                                .if(glucose.glucoseValue < store.state.alarmLow || glucose.glucoseValue > store.state.alarmHigh) { text in
+                                    text.foregroundColor(Color.ui.red)
+                                }
+                        }
+                    }.onDelete { offsets in
+                        DirectLog.info("onDelete: \(offsets)")
+                        
+                        let deletables = offsets.map { i in
+                            (index: i, glucose: sensorGlucoseValues[i])
+                        }
+                        
+                        deletables.forEach { delete in
+                            sensorGlucoseValues.remove(at: delete.index)
+                            store.dispatch(.deleteSensorGlucose(glucose: delete.glucose))
+                        }
                     }
                 }
             }
