@@ -11,19 +11,25 @@ struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable {
     // MARK: Lifecycle
 
     init(timestamp: Date, rawGlucoseValue: Int, intGlucoseValue: Int, minuteChange: Double? = nil) {
+        let roundedTimestamp = timestamp.toRounded(on: 1, .minute)
+
         self.id = UUID()
-        self.timestamp = timestamp.toRounded(on: 1, .minute)
+        self.timestamp = roundedTimestamp
         self.rawGlucoseValue = rawGlucoseValue
         self.intGlucoseValue = intGlucoseValue
         self.minuteChange = minuteChange
+        self.timegroup = roundedTimestamp.toRounded(on: 5, .minute)
     }
 
     init(id: UUID, timestamp: Date, rawGlucoseValue: Int, intGlucoseValue: Int, minuteChange: Double? = nil) {
+        let roundedTimestamp = timestamp.toRounded(on: 1, .minute)
+
         self.id = id
-        self.timestamp = timestamp.toRounded(on: 1, .minute)
+        self.timestamp = roundedTimestamp
         self.rawGlucoseValue = rawGlucoseValue
         self.intGlucoseValue = intGlucoseValue
         self.minuteChange = minuteChange
+        self.timegroup = roundedTimestamp.toRounded(on: 5, .minute)
     }
 
     // MARK: Internal
@@ -33,6 +39,7 @@ struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable {
     let minuteChange: Double?
     let rawGlucoseValue: Int
     let intGlucoseValue: Int
+    let timegroup: Date
 
     var glucoseValue: Int {
         if intGlucoseValue <= DirectConfig.minReadableGlucose {

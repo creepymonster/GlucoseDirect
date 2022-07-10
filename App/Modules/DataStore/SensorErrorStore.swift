@@ -61,6 +61,7 @@ extension SensorError: FetchableRecord, PersistableRecord {
         case id
         case timestamp
         case error
+        case timegroup
     }
 }
 
@@ -76,6 +77,10 @@ extension DataStore {
                             .notNull()
                             .indexed()
                         t.column(SensorError.Columns.error.name, .integer)
+                            .notNull()
+                        t.column(SensorError.Columns.timegroup.name, .date)
+                            .notNull()
+                            .indexed()
                     }
                 }
             } catch {

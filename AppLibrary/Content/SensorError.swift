@@ -11,15 +11,21 @@ struct SensorError: CustomStringConvertible, Codable, Identifiable {
     // MARK: Lifecycle
 
     init(timestamp: Date, error: SensorReadingError) {
+        let roundedTimestamp = timestamp.toRounded(on: 1, .minute)
+
         self.id = UUID()
-        self.timestamp = timestamp.toRounded(on: 1, .minute)
+        self.timestamp = roundedTimestamp
         self.error = error
+        self.timegroup = roundedTimestamp.toRounded(on: 5, .minute)
     }
 
     init(id: UUID, timestamp: Date, error: SensorReadingError) {
+        let roundedTimestamp = timestamp.toRounded(on: 1, .minute)
+
         self.id = UUID()
-        self.timestamp = timestamp.toRounded(on: 1, .minute)
+        self.timestamp = roundedTimestamp
         self.error = error
+        self.timegroup = roundedTimestamp.toRounded(on: 5, .minute)
     }
 
     // MARK: Internal
@@ -27,6 +33,7 @@ struct SensorError: CustomStringConvertible, Codable, Identifiable {
     let id: UUID
     let timestamp: Date
     let error: SensorReadingError
+    let timegroup: Date
 
     var description: String {
         [

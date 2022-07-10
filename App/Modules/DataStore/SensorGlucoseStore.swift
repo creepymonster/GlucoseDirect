@@ -65,6 +65,7 @@ extension SensorGlucose: FetchableRecord, PersistableRecord {
         case minuteChange
         case rawGlucoseValue
         case intGlucoseValue
+        case timegroup
     }
 }
 
@@ -84,6 +85,9 @@ extension DataStore {
                             .notNull()
                         t.column(SensorGlucose.Columns.intGlucoseValue.name, .integer)
                             .notNull()
+                        t.column(SensorGlucose.Columns.timegroup.name, .date)
+                            .notNull()
+                            .indexed()
                     }
                 }
             } catch {

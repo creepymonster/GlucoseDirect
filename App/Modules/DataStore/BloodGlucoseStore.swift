@@ -63,6 +63,7 @@ extension BloodGlucose: FetchableRecord, PersistableRecord {
         case id
         case timestamp
         case glucoseValue
+        case timegroup
     }
 }
 
@@ -79,6 +80,9 @@ extension DataStore {
                             .indexed()
                         t.column(BloodGlucose.Columns.glucoseValue.name, .integer)
                             .notNull()
+                        t.column(BloodGlucose.Columns.timegroup.name, .date)
+                            .notNull()
+                            .indexed()
                     }
                 }
             } catch {
