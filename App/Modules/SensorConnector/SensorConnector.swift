@@ -6,6 +6,32 @@
 import Combine
 import Foundation
 
+func sensorErrorMiddleware() -> Middleware<DirectState, DirectAction> {
+    return { state, action, _ in
+        switch action {
+        case .addSensorReadings(sensorSerial: _, readings: let readings):
+            let previousError = state.sensorErrorValues.last
+            let sensorErrors = readings.filter { reading in
+                (previousError == nil || previousError!.timestamp < reading.timestamp) && reading.error != .OK
+            }.map { reading in
+                SensorError(timestamp: reading.timestamp, error: reading.error)
+            }
+
+            guard !sensorErrors.isEmpty else {
+                break
+            }
+
+            return Just(.addSensorError(errorValues: sensorErrors))
+                .setFailureType(to: AppError.self)
+                .eraseToAnyPublisher()
+
+        default:
+            break
+        }
+        return Empty().eraseToAnyPublisher()
+    }
+}
+
 func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo]) -> Middleware<DirectState, DirectAction> {
     return sensorConnectorMiddelware(infos, subject: PassthroughSubject<DirectAction, AppError>())
 }
@@ -60,14 +86,6 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             }
 
         case .addSensorReadings(sensorSerial: _, readings: let readings):
-            // read sensor errors
-            let previousError = state.sensorErrorValues.last
-            let sensorErrors = readings.filter { reading in
-                (previousError == nil || previousError!.timestamp < reading.timestamp) && reading.error != .OK
-            }.map { reading in
-                SensorError(timestamp: reading.timestamp, error: reading.error)
-            }
-
             // calibrate valid values
             let readGlucoseValues = readings.map { reading in
                 reading.calibrate(customCalibration: state.customCalibration)
@@ -75,7 +93,6 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
 
             // calc stdev of last 5 values
             let stdev = readGlucoseValues.count >= 5 ? readGlucoseValues.suffix(5).stdev : 0
-            
             let intervalSeconds = Double(state.sensorInterval * 60 - 30)
 
             var previousGlucose = state.sensorGlucoseValues.last
@@ -89,16 +106,12 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             }
 
             // stdev is over 100, only errors are saved
-            if stdev >= 100 {
-                return Just(.addSensorError(errorValues: sensorErrors))
-                    .setFailureType(to: AppError.self)
-                    .eraseToAnyPublisher()
+            guard !glucoseValues.isEmpty, stdev < 100 else {
+                break
             }
 
-            return Just(.addSensorError(errorValues: sensorErrors))
-                .merge(with: Just(.addSensorGlucose(glucoseValues: glucoseValues)))
+            return Just(.addSensorGlucose(glucoseValues: glucoseValues))
                 .setFailureType(to: AppError.self)
-                .merge(with: subject)
                 .eraseToAnyPublisher()
 
         case .pairConnection:
