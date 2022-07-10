@@ -34,7 +34,7 @@ struct ContentView: View {
             }.tag(4)
         }
         .onChange(of: scenePhase) { newPhase in
-            if newPhase == .background && store.state.preventScreenLock {
+            if newPhase == .background, store.state.preventScreenLock {
                 store.dispatch(.setPreventScreenLock(enabled: false))
             }
         }
