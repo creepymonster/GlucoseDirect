@@ -20,6 +20,10 @@ func bloodGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
                 .eraseToAnyPublisher()
 
         case .addBloodGlucose(glucoseValues: let glucoseValues):
+            guard !glucoseValues.isEmpty else {
+                break
+            }
+
             DataStore.shared.insertBloodGlucose(glucoseValues)
 
             return Just(.setBloodGlucoseValues(glucoseValues: DataStore.shared.getBloodGlucose()))

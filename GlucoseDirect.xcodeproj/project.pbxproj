@@ -60,6 +60,9 @@
 		E26677DD28799E8A008E8B68 /* Glucose.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26677DB28799E8A008E8B68 /* Glucose.swift */; };
 		E26BCC33285D1F760058AF0C /* LibreLinkConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26BCC32285D1F760058AF0C /* LibreLinkConnection.swift */; };
 		E26BCC35285D1F820058AF0C /* LibreLinkPairing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26BCC34285D1F820058AF0C /* LibreLinkPairing.swift */; };
+		E2715804287ABF2E00B611D9 /* SensorGlucoseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2715803287ABF2E00B611D9 /* SensorGlucoseList.swift */; };
+		E2715806287ABF4100B611D9 /* BloodGlucoseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2715805287ABF4100B611D9 /* BloodGlucoseList.swift */; };
+		E2715808287ABF4B00B611D9 /* SensorErrorList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2715807287ABF4B00B611D9 /* SensorErrorList.swift */; };
 		E27325A7275543D600D3C41D /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27325A6275543D600D3C41D /* Color.swift */; };
 		E278848327B4646E00E07DDC /* Lazy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E278848227B4646E00E07DDC /* Lazy.swift */; };
 		E27BBA8027AD7DDA00A6B8EE /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E27BBA7F27AD7DDA00A6B8EE /* HealthKit.framework */; };
@@ -250,6 +253,9 @@
 		E26690682792F6D9009C0FE1 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E26BCC32285D1F760058AF0C /* LibreLinkConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibreLinkConnection.swift; sourceTree = "<group>"; };
 		E26BCC34285D1F820058AF0C /* LibreLinkPairing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibreLinkPairing.swift; sourceTree = "<group>"; };
+		E2715803287ABF2E00B611D9 /* SensorGlucoseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorGlucoseList.swift; sourceTree = "<group>"; };
+		E2715805287ABF4100B611D9 /* BloodGlucoseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BloodGlucoseList.swift; sourceTree = "<group>"; };
+		E2715807287ABF4B00B611D9 /* SensorErrorList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorErrorList.swift; sourceTree = "<group>"; };
 		E27325A6275543D600D3C41D /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		E278848227B4646E00E07DDC /* Lazy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lazy.swift; sourceTree = "<group>"; };
 		E27BBA7F27AD7DDA00A6B8EE /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
@@ -491,6 +497,9 @@
 		E262DCC2287A48C700ECAB76 /* Lists */ = {
 			isa = PBXGroup;
 			children = (
+				E2715803287ABF2E00B611D9 /* SensorGlucoseList.swift */,
+				E2715805287ABF4100B611D9 /* BloodGlucoseList.swift */,
+				E2715807287ABF4B00B611D9 /* SensorErrorList.swift */,
 			);
 			path = Lists;
 			sourceTree = "<group>";
@@ -968,6 +977,7 @@
 				E2FCAC632707427500FE1CBF /* ExpiringNotification.swift in Sources */,
 				E2FCAC34270741D200FE1CBF /* View.swift in Sources */,
 				E27ED97F2758ADF40099149C /* SensorConnection.swift in Sources */,
+				E2715806287ABF4100B611D9 /* BloodGlucoseList.swift in Sources */,
 				E2D34BC6274D6BC000151895 /* CalibrationsView.swift in Sources */,
 				E2FCAC23270741BC00FE1CBF /* SensorState.swift in Sources */,
 				E2B63A88273E3EB100DDAA70 /* CustomCalibration.swift in Sources */,
@@ -977,6 +987,7 @@
 				E2FCAC422707420100FE1CBF /* AppState.swift in Sources */,
 				E2C8F5FE278CD63000519ABD /* BellmanAlarm.swift in Sources */,
 				E26677DC28799E8A008E8B68 /* Glucose.swift in Sources */,
+				E2715808287ABF4B00B611D9 /* SensorErrorList.swift in Sources */,
 				E2FCAC30270741D200FE1CBF /* String.swift in Sources */,
 				E2FCAC36270741D200FE1CBF /* LocalizedString.swift in Sources */,
 				E28C1299278AE6A900ECE0DF /* ConnectionView.swift in Sources */,
@@ -1031,6 +1042,7 @@
 				E29ED231268C754F00CBD3F1 /* GlucoseView.swift in Sources */,
 				E28728AA26DE499200269F47 /* SnoozeView.swift in Sources */,
 				E2FCAC702707438A00FE1CBF /* DirectState.swift in Sources */,
+				E2715804287ABF2E00B611D9 /* SensorGlucoseList.swift in Sources */,
 				E2FCAC612707426F00FE1CBF /* AppGroupSharing.swift in Sources */,
 				E292E1B226A608C400011F64 /* NumberSelectorView.swift in Sources */,
 				E2FCAC1D270741BC00FE1CBF /* Sensor.swift in Sources */,

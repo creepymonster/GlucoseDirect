@@ -60,20 +60,23 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             }
 
         case .addSensorReadings(sensorSerial: _, readings: let readings):
+            // read sensor errors
+            let previousError = state.sensorErrorValues.last
             let sensorErrors = readings.filter { reading in
-                reading.error != .OK
+                (previousError == nil || previousError!.timestamp < reading.timestamp) && reading.error != .OK
             }.map { reading in
                 SensorError(timestamp: reading.timestamp, error: reading.error)
             }
 
+            // calibrate valid values
             let readGlucoseValues = readings.map { reading in
                 reading.calibrate(customCalibration: state.customCalibration)
             }.compactMap { $0 }
 
+            // calc stdev of last 5 values
             let stdev = readGlucoseValues.count >= 5 ? readGlucoseValues.suffix(5).stdev : 0
+            
             let intervalSeconds = Double(state.sensorInterval * 60 - 30)
-
-            DirectLog.info("Stdev \(stdev) of \(readGlucoseValues.suffix(5).doubleValues)")
 
             var previousGlucose = state.sensorGlucoseValues.last
             let glucoseValues = readGlucoseValues.filter { reading in
@@ -85,27 +88,17 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
                 return glucose
             }
 
-            guard !glucoseValues.isEmpty, stdev < 100 else {
-                if !sensorErrors.isEmpty {
-                    return Just(.addSensorError(errorValues: sensorErrors))
-                        .setFailureType(to: AppError.self)
-                        .merge(with: subject)
-                        .eraseToAnyPublisher()
-                }
-                
-                break
-            }
-
-            if !sensorErrors.isEmpty {
+            // stdev is over 100, only errors are saved
+            if stdev >= 100 {
                 return Just(.addSensorError(errorValues: sensorErrors))
-                    .merge(with: Just(.addSensorGlucose(glucoseValues: glucoseValues)))
                     .setFailureType(to: AppError.self)
-                    .merge(with: subject)
                     .eraseToAnyPublisher()
             }
 
-            return Just(.addSensorGlucose(glucoseValues: glucoseValues))
+            return Just(.addSensorError(errorValues: sensorErrors))
+                .merge(with: Just(.addSensorGlucose(glucoseValues: glucoseValues)))
                 .setFailureType(to: AppError.self)
+                .merge(with: subject)
                 .eraseToAnyPublisher()
 
         case .pairConnection:

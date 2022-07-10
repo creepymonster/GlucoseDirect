@@ -18,6 +18,10 @@ func sensorErrorStoreMiddleware() -> Middleware<DirectState, DirectAction> {
                 .eraseToAnyPublisher()
 
         case .addSensorError(errorValues: let errorValues):
+            guard !errorValues.isEmpty else {
+                break
+            }
+
             DataStore.shared.insertSensorError(errorValues)
 
             return Just(.setSensorErrorValues(errorValues: DataStore.shared.getSensorError()))

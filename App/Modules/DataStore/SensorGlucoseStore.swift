@@ -20,6 +20,10 @@ func sensorGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
                 .eraseToAnyPublisher()
 
         case .addSensorGlucose(glucoseValues: let glucoseValues):
+            guard !glucoseValues.isEmpty else {
+                break
+            }
+
             DataStore.shared.insertSensorGlucose(glucoseValues)
 
             return Just(.setSensorGlucoseValues(glucoseValues: DataStore.shared.getSensorGlucose()))
