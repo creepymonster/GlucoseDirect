@@ -17,6 +17,7 @@ protocol DirectState {
     var bellmanAlarm: Bool { get set }
     var bellmanConnectionState: BellmanConnectionState { get set }
     var bloodGlucoseValues: [BloodGlucose] { get set }
+    var bloodGlucoseHistory: [BloodGlucose] { get set }
     var chartShowLines: Bool { get set }
     var chartZoomLevel: Int { get set }
     var connectionAlarmSound: NotificationSound { get set }
@@ -50,12 +51,13 @@ protocol DirectState {
     var sensor: Sensor? { get set }
     var sensorErrorValues: [SensorError] { get set }
     var sensorGlucoseValues: [SensorGlucose] { get set }
+    var sensorGlucoseHistory: [SensorGlucose] { get set }
     var sensorInterval: Int { get set }
     var targetValue: Int { get set }
     var transmitter: Transmitter? { get set }
 }
 
-extension DirectState {   
+extension DirectState {
     var hasGlucoseValues: Bool {
         !bloodGlucoseValues.isEmpty || !sensorGlucoseValues.isEmpty
     }

@@ -14,7 +14,7 @@ import CoreNFC
 class LibreLinkPairing: NSObject, NFCTagReaderSessionDelegate {
     // MARK: Lifecycle
 
-    init(subject: PassthroughSubject<DirectAction, AppError>) {
+    init(subject: PassthroughSubject<DirectAction, DirectError>) {
         self.subject = subject
     }
 
@@ -192,7 +192,7 @@ class LibreLinkPairing: NSObject, NFCTagReaderSessionDelegate {
     // MARK: Private
 
     private var session: NFCTagReaderSession?
-    private weak var subject: PassthroughSubject<DirectAction, AppError>?
+    private weak var subject: PassthroughSubject<DirectAction, DirectError>?
 
     private let nfcQueue = DispatchQueue(label: "libre-direct.nfc-queue")
     private let unlockCode: UInt32 = 42
@@ -212,7 +212,7 @@ class LibreLinkPairing: NSObject, NFCTagReaderSessionDelegate {
 class LibreLinkPairing: NSObject {
     // MARK: Lifecycle
 
-    init(subject: PassthroughSubject<DirectAction, AppError>) {}
+    init(subject: PassthroughSubject<DirectAction, DirectError>) {}
 
     // MARK: Internal
 

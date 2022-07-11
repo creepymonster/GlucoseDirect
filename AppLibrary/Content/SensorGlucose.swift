@@ -18,7 +18,7 @@ struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable {
         self.rawGlucoseValue = rawGlucoseValue
         self.intGlucoseValue = intGlucoseValue
         self.minuteChange = minuteChange
-        self.timegroup = roundedTimestamp.toRounded(on: 5, .minute)
+        self.timegroup = roundedTimestamp.toRounded(on: 15, .minute)
     }
 
     init(id: UUID, timestamp: Date, rawGlucoseValue: Int, intGlucoseValue: Int, minuteChange: Double? = nil) {
@@ -29,7 +29,7 @@ struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable {
         self.rawGlucoseValue = rawGlucoseValue
         self.intGlucoseValue = intGlucoseValue
         self.minuteChange = minuteChange
-        self.timegroup = roundedTimestamp.toRounded(on: 5, .minute)
+        self.timegroup = roundedTimestamp.toRounded(on: 15, .minute)
     }
 
     // MARK: Internal

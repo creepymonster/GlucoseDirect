@@ -22,7 +22,7 @@ private func appleHealthExportMiddleware(service: LazyService<AppleHealthExportS
                     break
                 }
 
-                return Future<DirectAction, AppError> { promise in
+                return Future<DirectAction, DirectError> { promise in
                     service.value.requestAccess { granted in
                         if !granted {
                             promise(.failure(.withMessage("Calendar access declined")))
@@ -34,7 +34,7 @@ private func appleHealthExportMiddleware(service: LazyService<AppleHealthExportS
                 }.eraseToAnyPublisher()
             } else {
                 return Just(DirectAction.setAppleHealthExport(enabled: false))
-                    .setFailureType(to: AppError.self)
+                    .setFailureType(to: DirectError.self)
                     .eraseToAnyPublisher()
             }
 

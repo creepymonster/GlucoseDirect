@@ -15,9 +15,21 @@ func bloodGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
         case .startup:
             DataStore.shared.createBloodGlucoseTable()
 
-            return Just(.setBloodGlucoseValues(glucoseValues: DataStore.shared.getBloodGlucose()))
-                .setFailureType(to: AppError.self)
-                .eraseToAnyPublisher()
+            return Publishers.MergeMany(
+                Just(DirectAction.setBloodGlucoseValues(glucoseValues: DataStore.shared.getBloodGlucose())),
+                Just(DirectAction.setBloodGlucoseHistory(glucoseHistory: DataStore.shared.getBloodGlucoseHistory()))
+            )
+            .setFailureType(to: DirectError.self)
+            .eraseToAnyPublisher()
+
+//            return Just(DirectAction.setBloodGlucoseValues(glucoseValues: DataStore.shared.getBloodGlucose()))
+//                .merge(with: Just(DirectAction.setBloodGlucoseHistory(glucoseHistory: DataStore.shared.getBloodGlucoseHistory())))
+//                .setFailureType(to: DirectError.self)
+//                .eraseToAnyPublisher()
+
+//            return Just(.setBloodGlucoseValues(glucoseValues: DataStore.shared.getBloodGlucose()))
+//                .setFailureType(to: AppError.self)
+//                .eraseToAnyPublisher()
 
         case .addBloodGlucose(glucoseValues: let glucoseValues):
             guard !glucoseValues.isEmpty else {
@@ -26,23 +38,59 @@ func bloodGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
 
             DataStore.shared.insertBloodGlucose(glucoseValues)
 
-            return Just(.setBloodGlucoseValues(glucoseValues: DataStore.shared.getBloodGlucose()))
-                .setFailureType(to: AppError.self)
-                .eraseToAnyPublisher()
+            return Publishers.MergeMany(
+                Just(DirectAction.setBloodGlucoseValues(glucoseValues: DataStore.shared.getBloodGlucose())),
+                Just(DirectAction.setBloodGlucoseHistory(glucoseHistory: DataStore.shared.getBloodGlucoseHistory()))
+            )
+            .setFailureType(to: DirectError.self)
+            .eraseToAnyPublisher()
+
+//            return Just(DirectAction.setBloodGlucoseValues(glucoseValues: DataStore.shared.getBloodGlucose()))
+//                .merge(with: Just(DirectAction.setBloodGlucoseHistory(glucoseHistory: DataStore.shared.getBloodGlucoseHistory())))
+//                .setFailureType(to: DirectError.self)
+//                .eraseToAnyPublisher()
+
+//            return Just(.setBloodGlucoseValues(glucoseValues: DataStore.shared.getBloodGlucose()))
+//                .setFailureType(to: AppError.self)
+//                .eraseToAnyPublisher()
 
         case .deleteBloodGlucose(glucose: let glucose):
             DataStore.shared.deleteBloodGlucose(glucose)
 
-            return Just(.setBloodGlucoseValues(glucoseValues: DataStore.shared.getBloodGlucose()))
-                .setFailureType(to: AppError.self)
-                .eraseToAnyPublisher()
+            return Publishers.MergeMany(
+                Just(DirectAction.setBloodGlucoseValues(glucoseValues: DataStore.shared.getBloodGlucose())),
+                Just(DirectAction.setBloodGlucoseHistory(glucoseHistory: DataStore.shared.getBloodGlucoseHistory()))
+            )
+            .setFailureType(to: DirectError.self)
+            .eraseToAnyPublisher()
+
+//            return Just(DirectAction.setBloodGlucoseValues(glucoseValues: DataStore.shared.getBloodGlucose()))
+//                .merge(with: Just(DirectAction.setBloodGlucoseHistory(glucoseHistory: DataStore.shared.getBloodGlucoseHistory())))
+//                .setFailureType(to: DirectError.self)
+//                .eraseToAnyPublisher()
+
+//            return Just(.setBloodGlucoseValues(glucoseValues: DataStore.shared.getBloodGlucose()))
+//                .setFailureType(to: AppError.self)
+//                .eraseToAnyPublisher()
 
         case .clearBloodGlucoseValues:
             DataStore.shared.deleteAllBloodGlucose()
 
-            return Just(.setBloodGlucoseValues(glucoseValues: []))
-                .setFailureType(to: AppError.self)
-                .eraseToAnyPublisher()
+            return Publishers.MergeMany(
+                Just(DirectAction.setBloodGlucoseValues(glucoseValues: DataStore.shared.getBloodGlucose())),
+                Just(DirectAction.setBloodGlucoseHistory(glucoseHistory: DataStore.shared.getBloodGlucoseHistory()))
+            )
+            .setFailureType(to: DirectError.self)
+            .eraseToAnyPublisher()
+
+//            return Just(DirectAction.setBloodGlucoseValues(glucoseValues: DataStore.shared.getBloodGlucose()))
+//                .merge(with: Just(DirectAction.setBloodGlucoseHistory(glucoseHistory: DataStore.shared.getBloodGlucoseHistory())))
+//                .setFailureType(to: DirectError.self)
+//                .eraseToAnyPublisher()
+
+//            return Just(.setBloodGlucoseValues(glucoseValues: []))
+//                .setFailureType(to: AppError.self)
+//                .eraseToAnyPublisher()
 
         default:
             break
@@ -55,6 +103,8 @@ func bloodGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
 // MARK: - BloodGlucose + FetchableRecord, PersistableRecord
 
 extension BloodGlucose: FetchableRecord, PersistableRecord {
+    static let databaseUUIDEncodingStrategy = DatabaseUUIDEncodingStrategy.uppercaseString
+
     static var Table: String {
         "BloodGlucose"
     }
@@ -73,7 +123,7 @@ extension DataStore {
             do {
                 try dbQueue.write { db in
                     try db.create(table: BloodGlucose.Table, ifNotExists: true) { t in
-                        t.column(BloodGlucose.Columns.id.name, .blob)
+                        t.column(BloodGlucose.Columns.id.name, .text)
                             .primaryKey()
                         t.column(BloodGlucose.Columns.timestamp.name, .date)
                             .notNull()
@@ -141,12 +191,37 @@ extension DataStore {
         }
     }
 
-    func getBloodGlucose(limit: Int? = nil) -> [BloodGlucose] {
+    func getBloodGlucose(upToDay: Int = 1) -> [BloodGlucose] {
         if let dbQueue = dbQueue {
             do {
                 return try dbQueue.read { db in
                     try BloodGlucose
-                        .filter(Column(BloodGlucose.Columns.timestamp.name) > Calendar.current.date(byAdding: .day, value: -3, to: Date())!)
+                        .filter(Column(BloodGlucose.Columns.timestamp.name) > Calendar.current.date(byAdding: .day, value: -upToDay, to: Date())!)
+                        .order(Column(BloodGlucose.Columns.timestamp.name))
+                        .fetchAll(db)
+                }
+            } catch {
+                DirectLog.error(error.localizedDescription)
+            }
+        }
+
+        return []
+    }
+
+    func getBloodGlucoseHistory(fromDay: Int = 1, upToDay: Int = 7) -> [BloodGlucose] {
+        if let dbQueue = dbQueue {
+            do {
+                return try dbQueue.read { db in
+                    try BloodGlucose
+                        .filter(Column(BloodGlucose.Columns.timestamp.name) <= Calendar.current.date(byAdding: .day, value: -fromDay, to: Date())!)
+                        .filter(Column(BloodGlucose.Columns.timestamp.name) > Calendar.current.date(byAdding: .day, value: -upToDay, to: Date())!)
+                        .select(
+                            min(BloodGlucose.Columns.id).forKey(BloodGlucose.Columns.id.name),
+                            BloodGlucose.Columns.timegroup.forKey(BloodGlucose.Columns.timestamp.name),
+                            average(BloodGlucose.Columns.glucoseValue).forKey(BloodGlucose.Columns.glucoseValue.name),
+                            BloodGlucose.Columns.timegroup
+                        )
+                        .group(BloodGlucose.Columns.timegroup)
                         .order(Column(BloodGlucose.Columns.timestamp.name))
                         .fetchAll(db)
                 }

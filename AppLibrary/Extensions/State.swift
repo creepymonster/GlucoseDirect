@@ -12,11 +12,11 @@ import Foundation
 // https://danielbernal.co/redux-like-architecture-with-swiftui-real-world-app/
 
 typealias Reducer<State, Action> = (inout State, Action) -> Void
-typealias Middleware<State, Action> = (State, Action, State) -> AnyPublisher<Action, AppError>?
+typealias Middleware<State, Action> = (State, Action, State) -> AnyPublisher<Action, DirectError>?
 
-// MARK: - AppError
+// MARK: - DirectError
 
-enum AppError: Error {
+enum DirectError: Error {
     case withMessage(_ message: String)
 }
 

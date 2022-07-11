@@ -54,37 +54,37 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
             if glucose.glucoseValue < state.alarmLow {
                 DirectLog.info("Glucose alert, low: \(glucose.glucoseValue) < \(state.alarmLow)")
 
-                if !isSnoozed {
-                    if state.glucoseNotification {
-                        service.value.setLowGlucoseNotification(glucose: glucose, glucoseUnit: state.glucoseUnit)
-                    }
+                if state.glucoseNotification {
+                    service.value.setLowGlucoseNotification(glucose: glucose, glucoseUnit: state.glucoseUnit, isSnoozed: isSnoozed)
+                }
 
+                if !isSnoozed {
                     if state.hasLowGlucoseAlarm {
                         service.value.setLowGlucoseAlarm(ignoreMute: state.ignoreMute, sound: state.lowGlucoseAlarmSound)
                     }
 
                     return Just(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).toRounded(on: 1, .minute), autosnooze: true))
-                        .setFailureType(to: AppError.self)
+                        .setFailureType(to: DirectError.self)
                         .eraseToAnyPublisher()
                 }
 
             } else if glucose.glucoseValue > state.alarmHigh {
                 DirectLog.info("Glucose alert, high: \(glucose.glucoseValue) > \(state.alarmHigh)")
 
-                if !isSnoozed {
-                    if state.glucoseNotification {
-                        service.value.setHighGlucoseNotification(glucose: glucose, glucoseUnit: state.glucoseUnit)
-                    }
+                if state.glucoseNotification {
+                    service.value.setHighGlucoseNotification(glucose: glucose, glucoseUnit: state.glucoseUnit, isSnoozed: isSnoozed)
+                }
 
+                if !isSnoozed {
                     if state.hasHighGlucoseAlarm {
                         service.value.setHighGlucoseAlarm(ignoreMute: state.ignoreMute, sound: state.highGlucoseAlarmSound)
                     }
 
                     return Just(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).toRounded(on: 1, .minute), autosnooze: true))
-                        .setFailureType(to: AppError.self)
+                        .setFailureType(to: DirectError.self)
                         .eraseToAnyPublisher()
                 }
-                
+
             } else if state.glucoseNotification {
                 service.value.setGlucoseNotification(glucose: glucose, glucoseUnit: state.glucoseUnit)
             } else {
@@ -150,7 +150,7 @@ private class GlucoseNotificationService {
         DirectNotifications.shared.playSound(ignoreMute: ignoreMute, sound: sound)
     }
 
-    func setLowGlucoseNotification(glucose: SensorGlucose, glucoseUnit: GlucoseUnit) {
+    func setLowGlucoseNotification(glucose: SensorGlucose, glucoseUnit: GlucoseUnit, isSnoozed: Bool) {
         DirectNotifications.shared.ensureCanSendNotification { state in
             DirectLog.info("Glucose alert, state: \(state)")
 
@@ -161,7 +161,7 @@ private class GlucoseNotificationService {
             let notification = UNMutableNotificationContent()
             notification.sound = .none
             notification.userInfo = self.actions
-            notification.interruptionLevel = .timeSensitive
+            notification.interruptionLevel = isSnoozed ? .passive : .timeSensitive
 
             if glucoseUnit == .mgdL {
                 notification.badge = glucose.glucoseValue as NSNumber
@@ -183,7 +183,7 @@ private class GlucoseNotificationService {
         DirectNotifications.shared.playSound(ignoreMute: ignoreMute, sound: sound)
     }
 
-    func setHighGlucoseNotification(glucose: SensorGlucose, glucoseUnit: GlucoseUnit) {
+    func setHighGlucoseNotification(glucose: SensorGlucose, glucoseUnit: GlucoseUnit, isSnoozed: Bool) {
         DirectNotifications.shared.ensureCanSendNotification { state in
             DirectLog.info("Glucose alert, state: \(state)")
 
@@ -194,7 +194,7 @@ private class GlucoseNotificationService {
             let notification = UNMutableNotificationContent()
             notification.sound = .none
             notification.userInfo = self.actions
-            notification.interruptionLevel = .timeSensitive
+            notification.interruptionLevel = isSnoozed ? .passive : .timeSensitive
 
             if glucoseUnit == .mgdL {
                 notification.badge = glucose.glucoseValue as NSNumber

@@ -8,14 +8,14 @@ import CoreBluetooth
 import Foundation
 
 func bellmanAlarmMiddelware() -> Middleware<DirectState, DirectAction> {
-    let subject = PassthroughSubject<DirectAction, AppError>()
+    let subject = PassthroughSubject<DirectAction, DirectError>()
 
     return bellmanAlarmMiddelware(service: LazyService<BellmanAlarmService>(initialization: {
         BellmanAlarmService(subject: subject)
     }), subject: subject)
 }
 
-private func bellmanAlarmMiddelware(service: LazyService<BellmanAlarmService>, subject: PassthroughSubject<DirectAction, AppError>) -> Middleware<DirectState, DirectAction> {
+private func bellmanAlarmMiddelware(service: LazyService<BellmanAlarmService>, subject: PassthroughSubject<DirectAction, DirectError>) -> Middleware<DirectState, DirectAction> {
     return { state, action, _ in
         switch action {
         case .startup:
@@ -73,7 +73,7 @@ private func bellmanAlarmMiddelware(service: LazyService<BellmanAlarmService>, s
 private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     // MARK: Lifecycle
 
-    init(subject: PassthroughSubject<DirectAction, AppError>) {
+    init(subject: PassthroughSubject<DirectAction, DirectError>) {
         DirectLog.info("Create BellmanAlarmService")
         super.init()
 
@@ -332,7 +332,7 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
 
     // MARK: Private
 
-    private weak var subject: PassthroughSubject<DirectAction, AppError>?
+    private weak var subject: PassthroughSubject<DirectAction, DirectError>?
 
     private var manager: CBCentralManager!
     private let managerQueue = DispatchQueue(label: "libre-direct.bellman-connection.queue")

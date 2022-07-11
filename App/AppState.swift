@@ -84,6 +84,7 @@ struct AppState: DirectState {
     var alarmSnoozeUntil: Date?
     var bellmanConnectionState: BellmanConnectionState = .disconnected
     var bloodGlucoseValues: [BloodGlucose] = []
+    var bloodGlucoseHistory: [BloodGlucose] = []
     var connectionError: String?
     var connectionErrorIsCritical = false
     var connectionErrorTimestamp: Date?
@@ -94,6 +95,7 @@ struct AppState: DirectState {
     var selectedConnection: SensorConnectionProtocol?
     var sensorErrorValues: [SensorError] = []
     var sensorGlucoseValues: [SensorGlucose] = []
+    var sensorGlucoseHistory: [SensorGlucose] = []
     var targetValue = 100
 
     var alarmHigh: Int = 160 { didSet { UserDefaults.standard.alarmHigh = alarmHigh } }

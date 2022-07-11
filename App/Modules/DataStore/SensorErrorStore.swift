@@ -14,7 +14,7 @@ func sensorErrorStoreMiddleware() -> Middleware<DirectState, DirectAction> {
             DataStore.shared.createSensorErrorTable()
 
             return Just(.setSensorErrorValues(errorValues: DataStore.shared.getSensorError()))
-                .setFailureType(to: AppError.self)
+                .setFailureType(to: DirectError.self)
                 .eraseToAnyPublisher()
 
         case .addSensorError(errorValues: let errorValues):
@@ -25,21 +25,21 @@ func sensorErrorStoreMiddleware() -> Middleware<DirectState, DirectAction> {
             DataStore.shared.insertSensorError(errorValues)
 
             return Just(.setSensorErrorValues(errorValues: DataStore.shared.getSensorError()))
-                .setFailureType(to: AppError.self)
+                .setFailureType(to: DirectError.self)
                 .eraseToAnyPublisher()
 
         case .deleteSensorError(error: let error):
             DataStore.shared.deleteSensorError(error)
 
             return Just(.setSensorErrorValues(errorValues: DataStore.shared.getSensorError()))
-                .setFailureType(to: AppError.self)
+                .setFailureType(to: DirectError.self)
                 .eraseToAnyPublisher()
 
         case .clearSensorErrorValues:
             DataStore.shared.deleteAllSensorError()
 
             return Just(.setSensorErrorValues(errorValues: []))
-                .setFailureType(to: AppError.self)
+                .setFailureType(to: DirectError.self)
                 .eraseToAnyPublisher()
 
         default:
@@ -53,6 +53,8 @@ func sensorErrorStoreMiddleware() -> Middleware<DirectState, DirectAction> {
 // MARK: - SensorError + FetchableRecord, PersistableRecord
 
 extension SensorError: FetchableRecord, PersistableRecord {
+    static let databaseUUIDEncodingStrategy = DatabaseUUIDEncodingStrategy.uppercaseString
+
     static var Table: String {
         "SensorError"
     }
@@ -71,7 +73,7 @@ extension DataStore {
             do {
                 try dbQueue.write { db in
                     try db.create(table: SensorError.Table, ifNotExists: true) { t in
-                        t.column(SensorError.Columns.id.name, .blob)
+                        t.column(SensorError.Columns.id.name, .text)
                             .primaryKey()
                         t.column(SensorError.Columns.timestamp.name, .date)
                             .notNull()
@@ -139,7 +141,7 @@ extension DataStore {
         }
     }
 
-    func getSensorError(limit: Int? = nil) -> [SensorError] {
+    func getSensorError() -> [SensorError] {
         if let dbQueue = dbQueue {
             do {
                 return try dbQueue.read { db in

@@ -18,7 +18,7 @@ private func appleCalendarExportMiddleware(service: LazyService<AppleCalendarExp
         switch action {
         case .requestAppleCalendarAccess(enabled: let enabled):
             if enabled {
-                return Future<DirectAction, AppError> { promise in
+                return Future<DirectAction, DirectError> { promise in
                     service.value.requestAccess { granted in
                         if !granted {
                             promise(.failure(.withMessage("Calendar access declined")))
@@ -34,7 +34,7 @@ private func appleCalendarExportMiddleware(service: LazyService<AppleCalendarExp
                 service.value.clearGlucoseEvents()
 
                 return Just(DirectAction.setAppleCalendarExport(enabled: false))
-                    .setFailureType(to: AppError.self)
+                    .setFailureType(to: DirectError.self)
                     .eraseToAnyPublisher()
             }
 

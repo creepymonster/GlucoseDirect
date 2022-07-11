@@ -16,7 +16,7 @@ struct SensorError: CustomStringConvertible, Codable, Identifiable {
         self.id = UUID()
         self.timestamp = roundedTimestamp
         self.error = error
-        self.timegroup = roundedTimestamp.toRounded(on: 5, .minute)
+        self.timegroup = roundedTimestamp.toRounded(on: 15, .minute)
     }
 
     init(id: UUID, timestamp: Date, error: SensorReadingError) {
@@ -25,7 +25,7 @@ struct SensorError: CustomStringConvertible, Codable, Identifiable {
         self.id = UUID()
         self.timestamp = roundedTimestamp
         self.error = error
-        self.timegroup = roundedTimestamp.toRounded(on: 5, .minute)
+        self.timegroup = roundedTimestamp.toRounded(on: 15, .minute)
     }
 
     // MARK: Internal

@@ -11,14 +11,14 @@ import Foundation
 class VirtualLibreConnection: SensorConnectionProtocol, IsSensor {
     // MARK: Lifecycle
 
-    init(subject: PassthroughSubject<DirectAction, AppError>) {
+    init(subject: PassthroughSubject<DirectAction, DirectError>) {
         DirectLog.info("init")
         self.subject = subject
     }
 
     // MARK: Internal
 
-    weak var subject: PassthroughSubject<DirectAction, AppError>?
+    weak var subject: PassthroughSubject<DirectAction, DirectError>?
 
     func pairConnection() {
         let sensor = Sensor(

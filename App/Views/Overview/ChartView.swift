@@ -56,11 +56,11 @@ struct ChartView: View {
     }
 
     var bloodGlucoseValues: [BloodGlucose] {
-        store.state.bloodGlucoseValues
+        store.state.bloodGlucoseHistory + store.state.bloodGlucoseValues
     }
 
     var sensorGlucoseValues: [SensorGlucose] {
-        store.state.sensorGlucoseValues
+        store.state.sensorGlucoseHistory + store.state.sensorGlucoseValues
     }
 
     var ChartView: some View {
@@ -142,24 +142,38 @@ struct ChartView: View {
                         .id(Config.chartID)
                         .frame(width: max(0, geometryProxy.size.width, seriesWidth))
                         .onChange(of: store.state.glucoseUnit) { glucoseUnit in
-                            DirectLog.info("onChange(\(glucoseUnit))")
-                            updateSeries(viewWidth: geometryProxy.size.width, scrollViewProxy: scrollViewProxy)
+                            DirectLog.info("onChangeOfGlucoseUnit(\(glucoseUnit))")
+                            updateSeriesMetadata(viewWidth: geometryProxy.size.width)
+                            updateSensorSeries()
+                            updateBloodSeries()
 
                         }.onChange(of: store.state.sensorGlucoseValues) { glucoseValues in
-                            DirectLog.info("onChange(\(glucoseValues.count))")
-                            updateSeries(viewWidth: geometryProxy.size.width, scrollViewProxy: scrollViewProxy)
+                            DirectLog.info("onChangeOfSensorGlucoseValues(\(glucoseValues.count))")
+                            updateSeriesMetadata(viewWidth: geometryProxy.size.width)
+                            updateSensorSeries()
 
                         }.onChange(of: store.state.bloodGlucoseValues) { glucoseValues in
-                            DirectLog.info("onChange(\(glucoseValues.count))")
-                            updateSeries(viewWidth: geometryProxy.size.width, scrollViewProxy: scrollViewProxy)
+                            DirectLog.info("onChangeOfBloodGlucoseValues(\(glucoseValues.count))")
+                            updateSeriesMetadata(viewWidth: geometryProxy.size.width)
+                            updateBloodSeries()
 
                         }.onChange(of: store.state.chartZoomLevel) { chartZoomLevel in
-                            DirectLog.info("onChange(\(chartZoomLevel))")
-                            updateSeries(viewWidth: geometryProxy.size.width, scrollViewProxy: scrollViewProxy)
+                            DirectLog.info("onChangeOfChartZoomLevel(\(chartZoomLevel))")
+                            updateSeriesMetadata(viewWidth: geometryProxy.size.width)
+                            updateSensorSeries()
+                            updateBloodSeries()
+
+                        }.onChange(of: sensorGlucoseSeries) { _ in
+                            scrollToEnd(scrollViewProxy: scrollViewProxy)
+
+                        }.onChange(of: bloodGlucoseSeries) { _ in
+                            scrollToEnd(scrollViewProxy: scrollViewProxy)
 
                         }.onAppear {
                             DirectLog.info("onAppear()")
-                            updateSeries(viewWidth: geometryProxy.size.width, scrollViewProxy: scrollViewProxy)
+                            updateSeriesMetadata(viewWidth: geometryProxy.size.width)
+                            updateSensorSeries()
+                            updateBloodSeries()
 
                         }.chartOverlay { overlayProxy in
                             GeometryReader { geometryProxy in
@@ -334,8 +348,8 @@ struct ChartView: View {
         scrollViewProxy.scrollTo(Config.chartID, anchor: .trailing)
     }
 
-    private func updateSeries(viewWidth: CGFloat, scrollViewProxy: ScrollViewProxy?) {
-        DirectLog.info("updateSeries()")
+    private func updateSeriesMetadata(viewWidth: CGFloat) {
+        DirectLog.info("updateSeriesMetadata()")
 
         calculationQueue.async {
             if let firstTime = firstTimestamp,
@@ -347,9 +361,17 @@ struct ChartView: View {
                 let minuteWidth = (viewWidth / CGFloat(zoomLevel.visibleHours * 60))
                 let chartMinutes = CGFloat((endTime - startTime) / 60)
 
-                self.seriesWidth = CGFloat(minuteWidth * chartMinutes)
+                DispatchQueue.main.async {
+                    self.seriesWidth = CGFloat(minuteWidth * chartMinutes)
+                }
             }
+        }
+    }
 
+    private func updateSensorSeries() {
+        DirectLog.info("updateSensorSeries()")
+
+        calculationQueue.async {
             var sensorPointInfos: [Date: ChartDatapoint] = [:]
             let sensorGlucoseSeries = populateValues(glucoseValues: sensorGlucoseValues)
             sensorGlucoseSeries.forEach { value in
@@ -358,6 +380,17 @@ struct ChartView: View {
                 }
             }
 
+            DispatchQueue.main.async {
+                self.sensorGlucoseSeries = sensorGlucoseSeries
+                self.sensorPointInfos = sensorPointInfos
+            }
+        }
+    }
+
+    private func updateBloodSeries() {
+        DirectLog.info("updateBloodSeries()")
+
+        calculationQueue.async {
             var bloodPointInfos: [Date: ChartDatapoint] = [:]
             let bloddGlucoseSeries = populateValues(glucoseValues: bloodGlucoseValues)
             bloddGlucoseSeries.forEach { value in
@@ -367,15 +400,8 @@ struct ChartView: View {
             }
 
             DispatchQueue.main.async {
-                self.sensorGlucoseSeries = sensorGlucoseSeries
-                self.sensorPointInfos = sensorPointInfos
-
                 self.bloodGlucoseSeries = bloddGlucoseSeries
                 self.bloodPointInfos = bloodPointInfos
-
-                if let scrollProxy = scrollViewProxy {
-                    self.scrollToEnd(scrollViewProxy: scrollProxy)
-                }
             }
         }
     }
