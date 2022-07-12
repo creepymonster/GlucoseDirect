@@ -21,13 +21,12 @@ private enum Keys: String {
     case expiringAlarmSound = "libre-direct.settings.expiring-alarm-sound"
     case glucoseNotification = "libre-direct.settings.glucose-badge"
     case glucoseUnit = "libre-direct.settings.glucose-unit"
-    case glucoseValues = "libre-direct.settings.glucose-values"
     case highGlucoseAlarmSound = "libre-direct.settings.high-glucose-alarm-sound"
     case ignoreMute = "libre-direct.settings.ignore-mute"
     case isConnectionPaired = "libre-direct.settings.is-paired"
-    case latestGlucose = "libre-direct.settings.latest-glucose"
     case latestBloodGlucose = "libre-direct.settings.latest-blood-glucose"
     case latestSensorGlucose = "libre-direct.settings.latest-sensor-glucose"
+    case latestSensorError = "libre-direct.settings.latest-sensor-error"
     case lowGlucoseAlarmSound = "libre-direct.settings.low-glucose-alarm-sound"
     case nightscoutApiSecret = "libre-direct.settings.nightscout-api-secret"
     case nightscoutUpload = "libre-direct.settings.nightscout-upload-enabled"
@@ -255,24 +254,6 @@ extension UserDefaults {
         }
     }
 
-    var glucoseValues: [Glucose] {
-        get {
-            if var storedGlucoseValues: [Glucose] = getArray(forKey: Keys.glucoseValues.rawValue) {
-                storedGlucoseValues.reserveCapacity(DirectConfig.numberOfGlucoseValues)
-                
-                return storedGlucoseValues
-            }
-            
-            var glucoseValues = Array<Glucose>()
-            glucoseValues.reserveCapacity(DirectConfig.numberOfGlucoseValues)
-            
-            return glucoseValues
-        }
-        set {
-            setArray(newValue, forKey: Keys.glucoseValues.rawValue)
-        }
-    }
-
     var isConnectionPaired: Bool {
         get {
             if object(forKey: Keys.isConnectionPaired.rawValue) != nil {
@@ -285,21 +266,8 @@ extension UserDefaults {
             set(newValue, forKey: Keys.isConnectionPaired.rawValue)
         }
     }
-    
-    var latestGlucose: Glucose? {
-        get {
-            return getObject(forKey: Keys.latestGlucose.rawValue)
-        }
-        set {
-            if let newValue = newValue {
-                setObject(newValue, forKey: Keys.latestGlucose.rawValue)
-            } else {
-                removeObject(forKey: Keys.latestGlucose.rawValue)
-            }
-        }
-    }
-    
-    var latestBloodGlucose: Glucose? {
+
+    var latestBloodGlucose: BloodGlucose? {
         get {
             return getObject(forKey: Keys.latestBloodGlucose.rawValue)
         }
@@ -311,8 +279,8 @@ extension UserDefaults {
             }
         }
     }
-    
-    var latestSensorGlucose: Glucose? {
+
+    var latestSensorGlucose: SensorGlucose? {
         get {
             return getObject(forKey: Keys.latestSensorGlucose.rawValue)
         }
@@ -321,6 +289,19 @@ extension UserDefaults {
                 setObject(newValue, forKey: Keys.latestSensorGlucose.rawValue)
             } else {
                 removeObject(forKey: Keys.latestSensorGlucose.rawValue)
+            }
+        }
+    }
+
+    var latestSensorError: SensorError? {
+        get {
+            return getObject(forKey: Keys.latestSensorError.rawValue)
+        }
+        set {
+            if let newValue = newValue {
+                setObject(newValue, forKey: Keys.latestSensorError.rawValue)
+            } else {
+                removeObject(forKey: Keys.latestSensorError.rawValue)
             }
         }
     }
@@ -350,7 +331,7 @@ extension UserDefaults {
             }
         }
     }
-    
+
     var sharedSensor: String? {
         get {
             return string(forKey: Keys.sharedSensor.rawValue)
@@ -363,7 +344,7 @@ extension UserDefaults {
             }
         }
     }
-    
+
     var sharedSensorState: String? {
         get {
             return string(forKey: Keys.sharedSensorState.rawValue)
@@ -376,7 +357,7 @@ extension UserDefaults {
             }
         }
     }
-    
+
     var sharedSensorConnectionState: String? {
         get {
             return string(forKey: Keys.sharedSensorConnectionState.rawValue)
@@ -389,7 +370,7 @@ extension UserDefaults {
             }
         }
     }
-        
+
     var sharedApp: String? {
         get {
             return string(forKey: Keys.sharedApp.rawValue)
@@ -402,7 +383,7 @@ extension UserDefaults {
             }
         }
     }
-    
+
     var sharedAppVersion: String? {
         get {
             return string(forKey: Keys.sharedAppVersion.rawValue)
@@ -415,7 +396,7 @@ extension UserDefaults {
             }
         }
     }
-    
+
     var sharedTransmitter: String? {
         get {
             return string(forKey: Keys.sharedTransmitter.rawValue)
@@ -428,7 +409,7 @@ extension UserDefaults {
             }
         }
     }
-    
+
     var sharedTransmitterBattery: String? {
         get {
             return string(forKey: Keys.sharedTransmitterBattery.rawValue)
@@ -441,7 +422,7 @@ extension UserDefaults {
             }
         }
     }
-    
+
     var sharedTransmitterHardware: String? {
         get {
             return string(forKey: Keys.sharedTransmitterHardware.rawValue)
@@ -454,7 +435,7 @@ extension UserDefaults {
             }
         }
     }
-    
+
     var sharedTransmitterFirmware: String? {
         get {
             return string(forKey: Keys.sharedTransmitterFirmware.rawValue)

@@ -100,6 +100,12 @@ struct AboutView: View {
                 secondaryButton: .cancel()
             )
         }
+
+        Button("Delete glucose values", action: {
+            store.dispatch(.clearSensorGlucoseValues)
+            store.dispatch(.clearBloodGlucoseValues)
+            store.dispatch(.clearSensorErrorValues)
+        })
     }
 
     // MARK: Private

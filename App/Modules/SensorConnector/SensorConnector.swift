@@ -6,40 +6,57 @@
 import Combine
 import Foundation
 
-func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo]) -> Middleware<DirectState, DirectAction> {
-    return sensorConnectorMiddelware(infos, subject: PassthroughSubject<DirectAction, AppError>())
+func sensorErrorMiddleware() -> Middleware<DirectState, DirectAction> {
+    return { state, action, _ in
+        switch action {
+        case .addSensorReadings(sensorSerial: _, readings: let readings):
+            let previousError = state.sensorErrorValues.last
+            let sensorErrors = readings.filter { reading in
+                (previousError == nil || previousError!.timestamp < reading.timestamp) && reading.error != .OK
+            }.map { reading in
+                SensorError(timestamp: reading.timestamp, error: reading.error)
+            }
+
+            guard !sensorErrors.isEmpty else {
+                break
+            }
+
+            return Just(.addSensorError(errorValues: sensorErrors))
+                .setFailureType(to: DirectError.self)
+                .eraseToAnyPublisher()
+
+        default:
+            break
+        }
+        return Empty().eraseToAnyPublisher()
+    }
 }
 
-private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject: PassthroughSubject<DirectAction, AppError>) -> Middleware<DirectState, DirectAction> {
+func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo]) -> Middleware<DirectState, DirectAction> {
+    return sensorConnectorMiddelware(infos, subject: PassthroughSubject<DirectAction, DirectError>())
+}
+
+private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject: PassthroughSubject<DirectAction, DirectError>) -> Middleware<DirectState, DirectAction> {
     return { state, action, _ in
         switch action {
         case .startup:
-            let registerConnectionInfo = Just(DirectAction.registerConnectionInfo(infos: infos))
-            var selectConnection: Just<DirectAction>?
+            var actions = [Just(DirectAction.registerConnectionInfo(infos: infos))]
 
             if let id = state.selectedConnectionID, let connectionInfo = infos.first(where: { $0.id == id }) {
                 DirectLog.info("Select startup connection: \(connectionInfo.name)")
-                selectConnection = Just(.selectConnection(id: connectionInfo.id, connection: connectionInfo.connectionCreator(subject)))
+                actions.append(Just(.selectConnection(id: connectionInfo.id, connection: connectionInfo.connectionCreator(subject))))
 
             } else if infos.count == 1, let connectionInfo = infos.first {
                 DirectLog.info("Select single startup connection: \(connectionInfo.name)")
-                selectConnection = Just(.selectConnection(id: connectionInfo.id, connection: connectionInfo.connectionCreator(subject)))
+                actions.append(Just(.selectConnection(id: connectionInfo.id, connection: connectionInfo.connectionCreator(subject))))
 
             } else if let connectionInfo = infos.first {
                 DirectLog.info("Select first startup connection: \(connectionInfo.name)")
-                selectConnection = Just(.selectConnection(id: connectionInfo.id, connection: connectionInfo.connectionCreator(subject)))
+                actions.append(Just(.selectConnection(id: connectionInfo.id, connection: connectionInfo.connectionCreator(subject))))
             }
 
-            if let selectConnection = selectConnection {
-                return registerConnectionInfo
-                    .merge(with: selectConnection)
-                    .setFailureType(to: AppError.self)
-                    .merge(with: subject)
-                    .eraseToAnyPublisher()
-            }
-
-            return registerConnectionInfo
-                .setFailureType(to: AppError.self)
+            return Publishers.MergeMany(actions)
+                .setFailureType(to: DirectError.self)
                 .merge(with: subject)
                 .eraseToAnyPublisher()
 
@@ -48,28 +65,28 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
                 let connection = connectionInfo.connectionCreator(subject)
 
                 return Just(.selectConnection(id: id, connection: connection))
-                    .setFailureType(to: AppError.self)
+                    .setFailureType(to: DirectError.self)
                     .eraseToAnyPublisher()
             }
 
         case .selectConnection(id: _, connection: _):
             if state.isConnectionPaired, state.isConnectable {
                 return Just(.connectConnection)
-                    .setFailureType(to: AppError.self)
+                    .setFailureType(to: DirectError.self)
                     .eraseToAnyPublisher()
             }
 
         case .addSensorReadings(sensorSerial: _, readings: let readings):
+            // calibrate valid values
             let readGlucoseValues = readings.map { reading in
                 reading.calibrate(customCalibration: state.customCalibration)
-            }
+            }.compactMap { $0 }
 
+            // calc stdev of last 5 values
             let stdev = readGlucoseValues.count >= 5 ? readGlucoseValues.suffix(5).stdev : 0
             let intervalSeconds = Double(state.sensorInterval * 60 - 30)
 
-            DirectLog.info("Stdev \(stdev) of \(readGlucoseValues.suffix(5).doubleValues)")
-
-            var previousGlucose = state.latestSensorGlucose
+            var previousGlucose = state.sensorGlucoseValues.last
             let glucoseValues = readGlucoseValues.filter { reading in
                 previousGlucose == nil || previousGlucose!.timestamp + intervalSeconds < reading.timestamp
             }.map {
@@ -79,16 +96,13 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
                 return glucose
             }
 
-            guard !glucoseValues.isEmpty else {
+            // stdev is over 100, only errors are saved
+            guard !glucoseValues.isEmpty, stdev < 100 else {
                 break
             }
 
-            guard stdev < 100 else {
-                break
-            }
-
-            return Just(.addGlucose(glucoseValues: glucoseValues))
-                .setFailureType(to: AppError.self)
+            return Just(.addSensorGlucose(glucoseValues: glucoseValues))
+                .setFailureType(to: DirectError.self)
                 .eraseToAnyPublisher()
 
         case .pairConnection:
@@ -104,7 +118,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
                 sensorConnection.disconnectConnection()
 
                 return Just(.connectConnection)
-                    .setFailureType(to: AppError.self)
+                    .setFailureType(to: DirectError.self)
                     .eraseToAnyPublisher()
             }
 
@@ -134,7 +148,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             }
 
             return Just(.connectConnection)
-                .setFailureType(to: AppError.self)
+                .setFailureType(to: DirectError.self)
                 .eraseToAnyPublisher()
 
         default:

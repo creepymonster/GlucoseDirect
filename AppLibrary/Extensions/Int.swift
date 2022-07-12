@@ -70,6 +70,14 @@ extension Int {
         return Decimal(self)
     }
     
+    func pluralize(singular: String, plural: String) -> String {
+        if self == 1 {
+            return singular
+        }
+        
+        return plural
+    }
+    
     func inPercent(of: Int) -> Double {
         return 100.0 / Double(of) * Double(self)
     }

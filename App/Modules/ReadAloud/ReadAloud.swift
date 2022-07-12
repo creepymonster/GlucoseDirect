@@ -16,16 +16,12 @@ func readAloudMiddelware() -> Middleware<DirectState, DirectAction> {
 private func readAloudMiddelware(service: LazyService<ReadAloudService>) -> Middleware<DirectState, DirectAction> {
     return { state, action, _ in
         switch action {
-        case .addGlucose(glucoseValues: let glucoseValues):
+        case .addSensorGlucose(glucoseValues: let glucoseValues):
             guard state.readGlucose else {
                 break
             }
 
             guard let glucose = glucoseValues.last else {
-                break
-            }
-
-            guard glucose.isSensorGlucose else {
                 break
             }
 
@@ -50,26 +46,21 @@ private class ReadAloudService {
 
     // MARK: Internal
 
-    func readGlucose(sensorInterval: Int, glucose: Glucose, glucoseUnit: GlucoseUnit, alarmLow: Int, alarmHigh: Int) {
-        guard let glucoseValue = glucose.glucoseValue else {
-            DirectLog.info("Guard: glucose.glucoseValue is nil")
-            return
-        }
-
+    func readGlucose(sensorInterval: Int, glucose: SensorGlucose, glucoseUnit: GlucoseUnit, alarmLow: Int, alarmHigh: Int) {
         var alarm: AlarmType = .none
-        if glucoseValue < alarmLow {
+        if glucose.glucoseValue < alarmLow {
             alarm = .low
-        } else if glucoseValue > alarmHigh {
+        } else if glucose.glucoseValue > alarmHigh {
             alarm = .high
         }
 
-        if glucose.is5Minutely && alarm != .none || alarm != self.alarm || sensorInterval > 1 {
-            read(glucoseValue: glucoseValue, glucoseUnit: glucoseUnit, glucoseTrend: glucose.trend, alarm: alarm)
+        if alarm != self.alarm || sensorInterval > 1 {
+            read(glucoseValue: glucose.glucoseValue, glucoseUnit: glucoseUnit, glucoseTrend: glucose.trend, alarm: alarm)
 
             self.glucose = glucose
             self.alarm = alarm
-        } else if glucose.is10Minutely || self.glucose == nil || self.glucose?.trend != glucose.trend || self.glucose?.type != glucose.type {
-            read(glucoseValue: glucoseValue, glucoseUnit: glucoseUnit, glucoseTrend: glucose.trend)
+        } else if glucose.isMinutly(ofMinutes: 10) || self.glucose == nil || self.glucose?.trend != glucose.trend {
+            read(glucoseValue: glucose.glucoseValue, glucoseUnit: glucoseUnit, glucoseTrend: glucose.trend)
 
             self.glucose = glucose
             self.alarm = alarm
@@ -80,7 +71,7 @@ private class ReadAloudService {
 
     private lazy var speechSynthesizer: AVSpeechSynthesizer = .init()
 
-    private var glucose: Glucose?
+    private var glucose: SensorGlucose?
     private var alarm: AlarmType = .none
 
     private lazy var voice: AVSpeechSynthesisVoice? = {

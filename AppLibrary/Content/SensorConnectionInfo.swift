@@ -6,7 +6,7 @@
 import Combine
 import Foundation
 
-typealias SensorConnectionCreator = (PassthroughSubject<DirectAction, AppError>) -> SensorConnectionProtocol
+typealias SensorConnectionCreator = (PassthroughSubject<DirectAction, DirectError>) -> SensorConnectionProtocol
 
 // MARK: - SensorConnectionInfo
 

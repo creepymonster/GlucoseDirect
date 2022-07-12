@@ -15,10 +15,10 @@ protocol IsSensor {}
 
 protocol IsTransmitter {}
 
-// MARK: - SensorConnection
+// MARK: - SensorConnectionProtocol
 
 protocol SensorConnectionProtocol {
-    var subject: PassthroughSubject<DirectAction, AppError>? { get }
+    var subject: PassthroughSubject<DirectAction, DirectError>? { get }
     func pairConnection()
     func connectConnection(sensor: Sensor, sensorInterval: Int)
     func disconnectConnection()

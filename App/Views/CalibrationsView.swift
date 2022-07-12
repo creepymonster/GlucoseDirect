@@ -5,7 +5,7 @@
 
 import SwiftUI
 
-struct CalibrationView: View {
+struct CalibrationsView: View {
     @EnvironmentObject var store: DirectStore
 
     var body: some View {
