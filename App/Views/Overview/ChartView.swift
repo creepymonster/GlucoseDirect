@@ -186,7 +186,10 @@ struct ChartView: View {
                                                 let selectedSensorPoint = sensorPointInfos[currentDate.toRounded(on: 1, .minute)]
                                                 let selectedBloodPoint = bloodPointInfos[currentDate.toRounded(on: 1, .minute)]
 
-                                                self.selectedSensorPoint = selectedSensorPoint
+                                                if let selectedSensorPoint {
+                                                    self.selectedSensorPoint = selectedSensorPoint
+                                                }
+
                                                 self.selectedBloodPoint = selectedBloodPoint
                                             }
                                         }

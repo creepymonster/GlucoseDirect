@@ -51,20 +51,22 @@ final class Store<State, Action>: ObservableObject {
                 break
             }
 
-            middleware
-                .receive(on: DispatchQueue.main)
+            var cancellable: AnyCancellable!
+            cancellable = middleware.receive(on: DispatchQueue.main)
                 .sink(
-                    receiveCompletion: { completion in
+                    receiveCompletion: { [weak self] completion in
                         switch completion {
                         case .failure(.withMessage(message: let message)):
                             DirectLog.error(message)
                         default:
                             break
                         }
+
+                        self?.middlewareCancellables.remove(cancellable)
                     },
                     receiveValue: dispatch
                 )
-                .store(in: &middlewareCancellables)
+            cancellable.store(in: &middlewareCancellables)
         }
     }
 

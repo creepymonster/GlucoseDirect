@@ -7,26 +7,29 @@ import Foundation
 import OSLog
 
 enum DirectAction {
-    case addCalibration(bloodGlucoseValue: Int)
     case addBloodGlucose(glucoseValues: [BloodGlucose])
-    case addSensorGlucose(glucoseValues: [SensorGlucose])
-    case addSensorError(errorValues: [SensorError])
+    case addCalibration(bloodGlucoseValue: Int)
     case addMissedReading
+    case addSensorError(errorValues: [SensorError])
+    case addSensorGlucose(glucoseValues: [SensorGlucose])
     case addSensorReadings(sensorSerial: String, readings: [SensorReading])
     case bellmanTestAlarm
-    case clearCalibrations
     case clearBloodGlucoseValues
-    case clearSensorGlucoseValues
+    case clearCalibrations
     case clearSensorErrorValues
+    case clearSensorGlucoseValues
     case connectConnection
+    case deleteBloodGlucose(glucose: BloodGlucose)
+    case deleteCalibration(calibration: CustomCalibration)
     case deleteLogs
+    case deleteSensorError(error: SensorError)
+    case deleteSensorGlucose(glucose: SensorGlucose)
     case disconnectConnection
+    case loadBloodGlucoseValues
+    case loadSensorErrorValues
+    case loadSensorGlucoseValues
     case pairConnection
     case registerConnectionInfo(infos: [SensorConnectionInfo])
-    case deleteCalibration(calibration: CustomCalibration)
-    case deleteBloodGlucose(glucose: BloodGlucose)
-    case deleteSensorGlucose(glucose: SensorGlucose)
-    case deleteSensorError(error: SensorError)
     case requestAppleCalendarAccess(enabled: Bool)
     case requestAppleHealthAccess(enabled: Bool)
     case resetSensor
@@ -42,6 +45,8 @@ enum DirectAction {
     case setAppleHealthExport(enabled: Bool)
     case setBellmanConnectionState(connectionState: BellmanConnectionState)
     case setBellmanNotification(enabled: Bool)
+    case setBloodGlucoseHistory(glucoseHistory: [BloodGlucose])
+    case setBloodGlucoseValues(glucoseValues: [BloodGlucose])
     case setChartShowLines(enabled: Bool)
     case setChartZoomLevel(level: Int)
     case setConnectionAlarmSound(sound: NotificationSound)
@@ -52,11 +57,6 @@ enum DirectAction {
     case setExpiringAlarmSound(sound: NotificationSound)
     case setGlucoseNotification(enabled: Bool)
     case setGlucoseUnit(unit: GlucoseUnit)
-    case setBloodGlucoseValues(glucoseValues: [BloodGlucose])
-    case setBloodGlucoseHistory(glucoseHistory: [BloodGlucose])
-    case setSensorGlucoseValues(glucoseValues: [SensorGlucose])
-    case setSensorGlucoseHistory(glucoseHistory: [SensorGlucose])
-    case setSensorErrorValues(errorValues: [SensorError])
     case setHighGlucoseAlarmSound(sound: NotificationSound)
     case setIgnoreMute(enabled: Bool)
     case setLowGlucoseAlarmSound(sound: NotificationSound)
@@ -66,6 +66,9 @@ enum DirectAction {
     case setPreventScreenLock(enabled: Bool)
     case setReadGlucose(enabled: Bool)
     case setSensor(sensor: Sensor, keepDevice: Bool = false)
+    case setSensorErrorValues(errorValues: [SensorError])
+    case setSensorGlucoseHistory(glucoseHistory: [SensorGlucose])
+    case setSensorGlucoseValues(glucoseValues: [SensorGlucose])
     case setSensorInterval(interval: Int)
     case setSensorState(sensorAge: Int, sensorState: SensorState?)
     case setTransmitter(transmitter: Transmitter)

@@ -15,82 +15,46 @@ func sensorGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
         case .startup:
             DataStore.shared.createSensorGlucoseTable()
 
-            return Publishers.MergeMany(
-                Just(DirectAction.setSensorGlucoseValues(glucoseValues: DataStore.shared.getSensorGlucose())),
-                Just(DirectAction.setSensorGlucoseHistory(glucoseHistory: DataStore.shared.getSensorGlucoseHistory()))
-            )
-            .setFailureType(to: DirectError.self)
-            .eraseToAnyPublisher()
-
-//            return Just(DirectAction.setSensorGlucoseValues(glucoseValues: DataStore.shared.getSensorGlucose()))
-//                .merge(with: Just(DirectAction.setSensorGlucoseHistory(glucoseHistory: DataStore.shared.getSensorGlucoseHistory())))
-//                .setFailureType(to: DirectError.self)
-//                .eraseToAnyPublisher()
-
-//            return Just(.setSensorGlucoseValues(glucoseValues: DataStore.shared.getSensorGlucose()))
-//                .setFailureType(to: AppError.self)
-//                .eraseToAnyPublisher()
+            return Just(DirectAction.loadSensorGlucoseValues)
+                .setFailureType(to: DirectError.self)
+                .eraseToAnyPublisher()
 
         case .addSensorGlucose(glucoseValues: let glucoseValues):
             guard !glucoseValues.isEmpty else {
                 break
             }
-
+            
             DataStore.shared.insertSensorGlucose(glucoseValues)
 
-            return Publishers.MergeMany(
-                Just(DirectAction.setSensorGlucoseValues(glucoseValues: DataStore.shared.getSensorGlucose())),
-                Just(DirectAction.setSensorGlucoseHistory(glucoseHistory: DataStore.shared.getSensorGlucoseHistory()))
-            )
-            .setFailureType(to: DirectError.self)
-            .eraseToAnyPublisher()
-
-//            return Just(DirectAction.setSensorGlucoseValues(glucoseValues: DataStore.shared.getSensorGlucose()))
-//                .merge(with: Just(DirectAction.setSensorGlucoseHistory(glucoseHistory: DataStore.shared.getSensorGlucoseHistory())))
-//                .setFailureType(to: DirectError.self)
-//                .eraseToAnyPublisher()
-
-//            return Just(.setSensorGlucoseValues(glucoseValues: DataStore.shared.getSensorGlucose()))
-//                .setFailureType(to: AppError.self)
-//                .eraseToAnyPublisher()
+            return Just(DirectAction.loadSensorGlucoseValues)
+                .setFailureType(to: DirectError.self)
+                .eraseToAnyPublisher()
 
         case .deleteSensorGlucose(glucose: let glucose):
             DataStore.shared.deleteSensorGlucose(glucose)
 
-            return Publishers.MergeMany(
-                Just(DirectAction.setSensorGlucoseValues(glucoseValues: DataStore.shared.getSensorGlucose())),
-                Just(DirectAction.setSensorGlucoseHistory(glucoseHistory: DataStore.shared.getSensorGlucoseHistory()))
-            )
-            .setFailureType(to: DirectError.self)
-            .eraseToAnyPublisher()
-
-//            return Just(DirectAction.setSensorGlucoseValues(glucoseValues: DataStore.shared.getSensorGlucose()))
-//                .merge(with: Just(DirectAction.setSensorGlucoseHistory(glucoseHistory: DataStore.shared.getSensorGlucoseHistory())))
-//                .setFailureType(to: DirectError.self)
-//                .eraseToAnyPublisher()
-
-//            return Just(.setSensorGlucoseValues(glucoseValues: DataStore.shared.getSensorGlucose()))
-//                .setFailureType(to: AppError.self)
-//                .eraseToAnyPublisher()
+            return Just(DirectAction.loadSensorGlucoseValues)
+                .setFailureType(to: DirectError.self)
+                .eraseToAnyPublisher()
 
         case .clearSensorGlucoseValues:
             DataStore.shared.deleteAllSensorGlucose()
 
+            return Just(DirectAction.loadSensorGlucoseValues)
+                .setFailureType(to: DirectError.self)
+                .eraseToAnyPublisher()
+
+        case .loadSensorGlucoseValues:
             return Publishers.MergeMany(
-                Just(DirectAction.setSensorGlucoseValues(glucoseValues: DataStore.shared.getSensorGlucose())),
-                Just(DirectAction.setSensorGlucoseHistory(glucoseHistory: DataStore.shared.getSensorGlucoseHistory()))
-            )
-            .setFailureType(to: DirectError.self)
-            .eraseToAnyPublisher()
-
-//            return Just(DirectAction.setSensorGlucoseValues(glucoseValues: DataStore.shared.getSensorGlucose()))
-//                .merge(with: Just(DirectAction.setSensorGlucoseHistory(glucoseHistory: DataStore.shared.getSensorGlucoseHistory())))
-//                .setFailureType(to: DirectError.self)
-//                .eraseToAnyPublisher()
-
-//            return Just(.setSensorGlucoseValues(glucoseValues: []))
-//                .setFailureType(to: AppError.self)
-//                .eraseToAnyPublisher()
+                DataStore.shared.setSensorGlucoseValues().map { glucoseValues in
+                    DirectLog.info("setSensorGlucoseValues")
+                    return DirectAction.setSensorGlucoseValues(glucoseValues: glucoseValues)
+                },
+                DataStore.shared.getSensorGlucoseHistory().map { glucoseValues in
+                    DirectLog.info("getSensorGlucoseHistory")
+                    return DirectAction.setSensorGlucoseHistory(glucoseHistory: glucoseValues)
+                }
+            ).eraseToAnyPublisher()
 
         default:
             break
@@ -196,47 +160,59 @@ extension DataStore {
         }
     }
 
-    func getSensorGlucose(upToDay: Int = 1) -> [SensorGlucose] {
-        if let dbQueue = dbQueue {
-            do {
-                return try dbQueue.read { db in
-                    try SensorGlucose
-                        .filter(Column(SensorGlucose.Columns.timestamp.name) > Calendar.current.date(byAdding: .day, value: -upToDay, to: Date())!)
-                        .order(Column(SensorGlucose.Columns.timestamp.name))
-                        .fetchAll(db)
+    func setSensorGlucoseValues(upToDay: Int = 1) -> Future<[SensorGlucose], DirectError> {
+        return Future { promise in
+            if let dbQueue = self.dbQueue {
+                dbQueue.asyncRead { asyncDB in
+                    do {
+                        let db = try asyncDB.get()
+                        let result = try SensorGlucose
+                            .filter(Column(SensorGlucose.Columns.timestamp.name) > Calendar.current.date(byAdding: .day, value: -upToDay, to: Date())!)
+                            .order(Column(SensorGlucose.Columns.timestamp.name))
+                            .fetchAll(db)
+
+                        promise(.success(result))
+                    } catch {
+                        promise(.failure(DirectError.withMessage(error.localizedDescription)))
+                    }
                 }
-            } catch {
-                DirectLog.error(error.localizedDescription)
             }
         }
-
-        return []
     }
 
-    func getSensorGlucoseHistory(fromDay: Int = 1, upToDay: Int = 7) -> [SensorGlucose] {
-        if let dbQueue = dbQueue {
-            do {
-                return try dbQueue.read { db in
-                    try SensorGlucose
-                        .filter(Column(SensorGlucose.Columns.timestamp.name) <= Calendar.current.date(byAdding: .day, value: -fromDay, to: Date())!)
-                        .filter(Column(SensorGlucose.Columns.timestamp.name) > Calendar.current.date(byAdding: .day, value: -upToDay, to: Date())!)
-                        .select(
-                            min(SensorGlucose.Columns.id).forKey(SensorGlucose.Columns.id.name),
-                            SensorGlucose.Columns.timegroup.forKey(SensorGlucose.Columns.timestamp.name),
-                            sum(SensorGlucose.Columns.minuteChange).forKey(SensorGlucose.Columns.minuteChange.name),
-                            average(SensorGlucose.Columns.rawGlucoseValue).forKey(SensorGlucose.Columns.rawGlucoseValue.name),
-                            average(SensorGlucose.Columns.intGlucoseValue).forKey(SensorGlucose.Columns.intGlucoseValue.name),
-                            SensorGlucose.Columns.timegroup
-                        )
-                        .group(SensorGlucose.Columns.timegroup)
-                        .order(Column(SensorGlucose.Columns.timestamp.name))
-                        .fetchAll(db)
+    func getSensorGlucoseHistory(fromDay: Int = 1, upToDay: Int = 7) -> Future<[SensorGlucose], DirectError> {
+        return Future { promise in
+            if let dbQueue = self.dbQueue {
+                dbQueue.asyncRead { asyncDB in
+                    do {
+                        let db = try asyncDB.get()
+                        let result = try SensorGlucose
+                            .filter(Column(SensorGlucose.Columns.timestamp.name) <= Calendar.current.date(byAdding: .day, value: -fromDay, to: Date())!)
+                            .filter(Column(SensorGlucose.Columns.timestamp.name) > Calendar.current.date(byAdding: .day, value: -upToDay, to: Date())!)
+                            .select(
+                                min(SensorGlucose.Columns.id).forKey(SensorGlucose.Columns.id.name),
+                                SensorGlucose.Columns.timegroup.forKey(SensorGlucose.Columns.timestamp.name),
+                                sum(SensorGlucose.Columns.minuteChange).forKey(SensorGlucose.Columns.minuteChange.name),
+                                average(SensorGlucose.Columns.rawGlucoseValue).forKey(SensorGlucose.Columns.rawGlucoseValue.name),
+                                average(SensorGlucose.Columns.intGlucoseValue).forKey(SensorGlucose.Columns.intGlucoseValue.name),
+                                SensorGlucose.Columns.timegroup
+                            )
+                            .group(SensorGlucose.Columns.timegroup)
+                            .order(Column(SensorGlucose.Columns.timestamp.name))
+                            .fetchAll(db)
+
+                        promise(.success(result))
+                    } catch {
+                        promise(.failure(DirectError.withMessage(error.localizedDescription)))
+                    }
                 }
-            } catch {
-                DirectLog.error(error.localizedDescription)
             }
         }
-
-        return []
     }
+}
+
+// MARK: - MyError
+
+enum MyError: Error {
+    case runtimeError(String)
 }

@@ -13,7 +13,7 @@ func sensorErrorStoreMiddleware() -> Middleware<DirectState, DirectAction> {
         case .startup:
             DataStore.shared.createSensorErrorTable()
 
-            return Just(.setSensorErrorValues(errorValues: DataStore.shared.getSensorError()))
+            return Just(DirectAction.loadSensorErrorValues)
                 .setFailureType(to: DirectError.self)
                 .eraseToAnyPublisher()
 
@@ -24,23 +24,28 @@ func sensorErrorStoreMiddleware() -> Middleware<DirectState, DirectAction> {
 
             DataStore.shared.insertSensorError(errorValues)
 
-            return Just(.setSensorErrorValues(errorValues: DataStore.shared.getSensorError()))
+            return Just(DirectAction.loadSensorErrorValues)
                 .setFailureType(to: DirectError.self)
                 .eraseToAnyPublisher()
 
         case .deleteSensorError(error: let error):
             DataStore.shared.deleteSensorError(error)
 
-            return Just(.setSensorErrorValues(errorValues: DataStore.shared.getSensorError()))
+            return Just(DirectAction.loadSensorErrorValues)
                 .setFailureType(to: DirectError.self)
                 .eraseToAnyPublisher()
 
         case .clearSensorErrorValues:
             DataStore.shared.deleteAllSensorError()
 
-            return Just(.setSensorErrorValues(errorValues: []))
+            return Just(DirectAction.loadSensorErrorValues)
                 .setFailureType(to: DirectError.self)
                 .eraseToAnyPublisher()
+
+        case .loadSensorErrorValues:
+            return DataStore.shared.setSensorErrorValues().map { errorValues in
+                DirectAction.setSensorErrorValues(errorValues: errorValues)
+            }.eraseToAnyPublisher()
 
         default:
             break
@@ -141,20 +146,23 @@ extension DataStore {
         }
     }
 
-    func getSensorError() -> [SensorError] {
-        if let dbQueue = dbQueue {
-            do {
-                return try dbQueue.read { db in
-                    try SensorError
-                        .filter(Column(SensorError.Columns.timestamp.name) > Calendar.current.date(byAdding: .day, value: -3, to: Date())!)
-                        .order(Column(SensorError.Columns.timestamp.name))
-                        .fetchAll(db)
+    func setSensorErrorValues() -> Future<[SensorError], DirectError> {
+        return Future { promise in
+            if let dbQueue = self.dbQueue {
+                dbQueue.asyncRead { asyncDB in
+                    do {
+                        let db = try asyncDB.get()
+                        let result = try SensorError
+                            .filter(Column(SensorError.Columns.timestamp.name) > Calendar.current.date(byAdding: .day, value: -3, to: Date())!)
+                            .order(Column(SensorError.Columns.timestamp.name))
+                            .fetchAll(db)
+
+                        promise(.success(result))
+                    } catch {
+                        promise(.failure(DirectError.withMessage(error.localizedDescription)))
+                    }
                 }
-            } catch {
-                DirectLog.error(error.localizedDescription)
             }
         }
-
-        return []
     }
 }
