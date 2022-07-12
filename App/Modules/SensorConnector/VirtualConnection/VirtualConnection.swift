@@ -11,14 +11,14 @@ import Foundation
 class VirtualLibreConnection: SensorConnectionProtocol, IsSensor {
     // MARK: Lifecycle
 
-    init(subject: PassthroughSubject<DirectAction, AppError>) {
+    init(subject: PassthroughSubject<DirectAction, DirectError>) {
         DirectLog.info("init")
         self.subject = subject
     }
 
     // MARK: Internal
 
-    weak var subject: PassthroughSubject<DirectAction, AppError>?
+    weak var subject: PassthroughSubject<DirectAction, DirectError>?
 
     func pairConnection() {
         let sensor = Sensor(
@@ -85,7 +85,7 @@ class VirtualLibreConnection: SensorConnectionProtocol, IsSensor {
         sendUpdate(age: age, state: age > warmupTime ? .ready : .starting)
 
         if age > warmupTime {
-            let sensorReading = Int.random(in: 0 ..< 100) < 2
+            let sensorReading = Int.random(in: 0 ..< 100) < 25
                 ? SensorReading.createFaultyReading(timestamp: Date(), quality: .AVG_DELTA_EXCEEDED)
                 : SensorReading.createGlucoseReading(timestamp: Date(), glucoseValue: Double(currentGlucose))
 

@@ -90,7 +90,7 @@ struct CustomCalibrationView: View {
 
                     deletables.forEach { delete in
                         customCalibration.remove(at: delete.index)
-                        store.dispatch(.removeCalibration(calibration: delete.calibration))
+                        store.dispatch(.deleteCalibration(calibration: delete.calibration))
                     }
                 }
             },

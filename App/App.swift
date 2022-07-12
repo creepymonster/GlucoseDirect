@@ -66,6 +66,9 @@ final class GlucoseDirectApp: App {
 
         var middlewares = [
             logMiddleware(),
+            bloodGlucoseStoreMiddleware(),
+            sensorGlucoseStoreMiddleware(),
+            sensorErrorStoreMiddleware(),
             expiringNotificationMiddelware(),
             glucoseNotificationMiddelware(),
             connectionNotificationMiddelware(),
@@ -77,6 +80,7 @@ final class GlucoseDirectApp: App {
             appGroupSharingMiddleware(),
             widgetCenterMiddleware(),
             screenLockMiddleware(),
+            sensorErrorMiddleware()
         ]
 
         middlewares.append(sensorConnectorMiddelware([
@@ -91,6 +95,9 @@ final class GlucoseDirectApp: App {
 
         var middlewares = [
             logMiddleware(),
+            bloodGlucoseStoreMiddleware(),
+            sensorGlucoseStoreMiddleware(),
+            sensorErrorStoreMiddleware(),
             expiringNotificationMiddelware(),
             glucoseNotificationMiddelware(),
             connectionNotificationMiddelware(),
@@ -102,6 +109,7 @@ final class GlucoseDirectApp: App {
             appGroupSharingMiddleware(),
             widgetCenterMiddleware(),
             screenLockMiddleware(),
+            sensorErrorMiddleware()
         ]
 
         let bubbleTransmitter = LocalizedString("Bubble transmitter")

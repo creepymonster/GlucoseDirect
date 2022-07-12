@@ -5,21 +5,21 @@
 
 import Foundation
 
-struct SensorReadingQuality: OptionSet, Codable {
-    static let OK = SensorReadingQuality([])
-    static let SD14_FIFO_OVERFLOW = SensorReadingQuality(rawValue: 1 << 0)
-    static let FILTER_DELTA = SensorReadingQuality(rawValue: 1 << 1)
-    static let WORK_VOLTAGE = SensorReadingQuality(rawValue: 1 << 2)
-    static let PEAK_DELTA_EXCEEDED = SensorReadingQuality(rawValue: 1 << 3)
-    static let AVG_DELTA_EXCEEDED = SensorReadingQuality(rawValue: 1 << 4)
-    static let RF = SensorReadingQuality(rawValue: 1 << 5)
-    static let REF_R = SensorReadingQuality(rawValue: 1 << 6)
-    static let SIGNAL_SATURATED = SensorReadingQuality(rawValue: 1 << 7)
-    static let SENSOR_SIGNAL_LOW = SensorReadingQuality(rawValue: 1 << 8)
-    static let THERMISTOR_OUT_OF_RANGE = SensorReadingQuality(rawValue: 1 << 11)
-    static let TEMP_HIGH = SensorReadingQuality(rawValue: 1 << 13)
-    static let TEMP_LOW = SensorReadingQuality(rawValue: 1 << 14)
-    static let INVALID_DATA = SensorReadingQuality(rawValue: 1 << 15)
+struct SensorReadingError: OptionSet, Codable {
+    static let OK = SensorReadingError([])
+    static let SD14_FIFO_OVERFLOW = SensorReadingError(rawValue: 1 << 0)
+    static let FILTER_DELTA = SensorReadingError(rawValue: 1 << 1)
+    static let WORK_VOLTAGE = SensorReadingError(rawValue: 1 << 2)
+    static let PEAK_DELTA_EXCEEDED = SensorReadingError(rawValue: 1 << 3)
+    static let AVG_DELTA_EXCEEDED = SensorReadingError(rawValue: 1 << 4)
+    static let RF = SensorReadingError(rawValue: 1 << 5)
+    static let REF_R = SensorReadingError(rawValue: 1 << 6)
+    static let SIGNAL_SATURATED = SensorReadingError(rawValue: 1 << 7)
+    static let SENSOR_SIGNAL_LOW = SensorReadingError(rawValue: 1 << 8)
+    static let THERMISTOR_OUT_OF_RANGE = SensorReadingError(rawValue: 1 << 11)
+    static let TEMP_HIGH = SensorReadingError(rawValue: 1 << 13)
+    static let TEMP_LOW = SensorReadingError(rawValue: 1 << 14)
+    static let INVALID_DATA = SensorReadingError(rawValue: 1 << 15)
 
     let rawValue: Int
 

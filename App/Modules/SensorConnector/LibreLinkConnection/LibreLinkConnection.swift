@@ -12,7 +12,7 @@ import Foundation
 class LibreLinkConnection: SensorBluetoothConnection, IsSensor {
     // MARK: Lifecycle
 
-    init(subject: PassthroughSubject<DirectAction, AppError>) {
+    init(subject: PassthroughSubject<DirectAction, DirectError>) {
         DirectLog.info("init")
 
         super.init(subject: subject, serviceUUID: CBUUID(string: "FDE3"))
