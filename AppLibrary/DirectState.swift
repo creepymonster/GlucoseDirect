@@ -32,13 +32,11 @@ protocol DirectState {
     var glucoseNotification: Bool { get set }
     var glucoseUnit: GlucoseUnit { get set }
     var highGlucoseAlarmSound: NotificationSound { get set }
-    var ignoreMute: Bool { get set }
     var isConnectionPaired: Bool { get set }
     var latestBloodGlucose: BloodGlucose? { get set }
     var latestSensorGlucose: SensorGlucose? { get set }
     var latestSensorError: SensorError? { get set }
     var lowGlucoseAlarmSound: NotificationSound { get set }
-    var missedReadings: Int { get set }
     var nightscoutApiSecret: String { get set }
     var nightscoutUpload: Bool { get set }
     var nightscoutURL: String { get set }
@@ -58,10 +56,6 @@ protocol DirectState {
 }
 
 extension DirectState {
-    var hasGlucoseValues: Bool {
-        !bloodGlucoseValues.isEmpty || !sensorGlucoseValues.isEmpty
-    }
-
     var hasConnectionAlarm: Bool {
         connectionAlarmSound != .none
     }

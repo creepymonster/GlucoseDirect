@@ -16,11 +16,11 @@ struct SensorErrorList: View {
                 if sensorErrorValues.isEmpty {
                     Text(getTeaser(sensorErrorValues.count))
                 } else {
-                    ForEach(sensorErrorValues) { error in
-                        HStack {
-                            Text(error.timestamp.toLocalDateTime())
+                    ForEach(sensorErrorValues) { errorValue in
+                        HStack(alignment: .top) {
+                            Text(errorValue.timestamp.toLocalDateTime()).lineLimit(1)
                             Spacer()
-                            Text(":'(")
+                            Text(errorValue.error.description).multilineTextAlignment(.trailing)
                         }
                     }.onDelete { offsets in
                         DirectLog.info("onDelete: \(offsets)")

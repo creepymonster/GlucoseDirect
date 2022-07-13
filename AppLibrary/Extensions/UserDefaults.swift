@@ -22,7 +22,6 @@ private enum Keys: String {
     case glucoseNotification = "libre-direct.settings.glucose-badge"
     case glucoseUnit = "libre-direct.settings.glucose-unit"
     case highGlucoseAlarmSound = "libre-direct.settings.high-glucose-alarm-sound"
-    case ignoreMute = "libre-direct.settings.ignore-mute"
     case isConnectionPaired = "libre-direct.settings.is-paired"
     case latestBloodGlucose = "libre-direct.settings.latest-blood-glucose"
     case latestSensorGlucose = "libre-direct.settings.latest-sensor-glucose"
@@ -303,19 +302,6 @@ extension UserDefaults {
             } else {
                 removeObject(forKey: Keys.latestSensorError.rawValue)
             }
-        }
-    }
-
-    var ignoreMute: Bool {
-        get {
-            if object(forKey: Keys.ignoreMute.rawValue) != nil {
-                return bool(forKey: Keys.ignoreMute.rawValue)
-            }
-
-            return false
-        }
-        set {
-            set(newValue, forKey: Keys.ignoreMute.rawValue)
         }
     }
 

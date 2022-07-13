@@ -16,13 +16,13 @@ struct SensorGlucoseList: View {
                 if sensorGlucoseValues.isEmpty {
                     Text(getTeaser(sensorGlucoseValues.count))
                 } else {
-                    ForEach(sensorGlucoseValues) { glucose in
+                    ForEach(sensorGlucoseValues) { glucoseValue in
                         HStack {
-                            Text(glucose.timestamp.toLocalDateTime())
+                            Text(glucoseValue.timestamp.toLocalDateTime())
                             Spacer()
 
-                            Text(glucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true, precise: isPrecise(glucose: glucose)))
-                                .if(glucose.glucoseValue < store.state.alarmLow || glucose.glucoseValue > store.state.alarmHigh) { text in
+                            Text(glucoseValue.glucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true, precise: isPrecise(glucose: glucoseValue)))
+                                .if(glucoseValue.glucoseValue < store.state.alarmLow || glucoseValue.glucoseValue > store.state.alarmHigh) { text in
                                     text.foregroundColor(Color.ui.red)
                                 }
                         }

@@ -61,7 +61,6 @@ struct AppState: DirectState {
         self.glucoseNotification = UserDefaults.standard.glucoseNotification
         self.glucoseUnit = UserDefaults.shared.glucoseUnit ?? .mgdL
         self.highGlucoseAlarmSound = UserDefaults.standard.highGlucoseAlarmSound
-        self.ignoreMute = UserDefaults.standard.ignoreMute
         self.isConnectionPaired = UserDefaults.standard.isConnectionPaired
         self.latestBloodGlucose = UserDefaults.shared.latestBloodGlucose
         self.latestSensorGlucose = UserDefaults.shared.latestSensorGlucose
@@ -81,51 +80,48 @@ struct AppState: DirectState {
 
     // MARK: Internal
 
+    var alarmHigh: Int = 160 { didSet { UserDefaults.standard.alarmHigh = alarmHigh } }
+    var alarmLow: Int = 80 { didSet { UserDefaults.standard.alarmLow = alarmLow } }
     var alarmSnoozeUntil: Date?
+    var appleCalendarExport: Bool { didSet { UserDefaults.standard.appleCalendarExport = appleCalendarExport } }
+    var appleHealthExport: Bool { didSet { UserDefaults.standard.appleHealthExport = appleHealthExport } }
+    var bellmanAlarm = false { didSet { UserDefaults.standard.bellmanAlarm = bellmanAlarm } }
     var bellmanConnectionState: BellmanConnectionState = .disconnected
-    var bloodGlucoseValues: [BloodGlucose] = []
     var bloodGlucoseHistory: [BloodGlucose] = []
+    var bloodGlucoseValues: [BloodGlucose] = []
+    var chartShowLines: Bool { didSet { UserDefaults.standard.chartShowLines = chartShowLines } }
+    var chartZoomLevel: Int { didSet { UserDefaults.standard.chartZoomLevel = chartZoomLevel } }
+    var connectionAlarmSound: NotificationSound { didSet { UserDefaults.standard.connectionAlarmSound = connectionAlarmSound } }
     var connectionError: String?
     var connectionErrorIsCritical = false
     var connectionErrorTimestamp: Date?
     var connectionInfos: [SensorConnectionInfo] = []
-    var connectionState: SensorConnectionState = .disconnected
-    var missedReadings = 0
-    var preventScreenLock = false
-    var selectedConnection: SensorConnectionProtocol?
-    var sensorErrorValues: [SensorError] = []
-    var sensorGlucoseValues: [SensorGlucose] = []
-    var sensorGlucoseHistory: [SensorGlucose] = []
-    var targetValue = 100
-
-    var alarmHigh: Int = 160 { didSet { UserDefaults.standard.alarmHigh = alarmHigh } }
-    var alarmLow: Int = 80 { didSet { UserDefaults.standard.alarmLow = alarmLow } }
-    var appleCalendarExport: Bool { didSet { UserDefaults.standard.appleCalendarExport = appleCalendarExport } }
-    var appleHealthExport: Bool { didSet { UserDefaults.standard.appleHealthExport = appleHealthExport } }
-    var bellmanAlarm = false { didSet { UserDefaults.standard.bellmanAlarm = bellmanAlarm } }
-    var chartShowLines: Bool { didSet { UserDefaults.standard.chartShowLines = chartShowLines } }
-    var chartZoomLevel: Int { didSet { UserDefaults.standard.chartZoomLevel = chartZoomLevel } }
-    var connectionAlarmSound: NotificationSound { didSet { UserDefaults.standard.connectionAlarmSound = connectionAlarmSound } }
     var connectionPeripheralUUID: String? { didSet { UserDefaults.standard.connectionPeripheralUUID = connectionPeripheralUUID } }
+    var connectionState: SensorConnectionState = .disconnected
     var customCalibration: [CustomCalibration] { didSet { UserDefaults.standard.customCalibration = customCalibration } }
     var expiringAlarmSound: NotificationSound { didSet { UserDefaults.standard.expiringAlarmSound = expiringAlarmSound } }
     var glucoseNotification: Bool { didSet { UserDefaults.standard.glucoseNotification = glucoseNotification } }
     var glucoseUnit: GlucoseUnit { didSet { UserDefaults.shared.glucoseUnit = glucoseUnit } }
     var highGlucoseAlarmSound: NotificationSound { didSet { UserDefaults.standard.highGlucoseAlarmSound = highGlucoseAlarmSound } }
-    var ignoreMute: Bool { didSet { UserDefaults.standard.ignoreMute = ignoreMute } }
     var isConnectionPaired: Bool { didSet { UserDefaults.standard.isConnectionPaired = isConnectionPaired } }
     var latestBloodGlucose: BloodGlucose? { didSet { UserDefaults.shared.latestBloodGlucose = latestBloodGlucose } }
-    var latestSensorGlucose: SensorGlucose? { didSet { UserDefaults.shared.latestSensorGlucose = latestSensorGlucose } }
     var latestSensorError: SensorError? { didSet { UserDefaults.shared.latestSensorError = latestSensorError } }
+    var latestSensorGlucose: SensorGlucose? { didSet { UserDefaults.shared.latestSensorGlucose = latestSensorGlucose } }
     var lowGlucoseAlarmSound: NotificationSound { didSet { UserDefaults.standard.lowGlucoseAlarmSound = lowGlucoseAlarmSound } }
     var nightscoutApiSecret: String { didSet { UserDefaults.standard.nightscoutApiSecret = nightscoutApiSecret } }
     var nightscoutUpload: Bool { didSet { UserDefaults.standard.nightscoutUpload = nightscoutUpload } }
     var nightscoutURL: String { didSet { UserDefaults.standard.nightscoutURL = nightscoutURL } }
+    var preventScreenLock = false
     var readGlucose: Bool { didSet { UserDefaults.standard.readGlucose = readGlucose } }
     var selectedCalendarTarget: String? { didSet { UserDefaults.standard.selectedCalendarTarget = selectedCalendarTarget } }
+    var selectedConnection: SensorConnectionProtocol?
     var selectedConnectionID: String? { didSet { UserDefaults.standard.selectedConnectionID = selectedConnectionID } }
     var selectedView: Int { didSet { UserDefaults.standard.selectedView = selectedView } }
     var sensor: Sensor? { didSet { UserDefaults.shared.sensor = sensor } }
+    var sensorErrorValues: [SensorError] = []
+    var sensorGlucoseHistory: [SensorGlucose] = []
+    var sensorGlucoseValues: [SensorGlucose] = []
     var sensorInterval: Int { didSet { UserDefaults.standard.sensorInterval = sensorInterval } }
+    var targetValue = 100
     var transmitter: Transmitter? { didSet { UserDefaults.shared.transmitter = transmitter } }
 }

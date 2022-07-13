@@ -125,9 +125,6 @@
 "Now" = "Now";
 
 /* (No Comment) */
-"OK, sensor connection established" = "OK, sensor connection established";
-
-/* (No Comment) */
 "Power off" = "Power off";
 
 /* (No Comment) */
@@ -218,12 +215,6 @@
 "Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "Unfortunately, an NFC-enabled iPhone is required to use the app :'(";
 
 /* (No Comment) */
-"The connection to the sensor has been successfully established and glucose data is received." = "The connection to the sensor has been successfully established and glucose data is received.";
-
-/* (No Comment) */
-"The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause." = "The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause.";
-
-/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired.";
 
 /* (No Comment) */
@@ -237,9 +228,6 @@
 
 /* (No Comment) */
 "Virtual Sensor" = "Virtual Sensor";
-
-/* (No Comment) */
-"Warning, sensor missed %1$@ readings" = "Warning, sensor missed %1$@ readings";
 
 /* (No Comment) */
 "Wearing time alarm" = "Wearing time alarm";
@@ -474,9 +462,6 @@
 
 /* (No Comment) */
 "Scanned sensor expired" = "Sensor expired";
-
-/* (No Comment) */
-"Ignore mute" = "Ignore mute";
 
 /* (No Comment) */
 "Retrieval interval" = "Retrieval interval";

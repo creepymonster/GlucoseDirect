@@ -63,13 +63,13 @@ struct BloodGlucoseList: View {
                 if bloodGlucoseValues.isEmpty {
                     Text(getTeaser(bloodGlucoseValues.count))
                 } else {
-                    ForEach(bloodGlucoseValues) { glucose in
+                    ForEach(bloodGlucoseValues) { glucoseValue in
                         HStack {
-                            Text(glucose.timestamp.toLocalDateTime())
+                            Text(glucoseValue.timestamp.toLocalDateTime())
                             Spacer()
 
-                            Text(glucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true))
-                                .if(glucose.glucoseValue < store.state.alarmLow || glucose.glucoseValue > store.state.alarmHigh) { text in
+                            Text(glucoseValue.glucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true))
+                                .if(glucoseValue.glucoseValue < store.state.alarmLow || glucoseValue.glucoseValue > store.state.alarmHigh) { text in
                                     text.foregroundColor(Color.ui.red)
                                 }
                         }

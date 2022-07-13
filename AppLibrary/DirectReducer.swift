@@ -27,13 +27,7 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         
     case .addSensorError(errorValues: let errorValues):
         state.latestSensorError = errorValues.last
-               
-    case .addMissedReading:
-        state.missedReadings += 1
-        
-    case .addSensorReadings:
-        state.missedReadings = 0
-        
+                       
     case .clearCalibrations:
         state.customCalibration = []
         
@@ -166,10 +160,7 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         
     case .setHighGlucoseAlarmSound(sound: let sound):
         state.highGlucoseAlarmSound = sound
-        
-    case .setIgnoreMute(enabled: let enabled):
-        state.ignoreMute = enabled
-        
+
     case .setLowGlucoseAlarmSound(sound: let sound):
         state.lowGlucoseAlarmSound = sound
 

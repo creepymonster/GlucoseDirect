@@ -9,7 +9,6 @@ import OSLog
 enum DirectAction {
     case addBloodGlucose(glucoseValues: [BloodGlucose])
     case addCalibration(bloodGlucoseValue: Int)
-    case addMissedReading
     case addSensorError(errorValues: [SensorError])
     case addSensorGlucose(glucoseValues: [SensorGlucose])
     case addSensorReadings(sensorSerial: String, readings: [SensorReading])
@@ -58,7 +57,6 @@ enum DirectAction {
     case setGlucoseNotification(enabled: Bool)
     case setGlucoseUnit(unit: GlucoseUnit)
     case setHighGlucoseAlarmSound(sound: NotificationSound)
-    case setIgnoreMute(enabled: Bool)
     case setLowGlucoseAlarmSound(sound: NotificationSound)
     case setNightscoutSecret(apiSecret: String)
     case setNightscoutUpload(enabled: Bool)
@@ -73,4 +71,7 @@ enum DirectAction {
     case setSensorState(sensorAge: Int, sensorState: SensorState?)
     case setTransmitter(transmitter: Transmitter)
     case startup
+    
+    case testAlarm
+    case testNotification
 }

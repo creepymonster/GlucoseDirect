@@ -48,7 +48,11 @@ class DirectNotifications {
         }
     }
 
-    func playSound(ignoreMute: Bool, sound: NotificationSound) {
+    func getSound(sound: NotificationSound) -> UNNotificationSound {
+        UNNotificationSound(named: UNNotificationSoundName(rawValue: "\(sound.rawValue).aiff"))
+    }
+
+    func playSound(sound: NotificationSound, ignoreMute: Bool = false) {
         guard sound != .none else {
             return
         }
@@ -60,22 +64,29 @@ class DirectNotifications {
         }
     }
 
-    func add(identifier: String, content: UNMutableNotificationContent) {
+    func remove(identifier: String) {
         let center = UNUserNotificationCenter.current()
-        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
+
+        DirectLog.info("NotificationCenter, identifier: \(identifier)")
+        center.removeDeliveredNotifications(withIdentifiers: [identifier])
+        center.removePendingNotificationRequests(withIdentifiers: [identifier])
+    }
+
+    func add(identifier: String, content: UNMutableNotificationContent, trigger: UNNotificationTrigger? = nil) {
+        remove(identifier: identifier)
+
+        let center = UNUserNotificationCenter.current()
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
 
         DirectLog.info("NotificationCenter, identifier: \(identifier)")
         DirectLog.info("NotificationCenter, content: \(content)")
-
-        center.removeDeliveredNotifications(withIdentifiers: [identifier])
-        center.removePendingNotificationRequests(withIdentifiers: [identifier])
         center.add(request)
     }
 
     func ensureCanSendNotification(_ completion: @escaping (_ state: NotificationState) -> Void) {
         let center = UNUserNotificationCenter.current()
 
-        center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
+        center.requestAuthorization(options: [.alert, .badge, .criticalAlert, .provisional, .sound]) { granted, _ in
             if granted {
                 center.getNotificationSettings { settings in
                     if settings.soundSetting == .enabled {

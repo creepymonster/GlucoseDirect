@@ -19,14 +19,6 @@ struct ConnectionView: View {
                         Spacer()
                         Text(store.state.connectionState.localizedString)
                     }
-
-                    if store.state.missedReadings > 0 {
-                        HStack {
-                            Text("Missed readings")
-                            Spacer()
-                            Text(store.state.missedReadings.description)
-                        }
-                    }
                 }
 
                 if let connectionError = store.state.connectionError,
