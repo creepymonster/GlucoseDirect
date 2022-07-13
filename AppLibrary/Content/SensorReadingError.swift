@@ -5,6 +5,8 @@
 
 import Foundation
 
+// MARK: - SensorReadingError
+
 struct SensorReadingError: OptionSet, Codable {
     static let OK = SensorReadingError([])
     static let SD14_FIFO_OVERFLOW = SensorReadingError(rawValue: 1 << 0)
@@ -22,8 +24,18 @@ struct SensorReadingError: OptionSet, Codable {
     static let INVALID_DATA = SensorReadingError(rawValue: 1 << 15)
 
     let rawValue: Int
+}
 
+extension SensorReadingError {
     var description: String {
+        self.getDescription(separator: "\n")
+    }
+
+    var debugDescription: String {
+        self.getDescription(separator: ", ")
+    }
+
+    func getDescription(separator: String) -> String {
         var outputs: [String] = []
 
         if self.contains(.SD14_FIFO_OVERFLOW) {
@@ -66,6 +78,6 @@ struct SensorReadingError: OptionSet, Codable {
             outputs.append("INVALID_DATA")
         }
 
-        return outputs.joined(separator: ", ")
+        return outputs.joined(separator: separator)
     }
 }
