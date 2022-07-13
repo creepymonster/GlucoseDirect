@@ -72,8 +72,6 @@ extension SensorConnectionProtocol {
 
         if !readings.isEmpty {
             subject?.send(.addSensorReadings(sensorSerial: sensorSerial, readings: readings))
-        } else {
-            subject?.send(.addMissedReading)
         }
     }
 
@@ -101,12 +99,6 @@ extension SensorConnectionProtocol {
         DirectLog.error("PeripheralUUID: \(peripheralUUID)")
 
         subject?.send(.setConnectionPeripheralUUID(peripheralUUID: peripheralUUID))
-    }
-
-    func sendMissedUpdate() {
-        DirectLog.error("Missed update")
-
-        subject?.send(.addMissedReading)
     }
 }
 
