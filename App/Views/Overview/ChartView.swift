@@ -147,12 +147,12 @@ struct ChartView: View {
                             updateSensorSeries()
                             updateBloodSeries()
 
-                        }.onChange(of: store.state.sensorGlucoseValues) { glucoseValues in
+                        }.onChange(of: [store.state.sensorGlucoseValues, store.state.sensorGlucoseHistory]) { glucoseValues in
                             DirectLog.info("onChangeOfSensorGlucoseValues(\(glucoseValues.count))")
                             updateSeriesMetadata(viewWidth: geometryProxy.size.width)
                             updateSensorSeries()
 
-                        }.onChange(of: store.state.bloodGlucoseValues) { glucoseValues in
+                        }.onChange(of: [store.state.bloodGlucoseValues, store.state.bloodGlucoseHistory]) { glucoseValues in
                             DirectLog.info("onChangeOfBloodGlucoseValues(\(glucoseValues.count))")
                             updateSeriesMetadata(viewWidth: geometryProxy.size.width)
                             updateBloodSeries()
