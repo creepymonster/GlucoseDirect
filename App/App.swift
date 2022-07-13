@@ -80,7 +80,7 @@ final class GlucoseDirectApp: App {
             appGroupSharingMiddleware(),
             widgetCenterMiddleware(),
             screenLockMiddleware(),
-            sensorErrorMiddleware()
+            sensorErrorMiddleware(),
         ]
 
         middlewares.append(sensorConnectorMiddelware([
@@ -109,7 +109,7 @@ final class GlucoseDirectApp: App {
             appGroupSharingMiddleware(),
             widgetCenterMiddleware(),
             screenLockMiddleware(),
-            sensorErrorMiddleware()
+            sensorErrorMiddleware(),
         ]
 
         let bubbleTransmitter = LocalizedString("Bubble transmitter")
@@ -153,7 +153,7 @@ final class GlucoseDirectNotificationCenter: NSObject, UNUserNotificationCenterD
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         if let store = store, let action = response.notification.request.content.userInfo["action"] as? String, action == "snooze" {
-            DirectNotifications.shared.stopSound()
+            store.dispatch(.selectView(viewTag: DirectConfig.overviewViewTag))
             store.dispatch(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(30 * 60).toRounded(on: 1, .minute)))
         }
 
@@ -170,6 +170,7 @@ final class GlucoseDirectNotificationCenter: NSObject, UNUserNotificationCenterD
 final class GlucoseDirectAppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         DirectLog.info("Application did finish launching with options")
+
         return true
     }
 
