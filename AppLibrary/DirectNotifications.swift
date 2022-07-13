@@ -57,10 +57,14 @@ class DirectNotifications {
             return
         }
 
-        if sound == .vibration {
-            vibrate()
-        } else {
-            playSound(ignoreMute: ignoreMute, named: sound.rawValue)
+        checkMute { isMuted in
+            if isMuted, !ignoreMute {
+                self.playVibration(times: 1)
+            } else if sound == .vibration {
+                self.playVibration()
+            } else {
+                self.playSound(ignoreMute: ignoreMute, named: sound.rawValue)
+            }
         }
     }
 
@@ -123,13 +127,13 @@ class DirectNotifications {
         }
     }
 
-    private func vibrate(times: Int = 10) {
+    private func playVibration(times: Int = 5) {
         if times == 0 {
             return
         }
 
         AudioServicesPlaySystemSoundWithCompletion(1352) {
-            self.vibrate(times: times - 1)
+            self.playVibration(times: times - 1)
         }
     }
 
@@ -154,7 +158,7 @@ class DirectNotifications {
 
             do {
                 let player = try AVAudioPlayer(contentsOf: soundURL)
-                player.volume = 0.2
+                // player.volume = 0.2
                 player.prepareToPlay()
                 player.play()
 

@@ -148,8 +148,6 @@ private class GlucoseNotificationService {
 
     func setLowGlucoseAlarm(sound: NotificationSound) {
         DirectNotifications.shared.ensureCanSendNotification { state in
-            DirectLog.info("Glucose alert, state: \(state)")
-            
             guard state == .sound else {
                 return
             }
@@ -189,8 +187,6 @@ private class GlucoseNotificationService {
 
     func setHighGlucoseAlarm(sound: NotificationSound) {
         DirectNotifications.shared.ensureCanSendNotification { state in
-            DirectLog.info("Glucose alert, state: \(state)")
-            
             guard state == .sound else {
                 return
             }
