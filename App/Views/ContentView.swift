@@ -17,21 +17,21 @@ struct ContentView: View {
         TabView(selection: selectedView) {
             OverviewView().tabItem {
                 Label("Glucose overview", systemImage: "waveform.path.ecg")
-            }.tag(1)
+            }.tag(DirectConfig.overviewViewTag)
 
             ListsView().tabItem {
                 Label("Glucose list view", systemImage: "list.dash")
-            }.tag(2)
+            }.tag(DirectConfig.listsViewTag)
 
-            if store.state.isConnectionPaired && store.state.hasGlucoseValues && store.state.isConnectable || store.state.isDisconnectable {
+            if store.state.isConnectionPaired && !store.state.sensorGlucoseHistory.isEmpty && store.state.isConnectable || store.state.isDisconnectable {
                 CalibrationsView().tabItem {
                     Label("Calibration view", systemImage: "tuningfork")
-                }.tag(3)
+                }.tag(DirectConfig.calibrationsViewTag)
             }
 
             SettingsView().tabItem {
                 Label("Settings view", systemImage: "gearshape")
-            }.tag(4)
+            }.tag(DirectConfig.settingsViewTag)
         }
         .onChange(of: scenePhase) { newPhase in
             if newPhase == .background, store.state.preventScreenLock {

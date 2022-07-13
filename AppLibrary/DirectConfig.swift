@@ -41,4 +41,8 @@ enum DirectConfig {
     static var minReadableGlucose: Int { 39 }
     static var maxReadableGlucose: Int { 501 }
     static var expiredNotificationInterval: Double { 1 * 60 * 60 } // in seconds
+    static var overviewViewTag: Int { 1 }
+    static var listsViewTag: Int { 2 }
+    static var calibrationsViewTag: Int { 3 }
+    static var settingsViewTag: Int { 4 }
 }
