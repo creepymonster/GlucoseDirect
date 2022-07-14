@@ -25,10 +25,6 @@ class DirectNotifications {
 
     static let shared = DirectNotifications()
 
-    static var SilentSound: UNNotificationSound {
-        UNNotificationSound(named: UNNotificationSoundName(rawValue: "silent.aiff"))
-    }
-
     func isPlaying() -> Bool {
         if let player = player {
             return player.isPlaying
@@ -52,6 +48,10 @@ class DirectNotifications {
         UNNotificationSound(named: UNNotificationSoundName(rawValue: "\(sound.rawValue).aiff"))
     }
 
+    func testSound(sound: NotificationSound) {
+        playSound(sound: sound, ignoreMute: true)
+    }
+
     func playSound(sound: NotificationSound, ignoreMute: Bool = false) {
         guard sound != .none else {
             return
@@ -63,12 +63,12 @@ class DirectNotifications {
             } else if sound == .vibration {
                 self.playVibration()
             } else {
-                self.playSound(ignoreMute: ignoreMute, named: sound.rawValue)
+                self.playSound(named: sound.rawValue)
             }
         }
     }
 
-    func remove(identifier: String) {
+    func removeNotification(identifier: String) {
         let center = UNUserNotificationCenter.current()
 
         DirectLog.info("NotificationCenter, identifier: \(identifier)")
@@ -76,8 +76,8 @@ class DirectNotifications {
         center.removePendingNotificationRequests(withIdentifiers: [identifier])
     }
 
-    func add(identifier: String, content: UNMutableNotificationContent, trigger: UNNotificationTrigger? = nil) {
-        remove(identifier: identifier)
+    func addNotification(identifier: String, content: UNMutableNotificationContent, trigger: UNNotificationTrigger? = nil) {
+        removeNotification(identifier: identifier)
 
         let center = UNUserNotificationCenter.current()
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
@@ -137,35 +137,28 @@ class DirectNotifications {
         }
     }
 
-    private func playSound(ignoreMute: Bool, named: String) {
-        checkMute { isMuted in
-            guard !isMuted || ignoreMute else {
-                DirectLog.info("Guard: Audio is muted")
-                return
-            }
+    private func playSound(named: String) {
+        guard let soundURL = FrameworkBundle.main.url(forResource: named, withExtension: "aiff") else {
+            DirectLog.info("Guard: FrameworkBundle.main.url(forResource: \(named), withExtension: aiff) is nil")
+            return
+        }
 
-            guard let soundURL = FrameworkBundle.main.url(forResource: named, withExtension: "aiff") else {
-                DirectLog.info("Guard: FrameworkBundle.main.url(forResource: \(named), withExtension: aiff) is nil")
-                return
-            }
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, options: [.mixWithOthers])
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch {
+            DirectLog.error("NotificationCenter, could not set AVAudioSession category to playback and mixwithOthers, error = \(error.localizedDescription)")
+        }
 
-            do {
-                try AVAudioSession.sharedInstance().setCategory(.playback, options: [.mixWithOthers])
-                try AVAudioSession.sharedInstance().setActive(true)
-            } catch {
-                DirectLog.error("NotificationCenter, could not set AVAudioSession category to playback and mixwithOthers, error = \(error.localizedDescription)")
-            }
+        do {
+            let player = try AVAudioPlayer(contentsOf: soundURL)
+            // player.volume = 0.2
+            player.prepareToPlay()
+            player.play()
 
-            do {
-                let player = try AVAudioPlayer(contentsOf: soundURL)
-                // player.volume = 0.2
-                player.prepareToPlay()
-                player.play()
-
-                self.player = player
-            } catch {
-                DirectLog.error("NotificationCenter, exception while trying to play sound, error = \(error.localizedDescription)")
-            }
+            self.player = player
+        } catch {
+            DirectLog.error("NotificationCenter, exception while trying to play sound, error = \(error.localizedDescription)")
         }
     }
 }

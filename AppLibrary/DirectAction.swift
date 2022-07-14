@@ -72,6 +72,6 @@ enum DirectAction {
     case setTransmitter(transmitter: Transmitter)
     case startup
     
-    case testAlarm
-    case testNotification
+    case debugAlarm
+    case debugNotification
 }

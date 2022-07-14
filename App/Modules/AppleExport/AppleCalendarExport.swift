@@ -69,7 +69,7 @@ typealias CalendarExportHandler = (_ granted: Bool) -> Void
 
 // MARK: - AppleCalendarExportService
 
-class AppleCalendarExportService {
+private class AppleCalendarExportService {
     // MARK: Lifecycle
 
     init() {

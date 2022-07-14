@@ -100,14 +100,23 @@ struct AboutView: View {
                 secondaryButton: .cancel()
             )
         }
-        
-        Button("Test alarm", action: {
-            store.dispatch(.testAlarm)
-        })
-        
-        Button("Test notification", action: {
-            store.dispatch(.testNotification)
-        })
+
+        #if DEBUG
+        Section(
+            content: {
+                Button("Debug alarm", action: {
+                    store.dispatch(.debugAlarm)
+                })
+
+                Button("Debug notification", action: {
+                    store.dispatch(.debugNotification)
+                })
+            },
+            header: {
+                Label("Debug", systemImage: "testtube.2")
+            }
+        )
+        #endif
     }
 
     // MARK: Private

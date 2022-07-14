@@ -69,7 +69,7 @@ private class ConnectionNotificationService {
 
     func clearAlarm() {
         DirectLog.info("Clear alarm")
-        DirectNotifications.shared.remove(identifier: Identifier.sensorConnectionAlarm.rawValue)
+        DirectNotifications.shared.removeNotification(identifier: Identifier.sensorConnectionAlarm.rawValue)
     }
 
     func scheduleSensorConnectionLostAlarm(sound: NotificationSound) {
@@ -95,7 +95,7 @@ private class ConnectionNotificationService {
             notification.body = LocalizedString("The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired.")
 
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15 * 60, repeats: true)
-            DirectNotifications.shared.add(identifier: Identifier.sensorConnectionAlarm.rawValue, content: notification, trigger: trigger)
+            DirectNotifications.shared.addNotification(identifier: Identifier.sensorConnectionAlarm.rawValue, content: notification, trigger: trigger)
         }
     }
 }

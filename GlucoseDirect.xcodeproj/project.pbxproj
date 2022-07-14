@@ -22,6 +22,7 @@
 		E2218BB0284FA16900DB5A55 /* NotificationSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2218BAF284FA16900DB5A55 /* NotificationSound.swift */; };
 		E223F867267A4D9800EC9BCA /* SensorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E223F866267A4D9800EC9BCA /* SensorView.swift */; };
 		E2330A33275E88CF0050A391 /* SensorBluetoothConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2330A32275E88CF0050A391 /* SensorBluetoothConnection.swift */; };
+		E2366841287FEC1A001BF000 /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2366840287FEC1A001BF000 /* Debug.swift */; };
 		E24077B326B881C2001767C0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E24077B126B881C2001767C0 /* InfoPlist.strings */; };
 		E24474412859CA9600F8891C /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E27BFC0226B1407E00F8FBEF /* WidgetKit.framework */; };
 		E24474422859CA9600F8891C /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E27BFC0426B1407E00F8FBEF /* SwiftUI.framework */; };
@@ -223,6 +224,7 @@
 		E2218BAF284FA16900DB5A55 /* NotificationSound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSound.swift; sourceTree = "<group>"; };
 		E223F866267A4D9800EC9BCA /* SensorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorView.swift; sourceTree = "<group>"; };
 		E2330A32275E88CF0050A391 /* SensorBluetoothConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorBluetoothConnection.swift; sourceTree = "<group>"; };
+		E2366840287FEC1A001BF000 /* Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
 		E24077B226B881C2001767C0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E24077B726B881CB001767C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E24474402859CA9600F8891C /* GlucoseDirectWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GlucoseDirectWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -428,7 +430,6 @@
 				E2FCAC3D2707420000FE1CBF /* AppState.swift */,
 				E2FCAC3C270741F000FE1CBF /* Modules */,
 				E2FDC933266FAF1C007AA1F5 /* Views */,
-				E2FCAC742707439300FE1CBF /* Resources */,
 				E20B8543266F4A9900AA4224 /* Preview Content */,
 				E2BF22DF266F9CA20060866F /* App.entitlements */,
 				E20B8546266F4A9900AA4224 /* Info.plist */,
@@ -466,10 +467,19 @@
 				E2FCAC6F2707438A00FE1CBF /* DirectStore.swift */,
 				E2FCAC112707419800FE1CBF /* Content */,
 				E2FCAC26270741C700FE1CBF /* Extensions */,
+				E2FCAC742707439300FE1CBF /* Resources */,
 				E20B8541266F4A9900AA4224 /* Assets.xcassets */,
 				E2FCAC89270743E200FE1CBF /* Localizable.strings */,
 			);
 			path = AppLibrary;
+			sourceTree = "<group>";
+		};
+		E236683F287FEC1A001BF000 /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				E2366840287FEC1A001BF000 /* Debug.swift */,
+			);
+			path = Debug;
 			sourceTree = "<group>";
 		};
 		E24474432859CA9600F8891C /* AppWidgets */ = {
@@ -701,6 +711,7 @@
 		E2FCAC3C270741F000FE1CBF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				E236683F287FEC1A001BF000 /* Debug */,
 				E294333C2878803B005C8A69 /* DataStore */,
 				E2FCAC4A2707422000FE1CBF /* AppGroupSharing */,
 				E21B2FD227AD9CD000E996DA /* AppleExport */,
@@ -1005,6 +1016,7 @@
 				E2FCAC33270741D200FE1CBF /* Int.swift in Sources */,
 				E2F5F3D126A70AC400834A74 /* DateSelectorView.swift in Sources */,
 				E2FCAC462707420100FE1CBF /* DirectReducer.swift in Sources */,
+				E2366841287FEC1A001BF000 /* Debug.swift in Sources */,
 				E298CF06279DEBFE00C1C218 /* CustomCalibrationView.swift in Sources */,
 				E2B5FDAB28789EDF00D35D87 /* BloodGlucoseStore.swift in Sources */,
 				E2FCAC21270741BC00FE1CBF /* SensorFamily.swift in Sources */,

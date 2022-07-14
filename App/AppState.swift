@@ -18,14 +18,14 @@ struct AppState: DirectState {
 
     init() {
         #if targetEnvironment(simulator)
-            let defaultConnectionID = "virtual"
+            let defaultConnectionID = DirectConfig.virtualID
         #else
             #if canImport(CoreNFC)
                 let defaultConnectionID = NFCTagReaderSession.readingAvailable
-                    ? "libre2"
-                    : "bubble"
+                    ? DirectConfig.libre2ID
+                    : DirectConfig.bubbleID
             #else
-                let defaultConnectionID = "bubble"
+                let defaultConnectionID = DirectConfig.bubbleID
             #endif
         #endif
 
@@ -80,24 +80,31 @@ struct AppState: DirectState {
 
     // MARK: Internal
 
-    var alarmHigh: Int = 160 { didSet { UserDefaults.standard.alarmHigh = alarmHigh } }
-    var alarmLow: Int = 80 { didSet { UserDefaults.standard.alarmLow = alarmLow } }
     var alarmSnoozeUntil: Date?
-    var appleCalendarExport: Bool { didSet { UserDefaults.standard.appleCalendarExport = appleCalendarExport } }
-    var appleHealthExport: Bool { didSet { UserDefaults.standard.appleHealthExport = appleHealthExport } }
-    var bellmanAlarm = false { didSet { UserDefaults.standard.bellmanAlarm = bellmanAlarm } }
     var bellmanConnectionState: BellmanConnectionState = .disconnected
     var bloodGlucoseHistory: [BloodGlucose] = []
     var bloodGlucoseValues: [BloodGlucose] = []
-    var chartShowLines: Bool { didSet { UserDefaults.standard.chartShowLines = chartShowLines } }
-    var chartZoomLevel: Int { didSet { UserDefaults.standard.chartZoomLevel = chartZoomLevel } }
-    var connectionAlarmSound: NotificationSound { didSet { UserDefaults.standard.connectionAlarmSound = connectionAlarmSound } }
     var connectionError: String?
     var connectionErrorIsCritical = false
     var connectionErrorTimestamp: Date?
     var connectionInfos: [SensorConnectionInfo] = []
-    var connectionPeripheralUUID: String? { didSet { UserDefaults.standard.connectionPeripheralUUID = connectionPeripheralUUID } }
     var connectionState: SensorConnectionState = .disconnected
+    var preventScreenLock = false
+    var selectedConnection: SensorConnectionProtocol?
+    var sensorErrorValues: [SensorError] = []
+    var sensorGlucoseHistory: [SensorGlucose] = []
+    var sensorGlucoseValues: [SensorGlucose] = []
+    var targetValue = 100
+
+    var alarmHigh: Int = 160 { didSet { UserDefaults.standard.alarmHigh = alarmHigh } }
+    var alarmLow: Int = 80 { didSet { UserDefaults.standard.alarmLow = alarmLow } }
+    var appleCalendarExport: Bool { didSet { UserDefaults.standard.appleCalendarExport = appleCalendarExport } }
+    var appleHealthExport: Bool { didSet { UserDefaults.standard.appleHealthExport = appleHealthExport } }
+    var bellmanAlarm = false { didSet { UserDefaults.standard.bellmanAlarm = bellmanAlarm } }
+    var chartShowLines: Bool { didSet { UserDefaults.standard.chartShowLines = chartShowLines } }
+    var chartZoomLevel: Int { didSet { UserDefaults.standard.chartZoomLevel = chartZoomLevel } }
+    var connectionAlarmSound: NotificationSound { didSet { UserDefaults.standard.connectionAlarmSound = connectionAlarmSound } }
+    var connectionPeripheralUUID: String? { didSet { UserDefaults.standard.connectionPeripheralUUID = connectionPeripheralUUID } }
     var customCalibration: [CustomCalibration] { didSet { UserDefaults.standard.customCalibration = customCalibration } }
     var expiringAlarmSound: NotificationSound { didSet { UserDefaults.standard.expiringAlarmSound = expiringAlarmSound } }
     var glucoseNotification: Bool { didSet { UserDefaults.standard.glucoseNotification = glucoseNotification } }
@@ -111,17 +118,11 @@ struct AppState: DirectState {
     var nightscoutApiSecret: String { didSet { UserDefaults.standard.nightscoutApiSecret = nightscoutApiSecret } }
     var nightscoutUpload: Bool { didSet { UserDefaults.standard.nightscoutUpload = nightscoutUpload } }
     var nightscoutURL: String { didSet { UserDefaults.standard.nightscoutURL = nightscoutURL } }
-    var preventScreenLock = false
     var readGlucose: Bool { didSet { UserDefaults.standard.readGlucose = readGlucose } }
     var selectedCalendarTarget: String? { didSet { UserDefaults.standard.selectedCalendarTarget = selectedCalendarTarget } }
-    var selectedConnection: SensorConnectionProtocol?
     var selectedConnectionID: String? { didSet { UserDefaults.standard.selectedConnectionID = selectedConnectionID } }
     var selectedView: Int { didSet { UserDefaults.standard.selectedView = selectedView } }
     var sensor: Sensor? { didSet { UserDefaults.shared.sensor = sensor } }
-    var sensorErrorValues: [SensorError] = []
-    var sensorGlucoseHistory: [SensorGlucose] = []
-    var sensorGlucoseValues: [SensorGlucose] = []
     var sensorInterval: Int { didSet { UserDefaults.standard.sensorInterval = sensorInterval } }
-    var targetValue = 100
     var transmitter: Transmitter? { didSet { UserDefaults.shared.transmitter = transmitter } }
 }

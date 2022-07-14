@@ -15,7 +15,7 @@ private enum LazyServiceValue<T> {
 
 // MARK: - LazyService
 
-final class LazyService<T> {
+class LazyService<T> {
     // MARK: Lifecycle
 
     init(initialization: @escaping () -> T) {

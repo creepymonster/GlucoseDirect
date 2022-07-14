@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - SensorReading
 
-class SensorReading: CustomStringConvertible, Codable {
+struct SensorReading: CustomStringConvertible, Codable {
     // MARK: Lifecycle
 
     private init(timestamp: Date, quality: SensorReadingError) {

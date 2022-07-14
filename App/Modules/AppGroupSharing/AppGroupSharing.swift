@@ -191,4 +191,3 @@ private extension SensorGlucose {
         return freeAPSGlucose
     }
 }
-

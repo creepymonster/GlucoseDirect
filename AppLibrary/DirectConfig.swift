@@ -45,4 +45,9 @@ enum DirectConfig {
     static var listsViewTag: Int { 2 }
     static var calibrationsViewTag: Int { 3 }
     static var settingsViewTag: Int { 4 }
+
+    static var libre2ID: String { "libre2" }
+    static var bubbleID: String { "bubble" }
+    static var librelinkID: String { "librelink" }
+    static var virtualID: String { "virtual" }
 }

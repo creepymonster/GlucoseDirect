@@ -82,7 +82,7 @@ struct AlarmSettingsView: View {
                 let sound = NotificationSound(rawValue: $0)!
 
                 store.dispatch(.setLowGlucoseAlarmSound(sound: sound))
-                DirectNotifications.shared.playSound(sound: sound, ignoreMute: true)
+                DirectNotifications.shared.testSound(sound: sound)
             }
         )
     }
@@ -94,7 +94,7 @@ struct AlarmSettingsView: View {
                 let sound = NotificationSound(rawValue: $0)!
 
                 store.dispatch(.setHighGlucoseAlarmSound(sound: sound))
-                DirectNotifications.shared.playSound(sound: sound, ignoreMute: true)
+                DirectNotifications.shared.testSound(sound: sound)
             }
         )
     }
@@ -106,7 +106,7 @@ struct AlarmSettingsView: View {
                 let sound = NotificationSound(rawValue: $0)!
 
                 store.dispatch(.setConnectionAlarmSound(sound: sound))
-                DirectNotifications.shared.playSound(sound: sound, ignoreMute: true)
+                DirectNotifications.shared.testSound(sound: sound)
             }
         )
     }
@@ -118,7 +118,7 @@ struct AlarmSettingsView: View {
                 let sound = NotificationSound(rawValue: $0)!
 
                 store.dispatch(.setExpiringAlarmSound(sound: sound))
-                DirectNotifications.shared.playSound(sound: sound, ignoreMute: true)
+                DirectNotifications.shared.testSound(sound: sound)
             }
         )
     }

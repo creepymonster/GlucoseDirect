@@ -22,7 +22,7 @@ enum DirectError: Error {
 
 // MARK: - Store
 
-final class Store<State, Action>: ObservableObject {
+class Store<State, Action>: ObservableObject {
     // MARK: Lifecycle
 
     init(initialState: State, reducer: @escaping Reducer<State, Action> = { _, _ in }, middlewares: [Middleware<State, Action>] = []) {

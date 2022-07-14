@@ -115,7 +115,7 @@ private class GlucoseNotificationService {
     }
 
     func clear() {
-        DirectNotifications.shared.remove(identifier: Identifier.sensorGlucoseAlarm.rawValue)
+        DirectNotifications.shared.removeNotification(identifier: Identifier.sensorGlucoseAlarm.rawValue)
     }
 
     func setGlucoseNotification(glucose: SensorGlucose, glucoseUnit: GlucoseUnit) {
@@ -142,7 +142,7 @@ private class GlucoseNotificationService {
                                        glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) ?? "?"
             )
 
-            DirectNotifications.shared.add(identifier: Identifier.sensorGlucoseAlarm.rawValue, content: notification)
+            DirectNotifications.shared.addNotification(identifier: Identifier.sensorGlucoseAlarm.rawValue, content: notification)
         }
     }
 
@@ -181,7 +181,7 @@ private class GlucoseNotificationService {
                                        glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) ?? "?"
             )
 
-            DirectNotifications.shared.add(identifier: Identifier.sensorGlucoseAlarm.rawValue, content: notification)
+            DirectNotifications.shared.addNotification(identifier: Identifier.sensorGlucoseAlarm.rawValue, content: notification)
         }
     }
 
@@ -220,7 +220,7 @@ private class GlucoseNotificationService {
                                        glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) ?? "?"
             )
 
-            DirectNotifications.shared.add(identifier: Identifier.sensorGlucoseAlarm.rawValue, content: notification)
+            DirectNotifications.shared.addNotification(identifier: Identifier.sensorGlucoseAlarm.rawValue, content: notification)
         }
     }
 
