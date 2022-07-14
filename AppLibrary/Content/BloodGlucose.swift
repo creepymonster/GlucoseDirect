@@ -36,10 +36,6 @@ struct BloodGlucose: Glucose, CustomStringConvertible, Codable, Identifiable {
     let timegroup: Date
 
     var description: String {
-        [
-            "id: \(id)",
-            "timestamp: \(timestamp.toLocalTime())",
-            "glucoseValue: \(glucoseValue.description)",
-        ].joined(separator: ", ")
+        "{ id: \(id), timestamp: \(timestamp.toLocalTime()), glucoseValue: \(glucoseValue.description) }"
     }
 }

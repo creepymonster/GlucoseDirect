@@ -114,17 +114,7 @@ struct Sensor: Codable {
     }
 
     var description: String {
-        [
-            "uuid: \(uuid.hex)",
-            "patchInfo: \(patchInfo.hex)",
-            "factoryCalibration: \(factoryCalibration.description)",
-            "family: \(family.description)",
-            "type: \(type.description)",
-            "region: \(region.description)",
-            "serial: \(serial ?? "Unknown")",
-            "state: \(state.description)",
-            "lifetime: \(lifetime.inTime)",
-        ].joined(separator: ", ")
+        "{ uuid: \(uuid.hex), patchInfo: \(patchInfo.hex), factoryCalibration: \(factoryCalibration), family: \(family), type: \(type), region: \(region), serial: \(serial ?? "-"), state: \(state.description), lifetime: \(lifetime.inTime) }"
     }
 }
 

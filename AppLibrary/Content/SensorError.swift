@@ -36,11 +36,7 @@ struct SensorError: CustomStringConvertible, Codable, Identifiable {
     let timegroup: Date
 
     var description: String {
-        [
-            "id: \(id)",
-            "timestamp: \(timestamp.toLocalTime())",
-            "error: \(error.description)"
-        ].joined(separator: ", ")
+        "{ id: \(id), timestamp: \(timestamp.toLocalTime()), error: \(error.description) }"
     }
 }
 

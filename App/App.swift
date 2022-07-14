@@ -66,6 +66,7 @@ final class GlucoseDirectApp: App {
 
         var middlewares = [
             logMiddleware(),
+            dataStoreMigrationMiddleware(),
             bloodGlucoseStoreMiddleware(),
             sensorGlucoseStoreMiddleware(),
             sensorErrorStoreMiddleware(),
@@ -99,6 +100,7 @@ final class GlucoseDirectApp: App {
 
         var middlewares = [
             logMiddleware(),
+            dataStoreMigrationMiddleware(),
             bloodGlucoseStoreMiddleware(),
             sensorGlucoseStoreMiddleware(),
             sensorErrorStoreMiddleware(),

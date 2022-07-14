@@ -32,12 +32,7 @@ struct SensorReading: CustomStringConvertible, Codable {
     let error: SensorReadingError
 
     var description: String {
-        [
-            "id: \(id)",
-            "timestamp: \(timestamp.toLocalTime())",
-            "glucoseValue: \(glucoseValue.description)",
-            "quality: \(error.description)"
-        ].joined(separator: ", ")
+        "{ id: \(id), timestamp: \(timestamp.toLocalTime()), glucoseValue: \(glucoseValue.description), quality: \(error.description) }"
     }
 }
 

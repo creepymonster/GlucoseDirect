@@ -23,7 +23,7 @@ func sensorGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
             guard !glucoseValues.isEmpty else {
                 break
             }
-            
+
             DataStore.shared.insertSensorGlucose(glucoseValues)
 
             return Just(DirectAction.loadSensorGlucoseValues)

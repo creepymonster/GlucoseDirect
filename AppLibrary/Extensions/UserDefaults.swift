@@ -47,6 +47,7 @@ private enum Keys: String {
     case sharedTransmitterFirmware = "glucosedirect--transmitter-firmware"
     case sharedTransmitterHardware = "glucosedirect--transmitter-hardware"
     case transmitter = "libre-direct.settings.transmitter"
+    case glucoseValues = "libre-direct.settings.glucose-values"
 }
 
 extension UserDefaults {
@@ -562,6 +563,24 @@ extension UserDefaults {
             } else {
                 removeObject(forKey: Keys.transmitter.rawValue)
             }
+        }
+    }
+    
+    var gen1GlucoseValues: [Gen1Glucose] {
+        get {
+            return getArray(forKey: Keys.glucoseValues.rawValue) ?? []
+        }
+        set {
+            setArray(newValue, forKey: Keys.glucoseValues.rawValue)
+        }
+    }
+
+    var gen2GlucoseValues: [Gen2Glucose] {
+        get {
+            return getArray(forKey: Keys.glucoseValues.rawValue) ?? []
+        }
+        set {
+            setArray(newValue, forKey: Keys.glucoseValues.rawValue)
         }
     }
 }

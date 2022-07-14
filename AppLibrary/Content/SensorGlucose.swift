@@ -60,13 +60,7 @@ struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable {
     }
 
     var description: String {
-        [
-            "id: \(id)",
-            "timestamp: \(timestamp.toLocalTime())",
-            "minuteChange: \(minuteChange?.description ?? "")",
-            "rawGlucoseValue: \(rawGlucoseValue.description)",
-            "glucoseValue: \(glucoseValue.description)",
-        ].joined(separator: ", ")
+        "{ id: \(id), timestamp: \(timestamp.toLocalTime()), minuteChange: \(minuteChange?.description ?? ""), rawGlucoseValue: \(rawGlucoseValue.description), glucoseValue: \(glucoseValue.description) }"
     }
 }
 
