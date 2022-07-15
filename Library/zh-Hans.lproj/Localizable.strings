@@ -101,9 +101,6 @@
 "Glucose unit" = "单位";
 
 /* (No Comment) */
-"Glucose values" = "葡萄糖值";
-
-/* (No Comment) */
 "Hold the top edge of your iPhone close to the sensor." = "握住你的iPhone顶部边缘，靠近传感器。";
 
 /* (No Comment) */
@@ -123,9 +120,6 @@
 
 /* (No Comment) */
 "Now" = "现在";
-
-/* (No Comment) */
-"OK, sensor connection established" = "OK，传感器连接建立";
 
 /* (No Comment) */
 "Power off" = "关机";
@@ -170,7 +164,7 @@
 "Sensor is ready" = "传感器已就绪";
 
 /* (No Comment) */
-"Sensor is shut down" = "传感器已过期";
+"Sensor is shut down" = "Sensor is expired";
 
 /* (No Comment) */
 "Sensor lifetime" = "寿命";
@@ -185,7 +179,7 @@
 "Sensor PatchInfo" = "PatchInfo";
 
 /* (No Comment) */
-"Sensor possible lifetime" = "寿命";
+"Sensor possible lifetime" = "Lifetime";
 
 /* (No Comment) */
 "Sensor region" = "地区";
@@ -200,7 +194,7 @@
 "Sensor serial" = "序列号";
 
 /* (No Comment) */
-"Sensor state" = "状态";
+"Sensor state" = "State";
 
 /* (No Comment) */
 "Sensor type" = "类型";
@@ -218,12 +212,6 @@
 "Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "抱歉，您的iPhone不支持NFC :' (";
 
 /* (No Comment) */
-"The connection to the sensor has been successfully established and glucose data is received." = "与传感器的连接已经成功建立，并收到了葡萄糖数据。";
-
-/* (No Comment) */
-"The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause." = "与传感器的连接已建立，但没有收到任何数值。可能因为传感器数据有问题。";
-
-/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "与传感器的连接已被中断。通常这种情况发生在传感器超出范围或其传输功率受损的情况下。";
 
 /* (No Comment) */
@@ -237,9 +225,6 @@
 
 /* (No Comment) */
 "Virtual Sensor" = "虚拟传感器";
-
-/* (No Comment) */
-"Warning, sensor missed %1$@ readings" = "警告，传感器错过了 %1$@ 次读";
 
 /* (No Comment) */
 "Wearing time alarm" = "佩戴时间报警";
@@ -326,7 +311,7 @@
 "App version" = "版本";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "未知";
 
 /* (No Comment) */
 "Invalid parameters" = "参数无效";
@@ -375,6 +360,9 @@
 
 /* (No Comment) */
 "Sensor starting date" = "开始日期";
+
+/* (No Comment) */
+"Sensor ending date" = "Ending date";
 
 /* (No Comment) */
 "Delete log files" = "删除日志文件";
@@ -437,7 +425,7 @@
 "When a new alarm is triggered" = "- When a new alarm is triggered";
 
 /* (No Comment) */
-"App author" = "Author";
+"App author" = "版本";
 
 /* (No Comment) */
 "App support mail" = "Support";
@@ -473,10 +461,7 @@
 "Retry pairing" = "Retry pairing";
 
 /* (No Comment) */
-"Scanned sensor expired" = "Sensor expired";
-
-/* (No Comment) */
-"Ignore mute" = "Ignore mute";
+"Scanned sensor expired" = "传感器已过期";
 
 /* (No Comment) */
 "Retrieval interval" = "Retrieval interval";
@@ -536,7 +521,7 @@
 "Transmitter ID" = "Identifier";
 
 /* (No Comment) */
-"Time" = "Time";
+"Time" = "时间";
 
 /* (No Comment) */
 "Glucose" = "Glucose";
@@ -566,7 +551,7 @@
 "Transmitter battery widget description" = "Displays the remaining battery charge of the transmitter as a countdown.";
 
 /* (No Comment) */
-"Warmup" = "Warmup";
+"Warmup" = "启动中";
 
 /* (No Comment) */
 "No screen lock" = "No screen lock";
@@ -576,3 +561,12 @@
 
 /* (No Comment) */
 "Use LibreLink to start the sensor" = "Use LibreLink to start the sensor";
+
+/* (No Comment) */
+"Sensor glucose values" = "CGM";
+
+/* (No Comment) */
+"Sensor error values" = "CGM errors";
+
+/* (No Comment) */
+"Blood glucose values" = "BGM";
