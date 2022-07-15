@@ -362,7 +362,7 @@
 "Sensor starting date" = "Startdatum";
 
 /* (No Comment) */
-"Sensor ending date" = "Ending date";
+"Sensor ending date" = "Enddatum";
 
 /* (No Comment) */
 "Delete log files" = "Fehlerberichte löschen";
@@ -560,13 +560,13 @@
 "LibreLink transmitter" = "LibreLink Transmitter";
 
 /* (No Comment) */
-"Use LibreLink to start the sensor" = "Use LibreLink to start the sensor";
+"Use LibreLink to start the sensor" = "Verwenden Sie LibreLink, um den Sensor zu starten";
 
 /* (No Comment) */
 "Sensor glucose values" = "CGM";
 
 /* (No Comment) */
-"Sensor error values" = "CGM errors";
+"Sensor error values" = "CGM-Fehler";
 
 /* (No Comment) */
 "Blood glucose values" = "BGM";
