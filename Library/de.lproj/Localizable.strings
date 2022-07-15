@@ -101,9 +101,6 @@
 "Glucose unit" = "Einheit";
 
 /* (No Comment) */
-"Glucose values" = "Glukose Werte";
-
-/* (No Comment) */
 "Hold the top edge of your iPhone close to the sensor." = "Halten Sie den oberen Rand Ihres iPhones nahe an den Sensor.";
 
 /* (No Comment) */
@@ -123,9 +120,6 @@
 
 /* (No Comment) */
 "Now" = "Jetzt";
-
-/* (No Comment) */
-"OK, sensor connection established" = "Ok, Sensorverbindung hergestellt";
 
 /* (No Comment) */
 "Power off" = "Stromlos";
@@ -218,12 +212,6 @@
 "Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "Leider ist für die Nutzung der App ein NFC-fähiges iPhone erforderlich :'(";
 
 /* (No Comment) */
-"The connection to the sensor has been successfully established and glucose data is received." = "Die Verbindung zum Sensor wurde erfolgreich hergestellt und es werden Glukosedaten empfangen.";
-
-/* (No Comment) */
-"The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause." = "Die Verbindung zum Sensor scheint zu bestehen, aber es werden keine Werte empfangen. Fehlerhafte Sensordaten können die Ursache sein.";
-
-/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "Die Verbindung mit dem Sensor ist unterbrochen worden. Normalerweise geschieht dies, wenn der Sensor außerhalb der Reichweite oder seine Sendeleistung beeinträchtigt ist.";
 
 /* (No Comment) */
@@ -237,9 +225,6 @@
 
 /* (No Comment) */
 "Virtual Sensor" = "Virtueller Sensor";
-
-/* (No Comment) */
-"Warning, sensor missed %1$@ readings" = "Warnung, Sensor hat %1$@ Messwerte nicht erfasst.";
 
 /* (No Comment) */
 "Wearing time alarm" = "Tragedauer Alarm";
@@ -377,6 +362,9 @@
 "Sensor starting date" = "Startdatum";
 
 /* (No Comment) */
+"Sensor ending date" = "Ending date";
+
+/* (No Comment) */
 "Delete log files" = "Fehlerberichte löschen";
 
 /* (No Comment) */
@@ -476,9 +464,6 @@
 "Scanned sensor expired" = "Sensor abgelaufen";
 
 /* (No Comment) */
-"Ignore mute" = "Stummschaltung ignorieren";
-
-/* (No Comment) */
 "Retrieval interval" = "Aktualisierungs-Intervall";
 
 /* (No Comment) */
@@ -576,3 +561,12 @@
 
 /* (No Comment) */
 "Use LibreLink to start the sensor" = "Use LibreLink to start the sensor";
+
+/* (No Comment) */
+"Sensor glucose values" = "CGM";
+
+/* (No Comment) */
+"Sensor error values" = "CGM errors";
+
+/* (No Comment) */
+"Blood glucose values" = "BGM";
