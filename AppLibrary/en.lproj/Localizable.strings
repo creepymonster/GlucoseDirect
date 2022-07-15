@@ -101,9 +101,6 @@
 "Glucose unit" = "Unit";
 
 /* (No Comment) */
-"Glucose values" = "Glucose values";
-
-/* (No Comment) */
 "Hold the top edge of your iPhone close to the sensor." = "Hold the top edge of your iPhone close to the sensor.";
 
 /* (No Comment) */
@@ -365,6 +362,9 @@
 "Sensor starting date" = "Starting date";
 
 /* (No Comment) */
+"Sensor ending date" = "Ending date";
+
+/* (No Comment) */
 "Delete log files" = "Delete log files";
 
 /* (No Comment) */
@@ -561,3 +561,12 @@
 
 /* (No Comment) */
 "Use LibreLink to start the sensor" = "Use LibreLink to start the sensor";
+
+/* (No Comment) */
+"Sensor glucose values" = "CGM";
+
+/* (No Comment) */
+"Sensor error values" = "CGM errors";
+
+/* (No Comment) */
+"Blood glucose values" = "BGM";
