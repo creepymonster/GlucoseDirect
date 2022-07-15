@@ -101,9 +101,6 @@
 "Glucose unit" = "Unidad";
 
 /* (No Comment) */
-"Glucose values" = "Valores de glucosa";
-
-/* (No Comment) */
 "Hold the top edge of your iPhone close to the sensor." = "Mantenga el borde superior de su iPhone cerca del sensor.";
 
 /* (No Comment) */
@@ -123,9 +120,6 @@
 
 /* (No Comment) */
 "Now" = "Ahora";
-
-/* (No Comment) */
-"OK, sensor connection established" = "OK, conexión establecida con el sensor";
 
 /* (No Comment) */
 "Power off" = "Apagado";
@@ -218,12 +212,6 @@
 "Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "Desafortunadamente, se requiere un iPhone compatible con NFC para usar la aplicación :'(";
 
 /* (No Comment) */
-"The connection to the sensor has been successfully established and glucose data is received." = "La conexión con el sensor se ha establecido con éxito y se reciben los datos de glucosa.";
-
-/* (No Comment) */
-"The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause." = "La conexión con el sensor parece existir, pero no se reciben valores. La causa puede ser que los datos del sensor sean defectuosos.";
-
-/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "La conexión con el sensor se ha interrumpido. Normalmente, esto ocurre cuando el sensor está fuera de su alcance o su potencia de transmisión está deteriorada.";
 
 /* (No Comment) */
@@ -237,9 +225,6 @@
 
 /* (No Comment) */
 "Virtual Sensor" = "Sensor virtual";
-
-/* (No Comment) */
-"Warning, sensor missed %1$@ readings" = "Aviso: el sensor ha perdido lecturas de %1$@";
 
 /* (No Comment) */
 "Wearing time alarm" = "Alarma de tiempo de uso";
@@ -377,6 +362,9 @@
 "Sensor starting date" = "Fecha de inicio";
 
 /* (No Comment) */
+"Sensor ending date" = "Ending date";
+
+/* (No Comment) */
 "Delete log files" = "Borrar archivos de registro";
 
 /* (No Comment) */
@@ -476,9 +464,6 @@
 "Scanned sensor expired" = "Sensor expired";
 
 /* (No Comment) */
-"Ignore mute" = "Ignore mute";
-
-/* (No Comment) */
 "Retrieval interval" = "Retrieval interval";
 
 /* (No Comment) */
@@ -576,3 +561,12 @@
 
 /* (No Comment) */
 "Use LibreLink to start the sensor" = "Use LibreLink to start the sensor";
+
+/* (No Comment) */
+"Sensor glucose values" = "CGM";
+
+/* (No Comment) */
+"Sensor error values" = "CGM errors";
+
+/* (No Comment) */
+"Blood glucose values" = "BGM";
