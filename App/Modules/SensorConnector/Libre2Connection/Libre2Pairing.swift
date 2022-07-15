@@ -154,7 +154,7 @@ class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                         self.subject?.send(.setSensor(sensor: sensor))
                         self.subject?.send(.setConnectionPaired(isPaired: false))
 
-                        if (sensor.age + 30) >= sensor.lifetime {
+                        if sensor.age >= sensor.lifetime {
                             self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: .expired))
 
                         } else if sensor.age > sensor.warmupTime {
@@ -182,7 +182,7 @@ class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                         self.subject?.send(.setConnectionState(connectionState: .disconnected))
                         self.subject?.send(.setConnectionPaired(isPaired: true))
 
-                        if (sensor.age + 30) >= sensor.lifetime {
+                        if sensor.age >= sensor.lifetime {
                             self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: .expired))
 
                         } else if sensor.age > sensor.warmupTime {

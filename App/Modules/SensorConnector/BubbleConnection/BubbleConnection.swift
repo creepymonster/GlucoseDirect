@@ -137,7 +137,7 @@ class BubbleConnection: SensorBluetoothConnection, IsTransmitter {
                 let sensor = Sensor.libreStyleSensor(uuid: uuid, patchInfo: patchInfo, fram: fram)
                 sendUpdate(sensor: sensor, keepDevice: true)
 
-                if (sensor.age + 30) >= sensor.lifetime {
+                if sensor.age >= sensor.lifetime {
                     sendUpdate(age: sensor.age, state: .expired)
 
                 } else if sensor.age > sensor.warmupTime {

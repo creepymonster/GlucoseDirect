@@ -171,7 +171,7 @@ class LibreLinkConnection: SensorBluetoothConnection, IsSensor {
                     let decryptedBLE = Data(try Libre2EUtility.decryptBLE(uuid: sensor.uuid, data: rxBuffer))
                     let parsedBLE = Libre2EUtility.parseBLE(calibration: sensor.factoryCalibration, data: decryptedBLE)
 
-                    if (parsedBLE.age + 30) >= sensor.lifetime {
+                    if parsedBLE.age >= sensor.lifetime {
                         sendUpdate(age: parsedBLE.age, state: .expired)
 
                     } else if parsedBLE.age > sensor.warmupTime {
