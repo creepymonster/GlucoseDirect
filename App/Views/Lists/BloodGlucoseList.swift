@@ -59,7 +59,7 @@ struct BloodGlucoseList: View {
                 })
             }
 
-            CollapsableSection(teaser: Text(getTeaser(bloodGlucoseValues.count)), header: Label("BGM", systemImage: "drop"), collapsed: true, collapsible: !bloodGlucoseValues.isEmpty) {
+            CollapsableSection(teaser: Text(getTeaser(bloodGlucoseValues.count)), header: Label("Blood glucose values", systemImage: "drop"), collapsed: true, collapsible: !bloodGlucoseValues.isEmpty) {
                 if bloodGlucoseValues.isEmpty {
                     Text(getTeaser(bloodGlucoseValues.count))
                 } else {

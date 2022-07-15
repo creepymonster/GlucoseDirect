@@ -12,7 +12,7 @@ struct SensorErrorList: View {
 
     var body: some View {
         Group {
-            CollapsableSection(teaser: Text(getTeaser(sensorErrorValues.count)), header: Label("Errors", systemImage: "exclamationmark.triangle"), collapsed: true, collapsible: !sensorErrorValues.isEmpty) {
+            CollapsableSection(teaser: Text(getTeaser(sensorErrorValues.count)), header: Label("Sensor error values", systemImage: "exclamationmark.triangle"), collapsed: true, collapsible: !sensorErrorValues.isEmpty) {
                 if sensorErrorValues.isEmpty {
                     Text(getTeaser(sensorErrorValues.count))
                 } else {

@@ -12,7 +12,7 @@ struct SensorGlucoseList: View {
 
     var body: some View {
         Group {
-            CollapsableSection(teaser: Text(getTeaser(sensorGlucoseValues.count)), header: Label("CGM", systemImage: "sensor.tag.radiowaves.forward"), collapsed: true, collapsible: !sensorGlucoseValues.isEmpty) {
+            CollapsableSection(teaser: Text(getTeaser(sensorGlucoseValues.count)), header: Label("Sensor glucose values", systemImage: "sensor.tag.radiowaves.forward"), collapsed: true, collapsible: !sensorGlucoseValues.isEmpty) {
                 if sensorGlucoseValues.isEmpty {
                     Text(getTeaser(sensorGlucoseValues.count))
                 } else {
