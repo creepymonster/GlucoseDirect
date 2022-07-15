@@ -461,7 +461,7 @@
 "Retry pairing" = "Retry pairing";
 
 /* (No Comment) */
-"Scanned sensor expired" = "Sensor expired";
+"Scanned sensor expired" = "El sensor ha caducado";
 
 /* (No Comment) */
 "Retrieval interval" = "Retrieval interval";
@@ -470,7 +470,7 @@
 "Retrieval interval, every minute" = "Every minute";
 
 /* (No Comment) */
-"Retrieval interval, every %1$@ minutes" = "Every %1$@ minutes";
+"Retrieval interval, every %1$@ minutes" = "Cada 10 minutos";
 
 /* (No Comment) */
 "App donate" = "Donate";
