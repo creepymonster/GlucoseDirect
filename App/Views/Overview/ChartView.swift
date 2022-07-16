@@ -164,9 +164,11 @@ struct ChartView: View {
                             updateBloodSeries()
 
                         }.onChange(of: sensorGlucoseSeries) { _ in
+                            DirectLog.info("onChangeOfSensorGlucoseSeries(\(sensorGlucoseSeries))")
                             scrollToEnd(scrollViewProxy: scrollViewProxy)
 
                         }.onChange(of: bloodGlucoseSeries) { _ in
+                            DirectLog.info("onChangeOfBloodGlucoseSeries(\(bloodGlucoseSeries))")
                             scrollToEnd(scrollViewProxy: scrollViewProxy)
 
                         }.onAppear {
