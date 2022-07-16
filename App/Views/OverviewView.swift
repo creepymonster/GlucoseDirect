@@ -11,13 +11,13 @@ struct OverviewView: View {
     var body: some View {
         VStack {
             List {
-                if store.state.hasGlucoseValues {
+                if !store.state.sensorGlucoseHistory.isEmpty || !store.state.bloodGlucoseValues.isEmpty {
                     GlucoseView()
                     
                     if #available(iOS 16.0, *) {
                         ChartView()
                     } else {
-                        ChartViewFallback()
+                        ChartViewCompatibility()
                     }
                 }
 

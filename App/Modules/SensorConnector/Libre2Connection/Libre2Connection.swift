@@ -12,7 +12,7 @@ import Foundation
 class Libre2Connection: SensorBluetoothConnection, IsSensor {
     // MARK: Lifecycle
 
-    init(subject: PassthroughSubject<DirectAction, AppError>) {
+    init(subject: PassthroughSubject<DirectAction, DirectError>) {
         DirectLog.info("init")
 
         super.init(subject: subject, serviceUUID: CBUUID(string: "FDE3"))
@@ -166,7 +166,7 @@ class Libre2Connection: SensorBluetoothConnection, IsSensor {
                     let decryptedBLE = Data(try Libre2EUtility.decryptBLE(uuid: sensor.uuid, data: rxBuffer))
                     let parsedBLE = Libre2EUtility.parseBLE(calibration: sensor.factoryCalibration, data: decryptedBLE)
 
-                    if (parsedBLE.age + 30) >= sensor.lifetime {
+                    if parsedBLE.age >= sensor.lifetime {
                         sendUpdate(age: parsedBLE.age, state: .expired)
 
                     } else if parsedBLE.age > sensor.warmupTime {

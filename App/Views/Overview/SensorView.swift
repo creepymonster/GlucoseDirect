@@ -37,6 +37,14 @@ struct SensorView: View {
                                     Text(startTimestamp.toLocalDateTime())
                                 }
                             }
+                            
+                            if let endTimestamp = sensor.endTimestamp {
+                                HStack {
+                                    Text("Sensor ending date")
+                                    Spacer()
+                                    Text(endTimestamp.toLocalDateTime())
+                                }
+                            }
 
                             if let remainingWarmupTime = sensor.remainingWarmupTime, sensor.state == .starting {
                                 VStack {

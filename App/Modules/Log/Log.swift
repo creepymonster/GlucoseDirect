@@ -14,9 +14,28 @@ func logMiddleware() -> Middleware<DirectState, DirectAction> {
 
 private func logMiddleware(service: SendLogsService) -> Middleware<DirectState, DirectAction> {
     return { _, action, _ in
-        DirectLog.info("Triggered action: \(action)")
-
         switch action {
+        case .setBloodGlucoseValues(glucoseValues: _):
+            break
+            
+        case .setSensorGlucoseValues(glucoseValues: _):
+            break
+            
+        case .setBloodGlucoseHistory(glucoseHistory: _):
+            break
+            
+        case .setSensorGlucoseHistory(glucoseHistory: _):
+            break
+            
+        case .setSensorErrorValues(errorValues: _):
+            break
+            
+        case .setNightscoutURL(url: _):
+            break
+            
+        case .setNightscoutSecret(apiSecret: _):
+            break
+            
         case .startup:
             service.deleteLogs()
 
@@ -27,6 +46,8 @@ private func logMiddleware(service: SendLogsService) -> Middleware<DirectState, 
             service.sendLog(fileURL: DirectLog.getLogsURL())
 
         default:
+            DirectLog.info("Triggered action: \(action)")
+
             break
         }
 

@@ -6,9 +6,9 @@
 import SwiftUI
 import WidgetKit
 
-private let placeholderLowGlucose = Glucose.sensorGlucose(timestamp: Date(), rawGlucoseValue: 70, glucoseValue: 80, minuteChange: 2)
-private let placeholderGlucose = Glucose.sensorGlucose(timestamp: Date(), rawGlucoseValue: 100, glucoseValue: 110, minuteChange: 5)
-private let placeholderHighGlucose = Glucose.sensorGlucose(timestamp: Date(), rawGlucoseValue: 400, glucoseValue: 410, minuteChange: 5)
+private let placeholderLowGlucose = SensorGlucose(timestamp: Date(), rawGlucoseValue: 70, intGlucoseValue: 80, minuteChange: 2)
+private let placeholderGlucose = SensorGlucose(timestamp: Date(), rawGlucoseValue: 100, intGlucoseValue: 110, minuteChange: 5)
+private let placeholderHighGlucose = SensorGlucose(timestamp: Date(), rawGlucoseValue: 400, intGlucoseValue: 410, minuteChange: 5)
 private let placeholderGlucoseUnit = GlucoseUnit.mgdL
 
 // MARK: - GlucoseEntry
@@ -28,7 +28,7 @@ struct GlucoseEntry: TimelineEntry {
         self.glucoseUnit = nil
     }
 
-    init(date: Date, glucose: Glucose, glucoseUnit: GlucoseUnit) {
+    init(date: Date, glucose: SensorGlucose, glucoseUnit: GlucoseUnit) {
         self.date = date
         self.glucose = glucose
         self.glucoseUnit = glucoseUnit
@@ -37,7 +37,7 @@ struct GlucoseEntry: TimelineEntry {
     // MARK: Internal
 
     let date: Date
-    let glucose: Glucose?
+    let glucose: SensorGlucose?
     let glucoseUnit: GlucoseUnit?
 }
 
@@ -73,23 +73,22 @@ struct GlucoseView: View {
 
     var entry: GlucoseEntry
 
-    var glucose: Glucose? {
-        entry.glucose ?? UserDefaults.shared.latestGlucose
-    }
-
     var glucoseUnit: GlucoseUnit? {
         entry.glucoseUnit ?? UserDefaults.shared.glucoseUnit
+    }
+    
+    var glucose: SensorGlucose? {
+        entry.glucose ?? UserDefaults.shared.latestSensorGlucose
     }
 
     var body: some View {
         if let glucose,
-           let glucoseUnit,
-           let glucoseValue = glucose.glucoseValue
+           let glucoseUnit
         {
             switch size {
             case .accessoryRectangular:
                 HStack(alignment: .lastTextBaseline) {
-                    Text(glucoseValue.asGlucose(unit: glucoseUnit))
+                    Text(glucose.glucoseValue.asGlucose(unit: glucoseUnit))
                         .widgetAccentable()
                         .bold()
                         .font(.system(size: 35))
@@ -106,7 +105,7 @@ struct GlucoseView: View {
 
             case .accessoryCircular:
                 VStack(alignment: .center) {
-                    Text(glucoseValue.asGlucose(unit: glucoseUnit))
+                    Text(glucose.glucoseValue.asGlucose(unit: glucoseUnit))
                         .widgetAccentable()
                         .font(.system(size: 25))
                         .bold()

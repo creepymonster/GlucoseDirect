@@ -46,7 +46,7 @@ enum DirectLog {
 
     private static func log(message: String, type: OSLogType, log: OSLog, error: Error? = nil, file: String, line: Int, function: String) {
         // Console logging
-        let meta = "[\(file):\(line)]" // [\(function)]
+        let meta = "[\(file):\(line)][\(function)][isMT: \(Thread.isMainThread)]"
 
         // obviously we have to disable swiftline here:
         // swiftlint:disable:next no_direct_oslog

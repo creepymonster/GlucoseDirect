@@ -66,6 +66,10 @@ final class GlucoseDirectApp: App {
 
         var middlewares = [
             logMiddleware(),
+            dataStoreMigrationMiddleware(),
+            bloodGlucoseStoreMiddleware(),
+            sensorGlucoseStoreMiddleware(),
+            sensorErrorStoreMiddleware(),
             expiringNotificationMiddelware(),
             glucoseNotificationMiddelware(),
             connectionNotificationMiddelware(),
@@ -77,11 +81,16 @@ final class GlucoseDirectApp: App {
             appGroupSharingMiddleware(),
             widgetCenterMiddleware(),
             screenLockMiddleware(),
+            sensorErrorMiddleware(),
         ]
 
         middlewares.append(sensorConnectorMiddelware([
-            SensorConnectionInfo(id: "virtual", name: "Virtual") { VirtualLibreConnection(subject: $0) },
+            SensorConnectionInfo(id: DirectConfig.virtualID, name: "Virtual") { VirtualLibreConnection(subject: $0) },
         ]))
+
+        #if DEBUG
+            middlewares.append(debugMiddleware())
+        #endif
 
         return DirectStore(initialState: AppState(), reducer: directReducer, middlewares: middlewares)
     }
@@ -91,6 +100,10 @@ final class GlucoseDirectApp: App {
 
         var middlewares = [
             logMiddleware(),
+            dataStoreMigrationMiddleware(),
+            bloodGlucoseStoreMiddleware(),
+            sensorGlucoseStoreMiddleware(),
+            sensorErrorStoreMiddleware(),
             expiringNotificationMiddelware(),
             glucoseNotificationMiddelware(),
             connectionNotificationMiddelware(),
@@ -102,26 +115,30 @@ final class GlucoseDirectApp: App {
             appGroupSharingMiddleware(),
             widgetCenterMiddleware(),
             screenLockMiddleware(),
+            sensorErrorMiddleware(),
         ]
 
-        let bubbleTransmitter = LocalizedString("Bubble transmitter")
+        var connectionInfos: [SensorConnectionInfo] = []
 
         #if canImport(CoreNFC)
             if NFCTagReaderSession.readingAvailable {
-                middlewares.append(sensorConnectorMiddelware([
-                    SensorConnectionInfo(id: "libre2", name: LocalizedString("Without transmitter")) { Libre2Connection(subject: $0) },
-                    // SensorConnectionInfo(id: "librelink", name: LocalizedString("LibreLink transmitter")) { LibreLinkConnection(subject: $0) },
-                    SensorConnectionInfo(id: "bubble", name: bubbleTransmitter) { BubbleConnection(subject: $0) },
-                ]))
+                connectionInfos.append(SensorConnectionInfo(id: DirectConfig.libre2ID, name: LocalizedString("Without transmitter"), connectionCreator: { Libre2Connection(subject: $0) }))
+                connectionInfos.append(SensorConnectionInfo(id: DirectConfig.bubbleID, name: LocalizedString("Bubble transmitter"), connectionCreator: { BubbleConnection(subject: $0) }))
             } else {
-                middlewares.append(sensorConnectorMiddelware([
-                    SensorConnectionInfo(id: "bubble", name: bubbleTransmitter) { BubbleConnection(subject: $0) },
-                ]))
+                connectionInfos.append(SensorConnectionInfo(id: DirectConfig.bubbleID, name: LocalizedString("Bubble transmitter"), connectionCreator: { BubbleConnection(subject: $0) }))
             }
         #else
-            middlewares.append(sensorConnectorMiddelware([
-                SensorConnectionInfo(id: "bubble", name: bubbleTransmitter) { BubbleConnection(subject: $0) },
-            ]))
+            connectionInfos.append(SensorConnectionInfo(id: DirectConfig.bubbleID, name: LocalizedString("Bubble transmitter"), connectionCreator: { BubbleConnection(subject: $0) }))
+        #endif
+
+        #if DEBUG
+            connectionInfos.append(SensorConnectionInfo(id: DirectConfig.librelinkID, name: LocalizedString("LibreLink transmitter"), connectionCreator: { LibreLinkConnection(subject: $0) }))
+        #endif
+
+        middlewares.append(sensorConnectorMiddelware(connectionInfos))
+
+        #if DEBUG
+            middlewares.append(debugMiddleware())
         #endif
 
         return DirectStore(initialState: AppState(), reducer: directReducer, middlewares: middlewares)
@@ -130,7 +147,7 @@ final class GlucoseDirectApp: App {
 
 // MARK: - GlucoseDirectNotificationCenter
 
-final class GlucoseDirectNotificationCenter: NSObject, UNUserNotificationCenterDelegate {
+class GlucoseDirectNotificationCenter: NSObject, UNUserNotificationCenterDelegate {
     // MARK: Lifecycle
 
     init(store: DirectStore) {
@@ -145,7 +162,7 @@ final class GlucoseDirectNotificationCenter: NSObject, UNUserNotificationCenterD
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         if let store = store, let action = response.notification.request.content.userInfo["action"] as? String, action == "snooze" {
-            DirectNotifications.shared.stopSound()
+            store.dispatch(.selectView(viewTag: DirectConfig.overviewViewTag))
             store.dispatch(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(30 * 60).toRounded(on: 1, .minute)))
         }
 
@@ -159,9 +176,10 @@ final class GlucoseDirectNotificationCenter: NSObject, UNUserNotificationCenterD
 
 // MARK: - GlucoseDirectAppDelegate
 
-final class GlucoseDirectAppDelegate: NSObject, UIApplicationDelegate {
+class GlucoseDirectAppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         DirectLog.info("Application did finish launching with options")
+
         return true
     }
 

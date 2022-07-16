@@ -12,17 +12,17 @@ import Foundation
 // https://danielbernal.co/redux-like-architecture-with-swiftui-real-world-app/
 
 typealias Reducer<State, Action> = (inout State, Action) -> Void
-typealias Middleware<State, Action> = (State, Action, State) -> AnyPublisher<Action, AppError>?
+typealias Middleware<State, Action> = (State, Action, State) -> AnyPublisher<Action, DirectError>?
 
-// MARK: - AppError
+// MARK: - DirectError
 
-enum AppError: Error {
+enum DirectError: Error {
     case withMessage(_ message: String)
 }
 
 // MARK: - Store
 
-final class Store<State, Action>: ObservableObject {
+class Store<State, Action>: ObservableObject {
     // MARK: Lifecycle
 
     init(initialState: State, reducer: @escaping Reducer<State, Action> = { _, _ in }, middlewares: [Middleware<State, Action>] = []) {
@@ -51,20 +51,22 @@ final class Store<State, Action>: ObservableObject {
                 break
             }
 
-            middleware
-                .receive(on: DispatchQueue.main)
+            var cancellable: AnyCancellable!
+            cancellable = middleware.receive(on: DispatchQueue.main)
                 .sink(
-                    receiveCompletion: { completion in
+                    receiveCompletion: { [weak self] completion in
                         switch completion {
                         case .failure(.withMessage(message: let message)):
                             DirectLog.error(message)
                         default:
                             break
                         }
+
+                        self?.middlewareCancellables.remove(cancellable)
                     },
                     receiveValue: dispatch
                 )
-                .store(in: &middlewareCancellables)
+            cancellable.store(in: &middlewareCancellables)
         }
     }
 

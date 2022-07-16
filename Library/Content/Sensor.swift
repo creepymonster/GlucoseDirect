@@ -114,17 +114,15 @@ struct Sensor: Codable {
     }
 
     var description: String {
-        [
-            "uuid: \(uuid.hex)",
-            "patchInfo: \(patchInfo.hex)",
-            "factoryCalibration: \(factoryCalibration.description)",
-            "family: \(family.description)",
-            "type: \(type.description)",
-            "region: \(region.description)",
-            "serial: \(serial ?? "Unknown")",
-            "state: \(state.description)",
-            "lifetime: \(lifetime.inTime)",
-        ].joined(separator: ", ")
+        "{ uuid: \(uuid.hex), patchInfo: \(patchInfo.hex), factoryCalibration: \(factoryCalibration), family: \(family), type: \(type), region: \(region), serial: \(serial ?? "-"), state: \(state.description), lifetime: \(lifetime.inTime) }"
+    }
+    
+    var endTimestamp: Date? {
+        if let startTimestamp = startTimestamp {
+            return Calendar.current.date(byAdding: .minute, value: lifetime, to: startTimestamp)
+        }
+        
+        return nil
     }
 }
 
@@ -139,7 +137,7 @@ extension Sensor {
 
         var lifetime = 20_160
         if fram.count >= 328 {
-            lifetime = Int(fram[326]) + Int(fram[327]) << 8
+            lifetime = (Int(fram[326]) + Int(fram[327]) << 8) - 60 // for safety reasons
         }
 
         return Sensor(
@@ -167,7 +165,7 @@ extension Sensor {
 
         var lifetime = 20_160
         if fram.count >= 48 {
-            lifetime = Int(fram[46]) + Int(fram[47]) << 8
+            lifetime = (Int(fram[46]) + Int(fram[47]) << 8) - 60 // for safety reasons
         }
 
         let serial = Data(fram[24 ... 39])

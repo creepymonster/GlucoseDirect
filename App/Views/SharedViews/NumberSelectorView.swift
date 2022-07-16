@@ -56,7 +56,7 @@ struct NumberSelectorView: View {
                 Button {
                     value = value - 1
                 } label: {
-                    Image(systemName: "minus")
+                    Image(systemName: "minus.square")
                 }
                 .frame(width: 40, height: 40, alignment: .leading)
                 .font(.title3)
@@ -72,7 +72,7 @@ struct NumberSelectorView: View {
                 Button {
                     value = value + 1
                 } label: {
-                    Image(systemName: "plus")
+                    Image(systemName: "plus.square")
                 }
                 .frame(width: 40, height: 40, alignment: .trailing)
                 .font(.title3)

@@ -101,9 +101,6 @@
 "Glucose unit" = "Birim";
 
 /* (No Comment) */
-"Glucose values" = "Glikoz değerleri";
-
-/* (No Comment) */
 "Hold the top edge of your iPhone close to the sensor." = "iPhone'unuzun üst kenarını sensöre yakın tutun.";
 
 /* (No Comment) */
@@ -123,9 +120,6 @@
 
 /* (No Comment) */
 "Now" = "Şimdi";
-
-/* (No Comment) */
-"OK, sensor connection established" = "Tamam, sensör bağlantısı kuruldu";
 
 /* (No Comment) */
 "Power off" = "Kapat";
@@ -170,7 +164,7 @@
 "Sensor is ready" = "Sensör hazır";
 
 /* (No Comment) */
-"Sensor is shut down" = "Sensör süresi doldu";
+"Sensor is shut down" = "Sensor is expired";
 
 /* (No Comment) */
 "Sensor lifetime" = "Kullanım ömrü";
@@ -185,7 +179,7 @@
 "Sensor PatchInfo" = "PatchInfo";
 
 /* (No Comment) */
-"Sensor possible lifetime" = "Kullanım ömrü";
+"Sensor possible lifetime" = "Lifetime";
 
 /* (No Comment) */
 "Sensor region" = "Bölge";
@@ -200,7 +194,7 @@
 "Sensor serial" = "Seri no";
 
 /* (No Comment) */
-"Sensor state" = "Durum";
+"Sensor state" = "State";
 
 /* (No Comment) */
 "Sensor type" = "Tip";
@@ -218,12 +212,6 @@
 "Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "Maalesef, uygulamayı kullanabilmek için NFC özellikli bir iPhone gerekiyor :'(";
 
 /* (No Comment) */
-"The connection to the sensor has been successfully established and glucose data is received." = "Sensöre bağlantı başarıyla kuruldu ve glikoz verileri alındı.";
-
-/* (No Comment) */
-"The connection to the sensor seems to exist, but no values are received. Faulty sensor data may be the cause." = "Sensöre bağlantı var gibi görünüyor, ancak hiçbir değer alınmıyor. Arızalı sensör verileri bunun nedeni olabilir.";
-
-/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "Sensörle bağlantı kesildi. Normalde bu sensör menzil dışında olduğunda veya iletim gücü bozulduğunda olur.";
 
 /* (No Comment) */
@@ -237,9 +225,6 @@
 
 /* (No Comment) */
 "Virtual Sensor" = "Sanal Sensör";
-
-/* (No Comment) */
-"Warning, sensor missed %1$@ readings" = "Uyarı, sensör %1$@ okuma kaçırdı";
 
 /* (No Comment) */
 "Wearing time alarm" = "Giyme zaman alarmı";
@@ -377,6 +362,9 @@
 "Sensor starting date" = "Başlama tarihi";
 
 /* (No Comment) */
+"Sensor ending date" = "Ending date";
+
+/* (No Comment) */
 "Delete log files" = "Günlük dosyalarını sil";
 
 /* (No Comment) */
@@ -476,9 +464,6 @@
 "Scanned sensor expired" = "Sensör süresi doldu";
 
 /* (No Comment) */
-"Ignore mute" = "Sessize almayı yoksay";
-
-/* (No Comment) */
 "Retrieval interval" = "Geri alma aralığı";
 
 /* (No Comment) */
@@ -536,7 +521,7 @@
 "Transmitter ID" = "Tanımlayıcı";
 
 /* (No Comment) */
-"Time" = "Zaman";
+"Time" = "Time";
 
 /* (No Comment) */
 "Glucose" = "Glikoz";
@@ -548,7 +533,7 @@
 "Sensor" = "Sensör";
 
 /* (No Comment) */
-"Glucose widget" = "Glikoz";
+"Glucose widget" = "Glucose";
 
 /* (No Comment) */
 "Glucose widget description" = "Son glikoz değerini görüntüler.";
@@ -566,7 +551,7 @@
 "Transmitter battery widget description" = "Geri sayım olarak vericinin kalan pil şarjını görüntüler.";
 
 /* (No Comment) */
-"Warmup" = "Isınma";
+"Warmup" = "Warmup";
 
 /* (No Comment) */
 "No screen lock" = "Ekran kilidi yok";
@@ -576,3 +561,12 @@
 
 /* (No Comment) */
 "Use LibreLink to start the sensor" = "Use LibreLink to start the sensor";
+
+/* (No Comment) */
+"Sensor glucose values" = "CGM";
+
+/* (No Comment) */
+"Sensor error values" = "CGM errors";
+
+/* (No Comment) */
+"Blood glucose values" = "BGM";

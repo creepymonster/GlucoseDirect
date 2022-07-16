@@ -86,10 +86,7 @@ extension Array where Element == CustomCalibration {
     }
 
     var description: String {
-        [
-            "slope: \(slope.description)",
-            "intercept: \(intercept.description)",
-        ].joined(separator: ", ")
+        "{ slope: \(slope.description), intercept: \(intercept.description) }"
     }
 
     // MARK: Private

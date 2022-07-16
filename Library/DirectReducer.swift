@@ -12,77 +12,41 @@ import UIKit
 func directReducer(state: inout DirectState, action: DirectAction) {
     switch action {
     case .addCalibration(bloodGlucoseValue: let bloodGlucoseValue):
-        guard let latestRawGlucoseValue = state.latestSensorGlucose?.rawGlucoseValue else {
+        guard let latestGlucoseValue = state.sensorGlucoseValues.last?.rawGlucoseValue else {
             DirectLog.info("Guard: state.currentGlucose.initialGlucoseValue is nil")
             break
         }
         
-        state.customCalibration.append(CustomCalibration(x: Double(latestRawGlucoseValue), y: Double(bloodGlucoseValue)))
+        state.customCalibration.append(CustomCalibration(x: Double(latestGlucoseValue), y: Double(bloodGlucoseValue)))
         
-    case .addGlucose(glucoseValues: let addedGlucoseValues):
-        var glucoseValues: [Glucose]
-            
-        let overLimit = state.glucoseValues.count + addedGlucoseValues.count - DirectConfig.numberOfGlucoseValues
-        if overLimit > 0 {
-            glucoseValues = Array(state.glucoseValues.dropFirst(overLimit) + addedGlucoseValues)
-        } else {
-            glucoseValues = state.glucoseValues + addedGlucoseValues
-        }
+    case .addBloodGlucose(glucoseValues: let glucoseValues):
+        state.latestBloodGlucose = glucoseValues.last
         
-        state.glucoseValues = glucoseValues
-        state.latestGlucose = glucoseValues.last
-        state.latestBloodGlucose = glucoseValues.last(where: { $0.isBloodGlucose })
-        state.latestSensorGlucose = glucoseValues.last(where: { $0.isSensorGlucose || $0.isFaultyGlucose })
-        state.missedReadings = 0
+    case .addSensorGlucose(glucoseValues: let glucoseValues):
+        state.latestSensorGlucose = glucoseValues.last
         
-    case .addMissedReading:
-        state.missedReadings += 1
-        
-    case .addSensorReadings:
-        break
-        
-    case .bellmanTestAlarm:
-        break
-        
+    case .addSensorError(errorValues: let errorValues):
+        state.latestSensorError = errorValues.last
+                       
     case .clearCalibrations:
         state.customCalibration = []
         
-    case .clearGlucoseValues:
-        state.glucoseValues = []
-        state.latestGlucose = nil
+    case .clearBloodGlucoseValues:
         state.latestBloodGlucose = nil
+        
+    case .clearSensorGlucoseValues:
         state.latestSensorGlucose = nil
         
-    case .connectConnection:
-        break
-        
-    case .deleteLogs:
-        break
-
-    case .disconnectConnection:
-        break
-
-    case .pairConnection:
-        break
+    case .clearSensorErrorValues:
+        state.latestSensorError = nil
         
     case .registerConnectionInfo(infos: let infos):
         state.connectionInfos.append(contentsOf: infos)
         
-    case .removeCalibration(calibration: let calibration):
+    case .deleteCalibration(calibration: let calibration):
         state.customCalibration = state.customCalibration.filter { item in
             item.id != calibration.id
         }
-        
-    case .removeGlucose(glucose: let glucose):
-        state.glucoseValues = state.glucoseValues.filter { item in
-            item.id != glucose.id
-        }
-        
-    case .requestAppleCalendarAccess(enabled: _):
-        break
-        
-    case .requestAppleHealthAccess(enabled: _):
-        break
         
     case .resetSensor:
         state.sensor = nil
@@ -111,9 +75,6 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         
     case .selectView(viewTag: let viewTag):
         state.selectedView = viewTag
-        
-    case .sendLogs:
-        break
         
     case .setAlarmHigh(upperLimit: let upperLimit):
         state.alarmHigh = upperLimit
@@ -181,13 +142,25 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         
     case .setGlucoseUnit(unit: let unit):
         state.glucoseUnit = unit
+
+    case .setBloodGlucoseValues(glucoseValues: let glucoseValues):
+        state.bloodGlucoseValues = glucoseValues
+
+    case .setBloodGlucoseHistory(glucoseHistory: let glucoseValues):
+        state.bloodGlucoseHistory = glucoseValues
+        
+    case .setSensorGlucoseValues(glucoseValues: let glucoseValues):
+        state.sensorGlucoseValues = glucoseValues
+        
+    case .setSensorGlucoseHistory(glucoseHistory: let glucoseValues):
+        state.sensorGlucoseHistory = glucoseValues
+        
+    case .setSensorErrorValues(errorValues: let errorValues):
+        state.sensorErrorValues = errorValues
         
     case .setHighGlucoseAlarmSound(sound: let sound):
         state.highGlucoseAlarmSound = sound
-        
-    case .setIgnoreMute(enabled: let enabled):
-        state.ignoreMute = enabled
-        
+
     case .setLowGlucoseAlarmSound(sound: let sound):
         state.lowGlucoseAlarmSound = sound
 
@@ -241,8 +214,8 @@ func directReducer(state: inout DirectState, action: DirectAction) {
 
     case .setTransmitter(transmitter: let transmitter):
         state.transmitter = transmitter
-               
-    case .startup:
+
+    default:
         break
     }
 

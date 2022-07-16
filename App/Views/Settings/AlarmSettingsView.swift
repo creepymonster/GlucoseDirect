@@ -66,10 +66,6 @@ struct AlarmSettingsView: View {
                     .pickerStyle(.menu)
                     .labelsHidden()
                 }
-
-                ToggleView(key: LocalizedString("Ignore mute"), value: store.state.ignoreMute) { value in
-                    store.dispatch(.setIgnoreMute(enabled: value))
-                }
             },
             header: {
                 Label("Alarm settings", systemImage: "alarm")
@@ -86,7 +82,7 @@ struct AlarmSettingsView: View {
                 let sound = NotificationSound(rawValue: $0)!
 
                 store.dispatch(.setLowGlucoseAlarmSound(sound: sound))
-                DirectNotifications.shared.playSound(ignoreMute: true, sound: sound)
+                DirectNotifications.shared.testSound(sound: sound)
             }
         )
     }
@@ -98,7 +94,7 @@ struct AlarmSettingsView: View {
                 let sound = NotificationSound(rawValue: $0)!
 
                 store.dispatch(.setHighGlucoseAlarmSound(sound: sound))
-                DirectNotifications.shared.playSound(ignoreMute: true, sound: sound)
+                DirectNotifications.shared.testSound(sound: sound)
             }
         )
     }
@@ -110,7 +106,7 @@ struct AlarmSettingsView: View {
                 let sound = NotificationSound(rawValue: $0)!
 
                 store.dispatch(.setConnectionAlarmSound(sound: sound))
-                DirectNotifications.shared.playSound(ignoreMute: true, sound: sound)
+                DirectNotifications.shared.testSound(sound: sound)
             }
         )
     }
@@ -122,7 +118,7 @@ struct AlarmSettingsView: View {
                 let sound = NotificationSound(rawValue: $0)!
 
                 store.dispatch(.setExpiringAlarmSound(sound: sound))
-                DirectNotifications.shared.playSound(ignoreMute: true, sound: sound)
+                DirectNotifications.shared.testSound(sound: sound)
             }
         )
     }

@@ -16,7 +16,7 @@ import CoreNFC
 class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
     // MARK: Lifecycle
 
-    init(subject: PassthroughSubject<DirectAction, AppError>) {
+    init(subject: PassthroughSubject<DirectAction, DirectError>) {
         self.subject = subject
     }
 
@@ -154,7 +154,7 @@ class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                         self.subject?.send(.setSensor(sensor: sensor))
                         self.subject?.send(.setConnectionPaired(isPaired: false))
 
-                        if (sensor.age + 30) >= sensor.lifetime {
+                        if sensor.age >= sensor.lifetime {
                             self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: .expired))
 
                         } else if sensor.age > sensor.warmupTime {
@@ -182,7 +182,7 @@ class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
                         self.subject?.send(.setConnectionState(connectionState: .disconnected))
                         self.subject?.send(.setConnectionPaired(isPaired: true))
 
-                        if (sensor.age + 30) >= sensor.lifetime {
+                        if sensor.age >= sensor.lifetime {
                             self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: .expired))
 
                         } else if sensor.age > sensor.warmupTime {
@@ -203,7 +203,7 @@ class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
     // MARK: Private
 
     private var session: NFCTagReaderSession?
-    private weak var subject: PassthroughSubject<DirectAction, AppError>?
+    private weak var subject: PassthroughSubject<DirectAction, DirectError>?
 
     private let nfcQueue = DispatchQueue(label: "libre-direct.nfc-queue")
     private let unlockCode: UInt32 = 42
@@ -281,7 +281,7 @@ private enum Subcommand: UInt8, CustomStringConvertible {
 class Libre2Pairing: NSObject {
     // MARK: Lifecycle
 
-    init(subject: PassthroughSubject<DirectAction, AppError>) {}
+    init(subject: PassthroughSubject<DirectAction, DirectError>) {}
 
     // MARK: Internal
 

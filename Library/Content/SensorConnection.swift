@@ -15,10 +15,10 @@ protocol IsSensor {}
 
 protocol IsTransmitter {}
 
-// MARK: - SensorConnection
+// MARK: - SensorConnectionProtocol
 
 protocol SensorConnectionProtocol {
-    var subject: PassthroughSubject<DirectAction, AppError>? { get }
+    var subject: PassthroughSubject<DirectAction, DirectError>? { get }
     func pairConnection()
     func connectConnection(sensor: Sensor, sensorInterval: Int)
     func disconnectConnection()
@@ -72,8 +72,6 @@ extension SensorConnectionProtocol {
 
         if !readings.isEmpty {
             subject?.send(.addSensorReadings(sensorSerial: sensorSerial, readings: readings))
-        } else {
-            subject?.send(.addMissedReading)
         }
     }
 
@@ -101,12 +99,6 @@ extension SensorConnectionProtocol {
         DirectLog.error("PeripheralUUID: \(peripheralUUID)")
 
         subject?.send(.setConnectionPeripheralUUID(peripheralUUID: peripheralUUID))
-    }
-
-    func sendMissedUpdate() {
-        DirectLog.error("Missed update")
-
-        subject?.send(.addMissedReading)
     }
 }
 

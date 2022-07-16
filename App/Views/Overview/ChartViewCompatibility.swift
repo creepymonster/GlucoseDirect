@@ -1,5 +1,5 @@
 //
-//  ChartViewFallback.swift
+//  ChartViewCompatibility.swift
 //  App
 //
 
@@ -7,9 +7,9 @@ import Accelerate
 import Combine
 import SwiftUI
 
-// MARK: - ChartViewFallback
+// MARK: - ChartViewCompatibility
 
-struct ChartViewFallback: View {
+struct ChartViewCompatibility: View {
     // MARK: Internal
 
     @Environment(\.colorScheme) var colorScheme
@@ -37,8 +37,8 @@ struct ChartViewFallback: View {
             .onChange(of: store.state.chartShowLines) { chartShowLines in
                 DirectLog.info("onChange chartShowLines: \(chartShowLines)")
 
-                updateCgmPath(fullSize: geo.size, glucoseValues: cgmValues)
-                updateBgmPath(fullSize: geo.size, glucoseValues: bgmValues)
+                updateSensorGlucosePath(fullSize: geo.size, glucoseValues: sensorGlucoseValues)
+                updateBloodGlucosePath(fullSize: geo.size, glucoseValues: bloodGlucoseValues)
             }
             .onChange(of: store.state.alarmLow) { alarmLow in
                 DirectLog.info("onChange alarmLow: \(alarmLow)")
@@ -63,22 +63,27 @@ struct ChartViewFallback: View {
 
                 updateYGrid(fullSize: geo.size, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh, targetValue: store.state.targetValue, glucoseUnit: glucoseUnit)
             }
-            .onChange(of: store.state.glucoseValues) { _ in
-                DirectLog.info("onChange glucoseValues: \(store.state.glucoseValues.count)")
+            .onChange(of: store.state.sensorGlucoseValues) { _ in
+                DirectLog.info("onChange glucoseValues: \(store.state.sensorGlucoseValues.count)")
 
-                updateHelpVariables(fullSize: geo.size, glucoseValues: store.state.glucoseValues)
-                updateGlucoseValues(glucoseValues: store.state.glucoseValues)
+                updateHelpVariables(fullSize: geo.size, glucoseValues: store.state.sensorGlucoseValues)
+                updateGlucoseValues(sensorGlucoseValues: store.state.sensorGlucoseValues, bloodGlucoseValues: store.state.bloodGlucoseValues)
+            }
+            .onChange(of: store.state.bloodGlucoseValues) { _ in
+                DirectLog.info("onChange glucoseValues: \(store.state.bloodGlucoseValues.count)")
+
+                updateHelpVariables(fullSize: geo.size, glucoseValues: store.state.sensorGlucoseValues)
+                updateGlucoseValues(sensorGlucoseValues: store.state.sensorGlucoseValues, bloodGlucoseValues: store.state.bloodGlucoseValues)
             }
             .onChange(of: store.state.chartZoomLevel) { zoomLevel in
                 DirectLog.info("onChange zoomLevel: \(zoomLevel)")
 
                 updateZoomLevel(level: zoomLevel)
-
-                updateHelpVariables(fullSize: geo.size, glucoseValues: store.state.glucoseValues)
-                updateGlucoseValues(glucoseValues: store.state.glucoseValues)
+                updateHelpVariables(fullSize: geo.size, glucoseValues: store.state.sensorGlucoseValues)
+                updateGlucoseValues(sensorGlucoseValues: store.state.sensorGlucoseValues, bloodGlucoseValues: store.state.bloodGlucoseValues)
             }
-            .onChange(of: [bgmValues, cgmValues]) { _ in
-                DirectLog.info("onChange bgmValues/cgmValues")
+            .onChange(of: sensorGlucoseValues) { _ in
+                DirectLog.info("onChange sensorGlucoseValues")
 
                 updateYGrid(fullSize: geo.size, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh, targetValue: store.state.targetValue, glucoseUnit: store.state.glucoseUnit)
                 updateXGrid(fullSize: geo.size, firstTimeStamp: self.firstTimeStamp, lastTimeStamp: self.lastTimeStamp)
@@ -87,74 +92,81 @@ struct ChartViewFallback: View {
                 updateAlarmHighGrid(fullSize: geo.size, alarmHigh: store.state.alarmHigh)
                 updateTargetGrid(fullSize: geo.size, targetValue: store.state.targetValue)
 
-                updateCgmPath(fullSize: geo.size, glucoseValues: cgmValues)
-                updateBgmPath(fullSize: geo.size, glucoseValues: bgmValues)
+                updateSensorGlucosePath(fullSize: geo.size, glucoseValues: sensorGlucoseValues)
             }
+            .onChange(of: bloodGlucoseValues) { _ in
+                DirectLog.info("onChange bloodGlucoseValues")
 
+                updateYGrid(fullSize: geo.size, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh, targetValue: store.state.targetValue, glucoseUnit: store.state.glucoseUnit)
+                updateXGrid(fullSize: geo.size, firstTimeStamp: self.firstTimeStamp, lastTimeStamp: self.lastTimeStamp)
+
+                updateAlarmLowGrid(fullSize: geo.size, alarmLow: store.state.alarmLow)
+                updateAlarmHighGrid(fullSize: geo.size, alarmHigh: store.state.alarmHigh)
+                updateTargetGrid(fullSize: geo.size, targetValue: store.state.targetValue)
+
+                updateBloodGlucosePath(fullSize: geo.size, glucoseValues: bloodGlucoseValues)
+            }
             .onAppear {
                 DirectLog.info("onAppear")
 
                 updateZoomLevel(level: store.state.chartZoomLevel)
-
-                updateHelpVariables(fullSize: geo.size, glucoseValues: store.state.glucoseValues)
-                updateGlucoseValues(glucoseValues: store.state.glucoseValues)
+                updateHelpVariables(fullSize: geo.size, glucoseValues: store.state.sensorGlucoseValues)
+                updateGlucoseValues(sensorGlucoseValues: store.state.sensorGlucoseValues, bloodGlucoseValues: store.state.bloodGlucoseValues)
             }
         }
     }
 
     var body: some View {
-        if !store.state.glucoseValues.isEmpty {
-            Section {
-                chartView
-                    .padding(.leading, 5)
-                    .padding(.trailing, 0)
-                    .padding(.top, 15)
-                    .padding(.bottom, 5)
-                    .frame(height: Config.height)
+        Section {
+            chartView
+                .padding(.leading, 5)
+                .padding(.trailing, 0)
+                .padding(.top, 15)
+                .padding(.bottom, 5)
+                .frame(height: Config.height)
 
-                HStack {
-                    ForEach(Config.zoomLevels, id: \.level) { zoom in
-                        Button(
-                            action: {
-                                store.dispatch(.setChartZoomLevel(level: zoom.level))
-                            },
-                            label: {
-                                Circle()
-                                    .if(store.state.chartZoomLevel == zoom.level) {
-                                        $0.fill(Config.y.textColor)
-                                    } else: {
-                                        $0.stroke(Config.y.textColor)
-                                    }
-                                    .frame(width: 12, height: 12)
-
-                                Text(zoom.title)
-                                    .font(.subheadline)
-                                    .foregroundColor(Config.y.textColor)
-                            }
-                        ).buttonStyle(.plain)
-
-                        Spacer()
-                    }
-
+            HStack {
+                ForEach(Config.zoomLevels, id: \.level) { zoom in
                     Button(
                         action: {
-                            store.dispatch(.setChartShowLines(enabled: !store.state.chartShowLines))
+                            store.dispatch(.setChartZoomLevel(level: zoom.level))
                         },
                         label: {
-                            Rectangle()
-                                .if(store.state.chartShowLines) {
+                            Circle()
+                                .if(store.state.chartZoomLevel == zoom.level) {
                                     $0.fill(Config.y.textColor)
                                 } else: {
                                     $0.stroke(Config.y.textColor)
                                 }
                                 .frame(width: 12, height: 12)
 
-                            Text("Line")
+                            Text(zoom.title)
                                 .font(.subheadline)
                                 .foregroundColor(Config.y.textColor)
                         }
                     ).buttonStyle(.plain)
+
+                    Spacer()
                 }
+
+                Button(
+                    action: {
+                        store.dispatch(.setChartShowLines(enabled: !store.state.chartShowLines))
+                    },
+                    label: {
+                        Rectangle()
+                            .if(store.state.chartShowLines) {
+                                $0.fill(Config.y.textColor)
+                            } else: {
+                                $0.stroke(Config.y.textColor)
+                            }
+                            .frame(width: 12, height: 12)
+
+                        Text("Line")
+                            .font(.subheadline)
+                            .foregroundColor(Config.y.textColor)
+                    }
+                ).buttonStyle(.plain)
             }
         }
     }
@@ -183,15 +195,15 @@ struct ChartViewFallback: View {
         enum dot {
             static let size: CGFloat = 3.5
 
-            static var cgmColor: Color { Color(.sRGB, red: 0.21, green: 0.27, blue: 0.31) | Color(.sRGB, red: 0.90, green: 0.89, blue: 0.89) }
-            static var bgmColor: Color { Color.ui.red }
+            static var sensorGlucoseColor: Color { Color(.sRGB, red: 0.21, green: 0.27, blue: 0.31) | Color(.sRGB, red: 0.90, green: 0.89, blue: 0.89) }
+            static var bloodGlucoseColor: Color { Color.ui.red }
         }
 
         enum line {
             static var size = 2.5
 
-            static var cgmColor: Color { Color(.sRGB, red: 0.21, green: 0.27, blue: 0.31) | Color(.sRGB, red: 0.90, green: 0.89, blue: 0.89) }
-            static var bgmColor: Color { Color.ui.red }
+            static var sensorGlucoseColor: Color { Color(.sRGB, red: 0.21, green: 0.27, blue: 0.31) | Color(.sRGB, red: 0.90, green: 0.89, blue: 0.89) }
+            static var bloodGlucoseColor: Color { Color.ui.red }
         }
 
         enum x {
@@ -224,11 +236,11 @@ struct ChartViewFallback: View {
             30: 360,
         ]
 
-        static let zoomLevels: [ZoomLevelFallback] = [
-            ZoomLevelFallback(level: 1, title: "1m"),
-            ZoomLevelFallback(level: 5, title: "5m"),
-            ZoomLevelFallback(level: 15, title: "15m"),
-            ZoomLevelFallback(level: 30, title: "30m"),
+        static let zoomLevels: [ZoomLevelCompatibility] = [
+            ZoomLevelCompatibility(level: 1, title: "1m"),
+            ZoomLevelCompatibility(level: 5, title: "5m"),
+            ZoomLevelCompatibility(level: 15, title: "15m"),
+            ZoomLevelCompatibility(level: 30, title: "30m"),
         ]
 
         static let endID = "End"
@@ -241,25 +253,23 @@ struct ChartViewFallback: View {
         static var backgroundColor: Color { Color(.sRGB, red: 0.96, green: 0.96, blue: 0.96) | Color(.sRGB, red: 0.09, green: 0.09, blue: 0.09) }
     }
 
-    @StateObject private var updater = MinuteUpdaterFallback()
+    @StateObject private var updater = MinuteUpdaterCompatibility()
     @State private var alarmHighGridPath = Path()
     @State private var alarmLowGridPath = Path()
     @State private var firstTimeStamp: Date? = nil
-    @State private var cgmPath = Path()
-    @State private var bgmPath = Path()
+    @State private var sensorGlucosePath = Path()
+    @State private var bloodGlucosePath = Path()
     @State private var glucoseSteps: Int = 0
     @State private var lastTimeStamp: Date? = nil
     @State private var targetGridPath = Path()
     @State private var xGridPath = Path()
-    @State private var xGridTexts: [TextInfoFallback] = []
+    @State private var xGridTexts: [TextInfoCompatibility] = []
     @State private var yGridPath = Path()
-    @State private var yGridTexts: [TextInfoFallback] = []
+    @State private var yGridTexts: [TextInfoCompatibility] = []
     @State private var deviceOrientation = UIDevice.current.orientation
     @State private var deviceColorScheme = ColorScheme.light
-    @State private var cgmValues: [Glucose] = []
-    @State private var cgmInfos: [GlucoseInfoFallback] = []
-    @State private var glucoseInfo: GlucoseInfoFallback? = nil
-    @State private var bgmValues: [Glucose] = []
+    @State private var sensorGlucoseValues: [SensorGlucose] = []
+    @State private var bloodGlucoseValues: [BloodGlucose] = []
     @State private var zoomGridStep = Config.zoomGridStep[Config.zoomLevels.first!.level]!
 
     private let calculationQueue = DispatchQueue(label: "libre-direct.chart-calculation")
@@ -284,7 +294,10 @@ struct ChartViewFallback: View {
                     bgmDotsView().zIndex(4)
                 }
                 .frame(width: CGFloat(Double(glucoseSteps) * Config.x.stepWidth))
-                .onChange(of: store.state.glucoseValues) { _ in
+                .onChange(of: store.state.sensorGlucoseValues) { _ in
+                    scroll.scrollTo(Config.endID, anchor: .trailing)
+                }
+                .onChange(of: store.state.bloodGlucoseValues) { _ in
                     scroll.scrollTo(Config.endID, anchor: .trailing)
                 }
                 .onChange(of: store.state.chartZoomLevel) { _ in
@@ -328,18 +341,18 @@ struct ChartViewFallback: View {
     }
 
     private func cgmLineView() -> some View {
-        cgmPath
-            .stroke(Config.line.cgmColor, lineWidth: Config.line.size)
+        sensorGlucosePath
+            .stroke(Config.line.sensorGlucoseColor, lineWidth: Config.line.size)
     }
 
     private func cgmDotsView() -> some View {
-        cgmPath
-            .fill(Config.dot.cgmColor)
+        sensorGlucosePath
+            .fill(Config.dot.sensorGlucoseColor)
     }
 
     private func bgmDotsView() -> some View {
-        bgmPath
-            .fill(Config.dot.bgmColor)
+        bloodGlucosePath
+            .fill(Config.dot.bloodGlucoseColor)
     }
 
     private func targetGridView() -> some View {
@@ -395,7 +408,7 @@ struct ChartViewFallback: View {
         }
     }
 
-    private func updateHelpVariables(fullSize: CGSize, glucoseValues: [Glucose]) {
+    private func updateHelpVariables(fullSize: CGSize, glucoseValues: [any Glucose]) {
         DirectLog.info("updateHelpVariables")
 
         if let first = glucoseValues.first, let last = glucoseValues.last {
@@ -415,62 +428,32 @@ struct ChartViewFallback: View {
         }
     }
 
-    private func findGlucoseInfo(x: CGFloat) {
-        let halfSize = Config.x.stepWidth / 2
-
-        let glucoseInfo = cgmInfos.reversed().first(where: { info in
-            info.x - halfSize < x && info.x + halfSize > x
-        })
-
-        self.glucoseInfo = glucoseInfo
-    }
-
-    private func updateGlucoseValues(glucoseValues: [Glucose]) {
+    private func updateGlucoseValues(sensorGlucoseValues: [SensorGlucose], bloodGlucoseValues: [BloodGlucose]) {
         DirectLog.info("updateGlucoseValues")
 
-        calculationQueue.async {
-            if store.state.chartZoomLevel == 1 {
-                let cgmValues = glucoseValues.filter { value in
-                    value.isSensorGlucose && value.glucoseValue != nil
-                }
-
-                let bgmValues = glucoseValues.filter { value in
-                    value.isBloodGlucose && value.glucoseValue != nil
-                }
-
-                DispatchQueue.main.async {
-                    self.cgmValues = cgmValues
-                    self.bgmValues = bgmValues
-                }
-            } else {
-                // cgm values
-                let filteredValues = glucoseValues.filter { value in
-                    value.isSensorGlucose && value.glucoseValue != nil
-                }.map { value in
-                    (value.timestamp.toRounded(on: store.state.chartZoomLevel, .minute), value.glucoseValue!)
+        if store.state.chartZoomLevel == 1 {
+            self.sensorGlucoseValues = sensorGlucoseValues
+            self.bloodGlucoseValues = bloodGlucoseValues
+        } else {
+            calculationQueue.async {
+                let filteredValues = sensorGlucoseValues.map { value in
+                    (value.timestamp.toRounded(on: store.state.chartZoomLevel, .minute), value.glucoseValue)
                 }
 
                 let groupedValues: [Date: [(Date, Int)]] = Dictionary(grouping: filteredValues, by: { $0.0 })
-                let cgmValues: [Glucose] = groupedValues.map { group in
+                let sensorGlucoseValues: [SensorGlucose] = groupedValues.map { group in
                     let sumGlucoseValues = group.value.reduce(0) {
                         $0 + $1.1
                     }
 
                     let meanGlucoseValues = sumGlucoseValues / group.value.count
 
-                    return Glucose.sensorGlucose(timestamp: group.key, glucoseValue: meanGlucoseValues)
+                    return SensorGlucose(timestamp: group.key, rawGlucoseValue: meanGlucoseValues, intGlucoseValue: meanGlucoseValues)
                 }.sorted(by: { $0.timestamp < $1.timestamp })
 
-                // bgm values
-                let bgmValues = glucoseValues.filter { value in
-                    value.isBloodGlucose && value.glucoseValue != nil
-                }.map { value in
-                    Glucose.bloodGlucose(timestamp: value.timestamp.toRounded(on: store.state.chartZoomLevel, .minute), glucoseValue: value.glucoseValue!)
-                }
-
                 DispatchQueue.main.async {
-                    self.cgmValues = cgmValues
-                    self.bgmValues = bgmValues
+                    self.sensorGlucoseValues = sensorGlucoseValues
+                    self.bloodGlucoseValues = bloodGlucoseValues
                 }
             }
         }
@@ -514,23 +497,15 @@ struct ChartViewFallback: View {
         }
     }
 
-    private func updateCgmPath(fullSize: CGSize, glucoseValues: [Glucose]) {
-        DirectLog.info("updateCgmPath")
+    private func updateSensorGlucosePath(fullSize: CGSize, glucoseValues: [SensorGlucose]) {
+        DirectLog.info("updateSensorGlucosePath")
         var isFirst = true
 
         calculationQueue.async {
-            var cgmInfo: [GlucoseInfoFallback] = []
-
-            let cgmPath = Path { path in
+            let sensorGlucosePath = Path { path in
                 for glucose in glucoseValues {
-                    guard let glucoseValue = glucose.glucoseValue else {
-                        return
-                    }
-
                     let x = self.translateTimeStampToX(timestamp: glucose.timestamp)
-                    let y = self.translateGlucoseToY(fullSize: fullSize, glucose: CGFloat(glucoseValue))
-
-                    cgmInfo.append(GlucoseInfoFallback(x: x, glucose: glucose))
+                    let y = self.translateGlucoseToY(fullSize: fullSize, glucose: CGFloat(glucose.glucoseValue))
 
                     if store.state.chartShowLines {
                         if isFirst {
@@ -546,31 +521,26 @@ struct ChartViewFallback: View {
             }
 
             DispatchQueue.main.async {
-                self.cgmPath = cgmPath
-                self.cgmInfos = cgmInfo
+                self.sensorGlucosePath = sensorGlucosePath
             }
         }
     }
 
-    private func updateBgmPath(fullSize: CGSize, glucoseValues: [Glucose]) {
-        DirectLog.info("updateBgmPath")
+    private func updateBloodGlucosePath(fullSize: CGSize, glucoseValues: [BloodGlucose]) {
+        DirectLog.info("updateBloodGlucosePath")
 
         calculationQueue.async {
-            let cgmPath = Path { path in
+            let sensorGlucosePath = Path { path in
                 for glucose in glucoseValues {
-                    guard let glucoseValue = glucose.glucoseValue else {
-                        return
-                    }
-
                     let x = self.translateTimeStampToX(timestamp: glucose.timestamp)
-                    let y = self.translateGlucoseToY(fullSize: fullSize, glucose: CGFloat(glucoseValue))
+                    let y = self.translateGlucoseToY(fullSize: fullSize, glucose: CGFloat(glucose.glucoseValue))
 
                     path.addEllipse(in: CGRect(x: x - Config.dot.size, y: y - Config.dot.size, width: Config.dot.size * 2, height: Config.dot.size * 2))
                 }
             }
 
             DispatchQueue.main.async {
-                self.bgmPath = cgmPath
+                self.bloodGlucosePath = sensorGlucosePath
             }
         }
     }
@@ -617,12 +587,12 @@ struct ChartViewFallback: View {
                     }
                 }
 
-                var xGridTexts: [TextInfoFallback] = []
+                var xGridTexts: [TextInfoCompatibility] = []
                 for hour in allHours {
                     let highlight = Calendar.current.component(.minute, from: hour) == 0
                     let x = self.translateTimeStampToX(timestamp: hour)
                     let y = fullSize.height - Config.y.fontSize
-                    xGridTexts.append(TextInfoFallback(description: hour.toLocalTime(), x: x, y: y, highlight: highlight))
+                    xGridTexts.append(TextInfoCompatibility(description: hour.toLocalTime(), x: x, y: y, highlight: highlight))
                 }
 
                 DispatchQueue.main.async {
@@ -654,14 +624,14 @@ struct ChartViewFallback: View {
                 }
             }
 
-            var yGridTexts: [TextInfoFallback] = []
+            var yGridTexts: [TextInfoCompatibility] = []
             for i in gridParts {
                 if i <= DirectConfig.minReadableGlucose {
                     continue
                 }
 
                 let y = self.translateGlucoseToY(fullSize: fullSize, glucose: CGFloat(i))
-                yGridTexts.append(TextInfoFallback(description: i.asGlucose(unit: glucoseUnit), x: 0, y: y, highlight: false))
+                yGridTexts.append(TextInfoCompatibility(description: i.asGlucose(unit: glucoseUnit), x: 0, y: y, highlight: false))
             }
 
             DispatchQueue.main.async {
@@ -696,32 +666,25 @@ struct ChartViewFallback: View {
     }
 }
 
-// MARK: - TextInfoFallback
+// MARK: - TextInfoCompatibility
 
-private struct TextInfoFallback {
+private struct TextInfoCompatibility {
     let description: String
     let x: CGFloat
     let y: CGFloat
     let highlight: Bool
 }
 
-// MARK: - GlucoseInfoFallback
+// MARK: - ZoomLevelCompatibility
 
-private struct GlucoseInfoFallback {
-    let x: CGFloat
-    let glucose: Glucose
-}
-
-// MARK: - ZoomLevelFallback
-
-private struct ZoomLevelFallback {
+private struct ZoomLevelCompatibility {
     let level: Int
     let title: String
 }
 
-// MARK: - MinuteUpdaterFallback
+// MARK: - MinuteUpdaterCompatibility
 
-private class MinuteUpdaterFallback: ObservableObject {
+private class MinuteUpdaterCompatibility: ObservableObject {
     // MARK: Lifecycle
 
     init() {

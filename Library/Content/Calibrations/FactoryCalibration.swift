@@ -29,14 +29,7 @@ struct FactoryCalibration: Codable {
     let i6: Double
 
     var description: String {
-        return [
-            i1.description,
-            i2.description,
-            i3.description,
-            i4.description,
-            i5.description,
-            i6.description,
-        ].joined(separator: ", ")
+        "{ i1: \(i1), i2: \(i2), i3: \(i3), i4: \(i4), i5: \(i5), i6: \(i6) }"
     }
 
     func calibrate(rawValue: Double, rawTemperature: Double, rawTemperatureAdjustment: Double) -> Double {
@@ -85,17 +78,17 @@ extension FactoryCalibration {
 
         return FactoryCalibration(i1: i1, i2: i2, i3: i3, i4: i4, i5: i5, i6: i6)
     }
-    
+
     static func libreProCalibration(fram: Data) -> FactoryCalibration {
         let b = 14 + 42
         let i1 = readBits(fram, 26, 0, 3)
         let i2 = readBits(fram, 26, 3, 0xa)
-        
+
         var i3 = Double(readBits(fram, b, 0, 8))
         if readBits(fram, b, 0x21, 1) != 0 {
             i3 = -i3
         }
-        
+
         let i4 = Double(readBits(fram, b, 8, 0xe))
         let i5 = Double(readBits(fram, b, 0x28, 0xc) << 2)
         let i6 = Double(readBits(fram, b, 0x34, 0xc) << 2)

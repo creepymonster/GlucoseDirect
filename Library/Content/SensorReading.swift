@@ -7,21 +7,21 @@ import Foundation
 
 // MARK: - SensorReading
 
-class SensorReading: CustomStringConvertible, Codable {
+struct SensorReading: CustomStringConvertible, Codable {
     // MARK: Lifecycle
 
-    private init(timestamp: Date, quality: SensorReadingQuality) {
+    private init(timestamp: Date, quality: SensorReadingError) {
         self.id = UUID()
         self.timestamp = timestamp.toRounded(on: 1, .minute)
         self.glucoseValue = 0
-        self.quality = quality
+        self.error = quality
     }
 
     private init(timestamp: Date, glucoseValue: Double) {
         self.id = UUID()
         self.timestamp = timestamp.toRounded(on: 1, .minute)
         self.glucoseValue = glucoseValue
-        self.quality = .OK
+        self.error = .OK
     }
 
     // MARK: Internal
@@ -29,15 +29,10 @@ class SensorReading: CustomStringConvertible, Codable {
     let id: UUID
     let timestamp: Date
     let glucoseValue: Double
-    let quality: SensorReadingQuality
+    let error: SensorReadingError
 
     var description: String {
-        [
-            "id: \(id)",
-            "timestamp: \(timestamp.toLocalTime())",
-            "glucoseValue: \(glucoseValue.description)",
-            "quality: \(quality.description)"
-        ].joined(separator: ", ")
+        "{ id: \(id), timestamp: \(timestamp.toLocalTime()), glucoseValue: \(glucoseValue.description), quality: \(error.description) }"
     }
 }
 
@@ -46,18 +41,18 @@ extension SensorReading {
         return SensorReading(timestamp: timestamp, glucoseValue: glucoseValue)
     }
 
-    static func createFaultyReading(timestamp: Date, quality: SensorReadingQuality) -> SensorReading {
+    static func createFaultyReading(timestamp: Date, quality: SensorReadingError) -> SensorReading {
         return SensorReading(timestamp: timestamp, quality: quality)
     }
 
-    func calibrate(customCalibration: [CustomCalibration]) -> Glucose {
-        if quality != .OK {
-            return Glucose.faultySensorGlucose(timestamp: timestamp, quality: quality)
+    func calibrate(customCalibration: [CustomCalibration]) -> SensorGlucose? {
+        guard error == .OK else {
+            return nil
         }
 
         let calibratedGlucoseValue = Int(calibration(glucoseValue: glucoseValue, customCalibration: customCalibration))
 
-        return Glucose.sensorGlucose(timestamp: timestamp, rawGlucoseValue: Int(glucoseValue), glucoseValue: calibratedGlucoseValue)
+        return SensorGlucose(id: id, timestamp: timestamp, rawGlucoseValue: Int(glucoseValue), intGlucoseValue: calibratedGlucoseValue)
     }
 
     private func calibration(glucoseValue: Double, customCalibration: [CustomCalibration]) -> Double {

@@ -23,11 +23,6 @@ struct Transmitter: CustomStringConvertible, Codable {
     let hardware: Double?
 
     var description: String {
-        [
-            "battery: \(battery.description)",
-            "name: \(name.description)",
-            "firmware: \(firmware?.description ?? "-")",
-            "hardware: \(hardware?.description ?? "-")"
-        ].joined(separator: ", ")
+        "{ battery: \(battery.description), name: \(name.description), firmware: \(firmware?.description ?? "-"), hardware: \(hardware?.description ?? "-") }"
     }
 }
