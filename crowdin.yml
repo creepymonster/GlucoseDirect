@@ -5,4 +5,3 @@ files:
     translation: /AppWidgets/%osx_locale%.lproj/InfoPlist.strings
   - source: /Library/en.lproj/Localizable.strings
     translation: /Library/%osx_locale%.lproj/Localizable.strings
-
