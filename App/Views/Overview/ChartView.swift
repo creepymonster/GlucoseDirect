@@ -76,11 +76,11 @@ struct ChartView: View {
                             }
 
                             RuleMark(y: .value("Lower limit", alarmLow))
-                                .foregroundStyle(Color.ui.orange)
+                                .foregroundStyle(Color.ui.red)
                                 .lineStyle(Config.ruleStyle)
 
                             RuleMark(y: .value("Upper limit", alarmHigh))
-                                .foregroundStyle(Color.ui.orange)
+                                .foregroundStyle(Color.ui.red)
                                 .lineStyle(Config.ruleStyle)
 
                             ForEach(sensorGlucoseSeries) { value in
@@ -298,7 +298,8 @@ struct ChartView: View {
         static let selectionSize: CGFloat = 100
         static let spacerWidth: CGFloat = 50
         static let lineStyle: StrokeStyle = .init(lineWidth: 3.5, lineCap: .round)
-        static let ruleStyle: StrokeStyle = .init(lineWidth: 0.5, dash: [2])
+        static let ruleStyle: StrokeStyle = .init(lineWidth: 1, dash: [2])
+        static let gridStyle: StrokeStyle = .init(lineWidth: 1)
 
         static let zoomLevels: [ZoomLevel] = [
             ZoomLevel(level: 1, name: LocalizedString("1h"), visibleHours: 1, labelEvery: 30, labelEveryUnit: .minute),
