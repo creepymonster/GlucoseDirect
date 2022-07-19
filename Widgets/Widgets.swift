@@ -1,13 +1,13 @@
 //
-//  AppWidgets.swift
-//  AppWidgets
+//  Widgets.swift
+//  Widgets
 //
 
 import SwiftUI
 import WidgetKit
 
 @main
-struct AppWidgets: WidgetBundle {
+struct Widgets: WidgetBundle {
     var body: some Widget {
         GlucoseWidget()
         SensorWidget()

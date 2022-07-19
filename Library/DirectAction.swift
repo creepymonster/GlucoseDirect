@@ -71,6 +71,7 @@ enum DirectAction {
     case setSensorState(sensorAge: Int, sensorState: SensorState?)
     case setTransmitter(transmitter: Transmitter)
     case startup
+    case shutdown
     
     case debugAlarm
     case debugNotification
