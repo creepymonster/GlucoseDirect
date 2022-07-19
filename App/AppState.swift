@@ -49,6 +49,7 @@ struct AppState: DirectState {
             self.alarmLow = alarmLow
         }
 
+        self.alarmSnoozeUntil = UserDefaults.standard.alarmSnoozeUntil
         self.appleCalendarExport = UserDefaults.standard.appleCalendarExport
         self.appleHealthExport = UserDefaults.standard.appleHealthExport
         self.bellmanAlarm = UserDefaults.standard.bellmanAlarm
@@ -80,7 +81,6 @@ struct AppState: DirectState {
 
     // MARK: Internal
 
-    var alarmSnoozeUntil: Date?
     var bellmanConnectionState: BellmanConnectionState = .disconnected
     var bloodGlucoseHistory: [BloodGlucose] = []
     var bloodGlucoseValues: [BloodGlucose] = []
@@ -98,6 +98,7 @@ struct AppState: DirectState {
 
     var alarmHigh: Int = 160 { didSet { UserDefaults.standard.alarmHigh = alarmHigh } }
     var alarmLow: Int = 80 { didSet { UserDefaults.standard.alarmLow = alarmLow } }
+    var alarmSnoozeUntil: Date? { didSet { UserDefaults.standard.alarmSnoozeUntil = alarmSnoozeUntil } }
     var appleCalendarExport: Bool { didSet { UserDefaults.standard.appleCalendarExport = appleCalendarExport } }
     var appleHealthExport: Bool { didSet { UserDefaults.standard.appleHealthExport = appleHealthExport } }
     var bellmanAlarm = false { didSet { UserDefaults.standard.bellmanAlarm = bellmanAlarm } }

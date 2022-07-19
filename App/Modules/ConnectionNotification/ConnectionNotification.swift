@@ -24,6 +24,14 @@ private func connectionNotificationMiddelware(service: LazyService<ConnectionNot
             }
 
             service.value.scheduleSensorConnectionLostAlarm(sound: state.connectionAlarmSound)
+            
+        case .shutdown:
+            guard state.hasConnectionAlarm else {
+                DirectLog.info("Guard: connectionAlarm disabled")
+                break
+            }
+
+            service.value.scheduleSensorConnectionLostAlarm(sound: state.connectionAlarmSound)
 
         case .setConnectionState(connectionState: let connectionState):
             guard state.hasConnectionAlarm else {
