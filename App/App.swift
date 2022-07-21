@@ -129,6 +129,7 @@ private func createSimulatorAppStore() -> DirectStore {
         widgetCenterMiddleware(),
         screenLockMiddleware(),
         sensorErrorMiddleware(),
+        glucoseStatisticsMiddleware()
     ]
 
     middlewares.append(sensorConnectorMiddelware([
@@ -163,6 +164,7 @@ private func createAppStore() -> DirectStore {
         widgetCenterMiddleware(),
         screenLockMiddleware(),
         sensorErrorMiddleware(),
+        glucoseStatisticsMiddleware()
     ]
 
     var connectionInfos: [SensorConnectionInfo] = []

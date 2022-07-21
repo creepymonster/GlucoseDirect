@@ -9,9 +9,17 @@ extension Double {
     var asMmolL: Decimal {
         return Decimal(self * GlucoseUnit.exchangeRate)
     }
-    
+
     var asMgdL: Decimal {
         return Decimal(self)
+    }
+
+    func asPercent() -> String {
+        return "\(GlucoseFormatters.percentFormatter.string(from: self as NSNumber)!)%"
+    }
+
+    func asInteger() -> String {
+        GlucoseFormatters.integerFormatter.string(from: self as NSNumber)!
     }
 
     func asGlucose(glucoseUnit: GlucoseUnit, withUnit: Bool = false, precise: Bool = false) -> String {
@@ -24,7 +32,11 @@ extension Double {
                 glucose = GlucoseFormatters.mmolLFormatter.string(from: self.asMmolL as NSNumber)!
             }
         } else {
-            glucose = String(self)
+            if precise {
+                glucose = GlucoseFormatters.preciseMgdLFormatter.string(from: self as NSNumber)!
+            } else {
+                glucose = GlucoseFormatters.mgdLFormatter.string(from: self as NSNumber)!
+            }
         }
 
         if withUnit {

@@ -10,6 +10,42 @@ import SwiftUI
 // MARK: - GlucoseFormatters
 
 struct GlucoseFormatters {
+    static var percentFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 2
+
+        return formatter
+    }()
+
+    static var integerFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 0
+
+        return formatter
+    }()
+
+    static var mgdLFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 0
+
+        return formatter
+    }()
+    
+    static var preciseMgdLFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 2
+
+        return formatter
+    }()
+
     static var mmolLFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
@@ -65,20 +101,24 @@ extension Int {
     var asMmolL: Decimal {
         return Double(self).asMmolL
     }
-    
+
     var asMgdL: Decimal {
         return Decimal(self)
     }
-    
+
     func pluralize(singular: String, plural: String) -> String {
         if self == 1 {
             return singular
         }
-        
+
         return plural
     }
-    
-    func inPercent(of: Int) -> Double {
+
+    func asPercent() -> String {
+        return "\(GlucoseFormatters.percentFormatter.string(from: self as NSNumber)!)%"
+    }
+
+    func toPercent(of: Int) -> Double {
         return 100.0 / Double(of) * Double(self)
     }
 

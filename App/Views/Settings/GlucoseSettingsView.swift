@@ -39,22 +39,21 @@ struct GlucoseSettingsView: View {
                     store.dispatch(.setGlucoseNotification(enabled: value))
                 }
 
-                ToggleView(key: LocalizedString("Glucose read aloud"), value: store.state.readGlucose) { value in
-                    store.dispatch(.setReadGlucose(enabled: value))
-                }
-
-                if store.state.readGlucose {
-                    VStack(alignment: .leading) {
-                        Text("Glucose values are read aloud:")
-                            .fontWeight(.semibold)
-
-                        Text("Every 10 minutes")
-                        Text("After disconnections")
-                        Text("When the glucose trend changes")
-                        Text("When a new alarm is triggered")
+                VStack(alignment: .leading, spacing: 10) {
+                    ToggleView(key: LocalizedString("Glucose read aloud"), value: store.state.readGlucose) { value in
+                        store.dispatch(.setReadGlucose(enabled: value))
                     }
-                    .foregroundColor(.gray)
-                    .padding(.vertical, 5)
+                    
+                    if store.state.readGlucose {
+                        Group {
+                            Text("Every 10 minutes")
+                            Text("After disconnections")
+                            Text("When the glucose trend changes")
+                            Text("When a new alarm is triggered")
+                        }
+                        .font(.footnote)
+                        .foregroundColor(.gray)
+                    }
                 }
             },
             header: {

@@ -85,6 +85,14 @@ struct ChartView: View {
                                 .foregroundStyle(Color.ui.red)
                                 .lineStyle(Config.ruleStyle)
 
+                            ForEach(seriesDays, id: \.self) { day in
+                                RuleMark(
+                                    x: .value("", day)
+                                )
+                                .foregroundStyle(Color.ui.gray)
+                                .lineStyle(Config.dayStyle)
+                            }
+
                             ForEach(sensorGlucoseSeries) { value in
                                 LineMark(
                                     x: .value("Time", value.valueX),
@@ -298,12 +306,13 @@ struct ChartView: View {
 
     private enum Config {
         static let chartID = "chart"
-        static let symbolSize: CGFloat = 15
+        static let symbolSize: CGFloat = 10
         static let selectionSize: CGFloat = 100
         static let spacerWidth: CGFloat = 50
-        static let lineStyle: StrokeStyle = .init(lineWidth: 3.5, lineCap: .round)
+        static let lineStyle: StrokeStyle = .init(lineWidth: 2.5, lineCap: .round)
         static let ruleStyle: StrokeStyle = .init(lineWidth: 1, dash: [2])
         static let gridStyle: StrokeStyle = .init(lineWidth: 1)
+        static let dayStyle: StrokeStyle = .init(lineWidth: 1)
 
         static let zoomLevels: [ZoomLevel] = [
             ZoomLevel(level: 1, name: LocalizedString("1h"), visibleHours: 1, labelEvery: 30, labelEveryUnit: .minute),
@@ -314,6 +323,7 @@ struct ChartView: View {
         ]
     }
 
+    @State private var seriesDays: [Date] = []
     @State private var seriesWidth: CGFloat = 0
     @State private var sensorGlucoseSeries: [ChartDatapoint] = []
     @State private var bloodGlucoseSeries: [ChartDatapoint] = []
@@ -379,9 +389,12 @@ struct ChartView: View {
                 let chartMinutes = CGFloat((endTime - startTime) / 60)
                 let seriesWidth = CGFloat(minuteWidth * chartMinutes)
 
+                let seriesDays = Date.valuesBetween(from: firstTime, to: lastTime, component: .day, step: 1)
+
                 if self.seriesWidth != seriesWidth {
                     DispatchQueue.main.async {
                         self.seriesWidth = seriesWidth
+                        self.seriesDays = seriesDays
                     }
                 }
             }
@@ -498,12 +511,20 @@ extension SensorGlucose {
     }
 
     func toDatapoint(glucoseUnit: GlucoseUnit, alarmLow: Int, alarmHigh: Int) -> ChartDatapoint {
+        var info: String
+
+        if let minuteChange = minuteChange {
+            info = "\(glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)) \(minuteChange.asMinuteChange(glucoseUnit: glucoseUnit))"
+        } else {
+            info = glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)
+        }
+
         if glucoseUnit == .mmolL {
             return ChartDatapoint(
                 id: toDatapointID(glucoseUnit: glucoseUnit),
                 valueX: timestamp,
                 valueY: glucoseValue.asMmolL,
-                info: glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)
+                info: info
             )
         }
 
@@ -511,7 +532,7 @@ extension SensorGlucose {
             id: toDatapointID(glucoseUnit: glucoseUnit),
             valueX: timestamp,
             valueY: glucoseValue.asMgdL,
-            info: glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)
+            info: info
         )
     }
 }

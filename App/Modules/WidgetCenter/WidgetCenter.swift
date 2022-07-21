@@ -9,8 +9,6 @@ import WidgetKit
 
 func widgetCenterMiddleware() -> Middleware<DirectState, DirectAction> {
     return { _, action, _ in
-        DirectLog.info("Triggered action: \(action)")
-
         switch action {
         case .startup:
             WidgetCenter.shared.reloadAllTimelines()

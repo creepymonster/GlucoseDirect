@@ -46,7 +46,7 @@ func bloodGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
 
         case .loadBloodGlucoseValues:
             return Publishers.MergeMany(
-                DataStore.shared.setBloodGlucoseValues().map { glucoseValues in
+                DataStore.shared.getBloodGlucoseValues().map { glucoseValues in
                     DirectLog.info("setBloodGlucoseValues")
                     return DirectAction.setBloodGlucoseValues(glucoseValues: glucoseValues)
                 },
@@ -156,7 +156,7 @@ extension DataStore {
         }
     }
 
-    func setBloodGlucoseValues(upToDay: Int = 1) -> Future<[BloodGlucose], DirectError> {
+    func getBloodGlucoseValues(upToDay: Int = 1) -> Future<[BloodGlucose], DirectError> {
         return Future { promise in
             if let dbQueue = self.dbQueue {
                 dbQueue.asyncRead { asyncDB in

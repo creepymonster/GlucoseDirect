@@ -43,7 +43,7 @@ func sensorErrorStoreMiddleware() -> Middleware<DirectState, DirectAction> {
                 .eraseToAnyPublisher()
 
         case .loadSensorErrorValues:
-            return DataStore.shared.setSensorErrorValues().map { errorValues in
+            return DataStore.shared.getSensorErrorValues().map { errorValues in
                 DirectAction.setSensorErrorValues(errorValues: errorValues)
             }.eraseToAnyPublisher()
 
@@ -146,7 +146,7 @@ extension DataStore {
         }
     }
 
-    func setSensorErrorValues() -> Future<[SensorError], DirectError> {
+    func getSensorErrorValues() -> Future<[SensorError], DirectError> {
         return Future { promise in
             if let dbQueue = self.dbQueue {
                 dbQueue.asyncRead { asyncDB in

@@ -48,6 +48,7 @@ private enum Keys: String {
     case sharedTransmitterFirmware = "glucosedirect--transmitter-firmware"
     case sharedTransmitterHardware = "glucosedirect--transmitter-hardware"
     case transmitter = "libre-direct.settings.transmitter"
+    case showAnnotations = "libre-direct.settings.show-annotations"
 }
 
 extension UserDefaults {
@@ -563,6 +564,19 @@ extension UserDefaults {
         }
         set {
             set(newValue, forKey: Keys.sensorInterval.rawValue)
+        }
+    }
+    
+    var showAnnotations: Bool {
+        get {
+            if object(forKey: Keys.showAnnotations.rawValue) != nil {
+                return bool(forKey: Keys.showAnnotations.rawValue)
+            }
+
+            return true
+        }
+        set {
+            set(newValue, forKey: Keys.showAnnotations.rawValue)
         }
     }
 

@@ -69,6 +69,8 @@ enum DirectAction {
     case setSensorGlucoseValues(glucoseValues: [SensorGlucose])
     case setSensorInterval(interval: Int)
     case setSensorState(sensorAge: Int, sensorState: SensorState?)
+    case setShowAnnotations(showAnnotations: Bool)
+    case setGlucoseStatistics(statistics: GlucoseStatistics)
     case setTransmitter(transmitter: Transmitter)
     case startup
     case shutdown
