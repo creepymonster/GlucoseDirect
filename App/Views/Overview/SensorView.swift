@@ -8,6 +8,8 @@ import SwiftUI
 // MARK: - SensorView
 
 struct SensorView: View {
+    // MARK: Internal
+
     @EnvironmentObject var store: DirectStore
 
     var body: some View {
@@ -37,7 +39,7 @@ struct SensorView: View {
                                     Text(startTimestamp.toLocalDateTime())
                                 }
                             }
-                            
+
                             if let endTimestamp = sensor.endTimestamp {
                                 HStack {
                                     Text("Sensor ending date")
@@ -54,7 +56,7 @@ struct SensorView: View {
                                         Text(remainingWarmupTime.inTime)
                                     }
 
-                                    ProgressView("", value: remainingWarmupTime.inPercent(of: sensor.warmupTime), total: 100)
+                                    ProgressView("", value: remainingWarmupTime.toPercent(of: sensor.warmupTime), total: 100)
                                 }
 
                             } else if sensor.state != .expired && sensor.state != .shutdown && sensor.state != .unknown {
@@ -71,7 +73,7 @@ struct SensorView: View {
                                         Text(sensor.age.inTime)
                                     }
 
-                                    ProgressView("", value: sensor.age.inPercent(of: sensor.lifetime), total: 100)
+                                    ProgressView("", value: sensor.age.toPercent(of: sensor.lifetime), total: 100)
                                 }
 
                                 VStack {
@@ -81,7 +83,7 @@ struct SensorView: View {
                                         Text(sensor.remainingLifetime.inTime)
                                     }
 
-                                    ProgressView("", value: sensor.remainingLifetime.inPercent(of: sensor.lifetime), total: 100)
+                                    ProgressView("", value: sensor.remainingLifetime.toPercent(of: sensor.lifetime), total: 100)
                                 }
                             }
                         }
@@ -146,7 +148,7 @@ struct SensorView: View {
                             HStack {
                                 Text("Transmitter battery")
                                 Spacer()
-                                Text("\(transmitter.battery)%")
+                                Text(transmitter.battery.asPercent())
                             }
 
                             ProgressView("", value: Double(transmitter.battery), total: 100)

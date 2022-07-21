@@ -17,29 +17,17 @@ final class GlucoseDirectApp: App {
     // MARK: Lifecycle
 
     init() {
-        store = GlucoseDirectApp.createStore()
-
-        notificationCenterDelegate = GlucoseDirectNotificationCenter(store: store)
-        UNUserNotificationCenter.current().delegate = notificationCenterDelegate
-
         store.dispatch(.startup)
-    }
-
-    deinit {
-        UNUserNotificationCenter.current().delegate = nil
     }
 
     // MARK: Internal
 
-    static var isSimulator: Bool {
-        #if targetEnvironment(simulator)
-            return true
-        #else
-            return false
-        #endif
+    @UIApplicationDelegateAdaptor(GlucoseDirectAppDelegate.self) var appDelegate {
+        didSet {
+            oldValue.store = nil
+            appDelegate.store = store
+        }
     }
-
-    @UIApplicationDelegateAdaptor(GlucoseDirectAppDelegate.self) var delegate
 
     var body: some Scene {
         WindowGroup {
@@ -50,117 +38,59 @@ final class GlucoseDirectApp: App {
 
     // MARK: Private
 
-    private let store: DirectStore
-    private let notificationCenterDelegate: UNUserNotificationCenterDelegate
+    private let store: DirectStore = createStore()
+}
 
-    private static func createStore() -> DirectStore {
-        if isSimulator {
-            return createSimulatorAppStore()
+// MARK: - GlucoseDirectAppDelegate
+
+class GlucoseDirectAppDelegate: NSObject, UIApplicationDelegate {
+    weak var store: DirectStore?
+
+    func applicationDidFinishLaunching(_ application: UIApplication) {
+        DirectLog.info("Application did finish launching")
+    }
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+        DirectLog.info("Application did finish launching with options")
+
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.delegate = self
+
+        return true
+    }
+
+    func applicationWillTerminate(_ application: UIApplication) {
+        DirectLog.info("Application will terminate")
+
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.delegate = nil
+
+        if let store = store {
+            store.dispatch(.shutdown)
         }
-
-        return createAppStore()
     }
 
-    private static func createSimulatorAppStore() -> DirectStore {
-        DirectLog.info("Create preview store")
-
-        var middlewares = [
-            logMiddleware(),
-            dataStoreMigrationMiddleware(),
-            bloodGlucoseStoreMiddleware(),
-            sensorGlucoseStoreMiddleware(),
-            sensorErrorStoreMiddleware(),
-            expiringNotificationMiddelware(),
-            glucoseNotificationMiddelware(),
-            connectionNotificationMiddelware(),
-            appleCalendarExportMiddleware(),
-            appleHealthExportMiddleware(),
-            readAloudMiddelware(),
-            bellmanAlarmMiddelware(),
-            nightscoutMiddleware(),
-            appGroupSharingMiddleware(),
-            widgetCenterMiddleware(),
-            screenLockMiddleware(),
-            sensorErrorMiddleware(),
-        ]
-
-        middlewares.append(sensorConnectorMiddelware([
-            SensorConnectionInfo(id: DirectConfig.virtualID, name: "Virtual") { VirtualLibreConnection(subject: $0) },
-        ]))
-
-        #if DEBUG
-            middlewares.append(debugMiddleware())
-        #endif
-
-        return DirectStore(initialState: AppState(), reducer: directReducer, middlewares: middlewares)
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        DirectLog.info("Application did enter background")
     }
 
-    private static func createAppStore() -> DirectStore {
-        DirectLog.info("Create app store")
-
-        var middlewares = [
-            logMiddleware(),
-            dataStoreMigrationMiddleware(),
-            bloodGlucoseStoreMiddleware(),
-            sensorGlucoseStoreMiddleware(),
-            sensorErrorStoreMiddleware(),
-            expiringNotificationMiddelware(),
-            glucoseNotificationMiddelware(),
-            connectionNotificationMiddelware(),
-            appleCalendarExportMiddleware(),
-            appleHealthExportMiddleware(),
-            readAloudMiddelware(),
-            bellmanAlarmMiddelware(),
-            nightscoutMiddleware(),
-            appGroupSharingMiddleware(),
-            widgetCenterMiddleware(),
-            screenLockMiddleware(),
-            sensorErrorMiddleware(),
-        ]
-
-        var connectionInfos: [SensorConnectionInfo] = []
-
-        #if canImport(CoreNFC)
-            if NFCTagReaderSession.readingAvailable {
-                connectionInfos.append(SensorConnectionInfo(id: DirectConfig.libre2ID, name: LocalizedString("Without transmitter"), connectionCreator: { Libre2Connection(subject: $0) }))
-                connectionInfos.append(SensorConnectionInfo(id: DirectConfig.bubbleID, name: LocalizedString("Bubble transmitter"), connectionCreator: { BubbleConnection(subject: $0) }))
-            } else {
-                connectionInfos.append(SensorConnectionInfo(id: DirectConfig.bubbleID, name: LocalizedString("Bubble transmitter"), connectionCreator: { BubbleConnection(subject: $0) }))
-            }
-        #else
-            connectionInfos.append(SensorConnectionInfo(id: DirectConfig.bubbleID, name: LocalizedString("Bubble transmitter"), connectionCreator: { BubbleConnection(subject: $0) }))
-        #endif
-
-        #if DEBUG
-            connectionInfos.append(SensorConnectionInfo(id: DirectConfig.librelinkID, name: LocalizedString("LibreLink transmitter"), connectionCreator: { LibreLinkConnection(subject: $0) }))
-        #endif
-
-        middlewares.append(sensorConnectorMiddelware(connectionInfos))
-
-        #if DEBUG
-            middlewares.append(debugMiddleware())
-        #endif
-
-        return DirectStore(initialState: AppState(), reducer: directReducer, middlewares: middlewares)
+    func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
+        DirectLog.info("Application did receive memory warning")
     }
 }
 
-// MARK: - GlucoseDirectNotificationCenter
+// MARK: UNUserNotificationCenterDelegate
 
-class GlucoseDirectNotificationCenter: NSObject, UNUserNotificationCenterDelegate {
-    // MARK: Lifecycle
-
-    init(store: DirectStore) {
-        self.store = store
-    }
-
-    // MARK: Internal
-
+extension GlucoseDirectAppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        DirectLog.info("Application will present notification")
+
         completionHandler([.badge, .banner, .list, .sound])
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        DirectLog.info("Application did receive notification response")
+
         if let store = store, let action = response.notification.request.content.userInfo["action"] as? String, action == "snooze" {
             store.dispatch(.selectView(viewTag: DirectConfig.overviewViewTag))
             store.dispatch(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(30 * 60).toRounded(on: 1, .minute)))
@@ -168,26 +98,97 @@ class GlucoseDirectNotificationCenter: NSObject, UNUserNotificationCenterDelegat
 
         completionHandler()
     }
-
-    // MARK: Private
-
-    private weak var store: DirectStore?
 }
 
-// MARK: - GlucoseDirectAppDelegate
+private func createStore() -> DirectStore {
+    #if targetEnvironment(simulator)
+        return createSimulatorAppStore()
+    #else
+        return createAppStore()
+    #endif
+}
 
-class GlucoseDirectAppDelegate: NSObject, UIApplicationDelegate {
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-        DirectLog.info("Application did finish launching with options")
+private func createSimulatorAppStore() -> DirectStore {
+    DirectLog.info("Create preview store")
 
-        return true
-    }
+    var middlewares = [
+        logMiddleware(),
+        dataStoreMigrationMiddleware(),
+        bloodGlucoseStoreMiddleware(),
+        sensorGlucoseStoreMiddleware(),
+        sensorErrorStoreMiddleware(),
+        expiringNotificationMiddelware(),
+        glucoseNotificationMiddelware(),
+        connectionNotificationMiddelware(),
+        appleCalendarExportMiddleware(),
+        appleHealthExportMiddleware(),
+        readAloudMiddelware(),
+        bellmanAlarmMiddelware(),
+        nightscoutMiddleware(),
+        appGroupSharingMiddleware(),
+        widgetCenterMiddleware(),
+        screenLockMiddleware(),
+        sensorErrorMiddleware(),
+        glucoseStatisticsMiddleware()
+    ]
 
-    func applicationWillTerminate(_ application: UIApplication) {
-        DirectLog.info("Application will terminate")
-    }
+    middlewares.append(sensorConnectorMiddelware([
+        SensorConnectionInfo(id: DirectConfig.virtualID, name: "Virtual") { VirtualLibreConnection(subject: $0) },
+    ]))
 
-    func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
-        DirectLog.info("Application did receive memory warning")
-    }
+    #if DEBUG
+        middlewares.append(debugMiddleware())
+    #endif
+
+    return DirectStore(initialState: AppState(), reducer: directReducer, middlewares: middlewares)
+}
+
+private func createAppStore() -> DirectStore {
+    DirectLog.info("Create app store")
+
+    var middlewares = [
+        logMiddleware(),
+        dataStoreMigrationMiddleware(),
+        bloodGlucoseStoreMiddleware(),
+        sensorGlucoseStoreMiddleware(),
+        sensorErrorStoreMiddleware(),
+        expiringNotificationMiddelware(),
+        glucoseNotificationMiddelware(),
+        connectionNotificationMiddelware(),
+        appleCalendarExportMiddleware(),
+        appleHealthExportMiddleware(),
+        readAloudMiddelware(),
+        bellmanAlarmMiddelware(),
+        nightscoutMiddleware(),
+        appGroupSharingMiddleware(),
+        widgetCenterMiddleware(),
+        screenLockMiddleware(),
+        sensorErrorMiddleware(),
+        glucoseStatisticsMiddleware()
+    ]
+
+    var connectionInfos: [SensorConnectionInfo] = []
+
+    #if canImport(CoreNFC)
+        if NFCTagReaderSession.readingAvailable {
+            connectionInfos.append(SensorConnectionInfo(id: DirectConfig.libre2ID, name: LocalizedString("Without transmitter"), connectionCreator: { Libre2Connection(subject: $0) }))
+            connectionInfos.append(SensorConnectionInfo(id: DirectConfig.bubbleID, name: LocalizedString("Bubble transmitter"), connectionCreator: { BubbleConnection(subject: $0) }))
+        } else {
+            connectionInfos.append(SensorConnectionInfo(id: DirectConfig.bubbleID, name: LocalizedString("Bubble transmitter"), connectionCreator: { BubbleConnection(subject: $0) }))
+        }
+    #else
+        connectionInfos.append(SensorConnectionInfo(id: DirectConfig.bubbleID, name: LocalizedString("Bubble transmitter"), connectionCreator: { BubbleConnection(subject: $0) }))
+    #endif
+
+    #if DEBUG
+        connectionInfos.append(SensorConnectionInfo(id: DirectConfig.librelinkID, name: LocalizedString("LibreLink transmitter"), connectionCreator: { LibreLinkConnection(subject: $0) }))
+    #endif
+
+    middlewares.append(sensorConnectorMiddelware(connectionInfos))
+
+    #if DEBUG
+        middlewares.append(debugMiddleware())
+    #endif
+
+    return DirectStore(initialState: AppState(), reducer: directReducer, middlewares: middlewares)
 }

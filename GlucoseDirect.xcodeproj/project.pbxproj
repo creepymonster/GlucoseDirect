@@ -27,7 +27,7 @@
 		E24077B326B881C2001767C0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E24077B126B881C2001767C0 /* InfoPlist.strings */; };
 		E24474412859CA9600F8891C /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E27BFC0226B1407E00F8FBEF /* WidgetKit.framework */; };
 		E24474422859CA9600F8891C /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E27BFC0426B1407E00F8FBEF /* SwiftUI.framework */; };
-		E24474452859CA9600F8891C /* AppWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24474442859CA9600F8891C /* AppWidgets.swift */; };
+		E24474452859CA9600F8891C /* Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24474442859CA9600F8891C /* Widgets.swift */; };
 		E244744B2859CA9700F8891C /* GlucoseDirectWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E24474402859CA9600F8891C /* GlucoseDirectWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E24B531E26B863910091417F /* NightscoutSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B531D26B863910091417F /* NightscoutSettingsView.swift */; };
 		E24B532126B863C00091417F /* GlucoseSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532026B863C00091417F /* GlucoseSettingsView.swift */; };
@@ -189,7 +189,7 @@
 			containerPortal = E20B8532266F4A9800AA4224 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = E244743F2859CA9600F8891C;
-			remoteInfo = AppWidgetsExtension;
+			remoteInfo = WidgetsExtension;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -231,7 +231,7 @@
 		E24077B226B881C2001767C0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E24077B726B881CB001767C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E24474402859CA9600F8891C /* GlucoseDirectWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GlucoseDirectWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		E24474442859CA9600F8891C /* AppWidgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppWidgets.swift; sourceTree = "<group>"; };
+		E24474442859CA9600F8891C /* Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widgets.swift; sourceTree = "<group>"; };
 		E24474482859CA9700F8891C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E247D8E426B7D70A00BDAF89 /* GlucoseDirect.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = GlucoseDirect.xcconfig; sourceTree = "<group>"; };
 		E24B531D26B863910091417F /* NightscoutSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightscoutSettingsView.swift; sourceTree = "<group>"; };
@@ -336,7 +336,7 @@
 		E2D34BC7274D6BCB00151895 /* ListsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsView.swift; sourceTree = "<group>"; };
 		E2D34BC9274D6C1300151895 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		E2DE3CA227594E5500FAC82E /* SensorConnectorSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorConnectorSettings.swift; sourceTree = "<group>"; };
-		E2E8DC032859F62C002C84FD /* AppWidgets.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppWidgets.entitlements; sourceTree = "<group>"; };
+		E2E8DC032859F62C002C84FD /* Widgets.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Widgets.entitlements; sourceTree = "<group>"; };
 		E2EB0F68275B643D00226E9C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E2EB0F69275B643D00226E9C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E2EB0F6A275B644A00226E9C /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -411,7 +411,7 @@
 			children = (
 				E247D8E426B7D70A00BDAF89 /* GlucoseDirect.xcconfig */,
 				E20B853C266F4A9800AA4224 /* App */,
-				E24474432859CA9600F8891C /* AppWidgets */,
+				E24474432859CA9600F8891C /* Widgets */,
 				E2218B87284F9E7300DB5A55 /* Library */,
 				E27BFC0126B1407E00F8FBEF /* Frameworks */,
 				E20B853B266F4A9800AA4224 /* Products */,
@@ -486,18 +486,18 @@
 			path = Debug;
 			sourceTree = "<group>";
 		};
-		E24474432859CA9600F8891C /* AppWidgets */ = {
+		E24474432859CA9600F8891C /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
-				E24474442859CA9600F8891C /* AppWidgets.swift */,
+				E24474442859CA9600F8891C /* Widgets.swift */,
 				E2016FD5285BA7C600079195 /* SensorWidget.swift */,
 				E2016FD7285BA7EE00079195 /* GlucoseWidget.swift */,
 				E2016FDB285BA82600079195 /* TransmitterWidget.swift */,
-				E2E8DC032859F62C002C84FD /* AppWidgets.entitlements */,
+				E2E8DC032859F62C002C84FD /* Widgets.entitlements */,
 				E24474482859CA9700F8891C /* Info.plist */,
 				E2B5BF5C28639C2A006C9C7F /* InfoPlist.strings */,
 			);
-			path = AppWidgets;
+			path = Widgets;
 			sourceTree = "<group>";
 		};
 		E2591C60287412670009F27C /* ScreenLock */ = {
@@ -868,7 +868,7 @@
 			dependencies = (
 			);
 			name = GlucoseDirectWidget;
-			productName = AppWidgetsExtension;
+			productName = WidgetsExtension;
 			productReference = E24474402859CA9600F8891C /* GlucoseDirectWidget.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
@@ -1083,7 +1083,7 @@
 				E2E8DBE62859F46D002C84FD /* LocalizedString.swift in Sources */,
 				E2E8DBF42859F479002C84FD /* SensorReadingError.swift in Sources */,
 				E2016FDA285BA81700079195 /* GlucoseWidget.swift in Sources */,
-				E24474452859CA9600F8891C /* AppWidgets.swift in Sources */,
+				E24474452859CA9600F8891C /* Widgets.swift in Sources */,
 				E2E8DBEB2859F46D002C84FD /* Lazy.swift in Sources */,
 				E2591C5828740E400009F27C /* DirectStore.swift in Sources */,
 				E2E8DBF52859F479002C84FD /* SensorFamily.swift in Sources */,
@@ -1383,13 +1383,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CODE_SIGN_ENTITLEMENTS = AppWidgets/AppWidgets.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Widgets/Widgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "${DEVELOPMENT_TEAM}";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = AppWidgets/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = AppWidgets;
+				INFOPLIST_FILE = Widgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Widgets;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1398,7 +1398,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = "${APP_VERSION}";
-				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_BUNDLE_IDENTIFIER}.AppWidgets";
+				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_BUNDLE_IDENTIFIER}.Widgets";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1416,13 +1416,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CODE_SIGN_ENTITLEMENTS = AppWidgets/AppWidgets.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Widgets/Widgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "${DEVELOPMENT_TEAM}";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = AppWidgets/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = AppWidgets;
+				INFOPLIST_FILE = Widgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Widgets;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1431,7 +1431,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = "${APP_VERSION}";
-				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_BUNDLE_IDENTIFIER}.AppWidgets";
+				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_BUNDLE_IDENTIFIER}.Widgets";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;

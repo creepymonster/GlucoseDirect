@@ -63,25 +63,35 @@ struct ChartView: View {
         store.state.sensorGlucoseHistory + store.state.sensorGlucoseValues
     }
 
+    var endMarker: Date {
+        if let zoomLevel = zoomLevel, zoomLevel.level == 1 {
+            return Calendar.current.date(byAdding: .minute, value: 15, to: Date())!
+        }
+
+        return Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
+    }
+
     var ChartView: some View {
         ZStack(alignment: .topLeading) {
             GeometryReader { geometryProxy in
                 ScrollView(.horizontal, showsIndicators: false) {
                     ScrollViewReader { scrollViewProxy in
                         Chart {
-                            if let firstTimestamp = sensorGlucoseValues.first?.timestamp {
-                                RuleMark(
-                                    x: .value("", Calendar.current.date(byAdding: .minute, value: -15, to: firstTimestamp)!)
-                                ).foregroundStyle(.clear)
-                            }
-
                             RuleMark(y: .value("Lower limit", alarmLow))
-                                .foregroundStyle(Color.ui.orange)
+                                .foregroundStyle(Color.ui.red)
                                 .lineStyle(Config.ruleStyle)
 
                             RuleMark(y: .value("Upper limit", alarmHigh))
-                                .foregroundStyle(Color.ui.orange)
+                                .foregroundStyle(Color.ui.red)
                                 .lineStyle(Config.ruleStyle)
+
+                            ForEach(seriesDays, id: \.self) { day in
+                                RuleMark(
+                                    x: .value("", day)
+                                )
+                                .foregroundStyle(Color.ui.gray)
+                                .lineStyle(Config.dayStyle)
+                            }
 
                             ForEach(sensorGlucoseSeries) { value in
                                 LineMark(
@@ -108,7 +118,7 @@ struct ChartView: View {
                                 )
                                 .symbolSize(Config.selectionSize)
                                 .opacity(0.5)
-                                .foregroundStyle(Color.ui.blue)
+                                .foregroundStyle(Color.primary)
                             }
 
                             if let selectedPointInfo = selectedBloodPoint {
@@ -118,14 +128,12 @@ struct ChartView: View {
                                 )
                                 .symbolSize(Config.selectionSize)
                                 .opacity(0.5)
-                                .foregroundStyle(Color.ui.red)
+                                .foregroundStyle(Color.primary)
                             }
 
-                            if let lastTimestamp = sensorGlucoseValues.last?.timestamp {
-                                RuleMark(
-                                    x: .value("", Calendar.current.date(byAdding: .minute, value: 15, to: lastTimestamp)!)
-                                ).foregroundStyle(.clear)
-                            }
+                            RuleMark(
+                                x: .value("", endMarker)
+                            ).foregroundStyle(.clear)
                         }
                         .chartPlotStyle { plotArea in
                             plotArea.padding(.vertical)
@@ -164,11 +172,15 @@ struct ChartView: View {
                             updateBloodSeries()
 
                         }.onChange(of: sensorGlucoseSeries) { _ in
-                            DirectLog.info("onChangeOfSensorGlucoseSeries(\(sensorGlucoseSeries))")
+                            DirectLog.info("onChangeOfSensorGlucoseSeries(\(sensorGlucoseSeries.count))")
                             scrollToEnd(scrollViewProxy: scrollViewProxy)
 
                         }.onChange(of: bloodGlucoseSeries) { _ in
-                            DirectLog.info("onChangeOfBloodGlucoseSeries(\(bloodGlucoseSeries))")
+                            DirectLog.info("onChangeOfBloodGlucoseSeries(\(bloodGlucoseSeries.count))")
+                            scrollToEnd(scrollViewProxy: scrollViewProxy)
+
+                        }.onChange(of: seriesWidth) { _ in
+                            DirectLog.info("onChangeOfSeriesWidth(\(seriesWidth))")
                             scrollToEnd(scrollViewProxy: scrollViewProxy)
 
                         }.onAppear {
@@ -294,21 +306,24 @@ struct ChartView: View {
 
     private enum Config {
         static let chartID = "chart"
-        static let symbolSize: CGFloat = 15
+        static let symbolSize: CGFloat = 10
         static let selectionSize: CGFloat = 100
         static let spacerWidth: CGFloat = 50
-        static let lineStyle: StrokeStyle = .init(lineWidth: 3.5, lineCap: .round)
-        static let ruleStyle: StrokeStyle = .init(lineWidth: 0.5, dash: [2])
+        static let lineStyle: StrokeStyle = .init(lineWidth: 2.5, lineCap: .round)
+        static let ruleStyle: StrokeStyle = .init(lineWidth: 1, dash: [2])
+        static let gridStyle: StrokeStyle = .init(lineWidth: 1)
+        static let dayStyle: StrokeStyle = .init(lineWidth: 1)
 
         static let zoomLevels: [ZoomLevel] = [
             ZoomLevel(level: 1, name: LocalizedString("1h"), visibleHours: 1, labelEvery: 30, labelEveryUnit: .minute),
+            ZoomLevel(level: 3, name: LocalizedString("3h"), visibleHours: 3, labelEvery: 1, labelEveryUnit: .hour),
             ZoomLevel(level: 6, name: LocalizedString("6h"), visibleHours: 6, labelEvery: 2, labelEveryUnit: .hour),
             ZoomLevel(level: 12, name: LocalizedString("12h"), visibleHours: 12, labelEvery: 3, labelEveryUnit: .hour),
-            ZoomLevel(level: 24, name: LocalizedString("24h"), visibleHours: 24, labelEvery: 6, labelEveryUnit: .hour),
-            // ZoomLevel(level: 48, name: LocalizedString("48h"), visibleHours: 48, labelEvery: 8, labelEveryUnit: .hour),
+            ZoomLevel(level: 24, name: LocalizedString("24h"), visibleHours: 24, labelEvery: 6, labelEveryUnit: .hour)
         ]
     }
 
+    @State private var seriesDays: [Date] = []
     @State private var seriesWidth: CGFloat = 0
     @State private var sensorGlucoseSeries: [ChartDatapoint] = []
     @State private var bloodGlucoseSeries: [ChartDatapoint] = []
@@ -320,6 +335,7 @@ struct ChartView: View {
     @State private var selectedBloodPoint: ChartDatapoint? = nil
 
     private let calculationQueue = DispatchQueue(label: "libre-direct.chart-calculation", qos: .utility)
+    private let debouncer = Debouncer(delay: 0.5)
 
     private var firstTimestamp: Date? {
         let dates = [sensorGlucoseValues.first?.timestamp, bloodGlucoseValues.first?.timestamp]
@@ -346,11 +362,17 @@ struct ChartView: View {
     }
 
     private func scrollToStart(scrollViewProxy: ScrollViewProxy) {
-        scrollViewProxy.scrollTo(Config.chartID, anchor: .leading)
+        if selectedSensorPoint == nil, selectedBloodPoint == nil {
+            DirectLog.info("scrollToStart()")
+            scrollViewProxy.scrollTo(Config.chartID, anchor: .leading)
+        }
     }
 
     private func scrollToEnd(scrollViewProxy: ScrollViewProxy) {
-        scrollViewProxy.scrollTo(Config.chartID, anchor: .trailing)
+        if selectedSensorPoint == nil, selectedBloodPoint == nil {
+            DirectLog.info("scrollToEnd()")
+            scrollViewProxy.scrollTo(Config.chartID, anchor: .trailing)
+        }
     }
 
     private func updateSeriesMetadata(viewWidth: CGFloat) {
@@ -365,9 +387,15 @@ struct ChartView: View {
             {
                 let minuteWidth = (viewWidth / CGFloat(zoomLevel.visibleHours * 60))
                 let chartMinutes = CGFloat((endTime - startTime) / 60)
+                let seriesWidth = CGFloat(minuteWidth * chartMinutes)
 
-                DispatchQueue.main.async {
-                    self.seriesWidth = CGFloat(minuteWidth * chartMinutes)
+                let seriesDays = Date.valuesBetween(from: firstTime, to: lastTime, component: .day, step: 1)
+
+                if self.seriesWidth != seriesWidth {
+                    DispatchQueue.main.async {
+                        self.seriesWidth = seriesWidth
+                        self.seriesDays = seriesDays
+                    }
                 }
             }
         }
@@ -483,12 +511,20 @@ extension SensorGlucose {
     }
 
     func toDatapoint(glucoseUnit: GlucoseUnit, alarmLow: Int, alarmHigh: Int) -> ChartDatapoint {
+        var info: String
+
+        if let minuteChange = minuteChange {
+            info = "\(glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)) \(minuteChange.asMinuteChange(glucoseUnit: glucoseUnit))"
+        } else {
+            info = glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)
+        }
+
         if glucoseUnit == .mmolL {
             return ChartDatapoint(
                 id: toDatapointID(glucoseUnit: glucoseUnit),
                 valueX: timestamp,
                 valueY: glucoseValue.asMmolL,
-                info: glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)
+                info: info
             )
         }
 
@@ -496,7 +532,37 @@ extension SensorGlucose {
             id: toDatapointID(glucoseUnit: glucoseUnit),
             valueX: timestamp,
             valueY: glucoseValue.asMgdL,
-            info: glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)
+            info: info
         )
     }
+}
+
+// MARK: - Debouncer
+
+class Debouncer {
+    // MARK: Lifecycle
+
+    init(delay: TimeInterval, queue: DispatchQueue = .main) {
+        self.delay = delay
+        self.queue = queue
+    }
+
+    // MARK: Internal
+
+    func run(action: @escaping () -> Void) {
+        workItem?.cancel()
+        let workItem = DispatchWorkItem(block: action)
+        queue.asyncAfter(deadline: .now() + delay, execute: workItem)
+        self.workItem = workItem
+    }
+
+    func cancel() {
+        workItem?.cancel()
+    }
+
+    // MARK: Private
+
+    private let delay: TimeInterval
+    private var workItem: DispatchWorkItem?
+    private let queue: DispatchQueue
 }

@@ -10,6 +10,7 @@ import Foundation
 private enum Keys: String {
     case alarmHigh = "libre-direct.settings.alarm-high"
     case alarmLow = "libre-direct.settings.alarm-low"
+    case alarmSnoozeUntil = "libre-direct.settings.alarm-snooze-until"
     case appleHealthExport = "libre-direct.settings.apple-health-export"
     case bellmanAlarm = "libre-direct.settings.bellman-alarm"
     case calendarExport = "libre-direct.settings.calendar-export"
@@ -24,8 +25,8 @@ private enum Keys: String {
     case highGlucoseAlarmSound = "libre-direct.settings.high-glucose-alarm-sound"
     case isConnectionPaired = "libre-direct.settings.is-paired"
     case latestBloodGlucose = "libre-direct.settings.latest-blood-glucose"
-    case latestSensorGlucose = "libre-direct.settings.latest-sensor-glucose"
     case latestSensorError = "libre-direct.settings.latest-sensor-error"
+    case latestSensorGlucose = "libre-direct.settings.latest-sensor-glucose"
     case lowGlucoseAlarmSound = "libre-direct.settings.low-glucose-alarm-sound"
     case nightscoutApiSecret = "libre-direct.settings.nightscout-api-secret"
     case nightscoutUpload = "libre-direct.settings.nightscout-upload-enabled"
@@ -47,22 +48,10 @@ private enum Keys: String {
     case sharedTransmitterFirmware = "glucosedirect--transmitter-firmware"
     case sharedTransmitterHardware = "glucosedirect--transmitter-hardware"
     case transmitter = "libre-direct.settings.transmitter"
+    case showAnnotations = "libre-direct.settings.show-annotations"
 }
 
 extension UserDefaults {
-    var connectionPeripheralUUID: String? {
-        get {
-            return UserDefaults.standard.string(forKey: Keys.connectionPeripheralUUID.rawValue)
-        }
-        set {
-            if let newValue = newValue {
-                UserDefaults.standard.setValue(newValue, forKey: Keys.connectionPeripheralUUID.rawValue)
-            } else {
-                UserDefaults.standard.removeObject(forKey: Keys.connectionPeripheralUUID.rawValue)
-            }
-        }
-    }
-
     var alarmHigh: Int? {
         get {
             if object(forKey: Keys.alarmHigh.rawValue) != nil {
@@ -93,6 +82,19 @@ extension UserDefaults {
                 set(newValue, forKey: Keys.alarmLow.rawValue)
             } else {
                 removeObject(forKey: Keys.alarmLow.rawValue)
+            }
+        }
+    }
+
+    var alarmSnoozeUntil: Date? {
+        get {
+            return getObject(forKey: Keys.alarmSnoozeUntil.rawValue)
+        }
+        set {
+            if let newValue = newValue {
+                setObject(newValue, forKey: Keys.alarmSnoozeUntil.rawValue)
+            } else {
+                removeObject(forKey: Keys.alarmSnoozeUntil.rawValue)
             }
         }
     }
@@ -155,10 +157,23 @@ extension UserDefaults {
                 return integer(forKey: Keys.chartZoomLevel.rawValue)
             }
 
-            return 1
+            return 3
         }
         set {
             set(newValue, forKey: Keys.chartZoomLevel.rawValue)
+        }
+    }
+
+    var connectionPeripheralUUID: String? {
+        get {
+            return UserDefaults.standard.string(forKey: Keys.connectionPeripheralUUID.rawValue)
+        }
+        set {
+            if let newValue = newValue {
+                UserDefaults.standard.setValue(newValue, forKey: Keys.connectionPeripheralUUID.rawValue)
+            } else {
+                UserDefaults.standard.removeObject(forKey: Keys.connectionPeripheralUUID.rawValue)
+            }
         }
     }
 
@@ -549,6 +564,19 @@ extension UserDefaults {
         }
         set {
             set(newValue, forKey: Keys.sensorInterval.rawValue)
+        }
+    }
+    
+    var showAnnotations: Bool {
+        get {
+            if object(forKey: Keys.showAnnotations.rawValue) != nil {
+                return bool(forKey: Keys.showAnnotations.rawValue)
+            }
+
+            return true
+        }
+        set {
+            set(newValue, forKey: Keys.showAnnotations.rawValue)
         }
     }
 

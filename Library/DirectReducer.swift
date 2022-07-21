@@ -211,6 +211,12 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         if state.sensor!.startTimestamp == nil {
             state.sensor!.startTimestamp = Date() - Double(sensorAge) * 60
         }
+        
+    case .setShowAnnotations(showAnnotations: let showAnnotations):
+        state.showAnnotations = showAnnotations
+        
+    case .setGlucoseStatistics(statistics: let statistics):
+        state.glucoseStatistics = statistics
 
     case .setTransmitter(transmitter: let transmitter):
         state.transmitter = transmitter

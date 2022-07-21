@@ -11,14 +11,20 @@ extension Date {
         var date = fromDate
 
         while date <= toDate {
-            dates.append(date)
+            dates.append(date.toRounded(on: step, component))
+            
             guard let newDate = Calendar.current.date(byAdding: component, value: step, to: date) else {
                 break
             }
+            
             date = newDate
         }
 
         return dates
+    }
+    
+    var startOfDay: Date {
+        return Calendar.current.startOfDay(for: self)
     }
 
     func toMillisecondsAsInt64() -> Int64 {

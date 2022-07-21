@@ -362,7 +362,7 @@
 "Sensor starting date" = "Başlama tarihi";
 
 /* (No Comment) */
-"Sensor ending date" = "Ending date";
+"Sensor ending date" = "Bitiş tarihi";
 
 /* (No Comment) */
 "Delete log files" = "Günlük dosyalarını sil";
@@ -560,13 +560,58 @@
 "LibreLink transmitter" = "LibreLink Vericisi";
 
 /* (No Comment) */
-"Use LibreLink to start the sensor" = "Use LibreLink to start the sensor";
+"Use LibreLink to start the sensor" = "Sensörü başlatmak için LibreLink'i kullanın";
 
 /* (No Comment) */
 "Sensor glucose values" = "CGM";
 
 /* (No Comment) */
-"Sensor error values" = "CGM errors";
+"Sensor error values" = "CGM hataları";
 
 /* (No Comment) */
 "Blood glucose values" = "BGM";
+
+/* (No Comment) */
+"At least %@ days of data are required." = "At least %@ days of data are required.";
+
+/* (No Comment) */
+"AVG" = "AVG";
+
+/* (No Comment) */
+"Estimated A1c" = "Estimated A1c/HbA1c";
+
+/* (No Comment) */
+"GMI" = "GMI";
+
+/* (No Comment) */
+"TIR" = "TIR";
+
+/* (No Comment) */
+"TAR" = "TAR";
+
+/* (No Comment) */
+"TBR" = "TBR";
+
+/* (No Comment) */
+"SD" = "SD";
+
+/* (No Comment) */
+"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been.";
+
+/* (No Comment) */
+"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring.";
+
+/* (No Comment) */
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@ %@." = "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@.";
+
+/* (No Comment) */
+"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Time below Range (TBR) or the percentage of time spent below the target glucose of %@.";
+
+/* (No Comment) */
+"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Time above Range (TAR) or the percentage of time spent above the target glucose of %@.";
+
+/* (No Comment) */
+"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between many highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between many highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings.";
+
+/* (No Comment) */
+"Statistics (%@ days)" = "Statistics (%@ days)";
