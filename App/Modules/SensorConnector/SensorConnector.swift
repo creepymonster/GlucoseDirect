@@ -86,7 +86,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             let stdev = readGlucoseValues.count >= 5 ? readGlucoseValues.suffix(5).stdev : 0
             let intervalSeconds = Double(state.sensorInterval * 60 - 30)
 
-            var previousGlucose = state.sensorGlucoseValues.last
+            var previousGlucose = state.latestSensorGlucose
             let glucoseValues = readGlucoseValues.filter { reading in
                 previousGlucose == nil || previousGlucose!.timestamp + intervalSeconds < reading.timestamp
             }.map {

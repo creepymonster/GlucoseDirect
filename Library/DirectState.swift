@@ -5,10 +5,12 @@
 
 import Combine
 import Foundation
+import SwiftUI
 
 // MARK: - DirectState
 
 protocol DirectState {
+    var appState: ScenePhase { get set }
     var alarmHigh: Int { get set }
     var alarmLow: Int { get set }
     var alarmSnoozeUntil: Date? { get set }

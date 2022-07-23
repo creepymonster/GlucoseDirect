@@ -24,7 +24,7 @@ private func connectionNotificationMiddelware(service: LazyService<ConnectionNot
             }
 
             service.value.scheduleSensorConnectionLostAlarm(sound: state.connectionAlarmSound)
-            
+
         case .shutdown:
             guard state.hasConnectionAlarm else {
                 DirectLog.info("Guard: connectionAlarm disabled")
@@ -33,17 +33,21 @@ private func connectionNotificationMiddelware(service: LazyService<ConnectionNot
 
             service.value.scheduleSensorConnectionLostAlarm(sound: state.connectionAlarmSound)
 
+        case .addSensorReadings(sensorSerial: _, readings: _):
+            guard state.hasConnectionAlarm else {
+                DirectLog.info("Guard: connectionAlarm disabled")
+                break
+            }
+
+            service.value.clearAlarm()
+
         case .setConnectionState(connectionState: let connectionState):
             guard state.hasConnectionAlarm else {
                 DirectLog.info("Guard: connectionAlarm disabled")
                 break
             }
 
-            DirectLog.info("Set connection state, current: \(connectionState), last: \(lastState.connectionState)")
-
-            if connectionState == .connected {
-                service.value.clearAlarm()
-            } else if connectionState == .disconnected, lastState.connectionState == .connected {
+            if connectionState == .disconnected, lastState.connectionState != .disconnected {
                 service.value.scheduleSensorConnectionLostAlarm(sound: state.connectionAlarmSound)
             }
 
@@ -86,24 +90,34 @@ private class ConnectionNotificationService {
         DirectNotifications.shared.ensureCanSendNotification { state in
             DirectLog.info("Schedule sensor connection lost alarm, state: \(state)")
 
-            guard state != .none else {
-                return
+            UNUserNotificationCenter.current().getPendingNotificationRequests { pendingAlarms in
+                let hasPendingAlarm = pendingAlarms.filter {
+                    $0.identifier == Identifier.sensorConnectionAlarm.rawValue
+                }.count > 0
+
+                guard hasPendingAlarm == false else {
+                    return
+                }
+
+                guard state != .none else {
+                    return
+                }
+
+                let notification = UNMutableNotificationContent()
+
+                if sound != .none, state == .sound {
+                    notification.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "\(sound.rawValue).aiff"))
+                } else {
+                    notification.sound = .none
+                }
+
+                notification.title = LocalizedString("Alert, sensor connection lost")
+                notification.interruptionLevel = .timeSensitive
+                notification.body = LocalizedString("The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired.")
+
+                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15 * 60, repeats: true)
+                DirectNotifications.shared.addNotification(identifier: Identifier.sensorConnectionAlarm.rawValue, content: notification, trigger: trigger)
             }
-
-            let notification = UNMutableNotificationContent()
-
-            if sound != .none, state == .sound {
-                notification.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "\(sound.rawValue).aiff"))
-            } else {
-                notification.sound = .none
-            }
-
-            notification.title = LocalizedString("Alert, sensor connection lost")
-            notification.interruptionLevel = .timeSensitive
-            notification.body = LocalizedString("The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired.")
-
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15 * 60, repeats: true)
-            DirectNotifications.shared.addNotification(identifier: Identifier.sensorConnectionAlarm.rawValue, content: notification, trigger: trigger)
         }
     }
 }

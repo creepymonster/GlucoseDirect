@@ -34,11 +34,17 @@ struct ContentView: View {
             }.tag(DirectConfig.settingsViewTag)
         }
         .onChange(of: scenePhase) { newPhase in
+            if store.state.appState != newPhase {
+                store.dispatch(.setAppState(appState: newPhase))
+            }
+            
             if newPhase == .background, store.state.preventScreenLock {
                 store.dispatch(.setPreventScreenLock(enabled: false))
             }
         }
         .onAppear {
+            DirectLog.info("onAppear()")
+            
             let apparence = UITabBarAppearance()
             apparence.configureWithOpaqueBackground()
 

@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import SwiftUI
 import OSLog
 
 enum DirectAction {
@@ -27,6 +28,7 @@ enum DirectAction {
     case loadBloodGlucoseValues
     case loadSensorErrorValues
     case loadSensorGlucoseValues
+    case loadSensorGlucoseStatistics
     case pairConnection
     case registerConnectionInfo(infos: [SensorConnectionInfo])
     case requestAppleCalendarAccess(enabled: Bool)
@@ -42,6 +44,7 @@ enum DirectAction {
     case setAlarmSnoozeUntil(untilDate: Date?, autosnooze: Bool = false)
     case setAppleCalendarExport(enabled: Bool)
     case setAppleHealthExport(enabled: Bool)
+    case setAppState(appState: ScenePhase)
     case setBellmanConnectionState(connectionState: BellmanConnectionState)
     case setBellmanNotification(enabled: Bool)
     case setBloodGlucoseHistory(glucoseHistory: [BloodGlucose])

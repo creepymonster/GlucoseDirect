@@ -6,6 +6,7 @@
 import Combine
 import Foundation
 import UserNotifications
+import SwiftUI
 
 #if canImport(CoreNFC)
     import CoreNFC
@@ -67,7 +68,6 @@ struct AppState: DirectState {
         self.readGlucose = UserDefaults.standard.readGlucose
         self.selectedCalendarTarget = UserDefaults.standard.selectedCalendarTarget
         self.selectedConnectionID = UserDefaults.standard.selectedConnectionID ?? defaultConnectionID
-        self.selectedView = UserDefaults.standard.selectedView
         self.sensor = UserDefaults.shared.sensor
         self.sensorInterval = UserDefaults.standard.sensorInterval
         self.showAnnotations = UserDefaults.standard.showAnnotations
@@ -76,6 +76,7 @@ struct AppState: DirectState {
 
     // MARK: Internal
 
+    var appState: ScenePhase = .inactive
     var bellmanConnectionState: BellmanConnectionState = .disconnected
     var bloodGlucoseHistory: [BloodGlucose] = []
     var bloodGlucoseValues: [BloodGlucose] = []
@@ -91,6 +92,7 @@ struct AppState: DirectState {
     var sensorGlucoseValues: [SensorGlucose] = []
     var glucoseStatistics: GlucoseStatistics? = nil
     var targetValue = 100
+    var selectedView = DirectConfig.overviewViewTag
 
     var alarmHigh: Int { didSet { UserDefaults.standard.alarmHigh = alarmHigh } }
     var alarmLow: Int { didSet { UserDefaults.standard.alarmLow = alarmLow } }
@@ -118,7 +120,6 @@ struct AppState: DirectState {
     var readGlucose: Bool { didSet { UserDefaults.standard.readGlucose = readGlucose } }
     var selectedCalendarTarget: String? { didSet { UserDefaults.standard.selectedCalendarTarget = selectedCalendarTarget } }
     var selectedConnectionID: String? { didSet { UserDefaults.standard.selectedConnectionID = selectedConnectionID } }
-    var selectedView: Int { didSet { UserDefaults.standard.selectedView = selectedView } }
     var sensor: Sensor? { didSet { UserDefaults.shared.sensor = sensor } }
     var sensorInterval: Int { didSet { UserDefaults.standard.sensorInterval = sensorInterval } }
     var showAnnotations: Bool { didSet { UserDefaults.standard.showAnnotations = showAnnotations } }

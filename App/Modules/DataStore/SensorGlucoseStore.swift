@@ -12,17 +12,29 @@ import GRDB
 func glucoseStatisticsMiddleware() -> Middleware<DirectState, DirectAction> {
     return { state, action, _ in
         switch action {
+        case .startup:
+            DataStore.shared.createSensorGlucoseTable()
+            
         case .loadSensorGlucoseValues:
-            return DataStore.shared.getSensorGlucoseStatistics(lowerLimit: state.alarmLow, upperLimit: state.alarmHigh).map { statistics in
-                DirectAction.setGlucoseStatistics(statistics: statistics)
-            }.eraseToAnyPublisher()
+            return Just(DirectAction.loadSensorGlucoseStatistics)
+                .setFailureType(to: DirectError.self)
+                .eraseToAnyPublisher()
 
         case .setAlarmLow(lowerLimit: _):
-            return DataStore.shared.getSensorGlucoseStatistics(lowerLimit: state.alarmLow, upperLimit: state.alarmHigh).map { statistics in
-                DirectAction.setGlucoseStatistics(statistics: statistics)
-            }.eraseToAnyPublisher()
+            return Just(DirectAction.loadSensorGlucoseStatistics)
+                .setFailureType(to: DirectError.self)
+                .eraseToAnyPublisher()
 
         case .setAlarmHigh(upperLimit: _):
+            return Just(DirectAction.loadSensorGlucoseStatistics)
+                .setFailureType(to: DirectError.self)
+                .eraseToAnyPublisher()
+
+        case .loadSensorGlucoseStatistics:
+            guard state.appState == .active else {
+                break
+            }
+
             return DataStore.shared.getSensorGlucoseStatistics(lowerLimit: state.alarmLow, upperLimit: state.alarmHigh).map { statistics in
                 DirectAction.setGlucoseStatistics(statistics: statistics)
             }.eraseToAnyPublisher()
@@ -36,15 +48,8 @@ func glucoseStatisticsMiddleware() -> Middleware<DirectState, DirectAction> {
 }
 
 func sensorGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
-    return { _, action, _ in
+    return { state, action, _ in
         switch action {
-        case .startup:
-            DataStore.shared.createSensorGlucoseTable()
-
-            return Just(DirectAction.loadSensorGlucoseValues)
-                .setFailureType(to: DirectError.self)
-                .eraseToAnyPublisher()
-
         case .addSensorGlucose(glucoseValues: let glucoseValues):
             guard !glucoseValues.isEmpty else {
                 break
@@ -71,9 +76,13 @@ func sensorGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
                 .eraseToAnyPublisher()
 
         case .loadSensorGlucoseValues:
+            guard state.appState == .active else {
+                break
+            }
+
             return Publishers.MergeMany(
                 DataStore.shared.getSensorGlucoseValues().map { glucoseValues in
-                    DirectLog.info("setSensorGlucoseValues")
+                    DirectLog.info("getSensorGlucoseValues")
                     return DirectAction.setSensorGlucoseValues(glucoseValues: glucoseValues)
                 },
                 DataStore.shared.getSensorGlucoseHistory().map { glucoseValues in
@@ -81,6 +90,15 @@ func sensorGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
                     return DirectAction.setSensorGlucoseHistory(glucoseHistory: glucoseValues)
                 }
             ).eraseToAnyPublisher()
+
+        case .setAppState(appState: let appState):
+            guard appState == .active else {
+                break
+            }
+
+            return Just(DirectAction.loadSensorGlucoseValues)
+                .setFailureType(to: DirectError.self)
+                .eraseToAnyPublisher()
 
         default:
             break
@@ -174,7 +192,13 @@ extension DataStore {
                 try dbQueue.write { db in
                     values.forEach { value in
                         do {
-                            try value.insert(db)
+//                            let count = try SensorGlucose
+//                                .filter(Column(SensorGlucose.Columns.timestamp.name) == value.timestamp)
+//                                .fetchCount(db)
+//
+//                            if count == 0 {
+                                try value.insert(db)
+//                            }
                         } catch {
                             DirectLog.error(error.localizedDescription)
                         }
