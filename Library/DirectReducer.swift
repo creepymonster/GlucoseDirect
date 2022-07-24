@@ -27,7 +27,7 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         
     case .addSensorError(errorValues: let errorValues):
         state.latestSensorError = errorValues.last
-                       
+        
     case .clearCalibrations:
         state.customCalibration = []
         
@@ -78,10 +78,10 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         
     case .setAlarmHigh(upperLimit: let upperLimit):
         state.alarmHigh = upperLimit
-
+        
     case .setAlarmLow(lowerLimit: let lowerLimit):
         state.alarmLow = lowerLimit
-
+        
     case .setAlarmSnoozeUntil(untilDate: let untilDate, autosnooze: let autosnooze):
         if let untilDate = untilDate {
             state.alarmSnoozeUntil = untilDate
@@ -98,6 +98,9 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         
     case .setAppleHealthExport(enabled: let enabled):
         state.appleHealthExport = enabled
+        
+    case .setAppState(appState: let appState):
+        state.appState = appState
         
     case .setBellmanConnectionState(connectionState: let connectionState):
         state.bellmanConnectionState = connectionState

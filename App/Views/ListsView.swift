@@ -22,6 +22,14 @@ struct ListsView: View {
                 Section(
                     content: {
                         if glucoseStatistics.days >= requiredDays {
+                            #if DEBUG
+                            HStack {
+                                Text("Readings")
+                                Spacer()
+                                Text(glucoseStatistics.readings.description)
+                            }
+                            #endif
+                            
                             Group {
                                 VStack(alignment: .leading, spacing: 10) {
                                     HStack {

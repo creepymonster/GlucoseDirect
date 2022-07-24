@@ -17,19 +17,15 @@ func glucoseNotificationMiddelware() -> Middleware<DirectState, DirectAction> {
 private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificationService>) -> Middleware<DirectState, DirectAction> {
     return { state, action, _ in
         switch action {
-        case .setHighGlucoseAlarmSound(sound: let sound):
-            if sound == .none {
-                service.value.clear()
-            }
-
-        case .setLowGlucoseAlarmSound(sound: let sound):
-            if sound == .none {
-                service.value.clear()
-            }
-
         case .setGlucoseNotification(enabled: let enabled):
             if !enabled {
                 service.value.clear()
+            } else {
+                guard let glucose = state.latestSensorGlucose else {
+                    break
+                }
+                
+                service.value.setGlucoseNotification(glucose: glucose, glucoseUnit: state.glucoseUnit)
             }
 
         case .setGlucoseUnit(unit: let unit):
@@ -115,6 +111,7 @@ private class GlucoseNotificationService {
     }
 
     func clear() {
+        UIApplication.shared.applicationIconBadgeNumber = 0
         DirectNotifications.shared.removeNotification(identifier: Identifier.sensorGlucoseAlarm.rawValue)
     }
 

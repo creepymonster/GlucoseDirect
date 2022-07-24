@@ -8,15 +8,11 @@ import Foundation
 import GRDB
 
 func sensorErrorStoreMiddleware() -> Middleware<DirectState, DirectAction> {
-    return { _, action, _ in
+    return { state, action, _ in
         switch action {
         case .startup:
             DataStore.shared.createSensorErrorTable()
-
-            return Just(DirectAction.loadSensorErrorValues)
-                .setFailureType(to: DirectError.self)
-                .eraseToAnyPublisher()
-
+            
         case .addSensorError(errorValues: let errorValues):
             guard !errorValues.isEmpty else {
                 break
@@ -43,9 +39,22 @@ func sensorErrorStoreMiddleware() -> Middleware<DirectState, DirectAction> {
                 .eraseToAnyPublisher()
 
         case .loadSensorErrorValues:
+            guard state.appState == .active else {
+                break
+            }
+            
             return DataStore.shared.getSensorErrorValues().map { errorValues in
                 DirectAction.setSensorErrorValues(errorValues: errorValues)
             }.eraseToAnyPublisher()
+            
+        case .setAppState(appState: let appState):
+            guard appState == .active else {
+                break
+            }
+            
+            return Just(DirectAction.loadSensorErrorValues)
+                .setFailureType(to: DirectError.self)
+                .eraseToAnyPublisher()
 
         default:
             break
@@ -134,7 +143,13 @@ extension DataStore {
                 try dbQueue.write { db in
                     values.forEach { value in
                         do {
-                            try value.insert(db)
+//                            let count = try SensorError
+//                                .filter(Column(SensorError.Columns.timestamp.name) == value.timestamp)
+//                                .fetchCount(db)
+//
+//                            if count == 0 {
+                                try value.insert(db)
+//                            }
                         } catch {
                             DirectLog.error(error.localizedDescription)
                         }

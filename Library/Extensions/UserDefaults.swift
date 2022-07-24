@@ -34,7 +34,6 @@ private enum Keys: String {
     case readGlucose = "libre-direct.settings.read-glucose"
     case selectedCalendarTarget = "libre-direct.settings.selected-calendar-target"
     case selectedConnectionID = "libre-direct.settings.selected-connection-id"
-    case selectedView = "libre-direct.settings.selected-view"
     case sensor = "libre-direct.settings.sensor"
     case sensorInterval = "libre-direct.settings.sensor-interval"
     case sharedApp = "glucosedirect--app"
@@ -525,19 +524,6 @@ extension UserDefaults {
             } else {
                 removeObject(forKey: Keys.selectedConnectionID.rawValue)
             }
-        }
-    }
-
-    var selectedView: Int {
-        get {
-            if object(forKey: Keys.selectedView.rawValue) != nil {
-                return integer(forKey: Keys.selectedView.rawValue)
-            }
-
-            return 1
-        }
-        set {
-            set(newValue, forKey: Keys.selectedView.rawValue)
         }
     }
 

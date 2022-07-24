@@ -96,7 +96,7 @@ extension SensorConnectionProtocol {
     }
 
     func sendUpdate(peripheralUUID: String?) {
-        DirectLog.error("PeripheralUUID: \(peripheralUUID)")
+        DirectLog.info("PeripheralUUID: \(peripheralUUID)")
 
         subject?.send(.setConnectionPeripheralUUID(peripheralUUID: peripheralUUID))
     }

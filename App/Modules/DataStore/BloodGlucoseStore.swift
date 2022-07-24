@@ -10,15 +10,11 @@ import Foundation
 import GRDB
 
 func bloodGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
-    return { _, action, _ in
+    return { state, action, _ in
         switch action {
         case .startup:
             DataStore.shared.createBloodGlucoseTable()
-
-            return Just(DirectAction.loadBloodGlucoseValues)
-                .setFailureType(to: DirectError.self)
-                .eraseToAnyPublisher()
-
+            
         case .addBloodGlucose(glucoseValues: let glucoseValues):
             guard !glucoseValues.isEmpty else {
                 break
@@ -45,9 +41,13 @@ func bloodGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
                 .eraseToAnyPublisher()
 
         case .loadBloodGlucoseValues:
+            guard state.appState == .active else {
+                break
+            }
+            
             return Publishers.MergeMany(
                 DataStore.shared.getBloodGlucoseValues().map { glucoseValues in
-                    DirectLog.info("setBloodGlucoseValues")
+                    DirectLog.info("getBloodGlucoseValues")
                     return DirectAction.setBloodGlucoseValues(glucoseValues: glucoseValues)
                 },
                 DataStore.shared.getBloodGlucoseHistory().map { glucoseValues in
@@ -56,6 +56,15 @@ func bloodGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
                 }
             )
             .eraseToAnyPublisher()
+            
+        case .setAppState(appState: let appState):
+            guard appState == .active else {
+                break
+            }
+            
+            return Just(DirectAction.loadBloodGlucoseValues)
+                .setFailureType(to: DirectError.self)
+                .eraseToAnyPublisher()
 
         default:
             break
@@ -144,7 +153,13 @@ extension DataStore {
                 try dbQueue.write { db in
                     values.forEach { value in
                         do {
-                            try value.insert(db)
+//                            let count = try BloodGlucose
+//                                .filter(Column(BloodGlucose.Columns.timestamp.name) == value.timestamp)
+//                                .fetchCount(db)
+//
+//                            if count == 0 {
+                                try value.insert(db)
+//                            }
                         } catch {
                             DirectLog.error(error.localizedDescription)
                         }
