@@ -5,7 +5,7 @@
 "%1$@/min." = "%1$@/min.";
 
 /* (No Comment) */
-"%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
+"%1$@d %2$@h %3$@min" = "%1$@j %2$@h %3$@min";
 
 /* (No Comment) */
 "Add" = "Ajouter";
@@ -35,157 +35,157 @@
 "Alert, sensor expiring soon" = "Alerte, capteur expirant bientôt";
 
 /* (No Comment) */
-"Are you sure you want to delete all log files?" = "Are you sure you want to delete all log files?";
+"Are you sure you want to delete all log files?" = "Êtes-vous sûr de vouloir supprimer les fichiers de registre ?";
 
 /* (No Comment) */
-"Are you sure you want to disconnect the sensor?" = "Are you sure you want to disconnect the sensor?";
+"Are you sure you want to disconnect the sensor?" = "Êtes-vous sûr de vouloir déconnecter le capteur ?";
 
 /* (No Comment) */
-"Blood glucose: %1$@" = "Blood glucose: %1$@";
+"Blood glucose: %1$@" = "Glycémie : %1$@";
 
 /* (No Comment) */
-"Calibration view" = "Calibration";
+"Calibration view" = "Étalonnage";
 
 /* (No Comment) */
-"Cancel" = "Cancel";
+"Cancel" = "Annuler";
 
 /* (No Comment) */
-"Chart" = "Chart";
+"Chart" = "Diagramme";
 
 /* (No Comment) */
-"Connect sensor" = "Connect sensor";
+"Connect sensor" = "Connecter le capteur";
 
 /* (No Comment) */
-"Connected" = "Connected";
+"Connected" = "Connecté";
 
 /* (No Comment) */
-"Connecting" = "Connecting";
+"Connecting" = "Connexion en cours";
 
 /* (No Comment) */
-"Connection alarm" = "Connection alarm";
+"Connection alarm" = "Alarme de connexion";
 
 /* (No Comment) */
-"Custom calibration intercept" = "Intercept";
+"Custom calibration intercept" = "Intercepter";
 
 /* (No Comment) */
-"Custom calibration slope" = "Slope";
+"Custom calibration slope" = "Pente";
 
 /* (No Comment) */
-"Delete" = "Delete";
+"Delete" = "Supprimer";
 
 /* (No Comment) */
-"Delete all" = "Delete all";
+"Delete all" = "Tout supprimer";
 
 /* (No Comment) */
-"Disconnect" = "Disconnect";
+"Disconnect" = "Déconnexion";
 
 /* (No Comment) */
-"Disconnect sensor" = "Disconnect sensor";
+"Disconnect sensor" = "Déconnecter le capteur";
 
 /* (No Comment) */
-"Disconnected" = "Disconnected";
+"Disconnected" = "Déconnecté";
 
 /* (No Comment) */
-"Glucose alarm" = "Glucose alarm";
+"Glucose alarm" = "Alarme de Glycémie";
 
 /* (No Comment) */
-"Glucose list view" = "List";
+"Glucose list view" = "Liste";
 
 /* (No Comment) */
-"Glucose overview" = "Overview";
+"Glucose overview" = "Aperçu";
 
 /* (No Comment) */
-"Glucose settings" = "Glucose settings";
+"Glucose settings" = "Paramètres Glycémiques";
 
 /* (No Comment) */
-"Glucose unit" = "Unit";
+"Glucose unit" = "Unité";
 
 /* (No Comment) */
-"Hold the top edge of your iPhone close to the sensor." = "Hold the top edge of your iPhone close to the sensor.";
+"Hold the top edge of your iPhone close to the sensor." = "Maintenez le bord supérieur de votre iPhone près du capteur.";
 
 /* (No Comment) */
-"Lower limit" = "Low";
+"Lower limit" = "Bas";
 
 /* (No Comment) */
-"Nightscout API-Secret" = "API-Secret";
+"Nightscout API-Secret" = "Clé API secrète";
 
 /* (No Comment) */
 "Nightscout url" = "Url";
 
 /* (No Comment) */
-"Nightscout settings" = "Nightscout settings";
+"Nightscout settings" = "Paramètres de Nightscout";
 
 /* (No Comment) */
-"Nightscout upload enabled" = "Upload";
+"Nightscout upload enabled" = "Téléverser";
 
 /* (No Comment) */
-"Now" = "Now";
+"Now" = "Maintenant";
 
 /* (No Comment) */
-"Power off" = "Power off";
+"Power off" = "Éteindre";
 
 /* (No Comment) */
-"Scanning" = "Scanning";
+"Scanning" = "Scan en cours";
 
 /* (No Comment) */
-"Sensor age" = "Sensor age";
+"Sensor age" = "Âge du capteur";
 
 /* (No Comment) */
-"Connection" = "Connection";
+"Connection" = "Connexion";
 
 /* (No Comment) */
-"Connection error" = "Error";
+"Connection error" = "Erreur";
 
 /* (No Comment) */
-"Connection error timestamp" = "Time";
+"Connection error timestamp" = "Temps";
 
 /* (No Comment) */
-"Connection state" = "State";
+"Connection state" = "État";
 
 /* (No Comment) */
-"Sensor custom calibration" = "Custom Calibration";
+"Sensor custom calibration" = "Étalonnage personnalisé";
 
 /* (No Comment) */
-"Sensor details" = "Sensor details";
+"Sensor details" = "Détails du capteur";
 
 /* (No Comment) */
-"Sensor factory calibration" = "Factory Calibration";
+"Sensor factory calibration" = "Étalonnage d'usine";
 
 /* (No Comment) */
-"Sensor has failure" = "Sensor has failure";
+"Sensor has failure" = "Le capteur est défaillant";
 
 /* (No Comment) */
-"Sensor in starting phase" = "Sensor in starting phase";
+"Sensor in starting phase" = "Capteur en phase de démarrage";
 
 /* (No Comment) */
-"Sensor is expired" = "Sensor is expired";
+"Sensor is expired" = "Le capteur est expiré";
 
 /* (No Comment) */
-"Sensor is ready" = "Sensor is ready";
+"Sensor is ready" = "Le capteur est prêt";
 
 /* (No Comment) */
-"Sensor is shut down" = "Sensor is expired";
+"Sensor is shut down" = "Le capteur est expiré";
 
 /* (No Comment) */
-"Sensor lifetime" = "Lifetime";
+"Sensor lifetime" = "Durée de vie";
 
 /* (No Comment) */
-"Missed readings" = "Missed";
+"Missed readings" = "Manqué";
 
 /* (No Comment) */
-"Sensor not yet startet" = "Sensor not yet startet";
+"Sensor not yet startet" = "Capteur pas encore démarré";
 
 /* (No Comment) */
-"Sensor PatchInfo" = "PatchInfo";
+"Sensor PatchInfo" = "Infos sur le patch";
 
 /* (No Comment) */
-"Sensor possible lifetime" = "Lifetime";
+"Sensor possible lifetime" = "Durée de vie";
 
 /* (No Comment) */
-"Sensor region" = "Region";
+"Sensor region" = "Région";
 
 /* (No Comment) */
-"Sensor remaining lifetime" = "Remaining";
+"Sensor remaining lifetime" = "Restant";
 
 /* (No Comment) */
 "Sensor remaining warmup time" = "Warmup";
@@ -194,7 +194,7 @@
 "Sensor serial" = "Serial";
 
 /* (No Comment) */
-"Sensor state" = "State";
+"Sensor state" = "État";
 
 /* (No Comment) */
 "Sensor type" = "Type";
@@ -482,7 +482,7 @@
 "Transmitter ID" = "Identifier";
 
 /* (No Comment) */
-"Time" = "Time";
+"Time" = "Temps";
 
 /* (No Comment) */
 "Glucose" = "Glucose";
