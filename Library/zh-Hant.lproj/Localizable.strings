@@ -164,7 +164,7 @@
 "Sensor is ready" = "感測器已就緒";
 
 /* (No Comment) */
-"Sensor is shut down" = "Sensor is expired";
+"Sensor is shut down" = "感測器已過期";
 
 /* (No Comment) */
 "Sensor lifetime" = "壽命";
@@ -179,7 +179,7 @@
 "Sensor PatchInfo" = "PatchInfo";
 
 /* (No Comment) */
-"Sensor possible lifetime" = "Lifetime";
+"Sensor possible lifetime" = "壽命";
 
 /* (No Comment) */
 "Sensor region" = "區域";
@@ -194,7 +194,7 @@
 "Sensor serial" = "序號";
 
 /* (No Comment) */
-"Sensor state" = "State";
+"Sensor state" = "狀態";
 
 /* (No Comment) */
 "Sensor type" = "類型";
@@ -551,7 +551,7 @@
 "Transmitter battery widget description" = "Displays the remaining battery charge of the transmitter as a countdown.";
 
 /* (No Comment) */
-"Warmup" = "Warmup";
+"Warmup" = "啟動中";
 
 /* (No Comment) */
 "No screen lock" = "No screen lock";
