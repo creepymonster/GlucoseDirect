@@ -8,31 +8,31 @@
 "%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
 
 /* (No Comment) */
-"Add" = "Add";
+"Add" = "Ajouter";
 
 /* (No Comment) */
-"Add glucose for calibration" = "Add glucose for calibration";
+"Add glucose for calibration" = "Ajouter du glucose pour l'étalonnage";
 
 /* (No Comment) */
-"Add calibration" = "Add calibration";
+"Add calibration" = "Ajouter un étalonnage";
 
 /* (No Comment) */
-"Add blood glucose" = "Add blood glucose";
+"Add blood glucose" = "Ajouter la glycémie";
 
 /* (No Comment) */
-"Alert, high glucose" = "Alert, high glucose";
+"Alert, high glucose" = "Alerte, glucose élevé";
 
 /* (No Comment) */
-"Alert, low blood glucose" = "Alert, low blood glucose";
+"Alert, low blood glucose" = "Alerte, glycémie basse";
 
 /* (No Comment) */
-"Alert, sensor connection lost" = "Alert, sensor connection lost";
+"Alert, sensor connection lost" = "Alerte, connexion au capteur perdue";
 
 /* (No Comment) */
-"Alert, sensor expired" = "Alert, sensor expired";
+"Alert, sensor expired" = "Alerte, capteur expiré";
 
 /* (No Comment) */
-"Alert, sensor expiring soon" = "Alert, sensor expiring soon";
+"Alert, sensor expiring soon" = "Alerte, capteur expirant bientôt";
 
 /* (No Comment) */
 "Are you sure you want to delete all log files?" = "Are you sure you want to delete all log files?";
