@@ -311,7 +311,7 @@
 "App version" = "Versio";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "Tuntematon";
 
 /* (No Comment) */
 "Invalid parameters" = "Invalid parameters";
@@ -521,7 +521,7 @@
 "Transmitter ID" = "Identifier";
 
 /* (No Comment) */
-"Time" = "Time";
+"Time" = "Aika";
 
 /* (No Comment) */
 "Glucose" = "Glucose";
@@ -551,7 +551,7 @@
 "Transmitter battery widget description" = "Displays the remaining battery charge of the transmitter as a countdown.";
 
 /* (No Comment) */
-"Warmup" = "Warmup";
+"Warmup" = "Käynnistys";
 
 /* (No Comment) */
 "No screen lock" = "No screen lock";

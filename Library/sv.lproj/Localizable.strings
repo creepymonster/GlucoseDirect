@@ -164,7 +164,7 @@
 "Sensor is ready" = "Sensor är redo";
 
 /* (No Comment) */
-"Sensor is shut down" = "Sensor is expired";
+"Sensor is shut down" = "Sensor har utgått";
 
 /* (No Comment) */
 "Sensor lifetime" = "Livstid";
@@ -179,7 +179,7 @@
 "Sensor PatchInfo" = "PatchInfo";
 
 /* (No Comment) */
-"Sensor possible lifetime" = "Lifetime";
+"Sensor possible lifetime" = "Livstid";
 
 /* (No Comment) */
 "Sensor region" = "Region";
@@ -194,7 +194,7 @@
 "Sensor serial" = "Serienummer";
 
 /* (No Comment) */
-"Sensor state" = "State";
+"Sensor state" = "Tillstånd";
 
 /* (No Comment) */
 "Sensor type" = "Typ";
@@ -311,7 +311,7 @@
 "App version" = "Version";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "Okänd";
 
 /* (No Comment) */
 "Invalid parameters" = "Ogiltiga parametrar";
@@ -521,7 +521,7 @@
 "Transmitter ID" = "Identifier";
 
 /* (No Comment) */
-"Time" = "Time";
+"Time" = "Tid";
 
 /* (No Comment) */
 "Glucose" = "Glucose";
@@ -551,7 +551,7 @@
 "Transmitter battery widget description" = "Displays the remaining battery charge of the transmitter as a countdown.";
 
 /* (No Comment) */
-"Warmup" = "Warmup";
+"Warmup" = "Sensors återstående tid för uppvärmning";
 
 /* (No Comment) */
 "No screen lock" = "No screen lock";
