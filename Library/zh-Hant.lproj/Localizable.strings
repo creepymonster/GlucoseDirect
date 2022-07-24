@@ -311,45 +311,6 @@
 "App version" = "版本";
 
 /* (No Comment) */
-"Unknown" = "未知";
-
-/* (No Comment) */
-"Invalid parameters" = "無效參數";
-
-/* (No Comment) */
-"Invalid handle" = "無效操作";
-
-/* (No Comment) */
-"Not connected" = "未連接";
-
-/* (No Comment) */
-"Out of space" = "空間不足";
-
-/* (No Comment) */
-"Operation cancelled" = "操作已取消";
-
-/* (No Comment) */
-"Connection timeout" = "連接超時";
-
-/* (No Comment) */
-"Peripheral disconnected" = "外部裝置已斷開";
-
-/* (No Comment) */
-"UUID not allowed" = "UUID不允許";
-
-/* (No Comment) */
-"Already advertising" = "已經開始廣播";
-
-/* (No Comment) */
-"Connection failed" = "連結失敗";
-
-/* (No Comment) */
-"Connection limit reached" = "達到連線數階段限制";
-
-/* (No Comment) */
-"Operation not supported" = "不支援此作業";
-
-/* (No Comment) */
 "Attention, the sensor sends faulty values. Please wait 10 minutes." = "注意，感測器傳送了錯誤的資料，請等待10分鐘";
 
 /* (No Comment) */

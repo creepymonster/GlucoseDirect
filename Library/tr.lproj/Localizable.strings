@@ -311,45 +311,6 @@
 "App version" = "Sürüm";
 
 /* (No Comment) */
-"Unknown" = "Bilinmeyen";
-
-/* (No Comment) */
-"Invalid parameters" = "Geçersiz parametreler";
-
-/* (No Comment) */
-"Invalid handle" = "Geçersiz işlem";
-
-/* (No Comment) */
-"Not connected" = "Bağlı değil";
-
-/* (No Comment) */
-"Out of space" = "Yetersiz alan";
-
-/* (No Comment) */
-"Operation cancelled" = "İşlem iptal edildi";
-
-/* (No Comment) */
-"Connection timeout" = "Bağlantı zaman aşımı";
-
-/* (No Comment) */
-"Peripheral disconnected" = "Bağlantı koptu";
-
-/* (No Comment) */
-"UUID not allowed" = "UUID'ye izin verilmiyor";
-
-/* (No Comment) */
-"Already advertising" = "Zaten duyuruldu";
-
-/* (No Comment) */
-"Connection failed" = "Bağlantı başarısız";
-
-/* (No Comment) */
-"Connection limit reached" = "Bağlantı limitine ulaşıldı";
-
-/* (No Comment) */
-"Operation not supported" = "İşlem desteklenmiyor";
-
-/* (No Comment) */
 "Attention, the sensor sends faulty values. Please wait 10 minutes." = "Dikkat, sensör hatalı değerler gönderiyor. Lütfen 10 dakika bekleyin.";
 
 /* (No Comment) */

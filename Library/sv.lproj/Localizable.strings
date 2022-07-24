@@ -311,45 +311,6 @@
 "App version" = "Version";
 
 /* (No Comment) */
-"Unknown" = "Okänd";
-
-/* (No Comment) */
-"Invalid parameters" = "Ogiltiga parametrar";
-
-/* (No Comment) */
-"Invalid handle" = "Ogiltig behandling";
-
-/* (No Comment) */
-"Not connected" = "Inte ansluten";
-
-/* (No Comment) */
-"Out of space" = "Slut på utrymme";
-
-/* (No Comment) */
-"Operation cancelled" = "Åtgärd avbruten";
-
-/* (No Comment) */
-"Connection timeout" = "Anslutningen tog för lång tid";
-
-/* (No Comment) */
-"Peripheral disconnected" = "Perifer enhet frånkopplad";
-
-/* (No Comment) */
-"UUID not allowed" = "UUID inte tillåten";
-
-/* (No Comment) */
-"Already advertising" = "Annonserar redan";
-
-/* (No Comment) */
-"Connection failed" = "Anslutningen misslyckades";
-
-/* (No Comment) */
-"Connection limit reached" = "Anslutningsgräns nådd";
-
-/* (No Comment) */
-"Operation not supported" = "Åtgärden stöds inte";
-
-/* (No Comment) */
 "Attention, the sensor sends faulty values. Please wait 10 minutes." = "Varning, sensorn skickar felaktiga värden. Vänta 10 minuter.";
 
 /* (No Comment) */

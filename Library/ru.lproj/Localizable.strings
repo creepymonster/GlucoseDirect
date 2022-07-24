@@ -311,45 +311,6 @@
 "App version" = "Версия";
 
 /* (No Comment) */
-"Unknown" = "Неизвестно";
-
-/* (No Comment) */
-"Invalid parameters" = "Неправильные параметры";
-
-/* (No Comment) */
-"Invalid handle" = "Неверный дескриптор";
-
-/* (No Comment) */
-"Not connected" = "Не подключено";
-
-/* (No Comment) */
-"Out of space" = "Недостаточно места";
-
-/* (No Comment) */
-"Operation cancelled" = "Операция отменена";
-
-/* (No Comment) */
-"Connection timeout" = "Время подключения истекло";
-
-/* (No Comment) */
-"Peripheral disconnected" = "Периферийное устройство отключено";
-
-/* (No Comment) */
-"UUID not allowed" = "UUID не разрешен";
-
-/* (No Comment) */
-"Already advertising" = "Реклама";
-
-/* (No Comment) */
-"Connection failed" = "Сбой подключения";
-
-/* (No Comment) */
-"Connection limit reached" = "Достигнут лимит соединений";
-
-/* (No Comment) */
-"Operation not supported" = "Операция не поддерживается";
-
-/* (No Comment) */
 "Attention, the sensor sends faulty values. Please wait 10 minutes." = "Внимание, датчик посылает ошибочные значения. Пожалуйста, подождите 10 минут.";
 
 /* (No Comment) */
