@@ -311,45 +311,6 @@
 "App version" = "版本";
 
 /* (No Comment) */
-"Unknown" = "未知";
-
-/* (No Comment) */
-"Invalid parameters" = "参数无效";
-
-/* (No Comment) */
-"Invalid handle" = "无效处理";
-
-/* (No Comment) */
-"Not connected" = "未连接";
-
-/* (No Comment) */
-"Out of space" = "空间不足";
-
-/* (No Comment) */
-"Operation cancelled" = "操作已取消。";
-
-/* (No Comment) */
-"Connection timeout" = "连接超时";
-
-/* (No Comment) */
-"Peripheral disconnected" = "发射器已断开";
-
-/* (No Comment) */
-"UUID not allowed" = "UUID无效";
-
-/* (No Comment) */
-"Already advertising" = "一直广播";
-
-/* (No Comment) */
-"Connection failed" = "连接失败";
-
-/* (No Comment) */
-"Connection limit reached" = "达到连接限制";
-
-/* (No Comment) */
-"Operation not supported" = "不支持此操作";
-
-/* (No Comment) */
 "Attention, the sensor sends faulty values. Please wait 10 minutes." = "注意，传感器发送错误的数值。请等待10分钟。";
 
 /* (No Comment) */
