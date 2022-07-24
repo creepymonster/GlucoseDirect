@@ -11,7 +11,7 @@
 "NSBluetoothAlwaysUsageDescription" = "La fonction Bluetooth est nécessaire pour se connecter aux appareils pris en charge.";
 
 /* Privacy - Bluetooth Peripheral Usage Description */
-"NSBluetoothPeripheralUsageDescription" = "The Bluetooth function is needed to connect to the supported devices.";
+"NSBluetoothPeripheralUsageDescription" = "La fonction Bluetooth est nécessaire pour se connecter aux appareils pris en charge.";
 
 /* Privacy - Calendars Usage Description */
 "NSCalendarsUsageDescription" = "Access to the calendar is required to display up-to-date glucose values on the Apple Watch.";
