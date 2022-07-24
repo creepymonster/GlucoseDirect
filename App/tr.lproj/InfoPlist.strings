@@ -2,7 +2,7 @@
 "CFBundleDisplayName" = "Glikoz Direk";
 
 /* Bundle name */
-"CFBundleName" = "Glucose Direct";
+"CFBundleName" = "Glikoz Direk";
 
 /* Privacy - NFC Scan Usage Description */
 "NFCReaderUsageDescription" = "Bluetooth bağlantısından önce tüm bağlantı ayarlarını okumak için NFC özelliği gereklidir.";

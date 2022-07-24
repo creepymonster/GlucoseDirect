@@ -164,7 +164,7 @@
 "Sensor is ready" = "Sensör hazır";
 
 /* (No Comment) */
-"Sensor is shut down" = "Sensor is expired";
+"Sensor is shut down" = "Sensör süresi doldu";
 
 /* (No Comment) */
 "Sensor lifetime" = "Kullanım ömrü";
@@ -179,7 +179,7 @@
 "Sensor PatchInfo" = "PatchInfo";
 
 /* (No Comment) */
-"Sensor possible lifetime" = "Lifetime";
+"Sensor possible lifetime" = "Kullanım ömrü";
 
 /* (No Comment) */
 "Sensor region" = "Bölge";
@@ -194,7 +194,7 @@
 "Sensor serial" = "Seri no";
 
 /* (No Comment) */
-"Sensor state" = "State";
+"Sensor state" = "Durum";
 
 /* (No Comment) */
 "Sensor type" = "Tip";
@@ -311,7 +311,7 @@
 "App version" = "Sürüm";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "Bilinmeyen";
 
 /* (No Comment) */
 "Invalid parameters" = "Geçersiz parametreler";
@@ -521,7 +521,7 @@
 "Transmitter ID" = "Tanımlayıcı";
 
 /* (No Comment) */
-"Time" = "Time";
+"Time" = "Zaman";
 
 /* (No Comment) */
 "Glucose" = "Glikoz";
@@ -533,7 +533,7 @@
 "Sensor" = "Sensör";
 
 /* (No Comment) */
-"Glucose widget" = "Glucose";
+"Glucose widget" = "Glikoz";
 
 /* (No Comment) */
 "Glucose widget description" = "Son glikoz değerini görüntüler.";
@@ -551,7 +551,7 @@
 "Transmitter battery widget description" = "Geri sayım olarak vericinin kalan pil şarjını görüntüler.";
 
 /* (No Comment) */
-"Warmup" = "Warmup";
+"Warmup" = "Isınma";
 
 /* (No Comment) */
 "No screen lock" = "Ekran kilidi yok";
