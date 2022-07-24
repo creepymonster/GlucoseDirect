@@ -536,10 +536,10 @@
 "At least %@ days of data are required." = "Es werden mindestens %@ Tage an Daten benötigt.";
 
 /* (No Comment) */
-"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been.";
+"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Average (AVG) oder Durchschnitt ist ein einfaches Maß für Blutzuckerwerte über einen bestimmten Zeitraum und bietet einen ungefähren Überblick über den Blutzuckerspiegel.";
 
 /* (No Comment) */
-"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring.";
+"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Glucose Management Indicator (GMI) ist ein Ersatz für den geschätzten HbA1c-Wert für Patienten, die eine kontinuierliche Glukoseüberwachung verwenden.";
 
 /* (No Comment) */
 "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@ %@." = "Time in Range (TIR) oder der prozentuale Anteil der Zeit, die im Zielbereich zwischen %@ - %@ verbracht wurde.";
@@ -551,7 +551,7 @@
 "Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Time above Range (TAR) oder der prozentuale Anteil der Zeit, die oberhalb des Zielwerts von %@ verbracht wurde.";
 
 /* (No Comment) */
-"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between many highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between many highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings.";
+"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Standard Deviation (SD) oder Standardabweichung ist ein Maß für die Streuung der Glukosemesswerte um den Durchschnitt - wenn sie zwischen vielen Höchst- und Tiefstwerten schwankt, ergibt sich eine höhere SD. Das Ziel ist eine möglichst niedrige SD, die einen konstanten Blutzuckerspiegel mit minimalen Schwankungen widerspiegelt.";
 
 /* (No Comment) */
 "Statistics (%@ days)" = "Statistiken (%@ Tage)";
