@@ -164,7 +164,7 @@
 "Sensor is ready" = "传感器已就绪";
 
 /* (No Comment) */
-"Sensor is shut down" = "Sensor is expired";
+"Sensor is shut down" = "传感器已过期";
 
 /* (No Comment) */
 "Sensor lifetime" = "寿命";
@@ -179,7 +179,7 @@
 "Sensor PatchInfo" = "PatchInfo";
 
 /* (No Comment) */
-"Sensor possible lifetime" = "Lifetime";
+"Sensor possible lifetime" = "寿命";
 
 /* (No Comment) */
 "Sensor region" = "地区";
@@ -194,7 +194,7 @@
 "Sensor serial" = "序列号";
 
 /* (No Comment) */
-"Sensor state" = "State";
+"Sensor state" = "状态";
 
 /* (No Comment) */
 "Sensor type" = "类型";
