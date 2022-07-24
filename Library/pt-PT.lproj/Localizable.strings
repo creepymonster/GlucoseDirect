@@ -311,7 +311,7 @@
 "App version" = "Versão";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "Desconhecido";
 
 /* (No Comment) */
 "Invalid parameters" = "Parâmetros inválidos";
@@ -521,7 +521,7 @@
 "Transmitter ID" = "Identifier";
 
 /* (No Comment) */
-"Time" = "Time";
+"Time" = "Hora";
 
 /* (No Comment) */
 "Glucose" = "Glucose";
@@ -551,7 +551,7 @@
 "Transmitter battery widget description" = "Displays the remaining battery charge of the transmitter as a countdown.";
 
 /* (No Comment) */
-"Warmup" = "Warmup";
+"Warmup" = "Em preparação";
 
 /* (No Comment) */
 "No screen lock" = "No screen lock";
