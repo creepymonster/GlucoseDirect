@@ -311,45 +311,6 @@
 "App version" = "Versión";
 
 /* (No Comment) */
-"Unknown" = "Desconocido";
-
-/* (No Comment) */
-"Invalid parameters" = "Parámetros inválidos";
-
-/* (No Comment) */
-"Invalid handle" = "Descriptor no válido";
-
-/* (No Comment) */
-"Not connected" = "Desconectado";
-
-/* (No Comment) */
-"Out of space" = "Espacio libre insuficiente";
-
-/* (No Comment) */
-"Operation cancelled" = "Operación cancelada";
-
-/* (No Comment) */
-"Connection timeout" = "Tiempo de conexión agotado";
-
-/* (No Comment) */
-"Peripheral disconnected" = "Periférico desconectado";
-
-/* (No Comment) */
-"UUID not allowed" = "UUID no permitido";
-
-/* (No Comment) */
-"Already advertising" = "Ya se está anunciando";
-
-/* (No Comment) */
-"Connection failed" = "Error de conexión";
-
-/* (No Comment) */
-"Connection limit reached" = "Límite de conexión alcanzado";
-
-/* (No Comment) */
-"Operation not supported" = "Operación no admitida";
-
-/* (No Comment) */
 "Attention, the sensor sends faulty values. Please wait 10 minutes." = "Atención: el sensor envía valores defectuosos. Por favor, espere 10 minutos.";
 
 /* (No Comment) */

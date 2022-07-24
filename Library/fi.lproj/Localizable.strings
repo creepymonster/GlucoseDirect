@@ -311,45 +311,6 @@
 "App version" = "Versio";
 
 /* (No Comment) */
-"Unknown" = "Tuntematon";
-
-/* (No Comment) */
-"Invalid parameters" = "Invalid parameters";
-
-/* (No Comment) */
-"Invalid handle" = "Invalid handle";
-
-/* (No Comment) */
-"Not connected" = "Ei yhdistetty";
-
-/* (No Comment) */
-"Out of space" = "Tila loppu";
-
-/* (No Comment) */
-"Operation cancelled" = "Peruttu";
-
-/* (No Comment) */
-"Connection timeout" = "Yhteyden aikakatkaisu";
-
-/* (No Comment) */
-"Peripheral disconnected" = "Peripheral disconnected";
-
-/* (No Comment) */
-"UUID not allowed" = "UUID ei ole saatavilla";
-
-/* (No Comment) */
-"Already advertising" = "Already advertising";
-
-/* (No Comment) */
-"Connection failed" = "Yhteys epäonnistui";
-
-/* (No Comment) */
-"Connection limit reached" = "Connection limit reached";
-
-/* (No Comment) */
-"Operation not supported" = "Toiminto ei sallittu";
-
-/* (No Comment) */
 "Attention, the sensor sends faulty values. Please wait 10 minutes." = "Sensori antaa typeriä lukemia. Kokeile uudellen 10 min kuluttua.";
 
 /* (No Comment) */

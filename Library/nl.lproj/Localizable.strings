@@ -311,45 +311,6 @@
 "App version" = "Versie";
 
 /* (No Comment) */
-"Unknown" = "Onbekend";
-
-/* (No Comment) */
-"Invalid parameters" = "Ongeldige parameters";
-
-/* (No Comment) */
-"Invalid handle" = "Ongeldig handvat";
-
-/* (No Comment) */
-"Not connected" = "Geen verbinding";
-
-/* (No Comment) */
-"Out of space" = "Geen ruimte beschikbaar";
-
-/* (No Comment) */
-"Operation cancelled" = "Opdracht geannuleerd";
-
-/* (No Comment) */
-"Connection timeout" = "Time-out van de verbinding";
-
-/* (No Comment) */
-"Peripheral disconnected" = "Peripheral losgekoppeld";
-
-/* (No Comment) */
-"UUID not allowed" = "UUID niet toegestaan";
-
-/* (No Comment) */
-"Already advertising" = "Already advertising";
-
-/* (No Comment) */
-"Connection failed" = "Verbinden mislukt";
-
-/* (No Comment) */
-"Connection limit reached" = "Verbindingslimiet bereikt";
-
-/* (No Comment) */
-"Operation not supported" = "Bewerking niet ondersteund";
-
-/* (No Comment) */
 "Attention, the sensor sends faulty values. Please wait 10 minutes." = "Let op, de sensor geeft foutieve waarden. Wacht 10 minuten.";
 
 /* (No Comment) */
