@@ -350,10 +350,10 @@
 "Readable falling" = "düşüyor";
 
 /* (No Comment) */
-"Readable fast falling" = "hızlı düşen";
+"Readable fast falling" = "hızlı düşüyor";
 
 /* (No Comment) */
-"Readable rapidly falling" = "hızla düşen";
+"Readable rapidly falling" = "çok hızlı düşüyor";
 
 /* (No Comment) */
 "Readable rising" = "yükseliyor";
@@ -557,7 +557,7 @@
 "Statistics (%@ days)" = "İstatistikler (%@ gün)";
 
 /* (No Comment) */
-"%@ Entries" = "%@ Entries";
+"%@ Entries" = "%@ Girdi";
 
 /* (No Comment) */
-"%@ Entry" = "%@ Entry";
+"%@ Entry" = "%@ Giriş";
