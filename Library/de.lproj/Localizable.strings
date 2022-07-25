@@ -555,3 +555,9 @@
 
 /* (No Comment) */
 "Statistics (%@ days)" = "Statistiken (%@ Tage)";
+
+/* (No Comment) */
+"%@ Entries" = "%@ Entries";
+
+/* (No Comment) */
+"%@ Entry" = "%@ Entry";
