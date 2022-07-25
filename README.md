@@ -61,7 +61,7 @@ I am very happy to receive feedback - suggestions for improvement or reports of 
 ## Support?
 - I appreciate all the translations I get. Just drop by Crowdin, every translation helps :) https://crwd.in/glucose-direct-app
 
-## Thank you all hardworking translators for your great work <3
+## Thank you all hardworking translators for your great work ❤️
 birdfly, Diabetlum, Fcourela, goldshotter, keyzersemen, Timmy_otoole, evr, JBM_, Mrzurgon, albertodeviaje2, HellsCrimson, georgin303, eyesoganci, mrfrostt, ferdytao, jjerbstein, Bmwmax73, Kobe24, CrazySugarNL, immatexeira, anton-tony_v, Bubblan, yinojiang
 
 ## Todo
