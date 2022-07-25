@@ -170,7 +170,7 @@
 "Sensor lifetime" = "Kullanım ömrü";
 
 /* (No Comment) */
-"Missed readings" = "Kaçan";
+"Missed readings" = "Eksik";
 
 /* (No Comment) */
 "Sensor not yet startet" = "Sensör henüz başlamadı";
@@ -230,7 +230,7 @@
 "Wearing time alarm" = "Giyme zaman alarmı";
 
 /* (No Comment) */
-"Your current glucose is %1$@ (%2$@)." = "Şu anki KŞ'iniz %1$@ (%2$@).";
+"Your current glucose is %1$@ (%2$@)." = "Şu anki KŞ'niz %1$@ (%2$@).";
 
 /* (No Comment) */
 "Your glucose %1$@ (%2$@) is dangerously high and needs to be treated." = "KŞ'niz, %1$@ (%2$@), tehlikeli derecede yüksek ve ilgilenilmesi gerekmekte.";
@@ -350,19 +350,19 @@
 "Readable falling" = "düşüyor";
 
 /* (No Comment) */
-"Readable fast falling" = "hızlı düşen";
+"Readable fast falling" = "hızlı düşüyor";
 
 /* (No Comment) */
-"Readable rapidly falling" = "hızla düşen";
+"Readable rapidly falling" = "çok hızlı düşüyor";
 
 /* (No Comment) */
 "Readable rising" = "yükseliyor";
 
 /* (No Comment) */
-"Readable fast rising" = "hızlı yükselen";
+"Readable fast rising" = "hızlı yükseliyor";
 
 /* (No Comment) */
-"Readable rapidly rising" = "hızla yükselen";
+"Readable rapidly rising" = "çok hızlı yükseliyor";
 
 /* (No Comment) */
 "Read aloud" = "Sesli oku";
@@ -555,3 +555,9 @@
 
 /* (No Comment) */
 "Statistics (%@ days)" = "İstatistikler (%@ gün)";
+
+/* (No Comment) */
+"%@ Entries" = "%@ Girdiler";
+
+/* (No Comment) */
+"%@ Entry" = "%@ Girdi";
