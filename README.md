@@ -45,6 +45,7 @@ App programmed in Swift/SwiftUI for using Libre 1/2 blood glucose sensors. I try
 - Spanish
 - Swedish
 - Turkish
+[![Crowdin](https://badges.crowdin.net/glucose-direct-app/localized.svg)](https://crowdin.com/project/glucose-direct-app)
 
 ## Requirements
 - Apple iPhone with iOS 15
