@@ -71,9 +71,6 @@
 "Custom calibration slope" = "Kulma";
 
 /* (No Comment) */
-"Delete" = "Poista";
-
-/* (No Comment) */
 "Delete all" = "Poista kaikki";
 
 /* (No Comment) */
@@ -84,9 +81,6 @@
 
 /* (No Comment) */
 "Disconnected" = "Yhteys katkaistu";
-
-/* (No Comment) */
-"Glucose alarm" = "Glukoosihälytys";
 
 /* (No Comment) */
 "Glucose list view" = "Luettelo";
@@ -170,9 +164,6 @@
 "Sensor lifetime" = "Lifetime";
 
 /* (No Comment) */
-"Missed readings" = "Missed";
-
-/* (No Comment) */
 "Sensor not yet startet" = "Sensori ei ole vielä käynnistynyt";
 
 /* (No Comment) */
@@ -209,13 +200,7 @@
 "Snooze until" = "Torkuta";
 
 /* (No Comment) */
-"Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "Valitettavasti sovelluksen käyttäminen edellyttää NFC-yhteensopivaa iPhonea :'(";
-
-/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired.";
-
-/* (No Comment) */
-"The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor." = "The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor.";
 
 /* (No Comment) */
 "Unknown" = "Tuntematon";
@@ -257,12 +242,6 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Your sensor is about to expire. Replace sensor in %1$@ minutes.";
 
 /* (No Comment) */
-"Glucose badge" = "Glucose badge";
-
-/* (No Comment) */
-"Are you sure you want to add the new blood glucose value?" = "Are you sure you want to add the new blood glucose value?";
-
-/* (No Comment) */
 "Line" = "Line";
 
 /* (No Comment) */
@@ -291,12 +270,6 @@
 
 /* (No Comment) */
 "Pairing" = "Paritetaan";
-
-/* (No Comment) */
-"Calendar export" = "Kalenteriin lähetys";
-
-/* (No Comment) */
-"Calendar export enabled" = "Lähetä";
 
 /* (No Comment) */
 "Selected calendar" = "Kalenteri";
@@ -365,15 +338,6 @@
 "Readable rapidly rising" = "rapidly rising";
 
 /* (No Comment) */
-"Read aloud" = "Read aloud";
-
-/* (No Comment) */
-"Glucose read aloud" = "Glucose read aloud";
-
-/* (No Comment) */
-"Glucose values are read aloud:" = "Glucose values are read aloud:";
-
-/* (No Comment) */
 "Every 10 minutes" = "- Every 10 minutes";
 
 /* (No Comment) */
@@ -390,9 +354,6 @@
 
 /* (No Comment) */
 "App support mail" = "Support";
-
-/* (No Comment) */
-"Attention, faulty value received" = "Attention, faulty value received";
 
 /* (No Comment) */
 "App translation" = "Translation";
@@ -420,9 +381,6 @@
 
 /* (No Comment) */
 "Retry pairing" = "Retry pairing";
-
-/* (No Comment) */
-"Scanned sensor expired" = "Sensor expired";
 
 /* (No Comment) */
 "Retrieval interval" = "Retrieval interval";
@@ -470,18 +428,6 @@
 "Glucose notification" = "Glucose notification";
 
 /* (No Comment) */
-"Notification settings" = "Notification settings";
-
-/* (No Comment) */
-"Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter.";
-
-/* (No Comment) */
-"The value from the blood glucose meter can then be added via 'List', at the top 'Add'." = "The value from the blood glucose meter can then be added via 'List', at the top 'Add'.";
-
-/* (No Comment) */
-"Transmitter ID" = "Identifier";
-
-/* (No Comment) */
 "Time" = "Aika";
 
 /* (No Comment) */
@@ -489,9 +435,6 @@
 
 /* (No Comment) */
 "Transmitter details" = "Transmitter details";
-
-/* (No Comment) */
-"Sensor" = "Sensor";
 
 /* (No Comment) */
 "Glucose widget" = "Glucose";

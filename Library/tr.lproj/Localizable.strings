@@ -71,9 +71,6 @@
 "Custom calibration slope" = "Eğim";
 
 /* (No Comment) */
-"Delete" = "Sil";
-
-/* (No Comment) */
 "Delete all" = "Tümünü sil";
 
 /* (No Comment) */
@@ -84,9 +81,6 @@
 
 /* (No Comment) */
 "Disconnected" = "Bağlantı kesildi";
-
-/* (No Comment) */
-"Glucose alarm" = "Glikoz alarmı";
 
 /* (No Comment) */
 "Glucose list view" = "Liste";
@@ -170,9 +164,6 @@
 "Sensor lifetime" = "Kullanım ömrü";
 
 /* (No Comment) */
-"Missed readings" = "Eksik";
-
-/* (No Comment) */
 "Sensor not yet startet" = "Sensör henüz başlamadı";
 
 /* (No Comment) */
@@ -209,13 +200,7 @@
 "Snooze until" = "Erteleme";
 
 /* (No Comment) */
-"Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "Maalesef, uygulamayı kullanabilmek için NFC özellikli bir iPhone gerekiyor :'(";
-
-/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "Sensörle bağlantı kesildi. Normalde bu sensör menzil dışında olduğunda veya iletim gücü bozulduğunda olur.";
-
-/* (No Comment) */
-"The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor." = "Sensör bağlanamıyor ve tüm bağlantı girişimlerini reddediyor. Sensörün yeniden eşleştirilmesi gerekmektedir.";
 
 /* (No Comment) */
 "Unknown" = "Bilinmeyen";
@@ -257,12 +242,6 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Sensörünüzün süresi dolmak üzere. Sensörü %1$@ dakika içinde değiştirin.";
 
 /* (No Comment) */
-"Glucose badge" = "Glikoz rozeti";
-
-/* (No Comment) */
-"Are you sure you want to add the new blood glucose value?" = "Yeni kan şekeri değerini eklemek istediğinizden emin misiniz?";
-
-/* (No Comment) */
 "Line" = "Çizgi";
 
 /* (No Comment) */
@@ -291,12 +270,6 @@
 
 /* (No Comment) */
 "Pairing" = "Eşleştiriliyor";
-
-/* (No Comment) */
-"Calendar export" = "Takvim dışa aktarma";
-
-/* (No Comment) */
-"Calendar export enabled" = "Dışa Aktar";
 
 /* (No Comment) */
 "Selected calendar" = "Takvim";
@@ -365,15 +338,6 @@
 "Readable rapidly rising" = "çok hızlı yükseliyor";
 
 /* (No Comment) */
-"Read aloud" = "Sesli oku";
-
-/* (No Comment) */
-"Glucose read aloud" = "Glikozu sesli oku";
-
-/* (No Comment) */
-"Glucose values are read aloud:" = "Glikoz değerleri sesli okunur:";
-
-/* (No Comment) */
 "Every 10 minutes" = "- Her 10 dakikada bir";
 
 /* (No Comment) */
@@ -390,9 +354,6 @@
 
 /* (No Comment) */
 "App support mail" = "Destek";
-
-/* (No Comment) */
-"Attention, faulty value received" = "Dikkat, hatalı değer alındı";
 
 /* (No Comment) */
 "App translation" = "Çeviri";
@@ -420,9 +381,6 @@
 
 /* (No Comment) */
 "Retry pairing" = "Eşleştirmeyi tekrar dene";
-
-/* (No Comment) */
-"Scanned sensor expired" = "Sensör süresi doldu";
 
 /* (No Comment) */
 "Retrieval interval" = "Geri alma aralığı";
@@ -470,18 +428,6 @@
 "Glucose notification" = "Glikoz bildirimi";
 
 /* (No Comment) */
-"Notification settings" = "Bildirim ayarları";
-
-/* (No Comment) */
-"Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Dikkat, ani, aşırı yüksek bir glikoz değeri bir sensör hatasına işaret edebilir. Lütfen bu değeri bir kan şekeri ölçüm cihazı ile kontrol edin.";
-
-/* (No Comment) */
-"The value from the blood glucose meter can then be added via 'List', at the top 'Add'." = "Kan şekeri ölçüm cihazından alınan değer, daha sonra 'Liste'ye üst kısımdaki 'Ekle' ile eklenebilir.";
-
-/* (No Comment) */
-"Transmitter ID" = "Tanımlayıcı";
-
-/* (No Comment) */
 "Time" = "Zaman";
 
 /* (No Comment) */
@@ -489,9 +435,6 @@
 
 /* (No Comment) */
 "Transmitter details" = "Verici ayrıntıları";
-
-/* (No Comment) */
-"Sensor" = "Sensör";
 
 /* (No Comment) */
 "Glucose widget" = "Glikoz";
