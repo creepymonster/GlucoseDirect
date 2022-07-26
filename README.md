@@ -35,19 +35,19 @@ App programmed in Swift/SwiftUI for using Libre 1/2 blood glucose sensors. I try
 - Loop (Workspace, dev branch) support, [Loop CGM Manager](https://github.com/creepymonster/GlucoseDirectClient)
 
 ## Available languages
-- English
-- ![zh-CN translation](https://img.shields.io/badge/dynamic/json?color=blue&label=zh-CN&style=flat-square&query=%24.progress.10.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Chinese (simplified)
-- ![zh-TW translation](https://img.shields.io/badge/dynamic/json?color=blue&label=zh-TW&style=flat-square&query=%24.progress.11.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Chinese (traditional)
-- ![fi translation](https://img.shields.io/badge/dynamic/json?color=blue&label=fi&style=flat-square&query=%24.progress.2.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Finnish
-- ![de translation](https://img.shields.io/badge/dynamic/json?color=blue&label=de&style=flat-square&query=%24.progress.0.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) German
-- ![it translation](https://img.shields.io/badge/dynamic/json?color=blue&label=it&style=flat-square&query=%24.progress.4.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Italian
-- ![pt-PT translation](https://img.shields.io/badge/dynamic/json?color=blue&label=pt-PT&style=flat-square&query=%24.progress.6.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Portuguese
-- ![ru translation](https://img.shields.io/badge/dynamic/json?color=blue&label=ru&style=flat-square&query=%24.progress.7.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Russian
-- ![es-ES translation](https://img.shields.io/badge/dynamic/json?color=blue&label=es-ES&style=flat-square&query=%24.progress.1.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Spanish
-- ![sv-SE translation](https://img.shields.io/badge/dynamic/json?color=blue&label=sv-SE&style=flat-square&query=%24.progress.8.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Swedish
-- ![tr translation](https://img.shields.io/badge/dynamic/json?color=blue&label=tr&style=flat-square&query=%24.progress.9.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Turkish
-- ![fr translation](https://img.shields.io/badge/dynamic/json?color=blue&label=fr&style=flat-square&query=%24.progress.3.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) French
-- ![nl translation](https://img.shields.io/badge/dynamic/json?color=blue&label=nl&style=flat-square&query=%24.progress.5.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Dutch
+English
+![zh-CN translation](https://img.shields.io/badge/dynamic/json?color=blue&label=zh-CN&style=flat-square&query=%24.progress.10.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Chinese (simplified)
+![zh-TW translation](https://img.shields.io/badge/dynamic/json?color=blue&label=zh-TW&style=flat-square&query=%24.progress.11.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Chinese (traditional)
+![fi translation](https://img.shields.io/badge/dynamic/json?color=blue&label=fi&style=flat-square&query=%24.progress.2.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Finnish
+![de translation](https://img.shields.io/badge/dynamic/json?color=blue&label=de&style=flat-square&query=%24.progress.0.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) German
+![it translation](https://img.shields.io/badge/dynamic/json?color=blue&label=it&style=flat-square&query=%24.progress.4.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Italian
+![pt-PT translation](https://img.shields.io/badge/dynamic/json?color=blue&label=pt-PT&style=flat-square&query=%24.progress.6.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Portuguese
+![ru translation](https://img.shields.io/badge/dynamic/json?color=blue&label=ru&style=flat-square&query=%24.progress.7.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Russian
+![es-ES translation](https://img.shields.io/badge/dynamic/json?color=blue&label=es-ES&style=flat-square&query=%24.progress.1.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Spanish
+![sv-SE translation](https://img.shields.io/badge/dynamic/json?color=blue&label=sv-SE&style=flat-square&query=%24.progress.8.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Swedish
+![tr translation](https://img.shields.io/badge/dynamic/json?color=blue&label=tr&style=flat-square&query=%24.progress.9.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Turkish
+![fr translation](https://img.shields.io/badge/dynamic/json?color=blue&label=fr&style=flat-square&query=%24.progress.3.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) French
+![nl translation](https://img.shields.io/badge/dynamic/json?color=blue&label=nl&style=flat-square&query=%24.progress.5.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Dutch
 
 ## Requirements
 - Apple iPhone with iOS 15
