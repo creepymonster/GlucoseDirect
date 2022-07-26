@@ -61,18 +61,8 @@ I am very happy to receive feedback - suggestions for improvement or reports of 
 ## Support?
 - I appreciate all the translations I get. Just drop by Crowdin, every translation helps :) https://crwd.in/glucose-direct-app
 
-## Many thanks goes to
-- **Richard** for the design of the app icon
-- **Jon-b-m** and **bubblan** for your translation into Swedish
-- **birdfly** for your translation into Chinese (simplified and traditional)
-- **Timmy_otoole** and **albertodeviaje2** for your translation into Spanish
-- **goldshotter** and **ferdytao** for your translation into Italian
-- **Fcourela** for your translation into Portuguese
-- **keyzersemen**, **georgin303** and **anton-tony_v** for your translation into Russian
-- **mrfrostt** and **Mrzurgon** for your translation into Finnish
-- **Diabetlum** for your translation into Turkish
-- **Thanks to all Paypal supporters**
-- **All** who contribute to the app with their ideas
+## Thank you all hardworking translators for your great work ❤️
+birdfly, Diabetlum, Fcourela, goldshotter, keyzersemen, Timmy_otoole, evr, JBM_, Mrzurgon, albertodeviaje2, HellsCrimson, georgin303, eyesoganci, mrfrostt, ferdytao, jjerbstein, Bmwmax73, Kobe24, CrazySugarNL, immatexeira, anton-tony_v, Bubblan, yinojiang
 
 ## Todo
 - Cache Nightscout uploads without an Internet connection and run them later
