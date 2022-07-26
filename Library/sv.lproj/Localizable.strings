@@ -71,9 +71,6 @@
 "Custom calibration slope" = "Lutning";
 
 /* (No Comment) */
-"Delete" = "Ta bort";
-
-/* (No Comment) */
 "Delete all" = "Ta bort alla";
 
 /* (No Comment) */
@@ -84,9 +81,6 @@
 
 /* (No Comment) */
 "Disconnected" = "Frånkopplad";
-
-/* (No Comment) */
-"Glucose alarm" = "Blodsockerlarm";
 
 /* (No Comment) */
 "Glucose list view" = "Lista";
@@ -170,9 +164,6 @@
 "Sensor lifetime" = "Livstid";
 
 /* (No Comment) */
-"Missed readings" = "Missad";
-
-/* (No Comment) */
 "Sensor not yet startet" = "Sensor har inte startat ännu";
 
 /* (No Comment) */
@@ -209,13 +200,7 @@
 "Snooze until" = "Snooza tills";
 
 /* (No Comment) */
-"Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "Tyvärr, en iPhone med NFC krävs för att använda denna app :'(";
-
-/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "Anslutningen till sensorn har avbrutits. Normalt händer detta när sensorn är utom räckvidd eller när dess överföringskapacitet är nedsatt.";
-
-/* (No Comment) */
-"The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor." = "Sensorn kan inte anslutas och avvisar alla anslutningsförsök. Detta problem gör det nödvändigt att göra en ny parkoppling av sensorn. ";
 
 /* (No Comment) */
 "Unknown" = "Okänd";
@@ -257,12 +242,6 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Din sensor går snart ut. Byt sensor om %1$@ minuter.";
 
 /* (No Comment) */
-"Glucose badge" = "Visa blodsocker på ikon";
-
-/* (No Comment) */
-"Are you sure you want to add the new blood glucose value?" = "Bekräfta att du vill lägga till ett nytt glukosvärde.";
-
-/* (No Comment) */
 "Line" = "Linje";
 
 /* (No Comment) */
@@ -291,12 +270,6 @@
 
 /* (No Comment) */
 "Pairing" = "Parkopplar";
-
-/* (No Comment) */
-"Calendar export" = "Exportera kalender";
-
-/* (No Comment) */
-"Calendar export enabled" = "Exportera";
 
 /* (No Comment) */
 "Selected calendar" = "Kalender";
@@ -365,15 +338,6 @@
 "Readable rapidly rising" = "hastigt stigande";
 
 /* (No Comment) */
-"Read aloud" = "Läs upp";
-
-/* (No Comment) */
-"Glucose read aloud" = "Glukos läses upp";
-
-/* (No Comment) */
-"Glucose values are read aloud:" = "Glukosvärden läses upp:";
-
-/* (No Comment) */
 "Every 10 minutes" = "Var 10: e minut";
 
 /* (No Comment) */
@@ -390,9 +354,6 @@
 
 /* (No Comment) */
 "App support mail" = "Support";
-
-/* (No Comment) */
-"Attention, faulty value received" = "Observera, felvärde mottaget";
 
 /* (No Comment) */
 "App translation" = "Översättning";
@@ -420,9 +381,6 @@
 
 /* (No Comment) */
 "Retry pairing" = "Försök att parkoppla igen";
-
-/* (No Comment) */
-"Scanned sensor expired" = "Sensorn har gått ut";
 
 /* (No Comment) */
 "Retrieval interval" = "Uppdateringsintervall";
@@ -470,18 +428,6 @@
 "Glucose notification" = "Glucose notification";
 
 /* (No Comment) */
-"Notification settings" = "Notification settings";
-
-/* (No Comment) */
-"Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter.";
-
-/* (No Comment) */
-"The value from the blood glucose meter can then be added via 'List', at the top 'Add'." = "The value from the blood glucose meter can then be added via 'List', at the top 'Add'.";
-
-/* (No Comment) */
-"Transmitter ID" = "Identifier";
-
-/* (No Comment) */
 "Time" = "Tid";
 
 /* (No Comment) */
@@ -489,9 +435,6 @@
 
 /* (No Comment) */
 "Transmitter details" = "Transmitter details";
-
-/* (No Comment) */
-"Sensor" = "Sensor";
 
 /* (No Comment) */
 "Glucose widget" = "Glucose";
