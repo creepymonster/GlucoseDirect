@@ -14,7 +14,7 @@
 "Add glucose for calibration" = "Añadir glucosa para calibrar";
 
 /* (No Comment) */
-"Add calibration" = "Añadir calibración ";
+"Add calibration" = "Añadir calibración";
 
 /* (No Comment) */
 "Add blood glucose" = "Añadir glucosa en sangre";
@@ -296,7 +296,7 @@
 "Sensor starting date" = "Fecha de inicio";
 
 /* (No Comment) */
-"Sensor ending date" = "Fecha de finalización ";
+"Sensor ending date" = "Fecha de finalización";
 
 /* (No Comment) */
 "Delete log files" = "Borrar archivos de registro";
@@ -356,7 +356,7 @@
 "App support mail" = "Soporte";
 
 /* (No Comment) */
-"App translation" = "Translation ";
+"App translation" = "Translation";
 
 /* (No Comment) */
 "App faq" = "FAQ";
@@ -377,106 +377,106 @@
 "Vibration" = "Solo vibrar";
 
 /* (No Comment) */
-"Scan sensor" = "Sensor de escaneo ";
+"Scan sensor" = "Sensor de escaneo";
 
 /* (No Comment) */
-"Retry pairing" = "Reintentar emparejamiento ";
+"Retry pairing" = "Reintentar emparejamiento";
 
 /* (No Comment) */
-"Retrieval interval" = "Intervalo de recuperación ";
+"Retrieval interval" = "Intervalo de recuperación";
 
 /* (No Comment) */
-"Retrieval interval, every minute" = "Cada minuto ";
+"Retrieval interval, every minute" = "Cada minuto";
 
 /* (No Comment) */
 "Retrieval interval, every %1$@ minutes" = "Cada 10 minutos";
 
 /* (No Comment) */
-"App donate" = "Donar ";
+"App donate" = "Donar";
 
 /* (No Comment) */
-"Bellman alarm" = "Alarma ";
+"Bellman alarm" = "Alarma";
 
 /* (No Comment) */
-"Bellman test alarm" = "Alarma de prueba ";
+"Bellman test alarm" = "Alarma de prueba";
 
 /* (No Comment) */
-"Bellman telephone transceiver BT" = "Transceptor Bellman BT ";
+"Bellman telephone transceiver BT" = "Transceptor Bellman BT";
 
 /* (No Comment) */
-"Find transmitter" = "Buscar transmisor ";
+"Find transmitter" = "Buscar transmisor";
 
 /* (No Comment) */
-"Connect transmitter" = "Conectar transmisor ";
+"Connect transmitter" = "Conectar transmisor";
 
 /* (No Comment) */
-"Disconnect transmitter" = "Desconectar transmisor ";
+"Disconnect transmitter" = "Desconectar transmisor";
 
 /* (No Comment) */
-"Rescan the sensor" = "Volver a escanear el sensor ";
+"Rescan the sensor" = "Volver a escanear el sensor";
 
 /* (No Comment) */
-"Apple export settings" = "Ajustes de exportación de Apple ";
+"Apple export settings" = "Ajustes de exportación de Apple";
 
 /* (No Comment) */
-"Export to Apple Health" = "Exportar a Apple Health ";
+"Export to Apple Health" = "Exportar a Apple Health";
 
 /* (No Comment) */
-"Export to Apple Calendar" = "Exportar a Apple Calendar ";
+"Export to Apple Calendar" = "Exportar a Apple Calendar";
 
 /* (No Comment) */
-"Glucose notification" = "Notificación de glucosa ";
+"Glucose notification" = "Notificación de glucosa";
 
 /* (No Comment) */
 "Time" = "Tiempo";
 
 /* (No Comment) */
-"Glucose" = "Glucosa ";
+"Glucose" = "Glucosa";
 
 /* (No Comment) */
-"Transmitter details" = "Datos del transmisor ";
+"Transmitter details" = "Datos del transmisor";
 
 /* (No Comment) */
-"Glucose widget" = "Glucosa ";
+"Glucose widget" = "Glucosa";
 
 /* (No Comment) */
-"Glucose widget description" = "Muestra el último valor de glucosa. ";
+"Glucose widget description" = "Muestra el último valor de glucosa.";
 
 /* (No Comment) */
-"Sensor lifetime widget" = "Vida útil del sensor ";
+"Sensor lifetime widget" = "Vida útil del sensor";
 
 /* (No Comment) */
-"Sensor lifetime widget description" = "Muestra la vida útil restante del sensor de corriente como una cuenta regresiva. ";
+"Sensor lifetime widget description" = "Muestra la vida útil restante del sensor de corriente como una cuenta regresiva.";
 
 /* (No Comment) */
-"Transmitter battery widget" = "Batería del transmisor ";
+"Transmitter battery widget" = "Batería del transmisor";
 
 /* (No Comment) */
-"Transmitter battery widget description" = "Muestra la carga restante de la batería del transmisor como una cuenta regresiva. ";
+"Transmitter battery widget description" = "Muestra la carga restante de la batería del transmisor como una cuenta regresiva.";
 
 /* (No Comment) */
 "Warmup" = "Preparación";
 
 /* (No Comment) */
-"No screen lock" = "Sin bloqueo de pantalla ";
+"No screen lock" = "Sin bloqueo de pantalla";
 
 /* (No Comment) */
-"LibreLink transmitter" = "Transmisor LibreLink ";
+"LibreLink transmitter" = "Transmisor LibreLink";
 
 /* (No Comment) */
-"Use LibreLink to start the sensor" = "Utiliza LibreLink para iniciar el sensor ";
+"Use LibreLink to start the sensor" = "Utiliza LibreLink para iniciar el sensor";
 
 /* (No Comment) */
-"Sensor glucose values" = "CGM ";
+"Sensor glucose values" = "CGM";
 
 /* (No Comment) */
-"Sensor error values" = "Errores de CGM ";
+"Sensor error values" = "Errores de CGM";
 
 /* (No Comment) */
-"Blood glucose values" = "BGM ";
+"Blood glucose values" = "BGM";
 
 /* (No Comment) */
-"At least %@ days of data are required." = "Se requieren al menos %@ días de datos. ";
+"At least %@ days of data are required." = "Se requieren al menos %@ días de datos.";
 
 /* (No Comment) */
 "Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "La media (AVG) es una medida global de los niveles de azúcar en sangre en un periodo de tiempo, que ofrece una vista única a gran escala de donde la glucosa se ha situado.";
@@ -497,10 +497,10 @@
 "Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "La desviación estándar (DE) es una medida de la dispersión de las lecturas de glucosa en torno a la media: el rebote entre muchos máximos y mínimos da lugar a una DE mayor. El objetivo es la menor DE posible, que reflejaría un nivel de glucosa estable con oscilaciones mínimas.";
 
 /* (No Comment) */
-"Statistics (%@ days)" = "Estadísticas (%@ días) ";
+"Statistics (%@ days)" = "Estadísticas (%@ días)";
 
 /* (No Comment) */
-"%@ Entries" = "%@ entradas ";
+"%@ Entries" = "%@ entradas";
 
 /* (No Comment) */
-"%@ Entry" = "%@ entrada ";
+"%@ Entry" = "%@ entrada";
