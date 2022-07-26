@@ -53,7 +53,7 @@ struct ListsView: View {
                                     }
                                     
                                     if store.state.showAnnotations {
-                                        Text("Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between many highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings.")
+                                        Text("Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings.")
                                             .font(.footnote)
                                             .foregroundColor(.gray)
                                     }

@@ -1,11 +1,11 @@
 /* Bundle display name */
-"CFBundleDisplayName" = "Glucose Direct";
+"CFBundleDisplayName" = "Glucosa directa";
 
 /* Bundle name */
-"CFBundleName" = "Glucose Direct";
+"CFBundleName" = "Glucosa directa";
 
 /* Privacy - NFC Scan Usage Description */
-"NFCReaderUsageDescription" = "La función NFC es necesaria para leer todos los ajustes de conexión antes de una conexión Bluetooth.";
+"NFCReaderUsageDescription" = "The NFC function is required to read out all connection settings before a Bluetooth connection.";
 
 /* Privacy - Bluetooth Always Usage Description */
 "NSBluetoothAlwaysUsageDescription" = "La función Bluetooth es necesaria para conectarse a los dispositivos compatibles.";
@@ -20,4 +20,4 @@
 "NSHealthShareUsageDescription" = "Es necesario acceder a Apple Health si se quieren exportar los datos de glucosa.";
 
 /* Privacy - Health Update Usage Description */
-"NSHealthUpdateUsageDescription" = "Access to Apple Health is required if glucose data should be exported.";
+"NSHealthUpdateUsageDescription" = "Es necesario acceder a Apple Health si se quieren exportar los datos de glucosa.";

@@ -71,9 +71,6 @@
 "Custom calibration slope" = "斜率";
 
 /* (No Comment) */
-"Delete" = "删除";
-
-/* (No Comment) */
 "Delete all" = "删除所有";
 
 /* (No Comment) */
@@ -84,9 +81,6 @@
 
 /* (No Comment) */
 "Disconnected" = "已断开连接";
-
-/* (No Comment) */
-"Glucose alarm" = "葡萄糖报警";
 
 /* (No Comment) */
 "Glucose list view" = "列表";
@@ -164,13 +158,10 @@
 "Sensor is ready" = "传感器已就绪";
 
 /* (No Comment) */
-"Sensor is shut down" = "Sensor is expired";
+"Sensor is shut down" = "传感器已过期";
 
 /* (No Comment) */
 "Sensor lifetime" = "寿命";
-
-/* (No Comment) */
-"Missed readings" = "错过了";
 
 /* (No Comment) */
 "Sensor not yet startet" = "传感器尚未启动";
@@ -179,7 +170,7 @@
 "Sensor PatchInfo" = "PatchInfo";
 
 /* (No Comment) */
-"Sensor possible lifetime" = "Lifetime";
+"Sensor possible lifetime" = "寿命";
 
 /* (No Comment) */
 "Sensor region" = "地区";
@@ -194,7 +185,7 @@
 "Sensor serial" = "序列号";
 
 /* (No Comment) */
-"Sensor state" = "State";
+"Sensor state" = "状态";
 
 /* (No Comment) */
 "Sensor type" = "类型";
@@ -209,13 +200,7 @@
 "Snooze until" = "静默报警";
 
 /* (No Comment) */
-"Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "抱歉，您的iPhone不支持NFC :' (";
-
-/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "与传感器的连接已被中断。通常这种情况发生在传感器超出范围或其传输功率受损的情况下。";
-
-/* (No Comment) */
-"The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor." = "传感器不能被连接，并拒绝所有的连接尝试。请重新配对传感器。";
 
 /* (No Comment) */
 "Unknown" = "未知";
@@ -257,12 +242,6 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "您的传感器即将过期。在 %1$@ 分钟内更换传感器。";
 
 /* (No Comment) */
-"Glucose badge" = "Glucose 标志";
-
-/* (No Comment) */
-"Are you sure you want to add the new blood glucose value?" = "你确定要添加新的血糖值吗？";
-
-/* (No Comment) */
 "Line" = "线";
 
 /* (No Comment) */
@@ -293,12 +272,6 @@
 "Pairing" = "配对";
 
 /* (No Comment) */
-"Calendar export" = "导出日历";
-
-/* (No Comment) */
-"Calendar export enabled" = "导出";
-
-/* (No Comment) */
 "Selected calendar" = "日历";
 
 /* (No Comment) */
@@ -309,45 +282,6 @@
 
 /* (No Comment) */
 "App version" = "版本";
-
-/* (No Comment) */
-"Unknown" = "未知";
-
-/* (No Comment) */
-"Invalid parameters" = "参数无效";
-
-/* (No Comment) */
-"Invalid handle" = "无效处理";
-
-/* (No Comment) */
-"Not connected" = "未连接";
-
-/* (No Comment) */
-"Out of space" = "空间不足";
-
-/* (No Comment) */
-"Operation cancelled" = "操作已取消。";
-
-/* (No Comment) */
-"Connection timeout" = "连接超时";
-
-/* (No Comment) */
-"Peripheral disconnected" = "发射器已断开";
-
-/* (No Comment) */
-"UUID not allowed" = "UUID无效";
-
-/* (No Comment) */
-"Already advertising" = "一直广播";
-
-/* (No Comment) */
-"Connection failed" = "连接失败";
-
-/* (No Comment) */
-"Connection limit reached" = "达到连接限制";
-
-/* (No Comment) */
-"Operation not supported" = "不支持此操作";
 
 /* (No Comment) */
 "Attention, the sensor sends faulty values. Please wait 10 minutes." = "注意，传感器发送错误的数值。请等待10分钟。";
@@ -404,15 +338,6 @@
 "Readable rapidly rising" = "rapidly rising";
 
 /* (No Comment) */
-"Read aloud" = "Read aloud";
-
-/* (No Comment) */
-"Glucose read aloud" = "Glucose read aloud";
-
-/* (No Comment) */
-"Glucose values are read aloud:" = "Glucose values are read aloud:";
-
-/* (No Comment) */
 "Every 10 minutes" = "- Every 10 minutes";
 
 /* (No Comment) */
@@ -429,9 +354,6 @@
 
 /* (No Comment) */
 "App support mail" = "Support";
-
-/* (No Comment) */
-"Attention, faulty value received" = "Attention, faulty value received";
 
 /* (No Comment) */
 "App translation" = "Translation";
@@ -459,9 +381,6 @@
 
 /* (No Comment) */
 "Retry pairing" = "Retry pairing";
-
-/* (No Comment) */
-"Scanned sensor expired" = "传感器已过期";
 
 /* (No Comment) */
 "Retrieval interval" = "Retrieval interval";
@@ -509,18 +428,6 @@
 "Glucose notification" = "Glucose notification";
 
 /* (No Comment) */
-"Notification settings" = "Notification settings";
-
-/* (No Comment) */
-"Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter.";
-
-/* (No Comment) */
-"The value from the blood glucose meter can then be added via 'List', at the top 'Add'." = "The value from the blood glucose meter can then be added via 'List', at the top 'Add'.";
-
-/* (No Comment) */
-"Transmitter ID" = "Identifier";
-
-/* (No Comment) */
 "Time" = "时间";
 
 /* (No Comment) */
@@ -528,9 +435,6 @@
 
 /* (No Comment) */
 "Transmitter details" = "Transmitter details";
-
-/* (No Comment) */
-"Sensor" = "Sensor";
 
 /* (No Comment) */
 "Glucose widget" = "Glucose";
@@ -575,27 +479,6 @@
 "At least %@ days of data are required." = "At least %@ days of data are required.";
 
 /* (No Comment) */
-"AVG" = "AVG";
-
-/* (No Comment) */
-"Estimated A1c" = "Estimated A1c/HbA1c";
-
-/* (No Comment) */
-"GMI" = "GMI";
-
-/* (No Comment) */
-"TIR" = "TIR";
-
-/* (No Comment) */
-"TAR" = "TAR";
-
-/* (No Comment) */
-"TBR" = "TBR";
-
-/* (No Comment) */
-"SD" = "SD";
-
-/* (No Comment) */
 "Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been.";
 
 /* (No Comment) */
@@ -611,7 +494,13 @@
 "Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Time above Range (TAR) or the percentage of time spent above the target glucose of %@.";
 
 /* (No Comment) */
-"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between many highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between many highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings.";
+"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between many highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings.";
 
 /* (No Comment) */
 "Statistics (%@ days)" = "Statistics (%@ days)";
+
+/* (No Comment) */
+"%@ Entries" = "%@ Entries";
+
+/* (No Comment) */
+"%@ Entry" = "%@ Entry";

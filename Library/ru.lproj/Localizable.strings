@@ -14,10 +14,10 @@
 "Add glucose for calibration" = "Добавьте глюкозу для калибровки";
 
 /* (No Comment) */
-"Add calibration" = "Add calibration";
+"Add calibration" = "Добавить калибровку";
 
 /* (No Comment) */
-"Add blood glucose" = "Add blood glucose";
+"Add blood glucose" = "Добавить глюкозу крови ";
 
 /* (No Comment) */
 "Alert, high glucose" = "Тревога, высокий уровень глюкозы";
@@ -71,9 +71,6 @@
 "Custom calibration slope" = "Склонение";
 
 /* (No Comment) */
-"Delete" = "Удалить";
-
-/* (No Comment) */
 "Delete all" = "Удалить все";
 
 /* (No Comment) */
@@ -84,9 +81,6 @@
 
 /* (No Comment) */
 "Disconnected" = "Отключен";
-
-/* (No Comment) */
-"Glucose alarm" = "Тревога по ГК";
 
 /* (No Comment) */
 "Glucose list view" = "Таблица ГК";
@@ -170,9 +164,6 @@
 "Sensor lifetime" = "Время жизни";
 
 /* (No Comment) */
-"Missed readings" = "Пропущено";
-
-/* (No Comment) */
 "Sensor not yet startet" = "Сенсор еще не запущен";
 
 /* (No Comment) */
@@ -209,13 +200,7 @@
 "Snooze until" = "Отложить";
 
 /* (No Comment) */
-"Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "К сожалению, для использования приложения требуется iPhone с поддержкой NFC :'(";
-
-/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "Соединение с датчиком прервано. Обычно это происходит, когда датчик находится вне зоны действия или его мощность передачи данных снижена.";
-
-/* (No Comment) */
-"The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor." = "Датчик не может быть подключен и отклоняет все попытки подключения. Эта проблема приводит к необходимости повторного подключения датчика.";
 
 /* (No Comment) */
 "Unknown" = "Неизвестно";
@@ -257,12 +242,6 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Срок действия вашего датчика истекает. Замените датчик через %1$@ минут.";
 
 /* (No Comment) */
-"Glucose badge" = "Значок глюкозы";
-
-/* (No Comment) */
-"Are you sure you want to add the new blood glucose value?" = "Вы уверены, что хотите добавить новое значение глюкозы крови?";
-
-/* (No Comment) */
 "Line" = "Линия";
 
 /* (No Comment) */
@@ -293,12 +272,6 @@
 "Pairing" = "Сопряжение";
 
 /* (No Comment) */
-"Calendar export" = "Экспорт в Календарь ";
-
-/* (No Comment) */
-"Calendar export enabled" = "Экспорт";
-
-/* (No Comment) */
 "Selected calendar" = "Календарь";
 
 /* (No Comment) */
@@ -309,45 +282,6 @@
 
 /* (No Comment) */
 "App version" = "Версия";
-
-/* (No Comment) */
-"Unknown" = "Unknown";
-
-/* (No Comment) */
-"Invalid parameters" = "Неправильные параметры";
-
-/* (No Comment) */
-"Invalid handle" = "Неверный дескриптор";
-
-/* (No Comment) */
-"Not connected" = "Не подключено";
-
-/* (No Comment) */
-"Out of space" = "Недостаточно места";
-
-/* (No Comment) */
-"Operation cancelled" = "Операция отменена";
-
-/* (No Comment) */
-"Connection timeout" = "Время подключения истекло";
-
-/* (No Comment) */
-"Peripheral disconnected" = "Периферийное устройство отключено";
-
-/* (No Comment) */
-"UUID not allowed" = "UUID не разрешен";
-
-/* (No Comment) */
-"Already advertising" = "Реклама";
-
-/* (No Comment) */
-"Connection failed" = "Сбой подключения";
-
-/* (No Comment) */
-"Connection limit reached" = "Достигнут лимит соединений";
-
-/* (No Comment) */
-"Operation not supported" = "Операция не поддерживается";
 
 /* (No Comment) */
 "Attention, the sensor sends faulty values. Please wait 10 minutes." = "Внимание, датчик посылает ошибочные значения. Пожалуйста, подождите 10 минут.";
@@ -362,7 +296,7 @@
 "Sensor starting date" = "Дата старта";
 
 /* (No Comment) */
-"Sensor ending date" = "Ending date";
+"Sensor ending date" = "Дата окончания";
 
 /* (No Comment) */
 "Delete log files" = "Удаление файлов журнала";
@@ -404,15 +338,6 @@
 "Readable rapidly rising" = "очень быстрый рост";
 
 /* (No Comment) */
-"Read aloud" = "Читать вслух";
-
-/* (No Comment) */
-"Glucose read aloud" = "Глюкоза читается вслух";
-
-/* (No Comment) */
-"Glucose values are read aloud:" = "Показатели глюкозы зачитываются вслух:";
-
-/* (No Comment) */
 "Every 10 minutes" = "Каждые 10 минут";
 
 /* (No Comment) */
@@ -429,9 +354,6 @@
 
 /* (No Comment) */
 "App support mail" = "Поддержка";
-
-/* (No Comment) */
-"Attention, faulty value received" = "Внимание, получено дефектное значение";
 
 /* (No Comment) */
 "App translation" = "Перевод";
@@ -455,13 +377,10 @@
 "Vibration" = "Только вибрация";
 
 /* (No Comment) */
-"Scan sensor" = "Scan sensor";
+"Scan sensor" = "Датчик сканирования";
 
 /* (No Comment) */
 "Retry pairing" = "Повторное сопряжение";
-
-/* (No Comment) */
-"Scanned sensor expired" = "Сенсор закончился";
 
 /* (No Comment) */
 "Retrieval interval" = "Интервал обновления";
@@ -473,145 +392,115 @@
 "Retrieval interval, every %1$@ minutes" = "Каждые %1$@ минут";
 
 /* (No Comment) */
-"App donate" = "Donate";
+"App donate" = "Пожертвовать";
 
 /* (No Comment) */
 "Bellman alarm" = "Тревога";
 
 /* (No Comment) */
-"Bellman test alarm" = "Test alarm";
+"Bellman test alarm" = "Тестовое тревожное оповещение";
 
 /* (No Comment) */
 "Bellman telephone transceiver BT" = "Bellman Transceiver BT";
 
 /* (No Comment) */
-"Find transmitter" = "Find transmitter";
+"Find transmitter" = "Найти передатчик";
 
 /* (No Comment) */
-"Connect transmitter" = "Connect transmitter";
+"Connect transmitter" = "Подключить передатчик";
 
 /* (No Comment) */
-"Disconnect transmitter" = "Disconnect transmitter";
+"Disconnect transmitter" = "Отсоединить датчик";
 
 /* (No Comment) */
-"Rescan the sensor" = "Rescan the sensor";
+"Rescan the sensor" = "Повторное сканирование датчика";
 
 /* (No Comment) */
-"Apple export settings" = "Apple export settings";
+"Apple export settings" = "Настройки экспорта Apple";
 
 /* (No Comment) */
-"Export to Apple Health" = "Export to Apple Health";
+"Export to Apple Health" = "Экспорт в Apple Health";
 
 /* (No Comment) */
-"Export to Apple Calendar" = "Export to Apple Calendar";
+"Export to Apple Calendar" = "Экспорт в календарь Apple";
 
 /* (No Comment) */
-"Glucose notification" = "Glucose notification";
+"Glucose notification" = "Уведомление о глюкозе";
 
 /* (No Comment) */
-"Notification settings" = "Notification settings";
+"Time" = "Время";
 
 /* (No Comment) */
-"Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter.";
+"Glucose" = "Глюкоза";
 
 /* (No Comment) */
-"The value from the blood glucose meter can then be added via 'List', at the top 'Add'." = "The value from the blood glucose meter can then be added via 'List', at the top 'Add'.";
+"Transmitter details" = "Детали передатчика";
 
 /* (No Comment) */
-"Transmitter ID" = "Identifier";
+"Glucose widget" = "Глюкоза";
 
 /* (No Comment) */
-"Time" = "Time";
+"Glucose widget description" = "Отображает последнее значение глюкозы.";
 
 /* (No Comment) */
-"Glucose" = "Glucose";
+"Sensor lifetime widget" = "Срок службы датчика";
 
 /* (No Comment) */
-"Transmitter details" = "Transmitter details";
+"Sensor lifetime widget description" = "Отображает оставшийся срок службы текущего датчика в виде обратного отсчета.";
 
 /* (No Comment) */
-"Sensor" = "Sensor";
+"Transmitter battery widget" = "Батарея передатчика";
 
 /* (No Comment) */
-"Glucose widget" = "Glucose";
+"Transmitter battery widget description" = "Отображает оставшийся заряд батареи передатчика в качестве обратного отсчета.";
 
 /* (No Comment) */
-"Glucose widget description" = "Displays the last glucose value.";
+"Warmup" = "Разогрев";
 
 /* (No Comment) */
-"Sensor lifetime widget" = "Sensor Lifetime";
+"No screen lock" = "Без блокировки экрана";
 
 /* (No Comment) */
-"Sensor lifetime widget description" = "Displays the remaining lifetime of the current sensor as a countdown.";
+"LibreLink transmitter" = "Передатчик LibreLink";
 
 /* (No Comment) */
-"Transmitter battery widget" = "Transmitter Battery";
-
-/* (No Comment) */
-"Transmitter battery widget description" = "Displays the remaining battery charge of the transmitter as a countdown.";
-
-/* (No Comment) */
-"Warmup" = "Warmup";
-
-/* (No Comment) */
-"No screen lock" = "No screen lock";
-
-/* (No Comment) */
-"LibreLink transmitter" = "LibreLink Transmitter";
-
-/* (No Comment) */
-"Use LibreLink to start the sensor" = "Use LibreLink to start the sensor";
+"Use LibreLink to start the sensor" = "Используйте LibreLink для запуска датчика";
 
 /* (No Comment) */
 "Sensor glucose values" = "CGM";
 
 /* (No Comment) */
-"Sensor error values" = "CGM errors";
+"Sensor error values" = "Ошибки CGM";
 
 /* (No Comment) */
 "Blood glucose values" = "BGM";
 
 /* (No Comment) */
-"At least %@ days of data are required." = "At least %@ days of data are required.";
+"At least %@ days of data are required." = "Требуется получение данных не менее чем в течение %@ дней. ";
 
 /* (No Comment) */
-"AVG" = "AVG";
+"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Среднее значение (AVG) — это общий показатель уровня сахара в крови за определенный период времени, обеспечивающий единый высокоуровневый обзор того, где была обнаружена глюкоза.";
 
 /* (No Comment) */
-"Estimated A1c" = "Estimated A1c/HbA1c";
+"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Показатель контроля уровня глюкозы (GMI) является заменой «расчетного уровня HbA1c» для пациентов, использующих непрерывный мониторинг уровня глюкозы.";
 
 /* (No Comment) */
-"GMI" = "GMI";
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@ %@." = "Время в диапазоне (TIR) или процент времени, проведенного в целевом диапазоне глюкозы между %@ - %@.";
 
 /* (No Comment) */
-"TIR" = "TIR";
+"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Время ниже диапазона (TBR) или процент времени, проведенного ниже целевого уровня глюкозы %@.";
 
 /* (No Comment) */
-"TAR" = "TAR";
+"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Время выше диапазона (TAR) или процент времени, проведенного выше целевого уровня глюкозы %@.";
 
 /* (No Comment) */
-"TBR" = "TBR";
+"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Стандартное отклонение (SD) является мерой разброса показаний глюкозы вокруг среднего - отскакивание между многими максимумами и минимумами приводит к большему SD. Целью является наименьшее возможное SD, которое будет отражать устойчивый уровень глюкозы с минимальными колебаниями.";
 
 /* (No Comment) */
-"SD" = "SD";
+"Statistics (%@ days)" = "Статистика (%@ дня/дней)";
 
 /* (No Comment) */
-"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been.";
+"%@ Entries" = "%@ записи(-ей)";
 
 /* (No Comment) */
-"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring.";
-
-/* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@ %@." = "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@.";
-
-/* (No Comment) */
-"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Time below Range (TBR) or the percentage of time spent below the target glucose of %@.";
-
-/* (No Comment) */
-"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Time above Range (TAR) or the percentage of time spent above the target glucose of %@.";
-
-/* (No Comment) */
-"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between many highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between many highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings.";
-
-/* (No Comment) */
-"Statistics (%@ days)" = "Statistics (%@ days)";
+"%@ Entry" = "%@ запись";

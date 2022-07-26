@@ -71,9 +71,6 @@
 "Custom calibration slope" = "Steigung";
 
 /* (No Comment) */
-"Delete" = "Löschen";
-
-/* (No Comment) */
 "Delete all" = "Alle löschen";
 
 /* (No Comment) */
@@ -84,9 +81,6 @@
 
 /* (No Comment) */
 "Disconnected" = "Verbindung getrennt";
-
-/* (No Comment) */
-"Glucose alarm" = "Glukose Alarm";
 
 /* (No Comment) */
 "Glucose list view" = "Liste";
@@ -170,9 +164,6 @@
 "Sensor lifetime" = "Lebensdauer";
 
 /* (No Comment) */
-"Missed readings" = "Verpasst";
-
-/* (No Comment) */
 "Sensor not yet startet" = "Nicht gestartet";
 
 /* (No Comment) */
@@ -209,13 +200,7 @@
 "Snooze until" = "Schlummern";
 
 /* (No Comment) */
-"Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "Leider ist für die Nutzung der App ein NFC-fähiges iPhone erforderlich :'(";
-
-/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "Die Verbindung mit dem Sensor ist unterbrochen worden. Normalerweise geschieht dies, wenn der Sensor außerhalb der Reichweite oder seine Sendeleistung beeinträchtigt ist.";
-
-/* (No Comment) */
-"The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor." = "Der Sensor kann nicht verbunden werden und lehnt alle Verbindungsversuche ab. Dieses Problem macht es notwendig, den Sensor neu zu koppeln.";
 
 /* (No Comment) */
 "Unknown" = "Unbekannt";
@@ -257,12 +242,6 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Ihr Sensor läuft demnächst ab. Ersetzen Sie den Sensor in %1$@ Minuten.";
 
 /* (No Comment) */
-"Glucose badge" = "Glukose Badge";
-
-/* (No Comment) */
-"Are you sure you want to add the new blood glucose value?" = "Sind Sie sicher, dass Sie den neuen Blutzuckerwert hinzufügen möchten?";
-
-/* (No Comment) */
 "Line" = "Linie";
 
 /* (No Comment) */
@@ -293,12 +272,6 @@
 "Pairing" = "Wird gekoppelt";
 
 /* (No Comment) */
-"Calendar export" = "Kalender Export";
-
-/* (No Comment) */
-"Calendar export enabled" = "Export";
-
-/* (No Comment) */
 "Selected calendar" = "Kalender";
 
 /* (No Comment) */
@@ -309,45 +282,6 @@
 
 /* (No Comment) */
 "App version" = "Version";
-
-/* (No Comment) */
-"Unknown" = "Unknown";
-
-/* (No Comment) */
-"Invalid parameters" = "Ungültige Parameter";
-
-/* (No Comment) */
-"Invalid handle" = "Ungültiges Handle";
-
-/* (No Comment) */
-"Not connected" = "Nicht verbunden";
-
-/* (No Comment) */
-"Out of space" = "Zu wenig Speicherplatz";
-
-/* (No Comment) */
-"Operation cancelled" = "Operation abgebrochen";
-
-/* (No Comment) */
-"Connection timeout" = "Zeitüberschreitung";
-
-/* (No Comment) */
-"Peripheral disconnected" = "Verbindung getrennt";
-
-/* (No Comment) */
-"UUID not allowed" = "UUID nicht zulässig";
-
-/* (No Comment) */
-"Already advertising" = "Bereits annonciert";
-
-/* (No Comment) */
-"Connection failed" = "Verbindung fehlgeschlagen";
-
-/* (No Comment) */
-"Connection limit reached" = "Verbindungslimit erreicht";
-
-/* (No Comment) */
-"Operation not supported" = "Operation nicht unterstützt";
 
 /* (No Comment) */
 "Attention, the sensor sends faulty values. Please wait 10 minutes." = "Achtung, der Sensor sendet fehlerhafte Werte. Bitte warten Sie 10 Minuten.";
@@ -404,15 +338,6 @@
 "Readable rapidly rising" = "rapide steigend";
 
 /* (No Comment) */
-"Read aloud" = "Laut vorlesen";
-
-/* (No Comment) */
-"Glucose read aloud" = "Glukose vorlesen";
-
-/* (No Comment) */
-"Glucose values are read aloud:" = "Die Glukosewerte werden vorgelesen:";
-
-/* (No Comment) */
 "Every 10 minutes" = "- Alle 10 Minuten";
 
 /* (No Comment) */
@@ -429,9 +354,6 @@
 
 /* (No Comment) */
 "App support mail" = "Support";
-
-/* (No Comment) */
-"Attention, faulty value received" = "Achtung, fehlerhafter Wert";
 
 /* (No Comment) */
 "App translation" = "Übersetzung";
@@ -459,9 +381,6 @@
 
 /* (No Comment) */
 "Retry pairing" = "Koppeln wiederholen";
-
-/* (No Comment) */
-"Scanned sensor expired" = "Sensor abgelaufen";
 
 /* (No Comment) */
 "Retrieval interval" = "Aktualisierungs-Intervall";
@@ -509,18 +428,6 @@
 "Glucose notification" = "Glukose Mitteilungen";
 
 /* (No Comment) */
-"Notification settings" = "Mitteilungseinstellungen";
-
-/* (No Comment) */
-"Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Achtung, ein plötzlich auftretender, extrem hoher Blutzuckerwert kann auf einen Sensorfehler hinweisen. Bitte überprüfen Sie diesen Wert mit einem Blutzuckermessgerät.";
-
-/* (No Comment) */
-"The value from the blood glucose meter can then be added via 'List', at the top 'Add'." = "Der Wert aus dem Blutzuckermessgerät kann dann über \"Liste\", oben \"Hinzufügen\", hinzugefügt werden.";
-
-/* (No Comment) */
-"Transmitter ID" = "Kennung";
-
-/* (No Comment) */
 "Time" = "Zeit";
 
 /* (No Comment) */
@@ -528,9 +435,6 @@
 
 /* (No Comment) */
 "Transmitter details" = "Transmitter Details";
-
-/* (No Comment) */
-"Sensor" = "Sensor";
 
 /* (No Comment) */
 "Glucose widget" = "Glukose";
@@ -572,46 +476,31 @@
 "Blood glucose values" = "BGM";
 
 /* (No Comment) */
-"At least %@ days of data are required." = "At least %@ days of data are required.";
+"At least %@ days of data are required." = "Es werden mindestens %@ Tage an Daten benötigt.";
 
 /* (No Comment) */
-"AVG" = "AVG";
+"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Average (AVG) oder Durchschnitt ist ein einfaches Maß für Blutzuckerwerte über einen bestimmten Zeitraum und bietet einen ungefähren Überblick über den Blutzuckerspiegel.";
 
 /* (No Comment) */
-"Estimated A1c" = "Estimated A1c/HbA1c";
+"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Glucose Management Indicator (GMI) ist ein Ersatz für den geschätzten HbA1c-Wert für Patienten, die eine kontinuierliche Glukoseüberwachung verwenden.";
 
 /* (No Comment) */
-"GMI" = "GMI";
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@ %@." = "Time in Range (TIR) oder der prozentuale Anteil der Zeit, die im Zielbereich zwischen %@ - %@ verbracht wurde.";
 
 /* (No Comment) */
-"TIR" = "TIR";
+"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Time below Range (TBR) oder der prozentuale Anteil der Zeit, die unterhalb des Zielwerts von %@ verbracht wurde.";
 
 /* (No Comment) */
-"TAR" = "TAR";
+"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Time above Range (TAR) oder der prozentuale Anteil der Zeit, die oberhalb des Zielwerts von %@ verbracht wurde.";
 
 /* (No Comment) */
-"TBR" = "TBR";
+"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Standard Deviation (SD) oder Standardabweichung ist ein Maß für die Streuung der Glukosemesswerte um den Durchschnitt - wenn sie zwischen vielen Höchst- und Tiefstwerten schwankt, ergibt sich eine höhere SD. Das Ziel ist eine möglichst niedrige SD, die einen konstanten Blutzuckerspiegel mit minimalen Schwankungen widerspiegelt.";
 
 /* (No Comment) */
-"SD" = "SD";
+"Statistics (%@ days)" = "Statistiken (%@ Tage)";
 
 /* (No Comment) */
-"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been.";
+"%@ Entries" = "%@ Einträge";
 
 /* (No Comment) */
-"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring.";
-
-/* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@ %@." = "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@.";
-
-/* (No Comment) */
-"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Time below Range (TBR) or the percentage of time spent below the target glucose of %@.";
-
-/* (No Comment) */
-"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Time above Range (TAR) or the percentage of time spent above the target glucose of %@.";
-
-/* (No Comment) */
-"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between many highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between many highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings.";
-
-/* (No Comment) */
-"Statistics (%@ days)" = "Statistics (%@ days)";
+"%@ Entry" = "%@ Eintrag";

@@ -71,9 +71,6 @@
 "Custom calibration slope" = "Kulma";
 
 /* (No Comment) */
-"Delete" = "Poista";
-
-/* (No Comment) */
 "Delete all" = "Poista kaikki";
 
 /* (No Comment) */
@@ -84,9 +81,6 @@
 
 /* (No Comment) */
 "Disconnected" = "Yhteys katkaistu";
-
-/* (No Comment) */
-"Glucose alarm" = "Glukoosihälytys";
 
 /* (No Comment) */
 "Glucose list view" = "Luettelo";
@@ -170,9 +164,6 @@
 "Sensor lifetime" = "Lifetime";
 
 /* (No Comment) */
-"Missed readings" = "Missed";
-
-/* (No Comment) */
 "Sensor not yet startet" = "Sensori ei ole vielä käynnistynyt";
 
 /* (No Comment) */
@@ -209,13 +200,7 @@
 "Snooze until" = "Torkuta";
 
 /* (No Comment) */
-"Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "Valitettavasti sovelluksen käyttäminen edellyttää NFC-yhteensopivaa iPhonea :'(";
-
-/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired.";
-
-/* (No Comment) */
-"The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor." = "The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor.";
 
 /* (No Comment) */
 "Unknown" = "Tuntematon";
@@ -257,12 +242,6 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Your sensor is about to expire. Replace sensor in %1$@ minutes.";
 
 /* (No Comment) */
-"Glucose badge" = "Glucose badge";
-
-/* (No Comment) */
-"Are you sure you want to add the new blood glucose value?" = "Are you sure you want to add the new blood glucose value?";
-
-/* (No Comment) */
 "Line" = "Line";
 
 /* (No Comment) */
@@ -293,12 +272,6 @@
 "Pairing" = "Paritetaan";
 
 /* (No Comment) */
-"Calendar export" = "Kalenteriin lähetys";
-
-/* (No Comment) */
-"Calendar export enabled" = "Lähetä";
-
-/* (No Comment) */
 "Selected calendar" = "Kalenteri";
 
 /* (No Comment) */
@@ -309,45 +282,6 @@
 
 /* (No Comment) */
 "App version" = "Versio";
-
-/* (No Comment) */
-"Unknown" = "Unknown";
-
-/* (No Comment) */
-"Invalid parameters" = "Invalid parameters";
-
-/* (No Comment) */
-"Invalid handle" = "Invalid handle";
-
-/* (No Comment) */
-"Not connected" = "Ei yhdistetty";
-
-/* (No Comment) */
-"Out of space" = "Tila loppu";
-
-/* (No Comment) */
-"Operation cancelled" = "Peruttu";
-
-/* (No Comment) */
-"Connection timeout" = "Yhteyden aikakatkaisu";
-
-/* (No Comment) */
-"Peripheral disconnected" = "Peripheral disconnected";
-
-/* (No Comment) */
-"UUID not allowed" = "UUID ei ole saatavilla";
-
-/* (No Comment) */
-"Already advertising" = "Already advertising";
-
-/* (No Comment) */
-"Connection failed" = "Yhteys epäonnistui";
-
-/* (No Comment) */
-"Connection limit reached" = "Connection limit reached";
-
-/* (No Comment) */
-"Operation not supported" = "Toiminto ei sallittu";
 
 /* (No Comment) */
 "Attention, the sensor sends faulty values. Please wait 10 minutes." = "Sensori antaa typeriä lukemia. Kokeile uudellen 10 min kuluttua.";
@@ -404,15 +338,6 @@
 "Readable rapidly rising" = "rapidly rising";
 
 /* (No Comment) */
-"Read aloud" = "Read aloud";
-
-/* (No Comment) */
-"Glucose read aloud" = "Glucose read aloud";
-
-/* (No Comment) */
-"Glucose values are read aloud:" = "Glucose values are read aloud:";
-
-/* (No Comment) */
 "Every 10 minutes" = "- Every 10 minutes";
 
 /* (No Comment) */
@@ -429,9 +354,6 @@
 
 /* (No Comment) */
 "App support mail" = "Support";
-
-/* (No Comment) */
-"Attention, faulty value received" = "Attention, faulty value received";
 
 /* (No Comment) */
 "App translation" = "Translation";
@@ -459,9 +381,6 @@
 
 /* (No Comment) */
 "Retry pairing" = "Retry pairing";
-
-/* (No Comment) */
-"Scanned sensor expired" = "Sensor expired";
 
 /* (No Comment) */
 "Retrieval interval" = "Retrieval interval";
@@ -509,28 +428,13 @@
 "Glucose notification" = "Glucose notification";
 
 /* (No Comment) */
-"Notification settings" = "Notification settings";
-
-/* (No Comment) */
-"Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter.";
-
-/* (No Comment) */
-"The value from the blood glucose meter can then be added via 'List', at the top 'Add'." = "The value from the blood glucose meter can then be added via 'List', at the top 'Add'.";
-
-/* (No Comment) */
-"Transmitter ID" = "Identifier";
-
-/* (No Comment) */
-"Time" = "Time";
+"Time" = "Aika";
 
 /* (No Comment) */
 "Glucose" = "Glucose";
 
 /* (No Comment) */
 "Transmitter details" = "Transmitter details";
-
-/* (No Comment) */
-"Sensor" = "Sensor";
 
 /* (No Comment) */
 "Glucose widget" = "Glucose";
@@ -551,7 +455,7 @@
 "Transmitter battery widget description" = "Displays the remaining battery charge of the transmitter as a countdown.";
 
 /* (No Comment) */
-"Warmup" = "Warmup";
+"Warmup" = "Käynnistys";
 
 /* (No Comment) */
 "No screen lock" = "No screen lock";
@@ -575,27 +479,6 @@
 "At least %@ days of data are required." = "At least %@ days of data are required.";
 
 /* (No Comment) */
-"AVG" = "AVG";
-
-/* (No Comment) */
-"Estimated A1c" = "Estimated A1c/HbA1c";
-
-/* (No Comment) */
-"GMI" = "GMI";
-
-/* (No Comment) */
-"TIR" = "TIR";
-
-/* (No Comment) */
-"TAR" = "TAR";
-
-/* (No Comment) */
-"TBR" = "TBR";
-
-/* (No Comment) */
-"SD" = "SD";
-
-/* (No Comment) */
 "Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been.";
 
 /* (No Comment) */
@@ -611,7 +494,13 @@
 "Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Time above Range (TAR) or the percentage of time spent above the target glucose of %@.";
 
 /* (No Comment) */
-"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between many highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between many highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings.";
+"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between many highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings.";
 
 /* (No Comment) */
 "Statistics (%@ days)" = "Statistics (%@ days)";
+
+/* (No Comment) */
+"%@ Entries" = "%@ Entries";
+
+/* (No Comment) */
+"%@ Entry" = "%@ Entry";
