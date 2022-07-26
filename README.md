@@ -35,16 +35,19 @@ App programmed in Swift/SwiftUI for using Libre 1/2 blood glucose sensors. I try
 - Loop (Workspace, dev branch) support, [Loop CGM Manager](https://github.com/creepymonster/GlucoseDirectClient)
 
 ## Available languages
-- Chinese (simplified and traditional)
 - English
-- Finnish
-- German
-- Italian
-- Portuguese
-- Russian
-- Spanish
-- Swedish
-- Turkish
+- Chinese (simplified) ![zh-CN translation](https://img.shields.io/badge/dynamic/json?color=blue&label=zh-CN&style=flat-square&query=%24.progress.10.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json)
+- Chinese (traditional) ![zh-TW translation](https://img.shields.io/badge/dynamic/json?color=blue&label=zh-TW&style=flat-square&query=%24.progress.11.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json)
+- Finnish ![fi translation](https://img.shields.io/badge/dynamic/json?color=blue&label=fi&style=flat-square&query=%24.progress.2.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json)
+- German ![de translation](https://img.shields.io/badge/dynamic/json?color=blue&label=de&style=flat-square&query=%24.progress.0.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json)
+- Italian ![it translation](https://img.shields.io/badge/dynamic/json?color=blue&label=it&style=flat-square&query=%24.progress.4.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json)
+- Portuguese ![pt-PT translation](https://img.shields.io/badge/dynamic/json?color=blue&label=pt-PT&style=flat-square&query=%24.progress.6.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json)
+- Russian ![ru translation](https://img.shields.io/badge/dynamic/json?color=blue&label=ru&style=flat-square&query=%24.progress.7.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json)
+- Spanish ![es-ES translation](https://img.shields.io/badge/dynamic/json?color=blue&label=es-ES&style=flat-square&query=%24.progress.1.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json)
+- Swedish ![sv-SE translation](https://img.shields.io/badge/dynamic/json?color=blue&label=sv-SE&style=flat-square&query=%24.progress.8.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json)
+- Turkish ![tr translation](https://img.shields.io/badge/dynamic/json?color=blue&label=tr&style=flat-square&query=%24.progress.9.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json)
+- French ![fr translation](https://img.shields.io/badge/dynamic/json?color=blue&label=fr&style=flat-square&query=%24.progress.3.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json)
+- Dutch ![nl translation](https://img.shields.io/badge/dynamic/json?color=blue&label=nl&style=flat-square&query=%24.progress.5.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json)
 
 ## Requirements
 - Apple iPhone with iOS 15
