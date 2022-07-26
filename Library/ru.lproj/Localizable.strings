@@ -71,9 +71,6 @@
 "Custom calibration slope" = "Склонение";
 
 /* (No Comment) */
-"Delete" = "Удалить";
-
-/* (No Comment) */
 "Delete all" = "Удалить все";
 
 /* (No Comment) */
@@ -84,9 +81,6 @@
 
 /* (No Comment) */
 "Disconnected" = "Отключен";
-
-/* (No Comment) */
-"Glucose alarm" = "Тревога по ГК";
 
 /* (No Comment) */
 "Glucose list view" = "Таблица ГК";
@@ -170,9 +164,6 @@
 "Sensor lifetime" = "Время жизни";
 
 /* (No Comment) */
-"Missed readings" = "Пропущено";
-
-/* (No Comment) */
 "Sensor not yet startet" = "Сенсор еще не запущен";
 
 /* (No Comment) */
@@ -209,13 +200,7 @@
 "Snooze until" = "Отложить";
 
 /* (No Comment) */
-"Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "К сожалению, для использования приложения требуется iPhone с поддержкой NFC :'(";
-
-/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "Соединение с датчиком прервано. Обычно это происходит, когда датчик находится вне зоны действия или его мощность передачи данных снижена.";
-
-/* (No Comment) */
-"The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor." = "Датчик не может быть подключен и отклоняет все попытки подключения. Эта проблема приводит к необходимости повторного подключения датчика.";
 
 /* (No Comment) */
 "Unknown" = "Неизвестно";
@@ -257,12 +242,6 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Срок действия вашего датчика истекает. Замените датчик через %1$@ минут.";
 
 /* (No Comment) */
-"Glucose badge" = "Значок глюкозы";
-
-/* (No Comment) */
-"Are you sure you want to add the new blood glucose value?" = "Вы уверены, что хотите добавить новое значение глюкозы крови?";
-
-/* (No Comment) */
 "Line" = "Линия";
 
 /* (No Comment) */
@@ -291,12 +270,6 @@
 
 /* (No Comment) */
 "Pairing" = "Сопряжение";
-
-/* (No Comment) */
-"Calendar export" = "Экспорт в Календарь ";
-
-/* (No Comment) */
-"Calendar export enabled" = "Экспорт";
 
 /* (No Comment) */
 "Selected calendar" = "Календарь";
@@ -365,15 +338,6 @@
 "Readable rapidly rising" = "очень быстрый рост";
 
 /* (No Comment) */
-"Read aloud" = "Читать вслух";
-
-/* (No Comment) */
-"Glucose read aloud" = "Глюкоза читается вслух";
-
-/* (No Comment) */
-"Glucose values are read aloud:" = "Показатели глюкозы зачитываются вслух:";
-
-/* (No Comment) */
 "Every 10 minutes" = "Каждые 10 минут";
 
 /* (No Comment) */
@@ -390,9 +354,6 @@
 
 /* (No Comment) */
 "App support mail" = "Поддержка";
-
-/* (No Comment) */
-"Attention, faulty value received" = "Внимание, получено дефектное значение";
 
 /* (No Comment) */
 "App translation" = "Перевод";
@@ -420,9 +381,6 @@
 
 /* (No Comment) */
 "Retry pairing" = "Повторное сопряжение";
-
-/* (No Comment) */
-"Scanned sensor expired" = "Сенсор закончился";
 
 /* (No Comment) */
 "Retrieval interval" = "Интервал обновления";
@@ -470,18 +428,6 @@
 "Glucose notification" = "Glucose notification";
 
 /* (No Comment) */
-"Notification settings" = "Notification settings";
-
-/* (No Comment) */
-"Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter.";
-
-/* (No Comment) */
-"The value from the blood glucose meter can then be added via 'List', at the top 'Add'." = "The value from the blood glucose meter can then be added via 'List', at the top 'Add'.";
-
-/* (No Comment) */
-"Transmitter ID" = "Identifier";
-
-/* (No Comment) */
 "Time" = "Время";
 
 /* (No Comment) */
@@ -489,9 +435,6 @@
 
 /* (No Comment) */
 "Transmitter details" = "Transmitter details";
-
-/* (No Comment) */
-"Sensor" = "Sensor";
 
 /* (No Comment) */
 "Glucose widget" = "Glucose";

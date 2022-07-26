@@ -71,9 +71,6 @@
 "Custom calibration slope" = "斜率";
 
 /* (No Comment) */
-"Delete" = "删除";
-
-/* (No Comment) */
 "Delete all" = "删除所有";
 
 /* (No Comment) */
@@ -84,9 +81,6 @@
 
 /* (No Comment) */
 "Disconnected" = "已断开连接";
-
-/* (No Comment) */
-"Glucose alarm" = "葡萄糖报警";
 
 /* (No Comment) */
 "Glucose list view" = "列表";
@@ -170,9 +164,6 @@
 "Sensor lifetime" = "寿命";
 
 /* (No Comment) */
-"Missed readings" = "错过了";
-
-/* (No Comment) */
 "Sensor not yet startet" = "传感器尚未启动";
 
 /* (No Comment) */
@@ -209,13 +200,7 @@
 "Snooze until" = "静默报警";
 
 /* (No Comment) */
-"Unfortunately, an NFC-enabled iPhone is required to use the app :'(" = "抱歉，您的iPhone不支持NFC :' (";
-
-/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "与传感器的连接已被中断。通常这种情况发生在传感器超出范围或其传输功率受损的情况下。";
-
-/* (No Comment) */
-"The sensor cannot be connected and rejects all connection attempts. This problem makes it necessary to re-pair the sensor." = "传感器不能被连接，并拒绝所有的连接尝试。请重新配对传感器。";
 
 /* (No Comment) */
 "Unknown" = "未知";
@@ -257,12 +242,6 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "您的传感器即将过期。在 %1$@ 分钟内更换传感器。";
 
 /* (No Comment) */
-"Glucose badge" = "Glucose 标志";
-
-/* (No Comment) */
-"Are you sure you want to add the new blood glucose value?" = "你确定要添加新的血糖值吗？";
-
-/* (No Comment) */
 "Line" = "线";
 
 /* (No Comment) */
@@ -291,12 +270,6 @@
 
 /* (No Comment) */
 "Pairing" = "配对";
-
-/* (No Comment) */
-"Calendar export" = "导出日历";
-
-/* (No Comment) */
-"Calendar export enabled" = "导出";
 
 /* (No Comment) */
 "Selected calendar" = "日历";
@@ -365,15 +338,6 @@
 "Readable rapidly rising" = "rapidly rising";
 
 /* (No Comment) */
-"Read aloud" = "Read aloud";
-
-/* (No Comment) */
-"Glucose read aloud" = "Glucose read aloud";
-
-/* (No Comment) */
-"Glucose values are read aloud:" = "Glucose values are read aloud:";
-
-/* (No Comment) */
 "Every 10 minutes" = "- Every 10 minutes";
 
 /* (No Comment) */
@@ -390,9 +354,6 @@
 
 /* (No Comment) */
 "App support mail" = "Support";
-
-/* (No Comment) */
-"Attention, faulty value received" = "Attention, faulty value received";
 
 /* (No Comment) */
 "App translation" = "Translation";
@@ -420,9 +381,6 @@
 
 /* (No Comment) */
 "Retry pairing" = "Retry pairing";
-
-/* (No Comment) */
-"Scanned sensor expired" = "传感器已过期";
 
 /* (No Comment) */
 "Retrieval interval" = "Retrieval interval";
@@ -470,18 +428,6 @@
 "Glucose notification" = "Glucose notification";
 
 /* (No Comment) */
-"Notification settings" = "Notification settings";
-
-/* (No Comment) */
-"Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter." = "Caution, a sudden, extremely high glucose value may indicate a sensor error. Please check this value with a blood glucose meter.";
-
-/* (No Comment) */
-"The value from the blood glucose meter can then be added via 'List', at the top 'Add'." = "The value from the blood glucose meter can then be added via 'List', at the top 'Add'.";
-
-/* (No Comment) */
-"Transmitter ID" = "Identifier";
-
-/* (No Comment) */
 "Time" = "时间";
 
 /* (No Comment) */
@@ -489,9 +435,6 @@
 
 /* (No Comment) */
 "Transmitter details" = "Transmitter details";
-
-/* (No Comment) */
-"Sensor" = "Sensor";
 
 /* (No Comment) */
 "Glucose widget" = "Glucose";
