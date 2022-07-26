@@ -6,6 +6,7 @@
 import Combine
 import Foundation
 import UserNotifications
+import SwiftUI
 
 #if canImport(CoreNFC)
     import CoreNFC
@@ -41,14 +42,8 @@ struct AppState: DirectState {
             UserDefaults.shared.transmitter = transmitter
         }
 
-        if let alarmHigh = UserDefaults.standard.alarmHigh {
-            self.alarmHigh = alarmHigh
-        }
-
-        if let alarmLow = UserDefaults.standard.alarmLow {
-            self.alarmLow = alarmLow
-        }
-
+        self.alarmHigh = UserDefaults.standard.alarmHigh ?? 180
+        self.alarmLow =  UserDefaults.standard.alarmLow ?? 80
         self.alarmSnoozeUntil = UserDefaults.standard.alarmSnoozeUntil
         self.appleCalendarExport = UserDefaults.standard.appleCalendarExport
         self.appleHealthExport = UserDefaults.standard.appleHealthExport
@@ -73,14 +68,15 @@ struct AppState: DirectState {
         self.readGlucose = UserDefaults.standard.readGlucose
         self.selectedCalendarTarget = UserDefaults.standard.selectedCalendarTarget
         self.selectedConnectionID = UserDefaults.standard.selectedConnectionID ?? defaultConnectionID
-        self.selectedView = UserDefaults.standard.selectedView
         self.sensor = UserDefaults.shared.sensor
         self.sensorInterval = UserDefaults.standard.sensorInterval
+        self.showAnnotations = UserDefaults.standard.showAnnotations
         self.transmitter = UserDefaults.shared.transmitter
     }
 
     // MARK: Internal
 
+    var appState: ScenePhase = .inactive
     var bellmanConnectionState: BellmanConnectionState = .disconnected
     var bloodGlucoseHistory: [BloodGlucose] = []
     var bloodGlucoseValues: [BloodGlucose] = []
@@ -94,14 +90,16 @@ struct AppState: DirectState {
     var sensorErrorValues: [SensorError] = []
     var sensorGlucoseHistory: [SensorGlucose] = []
     var sensorGlucoseValues: [SensorGlucose] = []
+    var glucoseStatistics: GlucoseStatistics? = nil
     var targetValue = 100
+    var selectedView = DirectConfig.overviewViewTag
 
-    var alarmHigh: Int = 160 { didSet { UserDefaults.standard.alarmHigh = alarmHigh } }
-    var alarmLow: Int = 80 { didSet { UserDefaults.standard.alarmLow = alarmLow } }
+    var alarmHigh: Int { didSet { UserDefaults.standard.alarmHigh = alarmHigh } }
+    var alarmLow: Int { didSet { UserDefaults.standard.alarmLow = alarmLow } }
     var alarmSnoozeUntil: Date? { didSet { UserDefaults.standard.alarmSnoozeUntil = alarmSnoozeUntil } }
     var appleCalendarExport: Bool { didSet { UserDefaults.standard.appleCalendarExport = appleCalendarExport } }
     var appleHealthExport: Bool { didSet { UserDefaults.standard.appleHealthExport = appleHealthExport } }
-    var bellmanAlarm = false { didSet { UserDefaults.standard.bellmanAlarm = bellmanAlarm } }
+    var bellmanAlarm: Bool { didSet { UserDefaults.standard.bellmanAlarm = bellmanAlarm } }
     var chartShowLines: Bool { didSet { UserDefaults.standard.chartShowLines = chartShowLines } }
     var chartZoomLevel: Int { didSet { UserDefaults.standard.chartZoomLevel = chartZoomLevel } }
     var connectionAlarmSound: NotificationSound { didSet { UserDefaults.standard.connectionAlarmSound = connectionAlarmSound } }
@@ -122,8 +120,8 @@ struct AppState: DirectState {
     var readGlucose: Bool { didSet { UserDefaults.standard.readGlucose = readGlucose } }
     var selectedCalendarTarget: String? { didSet { UserDefaults.standard.selectedCalendarTarget = selectedCalendarTarget } }
     var selectedConnectionID: String? { didSet { UserDefaults.standard.selectedConnectionID = selectedConnectionID } }
-    var selectedView: Int { didSet { UserDefaults.standard.selectedView = selectedView } }
     var sensor: Sensor? { didSet { UserDefaults.shared.sensor = sensor } }
     var sensorInterval: Int { didSet { UserDefaults.standard.sensorInterval = sensorInterval } }
+    var showAnnotations: Bool { didSet { UserDefaults.standard.showAnnotations = showAnnotations } }
     var transmitter: Transmitter? { didSet { UserDefaults.shared.transmitter = transmitter } }
 }

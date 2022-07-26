@@ -129,10 +129,11 @@ private func createSimulatorAppStore() -> DirectStore {
         widgetCenterMiddleware(),
         screenLockMiddleware(),
         sensorErrorMiddleware(),
+        glucoseStatisticsMiddleware()
     ]
 
     middlewares.append(sensorConnectorMiddelware([
-        SensorConnectionInfo(id: DirectConfig.virtualID, name: "Virtual") { VirtualLibreConnection(subject: $0) },
+        SensorConnectionInfo(id: DirectConfig.virtualID, name: "Virtual") { VirtualLibreConnection(subject: $0) }
     ]))
 
     #if DEBUG
@@ -163,6 +164,7 @@ private func createAppStore() -> DirectStore {
         widgetCenterMiddleware(),
         screenLockMiddleware(),
         sensorErrorMiddleware(),
+        glucoseStatisticsMiddleware()
     ]
 
     var connectionInfos: [SensorConnectionInfo] = []

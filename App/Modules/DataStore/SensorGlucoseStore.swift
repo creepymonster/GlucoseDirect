@@ -9,16 +9,47 @@ import Combine
 import Foundation
 import GRDB
 
-func sensorGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
-    return { _, action, _ in
+func glucoseStatisticsMiddleware() -> Middleware<DirectState, DirectAction> {
+    return { state, action, _ in
         switch action {
         case .startup:
             DataStore.shared.createSensorGlucoseTable()
-
-            return Just(DirectAction.loadSensorGlucoseValues)
+            
+        case .loadSensorGlucoseValues:
+            return Just(DirectAction.loadSensorGlucoseStatistics)
                 .setFailureType(to: DirectError.self)
                 .eraseToAnyPublisher()
 
+        case .setAlarmLow(lowerLimit: _):
+            return Just(DirectAction.loadSensorGlucoseStatistics)
+                .setFailureType(to: DirectError.self)
+                .eraseToAnyPublisher()
+
+        case .setAlarmHigh(upperLimit: _):
+            return Just(DirectAction.loadSensorGlucoseStatistics)
+                .setFailureType(to: DirectError.self)
+                .eraseToAnyPublisher()
+
+        case .loadSensorGlucoseStatistics:
+            guard state.appState == .active else {
+                break
+            }
+
+            return DataStore.shared.getSensorGlucoseStatistics(lowerLimit: state.alarmLow, upperLimit: state.alarmHigh).map { statistics in
+                DirectAction.setGlucoseStatistics(statistics: statistics)
+            }.eraseToAnyPublisher()
+
+        default:
+            break
+        }
+
+        return Empty().eraseToAnyPublisher()
+    }
+}
+
+func sensorGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
+    return { state, action, _ in
+        switch action {
         case .addSensorGlucose(glucoseValues: let glucoseValues):
             guard !glucoseValues.isEmpty else {
                 break
@@ -45,9 +76,13 @@ func sensorGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
                 .eraseToAnyPublisher()
 
         case .loadSensorGlucoseValues:
+            guard state.appState == .active else {
+                break
+            }
+
             return Publishers.MergeMany(
-                DataStore.shared.setSensorGlucoseValues().map { glucoseValues in
-                    DirectLog.info("setSensorGlucoseValues")
+                DataStore.shared.getSensorGlucoseValues().map { glucoseValues in
+                    DirectLog.info("getSensorGlucoseValues")
                     return DirectAction.setSensorGlucoseValues(glucoseValues: glucoseValues)
                 },
                 DataStore.shared.getSensorGlucoseHistory().map { glucoseValues in
@@ -55,6 +90,15 @@ func sensorGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
                     return DirectAction.setSensorGlucoseHistory(glucoseHistory: glucoseValues)
                 }
             ).eraseToAnyPublisher()
+
+        case .setAppState(appState: let appState):
+            guard appState == .active else {
+                break
+            }
+
+            return Just(DirectAction.loadSensorGlucoseValues)
+                .setFailureType(to: DirectError.self)
+                .eraseToAnyPublisher()
 
         default:
             break
@@ -148,7 +192,13 @@ extension DataStore {
                 try dbQueue.write { db in
                     values.forEach { value in
                         do {
-                            try value.insert(db)
+//                            let count = try SensorGlucose
+//                                .filter(Column(SensorGlucose.Columns.timestamp.name) == value.timestamp)
+//                                .fetchCount(db)
+//
+//                            if count == 0 {
+                                try value.insert(db)
+//                            }
                         } catch {
                             DirectLog.error(error.localizedDescription)
                         }
@@ -160,7 +210,55 @@ extension DataStore {
         }
     }
 
-    func setSensorGlucoseValues(upToDay: Int = 1) -> Future<[SensorGlucose], DirectError> {
+    func getSensorGlucoseStatistics(lowerLimit: Int, upperLimit: Int) -> Future<GlucoseStatistics, DirectError> {
+        return Future { promise in
+            if let dbQueue = self.dbQueue {
+                dbQueue.asyncRead { asyncDB in
+                    do {
+                        let db = try asyncDB.get()
+
+                        if let row = try Row.fetchOne(db, sql: """
+                            SELECT
+                                COUNT(sg.intGlucoseValue) AS readings,
+                                IFNULL(MIN(sg.timestamp), DATETIME('now')) AS fromTimestamp,
+                                IFNULL(MAX(sg.timestamp), DATETIME('now')) AS toTimestamp,
+                                IFNULL(3.31 + (0.02392 * sub.avg), 0) AS gmi,
+                                IFNULL(sub.avg, 0) AS avg,
+                                IFNULL(100.0 / COUNT(sg.intGlucoseValue) * COUNT(CASE WHEN sg.intGlucoseValue < 80 THEN 1 END), 0) AS tbr,
+                                IFNULL(100.0 / COUNT(sg.intGlucoseValue) * COUNT(CASE WHEN sg.intGlucoseValue > 160 THEN 1 END), 0) AS tar,
+                                IFNULL(JULIANDAY(MAX(sg.timestamp)) - JULIANDAY(MIN(sg.timestamp)) + 1, 0) AS days,
+                                IFNULL(AVG((sg.intGlucoseValue - sub.avg) * (sg.intGlucoseValue - sub.avg)), 0) as variance
+                            FROM
+                                SensorGlucose sg,
+                                (SELECT AVG(ssg.intGlucoseValue) AS avg FROM SensorGlucose ssg WHERE ssg.timestamp >= DATE('now', '-3 months') ) AS sub
+                            WHERE
+                                sg.timestamp >= date('now', '-3 months')
+                        """, arguments: ["low": lowerLimit, "high": upperLimit]) {
+                            let statistics = GlucoseStatistics(
+                                readings: row["readings"],
+                                fromTimestamp: row["fromTimestamp"],
+                                toTimestamp: row["toTimestamp"],
+                                gmi: row["gmi"],
+                                avg: row["avg"],
+                                tbr: row["tbr"],
+                                tar: row["tar"],
+                                variance: row["variance"],
+                                days: row["days"]
+                            )
+
+                            promise(.success(statistics))
+                        } else {
+                            promise(.failure(DirectError.withMessage("No statistics available")))
+                        }
+                    } catch {
+                        promise(.failure(DirectError.withMessage(error.localizedDescription)))
+                    }
+                }
+            }
+        }
+    }
+
+    func getSensorGlucoseValues(upToDay: Int = 1) -> Future<[SensorGlucose], DirectError> {
         return Future { promise in
             if let dbQueue = self.dbQueue {
                 dbQueue.asyncRead { asyncDB in

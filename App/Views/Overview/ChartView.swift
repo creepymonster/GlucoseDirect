@@ -13,7 +13,6 @@ struct ChartView: View {
     // MARK: Internal
 
     @EnvironmentObject var store: DirectStore
-    @Environment(\.scenePhase) var scenePhase
 
     var zoomLevel: ZoomLevel? {
         Config.zoomLevels.first(where: { $0.level == store.state.chartZoomLevel })
@@ -85,6 +84,14 @@ struct ChartView: View {
                                 .foregroundStyle(Color.ui.red)
                                 .lineStyle(Config.ruleStyle)
 
+                            ForEach(seriesDays, id: \.self) { day in
+                                RuleMark(
+                                    x: .value("", day)
+                                )
+                                .foregroundStyle(Color.ui.gray)
+                                .lineStyle(Config.dayStyle)
+                            }
+
                             ForEach(sensorGlucoseSeries) { value in
                                 LineMark(
                                     x: .value("Time", value.valueX),
@@ -142,44 +149,40 @@ struct ChartView: View {
                         .id(Config.chartID)
                         .frame(width: max(0, geometryProxy.size.width, seriesWidth))
                         .onChange(of: store.state.glucoseUnit) { glucoseUnit in
-                            DirectLog.info("onChangeOfGlucoseUnit(\(glucoseUnit))")
-                            updateSeriesMetadata(viewWidth: geometryProxy.size.width)
-                            updateSensorSeries()
-                            updateBloodSeries()
+                            if shouldRefresh {
+                                DirectLog.info("onChangeOfGlucoseUnit()")
+                                updateSeriesMetadata(viewWidth: geometryProxy.size.width)
+                                updateSensorSeries()
+                                updateBloodSeries()
+                            }
 
                         }.onChange(of: [store.state.sensorGlucoseValues, store.state.sensorGlucoseHistory]) { glucoseValues in
-                            DirectLog.info("onChangeOfSensorGlucoseValues(\(glucoseValues.count))")
-                            updateSeriesMetadata(viewWidth: geometryProxy.size.width)
-                            updateSensorSeries()
+                            if shouldRefresh {
+                                DirectLog.info("onChangeOfSensorGlucoseValues()")
+                                updateSeriesMetadata(viewWidth: geometryProxy.size.width)
+                                updateSensorSeries()
+                            }
 
                         }.onChange(of: [store.state.bloodGlucoseValues, store.state.bloodGlucoseHistory]) { glucoseValues in
-                            DirectLog.info("onChangeOfBloodGlucoseValues(\(glucoseValues.count))")
-                            updateSeriesMetadata(viewWidth: geometryProxy.size.width)
-                            updateBloodSeries()
+                            if shouldRefresh {
+                                DirectLog.info("onChangeOfBloodGlucoseValues()")
+                                updateSeriesMetadata(viewWidth: geometryProxy.size.width)
+                                updateBloodSeries()
+                            }
 
                         }.onChange(of: store.state.chartZoomLevel) { chartZoomLevel in
-                            DirectLog.info("onChangeOfChartZoomLevel(\(chartZoomLevel))")
-                            updateSeriesMetadata(viewWidth: geometryProxy.size.width)
-                            updateSensorSeries()
-                            updateBloodSeries()
+                            if shouldRefresh {
+                                DirectLog.info("onChangeOfChartZoomLevel()")
+                                updateSeriesMetadata(viewWidth: geometryProxy.size.width)
+                                updateSensorSeries()
+                                updateBloodSeries()
+                            }
 
                         }.onChange(of: sensorGlucoseSeries) { _ in
-                            DirectLog.info("onChangeOfSensorGlucoseSeries(\(sensorGlucoseSeries.count))")
                             scrollToEnd(scrollViewProxy: scrollViewProxy)
 
                         }.onChange(of: bloodGlucoseSeries) { _ in
-                            DirectLog.info("onChangeOfBloodGlucoseSeries(\(bloodGlucoseSeries.count))")
                             scrollToEnd(scrollViewProxy: scrollViewProxy)
-
-                        }.onChange(of: seriesWidth) { _ in
-                            DirectLog.info("onChangeOfSeriesWidth(\(seriesWidth))")
-                            scrollToEnd(scrollViewProxy: scrollViewProxy)
-
-                        }.onAppear {
-                            DirectLog.info("onAppear()")
-                            updateSeriesMetadata(viewWidth: geometryProxy.size.width)
-                            updateSensorSeries()
-                            updateBloodSeries()
 
                         }.chartOverlay { overlayProxy in
                             GeometryReader { geometryProxy in
@@ -298,12 +301,13 @@ struct ChartView: View {
 
     private enum Config {
         static let chartID = "chart"
-        static let symbolSize: CGFloat = 15
+        static let symbolSize: CGFloat = 10
         static let selectionSize: CGFloat = 100
         static let spacerWidth: CGFloat = 50
-        static let lineStyle: StrokeStyle = .init(lineWidth: 3.5, lineCap: .round)
+        static let lineStyle: StrokeStyle = .init(lineWidth: 2.5, lineCap: .round)
         static let ruleStyle: StrokeStyle = .init(lineWidth: 1, dash: [2])
         static let gridStyle: StrokeStyle = .init(lineWidth: 1)
+        static let dayStyle: StrokeStyle = .init(lineWidth: 1)
 
         static let zoomLevels: [ZoomLevel] = [
             ZoomLevel(level: 1, name: LocalizedString("1h"), visibleHours: 1, labelEvery: 30, labelEveryUnit: .minute),
@@ -314,6 +318,7 @@ struct ChartView: View {
         ]
     }
 
+    @State private var seriesDays: [Date] = []
     @State private var seriesWidth: CGFloat = 0
     @State private var sensorGlucoseSeries: [ChartDatapoint] = []
     @State private var bloodGlucoseSeries: [ChartDatapoint] = []
@@ -326,6 +331,10 @@ struct ChartView: View {
 
     private let calculationQueue = DispatchQueue(label: "libre-direct.chart-calculation", qos: .utility)
     private let debouncer = Debouncer(delay: 0.5)
+    
+    private var shouldRefresh: Bool {
+        store.state.appState == .active
+    }
 
     private var firstTimestamp: Date? {
         let dates = [sensorGlucoseValues.first?.timestamp, bloodGlucoseValues.first?.timestamp]
@@ -379,9 +388,12 @@ struct ChartView: View {
                 let chartMinutes = CGFloat((endTime - startTime) / 60)
                 let seriesWidth = CGFloat(minuteWidth * chartMinutes)
 
+                let seriesDays = Date.valuesBetween(from: firstTime, to: lastTime, component: .day, step: 1)
+
                 if self.seriesWidth != seriesWidth {
                     DispatchQueue.main.async {
                         self.seriesWidth = seriesWidth
+                        self.seriesDays = seriesDays
                     }
                 }
             }
@@ -498,12 +510,20 @@ extension SensorGlucose {
     }
 
     func toDatapoint(glucoseUnit: GlucoseUnit, alarmLow: Int, alarmHigh: Int) -> ChartDatapoint {
+        var info: String
+
+        if let minuteChange = minuteChange {
+            info = "\(glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)) \(minuteChange.asMinuteChange(glucoseUnit: glucoseUnit))"
+        } else {
+            info = glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)
+        }
+
         if glucoseUnit == .mmolL {
             return ChartDatapoint(
                 id: toDatapointID(glucoseUnit: glucoseUnit),
                 valueX: timestamp,
                 valueY: glucoseValue.asMmolL,
-                info: glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)
+                info: info
             )
         }
 
@@ -511,7 +531,7 @@ extension SensorGlucose {
             id: toDatapointID(glucoseUnit: glucoseUnit),
             valueX: timestamp,
             valueY: glucoseValue.asMgdL,
-            info: glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)
+            info: info
         )
     }
 }

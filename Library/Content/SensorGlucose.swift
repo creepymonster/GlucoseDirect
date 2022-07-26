@@ -2,8 +2,38 @@
 //  SensorGlucose.swift
 //  GlucoseDirect
 //
+//  https://www.jaeb.org/gmi/
+//  GMI(%) = 3.31 + 0.02392 x [mean glucose in mg/dL]
+//  GMI(mmol/mol) = 12.71 + 4.70587 x [mean glucose in mmol/L]
+//
 
 import Foundation
+
+// MARK: - GlucoseStatistics
+
+struct GlucoseStatistics: Codable {
+    let readings: Int
+    let fromTimestamp: Date
+    let toTimestamp: Date
+    let gmi: Double
+    let avg: Double
+    let tbr: Double
+    let tar: Double
+    let variance: Double
+    let days: Int
+
+    var tir: Double {
+        100.0 - tor
+    }
+
+    var tor: Double {
+        tbr + tar
+    }
+
+    var stdev: Double {
+        sqrt(variance)
+    }
+}
 
 // MARK: - SensorGlucose
 
