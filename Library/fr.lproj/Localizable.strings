@@ -182,7 +182,7 @@
 "Sensor remaining warmup time" = "Warmup";
 
 /* (No Comment) */
-"Sensor serial" = "Serial";
+"Sensor serial" = "N° Série";
 
 /* (No Comment) */
 "Sensor state" = "État";
@@ -194,40 +194,40 @@
 "Sensor UID" = "UID";
 
 /* (No Comment) */
-"Settings view" = "Settings";
+"Settings view" = "Paramètres";
 
 /* (No Comment) */
-"Snooze until" = "Snooze";
+"Snooze until" = "Reporter";
 
 /* (No Comment) */
-"The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired.";
+"The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "La connexion avec le capteur a été interrompue. Cela se produit normalement lorsque le capteur est hors de portée ou que sa puissance de transmission est affaiblie.";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "Inconnu";
 
 /* (No Comment) */
-"Upper limit" = "High";
+"Upper limit" = "Haut";
 
 /* (No Comment) */
-"Virtual Sensor" = "Virtual Sensor";
+"Virtual Sensor" = "Capteur virtuel";
 
 /* (No Comment) */
-"Wearing time alarm" = "Wearing time alarm";
+"Wearing time alarm" = "Alarme de temps d'utilisation";
 
 /* (No Comment) */
-"Your current glucose is %1$@ (%2$@)." = "Your current glucose is %1$@ (%2$@).";
+"Your current glucose is %1$@ (%2$@)." = "Votre glycémie actuelle est %1$@ (%2$@).";
 
 /* (No Comment) */
-"Your glucose %1$@ (%2$@) is dangerously high and needs to be treated." = "Your glucose, %1$@ (%2$@), is dangerously high and needs to be treated.";
+"Your glucose %1$@ (%2$@) is dangerously high and needs to be treated." = "Votre glycémie, %1$@ (%2$@), est dangereusement élevé et doit être traitée.";
 
 /* (No Comment) */
-"Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "Your glucose, %1$@ (%2$@), is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal.";
+"Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "Votre glycémie, %1$@ (%2$@), est dangereusement faible. Avec des boissons sucrées ou du sucre, les taux de glycémie peuvent souvent revenir à la normale.";
 
 /* (No Comment) */
-"Your sensor has expired and needs to be replaced as soon as possible" = "Your sensor has expired and needs to be replaced as soon as possible";
+"Your sensor has expired and needs to be replaced as soon as possible" = "Votre capteur a expiré et doit être remplacé dès que possible";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ day." = "Your sensor is about to expire. Replace sensor in %1$@ day.";
+"Your sensor is about to expire. Replace sensor in %1$@ day." = "Votre capteur est sur le point d'expirer. Remplacez le capteur dans %1$@ jour.";
 
 /* (No Comment) */
 "Your sensor is about to expire. Replace sensor in %1$@ days." = "Your sensor is about to expire. Replace sensor in %1$@ days.";
@@ -497,7 +497,7 @@
 "Statistics (%@ days)" = "Statistics (%@ days)";
 
 /* (No Comment) */
-"%@ Entries" = "%@ Entries";
+"%@ Entries" = "%@ Entrées";
 
 /* (No Comment) */
-"%@ Entry" = "%@ Entry";
+"%@ Entry" = "%@ Entrée";
