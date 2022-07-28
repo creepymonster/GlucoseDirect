@@ -55,6 +55,7 @@ struct AppState: DirectState {
         self.customCalibration = UserDefaults.standard.customCalibration
         self.expiringAlarmSound = UserDefaults.standard.expiringAlarmSound
         self.glucoseNotification = UserDefaults.standard.glucoseNotification
+        self.glucoseLiveActivity = UserDefaults.standard.glucoseLiveActivity
         self.glucoseUnit = UserDefaults.shared.glucoseUnit ?? .mgdL
         self.highGlucoseAlarmSound = UserDefaults.standard.highGlucoseAlarmSound
         self.isConnectionPaired = UserDefaults.standard.isConnectionPaired
@@ -107,6 +108,7 @@ struct AppState: DirectState {
     var customCalibration: [CustomCalibration] { didSet { UserDefaults.standard.customCalibration = customCalibration } }
     var expiringAlarmSound: NotificationSound { didSet { UserDefaults.standard.expiringAlarmSound = expiringAlarmSound } }
     var glucoseNotification: Bool { didSet { UserDefaults.standard.glucoseNotification = glucoseNotification } }
+    var glucoseLiveActivity: Bool { didSet { UserDefaults.standard.glucoseLiveActivity = glucoseLiveActivity } }
     var glucoseUnit: GlucoseUnit { didSet { UserDefaults.shared.glucoseUnit = glucoseUnit } }
     var highGlucoseAlarmSound: NotificationSound { didSet { UserDefaults.standard.highGlucoseAlarmSound = highGlucoseAlarmSound } }
     var isConnectionPaired: Bool { didSet { UserDefaults.standard.isConnectionPaired = isConnectionPaired } }
