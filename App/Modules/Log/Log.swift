@@ -41,9 +41,16 @@ private func logMiddleware(service: SendLogsService) -> Middleware<DirectState, 
 
         case .deleteLogs:
             service.deleteLogs()
+            
+        case .sendDatabase:
+            let filename = "GlucoseDirect.sqlite"
+            let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            let path = documentDirectory.appendingPathComponent(filename)
+            
+            service.sendFile(fileURL: path)
 
         case .sendLogs:
-            service.sendLog(fileURL: DirectLog.getLogsURL())
+            service.sendFile(fileURL: DirectLog.getLogsURL())
 
         default:
             DirectLog.info("Triggered action: \(action)")
@@ -62,7 +69,7 @@ private class SendLogsService {
         DirectLog.deleteLogs()
     }
 
-    func sendLog(fileURL: URL) {
+    func sendFile(fileURL: URL) {
         let activityViewController = UIActivityViewController(activityItems: [fileURL], applicationActivities: nil)
 
         let foregroundWindow = UIApplication.shared.connectedScenes

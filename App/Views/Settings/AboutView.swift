@@ -83,6 +83,10 @@ struct AboutView: View {
                 Label("About \(DirectConfig.appName)", systemImage: "info")
             }
         )
+        
+        Button("Send database file", action: {
+            store.dispatch(.sendDatabase)
+        })
 
         Button("Send log file", action: {
             store.dispatch(.sendLogs)
