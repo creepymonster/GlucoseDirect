@@ -36,18 +36,18 @@ App programmed in Swift/SwiftUI for using Libre 1/2 blood glucose sensors. I try
 
 ## Available languages
 - English
-- ![zh-CN translation](https://img.shields.io/badge/dynamic/json?color=blue&label=zh-CN&style=flat-square&query=%24.progress.10.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Chinese (simplified)
-- ![zh-TW translation](https://img.shields.io/badge/dynamic/json?color=blue&label=zh-TW&style=flat-square&query=%24.progress.11.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Chinese (traditional)
-- ![fi translation](https://img.shields.io/badge/dynamic/json?color=blue&label=fi&style=flat-square&query=%24.progress.2.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Finnish
-- ![de translation](https://img.shields.io/badge/dynamic/json?color=blue&label=de&style=flat-square&query=%24.progress.0.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) German
-- ![it translation](https://img.shields.io/badge/dynamic/json?color=blue&label=it&style=flat-square&query=%24.progress.4.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Italian
-- ![pt-PT translation](https://img.shields.io/badge/dynamic/json?color=blue&label=pt-PT&style=flat-square&query=%24.progress.6.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Portuguese
-- ![ru translation](https://img.shields.io/badge/dynamic/json?color=blue&label=ru&style=flat-square&query=%24.progress.7.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Russian
-- ![es-ES translation](https://img.shields.io/badge/dynamic/json?color=blue&label=es-ES&style=flat-square&query=%24.progress.1.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Spanish
-- ![sv-SE translation](https://img.shields.io/badge/dynamic/json?color=blue&label=sv-SE&style=flat-square&query=%24.progress.8.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Swedish
-- ![tr translation](https://img.shields.io/badge/dynamic/json?color=blue&label=tr&style=flat-square&query=%24.progress.9.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Turkish
-- ![fr translation](https://img.shields.io/badge/dynamic/json?color=blue&label=fr&style=flat-square&query=%24.progress.3.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) French
-- ![nl translation](https://img.shields.io/badge/dynamic/json?color=blue&label=nl&style=flat-square&query=%24.progress.5.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-14414316-488303-update.json) Dutch
+- Chinese (simplified)
+- Chinese (traditional)
+- Finnish
+- German
+- Italian
+- Portuguese
+- Russian
+- Spanish
+- Swedish
+- Turkish
+- French
+- Dutch
 
 ## Requirements
 - Apple iPhone with iOS 15
@@ -65,7 +65,7 @@ I am very happy to receive feedback - suggestions for improvement or reports of 
 - I appreciate all the translations I get. Just drop by Crowdin, every translation helps :) https://crwd.in/glucose-direct-app
 
 ## Thank you all hardworking translators for your great work ❤️
-birdfly, Diabetlum, Fcourela, goldshotter, keyzersemen, Timmy_otoole, evr, JBM_, Mrzurgon, albertodeviaje2, HellsCrimson, georgin303, eyesoganci, mrfrostt, ferdytao, jjerbstein, Bmwmax73, Kobe24, CrazySugarNL, immatexeira, anton-tony_v, Bubblan, yinojiang
+Alberto Del Rio Malo (albertodeviaje2), Anton Vershinin (anton-tony_v), Ato83, birdfly, Bmwmax73, Bubblan, Diabetlum, evr, eyesoganci, Fcourela, ferdytao, georgin303, Imma Texeira Ceró (immatexeira), Jean-Jacques Erbstein (jjerbstein), Jon B Mårtensson (JBM_), Matthias (HellsCrimson), mrfrostt, Mrzurgon, Nicola Lorenzetti (goldshotter), Rico Opheij (CrazySugarNL), Sahar Monitor (keyzersemen), Timmy_otoole, yinojiang, Zhang Lin (Kobe24)
 
 ## Todo
 - Cache Nightscout uploads without an Internet connection and run them later
