@@ -257,7 +257,7 @@ extension UserDefaults {
                 return bool(forKey: Keys.glucoseLiveActivity.rawValue)
             }
 
-            return true
+            return false
         }
         set {
             set(newValue, forKey: Keys.glucoseLiveActivity.rawValue)

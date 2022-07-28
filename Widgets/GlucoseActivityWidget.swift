@@ -43,7 +43,6 @@ struct GlucoseActivityWidget: Widget {
                 .padding(.bottom)
                 .opacity(0.5)
             }
-            .activityBackgroundTint(Color.white)
             .activitySystemActionForegroundColor(Color.ui.red)
         }
     }

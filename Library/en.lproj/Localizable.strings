@@ -422,7 +422,7 @@
 "Export to Apple Calendar" = "Export to Apple Calendar";
 
 /* (No Comment) */
-"Glucose notification" = "Glucose notification";
+"Glucose notification" = "Glucose Notification";
 
 /* (No Comment) */
 "Time" = "Time";
@@ -507,3 +507,6 @@
 
 /* (No Comment) */
 "Glucose Live Activity" = "Glucose Live Activity";
+
+/* (No Comment) */
+"Glucose read aloud" = "Glucose Reading";
