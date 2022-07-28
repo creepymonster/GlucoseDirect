@@ -65,7 +65,7 @@ I am very happy to receive feedback - suggestions for improvement or reports of 
 - I appreciate all the translations I get. Just drop by Crowdin, every translation helps :) https://crwd.in/glucose-direct-app
 
 ## Thank you all hardworking translators for your great work ❤️
-birdfly, Diabetlum, Fcourela, goldshotter, keyzersemen, Timmy_otoole, evr, JBM_, Mrzurgon, albertodeviaje2, HellsCrimson, georgin303, eyesoganci, mrfrostt, ferdytao, jjerbstein, Bmwmax73, Kobe24, CrazySugarNL, immatexeira, anton-tony_v, Bubblan, yinojiang
+Alberto Del Rio Malo (albertodeviaje2), Anton Vershinin (anton-tony_v), Ato83, birdfly, Bmwmax73, Bubblan, Diabetlum, evr, eyesoganci, Fcourela, ferdytao, georgin303, Imma Texeira Ceró (immatexeira), Jean-Jacques Erbstein (jjerbstein), Jon B Mårtensson (JBM_), Matthias (HellsCrimson), mrfrostt, Mrzurgon, Nicola Lorenzetti (goldshotter), Rico Opheij (CrazySugarNL), Sahar Monitor (keyzersemen), Timmy_otoole, yinojiang, Zhang Lin (Kobe24)
 
 ## Todo
 - Cache Nightscout uploads without an Internet connection and run them later
