@@ -63,7 +63,7 @@ extension Date {
         let components = [Calendar.Component.year, .month, .day, .hour, .minute, .second, .nanosecond]
 
         guard let index = components.firstIndex(of: component) else {
-            fatalError("Wrong component")
+            return self
         }
 
         let cal = Calendar.current
