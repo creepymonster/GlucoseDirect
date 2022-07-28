@@ -11,10 +11,7 @@ import GRDB
 
 func glucoseStatisticsMiddleware() -> Middleware<DirectState, DirectAction> {
     return { state, action, _ in
-        switch action {
-        case .startup:
-            DataStore.shared.createSensorGlucoseTable()
-            
+        switch action {           
         case .loadSensorGlucoseValues:
             return Just(DirectAction.loadSensorGlucoseStatistics)
                 .setFailureType(to: DirectError.self)
@@ -50,6 +47,9 @@ func glucoseStatisticsMiddleware() -> Middleware<DirectState, DirectAction> {
 func sensorGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
     return { state, action, _ in
         switch action {
+        case .startup:
+            DataStore.shared.createSensorGlucoseTable()
+            
         case .addSensorGlucose(glucoseValues: let glucoseValues):
             guard !glucoseValues.isEmpty else {
                 break
