@@ -7,6 +7,7 @@
 //  GMI(mmol/mol) = 12.71 + 4.70587 x [mean glucose in mmol/L]
 //
 
+import ActivityKit
 import Foundation
 
 // MARK: - GlucoseStatistics
@@ -37,7 +38,7 @@ struct GlucoseStatistics: Codable {
 
 // MARK: - SensorGlucose
 
-struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable {
+struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable, Hashable {
     // MARK: Lifecycle
 
     init(timestamp: Date, rawGlucoseValue: Int, intGlucoseValue: Int, minuteChange: Double? = nil) {
@@ -91,6 +92,19 @@ struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable {
 
     var description: String {
         "{ id: \(id), timestamp: \(timestamp.toLocalTime()), minuteChange: \(minuteChange?.description ?? ""), rawGlucoseValue: \(rawGlucoseValue.description), glucoseValue: \(glucoseValue.description) }"
+    }
+}
+
+// MARK: - SensorGlucoseActivityAttributes
+
+struct SensorGlucoseActivityAttributes: ActivityAttributes {
+    public typealias GlucoseStatus = ContentState
+
+    public struct ContentState: Codable, Hashable {
+        var alarmLow: Int
+        var alarmHigh: Int
+        var glucose: SensorGlucose
+        var glucoseUnit: GlucoseUnit
     }
 }
 

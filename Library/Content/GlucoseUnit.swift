@@ -5,7 +5,7 @@
 
 import Foundation
 
-enum GlucoseUnit: String, Codable {
+enum GlucoseUnit: String, Codable, Hashable {
     case mgdL = "mg/dL"
     case mmolL = "mmol/L"
 

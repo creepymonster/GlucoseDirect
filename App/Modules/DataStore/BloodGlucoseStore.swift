@@ -14,7 +14,7 @@ func bloodGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
         switch action {
         case .startup:
             DataStore.shared.createBloodGlucoseTable()
-            
+
         case .addBloodGlucose(glucoseValues: let glucoseValues):
             guard !glucoseValues.isEmpty else {
                 break
@@ -44,7 +44,7 @@ func bloodGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
             guard state.appState == .active else {
                 break
             }
-            
+
             return Publishers.MergeMany(
                 DataStore.shared.getBloodGlucoseValues().map { glucoseValues in
                     DirectLog.info("getBloodGlucoseValues")
@@ -56,12 +56,12 @@ func bloodGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
                 }
             )
             .eraseToAnyPublisher()
-            
+
         case .setAppState(appState: let appState):
             guard appState == .active else {
                 break
             }
-            
+
             return Just(DirectAction.loadBloodGlucoseValues)
                 .setFailureType(to: DirectError.self)
                 .eraseToAnyPublisher()
@@ -153,13 +153,7 @@ extension DataStore {
                 try dbQueue.write { db in
                     values.forEach { value in
                         do {
-//                            let count = try BloodGlucose
-//                                .filter(Column(BloodGlucose.Columns.timestamp.name) == value.timestamp)
-//                                .fetchCount(db)
-//
-//                            if count == 0 {
-                                try value.insert(db)
-//                            }
+                            try value.insert(db)
                         } catch {
                             DirectLog.error(error.localizedDescription)
                         }

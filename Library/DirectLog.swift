@@ -32,11 +32,11 @@ enum DirectLog {
         fileLogger.deleteLogs()
     }
 
-    static func getLogsURL() -> URL {
+    static var logsURL: URL {
         return fileLogger.allLogsFileURL
     }
 
-    static func getLogsSize() -> String {
+    static var logsSize: String {
         return fileLogger.getLogsSize().asFileSize()
     }
 

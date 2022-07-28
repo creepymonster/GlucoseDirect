@@ -10,6 +10,7 @@ import WidgetKit
 struct Widgets: WidgetBundle {
     var body: some Widget {
         GlucoseWidget()
+        GlucoseActivityWidget()
         SensorWidget()
         TransmitterWidget()
     }
