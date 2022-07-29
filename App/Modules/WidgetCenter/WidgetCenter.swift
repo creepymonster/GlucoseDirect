@@ -132,7 +132,7 @@ private class ActivityGlucoseService {
                     pushType: nil)
 
                 self.activity = activity
-                self.activityStop = Date() + 15 // (4 * 60 * 60)
+                self.activityStop = Date() + 60 * 60
             } catch {}
     }
 
