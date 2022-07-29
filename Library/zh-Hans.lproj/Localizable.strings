@@ -389,7 +389,7 @@
 "Retrieval interval, every minute" = "每分钟";
 
 /* (No Comment) */
-"Retrieval interval, every %@ minutes" = "Every %@ minutes";
+"Retrieval interval, every %@ minutes" = "每 %@ 分钟";
 
 /* (No Comment) */
 "App donate" = "捐赠";
