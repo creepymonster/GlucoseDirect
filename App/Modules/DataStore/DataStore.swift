@@ -15,20 +15,19 @@ class DataStore {
     // MARK: Lifecycle
 
     private init() {
-        let filename = "GlucoseDirect.sqlite"
-        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let path = documentDirectory.appendingPathComponent(filename)
-
-//        do {
-//            try FileManager.default.removeItem(at: path)
-//        } catch _ {
-//        }
-
         do {
-            dbQueue = try DatabaseQueue(path: path.absoluteString)
+            dbQueue = try DatabaseQueue(path: databaseURL.absoluteString)
         } catch {
             DirectLog.error(error.localizedDescription)
             dbQueue = nil
+        }
+    }
+
+    deinit {
+        do {
+            try dbQueue?.close()
+        } catch {
+            DirectLog.error(error.localizedDescription)
         }
     }
 
@@ -37,4 +36,17 @@ class DataStore {
     static let shared = DataStore()
 
     let dbQueue: DatabaseQueue?
+
+    var databaseURL: URL = {
+        let filename = "GlucoseDirect.sqlite"
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+
+        return documentDirectory.appendingPathComponent(filename)
+    }()
+
+    func deleteDatabase() {
+        do {
+            try FileManager.default.removeItem(at: databaseURL)
+        } catch _ {}
+    }
 }

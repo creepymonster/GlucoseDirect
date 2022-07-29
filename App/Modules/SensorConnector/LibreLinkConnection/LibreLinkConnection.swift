@@ -137,7 +137,6 @@ class LibreLinkConnection: SensorBluetoothConnection, IsSensor {
 
         if let readCharacteristic = readCharacteristic {
             peripheral.setNotifyValue(true, for: readCharacteristic)
-            lastUpdate = nil
         }
     }
 
@@ -176,12 +175,8 @@ class LibreLinkConnection: SensorBluetoothConnection, IsSensor {
 
                     } else if parsedBLE.age > sensor.warmupTime {
                         sendUpdate(age: parsedBLE.age, state: .ready)
+                        sendUpdate(sensorSerial: sensor.serial ?? "", readings: parsedBLE.history + parsedBLE.trend)
 
-                        let intervalSeconds = Double(sensorInterval * 60 - 30)
-                        if sensorInterval == 1 || lastUpdate == nil || lastUpdate! + intervalSeconds <= Date() {
-                            lastUpdate = Date()
-                            sendUpdate(sensorSerial: sensor.serial ?? "", readings: parsedBLE.history + parsedBLE.trend)
-                        }
                     } else if parsedBLE.age <= sensor.warmupTime {
                         sendUpdate(age: parsedBLE.age, state: .starting)
                     }
@@ -215,6 +210,4 @@ class LibreLinkConnection: SensorBluetoothConnection, IsSensor {
     private var firstBuffer = Data()
     private var secondBuffer = Data()
     private var thirdBuffer = Data()
-
-    private var lastUpdate: Date?
 }

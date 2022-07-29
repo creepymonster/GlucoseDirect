@@ -21,6 +21,7 @@ private enum Keys: String {
     case customCalibration = "libre-direct.settings.custom-calibration"
     case expiringAlarmSound = "libre-direct.settings.expiring-alarm-sound"
     case glucoseNotification = "libre-direct.settings.glucose-badge"
+    case glucoseLiveActivity = "libre-direct.settings.glucose-live-activity"
     case glucoseUnit = "libre-direct.settings.glucose-unit"
     case highGlucoseAlarmSound = "libre-direct.settings.high-glucose-alarm-sound"
     case isConnectionPaired = "libre-direct.settings.is-paired"
@@ -247,6 +248,19 @@ extension UserDefaults {
         }
         set {
             set(newValue, forKey: Keys.glucoseNotification.rawValue)
+        }
+    }
+    
+    var glucoseLiveActivity: Bool {
+        get {
+            if object(forKey: Keys.glucoseLiveActivity.rawValue) != nil {
+                return bool(forKey: Keys.glucoseLiveActivity.rawValue)
+            }
+
+            return false
+        }
+        set {
+            set(newValue, forKey: Keys.glucoseLiveActivity.rawValue)
         }
     }
 

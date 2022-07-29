@@ -38,6 +38,12 @@ struct GlucoseSettingsView: View {
                 ToggleView(key: LocalizedString("Glucose notification"), value: store.state.glucoseNotification) { value in
                     store.dispatch(.setGlucoseNotification(enabled: value))
                 }
+                
+//                if #available(iOS 16.0, *) {
+//                    ToggleView(key: LocalizedString("Glucose Live Activity"), value: store.state.glucoseLiveActivity) { value in
+//                        store.dispatch(.setGlucoseLiveActivity(enabled: value))
+//                    }
+//                }
 
                 VStack(alignment: .leading, spacing: 10) {
                     ToggleView(key: LocalizedString("Glucose read aloud"), value: store.state.readGlucose) { value in

@@ -39,6 +39,7 @@ enum DirectAction {
     case selectConnectionID(id: String)
     case selectView(viewTag: Int)
     case sendLogs
+    case sendDatabase
     case setAlarmHigh(upperLimit: Int)
     case setAlarmLow(lowerLimit: Int)
     case setAlarmSnoozeUntil(untilDate: Date?, autosnooze: Bool = false)
@@ -58,6 +59,7 @@ enum DirectAction {
     case setConnectionState(connectionState: SensorConnectionState)
     case setExpiringAlarmSound(sound: NotificationSound)
     case setGlucoseNotification(enabled: Bool)
+    case setGlucoseLiveActivity(enabled: Bool)
     case setGlucoseUnit(unit: GlucoseUnit)
     case setHighGlucoseAlarmSound(sound: NotificationSound)
     case setLowGlucoseAlarmSound(sound: NotificationSound)

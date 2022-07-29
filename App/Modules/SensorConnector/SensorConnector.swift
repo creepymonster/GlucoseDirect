@@ -79,12 +79,13 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
         case .addSensorReadings(sensorSerial: _, readings: let readings):
             // calibrate valid values
             let readGlucoseValues = readings.map { reading in
+               
                 reading.calibrate(customCalibration: state.customCalibration)
             }.compactMap { $0 }
 
             // calc stdev of last 5 values
             let stdev = readGlucoseValues.count >= 5 ? readGlucoseValues.suffix(5).stdev : 0
-            let intervalSeconds = Double(state.sensorInterval * 60 - 30)
+            let intervalSeconds = Double(state.sensorInterval * 60 - 15)
 
             var previousGlucose = state.latestSensorGlucose
             let glucoseValues = readGlucoseValues.filter { reading in

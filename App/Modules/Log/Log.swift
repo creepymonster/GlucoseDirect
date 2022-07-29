@@ -17,38 +17,39 @@ private func logMiddleware(service: SendLogsService) -> Middleware<DirectState, 
         switch action {
         case .setBloodGlucoseValues(glucoseValues: _):
             break
-            
+
         case .setSensorGlucoseValues(glucoseValues: _):
             break
-            
+
         case .setBloodGlucoseHistory(glucoseHistory: _):
             break
-            
+
         case .setSensorGlucoseHistory(glucoseHistory: _):
             break
-            
+
         case .setSensorErrorValues(errorValues: _):
             break
-            
+
         case .setNightscoutURL(url: _):
             break
-            
+
         case .setNightscoutSecret(apiSecret: _):
             break
-            
+
         case .startup:
             service.deleteLogs()
 
         case .deleteLogs:
             service.deleteLogs()
 
+        case .sendDatabase:
+            service.sendFile(fileURL: DataStore.shared.databaseURL)
+
         case .sendLogs:
-            service.sendLog(fileURL: DirectLog.getLogsURL())
+            service.sendFile(fileURL: DirectLog.logsURL)
 
         default:
             DirectLog.info("Triggered action: \(action)")
-
-            break
         }
 
         return Empty().eraseToAnyPublisher()
@@ -62,7 +63,7 @@ private class SendLogsService {
         DirectLog.deleteLogs()
     }
 
-    func sendLog(fileURL: URL) {
+    func sendFile(fileURL: URL) {
         let activityViewController = UIActivityViewController(activityItems: [fileURL], applicationActivities: nil)
 
         let foregroundWindow = UIApplication.shared.connectedScenes

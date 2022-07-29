@@ -126,16 +126,19 @@ private func createSimulatorAppStore() -> DirectStore {
         bellmanAlarmMiddelware(),
         nightscoutMiddleware(),
         appGroupSharingMiddleware(),
-        widgetCenterMiddleware(),
         screenLockMiddleware(),
         sensorErrorMiddleware(),
         glucoseStatisticsMiddleware()
     ]
+    
+    if #available(iOS 16.0, *) {
+        middlewares.append(widgetCenterMiddleware())
+    }
 
     middlewares.append(sensorConnectorMiddelware([
         SensorConnectionInfo(id: DirectConfig.virtualID, name: "Virtual") { VirtualLibreConnection(subject: $0) }
     ]))
-
+    
     #if DEBUG
         middlewares.append(debugMiddleware())
     #endif
@@ -161,11 +164,14 @@ private func createAppStore() -> DirectStore {
         bellmanAlarmMiddelware(),
         nightscoutMiddleware(),
         appGroupSharingMiddleware(),
-        widgetCenterMiddleware(),
         screenLockMiddleware(),
         sensorErrorMiddleware(),
         glucoseStatisticsMiddleware()
     ]
+    
+    if #available(iOS 16.0, *) {
+        middlewares.append(widgetCenterMiddleware())
+    }
 
     var connectionInfos: [SensorConnectionInfo] = []
 
