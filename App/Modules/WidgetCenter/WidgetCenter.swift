@@ -8,12 +8,14 @@ import Combine
 import Foundation
 import WidgetKit
 
+@available(iOS 16.0, *)
 func widgetCenterMiddleware() -> Middleware<DirectState, DirectAction> {
     widgetCenterMiddleware(service: LazyService<ActivityGlucoseService>(initialization: {
         ActivityGlucoseService()
     }))
 }
 
+@available(iOS 16.0, *)
 private func widgetCenterMiddleware(service: LazyService<ActivityGlucoseService>) -> Middleware<DirectState, DirectAction> {
     return { state, action, _ in
         switch action {
@@ -95,6 +97,7 @@ private func widgetCenterMiddleware(service: LazyService<ActivityGlucoseService>
 
 // MARK: - ActivityGlucoseService
 
+@available(iOS 16.0, *)
 private class ActivityGlucoseService {
     // MARK: Lifecycle
 
@@ -117,7 +120,6 @@ private class ActivityGlucoseService {
     }
 
     func start(alarmLow: Int, alarmHigh: Int, glucose: SensorGlucose, glucoseUnit: GlucoseUnit) {
-        if #available(iOS 16.0, *) {
             let activityAttributes = SensorGlucoseActivityAttributes()
 
             // Estimated delivery time is one hour from now.
@@ -132,23 +134,19 @@ private class ActivityGlucoseService {
                 self.activity = activity
                 self.activityStop = Date() + 15 // (4 * 60 * 60)
             } catch {}
-        }
     }
 
     func update(alarmLow: Int, alarmHigh: Int, glucose: SensorGlucose, glucoseUnit: GlucoseUnit) async {
-        if #available(iOS 16.0, *) {
-            guard let activity = activity as? Activity<SensorGlucoseActivityAttributes> else {
+            guard let activity = activity else {
                 return
             }
 
             let updatedStatus = getStatus(alarmLow: alarmLow, alarmHigh: alarmHigh, glucose: glucose, glucoseUnit: glucoseUnit)
             await activity.update(using: updatedStatus)
-        }
     }
 
     func stop(alarmLow: Int, alarmHigh: Int, glucose: SensorGlucose, glucoseUnit: GlucoseUnit) async {
-        if #available(iOS 16.0, *) {
-            guard let activity = activity as? Activity<SensorGlucoseActivityAttributes> else {
+            guard let activity = activity else {
                 return
             }
 
@@ -157,23 +155,20 @@ private class ActivityGlucoseService {
 
             self.activity = nil
             self.activityStop = nil
-        }
     }
 
     func stopAll(alarmLow: Int, alarmHigh: Int, glucose: SensorGlucose, glucoseUnit: GlucoseUnit) async {
-        if #available(iOS 16.0, *) {
             let updatedStatus = getStatus(alarmLow: alarmLow, alarmHigh: alarmHigh, glucose: glucose, glucoseUnit: glucoseUnit)
             let activityStream = Activity<SensorGlucoseActivityAttributes>.activityUpdates
 
             for await activity in activityStream {
                 await activity.end(using: updatedStatus, dismissalPolicy: .immediate)
             }
-        }
     }
 
     // MARK: Private
 
-    private var activity: AnyObject?
+    private var activity: Activity<SensorGlucoseActivityAttributes>?
     private var activityStop: Date?
 
     private func getStatus(alarmLow: Int, alarmHigh: Int, glucose: SensorGlucose, glucoseUnit: GlucoseUnit) -> SensorGlucoseActivityAttributes.GlucoseStatus {
