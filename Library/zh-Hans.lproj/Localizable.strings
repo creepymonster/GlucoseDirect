@@ -14,10 +14,10 @@
 "Add glucose for calibration" = "添加血糖以进行校准";
 
 /* (No Comment) */
-"Add calibration" = "Add calibration";
+"Add calibration" = "添加校准";
 
 /* (No Comment) */
-"Add blood glucose" = "Add blood glucose";
+"Add blood glucose" = "添加血糖";
 
 /* (No Comment) */
 "Alert, high glucose" = "警告，高血糖";
@@ -296,13 +296,13 @@
 "Sensor starting date" = "开始日期";
 
 /* (No Comment) */
-"Sensor ending date" = "Ending date";
+"Sensor ending date" = "结束时间";
 
 /* (No Comment) */
 "Delete log files" = "删除日志文件";
 
 /* (No Comment) */
-"Readable glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@";
+"Readable glucose: %1$@ %2$@" = "血糖:%1$@ %2$@";
 
 /* (No Comment) */
 "Readable glucose with trend: %1$@ %2$@, %3$@" = "Glucose: %1$@ %2$@, %3$@";
