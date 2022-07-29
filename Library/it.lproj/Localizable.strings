@@ -389,7 +389,7 @@
 "Retrieval interval, every minute" = "Ogni minuto ";
 
 /* (No Comment) */
-"Retrieval interval, every %1$@ minutes" = "Ogni %1$@ minuti ";
+"Retrieval interval, every %@ minutes" = "Ogni %@ minuti ";
 
 /* (No Comment) */
 "App donate" = "Donare";
