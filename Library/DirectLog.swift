@@ -127,24 +127,38 @@ struct FileLogger {
             meta = "[\(file):\(line)] [\(function)]\n"
         }
         let prefixedLogMessage = "\(logType.icon) \(logDateFormatter.string(from: Date()))\n\(meta)\(logMessage)\n\n"
-
+        
         guard let fileHandle = makeWriteFileHandle(with: logType),
               let logMessageData = prefixedLogMessage.data(using: encoding)
         else {
             return
         }
+        
         defer {
-            fileHandle.closeFile()
+            do {
+                try fileHandle.close()
+            } catch {}
         }
-
-        fileHandle.seekToEndOfFile()
-        fileHandle.write(logMessageData)
+        
+        do {
+            try fileHandle.seekToEnd()
+            try fileHandle.write(contentsOf: logMessageData)
+        } catch {}
 
         guard let allLogsFileHandle = makeWriteFileHandle(with: allLogsFileURL) else {
             return
         }
-        allLogsFileHandle.seekToEndOfFile()
-        allLogsFileHandle.write(logMessageData)
+        
+        defer {
+            do {
+                try allLogsFileHandle.close()
+            } catch {}
+        }
+        
+        do {
+            try allLogsFileHandle.seekToEnd()
+            try allLogsFileHandle.write(contentsOf: logMessageData)
+        } catch {}
     }
 
     /// `StreamReader` for a given log type
@@ -154,9 +168,11 @@ struct FileLogger {
     func logReader(for logType: OSLogType) throws -> StreamReader {
         let fileURL = logFileBaseURL.appendingPathComponent(logType.logFilePath)
         try createLogFile(for: fileURL)
+        
         guard let reader = StreamReader(at: fileURL) else {
             throw Error.streamerInitError
         }
+        
         return reader
     }
 
@@ -166,9 +182,11 @@ struct FileLogger {
     func logReader() throws -> StreamReader {
         let url = allLogsFileURL
         try createLogFile(for: url)
+        
         guard let reader = StreamReader(at: url) else {
             throw Error.streamerInitError
         }
+        
         return reader
     }
 
