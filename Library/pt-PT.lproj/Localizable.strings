@@ -389,7 +389,7 @@
 "Retrieval interval, every minute" = "Every minute";
 
 /* (No Comment) */
-"Retrieval interval, every %1$@ minutes" = "Every %1$@ minutes";
+"Retrieval interval, every %@ minutes" = "Every %@ minutes";
 
 /* (No Comment) */
 "App donate" = "Donate";
