@@ -79,7 +79,6 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
         case .addSensorReadings(sensorSerial: _, readings: let readings):
             // calibrate valid values
             let readGlucoseValues = readings.map { reading in
-               
                 reading.calibrate(customCalibration: state.customCalibration)
             }.compactMap { $0 }
 

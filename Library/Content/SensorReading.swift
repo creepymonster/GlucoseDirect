@@ -54,22 +54,12 @@ extension SensorReading {
             return SensorGlucose(id: id, timestamp: timestamp, rawGlucoseValue: Int(glucoseValue), intGlucoseValue: Int(glucoseValue))
         }
 
-        let calibratedGlucoseValue = calibration(glucoseValue: glucoseValue, customCalibration: customCalibration)
+        let calibratedGlucoseValue = customCalibration.calibrate(sensorGlucose: glucoseValue)
         
         if calibratedGlucoseValue.isNaN || calibratedGlucoseValue.isInfinite {
             return SensorGlucose(id: id, timestamp: timestamp, rawGlucoseValue: Int(glucoseValue), intGlucoseValue: Int(glucoseValue))
         }
         
         return SensorGlucose(id: id, timestamp: timestamp, rawGlucoseValue: Int(glucoseValue), intGlucoseValue: Int(calibratedGlucoseValue))
-    }
-
-    private func calibration(glucoseValue: Double, customCalibration: [CustomCalibration]) -> Double {
-        let calibratedGlucoseValue = customCalibration.calibrate(sensorGlucose: glucoseValue)
-
-        if calibratedGlucoseValue.isNaN || calibratedGlucoseValue.isInfinite {
-            return glucoseValue
-        }
-
-        return calibratedGlucoseValue
     }
 }
