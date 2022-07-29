@@ -389,7 +389,7 @@
 "Retrieval interval, every minute" = "Каждую минуту";
 
 /* (No Comment) */
-"Retrieval interval, every %1$@ minutes" = "Каждые %1$@ минут";
+"Retrieval interval, every %@ minutes" = "Every %@ minutes";
 
 /* (No Comment) */
 "App donate" = "Пожертвовать";
