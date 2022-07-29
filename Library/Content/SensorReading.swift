@@ -55,8 +55,9 @@ extension SensorReading {
         }
 
         let calibratedGlucoseValue = calibration(glucoseValue: glucoseValue, customCalibration: customCalibration)
+        
         if calibratedGlucoseValue.isNaN || calibratedGlucoseValue.isInfinite {
-            return nil
+            return SensorGlucose(id: id, timestamp: timestamp, rawGlucoseValue: Int(glucoseValue), intGlucoseValue: Int(glucoseValue))
         }
         
         return SensorGlucose(id: id, timestamp: timestamp, rawGlucoseValue: Int(glucoseValue), intGlucoseValue: Int(calibratedGlucoseValue))
