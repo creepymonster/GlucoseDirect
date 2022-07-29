@@ -389,7 +389,7 @@
 "Retrieval interval, every minute" = "Her dakika";
 
 /* (No Comment) */
-"Retrieval interval, every %1$@ minutes" = "Her %1$@ dakikada bir";
+"Retrieval interval, every %@ minutes" = "Every %@ minutes";
 
 /* (No Comment) */
 "App donate" = "Bağışta Bulun";
