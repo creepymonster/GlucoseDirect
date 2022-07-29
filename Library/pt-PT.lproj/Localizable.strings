@@ -467,7 +467,7 @@
 "Sensor glucose values" = "CGM";
 
 /* (No Comment) */
-"Sensor error values" = "CGM errors";
+"Sensor error values" = "Erros de CGM";
 
 /* (No Comment) */
 "Blood glucose values" = "BGM";
