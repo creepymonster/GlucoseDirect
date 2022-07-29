@@ -422,7 +422,7 @@
 "Export to Apple Calendar" = "Apple Kalender";
 
 /* (No Comment) */
-"Glucose notification" = "Glucose Notification";
+"Glucose notification" = "Glukose Mitteilungen";
 
 /* (No Comment) */
 "Time" = "Zeit";
@@ -503,10 +503,10 @@
 "%@ Entry" = "%@ Eintrag";
 
 /* (No Comment) */
-"Send database file" = "Send database file";
+"Send database file" = "Datenbank senden";
 
 /* (No Comment) */
-"Glucose Live Activity" = "Glucose Live Activity";
+"Glucose Live Activity" = "Glukose Live-Aktivitäten";
 
 /* (No Comment) */
-"Glucose read aloud" = "Glucose Reading";
+"Glucose read aloud" = "Glukose Vorlesen";
