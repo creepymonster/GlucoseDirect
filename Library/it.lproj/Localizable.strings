@@ -493,7 +493,7 @@
 /* (No Comment) */
 "Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "La deviazione standard (SD) è una misura della diffusione delle letture del glucosio intorno alla media: il rimbalzo tra molti massimi e minimi si traduce in una SD più grande. L'obiettivo è la SD più bassa possibile, che rifletterebbe un livello di glucosio costante con oscillazioni minime. ";
 
-/* Statistics (7 days) */
+/* (No Comment) */
 "Statistics (%@ days)" = "Statistiche (%@ days) ";
 
 /* (No Comment) */
@@ -501,3 +501,12 @@
 
 /* (No Comment) */
 "%@ Entry" = " %@ Voce ";
+
+/* (No Comment) */
+"Send database file" = " Invia file database";
+
+/* (No Comment) */
+"Glucose Live Activity" = " Attività glucosio dal vivo";
+
+/* (No Comment) */
+"Glucose read aloud" = " Lettura del glucosio";

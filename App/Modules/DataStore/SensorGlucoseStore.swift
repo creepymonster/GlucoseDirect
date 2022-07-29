@@ -11,7 +11,7 @@ import GRDB
 
 func glucoseStatisticsMiddleware() -> Middleware<DirectState, DirectAction> {
     return { state, action, _ in
-        switch action {           
+        switch action {
         case .loadSensorGlucoseValues:
             return Just(DirectAction.loadSensorGlucoseStatistics)
                 .setFailureType(to: DirectError.self)
@@ -49,7 +49,7 @@ func sensorGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
         switch action {
         case .startup:
             DataStore.shared.createSensorGlucoseTable()
-            
+
         case .addSensorGlucose(glucoseValues: let glucoseValues):
             guard !glucoseValues.isEmpty else {
                 break
@@ -192,13 +192,7 @@ extension DataStore {
                 try dbQueue.write { db in
                     values.forEach { value in
                         do {
-//                            let count = try SensorGlucose
-//                                .filter(Column(SensorGlucose.Columns.timestamp.name) == value.timestamp)
-//                                .fetchCount(db)
-//
-//                            if count == 0 {
-                                try value.insert(db)
-//                            }
+                            try value.insert(db)
                         } catch {
                             DirectLog.error(error.localizedDescription)
                         }
@@ -263,13 +257,17 @@ extension DataStore {
             if let dbQueue = self.dbQueue {
                 dbQueue.asyncRead { asyncDB in
                     do {
-                        let db = try asyncDB.get()
-                        let result = try SensorGlucose
-                            .filter(Column(SensorGlucose.Columns.timestamp.name) > Calendar.current.date(byAdding: .day, value: -upToDay, to: Date())!)
-                            .order(Column(SensorGlucose.Columns.timestamp.name))
-                            .fetchAll(db)
+                        if let upTo = Calendar.current.date(byAdding: .day, value: -upToDay, to: Date()) {
+                            let db = try asyncDB.get()
+                            let result = try SensorGlucose
+                                .filter(Column(SensorGlucose.Columns.timestamp.name) > upTo)
+                                .order(Column(SensorGlucose.Columns.timestamp.name))
+                                .fetchAll(db)
 
-                        promise(.success(result))
+                            promise(.success(result))
+                        } else {
+                            promise(.failure(DirectError.withMessage("Cannot get calendar dates")))
+                        }
                     } catch {
                         promise(.failure(DirectError.withMessage(error.localizedDescription)))
                     }
@@ -283,23 +281,30 @@ extension DataStore {
             if let dbQueue = self.dbQueue {
                 dbQueue.asyncRead { asyncDB in
                     do {
-                        let db = try asyncDB.get()
-                        let result = try SensorGlucose
-                            .filter(Column(SensorGlucose.Columns.timestamp.name) <= Calendar.current.date(byAdding: .day, value: -fromDay, to: Date())!)
-                            .filter(Column(SensorGlucose.Columns.timestamp.name) > Calendar.current.date(byAdding: .day, value: -upToDay, to: Date())!)
-                            .select(
-                                min(SensorGlucose.Columns.id).forKey(SensorGlucose.Columns.id.name),
-                                SensorGlucose.Columns.timegroup.forKey(SensorGlucose.Columns.timestamp.name),
-                                sum(SensorGlucose.Columns.minuteChange).forKey(SensorGlucose.Columns.minuteChange.name),
-                                average(SensorGlucose.Columns.rawGlucoseValue).forKey(SensorGlucose.Columns.rawGlucoseValue.name),
-                                average(SensorGlucose.Columns.intGlucoseValue).forKey(SensorGlucose.Columns.intGlucoseValue.name),
-                                SensorGlucose.Columns.timegroup
-                            )
-                            .group(SensorGlucose.Columns.timegroup)
-                            .order(Column(SensorGlucose.Columns.timestamp.name))
-                            .fetchAll(db)
+                        if let from = Calendar.current.date(byAdding: .day, value: -fromDay, to: Date()),
+                           let upTo = Calendar.current.date(byAdding: .day, value: -upToDay, to: Date())
+                        {
+                            let db = try asyncDB.get()
 
-                        promise(.success(result))
+                            let result = try SensorGlucose
+                                .filter(Column(SensorGlucose.Columns.timestamp.name) <= from)
+                                .filter(Column(SensorGlucose.Columns.timestamp.name) > upTo)
+                                .select(
+                                    min(SensorGlucose.Columns.id).forKey(SensorGlucose.Columns.id.name),
+                                    SensorGlucose.Columns.timegroup.forKey(SensorGlucose.Columns.timestamp.name),
+                                    sum(SensorGlucose.Columns.minuteChange).forKey(SensorGlucose.Columns.minuteChange.name),
+                                    average(SensorGlucose.Columns.rawGlucoseValue).forKey(SensorGlucose.Columns.rawGlucoseValue.name),
+                                    average(SensorGlucose.Columns.intGlucoseValue).forKey(SensorGlucose.Columns.intGlucoseValue.name),
+                                    SensorGlucose.Columns.timegroup
+                                )
+                                .group(SensorGlucose.Columns.timegroup)
+                                .order(Column(SensorGlucose.Columns.timestamp.name))
+                                .fetchAll(db)
+
+                            promise(.success(result))
+                        } else {
+                            promise(.failure(DirectError.withMessage("Cannot get calendar dates")))
+                        }
                     } catch {
                         promise(.failure(DirectError.withMessage(error.localizedDescription)))
                     }

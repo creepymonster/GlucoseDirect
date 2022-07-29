@@ -17,45 +17,39 @@ private func logMiddleware(service: SendLogsService) -> Middleware<DirectState, 
         switch action {
         case .setBloodGlucoseValues(glucoseValues: _):
             break
-            
+
         case .setSensorGlucoseValues(glucoseValues: _):
             break
-            
+
         case .setBloodGlucoseHistory(glucoseHistory: _):
             break
-            
+
         case .setSensorGlucoseHistory(glucoseHistory: _):
             break
-            
+
         case .setSensorErrorValues(errorValues: _):
             break
-            
+
         case .setNightscoutURL(url: _):
             break
-            
+
         case .setNightscoutSecret(apiSecret: _):
             break
-            
+
         case .startup:
             service.deleteLogs()
 
         case .deleteLogs:
             service.deleteLogs()
-            
+
         case .sendDatabase:
-            let filename = "GlucoseDirect.sqlite"
-            let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            let path = documentDirectory.appendingPathComponent(filename)
-            
-            service.sendFile(fileURL: path)
+            service.sendFile(fileURL: DataStore.shared.databaseURL)
 
         case .sendLogs:
-            service.sendFile(fileURL: DirectLog.getLogsURL())
+            service.sendFile(fileURL: DirectLog.logsURL)
 
         default:
             DirectLog.info("Triggered action: \(action)")
-
-            break
         }
 
         return Empty().eraseToAnyPublisher()

@@ -493,7 +493,7 @@
 /* (No Comment) */
 "Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "L'écart-type (ET) est une mesure de l'écart des mesures de glycémie par rapport à la moyenne - le fait d'osciller entre de nombreux hauts et bas entraîne un ET plus important. L'objectif est d'obtenir l'écart-type le plus faible possible, ce qui reflète un taux de glucose stable avec des fluctuations minimales.";
 
-/* Statistics (7 days) */
+/* (No Comment) */
 "Statistics (%@ days)" = "Statistiques (%@ jours)";
 
 /* (No Comment) */
@@ -501,3 +501,12 @@
 
 /* (No Comment) */
 "%@ Entry" = "%@ Entrée";
+
+/* (No Comment) */
+"Send database file" = "Envoyer le fichier de la base de données";
+
+/* (No Comment) */
+"Glucose Live Activity" = "Glycémie en temps réel";
+
+/* (No Comment) */
+"Glucose read aloud" = "Glycémie";

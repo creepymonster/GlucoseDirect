@@ -32,6 +32,7 @@ protocol DirectState {
     var customCalibration: [CustomCalibration] { get set }
     var expiringAlarmSound: NotificationSound { get set }
     var glucoseNotification: Bool { get set }
+    var glucoseLiveActivity: Bool { get set }
     var glucoseUnit: GlucoseUnit { get set }
     var highGlucoseAlarmSound: NotificationSound { get set }
     var isConnectionPaired: Bool { get set }

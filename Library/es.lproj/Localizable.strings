@@ -501,3 +501,12 @@
 
 /* (No Comment) */
 "%@ Entry" = "%@ entrada";
+
+/* (No Comment) */
+"Send database file" = " Enviar archivo de base de datos";
+
+/* (No Comment) */
+"Glucose Live Activity" = " Actividad en vivo de glucosa";
+
+/* (No Comment) */
+"Glucose read aloud" = " Lectura de glucosa";
