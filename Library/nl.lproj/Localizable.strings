@@ -113,7 +113,7 @@
 "Nightscout upload enabled" = "Upload";
 
 /* (No Comment) */
-"Now" = "Now";
+"Now" = "Nu";
 
 /* (No Comment) */
 "Power off" = "Power off";
@@ -467,7 +467,7 @@
 "Sensor glucose values" = "CGM";
 
 /* (No Comment) */
-"Sensor error values" = "CGM errors";
+"Sensor error values" = "CGM fouten";
 
 /* (No Comment) */
 "Blood glucose values" = "BGM";
