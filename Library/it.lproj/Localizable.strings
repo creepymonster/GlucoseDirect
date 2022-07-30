@@ -389,7 +389,7 @@
 "Retrieval interval, every minute" = "Ogni minuto ";
 
 /* (No Comment) */
-"Retrieval interval, every %@ minutes" = "Ogni %@ minuti ";
+"Retrieval interval, every %@ minutes" = "Ogni %@ minuti";
 
 /* (No Comment) */
 "App donate" = "Donare";
@@ -503,10 +503,10 @@
 "%@ Entry" = " %@ Voce ";
 
 /* (No Comment) */
-"Send database file" = " Invia file database";
+"Send database file" = "Invia file database";
 
 /* (No Comment) */
-"Glucose Live Activity" = " Attività glucosio dal vivo";
+"Glucose Live Activity" = "Attività glucosio dal vivo";
 
 /* (No Comment) */
-"Glucose read aloud" = " Lettura del glucosio";
+"Glucose read aloud" = "Lettura del glucosio";
