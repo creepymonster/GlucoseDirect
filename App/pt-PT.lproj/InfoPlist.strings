@@ -17,7 +17,7 @@
 "NSCalendarsUsageDescription" = "É necessário acesso ao calendário para exibir valores de glicose atualizados no Apple Watch.";
 
 /* Privacy - Health Share Usage Description */
-"NSHealthShareUsageDescription" = "Access to Apple Health is required if glucose data should be exported.";
+"NSHealthShareUsageDescription" = " Acesso ao Apple Health é necessário caso os dados de glicose tenham de ser exportados. ";
 
 /* Privacy - Health Update Usage Description */
-"NSHealthUpdateUsageDescription" = "Access to Apple Health is required if glucose data should be exported.";
+"NSHealthUpdateUsageDescription" = " Acesso ao Apple Health é necessário caso os dados de glicose tenham de ser exportados. ";
