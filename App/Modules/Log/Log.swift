@@ -9,10 +9,10 @@ import OSLog
 import SwiftUI
 
 func logMiddleware() -> Middleware<DirectState, DirectAction> {
-    return logMiddleware(service: SendLogsService())
+    return logMiddleware(service: SendService())
 }
 
-private func logMiddleware(service: SendLogsService) -> Middleware<DirectState, DirectAction> {
+private func logMiddleware(service: SendService) -> Middleware<DirectState, DirectAction> {
     return { _, action, _ in
         switch action {
         case .setBloodGlucoseValues(glucoseValues: _):
@@ -37,10 +37,10 @@ private func logMiddleware(service: SendLogsService) -> Middleware<DirectState, 
             break
 
         case .startup:
-            service.deleteLogs()
+            DirectLog.deleteLogs()
 
         case .deleteLogs:
-            service.deleteLogs()
+            DirectLog.deleteLogs()
 
         case .sendDatabase:
             service.sendFile(fileURL: DataStore.shared.databaseURL)
@@ -58,11 +58,7 @@ private func logMiddleware(service: SendLogsService) -> Middleware<DirectState, 
 
 // MARK: - SendLogsService
 
-private class SendLogsService {
-    func deleteLogs() {
-        DirectLog.deleteLogs()
-    }
-
+private class SendService {
     func sendFile(fileURL: URL) {
         let activityViewController = UIActivityViewController(activityItems: [fileURL], applicationActivities: nil)
 
