@@ -46,20 +46,18 @@ extension SensorReading {
     }
 
     func calibrate(customCalibration: [CustomCalibration]) -> SensorGlucose? {
-        guard error == .OK, !glucoseValue.isNaN, !glucoseValue.isInfinite else {
+        guard error == .OK else {
             return nil
         }
 
-        if customCalibration.isEmpty {
-            return SensorGlucose(id: id, timestamp: timestamp, rawGlucoseValue: Int(glucoseValue), intGlucoseValue: Int(glucoseValue))
+        let calibratedGlucoseValue = customCalibration.isEmpty
+            ? glucoseValue
+            : customCalibration.calibrate(sensorGlucose: glucoseValue)
+
+        guard let glucoseValue = glucoseValue.toInt(), let calibratedGlucoseValue = calibratedGlucoseValue.toInt() else {
+            return nil
         }
-
-        let calibratedGlucoseValue = customCalibration.calibrate(sensorGlucose: glucoseValue)
-
-        if calibratedGlucoseValue.isNaN || calibratedGlucoseValue.isInfinite {
-            return SensorGlucose(id: id, timestamp: timestamp, rawGlucoseValue: Int(glucoseValue), intGlucoseValue: Int(glucoseValue))
-        }
-
-        return SensorGlucose(id: id, timestamp: timestamp, rawGlucoseValue: Int(glucoseValue), intGlucoseValue: Int(calibratedGlucoseValue))
+        
+        return SensorGlucose(id: id, timestamp: timestamp, rawGlucoseValue: glucoseValue, intGlucoseValue: calibratedGlucoseValue)
     }
 }

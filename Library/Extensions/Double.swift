@@ -61,4 +61,12 @@ extension Double {
 
         return String(format: LocalizedString("%1$@/min."), formattedMinuteChange)
     }
+    
+    func toInt() -> Int? {
+        if self >= Double(Int.min) && self < Double(Int.max) {
+            return Int(self)
+        } else {
+            return nil
+        }
+    }
 }

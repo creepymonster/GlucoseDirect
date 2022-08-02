@@ -12,38 +12,73 @@ struct GlucoseActivityWidget: Widget {
 
     var body: some WidgetConfiguration {
         ActivityConfiguration(attributesType: SensorGlucoseActivityAttributes.self) { context in
-            VStack(alignment: .center, spacing: 0) {
-                HStack(alignment: .lastTextBaseline) {
-                    Text(context.state.glucose.glucoseValue.asGlucose(unit: context.state.glucoseUnit))
-                        .font(.system(size: 96))
+            if let glucose = context.state.glucose,
+               let glucoseUnit = context.state.glucoseUnit
+            {
+                VStack(alignment: .center, spacing: 0) {
+                    HStack(alignment: .lastTextBaseline) {
+                        Text(glucose.glucoseValue.asGlucose(unit: glucoseUnit))
+                            .font(.system(size: 96))
 
-                    VStack(alignment: .center) {
-                        Text(context.state.glucose.trend.description)
-                            .font(.system(size: 52))
-                            .bold()
+                        VStack(alignment: .center) {
+                            Text(glucose.trend.description)
+                                .font(.system(size: 52))
+                                .bold()
 
-                        Text(context.state.glucoseUnit.localizedString)
-                            .foregroundStyle(Color.primary)
-                    }.padding(.leading, 5)
-                }.foregroundColor(getGlucoseColor(alarmLow: context.state.alarmLow, alarmHigh: context.state.alarmHigh, glucose: context.state.glucose))
+                            Text(glucoseUnit.localizedString)
+                                .foregroundStyle(Color.primary)
+                        }.padding(.leading, 5)
+                    }.foregroundColor(getGlucoseColor(alarmLow: context.state.alarmLow, alarmHigh: context.state.alarmHigh, glucose: glucose))
 
-                HStack(spacing: 20) {
-                    Spacer()
-                    Text(context.state.glucose.timestamp.toLocalTime())
-                    Spacer()
+                    HStack(spacing: 20) {
+                        Spacer()
+                        Text(glucose.timestamp.toLocalTime())
+                        Spacer()
 
-                    if let minuteChange = context.state.glucose.minuteChange?.asMinuteChange(glucoseUnit: context.state.glucoseUnit), context.state.glucose.trend != .unknown {
-                        Text(minuteChange)
-                    } else {
-                        Text("?".asMinuteChange())
+                        if let minuteChange = glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit), glucose.trend != .unknown {
+                            Text(minuteChange)
+                        } else {
+                            Text("?".asMinuteChange())
+                        }
+
+                        Spacer()
                     }
+                    .padding(.bottom)
 
-                    Spacer()
+                    if let startDate = context.state.startDate,
+                       let restartDate = context.state.restartDate,
+                       let stopDate = context.state.stopDate
+                    {
+                        HStack(spacing: 20) {
+                            Spacer()
+                            
+                            VStack {
+                                Text("Start").bold()
+                                Text(startDate.toLocalTime())
+                            }
+                            
+                            Spacer()
+                            
+                            VStack {
+                                Text("Restart").bold()
+                                Text(restartDate.toLocalTime())
+                            }
+                            
+                            Spacer()
+                            
+                            VStack {
+                                Text("Stop").bold()
+                                Text(stopDate.toLocalTime())
+                            }
+                            
+                            Spacer()
+                        }
+                        .padding(.bottom)
+                        .font(.footnote)
+                        .opacity(0.5)
+                    }
                 }
-                .padding(.bottom)
-                .opacity(0.5)
             }
-            .activitySystemActionForegroundColor(Color.ui.red)
         }
     }
 

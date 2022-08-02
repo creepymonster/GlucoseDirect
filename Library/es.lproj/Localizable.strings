@@ -365,7 +365,7 @@
 "App facebook group" = "Facebook";
 
 /* (No Comment) */
-"App email" = "Correo electrónico ";
+"App email" = "Correo electrónico";
 
 /* (No Comment) */
 "Low glucose alarm" = "Alarma por glucosa baja";
@@ -503,10 +503,10 @@
 "%@ Entry" = "%@ entrada";
 
 /* (No Comment) */
-"Send database file" = " Enviar archivo de base de datos";
+"Send database file" = "Enviar archivo de base de datos";
 
 /* (No Comment) */
-"Glucose Live Activity" = " Actividad en vivo de glucosa";
+"Glucose Live Activity" = "Actividad en vivo de glucosa";
 
 /* (No Comment) */
-"Glucose read aloud" = " Lectura de glucosa";
+"Glucose read aloud" = "Lectura de glucosa";

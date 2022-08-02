@@ -50,6 +50,8 @@
 		E2591C5E28740EBB0009F27C /* BellmanConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2591C5C28740EBB0009F27C /* BellmanConnectionState.swift */; };
 		E2591C5F28740EDC0009F27C /* DirectNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC3E2707420100FE1CBF /* DirectNotifications.swift */; };
 		E2591C62287412740009F27C /* ScreenLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2591C61287412740009F27C /* ScreenLock.swift */; };
+		E25FE9DF28984F8E00B3276F /* SensorGlucoseActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25FE9DE28984F8E00B3276F /* SensorGlucoseActivityAttributes.swift */; };
+		E25FE9E028984F8E00B3276F /* SensorGlucoseActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25FE9DE28984F8E00B3276F /* SensorGlucoseActivityAttributes.swift */; };
 		E26089A42748DCB500749025 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26089A32748DCB500749025 /* Double.swift */; };
 		E26205102773C80400AD631B /* silent.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E262050F2773C80400AD631B /* silent.aiff */; };
 		E262DCBD287A3E8900ECAB76 /* SensorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E262DCBC287A3E8900ECAB76 /* SensorError.swift */; };
@@ -248,6 +250,7 @@
 		E2591C5928740E7A0009F27C /* SensorConnectionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorConnectionInfo.swift; sourceTree = "<group>"; };
 		E2591C5C28740EBB0009F27C /* BellmanConnectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BellmanConnectionState.swift; sourceTree = "<group>"; };
 		E2591C61287412740009F27C /* ScreenLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenLock.swift; sourceTree = "<group>"; };
+		E25FE9DE28984F8E00B3276F /* SensorGlucoseActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorGlucoseActivityAttributes.swift; sourceTree = "<group>"; };
 		E26089A32748DCB500749025 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		E262050F2773C80400AD631B /* silent.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = silent.aiff; sourceTree = "<group>"; };
 		E262DCBC287A3E8900ECAB76 /* SensorError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorError.swift; sourceTree = "<group>"; };
@@ -698,6 +701,7 @@
 				E2FCAC19270741BC00FE1CBF /* SensorState.swift */,
 				E2FCAC1B270741BC00FE1CBF /* SensorTrend.swift */,
 				E2FCAC12270741BC00FE1CBF /* SensorType.swift */,
+				E25FE9DE28984F8E00B3276F /* SensorGlucoseActivityAttributes.swift */,
 				E21656C4275377A90007AF43 /* Transmitter.swift */,
 				E2218BAF284FA16900DB5A55 /* NotificationSound.swift */,
 				E2C19FB8273568A000B70A73 /* Calibrations */,
@@ -1011,6 +1015,7 @@
 				E278848327B4646E00E07DDC /* Lazy.swift in Sources */,
 				E2FCAC652707427D00FE1CBF /* ConnectionNotification.swift in Sources */,
 				E24B532126B863C00091417F /* GlucoseSettingsView.swift in Sources */,
+				E25FE9DF28984F8E00B3276F /* SensorGlucoseActivityAttributes.swift in Sources */,
 				E2FCAC422707420100FE1CBF /* AppState.swift in Sources */,
 				E2C8F5FE278CD63000519ABD /* BellmanAlarm.swift in Sources */,
 				E26677DC28799E8A008E8B68 /* Glucose.swift in Sources */,
@@ -1101,6 +1106,7 @@
 				E2E8DBE72859F46D002C84FD /* View.swift in Sources */,
 				E2E8DBE92859F46D002C84FD /* State.swift in Sources */,
 				E2591C5628740E3A0009F27C /* DirectAction.swift in Sources */,
+				E25FE9E028984F8E00B3276F /* SensorGlucoseActivityAttributes.swift in Sources */,
 				E2E8DBEA2859F46D002C84FD /* Double.swift in Sources */,
 				E2E8DBFE2859F479002C84FD /* SensorTrend.swift in Sources */,
 				E2E8DBF22859F479002C84FD /* SensorRegion.swift in Sources */,
