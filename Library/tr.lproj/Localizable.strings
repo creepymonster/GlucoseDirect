@@ -35,9 +35,6 @@
 "Alert, sensor expiring soon" = "Uyarı, sensör süresi yakında sona eriyor";
 
 /* (No Comment) */
-"Are you sure you want to delete all log files?" = "Tüm günlük dosyalarını silmek istediğinizden emin misiniz?";
-
-/* (No Comment) */
 "Are you sure you want to disconnect the sensor?" = "Sensörün bağlantısını kesmek istediğinizden emin misiniz?";
 
 /* (No Comment) */
@@ -299,9 +296,6 @@
 "Sensor ending date" = "Bitiş tarihi";
 
 /* (No Comment) */
-"Delete log files" = "Günlük dosyalarını sil";
-
-/* (No Comment) */
 "Readable glucose: %1$@ %2$@" = "Glikoz: %1$@ %2$@";
 
 /* (No Comment) */
@@ -510,3 +504,6 @@
 
 /* (No Comment) */
 "Glucose read aloud" = "Glikoz Okuma";
+
+/* (No Comment) */
+"Ignore mute" = "Sessize almayı yoksay";

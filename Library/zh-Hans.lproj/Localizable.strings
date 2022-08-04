@@ -35,9 +35,6 @@
 "Alert, sensor expiring soon" = "警报，传感器即将到期";
 
 /* (No Comment) */
-"Are you sure you want to delete all log files?" = "你确定你要删除所有的日志文件吗？";
-
-/* (No Comment) */
 "Are you sure you want to disconnect the sensor?" = "你确定你要断开传感器的连接吗？";
 
 /* (No Comment) */
@@ -299,9 +296,6 @@
 "Sensor ending date" = "结束时间";
 
 /* (No Comment) */
-"Delete log files" = "删除日志文件";
-
-/* (No Comment) */
 "Readable glucose: %1$@ %2$@" = "血糖:%1$@ %2$@";
 
 /* (No Comment) */
@@ -510,3 +504,6 @@
 
 /* (No Comment) */
 "Glucose read aloud" = "血糖读数";
+
+/* (No Comment) */
+"Ignore mute" = "Ignore mute";

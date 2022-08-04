@@ -83,7 +83,7 @@ struct AboutView: View {
                 Label("About \(DirectConfig.appName)", systemImage: "info")
             }
         )
-        
+
         Button("Send database file", action: {
             store.dispatch(.sendDatabase)
         })
@@ -91,19 +91,6 @@ struct AboutView: View {
         Button("Send log file", action: {
             store.dispatch(.sendLogs)
         })
-
-        Button("Delete log files", action: {
-            showingDeleteLogsAlert = true
-
-        }).alert(isPresented: $showingDeleteLogsAlert) {
-            Alert(
-                title: Text("Are you sure you want to delete all log files?"),
-                primaryButton: .destructive(Text("Delete all")) {
-                    store.dispatch(.deleteLogs)
-                },
-                secondaryButton: .cancel()
-            )
-        }
 
         #if DEBUG
         Section(

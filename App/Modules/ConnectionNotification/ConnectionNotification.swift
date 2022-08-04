@@ -99,10 +99,6 @@ private class ConnectionNotificationService {
                     return
                 }
 
-                guard state != .none else {
-                    return
-                }
-
                 let notification = UNMutableNotificationContent()
 
                 if sound != .none, state == .sound {

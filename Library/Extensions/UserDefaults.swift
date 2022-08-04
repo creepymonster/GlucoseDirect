@@ -24,6 +24,7 @@ private enum Keys: String {
     case glucoseLiveActivity = "libre-direct.settings.glucose-live-activity"
     case glucoseUnit = "libre-direct.settings.glucose-unit"
     case highGlucoseAlarmSound = "libre-direct.settings.high-glucose-alarm-sound"
+    case ignoreMute = "libre-direct.settings.ignore-mute"
     case isConnectionPaired = "libre-direct.settings.is-paired"
     case latestBloodGlucose = "libre-direct.settings.latest-blood-glucose"
     case latestSensorError = "libre-direct.settings.latest-sensor-error"
@@ -122,6 +123,19 @@ extension UserDefaults {
         }
         set {
             set(newValue, forKey: Keys.bellmanAlarm.rawValue)
+        }
+    }
+
+    var ignoreMute: Bool {
+        get {
+            if object(forKey: Keys.ignoreMute.rawValue) != nil {
+                return bool(forKey: Keys.ignoreMute.rawValue)
+            }
+
+            return false
+        }
+        set {
+            set(newValue, forKey: Keys.ignoreMute.rawValue)
         }
     }
 
@@ -250,7 +264,7 @@ extension UserDefaults {
             set(newValue, forKey: Keys.glucoseNotification.rawValue)
         }
     }
-    
+
     var glucoseLiveActivity: Bool {
         get {
             if object(forKey: Keys.glucoseLiveActivity.rawValue) != nil {
@@ -566,7 +580,7 @@ extension UserDefaults {
             set(newValue, forKey: Keys.sensorInterval.rawValue)
         }
     }
-    
+
     var showAnnotations: Bool {
         get {
             if object(forKey: Keys.showAnnotations.rawValue) != nil {

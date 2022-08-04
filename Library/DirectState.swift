@@ -35,6 +35,7 @@ protocol DirectState {
     var glucoseLiveActivity: Bool { get set }
     var glucoseUnit: GlucoseUnit { get set }
     var highGlucoseAlarmSound: NotificationSound { get set }
+    var ignoreMute: Bool { get set }
     var isConnectionPaired: Bool { get set }
     var latestBloodGlucose: BloodGlucose? { get set }
     var latestSensorGlucose: SensorGlucose? { get set }

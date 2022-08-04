@@ -38,21 +38,21 @@ private func expiringNotificationMiddelware(service: LazyService<ExpiringNotific
             if remainingMinutes == 0 { // expired
                 DirectLog.info("Sensor is expired")
 
-                service.value.setSensorExpiredAlarm(sound: state.expiringAlarmSound)
+                service.value.setSensorExpiredAlarm(sound: state.expiringAlarmSound, ignoreMute: state.ignoreMute)
 
             } else if remainingMinutes <= (8 * 60 + 1) { // less than 8 hours
                 DirectLog.info("Sensor is expiring in less than 8 hours")
 
                 if remainingMinutes.inHours == 0 {
-                    service.value.setSensorExpiringAlarm(body: String(format: LocalizedString("Your sensor is about to expire. Replace sensor in %1$@ minutes."), remainingMinutes.inMinutes.description), sound: state.expiringAlarmSound)
+                    service.value.setSensorExpiringAlarm(body: String(format: LocalizedString("Your sensor is about to expire. Replace sensor in %1$@ minutes."), remainingMinutes.inMinutes.description), sound: state.expiringAlarmSound, ignoreMute: state.ignoreMute)
                 } else {
-                    service.value.setSensorExpiringAlarm(body: String(format: LocalizedString("Your sensor is about to expire. Replace sensor in %1$@ hours."), remainingMinutes.inHours.description), sound: state.expiringAlarmSound)
+                    service.value.setSensorExpiringAlarm(body: String(format: LocalizedString("Your sensor is about to expire. Replace sensor in %1$@ hours."), remainingMinutes.inHours.description), sound: state.expiringAlarmSound, ignoreMute: state.ignoreMute)
                 }
 
             } else if remainingMinutes <= (24 * 60 + 1) { // less than 24 hours
                 DirectLog.info("Sensor is expiring in less than 24 hours")
 
-                service.value.setSensorExpiringAlarm(body: String(format: LocalizedString("Your sensor is about to expire. Replace sensor in %1$@ hours."), remainingMinutes.inHours.description), sound: .none)
+                service.value.setSensorExpiringAlarm(body: String(format: LocalizedString("Your sensor is about to expire. Replace sensor in %1$@ hours."), remainingMinutes.inHours.description), sound: .none, ignoreMute: state.ignoreMute)
             }
 
         default:
@@ -85,7 +85,7 @@ private class ExpiringNotificationService {
         DirectNotifications.shared.removeNotification(identifier: Identifier.sensorExpiringAlarm.rawValue)
     }
 
-    func setSensorExpiredAlarm(sound: NotificationSound) {
+    func setSensorExpiredAlarm(sound: NotificationSound, ignoreMute: Bool) {
         guard nextExpiredAlert == nil || Date() >= nextExpiredAlert! else {
             return
         }
@@ -95,27 +95,22 @@ private class ExpiringNotificationService {
         DirectNotifications.shared.ensureCanSendNotification { state in
             DirectLog.info("Sensor expired alert, state: \(state)")
 
-            guard state != .none else {
+            guard state == .sound else {
                 return
             }
 
             let notification = UNMutableNotificationContent()
-
-            if sound != .none, state == .sound {
-                notification.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "\(sound.rawValue).aiff"))
-            } else {
-                notification.sound = .none
-            }
-
+            notification.sound = .none
             notification.interruptionLevel = .timeSensitive
             notification.title = LocalizedString("Alert, sensor expired")
             notification.body = LocalizedString("Your sensor has expired and needs to be replaced as soon as possible")
 
+            DirectNotifications.shared.playSound(sound: sound, ignoreMute: ignoreMute)
             DirectNotifications.shared.addNotification(identifier: Identifier.sensorExpiringAlarm.rawValue, content: notification)
         }
     }
 
-    func setSensorExpiringAlarm(body: String, sound: NotificationSound) {
+    func setSensorExpiringAlarm(body: String, sound: NotificationSound, ignoreMute: Bool) {
         guard lastExpiringAlert != body else {
             return
         }
@@ -130,23 +125,16 @@ private class ExpiringNotificationService {
         DirectNotifications.shared.ensureCanSendNotification { state in
             DirectLog.info("Sensor expired alert, state: \(state)")
 
-            guard state != .none else {
+            guard state == .sound else {
                 return
             }
-
+            
             let notification = UNMutableNotificationContent()
-
-            if sound != .none, state == .sound {
-                notification.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "\(sound.rawValue).aiff"))
-                notification.interruptionLevel = .timeSensitive
-            } else {
-                notification.sound = .none
-                notification.interruptionLevel = .passive
-            }
-
+            notification.sound = .none
             notification.title = LocalizedString("Alert, sensor expiring soon")
             notification.body = body
 
+            DirectNotifications.shared.playSound(sound: sound, ignoreMute: ignoreMute)
             DirectNotifications.shared.addNotification(identifier: Identifier.sensorExpiringAlarm.rawValue, content: notification)
         }
     }

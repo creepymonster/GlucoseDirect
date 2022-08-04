@@ -35,9 +35,6 @@
 "Alert, sensor expiring soon" = "Alert, Sensor läuft bald ab";
 
 /* (No Comment) */
-"Are you sure you want to delete all log files?" = "Sind Sie sicher, dass Sie alle Protokolldateien löschen wollen?";
-
-/* (No Comment) */
 "Are you sure you want to disconnect the sensor?" = "Sind Sie sicher, dass Sie die Verbindung zum Sensor trennen wollen?";
 
 /* (No Comment) */
@@ -299,9 +296,6 @@
 "Sensor ending date" = "Enddatum";
 
 /* (No Comment) */
-"Delete log files" = "Fehlerberichte löschen";
-
-/* (No Comment) */
 "Readable glucose: %1$@ %2$@" = "Glukose: %1$@ %2$@";
 
 /* (No Comment) */
@@ -510,3 +504,6 @@
 
 /* (No Comment) */
 "Glucose read aloud" = "Glukose Vorlesen";
+
+/* (No Comment) */
+"Ignore mute" = "Stummschaltung ignorieren";
