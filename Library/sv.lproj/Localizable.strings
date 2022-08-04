@@ -35,9 +35,6 @@
 "Alert, sensor expiring soon" = "Varning, sensor behöver snart bytas";
 
 /* (No Comment) */
-"Are you sure you want to delete all log files?" = "Bekräfta att du vill rensa loggfiler";
-
-/* (No Comment) */
 "Are you sure you want to disconnect the sensor?" = "Bekräfta att du vill koppla ifrån sensorn";
 
 /* (No Comment) */
@@ -299,9 +296,6 @@
 "Sensor ending date" = "Ending date";
 
 /* (No Comment) */
-"Delete log files" = "Ta bort loggfiler";
-
-/* (No Comment) */
 "Readable glucose: %1$@ %2$@" = "Glukos: %1$@ %2$@";
 
 /* (No Comment) */
@@ -510,3 +504,6 @@
 
 /* (No Comment) */
 "Glucose read aloud" = "Glucose Reading";
+
+/* (No Comment) */
+"Ignore mute" = "Ignore mute";
