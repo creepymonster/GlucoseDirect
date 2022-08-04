@@ -254,7 +254,7 @@
 "Transmitter firmware" = "Micrologiciel";
 
 /* (No Comment) */
-"Transmitter" = "Émetteur :";
+"Transmitter" = "Émetteur : ";
 
 /* (No Comment) */
 "Sensor connection" = "Connexion au capteur";
