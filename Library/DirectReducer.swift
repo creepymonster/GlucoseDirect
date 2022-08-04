@@ -117,6 +117,9 @@ func directReducer(state: inout DirectState, action: DirectAction) {
     case .setConnectionAlarmSound(sound: let sound):
         state.connectionAlarmSound = sound
         
+    case .setIgnoreMute(enabled: let enabled):
+         state.ignoreMute = enabled
+        
     case .setConnectionError(errorMessage: let errorMessage, errorTimestamp: let errorTimestamp, errorIsCritical: let errorIsCritical):
         state.connectionError = errorMessage
         state.connectionErrorTimestamp = errorTimestamp

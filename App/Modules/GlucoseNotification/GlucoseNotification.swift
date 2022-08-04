@@ -56,7 +56,7 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
 
                 if !isSnoozed {
                     if state.hasLowGlucoseAlarm {
-                        service.value.setLowGlucoseAlarm(sound: state.lowGlucoseAlarmSound)
+                        service.value.setLowGlucoseAlarm(sound: state.lowGlucoseAlarmSound, ignoreMute: state.ignoreMute)
                     }
 
                     return Just(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).toRounded(on: 1, .minute), autosnooze: true))
@@ -73,7 +73,7 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
 
                 if !isSnoozed {
                     if state.hasHighGlucoseAlarm {
-                        service.value.setHighGlucoseAlarm(sound: state.highGlucoseAlarmSound)
+                        service.value.setHighGlucoseAlarm(sound: state.highGlucoseAlarmSound, ignoreMute: state.ignoreMute)
                     }
 
                     return Just(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).toRounded(on: 1, .minute), autosnooze: true))
@@ -119,7 +119,7 @@ private class GlucoseNotificationService {
         DirectNotifications.shared.ensureCanSendNotification { state in
             DirectLog.info("Glucose info, state: \(state)")
 
-            guard state != .none else {
+            guard state == .sound else {
                 return
             }
 
@@ -143,13 +143,13 @@ private class GlucoseNotificationService {
         }
     }
 
-    func setLowGlucoseAlarm(sound: NotificationSound) {
+    func setLowGlucoseAlarm(sound: NotificationSound, ignoreMute: Bool) {
         DirectNotifications.shared.ensureCanSendNotification { state in
             guard state == .sound else {
                 return
             }
             
-            DirectNotifications.shared.playSound(sound: sound)
+            DirectNotifications.shared.playSound(sound: sound, ignoreMute: ignoreMute)
         }
     }
 
@@ -157,7 +157,7 @@ private class GlucoseNotificationService {
         DirectNotifications.shared.ensureCanSendNotification { state in
             DirectLog.info("Glucose alert, state: \(state)")
 
-            guard state != .none else {
+            guard state == .sound else {
                 return
             }
 
@@ -182,13 +182,13 @@ private class GlucoseNotificationService {
         }
     }
 
-    func setHighGlucoseAlarm(sound: NotificationSound) {
+    func setHighGlucoseAlarm(sound: NotificationSound, ignoreMute: Bool) {
         DirectNotifications.shared.ensureCanSendNotification { state in
             guard state == .sound else {
                 return
             }
             
-            DirectNotifications.shared.playSound(sound: sound)
+            DirectNotifications.shared.playSound(sound: sound, ignoreMute: ignoreMute)
         }
     }
 
@@ -196,7 +196,7 @@ private class GlucoseNotificationService {
         DirectNotifications.shared.ensureCanSendNotification { state in
             DirectLog.info("Glucose alert, state: \(state)")
 
-            guard state != .none else {
+            guard state == .sound else {
                 return
             }
 

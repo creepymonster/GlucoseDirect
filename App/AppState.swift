@@ -56,6 +56,7 @@ struct AppState: DirectState {
         self.expiringAlarmSound = UserDefaults.standard.expiringAlarmSound
         self.glucoseNotification = UserDefaults.standard.glucoseNotification
         self.glucoseLiveActivity = UserDefaults.standard.glucoseLiveActivity
+        self.ignoreMute = UserDefaults.standard.ignoreMute
         self.glucoseUnit = UserDefaults.shared.glucoseUnit ?? .mgdL
         self.highGlucoseAlarmSound = UserDefaults.standard.highGlucoseAlarmSound
         self.isConnectionPaired = UserDefaults.standard.isConnectionPaired
@@ -111,6 +112,7 @@ struct AppState: DirectState {
     var glucoseLiveActivity: Bool { didSet { UserDefaults.standard.glucoseLiveActivity = glucoseLiveActivity } }
     var glucoseUnit: GlucoseUnit { didSet { UserDefaults.shared.glucoseUnit = glucoseUnit } }
     var highGlucoseAlarmSound: NotificationSound { didSet { UserDefaults.standard.highGlucoseAlarmSound = highGlucoseAlarmSound } }
+    var ignoreMute: Bool { didSet { UserDefaults.standard.ignoreMute = ignoreMute } }
     var isConnectionPaired: Bool { didSet { UserDefaults.standard.isConnectionPaired = isConnectionPaired } }
     var latestBloodGlucose: BloodGlucose? { didSet { UserDefaults.shared.latestBloodGlucose = latestBloodGlucose } }
     var latestSensorError: SensorError? { didSet { UserDefaults.shared.latestSensorError = latestSensorError } }

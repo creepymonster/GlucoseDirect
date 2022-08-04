@@ -66,6 +66,10 @@ struct AlarmSettingsView: View {
                     .pickerStyle(.menu)
                     .labelsHidden()
                 }
+
+                ToggleView(key: LocalizedString("Ignore mute"), value: store.state.ignoreMute) { value in
+                    store.dispatch(.setIgnoreMute(enabled: value))
+                }
             },
             header: {
                 Label("Alarm settings", systemImage: "alarm")
