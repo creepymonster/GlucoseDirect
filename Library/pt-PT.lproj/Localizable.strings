@@ -14,10 +14,10 @@
 "Add glucose for calibration" = "Adicionar glicemia para calibrar";
 
 /* (No Comment) */
-"Add calibration" = " Adicionar calibração ";
+"Add calibration" = "Adicionar calibração";
 
 /* (No Comment) */
-"Add blood glucose" = " Adicionar glicose no sangue ";
+"Add blood glucose" = "Adicionar glicose no sangue";
 
 /* (No Comment) */
 "Alert, high glucose" = "Alerta, glicemia alta";
@@ -56,7 +56,7 @@
 "Connected" = "Conectado";
 
 /* (No Comment) */
-"Connecting" = "A conectar ";
+"Connecting" = "A conectar";
 
 /* (No Comment) */
 "Connection alarm" = "Alarme de conexão";
@@ -293,7 +293,7 @@
 "Sensor starting date" = "Data de início";
 
 /* (No Comment) */
-"Sensor ending date" = " Data de fim";
+"Sensor ending date" = "Data de fim";
 
 /* (No Comment) */
 "Readable glucose: %1$@ %2$@" = "Glicose: %1$@ %2$@";
@@ -362,100 +362,100 @@
 "App email" = "e-mail";
 
 /* (No Comment) */
-"Low glucose alarm" = " Alarme de glicose baixa ";
+"Low glucose alarm" = "Alarme de glicose baixa";
 
 /* (No Comment) */
-"High glucose alarm" = " Alarme de glicose alta ";
+"High glucose alarm" = "Alarme de glicose alta";
 
 /* (No Comment) */
-"Vibration" = " Vibrar apenas ";
+"Vibration" = "Vibrar apenas";
 
 /* (No Comment) */
-"Scan sensor" = " Sensor de digitalização ";
+"Scan sensor" = "Sensor de digitalização";
 
 /* (No Comment) */
-"Retry pairing" = " Repetir emparelhamento ";
+"Retry pairing" = "Repetir emparelhamento";
 
 /* (No Comment) */
-"Retrieval interval" = " Intervalo de recuperação ";
+"Retrieval interval" = "Intervalo de recuperação";
 
 /* (No Comment) */
-"Retrieval interval, every minute" = " A cada minuto ";
+"Retrieval interval, every minute" = "A cada minuto";
 
 /* (No Comment) */
-"Retrieval interval, every %@ minutes" = " A cada %@ minutos ";
+"Retrieval interval, every %@ minutes" = "A cada %@ minutos";
 
 /* (No Comment) */
-"App donate" = " Doar";
+"App donate" = "Doar";
 
 /* (No Comment) */
-"Bellman alarm" = " Alarme ";
+"Bellman alarm" = "Alarme";
 
 /* (No Comment) */
-"Bellman test alarm" = " Alarme de teste ";
+"Bellman test alarm" = "Alarme de teste";
 
 /* (No Comment) */
-"Find transmitter" = " Encontrar transmissor ";
+"Find transmitter" = "Encontrar transmissor";
 
 /* (No Comment) */
-"Connect transmitter" = " Conecte o transmissor ";
+"Connect transmitter" = "Conecte o transmissor";
 
 /* (No Comment) */
-"Disconnect transmitter" = " Desconecte o transmissor ";
+"Disconnect transmitter" = "Desconecte o transmissor";
 
 /* (No Comment) */
-"Rescan the sensor" = " Digitalize novamente o sensor ";
+"Rescan the sensor" = "Digitalize novamente o sensor";
 
 /* (No Comment) */
-"Apple export settings" = " Definições de exportação da Apple ";
+"Apple export settings" = "Definições de exportação da Apple";
 
 /* (No Comment) */
-"Export to Apple Health" = " Exportar para o Apple Health ";
+"Export to Apple Health" = "Exportar para o Apple Health";
 
 /* (No Comment) */
-"Export to Apple Calendar" = " Exportar para o Calendário Apple ";
+"Export to Apple Calendar" = "Exportar para o Calendário Apple";
 
 /* (No Comment) */
-"Glucose notification" = " Notificação de glicose ";
+"Glucose notification" = "Notificação de glicose";
 
 /* (No Comment) */
 "Time" = "Hora";
 
 /* (No Comment) */
-"Glucose" = " Glicose ";
+"Glucose" = "Glicose";
 
 /* (No Comment) */
-"Transmitter details" = " Detalhes do transmissor ";
+"Transmitter details" = "Detalhes do transmissor";
 
 /* (No Comment) */
-"Glucose widget" = " Glicose ";
+"Glucose widget" = "Glicose";
 
 /* (No Comment) */
-"Glucose widget description" = " Mostra o último valor de glicose. ";
+"Glucose widget description" = "Mostra o último valor de glicose.";
 
 /* (No Comment) */
-"Sensor lifetime widget" = " Vida útil do sensor ";
+"Sensor lifetime widget" = "Vida útil do sensor";
 
 /* (No Comment) */
-"Sensor lifetime widget description" = " Mostra a vida útil que resta do sensor de corrente na como uma contagem regressiva. ";
+"Sensor lifetime widget description" = "Mostra a vida útil que resta do sensor de corrente na como uma contagem regressiva.";
 
 /* (No Comment) */
-"Transmitter battery widget" = " Bateria do transmissor ";
+"Transmitter battery widget" = "Bateria do transmissor";
 
 /* (No Comment) */
-"Transmitter battery widget description" = " Mostra a carga restante da bateria do transmissor como uma contagem regressiva. ";
+"Transmitter battery widget description" = "Mostra a carga restante da bateria do transmissor como uma contagem regressiva.";
 
 /* (No Comment) */
 "Warmup" = "Em preparação";
 
 /* (No Comment) */
-"No screen lock" = " Sem bloqueio de tela ";
+"No screen lock" = "Sem bloqueio de tela";
 
 /* (No Comment) */
 "LibreLink transmitter" = "LibreLink Transmitter";
 
 /* (No Comment) */
-"Use LibreLink to start the sensor" = " Use o LibreLink para iniciar o sensor ";
+"Use LibreLink to start the sensor" = "Use o LibreLink para iniciar o sensor";
 
 /* (No Comment) */
 "Sensor glucose values" = "CGM";
@@ -467,40 +467,40 @@
 "Blood glucose values" = "BGM";
 
 /* (No Comment) */
-"At least %@ days of data are required." = " São necessários pelo menos %@ dias de dados. ";
+"At least %@ days of data are required." = "São necessários pelo menos %@ dias de dados.";
 
 /* (No Comment) */
-"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = " Média (MED) é uma medida geral de açúcares no sangue ao longo de um período de tempo, oferecendo uma visualização de alto nível de onde a glicose tem estado. ";
+"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Média (MED) é uma medida geral de açúcares no sangue ao longo de um período de tempo, oferecendo uma visualização de alto nível de onde a glicose tem estado.";
 
 /* (No Comment) */
-"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = " Indicador de Gerência de Glicose (IGG) é um substituto para o \"HbA1c estimado\" para pacientes que usam um acompanhamento contínuo de glicose. ";
+"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Indicador de Gerência de Glicose (IGG) é um substituto para o \"HbA1c estimado\" para pacientes que usam um acompanhamento contínuo de glicose.";
 
 /* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@ %@." = " Tempo no Intervalo (TNI) ou a porcentagem de tempo gasto no intervalo de glicose alvo entre %@ - %@. ";
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@ %@." = "Tempo no Intervalo (TNI) ou a porcentagem de tempo gasto no intervalo de glicose alvo entre %@ - %@.";
 
 /* (No Comment) */
-"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = " Tempo abaixo do Intervalo (TAI) ou a porcentagem de tempo gasto abaixo da glicose alvo de %@.a";
+"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Tempo abaixo do Intervalo (TAI) ou a porcentagem de tempo gasto abaixo da glicose alvo de %@.a";
 
 /* (No Comment) */
-"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = " Tempo acima do Intervalo (TAI) ou a porcentagem de tempo gasto acima da glicose alvo de %@. ";
+"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Tempo acima do Intervalo (TAI) ou a porcentagem de tempo gasto acima da glicose alvo de %@.";
 
 /* (No Comment) */
-"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = " Desvio Padrão (DP) é uma medida da propagação nas leituras de glicose à volta da média - saltar entre muitos altos e baixos resulta em um DP maior. O objetivo é o menor DP possível, o que refletiria um nível constante de glicose com oscilações mínimas. ";
+"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Desvio Padrão (DP) é uma medida da propagação nas leituras de glicose à volta da média - saltar entre muitos altos e baixos resulta em um DP maior. O objetivo é o menor DP possível, o que refletiria um nível constante de glicose com oscilações mínimas.";
 
 /* (No Comment) */
-"Statistics (%@ days)" = " Estatísticas (%@ dias) ";
+"Statistics (%@ days)" = "Estatísticas (%@ dias)";
 
 /* (No Comment) */
-"%@ Entries" = " %@ Entradas ";
+"%@ Entries" = "%@ Entradas";
 
 /* (No Comment) */
-"%@ Entry" = " %@ Entrada ";
+"%@ Entry" = "%@ Entrada";
 
 /* (No Comment) */
-"Send database file" = " Enviar ficheiro na base de dados ";
+"Send database file" = "Enviar ficheiro na base de dados";
 
 /* (No Comment) */
-"Glucose Live Activity" = " Atividade de glicode ao vivo ";
+"Glucose Live Activity" = "Atividade de glicode ao vivo";
 
 /* (No Comment) */
 "Glucose read aloud" = " Leitura de glicose ";

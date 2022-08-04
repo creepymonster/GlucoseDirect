@@ -17,10 +17,10 @@ private func debugMiddleware(service: LazyService<DebugService>) -> Middleware<D
     return { state, action, _ in
         switch action {
         case .debugAlarm:
-            service.value.debugAlarm(sound: state.expiringAlarmSound)
+            service.value.debugAlarm(sound: state.expiringAlarmSound, ignoreMute: state.ignoreMute)
 
         case .debugNotification:
-            service.value.debugNotification(sound: state.expiringAlarmSound)
+            service.value.debugNotification(sound: state.expiringAlarmSound, ignoreMute: state.ignoreMute)
 
         default:
             break
@@ -49,22 +49,18 @@ private class DebugService {
         DirectNotifications.shared.removeNotification(identifier: Identifier.debugAlarm.rawValue)
     }
 
-    func debugAlarm(sound: NotificationSound) {
+    func debugAlarm(sound: NotificationSound, ignoreMute: Bool) {
         DirectNotifications.shared.ensureCanSendNotification { state in
             guard state == .sound else {
                 return
             }
 
-            DirectNotifications.shared.playSound(sound: sound)
+            DirectNotifications.shared.playSound(sound: sound, ignoreMute: ignoreMute)
         }
     }
 
-    func debugNotification(sound: NotificationSound) {
+    func debugNotification(sound: NotificationSound, ignoreMute: Bool) {
         DirectNotifications.shared.ensureCanSendNotification { state in
-            guard state != .none else {
-                return
-            }
-
             let notification = UNMutableNotificationContent()
 
             if sound != .none, state == .sound {

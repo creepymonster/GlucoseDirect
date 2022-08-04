@@ -40,6 +40,7 @@ enum DirectAction {
     case selectView(viewTag: Int)
     case sendLogs
     case sendDatabase
+    case setIgnoreMute(enabled: Bool)
     case setAlarmHigh(upperLimit: Int)
     case setAlarmLow(lowerLimit: Int)
     case setAlarmSnoozeUntil(untilDate: Date?, autosnooze: Bool = false)

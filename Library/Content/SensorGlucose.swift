@@ -7,7 +7,6 @@
 //  GMI(mmol/mol) = 12.71 + 4.70587 x [mean glucose in mmol/L]
 //
 
-import ActivityKit
 import Foundation
 
 // MARK: - GlucoseStatistics
@@ -92,19 +91,6 @@ struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable, H
 
     var description: String {
         "{ id: \(id), timestamp: \(timestamp.toLocalTime()), minuteChange: \(minuteChange?.description ?? ""), rawGlucoseValue: \(rawGlucoseValue.description), glucoseValue: \(glucoseValue.description) }"
-    }
-}
-
-// MARK: - SensorGlucoseActivityAttributes
-
-struct SensorGlucoseActivityAttributes: ActivityAttributes {
-    public typealias GlucoseStatus = ContentState
-
-    public struct ContentState: Codable, Hashable {
-        var alarmLow: Int
-        var alarmHigh: Int
-        var glucose: SensorGlucose
-        var glucoseUnit: GlucoseUnit
     }
 }
 

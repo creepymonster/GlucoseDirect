@@ -31,23 +31,24 @@ private func widgetCenterMiddleware(service: LazyService<ActivityGlucoseService>
             }
 
             Task {
-                await service.value.stopAll(alarmLow: state.alarmLow, alarmHigh: state.alarmHigh, glucose: latestSensorGlucose, glucoseUnit: state.glucoseUnit)
                 service.value.start(alarmLow: state.alarmLow, alarmHigh: state.alarmHigh, glucose: latestSensorGlucose, glucoseUnit: state.glucoseUnit)
             }
         case .setGlucoseUnit(unit: _):
             WidgetCenter.shared.reloadAllTimelines()
-            
+
         case .setGlucoseLiveActivity(enabled: let enabled):
             guard let latestSensorGlucose = state.latestSensorGlucose else {
                 break
             }
-            
+
             if enabled {
+                guard service.value.isActivated else {
+                    break
+                }
+
                 service.value.start(alarmLow: state.alarmLow, alarmHigh: state.alarmHigh, glucose: latestSensorGlucose, glucoseUnit: state.glucoseUnit)
             } else {
-                Task {
-                    await service.value.stopAll(alarmLow: state.alarmLow, alarmHigh: state.alarmHigh, glucose: latestSensorGlucose, glucoseUnit: state.glucoseUnit)
-                }
+                service.value.stop()
             }
 
         case .setAppState(appState: let appState):
@@ -59,14 +60,16 @@ private func widgetCenterMiddleware(service: LazyService<ActivityGlucoseService>
                 break
             }
 
+            guard service.value.isActivated else {
+                break
+            }
+
             guard let latestSensorGlucose = state.latestSensorGlucose else {
                 break
             }
 
-            if service.value.restartRequired {
-                Task {
-                    await service.value.stopAll(alarmLow: state.alarmLow, alarmHigh: state.alarmHigh, glucose: latestSensorGlucose, glucoseUnit: state.glucoseUnit)
-                }
+            if service.value.restartRecommended || service.value.startRequired {
+                service.value.start(alarmLow: state.alarmLow, alarmHigh: state.alarmHigh, glucose: latestSensorGlucose, glucoseUnit: state.glucoseUnit)
             }
 
         case .addSensorGlucose(glucoseValues: _):
@@ -74,17 +77,22 @@ private func widgetCenterMiddleware(service: LazyService<ActivityGlucoseService>
                 break
             }
 
+            guard service.value.isActivated else {
+                break
+            }
+
             guard let latestSensorGlucose = state.latestSensorGlucose else {
                 break
             }
 
-            if service.value.startRequired, state.appState == .active {
+            if service.value.stopRequired {
+                service.value.stop()
+
+            } else if service.value.restartRecommended || service.value.startRequired, state.appState == .active {
                 service.value.start(alarmLow: state.alarmLow, alarmHigh: state.alarmHigh, glucose: latestSensorGlucose, glucoseUnit: state.glucoseUnit)
 
-            } else {
-                Task {
-                    await service.value.update(alarmLow: state.alarmLow, alarmHigh: state.alarmHigh, glucose: latestSensorGlucose, glucoseUnit: state.glucoseUnit)
-                }
+            } else if !service.value.startRequired {
+                service.value.update(alarmLow: state.alarmLow, alarmHigh: state.alarmHigh, glucose: latestSensorGlucose, glucoseUnit: state.glucoseUnit)
             }
 
         default:
@@ -107,8 +115,20 @@ private class ActivityGlucoseService {
 
     // MARK: Internal
 
-    var restartRequired: Bool {
-        if let activityEnd = activityStop, Date() > activityEnd {
+    var isActivated: Bool {
+        ActivityAuthorizationInfo().areActivitiesEnabled
+    }
+
+    var restartRecommended: Bool {
+        if let activityRefresh = activityRestart, Date() > activityRefresh {
+            return true
+        }
+
+        return false
+    }
+
+    var stopRequired: Bool {
+        if let activityStop = activityStop, Date() > activityStop {
             return true
         }
 
@@ -120,58 +140,74 @@ private class ActivityGlucoseService {
     }
 
     func start(alarmLow: Int, alarmHigh: Int, glucose: SensorGlucose, glucoseUnit: GlucoseUnit) {
-            let activityAttributes = SensorGlucoseActivityAttributes()
-
-            // Estimated delivery time is one hour from now.
-            let initialContentState = getStatus(alarmLow: alarmLow, alarmHigh: alarmHigh, glucose: glucose, glucoseUnit: glucoseUnit)
+        Task {
+            let activities = Activity<SensorGlucoseActivityAttributes>.activities
+            for activity in activities {
+                await activity.end(using: getStatus(), dismissalPolicy: .immediate)
+            }
 
             do {
-                let activity = try Activity<SensorGlucoseActivityAttributes>.request(
+                activityStart = Date()
+                activityRestart = Date() + 5 * 60
+                activityStop = Date() + 8 * 60 * 60
+
+                let activityAttributes = SensorGlucoseActivityAttributes()
+                let initialContentState = getStatus(alarmLow: alarmLow, alarmHigh: alarmHigh, glucose: glucose, glucoseUnit: glucoseUnit)
+
+                activity = try Activity<SensorGlucoseActivityAttributes>.request(
                     attributes: activityAttributes,
                     contentState: initialContentState,
-                    pushType: nil)
+                    pushType: nil
+                )
+            } catch {
+                DirectLog.error(error.localizedDescription)
 
-                self.activity = activity
-                self.activityStop = Date() + 15 // (4 * 60 * 60)
-            } catch {}
+                activityStart = nil
+                activityRestart = nil
+                activityStop = nil
+                activity = nil
+            }
+        }
     }
 
-    func update(alarmLow: Int, alarmHigh: Int, glucose: SensorGlucose, glucoseUnit: GlucoseUnit) async {
-            guard let activity = activity else {
-                return
-            }
+    func update(alarmLow: Int, alarmHigh: Int, glucose: SensorGlucose, glucoseUnit: GlucoseUnit) {
+        guard let activity = activity else {
+            return
+        }
 
+        Task {
             let updatedStatus = getStatus(alarmLow: alarmLow, alarmHigh: alarmHigh, glucose: glucose, glucoseUnit: glucoseUnit)
+
             await activity.update(using: updatedStatus)
+        }
     }
 
-    func stop(alarmLow: Int, alarmHigh: Int, glucose: SensorGlucose, glucoseUnit: GlucoseUnit) async {
-            guard let activity = activity else {
-                return
+    func stop() {
+        activityStart = nil
+        activityRestart = nil
+        activityStop = nil
+        activity = nil
+
+        Task {
+            let activities = Activity<SensorGlucoseActivityAttributes>.activities
+            for activity in activities {
+                await activity.end(using: getStatus(), dismissalPolicy: .immediate)
             }
-
-            let updatedStatus = getStatus(alarmLow: alarmLow, alarmHigh: alarmHigh, glucose: glucose, glucoseUnit: glucoseUnit)
-            await activity.end(using: updatedStatus, dismissalPolicy: .immediate)
-
-            self.activity = nil
-            self.activityStop = nil
-    }
-
-    func stopAll(alarmLow: Int, alarmHigh: Int, glucose: SensorGlucose, glucoseUnit: GlucoseUnit) async {
-            let updatedStatus = getStatus(alarmLow: alarmLow, alarmHigh: alarmHigh, glucose: glucose, glucoseUnit: glucoseUnit)
-            let activityStream = Activity<SensorGlucoseActivityAttributes>.activityUpdates
-
-            for await activity in activityStream {
-                await activity.end(using: updatedStatus, dismissalPolicy: .immediate)
-            }
+        }
     }
 
     // MARK: Private
 
     private var activity: Activity<SensorGlucoseActivityAttributes>?
+    private var activityStart: Date?
+    private var activityRestart: Date?
     private var activityStop: Date?
 
+    private func getStatus() -> SensorGlucoseActivityAttributes.GlucoseStatus {
+        return SensorGlucoseActivityAttributes.GlucoseStatus(alarmLow: 0, alarmHigh: 0)
+    }
+
     private func getStatus(alarmLow: Int, alarmHigh: Int, glucose: SensorGlucose, glucoseUnit: GlucoseUnit) -> SensorGlucoseActivityAttributes.GlucoseStatus {
-        return SensorGlucoseActivityAttributes.GlucoseStatus(alarmLow: alarmLow, alarmHigh: alarmHigh, glucose: glucose, glucoseUnit: glucoseUnit)
+        return SensorGlucoseActivityAttributes.GlucoseStatus(alarmLow: alarmLow, alarmHigh: alarmHigh, glucose: glucose, glucoseUnit: glucoseUnit, startDate: activityStart, restartDate: activityRestart, stopDate: activityStop)
     }
 }
