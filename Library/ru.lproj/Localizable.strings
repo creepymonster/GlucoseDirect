@@ -35,9 +35,6 @@
 "Alert, sensor expiring soon" = "Тревога, сенсор скоро закончится";
 
 /* (No Comment) */
-"Are you sure you want to delete all log files?" = "Вы уверены, что хотите удалить все журналы?";
-
-/* (No Comment) */
 "Are you sure you want to disconnect the sensor?" = "Вы уверены, что хотите отсоединить датчик?";
 
 /* (No Comment) */
@@ -299,9 +296,6 @@
 "Sensor ending date" = "Дата окончания";
 
 /* (No Comment) */
-"Delete log files" = "Удаление файлов журнала";
-
-/* (No Comment) */
 "Readable glucose: %1$@ %2$@" = "Глюкоза: %1$@ %2$@";
 
 /* (No Comment) */
@@ -509,4 +503,7 @@
 "Glucose Live Activity" = "Активность глюкозы вживую";
 
 /* (No Comment) */
-"Glucose read aloud" = "Уровень глюкозы";
+"Glucose read aloud" = " Уровень глюкозы";
+
+/* (No Comment) */
+"Ignore mute" = "Ignore mute";
