@@ -17,7 +17,7 @@
 "Add calibration" = "Добавить калибровку";
 
 /* (No Comment) */
-"Add blood glucose" = "Добавить глюкозу крови ";
+"Add blood glucose" = "Добавить глюкозу крови";
 
 /* (No Comment) */
 "Alert, high glucose" = "Тревога, высокий уровень глюкозы";
@@ -467,7 +467,7 @@
 "Blood glucose values" = "BGM";
 
 /* (No Comment) */
-"At least %@ days of data are required." = "Требуется получение данных не менее чем в течение %@ дней. ";
+"At least %@ days of data are required." = "Требуется получение данных не менее чем в течение %@ дней.";
 
 /* (No Comment) */
 "Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Среднее значение (AVG) — это общий показатель уровня сахара в крови за определенный период времени, обеспечивающий единый высокоуровневый обзор того, где была обнаружена глюкоза.";
@@ -497,13 +497,13 @@
 "%@ Entry" = "%@ запись";
 
 /* (No Comment) */
-"Send database file" = " Отправить файл базы данных";
+"Send database file" = "Отправить файл базы данных";
 
 /* (No Comment) */
-"Glucose Live Activity" = " Активность глюкозы вживую";
+"Glucose Live Activity" = "Активность глюкозы вживую";
 
 /* (No Comment) */
-"Glucose read aloud" = " Уровень глюкозы";
+"Glucose read aloud" = "Уровень глюкозы";
 
 /* (No Comment) */
 "Ignore mute" = "Игнорировать отключение звука";
