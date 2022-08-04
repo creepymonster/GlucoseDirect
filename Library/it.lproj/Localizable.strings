@@ -374,13 +374,13 @@
 "Scan sensor" = "Scansionare sensore";
 
 /* (No Comment) */
-"Retry pairing" = "Riprovare abbinamento ";
+"Retry pairing" = "Riprovare abbinamento";
 
 /* (No Comment) */
-"Retrieval interval" = "Intervallo di recupero ";
+"Retrieval interval" = "Intervallo di recupero";
 
 /* (No Comment) */
-"Retrieval interval, every minute" = "Ogni minuto ";
+"Retrieval interval, every minute" = "Ogni minuto";
 
 /* (No Comment) */
 "Retrieval interval, every %@ minutes" = "Ogni %@ minuti";
@@ -401,7 +401,7 @@
 "Connect transmitter" = "Collegare il trasmettitore";
 
 /* (No Comment) */
-"Disconnect transmitter" = "Scollegare il trasmettitore ";
+"Disconnect transmitter" = "Scollegare il trasmettitore";
 
 /* (No Comment) */
 "Rescan the sensor" = "Ricontrollare il sensore";
@@ -425,7 +425,7 @@
 "Glucose" = "Glucosio";
 
 /* (No Comment) */
-"Transmitter details" = "Dettagli trasmettitore ";
+"Transmitter details" = "Dettagli trasmettitore";
 
 /* (No Comment) */
 "Glucose widget" = "Glucosio";
@@ -437,22 +437,22 @@
 "Sensor lifetime widget" = "Durata del sensore";
 
 /* (No Comment) */
-"Sensor lifetime widget description" = "Visualizza la durata rimanente del sensore corrente come conto alla rovescia. ";
+"Sensor lifetime widget description" = "Visualizza la durata rimanente del sensore corrente come conto alla rovescia.";
 
 /* (No Comment) */
 "Transmitter battery widget" = "Batteria trasmettitore ";
 
 /* (No Comment) */
-"Transmitter battery widget description" = "Visualizza la carica residua della batteria del trasmettitore come conto alla rovescia. ";
+"Transmitter battery widget description" = "Visualizza la carica residua della batteria del trasmettitore come conto alla rovescia.";
 
 /* (No Comment) */
 "Warmup" = "Riscaldamento";
 
 /* (No Comment) */
-"No screen lock" = "Nessun blocco schermo ";
+"No screen lock" = "Nessun blocco schermo";
 
 /* (No Comment) */
-"LibreLink transmitter" = "Trasmettitore LibreLink ";
+"LibreLink transmitter" = "Trasmettitore LibreLink";
 
 /* (No Comment) */
 "Use LibreLink to start the sensor" = "Utilizzare LibreLink per avviare il sensore ";
