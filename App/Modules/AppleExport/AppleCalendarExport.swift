@@ -53,7 +53,7 @@ private func appleCalendarExportMiddleware(service: LazyService<AppleCalendarExp
                 break
             }
 
-            service.value.addSensorGlucose(calendarTarget: calendarTarget, glucose: glucose, glucoseUnit: state.glucoseUnit)
+            service.value.addSensorGlucose(calendarTarget: calendarTarget, glucose: glucose, glucoseUnit: state.glucoseUnit, sensorInterval: Double(state.sensorInterval))
 
         default:
             break
@@ -114,7 +114,7 @@ private class AppleCalendarExportService {
         }
     }
 
-    func addSensorGlucose(calendarTarget: String, glucose: SensorGlucose, glucoseUnit: GlucoseUnit) {
+    func addSensorGlucose(calendarTarget: String, glucose: SensorGlucose, glucoseUnit: GlucoseUnit, sensorInterval: Double) {
         if calendar == nil || calendar?.title != calendarTarget {
             calendar = eventStore.calendars(for: .event).first(where: { $0.title == calendarTarget })
         }
@@ -135,7 +135,7 @@ private class AppleCalendarExportService {
         event.calendar = calendar
         event.url = DirectConfig.appSchemaURL
         event.startDate = Date()
-        event.endDate = Date(timeIntervalSinceNow: 60 * 10)
+        event.endDate = Date(timeIntervalSinceNow: 60 * sensorInterval)
 
         do {
             try eventStore.save(event, span: .thisEvent)
