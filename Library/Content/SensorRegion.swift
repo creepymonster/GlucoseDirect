@@ -58,7 +58,7 @@ enum SensorRegion: String, Codable {
         rawValue
     }
 
-    var localizedString: String {
+    var localizedDescription: String {
         LocalizedString(rawValue)
     }
 }

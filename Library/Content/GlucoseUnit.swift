@@ -13,7 +13,7 @@ enum GlucoseUnit: String, Codable, Hashable {
 
     static let exchangeRate: Double = 0.0555
 
-    var localizedString: String {
+    var localizedDescription: String {
         self.rawValue
     }
 }

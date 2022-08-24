@@ -130,15 +130,15 @@ private func createSimulatorAppStore() -> DirectStore {
         sensorErrorMiddleware(),
         glucoseStatisticsMiddleware()
     ]
-    
-//    if #available(iOS 16.0, *) {
-//        middlewares.append(widgetCenterMiddleware())
-//    }
+
+    if #available(iOS 16.0, *), DirectConfig.enableActivityWidget {
+        middlewares.append(widgetCenterMiddleware())
+    }
 
     middlewares.append(sensorConnectorMiddelware([
         SensorConnectionInfo(id: DirectConfig.virtualID, name: "Virtual") { VirtualLibreConnection(subject: $0) }
     ]))
-    
+
     #if DEBUG
         middlewares.append(debugMiddleware())
     #endif
@@ -168,10 +168,10 @@ private func createAppStore() -> DirectStore {
         sensorErrorMiddleware(),
         glucoseStatisticsMiddleware()
     ]
-    
-//    if #available(iOS 16.0, *) {
-//        middlewares.append(widgetCenterMiddleware())
-//    }
+
+    if #available(iOS 16.0, *), DirectConfig.enableActivityWidget {
+        middlewares.append(widgetCenterMiddleware())
+    }
 
     var connectionInfos: [SensorConnectionInfo] = []
 

@@ -20,8 +20,8 @@ struct GlucoseSettingsView: View {
                     Spacer()
 
                     Picker("", selection: selectedGlucoseUnit) {
-                        Text(GlucoseUnit.mgdL.localizedString).tag(GlucoseUnit.mgdL.rawValue)
-                        Text(GlucoseUnit.mmolL.localizedString).tag(GlucoseUnit.mmolL.rawValue)
+                        Text(GlucoseUnit.mgdL.localizedDescription).tag(GlucoseUnit.mgdL.rawValue)
+                        Text(GlucoseUnit.mmolL.localizedDescription).tag(GlucoseUnit.mmolL.rawValue)
                     }
                     .pickerStyle(.menu)
                     .labelsHidden()
@@ -38,8 +38,8 @@ struct GlucoseSettingsView: View {
                 ToggleView(key: LocalizedString("Glucose notification"), value: store.state.glucoseNotification) { value in
                     store.dispatch(.setGlucoseNotification(enabled: value))
                 }
-                
-                if #available(iOS 16.0, *) {
+
+                if #available(iOS 16.0, *), DirectConfig.enableActivityWidget {
                     ToggleView(key: LocalizedString("Glucose Live Activity"), value: store.state.glucoseLiveActivity) { value in
                         store.dispatch(.setGlucoseLiveActivity(enabled: value))
                     }
@@ -49,7 +49,7 @@ struct GlucoseSettingsView: View {
                     ToggleView(key: LocalizedString("Glucose read aloud"), value: store.state.readGlucose) { value in
                         store.dispatch(.setReadGlucose(enabled: value))
                     }
-                    
+
                     if store.state.readGlucose {
                         Group {
                             Text("Every 10 minutes")

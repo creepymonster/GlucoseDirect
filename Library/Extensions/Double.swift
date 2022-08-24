@@ -40,7 +40,7 @@ extension Double {
         }
 
         if withUnit {
-            return "\(glucose) \(glucoseUnit.localizedString)"
+            return "\(glucose) \(glucoseUnit.localizedDescription)"
         }
 
         return glucose
@@ -56,14 +56,14 @@ extension Double {
         }
 
         if withUnit {
-            return String(format: LocalizedString("%1$@ %2$@/min."), formattedMinuteChange, glucoseUnit.localizedString)
+            return String(format: LocalizedString("%1$@ %2$@/min."), formattedMinuteChange, glucoseUnit.localizedDescription)
         }
 
         return String(format: LocalizedString("%1$@/min."), formattedMinuteChange)
     }
-    
+
     func toInt() -> Int? {
-        if self >= Double(Int.min) && self < Double(Int.max) {
+        if self >= Double(Int.min), self < Double(Int.max) {
             return Int(self)
         } else {
             return nil

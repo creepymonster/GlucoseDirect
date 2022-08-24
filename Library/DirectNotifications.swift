@@ -25,6 +25,14 @@ class DirectNotifications {
 
     static let shared = DirectNotifications()
 
+    func hapticFeedback(_ feedbackStyle: UIImpactFeedbackGenerator.FeedbackStyle = .light) {
+        UIImpactFeedbackGenerator(style: feedbackStyle).impactOccurred()
+    }
+
+    func hapticNotification(_ feedbackType: UINotificationFeedbackGenerator.FeedbackType = .success) {
+        UINotificationFeedbackGenerator().notificationOccurred(feedbackType)
+    }
+
     func isPlaying() -> Bool {
         if let player = player {
             return player.isPlaying
@@ -90,7 +98,7 @@ class DirectNotifications {
     func ensureCanSendNotification(_ completion: @escaping (_ state: NotificationState) -> Void) {
         let center = UNUserNotificationCenter.current()
 
-        center.requestAuthorization(options: [.alert, .badge, .criticalAlert, .provisional, .sound]) { granted, _ in
+        center.requestAuthorization(options: [.alert, .badge, .criticalAlert, .sound]) { granted, _ in
             if granted {
                 center.getNotificationSettings { settings in
                     if settings.soundSetting == .enabled {
@@ -152,7 +160,7 @@ class DirectNotifications {
 
         do {
             let player = try AVAudioPlayer(contentsOf: soundURL)
-            // player.volume = 0.2
+            player.volume = 0.2
             player.prepareToPlay()
             player.play()
 
