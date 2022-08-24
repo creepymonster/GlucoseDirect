@@ -79,7 +79,7 @@ class LibreLinkPairing: NSObject, NFCTagReaderSessionDelegate {
 
             let type = SensorType(patchInfo)
             guard type == .libre2EU || type == .libre1 || type == .libreUS14day else {
-                logErrorAndDisconnect("Unsupported: \(type.localizedString)", showToUser: true)
+                logErrorAndDisconnect("Unsupported: \(type.localizedDescription)", showToUser: true)
                 return
             }
 

@@ -21,7 +21,7 @@ struct BellmanSettingsView: View {
                     HStack {
                         Text("Connection state")
                         Spacer()
-                        Text(store.state.bellmanConnectionState.localizedString)
+                        Text(store.state.bellmanConnectionState.localizedDescription)
                     }
                 }
 

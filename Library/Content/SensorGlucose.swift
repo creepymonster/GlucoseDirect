@@ -40,6 +40,17 @@ struct GlucoseStatistics: Codable {
 struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable, Hashable {
     // MARK: Lifecycle
 
+    init(glucoseValue: Int, minuteChange: Double? = nil) {
+        let roundedTimestamp = Date().toRounded(on: 1, .minute)
+
+        self.id = UUID()
+        self.timestamp = roundedTimestamp
+        self.rawGlucoseValue = glucoseValue
+        self.intGlucoseValue = glucoseValue
+        self.minuteChange = minuteChange
+        self.timegroup = roundedTimestamp.toRounded(on: 15, .minute)
+    }
+
     init(timestamp: Date, rawGlucoseValue: Int, intGlucoseValue: Int, minuteChange: Double? = nil) {
         let roundedTimestamp = timestamp.toRounded(on: 1, .minute)
 

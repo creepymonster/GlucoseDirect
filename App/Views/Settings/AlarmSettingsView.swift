@@ -21,7 +21,7 @@ struct AlarmSettingsView: View {
 
                     Picker("", selection: selectedLowGlucoseAlarmSound) {
                         ForEach(NotificationSound.allCases, id: \.rawValue) { info in
-                            Text(info.localizedString)
+                            Text(info.localizedDescription)
                         }
                     }
                     .pickerStyle(.menu)
@@ -34,7 +34,7 @@ struct AlarmSettingsView: View {
 
                     Picker("", selection: selectedHighGlucoseAlarmSound) {
                         ForEach(NotificationSound.allCases, id: \.rawValue) { info in
-                            Text(info.localizedString)
+                            Text(info.localizedDescription)
                         }
                     }
                     .pickerStyle(.menu)
@@ -47,7 +47,7 @@ struct AlarmSettingsView: View {
 
                     Picker("", selection: selectedConnectionAlarmSound) {
                         ForEach(NotificationSound.allCases, id: \.rawValue) { info in
-                            Text(info.localizedString)
+                            Text(info.localizedDescription)
                         }
                     }
                     .pickerStyle(.menu)
@@ -60,7 +60,7 @@ struct AlarmSettingsView: View {
 
                     Picker("", selection: selectedExpiringAlarmSound) {
                         ForEach(NotificationSound.allCases, id: \.rawValue) { info in
-                            Text(info.localizedString)
+                            Text(info.localizedDescription)
                         }
                     }
                     .pickerStyle(.menu)

@@ -148,7 +148,7 @@ struct ChartView: View {
                         }
                         .id(Config.chartID)
                         .frame(width: max(0, geometryProxy.size.width, seriesWidth))
-                        .onChange(of: store.state.glucoseUnit) { glucoseUnit in
+                        .onChange(of: store.state.glucoseUnit) { _ in
                             if shouldRefresh {
                                 DirectLog.info("onChangeOfGlucoseUnit()")
                                 updateSeriesMetadata(viewWidth: geometryProxy.size.width)
@@ -156,21 +156,21 @@ struct ChartView: View {
                                 updateBloodSeries()
                             }
 
-                        }.onChange(of: [store.state.sensorGlucoseValues, store.state.sensorGlucoseHistory]) { glucoseValues in
+                        }.onChange(of: [store.state.sensorGlucoseValues, store.state.sensorGlucoseHistory]) { _ in
                             if shouldRefresh {
                                 DirectLog.info("onChangeOfSensorGlucoseValues()")
                                 updateSeriesMetadata(viewWidth: geometryProxy.size.width)
                                 updateSensorSeries()
                             }
 
-                        }.onChange(of: [store.state.bloodGlucoseValues, store.state.bloodGlucoseHistory]) { glucoseValues in
+                        }.onChange(of: [store.state.bloodGlucoseValues, store.state.bloodGlucoseHistory]) { _ in
                             if shouldRefresh {
                                 DirectLog.info("onChangeOfBloodGlucoseValues()")
                                 updateSeriesMetadata(viewWidth: geometryProxy.size.width)
                                 updateBloodSeries()
                             }
 
-                        }.onChange(of: store.state.chartZoomLevel) { chartZoomLevel in
+                        }.onChange(of: store.state.chartZoomLevel) { _ in
                             if shouldRefresh {
                                 DirectLog.info("onChangeOfChartZoomLevel()")
                                 updateSeriesMetadata(viewWidth: geometryProxy.size.width)
@@ -261,6 +261,7 @@ struct ChartView: View {
             ForEach(Config.zoomLevels, id: \.level) { zoom in
                 Button(
                     action: {
+                        DirectNotifications.shared.hapticNotification()
                         store.dispatch(.setChartZoomLevel(level: zoom.level))
                     },
                     label: {
@@ -331,7 +332,7 @@ struct ChartView: View {
 
     private let calculationQueue = DispatchQueue(label: "libre-direct.chart-calculation", qos: .utility)
     private let debouncer = Debouncer(delay: 0.5)
-    
+
     private var shouldRefresh: Bool {
         store.state.appState == .active
     }

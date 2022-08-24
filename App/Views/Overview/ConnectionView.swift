@@ -17,7 +17,7 @@ struct ConnectionView: View {
                     HStack {
                         Text("Connection state")
                         Spacer()
-                        Text(store.state.connectionState.localizedString)
+                        Text(store.state.connectionState.localizedDescription)
                     }
                 }
 

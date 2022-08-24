@@ -147,7 +147,7 @@ enum Gen2GlucoseType: Equatable, Codable {
 
     // MARK: Internal
 
-    var localizedString: String {
+    var localizedDescription: String {
         switch self {
         case .cgm:
             return LocalizedString("CGM")
