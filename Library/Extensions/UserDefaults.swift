@@ -258,7 +258,7 @@ extension UserDefaults {
                 return bool(forKey: Keys.glucoseNotification.rawValue)
             }
 
-            return false
+            return true
         }
         set {
             set(newValue, forKey: Keys.glucoseNotification.rawValue)
