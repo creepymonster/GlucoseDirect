@@ -119,7 +119,7 @@ private class GlucoseNotificationService {
         DirectNotifications.shared.ensureCanSendNotification { state in
             DirectLog.info("Glucose info, state: \(state)")
 
-            guard state == .sound else {
+            guard state != .none else {
                 return
             }
 
@@ -157,7 +157,7 @@ private class GlucoseNotificationService {
         DirectNotifications.shared.ensureCanSendNotification { state in
             DirectLog.info("Glucose alert, state: \(state)")
 
-            guard state == .sound else {
+            guard state != .none else {
                 return
             }
 
@@ -196,7 +196,7 @@ private class GlucoseNotificationService {
         DirectNotifications.shared.ensureCanSendNotification { state in
             DirectLog.info("Glucose alert, state: \(state)")
 
-            guard state == .sound else {
+            guard state != .none else {
                 return
             }
 
