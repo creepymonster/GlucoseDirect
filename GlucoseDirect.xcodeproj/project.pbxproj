@@ -344,6 +344,9 @@
 		E2D34BC7274D6BCB00151895 /* ListsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsView.swift; sourceTree = "<group>"; };
 		E2D34BC9274D6C1300151895 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		E2DE3CA227594E5500FAC82E /* SensorConnectorSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorConnectorSettings.swift; sourceTree = "<group>"; };
+		E2E4797C28BD6A0F006665EA /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E2E4797D28BD6A0F006665EA /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E2E4797E28BD6A0F006665EA /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E2E8DC032859F62C002C84FD /* Widgets.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Widgets.entitlements; sourceTree = "<group>"; };
 		E2EB0F68275B643D00226E9C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E2EB0F69275B643D00226E9C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -921,6 +924,7 @@
 				ru,
 				fi,
 				tr,
+				uk,
 			);
 			mainGroup = E20B8531266F4A9800AA4224;
 			packageReferences = (
@@ -1167,6 +1171,7 @@
 				E2F441D7277DF65800256F48 /* ru */,
 				E26690682792F6D9009C0FE1 /* fi */,
 				E2920482284121CC00DFCCA6 /* tr */,
+				E2E4797C28BD6A0F006665EA /* uk */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1187,6 +1192,7 @@
 				E2B5BF6828639C8A006C9C7F /* zh-Hans */,
 				E2B5BF6928639C90006C9C7F /* zh-Hant */,
 				E2B5BF6A28639CF3006C9C7F /* en */,
+				E2E4797D28BD6A0F006665EA /* uk */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1207,6 +1213,7 @@
 				E2F441D6277DF65800256F48 /* ru */,
 				E26690672792F6D9009C0FE1 /* fi */,
 				E2920481284121CC00DFCCA6 /* tr */,
+				E2E4797E28BD6A0F006665EA /* uk */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
