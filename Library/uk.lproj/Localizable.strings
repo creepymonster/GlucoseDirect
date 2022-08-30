@@ -2,34 +2,34 @@
 "%1$@ a clock" = "%1$@";
 
 /* (No Comment) */
-"%1$@/min." = "%1$@/min.";
+"%1$@/min." = "%1$@/хв.";
 
 /* (No Comment) */
-"%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
+"%1$@d %2$@h %3$@min" = "%1$@д %2$@г %3$@хв";
 
 /* (No Comment) */
-"Add" = "Add";
+"Add" = "Додати";
 
 /* (No Comment) */
-"Add glucose for calibration" = "Add glucose for calibration";
+"Add glucose for calibration" = "Додати глюкозу для калібрування";
 
 /* (No Comment) */
-"Add calibration" = "Add calibration";
+"Add calibration" = "Додати калібрування";
 
 /* (No Comment) */
-"Add blood glucose" = "Add blood glucose";
+"Add blood glucose" = "Додати глюкозу крові";
 
 /* (No Comment) */
-"Alert, high glucose" = "Alert, high glucose";
+"Alert, high glucose" = "Увага, високий вміст глюкози";
 
 /* (No Comment) */
-"Alert, low blood glucose" = "Alert, low blood glucose";
+"Alert, low blood glucose" = "Увага, низький вміст глюкози в крові";
 
 /* (No Comment) */
-"Alert, sensor connection lost" = "Alert, sensor connection lost";
+"Alert, sensor connection lost" = "Увага, втрачений зв'язок з датчиком";
 
 /* (No Comment) */
-"Alert, sensor expired" = "Alert, sensor expired";
+"Alert, sensor expired" = "Увага, термін дії датчика закінчився";
 
 /* (No Comment) */
 "Alert, sensor expiring soon" = "Alert, sensor expiring soon";
