@@ -120,7 +120,7 @@ struct ListsView: View {
                         }
                     },
                     header: {
-                        Label("Statistics (\(glucoseStatistics.days) days)", systemImage: "lightbulb")
+                        Label("Statistics (\(glucoseStatistics.days.description) days)", systemImage: "lightbulb")
                     }
                 )
             }
