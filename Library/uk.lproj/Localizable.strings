@@ -275,22 +275,22 @@
 "Please select" = "Будь ласка, виберіть";
 
 /* (No Comment) */
-"About %@" = "About %@";
+"About %@" = "Про %@";
 
 /* (No Comment) */
-"App version" = "Version";
+"App version" = "Версія";
 
 /* (No Comment) */
-"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Attention, the sensor sends faulty values. Please wait 10 minutes.";
+"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Увага, датчик надсилає невірні показники. Будь ласка, зачекайте 10 хвилин.";
 
 /* (No Comment) */
-"App website" = "Website";
+"App website" = "Сайт";
 
 /* (No Comment) */
-"Send log file" = "Send log file";
+"Send log file" = "Надіслати лог-файл";
 
 /* (No Comment) */
-"Sensor starting date" = "Starting date";
+"Sensor starting date" = "Дата початку";
 
 /* (No Comment) */
 "Sensor ending date" = "Дата закінчення";
@@ -452,58 +452,58 @@
 "No screen lock" = "Немає блокування екрана";
 
 /* (No Comment) */
-"LibreLink transmitter" = "LibreLink Transmitter";
+"LibreLink transmitter" = "Передавач LibreLink";
 
 /* (No Comment) */
-"Use LibreLink to start the sensor" = "Use LibreLink to start the sensor";
+"Use LibreLink to start the sensor" = "Використовувати LibreLink для запуску датчика";
 
 /* (No Comment) */
 "Sensor glucose values" = "CGM";
 
 /* (No Comment) */
-"Sensor error values" = "CGM errors";
+"Sensor error values" = "Помилки CGM";
 
 /* (No Comment) */
 "Blood glucose values" = "BGM";
 
 /* (No Comment) */
-"At least %@ days of data are required." = "At least %@ days of data are required.";
+"At least %@ days of data are required." = "Потрібно щонайменше %@ днів даних.";
 
 /* (No Comment) */
-"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been.";
+"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Середнє значення (AVG) – це загальний показник рівня цукру в крові за певний період часу, що дозволяє отримати єдине уявлення про стан глюкози на високому рівні.";
 
 /* (No Comment) */
-"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring.";
+"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Індикатор контролю глюкози (GMI) - це заміна \"розрахункового HbA1c\" для пацієнтів, які використовують безперервний моніторинг глюкози.";
 
 /* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@ %@." = "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@.";
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@ %@." = "Час у діапазоні (TIR) або відсоток часу, проведеного в цільовому діапазоні глюкози між %@ - %@.";
 
 /* (No Comment) */
-"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Time below Range (TBR) or the percentage of time spent below the target glucose of %@.";
+"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Час нижче діапазону (TBR) або відсоток часу, проведеного нижче за цільовий рівень глюкози в %@.";
 
 /* (No Comment) */
-"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Time above Range (TAR) or the percentage of time spent above the target glucose of %@.";
+"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Час вище діапазону (TAR) або відсоток часу, проведеного вище за цільовий рівень глюкози в %@.";
 
 /* (No Comment) */
-"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between many highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings.";
+"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Стандартне відхилення (SD) – це показник розкиду в зчитуваннях глюкози навколо середнього значення: стрибки між багатьма максимумами та мінімумами призводять до збільшення SD. Метою є якомога нижчий SD, який відтворює стабільний рівень глюкози з мінімальними коливаннями.";
 
 /* (No Comment) */
-"Statistics (%@ days)" = "Statistics (%@ days)";
+"Statistics (%@ days)" = "Статистика (%@ днів)";
 
 /* (No Comment) */
-"%@ Entries" = "%@ Entries";
+"%@ Entries" = "%@ Записи";
 
 /* (No Comment) */
-"%@ Entry" = "%@ Entry";
+"%@ Entry" = "%@ Запис";
 
 /* (No Comment) */
-"Send database file" = "Send database file";
+"Send database file" = "Надіслати файл бази даних";
 
 /* (No Comment) */
-"Glucose Live Activity" = "Glucose Live Activity";
+"Glucose Live Activity" = "Життєдіяльність глюкози";
 
 /* (No Comment) */
-"Glucose read aloud" = "Glucose Reading";
+"Glucose read aloud" = "Зчитування глюкози";
 
 /* (No Comment) */
-"Ignore mute" = "Ignore mute";
+"Ignore mute" = "Вимкнути звук";
