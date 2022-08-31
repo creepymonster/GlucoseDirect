@@ -48,12 +48,5 @@ enum DirectConfig {
     static var settingsViewTag = 4
     static var virtualID = "virtual"
     static var widgetName = "\(appName) Widget"
-
-    static var enableActivityWidget: Bool {
-#if targetEnvironment(simulator)
-        return true
-#else
-        return false
-#endif
-    }
+    static var minGlucoseStatisticsDays = 7
 }
