@@ -8,6 +8,7 @@ import Foundation
 
 // MARK: - SensorGlucoseActivityAttributes
 
+@available(iOS 16.1, *)
 struct SensorGlucoseActivityAttributes: ActivityAttributes {
     public typealias GlucoseStatus = ContentState
 

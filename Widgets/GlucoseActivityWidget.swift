@@ -9,6 +9,7 @@ import WidgetKit
 
 // MARK: - GlucoseActivityWidget
 
+@available(iOS 16.1, *)
 struct GlucoseActivityWidget: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(attributesType: SensorGlucoseActivityAttributes.self) { context in
@@ -19,6 +20,7 @@ struct GlucoseActivityWidget: Widget {
 
 // MARK: - GlucoseActivityView
 
+@available(iOS 16.1, *)
 struct GlucoseActivityView: View {
     // MARK: Internal
 
@@ -116,38 +118,5 @@ struct GlucoseActivityView: View {
         }
 
         return Color.primary
-    }
-}
-
-// MARK: - GlucoseActivityWidget_Previews
-
-struct GlucoseActivityWidget_Previews: PreviewProvider {
-    static var previews: some View {
-        GlucoseActivityView(
-            context: SensorGlucoseActivityAttributes.GlucoseStatus(
-                alarmLow: 80,
-                alarmHigh: 160,
-                sensorState: .expired,
-                connectionState: .disconnected,
-                glucoseUnit: .mgdL,
-                startDate: Date(),
-                restartDate: Date(),
-                stopDate: Date()
-            )
-        ).previewContext(WidgetPreviewContext(family: .systemLarge))
-
-        GlucoseActivityView(
-            context: SensorGlucoseActivityAttributes.GlucoseStatus(
-                alarmLow: 80,
-                alarmHigh: 160,
-                sensorState: .expired,
-                connectionState: .disconnected,
-                glucose: SensorGlucose(glucoseValue: 120, minuteChange: 2),
-                glucoseUnit: .mgdL,
-                startDate: Date(),
-                restartDate: Date(),
-                stopDate: Date()
-            )
-        ).previewContext(WidgetPreviewContext(family: .systemLarge))
     }
 }

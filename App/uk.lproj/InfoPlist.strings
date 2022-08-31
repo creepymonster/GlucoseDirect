@@ -1,0 +1,23 @@
+/* Bundle display name */
+"CFBundleDisplayName" = "Пряма доставка глюкози";
+
+/* Bundle name */
+"CFBundleName" = "Пряма доставка глюкози";
+
+/* Privacy - NFC Scan Usage Description */
+"NFCReaderUsageDescription" = "Функція NFC необхідна для зчитування всіх параметрів підключення до Bluetooth.";
+
+/* Privacy - Bluetooth Always Usage Description */
+"NSBluetoothAlwaysUsageDescription" = "Функція Bluetooth необхідна для підключення до пристроїв, що підтримуються.";
+
+/* Privacy - Bluetooth Peripheral Usage Description */
+"NSBluetoothPeripheralUsageDescription" = "Функція Bluetooth необхідна для підключення до пристроїв, що підтримуються.";
+
+/* Privacy - Calendars Usage Description */
+"NSCalendarsUsageDescription" = "Доступ до календаря необхідний для відтворення актуальних показників глюкози на годиннику Apple Watch.";
+
+/* Privacy - Health Share Usage Description */
+"NSHealthShareUsageDescription" = "Доступ до функції Apple Health є необхідним, якщо дані щодо глюкози потрібно експортувати.";
+
+/* Privacy - Health Update Usage Description */
+"NSHealthUpdateUsageDescription" = "Доступ до функції Apple Health є необхідним, якщо дані щодо глюкози потрібно експортувати.";

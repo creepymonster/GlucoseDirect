@@ -39,7 +39,7 @@ struct GlucoseSettingsView: View {
                     store.dispatch(.setGlucoseNotification(enabled: value))
                 }
 
-                if #available(iOS 16.0, *), DirectConfig.enableActivityWidget {
+                if #available(iOS 16.1, *) {
                     ToggleView(key: LocalizedString("Glucose Live Activity"), value: store.state.glucoseLiveActivity) { value in
                         store.dispatch(.setGlucoseLiveActivity(enabled: value))
                     }
