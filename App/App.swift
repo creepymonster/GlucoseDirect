@@ -131,7 +131,7 @@ private func createSimulatorAppStore() -> DirectStore {
         glucoseStatisticsMiddleware()
     ]
 
-    if #available(iOS 16.0, *), DirectConfig.enableActivityWidget {
+    if #available(iOS 16.1, *) {
         middlewares.append(widgetCenterMiddleware())
     }
 
@@ -169,7 +169,7 @@ private func createAppStore() -> DirectStore {
         glucoseStatisticsMiddleware()
     ]
 
-    if #available(iOS 16.0, *), DirectConfig.enableActivityWidget {
+    if #available(iOS 16.1, *) {
         middlewares.append(widgetCenterMiddleware())
     }
 
