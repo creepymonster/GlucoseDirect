@@ -145,7 +145,7 @@ private class ActivityGlucoseService {
         Task {
             let activities = Activity<SensorGlucoseActivityAttributes>.activities
             for activity in activities {
-                await activity.end(using: getStatus(), dismissalPolicy: .immediate)
+                await activity.end(dismissalPolicy: .immediate)
             }
 
             do {
