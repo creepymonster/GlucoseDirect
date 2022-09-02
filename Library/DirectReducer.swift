@@ -143,8 +143,11 @@ func directReducer(state: inout DirectState, action: DirectAction) {
     case .setExpiringAlarmSound(sound: let sound):
         state.expiringAlarmSound = sound
                
-    case .setGlucoseNotification(enabled: let enabled):
-        state.glucoseNotification = enabled
+    case .setNormalGlucoseNotification(enabled: let enabled):
+        state.normalGlucoseNotification = enabled
+        
+    case .setAlarmGlucoseNotification(enabled: let enabled):
+        state.alarmGlucoseNotification = enabled
         
     case .setGlucoseLiveActivity(enabled: let enabled):
         state.glucoseLiveActivity = enabled
