@@ -507,3 +507,9 @@
 
 /* (No Comment) */
 "Ignore mute" = "Stummschaltung ignorieren";
+
+/* (No Comment) */
+"Normal glucose notification" = "Normal Glucose Notification";
+
+/* (No Comment) */
+"Alarm glucose notification" = "Alarm Glucose Notification";
