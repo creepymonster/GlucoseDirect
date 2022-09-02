@@ -32,13 +32,16 @@ App programmed in Swift/SwiftUI for using Libre 1/2 blood glucose sensors. I try
 - Missed readings alert
 - Sensor expiring alert
 - Snooze for glucose alerts
+- Simple evaluation of glucose values
 - Loop (Workspace, dev branch) support, [Loop CGM Manager](https://github.com/creepymonster/GlucoseDirectClient)
 
 ## Available languages
-- English
 - Chinese (simplified)
 - Chinese (traditional)
+- Dutch
+- English
 - Finnish
+- French
 - German
 - Italian
 - Portuguese
@@ -46,8 +49,7 @@ App programmed in Swift/SwiftUI for using Libre 1/2 blood glucose sensors. I try
 - Spanish
 - Swedish
 - Turkish
-- French
-- Dutch
+- Ukrainian
 
 ## Requirements
 - Apple iPhone with iOS 15

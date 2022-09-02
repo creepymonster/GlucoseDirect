@@ -9,6 +9,7 @@ import WidgetKit
 
 // MARK: - GlucoseActivityWidget
 
+@available(iOS 16.1, *)
 struct GlucoseActivityWidget: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(attributesType: SensorGlucoseActivityAttributes.self) { context in
@@ -19,6 +20,7 @@ struct GlucoseActivityWidget: Widget {
 
 // MARK: - GlucoseActivityView
 
+@available(iOS 16.1, *)
 struct GlucoseActivityView: View {
     // MARK: Internal
 
@@ -121,6 +123,7 @@ struct GlucoseActivityView: View {
 
 // MARK: - GlucoseActivityWidget_Previews
 
+@available(iOS 16.1, *)
 struct GlucoseActivityWidget_Previews: PreviewProvider {
     static var previews: some View {
         GlucoseActivityView(
@@ -134,7 +137,7 @@ struct GlucoseActivityWidget_Previews: PreviewProvider {
                 restartDate: Date(),
                 stopDate: Date()
             )
-        ).previewContext(WidgetPreviewContext(family: .systemLarge))
+        ).previewContext(WidgetPreviewContext(family: .systemMedium))
 
         GlucoseActivityView(
             context: SensorGlucoseActivityAttributes.GlucoseStatus(
@@ -148,6 +151,8 @@ struct GlucoseActivityWidget_Previews: PreviewProvider {
                 restartDate: Date(),
                 stopDate: Date()
             )
-        ).previewContext(WidgetPreviewContext(family: .systemLarge))
+        ).previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }
+
+// TODO
