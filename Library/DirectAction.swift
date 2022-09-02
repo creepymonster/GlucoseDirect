@@ -63,6 +63,7 @@ enum DirectAction {
     case setGlucoseLiveActivity(enabled: Bool)
     case setGlucoseUnit(unit: GlucoseUnit)
     case setHighGlucoseAlarmSound(sound: NotificationSound)
+    case setHttpServer(enabled: Bool)
     case setLowGlucoseAlarmSound(sound: NotificationSound)
     case setNightscoutSecret(apiSecret: String)
     case setNightscoutUpload(enabled: Bool)

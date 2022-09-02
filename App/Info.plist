@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSSupportsLiveActivities</key>
-	<true/>
 	<key>APP_GROUP_ID</key>
 	<string>$(APP_GROUP_ID)</string>
 	<key>AppAuthor</key>
@@ -54,6 +52,12 @@
 	<string>Access to Apple Health is required if glucose data should be exported.</string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>Access to Apple Health is required if glucose data should be exported.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Access to the location while the app is open and in the background is required.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Access to the location while the app is open is required.</string>
+	<key>NSSupportsLiveActivities</key>
+	<true/>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -65,6 +69,8 @@
 	<array>
 		<string>audio</string>
 		<string>bluetooth-central</string>
+		<string>fetch</string>
+		<string>location</string>
 	</array>
 	<key>UILaunchScreen</key>
 	<dict/>

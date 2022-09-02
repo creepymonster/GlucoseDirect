@@ -17,6 +17,11 @@ struct SettingsView: View {
                 NightscoutSettingsView()
                 AppleExportSettingsView()
                 BellmanSettingsView()
+
+#if DEBUG
+                GarminSettings()
+#endif
+
                 AboutView()
             }.listStyle(.grouped)
         }

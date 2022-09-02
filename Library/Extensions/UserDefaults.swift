@@ -24,6 +24,7 @@ private enum Keys: String {
     case glucoseLiveActivity = "libre-direct.settings.glucose-live-activity"
     case glucoseUnit = "libre-direct.settings.glucose-unit"
     case highGlucoseAlarmSound = "libre-direct.settings.high-glucose-alarm-sound"
+    case httpServer = "libre-direct.settings.http-server"
     case ignoreMute = "libre-direct.settings.ignore-mute"
     case isConnectionPaired = "libre-direct.settings.is-paired"
     case latestBloodGlucose = "libre-direct.settings.latest-blood-glucose"
@@ -236,6 +237,19 @@ extension UserDefaults {
         }
         set {
             set(newValue.rawValue, forKey: Keys.highGlucoseAlarmSound.rawValue)
+        }
+    }
+    
+    var httpServer: Bool {
+        get {
+            if object(forKey: Keys.httpServer.rawValue) != nil {
+                return bool(forKey: Keys.httpServer.rawValue)
+            }
+
+            return false
+        }
+        set {
+            set(newValue, forKey: Keys.httpServer.rawValue)
         }
     }
 

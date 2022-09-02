@@ -169,6 +169,9 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         
     case .setHighGlucoseAlarmSound(sound: let sound):
         state.highGlucoseAlarmSound = sound
+        
+    case .setHttpServer(enabled: let enabled):
+        state.httpServer = enabled
 
     case .setLowGlucoseAlarmSound(sound: let sound):
         state.lowGlucoseAlarmSound = sound

@@ -92,7 +92,7 @@ struct AboutView: View {
             store.dispatch(.sendLogs)
         })
 
-        #if DEBUG
+#if DEBUG
         Section(
             content: {
                 Button("Debug alarm", action: {
@@ -107,7 +107,7 @@ struct AboutView: View {
                 Label("Debug", systemImage: "testtube.2")
             }
         )
-        #endif
+#endif
     }
 
     // MARK: Private

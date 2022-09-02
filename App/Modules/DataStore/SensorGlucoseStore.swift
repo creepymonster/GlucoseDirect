@@ -76,7 +76,7 @@ func sensorGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
                 .eraseToAnyPublisher()
 
         case .loadSensorGlucoseValues:
-            guard state.appState == .active else {
+            guard state.appState == .active || state.httpServer else {
                 break
             }
 

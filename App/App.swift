@@ -141,6 +141,7 @@ private func createSimulatorAppStore() -> DirectStore {
 
     #if DEBUG
         middlewares.append(debugMiddleware())
+        middlewares.append(httpServerMiddleware())
     #endif
 
     return DirectStore(initialState: AppState(), reducer: directReducer, middlewares: middlewares)
@@ -194,6 +195,7 @@ private func createAppStore() -> DirectStore {
 
     #if DEBUG
         middlewares.append(debugMiddleware())
+        middlewares.append(httpServerMiddleware())
     #endif
 
     return DirectStore(initialState: AppState(), reducer: directReducer, middlewares: middlewares)

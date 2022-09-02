@@ -186,6 +186,9 @@
 		E2FCAC732707438A00FE1CBF /* DirectStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC6F2707438A00FE1CBF /* DirectStore.swift */; };
 		E2FCAC7D270743B100FE1CBF /* sensor.png in Resources */ = {isa = PBXBuildFile; fileRef = E2FCAC77270743B100FE1CBF /* sensor.png */; };
 		E2FCAC87270743E200FE1CBF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E2FCAC89270743E200FE1CBF /* Localizable.strings */; };
+		E2FD88CD28C24EF40001254F /* Swifter in Frameworks */ = {isa = PBXBuildFile; productRef = E2FD88CC28C24EF40001254F /* Swifter */; };
+		E2FD88D028C24F240001254F /* HttpServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FD88CF28C24F240001254F /* HttpServer.swift */; };
+		E2FD88D228C269DF0001254F /* GarminSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FD88D128C269DF0001254F /* GarminSettings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -393,6 +396,8 @@
 		E2FCAC77270743B100FE1CBF /* sensor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sensor.png; sourceTree = "<group>"; };
 		E2FCAC88270743E200FE1CBF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E2FCAC8A270743E500FE1CBF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E2FD88CF28C24F240001254F /* HttpServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpServer.swift; sourceTree = "<group>"; };
+		E2FD88D128C269DF0001254F /* GarminSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarminSettings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -403,6 +408,7 @@
 				E21F37A728929BB500437D68 /* ActivityKit.framework in Frameworks */,
 				E27BBA8027AD7DDA00A6B8EE /* HealthKit.framework in Frameworks */,
 				E251EEA92878869800E6CDA1 /* GRDB in Frameworks */,
+				E2FD88CD28C24EF40001254F /* Swifter in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -630,6 +636,7 @@
 				E24B532026B863C00091417F /* GlucoseSettingsView.swift */,
 				E24B531D26B863910091417F /* NightscoutSettingsView.swift */,
 				E2DE3CA227594E5500FAC82E /* SensorConnectorSettings.swift */,
+				E2FD88D128C269DF0001254F /* GarminSettings.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -733,6 +740,7 @@
 		E2FCAC3C270741F000FE1CBF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				E2FD88CE28C24F050001254F /* HttpServer */,
 				E236683F287FEC1A001BF000 /* Debug */,
 				E294333C2878803B005C8A69 /* DataStore */,
 				E2FCAC4A2707422000FE1CBF /* AppGroupSharing */,
@@ -829,6 +837,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		E2FD88CE28C24F050001254F /* HttpServer */ = {
+			isa = PBXGroup;
+			children = (
+				E2FD88CF28C24F240001254F /* HttpServer.swift */,
+			);
+			path = HttpServer;
+			sourceTree = "<group>";
+		};
 		E2FDC933266FAF1C007AA1F5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -866,6 +882,7 @@
 			name = GlucoseDirectApp;
 			packageProductDependencies = (
 				E251EEA82878869800E6CDA1 /* GRDB */,
+				E2FD88CC28C24EF40001254F /* Swifter */,
 			);
 			productName = GlucoseDirect;
 			productReference = E20B853A266F4A9800AA4224 /* GlucoseDirectApp.app */;
@@ -929,6 +946,7 @@
 			mainGroup = E20B8531266F4A9800AA4224;
 			packageReferences = (
 				E251EEA72878869800E6CDA1 /* XCRemoteSwiftPackageReference "GRDB" */,
+				E2FD88CB28C24EF40001254F /* XCRemoteSwiftPackageReference "swifter" */,
 			);
 			productRefGroup = E20B853B266F4A9800AA4224 /* Products */;
 			projectDirPath = "";
@@ -1016,6 +1034,7 @@
 				E2D34BC6274D6BC000151895 /* CalibrationsView.swift in Sources */,
 				E2FCAC23270741BC00FE1CBF /* SensorState.swift in Sources */,
 				E2B63A88273E3EB100DDAA70 /* CustomCalibration.swift in Sources */,
+				E2FD88D028C24F240001254F /* HttpServer.swift in Sources */,
 				E278848327B4646E00E07DDC /* Lazy.swift in Sources */,
 				E2FCAC652707427D00FE1CBF /* ConnectionNotification.swift in Sources */,
 				E24B532126B863C00091417F /* GlucoseSettingsView.swift in Sources */,
@@ -1064,6 +1083,7 @@
 				E26BCC33285D1F760058AF0C /* LibreLinkConnection.swift in Sources */,
 				E27ED9732758A41B0099149C /* VirtualConnection.swift in Sources */,
 				E2FCAC31270741D200FE1CBF /* Date.swift in Sources */,
+				E2FD88D228C269DF0001254F /* GarminSettings.swift in Sources */,
 				E2646F3B275FD2EC00ADE451 /* AppleCalendarExport.swift in Sources */,
 				E20786232686283F004EEF1C /* ActionsView.swift in Sources */,
 				E26BCC35285D1F820058AF0C /* LibreLinkPairing.swift in Sources */,
@@ -1504,6 +1524,14 @@
 				kind = branch;
 			};
 		};
+		E2FD88CB28C24EF40001254F /* XCRemoteSwiftPackageReference "swifter" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/httpswift/swifter.git";
+			requirement = {
+				branch = stable;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1511,6 +1539,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E251EEA72878869800E6CDA1 /* XCRemoteSwiftPackageReference "GRDB" */;
 			productName = GRDB;
+		};
+		E2FD88CC28C24EF40001254F /* Swifter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E2FD88CB28C24EF40001254F /* XCRemoteSwiftPackageReference "swifter" */;
+			productName = Swifter;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

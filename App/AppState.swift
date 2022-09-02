@@ -59,6 +59,7 @@ struct AppState: DirectState {
         self.ignoreMute = UserDefaults.standard.ignoreMute
         self.glucoseUnit = UserDefaults.shared.glucoseUnit ?? .mgdL
         self.highGlucoseAlarmSound = UserDefaults.standard.highGlucoseAlarmSound
+        self.httpServer = UserDefaults.standard.httpServer
         self.isConnectionPaired = UserDefaults.standard.isConnectionPaired
         self.latestBloodGlucose = UserDefaults.shared.latestBloodGlucose
         self.latestSensorGlucose = UserDefaults.shared.latestSensorGlucose
@@ -95,7 +96,6 @@ struct AppState: DirectState {
     var glucoseStatistics: GlucoseStatistics? = nil
     var targetValue = 100
     var selectedView = DirectConfig.overviewViewTag
-
     var alarmHigh: Int { didSet { UserDefaults.standard.alarmHigh = alarmHigh } }
     var alarmLow: Int { didSet { UserDefaults.standard.alarmLow = alarmLow } }
     var alarmSnoozeUntil: Date? { didSet { UserDefaults.standard.alarmSnoozeUntil = alarmSnoozeUntil } }
@@ -112,6 +112,7 @@ struct AppState: DirectState {
     var glucoseLiveActivity: Bool { didSet { UserDefaults.standard.glucoseLiveActivity = glucoseLiveActivity } }
     var glucoseUnit: GlucoseUnit { didSet { UserDefaults.shared.glucoseUnit = glucoseUnit } }
     var highGlucoseAlarmSound: NotificationSound { didSet { UserDefaults.standard.highGlucoseAlarmSound = highGlucoseAlarmSound } }
+    var httpServer: Bool { didSet { UserDefaults.standard.httpServer = httpServer } }
     var ignoreMute: Bool { didSet { UserDefaults.standard.ignoreMute = ignoreMute } }
     var isConnectionPaired: Bool { didSet { UserDefaults.standard.isConnectionPaired = isConnectionPaired } }
     var latestBloodGlucose: BloodGlucose? { didSet { UserDefaults.shared.latestBloodGlucose = latestBloodGlucose } }
