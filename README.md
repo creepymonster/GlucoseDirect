@@ -49,7 +49,7 @@ App programmed in Swift/SwiftUI for using Libre 1/2 blood glucose sensors. I try
 - Spanish
 - Swedish
 - Turkish
-- Ukrainian
+- Ukrainian ❤️🇺🇦
 
 ## Requirements
 - Apple iPhone with iOS 15
@@ -67,7 +67,7 @@ I am very happy to receive feedback - suggestions for improvement or reports of 
 - I appreciate all the translations I get. Just drop by Crowdin, every translation helps :) https://crwd.in/glucose-direct-app
 
 ## Thank you all hardworking translators for your great work ❤️
-Alberto Del Rio Malo (albertodeviaje2), Anton Vershinin (anton-tony_v), Ato83, birdfly, Bmwmax73, Bubblan, Diabetlum, evr, eyesoganci, Fcourela, ferdytao, georgin303, Imma Texeira Ceró (immatexeira), Jean-Jacques Erbstein (jjerbstein), Jon B Mårtensson (JBM_), Matthias (HellsCrimson), mrfrostt, Mrzurgon, Nicola Lorenzetti (goldshotter), Rico Opheij (CrazySugarNL), Sahar Monitor (keyzersemen), Timmy_otoole, yinojiang, Zhang Lin (Kobe24)
+birdfly, Diabetlum, Fcourela, Anna Furman (annafman), Nicola Lorenzetti (goldshotter), Matthias (HellsCrimson), Sahar Monitor (keyzersemen), Timmy_otoole, evr, Jon B Mårtensson (JBM_), Mrzurgon, Alberto Del Rio Malo (albertodeviaje2), georgin303@yandex.ru (georgin303), eyesoganci, mrfrostt, ferdytao, Jean-Jacques Erbstein (jjerbstein), Bmwmax73, Zhang Lin (Kobe24), Ato83, Rico Opheij (CrazySugarNL), kadet11415, Imma Texeira Ceró (immatexeira), Anton Vershinin (anton-tony_v), Bubblan, Asli Uygun Cheesmar (asliseckin), Mykola (Yroslavadudko), yinojiang, Victor Garcia (VictorGarcia), Tarf, Tessaverbunt, lcunha66, Василина Данилова (Vas.d.18), Marina Huranova (marinakalova.1997), 41person, Marjon Schutte (fairytale-living), jimboo677 (Jimboo677), villho, Rig22, Roxi2a, Brian7070, Kazimierz Badura (badurakazimierz3)
 
 ## Todo
 - Cache Nightscout uploads without an Internet connection and run them later
