@@ -10,6 +10,10 @@ import UIKit
 // MARK: - directReducer
 
 func directReducer(state: inout DirectState, action: DirectAction) {
+    if !Thread.isMainThread {
+        DirectLog.error("Reducer is not used in main thread, action: \(action), queue: \(OperationQueue.current?.underlyingQueue?.label ?? "None")")
+    }
+    
     switch action {
     case .addCalibration(bloodGlucoseValue: let bloodGlucoseValue):
         guard let latestGlucoseValue = state.sensorGlucoseValues.last?.rawGlucoseValue else {
