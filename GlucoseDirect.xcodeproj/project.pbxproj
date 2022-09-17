@@ -19,8 +19,6 @@
 		E214BB68285A15800004F7AB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E2FCAC89270743E200FE1CBF /* Localizable.strings */; };
 		E21656C5275377A90007AF43 /* Transmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21656C4275377A90007AF43 /* Transmitter.swift */; };
 		E216E50A27654AF60056A61D /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E216E50927654AF60056A61D /* AboutView.swift */; };
-		E21F37A628929BA800437D68 /* ActivityKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E21F37A528929BA800437D68 /* ActivityKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		E21F37A728929BB500437D68 /* ActivityKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E21F37A528929BA800437D68 /* ActivityKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		E2218BB0284FA16900DB5A55 /* NotificationSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2218BAF284FA16900DB5A55 /* NotificationSound.swift */; };
 		E223F867267A4D9800EC9BCA /* SensorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E223F866267A4D9800EC9BCA /* SensorView.swift */; };
 		E2330A33275E88CF0050A391 /* SensorBluetoothConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2330A32275E88CF0050A391 /* SensorBluetoothConnection.swift */; };
@@ -228,7 +226,6 @@
 		E20B8546266F4A9900AA4224 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E21656C4275377A90007AF43 /* Transmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transmitter.swift; sourceTree = "<group>"; };
 		E216E50927654AF60056A61D /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
-		E21F37A528929BA800437D68 /* ActivityKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ActivityKit.framework; path = System/Library/Frameworks/ActivityKit.framework; sourceTree = SDKROOT; };
 		E2218BAF284FA16900DB5A55 /* NotificationSound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSound.swift; sourceTree = "<group>"; };
 		E223F866267A4D9800EC9BCA /* SensorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorView.swift; sourceTree = "<group>"; };
 		E2330A32275E88CF0050A391 /* SensorBluetoothConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorBluetoothConnection.swift; sourceTree = "<group>"; };
@@ -400,7 +397,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E21F37A728929BB500437D68 /* ActivityKit.framework in Frameworks */,
 				E27BBA8027AD7DDA00A6B8EE /* HealthKit.framework in Frameworks */,
 				E251EEA92878869800E6CDA1 /* GRDB in Frameworks */,
 			);
@@ -410,7 +406,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E21F37A628929BA800437D68 /* ActivityKit.framework in Frameworks */,
 				E24474422859CA9600F8891C /* SwiftUI.framework in Frameworks */,
 				E24474412859CA9600F8891C /* WidgetKit.framework in Frameworks */,
 			);
@@ -544,7 +539,6 @@
 		E27BFC0126B1407E00F8FBEF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E21F37A528929BA800437D68 /* ActivityKit.framework */,
 				E27BBA7F27AD7DDA00A6B8EE /* HealthKit.framework */,
 				E27BFC0226B1407E00F8FBEF /* WidgetKit.framework */,
 				E27BFC0426B1407E00F8FBEF /* SwiftUI.framework */,

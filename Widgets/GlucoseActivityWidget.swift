@@ -3,6 +3,8 @@
 //  GlucoseDirect
 //
 
+#if canImport(ActivityKit)
+
 import ActivityKit
 import SwiftUI
 import WidgetKit
@@ -155,4 +157,4 @@ struct GlucoseActivityWidget_Previews: PreviewProvider {
     }
 }
 
-// TODO
+#endif

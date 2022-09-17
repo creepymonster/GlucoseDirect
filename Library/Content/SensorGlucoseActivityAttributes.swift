@@ -3,6 +3,8 @@
 //  GlucoseDirect
 //
 
+#if canImport(ActivityKit)
+
 import ActivityKit
 import Foundation
 
@@ -27,3 +29,5 @@ struct SensorGlucoseActivityAttributes: ActivityAttributes {
         var stopDate: Date?
     }
 }
+
+#endif

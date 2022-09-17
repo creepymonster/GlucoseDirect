@@ -9,6 +9,7 @@ import WidgetKit
 @main
 struct Widgets: WidgetBundle {
     var body: some Widget {
+#if canImport(ActivityKit)
         if #available(iOS 16.1, *) {
             return WidgetBundleBuilder.buildBlock(
                 GlucoseWidget(),
@@ -23,5 +24,12 @@ struct Widgets: WidgetBundle {
                 TransmitterWidget()
             )
         }
+#else
+        return WidgetBundleBuilder.buildBlock(
+            GlucoseWidget(),
+            SensorWidget(),
+            TransmitterWidget()
+        )
+#endif
     }
 }

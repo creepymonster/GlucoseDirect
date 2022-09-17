@@ -3,6 +3,8 @@
 //  GlucoseDirectApp
 //
 
+#if canImport(ActivityKit)
+
 import ActivityKit
 import Combine
 import Foundation
@@ -213,3 +215,5 @@ private class ActivityGlucoseService {
         return SensorGlucoseActivityAttributes.GlucoseStatus(alarmLow: alarmLow, alarmHigh: alarmHigh, sensorState: sensorState, connectionState: connectionState, glucose: glucose, glucoseUnit: glucoseUnit, startDate: activityStart, restartDate: activityRestart, stopDate: activityStop)
     }
 }
+
+#endif
