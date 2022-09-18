@@ -16,6 +16,10 @@
 		E20B8540266F4A9800AA4224 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B853F266F4A9800AA4224 /* ContentView.swift */; };
 		E20B8542266F4A9900AA4224 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E20B8541266F4A9900AA4224 /* Assets.xcassets */; };
 		E20B8545266F4A9900AA4224 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E20B8544266F4A9900AA4224 /* Preview Assets.xcassets */; };
+		E213055C28D6FE3E00FAAD40 /* TunnelSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E213055B28D6FE3E00FAAD40 /* TunnelSettingsView.swift */; };
+		E213056328D704A100FAAD40 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E213056228D704A100FAAD40 /* NetworkExtension.framework */; };
+		E213056628D704A100FAAD40 /* TunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E213056528D704A100FAAD40 /* TunnelProvider.swift */; };
+		E213056B28D704A100FAAD40 /* GlucoseDirectTunnel.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E213056128D704A100FAAD40 /* GlucoseDirectTunnel.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E214BB68285A15800004F7AB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E2FCAC89270743E200FE1CBF /* Localizable.strings */; };
 		E21656C5275377A90007AF43 /* Transmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21656C4275377A90007AF43 /* Transmitter.swift */; };
 		E216E50A27654AF60056A61D /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E216E50927654AF60056A61D /* AboutView.swift */; };
@@ -187,6 +191,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		E213056928D704A100FAAD40 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E20B8532266F4A9800AA4224 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E213056028D704A100FAAD40;
+			remoteInfo = Tunnel;
+		};
 		E24474492859CA9700F8891C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E20B8532266F4A9800AA4224 /* Project object */;
@@ -203,6 +214,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				E213056B28D704A100FAAD40 /* GlucoseDirectTunnel.appex in Embed Foundation Extensions */,
 				E244744B2859CA9700F8891C /* GlucoseDirectWidget.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
@@ -224,6 +236,12 @@
 		E20B8541266F4A9900AA4224 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E20B8544266F4A9900AA4224 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E20B8546266F4A9900AA4224 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E213055B28D6FE3E00FAAD40 /* TunnelSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelSettingsView.swift; sourceTree = "<group>"; };
+		E213056128D704A100FAAD40 /* GlucoseDirectTunnel.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GlucoseDirectTunnel.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		E213056228D704A100FAAD40 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
+		E213056528D704A100FAAD40 /* TunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelProvider.swift; sourceTree = "<group>"; };
+		E213056728D704A100FAAD40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E213056828D704A100FAAD40 /* Tunnel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tunnel.entitlements; sourceTree = "<group>"; };
 		E21656C4275377A90007AF43 /* Transmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transmitter.swift; sourceTree = "<group>"; };
 		E216E50927654AF60056A61D /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		E2218BAF284FA16900DB5A55 /* NotificationSound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSound.swift; sourceTree = "<group>"; };
@@ -402,6 +420,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E213055E28D704A100FAAD40 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E213056328D704A100FAAD40 /* NetworkExtension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E244743D2859CA9600F8891C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -421,6 +447,7 @@
 				E20B853C266F4A9800AA4224 /* App */,
 				E24474432859CA9600F8891C /* Widgets */,
 				E2218B87284F9E7300DB5A55 /* Library */,
+				E213056428D704A100FAAD40 /* Tunnel */,
 				E27BFC0126B1407E00F8FBEF /* Frameworks */,
 				E20B853B266F4A9800AA4224 /* Products */,
 			);
@@ -431,6 +458,7 @@
 			children = (
 				E20B853A266F4A9800AA4224 /* GlucoseDirectApp.app */,
 				E24474402859CA9600F8891C /* GlucoseDirectWidget.appex */,
+				E213056128D704A100FAAD40 /* GlucoseDirectTunnel.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -456,6 +484,16 @@
 				E20B8544266F4A9900AA4224 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E213056428D704A100FAAD40 /* Tunnel */ = {
+			isa = PBXGroup;
+			children = (
+				E213056528D704A100FAAD40 /* TunnelProvider.swift */,
+				E213056828D704A100FAAD40 /* Tunnel.entitlements */,
+				E213056728D704A100FAAD40 /* Info.plist */,
+			);
+			path = Tunnel;
 			sourceTree = "<group>";
 		};
 		E21B2FD227AD9CD000E996DA /* AppleExport */ = {
@@ -542,6 +580,7 @@
 				E27BBA7F27AD7DDA00A6B8EE /* HealthKit.framework */,
 				E27BFC0226B1407E00F8FBEF /* WidgetKit.framework */,
 				E27BFC0426B1407E00F8FBEF /* SwiftUI.framework */,
+				E213056228D704A100FAAD40 /* NetworkExtension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -624,6 +663,7 @@
 				E24B532026B863C00091417F /* GlucoseSettingsView.swift */,
 				E24B531D26B863910091417F /* NightscoutSettingsView.swift */,
 				E2DE3CA227594E5500FAC82E /* SensorConnectorSettings.swift */,
+				E213055B28D6FE3E00FAAD40 /* TunnelSettingsView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -856,6 +896,7 @@
 			);
 			dependencies = (
 				E244744A2859CA9700F8891C /* PBXTargetDependency */,
+				E213056A28D704A100FAAD40 /* PBXTargetDependency */,
 			);
 			name = GlucoseDirectApp;
 			packageProductDependencies = (
@@ -864,6 +905,23 @@
 			productName = GlucoseDirect;
 			productReference = E20B853A266F4A9800AA4224 /* GlucoseDirectApp.app */;
 			productType = "com.apple.product-type.application";
+		};
+		E213056028D704A100FAAD40 /* GlucoseDirectTunnel */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E213056C28D704A100FAAD40 /* Build configuration list for PBXNativeTarget "GlucoseDirectTunnel" */;
+			buildPhases = (
+				E213055D28D704A100FAAD40 /* Sources */,
+				E213055E28D704A100FAAD40 /* Frameworks */,
+				E213055F28D704A100FAAD40 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GlucoseDirectTunnel;
+			productName = Tunnel;
+			productReference = E213056128D704A100FAAD40 /* GlucoseDirectTunnel.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 		E244743F2859CA9600F8891C /* GlucoseDirectWidget */ = {
 			isa = PBXNativeTarget;
@@ -893,6 +951,9 @@
 				TargetAttributes = {
 					E20B8539266F4A9800AA4224 = {
 						CreatedOnToolsVersion = 12.5;
+					};
+					E213056028D704A100FAAD40 = {
+						CreatedOnToolsVersion = 14.0;
 					};
 					E244743F2859CA9600F8891C = {
 						CreatedOnToolsVersion = 14.0;
@@ -930,6 +991,7 @@
 			targets = (
 				E20B8539266F4A9800AA4224 /* GlucoseDirectApp */,
 				E244743F2859CA9600F8891C /* GlucoseDirectWidget */,
+				E213056028D704A100FAAD40 /* GlucoseDirectTunnel */,
 			);
 		};
 /* End PBXProject section */
@@ -966,6 +1028,13 @@
 				E2A6993B278760A300409F33 /* climb-rope.aiff in Resources */,
 				E2FCAC7D270743B100FE1CBF /* sensor.png in Resources */,
 				E2A69939278760A300409F33 /* achievement.aiff in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E213055F28D704A100FAAD40 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1017,6 +1086,7 @@
 				E2FCAC422707420100FE1CBF /* AppState.swift in Sources */,
 				E2C8F5FE278CD63000519ABD /* BellmanAlarm.swift in Sources */,
 				E26677DC28799E8A008E8B68 /* Glucose.swift in Sources */,
+				E213055C28D6FE3E00FAAD40 /* TunnelSettingsView.swift in Sources */,
 				E2715808287ABF4B00B611D9 /* SensorErrorList.swift in Sources */,
 				E2FCAC30270741D200FE1CBF /* String.swift in Sources */,
 				E2FCAC36270741D200FE1CBF /* LocalizedString.swift in Sources */,
@@ -1086,6 +1156,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E213055D28D704A100FAAD40 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E213056628D704A100FAAD40 /* TunnelProvider.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E244743C2859CA9600F8891C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1141,6 +1219,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		E213056A28D704A100FAAD40 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E213056028D704A100FAAD40 /* GlucoseDirectTunnel */;
+			targetProxy = E213056928D704A100FAAD40 /* PBXContainerItemProxy */;
+		};
 		E244744A2859CA9700F8891C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E244743F2859CA9600F8891C /* GlucoseDirectWidget */;
@@ -1391,6 +1474,66 @@
 			};
 			name = Release;
 		};
+		E213056D28D704A100FAAD40 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E247D8E426B7D70A00BDAF89 /* GlucoseDirect.xcconfig */;
+			buildSettings = {
+				APP_GROUP_ID = "$(APP_GROUP_ID)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = Tunnel/Tunnel.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "${DEVELOPMENT_TEAM}";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Tunnel/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Tunnel;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = "${APP_VERSION}";
+				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_BUNDLE_IDENTIFIER}.Tunnel";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E213056E28D704A100FAAD40 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E247D8E426B7D70A00BDAF89 /* GlucoseDirect.xcconfig */;
+			buildSettings = {
+				APP_GROUP_ID = "$(APP_GROUP_ID)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = Tunnel/Tunnel.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "${DEVELOPMENT_TEAM}";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Tunnel/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Tunnel;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = "${APP_VERSION}";
+				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_BUNDLE_IDENTIFIER}.Tunnel";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		E244744C2859CA9700F8891C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E247D8E426B7D70A00BDAF89 /* GlucoseDirect.xcconfig */;
@@ -1474,6 +1617,15 @@
 			buildConfigurations = (
 				E20B854A266F4A9900AA4224 /* Debug */,
 				E20B854B266F4A9900AA4224 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E213056C28D704A100FAAD40 /* Build configuration list for PBXNativeTarget "GlucoseDirectTunnel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E213056D28D704A100FAAD40 /* Debug */,
+				E213056E28D704A100FAAD40 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -18,6 +18,8 @@ struct SettingsView: View {
                 AppleExportSettingsView()
                 BellmanSettingsView()
                 AboutView()
+                
+                TunnelSettingsView()
             }.listStyle(.grouped)
         }
     }
