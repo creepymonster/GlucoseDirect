@@ -37,6 +37,8 @@
 		E24B532126B863C00091417F /* GlucoseSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532026B863C00091417F /* GlucoseSettingsView.swift */; };
 		E24B532326B863E20091417F /* AlarmSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532226B863E20091417F /* AlarmSettingsView.swift */; };
 		E24B532526B864020091417F /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532426B864020091417F /* ToggleView.swift */; };
+		E251653E28D7BFE900922898 /* ActivityKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E251653D28D7BFE900922898 /* ActivityKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		E251653F28D7BFF100922898 /* ActivityKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E251653D28D7BFE900922898 /* ActivityKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		E251EEA92878869800E6CDA1 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = E251EEA82878869800E6CDA1 /* GRDB */; };
 		E257088E278354B600896696 /* mute.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E257088D278354B600896696 /* mute.aiff */; };
 		E25762D5279D519200A2E249 /* BellmanSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25762D4279D519200A2E249 /* BellmanSettingsView.swift */; };
@@ -259,6 +261,7 @@
 		E24B532026B863C00091417F /* GlucoseSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseSettingsView.swift; sourceTree = "<group>"; };
 		E24B532226B863E20091417F /* AlarmSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingsView.swift; sourceTree = "<group>"; };
 		E24B532426B864020091417F /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
+		E251653D28D7BFE900922898 /* ActivityKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ActivityKit.framework; path = System/Library/Frameworks/ActivityKit.framework; sourceTree = SDKROOT; };
 		E257088D278354B600896696 /* mute.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = mute.aiff; sourceTree = "<group>"; };
 		E25762D4279D519200A2E249 /* BellmanSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BellmanSettingsView.swift; sourceTree = "<group>"; };
 		E257B0642892C89F0081B2BD /* GlucoseActivityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseActivityWidget.swift; sourceTree = "<group>"; };
@@ -415,6 +418,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E251653E28D7BFE900922898 /* ActivityKit.framework in Frameworks */,
 				E27BBA8027AD7DDA00A6B8EE /* HealthKit.framework in Frameworks */,
 				E251EEA92878869800E6CDA1 /* GRDB in Frameworks */,
 			);
@@ -432,6 +436,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E251653F28D7BFF100922898 /* ActivityKit.framework in Frameworks */,
 				E24474422859CA9600F8891C /* SwiftUI.framework in Frameworks */,
 				E24474412859CA9600F8891C /* WidgetKit.framework in Frameworks */,
 			);
@@ -577,6 +582,7 @@
 		E27BFC0126B1407E00F8FBEF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E251653D28D7BFE900922898 /* ActivityKit.framework */,
 				E27BBA7F27AD7DDA00A6B8EE /* HealthKit.framework */,
 				E27BFC0226B1407E00F8FBEF /* WidgetKit.framework */,
 				E27BFC0426B1407E00F8FBEF /* SwiftUI.framework */,

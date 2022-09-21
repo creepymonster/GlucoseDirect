@@ -3,8 +3,6 @@
 //  GlucoseDirect
 //
 
-#if canImport(ActivityKit)
-
 import ActivityKit
 import Foundation
 
@@ -30,4 +28,4 @@ struct SensorGlucoseActivityAttributes: ActivityAttributes {
     }
 }
 
-#endif
+// TODO

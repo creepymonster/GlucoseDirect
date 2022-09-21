@@ -3,8 +3,6 @@
 //  GlucoseDirect
 //
 
-#if canImport(ActivityKit)
-
 import ActivityKit
 import SwiftUI
 import WidgetKit
@@ -14,20 +12,37 @@ import WidgetKit
 @available(iOS 16.1, *)
 struct GlucoseActivityWidget: Widget {
     var body: some WidgetConfiguration {
-        ActivityConfiguration(attributesType: SensorGlucoseActivityAttributes.self) { context in
+        ActivityConfiguration(for: SensorGlucoseActivityAttributes.self) { context in
             GlucoseActivityView(context: context.state)
+        } dynamicIsland: { context in
+            DynamicIsland {
+                DynamicIslandExpandedRegion(.center) {
+                    DynamicIslandCenterView(context: context.state)
+                }
+
+                DynamicIslandExpandedRegion(.bottom) {
+                    Text("d")
+                }
+            } compactLeading: {
+                Text("e")
+            } compactTrailing: {
+                Text("f")
+            } minimal: {
+                Text("g")
+            }
         }
     }
 }
 
-// MARK: - GlucoseActivityView
+// MARK: - GlucoseStatusContext
 
 @available(iOS 16.1, *)
-struct GlucoseActivityView: View {
-    // MARK: Internal
+protocol GlucoseStatusContext {
+    var context: SensorGlucoseActivityAttributes.GlucoseStatus { get }
+}
 
-    @State var context: SensorGlucoseActivityAttributes.GlucoseStatus
-
+@available(iOS 16.1, *)
+extension GlucoseStatusContext {
     var warning: String? {
         if let sensorState = context.sensorState, sensorState != .ready {
             return sensorState.localizedDescription
@@ -39,6 +54,83 @@ struct GlucoseActivityView: View {
 
         return nil
     }
+    
+    func isAlarm(glucose: any Glucose) -> Bool {
+        if glucose.glucoseValue < context.alarmLow || glucose.glucoseValue > context.alarmHigh {
+            return true
+        }
+
+        return false
+    }
+
+    func getGlucoseColor(glucose: any Glucose) -> Color {
+        if isAlarm(glucose: glucose) {
+            return Color.ui.red
+        }
+
+        return Color.primary
+    }
+}
+
+// MARK: - DynamicIslandCenterView
+
+@available(iOS 16.1, *)
+struct DynamicIslandCenterView: View, GlucoseStatusContext {
+    @State var context: SensorGlucoseActivityAttributes.GlucoseStatus
+
+    var body: some View {
+        if let latestGlucose = context.glucose,
+           let glucoseUnit = context.glucoseUnit
+        {
+            HStack(alignment: .lastTextBaseline) {
+                ZStack(alignment: .trailing) {
+                    Text(latestGlucose.glucoseValue.asGlucose(unit: glucoseUnit))
+                        .font(.system(size: 48))
+                        .frame(height: 48)
+                        .foregroundColor(getGlucoseColor(glucose: latestGlucose))
+                        .clipped()
+
+                    if let warning = warning {
+                        Group {
+                            Text(warning)
+                                .padding(.init(top: 2.5, leading: 5, bottom: 2.5, trailing: 5))
+                                .foregroundColor(.white)
+                                .font(.system(size: 14))
+                                .background(
+                                    RoundedRectangle(cornerRadius: 5, style: .continuous)
+                                        .foregroundStyle(Color.ui.red)
+                                )
+                        }.offset(y: 20)
+                    }
+
+                    HStack(spacing: 16) {
+                        Text(latestGlucose.timestamp.toLocalTime())
+                        Text(glucoseUnit.localizedDescription)
+                    }.offset(y: 30)
+                }
+
+                VStack(alignment: .leading) {
+                    Text(latestGlucose.trend.description)
+                        .font(.system(size: 20))
+
+                    if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit), latestGlucose.trend != .unknown {
+                        Text(minuteChange)
+                            .font(.system(size: 14))
+                    } else {
+                        Text("?".asMinuteChange())
+                            .font(.system(size: 14))
+                    }
+                }
+            }.padding(.bottom, 20)
+        }
+    }
+}
+
+// MARK: - GlucoseActivityView
+
+@available(iOS 16.1, *)
+struct GlucoseActivityView: View, GlucoseStatusContext {
+    @State var context: SensorGlucoseActivityAttributes.GlucoseStatus
 
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
@@ -50,6 +142,7 @@ struct GlucoseActivityView: View {
                         Text(latestGlucose.glucoseValue.asGlucose(unit: glucoseUnit))
                             .font(.system(size: 96))
                             .frame(height: 96)
+                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
                             .clipped()
 
                         if let warning = warning {
@@ -103,24 +196,6 @@ struct GlucoseActivityView: View {
             }
         }.padding()
     }
-
-    // MARK: Private
-
-    private func isAlarm(glucose: any Glucose) -> Bool {
-        if glucose.glucoseValue < context.alarmLow || glucose.glucoseValue > context.alarmHigh {
-            return true
-        }
-
-        return false
-    }
-
-    private func getGlucoseColor(glucose: any Glucose) -> Color {
-        if isAlarm(glucose: glucose) {
-            return Color.ui.red
-        }
-
-        return Color.primary
-    }
 }
 
 // MARK: - GlucoseActivityWidget_Previews
@@ -157,4 +232,4 @@ struct GlucoseActivityWidget_Previews: PreviewProvider {
     }
 }
 
-#endif
+// TODO
