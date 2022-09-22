@@ -135,7 +135,7 @@ private class AppleCalendarExportService {
         event.calendar = calendar
         event.url = DirectConfig.appSchemaURL
         event.startDate = glucose.timestamp
-        event.endDate = glucose.timestamp + 2 * 60 * sensorInterval
+        event.endDate = glucose.timestamp + 15 * 60
 
         do {
             try eventStore.save(event, span: .thisEvent)
