@@ -198,5 +198,3 @@ private func createAppStore() -> DirectStore {
 
     return DirectStore(initialState: AppState(), reducer: directReducer, middlewares: middlewares)
 }
-
-// TODO

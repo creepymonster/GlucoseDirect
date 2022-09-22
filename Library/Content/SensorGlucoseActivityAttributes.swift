@@ -27,5 +27,3 @@ struct SensorGlucoseActivityAttributes: ActivityAttributes {
         var stopDate: Date?
     }
 }
-
-// TODO

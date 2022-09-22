@@ -144,5 +144,3 @@ struct GlucoseView: View {
         return Color.primary
     }
 }
-
-// TODO

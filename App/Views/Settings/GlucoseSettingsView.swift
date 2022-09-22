@@ -81,5 +81,3 @@ struct GlucoseSettingsView: View {
         )
     }
 }
-
-// TODO

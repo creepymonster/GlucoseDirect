@@ -25,5 +25,3 @@ struct Widgets: WidgetBundle {
         }
     }
 }
-
-// TODO

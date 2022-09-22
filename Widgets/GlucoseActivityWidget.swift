@@ -231,5 +231,3 @@ struct GlucoseActivityWidget_Previews: PreviewProvider {
         ).previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }
-
-// TODO
