@@ -506,4 +506,10 @@
 "Glucose read aloud" = "血糖读数";
 
 /* (No Comment) */
-"Ignore mute" = "Ignore mute";
+"Ignore mute" = "忽略静音";
+
+/* (No Comment) */
+"Normal glucose notification" = "正常血糖通知";
+
+/* (No Comment) */
+"Alarm glucose notification" = "报警葡萄糖通知";

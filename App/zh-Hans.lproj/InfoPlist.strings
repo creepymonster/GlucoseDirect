@@ -5,7 +5,7 @@
 "CFBundleName" = "Glucose Direct";
 
 /* Privacy - NFC Scan Usage Description */
-"NFCReaderUsageDescription" = "在进行蓝牙连接之前，需要使用NFC扫描建立连接。";
+"NFCReaderUsageDescription" = "在进行蓝牙连接之前需要使用NFC扫描建立连接。";
 
 /* Privacy - Bluetooth Always Usage Description */
 "NSBluetoothAlwaysUsageDescription" = "需要使用蓝牙功能来连接到支持的设备。";

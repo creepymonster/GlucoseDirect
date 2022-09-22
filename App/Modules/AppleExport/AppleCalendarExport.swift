@@ -15,7 +15,7 @@ func appleCalendarExportMiddleware() -> Middleware<DirectState, DirectAction> {
 
 private func appleCalendarExportMiddleware(service: LazyService<AppleCalendarExportService>) -> Middleware<DirectState, DirectAction> {
     return { state, action, _ in
-        switch action {
+        switch action {           
         case .requestAppleCalendarAccess(enabled: let enabled):
             if enabled {
                 return Future<DirectAction, DirectError> { promise in
@@ -122,14 +122,14 @@ private class AppleCalendarExportService {
         guard let calendar = calendar else {
             return
         }
-
+        
         clearGlucoseEvents()
 
         let event = EKEvent(eventStore: eventStore)
         event.title = "\(glucose.trend.description) \(glucose.glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true))"
 
         if let minuteChange = glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
-            event.location = minuteChange
+            event.location = "\(glucose.timestamp.toLocalTime()), \(minuteChange)"
         }
 
         event.calendar = calendar
@@ -147,4 +147,26 @@ private class AppleCalendarExportService {
     // MARK: Private
 
     private var calendar: EKCalendar?
+
+    private func findEvent() -> EKEvent? {
+        guard let calendar = calendar else {
+            return nil
+        }
+
+        let predicate = eventStore.predicateForEvents(
+            withStart: Date(timeIntervalSinceNow: -24 * 3600),
+            end: Date(),
+            calendars: [calendar]
+        )
+
+        let events = eventStore.events(matching: predicate)
+
+        for event in events {
+            if event.url == DirectConfig.appSchemaURL {
+                return event
+            }
+        }
+
+        return nil
+    }
 }

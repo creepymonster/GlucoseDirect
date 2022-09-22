@@ -19,8 +19,6 @@
 		E214BB68285A15800004F7AB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E2FCAC89270743E200FE1CBF /* Localizable.strings */; };
 		E21656C5275377A90007AF43 /* Transmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21656C4275377A90007AF43 /* Transmitter.swift */; };
 		E216E50A27654AF60056A61D /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E216E50927654AF60056A61D /* AboutView.swift */; };
-		E21F37A628929BA800437D68 /* ActivityKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E21F37A528929BA800437D68 /* ActivityKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		E21F37A728929BB500437D68 /* ActivityKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E21F37A528929BA800437D68 /* ActivityKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		E2218BB0284FA16900DB5A55 /* NotificationSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2218BAF284FA16900DB5A55 /* NotificationSound.swift */; };
 		E223F867267A4D9800EC9BCA /* SensorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E223F866267A4D9800EC9BCA /* SensorView.swift */; };
 		E2330A33275E88CF0050A391 /* SensorBluetoothConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2330A32275E88CF0050A391 /* SensorBluetoothConnection.swift */; };
@@ -35,6 +33,8 @@
 		E24B532126B863C00091417F /* GlucoseSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532026B863C00091417F /* GlucoseSettingsView.swift */; };
 		E24B532326B863E20091417F /* AlarmSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532226B863E20091417F /* AlarmSettingsView.swift */; };
 		E24B532526B864020091417F /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532426B864020091417F /* ToggleView.swift */; };
+		E251653E28D7BFE900922898 /* ActivityKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E251653D28D7BFE900922898 /* ActivityKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		E251653F28D7BFF100922898 /* ActivityKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E251653D28D7BFE900922898 /* ActivityKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		E251EEA92878869800E6CDA1 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = E251EEA82878869800E6CDA1 /* GRDB */; };
 		E257088E278354B600896696 /* mute.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E257088D278354B600896696 /* mute.aiff */; };
 		E25762D5279D519200A2E249 /* BellmanSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25762D4279D519200A2E249 /* BellmanSettingsView.swift */; };
@@ -125,6 +125,7 @@
 		E2D34BC8274D6BCB00151895 /* ListsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D34BC7274D6BCB00151895 /* ListsView.swift */; };
 		E2D34BCA274D6C1300151895 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D34BC9274D6C1300151895 /* SettingsView.swift */; };
 		E2DE3CA327594E5500FAC82E /* SensorConnectorSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DE3CA227594E5500FAC82E /* SensorConnectorSettings.swift */; };
+		E2E353F928DC6E4100824732 /* LibreConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E353F828DC6E4100824732 /* LibreConnection.swift */; };
 		E2E8DBE62859F46D002C84FD /* LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC2E270741D200FE1CBF /* LocalizedString.swift */; };
 		E2E8DBE72859F46D002C84FD /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC2C270741D200FE1CBF /* View.swift */; };
 		E2E8DBE82859F46D002C84FD /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC27270741D200FE1CBF /* Data.swift */; };
@@ -174,7 +175,7 @@
 		E2FCAC432707420100FE1CBF /* DirectNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC3E2707420100FE1CBF /* DirectNotifications.swift */; };
 		E2FCAC462707420100FE1CBF /* DirectReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC412707420100FE1CBF /* DirectReducer.swift */; };
 		E2FCAC512707424800FE1CBF /* Nightscout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC502707424800FE1CBF /* Nightscout.swift */; };
-		E2FCAC5B2707425900FE1CBF /* Libre2Pairing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC572707425900FE1CBF /* Libre2Pairing.swift */; };
+		E2FCAC5B2707425900FE1CBF /* LibrePairing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC572707425900FE1CBF /* LibrePairing.swift */; };
 		E2FCAC5D2707426100FE1CBF /* GlucoseNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC5C2707426100FE1CBF /* GlucoseNotification.swift */; };
 		E2FCAC612707426F00FE1CBF /* AppGroupSharing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC602707426F00FE1CBF /* AppGroupSharing.swift */; };
 		E2FCAC632707427500FE1CBF /* ExpiringNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC622707427500FE1CBF /* ExpiringNotification.swift */; };
@@ -228,7 +229,6 @@
 		E20B8546266F4A9900AA4224 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E21656C4275377A90007AF43 /* Transmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transmitter.swift; sourceTree = "<group>"; };
 		E216E50927654AF60056A61D /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
-		E21F37A528929BA800437D68 /* ActivityKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ActivityKit.framework; path = System/Library/Frameworks/ActivityKit.framework; sourceTree = SDKROOT; };
 		E2218BAF284FA16900DB5A55 /* NotificationSound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSound.swift; sourceTree = "<group>"; };
 		E223F866267A4D9800EC9BCA /* SensorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorView.swift; sourceTree = "<group>"; };
 		E2330A32275E88CF0050A391 /* SensorBluetoothConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorBluetoothConnection.swift; sourceTree = "<group>"; };
@@ -244,6 +244,7 @@
 		E24B532026B863C00091417F /* GlucoseSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseSettingsView.swift; sourceTree = "<group>"; };
 		E24B532226B863E20091417F /* AlarmSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingsView.swift; sourceTree = "<group>"; };
 		E24B532426B864020091417F /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
+		E251653D28D7BFE900922898 /* ActivityKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ActivityKit.framework; path = System/Library/Frameworks/ActivityKit.framework; sourceTree = SDKROOT; };
 		E257088D278354B600896696 /* mute.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = mute.aiff; sourceTree = "<group>"; };
 		E25762D4279D519200A2E249 /* BellmanSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BellmanSettingsView.swift; sourceTree = "<group>"; };
 		E257B0642892C89F0081B2BD /* GlucoseActivityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseActivityWidget.swift; sourceTree = "<group>"; };
@@ -344,6 +345,7 @@
 		E2D34BC7274D6BCB00151895 /* ListsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsView.swift; sourceTree = "<group>"; };
 		E2D34BC9274D6C1300151895 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		E2DE3CA227594E5500FAC82E /* SensorConnectorSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorConnectorSettings.swift; sourceTree = "<group>"; };
+		E2E353F828DC6E4100824732 /* LibreConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibreConnection.swift; sourceTree = "<group>"; };
 		E2E4797C28BD6A0F006665EA /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E2E4797D28BD6A0F006665EA /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E2E4797E28BD6A0F006665EA /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -380,7 +382,7 @@
 		E2FCAC3E2707420100FE1CBF /* DirectNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectNotifications.swift; sourceTree = "<group>"; };
 		E2FCAC412707420100FE1CBF /* DirectReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectReducer.swift; sourceTree = "<group>"; };
 		E2FCAC502707424800FE1CBF /* Nightscout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Nightscout.swift; sourceTree = "<group>"; };
-		E2FCAC572707425900FE1CBF /* Libre2Pairing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Libre2Pairing.swift; sourceTree = "<group>"; };
+		E2FCAC572707425900FE1CBF /* LibrePairing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibrePairing.swift; sourceTree = "<group>"; };
 		E2FCAC5C2707426100FE1CBF /* GlucoseNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlucoseNotification.swift; sourceTree = "<group>"; };
 		E2FCAC602707426F00FE1CBF /* AppGroupSharing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppGroupSharing.swift; sourceTree = "<group>"; };
 		E2FCAC622707427500FE1CBF /* ExpiringNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpiringNotification.swift; sourceTree = "<group>"; };
@@ -400,7 +402,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E21F37A728929BB500437D68 /* ActivityKit.framework in Frameworks */,
+				E251653E28D7BFE900922898 /* ActivityKit.framework in Frameworks */,
 				E27BBA8027AD7DDA00A6B8EE /* HealthKit.framework in Frameworks */,
 				E251EEA92878869800E6CDA1 /* GRDB in Frameworks */,
 			);
@@ -410,7 +412,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E21F37A628929BA800437D68 /* ActivityKit.framework in Frameworks */,
+				E251653F28D7BFF100922898 /* ActivityKit.framework in Frameworks */,
 				E24474422859CA9600F8891C /* SwiftUI.framework in Frameworks */,
 				E24474412859CA9600F8891C /* WidgetKit.framework in Frameworks */,
 			);
@@ -544,7 +546,7 @@
 		E27BFC0126B1407E00F8FBEF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E21F37A528929BA800437D68 /* ActivityKit.framework */,
+				E251653D28D7BFE900922898 /* ActivityKit.framework */,
 				E27BBA7F27AD7DDA00A6B8EE /* HealthKit.framework */,
 				E27BFC0226B1407E00F8FBEF /* WidgetKit.framework */,
 				E27BFC0426B1407E00F8FBEF /* SwiftUI.framework */,
@@ -569,8 +571,9 @@
 		E27ED96F2758A4010099149C /* Libre2Connection */ = {
 			isa = PBXGroup;
 			children = (
+				E2FCAC572707425900FE1CBF /* LibrePairing.swift */,
+				E2E353F828DC6E4100824732 /* LibreConnection.swift */,
 				E27ED9772758A4360099149C /* Libre2Connection.swift */,
-				E2FCAC572707425900FE1CBF /* Libre2Pairing.swift */,
 			);
 			path = Libre2Connection;
 			sourceTree = "<group>";
@@ -1006,6 +1009,7 @@
 				E283306726AF058500244343 /* ChartView.swift in Sources */,
 				E2FCAC1C270741BC00FE1CBF /* SensorType.swift in Sources */,
 				E2B5FDA828789ED200D35D87 /* SensorGlucoseStore.swift in Sources */,
+				E2E353F928DC6E4100824732 /* LibreConnection.swift in Sources */,
 				E24B532526B864020091417F /* ToggleView.swift in Sources */,
 				E201769127AAB96000E6A756 /* AppleHealthExport.swift in Sources */,
 				E2FCAC632707427500FE1CBF /* ExpiringNotification.swift in Sources */,
@@ -1049,7 +1053,7 @@
 				E2FCAC3B270741E600FE1CBF /* DirectLog.swift in Sources */,
 				E2D34BC4274D6BB500151895 /* OverviewView.swift in Sources */,
 				E298CF04279DEBF500C1C218 /* FactoryCalibrationView.swift in Sources */,
-				E2FCAC5B2707425900FE1CBF /* Libre2Pairing.swift in Sources */,
+				E2FCAC5B2707425900FE1CBF /* LibrePairing.swift in Sources */,
 				E2646F3D275FD3E800ADE451 /* AppleExportSettingsView.swift in Sources */,
 				E27ED9752758A4270099149C /* BubbleConnection.swift in Sources */,
 				E2CDA01A27722FB900A1E694 /* ReadAloud.swift in Sources */,

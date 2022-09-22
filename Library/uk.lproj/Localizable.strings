@@ -507,3 +507,9 @@
 
 /* (No Comment) */
 "Ignore mute" = "Вимкнути звук";
+
+/* (No Comment) */
+"Normal glucose notification" = "Повідомлення про нормальний рівень глюкози";
+
+/* (No Comment) */
+"Alarm glucose notification" = "Сповіщення про рівень глюкози";

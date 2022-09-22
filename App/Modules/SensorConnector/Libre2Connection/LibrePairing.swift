@@ -1,5 +1,5 @@
 //
-//  SensorPairing.swift
+//  LibrePairing.swift
 //  GlucoseDirect
 //
 //  Special thanks to: guidos
@@ -11,9 +11,9 @@ import Foundation
 #if canImport(CoreNFC)
 import CoreNFC
 
-// MARK: - Libre2Pairing
+// MARK: - LibrePairing
 
-class Libre2Pairing: NSObject, NFCTagReaderSessionDelegate {
+class LibrePairing: NSObject, NFCTagReaderSessionDelegate {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<DirectAction, DirectError>) {
@@ -278,7 +278,7 @@ private enum Subcommand: UInt8, CustomStringConvertible {
 
 #else
 
-class Libre2Pairing: NSObject {
+class LibrePairing: NSObject {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<DirectAction, DirectError>) {}

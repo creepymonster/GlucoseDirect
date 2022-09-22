@@ -35,8 +35,12 @@ struct GlucoseSettingsView: View {
                     store.dispatch(.setAlarmHigh(upperLimit: value))
                 }
 
-                ToggleView(key: LocalizedString("Glucose notification"), value: store.state.glucoseNotification) { value in
-                    store.dispatch(.setGlucoseNotification(enabled: value))
+                ToggleView(key: LocalizedString("Normal glucose notification"), value: store.state.normalGlucoseNotification) { value in
+                    store.dispatch(.setNormalGlucoseNotification(enabled: value))
+                }
+
+                ToggleView(key: LocalizedString("Alarm glucose notification"), value: store.state.alarmGlucoseNotification) { value in
+                    store.dispatch(.setAlarmGlucoseNotification(enabled: value))
                 }
 
                 if #available(iOS 16.1, *) {
