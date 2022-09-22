@@ -31,22 +31,6 @@ class LibreConnection: SensorConnectionProtocol, IsSensor {
     }
 
     func connectConnection(sensor: Sensor, sensorInterval: Int) {
-        guard let subject = subject else {
-            return
-        }
-
-        if let sensorType = self.sensor?.type, sensorType != sensor.type {
-            bluetoothService = nil
-        }
-
-        if bluetoothService == nil {
-            if sensor.type == .libre2EU {
-                bluetoothService = Libre2Connection(subject: subject)
-            } else {
-                return
-            }
-        }
-
         bluetoothService?.connectConnection(sensor: sensor, sensorInterval: sensorInterval)
     }
 
@@ -66,7 +50,13 @@ class LibreConnection: SensorConnectionProtocol, IsSensor {
         return nil
     }()
 
-    private var bluetoothService: SensorBluetoothConnection?
+    private lazy var bluetoothService: SensorBluetoothConnection? = {
+        if let subject = subject {
+            return Libre2Connection(subject: subject)
+        }
+
+        return nil
+    }()
 }
 
 extension UserDefaults {

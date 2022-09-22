@@ -19,16 +19,9 @@ struct GlucoseActivityWidget: Widget {
                 DynamicIslandExpandedRegion(.center) {
                     DynamicIslandCenterView(context: context.state)
                 }
-
-                DynamicIslandExpandedRegion(.bottom) {
-                    Text("d")
-                }
             } compactLeading: {
-                Text("e")
             } compactTrailing: {
-                Text("f")
             } minimal: {
-                Text("g")
             }
         }
     }
