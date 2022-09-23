@@ -263,7 +263,7 @@
 "Without transmitter" = "Zonder zender";
 
 /* (No Comment) */
-"Bubble transmitter" = "Bubble zender";
+"Bubble transmitter" = "Bubble";
 
 /* (No Comment) */
 "Pairing" = "Koppelen";
@@ -452,7 +452,7 @@
 "No screen lock" = "No screen lock";
 
 /* (No Comment) */
-"LibreLink transmitter" = "LibreLink Transmitter";
+"LibreLink transmitter" = "LibreLink";
 
 /* (No Comment) */
 "Use LibreLink to start the sensor" = "Use LibreLink to start the sensor";
