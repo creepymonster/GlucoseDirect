@@ -506,10 +506,10 @@
 "Glucose read aloud" = "Lectura de glucosa";
 
 /* (No Comment) */
-"Ignore mute" = "Ignore mute";
+"Ignore mute" = "Ignorar el silencio";
 
 /* (No Comment) */
-"Normal glucose notification" = "Normal Glucose Notification";
+"Normal glucose notification" = "Notificación de glucosa normal";
 
 /* (No Comment) */
-"Alarm glucose notification" = "Alarm Glucose Notification";
+"Alarm glucose notification" = "Alarma de notificación de glucosa";
