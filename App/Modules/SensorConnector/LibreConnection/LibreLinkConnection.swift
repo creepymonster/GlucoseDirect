@@ -21,8 +21,8 @@ class LibreLinkConnection: Libre2Connection {
             do {
                 let result = try await pairingService.readSensor(enableStreaming: false)
 
-                sendUpdate(isPaired: result.isPaired)
                 sendUpdate(sensor: result.sensor)
+                sendUpdate(isPaired: result.isPaired)
 
                 if result.sensor.age >= result.sensor.lifetime {
                     sendUpdate(age: result.sensor.age, state: .expired)

@@ -34,8 +34,8 @@ class LibreConnection: SensorConnectionProtocol, IsSensor {
                     connection.pairConnection()
                 }
 
-                sendUpdate(isPaired: result.isPaired)
                 sendUpdate(sensor: result.sensor)
+                sendUpdate(isPaired: result.isPaired)
 
                 if result.sensor.age >= result.sensor.lifetime {
                     sendUpdate(age: result.sensor.age, state: .expired)
