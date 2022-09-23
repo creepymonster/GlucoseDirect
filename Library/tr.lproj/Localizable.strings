@@ -263,7 +263,7 @@
 "Without transmitter" = "Vericisiz";
 
 /* (No Comment) */
-"Bubble transmitter" = "Bubble vericisi";
+"Bubble transmitter" = "Bubble";
 
 /* (No Comment) */
 "Pairing" = "Eşleştiriliyor";
@@ -452,7 +452,7 @@
 "No screen lock" = "Ekran kilidi yok";
 
 /* (No Comment) */
-"LibreLink transmitter" = "LibreLink Vericisi";
+"LibreLink transmitter" = "LibreLink";
 
 /* (No Comment) */
 "Use LibreLink to start the sensor" = "Sensörü başlatmak için LibreLink'i kullanın";

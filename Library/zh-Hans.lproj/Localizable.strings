@@ -263,7 +263,7 @@
 "Without transmitter" = "无发射器";
 
 /* (No Comment) */
-"Bubble transmitter" = "Bubble发射器";
+"Bubble transmitter" = "Bubble";
 
 /* (No Comment) */
 "Pairing" = "配对";
@@ -452,7 +452,7 @@
 "No screen lock" = "无屏幕锁定";
 
 /* (No Comment) */
-"LibreLink transmitter" = "LibreLink Transmitter";
+"LibreLink transmitter" = "LibreLink";
 
 /* (No Comment) */
 "Use LibreLink to start the sensor" = "使用LibreLink来启动传感器";
