@@ -66,7 +66,6 @@
 		E26677DC28799E8A008E8B68 /* Glucose.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26677DB28799E8A008E8B68 /* Glucose.swift */; };
 		E26677DD28799E8A008E8B68 /* Glucose.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26677DB28799E8A008E8B68 /* Glucose.swift */; };
 		E26BCC33285D1F760058AF0C /* LibreLinkConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26BCC32285D1F760058AF0C /* LibreLinkConnection.swift */; };
-		E26BCC35285D1F820058AF0C /* LibreLinkPairing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26BCC34285D1F820058AF0C /* LibreLinkPairing.swift */; };
 		E26D19C8288143550028962C /* ChartViewCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26D19C7288143550028962C /* ChartViewCompatibility.swift */; };
 		E2715804287ABF2E00B611D9 /* SensorGlucoseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2715803287ABF2E00B611D9 /* SensorGlucoseList.swift */; };
 		E2715806287ABF4100B611D9 /* BloodGlucoseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2715805287ABF4100B611D9 /* BloodGlucoseList.swift */; };
@@ -175,7 +174,7 @@
 		E2FCAC432707420100FE1CBF /* DirectNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC3E2707420100FE1CBF /* DirectNotifications.swift */; };
 		E2FCAC462707420100FE1CBF /* DirectReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC412707420100FE1CBF /* DirectReducer.swift */; };
 		E2FCAC512707424800FE1CBF /* Nightscout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC502707424800FE1CBF /* Nightscout.swift */; };
-		E2FCAC5B2707425900FE1CBF /* LibrePairing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC572707425900FE1CBF /* LibrePairing.swift */; };
+		E2FCAC5B2707425900FE1CBF /* LibreNFC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC572707425900FE1CBF /* LibreNFC.swift */; };
 		E2FCAC5D2707426100FE1CBF /* GlucoseNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC5C2707426100FE1CBF /* GlucoseNotification.swift */; };
 		E2FCAC612707426F00FE1CBF /* AppGroupSharing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC602707426F00FE1CBF /* AppGroupSharing.swift */; };
 		E2FCAC632707427500FE1CBF /* ExpiringNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC622707427500FE1CBF /* ExpiringNotification.swift */; };
@@ -266,7 +265,6 @@
 		E26690672792F6D9009C0FE1 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E26690682792F6D9009C0FE1 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E26BCC32285D1F760058AF0C /* LibreLinkConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibreLinkConnection.swift; sourceTree = "<group>"; };
-		E26BCC34285D1F820058AF0C /* LibreLinkPairing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibreLinkPairing.swift; sourceTree = "<group>"; };
 		E26D19C7288143550028962C /* ChartViewCompatibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartViewCompatibility.swift; sourceTree = "<group>"; };
 		E2715803287ABF2E00B611D9 /* SensorGlucoseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorGlucoseList.swift; sourceTree = "<group>"; };
 		E2715805287ABF4100B611D9 /* BloodGlucoseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BloodGlucoseList.swift; sourceTree = "<group>"; };
@@ -382,7 +380,7 @@
 		E2FCAC3E2707420100FE1CBF /* DirectNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectNotifications.swift; sourceTree = "<group>"; };
 		E2FCAC412707420100FE1CBF /* DirectReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectReducer.swift; sourceTree = "<group>"; };
 		E2FCAC502707424800FE1CBF /* Nightscout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Nightscout.swift; sourceTree = "<group>"; };
-		E2FCAC572707425900FE1CBF /* LibrePairing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibrePairing.swift; sourceTree = "<group>"; };
+		E2FCAC572707425900FE1CBF /* LibreNFC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibreNFC.swift; sourceTree = "<group>"; };
 		E2FCAC5C2707426100FE1CBF /* GlucoseNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlucoseNotification.swift; sourceTree = "<group>"; };
 		E2FCAC602707426F00FE1CBF /* AppGroupSharing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppGroupSharing.swift; sourceTree = "<group>"; };
 		E2FCAC622707427500FE1CBF /* ExpiringNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpiringNotification.swift; sourceTree = "<group>"; };
@@ -534,15 +532,6 @@
 			path = Lists;
 			sourceTree = "<group>";
 		};
-		E26BCC31285D1F430058AF0C /* LibreLinkConnection */ = {
-			isa = PBXGroup;
-			children = (
-				E26BCC32285D1F760058AF0C /* LibreLinkConnection.swift */,
-				E26BCC34285D1F820058AF0C /* LibreLinkPairing.swift */,
-			);
-			path = LibreLinkConnection;
-			sourceTree = "<group>";
-		};
 		E27BFC0126B1407E00F8FBEF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -562,20 +551,20 @@
 				E27ED97C2758A4660099149C /* SensorUtility.swift */,
 				E27ED9712758A40E0099149C /* VirtualConnection */,
 				E27ED9702758A4090099149C /* BubbleConnection */,
-				E26BCC31285D1F430058AF0C /* LibreLinkConnection */,
-				E27ED96F2758A4010099149C /* Libre2Connection */,
+				E27ED96F2758A4010099149C /* LibreConnection */,
 			);
 			path = SensorConnector;
 			sourceTree = "<group>";
 		};
-		E27ED96F2758A4010099149C /* Libre2Connection */ = {
+		E27ED96F2758A4010099149C /* LibreConnection */ = {
 			isa = PBXGroup;
 			children = (
-				E2FCAC572707425900FE1CBF /* LibrePairing.swift */,
+				E2FCAC572707425900FE1CBF /* LibreNFC.swift */,
+				E26BCC32285D1F760058AF0C /* LibreLinkConnection.swift */,
 				E2E353F828DC6E4100824732 /* LibreConnection.swift */,
 				E27ED9772758A4360099149C /* Libre2Connection.swift */,
 			);
-			path = Libre2Connection;
+			path = LibreConnection;
 			sourceTree = "<group>";
 		};
 		E27ED9702758A4090099149C /* BubbleConnection */ = {
@@ -1053,7 +1042,7 @@
 				E2FCAC3B270741E600FE1CBF /* DirectLog.swift in Sources */,
 				E2D34BC4274D6BB500151895 /* OverviewView.swift in Sources */,
 				E298CF04279DEBF500C1C218 /* FactoryCalibrationView.swift in Sources */,
-				E2FCAC5B2707425900FE1CBF /* LibrePairing.swift in Sources */,
+				E2FCAC5B2707425900FE1CBF /* LibreNFC.swift in Sources */,
 				E2646F3D275FD3E800ADE451 /* AppleExportSettingsView.swift in Sources */,
 				E27ED9752758A4270099149C /* BubbleConnection.swift in Sources */,
 				E2CDA01A27722FB900A1E694 /* ReadAloud.swift in Sources */,
@@ -1070,7 +1059,6 @@
 				E2FCAC31270741D200FE1CBF /* Date.swift in Sources */,
 				E2646F3B275FD2EC00ADE451 /* AppleCalendarExport.swift in Sources */,
 				E20786232686283F004EEF1C /* ActionsView.swift in Sources */,
-				E26BCC35285D1F820058AF0C /* LibreLinkPairing.swift in Sources */,
 				E2FCAC672707428500FE1CBF /* Log.swift in Sources */,
 				E2FCAC32270741D200FE1CBF /* UserDefaults.swift in Sources */,
 				E2FCAC35270741D200FE1CBF /* State.swift in Sources */,

@@ -24,7 +24,9 @@ class Libre2Connection: SensorBluetoothConnection, IsSensor {
         "abbott"
     }
 
-    override func pairConnection() {}
+    override func pairConnection() {
+        UserDefaults.standard.libreUnlockCount = 0
+    }
 
     override func resetBuffer() {
         DirectLog.info("ResetBuffer")
@@ -40,21 +42,6 @@ class Libre2Connection: SensorBluetoothConnection, IsSensor {
         }
 
         return false
-    }
-
-    func unlock() -> Data? {
-        DirectLog.info("Unlock, count: \(UserDefaults.standard.libreUnlockCount)")
-
-        if sensor == nil {
-            return nil
-        }
-
-        let unlockCount = UserDefaults.standard.libreUnlockCount + 1
-        let unlockPayload = Libre2EUtility.streamingUnlockPayload(uuid: sensor!.uuid, patchInfo: sensor!.patchInfo, enableTime: 42, unlockCount: UInt16(unlockCount))
-
-        UserDefaults.standard.libreUnlockCount = unlockCount
-
-        return Data(unlockPayload)
     }
 
     override func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
@@ -188,4 +175,34 @@ class Libre2Connection: SensorBluetoothConnection, IsSensor {
     private var firstBuffer = Data()
     private var secondBuffer = Data()
     private var thirdBuffer = Data()
+
+    private func unlock() -> Data? {
+        DirectLog.info("Unlock, count: \(UserDefaults.standard.libreUnlockCount)")
+
+        if sensor == nil {
+            return nil
+        }
+
+        let unlockCount = UserDefaults.standard.libreUnlockCount + 1
+        let unlockPayload = Libre2EUtility.streamingUnlockPayload(uuid: sensor!.uuid, patchInfo: sensor!.patchInfo, enableTime: 42, unlockCount: UInt16(unlockCount))
+
+        UserDefaults.standard.libreUnlockCount = unlockCount
+
+        return Data(unlockPayload)
+    }
+}
+
+private extension UserDefaults {
+    private enum Keys: String {
+        case libreUnlockCount = "libre-direct.libre2.unlock-count"
+    }
+
+    var libreUnlockCount: Int {
+        get {
+            return UserDefaults.standard.integer(forKey: Keys.libreUnlockCount.rawValue)
+        }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: Keys.libreUnlockCount.rawValue)
+        }
+    }
 }

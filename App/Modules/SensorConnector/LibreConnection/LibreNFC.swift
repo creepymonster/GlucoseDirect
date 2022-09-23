@@ -11,56 +11,53 @@ import Foundation
 #if canImport(CoreNFC)
 import CoreNFC
 
-// MARK: - LibrePairing
-
-class LibrePairing: NSObject, NFCTagReaderSessionDelegate {
-    // MARK: Lifecycle
-
-    init(subject: PassthroughSubject<DirectAction, DirectError>) {
-        self.subject = subject
-    }
-
+class LibreNFC: NSObject, NFCTagReaderSessionDelegate {
     // MARK: Internal
 
-    func readSensor() {
-        guard subject != nil else {
-            logErrorAndDisconnect("Pairing, subject is nil")
-            return
-        }
+    func readSensor(enableStreaming: Bool) async throws -> LibrePairingResult {
+        self.enableStreaming = enableStreaming
 
-        if NFCTagReaderSession.readingAvailable {
-            session = NFCTagReaderSession(pollingOption: .iso15693, delegate: self, queue: nfcQueue)
-            session?.alertMessage = LocalizedString("Hold the top edge of your iPhone close to the sensor.")
-            session?.begin()
+        return try await withCheckedThrowingContinuation { continuation in
+            activeContinuation = continuation
+
+            if NFCTagReaderSession.readingAvailable {
+                session = NFCTagReaderSession(pollingOption: .iso15693, delegate: self, queue: nfcQueue)
+                session?.alertMessage = LocalizedString("Hold the top edge of your iPhone close to the sensor.")
+                session?.begin()
+            } else {
+                returnWithError(LibrePairingError.nfcNotAvailable)
+            }
         }
     }
 
     func tagReaderSessionDidBecomeActive(_ session: NFCTagReaderSession) {}
 
     func tagReaderSession(_ session: NFCTagReaderSession, didInvalidateWithError error: Error) {
-        if let readerError = error as? NFCReaderError, readerError.code != .readerSessionInvalidationErrorUserCanceled {
-            session.invalidate(errorMessage: "Connection failure: \(readerError.localizedDescription)")
-
-            logErrorAndDisconnect("Reader session didInvalidateWithError: \(readerError.localizedDescription))")
+        if let error = error as? NFCReaderError {
+            if error.code != .readerSessionInvalidationErrorFirstNDEFTagRead, error.code != .readerSessionInvalidationErrorUserCanceled {
+                returnWithError(LibrePairingError.failedToRead)
+            }
         }
+
+        self.session = nil
     }
 
     func tagReaderSession(_ session: NFCTagReaderSession, didDetect tags: [NFCTag]) {
         Task {
             guard let firstTag = tags.first else {
-                logErrorAndDisconnect("No tag found")
+                returnWithError(LibrePairingError.noTagFound)
                 return
             }
 
             guard case .iso15693(let tag) = firstTag else {
-                logErrorAndDisconnect("No ISO15693 tag found")
+                returnWithError(LibrePairingError.noIsoTagFound)
                 return
             }
 
             do {
                 try await session.connect(to: firstTag)
             } catch {
-                logErrorAndDisconnect("Failed to connect to tag")
+                returnWithError(LibrePairingError.failedToConnect)
                 return
             }
 
@@ -70,18 +67,18 @@ class LibrePairing: NSObject, NFCTagReaderSessionDelegate {
             do {
                 patchInfo = try await tag.customCommand(requestFlags: .highDataRate, customCommandCode: 0xA1, customRequestParameters: Data())
             } catch {
-                logErrorAndDisconnect("Invalid patchInfo")
+                returnWithError(LibrePairingError.invalidPatchInfo)
                 return
             }
 
             guard patchInfo.count >= 6 else {
-                logErrorAndDisconnect("Invalid patchInfo")
+                returnWithError(LibrePairingError.invalidPatchInfo)
                 return
             }
 
             let type = SensorType(patchInfo)
             guard type == .libre2EU || type == .libre1 || type == .libreUS14day else {
-                logErrorAndDisconnect("Unsupported: \(type.localizedDescription)", showToUser: true)
+                returnWithError(LibrePairingError.unsupportedSensor)
                 return
             }
 
@@ -114,7 +111,7 @@ class LibrePairing: NSObject, NFCTagReaderSessionDelegate {
                 } while failedRead && failedRetries > 0
 
                 if failedRead {
-                    logErrorAndDisconnect("Failed to read multiple tags")
+                    returnWithError(LibrePairingError.failedToRead)
                     return
                 }
 
@@ -129,7 +126,7 @@ class LibrePairing: NSObject, NFCTagReaderSessionDelegate {
                     }
 
                     guard rxBuffer.count >= 344 else {
-                        logErrorAndDisconnect("Invalid rxBuffer")
+                        returnWithError(LibrePairingError.failedToRead)
                         return
                     }
 
@@ -137,7 +134,7 @@ class LibrePairing: NSObject, NFCTagReaderSessionDelegate {
                         ? rxBuffer
                         : Libre2EUtility.decryptFRAM(uuid: sensorUID, patchInfo: patchInfo, fram: rxBuffer)
                     else {
-                        logErrorAndDisconnect("Cannot create useable fram")
+                        returnWithError(LibrePairingError.failedToRead)
                         return
                     }
 
@@ -148,53 +145,20 @@ class LibrePairing: NSObject, NFCTagReaderSessionDelegate {
                     DirectLog.info("Sensor, age: \(sensor.age)")
                     DirectLog.info("Sensor, lifetime: \(sensor.lifetime)")
 
-                    if type == .libre1 || type == .libreUS14day {
-                        session.invalidate()
-
-                        self.subject?.send(.setSensor(sensor: sensor))
-                        self.subject?.send(.setConnectionPaired(isPaired: false))
-
-                        if sensor.age >= sensor.lifetime {
-                            self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: .expired))
-
-                        } else if sensor.age > sensor.warmupTime {
-                            let readings = LibreUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
-
-                            self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: sensor.state))
-                            self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", readings: readings.history + readings.trend))
-
-                        } else if sensor.age <= sensor.warmupTime {
-                            self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: sensor.state))
-                        }
-                    } else {
+                    if enableStreaming, type == .libre2EU {
                         let streamingCmd = self.nfcCommand(.enableStreaming, unlockCode: self.unlockCode, patchInfo: patchInfo, sensorUID: sensorUID)
                         let streaminResponse = try await tag.customCommand(requestFlags: .highDataRate, customCommandCode: Int(streamingCmd.code), customRequestParameters: streamingCmd.parameters)
                         let streamingEnabled = streaminResponse.count == 6
 
-                        session.invalidate()
-
                         guard streamingEnabled else {
-                            logErrorAndDisconnect("Streaming not enabled")
+                            returnWithError(LibrePairingError.streamingNotEnabled)
                             return
                         }
-
-                        self.subject?.send(.setSensor(sensor: sensor))
-                        self.subject?.send(.setConnectionState(connectionState: .disconnected))
-                        self.subject?.send(.setConnectionPaired(isPaired: true))
-
-                        if sensor.age >= sensor.lifetime {
-                            self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: .expired))
-
-                        } else if sensor.age > sensor.warmupTime {
-                            let readings = LibreUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
-
-                            self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: sensor.state))
-                            self.subject?.send(.addSensorReadings(sensorSerial: sensor.serial ?? "", readings: readings.history + readings.trend))
-
-                        } else if sensor.age <= sensor.warmupTime {
-                            self.subject?.send(.setSensorState(sensorAge: sensor.age, sensorState: sensor.state))
-                        }
                     }
+
+                    let readings = LibreUtility.parseFRAM(calibration: sensor.factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
+
+                    returnWithResult(true, sensor, readings.history + readings.trend)
                 }
             }
         }
@@ -202,19 +166,26 @@ class LibrePairing: NSObject, NFCTagReaderSessionDelegate {
 
     // MARK: Private
 
+    private var enableStreaming: Bool = false
+    private var activeContinuation: CheckedContinuation<LibrePairingResult, Error>?
     private var session: NFCTagReaderSession?
-    private weak var subject: PassthroughSubject<DirectAction, DirectError>?
-
     private let nfcQueue = DispatchQueue(label: "libre-direct.nfc-queue")
     private let unlockCode: UInt32 = 42
 
-    private func logErrorAndDisconnect(_ message: String, showToUser: Bool = false) {
-        DirectLog.error(message)
-
+    private func returnWithError(_ error: LibrePairingError) {
+        session?.alertMessage = error.errorDescription ?? error.description
         session?.invalidate()
 
-        subject?.send(.setConnectionError(errorMessage: showToUser ? message : LocalizedString("Retry pairing"), errorTimestamp: Date(), errorIsCritical: false))
-        subject?.send(.setConnectionState(connectionState: .disconnected))
+        activeContinuation?.resume(throwing: error)
+        activeContinuation = nil
+    }
+
+    private func returnWithResult(_ isPaired: Bool, _ sensor: Sensor, _ readings: [SensorReading]) {
+        session?.alertMessage = LocalizedString("Scan completed successfully")
+        session?.invalidate()
+
+        activeContinuation?.resume(returning: LibrePairingResult(isPaired: isPaired, sensor: sensor, readings: readings))
+        activeContinuation = nil
     }
 
     private func nfcCommand(_ code: Subcommand, unlockCode: UInt32, patchInfo: Data, sensorUID: Data) -> NFCCommand {
@@ -251,14 +222,45 @@ class LibrePairing: NSObject, NFCTagReaderSessionDelegate {
     }
 }
 
-// MARK: - NFCCommand
+struct LibrePairingResult {
+    let isPaired: Bool
+    let sensor: Sensor
+    let readings: [SensorReading]
+}
+
+enum LibrePairingError: Error {
+    case nfcNotAvailable
+    case noTagFound
+    case noIsoTagFound
+    case failedToConnect
+    case invalidPatchInfo
+    case unsupportedSensor
+    case failedToRead
+    case streamingNotEnabled
+}
+
+extension LibrePairingError: CustomStringConvertible {
+    var description: String {
+        switch self {
+        case .unsupportedSensor:
+            return "Unsupported sensor"
+
+        default:
+            return "Retry pairing"
+        }
+    }
+}
+
+extension LibrePairingError: LocalizedError {
+    var errorDescription: String? {
+        return LocalizedString(description)
+    }
+}
 
 private struct NFCCommand {
     let code: UInt8
     let parameters: Data
 }
-
-// MARK: - Subcommand
 
 private enum Subcommand: UInt8, CustomStringConvertible {
     case activate = 0x1B
@@ -278,14 +280,10 @@ private enum Subcommand: UInt8, CustomStringConvertible {
 
 #else
 
-class LibrePairing: NSObject {
-    // MARK: Lifecycle
-
-    init(subject: PassthroughSubject<DirectAction, DirectError>) {}
-
-    // MARK: Internal
-
-    func readSensor() {}
+class LibreNFC: NSObject {
+    func readSensor(enableStreaming: Bool) async throws -> LibrePairingResult {
+        fatalError("libre pairing is only available for nfc devices")
+    }
 }
 
 #endif
