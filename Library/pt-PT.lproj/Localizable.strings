@@ -263,7 +263,7 @@
 "Without transmitter" = "Sem transmissor";
 
 /* (No Comment) */
-"Bubble transmitter" = "Com Bubble";
+"Bubble transmitter" = "Bubble";
 
 /* (No Comment) */
 "Pairing" = "A emparelhar";
@@ -452,7 +452,7 @@
 "No screen lock" = " Sem bloqueio de tela ";
 
 /* (No Comment) */
-"LibreLink transmitter" = "LibreLink Transmitter";
+"LibreLink transmitter" = "LibreLink";
 
 /* (No Comment) */
 "Use LibreLink to start the sensor" = " Use o LibreLink para iniciar o sensor ";
