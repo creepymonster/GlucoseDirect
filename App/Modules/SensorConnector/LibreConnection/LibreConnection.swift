@@ -34,6 +34,7 @@ class LibreConnection: SensorConnectionProtocol, IsSensor {
                     connection.pairConnection()
                 }
 
+                sendUpdate(connectionState: .disconnected)
                 sendUpdate(sensor: result.sensor)
                 sendUpdate(isPaired: result.isPaired)
 
@@ -50,10 +51,9 @@ class LibreConnection: SensorConnectionProtocol, IsSensor {
             } catch {
                 DirectLog.error(error.localizedDescription)
 
+                sendUpdate(connectionState: .disconnected)
                 sendUpdate(errorMessage: error.localizedDescription)
             }
-
-            sendUpdate(connectionState: .disconnected)
         }
     }
 

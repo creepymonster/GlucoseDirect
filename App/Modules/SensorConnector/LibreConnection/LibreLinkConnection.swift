@@ -21,6 +21,7 @@ class LibreLinkConnection: Libre2Connection {
             do {
                 let result = try await pairingService.readSensor(enableStreaming: false)
 
+                sendUpdate(connectionState: .disconnected)
                 sendUpdate(sensor: result.sensor)
                 sendUpdate(isPaired: result.isPaired)
 
@@ -37,10 +38,9 @@ class LibreLinkConnection: Libre2Connection {
             } catch {
                 DirectLog.error(error.localizedDescription)
 
+                sendUpdate(connectionState: .disconnected)
                 sendUpdate(errorMessage: error.localizedDescription)
             }
-
-            sendUpdate(connectionState: .disconnected)
         }
     }
 
