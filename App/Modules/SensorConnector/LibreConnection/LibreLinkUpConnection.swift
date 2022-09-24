@@ -124,7 +124,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
         Task {
             do {
-                try await Task.sleep(nanoseconds: 1_000_000_000 * 5)
+                try await Task.sleep(nanoseconds: 1_000_000_000 * 15)
                 try await fetchIfNeeded()
             } catch {
                 sendUpdate(error: error)
