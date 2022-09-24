@@ -12,7 +12,7 @@ enum DirectAction {
     case addCalibration(bloodGlucoseValue: Int)
     case addSensorError(errorValues: [SensorError])
     case addSensorGlucose(glucoseValues: [SensorGlucose])
-    case addSensorReadings(sensorSerial: String, readings: [SensorReading])
+    case addSensorReadings(readings: [SensorReading])
     case bellmanTestAlarm
     case clearBloodGlucoseValues
     case clearCalibrations

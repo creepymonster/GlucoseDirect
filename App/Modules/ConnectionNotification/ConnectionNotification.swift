@@ -33,7 +33,7 @@ private func connectionNotificationMiddelware(service: LazyService<ConnectionNot
 
             service.value.scheduleSensorConnectionLostAlarm(sound: state.connectionAlarmSound)
 
-        case .addSensorReadings(sensorSerial: _, readings: _):
+        case .addSensorGlucose(glucoseValues: _):
             guard state.hasConnectionAlarm else {
                 DirectLog.info("Guard: connectionAlarm disabled")
                 break

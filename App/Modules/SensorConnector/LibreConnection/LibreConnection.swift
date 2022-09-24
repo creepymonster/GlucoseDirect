@@ -29,12 +29,13 @@ class LibreConnection: SensorConnectionProtocol, IsSensor {
 
             do {
                 let result = try await pairingService.readSensor(enableStreaming: true)
+                
+                sendUpdate(connectionState: .disconnected)
 
                 if let connection = initConnection(sensor: result.sensor) {
                     connection.pairConnection()
                 }
 
-                sendUpdate(connectionState: .disconnected)
                 sendUpdate(sensor: result.sensor)
                 sendUpdate(isPaired: result.isPaired)
 
@@ -83,6 +84,8 @@ class LibreConnection: SensorConnectionProtocol, IsSensor {
 
         if sensor.type == .libre2EU {
             bluetoothConnection = Libre2Connection(subject: subject)
+        } else if sensor.type == .libre3 {
+            bluetoothConnection = LibreLinkUpConnection(subject: subject)
         }
 
         return bluetoothConnection

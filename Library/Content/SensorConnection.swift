@@ -71,7 +71,7 @@ extension SensorConnectionProtocol {
         DirectLog.info("SensorReadings: \(readings)")
 
         if !readings.isEmpty {
-            subject?.send(.addSensorReadings(sensorSerial: sensorSerial, readings: readings))
+            subject?.send(.addSensorReadings(readings: readings))
         }
     }
 
@@ -79,6 +79,8 @@ extension SensorConnectionProtocol {
         guard let error = error else {
             return
         }
+        
+        DirectLog.error("Error: \(error.localizedDescription)")
 
         if let errorCode = CBError.Code(rawValue: (error as NSError).code) {
             if errorCode.rawValue == 7 {

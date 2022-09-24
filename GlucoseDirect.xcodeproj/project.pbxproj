@@ -29,6 +29,7 @@
 		E24474422859CA9600F8891C /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E27BFC0426B1407E00F8FBEF /* SwiftUI.framework */; };
 		E24474452859CA9600F8891C /* Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24474442859CA9600F8891C /* Widgets.swift */; };
 		E244744B2859CA9700F8891C /* GlucoseDirectWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E24474402859CA9600F8891C /* GlucoseDirectWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E245550D28DE4B640092C452 /* LibreLinkUpConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E245550C28DE4B640092C452 /* LibreLinkUpConnection.swift */; };
 		E24B531E26B863910091417F /* NightscoutSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B531D26B863910091417F /* NightscoutSettingsView.swift */; };
 		E24B532126B863C00091417F /* GlucoseSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532026B863C00091417F /* GlucoseSettingsView.swift */; };
 		E24B532326B863E20091417F /* AlarmSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B532226B863E20091417F /* AlarmSettingsView.swift */; };
@@ -238,6 +239,7 @@
 		E24474402859CA9600F8891C /* GlucoseDirectWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GlucoseDirectWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E24474442859CA9600F8891C /* Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widgets.swift; sourceTree = "<group>"; };
 		E24474482859CA9700F8891C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E245550C28DE4B640092C452 /* LibreLinkUpConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibreLinkUpConnection.swift; sourceTree = "<group>"; };
 		E247D8E426B7D70A00BDAF89 /* GlucoseDirect.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = GlucoseDirect.xcconfig; sourceTree = "<group>"; };
 		E24B531D26B863910091417F /* NightscoutSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightscoutSettingsView.swift; sourceTree = "<group>"; };
 		E24B532026B863C00091417F /* GlucoseSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseSettingsView.swift; sourceTree = "<group>"; };
@@ -560,9 +562,10 @@
 			isa = PBXGroup;
 			children = (
 				E2FCAC572707425900FE1CBF /* LibreNFC.swift */,
-				E26BCC32285D1F760058AF0C /* LibreLinkConnection.swift */,
 				E2E353F828DC6E4100824732 /* LibreConnection.swift */,
 				E27ED9772758A4360099149C /* Libre2Connection.swift */,
+				E245550C28DE4B640092C452 /* LibreLinkUpConnection.swift */,
+				E26BCC32285D1F760058AF0C /* LibreLinkConnection.swift */,
 			);
 			path = LibreConnection;
 			sourceTree = "<group>";
@@ -1043,6 +1046,7 @@
 				E2D34BC4274D6BB500151895 /* OverviewView.swift in Sources */,
 				E298CF04279DEBF500C1C218 /* FactoryCalibrationView.swift in Sources */,
 				E2FCAC5B2707425900FE1CBF /* LibreNFC.swift in Sources */,
+				E245550D28DE4B640092C452 /* LibreLinkUpConnection.swift in Sources */,
 				E2646F3D275FD3E800ADE451 /* AppleExportSettingsView.swift in Sources */,
 				E27ED9752758A4270099149C /* BubbleConnection.swift in Sources */,
 				E2CDA01A27722FB900A1E694 /* ReadAloud.swift in Sources */,

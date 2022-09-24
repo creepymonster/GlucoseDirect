@@ -187,7 +187,7 @@ private func createAppStore() -> DirectStore {
     #endif
 
     #if DEBUG
-        connectionInfos.append(SensorConnectionInfo(id: DirectConfig.librelinkID, name: LocalizedString("LibreLink transmitter"), connectionCreator: { LibreLinkConnection(subject: $0) }))
+        connectionInfos.append(SensorConnectionInfo(id: DirectConfig.libreLinkID, name: LocalizedString("LibreLink transmitter"), connectionCreator: { LibreLinkConnection(subject: $0) }))
     #endif
 
     middlewares.append(sensorConnectorMiddelware(connectionInfos))

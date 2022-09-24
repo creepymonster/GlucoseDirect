@@ -13,8 +13,6 @@ class Libre2Connection: SensorBluetoothConnection, IsSensor {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<DirectAction, DirectError>) {
-        DirectLog.info("init")
-
         super.init(subject: subject, serviceUUID: CBUUID(string: "FDE3"))
     }
 
@@ -38,7 +36,7 @@ class Libre2Connection: SensorBluetoothConnection, IsSensor {
 
     override func checkRetrievedPeripheral(peripheral: CBPeripheral) -> Bool {
         if let sensorSerial = sensor?.serial {
-            return peripheral.name == "ABBOTT\(sensorSerial)"
+            return peripheral.name?.lowercased() == "\(peripheralName)\(sensorSerial)"
         }
 
         return false
@@ -63,8 +61,7 @@ class Libre2Connection: SensorBluetoothConnection, IsSensor {
             var foundUUID = manufacturerData.subdata(in: 2 ..< 8)
             foundUUID.append(contentsOf: [0x07, 0xe0])
 
-            let result = foundUUID == sensor.uuid && peripheral.name?.lowercased().starts(with: peripheralName) ?? false
-            if result {
+            if foundUUID == sensor.uuid {
                 manager.stopScan()
                 connect(peripheral)
             }
@@ -138,10 +135,10 @@ class Libre2Connection: SensorBluetoothConnection, IsSensor {
         if !firstBuffer.isEmpty, !secondBuffer.isEmpty, !thirdBuffer.isEmpty {
             let rxBuffer = firstBuffer + secondBuffer + thirdBuffer
 
-            if let sensor = sensor {
+            if let sensor = sensor, let factoryCalibration = sensor.factoryCalibration {
                 do {
                     let decryptedBLE = Data(try Libre2EUtility.decryptBLE(uuid: sensor.uuid, data: rxBuffer))
-                    let parsedBLE = Libre2EUtility.parseBLE(calibration: sensor.factoryCalibration, data: decryptedBLE)
+                    let parsedBLE = Libre2EUtility.parseBLE(calibration: factoryCalibration, data: decryptedBLE)
 
                     if parsedBLE.age >= sensor.lifetime {
                         sendUpdate(age: parsedBLE.age, state: .expired)

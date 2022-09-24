@@ -10,7 +10,7 @@ import Foundation
 struct Sensor: Codable {
     // MARK: Lifecycle
 
-    init(uuid: Data, patchInfo: Data, factoryCalibration: FactoryCalibration, family: SensorFamily, type: SensorType, region: SensorRegion, serial: String?, state: SensorState, age: Int, lifetime: Int, warmupTime: Int = 60) {
+    init(uuid: Data, patchInfo: Data, factoryCalibration: FactoryCalibration?, family: SensorFamily, type: SensorType, region: SensorRegion, serial: String?, state: SensorState, age: Int, lifetime: Int, warmupTime: Int = 60) {
         pairingTimestamp = Date()
         fram = nil
 
@@ -27,7 +27,7 @@ struct Sensor: Codable {
         self.warmupTime = warmupTime
     }
 
-    init(fram: Data, uuid: Data, patchInfo: Data, factoryCalibration: FactoryCalibration, family: SensorFamily, type: SensorType, region: SensorRegion, serial: String?, state: SensorState, age: Int, lifetime: Int, warmupTime: Int = 60) {
+    init(fram: Data, uuid: Data, patchInfo: Data, factoryCalibration: FactoryCalibration?, family: SensorFamily, type: SensorType, region: SensorRegion, serial: String?, state: SensorState, age: Int, lifetime: Int, warmupTime: Int = 60) {
         pairingTimestamp = Date()
 
         self.fram = fram
@@ -49,10 +49,22 @@ struct Sensor: Codable {
 
         pairingTimestamp = try container.decode(Date.self, forKey: .pairingTimestamp)
         startTimestamp = try container.decodeIfPresent(Date.self, forKey: .startTimestamp) ?? nil
-        fram = try container.decode(Data?.self, forKey: .fram)
+        
+        do {
+            fram = try container.decode(Data?.self, forKey: .fram)
+        } catch {
+            fram = nil
+        }
+        
         uuid = try container.decode(Data.self, forKey: .uuid)
         patchInfo = try container.decode(Data.self, forKey: .patchInfo)
-        factoryCalibration = try container.decode(FactoryCalibration.self, forKey: .factoryCalibration)
+        
+        do {
+            factoryCalibration = try container.decode(FactoryCalibration?.self, forKey: .factoryCalibration)
+        } catch {
+            factoryCalibration = nil
+        }
+        
         family = try container.decode(SensorFamily.self, forKey: .family)
         type = try container.decode(SensorType.self, forKey: .type)
         region = try container.decode(SensorRegion.self, forKey: .region)
@@ -87,7 +99,7 @@ struct Sensor: Codable {
     let fram: Data?
     let uuid: Data
     let patchInfo: Data
-    let factoryCalibration: FactoryCalibration
+    let factoryCalibration: FactoryCalibration?
     let family: SensorFamily
     let type: SensorType
     let region: SensorRegion
@@ -152,6 +164,22 @@ extension Sensor {
             state: SensorState(fram[4]),
             age: age,
             lifetime: lifetime
+        )
+    }
+    
+    static func libre3Sensor(uuid: Data, patchInfo: Data) -> Sensor {
+        return Sensor(
+            uuid: uuid,
+            patchInfo: patchInfo,
+            factoryCalibration: nil,
+            family: .unknown,
+            type: .libre3,
+            region: .european,
+            serial: "OBIR2PO",
+            state: .ready,
+            age: 120,
+            lifetime: 14 * 24 * 60,
+            warmupTime: 60
         )
     }
 
