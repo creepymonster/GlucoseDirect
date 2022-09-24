@@ -150,7 +150,7 @@ class BubbleConnection: SensorBluetoothConnection, IsTransmitter {
                     let readings = LibreUtility.parseFRAM(calibration: factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
 
                     sendUpdate(age: sensor.age, state: sensor.state)
-                    sendUpdate(sensorSerial: sensor.serial ?? "", readings: readings.history + readings.trend)
+                    sendUpdate(readings: readings.history + readings.trend)
                 } else if sensor.age <= sensor.warmupTime {
                     sendUpdate(age: sensor.age, state: sensor.state)
                 }

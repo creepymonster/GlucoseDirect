@@ -122,7 +122,7 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         state.connectionAlarmSound = sound
         
     case .setIgnoreMute(enabled: let enabled):
-         state.ignoreMute = enabled
+        state.ignoreMute = enabled
         
     case .setConnectionError(errorMessage: let errorMessage, errorTimestamp: let errorTimestamp, errorIsCritical: let errorIsCritical):
         state.connectionError = errorMessage
@@ -224,8 +224,8 @@ func directReducer(state: inout DirectState, action: DirectAction) {
             state.sensor!.state = sensorState
         }
         
-        if state.sensor!.startTimestamp == nil {
-            state.sensor!.startTimestamp = Date() - Double(sensorAge) * 60
+        if state.sensor!.startTimestamp == nil, sensorAge > state.sensor!.warmupTime {
+            state.sensor!.startTimestamp = Date().toRounded(on: 1, .minute) - Double(sensorAge * 60)
         }
         
     case .setShowAnnotations(showAnnotations: let showAnnotations):

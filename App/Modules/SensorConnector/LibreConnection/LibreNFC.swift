@@ -184,6 +184,10 @@ class LibreNFC: NSObject, NFCTagReaderSessionDelegate {
                         }
                         
                     case .libre3:
+                        guard patchInfo.count == 28 else {
+                            break
+                        }
+                        
                         let sensor = Sensor.libre3Sensor(uuid: sensorUID, patchInfo: patchInfo)
 
                         returnWithResult(isPaired: true, sensor: sensor, readings: [])

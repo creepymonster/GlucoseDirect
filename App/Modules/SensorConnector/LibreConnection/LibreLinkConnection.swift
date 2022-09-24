@@ -35,7 +35,7 @@ class LibreLinkConnection: Libre2Connection {
 
                 } else if result.sensor.age > result.sensor.warmupTime {
                     sendUpdate(age: result.sensor.age, state: result.sensor.state)
-                    sendUpdate(sensorSerial: result.sensor.serial ?? "-", readings: result.readings)
+                    sendUpdate(readings: result.readings)
 
                 } else if result.sensor.age <= result.sensor.warmupTime {
                     sendUpdate(age: result.sensor.age, state: .starting)

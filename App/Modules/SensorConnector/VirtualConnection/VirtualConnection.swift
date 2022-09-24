@@ -89,7 +89,7 @@ class VirtualLibreConnection: SensorConnectionProtocol, IsSensor {
                 ? SensorReading.createFaultyReading(timestamp: Date(), quality: .AVG_DELTA_EXCEEDED)
                 : SensorReading.createGlucoseReading(timestamp: Date(), glucoseValue: Double(currentGlucose))
 
-            sendUpdate(sensorSerial: sensor?.serial ?? "", reading: sensorReading)
+            sendUpdate(reading: sensorReading)
         }
 
         let nextAddition = direction == .up ? 1 : -1

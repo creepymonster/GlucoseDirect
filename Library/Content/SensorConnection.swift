@@ -59,15 +59,15 @@ extension SensorConnectionProtocol {
         subject?.send(.setSensorState(sensorAge: age, sensorState: state))
     }
 
-    func sendUpdate(sensorSerial: String, reading: SensorReading?) {
+    func sendUpdate(reading: SensorReading?) {
         if let reading = reading {
-            sendUpdate(sensorSerial: sensorSerial, readings: [reading])
+            sendUpdate(readings: [reading])
         } else {
-            sendUpdate(sensorSerial: sensorSerial, readings: [])
+            sendUpdate(readings: [])
         }
     }
 
-    func sendUpdate(sensorSerial: String, readings: [SensorReading] = []) {
+    func sendUpdate(readings: [SensorReading] = []) {
         DirectLog.info("SensorReadings: \(readings)")
 
         if !readings.isEmpty {

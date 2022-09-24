@@ -7,6 +7,8 @@ import Combine
 import CoreBluetooth
 import Foundation
 
+// MARK: - LibreLinkUpConnection
+
 class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
     // MARK: Lifecycle
 
@@ -20,14 +22,23 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         ""
     }
 
-    override func resetBuffer() {
-    }
+    override func resetBuffer() {}
 
     override func checkRetrievedPeripheral(peripheral: CBPeripheral) -> Bool {
         return true
     }
 
     override func pairConnection() {
+        //UserDefaults.standard.email = ""
+        //UserDefaults.standard.password = ""
+
+        Task {
+            do {
+                try await loginIfNeeded(forceLogin: true)
+            } catch {
+                sendUpdate(error: error)
+            }
+        }
     }
 
     override func find() {
@@ -70,6 +81,14 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
                 peripheral.discoverCharacteristics(nil, for: service)
             }
         }
+        
+        Task {
+            do {
+                try await fetchIfNeeded(forceFetch: true)
+            } catch {
+                sendUpdate(error: error)
+            }
+        }
     }
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
@@ -93,19 +112,328 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
     }
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        DirectLog.info("Peripheral: \(peripheral)")
-
         sendUpdate(error: error)
 
         guard let value = characteristic.value else {
             return
         }
 
-        DirectLog.info("Peripheral: \(value.hex)")
+        guard value.count == 20 else {
+            return
+        }
+
+        Task {
+            do {
+                try await Task.sleep(nanoseconds: 1_000_000_000 * 5)
+                try await fetchIfNeeded()
+            } catch {
+                sendUpdate(error: error)
+            }
+        }
     }
 
     // MARK: Private
 
+    private var lastLogin: LibreLinkLogin?
     private let oneMinuteReadingUUID = CBUUID(string: "0898177A-EF89-11E9-81B4-2A2AE2DBCCE4")
     private var oneMinuteReadingCharacteristic: CBCharacteristic?
+    private var nextFetch: Date?
+    private let requestHeaders = [
+        "User-Agent": "Mozilla/5.0",
+        "Content-Type": "application/json",
+        "product": "llu.ios",
+        "version": "4.3.0",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Connection": "keep-alive",
+        "Pragma": "no-cache",
+        "Cache-Control": "no-cache",
+    ]
+
+    private lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "M/d/yyyy h:mm:ss a"
+        return formatter
+    }()
+
+    private lazy var jsonDecoder: JSONDecoder? = {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+
+        return decoder
+    }()
+
+    private func fetchIfNeeded(forceFetch: Bool = false) async throws {
+        DirectLog.info("Next fetch: \(nextFetch?.toLocalTime() ?? "-")")
+        
+        if forceFetch || nextFetch == nil || nextFetch! >= Date() {
+            DirectLog.info("Fetch started: \(Date().toLocalTime())")
+            
+            if !forceFetch {
+                nextFetch = Date().toRounded(on: 1, .minute) + Double(sensorInterval * 60)
+            }
+
+            let fetch = try await fetch()
+
+            guard let sensorAge = fetch.data?.connection?.sensor?.age else {
+                throw LibreLinkError.missingData
+            }
+
+            guard let trendData = fetch.data?.connection?.glucoseMeasurement else {
+                throw LibreLinkError.missingData
+            }
+
+            guard let historyData = fetch.data?.graphData else {
+                throw LibreLinkError.missingData
+            }
+
+            sendUpdate(age: sensorAge, state: .ready)
+
+            let trend = [
+                SensorReading.createGlucoseReading(timestamp: trendData.timestamp, glucoseValue: trendData.value),
+            ]
+
+            let history = historyData.map {
+                SensorReading.createGlucoseReading(timestamp: $0.timestamp, glucoseValue: $0.value)
+            }
+
+            sendUpdate(readings: history + trend)
+        }
+    }
+
+    private func loginIfNeeded(forceLogin: Bool = false) async throws {
+        if forceLogin || lastLogin == nil || (lastLogin?.authExpires ?? Date()) <= Date() || (lastLogin?.authToken.count ?? 0) == 0 {
+            let login = try await login()
+
+            guard let user = login.data?.user, let authTicket = login.data?.authTicket, !user.id.isEmpty, !authTicket.token.isEmpty else {
+                sendUpdate(isPaired: false)
+
+                throw LibreLinkError.invalidCredentials
+            }
+
+            lastLogin = LibreLinkLogin(id: user.id, country: user.country, token: authTicket.token, expires: authTicket.expires)
+        }
+    }
+
+    private func fetch() async throws -> LibreLinkResponse<LibreLinkResponseFetch> {
+        DirectLog.info("Fetch LibreLinkUp data")
+
+        try await loginIfNeeded()
+
+        guard let lastLogin = lastLogin else {
+            throw LibreLinkError.missingLoginSession
+        }
+
+        guard let jsonDecoder = jsonDecoder else {
+            throw LibreLinkError.decoderError
+        }
+
+        guard let url = URL(string: "https://api-\(lastLogin.userCountry).libreview.io/llu/connections/\(lastLogin.userID)/graph") else {
+            throw LibreLinkError.invalidURL
+        }
+
+        var request = URLRequest(url: url)
+        request.setValue("Bearer \(lastLogin.authToken)", forHTTPHeaderField: "Authorization")
+
+        for (header, value) in requestHeaders {
+            request.setValue(value, forHTTPHeaderField: header)
+        }
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+            throw LibreLinkError.notAuthenticated
+        }
+
+        return try jsonDecoder.decode(LibreLinkResponse<LibreLinkResponseFetch>.self, from: data)
+    }
+
+    private func login() async throws -> LibreLinkResponse<LibreLinkResponseLogin> {
+        DirectLog.info("Login LibreLinkUp")
+
+        guard let url = URL(string: "https://api.libreview.io/llu/auth/login") else {
+            throw LibreLinkError.invalidURL
+        }
+
+        guard let credentials = try? JSONSerialization.data(withJSONObject: [
+            "email": UserDefaults.standard.email,
+            "password": UserDefaults.standard.password,
+        ]) else {
+            throw LibreLinkError.serializationError
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = credentials
+
+        for (header, value) in requestHeaders {
+            request.setValue(value, forHTTPHeaderField: header)
+        }
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+            throw LibreLinkError.invalidCredentials
+        }
+
+        return try JSONDecoder().decode(LibreLinkResponse<LibreLinkResponseLogin>.self, from: data)
+    }
+}
+
+private extension UserDefaults {
+    private enum Keys: String {
+        case email = "libre-direct.libre-link-up.email"
+        case password = "libre-direct.libre-link-up.password"
+    }
+
+    var email: String {
+        get {
+            return UserDefaults.standard.string(forKey: Keys.email.rawValue) ?? ""
+        }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: Keys.email.rawValue)
+        }
+    }
+
+    var password: String {
+        get {
+            return UserDefaults.standard.string(forKey: Keys.password.rawValue) ?? ""
+        }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: Keys.password.rawValue)
+        }
+    }
+}
+
+// MARK: - LibreLinkResponse
+
+private struct LibreLinkResponse<T: Codable>: Codable {
+    let status: Int
+    let data: T?
+}
+
+// MARK: - LibreLinkResponseLogin
+
+private struct LibreLinkResponseLogin: Codable {
+    let user: LibreLinkResponseUser?
+    let authTicket: LibreLinkResponseAuthentication?
+}
+
+// MARK: - LibreLinkResponseFetch
+
+private struct LibreLinkResponseFetch: Codable {
+    let connection: LibreLinkResponseConnection?
+    let graphData: [LibreLinkResponseGlucose]?
+}
+
+// MARK: - LibreLinkResponseConnection
+
+private struct LibreLinkResponseConnection: Codable {
+    let sensor: LibreLinkResponseSensor?
+    let glucoseMeasurement: LibreLinkResponseGlucose?
+}
+
+// MARK: - LibreLinkResponseSensor
+
+private struct LibreLinkResponseSensor: Codable {
+    enum CodingKeys: String, CodingKey { case serial = "sn", activation = "a" }
+
+    let serial: String
+    let activation: Double
+
+    var age: Int {
+        let activationDate = Date(timeIntervalSince1970: activation)
+        return Calendar.current.dateComponents([.minute], from: activationDate, to: Date()).minute ?? 0
+    }
+}
+
+// MARK: - LibreLinkResponseGlucose
+
+private struct LibreLinkResponseGlucose: Codable {
+    enum CodingKeys: String, CodingKey { case timestamp = "Timestamp", value = "ValueInMgPerDl" }
+
+    let timestamp: Date
+    let value: Double
+}
+
+// MARK: - LibreLinkResponseUser
+
+private struct LibreLinkResponseUser: Codable {
+    let id: String
+    let country: String
+}
+
+// MARK: - LibreLinkResponseAuthentication
+
+private struct LibreLinkResponseAuthentication: Codable {
+    let token: String
+    let expires: Double
+}
+
+// MARK: - LibreLinkLogin
+
+private struct LibreLinkLogin {
+    // MARK: Lifecycle
+
+    init(id: String, country: String, token: String, expires: Double) {
+        userID = id
+
+        if ["ae", "ap", "au", "de", "eu", "fr", "jp", "us"].contains(country.lowercased()) {
+            userCountry = country.lowercased()
+        } else {
+            userCountry = "eu"
+        }
+
+        authToken = token
+        authExpires = Date(timeIntervalSince1970: expires)
+    }
+
+    // MARK: Internal
+
+    let userID: String
+    let userCountry: String
+    let authToken: String
+    let authExpires: Date
+}
+
+// MARK: - LibreLinkError
+
+private enum LibreLinkError: Error {
+    case invalidURL
+    case serializationError
+    case missingLoginSession
+    case invalidCredentials
+    case notAuthenticated
+    case decoderError
+    case missingData
+}
+
+// MARK: CustomStringConvertible
+
+extension LibreLinkError: CustomStringConvertible {
+    var description: String {
+        switch self {
+        case .invalidURL:
+            return "Invalid url"
+        case .serializationError:
+            return "Serialization error"
+        case .missingLoginSession:
+            return "Missing login session"
+        case .invalidCredentials:
+            return "Invalid credentials"
+        case .notAuthenticated:
+            return "Not authenticated"
+        case .decoderError:
+            return "Decoder error"
+        case .missingData:
+            return "Missing data"
+        }
+    }
+}
+
+// MARK: LocalizedError
+
+extension LibreLinkError: LocalizedError {
+    var errorDescription: String? {
+        return LocalizedString(description)
+    }
 }

@@ -564,8 +564,8 @@
 				E2FCAC572707425900FE1CBF /* LibreNFC.swift */,
 				E2E353F828DC6E4100824732 /* LibreConnection.swift */,
 				E27ED9772758A4360099149C /* Libre2Connection.swift */,
-				E245550C28DE4B640092C452 /* LibreLinkUpConnection.swift */,
 				E26BCC32285D1F760058AF0C /* LibreLinkConnection.swift */,
+				E245550C28DE4B640092C452 /* LibreLinkUpConnection.swift */,
 			);
 			path = LibreConnection;
 			sourceTree = "<group>";
