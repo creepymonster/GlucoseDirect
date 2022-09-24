@@ -165,11 +165,12 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
     private func fetchIfNeeded(forceFetch: Bool = false) async throws {
         DirectLog.info("Next fetch: \(nextFetch?.toLocalTime() ?? "-")")
         
-        if forceFetch || nextFetch == nil || nextFetch! >= Date() {
+        let now = Date()
+        if sensorInterval == 1 || forceFetch || now >= (nextFetch ?? now) {
             DirectLog.info("Fetch started: \(Date().toLocalTime())")
             
             if !forceFetch {
-                nextFetch = Date().toRounded(on: 1, .minute) + Double(sensorInterval * 60)
+                nextFetch = now + Double(sensorInterval * 60)
             }
 
             let fetch = try await fetch()
