@@ -55,13 +55,19 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             return
         }
 
-        if let connectedPeripheral = manager.retrieveConnectedPeripherals(withServices: [serviceUUID]).first,
-           checkRetrievedPeripheral(peripheral: connectedPeripheral)
-        {
+        if let connectedPeripheral = manager.retrieveConnectedPeripherals(withServices: [serviceUUID]).first {
             DirectLog.info("Connect from retrievePeripherals")
 
             peripheralType = .connectedPeripheral
             connect(connectedPeripheral)
+            
+            Task {
+                do {
+                    try await update()
+                } catch {
+                    sendUpdate(error: error)
+                }
+            }
 
         } else {
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
@@ -80,14 +86,6 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
                 DirectLog.info("Service Uuid: \(service.uuid)")
 
                 peripheral.discoverCharacteristics(nil, for: service)
-            }
-        }
-
-        Task {
-            do {
-                try await fetchIfNeeded()
-            } catch {
-                sendUpdate(error: error)
             }
         }
     }
@@ -126,7 +124,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         Task {
             do {
                 try await Task.sleep(nanoseconds: 1_000_000_000 * 15 * sleepFactor)
-                try await fetchIfNeeded()
+                try await update()
             } catch {
                 sendUpdate(error: error)
             }
@@ -175,7 +173,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         return decoder
     }()
 
-    private func fetchIfNeeded() async throws {
+    private func update() async throws {
         DirectLog.info("Fetch started: \(Date().toLocalTime())")
 
         let fetch = try await fetch()
