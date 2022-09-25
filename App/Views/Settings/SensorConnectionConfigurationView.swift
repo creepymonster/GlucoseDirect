@@ -11,15 +11,23 @@ struct SensorConnectionConfigurationView: View {
     @EnvironmentObject var store: DirectStore
     
     var body: some View {
-        if let connectorConfiguration = store.state.selectedConnection as? SensorConnectionConfigurationProtocol, let configuration = connectorConfiguration.getConfiguration() {
+        if let selectedConnection = store.state.selectedConnection, let configuration = selectedConnection.getConfiguration() {
             Section(
                 content: {
                     ForEach(configuration, id: \.id) { entry in
                         VStack(alignment: .leading) {
                             Text(entry.name)
-                            TextField("", text: entry.value)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                            
+                            if entry.isSecret {
+                                SecureField("", text: entry.value)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                            } else {
+                                TextField("", text: entry.value)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                            }
+
                         }
                     }
                 },

@@ -23,11 +23,6 @@ protocol SensorConnectionProtocol {
     func pairConnection()
     func connectConnection(sensor: Sensor, sensorInterval: Int)
     func disconnectConnection()
-}
-
-// MARK: - SensorConnectionConfigurationProtocol
-
-protocol SensorConnectionConfigurationProtocol {
     func getConfiguration() -> [SensorConnectionConfigurationOption]?
 }
 
@@ -37,6 +32,7 @@ struct SensorConnectionConfigurationOption {
     let id: String
     let name: String
     let value: Binding<String>
+    let isSecret: Bool
 }
 
 extension SensorConnectionProtocol {

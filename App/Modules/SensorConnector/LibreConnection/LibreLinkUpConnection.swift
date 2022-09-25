@@ -10,7 +10,7 @@ import SwiftUI
 
 // MARK: - LibreLinkUpConnection
 
-class LibreLinkUpConnection: SensorBluetoothConnection, SensorConnectionConfigurationProtocol, IsSensor {
+class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<DirectAction, DirectError>) {
@@ -133,16 +133,16 @@ class LibreLinkUpConnection: SensorBluetoothConnection, SensorConnectionConfigur
         }
     }
 
-    func getConfiguration() -> [SensorConnectionConfigurationOption]? {
+    override func getConfiguration() -> [SensorConnectionConfigurationOption]? {
         return [
             SensorConnectionConfigurationOption(id: UserDefaults.Keys.email.rawValue, name: LocalizedString("LibreLinkUp email"), value: Binding(
                 get: { UserDefaults.standard.email },
                 set: { UserDefaults.standard.email = $0 }
-            )),
+            ), isSecret: false),
             SensorConnectionConfigurationOption(id: UserDefaults.Keys.password.rawValue, name: LocalizedString("LibreLinkUp password"), value: Binding(
                 get: { UserDefaults.standard.password },
                 set: { UserDefaults.standard.password = $0 }
-            )),
+            ), isSecret: true),
         ]
     }
 

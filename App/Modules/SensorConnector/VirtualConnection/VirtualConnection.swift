@@ -20,6 +20,10 @@ class VirtualLibreConnection: SensorConnectionProtocol, IsSensor {
 
     weak var subject: PassthroughSubject<DirectAction, DirectError>?
 
+    func getConfiguration() -> [SensorConnectionConfigurationOption]? {
+        return nil
+    }
+
     func pairConnection() {
         let sensor = Sensor(
             uuid: Data(hexString: "e9ad9b6c79bd93aa")!,
@@ -84,7 +88,7 @@ class VirtualLibreConnection: SensorConnectionProtocol, IsSensor {
 
         sendUpdate(age: age, state: age > warmupTime ? .ready : .starting)
 
-        if age > warmupTime {           
+        if age > warmupTime {
             let sensorReading = Int.random(in: 0 ..< 100) <= 5
                 ? SensorReading.createFaultyReading(timestamp: Date(), quality: .AVG_DELTA_EXCEEDED)
                 : SensorReading.createGlucoseReading(timestamp: Date(), glucoseValue: Double(currentGlucose))
