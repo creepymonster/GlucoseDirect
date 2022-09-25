@@ -90,6 +90,7 @@
 		E298CF04279DEBF500C1C218 /* FactoryCalibrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E298CF03279DEBF500C1C218 /* FactoryCalibrationView.swift */; };
 		E298CF06279DEBFE00C1C218 /* CustomCalibrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E298CF05279DEBFE00C1C218 /* CustomCalibrationView.swift */; };
 		E29ED231268C754F00CBD3F1 /* GlucoseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29ED230268C754F00CBD3F1 /* GlucoseView.swift */; };
+		E29FD14828E0A2DC00551F2E /* SensorConnectionConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29FD14728E0A2DC00551F2E /* SensorConnectionConfigurationView.swift */; };
 		E2A6992F278760A300409F33 /* buzz-beep.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E2A6991B278760A100409F33 /* buzz-beep.aiff */; };
 		E2A69930278760A300409F33 /* chiptone.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E2A6991C278760A100409F33 /* chiptone.aiff */; };
 		E2A69931278760A300409F33 /* ping.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E2A6991D278760A200409F33 /* ping.aiff */; };
@@ -124,7 +125,7 @@
 		E2D34BC6274D6BC000151895 /* CalibrationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D34BC5274D6BC000151895 /* CalibrationsView.swift */; };
 		E2D34BC8274D6BCB00151895 /* ListsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D34BC7274D6BCB00151895 /* ListsView.swift */; };
 		E2D34BCA274D6C1300151895 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D34BC9274D6C1300151895 /* SettingsView.swift */; };
-		E2DE3CA327594E5500FAC82E /* SensorConnectorSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DE3CA227594E5500FAC82E /* SensorConnectorSettings.swift */; };
+		E2DE3CA327594E5500FAC82E /* SensorConnectorSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DE3CA227594E5500FAC82E /* SensorConnectorSettingsView.swift */; };
 		E2E353F928DC6E4100824732 /* LibreConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E353F828DC6E4100824732 /* LibreConnection.swift */; };
 		E2E8DBE62859F46D002C84FD /* LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC2E270741D200FE1CBF /* LocalizedString.swift */; };
 		E2E8DBE72859F46D002C84FD /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC2C270741D200FE1CBF /* View.swift */; };
@@ -296,6 +297,7 @@
 		E298CF03279DEBF500C1C218 /* FactoryCalibrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryCalibrationView.swift; sourceTree = "<group>"; };
 		E298CF05279DEBFE00C1C218 /* CustomCalibrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalibrationView.swift; sourceTree = "<group>"; };
 		E29ED230268C754F00CBD3F1 /* GlucoseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseView.swift; sourceTree = "<group>"; };
+		E29FD14728E0A2DC00551F2E /* SensorConnectionConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorConnectionConfigurationView.swift; sourceTree = "<group>"; };
 		E2A6991B278760A100409F33 /* buzz-beep.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "buzz-beep.aiff"; sourceTree = "<group>"; };
 		E2A6991C278760A100409F33 /* chiptone.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = chiptone.aiff; sourceTree = "<group>"; };
 		E2A6991D278760A200409F33 /* ping.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = ping.aiff; sourceTree = "<group>"; };
@@ -344,7 +346,7 @@
 		E2D34BC5274D6BC000151895 /* CalibrationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationsView.swift; sourceTree = "<group>"; };
 		E2D34BC7274D6BCB00151895 /* ListsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsView.swift; sourceTree = "<group>"; };
 		E2D34BC9274D6C1300151895 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		E2DE3CA227594E5500FAC82E /* SensorConnectorSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorConnectorSettings.swift; sourceTree = "<group>"; };
+		E2DE3CA227594E5500FAC82E /* SensorConnectorSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorConnectorSettingsView.swift; sourceTree = "<group>"; };
 		E2E353F828DC6E4100824732 /* LibreConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibreConnection.swift; sourceTree = "<group>"; };
 		E2E4797C28BD6A0F006665EA /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E2E4797D28BD6A0F006665EA /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -624,7 +626,8 @@
 				E25762D4279D519200A2E249 /* BellmanSettingsView.swift */,
 				E24B532026B863C00091417F /* GlucoseSettingsView.swift */,
 				E24B531D26B863910091417F /* NightscoutSettingsView.swift */,
-				E2DE3CA227594E5500FAC82E /* SensorConnectorSettings.swift */,
+				E2DE3CA227594E5500FAC82E /* SensorConnectorSettingsView.swift */,
+				E29FD14728E0A2DC00551F2E /* SensorConnectionConfigurationView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1019,6 +1022,7 @@
 				E2FCAC422707420100FE1CBF /* AppState.swift in Sources */,
 				E2C8F5FE278CD63000519ABD /* BellmanAlarm.swift in Sources */,
 				E26677DC28799E8A008E8B68 /* Glucose.swift in Sources */,
+				E29FD14828E0A2DC00551F2E /* SensorConnectionConfigurationView.swift in Sources */,
 				E2715808287ABF4B00B611D9 /* SensorErrorList.swift in Sources */,
 				E2FCAC30270741D200FE1CBF /* String.swift in Sources */,
 				E2FCAC36270741D200FE1CBF /* LocalizedString.swift in Sources */,
@@ -1029,7 +1033,7 @@
 				E2FCAC1F270741BC00FE1CBF /* SensorRegion.swift in Sources */,
 				E2591C62287412740009F27C /* ScreenLock.swift in Sources */,
 				E26D19C8288143550028962C /* ChartViewCompatibility.swift in Sources */,
-				E2DE3CA327594E5500FAC82E /* SensorConnectorSettings.swift in Sources */,
+				E2DE3CA327594E5500FAC82E /* SensorConnectorSettingsView.swift in Sources */,
 				E26089A42748DCB500749025 /* Double.swift in Sources */,
 				E262DCBD287A3E8900ECAB76 /* SensorError.swift in Sources */,
 				E223F867267A4D9800EC9BCA /* SensorView.swift in Sources */,

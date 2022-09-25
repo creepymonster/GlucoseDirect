@@ -8,7 +8,7 @@ import Foundation
 
 // MARK: - LibreConnection
 
-class LibreConnection: SensorConnectionProtocol, IsSensor {
+class LibreConnection: SensorConnectionProtocol, SensorConnectionConfigurationProtocol, IsSensor {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<DirectAction, DirectError>) {
@@ -67,7 +67,15 @@ class LibreConnection: SensorConnectionProtocol, IsSensor {
     func disconnectConnection() {
         bluetoothConnection = nil
     }
-
+    
+    func getConfiguration() -> [SensorConnectionConfigurationOption]? {
+        if let connectorConfiguration = bluetoothConnection as? SensorConnectionConfigurationProtocol {
+            return connectorConfiguration.getConfiguration()
+        }
+        
+        return nil
+    }
+    
     // MARK: Private
 
     private let pairingService: LibreNFC = .init()

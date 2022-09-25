@@ -6,6 +6,7 @@
 import Combine
 import CoreBluetooth
 import Foundation
+import SwiftUI
 
 // MARK: - IsSensor
 
@@ -22,6 +23,20 @@ protocol SensorConnectionProtocol {
     func pairConnection()
     func connectConnection(sensor: Sensor, sensorInterval: Int)
     func disconnectConnection()
+}
+
+// MARK: - SensorConnectionConfigurationProtocol
+
+protocol SensorConnectionConfigurationProtocol {
+    func getConfiguration() -> [SensorConnectionConfigurationOption]?
+}
+
+// MARK: - SensorConnectionConfigurationOption
+
+struct SensorConnectionConfigurationOption {
+    let id: String
+    let name: String
+    let value: Binding<String>
 }
 
 extension SensorConnectionProtocol {
@@ -79,16 +94,10 @@ extension SensorConnectionProtocol {
         guard let error = error else {
             return
         }
-        
+
         DirectLog.error("Error: \(error.localizedDescription)")
 
-        if let errorCode = CBError.Code(rawValue: (error as NSError).code) {
-            if errorCode.rawValue == 7 {
-                sendUpdate(errorMessage: LocalizedString("Rescan the sensor"), errorIsCritical: true)
-            } else {
-                sendUpdate(errorMessage: LocalizedString("Connection timeout"), errorIsCritical: true)
-            }
-        }
+        subject?.send(.setConnectionError(errorMessage: error.localizedDescription, errorTimestamp: Date(), errorIsCritical: false))
     }
 
     func sendUpdate(errorMessage: String, errorIsCritical: Bool = false) {

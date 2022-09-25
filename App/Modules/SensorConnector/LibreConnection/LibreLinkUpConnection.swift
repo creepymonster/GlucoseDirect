@@ -6,10 +6,11 @@
 import Combine
 import CoreBluetooth
 import Foundation
+import SwiftUI
 
 // MARK: - LibreLinkUpConnection
 
-class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
+class LibreLinkUpConnection: SensorBluetoothConnection, SensorConnectionConfigurationProtocol, IsSensor {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<DirectAction, DirectError>) {
@@ -29,8 +30,8 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
     }
 
     override func pairConnection() {
-        //UserDefaults.standard.email = ""
-        //UserDefaults.standard.password = ""
+        // UserDefaults.standard.email = ""
+        // UserDefaults.standard.password = ""
 
         Task {
             do {
@@ -81,10 +82,10 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
                 peripheral.discoverCharacteristics(nil, for: service)
             }
         }
-        
+
         Task {
             do {
-                try await fetchIfNeeded(forceFetch: true)
+                try await fetchIfNeeded()
             } catch {
                 sendUpdate(error: error)
             }
@@ -118,13 +119,13 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             return
         }
 
-        guard value.count == 20 else {
-            return
-        }
+        let sleepFactor: UInt64 = value.count == 15
+            ? 1
+            : 2
 
         Task {
             do {
-                try await Task.sleep(nanoseconds: 1_000_000_000 * 15)
+                try await Task.sleep(nanoseconds: 1_000_000_000 * 15 * sleepFactor)
                 try await fetchIfNeeded()
             } catch {
                 sendUpdate(error: error)
@@ -132,12 +133,24 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         }
     }
 
+    func getConfiguration() -> [SensorConnectionConfigurationOption]? {
+        return [
+            SensorConnectionConfigurationOption(id: UserDefaults.Keys.email.rawValue, name: LocalizedString("LibreLinkUp email"), value: Binding(
+                get: { UserDefaults.standard.email },
+                set: { UserDefaults.standard.email = $0 }
+            )),
+            SensorConnectionConfigurationOption(id: UserDefaults.Keys.password.rawValue, name: LocalizedString("LibreLinkUp password"), value: Binding(
+                get: { UserDefaults.standard.password },
+                set: { UserDefaults.standard.password = $0 }
+            )),
+        ]
+    }
+
     // MARK: Private
 
     private var lastLogin: LibreLinkLogin?
     private let oneMinuteReadingUUID = CBUUID(string: "0898177A-EF89-11E9-81B4-2A2AE2DBCCE4")
     private var oneMinuteReadingCharacteristic: CBCharacteristic?
-    private var nextFetch: Date?
     private let requestHeaders = [
         "User-Agent": "Mozilla/5.0",
         "Content-Type": "application/json",
@@ -162,43 +175,34 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         return decoder
     }()
 
-    private func fetchIfNeeded(forceFetch: Bool = false) async throws {
-        DirectLog.info("Next fetch: \(nextFetch?.toLocalTime() ?? "-")")
-        
-        let now = Date()
-        if sensorInterval == 1 || forceFetch || now >= (nextFetch ?? now) {
-            DirectLog.info("Fetch started: \(Date().toLocalTime())")
-            
-            if !forceFetch {
-                nextFetch = now + Double(sensorInterval * 60)
-            }
+    private func fetchIfNeeded() async throws {
+        DirectLog.info("Fetch started: \(Date().toLocalTime())")
 
-            let fetch = try await fetch()
+        let fetch = try await fetch()
 
-            guard let sensorAge = fetch.data?.connection?.sensor?.age else {
-                throw LibreLinkError.missingData
-            }
-
-            guard let trendData = fetch.data?.connection?.glucoseMeasurement else {
-                throw LibreLinkError.missingData
-            }
-
-            guard let historyData = fetch.data?.graphData else {
-                throw LibreLinkError.missingData
-            }
-
-            sendUpdate(age: sensorAge, state: .ready)
-
-            let trend = [
-                SensorReading.createGlucoseReading(timestamp: trendData.timestamp, glucoseValue: trendData.value),
-            ]
-
-            let history = historyData.map {
-                SensorReading.createGlucoseReading(timestamp: $0.timestamp, glucoseValue: $0.value)
-            }
-
-            sendUpdate(readings: history + trend)
+        guard let sensorAge = fetch.data?.connection?.sensor?.age else {
+            throw LibreLinkError.missingData
         }
+
+        guard let trendData = fetch.data?.connection?.glucoseMeasurement else {
+            throw LibreLinkError.missingData
+        }
+
+        guard let historyData = fetch.data?.graphData else {
+            throw LibreLinkError.missingData
+        }
+
+        sendUpdate(age: sensorAge, state: .ready)
+
+        let trend = [
+            SensorReading.createGlucoseReading(timestamp: trendData.timestamp, glucoseValue: trendData.value),
+        ]
+
+        let history = historyData.map {
+            SensorReading.createGlucoseReading(timestamp: $0.timestamp, glucoseValue: $0.value)
+        }
+
+        sendUpdate(readings: history + trend)
     }
 
     private func loginIfNeeded(forceLogin: Bool = false) async throws {
@@ -206,9 +210,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             let login = try await login()
 
             guard let user = login.data?.user, let authTicket = login.data?.authTicket, !user.id.isEmpty, !authTicket.token.isEmpty else {
-                sendUpdate(isPaired: false)
-
-                throw LibreLinkError.invalidCredentials
+                throw LibreLinkError.missingCredentials
             }
 
             lastLogin = LibreLinkLogin(id: user.id, country: user.country, token: authTicket.token, expires: authTicket.expires)
@@ -281,7 +283,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 }
 
 private extension UserDefaults {
-    private enum Keys: String {
+    enum Keys: String {
         case email = "libre-direct.libre-link-up.email"
         case password = "libre-direct.libre-link-up.password"
     }
@@ -403,6 +405,7 @@ private enum LibreLinkError: Error {
     case serializationError
     case missingLoginSession
     case invalidCredentials
+    case missingCredentials
     case notAuthenticated
     case decoderError
     case missingData
@@ -421,6 +424,8 @@ extension LibreLinkError: CustomStringConvertible {
             return "Missing login session"
         case .invalidCredentials:
             return "Invalid credentials"
+        case .missingCredentials:
+            return "Missing credentials"
         case .notAuthenticated:
             return "Not authenticated"
         case .decoderError:
