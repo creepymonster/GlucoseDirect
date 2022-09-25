@@ -56,7 +56,10 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         state.sensor = nil
         state.customCalibration = []
         state.connectionError = nil
-        state.connectionErrorIsCritical = false
+        state.connectionErrorTimestamp = nil
+        
+    case .resetError:
+        state.connectionError = nil
         state.connectionErrorTimestamp = nil
         
     case .selectCalendarTarget(id: let id):
@@ -74,7 +77,6 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         state.transmitter = nil
         state.customCalibration = []
         state.connectionError = nil
-        state.connectionErrorIsCritical = false
         state.connectionErrorTimestamp = nil
         
     case .selectView(viewTag: let viewTag):
@@ -124,10 +126,9 @@ func directReducer(state: inout DirectState, action: DirectAction) {
     case .setIgnoreMute(enabled: let enabled):
         state.ignoreMute = enabled
         
-    case .setConnectionError(errorMessage: let errorMessage, errorTimestamp: let errorTimestamp, errorIsCritical: let errorIsCritical):
+    case .setConnectionError(errorMessage: let errorMessage, errorTimestamp: let errorTimestamp):
         state.connectionError = errorMessage
         state.connectionErrorTimestamp = errorTimestamp
-        state.connectionErrorIsCritical = errorIsCritical
         
     case .setConnectionPaired(isPaired: let isPaired):
         state.isConnectionPaired = isPaired
@@ -140,7 +141,6 @@ func directReducer(state: inout DirectState, action: DirectAction) {
 
         if resetableStates.contains(connectionState) {
             state.connectionError = nil
-            state.connectionErrorIsCritical = false
             state.connectionErrorTimestamp = nil
         }
         
@@ -206,7 +206,6 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         
         state.sensor = sensor
         state.connectionError = nil
-        state.connectionErrorIsCritical = false
         state.connectionErrorTimestamp = nil
         
     case .setSensorInterval(interval: let interval):
@@ -227,6 +226,9 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         if state.sensor!.startTimestamp == nil, sensorAge > state.sensor!.warmupTime {
             state.sensor!.startTimestamp = Date().toRounded(on: 1, .minute) - Double(sensorAge * 60)
         }
+        
+        state.connectionError = nil
+        state.connectionErrorTimestamp = nil
         
     case .setShowAnnotations(showAnnotations: let showAnnotations):
         state.showAnnotations = showAnnotations

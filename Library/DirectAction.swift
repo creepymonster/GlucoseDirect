@@ -34,6 +34,7 @@ enum DirectAction {
     case requestAppleCalendarAccess(enabled: Bool)
     case requestAppleHealthAccess(enabled: Bool)
     case resetSensor
+    case resetError
     case selectCalendarTarget(id: String?)
     case selectConnection(id: String, connection: SensorConnectionProtocol)
     case selectConnectionID(id: String)
@@ -54,7 +55,7 @@ enum DirectAction {
     case setChartShowLines(enabled: Bool)
     case setChartZoomLevel(level: Int)
     case setConnectionAlarmSound(sound: NotificationSound)
-    case setConnectionError(errorMessage: String, errorTimestamp: Date, errorIsCritical: Bool)
+    case setConnectionError(errorMessage: String, errorTimestamp: Date)
     case setConnectionPaired(isPaired: Bool)
     case setConnectionPeripheralUUID(peripheralUUID: String?)
     case setConnectionState(connectionState: SensorConnectionState)

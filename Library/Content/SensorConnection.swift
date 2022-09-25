@@ -96,14 +96,13 @@ extension SensorConnectionProtocol {
         }
 
         DirectLog.error("Error: \(error.localizedDescription)")
-
-        subject?.send(.setConnectionError(errorMessage: error.localizedDescription, errorTimestamp: Date(), errorIsCritical: false))
+        subject?.send(.setConnectionError(errorMessage: error.localizedDescription, errorTimestamp: Date()))
     }
 
-    func sendUpdate(errorMessage: String, errorIsCritical: Bool = false) {
+    func sendUpdate(errorMessage: String) {
         DirectLog.error("ErrorMessage: \(errorMessage)")
 
-        subject?.send(.setConnectionError(errorMessage: errorMessage, errorTimestamp: Date(), errorIsCritical: false))
+        subject?.send(.setConnectionError(errorMessage: errorMessage, errorTimestamp: Date()))
     }
 
     func sendUpdate(peripheralUUID: String?) {

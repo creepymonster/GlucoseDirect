@@ -84,7 +84,6 @@ struct AppState: DirectState {
     var bloodGlucoseHistory: [BloodGlucose] = []
     var bloodGlucoseValues: [BloodGlucose] = []
     var connectionError: String?
-    var connectionErrorIsCritical = false
     var connectionErrorTimestamp: Date?
     var connectionInfos: [SensorConnectionInfo] = []
     var connectionState: SensorConnectionState = .disconnected

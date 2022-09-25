@@ -24,7 +24,6 @@ protocol DirectState {
     var chartZoomLevel: Int { get set }
     var connectionAlarmSound: NotificationSound { get set }
     var connectionError: String? { get set }
-    var connectionErrorIsCritical: Bool { get set }
     var connectionErrorTimestamp: Date? { get set }
     var connectionInfos: [SensorConnectionInfo] { get set }
     var connectionPeripheralUUID: String? { get set }
