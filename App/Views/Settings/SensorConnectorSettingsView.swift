@@ -7,7 +7,7 @@ import SwiftUI
 
 // MARK: - SensorConnectorSettings
 
-struct SensorConnectorSettings: View {
+struct SensorConnectorSettingsView: View {
     // MARK: Internal
 
     @EnvironmentObject var store: DirectStore

@@ -54,7 +54,8 @@ struct AppState: DirectState {
         self.connectionPeripheralUUID = UserDefaults.standard.connectionPeripheralUUID
         self.customCalibration = UserDefaults.standard.customCalibration
         self.expiringAlarmSound = UserDefaults.standard.expiringAlarmSound
-        self.glucoseNotification = UserDefaults.standard.glucoseNotification
+        self.normalGlucoseNotification = UserDefaults.standard.normalGlucoseNotification
+        self.alarmGlucoseNotification = UserDefaults.standard.alarmGlucoseNotification
         self.glucoseLiveActivity = UserDefaults.standard.glucoseLiveActivity
         self.ignoreMute = UserDefaults.standard.ignoreMute
         self.glucoseUnit = UserDefaults.shared.glucoseUnit ?? .mgdL
@@ -83,7 +84,6 @@ struct AppState: DirectState {
     var bloodGlucoseHistory: [BloodGlucose] = []
     var bloodGlucoseValues: [BloodGlucose] = []
     var connectionError: String?
-    var connectionErrorIsCritical = false
     var connectionErrorTimestamp: Date?
     var connectionInfos: [SensorConnectionInfo] = []
     var connectionState: SensorConnectionState = .disconnected
@@ -108,7 +108,8 @@ struct AppState: DirectState {
     var connectionPeripheralUUID: String? { didSet { UserDefaults.standard.connectionPeripheralUUID = connectionPeripheralUUID } }
     var customCalibration: [CustomCalibration] { didSet { UserDefaults.standard.customCalibration = customCalibration } }
     var expiringAlarmSound: NotificationSound { didSet { UserDefaults.standard.expiringAlarmSound = expiringAlarmSound } }
-    var glucoseNotification: Bool { didSet { UserDefaults.standard.glucoseNotification = glucoseNotification } }
+    var normalGlucoseNotification: Bool { didSet { UserDefaults.standard.normalGlucoseNotification = normalGlucoseNotification } }
+    var alarmGlucoseNotification: Bool { didSet { UserDefaults.standard.alarmGlucoseNotification = alarmGlucoseNotification } }
     var glucoseLiveActivity: Bool { didSet { UserDefaults.standard.glucoseLiveActivity = glucoseLiveActivity } }
     var glucoseUnit: GlucoseUnit { didSet { UserDefaults.shared.glucoseUnit = glucoseUnit } }
     var highGlucoseAlarmSound: NotificationSound { didSet { UserDefaults.standard.highGlucoseAlarmSound = highGlucoseAlarmSound } }

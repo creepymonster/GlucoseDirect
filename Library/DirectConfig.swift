@@ -39,7 +39,7 @@ enum DirectConfig {
     static var faqURL = "https://github.com/creepymonster/GlucoseDirectApp"
     static var githubURL = "https://github.com/creepymonster/GlucoseDirectApp"
     static var libre2ID = "libre2"
-    static var librelinkID = "librelink"
+    static var libreLinkID = "librelink"
     static var listsViewTag = 2
     static var maxReadableGlucose = 501
     static var minReadableGlucose = 39

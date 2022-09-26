@@ -32,6 +32,7 @@ struct GlucoseView: View {
                         Text(latestGlucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit))
                             .font(.system(size: 96))
                             .frame(height: 96)
+                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
                             .clipped()
 
                         if let warning = warning {

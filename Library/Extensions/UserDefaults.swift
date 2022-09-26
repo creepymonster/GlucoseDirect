@@ -20,7 +20,8 @@ private enum Keys: String {
     case connectionPeripheralUUID = "libre-direct.sensor-ble-connection.peripheral-uuid"
     case customCalibration = "libre-direct.settings.custom-calibration"
     case expiringAlarmSound = "libre-direct.settings.expiring-alarm-sound"
-    case glucoseNotification = "libre-direct.settings.glucose-badge"
+    case normalGlucoseNotification = "libre-direct.settings.normal-glucose-notification"
+    case alarmGlucoseNotification = "libre-direct.settings.alarm-glucose-notification"
     case glucoseLiveActivity = "libre-direct.settings.glucose-live-activity"
     case glucoseUnit = "libre-direct.settings.glucose-unit"
     case highGlucoseAlarmSound = "libre-direct.settings.high-glucose-alarm-sound"
@@ -252,16 +253,29 @@ extension UserDefaults {
         }
     }
 
-    var glucoseNotification: Bool {
+    var normalGlucoseNotification: Bool {
         get {
-            if object(forKey: Keys.glucoseNotification.rawValue) != nil {
-                return bool(forKey: Keys.glucoseNotification.rawValue)
+            if object(forKey: Keys.normalGlucoseNotification.rawValue) != nil {
+                return bool(forKey: Keys.normalGlucoseNotification.rawValue)
             }
 
             return true
         }
         set {
-            set(newValue, forKey: Keys.glucoseNotification.rawValue)
+            set(newValue, forKey: Keys.normalGlucoseNotification.rawValue)
+        }
+    }
+    
+    var alarmGlucoseNotification: Bool {
+        get {
+            if object(forKey: Keys.alarmGlucoseNotification.rawValue) != nil {
+                return bool(forKey: Keys.alarmGlucoseNotification.rawValue)
+            }
+
+            return normalGlucoseNotification
+        }
+        set {
+            set(newValue, forKey: Keys.alarmGlucoseNotification.rawValue)
         }
     }
 

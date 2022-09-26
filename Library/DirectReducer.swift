@@ -10,6 +10,10 @@ import UIKit
 // MARK: - directReducer
 
 func directReducer(state: inout DirectState, action: DirectAction) {
+    if !Thread.isMainThread {
+        DirectLog.error("Reducer is not used in main thread, action: \(action), queue: \(OperationQueue.current?.underlyingQueue?.label ?? "None")")
+    }
+    
     switch action {
     case .addCalibration(bloodGlucoseValue: let bloodGlucoseValue):
         guard let latestGlucoseValue = state.sensorGlucoseValues.last?.rawGlucoseValue else {
@@ -52,7 +56,10 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         state.sensor = nil
         state.customCalibration = []
         state.connectionError = nil
-        state.connectionErrorIsCritical = false
+        state.connectionErrorTimestamp = nil
+        
+    case .resetError:
+        state.connectionError = nil
         state.connectionErrorTimestamp = nil
         
     case .selectCalendarTarget(id: let id):
@@ -70,7 +77,6 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         state.transmitter = nil
         state.customCalibration = []
         state.connectionError = nil
-        state.connectionErrorIsCritical = false
         state.connectionErrorTimestamp = nil
         
     case .selectView(viewTag: let viewTag):
@@ -118,12 +124,11 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         state.connectionAlarmSound = sound
         
     case .setIgnoreMute(enabled: let enabled):
-         state.ignoreMute = enabled
+        state.ignoreMute = enabled
         
-    case .setConnectionError(errorMessage: let errorMessage, errorTimestamp: let errorTimestamp, errorIsCritical: let errorIsCritical):
+    case .setConnectionError(errorMessage: let errorMessage, errorTimestamp: let errorTimestamp):
         state.connectionError = errorMessage
         state.connectionErrorTimestamp = errorTimestamp
-        state.connectionErrorIsCritical = errorIsCritical
         
     case .setConnectionPaired(isPaired: let isPaired):
         state.isConnectionPaired = isPaired
@@ -136,15 +141,17 @@ func directReducer(state: inout DirectState, action: DirectAction) {
 
         if resetableStates.contains(connectionState) {
             state.connectionError = nil
-            state.connectionErrorIsCritical = false
             state.connectionErrorTimestamp = nil
         }
         
     case .setExpiringAlarmSound(sound: let sound):
         state.expiringAlarmSound = sound
                
-    case .setGlucoseNotification(enabled: let enabled):
-        state.glucoseNotification = enabled
+    case .setNormalGlucoseNotification(enabled: let enabled):
+        state.normalGlucoseNotification = enabled
+        
+    case .setAlarmGlucoseNotification(enabled: let enabled):
+        state.alarmGlucoseNotification = enabled
         
     case .setGlucoseLiveActivity(enabled: let enabled):
         state.glucoseLiveActivity = enabled
@@ -199,7 +206,6 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         
         state.sensor = sensor
         state.connectionError = nil
-        state.connectionErrorIsCritical = false
         state.connectionErrorTimestamp = nil
         
     case .setSensorInterval(interval: let interval):
@@ -217,9 +223,12 @@ func directReducer(state: inout DirectState, action: DirectAction) {
             state.sensor!.state = sensorState
         }
         
-        if state.sensor!.startTimestamp == nil {
-            state.sensor!.startTimestamp = Date() - Double(sensorAge) * 60
+        if state.sensor!.startTimestamp == nil, sensorAge > state.sensor!.warmupTime {
+            state.sensor!.startTimestamp = Date().toRounded(on: 1, .minute) - Double(sensorAge * 60)
         }
+        
+        state.connectionError = nil
+        state.connectionErrorTimestamp = nil
         
     case .setShowAnnotations(showAnnotations: let showAnnotations):
         state.showAnnotations = showAnnotations

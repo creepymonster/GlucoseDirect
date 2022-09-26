@@ -24,9 +24,8 @@ struct ConnectionView: View {
                 if let connectionError = store.state.connectionError,
                    let connectionErrorTimestamp = store.state.connectionErrorTimestamp?.toLocalTime()
                 {
-                    HStack {
+                    VStack(alignment: .leading) {
                         Text("Connection error")
-                        Spacer()
                         Text(connectionError)
                     }
 
