@@ -14,10 +14,10 @@
 "Add glucose for calibration" = "Lägg till blodglukos för kalibrering";
 
 /* (No Comment) */
-"Add calibration" = "Add calibration";
+"Add calibration" = "Ny Kalibrering";
 
 /* (No Comment) */
-"Add blood glucose" = "Add blood glucose";
+"Add blood glucose" = "Lägg till blodsockervärde";
 
 /* (No Comment) */
 "Alert, high glucose" = "Varning, högt blodsocker";
@@ -293,7 +293,7 @@
 "Sensor starting date" = "Startdatum";
 
 /* (No Comment) */
-"Sensor ending date" = "Ending date";
+"Sensor ending date" = "Slutdatum";
 
 /* (No Comment) */
 "Readable glucose: %1$@ %2$@" = "Glukos: %1$@ %2$@";
@@ -416,58 +416,58 @@
 "Export to Apple Calendar" = "Skapa kalenderhändelser";
 
 /* (No Comment) */
-"Glucose notification" = "Glucose Notification";
+"Glucose notification" = "Blodsockernotis";
 
 /* (No Comment) */
 "Time" = "Tid";
 
 /* (No Comment) */
-"Glucose" = "Glucose";
+"Glucose" = "Blodsocker";
 
 /* (No Comment) */
-"Transmitter details" = "Transmitter details";
+"Transmitter details" = "Sändardetaljer";
 
 /* (No Comment) */
-"Glucose widget" = "Glucose";
+"Glucose widget" = "Blodsocker";
 
 /* (No Comment) */
-"Glucose widget description" = "Displays the last glucose value.";
+"Glucose widget description" = "Visar det senaste blodglukosvärdet.";
 
 /* (No Comment) */
-"Sensor lifetime widget" = "Sensor Lifetime";
+"Sensor lifetime widget" = "Sensorns livslängd";
 
 /* (No Comment) */
-"Sensor lifetime widget description" = "Displays the remaining lifetime of the current sensor as a countdown.";
+"Sensor lifetime widget description" = "Visar återstående livslängd för den aktuella sensorn.";
 
 /* (No Comment) */
-"Transmitter battery widget" = "Transmitter Battery";
+"Transmitter battery widget" = "Sändarbatteri";
 
 /* (No Comment) */
-"Transmitter battery widget description" = "Displays the remaining battery charge of the transmitter as a countdown.";
+"Transmitter battery widget description" = "Visar sändarens återstående batteriladdning.";
 
 /* (No Comment) */
 "Warmup" = "Sensors återstående tid för uppvärmning";
 
 /* (No Comment) */
-"No screen lock" = "No screen lock";
+"No screen lock" = "Inget skärmlås";
 
 /* (No Comment) */
 "LibreLink transmitter" = "LibreLink";
 
 /* (No Comment) */
-"Use LibreLink to start the sensor" = "Use LibreLink to start the sensor";
+"Use LibreLink to start the sensor" = "Använd LibreLink-appen för att starta din sensor";
 
 /* (No Comment) */
 "Sensor glucose values" = "CGM";
 
 /* (No Comment) */
-"Sensor error values" = "CGM errors";
+"Sensor error values" = "CGM-fel";
 
 /* (No Comment) */
 "Blood glucose values" = "BGM";
 
 /* (No Comment) */
-"At least %@ days of data are required." = "At least %@ days of data are required.";
+"At least %@ days of data are required." = "Det krävs minst %@ dagars data.";
 
 /* (No Comment) */
 "Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been.";
@@ -497,19 +497,25 @@
 "%@ Entry" = "%@ Entry";
 
 /* (No Comment) */
-"Send database file" = "Send database file";
+"Send database file" = "Skicka databasfil";
 
 /* (No Comment) */
 "Glucose Live Activity" = "Glucose Live Activity";
 
 /* (No Comment) */
-"Glucose read aloud" = "Glucose Reading";
+"Glucose read aloud" = "Blodsockervärde";
 
 /* (No Comment) */
 "Ignore mute" = "Ignorera tyst läge";
 
 /* (No Comment) */
-"Normal glucose notification" = "Normal Glucose Notification";
+"Normal glucose notification" = "Notis för normalt blodsocker";
 
 /* (No Comment) */
-"Alarm glucose notification" = "Alarm Glucose Notification";
+"Alarm glucose notification" = "Blodsockerlarm";
+
+/* (No Comment) */
+"LibreLinkUp email" = "Ditt LibreLinkUp användarnamn (e-post)";
+
+/* (No Comment) */
+"LibreLinkUp password" = "DItt lösenord för LibreLinkUp";
