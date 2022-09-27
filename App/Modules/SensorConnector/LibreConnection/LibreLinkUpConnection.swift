@@ -118,12 +118,12 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         }
 
         let sleepFactor: UInt64 = value.count == 15
-            ? 1
-            : 2
+            ? 0
+            : 1
 
         Task {
             do {
-                try await Task.sleep(nanoseconds: 1_000_000_000 * 15 * sleepFactor)
+                try await Task.sleep(nanoseconds: 1_000_000_000 * 30 * sleepFactor)
                 try await update()
             } catch {
                 sendUpdate(error: error)
