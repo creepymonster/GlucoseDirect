@@ -14,10 +14,10 @@
 "Add glucose for calibration" = "Lägg till blodglukos för kalibrering";
 
 /* (No Comment) */
-"Add calibration" = "Add calibration";
+"Add calibration" = "Ny Kalibrering";
 
 /* (No Comment) */
-"Add blood glucose" = "Add blood glucose";
+"Add blood glucose" = "Lägg till blodsockervärde";
 
 /* (No Comment) */
 "Alert, high glucose" = "Varning, högt blodsocker";
@@ -293,7 +293,7 @@
 "Sensor starting date" = "Startdatum";
 
 /* (No Comment) */
-"Sensor ending date" = "Ending date";
+"Sensor ending date" = "Slutdatum";
 
 /* (No Comment) */
 "Readable glucose: %1$@ %2$@" = "Glukos: %1$@ %2$@";
