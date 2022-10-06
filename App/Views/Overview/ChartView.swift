@@ -177,11 +177,8 @@ struct ChartView: View {
                                 updateSensorSeries()
                                 updateBloodSeries()
                             }
-
-                        }.onChange(of: sensorGlucoseSeries) { _ in
-                            scrollToEnd(scrollViewProxy: scrollViewProxy)
-
-                        }.onChange(of: bloodGlucoseSeries) { _ in
+                            
+                        }.onChange(of: seriesWidth) { _ in
                             scrollToEnd(scrollViewProxy: scrollViewProxy)
 
                         }.chartOverlay { overlayProxy in
@@ -363,15 +360,19 @@ struct ChartView: View {
 
     private func scrollToStart(scrollViewProxy: ScrollViewProxy) {
         if selectedSensorPoint == nil, selectedBloodPoint == nil {
-            DirectLog.info("scrollToStart()")
-            scrollViewProxy.scrollTo(Config.chartID, anchor: .leading)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(125)) {
+                DirectLog.info("scrollToStart()")
+                scrollViewProxy.scrollTo(Config.chartID, anchor: .leading)
+            }
         }
     }
 
     private func scrollToEnd(scrollViewProxy: ScrollViewProxy) {
         if selectedSensorPoint == nil, selectedBloodPoint == nil {
-            DirectLog.info("scrollToEnd()")
-            scrollViewProxy.scrollTo(Config.chartID, anchor: .trailing)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(125)) {
+                DirectLog.info("scrollToEnd()")
+                scrollViewProxy.scrollTo(Config.chartID, anchor: .trailing)
+            }
         }
     }
 
