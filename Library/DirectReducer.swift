@@ -28,6 +28,8 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         
     case .addSensorGlucose(glucoseValues: let glucoseValues):
         state.latestSensorGlucose = glucoseValues.last
+        state.connectionError = nil
+        state.connectionErrorTimestamp = nil
         
     case .addSensorError(errorValues: let errorValues):
         state.latestSensorError = errorValues.last
