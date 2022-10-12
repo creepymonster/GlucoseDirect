@@ -8,16 +8,31 @@
 "%1$@d %2$@h %3$@min" = "%1$@д %2$@г %3$@хв";
 
 /* (No Comment) */
+"%@ Entries" = "%@ Записи";
+
+/* (No Comment) */
+"%@ Entry" = "%@ Запис";
+
+/* (No Comment) */
+"About %@" = "Про %@";
+
+/* (No Comment) */
 "Add" = "Додати";
 
 /* (No Comment) */
-"Add glucose for calibration" = "Додати глюкозу для калібрування";
+"Add blood glucose" = "Додати глюкозу крові";
 
 /* (No Comment) */
 "Add calibration" = "Додати калібрування";
 
 /* (No Comment) */
-"Add blood glucose" = "Додати глюкозу крові";
+"Add glucose for calibration" = "Додати глюкозу для калібрування";
+
+/* (No Comment) */
+"After disconnections" = "- Після від’єднання";
+
+/* (No Comment) */
+"Alarm glucose notification" = "Сповіщення про рівень глюкози";
 
 /* (No Comment) */
 "Alert, high glucose" = "Увага, високий вміст глюкози";
@@ -35,10 +50,61 @@
 "Alert, sensor expiring soon" = "Увага, термін дії датчика закінчиться найближчим часом";
 
 /* (No Comment) */
+"App author" = "Автор";
+
+/* (No Comment) */
+"App donate" = "Підтримати";
+
+/* (No Comment) */
+"App email" = "електронна пошта";
+
+/* (No Comment) */
+"App facebook group" = "Група у Facebook";
+
+/* (No Comment) */
+"App faq" = "Питання та відповіді";
+
+/* (No Comment) */
+"App support mail" = "Підтримка";
+
+/* (No Comment) */
+"App translation" = "Переклад";
+
+/* (No Comment) */
+"App version" = "Версія";
+
+/* (No Comment) */
+"App website" = "Сайт";
+
+/* (No Comment) */
+"Apple export settings" = "Налаштування експорту Apple";
+
+/* (No Comment) */
 "Are you sure you want to disconnect the sensor?" = "Ви впевнені, що хочете від’єднати датчик?";
 
 /* (No Comment) */
+"At least %@ days of data are required." = "Потрібно щонайменше %@ днів даних.";
+
+/* (No Comment) */
+"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Увага, датчик надсилає невірні показники. Будь ласка, зачекайте 10 хвилин.";
+
+/* (No Comment) */
+"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Середнє значення (AVG) – це загальний показник рівня цукру в крові за певний період часу, що дозволяє отримати єдине уявлення про стан глюкози на високому рівні.";
+
+/* (No Comment) */
+"Bellman alarm" = "Сигнал тривоги";
+
+/* (No Comment) */
+"Bellman test alarm" = "Тестовий сигнал тривоги";
+
+/* (No Comment) */
+"Blood glucose values" = "BGM";
+
+/* (No Comment) */
 "Blood glucose: %1$@" = "Вміст глюкози в крові: %1$@";
+
+/* (No Comment) */
+"Bubble transmitter" = "Bubble";
 
 /* (No Comment) */
 "Calibration view" = "Калібрування";
@@ -53,13 +119,28 @@
 "Connect sensor" = "Під'єднати датчик";
 
 /* (No Comment) */
+"Connect transmitter" = "Під'єднати передавач";
+
+/* (No Comment) */
 "Connected" = "Під’єднано";
 
 /* (No Comment) */
 "Connecting" = "Під’єднується";
 
 /* (No Comment) */
+"Connection" = "Під'єднання";
+
+/* (No Comment) */
 "Connection alarm" = "Сигнал тривоги під час підключення";
+
+/* (No Comment) */
+"Connection error" = "Помилка";
+
+/* (No Comment) */
+"Connection error timestamp" = "Час";
+
+/* (No Comment) */
+"Connection state" = "Стан";
 
 /* (No Comment) */
 "Custom calibration intercept" = "Перехопити";
@@ -77,13 +158,43 @@
 "Disconnect sensor" = "Від'єднати датчик";
 
 /* (No Comment) */
+"Disconnect transmitter" = "Від'єднати передавач";
+
+/* (No Comment) */
 "Disconnected" = "Від'єднано";
+
+/* (No Comment) */
+"Every 10 minutes" = "- Кожні 10 хвилин";
+
+/* (No Comment) */
+"Export to Apple Calendar" = "Експортувати до Apple Calendar";
+
+/* (No Comment) */
+"Export to Apple Health" = "Експортувати до Apple Health";
+
+/* (No Comment) */
+"Find transmitter" = "Знайти передавач";
+
+/* (No Comment) */
+"Glucose" = "Глюкоза";
 
 /* (No Comment) */
 "Glucose list view" = "Перелік";
 
 /* (No Comment) */
+"Glucose Live Activity" = "Життєдіяльність глюкози";
+
+/* (No Comment) */
+"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Індикатор контролю глюкози (GMI) - це заміна \"розрахункового HbA1c\" для пацієнтів, які використовують безперервний моніторинг глюкози.";
+
+/* (No Comment) */
+"Glucose notification" = "Сповіщення про вміст глюкози";
+
+/* (No Comment) */
 "Glucose overview" = "Загальний огляд";
+
+/* (No Comment) */
+"Glucose read aloud" = "Зчитування глюкози";
 
 /* (No Comment) */
 "Glucose settings" = "Налаштування глюкози";
@@ -92,7 +203,34 @@
 "Glucose unit" = "Одиниця";
 
 /* (No Comment) */
+"Glucose widget" = "Глюкоза";
+
+/* (No Comment) */
+"Glucose widget description" = "Відтворює останній показник глюкози.";
+
+/* (No Comment) */
+"High glucose alarm" = "Попередження про високий вміст глюкози";
+
+/* (No Comment) */
 "Hold the top edge of your iPhone close to the sensor." = "Тримайте верхній край вашого iPhone поруч з датчиком.";
+
+/* (No Comment) */
+"Ignore mute" = "Вимкнути звук";
+
+/* (No Comment) */
+"LibreLink transmitter" = "LibreLink";
+
+/* (No Comment) */
+"LibreLinkUp email" = "LibreLinkUp email";
+
+/* (No Comment) */
+"LibreLinkUp password" = "LibreLinkUp password";
+
+/* (No Comment) */
+"Line" = "Рядок";
+
+/* (No Comment) */
+"Low glucose alarm" = "Попередження про низький вміст глюкози";
 
 /* (No Comment) */
 "Lower limit" = "Низький";
@@ -101,37 +239,103 @@
 "Nightscout API-Secret" = "API-Secret";
 
 /* (No Comment) */
-"Nightscout url" = "URL-адреса";
-
-/* (No Comment) */
 "Nightscout settings" = "Налаштування Nightscout";
 
 /* (No Comment) */
 "Nightscout upload enabled" = "Завантажити";
 
 /* (No Comment) */
+"Nightscout url" = "URL-адреса";
+
+/* (No Comment) */
+"No screen lock" = "Немає блокування екрана";
+
+/* (No Comment) */
+"Normal glucose notification" = "Повідомлення про нормальний рівень глюкози";
+
+/* (No Comment) */
 "Now" = "Зараз";
+
+/* (No Comment) */
+"Pairing" = "Парування";
+
+/* (No Comment) */
+"Please select" = "Будь ласка, виберіть";
 
 /* (No Comment) */
 "Power off" = "Живлення вимкнуто";
 
 /* (No Comment) */
+"Readable falling" = "падає";
+
+/* (No Comment) */
+"Readable fast falling" = "швидко падає";
+
+/* (No Comment) */
+"Readable fast rising" = "швидко зростає";
+
+/* (No Comment) */
+"Readable glucose with trend: %1$@ %2$@, %3$@" = "Глюкоза: %1$@ %2$@, %3$@";
+
+/* (No Comment) */
+"Readable glucose: %1$@ %2$@" = "Глюкоза: %1$@ %2$@";
+
+/* (No Comment) */
+"Readable high glucose: %1$@ %2$@" = "Глюкоза: %1$@ %2$@. Тривога: гіперглікемія!";
+
+/* (No Comment) */
+"Readable low glucose: %1$@ %2$@" = "Глюкоза: %1$@ %2$@. Тривога: гіпоглікемія!";
+
+/* (No Comment) */
+"Readable miligram" = "міліграм";
+
+/* (No Comment) */
+"Readable milimol" = "мілімоль";
+
+/* (No Comment) */
+"Readable rapidly falling" = "стрімко падає";
+
+/* (No Comment) */
+"Readable rapidly rising" = "стрімко зростає";
+
+/* (No Comment) */
+"Readable rising" = "зростає";
+
+/* (No Comment) */
+"Rescan the sensor" = "Повторно сканувати датчик";
+
+/* (No Comment) */
+"Retrieval interval" = "Інтервал оновлення";
+
+/* (No Comment) */
+"Retrieval interval, every %@ minutes" = "Кожні %@ хвилин";
+
+/* (No Comment) */
+"Retrieval interval, every minute" = "Кожної хвилини";
+
+/* (No Comment) */
+"Retry pairing" = "Повторити парування";
+
+/* (No Comment) */
+"Scan sensor" = "Сканувати датчик";
+
+/* (No Comment) */
 "Scanning" = "Йде сканування";
+
+/* (No Comment) */
+"Selected calendar" = "Календар";
+
+/* (No Comment) */
+"Send database file" = "Надіслати файл бази даних";
+
+/* (No Comment) */
+"Send log file" = "Надіслати лог-файл";
 
 /* (No Comment) */
 "Sensor age" = "Вік датчика";
 
 /* (No Comment) */
-"Connection" = "Під'єднання";
-
-/* (No Comment) */
-"Connection error" = "Помилка";
-
-/* (No Comment) */
-"Connection error timestamp" = "Час";
-
-/* (No Comment) */
-"Connection state" = "Стан";
+"Sensor connection" = "Під'єднання датчика";
 
 /* (No Comment) */
 "Sensor custom calibration" = "Калібрування користувача";
@@ -140,7 +344,16 @@
 "Sensor details" = "Подробиці датчика";
 
 /* (No Comment) */
+"Sensor ending date" = "Дата закінчення";
+
+/* (No Comment) */
+"Sensor error values" = "Помилки CGM";
+
+/* (No Comment) */
 "Sensor factory calibration" = "Калібрування завода";
+
+/* (No Comment) */
+"Sensor glucose values" = "CGM";
 
 /* (No Comment) */
 "Sensor has failure" = "Помилка датчика";
@@ -159,6 +372,12 @@
 
 /* (No Comment) */
 "Sensor lifetime" = "Термін придатності";
+
+/* (No Comment) */
+"Sensor lifetime widget" = "Термін придатності датчика";
+
+/* (No Comment) */
+"Sensor lifetime widget description" = "Відтворює термін служби, що залишився для поточного датчика, у вигляді зворотного відліку.";
 
 /* (No Comment) */
 "Sensor not yet startet" = "Датчик ще не запущений";
@@ -182,6 +401,9 @@
 "Sensor serial" = "Серійний номер";
 
 /* (No Comment) */
+"Sensor starting date" = "Дата початку";
+
+/* (No Comment) */
 "Sensor state" = "Стан";
 
 /* (No Comment) */
@@ -197,7 +419,49 @@
 "Snooze until" = "Відкласти";
 
 /* (No Comment) */
+"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Стандартне відхилення (SD) – це показник розкиду в зчитуваннях глюкози навколо середнього значення: стрибки між багатьма максимумами та мінімумами призводять до збільшення SD. Метою є якомога нижчий SD, який відтворює стабільний рівень глюкози з мінімальними коливаннями.";
+
+/* (No Comment) */
+"Statistics (%@ days)" = "Статистика (%@ днів)";
+
+/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "З’єднання з сенсором було перервано. Зазвичай, це трапляється, коли датчик знаходиться поза зоною дії або його потужність передачі даних знижена.";
+
+/* (No Comment) */
+"Time" = "Час";
+
+/* (No Comment) */
+"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Час вище діапазону (TAR) або відсоток часу, проведеного вище за цільовий рівень глюкози в %@.";
+
+/* (No Comment) */
+"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Час нижче діапазону (TBR) або відсоток часу, проведеного нижче за цільовий рівень глюкози в %@.";
+
+/* (No Comment) */
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@ %@." = "Час у діапазоні (TIR) або відсоток часу, проведеного в цільовому діапазоні глюкози між %@ - %@.";
+
+/* (No Comment) */
+"Transmitter" = "Передавач";
+
+/* (No Comment) */
+"Transmitter battery" = "Батарея";
+
+/* (No Comment) */
+"Transmitter battery widget" = "Батарея передавача";
+
+/* (No Comment) */
+"Transmitter battery widget description" = "Відтворює заряд батареї, що залишився для передавача, у вигляді зворотного відліку.";
+
+/* (No Comment) */
+"Transmitter details" = "Подробиці передавача";
+
+/* (No Comment) */
+"Transmitter firmware" = "Прошивка";
+
+/* (No Comment) */
+"Transmitter hardware" = "Апаратне забезпечення";
+
+/* (No Comment) */
+"Transmitter name" = "Ім’я";
 
 /* (No Comment) */
 "Unknown" = "Невідомий";
@@ -206,10 +470,28 @@
 "Upper limit" = "Високий";
 
 /* (No Comment) */
+"Use LibreLink to start the sensor" = "Використовувати LibreLink для запуску датчика";
+
+/* (No Comment) */
+"Vibration" = "Тільки вібрація";
+
+/* (No Comment) */
 "Virtual Sensor" = "Віртуальний датчик";
 
 /* (No Comment) */
+"Warmup" = "Розігрів";
+
+/* (No Comment) */
 "Wearing time alarm" = "Сигналізація часу носіння";
+
+/* (No Comment) */
+"When a new alarm is triggered" = "- Якщо спрацьовує новий сигнал тривоги";
+
+/* (No Comment) */
+"When the glucose trend changes" = "- Якщо тенденція із вмісту глюкози змінюється";
+
+/* (No Comment) */
+"Without transmitter" = "Без передавача";
 
 /* (No Comment) */
 "Your current glucose is %1$@ (%2$@)." = "Ваша поточна глюкоза %1$@ (%2$@).";
@@ -237,285 +519,3 @@
 
 /* (No Comment) */
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Термін придатності вашого датчика закінчується. Замініть датчик через %1$@ хвилин.";
-
-/* (No Comment) */
-"Line" = "Рядок";
-
-/* (No Comment) */
-"Transmitter name" = "Ім’я";
-
-/* (No Comment) */
-"Transmitter battery" = "Батарея";
-
-/* (No Comment) */
-"Transmitter hardware" = "Апаратне забезпечення";
-
-/* (No Comment) */
-"Transmitter firmware" = "Прошивка";
-
-/* (No Comment) */
-"Transmitter" = "Передавач";
-
-/* (No Comment) */
-"Sensor connection" = "Під'єднання датчика";
-
-/* (No Comment) */
-"Without transmitter" = "Без передавача";
-
-/* (No Comment) */
-"Bubble transmitter" = "Bubble";
-
-/* (No Comment) */
-"Pairing" = "Парування";
-
-/* (No Comment) */
-"Selected calendar" = "Календар";
-
-/* (No Comment) */
-"Please select" = "Будь ласка, виберіть";
-
-/* (No Comment) */
-"About %@" = "Про %@";
-
-/* (No Comment) */
-"App version" = "Версія";
-
-/* (No Comment) */
-"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Увага, датчик надсилає невірні показники. Будь ласка, зачекайте 10 хвилин.";
-
-/* (No Comment) */
-"App website" = "Сайт";
-
-/* (No Comment) */
-"Send log file" = "Надіслати лог-файл";
-
-/* (No Comment) */
-"Sensor starting date" = "Дата початку";
-
-/* (No Comment) */
-"Sensor ending date" = "Дата закінчення";
-
-/* (No Comment) */
-"Readable glucose: %1$@ %2$@" = "Глюкоза: %1$@ %2$@";
-
-/* (No Comment) */
-"Readable glucose with trend: %1$@ %2$@, %3$@" = "Глюкоза: %1$@ %2$@, %3$@";
-
-/* (No Comment) */
-"Readable low glucose: %1$@ %2$@" = "Глюкоза: %1$@ %2$@. Тривога: гіпоглікемія!";
-
-/* (No Comment) */
-"Readable high glucose: %1$@ %2$@" = "Глюкоза: %1$@ %2$@. Тривога: гіперглікемія!";
-
-/* (No Comment) */
-"Readable miligram" = "міліграм";
-
-/* (No Comment) */
-"Readable milimol" = "мілімоль";
-
-/* (No Comment) */
-"Readable falling" = "падає";
-
-/* (No Comment) */
-"Readable fast falling" = "швидко падає";
-
-/* (No Comment) */
-"Readable rapidly falling" = "стрімко падає";
-
-/* (No Comment) */
-"Readable rising" = "зростає";
-
-/* (No Comment) */
-"Readable fast rising" = "швидко зростає";
-
-/* (No Comment) */
-"Readable rapidly rising" = "стрімко зростає";
-
-/* (No Comment) */
-"Every 10 minutes" = "- Кожні 10 хвилин";
-
-/* (No Comment) */
-"After disconnections" = "- Після від’єднання";
-
-/* (No Comment) */
-"When the glucose trend changes" = "- Якщо тенденція із вмісту глюкози змінюється";
-
-/* (No Comment) */
-"When a new alarm is triggered" = "- Якщо спрацьовує новий сигнал тривоги";
-
-/* (No Comment) */
-"App author" = "Автор";
-
-/* (No Comment) */
-"App support mail" = "Підтримка";
-
-/* (No Comment) */
-"App translation" = "Переклад";
-
-/* (No Comment) */
-"App faq" = "Питання та відповіді";
-
-/* (No Comment) */
-"App facebook group" = "Група у Facebook";
-
-/* (No Comment) */
-"App email" = "електронна пошта";
-
-/* (No Comment) */
-"Low glucose alarm" = "Попередження про низький вміст глюкози";
-
-/* (No Comment) */
-"High glucose alarm" = "Попередження про високий вміст глюкози";
-
-/* (No Comment) */
-"Vibration" = "Тільки вібрація";
-
-/* (No Comment) */
-"Scan sensor" = "Сканувати датчик";
-
-/* (No Comment) */
-"Retry pairing" = "Повторити парування";
-
-/* (No Comment) */
-"Retrieval interval" = "Інтервал оновлення";
-
-/* (No Comment) */
-"Retrieval interval, every minute" = "Кожної хвилини";
-
-/* (No Comment) */
-"Retrieval interval, every %@ minutes" = "Кожні %@ хвилин";
-
-/* (No Comment) */
-"App donate" = "Підтримати";
-
-/* (No Comment) */
-"Bellman alarm" = "Сигнал тривоги";
-
-/* (No Comment) */
-"Bellman test alarm" = "Тестовий сигнал тривоги";
-
-/* (No Comment) */
-"Find transmitter" = "Знайти передавач";
-
-/* (No Comment) */
-"Connect transmitter" = "Під'єднати передавач";
-
-/* (No Comment) */
-"Disconnect transmitter" = "Від'єднати передавач";
-
-/* (No Comment) */
-"Rescan the sensor" = "Повторно сканувати датчик";
-
-/* (No Comment) */
-"Apple export settings" = "Налаштування експорту Apple";
-
-/* (No Comment) */
-"Export to Apple Health" = "Експортувати до Apple Health";
-
-/* (No Comment) */
-"Export to Apple Calendar" = "Експортувати до Apple Calendar";
-
-/* (No Comment) */
-"Glucose notification" = "Сповіщення про вміст глюкози";
-
-/* (No Comment) */
-"Time" = "Час";
-
-/* (No Comment) */
-"Glucose" = "Глюкоза";
-
-/* (No Comment) */
-"Transmitter details" = "Подробиці передавача";
-
-/* (No Comment) */
-"Glucose widget" = "Глюкоза";
-
-/* (No Comment) */
-"Glucose widget description" = "Відтворює останній показник глюкози.";
-
-/* (No Comment) */
-"Sensor lifetime widget" = "Термін придатності датчика";
-
-/* (No Comment) */
-"Sensor lifetime widget description" = "Відтворює термін служби, що залишився для поточного датчика, у вигляді зворотного відліку.";
-
-/* (No Comment) */
-"Transmitter battery widget" = "Батарея передавача";
-
-/* (No Comment) */
-"Transmitter battery widget description" = "Відтворює заряд батареї, що залишився для передавача, у вигляді зворотного відліку.";
-
-/* (No Comment) */
-"Warmup" = "Розігрів";
-
-/* (No Comment) */
-"No screen lock" = "Немає блокування екрана";
-
-/* (No Comment) */
-"LibreLink transmitter" = "LibreLink";
-
-/* (No Comment) */
-"Use LibreLink to start the sensor" = "Використовувати LibreLink для запуску датчика";
-
-/* (No Comment) */
-"Sensor glucose values" = "CGM";
-
-/* (No Comment) */
-"Sensor error values" = "Помилки CGM";
-
-/* (No Comment) */
-"Blood glucose values" = "BGM";
-
-/* (No Comment) */
-"At least %@ days of data are required." = "Потрібно щонайменше %@ днів даних.";
-
-/* (No Comment) */
-"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Середнє значення (AVG) – це загальний показник рівня цукру в крові за певний період часу, що дозволяє отримати єдине уявлення про стан глюкози на високому рівні.";
-
-/* (No Comment) */
-"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Індикатор контролю глюкози (GMI) - це заміна \"розрахункового HbA1c\" для пацієнтів, які використовують безперервний моніторинг глюкози.";
-
-/* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@ %@." = "Час у діапазоні (TIR) або відсоток часу, проведеного в цільовому діапазоні глюкози між %@ - %@.";
-
-/* (No Comment) */
-"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Час нижче діапазону (TBR) або відсоток часу, проведеного нижче за цільовий рівень глюкози в %@.";
-
-/* (No Comment) */
-"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Час вище діапазону (TAR) або відсоток часу, проведеного вище за цільовий рівень глюкози в %@.";
-
-/* (No Comment) */
-"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Стандартне відхилення (SD) – це показник розкиду в зчитуваннях глюкози навколо середнього значення: стрибки між багатьма максимумами та мінімумами призводять до збільшення SD. Метою є якомога нижчий SD, який відтворює стабільний рівень глюкози з мінімальними коливаннями.";
-
-/* (No Comment) */
-"Statistics (%@ days)" = "Статистика (%@ днів)";
-
-/* (No Comment) */
-"%@ Entries" = "%@ Записи";
-
-/* (No Comment) */
-"%@ Entry" = "%@ Запис";
-
-/* (No Comment) */
-"Send database file" = "Надіслати файл бази даних";
-
-/* (No Comment) */
-"Glucose Live Activity" = "Життєдіяльність глюкози";
-
-/* (No Comment) */
-"Glucose read aloud" = "Зчитування глюкози";
-
-/* (No Comment) */
-"Ignore mute" = "Вимкнути звук";
-
-/* (No Comment) */
-"Normal glucose notification" = "Повідомлення про нормальний рівень глюкози";
-
-/* (No Comment) */
-"Alarm glucose notification" = "Сповіщення про рівень глюкози";
-
-/* (No Comment) */
-"LibreLinkUp email" = "LibreLinkUp email";
-
-/* (No Comment) */
-"LibreLinkUp password" = "LibreLinkUp password";
