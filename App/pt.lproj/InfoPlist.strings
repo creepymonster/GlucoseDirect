@@ -15,3 +15,9 @@
 
 /* Privacy - Calendars Usage Description */
 "NSCalendarsUsageDescription" = "Access to the calendar is required to display up-to-date glucose values on the Apple Watch.";
+
+/* Privacy - Health Share Usage Description */
+"NSHealthShareUsageDescription" = "";
+
+/* Privacy - Health Update Usage Description */
+"NSHealthUpdateUsageDescription" = "";
