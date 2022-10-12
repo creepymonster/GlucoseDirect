@@ -8,16 +8,31 @@
 "%1$@d %2$@h %3$@min" = "%1$@d %2$@小时 %3$@分钟";
 
 /* (No Comment) */
+"%@ Entries" = "%@ 输入";
+
+/* (No Comment) */
+"%@ Entry" = "%@ 输入";
+
+/* (No Comment) */
+"About %@" = "约 %@";
+
+/* (No Comment) */
 "Add" = "添加";
 
 /* (No Comment) */
-"Add glucose for calibration" = "添加血糖以进行校准";
+"Add blood glucose" = "添加血糖";
 
 /* (No Comment) */
 "Add calibration" = "添加校准";
 
 /* (No Comment) */
-"Add blood glucose" = "添加血糖";
+"Add glucose for calibration" = "添加血糖以进行校准";
+
+/* (No Comment) */
+"After disconnections" = "- 断开连接后";
+
+/* (No Comment) */
+"Alarm glucose notification" = "报警葡萄糖通知";
 
 /* (No Comment) */
 "Alert, high glucose" = "警告，高血糖";
@@ -35,10 +50,61 @@
 "Alert, sensor expiring soon" = "警报，传感器即将到期";
 
 /* (No Comment) */
+"App author" = "版本";
+
+/* (No Comment) */
+"App donate" = "捐赠";
+
+/* (No Comment) */
+"App email" = "电子邮件";
+
+/* (No Comment) */
+"App facebook group" = "Facebook 群组";
+
+/* (No Comment) */
+"App faq" = "常见问答（FAQ）";
+
+/* (No Comment) */
+"App support mail" = "支持";
+
+/* (No Comment) */
+"App translation" = "翻译";
+
+/* (No Comment) */
+"App version" = "版本";
+
+/* (No Comment) */
+"App website" = "网站";
+
+/* (No Comment) */
+"Apple export settings" = "苹果导出设置";
+
+/* (No Comment) */
 "Are you sure you want to disconnect the sensor?" = "你确定你要断开传感器的连接吗？";
 
 /* (No Comment) */
+"At least %@ days of data are required." = "至少需要 %@ 天的数据。";
+
+/* (No Comment) */
+"Attention, the sensor sends faulty values. Please wait 10 minutes." = "注意，传感器发送错误的数值。请等待10分钟。";
+
+/* (No Comment) */
+"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "平均值 (AVG) 是对一段时间内的血糖的总体衡量";
+
+/* (No Comment) */
+"Bellman alarm" = "警报";
+
+/* (No Comment) */
+"Bellman test alarm" = "测试报警";
+
+/* (No Comment) */
+"Blood glucose values" = "指尖血糖仪";
+
+/* (No Comment) */
 "Blood glucose: %1$@" = "血糖。 %1$@";
+
+/* (No Comment) */
+"Bubble transmitter" = "Bubble";
 
 /* (No Comment) */
 "Calibration view" = "校准";
@@ -53,13 +119,28 @@
 "Connect sensor" = "连接传感器";
 
 /* (No Comment) */
+"Connect transmitter" = "连接发射器";
+
+/* (No Comment) */
 "Connected" = "已连接";
 
 /* (No Comment) */
 "Connecting" = "正在连接";
 
 /* (No Comment) */
+"Connection" = "连接";
+
+/* (No Comment) */
 "Connection alarm" = "连接报警";
+
+/* (No Comment) */
+"Connection error" = "错误";
+
+/* (No Comment) */
+"Connection error timestamp" = "时间";
+
+/* (No Comment) */
+"Connection state" = "状态";
 
 /* (No Comment) */
 "Custom calibration intercept" = "截距";
@@ -77,13 +158,43 @@
 "Disconnect sensor" = "断开传感器的连接";
 
 /* (No Comment) */
+"Disconnect transmitter" = "断开发射器";
+
+/* (No Comment) */
 "Disconnected" = "已断开连接";
+
+/* (No Comment) */
+"Every 10 minutes" = "每 10 分钟";
+
+/* (No Comment) */
+"Export to Apple Calendar" = "同步到苹果日历";
+
+/* (No Comment) */
+"Export to Apple Health" = "导出到苹果健康";
+
+/* (No Comment) */
+"Find transmitter" = "寻找发射器";
+
+/* (No Comment) */
+"Glucose" = "血糖";
 
 /* (No Comment) */
 "Glucose list view" = "列表";
 
 /* (No Comment) */
+"Glucose Live Activity" = "实时血糖活动";
+
+/* (No Comment) */
+"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "葡萄糖管理指标 (GMI) 是对使用连续血糖监测的病人的 \"估计HbA1c \"的一种替代。";
+
+/* (No Comment) */
+"Glucose notification" = "血糖通知";
+
+/* (No Comment) */
 "Glucose overview" = "概览";
+
+/* (No Comment) */
+"Glucose read aloud" = "血糖读数";
 
 /* (No Comment) */
 "Glucose settings" = "葡萄糖设置";
@@ -92,7 +203,34 @@
 "Glucose unit" = "单位";
 
 /* (No Comment) */
+"Glucose widget" = "血糖";
+
+/* (No Comment) */
+"Glucose widget description" = "显示最后的葡萄糖值。";
+
+/* (No Comment) */
+"High glucose alarm" = "高血糖报警";
+
+/* (No Comment) */
 "Hold the top edge of your iPhone close to the sensor." = "握住你的iPhone顶部边缘，靠近传感器。";
+
+/* (No Comment) */
+"Ignore mute" = "忽略静音";
+
+/* (No Comment) */
+"LibreLink transmitter" = "LibreLink";
+
+/* (No Comment) */
+"LibreLinkUp email" = "LibreLinkUp email";
+
+/* (No Comment) */
+"LibreLinkUp password" = "LibreLinkUp password";
+
+/* (No Comment) */
+"Line" = "线";
+
+/* (No Comment) */
+"Low glucose alarm" = "低血糖报警";
 
 /* (No Comment) */
 "Lower limit" = "低";
@@ -101,37 +239,103 @@
 "Nightscout API-Secret" = "API密钥";
 
 /* (No Comment) */
-"Nightscout url" = "网址";
-
-/* (No Comment) */
 "Nightscout settings" = "Nightscout 设置";
 
 /* (No Comment) */
 "Nightscout upload enabled" = "上载";
 
 /* (No Comment) */
+"Nightscout url" = "网址";
+
+/* (No Comment) */
+"No screen lock" = "无屏幕锁定";
+
+/* (No Comment) */
+"Normal glucose notification" = "正常血糖通知";
+
+/* (No Comment) */
 "Now" = "现在";
+
+/* (No Comment) */
+"Pairing" = "配对";
+
+/* (No Comment) */
+"Please select" = "请选择";
 
 /* (No Comment) */
 "Power off" = "关机";
 
 /* (No Comment) */
+"Readable falling" = "下降";
+
+/* (No Comment) */
+"Readable fast falling" = "急剧下降";
+
+/* (No Comment) */
+"Readable fast rising" = "快速上升";
+
+/* (No Comment) */
+"Readable glucose with trend: %1$@ %2$@, %3$@" = "血糖:%1$@ %2$@,%3$@";
+
+/* (No Comment) */
+"Readable glucose: %1$@ %2$@" = "血糖:%1$@ %2$@";
+
+/* (No Comment) */
+"Readable high glucose: %1$@ %2$@" = "血糖: %1$@ %2$@. 注意，高血糖!";
+
+/* (No Comment) */
+"Readable low glucose: %1$@ %2$@" = "血糖: %1$@ %2$@. 注意，低血糖!";
+
+/* (No Comment) */
+"Readable miligram" = "毫克";
+
+/* (No Comment) */
+"Readable milimol" = "毫摩尔";
+
+/* (No Comment) */
+"Readable rapidly falling" = "非常快速下降";
+
+/* (No Comment) */
+"Readable rapidly rising" = "非常快速上升";
+
+/* (No Comment) */
+"Readable rising" = "上升";
+
+/* (No Comment) */
+"Rescan the sensor" = "重新扫描传感器";
+
+/* (No Comment) */
+"Retrieval interval" = "刷新间隔";
+
+/* (No Comment) */
+"Retrieval interval, every %@ minutes" = "每 %@ 分钟";
+
+/* (No Comment) */
+"Retrieval interval, every minute" = "每分钟";
+
+/* (No Comment) */
+"Retry pairing" = "重新尝试配对";
+
+/* (No Comment) */
+"Scan sensor" = "扫描传感器";
+
+/* (No Comment) */
 "Scanning" = "正在扫描";
+
+/* (No Comment) */
+"Selected calendar" = "日历";
+
+/* (No Comment) */
+"Send database file" = "发送数据库";
+
+/* (No Comment) */
+"Send log file" = "发送日志文件";
 
 /* (No Comment) */
 "Sensor age" = "传感器使用时间";
 
 /* (No Comment) */
-"Connection" = "连接";
-
-/* (No Comment) */
-"Connection error" = "错误";
-
-/* (No Comment) */
-"Connection error timestamp" = "时间";
-
-/* (No Comment) */
-"Connection state" = "状态";
+"Sensor connection" = "传感器连接";
 
 /* (No Comment) */
 "Sensor custom calibration" = "自定义校准";
@@ -140,7 +344,16 @@
 "Sensor details" = "传感器详情";
 
 /* (No Comment) */
+"Sensor ending date" = "结束时间";
+
+/* (No Comment) */
+"Sensor error values" = "CGM错误";
+
+/* (No Comment) */
 "Sensor factory calibration" = "工厂校准";
+
+/* (No Comment) */
+"Sensor glucose values" = "动态血糖";
 
 /* (No Comment) */
 "Sensor has failure" = "传感器已失败";
@@ -159,6 +372,12 @@
 
 /* (No Comment) */
 "Sensor lifetime" = "寿命";
+
+/* (No Comment) */
+"Sensor lifetime widget" = "传感器寿命";
+
+/* (No Comment) */
+"Sensor lifetime widget description" = "以倒计时的方式显示当前传感器的剩余寿命。";
 
 /* (No Comment) */
 "Sensor not yet startet" = "传感器尚未启动";
@@ -182,6 +401,9 @@
 "Sensor serial" = "序列号";
 
 /* (No Comment) */
+"Sensor starting date" = "开始日期";
+
+/* (No Comment) */
 "Sensor state" = "状态";
 
 /* (No Comment) */
@@ -197,7 +419,49 @@
 "Snooze until" = "静默报警";
 
 /* (No Comment) */
+"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "标准偏差 (SD) 是衡量葡萄糖读数在平均值附近的分布情况--在许多高点和低点之间跳动会导致更大的SD。我们的目标是使标准差达到最低，这将反映出稳定的葡萄糖水平和最小的波动。";
+
+/* (No Comment) */
+"Statistics (%@ days)" = "统计数据 (%@ 天)";
+
+/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "与传感器的连接已被中断。通常这种情况发生在传感器超出范围或其传输功率受损的情况下。";
+
+/* (No Comment) */
+"Time" = "时间";
+
+/* (No Comment) */
+"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "超出范围的时间 (TAR) 或超过目标葡萄糖的时间百分比， %@。";
+
+/* (No Comment) */
+"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "低于范围的时间 (TAR) 或低于目标葡萄糖的时间百分比， %@。";
+
+/* (No Comment) */
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@ %@." = "范围内的时间 (TIR) 或在目标葡萄糖范围内的时间百分比为 %@ - %@。";
+
+/* (No Comment) */
+"Transmitter" = "发射器";
+
+/* (No Comment) */
+"Transmitter battery" = "电池";
+
+/* (No Comment) */
+"Transmitter battery widget" = "发射器电池";
+
+/* (No Comment) */
+"Transmitter battery widget description" = "以倒计时的方式显示发射器的剩余电池电量。";
+
+/* (No Comment) */
+"Transmitter details" = "发射器详情";
+
+/* (No Comment) */
+"Transmitter firmware" = "固件";
+
+/* (No Comment) */
+"Transmitter hardware" = "硬件";
+
+/* (No Comment) */
+"Transmitter name" = "名称";
 
 /* (No Comment) */
 "Unknown" = "未知";
@@ -206,10 +470,28 @@
 "Upper limit" = "高";
 
 /* (No Comment) */
+"Use LibreLink to start the sensor" = "使用LibreLink来启动传感器";
+
+/* (No Comment) */
+"Vibration" = "仅振动";
+
+/* (No Comment) */
 "Virtual Sensor" = "虚拟传感器";
 
 /* (No Comment) */
+"Warmup" = "启动中";
+
+/* (No Comment) */
 "Wearing time alarm" = "佩戴时间报警";
+
+/* (No Comment) */
+"When a new alarm is triggered" = "- 当一个新的警报被触发时";
+
+/* (No Comment) */
+"When the glucose trend changes" = "- 当葡萄糖的趋势发生变化时";
+
+/* (No Comment) */
+"Without transmitter" = "无发射器";
 
 /* (No Comment) */
 "Your current glucose is %1$@ (%2$@)." = "你当前的葡萄糖是 %1$@ (%2$@) 。";
@@ -237,285 +519,3 @@
 
 /* (No Comment) */
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "您的传感器即将过期。在 %1$@ 分钟内更换传感器。";
-
-/* (No Comment) */
-"Line" = "线";
-
-/* (No Comment) */
-"Transmitter name" = "名称";
-
-/* (No Comment) */
-"Transmitter battery" = "电池";
-
-/* (No Comment) */
-"Transmitter hardware" = "硬件";
-
-/* (No Comment) */
-"Transmitter firmware" = "固件";
-
-/* (No Comment) */
-"Transmitter" = "发射器";
-
-/* (No Comment) */
-"Sensor connection" = "传感器连接";
-
-/* (No Comment) */
-"Without transmitter" = "无发射器";
-
-/* (No Comment) */
-"Bubble transmitter" = "Bubble";
-
-/* (No Comment) */
-"Pairing" = "配对";
-
-/* (No Comment) */
-"Selected calendar" = "日历";
-
-/* (No Comment) */
-"Please select" = "请选择";
-
-/* (No Comment) */
-"About %@" = "约 %@";
-
-/* (No Comment) */
-"App version" = "版本";
-
-/* (No Comment) */
-"Attention, the sensor sends faulty values. Please wait 10 minutes." = "注意，传感器发送错误的数值。请等待10分钟。";
-
-/* (No Comment) */
-"App website" = "网站";
-
-/* (No Comment) */
-"Send log file" = "发送日志文件";
-
-/* (No Comment) */
-"Sensor starting date" = "开始日期";
-
-/* (No Comment) */
-"Sensor ending date" = "结束时间";
-
-/* (No Comment) */
-"Readable glucose: %1$@ %2$@" = "血糖:%1$@ %2$@";
-
-/* (No Comment) */
-"Readable glucose with trend: %1$@ %2$@, %3$@" = "血糖:%1$@ %2$@,%3$@";
-
-/* (No Comment) */
-"Readable low glucose: %1$@ %2$@" = "血糖: %1$@ %2$@. 注意，低血糖!";
-
-/* (No Comment) */
-"Readable high glucose: %1$@ %2$@" = "血糖: %1$@ %2$@. 注意，高血糖!";
-
-/* (No Comment) */
-"Readable miligram" = "毫克";
-
-/* (No Comment) */
-"Readable milimol" = "毫摩尔";
-
-/* (No Comment) */
-"Readable falling" = "下降";
-
-/* (No Comment) */
-"Readable fast falling" = "急剧下降";
-
-/* (No Comment) */
-"Readable rapidly falling" = "非常快速下降";
-
-/* (No Comment) */
-"Readable rising" = "上升";
-
-/* (No Comment) */
-"Readable fast rising" = "快速上升";
-
-/* (No Comment) */
-"Readable rapidly rising" = "非常快速上升";
-
-/* (No Comment) */
-"Every 10 minutes" = "每 10 分钟";
-
-/* (No Comment) */
-"After disconnections" = "- 断开连接后";
-
-/* (No Comment) */
-"When the glucose trend changes" = "- 当葡萄糖的趋势发生变化时";
-
-/* (No Comment) */
-"When a new alarm is triggered" = "- 当一个新的警报被触发时";
-
-/* (No Comment) */
-"App author" = "版本";
-
-/* (No Comment) */
-"App support mail" = "支持";
-
-/* (No Comment) */
-"App translation" = "翻译";
-
-/* (No Comment) */
-"App faq" = "常见问答（FAQ）";
-
-/* (No Comment) */
-"App facebook group" = "Facebook 群组";
-
-/* (No Comment) */
-"App email" = "电子邮件";
-
-/* (No Comment) */
-"Low glucose alarm" = "低血糖报警";
-
-/* (No Comment) */
-"High glucose alarm" = "高血糖报警";
-
-/* (No Comment) */
-"Vibration" = "仅振动";
-
-/* (No Comment) */
-"Scan sensor" = "扫描传感器";
-
-/* (No Comment) */
-"Retry pairing" = "重新尝试配对";
-
-/* (No Comment) */
-"Retrieval interval" = "刷新间隔";
-
-/* (No Comment) */
-"Retrieval interval, every minute" = "每分钟";
-
-/* (No Comment) */
-"Retrieval interval, every %@ minutes" = "每 %@ 分钟";
-
-/* (No Comment) */
-"App donate" = "捐赠";
-
-/* (No Comment) */
-"Bellman alarm" = "警报";
-
-/* (No Comment) */
-"Bellman test alarm" = "测试报警";
-
-/* (No Comment) */
-"Find transmitter" = "寻找发射器";
-
-/* (No Comment) */
-"Connect transmitter" = "连接发射器";
-
-/* (No Comment) */
-"Disconnect transmitter" = "断开发射器";
-
-/* (No Comment) */
-"Rescan the sensor" = "重新扫描传感器";
-
-/* (No Comment) */
-"Apple export settings" = "苹果导出设置";
-
-/* (No Comment) */
-"Export to Apple Health" = "导出到苹果健康";
-
-/* (No Comment) */
-"Export to Apple Calendar" = "同步到苹果日历";
-
-/* (No Comment) */
-"Glucose notification" = "血糖通知";
-
-/* (No Comment) */
-"Time" = "时间";
-
-/* (No Comment) */
-"Glucose" = "血糖";
-
-/* (No Comment) */
-"Transmitter details" = "发射器详情";
-
-/* (No Comment) */
-"Glucose widget" = "血糖";
-
-/* (No Comment) */
-"Glucose widget description" = "显示最后的葡萄糖值。";
-
-/* (No Comment) */
-"Sensor lifetime widget" = "传感器寿命";
-
-/* (No Comment) */
-"Sensor lifetime widget description" = "以倒计时的方式显示当前传感器的剩余寿命。";
-
-/* (No Comment) */
-"Transmitter battery widget" = "发射器电池";
-
-/* (No Comment) */
-"Transmitter battery widget description" = "以倒计时的方式显示发射器的剩余电池电量。";
-
-/* (No Comment) */
-"Warmup" = "启动中";
-
-/* (No Comment) */
-"No screen lock" = "无屏幕锁定";
-
-/* (No Comment) */
-"LibreLink transmitter" = "LibreLink";
-
-/* (No Comment) */
-"Use LibreLink to start the sensor" = "使用LibreLink来启动传感器";
-
-/* (No Comment) */
-"Sensor glucose values" = "动态血糖";
-
-/* (No Comment) */
-"Sensor error values" = "CGM错误";
-
-/* (No Comment) */
-"Blood glucose values" = "指尖血糖仪";
-
-/* (No Comment) */
-"At least %@ days of data are required." = "至少需要 %@ 天的数据。";
-
-/* (No Comment) */
-"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "平均值 (AVG) 是对一段时间内的血糖的总体衡量";
-
-/* (No Comment) */
-"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "葡萄糖管理指标 (GMI) 是对使用连续血糖监测的病人的 \"估计HbA1c \"的一种替代。";
-
-/* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@ %@." = "范围内的时间 (TIR) 或在目标葡萄糖范围内的时间百分比为 %@ - %@。";
-
-/* (No Comment) */
-"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "低于范围的时间 (TAR) 或低于目标葡萄糖的时间百分比， %@。";
-
-/* (No Comment) */
-"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "超出范围的时间 (TAR) 或超过目标葡萄糖的时间百分比， %@。";
-
-/* (No Comment) */
-"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "标准偏差 (SD) 是衡量葡萄糖读数在平均值附近的分布情况--在许多高点和低点之间跳动会导致更大的SD。我们的目标是使标准差达到最低，这将反映出稳定的葡萄糖水平和最小的波动。";
-
-/* (No Comment) */
-"Statistics (%@ days)" = "统计数据 (%@ 天)";
-
-/* (No Comment) */
-"%@ Entries" = "%@ 输入";
-
-/* (No Comment) */
-"%@ Entry" = "%@ 输入";
-
-/* (No Comment) */
-"Send database file" = "发送数据库";
-
-/* (No Comment) */
-"Glucose Live Activity" = "实时血糖活动";
-
-/* (No Comment) */
-"Glucose read aloud" = "血糖读数";
-
-/* (No Comment) */
-"Ignore mute" = "忽略静音";
-
-/* (No Comment) */
-"Normal glucose notification" = "正常血糖通知";
-
-/* (No Comment) */
-"Alarm glucose notification" = "报警葡萄糖通知";
-
-/* (No Comment) */
-"LibreLinkUp email" = "LibreLinkUp email";
-
-/* (No Comment) */
-"LibreLinkUp password" = "LibreLinkUp password";
