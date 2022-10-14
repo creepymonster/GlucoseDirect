@@ -80,6 +80,7 @@ enum DirectAction {
     case setShowAnnotations(showAnnotations: Bool)
     case setGlucoseStatistics(statistics: GlucoseStatistics)
     case setTransmitter(transmitter: Transmitter)
+    case setStatisticsDays(days: Int)
     case startup
     case shutdown
     

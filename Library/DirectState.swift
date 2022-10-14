@@ -56,6 +56,7 @@ protocol DirectState {
     var sensorGlucoseHistory: [SensorGlucose] { get set }
     var sensorInterval: Int { get set }
     var showAnnotations: Bool { get set }
+    var statisticsDays: Int { get set }
     var glucoseStatistics: GlucoseStatistics? { get set }
     var targetValue: Int { get set }
     var transmitter: Transmitter? { get set }

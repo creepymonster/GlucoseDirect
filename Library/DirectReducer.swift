@@ -240,6 +240,9 @@ func directReducer(state: inout DirectState, action: DirectAction) {
 
     case .setTransmitter(transmitter: let transmitter):
         state.transmitter = transmitter
+        
+    case .setStatisticsDays(days: let days):
+        state.statisticsDays = days
 
     default:
         break
