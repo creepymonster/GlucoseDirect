@@ -26,7 +26,7 @@ func glucoseStatisticsMiddleware() -> Middleware<DirectState, DirectAction> {
             return Just(DirectAction.loadSensorGlucoseStatistics)
                 .setFailureType(to: DirectError.self)
                 .eraseToAnyPublisher()
-            
+
         case .setStatisticsDays(days: _):
             return Just(DirectAction.loadSensorGlucoseStatistics)
                 .setFailureType(to: DirectError.self)
