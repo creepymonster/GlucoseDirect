@@ -8,10 +8,10 @@
 "%1$@d %2$@h %3$@min" = "%1$@giorni %2$@ore %3$@minuti";
 
 /* (No Comment) */
-"%@ Entries" = "%@ Voci";
+"%@ Entries" = " %@ Voci ";
 
 /* (No Comment) */
-"%@ Entry" = "%@ Voce";
+"%@ Entry" = " %@ Voce ";
 
 /* (No Comment) */
 "About %@" = "In circa %@";
@@ -33,6 +33,9 @@
 
 /* (No Comment) */
 "Alarm glucose notification" = "Notifica di allarme per il glucosio";
+
+/* (No Comment) */
+"Alarm settings" = "Alarm settings";
 
 /* (No Comment) */
 "Alert, high glucose" = "Allarme, Glucosio alto";
@@ -89,7 +92,7 @@
 "Attention, the sensor sends faulty values. Please wait 10 minutes." = "Attenzione, il sensore manda valori errati. Riprovare tra 10 minuti.";
 
 /* (No Comment) */
-"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "La media (AVG) è una misura complessiva degli zuccheri nel sangue in un periodo di tempo, che offre una singola visione ad alto livello di dove è stato il glucosio.";
+"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "La media (AVG) è una misura complessiva degli zuccheri nel sangue in un periodo di tempo, che offre una singola visione ad alto livello di dove è stato il glucosio. ";
 
 /* (No Comment) */
 "Bellman alarm" = "Alarm";
@@ -140,6 +143,9 @@
 "Connection error timestamp" = "Tempo";
 
 /* (No Comment) */
+"Connection settings" = "Connection settings";
+
+/* (No Comment) */
 "Connection state" = "Stato";
 
 /* (No Comment) */
@@ -185,7 +191,7 @@
 "Glucose Live Activity" = "Attività glucosio dal vivo";
 
 /* (No Comment) */
-"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "L'indicatore di gestione del glucosio (GMI) è un sostituto di \"HbA1c stimato\" per i pazienti che utilizzano il monitoraggio continuo del glucosio.";
+"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "L'indicatore di gestione del glucosio (GMI) è un sostituto di \"HbA1c stimato\" per i pazienti che utilizzano il monitoraggio continuo del glucosio. ";
 
 /* (No Comment) */
 "Glucose notification" = "Notifica glucosio";
@@ -248,6 +254,9 @@
 "Nightscout url" = "Url";
 
 /* (No Comment) */
+"No Data" = "No Data";
+
+/* (No Comment) */
 "No screen lock" = "Nessun blocco schermo";
 
 /* (No Comment) */
@@ -302,6 +311,9 @@
 "Readable rising" = "in aumento";
 
 /* (No Comment) */
+"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
+
+/* (No Comment) */
 "Rescan the sensor" = "Ricontrollare il sensore";
 
 /* (No Comment) */
@@ -347,7 +359,7 @@
 "Sensor ending date" = "Data di fine";
 
 /* (No Comment) */
-"Sensor error values" = "Errori CGM";
+"Sensor error values" = "Errori CGM ";
 
 /* (No Comment) */
 "Sensor factory calibration" = "Calibrazione Standard";
@@ -419,10 +431,10 @@
 "Snooze until" = "Posponi";
 
 /* (No Comment) */
-"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "La deviazione standard (SD) è una misura della diffusione delle letture del glucosio intorno alla media: il rimbalzo tra molti massimi e minimi si traduce in una SD più grande. L'obiettivo è la SD più bassa possibile, che rifletterebbe un livello di glucosio costante con oscillazioni minime.";
+"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "La deviazione standard (SD) è una misura della diffusione delle letture del glucosio intorno alla media: il rimbalzo tra molti massimi e minimi si traduce in una SD più grande. L'obiettivo è la SD più bassa possibile, che rifletterebbe un livello di glucosio costante con oscillazioni minime. ";
 
 /* (No Comment) */
-"Statistics (%@ days)" = "Statistiche (%@ days)";
+"Statistics (%@ days)" = "Statistiche (%@ days) ";
 
 /* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "La connessione con il sensore è stata interrotta. Normalmente questo succede se il sensore è fuori portata o se la batteria è alterata.";
@@ -431,13 +443,13 @@
 "Time" = "Tempo";
 
 /* (No Comment) */
-"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Tempo al di sopra dell'intervallo (TAR) o percentuale di tempo trascorso al di sopra del target di glucosio target %@.";
+"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Tempo al di sopra dell'intervallo (TAR) o percentuale di tempo trascorso al di sopra del target di glucosio target %@. ";
 
 /* (No Comment) */
-"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Tempo al di sotto dell'intervallo (TBR) o percentuale di tempo trascorso al di sotto del target di glucosio %@.";
+"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Tempo al di sotto dell'intervallo (TBR) o percentuale di tempo trascorso al di sotto del target di glucosio %@. ";
 
 /* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Tempo all'interno dell'intervallo (TIR) o la percentuale di tempo trascorso nell'intervallo target di glucosio tra %@ - %@.";
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@.";
 
 /* (No Comment) */
 "Transmitter" = "Transmettitore";
@@ -446,7 +458,7 @@
 "Transmitter battery" = "Batteria";
 
 /* (No Comment) */
-"Transmitter battery widget" = "Batteria trasmettitore";
+"Transmitter battery widget" = "Batteria trasmettitore ";
 
 /* (No Comment) */
 "Transmitter battery widget description" = "Visualizza la carica residua della batteria del trasmettitore come conto alla rovescia.";
@@ -519,15 +531,3 @@
 
 /* (No Comment) */
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Il tuo sensore sta per scadere. Sostituisci il tuo sensore in %1$@ giorno/i.";
-
-/* (No Comment) */
-"Alarm settings" = "Alarm settings";
-
-/* (No Comment) */
-"Connection settings" = "Connection settings";
-
-/* (No Comment) */
-"No Data" = "No Data";
-
-/* (No Comment) */
-"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
