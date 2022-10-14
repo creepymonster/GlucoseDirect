@@ -437,7 +437,7 @@
 "Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Aralığın altındaki süre (TBR) veya %@ hedef glikozunun altında geçirilen sürenin yüzdesi.";
 
 /* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@ %@." = "Aralıktaki Süre (TIR) veya hedef glikoz aralığında harcanan sürenin yüzdesi %@ - %@ arasındadır.";
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@.";
 
 /* (No Comment) */
 "Transmitter" = "Verici";
@@ -519,3 +519,15 @@
 
 /* (No Comment) */
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Sensörünüzün süresi dolmak üzere. Sensörü %1$@ dakika içinde değiştirin.";
+
+/* (No Comment) */
+"Alarm settings" = "Alarm settings";
+
+/* (No Comment) */
+"Connection settings" = "Connection settings";
+
+/* (No Comment) */
+"No Data" = "No Data";
+
+/* (No Comment) */
+"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
