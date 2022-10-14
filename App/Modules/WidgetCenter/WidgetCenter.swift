@@ -221,11 +221,11 @@ private class ActivityGlucoseService {
         }
 
         if glucose.glucoseValue < alarmLow {
-            return AlertConfiguration(title: "Alert, low blood glucose", body: "Your pizza order will arrive in 25 minutes.", sound: .default)
+            return AlertConfiguration(title: "Alert, low blood glucose", body: "", sound: .default)
         }
 
         if glucose.glucoseValue > alarmHigh {
-            return AlertConfiguration(title: "Alert, high glucose", body: "Your pizza order will arrive in 25 minutes.", sound: .default)
+            return AlertConfiguration(title: "Alert, high glucose", body: "", sound: .default)
         }
 
         return nil

@@ -116,7 +116,7 @@ struct ListsView: View {
                                 store.dispatch(.setShowAnnotations(showAnnotations: !store.state.showAnnotations))
                             }
                         } else {
-                            Text("At least \(DirectConfig.minGlucoseStatisticsDays) days of data are required.")
+                            Text("At least \(DirectConfig.minGlucoseStatisticsDays.description) days of data are required.")
                         }
                     },
                     header: {

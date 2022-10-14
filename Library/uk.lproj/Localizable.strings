@@ -437,7 +437,7 @@
 "Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Час нижче діапазону (TBR) або відсоток часу, проведеного нижче за цільовий рівень глюкози в %@.";
 
 /* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@ %@." = "Час у діапазоні (TIR) або відсоток часу, проведеного в цільовому діапазоні глюкози між %@ - %@.";
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Час у діапазоні (TIR) або відсоток часу, проведеного в цільовому діапазоні глюкози між %@ - %@.";
 
 /* (No Comment) */
 "Transmitter" = "Передавач";

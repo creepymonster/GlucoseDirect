@@ -437,7 +437,7 @@
 "Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Le temps sous l'intervalle (TSI) ou le pourcentage de temps passé en dessous de la glycémie cible de %@.";
 
 /* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@ %@." = "Le temps dans l'intervalle (TDI) ou le pourcentage de temps passé dans l'intervalle de glycémie cible entre %@ et %@.";
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Le temps dans l'intervalle (TDI) ou le pourcentage de temps passé dans l'intervalle de glycémie cible entre %@ et %@.";
 
 /* (No Comment) */
 "Transmitter" = "Émetteur :";

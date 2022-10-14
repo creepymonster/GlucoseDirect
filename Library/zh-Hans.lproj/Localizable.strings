@@ -437,7 +437,7 @@
 "Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "低于范围的时间 (TAR) 或低于目标葡萄糖的时间百分比， %@。";
 
 /* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@ %@." = "范围内的时间 (TIR) 或在目标葡萄糖范围内的时间百分比为 %@ - %@。";
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "范围内的时间 (TIR) 或在目标葡萄糖范围内的时间百分比为 %@ - %@。";
 
 /* (No Comment) */
 "Transmitter" = "发射器";

@@ -180,11 +180,6 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
                         .font(.system(size: 48))
                         .foregroundColor(Color.ui.red)
                         .padding(.bottom)
-
-                    HStack(alignment: .firstTextBaseline) {
-                        Image(systemName: "questionmark.bubble")
-                        Text("Set, activate (with LibreLink App) and connect the first sensor to get data.")
-                    }
                 }
             }
         }.padding()

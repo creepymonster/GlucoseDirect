@@ -77,7 +77,6 @@ struct GlucoseView: View {
                             Text("No screen lock")
                         } else {
                             Image(systemName: "lock")
-                            Text(" ")
                         }
                     }).opacity(store.state.preventScreenLock ? 1 : 0.5)
 
@@ -103,7 +102,6 @@ struct GlucoseView: View {
                             Text(alarmSnoozeUntil.toLocalTime())
                             Image(systemName: "speaker.slash")
                         } else {
-                            Text(" ")
                             Image(systemName: "speaker.wave.2")
                         }
                     }).opacity(store.state.alarmSnoozeUntil == nil ? 0.5 : 1)
@@ -117,11 +115,6 @@ struct GlucoseView: View {
                     .font(.system(size: 48))
                     .foregroundColor(Color.ui.red)
                     .padding(.bottom)
-
-                HStack(alignment: .firstTextBaseline) {
-                    Image(systemName: "questionmark.bubble")
-                    Text("Set, activate (with LibreLink App) and connect the first sensor to get data.")
-                }
             }
         }
     }
