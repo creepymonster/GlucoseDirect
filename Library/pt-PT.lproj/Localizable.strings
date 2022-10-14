@@ -8,10 +8,10 @@
 "%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
 
 /* (No Comment) */
-"%@ Entries" = "%@ Entradas";
+"%@ Entries" = " %@ Entradas ";
 
 /* (No Comment) */
-"%@ Entry" = "%@ Entrada";
+"%@ Entry" = " %@ Entrada ";
 
 /* (No Comment) */
 "About %@" = "Sobre %@";
@@ -20,10 +20,10 @@
 "Add" = "Adicionar";
 
 /* (No Comment) */
-"Add blood glucose" = "Adicionar glicose no sangue";
+"Add blood glucose" = " Adicionar glicose no sangue ";
 
 /* (No Comment) */
-"Add calibration" = "Adicionar calibração";
+"Add calibration" = " Adicionar calibração ";
 
 /* (No Comment) */
 "Add glucose for calibration" = "Adicionar glicemia para calibrar";
@@ -33,6 +33,9 @@
 
 /* (No Comment) */
 "Alarm glucose notification" = "Notificação de Glucose de Alarme";
+
+/* (No Comment) */
+"Alarm settings" = "Alarm settings";
 
 /* (No Comment) */
 "Alert, high glucose" = "Alerta, glicemia alta";
@@ -53,7 +56,7 @@
 "App author" = "Autor";
 
 /* (No Comment) */
-"App donate" = "Doar";
+"App donate" = " Doar";
 
 /* (No Comment) */
 "App email" = "e-mail";
@@ -77,25 +80,25 @@
 "App website" = "Website";
 
 /* (No Comment) */
-"Apple export settings" = "Definições de exportação da Apple";
+"Apple export settings" = " Definições de exportação da Apple ";
 
 /* (No Comment) */
-"Are you sure you want to disconnect the sensor?" = "Tens a certeza que pretendes desconectar o sensor?";
+"Are you sure you want to disconnect the sensor?" = "Tens a certeza que pretendes desconectar o sensor? ";
 
 /* (No Comment) */
-"At least %@ days of data are required." = "São necessários pelo menos %@ dias de dados.";
+"At least %@ days of data are required." = " São necessários pelo menos %@ dias de dados. ";
 
 /* (No Comment) */
 "Attention, the sensor sends faulty values. Please wait 10 minutes." = "Atenção, o sensor está a enviar valores defeituosos. Por favor, espere 10 minutos.";
 
 /* (No Comment) */
-"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Média (MED) é uma medida geral de açúcares no sangue ao longo de um período de tempo, oferecendo uma visualização de alto nível de onde a glicose tem estado.";
+"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = " Média (MED) é uma medida geral de açúcares no sangue ao longo de um período de tempo, oferecendo uma visualização de alto nível de onde a glicose tem estado. ";
 
 /* (No Comment) */
-"Bellman alarm" = "Alarme";
+"Bellman alarm" = " Alarme ";
 
 /* (No Comment) */
-"Bellman test alarm" = "Alarme de teste";
+"Bellman test alarm" = " Alarme de teste ";
 
 /* (No Comment) */
 "Blood glucose values" = "BGM";
@@ -119,13 +122,13 @@
 "Connect sensor" = "Conectar sensor";
 
 /* (No Comment) */
-"Connect transmitter" = "Conecte o transmissor";
+"Connect transmitter" = " Conecte o transmissor ";
 
 /* (No Comment) */
 "Connected" = "Conectado";
 
 /* (No Comment) */
-"Connecting" = "A conectar";
+"Connecting" = "A conectar ";
 
 /* (No Comment) */
 "Connection" = "Conexão";
@@ -138,6 +141,9 @@
 
 /* (No Comment) */
 "Connection error timestamp" = "Hora";
+
+/* (No Comment) */
+"Connection settings" = "Connection settings";
 
 /* (No Comment) */
 "Connection state" = "Estado";
@@ -158,7 +164,7 @@
 "Disconnect sensor" = "Desconectar sensor";
 
 /* (No Comment) */
-"Disconnect transmitter" = "Desconecte o transmissor";
+"Disconnect transmitter" = " Desconecte o transmissor ";
 
 /* (No Comment) */
 "Disconnected" = "Desconectado";
@@ -167,34 +173,34 @@
 "Every 10 minutes" = "A cada 10 minutos";
 
 /* (No Comment) */
-"Export to Apple Calendar" = "Exportar para o Calendário Apple";
+"Export to Apple Calendar" = " Exportar para o Calendário Apple ";
 
 /* (No Comment) */
-"Export to Apple Health" = "Exportar para o Apple Health";
+"Export to Apple Health" = " Exportar para o Apple Health ";
 
 /* (No Comment) */
-"Find transmitter" = "Encontrar transmissor";
+"Find transmitter" = " Encontrar transmissor ";
 
 /* (No Comment) */
-"Glucose" = "Glicose";
+"Glucose" = " Glicose ";
 
 /* (No Comment) */
 "Glucose list view" = "Lista";
 
 /* (No Comment) */
-"Glucose Live Activity" = "Atividade de glicode ao vivo";
+"Glucose Live Activity" = " Atividade de glicode ao vivo ";
 
 /* (No Comment) */
-"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Indicador de Gerência de Glicose (IGG) é um substituto para o \"HbA1c estimado\" para pacientes que usam um acompanhamento contínuo de glicose.";
+"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = " Indicador de Gerência de Glicose (IGG) é um substituto para o \"HbA1c estimado\" para pacientes que usam um acompanhamento contínuo de glicose. ";
 
 /* (No Comment) */
-"Glucose notification" = "Notificação de glicose";
+"Glucose notification" = " Notificação de glicose ";
 
 /* (No Comment) */
 "Glucose overview" = "Visão geral";
 
 /* (No Comment) */
-"Glucose read aloud" = "Leitura de glicose";
+"Glucose read aloud" = " Leitura de glicose ";
 
 /* (No Comment) */
 "Glucose settings" = "Configurações de glicose";
@@ -203,13 +209,13 @@
 "Glucose unit" = "Unidade";
 
 /* (No Comment) */
-"Glucose widget" = "Glicose";
+"Glucose widget" = " Glicose ";
 
 /* (No Comment) */
-"Glucose widget description" = "Mostra o último valor de glicose.";
+"Glucose widget description" = " Mostra o último valor de glicose. ";
 
 /* (No Comment) */
-"High glucose alarm" = "Alarme de glicose alta";
+"High glucose alarm" = " Alarme de glicose alta ";
 
 /* (No Comment) */
 "Hold the top edge of your iPhone close to the sensor." = "Mantém a parte superior do iPhone perto do sensor";
@@ -230,7 +236,7 @@
 "Line" = "Linha";
 
 /* (No Comment) */
-"Low glucose alarm" = "Alarme de glicose baixa";
+"Low glucose alarm" = " Alarme de glicose baixa ";
 
 /* (No Comment) */
 "Lower limit" = "Baixo";
@@ -248,7 +254,10 @@
 "Nightscout url" = "URL";
 
 /* (No Comment) */
-"No screen lock" = "Sem bloqueio de tela";
+"No Data" = "No Data";
+
+/* (No Comment) */
+"No screen lock" = " Sem bloqueio de tela ";
 
 /* (No Comment) */
 "Normal glucose notification" = "Notificação de Glucose Normal";
@@ -302,22 +311,25 @@
 "Readable rising" = "a subir";
 
 /* (No Comment) */
-"Rescan the sensor" = "Digitalize novamente o sensor";
+"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
 
 /* (No Comment) */
-"Retrieval interval" = "Intervalo de recuperação";
+"Rescan the sensor" = " Digitalize novamente o sensor ";
 
 /* (No Comment) */
-"Retrieval interval, every %@ minutes" = "A cada %@ minutos";
+"Retrieval interval" = " Intervalo de recuperação ";
 
 /* (No Comment) */
-"Retrieval interval, every minute" = "A cada minuto";
+"Retrieval interval, every %@ minutes" = " A cada %@ minutos ";
 
 /* (No Comment) */
-"Retry pairing" = "Repetir emparelhamento";
+"Retrieval interval, every minute" = " A cada minuto ";
 
 /* (No Comment) */
-"Scan sensor" = "Sensor de digitalização";
+"Retry pairing" = " Repetir emparelhamento ";
+
+/* (No Comment) */
+"Scan sensor" = " Sensor de digitalização ";
 
 /* (No Comment) */
 "Scanning" = "A verificar";
@@ -326,7 +338,7 @@
 "Selected calendar" = "Calendário";
 
 /* (No Comment) */
-"Send database file" = "Enviar ficheiro na base de dados";
+"Send database file" = " Enviar ficheiro na base de dados ";
 
 /* (No Comment) */
 "Send log file" = "Enviar ficheiro de registo";
@@ -344,7 +356,7 @@
 "Sensor details" = "Detalhes do sensor";
 
 /* (No Comment) */
-"Sensor ending date" = "Data de fim";
+"Sensor ending date" = " Data de fim";
 
 /* (No Comment) */
 "Sensor error values" = "Erros de CGM";
@@ -374,10 +386,10 @@
 "Sensor lifetime" = "Vida útil";
 
 /* (No Comment) */
-"Sensor lifetime widget" = "Vida útil do sensor";
+"Sensor lifetime widget" = " Vida útil do sensor ";
 
 /* (No Comment) */
-"Sensor lifetime widget description" = "Mostra a vida útil que resta do sensor de corrente na como uma contagem regressiva.";
+"Sensor lifetime widget description" = " Mostra a vida útil que resta do sensor de corrente na como uma contagem regressiva. ";
 
 /* (No Comment) */
 "Sensor not yet startet" = "Sensor ainda não iniciado";
@@ -419,10 +431,10 @@
 "Snooze until" = "Adiar";
 
 /* (No Comment) */
-"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Desvio Padrão (DP) é uma medida da propagação nas leituras de glicose à volta da média - saltar entre muitos altos e baixos resulta em um DP maior. O objetivo é o menor DP possível, o que refletiria um nível constante de glicose com oscilações mínimas.";
+"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = " Desvio Padrão (DP) é uma medida da propagação nas leituras de glicose à volta da média - saltar entre muitos altos e baixos resulta em um DP maior. O objetivo é o menor DP possível, o que refletiria um nível constante de glicose com oscilações mínimas. ";
 
 /* (No Comment) */
-"Statistics (%@ days)" = "Estatísticas (%@ dias)";
+"Statistics (%@ days)" = " Estatísticas (%@ dias) ";
 
 /* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "A ligação com o sensor foi interrompida. Normalmente isto acontece quando o sensor está fora de alcance ou quando a sua potência de transmissão é imprópria.";
@@ -431,14 +443,13 @@
 "Time" = "Hora";
 
 /* (No Comment) */
-
-"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Tempo acima do Intervalo (TAI) ou a porcentagem de tempo gasto acima da glicose alvo de %@.";
-
-/* (No Comment) */
-"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Tempo abaixo do Intervalo (TAI) ou a porcentagem de tempo gasto abaixo da glicose alvo de %@.a";
+"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = " Tempo acima do Intervalo (TAI) ou a porcentagem de tempo gasto acima da glicose alvo de %@. ";
 
 /* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Tempo no Intervalo (TNI) ou a porcentagem de tempo gasto no intervalo de glicose alvo entre %@ - %@.";
+"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = " Tempo abaixo do Intervalo (TAI) ou a porcentagem de tempo gasto abaixo da glicose alvo de %@.a";
+
+/* (No Comment) */
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@.";
 
 /* (No Comment) */
 "Transmitter" = "Transmissor";
@@ -447,7 +458,10 @@
 "Transmitter battery" = "Bateria";
 
 /* (No Comment) */
-"Transmitter battery widget" = "Bateria do transmissor";
+"Transmitter battery widget" = " Bateria do transmissor ";
+
+/* (No Comment) */
+"Transmitter battery widget description" = " Mostra a carga restante da bateria do transmissor como uma contagem regressiva. ";
 
 /* (No Comment) */
 "Transmitter details" = " Detalhes do transmissor ";
@@ -517,15 +531,3 @@
 
 /* (No Comment) */
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "O teu sensor está prestes a expirar. Substitui o sensor em %1$@ dia.";
-
-/* (No Comment) */
-"Alarm settings" = "Alarm settings";
-
-/* (No Comment) */
-"Connection settings" = "Connection settings";
-
-/* (No Comment) */
-"No Data" = "No Data";
-
-/* (No Comment) */
-"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
