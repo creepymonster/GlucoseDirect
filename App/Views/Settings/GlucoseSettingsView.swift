@@ -20,8 +20,8 @@ struct GlucoseSettingsView: View {
                     Spacer()
 
                     Picker("", selection: selectedGlucoseUnit) {
-                        Text(GlucoseUnit.mgdL.localizedString).tag(GlucoseUnit.mgdL.rawValue)
-                        Text(GlucoseUnit.mmolL.localizedString).tag(GlucoseUnit.mmolL.rawValue)
+                        Text(GlucoseUnit.mgdL.localizedDescription).tag(GlucoseUnit.mgdL.rawValue)
+                        Text(GlucoseUnit.mmolL.localizedDescription).tag(GlucoseUnit.mmolL.rawValue)
                     }
                     .pickerStyle(.menu)
                     .labelsHidden()
@@ -35,11 +35,15 @@ struct GlucoseSettingsView: View {
                     store.dispatch(.setAlarmHigh(upperLimit: value))
                 }
 
-                ToggleView(key: LocalizedString("Glucose notification"), value: store.state.glucoseNotification) { value in
-                    store.dispatch(.setGlucoseNotification(enabled: value))
+                ToggleView(key: LocalizedString("Normal glucose notification"), value: store.state.normalGlucoseNotification) { value in
+                    store.dispatch(.setNormalGlucoseNotification(enabled: value))
                 }
-                
-                if #available(iOS 16.0, *) {
+
+                ToggleView(key: LocalizedString("Alarm glucose notification"), value: store.state.alarmGlucoseNotification) { value in
+                    store.dispatch(.setAlarmGlucoseNotification(enabled: value))
+                }
+
+                if #available(iOS 16.1, *) {
                     ToggleView(key: LocalizedString("Glucose Live Activity"), value: store.state.glucoseLiveActivity) { value in
                         store.dispatch(.setGlucoseLiveActivity(enabled: value))
                     }
@@ -49,7 +53,7 @@ struct GlucoseSettingsView: View {
                     ToggleView(key: LocalizedString("Glucose read aloud"), value: store.state.readGlucose) { value in
                         store.dispatch(.setReadGlucose(enabled: value))
                     }
-                    
+
                     if store.state.readGlucose {
                         Group {
                             Text("Every 10 minutes")

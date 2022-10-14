@@ -6,6 +6,7 @@
 import Combine
 import CoreBluetooth
 import Foundation
+import SwiftUI
 
 // MARK: - IsSensor
 
@@ -22,6 +23,16 @@ protocol SensorConnectionProtocol {
     func pairConnection()
     func connectConnection(sensor: Sensor, sensorInterval: Int)
     func disconnectConnection()
+    func getConfiguration() -> [SensorConnectionConfigurationOption]?
+}
+
+// MARK: - SensorConnectionConfigurationOption
+
+struct SensorConnectionConfigurationOption {
+    let id: String
+    let name: String
+    let value: Binding<String>
+    let isSecret: Bool
 }
 
 extension SensorConnectionProtocol {
@@ -59,19 +70,19 @@ extension SensorConnectionProtocol {
         subject?.send(.setSensorState(sensorAge: age, sensorState: state))
     }
 
-    func sendUpdate(sensorSerial: String, reading: SensorReading?) {
+    func sendUpdate(reading: SensorReading?) {
         if let reading = reading {
-            sendUpdate(sensorSerial: sensorSerial, readings: [reading])
+            sendUpdate(readings: [reading])
         } else {
-            sendUpdate(sensorSerial: sensorSerial, readings: [])
+            sendUpdate(readings: [])
         }
     }
 
-    func sendUpdate(sensorSerial: String, readings: [SensorReading] = []) {
+    func sendUpdate(readings: [SensorReading] = []) {
         DirectLog.info("SensorReadings: \(readings)")
 
         if !readings.isEmpty {
-            subject?.send(.addSensorReadings(sensorSerial: sensorSerial, readings: readings))
+            subject?.send(.addSensorReadings(readings: readings))
         }
     }
 
@@ -80,19 +91,14 @@ extension SensorConnectionProtocol {
             return
         }
 
-        if let errorCode = CBError.Code(rawValue: (error as NSError).code) {
-            if errorCode.rawValue == 7 {
-                sendUpdate(errorMessage: LocalizedString("Rescan the sensor"), errorIsCritical: true)
-            } else {
-                sendUpdate(errorMessage: LocalizedString("Connection timeout"), errorIsCritical: true)
-            }
-        }
+        DirectLog.error("Error: \(error.localizedDescription)")
+        subject?.send(.setConnectionError(errorMessage: error.localizedDescription, errorTimestamp: Date()))
     }
 
-    func sendUpdate(errorMessage: String, errorIsCritical: Bool = false) {
+    func sendUpdate(errorMessage: String) {
         DirectLog.error("ErrorMessage: \(errorMessage)")
 
-        subject?.send(.setConnectionError(errorMessage: errorMessage, errorTimestamp: Date(), errorIsCritical: false))
+        subject?.send(.setConnectionError(errorMessage: errorMessage, errorTimestamp: Date()))
     }
 
     func sendUpdate(peripheralUUID: String?) {

@@ -35,7 +35,7 @@ enum NotificationSound: String, Codable, CaseIterable {
         rawValue
     }
 
-    var localizedString: String {
+    var localizedDescription: String {
         LocalizedString(rawValue.capitalizingFirstLetter())
     }
 }

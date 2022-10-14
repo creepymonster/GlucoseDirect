@@ -12,17 +12,17 @@ extension Date {
 
         while date <= toDate {
             dates.append(date.toRounded(on: step, component))
-            
+
             guard let newDate = Calendar.current.date(byAdding: component, value: step, to: date) else {
                 break
             }
-            
+
             date = newDate
         }
 
         return dates
     }
-    
+
     var startOfDay: Date {
         return Calendar.current.startOfDay(for: self)
     }

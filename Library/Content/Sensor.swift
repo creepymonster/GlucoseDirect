@@ -10,7 +10,7 @@ import Foundation
 struct Sensor: Codable {
     // MARK: Lifecycle
 
-    init(uuid: Data, patchInfo: Data, factoryCalibration: FactoryCalibration, family: SensorFamily, type: SensorType, region: SensorRegion, serial: String?, state: SensorState, age: Int, lifetime: Int, warmupTime: Int = 60) {
+    init(uuid: Data, patchInfo: Data, factoryCalibration: FactoryCalibration?, family: SensorFamily, type: SensorType, region: SensorRegion, serial: String?, state: SensorState, age: Int, lifetime: Int, warmupTime: Int = 60) {
         pairingTimestamp = Date()
         fram = nil
 
@@ -27,7 +27,7 @@ struct Sensor: Codable {
         self.warmupTime = warmupTime
     }
 
-    init(fram: Data, uuid: Data, patchInfo: Data, factoryCalibration: FactoryCalibration, family: SensorFamily, type: SensorType, region: SensorRegion, serial: String?, state: SensorState, age: Int, lifetime: Int, warmupTime: Int = 60) {
+    init(fram: Data, uuid: Data, patchInfo: Data, factoryCalibration: FactoryCalibration?, family: SensorFamily, type: SensorType, region: SensorRegion, serial: String?, state: SensorState, age: Int, lifetime: Int, warmupTime: Int = 60) {
         pairingTimestamp = Date()
 
         self.fram = fram
@@ -49,10 +49,22 @@ struct Sensor: Codable {
 
         pairingTimestamp = try container.decode(Date.self, forKey: .pairingTimestamp)
         startTimestamp = try container.decodeIfPresent(Date.self, forKey: .startTimestamp) ?? nil
-        fram = try container.decode(Data?.self, forKey: .fram)
+
+        do {
+            fram = try container.decode(Data?.self, forKey: .fram)
+        } catch {
+            fram = nil
+        }
+
         uuid = try container.decode(Data.self, forKey: .uuid)
         patchInfo = try container.decode(Data.self, forKey: .patchInfo)
-        factoryCalibration = try container.decode(FactoryCalibration.self, forKey: .factoryCalibration)
+
+        do {
+            factoryCalibration = try container.decode(FactoryCalibration?.self, forKey: .factoryCalibration)
+        } catch {
+            factoryCalibration = nil
+        }
+
         family = try container.decode(SensorFamily.self, forKey: .family)
         type = try container.decode(SensorType.self, forKey: .type)
         region = try container.decode(SensorRegion.self, forKey: .region)
@@ -87,7 +99,7 @@ struct Sensor: Codable {
     let fram: Data?
     let uuid: Data
     let patchInfo: Data
-    let factoryCalibration: FactoryCalibration
+    let factoryCalibration: FactoryCalibration?
     let family: SensorFamily
     let type: SensorType
     let region: SensorRegion
@@ -116,12 +128,12 @@ struct Sensor: Codable {
     var description: String {
         "{ uuid: \(uuid.hex), patchInfo: \(patchInfo.hex), factoryCalibration: \(factoryCalibration), family: \(family), type: \(type), region: \(region), serial: \(serial ?? "-"), state: \(state.description), lifetime: \(lifetime.inTime) }"
     }
-    
+
     var endTimestamp: Date? {
         if let startTimestamp = startTimestamp {
             return Calendar.current.date(byAdding: .minute, value: lifetime, to: startTimestamp)
         }
-        
+
         return nil
     }
 }
@@ -155,6 +167,32 @@ extension Sensor {
         )
     }
 
+    static func libre3Sensor(uuid: Data, patchInfo: Data) -> Sensor {
+        //let securityVersion = UInt16(patchInfo[2...3])
+        let localization = UInt16(patchInfo[4...5])
+        //let generation = UInt16(patchInfo[6...7])
+        let lifetime = UInt16(patchInfo[8...9])
+        let warmupTime = patchInfo[15]
+
+        let region = UInt8(localization)
+        let serial = Data(patchInfo[17...25])
+        let sensorState = UInt8(patchInfo[16])
+
+        return Sensor(
+            uuid: uuid,
+            patchInfo: patchInfo,
+            factoryCalibration: nil,
+            family: .unknown,
+            type: .libre3,
+            region: SensorRegion(region),
+            serial: "\(serial.utf8)0",
+            state: SensorState(sensorState <= 2 ? sensorState : sensorState - 1),
+            age: 0,
+            lifetime: Int(lifetime),
+            warmupTime: Int(warmupTime * 5)
+        )
+    }
+
     static func libreProSensor(uuid: Data, patchInfo: Data, fram: Data) -> Sensor {
         let family = SensorFamily(Int(patchInfo[2] >> 4))
 
@@ -168,7 +206,7 @@ extension Sensor {
             lifetime = (Int(fram[46]) + Int(fram[47]) << 8) - 60 // for safety reasons
         }
 
-        let serial = Data(fram[24 ... 39])
+        let serial = Data(fram[24...39])
 
         return Sensor(
             fram: fram,

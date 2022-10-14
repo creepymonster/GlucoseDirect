@@ -36,7 +36,7 @@ struct GlucoseFormatters {
 
         return formatter
     }()
-    
+
     static var preciseMgdLFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
@@ -148,7 +148,7 @@ extension Int {
         }
 
         if withUnit {
-            return "\(glucose) \(unit.localizedString)"
+            return "\(glucose) \(unit.localizedDescription)"
         }
 
         return glucose

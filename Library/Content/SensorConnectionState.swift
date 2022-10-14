@@ -5,7 +5,7 @@
 
 import Foundation
 
-enum SensorConnectionState: String {
+enum SensorConnectionState: String, Codable {
     case pairing = "Pairing"
     case connected = "Connected"
     case connecting = "Connecting"
@@ -26,7 +26,7 @@ enum SensorConnectionState: String {
         rawValue
     }
 
-    var localizedString: String {
+    var localizedDescription: String {
         LocalizedString(rawValue)
     }
 }

@@ -25,7 +25,7 @@ enum BellmanConnectionState: String {
         rawValue
     }
 
-    var localizedString: String {
+    var localizedDescription: String {
         LocalizedString(rawValue)
     }
 }

@@ -23,10 +23,10 @@ private func appGroupSharingMiddleware(service: LazyService<AppGroupSharingServi
             service.value.clearAll()
 
         case .setConnectionState(connectionState: let connectionState):
-            service.value.setConnectionState(value: connectionState.localizedString)
+            service.value.setConnectionState(value: connectionState.localizedDescription)
 
         case .setSensor(sensor: let sensor, keepDevice: _):
-            service.value.setSensor(sensor: sensor.type.localizedString, sensorState: sensor.state.localizedString, sensorConnectionState: state.connectionState.localizedString)
+            service.value.setSensor(sensor: sensor.type.localizedDescription, sensorState: sensor.state.localizedDescription, sensorConnectionState: state.connectionState.localizedDescription)
 
         case .setTransmitter(transmitter: let transmitter):
             service.value.setTransmitter(transmitter: transmitter.name, transmitterBattery: "\(transmitter.battery)%", transmitterHardware: transmitter.hardware?.description, transmitterFirmware: transmitter.firmware?.description)
@@ -36,10 +36,10 @@ private func appGroupSharingMiddleware(service: LazyService<AppGroupSharingServi
 
         case .pairConnection:
             service.value.clearGlucoseValues()
-            
+
         case .addBloodGlucose(glucoseValues: let glucoseValues):
             if let sensor = state.sensor {
-                service.value.setSensor(sensor: sensor.type.localizedString, sensorState: sensor.state.localizedString, sensorConnectionState: state.connectionState.localizedString)
+                service.value.setSensor(sensor: sensor.type.localizedDescription, sensorState: sensor.state.localizedDescription, sensorConnectionState: state.connectionState.localizedDescription)
             } else {
                 service.value.setSensor(sensor: nil, sensorState: nil, sensorConnectionState: nil)
             }
@@ -58,7 +58,7 @@ private func appGroupSharingMiddleware(service: LazyService<AppGroupSharingServi
 
         case .addSensorGlucose(glucoseValues: let glucoseValues):
             if let sensor = state.sensor {
-                service.value.setSensor(sensor: sensor.type.localizedString, sensorState: sensor.state.localizedString, sensorConnectionState: state.connectionState.localizedString)
+                service.value.setSensor(sensor: sensor.type.localizedDescription, sensorState: sensor.state.localizedDescription, sensorConnectionState: state.connectionState.localizedDescription)
             } else {
                 service.value.setSensor(sensor: nil, sensorState: nil, sensorConnectionState: nil)
             }
@@ -134,7 +134,7 @@ private class AppGroupSharingService {
         UserDefaults.shared.sharedTransmitterHardware = transmitterHardware
         UserDefaults.shared.sharedTransmitterFirmware = transmitterFirmware
     }
-    
+
     func addBloodGlucose(glucoseValues: [BloodGlucose]) {
         let sharedValues = glucoseValues
             .map { $0.toFreeAPS() }

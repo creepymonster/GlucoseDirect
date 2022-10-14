@@ -106,7 +106,7 @@ struct BloodGlucoseList: View {
     @State private var bloodGlucoseValues: [BloodGlucose] = []
 
     private func getTeaser(_ count: Int) -> String {
-        return count.pluralize(singular: "\(count) Entry", plural: "\(count) Entries")
+        return count.pluralize(singular: String(format: LocalizedString("%@ Entry"), count.description), plural: String(format: LocalizedString("%@ Entries"), count.description))
     }
 
     private func isPrecise(glucose: SensorGlucose) -> Bool {

@@ -24,14 +24,14 @@ protocol DirectState {
     var chartZoomLevel: Int { get set }
     var connectionAlarmSound: NotificationSound { get set }
     var connectionError: String? { get set }
-    var connectionErrorIsCritical: Bool { get set }
     var connectionErrorTimestamp: Date? { get set }
     var connectionInfos: [SensorConnectionInfo] { get set }
     var connectionPeripheralUUID: String? { get set }
     var connectionState: SensorConnectionState { get set }
     var customCalibration: [CustomCalibration] { get set }
     var expiringAlarmSound: NotificationSound { get set }
-    var glucoseNotification: Bool { get set }
+    var normalGlucoseNotification: Bool { get set }
+    var alarmGlucoseNotification: Bool { get set }
     var glucoseLiveActivity: Bool { get set }
     var glucoseUnit: GlucoseUnit { get set }
     var highGlucoseAlarmSound: NotificationSound { get set }

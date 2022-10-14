@@ -12,7 +12,7 @@ enum DirectAction {
     case addCalibration(bloodGlucoseValue: Int)
     case addSensorError(errorValues: [SensorError])
     case addSensorGlucose(glucoseValues: [SensorGlucose])
-    case addSensorReadings(sensorSerial: String, readings: [SensorReading])
+    case addSensorReadings(readings: [SensorReading])
     case bellmanTestAlarm
     case clearBloodGlucoseValues
     case clearCalibrations
@@ -34,6 +34,7 @@ enum DirectAction {
     case requestAppleCalendarAccess(enabled: Bool)
     case requestAppleHealthAccess(enabled: Bool)
     case resetSensor
+    case resetError
     case selectCalendarTarget(id: String?)
     case selectConnection(id: String, connection: SensorConnectionProtocol)
     case selectConnectionID(id: String)
@@ -54,12 +55,13 @@ enum DirectAction {
     case setChartShowLines(enabled: Bool)
     case setChartZoomLevel(level: Int)
     case setConnectionAlarmSound(sound: NotificationSound)
-    case setConnectionError(errorMessage: String, errorTimestamp: Date, errorIsCritical: Bool)
+    case setConnectionError(errorMessage: String, errorTimestamp: Date)
     case setConnectionPaired(isPaired: Bool)
     case setConnectionPeripheralUUID(peripheralUUID: String?)
     case setConnectionState(connectionState: SensorConnectionState)
     case setExpiringAlarmSound(sound: NotificationSound)
-    case setGlucoseNotification(enabled: Bool)
+    case setNormalGlucoseNotification(enabled: Bool)
+    case setAlarmGlucoseNotification(enabled: Bool)
     case setGlucoseLiveActivity(enabled: Bool)
     case setGlucoseUnit(unit: GlucoseUnit)
     case setHighGlucoseAlarmSound(sound: NotificationSound)

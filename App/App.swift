@@ -130,15 +130,15 @@ private func createSimulatorAppStore() -> DirectStore {
         sensorErrorMiddleware(),
         glucoseStatisticsMiddleware()
     ]
-    
-    if #available(iOS 16.0, *) {
+
+    if #available(iOS 16.1, *) {
         middlewares.append(widgetCenterMiddleware())
     }
 
     middlewares.append(sensorConnectorMiddelware([
         SensorConnectionInfo(id: DirectConfig.virtualID, name: "Virtual") { VirtualLibreConnection(subject: $0) }
     ]))
-    
+
     #if DEBUG
         middlewares.append(debugMiddleware())
     #endif
@@ -168,8 +168,8 @@ private func createAppStore() -> DirectStore {
         sensorErrorMiddleware(),
         glucoseStatisticsMiddleware()
     ]
-    
-    if #available(iOS 16.0, *) {
+
+    if #available(iOS 16.1, *) {
         middlewares.append(widgetCenterMiddleware())
     }
 
@@ -177,7 +177,7 @@ private func createAppStore() -> DirectStore {
 
     #if canImport(CoreNFC)
         if NFCTagReaderSession.readingAvailable {
-            connectionInfos.append(SensorConnectionInfo(id: DirectConfig.libre2ID, name: LocalizedString("Without transmitter"), connectionCreator: { Libre2Connection(subject: $0) }))
+            connectionInfos.append(SensorConnectionInfo(id: DirectConfig.libre2ID, name: LocalizedString("Without transmitter"), connectionCreator: { LibreConnection(subject: $0) }))
             connectionInfos.append(SensorConnectionInfo(id: DirectConfig.bubbleID, name: LocalizedString("Bubble transmitter"), connectionCreator: { BubbleConnection(subject: $0) }))
         } else {
             connectionInfos.append(SensorConnectionInfo(id: DirectConfig.bubbleID, name: LocalizedString("Bubble transmitter"), connectionCreator: { BubbleConnection(subject: $0) }))
@@ -187,7 +187,7 @@ private func createAppStore() -> DirectStore {
     #endif
 
     #if DEBUG
-        connectionInfos.append(SensorConnectionInfo(id: DirectConfig.librelinkID, name: LocalizedString("LibreLink transmitter"), connectionCreator: { LibreLinkConnection(subject: $0) }))
+        connectionInfos.append(SensorConnectionInfo(id: DirectConfig.libreLinkID, name: LocalizedString("LibreLink transmitter"), connectionCreator: { LibreLinkConnection(subject: $0) }))
     #endif
 
     middlewares.append(sensorConnectorMiddelware(connectionInfos))

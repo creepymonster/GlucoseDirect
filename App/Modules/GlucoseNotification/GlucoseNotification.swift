@@ -17,17 +17,6 @@ func glucoseNotificationMiddelware() -> Middleware<DirectState, DirectAction> {
 private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificationService>) -> Middleware<DirectState, DirectAction> {
     return { state, action, _ in
         switch action {
-        case .setGlucoseNotification(enabled: let enabled):
-            if !enabled {
-                service.value.clear()
-            } else {
-                guard let glucose = state.latestSensorGlucose else {
-                    break
-                }
-                
-                service.value.setGlucoseNotification(glucose: glucose, glucoseUnit: state.glucoseUnit)
-            }
-
         case .setGlucoseUnit(unit: let unit):
             guard let glucose = state.latestSensorGlucose else {
                 break
@@ -50,7 +39,7 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
             if glucose.glucoseValue < state.alarmLow {
                 DirectLog.info("Glucose alert, low: \(glucose.glucoseValue) < \(state.alarmLow)")
 
-                if state.glucoseNotification {
+                if state.alarmGlucoseNotification {
                     service.value.setLowGlucoseNotification(glucose: glucose, glucoseUnit: state.glucoseUnit, isSnoozed: isSnoozed)
                 }
 
@@ -67,7 +56,7 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
             } else if glucose.glucoseValue > state.alarmHigh {
                 DirectLog.info("Glucose alert, high: \(glucose.glucoseValue) > \(state.alarmHigh)")
 
-                if state.glucoseNotification {
+                if state.alarmGlucoseNotification {
                     service.value.setHighGlucoseNotification(glucose: glucose, glucoseUnit: state.glucoseUnit, isSnoozed: isSnoozed)
                 }
 
@@ -81,7 +70,7 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
                         .eraseToAnyPublisher()
                 }
 
-            } else if state.glucoseNotification {
+            } else if state.normalGlucoseNotification {
                 service.value.setGlucoseNotification(glucose: glucose, glucoseUnit: state.glucoseUnit)
             } else {
                 service.value.clear()
@@ -119,7 +108,7 @@ private class GlucoseNotificationService {
         DirectNotifications.shared.ensureCanSendNotification { state in
             DirectLog.info("Glucose info, state: \(state)")
 
-            guard state == .sound else {
+            guard state != .none else {
                 return
             }
 
@@ -144,20 +133,14 @@ private class GlucoseNotificationService {
     }
 
     func setLowGlucoseAlarm(sound: NotificationSound, ignoreMute: Bool) {
-        DirectNotifications.shared.ensureCanSendNotification { state in
-            guard state == .sound else {
-                return
-            }
-            
-            DirectNotifications.shared.playSound(sound: sound, ignoreMute: ignoreMute)
-        }
+        DirectNotifications.shared.playSound(sound: sound, ignoreMute: ignoreMute)
     }
 
     func setLowGlucoseNotification(glucose: SensorGlucose, glucoseUnit: GlucoseUnit, isSnoozed: Bool) {
         DirectNotifications.shared.ensureCanSendNotification { state in
             DirectLog.info("Glucose alert, state: \(state)")
 
-            guard state == .sound else {
+            guard state != .none else {
                 return
             }
 
@@ -183,20 +166,14 @@ private class GlucoseNotificationService {
     }
 
     func setHighGlucoseAlarm(sound: NotificationSound, ignoreMute: Bool) {
-        DirectNotifications.shared.ensureCanSendNotification { state in
-            guard state == .sound else {
-                return
-            }
-            
-            DirectNotifications.shared.playSound(sound: sound, ignoreMute: ignoreMute)
-        }
+        DirectNotifications.shared.playSound(sound: sound, ignoreMute: ignoreMute)
     }
 
     func setHighGlucoseNotification(glucose: SensorGlucose, glucoseUnit: GlucoseUnit, isSnoozed: Bool) {
         DirectNotifications.shared.ensureCanSendNotification { state in
             DirectLog.info("Glucose alert, state: \(state)")
 
-            guard state == .sound else {
+            guard state != .none else {
                 return
             }
 

@@ -95,7 +95,7 @@ private class ExpiringNotificationService {
         DirectNotifications.shared.ensureCanSendNotification { state in
             DirectLog.info("Sensor expired alert, state: \(state)")
 
-            guard state == .sound else {
+            guard state != .none else {
                 return
             }
 
@@ -105,7 +105,10 @@ private class ExpiringNotificationService {
             notification.title = LocalizedString("Alert, sensor expired")
             notification.body = LocalizedString("Your sensor has expired and needs to be replaced as soon as possible")
 
-            DirectNotifications.shared.playSound(sound: sound, ignoreMute: ignoreMute)
+            if state == .sound {
+                DirectNotifications.shared.playSound(sound: sound, ignoreMute: ignoreMute)
+            }
+            
             DirectNotifications.shared.addNotification(identifier: Identifier.sensorExpiringAlarm.rawValue, content: notification)
         }
     }
@@ -125,7 +128,7 @@ private class ExpiringNotificationService {
         DirectNotifications.shared.ensureCanSendNotification { state in
             DirectLog.info("Sensor expired alert, state: \(state)")
 
-            guard state == .sound else {
+            guard state != .none else {
                 return
             }
             
@@ -134,7 +137,10 @@ private class ExpiringNotificationService {
             notification.title = LocalizedString("Alert, sensor expiring soon")
             notification.body = body
 
-            DirectNotifications.shared.playSound(sound: sound, ignoreMute: ignoreMute)
+            if state == .sound {
+                DirectNotifications.shared.playSound(sound: sound, ignoreMute: ignoreMute)
+            }
+            
             DirectNotifications.shared.addNotification(identifier: Identifier.sensorExpiringAlarm.rawValue, content: notification)
         }
     }

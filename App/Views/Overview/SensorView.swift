@@ -8,8 +8,6 @@ import SwiftUI
 // MARK: - SensorView
 
 struct SensorView: View {
-    // MARK: Internal
-
     @EnvironmentObject var store: DirectStore
 
     var body: some View {
@@ -20,7 +18,7 @@ struct SensorView: View {
                         HStack {
                             Text("Sensor state")
                             Spacer()
-                            Text(sensor.state.localizedString)
+                            Text(sensor.state.localizedDescription)
                         }
 
                         if sensor.state == .notYetStarted {
@@ -100,25 +98,19 @@ struct SensorView: View {
                         HStack {
                             Text("Sensor type")
                             Spacer()
-                            Text(sensor.type.localizedString)
+                            Text(sensor.type.localizedDescription)
                         }
 
                         HStack {
                             Text("Sensor region")
                             Spacer()
-                            Text(sensor.region.localizedString)
+                            Text(sensor.region.localizedDescription)
                         }
 
                         HStack {
                             Text("Sensor UID")
                             Spacer()
                             Text(sensor.uuid.hex)
-                        }
-
-                        HStack {
-                            Text("Sensor PatchInfo")
-                            Spacer()
-                            Text(sensor.patchInfo.hex)
                         }
 
                         if let serial = sensor.serial {

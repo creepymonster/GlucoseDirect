@@ -8,8 +8,6 @@ import SwiftUI
 // MARK: - ListView
 
 struct ListsView: View {
-    // MARK: Internal
-
     @EnvironmentObject var store: DirectStore
 
     var body: some View {
@@ -21,7 +19,7 @@ struct ListsView: View {
             if let glucoseStatistics = store.state.glucoseStatistics {
                 Section(
                     content: {
-                        if glucoseStatistics.days >= requiredDays {
+                        if glucoseStatistics.days >= DirectConfig.minGlucoseStatisticsDays {
                             #if DEBUG
                             HStack {
                                 Text("Readings")
@@ -118,18 +116,14 @@ struct ListsView: View {
                                 store.dispatch(.setShowAnnotations(showAnnotations: !store.state.showAnnotations))
                             }
                         } else {
-                            Text("At least \(requiredDays) days of data are required.")
+                            Text("At least \(DirectConfig.minGlucoseStatisticsDays.description) days of data are required.")
                         }
                     },
                     header: {
-                        Label("Statistics (\(glucoseStatistics.days) days)", systemImage: "lightbulb")
+                        Label("Statistics (\(glucoseStatistics.days.description) days)", systemImage: "lightbulb")
                     }
                 )
             }
         }.listStyle(.grouped)
     }
-
-    // MARK: Private
-
-    private let requiredDays = 14
 }
