@@ -35,6 +35,9 @@
 "Alarm glucose notification" = "Notification de glycémie d'alarme";
 
 /* (No Comment) */
+"Alarm settings" = "Alarm settings";
+
+/* (No Comment) */
 "Alert, high glucose" = "Alerte, glucose élevé";
 
 /* (No Comment) */
@@ -138,6 +141,9 @@
 
 /* (No Comment) */
 "Connection error timestamp" = "Temps";
+
+/* (No Comment) */
+"Connection settings" = "Connection settings";
 
 /* (No Comment) */
 "Connection state" = "État";
@@ -248,6 +254,9 @@
 "Nightscout url" = "Url";
 
 /* (No Comment) */
+"No Data" = "No Data";
+
+/* (No Comment) */
 "No screen lock" = "Pas de verrouillage d'écran";
 
 /* (No Comment) */
@@ -300,6 +309,9 @@
 
 /* (No Comment) */
 "Readable rising" = "hausse";
+
+/* (No Comment) */
+"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
 
 /* (No Comment) */
 "Rescan the sensor" = "Rescanner le capteur";
@@ -437,10 +449,10 @@
 "Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Le temps sous l'intervalle (TSI) ou le pourcentage de temps passé en dessous de la glycémie cible de %@.";
 
 /* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Le temps dans l'intervalle (TDI) ou le pourcentage de temps passé dans l'intervalle de glycémie cible entre %@ et %@.";
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@.";
 
 /* (No Comment) */
-"Transmitter" = "Émetteur";
+"Transmitter" = "Émetteur : ";
 
 /* (No Comment) */
 "Transmitter battery" = "Batterie";
@@ -519,15 +531,3 @@
 
 /* (No Comment) */
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Votre capteur est sur le point d'expirer. Remplacez le capteur dans %1$@ minutes.";
-
-/* (No Comment) */
-"Alarm settings" = "Alarm settings";
-
-/* (No Comment) */
-"Connection settings" = "Connection settings";
-
-/* (No Comment) */
-"No Data" = "No Data";
-
-/* (No Comment) */
-"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
