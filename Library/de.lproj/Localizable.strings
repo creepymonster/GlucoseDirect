@@ -437,7 +437,7 @@
 "Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Time below Range (TBR) oder der prozentuale Anteil der Zeit, die unterhalb des Zielwerts von %@ verbracht wurde.";
 
 /* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@ %@." = "Time in Range (TIR) oder der prozentuale Anteil der Zeit, die im Zielbereich zwischen %@ - %@ verbracht wurde.";
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@.";
 
 /* (No Comment) */
 "Transmitter" = "Transmitter";
@@ -519,3 +519,15 @@
 
 /* (No Comment) */
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Ihr Sensor läuft demnächst ab. Ersetzen Sie den Sensor in %1$@ Minuten.";
+
+/* (No Comment) */
+"Alarm settings" = "Alarm settings";
+
+/* (No Comment) */
+"Connection settings" = "Connection settings";
+
+/* (No Comment) */
+"No Data" = "No Data";
+
+/* (No Comment) */
+"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
