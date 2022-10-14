@@ -35,6 +35,9 @@
 "Alarm glucose notification" = "Alarm Glikoz Bildirimi";
 
 /* (No Comment) */
+"Alarm settings" = "Alarm ayarları";
+
+/* (No Comment) */
 "Alert, high glucose" = "Uyarı, yüksek glikoz";
 
 /* (No Comment) */
@@ -138,6 +141,9 @@
 
 /* (No Comment) */
 "Connection error timestamp" = "Zaman";
+
+/* (No Comment) */
+"Connection settings" = "Bağlantı Ayarları";
 
 /* (No Comment) */
 "Connection state" = "Durum";
@@ -248,6 +254,9 @@
 "Nightscout url" = "Url";
 
 /* (No Comment) */
+"No Data" = "Veri Yok";
+
+/* (No Comment) */
 "No screen lock" = "Ekran kilidi yok";
 
 /* (No Comment) */
@@ -300,6 +309,9 @@
 
 /* (No Comment) */
 "Readable rising" = "yükseliyor";
+
+/* (No Comment) */
+"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Uygulamayı en geç %@ tarafından yeniden açın. Aksi takdirde iOS, widget'ı otomatik olarak devre dışı bırakır :(";
 
 /* (No Comment) */
 "Rescan the sensor" = "Sensörü yeniden tara";
@@ -519,15 +531,3 @@
 
 /* (No Comment) */
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Sensörünüzün süresi dolmak üzere. Sensörü %1$@ dakika içinde değiştirin.";
-
-/* (No Comment) */
-"Alarm settings" = "Alarm ayarları";
-
-/* (No Comment) */
-"Connection settings" = "Bağlantı Ayarları";
-
-/* (No Comment) */
-"No Data" = "Veri Yok";
-
-/* (No Comment) */
-"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Uygulamayı en geç %@ tarafından yeniden açın. Aksi takdirde iOS, widget'ı otomatik olarak devre dışı bırakır :(";
