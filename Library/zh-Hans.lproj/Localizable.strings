@@ -519,3 +519,15 @@
 
 /* (No Comment) */
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "您的传感器即将过期。在 %1$@ 分钟内更换传感器。";
+
+/* (No Comment) */
+"Alarm settings" = "Alarm settings";
+
+/* (No Comment) */
+"Connection settings" = "Connection settings";
+
+/* (No Comment) */
+"No Data" = "No Data";
+
+/* (No Comment) */
+"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
