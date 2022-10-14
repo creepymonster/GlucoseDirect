@@ -470,7 +470,7 @@
 "Upper limit" = "Alto";
 
 /* (No Comment) */
-"Use LibreLink to start the sensor" = "Utilizzare LibreLink per avviare il sensore";
+"Use LibreLink to start the sensor" = "Utilizzare LibreLink per avviare il sensore ";
 
 /* (No Comment) */
 "Vibration" = "Solo vibrazione";
@@ -519,3 +519,15 @@
 
 /* (No Comment) */
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Il tuo sensore sta per scadere. Sostituisci il tuo sensore in %1$@ giorno/i.";
+
+/* (No Comment) */
+"Alarm settings" = "Alarm settings";
+
+/* (No Comment) */
+"Connection settings" = "Connection settings";
+
+/* (No Comment) */
+"No Data" = "No Data";
+
+/* (No Comment) */
+"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";

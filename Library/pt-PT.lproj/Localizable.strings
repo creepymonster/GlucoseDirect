@@ -431,6 +431,7 @@
 "Time" = "Hora";
 
 /* (No Comment) */
+
 "Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Tempo acima do Intervalo (TAI) ou a porcentagem de tempo gasto acima da glicose alvo de %@.";
 
 /* (No Comment) */
@@ -449,10 +450,7 @@
 "Transmitter battery widget" = "Bateria do transmissor";
 
 /* (No Comment) */
-"Transmitter battery widget description" = "Mostra a carga restante da bateria do transmissor como uma contagem regressiva.";
-
-/* (No Comment) */
-"Transmitter details" = "Detalhes do transmissor";
+"Transmitter details" = " Detalhes do transmissor ";
 
 /* (No Comment) */
 "Transmitter firmware" = "Firmware";
@@ -470,10 +468,10 @@
 "Upper limit" = "Alto";
 
 /* (No Comment) */
-"Use LibreLink to start the sensor" = "Use o LibreLink para iniciar o sensor";
+"Use LibreLink to start the sensor" = " Use o LibreLink para iniciar o sensor ";
 
 /* (No Comment) */
-"Vibration" = "Vibrar apenas";
+"Vibration" = " Vibrar apenas ";
 
 /* (No Comment) */
 "Virtual Sensor" = "Sensor Virtual";
@@ -519,3 +517,15 @@
 
 /* (No Comment) */
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "O teu sensor está prestes a expirar. Substitui o sensor em %1$@ dia.";
+
+/* (No Comment) */
+"Alarm settings" = "Alarm settings";
+
+/* (No Comment) */
+"Connection settings" = "Connection settings";
+
+/* (No Comment) */
+"No Data" = "No Data";
+
+/* (No Comment) */
+"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";

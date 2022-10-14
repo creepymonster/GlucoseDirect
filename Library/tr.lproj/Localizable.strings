@@ -519,3 +519,15 @@
 
 /* (No Comment) */
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Sensörünüzün süresi dolmak üzere. Sensörü %1$@ dakika içinde değiştirin.";
+
+/* (No Comment) */
+"Alarm settings" = "Alarm ayarları";
+
+/* (No Comment) */
+"Connection settings" = "Bağlantı Ayarları";
+
+/* (No Comment) */
+"No Data" = "Veri Yok";
+
+/* (No Comment) */
+"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Uygulamayı en geç %@ tarafından yeniden açın. Aksi takdirde iOS, widget'ı otomatik olarak devre dışı bırakır :(";

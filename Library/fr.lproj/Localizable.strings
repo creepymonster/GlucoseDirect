@@ -440,7 +440,7 @@
 "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Le temps dans l'intervalle (TDI) ou le pourcentage de temps passé dans l'intervalle de glycémie cible entre %@ et %@.";
 
 /* (No Comment) */
-"Transmitter" = "Émetteur :";
+"Transmitter" = "Émetteur";
 
 /* (No Comment) */
 "Transmitter battery" = "Batterie";
@@ -519,3 +519,15 @@
 
 /* (No Comment) */
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Votre capteur est sur le point d'expirer. Remplacez le capteur dans %1$@ minutes.";
+
+/* (No Comment) */
+"Alarm settings" = "Alarm settings";
+
+/* (No Comment) */
+"Connection settings" = "Connection settings";
+
+/* (No Comment) */
+"No Data" = "No Data";
+
+/* (No Comment) */
+"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
