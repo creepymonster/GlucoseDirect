@@ -35,6 +35,9 @@
 "Alarm glucose notification" = "报警葡萄糖通知";
 
 /* (No Comment) */
+"Alarm settings" = "Alarm settings";
+
+/* (No Comment) */
 "Alert, high glucose" = "警告，高血糖";
 
 /* (No Comment) */
@@ -138,6 +141,9 @@
 
 /* (No Comment) */
 "Connection error timestamp" = "时间";
+
+/* (No Comment) */
+"Connection settings" = "Connection settings";
 
 /* (No Comment) */
 "Connection state" = "状态";
@@ -248,6 +254,9 @@
 "Nightscout url" = "网址";
 
 /* (No Comment) */
+"No Data" = "No Data";
+
+/* (No Comment) */
 "No screen lock" = "无屏幕锁定";
 
 /* (No Comment) */
@@ -300,6 +309,9 @@
 
 /* (No Comment) */
 "Readable rising" = "上升";
+
+/* (No Comment) */
+"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
 
 /* (No Comment) */
 "Rescan the sensor" = "重新扫描传感器";
@@ -437,7 +449,7 @@
 "Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "低于范围的时间 (TAR) 或低于目标葡萄糖的时间百分比， %@。";
 
 /* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "范围内的时间 (TIR) 或在目标葡萄糖范围内的时间百分比为 %@ - %@。";
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@.";
 
 /* (No Comment) */
 "Transmitter" = "发射器";
@@ -519,15 +531,3 @@
 
 /* (No Comment) */
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "您的传感器即将过期。在 %1$@ 分钟内更换传感器。";
-
-/* (No Comment) */
-"Alarm settings" = "Alarm settings";
-
-/* (No Comment) */
-"Connection settings" = "Connection settings";
-
-/* (No Comment) */
-"No Data" = "No Data";
-
-/* (No Comment) */
-"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
