@@ -431,7 +431,6 @@
 "Time" = "Hora";
 
 /* (No Comment) */
-
 "Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Tempo acima do Intervalo (TAI) ou a porcentagem de tempo gasto acima da glicose alvo de %@.";
 
 /* (No Comment) */
@@ -529,3 +528,9 @@
 
 /* (No Comment) */
 "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
+
+/* (No Comment) */
+"StatisticsPeriod" = "Período";
+
+/* (No Comment) */
+"Transmitter battery widget description" = "Apresenta a carga restante da bateria do transmissor como uma contagem decrescente.";

@@ -5,9 +5,11 @@
 
 import SwiftUI
 
-// MARK: - ListView
+// MARK: - ListsView
 
 struct ListsView: View {
+    // MARK: Internal
+
     @EnvironmentObject var store: DirectStore
 
     var body: some View {
@@ -19,7 +21,37 @@ struct ListsView: View {
             if let glucoseStatistics = store.state.glucoseStatistics {
                 Section(
                     content: {
-                        if glucoseStatistics.days >= DirectConfig.minGlucoseStatisticsDays {
+                        HStack {
+                            Text("StatisticsPeriod")
+                            Spacer()
+                            HStack {
+                                ForEach(Config.chartLevels, id: \.days) { level in
+                                    Button(
+                                        action: {
+                                            DirectNotifications.shared.hapticNotification()
+                                            store.dispatch(.setStatisticsDays(days: level.days))
+                                        },
+                                        label: {
+                                            Circle()
+                                                .if(isSelectedChartLevel(days: level.days)) {
+                                                    $0.fill(Color.ui.label)
+                                                } else: {
+                                                    $0.stroke(Color.ui.label)
+                                                }
+                                                .frame(width: 12, height: 12)
+
+                                            Text(level.name)
+                                                .font(.subheadline)
+                                                .foregroundColor(Color.ui.label)
+                                        }
+                                    )
+                                    .buttonStyle(.plain)
+                                    .padding(.leading)
+                                }
+                            }
+                        }
+
+                        Group {
                             #if DEBUG
                             HStack {
                                 Text("Readings")
@@ -27,96 +59,92 @@ struct ListsView: View {
                                 Text(glucoseStatistics.readings.description)
                             }
                             #endif
-                            
-                            Group {
-                                VStack(alignment: .leading, spacing: 10) {
-                                    HStack {
-                                        Text("AVG")
-                                        Spacer()
-                                        Text(glucoseStatistics.avg.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))
-                                    }
-                                    
-                                    if store.state.showAnnotations {
-                                        Text("Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been.")
-                                            .font(.footnote)
-                                            .foregroundColor(.gray)
-                                    }
+
+                            VStack(alignment: .leading, spacing: 10) {
+                                HStack {
+                                    Text("AVG")
+                                    Spacer()
+                                    Text(glucoseStatistics.avg.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))
                                 }
-                                
-                                VStack(alignment: .leading, spacing: 10) {
-                                    HStack {
-                                        Text("SD")
-                                        Spacer()
-                                        Text(glucoseStatistics.stdev.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))
-                                    }
-                                    
-                                    if store.state.showAnnotations {
-                                        Text("Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings.")
-                                            .font(.footnote)
-                                            .foregroundColor(.gray)
-                                    }
+
+                                if store.state.showAnnotations {
+                                    Text("Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been.")
+                                        .font(.footnote)
+                                        .foregroundColor(.gray)
                                 }
-                                
-                                VStack(alignment: .leading, spacing: 10) {
-                                    HStack {
-                                        Text("GMI")
-                                        Spacer()
-                                        Text(glucoseStatistics.gmi.asPercent())
-                                    }
-                                    
-                                    if store.state.showAnnotations {
-                                        Text("Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring.")
-                                            .font(.footnote)
-                                            .foregroundColor(.gray)
-                                    }
-                                }
-                                
-                                VStack(alignment: .leading, spacing: 10) {
-                                    HStack {
-                                        Text("TIR")
-                                        Spacer()
-                                        Text(glucoseStatistics.tir.asPercent())
-                                    }
-                                    
-                                    if store.state.showAnnotations {
-                                        Text("Time in Range (TIR) or the percentage of time spent in the target glucose range between \(store.state.alarmLow.asGlucose(unit: store.state.glucoseUnit)) - \(store.state.alarmHigh.asGlucose(unit: store.state.glucoseUnit, withUnit: true)).")
-                                            .font(.footnote)
-                                            .foregroundColor(.gray)
-                                    }
-                                }
-                                
-                                VStack(alignment: .leading, spacing: 10) {
-                                    HStack {
-                                        Text("TBR")
-                                        Spacer()
-                                        Text(glucoseStatistics.tbr.asPercent())
-                                    }
-                                    
-                                    if store.state.showAnnotations {
-                                        Text("Time below Range (TBR) or the percentage of time spent below the target glucose of \(store.state.alarmLow.asGlucose(unit: store.state.glucoseUnit, withUnit: true)).")
-                                            .font(.footnote)
-                                            .foregroundColor(.gray)
-                                    }
-                                }
-                                
-                                VStack(alignment: .leading, spacing: 10) {
-                                    HStack {
-                                        Text("TAR")
-                                        Spacer()
-                                        Text(glucoseStatistics.tar.asPercent())
-                                    }
-                                    
-                                    if store.state.showAnnotations {
-                                        Text("Time above Range (TAR) or the percentage of time spent above the target glucose of \(store.state.alarmHigh.asGlucose(unit: store.state.glucoseUnit, withUnit: true)).")
-                                            .font(.footnote)
-                                            .foregroundColor(.gray)
-                                    }
-                                }
-                            }.onTapGesture(count: 2) {
-                                store.dispatch(.setShowAnnotations(showAnnotations: !store.state.showAnnotations))
                             }
-                        } else {
-                            Text("At least \(DirectConfig.minGlucoseStatisticsDays.description) days of data are required.")
+
+                            VStack(alignment: .leading, spacing: 10) {
+                                HStack {
+                                    Text("SD")
+                                    Spacer()
+                                    Text(glucoseStatistics.stdev.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))
+                                }
+
+                                if store.state.showAnnotations {
+                                    Text("Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings.")
+                                        .font(.footnote)
+                                        .foregroundColor(.gray)
+                                }
+                            }
+
+                            VStack(alignment: .leading, spacing: 10) {
+                                HStack {
+                                    Text("GMI")
+                                    Spacer()
+                                    Text(glucoseStatistics.gmi.asPercent())
+                                }
+
+                                if store.state.showAnnotations {
+                                    Text("Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring.")
+                                        .font(.footnote)
+                                        .foregroundColor(.gray)
+                                }
+                            }
+
+                            VStack(alignment: .leading, spacing: 10) {
+                                HStack {
+                                    Text("TIR")
+                                    Spacer()
+                                    Text(glucoseStatistics.tir.asPercent())
+                                }
+
+                                if store.state.showAnnotations {
+                                    Text("Time in Range (TIR) or the percentage of time spent in the target glucose range between \(store.state.alarmLow.asGlucose(unit: store.state.glucoseUnit)) - \(store.state.alarmHigh.asGlucose(unit: store.state.glucoseUnit, withUnit: true)).")
+                                        .font(.footnote)
+                                        .foregroundColor(.gray)
+                                }
+                            }
+
+                            VStack(alignment: .leading, spacing: 10) {
+                                HStack {
+                                    Text("TBR")
+                                    Spacer()
+                                    Text(glucoseStatistics.tbr.asPercent())
+                                }
+
+                                if store.state.showAnnotations {
+                                    Text("Time below Range (TBR) or the percentage of time spent below the target glucose of \(store.state.alarmLow.asGlucose(unit: store.state.glucoseUnit, withUnit: true)).")
+                                        .font(.footnote)
+                                        .foregroundColor(.gray)
+                                }
+                            }
+
+                            VStack(alignment: .leading, spacing: 10) {
+                                HStack {
+                                    Text("TAR")
+                                    Spacer()
+                                    Text(glucoseStatistics.tar.asPercent())
+                                }
+
+                                if store.state.showAnnotations {
+                                    Text("Time above Range (TAR) or the percentage of time spent above the target glucose of \(store.state.alarmHigh.asGlucose(unit: store.state.glucoseUnit, withUnit: true)).")
+                                        .font(.footnote)
+                                        .foregroundColor(.gray)
+                                }
+                            }
+                        }.onTapGesture(count: 2) {
+                            store.dispatch(.setShowAnnotations(showAnnotations: !store.state.showAnnotations))
                         }
                     },
                     header: {
@@ -126,4 +154,34 @@ struct ListsView: View {
             }
         }.listStyle(.grouped)
     }
+
+    // MARK: Private
+
+    private enum Config {
+        static let chartLevels: [ChartLevel] = [
+            ChartLevel(days: 3, name: LocalizedString("3d")),
+            ChartLevel(days: 7, name: LocalizedString("7d")),
+            ChartLevel(days: 14, name: LocalizedString("14d")),
+            ChartLevel(days: 30, name: LocalizedString("30d")),
+        ]
+    }
+
+    private var chartLevel: ChartLevel? {
+        Config.chartLevels.first(where: { $0.days == store.state.statisticsDays })
+    }
+
+    private func isSelectedChartLevel(days: Int) -> Bool {
+        if let chartLevel = chartLevel, chartLevel.days == days {
+            return true
+        }
+
+        return false
+    }
+}
+
+// MARK: - ChartLevel
+
+private struct ChartLevel {
+    let days: Int
+    let name: String
 }

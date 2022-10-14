@@ -531,3 +531,6 @@
 
 /* (No Comment) */
 "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
+
+/* (No Comment) */
+"StatisticsPeriod" = "Periodo";
