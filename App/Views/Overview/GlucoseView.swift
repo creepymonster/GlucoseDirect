@@ -27,7 +27,7 @@ struct GlucoseView: View {
     var body: some View {
         if let latestGlucose = store.state.latestSensorGlucose {
             VStack {
-                HStack(alignment: .lastTextBaseline) {
+                HStack(alignment: .lastTextBaseline, spacing: 10) {
                     ZStack(alignment: .trailing) {
                         Text(latestGlucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit))
                             .font(.system(size: 96))

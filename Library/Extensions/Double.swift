@@ -45,8 +45,8 @@ extension Double {
 
         return glucose
     }
-
-    func asMinuteChange(glucoseUnit: GlucoseUnit, withUnit: Bool = false) -> String {
+    
+    func asShortMinuteChange(glucoseUnit: GlucoseUnit, withUnit: Bool = false) -> String {
         var formattedMinuteChange = ""
 
         if glucoseUnit == .mgdL {
@@ -56,8 +56,14 @@ extension Double {
         }
 
         if withUnit {
-            return String(format: LocalizedString("%1$@ %2$@/min."), formattedMinuteChange, glucoseUnit.localizedDescription)
+            return String(format: LocalizedString("%1$@ %2$@"), formattedMinuteChange, glucoseUnit.localizedDescription)
         }
+
+        return String(format: LocalizedString("%1$@"), formattedMinuteChange)
+    }
+
+    func asMinuteChange(glucoseUnit: GlucoseUnit, withUnit: Bool = false) -> String {
+        let formattedMinuteChange = asShortMinuteChange(glucoseUnit: glucoseUnit, withUnit: withUnit)
 
         return String(format: LocalizedString("%1$@/min."), formattedMinuteChange)
     }

@@ -16,4 +16,13 @@ enum GlucoseUnit: String, Codable, Hashable {
     var localizedDescription: String {
         self.rawValue
     }
+
+    var shortLocalizedDescription: String {
+        switch self {
+        case .mgdL:
+            return "mg"
+        case .mmolL:
+            return "mmol"
+        }
+    }
 }
