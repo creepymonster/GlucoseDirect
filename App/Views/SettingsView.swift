@@ -11,7 +11,8 @@ struct SettingsView: View {
     var body: some View {
         VStack {
             List {
-                SensorConnectorSettings()
+                SensorConnectorSettingsView()
+                SensorConnectionConfigurationView()
                 GlucoseSettingsView()
                 AlarmSettingsView()
                 NightscoutSettingsView()

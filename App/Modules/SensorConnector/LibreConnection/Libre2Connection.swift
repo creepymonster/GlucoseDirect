@@ -13,8 +13,6 @@ class Libre2Connection: SensorBluetoothConnection, IsSensor {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<DirectAction, DirectError>) {
-        DirectLog.info("init")
-
         super.init(subject: subject, serviceUUID: CBUUID(string: "FDE3"))
     }
 
@@ -24,7 +22,9 @@ class Libre2Connection: SensorBluetoothConnection, IsSensor {
         "abbott"
     }
 
-    override func pairConnection() {}
+    override func pairConnection() {
+        UserDefaults.standard.unlockCount = 0
+    }
 
     override func resetBuffer() {
         DirectLog.info("ResetBuffer")
@@ -36,25 +36,10 @@ class Libre2Connection: SensorBluetoothConnection, IsSensor {
 
     override func checkRetrievedPeripheral(peripheral: CBPeripheral) -> Bool {
         if let sensorSerial = sensor?.serial {
-            return peripheral.name == "ABBOTT\(sensorSerial)"
+            return peripheral.name?.lowercased() == "\(peripheralName)\(sensorSerial)"
         }
 
         return false
-    }
-
-    func unlock() -> Data? {
-        DirectLog.info("Unlock, count: \(UserDefaults.standard.libreUnlockCount)")
-
-        if sensor == nil {
-            return nil
-        }
-
-        let unlockCount = UserDefaults.standard.libreUnlockCount + 1
-        let unlockPayload = Libre2EUtility.streamingUnlockPayload(uuid: sensor!.uuid, patchInfo: sensor!.patchInfo, enableTime: 42, unlockCount: UInt16(unlockCount))
-
-        UserDefaults.standard.libreUnlockCount = unlockCount
-
-        return Data(unlockPayload)
     }
 
     override func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
@@ -76,8 +61,7 @@ class Libre2Connection: SensorBluetoothConnection, IsSensor {
             var foundUUID = manufacturerData.subdata(in: 2 ..< 8)
             foundUUID.append(contentsOf: [0x07, 0xe0])
 
-            let result = foundUUID == sensor.uuid && peripheral.name?.lowercased().starts(with: peripheralName) ?? false
-            if result {
+            if foundUUID == sensor.uuid {
                 manager.stopScan()
                 connect(peripheral)
             }
@@ -151,17 +135,17 @@ class Libre2Connection: SensorBluetoothConnection, IsSensor {
         if !firstBuffer.isEmpty, !secondBuffer.isEmpty, !thirdBuffer.isEmpty {
             let rxBuffer = firstBuffer + secondBuffer + thirdBuffer
 
-            if let sensor = sensor {
+            if let sensor = sensor, let factoryCalibration = sensor.factoryCalibration {
                 do {
                     let decryptedBLE = Data(try Libre2EUtility.decryptBLE(uuid: sensor.uuid, data: rxBuffer))
-                    let parsedBLE = Libre2EUtility.parseBLE(calibration: sensor.factoryCalibration, data: decryptedBLE)
+                    let parsedBLE = Libre2EUtility.parseBLE(calibration: factoryCalibration, data: decryptedBLE)
 
                     if parsedBLE.age >= sensor.lifetime {
                         sendUpdate(age: parsedBLE.age, state: .expired)
 
                     } else if parsedBLE.age > sensor.warmupTime {
                         sendUpdate(age: parsedBLE.age, state: .ready)
-                        sendUpdate(sensorSerial: sensor.serial ?? "", readings: parsedBLE.history + parsedBLE.trend)
+                        sendUpdate(readings: parsedBLE.history + parsedBLE.trend)
 
                     } else if parsedBLE.age <= sensor.warmupTime {
                         sendUpdate(age: parsedBLE.age, state: .starting)
@@ -188,4 +172,34 @@ class Libre2Connection: SensorBluetoothConnection, IsSensor {
     private var firstBuffer = Data()
     private var secondBuffer = Data()
     private var thirdBuffer = Data()
+
+    private func unlock() -> Data? {
+        DirectLog.info("Unlock, count: \(UserDefaults.standard.unlockCount)")
+
+        if sensor == nil {
+            return nil
+        }
+
+        let unlockCount = UserDefaults.standard.unlockCount + 1
+        let unlockPayload = Libre2EUtility.streamingUnlockPayload(uuid: sensor!.uuid, patchInfo: sensor!.patchInfo, enableTime: 42, unlockCount: UInt16(unlockCount))
+
+        UserDefaults.standard.unlockCount = unlockCount
+
+        return Data(unlockPayload)
+    }
+}
+
+private extension UserDefaults {
+    private enum Keys: String {
+        case unlockCount = "libre-direct.libre2.unlock-count"
+    }
+
+    var unlockCount: Int {
+        get {
+            return UserDefaults.standard.integer(forKey: Keys.unlockCount.rawValue)
+        }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: Keys.unlockCount.rawValue)
+        }
+    }
 }

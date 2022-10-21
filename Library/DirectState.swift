@@ -24,7 +24,6 @@ protocol DirectState {
     var chartZoomLevel: Int { get set }
     var connectionAlarmSound: NotificationSound { get set }
     var connectionError: String? { get set }
-    var connectionErrorIsCritical: Bool { get set }
     var connectionErrorTimestamp: Date? { get set }
     var connectionInfos: [SensorConnectionInfo] { get set }
     var connectionPeripheralUUID: String? { get set }
@@ -57,6 +56,7 @@ protocol DirectState {
     var sensorGlucoseHistory: [SensorGlucose] { get set }
     var sensorInterval: Int { get set }
     var showAnnotations: Bool { get set }
+    var statisticsDays: Int { get set }
     var glucoseStatistics: GlucoseStatistics? { get set }
     var targetValue: Int { get set }
     var transmitter: Transmitter? { get set }

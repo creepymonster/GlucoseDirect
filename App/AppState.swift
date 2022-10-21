@@ -84,7 +84,6 @@ struct AppState: DirectState {
     var bloodGlucoseHistory: [BloodGlucose] = []
     var bloodGlucoseValues: [BloodGlucose] = []
     var connectionError: String?
-    var connectionErrorIsCritical = false
     var connectionErrorTimestamp: Date?
     var connectionInfos: [SensorConnectionInfo] = []
     var connectionState: SensorConnectionState = .disconnected
@@ -96,6 +95,7 @@ struct AppState: DirectState {
     var glucoseStatistics: GlucoseStatistics? = nil
     var targetValue = 100
     var selectedView = DirectConfig.overviewViewTag
+    var statisticsDays = 14
 
     var alarmHigh: Int { didSet { UserDefaults.standard.alarmHigh = alarmHigh } }
     var alarmLow: Int { didSet { UserDefaults.standard.alarmLow = alarmLow } }

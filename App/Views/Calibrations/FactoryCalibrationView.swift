@@ -11,43 +11,43 @@ struct FactoryCalibrationView: View {
     @EnvironmentObject var store: DirectStore
 
     var body: some View {
-        if let sensor = store.state.sensor {
+        if let sensor = store.state.sensor, let factoryCalibration = sensor.factoryCalibration {
             Section(
                 content: {
                     HStack {
-                        Text("i1")
+                        Text(verbatim: "i1")
                         Spacer()
-                        Text(sensor.factoryCalibration.i1.description)
+                        Text(factoryCalibration.i1.description)
                     }
 
                     HStack {
-                        Text("i2")
+                        Text(verbatim: "i2")
                         Spacer()
-                        Text(sensor.factoryCalibration.i2.description)
+                        Text(factoryCalibration.i2.description)
                     }
 
                     HStack {
-                        Text("i3")
+                        Text(verbatim: "i3")
                         Spacer()
-                        Text(sensor.factoryCalibration.i3.description)
+                        Text(factoryCalibration.i3.description)
                     }
 
                     HStack {
-                        Text("i4")
+                        Text(verbatim: "i4")
                         Spacer()
-                        Text(sensor.factoryCalibration.i4.description)
+                        Text(factoryCalibration.i4.description)
                     }
 
                     HStack {
-                        Text("i5")
+                        Text(verbatim: "i5")
                         Spacer()
-                        Text(sensor.factoryCalibration.i5.description)
+                        Text(factoryCalibration.i5.description)
                     }
 
                     HStack {
-                        Text("i6")
+                        Text(verbatim: "i6")
                         Spacer()
-                        Text(sensor.factoryCalibration.i6.description)
+                        Text(factoryCalibration.i6.description)
                     }
                 },
                 header: {

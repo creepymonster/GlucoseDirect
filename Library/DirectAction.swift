@@ -4,15 +4,15 @@
 //
 
 import Foundation
-import SwiftUI
 import OSLog
+import SwiftUI
 
 enum DirectAction {
     case addBloodGlucose(glucoseValues: [BloodGlucose])
     case addCalibration(bloodGlucoseValue: Int)
     case addSensorError(errorValues: [SensorError])
     case addSensorGlucose(glucoseValues: [SensorGlucose])
-    case addSensorReadings(sensorSerial: String, readings: [SensorReading])
+    case addSensorReadings(readings: [SensorReading])
     case bellmanTestAlarm
     case clearBloodGlucoseValues
     case clearCalibrations
@@ -34,6 +34,7 @@ enum DirectAction {
     case requestAppleCalendarAccess(enabled: Bool)
     case requestAppleHealthAccess(enabled: Bool)
     case resetSensor
+    case resetError
     case selectCalendarTarget(id: String?)
     case selectConnection(id: String, connection: SensorConnectionProtocol)
     case selectConnectionID(id: String)
@@ -54,7 +55,7 @@ enum DirectAction {
     case setChartShowLines(enabled: Bool)
     case setChartZoomLevel(level: Int)
     case setConnectionAlarmSound(sound: NotificationSound)
-    case setConnectionError(errorMessage: String, errorTimestamp: Date, errorIsCritical: Bool)
+    case setConnectionError(errorMessage: String, errorTimestamp: Date)
     case setConnectionPaired(isPaired: Bool)
     case setConnectionPeripheralUUID(peripheralUUID: String?)
     case setConnectionState(connectionState: SensorConnectionState)
@@ -79,9 +80,10 @@ enum DirectAction {
     case setShowAnnotations(showAnnotations: Bool)
     case setGlucoseStatistics(statistics: GlucoseStatistics)
     case setTransmitter(transmitter: Transmitter)
+    case setStatisticsDays(days: Int)
     case startup
     case shutdown
-    
+
     case debugAlarm
     case debugNotification
 }

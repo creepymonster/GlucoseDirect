@@ -7,10 +7,12 @@ import SwiftUI
 
 // MARK: - SensorConnectorSettings
 
-struct SensorConnectorSettings: View {
+struct SensorConnectorSettingsView: View {
     // MARK: Internal
 
     @EnvironmentObject var store: DirectStore
+    
+    private let intervals: [Int] = [1, 5, 15]
 
     var body: some View {
         if store.state.connectionInfos.count > 1 {
@@ -34,7 +36,7 @@ struct SensorConnectorSettings: View {
                         Spacer()
 
                         Picker("", selection: selectedSensorInterval) {
-                            ForEach([1, 5, 15], id: \.self) { interval in
+                            ForEach(intervals, id: \.self) { interval in
                                 if interval == 1 {
                                     Text("Retrieval interval, every minute")
                                 } else {

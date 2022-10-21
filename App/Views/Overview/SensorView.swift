@@ -113,12 +113,6 @@ struct SensorView: View {
                             Text(sensor.uuid.hex)
                         }
 
-                        HStack {
-                            Text("Sensor PatchInfo")
-                            Spacer()
-                            Text(sensor.patchInfo.hex)
-                        }
-
                         if let serial = sensor.serial {
                             HStack {
                                 Text("Sensor serial")

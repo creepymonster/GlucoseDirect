@@ -8,16 +8,31 @@
 "%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
 
 /* (No Comment) */
+"%@ Entries" = "%@ Entries";
+
+/* (No Comment) */
+"%@ Entry" = "%@ Entry";
+
+/* (No Comment) */
+"About %@" = "Om %@";
+
+/* (No Comment) */
 "Add" = "Lägg till";
+
+/* (No Comment) */
+"Add blood glucose" = "Lägg till blodsockervärde";
+
+/* (No Comment) */
+"Add calibration" = "Ny Kalibrering";
 
 /* (No Comment) */
 "Add glucose for calibration" = "Lägg till blodglukos för kalibrering";
 
 /* (No Comment) */
-"Add calibration" = "Add calibration";
+"After disconnections" = "- Efter frånkopplingar";
 
 /* (No Comment) */
-"Add blood glucose" = "Add blood glucose";
+"Alarm glucose notification" = "Blodsockerlarm";
 
 /* (No Comment) */
 "Alert, high glucose" = "Varning, högt blodsocker";
@@ -35,10 +50,61 @@
 "Alert, sensor expiring soon" = "Varning, sensor behöver snart bytas";
 
 /* (No Comment) */
+"App author" = "Upphovsman";
+
+/* (No Comment) */
+"App donate" = "Donera";
+
+/* (No Comment) */
+"App email" = "E-post";
+
+/* (No Comment) */
+"App facebook group" = "Facebook";
+
+/* (No Comment) */
+"App faq" = "FAQ";
+
+/* (No Comment) */
+"App support mail" = "Support";
+
+/* (No Comment) */
+"App translation" = "Översättning";
+
+/* (No Comment) */
+"App version" = "Version";
+
+/* (No Comment) */
+"App website" = "Hemsida";
+
+/* (No Comment) */
+"Apple export settings" = "Apple Hälsa exportinställningar";
+
+/* (No Comment) */
 "Are you sure you want to disconnect the sensor?" = "Bekräfta att du vill koppla ifrån sensorn";
 
 /* (No Comment) */
+"At least %@ days of data are required." = "Det krävs minst %@ dagars data.";
+
+/* (No Comment) */
+"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Varning, sensorn skickar felaktiga värden. Vänta 10 minuter.";
+
+/* (No Comment) */
+"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been.";
+
+/* (No Comment) */
+"Bellman alarm" = "Larm";
+
+/* (No Comment) */
+"Bellman test alarm" = "Testa larm";
+
+/* (No Comment) */
+"Blood glucose values" = "BGM";
+
+/* (No Comment) */
 "Blood glucose: %1$@" = "Blodsocker: %1$@";
+
+/* (No Comment) */
+"Bubble transmitter" = "Bubble";
 
 /* (No Comment) */
 "Calibration view" = "Kalibrering";
@@ -53,13 +119,28 @@
 "Connect sensor" = "Anslut sensor";
 
 /* (No Comment) */
+"Connect transmitter" = "Anslut sändare";
+
+/* (No Comment) */
 "Connected" = "Ansluten";
 
 /* (No Comment) */
 "Connecting" = "Ansluter";
 
 /* (No Comment) */
+"Connection" = "Sensoranslutning";
+
+/* (No Comment) */
 "Connection alarm" = "Anslutningslarm";
+
+/* (No Comment) */
+"Connection error" = "Fel";
+
+/* (No Comment) */
+"Connection error timestamp" = "Tid";
+
+/* (No Comment) */
+"Connection state" = "Tillstånd";
 
 /* (No Comment) */
 "Custom calibration intercept" = "Skärningspunkt";
@@ -77,13 +158,43 @@
 "Disconnect sensor" = "Koppla ifrån sensor";
 
 /* (No Comment) */
+"Disconnect transmitter" = "Koppla från sändare";
+
+/* (No Comment) */
 "Disconnected" = "Frånkopplad";
+
+/* (No Comment) */
+"Every 10 minutes" = "Var 10: e minut";
+
+/* (No Comment) */
+"Export to Apple Calendar" = "Skapa kalenderhändelser";
+
+/* (No Comment) */
+"Export to Apple Health" = "Exportera till Apple Hälsa";
+
+/* (No Comment) */
+"Find transmitter" = "Hitta sändare";
+
+/* (No Comment) */
+"Glucose" = "Blodsocker";
 
 /* (No Comment) */
 "Glucose list view" = "Lista";
 
 /* (No Comment) */
+"Glucose Live Activity" = "Glucose Live Activity";
+
+/* (No Comment) */
+"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring.";
+
+/* (No Comment) */
+"Glucose notification" = "Blodsockernotis";
+
+/* (No Comment) */
 "Glucose overview" = "Översikt";
+
+/* (No Comment) */
+"Glucose read aloud" = "Blodsockervärde";
 
 /* (No Comment) */
 "Glucose settings" = "Glukosinställningar";
@@ -92,7 +203,34 @@
 "Glucose unit" = "Enhet";
 
 /* (No Comment) */
+"Glucose widget" = "Blodsocker";
+
+/* (No Comment) */
+"Glucose widget description" = "Visar det senaste blodglukosvärdet.";
+
+/* (No Comment) */
+"High glucose alarm" = "Högt blodsockerlarm";
+
+/* (No Comment) */
 "Hold the top edge of your iPhone close to the sensor." = "Håll toppen av telefonen nära sensorn.";
+
+/* (No Comment) */
+"Ignore mute" = "Ignorera tyst läge";
+
+/* (No Comment) */
+"LibreLink transmitter" = "LibreLink";
+
+/* (No Comment) */
+"LibreLinkUp email" = "Ditt LibreLinkUp användarnamn (e-post)";
+
+/* (No Comment) */
+"LibreLinkUp password" = "DItt lösenord för LibreLinkUp";
+
+/* (No Comment) */
+"Line" = "Linje";
+
+/* (No Comment) */
+"Low glucose alarm" = "Lågt blodsockerlarm";
 
 /* (No Comment) */
 "Lower limit" = "Lågt";
@@ -101,37 +239,103 @@
 "Nightscout API-Secret" = "API-lösen";
 
 /* (No Comment) */
-"Nightscout url" = "URL";
-
-/* (No Comment) */
 "Nightscout settings" = "Nightscout-inställningar";
 
 /* (No Comment) */
 "Nightscout upload enabled" = "Ladda upp";
 
 /* (No Comment) */
+"Nightscout url" = "URL";
+
+/* (No Comment) */
+"No screen lock" = "Inget skärmlås";
+
+/* (No Comment) */
+"Normal glucose notification" = "Notis för normalt blodsocker";
+
+/* (No Comment) */
 "Now" = "Nu";
+
+/* (No Comment) */
+"Pairing" = "Parkopplar";
+
+/* (No Comment) */
+"Please select" = "Välj";
 
 /* (No Comment) */
 "Power off" = "Ingen ström";
 
 /* (No Comment) */
+"Readable falling" = "sjunkande";
+
+/* (No Comment) */
+"Readable fast falling" = "snabbt sjunkande";
+
+/* (No Comment) */
+"Readable fast rising" = "snabbt stigande";
+
+/* (No Comment) */
+"Readable glucose with trend: %1$@ %2$@, %3$@" = "Glukos: %1$@ %2$@, %3$@";
+
+/* (No Comment) */
+"Readable glucose: %1$@ %2$@" = "Glukos: %1$@ %2$@";
+
+/* (No Comment) */
+"Readable high glucose: %1$@ %2$@" = "Glukos: %1$@ %2$@. Varning, Högt blodsocker!";
+
+/* (No Comment) */
+"Readable low glucose: %1$@ %2$@" = "Glukos: %1$@ %2$@. Varning, Lågt blodsocker!";
+
+/* (No Comment) */
+"Readable miligram" = "milligram";
+
+/* (No Comment) */
+"Readable milimol" = "millimol";
+
+/* (No Comment) */
+"Readable rapidly falling" = "hastigt sjunkande";
+
+/* (No Comment) */
+"Readable rapidly rising" = "hastigt stigande";
+
+/* (No Comment) */
+"Readable rising" = "stigande";
+
+/* (No Comment) */
+"Rescan the sensor" = "Skanna om sensorn";
+
+/* (No Comment) */
+"Retrieval interval" = "Uppdateringsintervall";
+
+/* (No Comment) */
+"Retrieval interval, every %@ minutes" = "Var %@ minut";
+
+/* (No Comment) */
+"Retrieval interval, every minute" = "Varje minut";
+
+/* (No Comment) */
+"Retry pairing" = "Försök att parkoppla igen";
+
+/* (No Comment) */
+"Scan sensor" = "Skanna sensor";
+
+/* (No Comment) */
 "Scanning" = "Scannar";
+
+/* (No Comment) */
+"Selected calendar" = "Kalender";
+
+/* (No Comment) */
+"Send database file" = "Skicka databasfil";
+
+/* (No Comment) */
+"Send log file" = "Skicka loggfil";
 
 /* (No Comment) */
 "Sensor age" = "Sensorålder";
 
 /* (No Comment) */
-"Connection" = "Sensoranslutning";
-
-/* (No Comment) */
-"Connection error" = "Fel";
-
-/* (No Comment) */
-"Connection error timestamp" = "Tid";
-
-/* (No Comment) */
-"Connection state" = "Tillstånd";
+"Sensor connection" = "Sensoranslutning";
 
 /* (No Comment) */
 "Sensor custom calibration" = "Egen kalibrering";
@@ -140,7 +344,16 @@
 "Sensor details" = "Sensordetaljer";
 
 /* (No Comment) */
+"Sensor ending date" = "Slutdatum";
+
+/* (No Comment) */
+"Sensor error values" = "CGM-fel";
+
+/* (No Comment) */
 "Sensor factory calibration" = "Fabrikskalibrering";
+
+/* (No Comment) */
+"Sensor glucose values" = "CGM";
 
 /* (No Comment) */
 "Sensor has failure" = "Sensor har fel";
@@ -159,6 +372,12 @@
 
 /* (No Comment) */
 "Sensor lifetime" = "Livstid";
+
+/* (No Comment) */
+"Sensor lifetime widget" = "Sensorns livslängd";
+
+/* (No Comment) */
+"Sensor lifetime widget description" = "Visar återstående livslängd för den aktuella sensorn.";
 
 /* (No Comment) */
 "Sensor not yet startet" = "Sensor har inte startat ännu";
@@ -182,6 +401,9 @@
 "Sensor serial" = "Serienummer";
 
 /* (No Comment) */
+"Sensor starting date" = "Startdatum";
+
+/* (No Comment) */
 "Sensor state" = "Tillstånd";
 
 /* (No Comment) */
@@ -197,7 +419,49 @@
 "Snooze until" = "Snooza tills";
 
 /* (No Comment) */
+"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between many highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings.";
+
+/* (No Comment) */
+"Statistics (%@ days)" = "Statistics (%@ days)";
+
+/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "Anslutningen till sensorn har avbrutits. Normalt händer detta när sensorn är utom räckvidd eller när dess överföringskapacitet är nedsatt.";
+
+/* (No Comment) */
+"Time" = "Tid";
+
+/* (No Comment) */
+"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Time above Range (TAR) or the percentage of time spent above the target glucose of %@.";
+
+/* (No Comment) */
+"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Time below Range (TBR) or the percentage of time spent below the target glucose of %@.";
+
+/* (No Comment) */
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@.";
+
+/* (No Comment) */
+"Transmitter" = "Sändare";
+
+/* (No Comment) */
+"Transmitter battery" = "Batteri";
+
+/* (No Comment) */
+"Transmitter battery widget" = "Sändarbatteri";
+
+/* (No Comment) */
+"Transmitter battery widget description" = "Visar sändarens återstående batteriladdning.";
+
+/* (No Comment) */
+"Transmitter details" = "Sändardetaljer";
+
+/* (No Comment) */
+"Transmitter firmware" = "Firmware";
+
+/* (No Comment) */
+"Transmitter hardware" = "Hårdvara";
+
+/* (No Comment) */
+"Transmitter name" = "Namn";
 
 /* (No Comment) */
 "Unknown" = "Okänd";
@@ -206,10 +470,28 @@
 "Upper limit" = "Högt";
 
 /* (No Comment) */
+"Use LibreLink to start the sensor" = "Använd LibreLink-appen för att starta din sensor";
+
+/* (No Comment) */
+"Vibration" = "Endast vibration";
+
+/* (No Comment) */
 "Virtual Sensor" = "Virtuell sensor";
 
 /* (No Comment) */
+"Warmup" = "Sensors återstående tid för uppvärmning";
+
+/* (No Comment) */
 "Wearing time alarm" = "Larm för brukstid";
+
+/* (No Comment) */
+"When a new alarm is triggered" = "- När ett nytt larm utlöses";
+
+/* (No Comment) */
+"When the glucose trend changes" = "- När glukostrend förändras";
+
+/* (No Comment) */
+"Without transmitter" = "Utan sändare";
 
 /* (No Comment) */
 "Your current glucose is %1$@ (%2$@)." = "Ditt nuvarande blodsocker är %1$@ (%2$@).";
@@ -239,277 +521,16 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Din sensor går snart ut. Byt sensor om %1$@ minuter.";
 
 /* (No Comment) */
-"Line" = "Linje";
+"Alarm settings" = "Alarm settings";
 
 /* (No Comment) */
-"Transmitter name" = "Namn";
+"Connection settings" = "Connection settings";
 
 /* (No Comment) */
-"Transmitter battery" = "Batteri";
+"No Data" = "No Data";
 
 /* (No Comment) */
-"Transmitter hardware" = "Hårdvara";
+"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
 
 /* (No Comment) */
-"Transmitter firmware" = "Firmware";
-
-/* (No Comment) */
-"Transmitter" = "Sändare";
-
-/* (No Comment) */
-"Sensor connection" = "Sensoranslutning";
-
-/* (No Comment) */
-"Without transmitter" = "Utan sändare";
-
-/* (No Comment) */
-"Bubble transmitter" = "Bubbel-sändare";
-
-/* (No Comment) */
-"Pairing" = "Parkopplar";
-
-/* (No Comment) */
-"Selected calendar" = "Kalender";
-
-/* (No Comment) */
-"Please select" = "Välj";
-
-/* (No Comment) */
-"About %@" = "Om %@";
-
-/* (No Comment) */
-"App version" = "Version";
-
-/* (No Comment) */
-"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Varning, sensorn skickar felaktiga värden. Vänta 10 minuter.";
-
-/* (No Comment) */
-"App website" = "Hemsida";
-
-/* (No Comment) */
-"Send log file" = "Skicka loggfil";
-
-/* (No Comment) */
-"Sensor starting date" = "Startdatum";
-
-/* (No Comment) */
-"Sensor ending date" = "Ending date";
-
-/* (No Comment) */
-"Readable glucose: %1$@ %2$@" = "Glukos: %1$@ %2$@";
-
-/* (No Comment) */
-"Readable glucose with trend: %1$@ %2$@, %3$@" = "Glukos: %1$@ %2$@, %3$@";
-
-/* (No Comment) */
-"Readable low glucose: %1$@ %2$@" = "Glukos: %1$@ %2$@. Varning, Lågt blodsocker!";
-
-/* (No Comment) */
-"Readable high glucose: %1$@ %2$@" = "Glukos: %1$@ %2$@. Varning, Högt blodsocker!";
-
-/* (No Comment) */
-"Readable miligram" = "milligram";
-
-/* (No Comment) */
-"Readable milimol" = "millimol";
-
-/* (No Comment) */
-"Readable falling" = "sjunkande";
-
-/* (No Comment) */
-"Readable fast falling" = "snabbt sjunkande";
-
-/* (No Comment) */
-"Readable rapidly falling" = "hastigt sjunkande";
-
-/* (No Comment) */
-"Readable rising" = "stigande";
-
-/* (No Comment) */
-"Readable fast rising" = "snabbt stigande";
-
-/* (No Comment) */
-"Readable rapidly rising" = "hastigt stigande";
-
-/* (No Comment) */
-"Every 10 minutes" = "Var 10: e minut";
-
-/* (No Comment) */
-"After disconnections" = "- Efter frånkopplingar";
-
-/* (No Comment) */
-"When the glucose trend changes" = "- När glukostrend förändras";
-
-/* (No Comment) */
-"When a new alarm is triggered" = "- När ett nytt larm utlöses";
-
-/* (No Comment) */
-"App author" = "Upphovsman";
-
-/* (No Comment) */
-"App support mail" = "Support";
-
-/* (No Comment) */
-"App translation" = "Översättning";
-
-/* (No Comment) */
-"App faq" = "FAQ";
-
-/* (No Comment) */
-"App facebook group" = "Facebook";
-
-/* (No Comment) */
-"App email" = "E-post";
-
-/* (No Comment) */
-"Low glucose alarm" = "Lågt blodsockerlarm";
-
-/* (No Comment) */
-"High glucose alarm" = "Högt blodsockerlarm";
-
-/* (No Comment) */
-"Vibration" = "Endast vibration";
-
-/* (No Comment) */
-"Scan sensor" = "Skanna sensor";
-
-/* (No Comment) */
-"Retry pairing" = "Försök att parkoppla igen";
-
-/* (No Comment) */
-"Retrieval interval" = "Uppdateringsintervall";
-
-/* (No Comment) */
-"Retrieval interval, every minute" = "Varje minut";
-
-/* (No Comment) */
-"Retrieval interval, every %@ minutes" = "Var %@ minut";
-
-/* (No Comment) */
-"App donate" = "Donera";
-
-/* (No Comment) */
-"Bellman alarm" = "Larm";
-
-/* (No Comment) */
-"Bellman test alarm" = "Testa larm";
-
-/* (No Comment) */
-"Find transmitter" = "Hitta sändare";
-
-/* (No Comment) */
-"Connect transmitter" = "Anslut sändare";
-
-/* (No Comment) */
-"Disconnect transmitter" = "Koppla från sändare";
-
-/* (No Comment) */
-"Rescan the sensor" = "Skanna om sensorn";
-
-/* (No Comment) */
-"Apple export settings" = "Apple Hälsa exportinställningar";
-
-/* (No Comment) */
-"Export to Apple Health" = "Exportera till Apple Hälsa";
-
-/* (No Comment) */
-"Export to Apple Calendar" = "Skapa kalenderhändelser";
-
-/* (No Comment) */
-"Glucose notification" = "Glucose Notification";
-
-/* (No Comment) */
-"Time" = "Tid";
-
-/* (No Comment) */
-"Glucose" = "Glucose";
-
-/* (No Comment) */
-"Transmitter details" = "Transmitter details";
-
-/* (No Comment) */
-"Glucose widget" = "Glucose";
-
-/* (No Comment) */
-"Glucose widget description" = "Displays the last glucose value.";
-
-/* (No Comment) */
-"Sensor lifetime widget" = "Sensor Lifetime";
-
-/* (No Comment) */
-"Sensor lifetime widget description" = "Displays the remaining lifetime of the current sensor as a countdown.";
-
-/* (No Comment) */
-"Transmitter battery widget" = "Transmitter Battery";
-
-/* (No Comment) */
-"Transmitter battery widget description" = "Displays the remaining battery charge of the transmitter as a countdown.";
-
-/* (No Comment) */
-"Warmup" = "Sensors återstående tid för uppvärmning";
-
-/* (No Comment) */
-"No screen lock" = "No screen lock";
-
-/* (No Comment) */
-"LibreLink transmitter" = "LibreLink Transmitter";
-
-/* (No Comment) */
-"Use LibreLink to start the sensor" = "Use LibreLink to start the sensor";
-
-/* (No Comment) */
-"Sensor glucose values" = "CGM";
-
-/* (No Comment) */
-"Sensor error values" = "CGM errors";
-
-/* (No Comment) */
-"Blood glucose values" = "BGM";
-
-/* (No Comment) */
-"At least %@ days of data are required." = "At least %@ days of data are required.";
-
-/* (No Comment) */
-"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been.";
-
-/* (No Comment) */
-"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring.";
-
-/* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@ %@." = "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@.";
-
-/* (No Comment) */
-"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Time below Range (TBR) or the percentage of time spent below the target glucose of %@.";
-
-/* (No Comment) */
-"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Time above Range (TAR) or the percentage of time spent above the target glucose of %@.";
-
-/* (No Comment) */
-"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between many highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings.";
-
-/* (No Comment) */
-"Statistics (%@ days)" = "Statistics (%@ days)";
-
-/* (No Comment) */
-"%@ Entries" = "%@ Entries";
-
-/* (No Comment) */
-"%@ Entry" = "%@ Entry";
-
-/* (No Comment) */
-"Send database file" = "Send database file";
-
-/* (No Comment) */
-"Glucose Live Activity" = "Glucose Live Activity";
-
-/* (No Comment) */
-"Glucose read aloud" = "Glucose Reading";
-
-/* (No Comment) */
-"Ignore mute" = "Ignorera tyst läge";
-
-/* (No Comment) */
-"Normal glucose notification" = "Normal Glucose Notification";
-
-/* (No Comment) */
-"Alarm glucose notification" = "Alarm Glucose Notification";
+"StatisticsPeriod" = "Period";

@@ -8,16 +8,31 @@
 "%1$@d %2$@h %3$@min" = "%1$@g %2$@sa %3$@dk";
 
 /* (No Comment) */
+"%@ Entries" = "%@ Girdiler";
+
+/* (No Comment) */
+"%@ Entry" = "%@ Girdi";
+
+/* (No Comment) */
+"About %@" = "Hakkında %@";
+
+/* (No Comment) */
 "Add" = "Ekle";
 
 /* (No Comment) */
-"Add glucose for calibration" = "Kalibrasyon için glikoz ekleyin";
+"Add blood glucose" = "Kan Şekeri ekle";
 
 /* (No Comment) */
 "Add calibration" = "Kalibrasyon ekle";
 
 /* (No Comment) */
-"Add blood glucose" = "Kan Şekeri ekle";
+"Add glucose for calibration" = "Kalibrasyon için glikoz ekleyin";
+
+/* (No Comment) */
+"After disconnections" = "- Bağlantı kesildikten sonra";
+
+/* (No Comment) */
+"Alarm glucose notification" = "Alarm Glikoz Bildirimi";
 
 /* (No Comment) */
 "Alert, high glucose" = "Uyarı, yüksek glikoz";
@@ -35,10 +50,61 @@
 "Alert, sensor expiring soon" = "Uyarı, sensör süresi yakında sona eriyor";
 
 /* (No Comment) */
+"App author" = "Yazar";
+
+/* (No Comment) */
+"App donate" = "Bağışta Bulun";
+
+/* (No Comment) */
+"App email" = "e-posta";
+
+/* (No Comment) */
+"App facebook group" = "Facebook Grubu";
+
+/* (No Comment) */
+"App faq" = "SSS";
+
+/* (No Comment) */
+"App support mail" = "Destek";
+
+/* (No Comment) */
+"App translation" = "Çeviri";
+
+/* (No Comment) */
+"App version" = "Sürüm";
+
+/* (No Comment) */
+"App website" = "Web sitesi";
+
+/* (No Comment) */
+"Apple export settings" = "Apple dışa aktarma ayarları";
+
+/* (No Comment) */
 "Are you sure you want to disconnect the sensor?" = "Sensörün bağlantısını kesmek istediğinizden emin misiniz?";
 
 /* (No Comment) */
+"At least %@ days of data are required." = "En az %@ günlük veri gerekli.";
+
+/* (No Comment) */
+"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Dikkat, sensör hatalı değerler gönderiyor. Lütfen 10 dakika bekleyin.";
+
+/* (No Comment) */
+"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Ortalama (AVG), belirli bir süre boyunca kan şekerlerinin genel bir ölçüsüdür ve glikozun nerede olduğuna dair tek bir üst düzey görünüm sunar.";
+
+/* (No Comment) */
+"Bellman alarm" = "Alarm";
+
+/* (No Comment) */
+"Bellman test alarm" = "Deneme alarmı";
+
+/* (No Comment) */
+"Blood glucose values" = "BGM";
+
+/* (No Comment) */
 "Blood glucose: %1$@" = "KŞ: %1$@";
+
+/* (No Comment) */
+"Bubble transmitter" = "Bubble";
 
 /* (No Comment) */
 "Calibration view" = "Kalibrasyon";
@@ -53,13 +119,28 @@
 "Connect sensor" = "Sensörü bağla";
 
 /* (No Comment) */
+"Connect transmitter" = "Vericiyi bağla";
+
+/* (No Comment) */
 "Connected" = "Bağlı";
 
 /* (No Comment) */
 "Connecting" = "Bağlanıyor";
 
 /* (No Comment) */
+"Connection" = "Bağlantı";
+
+/* (No Comment) */
 "Connection alarm" = "Bağlantı alarmı";
+
+/* (No Comment) */
+"Connection error" = "Hata";
+
+/* (No Comment) */
+"Connection error timestamp" = "Zaman";
+
+/* (No Comment) */
+"Connection state" = "Durum";
 
 /* (No Comment) */
 "Custom calibration intercept" = "Kesişme";
@@ -77,13 +158,43 @@
 "Disconnect sensor" = "Sensörle bağlantıyı kes";
 
 /* (No Comment) */
+"Disconnect transmitter" = "Verici bağlantısını kes";
+
+/* (No Comment) */
 "Disconnected" = "Bağlantı kesildi";
+
+/* (No Comment) */
+"Every 10 minutes" = "- Her 10 dakikada bir";
+
+/* (No Comment) */
+"Export to Apple Calendar" = "Apple Takvime Aktar";
+
+/* (No Comment) */
+"Export to Apple Health" = "Apple Health'e Aktar";
+
+/* (No Comment) */
+"Find transmitter" = "Verici bul";
+
+/* (No Comment) */
+"Glucose" = "Glikoz";
 
 /* (No Comment) */
 "Glucose list view" = "Liste";
 
 /* (No Comment) */
+"Glucose Live Activity" = "Canlı Glikoz Aktivitesi";
+
+/* (No Comment) */
+"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Glikoz Yönetim Göstergesi (GMI), sürekli glikoz izleme kullanan hastalar için \"tahmini HbA1c\" yerine geçer.";
+
+/* (No Comment) */
+"Glucose notification" = "Glikoz bildirimi";
+
+/* (No Comment) */
 "Glucose overview" = "Genel Bakış";
+
+/* (No Comment) */
+"Glucose read aloud" = "Glikoz Okuma";
 
 /* (No Comment) */
 "Glucose settings" = "Glikoz ayarları";
@@ -92,7 +203,34 @@
 "Glucose unit" = "Birim";
 
 /* (No Comment) */
+"Glucose widget" = "Glikoz";
+
+/* (No Comment) */
+"Glucose widget description" = "Son glikoz değerini görüntüler.";
+
+/* (No Comment) */
+"High glucose alarm" = "Yüksek glikoz alarmı";
+
+/* (No Comment) */
 "Hold the top edge of your iPhone close to the sensor." = "iPhone'unuzun üst kenarını sensöre yakın tutun.";
+
+/* (No Comment) */
+"Ignore mute" = "Sessize almayı yoksay";
+
+/* (No Comment) */
+"LibreLink transmitter" = "LibreLink";
+
+/* (No Comment) */
+"LibreLinkUp email" = "LibreLinkUp e-posta";
+
+/* (No Comment) */
+"LibreLinkUp password" = "LibreLinkUp şifresi";
+
+/* (No Comment) */
+"Line" = "Çizgi";
+
+/* (No Comment) */
+"Low glucose alarm" = "Düşük glikoz alarmı";
 
 /* (No Comment) */
 "Lower limit" = "Düşük";
@@ -101,37 +239,103 @@
 "Nightscout API-Secret" = "API-Parolası";
 
 /* (No Comment) */
-"Nightscout url" = "Url";
-
-/* (No Comment) */
 "Nightscout settings" = "Nightscout ayarları";
 
 /* (No Comment) */
 "Nightscout upload enabled" = "Yükle";
 
 /* (No Comment) */
+"Nightscout url" = "Url";
+
+/* (No Comment) */
+"No screen lock" = "Ekran kilidi yok";
+
+/* (No Comment) */
+"Normal glucose notification" = "Normal Glikoz Bildirimi";
+
+/* (No Comment) */
 "Now" = "Şimdi";
+
+/* (No Comment) */
+"Pairing" = "Eşleştiriliyor";
+
+/* (No Comment) */
+"Please select" = "Lütfen seçiniz";
 
 /* (No Comment) */
 "Power off" = "Kapat";
 
 /* (No Comment) */
+"Readable falling" = "düşüyor";
+
+/* (No Comment) */
+"Readable fast falling" = "hızlı düşüyor";
+
+/* (No Comment) */
+"Readable fast rising" = "hızlı yükseliyor";
+
+/* (No Comment) */
+"Readable glucose with trend: %1$@ %2$@, %3$@" = "Glikoz: %1$@ %2$@, %3$@";
+
+/* (No Comment) */
+"Readable glucose: %1$@ %2$@" = "Glikoz: %1$@ %2$@";
+
+/* (No Comment) */
+"Readable high glucose: %1$@ %2$@" = "Glikoz: %1$@ %2$@. Dikkat, Hiperglisemi!";
+
+/* (No Comment) */
+"Readable low glucose: %1$@ %2$@" = "Glikoz: %1$@ %2$@. Dikkat, Hipoglisemi!";
+
+/* (No Comment) */
+"Readable miligram" = "miligram";
+
+/* (No Comment) */
+"Readable milimol" = "milimol";
+
+/* (No Comment) */
+"Readable rapidly falling" = "çok hızlı düşüyor";
+
+/* (No Comment) */
+"Readable rapidly rising" = "çok hızlı yükseliyor";
+
+/* (No Comment) */
+"Readable rising" = "yükseliyor";
+
+/* (No Comment) */
+"Rescan the sensor" = "Sensörü yeniden tara";
+
+/* (No Comment) */
+"Retrieval interval" = "Geri alma aralığı";
+
+/* (No Comment) */
+"Retrieval interval, every %@ minutes" = "Her %@ dakikada bir";
+
+/* (No Comment) */
+"Retrieval interval, every minute" = "Her dakika";
+
+/* (No Comment) */
+"Retry pairing" = "Eşleştirmeyi tekrar dene";
+
+/* (No Comment) */
+"Scan sensor" = "Sensörü tara";
+
+/* (No Comment) */
 "Scanning" = "Taranıyor";
+
+/* (No Comment) */
+"Selected calendar" = "Takvim";
+
+/* (No Comment) */
+"Send database file" = "Veritabanı dosyası gönder";
+
+/* (No Comment) */
+"Send log file" = "Günlük dosyası gönder";
 
 /* (No Comment) */
 "Sensor age" = "Sensör yaşı";
 
 /* (No Comment) */
-"Connection" = "Bağlantı";
-
-/* (No Comment) */
-"Connection error" = "Hata";
-
-/* (No Comment) */
-"Connection error timestamp" = "Zaman";
-
-/* (No Comment) */
-"Connection state" = "Durum";
+"Sensor connection" = "Sensör bağlantısı";
 
 /* (No Comment) */
 "Sensor custom calibration" = "Bireysel Kalibrasyon";
@@ -140,7 +344,16 @@
 "Sensor details" = "Sensör detayları";
 
 /* (No Comment) */
+"Sensor ending date" = "Bitiş tarihi";
+
+/* (No Comment) */
+"Sensor error values" = "CGM hataları";
+
+/* (No Comment) */
 "Sensor factory calibration" = "Fabrika Kalibrasyonu";
+
+/* (No Comment) */
+"Sensor glucose values" = "CGM";
 
 /* (No Comment) */
 "Sensor has failure" = "Sensör arızalı";
@@ -159,6 +372,12 @@
 
 /* (No Comment) */
 "Sensor lifetime" = "Kullanım ömrü";
+
+/* (No Comment) */
+"Sensor lifetime widget" = "Sensör Ömrü";
+
+/* (No Comment) */
+"Sensor lifetime widget description" = "Geri sayım olarak mevcut sensörün kalan ömrünü görüntüler.";
 
 /* (No Comment) */
 "Sensor not yet startet" = "Sensör henüz başlamadı";
@@ -182,6 +401,9 @@
 "Sensor serial" = "Seri no";
 
 /* (No Comment) */
+"Sensor starting date" = "Başlama tarihi";
+
+/* (No Comment) */
 "Sensor state" = "Durum";
 
 /* (No Comment) */
@@ -197,7 +419,49 @@
 "Snooze until" = "Erteleme";
 
 /* (No Comment) */
+"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Standart Sapma (SD), glikoz okumalarındaki ortalama etrafında yayılmanın bir ölçüsüdür - birçok yüksek ve düşük arasında sıçrama, daha büyük bir SD ile sonuçlanır. Hedef, minimum dalgalanmalarla sabit bir glikoz seviyesini yansıtacak olan mümkün olan en düşük SD'dir.";
+
+/* (No Comment) */
+"Statistics (%@ days)" = "İstatistikler (%@ gün)";
+
+/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "Sensörle bağlantı kesildi. Normalde bu sensör menzil dışında olduğunda veya iletim gücü bozulduğunda olur.";
+
+/* (No Comment) */
+"Time" = "Zaman";
+
+/* (No Comment) */
+"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Aralığın üzerindeki süre (TAR) veya %@ hedef glikozunun üzerinde harcanan sürenin yüzdesi.";
+
+/* (No Comment) */
+"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Aralığın altındaki süre (TBR) veya %@ hedef glikozunun altında geçirilen sürenin yüzdesi.";
+
+/* (No Comment) */
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Aralıktaki Süre (TIR) veya hedef glikoz aralığında harcanan sürenin yüzdesi %@ - %@ arasındadır.";
+
+/* (No Comment) */
+"Transmitter" = "Verici";
+
+/* (No Comment) */
+"Transmitter battery" = "Pil";
+
+/* (No Comment) */
+"Transmitter battery widget" = "Verici Pili";
+
+/* (No Comment) */
+"Transmitter battery widget description" = "Geri sayım olarak vericinin kalan pil şarjını görüntüler.";
+
+/* (No Comment) */
+"Transmitter details" = "Verici ayrıntıları";
+
+/* (No Comment) */
+"Transmitter firmware" = "Aygıt Yazılımı";
+
+/* (No Comment) */
+"Transmitter hardware" = "Donanım";
+
+/* (No Comment) */
+"Transmitter name" = "İsim";
 
 /* (No Comment) */
 "Unknown" = "Bilinmeyen";
@@ -206,10 +470,28 @@
 "Upper limit" = "Yüksek";
 
 /* (No Comment) */
+"Use LibreLink to start the sensor" = "Sensörü başlatmak için LibreLink'i kullanın";
+
+/* (No Comment) */
+"Vibration" = "Sadece titreşim";
+
+/* (No Comment) */
 "Virtual Sensor" = "Sanal Sensör";
 
 /* (No Comment) */
+"Warmup" = "Isınma";
+
+/* (No Comment) */
 "Wearing time alarm" = "Giyme zaman alarmı";
+
+/* (No Comment) */
+"When a new alarm is triggered" = "- Yeni bir alarm tetiklendiğinde";
+
+/* (No Comment) */
+"When the glucose trend changes" = "- Glikoz eğilimi değiştiğinde";
+
+/* (No Comment) */
+"Without transmitter" = "Vericisiz";
 
 /* (No Comment) */
 "Your current glucose is %1$@ (%2$@)." = "Şu anki KŞ'niz %1$@ (%2$@).";
@@ -239,277 +521,16 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Sensörünüzün süresi dolmak üzere. Sensörü %1$@ dakika içinde değiştirin.";
 
 /* (No Comment) */
-"Line" = "Çizgi";
+"Alarm settings" = "Alarm ayarları";
 
 /* (No Comment) */
-"Transmitter name" = "İsim";
+"Connection settings" = "Bağlantı Ayarları";
 
 /* (No Comment) */
-"Transmitter battery" = "Pil";
+"No Data" = "Veri Yok";
 
 /* (No Comment) */
-"Transmitter hardware" = "Donanım";
+"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Uygulamayı en geç %@ tarafından yeniden açın. Aksi takdirde iOS, widget'ı otomatik olarak devre dışı bırakır :(";
 
 /* (No Comment) */
-"Transmitter firmware" = "Aygıt Yazılımı";
-
-/* (No Comment) */
-"Transmitter" = "Verici";
-
-/* (No Comment) */
-"Sensor connection" = "Sensör bağlantısı";
-
-/* (No Comment) */
-"Without transmitter" = "Vericisiz";
-
-/* (No Comment) */
-"Bubble transmitter" = "Bubble vericisi";
-
-/* (No Comment) */
-"Pairing" = "Eşleştiriliyor";
-
-/* (No Comment) */
-"Selected calendar" = "Takvim";
-
-/* (No Comment) */
-"Please select" = "Lütfen seçiniz";
-
-/* (No Comment) */
-"About %@" = "Hakkında %@";
-
-/* (No Comment) */
-"App version" = "Sürüm";
-
-/* (No Comment) */
-"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Dikkat, sensör hatalı değerler gönderiyor. Lütfen 10 dakika bekleyin.";
-
-/* (No Comment) */
-"App website" = "Web sitesi";
-
-/* (No Comment) */
-"Send log file" = "Günlük dosyası gönder";
-
-/* (No Comment) */
-"Sensor starting date" = "Başlama tarihi";
-
-/* (No Comment) */
-"Sensor ending date" = "Bitiş tarihi";
-
-/* (No Comment) */
-"Readable glucose: %1$@ %2$@" = "Glikoz: %1$@ %2$@";
-
-/* (No Comment) */
-"Readable glucose with trend: %1$@ %2$@, %3$@" = "Glikoz: %1$@ %2$@, %3$@";
-
-/* (No Comment) */
-"Readable low glucose: %1$@ %2$@" = "Glikoz: %1$@ %2$@. Dikkat, Hipoglisemi!";
-
-/* (No Comment) */
-"Readable high glucose: %1$@ %2$@" = "Glikoz: %1$@ %2$@. Dikkat, Hiperglisemi!";
-
-/* (No Comment) */
-"Readable miligram" = "miligram";
-
-/* (No Comment) */
-"Readable milimol" = "milimol";
-
-/* (No Comment) */
-"Readable falling" = "düşüyor";
-
-/* (No Comment) */
-"Readable fast falling" = "hızlı düşüyor";
-
-/* (No Comment) */
-"Readable rapidly falling" = "çok hızlı düşüyor";
-
-/* (No Comment) */
-"Readable rising" = "yükseliyor";
-
-/* (No Comment) */
-"Readable fast rising" = "hızlı yükseliyor";
-
-/* (No Comment) */
-"Readable rapidly rising" = "çok hızlı yükseliyor";
-
-/* (No Comment) */
-"Every 10 minutes" = "- Her 10 dakikada bir";
-
-/* (No Comment) */
-"After disconnections" = "- Bağlantı kesildikten sonra";
-
-/* (No Comment) */
-"When the glucose trend changes" = "- Glikoz eğilimi değiştiğinde";
-
-/* (No Comment) */
-"When a new alarm is triggered" = "- Yeni bir alarm tetiklendiğinde";
-
-/* (No Comment) */
-"App author" = "Yazar";
-
-/* (No Comment) */
-"App support mail" = "Destek";
-
-/* (No Comment) */
-"App translation" = "Çeviri";
-
-/* (No Comment) */
-"App faq" = "SSS";
-
-/* (No Comment) */
-"App facebook group" = "Facebook Grubu";
-
-/* (No Comment) */
-"App email" = "e-posta";
-
-/* (No Comment) */
-"Low glucose alarm" = "Düşük glikoz alarmı";
-
-/* (No Comment) */
-"High glucose alarm" = "Yüksek glikoz alarmı";
-
-/* (No Comment) */
-"Vibration" = "Sadece titreşim";
-
-/* (No Comment) */
-"Scan sensor" = "Sensörü tara";
-
-/* (No Comment) */
-"Retry pairing" = "Eşleştirmeyi tekrar dene";
-
-/* (No Comment) */
-"Retrieval interval" = "Geri alma aralığı";
-
-/* (No Comment) */
-"Retrieval interval, every minute" = "Her dakika";
-
-/* (No Comment) */
-"Retrieval interval, every %@ minutes" = "Her %@ dakikada bir";
-
-/* (No Comment) */
-"App donate" = "Bağışta Bulun";
-
-/* (No Comment) */
-"Bellman alarm" = "Alarm";
-
-/* (No Comment) */
-"Bellman test alarm" = "Deneme alarmı";
-
-/* (No Comment) */
-"Find transmitter" = "Verici bul";
-
-/* (No Comment) */
-"Connect transmitter" = "Vericiyi bağla";
-
-/* (No Comment) */
-"Disconnect transmitter" = "Verici bağlantısını kes";
-
-/* (No Comment) */
-"Rescan the sensor" = "Sensörü yeniden tara";
-
-/* (No Comment) */
-"Apple export settings" = "Apple dışa aktarma ayarları";
-
-/* (No Comment) */
-"Export to Apple Health" = "Apple Health'e Aktar";
-
-/* (No Comment) */
-"Export to Apple Calendar" = "Apple Takvime Aktar";
-
-/* (No Comment) */
-"Glucose notification" = "Glikoz bildirimi";
-
-/* (No Comment) */
-"Time" = "Zaman";
-
-/* (No Comment) */
-"Glucose" = "Glikoz";
-
-/* (No Comment) */
-"Transmitter details" = "Verici ayrıntıları";
-
-/* (No Comment) */
-"Glucose widget" = "Glikoz";
-
-/* (No Comment) */
-"Glucose widget description" = "Son glikoz değerini görüntüler.";
-
-/* (No Comment) */
-"Sensor lifetime widget" = "Sensör Ömrü";
-
-/* (No Comment) */
-"Sensor lifetime widget description" = "Geri sayım olarak mevcut sensörün kalan ömrünü görüntüler.";
-
-/* (No Comment) */
-"Transmitter battery widget" = "Verici Pili";
-
-/* (No Comment) */
-"Transmitter battery widget description" = "Geri sayım olarak vericinin kalan pil şarjını görüntüler.";
-
-/* (No Comment) */
-"Warmup" = "Isınma";
-
-/* (No Comment) */
-"No screen lock" = "Ekran kilidi yok";
-
-/* (No Comment) */
-"LibreLink transmitter" = "LibreLink Vericisi";
-
-/* (No Comment) */
-"Use LibreLink to start the sensor" = "Sensörü başlatmak için LibreLink'i kullanın";
-
-/* (No Comment) */
-"Sensor glucose values" = "CGM";
-
-/* (No Comment) */
-"Sensor error values" = "CGM hataları";
-
-/* (No Comment) */
-"Blood glucose values" = "BGM";
-
-/* (No Comment) */
-"At least %@ days of data are required." = "En az %@ günlük veri gerekli.";
-
-/* (No Comment) */
-"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Ortalama (AVG), belirli bir süre boyunca kan şekerlerinin genel bir ölçüsüdür ve glikozun nerede olduğuna dair tek bir üst düzey görünüm sunar.";
-
-/* (No Comment) */
-"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Glikoz Yönetim Göstergesi (GMI), sürekli glikoz izleme kullanan hastalar için \"tahmini HbA1c\" yerine geçer.";
-
-/* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@ %@." = "Aralıktaki Süre (TIR) veya hedef glikoz aralığında harcanan sürenin yüzdesi %@ - %@ arasındadır.";
-
-/* (No Comment) */
-"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Aralığın altındaki süre (TBR) veya %@ hedef glikozunun altında geçirilen sürenin yüzdesi.";
-
-/* (No Comment) */
-"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Aralığın üzerindeki süre (TAR) veya %@ hedef glikozunun üzerinde harcanan sürenin yüzdesi.";
-
-/* (No Comment) */
-"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Standart Sapma (SD), glikoz okumalarındaki ortalama etrafında yayılmanın bir ölçüsüdür - birçok yüksek ve düşük arasında sıçrama, daha büyük bir SD ile sonuçlanır. Hedef, minimum dalgalanmalarla sabit bir glikoz seviyesini yansıtacak olan mümkün olan en düşük SD'dir.";
-
-/* (No Comment) */
-"Statistics (%@ days)" = "İstatistikler (%@ gün)";
-
-/* (No Comment) */
-"%@ Entries" = "%@ Girdiler";
-
-/* (No Comment) */
-"%@ Entry" = "%@ Girdi";
-
-/* (No Comment) */
-"Send database file" = "Veritabanı dosyası gönder";
-
-/* (No Comment) */
-"Glucose Live Activity" = "Canlı Glikoz Aktivitesi";
-
-/* (No Comment) */
-"Glucose read aloud" = "Glikoz Okuma";
-
-/* (No Comment) */
-"Ignore mute" = "Sessize almayı yoksay";
-
-/* (No Comment) */
-"Normal glucose notification" = "Normal Glikoz Bildirimi";
-
-/* (No Comment) */
-"Alarm glucose notification" = "Alarm Glikoz Bildirimi";
+"StatisticsPeriod" = "Dönem";

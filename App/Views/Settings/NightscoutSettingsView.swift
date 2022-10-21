@@ -22,17 +22,15 @@ struct NightscoutSettingsView: View {
                 }
 
                 if store.state.nightscoutUpload {
-                    HStack {
+                    VStack(alignment: .leading) {
                         Text("Nightscout url")
-                        Spacer()
                         TextField("https://my-nightscout.herokuapp.com", text: nightscoutURL)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                     }
 
-                    HStack {
+                    VStack(alignment: .leading) {
                         Text("Nightscout API-Secret")
-                        Spacer()
                         SecureField("", text: nightscoutSecret)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .textFieldStyle(RoundedBorderTextFieldStyle())

@@ -8,16 +8,31 @@
 "%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
 
 /* (No Comment) */
+"%@ Entries" = "%@ Einträge";
+
+/* (No Comment) */
+"%@ Entry" = "%@ Eintrag";
+
+/* (No Comment) */
+"About %@" = "Über %@";
+
+/* (No Comment) */
 "Add" = "Hinzufügen";
 
 /* (No Comment) */
-"Add glucose for calibration" = "Glukose für Kalibrierung hinzufügen";
+"Add blood glucose" = "Blutzucker hinzufügen";
 
 /* (No Comment) */
 "Add calibration" = "Kalibrierung hinzufügen";
 
 /* (No Comment) */
-"Add blood glucose" = "Blutzucker hinzufügen";
+"Add glucose for calibration" = "Glukose für Kalibrierung hinzufügen";
+
+/* (No Comment) */
+"After disconnections" = "- Nach Verbindungsabbrüchen";
+
+/* (No Comment) */
+"Alarm glucose notification" = "Alarm Glukose-Benachrichtigung";
 
 /* (No Comment) */
 "Alert, high glucose" = "Achtung, hoher Blutzucker";
@@ -35,10 +50,61 @@
 "Alert, sensor expiring soon" = "Alert, Sensor läuft bald ab";
 
 /* (No Comment) */
+"App author" = "Autor";
+
+/* (No Comment) */
+"App donate" = "Spenden";
+
+/* (No Comment) */
+"App email" = "E-Mail";
+
+/* (No Comment) */
+"App facebook group" = "Facebook";
+
+/* (No Comment) */
+"App faq" = "FAQ";
+
+/* (No Comment) */
+"App support mail" = "Support";
+
+/* (No Comment) */
+"App translation" = "Übersetzung";
+
+/* (No Comment) */
+"App version" = "Version";
+
+/* (No Comment) */
+"App website" = "Webseite";
+
+/* (No Comment) */
+"Apple export settings" = "Apple Export-Einstellungen";
+
+/* (No Comment) */
 "Are you sure you want to disconnect the sensor?" = "Sind Sie sicher, dass Sie die Verbindung zum Sensor trennen wollen?";
 
 /* (No Comment) */
+"At least %@ days of data are required." = "Es werden mindestens %@ Tage an Daten benötigt.";
+
+/* (No Comment) */
+"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Achtung, der Sensor sendet fehlerhafte Werte. Bitte warten Sie 10 Minuten.";
+
+/* (No Comment) */
+"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Average (AVG) oder Durchschnitt ist ein einfaches Maß für Blutzuckerwerte über einen bestimmten Zeitraum und bietet einen ungefähren Überblick über den Blutzuckerspiegel.";
+
+/* (No Comment) */
+"Bellman alarm" = "Alarm";
+
+/* (No Comment) */
+"Bellman test alarm" = "Alarm testen";
+
+/* (No Comment) */
+"Blood glucose values" = "BGM";
+
+/* (No Comment) */
 "Blood glucose: %1$@" = "Blutzucker: %1$@";
+
+/* (No Comment) */
+"Bubble transmitter" = "Bubble";
 
 /* (No Comment) */
 "Calibration view" = "Kalibrierung";
@@ -53,13 +119,28 @@
 "Connect sensor" = "Sensor verbinden";
 
 /* (No Comment) */
+"Connect transmitter" = "Transmitter verbinden";
+
+/* (No Comment) */
 "Connected" = "Verbunden";
 
 /* (No Comment) */
 "Connecting" = "Verbinde...";
 
 /* (No Comment) */
+"Connection" = "Verbindung";
+
+/* (No Comment) */
 "Connection alarm" = "Verbindungsalarm";
+
+/* (No Comment) */
+"Connection error" = "Fehler";
+
+/* (No Comment) */
+"Connection error timestamp" = "Zeit";
+
+/* (No Comment) */
+"Connection state" = "Status";
 
 /* (No Comment) */
 "Custom calibration intercept" = "Schnittpunkt";
@@ -77,13 +158,43 @@
 "Disconnect sensor" = "Sensor trennen";
 
 /* (No Comment) */
+"Disconnect transmitter" = "Transmitter trennen";
+
+/* (No Comment) */
 "Disconnected" = "Verbindung getrennt";
+
+/* (No Comment) */
+"Every 10 minutes" = "- Alle 10 Minuten";
+
+/* (No Comment) */
+"Export to Apple Calendar" = "Apple Kalender";
+
+/* (No Comment) */
+"Export to Apple Health" = "Apple Health";
+
+/* (No Comment) */
+"Find transmitter" = "Transmitter finden";
+
+/* (No Comment) */
+"Glucose" = "Glukose";
 
 /* (No Comment) */
 "Glucose list view" = "Liste";
 
 /* (No Comment) */
+"Glucose Live Activity" = "Glukose Live-Aktivitäten";
+
+/* (No Comment) */
+"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Glucose Management Indicator (GMI) ist ein Ersatz für den geschätzten HbA1c-Wert für Patienten, die eine kontinuierliche Glukoseüberwachung verwenden.";
+
+/* (No Comment) */
+"Glucose notification" = "Glukose Mitteilungen";
+
+/* (No Comment) */
 "Glucose overview" = "Übersicht";
+
+/* (No Comment) */
+"Glucose read aloud" = "Glukose Vorlesen";
 
 /* (No Comment) */
 "Glucose settings" = "Glukose Einstellungen";
@@ -92,7 +203,34 @@
 "Glucose unit" = "Einheit";
 
 /* (No Comment) */
+"Glucose widget" = "Glukose";
+
+/* (No Comment) */
+"Glucose widget description" = "Zeigt den letzten Glukosewert an.";
+
+/* (No Comment) */
+"High glucose alarm" = "Hoher Glukose Alarm";
+
+/* (No Comment) */
 "Hold the top edge of your iPhone close to the sensor." = "Halten Sie den oberen Rand Ihres iPhones nahe an den Sensor.";
+
+/* (No Comment) */
+"Ignore mute" = "Stummschaltung ignorieren";
+
+/* (No Comment) */
+"LibreLink transmitter" = "LibreLink";
+
+/* (No Comment) */
+"LibreLinkUp email" = "LibreLinkUp E-Mail";
+
+/* (No Comment) */
+"LibreLinkUp password" = "LibreLinkUp Passwort";
+
+/* (No Comment) */
+"Line" = "Linie";
+
+/* (No Comment) */
+"Low glucose alarm" = "Niedrige Glukose Alarm";
 
 /* (No Comment) */
 "Lower limit" = "Niedrig";
@@ -101,37 +239,103 @@
 "Nightscout API-Secret" = "API-Secret";
 
 /* (No Comment) */
-"Nightscout url" = "Url";
-
-/* (No Comment) */
 "Nightscout settings" = "Nightscout Einstellungen";
 
 /* (No Comment) */
 "Nightscout upload enabled" = "Upload";
 
 /* (No Comment) */
+"Nightscout url" = "Url";
+
+/* (No Comment) */
+"No screen lock" = "Keine Displaysperre";
+
+/* (No Comment) */
+"Normal glucose notification" = "Normale Glukose-Benachrichtigung";
+
+/* (No Comment) */
 "Now" = "Jetzt";
+
+/* (No Comment) */
+"Pairing" = "Wird gekoppelt";
+
+/* (No Comment) */
+"Please select" = "Bitte auswählen";
 
 /* (No Comment) */
 "Power off" = "Stromlos";
 
 /* (No Comment) */
+"Readable falling" = "fallend";
+
+/* (No Comment) */
+"Readable fast falling" = "schnell fallend";
+
+/* (No Comment) */
+"Readable fast rising" = "schnell steigend";
+
+/* (No Comment) */
+"Readable glucose with trend: %1$@ %2$@, %3$@" = "Glukose: %1$@ %2$@, %3$@";
+
+/* (No Comment) */
+"Readable glucose: %1$@ %2$@" = "Glukose: %1$@ %2$@";
+
+/* (No Comment) */
+"Readable high glucose: %1$@ %2$@" = "Glukose: %1$@ %2$@. Achtung, Überzuckerung!";
+
+/* (No Comment) */
+"Readable low glucose: %1$@ %2$@" = "Glukose: %1$@ %2$@. Achtung, Unterzuckerung!";
+
+/* (No Comment) */
+"Readable miligram" = "miligram";
+
+/* (No Comment) */
+"Readable milimol" = "milimol";
+
+/* (No Comment) */
+"Readable rapidly falling" = "rapide fallend";
+
+/* (No Comment) */
+"Readable rapidly rising" = "rapide steigend";
+
+/* (No Comment) */
+"Readable rising" = "steigend";
+
+/* (No Comment) */
+"Rescan the sensor" = "Sensor erneut scannen";
+
+/* (No Comment) */
+"Retrieval interval" = "Aktualisierungs-Intervall";
+
+/* (No Comment) */
+"Retrieval interval, every %@ minutes" = "Alle %@ Minuten";
+
+/* (No Comment) */
+"Retrieval interval, every minute" = "Jede Minute";
+
+/* (No Comment) */
+"Retry pairing" = "Koppeln wiederholen";
+
+/* (No Comment) */
+"Scan sensor" = "Sensor scannen";
+
+/* (No Comment) */
 "Scanning" = "Scanne...";
+
+/* (No Comment) */
+"Selected calendar" = "Kalender";
+
+/* (No Comment) */
+"Send database file" = "Datenbank senden";
+
+/* (No Comment) */
+"Send log file" = "Fehlerbericht senden";
 
 /* (No Comment) */
 "Sensor age" = "Alter";
 
 /* (No Comment) */
-"Connection" = "Verbindung";
-
-/* (No Comment) */
-"Connection error" = "Fehler";
-
-/* (No Comment) */
-"Connection error timestamp" = "Zeit";
-
-/* (No Comment) */
-"Connection state" = "Status";
+"Sensor connection" = "Sensor Verbindung";
 
 /* (No Comment) */
 "Sensor custom calibration" = "Individuelle Kalibrierung";
@@ -140,7 +344,16 @@
 "Sensor details" = "Sensordetails";
 
 /* (No Comment) */
+"Sensor ending date" = "Enddatum";
+
+/* (No Comment) */
+"Sensor error values" = "CGM-Fehler";
+
+/* (No Comment) */
 "Sensor factory calibration" = "Werkskalibrierung";
+
+/* (No Comment) */
+"Sensor glucose values" = "CGM";
 
 /* (No Comment) */
 "Sensor has failure" = "Fehler";
@@ -159,6 +372,12 @@
 
 /* (No Comment) */
 "Sensor lifetime" = "Lebensdauer";
+
+/* (No Comment) */
+"Sensor lifetime widget" = "Lebensdauer";
+
+/* (No Comment) */
+"Sensor lifetime widget description" = "Zeigt die verbleibende Lebensdauer des aktuellen Sensors in Form eines Countdowns an.";
 
 /* (No Comment) */
 "Sensor not yet startet" = "Nicht gestartet";
@@ -182,6 +401,9 @@
 "Sensor serial" = "Seriennummer";
 
 /* (No Comment) */
+"Sensor starting date" = "Startdatum";
+
+/* (No Comment) */
 "Sensor state" = "Status";
 
 /* (No Comment) */
@@ -197,7 +419,49 @@
 "Snooze until" = "Schlummern";
 
 /* (No Comment) */
+"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Standard Deviation (SD) oder Standardabweichung ist ein Maß für die Streuung der Glukosemesswerte um den Durchschnitt - wenn sie zwischen vielen Höchst- und Tiefstwerten schwankt, ergibt sich eine höhere SD. Das Ziel ist eine möglichst niedrige SD, die einen konstanten Blutzuckerspiegel mit minimalen Schwankungen widerspiegelt.";
+
+/* (No Comment) */
+"Statistics (%@ days)" = "Statistiken (%@ Tage)";
+
+/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "Die Verbindung mit dem Sensor ist unterbrochen worden. Normalerweise geschieht dies, wenn der Sensor außerhalb der Reichweite oder seine Sendeleistung beeinträchtigt ist.";
+
+/* (No Comment) */
+"Time" = "Zeit";
+
+/* (No Comment) */
+"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Time above Range (TAR) oder der prozentuale Anteil der Zeit, die oberhalb des Zielwerts von %@ verbracht wurde.";
+
+/* (No Comment) */
+"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Time below Range (TBR) oder der prozentuale Anteil der Zeit, die unterhalb des Zielwerts von %@ verbracht wurde.";
+
+/* (No Comment) */
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Time in Range (TIR) oder der prozentuale Anteil der Zeit, die im Zielbereich zwischen %@ - %@ verbracht wurde.";
+
+/* (No Comment) */
+"Transmitter" = "Transmitter";
+
+/* (No Comment) */
+"Transmitter battery" = "Batterie";
+
+/* (No Comment) */
+"Transmitter battery widget" = "Batterie";
+
+/* (No Comment) */
+"Transmitter battery widget description" = "Zeigt die verbleibende Batterieladung des Senders in Form eines Countdowns an.";
+
+/* (No Comment) */
+"Transmitter details" = "Transmitter Details";
+
+/* (No Comment) */
+"Transmitter firmware" = "Firmware";
+
+/* (No Comment) */
+"Transmitter hardware" = "Hardware";
+
+/* (No Comment) */
+"Transmitter name" = "Name";
 
 /* (No Comment) */
 "Unknown" = "Unbekannt";
@@ -206,10 +470,28 @@
 "Upper limit" = "Hoch";
 
 /* (No Comment) */
+"Use LibreLink to start the sensor" = "Verwenden Sie LibreLink, um den Sensor zu starten";
+
+/* (No Comment) */
+"Vibration" = "Vibrieren";
+
+/* (No Comment) */
 "Virtual Sensor" = "Virtueller Sensor";
 
 /* (No Comment) */
+"Warmup" = "Aufwärmzeit";
+
+/* (No Comment) */
 "Wearing time alarm" = "Tragedauer Alarm";
+
+/* (No Comment) */
+"When a new alarm is triggered" = "- Wenn ein neuer Alarm ausgelöst wird";
+
+/* (No Comment) */
+"When the glucose trend changes" = "- Wenn sich der Glukosetrend ändert";
+
+/* (No Comment) */
+"Without transmitter" = "Ohne Transmitter";
 
 /* (No Comment) */
 "Your current glucose is %1$@ (%2$@)." = "Ihr aktueller Blutzuckerwert ist %1$@ (%2$@).";
@@ -239,277 +521,16 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Ihr Sensor läuft demnächst ab. Ersetzen Sie den Sensor in %1$@ Minuten.";
 
 /* (No Comment) */
-"Line" = "Linie";
+"Alarm settings" = "Alarm settings";
 
 /* (No Comment) */
-"Transmitter name" = "Name";
+"Connection settings" = "Connection settings";
 
 /* (No Comment) */
-"Transmitter battery" = "Batterie";
+"No Data" = "No Data";
 
 /* (No Comment) */
-"Transmitter hardware" = "Hardware";
+"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
 
 /* (No Comment) */
-"Transmitter firmware" = "Firmware";
-
-/* (No Comment) */
-"Transmitter" = "Transmitter";
-
-/* (No Comment) */
-"Sensor connection" = "Sensor Verbindung";
-
-/* (No Comment) */
-"Without transmitter" = "Ohne Transmitter";
-
-/* (No Comment) */
-"Bubble transmitter" = "Bubble Transmitter";
-
-/* (No Comment) */
-"Pairing" = "Wird gekoppelt";
-
-/* (No Comment) */
-"Selected calendar" = "Kalender";
-
-/* (No Comment) */
-"Please select" = "Bitte auswählen";
-
-/* (No Comment) */
-"About %@" = "Über %@";
-
-/* (No Comment) */
-"App version" = "Version";
-
-/* (No Comment) */
-"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Achtung, der Sensor sendet fehlerhafte Werte. Bitte warten Sie 10 Minuten.";
-
-/* (No Comment) */
-"App website" = "Webseite";
-
-/* (No Comment) */
-"Send log file" = "Fehlerbericht senden";
-
-/* (No Comment) */
-"Sensor starting date" = "Startdatum";
-
-/* (No Comment) */
-"Sensor ending date" = "Enddatum";
-
-/* (No Comment) */
-"Readable glucose: %1$@ %2$@" = "Glukose: %1$@ %2$@";
-
-/* (No Comment) */
-"Readable glucose with trend: %1$@ %2$@, %3$@" = "Glukose: %1$@ %2$@, %3$@";
-
-/* (No Comment) */
-"Readable low glucose: %1$@ %2$@" = "Glukose: %1$@ %2$@. Achtung, Unterzuckerung!";
-
-/* (No Comment) */
-"Readable high glucose: %1$@ %2$@" = "Glukose: %1$@ %2$@. Achtung, Überzuckerung!";
-
-/* (No Comment) */
-"Readable miligram" = "miligram";
-
-/* (No Comment) */
-"Readable milimol" = "milimol";
-
-/* (No Comment) */
-"Readable falling" = "fallend";
-
-/* (No Comment) */
-"Readable fast falling" = "schnell fallend";
-
-/* (No Comment) */
-"Readable rapidly falling" = "rapide fallend";
-
-/* (No Comment) */
-"Readable rising" = "steigend";
-
-/* (No Comment) */
-"Readable fast rising" = "schnell steigend";
-
-/* (No Comment) */
-"Readable rapidly rising" = "rapide steigend";
-
-/* (No Comment) */
-"Every 10 minutes" = "- Alle 10 Minuten";
-
-/* (No Comment) */
-"After disconnections" = "- Nach Verbindungsabbrüchen";
-
-/* (No Comment) */
-"When the glucose trend changes" = "- Wenn sich der Glukosetrend ändert";
-
-/* (No Comment) */
-"When a new alarm is triggered" = "- Wenn ein neuer Alarm ausgelöst wird";
-
-/* (No Comment) */
-"App author" = "Autor";
-
-/* (No Comment) */
-"App support mail" = "Support";
-
-/* (No Comment) */
-"App translation" = "Übersetzung";
-
-/* (No Comment) */
-"App faq" = "FAQ";
-
-/* (No Comment) */
-"App facebook group" = "Facebook";
-
-/* (No Comment) */
-"App email" = "E-Mail";
-
-/* (No Comment) */
-"Low glucose alarm" = "Niedrige Glukose Alarm";
-
-/* (No Comment) */
-"High glucose alarm" = "Hoher Glukose Alarm";
-
-/* (No Comment) */
-"Vibration" = "Vibrieren";
-
-/* (No Comment) */
-"Scan sensor" = "Sensor scannen";
-
-/* (No Comment) */
-"Retry pairing" = "Koppeln wiederholen";
-
-/* (No Comment) */
-"Retrieval interval" = "Aktualisierungs-Intervall";
-
-/* (No Comment) */
-"Retrieval interval, every minute" = "Jede Minute";
-
-/* (No Comment) */
-"Retrieval interval, every %@ minutes" = "Alle %@ Minuten";
-
-/* (No Comment) */
-"App donate" = "Spenden";
-
-/* (No Comment) */
-"Bellman alarm" = "Alarm";
-
-/* (No Comment) */
-"Bellman test alarm" = "Alarm testen";
-
-/* (No Comment) */
-"Find transmitter" = "Transmitter finden";
-
-/* (No Comment) */
-"Connect transmitter" = "Transmitter verbinden";
-
-/* (No Comment) */
-"Disconnect transmitter" = "Transmitter trennen";
-
-/* (No Comment) */
-"Rescan the sensor" = "Sensor erneut scannen";
-
-/* (No Comment) */
-"Apple export settings" = "Apple Export-Einstellungen";
-
-/* (No Comment) */
-"Export to Apple Health" = "Apple Health";
-
-/* (No Comment) */
-"Export to Apple Calendar" = "Apple Kalender";
-
-/* (No Comment) */
-"Glucose notification" = "Glukose Mitteilungen";
-
-/* (No Comment) */
-"Time" = "Zeit";
-
-/* (No Comment) */
-"Glucose" = "Glukose";
-
-/* (No Comment) */
-"Transmitter details" = "Transmitter Details";
-
-/* (No Comment) */
-"Glucose widget" = "Glukose";
-
-/* (No Comment) */
-"Glucose widget description" = "Zeigt den letzten Glukosewert an.";
-
-/* (No Comment) */
-"Sensor lifetime widget" = "Lebensdauer";
-
-/* (No Comment) */
-"Sensor lifetime widget description" = "Zeigt die verbleibende Lebensdauer des aktuellen Sensors in Form eines Countdowns an.";
-
-/* (No Comment) */
-"Transmitter battery widget" = "Batterie";
-
-/* (No Comment) */
-"Transmitter battery widget description" = "Zeigt die verbleibende Batterieladung des Senders in Form eines Countdowns an.";
-
-/* (No Comment) */
-"Warmup" = "Aufwärmzeit";
-
-/* (No Comment) */
-"No screen lock" = "Keine Displaysperre";
-
-/* (No Comment) */
-"LibreLink transmitter" = "LibreLink Transmitter";
-
-/* (No Comment) */
-"Use LibreLink to start the sensor" = "Verwenden Sie LibreLink, um den Sensor zu starten";
-
-/* (No Comment) */
-"Sensor glucose values" = "CGM";
-
-/* (No Comment) */
-"Sensor error values" = "CGM-Fehler";
-
-/* (No Comment) */
-"Blood glucose values" = "BGM";
-
-/* (No Comment) */
-"At least %@ days of data are required." = "Es werden mindestens %@ Tage an Daten benötigt.";
-
-/* (No Comment) */
-"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Average (AVG) oder Durchschnitt ist ein einfaches Maß für Blutzuckerwerte über einen bestimmten Zeitraum und bietet einen ungefähren Überblick über den Blutzuckerspiegel.";
-
-/* (No Comment) */
-"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Glucose Management Indicator (GMI) ist ein Ersatz für den geschätzten HbA1c-Wert für Patienten, die eine kontinuierliche Glukoseüberwachung verwenden.";
-
-/* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@ %@." = "Time in Range (TIR) oder der prozentuale Anteil der Zeit, die im Zielbereich zwischen %@ - %@ verbracht wurde.";
-
-/* (No Comment) */
-"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Time below Range (TBR) oder der prozentuale Anteil der Zeit, die unterhalb des Zielwerts von %@ verbracht wurde.";
-
-/* (No Comment) */
-"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Time above Range (TAR) oder der prozentuale Anteil der Zeit, die oberhalb des Zielwerts von %@ verbracht wurde.";
-
-/* (No Comment) */
-"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Standard Deviation (SD) oder Standardabweichung ist ein Maß für die Streuung der Glukosemesswerte um den Durchschnitt - wenn sie zwischen vielen Höchst- und Tiefstwerten schwankt, ergibt sich eine höhere SD. Das Ziel ist eine möglichst niedrige SD, die einen konstanten Blutzuckerspiegel mit minimalen Schwankungen widerspiegelt.";
-
-/* (No Comment) */
-"Statistics (%@ days)" = "Statistiken (%@ Tage)";
-
-/* (No Comment) */
-"%@ Entries" = "%@ Einträge";
-
-/* (No Comment) */
-"%@ Entry" = "%@ Eintrag";
-
-/* (No Comment) */
-"Send database file" = "Datenbank senden";
-
-/* (No Comment) */
-"Glucose Live Activity" = "Glukose Live-Aktivitäten";
-
-/* (No Comment) */
-"Glucose read aloud" = "Glukose Vorlesen";
-
-/* (No Comment) */
-"Ignore mute" = "Stummschaltung ignorieren";
-
-/* (No Comment) */
-"Normal glucose notification" = "Normal Glucose Notification";
-
-/* (No Comment) */
-"Alarm glucose notification" = "Alarm Glucose Notification";
+"StatisticsPeriod" = "Zeitraum";
