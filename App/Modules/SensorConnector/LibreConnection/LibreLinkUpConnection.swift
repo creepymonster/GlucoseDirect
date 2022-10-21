@@ -108,12 +108,12 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         guard let value = characteristic.value else {
             return
         }
-        
+
         let sleepFactor: UInt64 = value.count == 15
             ? 0
             : 1
-        
-        if lastLogin == nil && sleepFactor == 1 {
+
+        if lastLogin == nil, sleepFactor == 1 {
             return
         }
 
@@ -205,27 +205,28 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
                   let userCountry = login.data?.user?.country,
                   let authToken = login.data?.authTicket?.token,
                   let authExpires = login.data?.authTicket?.expires,
-                  !userCountry.isEmpty, !authToken.isEmpty else {
+                  !userCountry.isEmpty, !authToken.isEmpty
+            else {
                 throw LibreLinkError.invalidCredentials
             }
-            
+
             DirectLog.info("LibreLinkUp login, userID: \(userID)")
             DirectLog.info("LibreLinkUp login, userCountry: \(userCountry)")
             DirectLog.info("LibreLinkUp login, authToken: \(authToken)")
             DirectLog.info("LibreLinkUp login, authExpires: \(authExpires)")
-            
+
             let connect = try await connect(userCountry: userCountry, authToken: authToken)
-            
-            guard let patientID = connect.data?.first?.patientId else {
+
+            guard let patientID = connect.data?.first?.patientID else {
                 throw LibreLinkError.invalidCredentials
             }
-            
+
             DirectLog.info("LibreLinkUp login, patientID: \(patientID)")
 
             lastLogin = LibreLinkLogin(userID: userID, patientID: patientID, userCountry: userCountry, authToken: authToken, authExpires: authExpires)
         }
     }
-    
+
     private func login() async throws -> LibreLinkResponse<LibreLinkResponseLogin> {
         DirectLog.info("LibreLinkUp login")
 
@@ -249,8 +250,10 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         }
 
         let (data, response) = try await URLSession.shared.data(for: request)
-        
+
+#if DEBUG
         DirectLog.info("LibreLinkUp login, response: \(String(data: data, encoding: String.Encoding.utf8))")
+#endif
 
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
             throw LibreLinkError.invalidCredentials
@@ -258,7 +261,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
         return try JSONDecoder().decode(LibreLinkResponse<LibreLinkResponseLogin>.self, from: data)
     }
-    
+
     private func connect(userCountry: String, authToken: String) async throws -> LibreLinkResponse<[LibreLinkResponseConnect]> {
         DirectLog.info("LibreLinkUp connect")
 
@@ -278,8 +281,10 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         }
 
         let (data, response) = try await URLSession.shared.data(for: request)
-        
+
+#if DEBUG
         DirectLog.info("LibreLinkUp connect, response: \(String(data: data, encoding: String.Encoding.utf8))")
+#endif
 
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
             throw LibreLinkError.notAuthenticated
@@ -313,8 +318,10 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         }
 
         let (data, response) = try await URLSession.shared.data(for: request)
-        
+
+#if DEBUG
         DirectLog.info("LibreLinkUp login, fetch: \(String(data: data, encoding: String.Encoding.utf8))")
+#endif
 
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
             throw LibreLinkError.notAuthenticated
@@ -363,8 +370,10 @@ private struct LibreLinkResponseLogin: Codable {
     let authTicket: LibreLinkResponseAuthentication?
 }
 
+// MARK: - LibreLinkResponseConnect
+
 private struct LibreLinkResponseConnect: Codable {
-    let patientId: String?
+    let patientID: String?
 }
 
 // MARK: - LibreLinkResponseFetch
