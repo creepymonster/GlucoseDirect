@@ -48,7 +48,7 @@ struct GlucoseActivityWidget: Widget {
                         
                         if let minuteChange = latestGlucose.minuteChange?.asShortMinuteChange(glucoseUnit: glucoseUnit), latestGlucose.trend != .unknown {
                             Text(minuteChange)
-                                .offset(y: 7)
+                                .offset(y: 8)
                                 .opacity(0.5)
                                 .font(.footnote)
                         }
