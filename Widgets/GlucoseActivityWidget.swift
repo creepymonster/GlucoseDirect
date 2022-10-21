@@ -20,8 +20,14 @@ struct GlucoseActivityWidget: Widget {
                     DynamicIslandCenterView(context: context.state)
                 }
             } compactLeading: {
+                Image(systemName: "circle")
+                    .foregroundColor(.green)
             } compactTrailing: {
+                Text(verbatim: "Text")
+                    .foregroundColor(.blue)
             } minimal: {
+                Image(systemName: "circle")
+                    .foregroundColor(.red)
             }
         }
     }
@@ -75,7 +81,12 @@ struct DynamicIslandCenterView: View, GlucoseStatusContext {
         if let latestGlucose = context.glucose,
            let glucoseUnit = context.glucoseUnit
         {
-            HStack(alignment: .lastTextBaseline) {
+            HStack(alignment: .lastTextBaseline, spacing: 25) {
+                VStack(alignment: .trailing) {
+                    Text(latestGlucose.timestamp.toLocalTime())
+                    Text(glucoseUnit.localizedDescription)
+                }.font(.system(size: 14))
+                
                 ZStack(alignment: .trailing) {
                     Text(latestGlucose.glucoseValue.asGlucose(unit: glucoseUnit))
                         .font(.system(size: 48))
@@ -95,11 +106,6 @@ struct DynamicIslandCenterView: View, GlucoseStatusContext {
                                 )
                         }.offset(y: 20)
                     }
-
-                    HStack(spacing: 16) {
-                        Text(latestGlucose.timestamp.toLocalTime())
-                        Text(glucoseUnit.localizedDescription)
-                    }.offset(y: 30)
                 }
 
                 VStack(alignment: .leading) {
@@ -114,7 +120,7 @@ struct DynamicIslandCenterView: View, GlucoseStatusContext {
                             .font(.system(size: 14))
                     }
                 }
-            }.padding(.bottom, 20)
+            }.padding(.bottom, 15)
         }
     }
 }
