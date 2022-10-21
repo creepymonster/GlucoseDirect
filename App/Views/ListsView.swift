@@ -62,7 +62,7 @@ struct ListsView: View {
 
                             VStack(alignment: .leading, spacing: 10) {
                                 HStack {
-                                    Text("AVG")
+                                    Text(verbatim: "AVG")
                                     Spacer()
                                     Text(glucoseStatistics.avg.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))
                                 }
@@ -76,7 +76,7 @@ struct ListsView: View {
 
                             VStack(alignment: .leading, spacing: 10) {
                                 HStack {
-                                    Text("SD")
+                                    Text(verbatim: "SD")
                                     Spacer()
                                     Text(glucoseStatistics.stdev.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))
                                 }
@@ -90,7 +90,7 @@ struct ListsView: View {
 
                             VStack(alignment: .leading, spacing: 10) {
                                 HStack {
-                                    Text("GMI")
+                                    Text(verbatim: "GMI")
                                     Spacer()
                                     Text(glucoseStatistics.gmi.asPercent())
                                 }
@@ -104,7 +104,7 @@ struct ListsView: View {
 
                             VStack(alignment: .leading, spacing: 10) {
                                 HStack {
-                                    Text("TIR")
+                                    Text(verbatim: "TIR")
                                     Spacer()
                                     Text(glucoseStatistics.tir.asPercent())
                                 }
@@ -118,7 +118,7 @@ struct ListsView: View {
 
                             VStack(alignment: .leading, spacing: 10) {
                                 HStack {
-                                    Text("TBR")
+                                    Text(verbatim: "TBR")
                                     Spacer()
                                     Text(glucoseStatistics.tbr.asPercent())
                                 }
@@ -132,7 +132,7 @@ struct ListsView: View {
 
                             VStack(alignment: .leading, spacing: 10) {
                                 HStack {
-                                    Text("TAR")
+                                    Text(verbatim: "TAR")
                                     Spacer()
                                     Text(glucoseStatistics.tar.asPercent())
                                 }
