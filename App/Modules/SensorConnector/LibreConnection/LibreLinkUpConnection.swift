@@ -373,6 +373,8 @@ private struct LibreLinkResponseLogin: Codable {
 // MARK: - LibreLinkResponseConnect
 
 private struct LibreLinkResponseConnect: Codable {
+    enum CodingKeys: String, CodingKey { case patientID = "patientId" }
+    
     let patientID: String?
 }
 
