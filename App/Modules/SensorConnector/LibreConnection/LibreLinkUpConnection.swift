@@ -172,7 +172,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
     private func update() async throws {
         let fetch = try await fetch()
 
-        guard let sensorAge = fetch.data?.connection?.sensor?.age else {
+        guard let sensorAge = fetch.data?.connection?.sensor?.age ?? fetch.data?.activeSensors.first?.sensor?.age else {
             throw LibreLinkError.missingData
         }
 
@@ -252,7 +252,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         let (data, response) = try await URLSession.shared.data(for: request)
 
 #if DEBUG
-        DirectLog.info("LibreLinkUp login, response: \(String(data: data, encoding: String.Encoding.utf8))")
+        //DirectLog.info("LibreLinkUp login, response: \(String(data: data, encoding: String.Encoding.utf8))")
 #endif
 
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
@@ -283,7 +283,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         let (data, response) = try await URLSession.shared.data(for: request)
 
 #if DEBUG
-        DirectLog.info("LibreLinkUp connect, response: \(String(data: data, encoding: String.Encoding.utf8))")
+        //DirectLog.info("LibreLinkUp connect, response: \(String(data: data, encoding: String.Encoding.utf8))")
 #endif
 
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
@@ -320,7 +320,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         let (data, response) = try await URLSession.shared.data(for: request)
 
 #if DEBUG
-        DirectLog.info("LibreLinkUp login, fetch: \(String(data: data, encoding: String.Encoding.utf8))")
+        DirectLog.info("LibreLinkUp fetch, response: \(String(data: data, encoding: String.Encoding.utf8))")
 #endif
 
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
@@ -382,6 +382,7 @@ private struct LibreLinkResponseConnect: Codable {
 
 private struct LibreLinkResponseFetch: Codable {
     let connection: LibreLinkResponseConnection?
+    let activeSensors: [LibreLinkResponseActiveSensors]
     let graphData: [LibreLinkResponseGlucose]?
 }
 
@@ -390,6 +391,10 @@ private struct LibreLinkResponseFetch: Codable {
 private struct LibreLinkResponseConnection: Codable {
     let sensor: LibreLinkResponseSensor?
     let glucoseMeasurement: LibreLinkResponseGlucose?
+}
+
+private struct LibreLinkResponseActiveSensors: Codable {
+    let sensor: LibreLinkResponseSensor?
 }
 
 // MARK: - LibreLinkResponseSensor
