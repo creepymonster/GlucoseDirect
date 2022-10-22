@@ -437,6 +437,9 @@
 "Statistics (%@ days)" = "Статистика (%@ дня/дней)";
 
 /* (No Comment) */
+"StatisticsPeriod" = "Period";
+
+/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "Соединение с датчиком прервано. Обычно это происходит, когда датчик находится вне зоны действия или его мощность передачи данных снижена.";
 
 /* (No Comment) */
