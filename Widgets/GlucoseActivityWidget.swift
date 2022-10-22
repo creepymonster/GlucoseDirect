@@ -30,7 +30,7 @@ struct GlucoseActivityWidget: Widget {
                         Text(latestGlucose.glucoseValue.asGlucose(unit: glucoseUnit))
                             .offset(y: -7)
                             .padding(.leading)
-                        
+
                         Text(glucoseUnit.shortLocalizedDescription)
                             .offset(y: 7)
                             .opacity(0.5)
@@ -45,7 +45,7 @@ struct GlucoseActivityWidget: Widget {
                         Text(latestGlucose.trend.description)
                             .offset(y: -7)
                             .padding(.leading)
-                        
+
                         if let minuteChange = latestGlucose.minuteChange?.asShortMinuteChange(glucoseUnit: glucoseUnit), latestGlucose.trend != .unknown {
                             Text(minuteChange)
                                 .offset(y: 8)
@@ -53,8 +53,8 @@ struct GlucoseActivityWidget: Widget {
                                 .font(.footnote)
                         }
                     }
-                    
-                        .padding(.trailing)
+
+                    .padding(.trailing)
                 }
             } minimal: {
                 if let latestGlucose = context.state.glucose,
@@ -64,7 +64,7 @@ struct GlucoseActivityWidget: Widget {
                         Text(latestGlucose.glucoseValue.asGlucose(unit: glucoseUnit))
                             .offset(y: -7)
                             .padding(.leading)
-                        
+
                         Text(glucoseUnit.shortLocalizedDescription)
                             .offset(y: 7)
                             .opacity(0.5)
@@ -114,7 +114,7 @@ extension GlucoseStatusContext {
     }
 }
 
-// MARK: - DynamicIslandBottomView
+// MARK: - DynamicIslandCenterView
 
 @available(iOS 16.1, *)
 struct DynamicIslandCenterView: View, GlucoseStatusContext {
@@ -163,7 +163,7 @@ struct DynamicIslandCenterView: View, GlucoseStatusContext {
     }
 }
 
-// MARK: - DynamicIslandCenterView
+// MARK: - DynamicIslandBottomView
 
 @available(iOS 16.1, *)
 struct DynamicIslandBottomView: View, GlucoseStatusContext {
@@ -194,59 +194,46 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
             if let latestGlucose = context.glucose,
                let glucoseUnit = context.glucoseUnit
             {
-                HStack {
-                    Spacer()
+                VStack {
                     HStack(alignment: .lastTextBaseline) {
-                        ZStack(alignment: .trailing) {
-                            Text(latestGlucose.glucoseValue.asGlucose(unit: glucoseUnit))
-                                .font(.system(size: 64))
-                                .frame(height: 64)
-                                .foregroundColor(getGlucoseColor(glucose: latestGlucose))
-                                .clipped()
-                            
-                            if let warning = warning {
-                                Group {
-                                    Text(warning)
-                                        .padding(.init(top: 2.5, leading: 5, bottom: 2.5, trailing: 5))
-                                        .foregroundColor(.white)
-                                        .background(
-                                            RoundedRectangle(cornerRadius: 5, style: .continuous)
-                                                .foregroundStyle(Color.ui.red)
-                                        )
-                                }.offset(y: 32)
-                            }
-                            
-                            HStack(spacing: 20) {
-                                Text(latestGlucose.timestamp.toLocalTime())
-                                Text(glucoseUnit.localizedDescription)
-                            }
-                            .opacity(0.5)
-                            .offset(y: 40)
-                        }
-                        
+                        Text(latestGlucose.glucoseValue.asGlucose(unit: glucoseUnit))
+                            .font(.system(size: 64))
+                            .frame(height: 48)
+                            .clipped()
+                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
+
                         VStack(alignment: .leading) {
                             Text(latestGlucose.trend.description)
                                 .font(.system(size: 32))
-                            
+
                             if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit), latestGlucose.trend != .unknown {
                                 Text(minuteChange)
                             } else {
                                 Text("?".asMinuteChange())
                             }
                         }
-                    }.padding(.bottom, 20)
-                    
-                    Spacer()
-                }
+                    }
 
-//                if let stopDate = context.stopDate {
-//                    Text("Reopen app by \(stopDate.toLocalTime()) at the latest. Otherwise iOS automatically disables the widget :(")
-//                        .multilineTextAlignment(.center)
-//                        .fixedSize(horizontal: false, vertical: true)
-//                        .font(.footnote)
-//                        .frame(maxWidth: .infinity, alignment: .leading)
-//                        .opacity(0.5)
-//                }
+                    HStack(spacing: 20) {
+                        Spacer()
+                        Text(latestGlucose.timestamp.toLocalTime()).opacity(0.5)
+
+                        if let warning = warning {
+                            Group {
+                                Text(warning)
+                                    .padding(.init(top: 2.5, leading: 5, bottom: 2.5, trailing: 5))
+                                    .foregroundColor(.white)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 5, style: .continuous)
+                                            .foregroundStyle(Color.ui.red)
+                                    )
+                            }
+                        }
+
+                        Text(glucoseUnit.localizedDescription).opacity(0.5)
+                        Spacer()
+                    }
+                }
             } else {
                 VStack {
                     Text("No Data")
