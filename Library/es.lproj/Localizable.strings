@@ -8,10 +8,10 @@
 "%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
 
 /* (No Comment) */
-"%@ Entries" = "%@ entradas";
+"%@ Entries" = "%@ Entradas";
 
 /* (No Comment) */
-"%@ Entry" = "%@ entrada";
+"%@ Entry" = "%@ Entrada";
 
 /* (No Comment) */
 "About %@" = "Acerca de %@";
@@ -35,7 +35,7 @@
 "Alarm glucose notification" = "Alarma de notificación de glucosa";
 
 /* (No Comment) */
-"Alarm settings" = "Alarm settings";
+"Alarm settings" = "Ajustes de alarma";
 
 /* (No Comment) */
 "Alert, high glucose" = "Alerta: glucosa alta";
@@ -143,7 +143,7 @@
 "Connection error timestamp" = "Tiempo";
 
 /* (No Comment) */
-"Connection settings" = "Connection settings";
+"Connection settings" = "Ajustes de conexión";
 
 /* (No Comment) */
 "Connection state" = "Estado";
@@ -227,10 +227,10 @@
 "LibreLink transmitter" = "LibreLink";
 
 /* (No Comment) */
-"LibreLinkUp email" = "LibreLinkUp email";
+"LibreLinkUp email" = "Correo de LibreLinkUp";
 
 /* (No Comment) */
-"LibreLinkUp password" = "LibreLinkUp password";
+"LibreLinkUp password" = "Contraseña de LibreLinkUp";
 
 /* (No Comment) */
 "Line" = "Línea";
@@ -254,7 +254,7 @@
 "Nightscout url" = "Url";
 
 /* (No Comment) */
-"No Data" = "No Data";
+"No Data" = "Sin Datos";
 
 /* (No Comment) */
 "No screen lock" = "Sin bloqueo de pantalla";
@@ -311,7 +311,7 @@
 "Readable rising" = "subida";
 
 /* (No Comment) */
-"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
+"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Vuelve a abrir la aplicación en %@ como muy tarde. De lo contrario, iOS desactivará automáticamente el widget :(";
 
 /* (No Comment) */
 "Rescan the sensor" = "Volver a escanear el sensor";
@@ -437,7 +437,7 @@
 "Statistics (%@ days)" = "Estadísticas (%@ días)";
 
 /* (No Comment) */
-"StatisticsPeriod" = "Period";
+"StatisticsPeriod" = "Periodo";
 
 /* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "La conexión con el sensor se ha interrumpido. Normalmente, esto ocurre cuando el sensor está fuera de su alcance o su potencia de transmisión está deteriorada.";
@@ -452,7 +452,7 @@
 "Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Tiempo por debajo del rango (TBR) o el porcentaje de tiempo empleado por debajo del objetivo de glucosa de %@.";
 
 /* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@.";
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Tiempo en Rango (TIR) o el porcentaje de tiempo transcurrido en el rango de glucosa objetivo entre %@ - %@.";
 
 /* (No Comment) */
 "Transmitter" = "Transmisor";
