@@ -437,6 +437,9 @@
 "Statistics (%@ days)" = "Statistics (%@ days)";
 
 /* (No Comment) */
+"StatisticsPeriod" = "Period";
+
+/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "感測器連線中斷，請確保手機與感測器保持在5米以內範圍";
 
 /* (No Comment) */
