@@ -437,6 +437,9 @@
 "Statistics (%@ days)" = "İstatistikler (%@ gün)";
 
 /* (No Comment) */
+"StatisticsPeriod" = "Period";
+
+/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "Sensörle bağlantı kesildi. Normalde bu sensör menzil dışında olduğunda veya iletim gücü bozulduğunda olur.";
 
 /* (No Comment) */
