@@ -251,9 +251,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
         let (data, response) = try await URLSession.shared.data(for: request)
 
-#if DEBUG
-        //DirectLog.info("LibreLinkUp login, response: \(String(data: data, encoding: String.Encoding.utf8))")
-#endif
+        DirectLog.info("LibreLinkUp login, response: \(String(data: data, encoding: String.Encoding.utf8))")
 
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
             throw LibreLinkError.invalidCredentials
@@ -282,9 +280,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
         let (data, response) = try await URLSession.shared.data(for: request)
 
-#if DEBUG
-        //DirectLog.info("LibreLinkUp connect, response: \(String(data: data, encoding: String.Encoding.utf8))")
-#endif
+        DirectLog.info("LibreLinkUp connect, response: \(String(data: data, encoding: String.Encoding.utf8))")
 
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
             throw LibreLinkError.notAuthenticated
@@ -319,9 +315,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
         let (data, response) = try await URLSession.shared.data(for: request)
 
-#if DEBUG
         DirectLog.info("LibreLinkUp fetch, response: \(String(data: data, encoding: String.Encoding.utf8))")
-#endif
 
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
             throw LibreLinkError.notAuthenticated
