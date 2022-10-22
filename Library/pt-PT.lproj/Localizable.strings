@@ -437,6 +437,9 @@
 "Statistics (%@ days)" = " Estatísticas (%@ dias) ";
 
 /* (No Comment) */
+"StatisticsPeriod" = "Period";
+
+/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "A ligação com o sensor foi interrompida. Normalmente isto acontece quando o sensor está fora de alcance ou quando a sua potência de transmissão é imprópria.";
 
 /* (No Comment) */
