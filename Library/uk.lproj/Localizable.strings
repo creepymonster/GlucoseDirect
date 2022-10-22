@@ -437,7 +437,7 @@
 "Statistics (%@ days)" = "Статистика (%@ днів)";
 
 /* (No Comment) */
-"StatisticsPeriod" = "Period";
+"StatisticsPeriod" = "Термін";
 
 /* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "З’єднання з сенсором було перервано. Зазвичай, це трапляється, коли датчик знаходиться поза зоною дії або його потужність передачі даних знижена.";
