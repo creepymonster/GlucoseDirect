@@ -194,12 +194,14 @@ extension DataStore {
     func insertSensorGlucose(_ values: [SensorGlucose]) {
         if let dbQueue = dbQueue {
             do {
-                try dbQueue.write { db in
-                    values.forEach { value in
-                        do {
+                try values.forEach { value in
+                    try dbQueue.write { db in
+                        let count = try SensorGlucose
+                            .filter(Column(SensorGlucose.Columns.timestamp.name) == value.timestamp)
+                            .fetchCount(db)
+
+                        if count == 0 {
                             try value.insert(db)
-                        } catch {
-                            DirectLog.error(error.localizedDescription)
                         }
                     }
                 }
