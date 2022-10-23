@@ -54,6 +54,18 @@ func storeExportMiddleware() -> Middleware<DirectState, DirectAction> {
 
         case .exportSensorGlucoseValues:
             return DataStore.shared.getSensorGlucoseValues(upToDay: 90).map { glucoseValues in
+                let dateFormatter = DateFormatter()
+                dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+                dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+                
+                let headerPrefix = [
+                    "Glukose-Werte",
+                    "Erstellt am",
+                    "\(dateFormatter.string(from: Date())) UTC",
+                    "Erstellt von",
+                    "Glucose Direct"
+                ]
+                
                 let deviceHeader = "Gerät"
                 let serialHeader = "Seriennummer"
                 let timestampHeader = "Gerätezeitstempel"
@@ -62,6 +74,7 @@ func storeExportMiddleware() -> Middleware<DirectState, DirectAction> {
                 let header = [deviceHeader, serialHeader, timestampHeader, typeHeader, glucoseHeader]
                 
                 var values = [
+                    headerPrefix,
                     header
                 ]
                 
@@ -69,7 +82,7 @@ func storeExportMiddleware() -> Middleware<DirectState, DirectAction> {
                     values.append([
                         "Glucose Direct",
                         state.appSerial,
-                        value.timestamp.toISOStringFromDate(),
+                        dateFormatter.string(from: value.timestamp),
                         "0",
                         value.glucoseValue.description
                     ])
