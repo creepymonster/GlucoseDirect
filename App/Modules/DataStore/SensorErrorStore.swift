@@ -155,18 +155,29 @@ extension DataStore {
         }
     }
 
-    func getSensorErrorValues() -> Future<[SensorError], DirectError> {
+    func getSensorErrorValues(upToDay: Int? = 1) -> Future<[SensorError], DirectError> {
         return Future { promise in
             if let dbQueue = self.dbQueue {
                 dbQueue.asyncRead { asyncDB in
                     do {
-                        let db = try asyncDB.get()
-                        let result = try SensorError
-                            .filter(Column(SensorError.Columns.timestamp.name) > Calendar.current.date(byAdding: .day, value: -3, to: Date())!)
-                            .order(Column(SensorError.Columns.timestamp.name))
-                            .fetchAll(db)
+                        if let upToDay = upToDay,
+                           let upTo = Calendar.current.date(byAdding: .day, value: -upToDay, to: Date())
+                        {
+                            let db = try asyncDB.get()
+                            let result = try SensorError
+                                .filter(Column(SensorError.Columns.timestamp.name) > upTo)
+                                .order(Column(SensorError.Columns.timestamp.name))
+                                .fetchAll(db)
 
-                        promise(.success(result))
+                            promise(.success(result))
+                        } else {
+                            let db = try asyncDB.get()
+                            let result = try SensorError
+                                .order(Column(SensorError.Columns.timestamp.name))
+                                .fetchAll(db)
+
+                            promise(.success(result))
+                        }
                     } catch {
                         promise(.failure(DirectError.withMessage(error.localizedDescription)))
                     }

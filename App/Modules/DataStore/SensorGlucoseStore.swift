@@ -262,12 +262,14 @@ extension DataStore {
         }
     }
 
-    func getSensorGlucoseValues(upToDay: Int = 1) -> Future<[SensorGlucose], DirectError> {
+    func getSensorGlucoseValues(upToDay: Int? = 1) -> Future<[SensorGlucose], DirectError> {
         return Future { promise in
             if let dbQueue = self.dbQueue {
                 dbQueue.asyncRead { asyncDB in
                     do {
-                        if let upTo = Calendar.current.date(byAdding: .day, value: -upToDay, to: Date()) {
+                        if let upToDay = upToDay,
+                           let upTo = Calendar.current.date(byAdding: .day, value: -upToDay, to: Date())
+                        {
                             let db = try asyncDB.get()
                             let result = try SensorGlucose
                                 .filter(Column(SensorGlucose.Columns.timestamp.name) > upTo)
@@ -276,7 +278,12 @@ extension DataStore {
 
                             promise(.success(result))
                         } else {
-                            promise(.failure(DirectError.withMessage("Cannot get calendar dates")))
+                            let db = try asyncDB.get()
+                            let result = try SensorGlucose
+                                .order(Column(SensorGlucose.Columns.timestamp.name))
+                                .fetchAll(db)
+
+                            promise(.success(result))
                         }
                     } catch {
                         promise(.failure(DirectError.withMessage(error.localizedDescription)))
