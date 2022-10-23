@@ -10,12 +10,16 @@ import GRDB
 func storeExportMiddleware() -> Middleware<DirectState, DirectAction> {
     return { state, action, _ in
         switch action {
-        case .exportValues(values: let values):
+        case .sendCSVFile(filename: let filename, values: let values):
             do {
                 let fileManager = FileManager.default
                 
-                let temporaryDirectory = try fileManager.url(for: .itemReplacementDirectory, in: .userDomainMask, appropriateFor: fileManager.temporaryDirectory, create: true)
-                let temporaryURL = temporaryDirectory.appendingPathComponent("\(UUID().uuidString).csv")
+                let temporaryDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+                let temporaryURL = temporaryDirectory.appendingPathComponent("\(filename).csv")
+                
+                if fileManager.fileExists(atPath: temporaryURL.path) {
+                    try fileManager.removeItem(atPath: temporaryURL.path)
+                }
                 
                 let createdFile = fileManager.createFile(atPath: temporaryURL.path, contents: nil, attributes: nil)
                 if !createdFile {
@@ -49,7 +53,7 @@ func storeExportMiddleware() -> Middleware<DirectState, DirectAction> {
             }
 
         case .exportSensorGlucoseValues:
-            return DataStore.shared.getSensorGlucoseValues(upToDay: 30).map { glucoseValues in
+            return DataStore.shared.getSensorGlucoseValues(upToDay: 90).map { glucoseValues in
                 let deviceHeader = "Gerät"
                 let serialHeader = "Seriennummer"
                 let timestampHeader = "Gerätezeitstempel"
@@ -71,7 +75,7 @@ func storeExportMiddleware() -> Middleware<DirectState, DirectAction> {
                     ])
                 }
                 
-                return DirectAction.exportValues(values: values)
+                return DirectAction.sendCSVFile(filename: "glooko", values: values)
             }.eraseToAnyPublisher()
             
         default:

@@ -26,7 +26,7 @@ enum DirectAction {
     case deleteSensorGlucose(glucose: SensorGlucose)
     case disconnectConnection
     case exportSensorGlucoseValues
-    case exportValues(values: [[String]])
+    case sendCSVFile(filename: String, values: [[String]])
     case loadBloodGlucoseValues
     case loadSensorErrorValues
     case loadSensorGlucoseValues

@@ -14,7 +14,8 @@ struct LoadingView<Content>: View where Content: View {
             ZStack(alignment: .center) {
                 self.content()
                     .disabled(self.isShowing)
-                    .blur(radius: self.isShowing ? 10 : 0)
+                    .opacity(self.isShowing ? 0.80 : 1)
+                    .blur(radius: self.isShowing ? 2 : 0)
 
                 ProgressView()
                     .scaleEffect(2)
