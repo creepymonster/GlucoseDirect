@@ -4,8 +4,8 @@
 //
 
 import Foundation
-import SwiftUI
 import OSLog
+import SwiftUI
 
 enum DirectAction {
     case addBloodGlucose(glucoseValues: [BloodGlucose])
@@ -80,9 +80,10 @@ enum DirectAction {
     case setShowAnnotations(showAnnotations: Bool)
     case setGlucoseStatistics(statistics: GlucoseStatistics)
     case setTransmitter(transmitter: Transmitter)
+    case setStatisticsDays(days: Int)
     case startup
     case shutdown
-    
+
     case debugAlarm
     case debugNotification
 }

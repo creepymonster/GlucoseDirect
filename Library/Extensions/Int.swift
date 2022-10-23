@@ -113,6 +113,10 @@ extension Int {
 
         return plural
     }
+    
+    func pluralizeLocalization(singular: String, plural: String) -> String {
+        return pluralize(singular: String(format: LocalizedString(singular), self.description), plural: String(format: LocalizedString(plural), self.description))
+    }
 
     func asPercent() -> String {
         return "\(GlucoseFormatters.percentFormatter.string(from: self as NSNumber)!)%"

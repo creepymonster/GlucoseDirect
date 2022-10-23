@@ -60,14 +60,6 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
             peripheralType = .connectedPeripheral
             connect(connectedPeripheral)
-            
-            Task {
-                do {
-                    try await update()
-                } catch {
-                    sendUpdate(error: error)
-                }
-            }
 
         } else {
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
@@ -120,6 +112,10 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         let sleepFactor: UInt64 = value.count == 15
             ? 0
             : 1
+
+        if lastLogin == nil, sleepFactor == 1 {
+            return
+        }
 
         Task {
             do {
@@ -174,11 +170,9 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
     }()
 
     private func update() async throws {
-        DirectLog.info("Fetch started: \(Date().toLocalTime())")
-
         let fetch = try await fetch()
 
-        guard let sensorAge = fetch.data?.connection?.sensor?.age else {
+        guard let sensorAge = fetch.data?.connection?.sensor?.age ?? fetch.data?.activeSensors.first?.sensor?.age else {
             throw LibreLinkError.missingData
         }
 
@@ -207,49 +201,34 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         if forceLogin || lastLogin == nil || (lastLogin?.authExpires ?? Date()) <= Date() || (lastLogin?.authToken.count ?? 0) == 0 {
             let login = try await login()
 
-            guard let user = login.data?.user, let authTicket = login.data?.authTicket, !user.id.isEmpty, !authTicket.token.isEmpty else {
-                throw LibreLinkError.missingCredentials
+            guard let userID = login.data?.user?.id,
+                  let userCountry = login.data?.user?.country,
+                  let authToken = login.data?.authTicket?.token,
+                  let authExpires = login.data?.authTicket?.expires,
+                  !userCountry.isEmpty, !authToken.isEmpty
+            else {
+                throw LibreLinkError.invalidCredentials
             }
 
-            lastLogin = LibreLinkLogin(id: user.id, country: user.country, token: authTicket.token, expires: authTicket.expires)
+            DirectLog.info("LibreLinkUp login, userID: \(userID)")
+            DirectLog.info("LibreLinkUp login, userCountry: \(userCountry)")
+            DirectLog.info("LibreLinkUp login, authToken: \(authToken)")
+            DirectLog.info("LibreLinkUp login, authExpires: \(authExpires)")
+
+            let connect = try await connect(userCountry: userCountry, authToken: authToken)
+
+            guard let patientID = connect.data?.first?.patientID else {
+                throw LibreLinkError.invalidCredentials
+            }
+
+            DirectLog.info("LibreLinkUp login, patientID: \(patientID)")
+
+            lastLogin = LibreLinkLogin(userID: userID, patientID: patientID, userCountry: userCountry, authToken: authToken, authExpires: authExpires)
         }
-    }
-
-    private func fetch() async throws -> LibreLinkResponse<LibreLinkResponseFetch> {
-        DirectLog.info("Fetch LibreLinkUp data")
-
-        try await loginIfNeeded()
-
-        guard let lastLogin = lastLogin else {
-            throw LibreLinkError.missingLoginSession
-        }
-
-        guard let jsonDecoder = jsonDecoder else {
-            throw LibreLinkError.decoderError
-        }
-
-        guard let url = URL(string: "https://api-\(lastLogin.userCountry).libreview.io/llu/connections/\(lastLogin.userID)/graph") else {
-            throw LibreLinkError.invalidURL
-        }
-
-        var request = URLRequest(url: url)
-        request.setValue("Bearer \(lastLogin.authToken)", forHTTPHeaderField: "Authorization")
-
-        for (header, value) in requestHeaders {
-            request.setValue(value, forHTTPHeaderField: header)
-        }
-
-        let (data, response) = try await URLSession.shared.data(for: request)
-
-        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-            throw LibreLinkError.notAuthenticated
-        }
-
-        return try jsonDecoder.decode(LibreLinkResponse<LibreLinkResponseFetch>.self, from: data)
     }
 
     private func login() async throws -> LibreLinkResponse<LibreLinkResponseLogin> {
-        DirectLog.info("Login LibreLinkUp")
+        DirectLog.info("LibreLinkUp login")
 
         guard let url = URL(string: "https://api.libreview.io/llu/auth/login") else {
             throw LibreLinkError.invalidURL
@@ -272,11 +251,77 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
         let (data, response) = try await URLSession.shared.data(for: request)
 
+        DirectLog.info("LibreLinkUp login, response: \(String(data: data, encoding: String.Encoding.utf8))")
+
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
             throw LibreLinkError.invalidCredentials
         }
 
-        return try JSONDecoder().decode(LibreLinkResponse<LibreLinkResponseLogin>.self, from: data)
+        return try decode(LibreLinkResponse<LibreLinkResponseLogin>.self, data: data)
+    }
+
+    private func connect(userCountry: String, authToken: String) async throws -> LibreLinkResponse<[LibreLinkResponseConnect]> {
+        DirectLog.info("LibreLinkUp connect")
+
+        guard let url = URL(string: "https://api-\(userCountry).libreview.io/llu/connections") else {
+            throw LibreLinkError.invalidURL
+        }
+
+        var request = URLRequest(url: url)
+        request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
+
+        for (header, value) in requestHeaders {
+            request.setValue(value, forHTTPHeaderField: header)
+        }
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+
+        DirectLog.info("LibreLinkUp connect, response: \(String(data: data, encoding: String.Encoding.utf8))")
+
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+            throw LibreLinkError.notAuthenticated
+        }
+
+        return try decode(LibreLinkResponse<[LibreLinkResponseConnect]>.self, data: data)
+    }
+
+    private func fetch() async throws -> LibreLinkResponse<LibreLinkResponseFetch> {
+        DirectLog.info("LibreLinkUp fetch")
+
+        try await loginIfNeeded()
+
+        guard let lastLogin = lastLogin else {
+            throw LibreLinkError.missingLoginSession
+        }
+
+        guard let url = URL(string: "https://api-\(lastLogin.userCountry).libreview.io/llu/connections/\(lastLogin.patientID)/graph") else {
+            throw LibreLinkError.invalidURL
+        }
+
+        var request = URLRequest(url: url)
+        request.setValue("Bearer \(lastLogin.authToken)", forHTTPHeaderField: "Authorization")
+
+        for (header, value) in requestHeaders {
+            request.setValue(value, forHTTPHeaderField: header)
+        }
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+
+        DirectLog.info("LibreLinkUp fetch, response: \(String(data: data, encoding: String.Encoding.utf8))")
+
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+            throw LibreLinkError.notAuthenticated
+        }
+
+        return try decode(LibreLinkResponse<LibreLinkResponseFetch>.self, data: data)
+    }
+
+    private func decode<T: Decodable>(_ type: T.Type, data: Data) throws -> T {
+        guard let jsonDecoder = jsonDecoder else {
+            throw LibreLinkError.decoderError
+        }
+
+        return try jsonDecoder.decode(T.self, from: data)
     }
 }
 
@@ -319,10 +364,19 @@ private struct LibreLinkResponseLogin: Codable {
     let authTicket: LibreLinkResponseAuthentication?
 }
 
+// MARK: - LibreLinkResponseConnect
+
+private struct LibreLinkResponseConnect: Codable {
+    enum CodingKeys: String, CodingKey { case patientID = "patientId" }
+
+    let patientID: String?
+}
+
 // MARK: - LibreLinkResponseFetch
 
 private struct LibreLinkResponseFetch: Codable {
     let connection: LibreLinkResponseConnection?
+    let activeSensors: [LibreLinkResponseActiveSensors]
     let graphData: [LibreLinkResponseGlucose]?
 }
 
@@ -331,6 +385,12 @@ private struct LibreLinkResponseFetch: Codable {
 private struct LibreLinkResponseConnection: Codable {
     let sensor: LibreLinkResponseSensor?
     let glucoseMeasurement: LibreLinkResponseGlucose?
+}
+
+// MARK: - LibreLinkResponseActiveSensors
+
+private struct LibreLinkResponseActiveSensors: Codable {
+    let sensor: LibreLinkResponseSensor?
 }
 
 // MARK: - LibreLinkResponseSensor
@@ -375,22 +435,24 @@ private struct LibreLinkResponseAuthentication: Codable {
 private struct LibreLinkLogin {
     // MARK: Lifecycle
 
-    init(id: String, country: String, token: String, expires: Double) {
-        userID = id
+    init(userID: String, patientID: String, userCountry: String, authToken: String, authExpires: Double) {
+        self.userID = userID
+        self.patientID = patientID
 
-        if ["ae", "ap", "au", "de", "eu", "fr", "jp", "us"].contains(country.lowercased()) {
-            userCountry = country.lowercased()
+        if ["ae", "ap", "au", "de", "eu", "fr", "jp", "us"].contains(userCountry.lowercased()) {
+            self.userCountry = userCountry.lowercased()
         } else {
-            userCountry = "eu"
+            self.userCountry = "eu"
         }
 
-        authToken = token
-        authExpires = Date(timeIntervalSince1970: expires)
+        self.authToken = authToken
+        self.authExpires = Date(timeIntervalSince1970: authExpires)
     }
 
     // MARK: Internal
 
     let userID: String
+    let patientID: String
     let userCountry: String
     let authToken: String
     let authExpires: Date
@@ -407,6 +469,7 @@ private enum LibreLinkError: Error {
     case notAuthenticated
     case decoderError
     case missingData
+    case parsingError
 }
 
 // MARK: CustomStringConvertible
@@ -430,6 +493,8 @@ extension LibreLinkError: CustomStringConvertible {
             return "Decoder error"
         case .missingData:
             return "Missing data"
+        case .parsingError:
+            return "Parsing error"
         }
     }
 }

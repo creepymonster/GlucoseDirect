@@ -25,8 +25,6 @@ private func widgetCenterMiddleware(service: LazyService<ActivityGlucoseService>
 
         switch action {
         case .startup:
-            WidgetCenter.shared.reloadAllTimelines()
-
             guard state.glucoseLiveActivity else {
                 break
             }
@@ -34,7 +32,23 @@ private func widgetCenterMiddleware(service: LazyService<ActivityGlucoseService>
             service.value.start(alarmLow: state.alarmLow, alarmHigh: state.alarmHigh, sensorState: state.sensor?.state, connectionState: state.connectionState, glucose: state.latestSensorGlucose, glucoseUnit: state.glucoseUnit)
 
         case .setGlucoseUnit(unit: _):
-            WidgetCenter.shared.reloadAllTimelines()
+            guard state.glucoseLiveActivity else {
+                break
+            }
+
+            guard service.value.isActivated else {
+                break
+            }
+
+            if service.value.stopRequired {
+                service.value.stop()
+
+            } else if service.value.restartRecommended || service.value.startRequired, state.appState == .active {
+                service.value.start(alarmLow: state.alarmLow, alarmHigh: state.alarmHigh, sensorState: state.sensor?.state, connectionState: state.connectionState, glucose: state.latestSensorGlucose, glucoseUnit: state.glucoseUnit)
+
+            } else if !service.value.startRequired {
+                service.value.update(alarmLow: state.alarmLow, alarmHigh: state.alarmHigh, sensorState: state.sensor?.state, connectionState: state.connectionState, glucose: state.latestSensorGlucose, glucoseUnit: state.glucoseUnit, isSnoozed: isSnoozed)
+            }
 
         case .setGlucoseLiveActivity(enabled: let enabled):
             if enabled {

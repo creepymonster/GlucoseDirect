@@ -35,9 +35,6 @@
 "Alarm glucose notification" = "Blodsockerlarm";
 
 /* (No Comment) */
-"Alarm settings" = "Alarm settings";
-
-/* (No Comment) */
 "Alert, high glucose" = "Varning, högt blodsocker";
 
 /* (No Comment) */
@@ -141,9 +138,6 @@
 
 /* (No Comment) */
 "Connection error timestamp" = "Tid";
-
-/* (No Comment) */
-"Connection settings" = "Connection settings";
 
 /* (No Comment) */
 "Connection state" = "Tillstånd";
@@ -254,9 +248,6 @@
 "Nightscout url" = "URL";
 
 /* (No Comment) */
-"No Data" = "No Data";
-
-/* (No Comment) */
 "No screen lock" = "Inget skärmlås";
 
 /* (No Comment) */
@@ -309,9 +300,6 @@
 
 /* (No Comment) */
 "Readable rising" = "stigande";
-
-/* (No Comment) */
-"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
 
 /* (No Comment) */
 "Rescan the sensor" = "Skanna om sensorn";
@@ -437,9 +425,6 @@
 "Statistics (%@ days)" = "Statistics (%@ days)";
 
 /* (No Comment) */
-"StatisticsPeriod" = "Period";
-
-/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "Anslutningen till sensorn har avbrutits. Normalt händer detta när sensorn är utom räckvidd eller när dess överföringskapacitet är nedsatt.";
 
 /* (No Comment) */
@@ -534,3 +519,18 @@
 
 /* (No Comment) */
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Din sensor går snart ut. Byt sensor om %1$@ minuter.";
+
+/* (No Comment) */
+"Alarm settings" = "Alarm settings";
+
+/* (No Comment) */
+"Connection settings" = "Connection settings";
+
+/* (No Comment) */
+"No Data" = "No Data";
+
+/* (No Comment) */
+"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
+
+/* (No Comment) */
+"StatisticsPeriod" = "Period";

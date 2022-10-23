@@ -35,9 +35,6 @@
 "Alarm glucose notification" = "Alarma de notificación de glucosa";
 
 /* (No Comment) */
-"Alarm settings" = "Alarm settings";
-
-/* (No Comment) */
 "Alert, high glucose" = "Alerta: glucosa alta";
 
 /* (No Comment) */
@@ -59,7 +56,7 @@
 "App donate" = "Donar";
 
 /* (No Comment) */
-"App email" = "Correo electrónico ";
+"App email" = "Correo electrónico";
 
 /* (No Comment) */
 "App facebook group" = "Facebook";
@@ -143,9 +140,6 @@
 "Connection error timestamp" = "Tiempo";
 
 /* (No Comment) */
-"Connection settings" = "Connection settings";
-
-/* (No Comment) */
 "Connection state" = "Estado";
 
 /* (No Comment) */
@@ -188,7 +182,7 @@
 "Glucose list view" = "Lista";
 
 /* (No Comment) */
-"Glucose Live Activity" = " Actividad en vivo de glucosa";
+"Glucose Live Activity" = "Actividad en vivo de glucosa";
 
 /* (No Comment) */
 "Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "El Indicador de control de la glucosa (GMI) es un sustituto de la \"HbA1c estimada\" para los pacientes que utilizan la monitorización continua de la glucosa.";
@@ -200,7 +194,7 @@
 "Glucose overview" = "Resumen";
 
 /* (No Comment) */
-"Glucose read aloud" = " Lectura de glucosa";
+"Glucose read aloud" = "Lectura de glucosa";
 
 /* (No Comment) */
 "Glucose settings" = "Ajustes de glucosa";
@@ -252,9 +246,6 @@
 
 /* (No Comment) */
 "Nightscout url" = "Url";
-
-/* (No Comment) */
-"No Data" = "No Data";
 
 /* (No Comment) */
 "No screen lock" = "Sin bloqueo de pantalla";
@@ -311,9 +302,6 @@
 "Readable rising" = "subida";
 
 /* (No Comment) */
-"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
-
-/* (No Comment) */
 "Rescan the sensor" = "Volver a escanear el sensor";
 
 /* (No Comment) */
@@ -338,7 +326,7 @@
 "Selected calendar" = "Calendario";
 
 /* (No Comment) */
-"Send database file" = " Enviar archivo de base de datos";
+"Send database file" = "Enviar archivo de base de datos";
 
 /* (No Comment) */
 "Send log file" = "Enviar archivo de registro";
@@ -437,9 +425,6 @@
 "Statistics (%@ days)" = "Estadísticas (%@ días)";
 
 /* (No Comment) */
-"StatisticsPeriod" = "Period";
-
-/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "La conexión con el sensor se ha interrumpido. Normalmente, esto ocurre cuando el sensor está fuera de su alcance o su potencia de transmisión está deteriorada.";
 
 /* (No Comment) */
@@ -452,7 +437,7 @@
 "Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Tiempo por debajo del rango (TBR) o el porcentaje de tiempo empleado por debajo del objetivo de glucosa de %@.";
 
 /* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@.";
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Tiempo en el rango (TIR) o el porcentaje de tiempo transcurrido en el rango de glucosa objetivo entre %@ - %@.";
 
 /* (No Comment) */
 "Transmitter" = "Transmisor";
@@ -534,3 +519,18 @@
 
 /* (No Comment) */
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Su sensor está a punto de caducar. Reemplace el sensor en %1$@ minutos.";
+
+/* (No Comment) */
+"Alarm settings" = "Alarm settings";
+
+/* (No Comment) */
+"Connection settings" = "Connection settings";
+
+/* (No Comment) */
+"No Data" = "No Data";
+
+/* (No Comment) */
+"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
+
+/* (No Comment) */
+"StatisticsPeriod" = "Periodo";

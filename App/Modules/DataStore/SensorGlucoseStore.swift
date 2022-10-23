@@ -27,12 +27,17 @@ func glucoseStatisticsMiddleware() -> Middleware<DirectState, DirectAction> {
                 .setFailureType(to: DirectError.self)
                 .eraseToAnyPublisher()
 
+        case .setStatisticsDays(days: _):
+            return Just(DirectAction.loadSensorGlucoseStatistics)
+                .setFailureType(to: DirectError.self)
+                .eraseToAnyPublisher()
+
         case .loadSensorGlucoseStatistics:
             guard state.appState == .active else {
                 break
             }
 
-            return DataStore.shared.getSensorGlucoseStatistics(lowerLimit: state.alarmLow, upperLimit: state.alarmHigh).map { statistics in
+            return DataStore.shared.getSensorGlucoseStatistics(days: state.statisticsDays, lowerLimit: state.alarmLow, upperLimit: state.alarmHigh).map { statistics in
                 DirectAction.setGlucoseStatistics(statistics: statistics)
             }.eraseToAnyPublisher()
 
@@ -189,12 +194,14 @@ extension DataStore {
     func insertSensorGlucose(_ values: [SensorGlucose]) {
         if let dbQueue = dbQueue {
             do {
-                try dbQueue.write { db in
-                    values.forEach { value in
-                        do {
+                try values.forEach { value in
+                    try dbQueue.write { db in
+                        let count = try SensorGlucose
+                            .filter(Column(SensorGlucose.Columns.timestamp.name) == value.timestamp)
+                            .fetchCount(db)
+
+                        if count == 0 {
                             try value.insert(db)
-                        } catch {
-                            DirectLog.error(error.localizedDescription)
                         }
                     }
                 }
@@ -204,7 +211,7 @@ extension DataStore {
         }
     }
 
-    func getSensorGlucoseStatistics(lowerLimit: Int, upperLimit: Int) -> Future<GlucoseStatistics, DirectError> {
+    func getSensorGlucoseStatistics(days: Int, lowerLimit: Int, upperLimit: Int) -> Future<GlucoseStatistics, DirectError> {
         return Future { promise in
             if let dbQueue = self.dbQueue {
                 dbQueue.asyncRead { asyncDB in
@@ -223,10 +230,13 @@ extension DataStore {
                                 IFNULL(JULIANDAY(MAX(sg.timestamp)) - JULIANDAY(MIN(sg.timestamp)) + 1, 0) AS days,
                                 IFNULL(AVG((sg.intGlucoseValue - sub.avg) * (sg.intGlucoseValue - sub.avg)), 0) as variance
                             FROM
-                                SensorGlucose sg,
-                                (SELECT AVG(ssg.intGlucoseValue) AS avg FROM SensorGlucose ssg WHERE ssg.timestamp >= DATE('now', '-3 months') ) AS sub
+                                SensorGlucose sg, (
+                                    SELECT AVG(ssg.intGlucoseValue) AS avg
+                                    FROM SensorGlucose ssg
+                                    WHERE ssg.timestamp > date('now', '-\(days) days') AND ssg.timestamp < date('now')
+                                ) AS sub
                             WHERE
-                                sg.timestamp >= date('now', '-3 months')
+                                sg.timestamp > date('now', '-\(days) days') and sg.timestamp < date('now')
                         """, arguments: ["low": lowerLimit, "high": upperLimit]) {
                             let statistics = GlucoseStatistics(
                                 readings: row["readings"],

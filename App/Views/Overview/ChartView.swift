@@ -14,62 +14,6 @@ struct ChartView: View {
 
     @EnvironmentObject var store: DirectStore
 
-    var zoomLevel: ZoomLevel? {
-        Config.zoomLevels.first(where: { $0.level == store.state.chartZoomLevel })
-    }
-
-    var glucoseUnit: GlucoseUnit {
-        store.state.glucoseUnit
-    }
-
-    var labelEveryUnit: Calendar.Component {
-        if let zoomLevel = zoomLevel {
-            return zoomLevel.labelEveryUnit
-        }
-
-        return .hour
-    }
-
-    var labelEvery: Int {
-        if let zoomLevel = zoomLevel {
-            return zoomLevel.labelEvery
-        }
-
-        return 1
-    }
-
-    var alarmLow: Decimal {
-        if glucoseUnit == .mmolL {
-            return store.state.alarmLow.asMmolL
-        }
-
-        return store.state.alarmLow.asMgdL
-    }
-
-    var alarmHigh: Decimal {
-        if glucoseUnit == .mmolL {
-            return store.state.alarmHigh.asMmolL
-        }
-
-        return store.state.alarmHigh.asMgdL
-    }
-
-    var bloodGlucoseValues: [BloodGlucose] {
-        store.state.bloodGlucoseHistory + store.state.bloodGlucoseValues
-    }
-
-    var sensorGlucoseValues: [SensorGlucose] {
-        store.state.sensorGlucoseHistory + store.state.sensorGlucoseValues
-    }
-
-    var endMarker: Date {
-        if let zoomLevel = zoomLevel, zoomLevel.level == 1 {
-            return Calendar.current.date(byAdding: .minute, value: 15, to: Date())!
-        }
-
-        return Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
-    }
-
     var ChartView: some View {
         ZStack(alignment: .topLeading) {
             GeometryReader { geometryProxy in
@@ -177,7 +121,7 @@ struct ChartView: View {
                                 updateSensorSeries()
                                 updateBloodSeries()
                             }
-                            
+
                         }.onChange(of: seriesWidth) { _ in
                             scrollToEnd(scrollViewProxy: scrollViewProxy)
 
@@ -328,7 +272,62 @@ struct ChartView: View {
     @State private var selectedBloodPoint: ChartDatapoint? = nil
 
     private let calculationQueue = DispatchQueue(label: "libre-direct.chart-calculation", qos: .utility)
-    private let debouncer = Debouncer(delay: 0.5)
+
+    private var zoomLevel: ZoomLevel? {
+        Config.zoomLevels.first(where: { $0.level == store.state.chartZoomLevel })
+    }
+
+    private var glucoseUnit: GlucoseUnit {
+        store.state.glucoseUnit
+    }
+
+    private var labelEveryUnit: Calendar.Component {
+        if let zoomLevel = zoomLevel {
+            return zoomLevel.labelEveryUnit
+        }
+
+        return .hour
+    }
+
+    private var labelEvery: Int {
+        if let zoomLevel = zoomLevel {
+            return zoomLevel.labelEvery
+        }
+
+        return 1
+    }
+
+    private var alarmLow: Decimal {
+        if glucoseUnit == .mmolL {
+            return store.state.alarmLow.asMmolL
+        }
+
+        return store.state.alarmLow.asMgdL
+    }
+
+    private var alarmHigh: Decimal {
+        if glucoseUnit == .mmolL {
+            return store.state.alarmHigh.asMmolL
+        }
+
+        return store.state.alarmHigh.asMgdL
+    }
+
+    private var bloodGlucoseValues: [BloodGlucose] {
+        store.state.bloodGlucoseHistory + store.state.bloodGlucoseValues
+    }
+
+    private var sensorGlucoseValues: [SensorGlucose] {
+        store.state.sensorGlucoseHistory + store.state.sensorGlucoseValues
+    }
+
+    private var endMarker: Date {
+        if let zoomLevel = zoomLevel, zoomLevel.level == 1 {
+            return Calendar.current.date(byAdding: .minute, value: 15, to: Date())!
+        }
+
+        return Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
+    }
 
     private var shouldRefresh: Bool {
         store.state.appState == .active
@@ -455,9 +454,17 @@ struct ChartView: View {
     }
 }
 
+// MARK: - ChartDatapoint + Equatable
+
+extension ChartDatapoint: Equatable {
+    static func == (lhs: ChartDatapoint, rhs: ChartDatapoint) -> Bool {
+        lhs.id == rhs.id
+    }
+}
+
 // MARK: - ZoomLevel
 
-struct ZoomLevel {
+private struct ZoomLevel {
     let level: Int
     let name: String
     let visibleHours: Int
@@ -467,22 +474,14 @@ struct ZoomLevel {
 
 // MARK: - ChartDatapoint
 
-struct ChartDatapoint: Identifiable {
+private struct ChartDatapoint: Identifiable {
     let id: String
     let valueX: Date
     let valueY: Decimal
     let info: String
 }
 
-// MARK: Equatable
-
-extension ChartDatapoint: Equatable {
-    static func == (lhs: ChartDatapoint, rhs: ChartDatapoint) -> Bool {
-        lhs.id == rhs.id
-    }
-}
-
-extension BloodGlucose {
+private extension BloodGlucose {
     func toDatapointID(glucoseUnit: GlucoseUnit) -> String {
         "\(id.uuidString)-\(glucoseUnit.rawValue)"
     }
@@ -506,7 +505,7 @@ extension BloodGlucose {
     }
 }
 
-extension SensorGlucose {
+private extension SensorGlucose {
     func toDatapointID(glucoseUnit: GlucoseUnit) -> String {
         "\(id.uuidString)-\(glucoseUnit.rawValue)"
     }
@@ -536,34 +535,4 @@ extension SensorGlucose {
             info: info
         )
     }
-}
-
-// MARK: - Debouncer
-
-class Debouncer {
-    // MARK: Lifecycle
-
-    init(delay: TimeInterval, queue: DispatchQueue = .main) {
-        self.delay = delay
-        self.queue = queue
-    }
-
-    // MARK: Internal
-
-    func run(action: @escaping () -> Void) {
-        workItem?.cancel()
-        let workItem = DispatchWorkItem(block: action)
-        queue.asyncAfter(deadline: .now() + delay, execute: workItem)
-        self.workItem = workItem
-    }
-
-    func cancel() {
-        workItem?.cancel()
-    }
-
-    // MARK: Private
-
-    private let delay: TimeInterval
-    private var workItem: DispatchWorkItem?
-    private let queue: DispatchQueue
 }

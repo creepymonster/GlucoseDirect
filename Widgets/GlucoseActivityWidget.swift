@@ -19,9 +19,58 @@ struct GlucoseActivityWidget: Widget {
                 DynamicIslandExpandedRegion(.center) {
                     DynamicIslandCenterView(context: context.state)
                 }
+                DynamicIslandExpandedRegion(.bottom) {
+                    DynamicIslandBottomView(context: context.state)
+                }
             } compactLeading: {
+                if let latestGlucose = context.state.glucose,
+                   let glucoseUnit = context.state.glucoseUnit
+                {
+                    ZStack(alignment: .trailing) {
+                        Text(latestGlucose.glucoseValue.asGlucose(unit: glucoseUnit))
+                            .offset(y: -7)
+                            .padding(.leading)
+
+                        Text(glucoseUnit.shortLocalizedDescription)
+                            .offset(y: 7)
+                            .opacity(0.5)
+                            .font(.footnote)
+                    }
+                }
             } compactTrailing: {
+                if let latestGlucose = context.state.glucose,
+                   let glucoseUnit = context.state.glucoseUnit
+                {
+                    ZStack(alignment: .trailing) {
+                        Text(latestGlucose.trend.description)
+                            .offset(y: -7)
+                            .padding(.leading)
+
+                        if let minuteChange = latestGlucose.minuteChange?.asShortMinuteChange(glucoseUnit: glucoseUnit), latestGlucose.trend != .unknown {
+                            Text(minuteChange)
+                                .offset(y: 8)
+                                .opacity(0.5)
+                                .font(.footnote)
+                        }
+                    }
+
+                    .padding(.trailing)
+                }
             } minimal: {
+                if let latestGlucose = context.state.glucose,
+                   let glucoseUnit = context.state.glucoseUnit
+                {
+                    ZStack(alignment: .trailing) {
+                        Text(latestGlucose.glucoseValue.asGlucose(unit: glucoseUnit))
+                            .offset(y: -7)
+                            .padding(.leading)
+
+                        Text(glucoseUnit.shortLocalizedDescription)
+                            .offset(y: 7)
+                            .opacity(0.5)
+                            .font(.footnote)
+                    }
+                }
             }
         }
     }
@@ -47,7 +96,7 @@ extension GlucoseStatusContext {
 
         return nil
     }
-    
+
     func isAlarm(glucose: any Glucose) -> Bool {
         if glucose.glucoseValue < context.alarmLow || glucose.glucoseValue > context.alarmHigh {
             return true
@@ -75,7 +124,7 @@ struct DynamicIslandCenterView: View, GlucoseStatusContext {
         if let latestGlucose = context.glucose,
            let glucoseUnit = context.glucoseUnit
         {
-            HStack(alignment: .lastTextBaseline) {
+            HStack(alignment: .lastTextBaseline, spacing: 10) {
                 ZStack(alignment: .trailing) {
                     Text(latestGlucose.glucoseValue.asGlucose(unit: glucoseUnit))
                         .font(.system(size: 48))
@@ -95,11 +144,6 @@ struct DynamicIslandCenterView: View, GlucoseStatusContext {
                                 )
                         }.offset(y: 20)
                     }
-
-                    HStack(spacing: 16) {
-                        Text(latestGlucose.timestamp.toLocalTime())
-                        Text(glucoseUnit.localizedDescription)
-                    }.offset(y: 30)
                 }
 
                 VStack(alignment: .leading) {
@@ -114,7 +158,27 @@ struct DynamicIslandCenterView: View, GlucoseStatusContext {
                             .font(.system(size: 14))
                     }
                 }
-            }.padding(.bottom, 20)
+            }
+        }
+    }
+}
+
+// MARK: - DynamicIslandBottomView
+
+@available(iOS 16.1, *)
+struct DynamicIslandBottomView: View, GlucoseStatusContext {
+    @State var context: SensorGlucoseActivityAttributes.GlucoseStatus
+
+    var body: some View {
+        if let latestGlucose = context.glucose,
+           let glucoseUnit = context.glucoseUnit
+        {
+            HStack(spacing: 20) {
+                Text(latestGlucose.timestamp.toLocalTime())
+                Text(glucoseUnit.localizedDescription)
+            }
+            .opacity(0.5)
+            .font(.system(size: 14))
         }
     }
 }
@@ -130,13 +194,29 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
             if let latestGlucose = context.glucose,
                let glucoseUnit = context.glucoseUnit
             {
-                HStack(alignment: .lastTextBaseline) {
-                    ZStack(alignment: .trailing) {
+                VStack {
+                    HStack(alignment: .lastTextBaseline) {
                         Text(latestGlucose.glucoseValue.asGlucose(unit: glucoseUnit))
-                            .font(.system(size: 96))
-                            .frame(height: 96)
-                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
+                            .font(.system(size: 64))
+                            .frame(height: 48)
                             .clipped()
+                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
+
+                        VStack(alignment: .leading) {
+                            Text(latestGlucose.trend.description)
+                                .font(.system(size: 32))
+
+                            if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit), latestGlucose.trend != .unknown {
+                                Text(minuteChange)
+                            } else {
+                                Text("?".asMinuteChange())
+                            }
+                        }
+                    }
+
+                    HStack(spacing: 20) {
+                        Spacer()
+                        Text(latestGlucose.timestamp.toLocalTime()).opacity(0.5)
 
                         if let warning = warning {
                             Group {
@@ -147,32 +227,12 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
                                         RoundedRectangle(cornerRadius: 5, style: .continuous)
                                             .foregroundStyle(Color.ui.red)
                                     )
-                            }.offset(y: 32)
+                            }
                         }
 
-                        HStack(spacing: 16) {
-                            Text(latestGlucose.timestamp.toLocalTime())
-                            Text(glucoseUnit.localizedDescription)
-                        }.offset(y: 58)
+                        Text(glucoseUnit.localizedDescription).opacity(0.5)
+                        Spacer()
                     }
-
-                    VStack(alignment: .leading) {
-                        Text(latestGlucose.trend.description)
-                            .font(.system(size: 48))
-
-                        if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit), latestGlucose.trend != .unknown {
-                            Text(minuteChange)
-                        } else {
-                            Text("?".asMinuteChange())
-                        }
-                    }
-                }.padding(.bottom, 32)
-
-                if let stopDate = context.stopDate {
-                    Text("Reopen app by \(stopDate.toLocalTime()) at the latest. Otherwise iOS automatically disables the widget :(")
-                        .font(.footnote)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .opacity(0.5)
                 }
             } else {
                 VStack {
