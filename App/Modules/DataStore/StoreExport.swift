@@ -49,33 +49,31 @@ func storeExportMiddleware() -> Middleware<DirectState, DirectAction> {
             }
 
         case .exportSensorGlucoseValues:
-            let deviceHeader = "Gerät"
-            let serialHeader = "Seriennummer"
-            let timestampHeader = "Gerätezeitstempel"
-            let typeHeader = "Aufzeichnungstyp"
-            let glucoseHeader = "Glukosewert-Verlauf mg/dL"
-            let header = [deviceHeader, serialHeader, timestampHeader, typeHeader, glucoseHeader]
+            return DataStore.shared.getSensorGlucoseValues(upToDay: 30).map { glucoseValues in
+                let deviceHeader = "Gerät"
+                let serialHeader = "Seriennummer"
+                let timestampHeader = "Gerätezeitstempel"
+                let typeHeader = "Aufzeichnungstyp"
+                let glucoseHeader = "Glukosewert-Verlauf mg/dL"
+                let header = [deviceHeader, serialHeader, timestampHeader, typeHeader, glucoseHeader]
+                
+                var values = [
+                    header
+                ]
+                
+                glucoseValues.forEach { value in
+                    values.append([
+                        "Glucose Direct",
+                        state.appSerial,
+                        value.timestamp.toISOStringFromDate(),
+                        "0",
+                        value.glucoseValue.description
+                    ])
+                }
+                
+                return DirectAction.exportValues(values: values)
+            }.eraseToAnyPublisher()
             
-            var values = [
-                header
-            ]
-            
-            let glucoseValues = DataStore.shared.getSensorGlucoseValues()
-            
-            glucoseValues.forEach { value in
-                values.append([
-                    "Glucose Direct",
-                    state.appSerial,
-                    value.timestamp.toISOStringFromDate(),
-                    "0",
-                    value.glucoseValue.description
-                ])
-            }
-            
-            return Just(DirectAction.exportValues(values: values))
-                .setFailureType(to: DirectError.self)
-                .eraseToAnyPublisher()
-
         default:
             break
         }
@@ -85,18 +83,35 @@ func storeExportMiddleware() -> Middleware<DirectState, DirectAction> {
 }
 
 private extension DataStore {
-    func getSensorGlucoseValues() -> [SensorGlucose] {
-        if let dbQueue = dbQueue {
-            do {
-                return try dbQueue.read { db in
-                    try SensorGlucose
-                        .order(Column(SensorGlucose.Columns.timestamp.name))
-                        .fetchAll(db)
+    func getSensorGlucoseValues(upToDay: Int? = 30) -> Future<[SensorGlucose], DirectError> {
+        return Future { promise in
+            if let dbQueue = self.dbQueue {
+                dbQueue.asyncRead { asyncDB in
+                    do {
+                        if let upToDay = upToDay,
+                           let upTo = Calendar.current.date(byAdding: .day, value: -upToDay, to: Date())
+                        {
+                            let db = try asyncDB.get()
+                            let result = try SensorGlucose
+                                .filter(Column(SensorGlucose.Columns.timestamp.name) > upTo)
+                                .order(Column(SensorGlucose.Columns.timestamp.name))
+                                .fetchAll(db)
+
+                            promise(.success(result))
+                        } else {
+                            let db = try asyncDB.get()
+                            let result = try SensorGlucose
+                                .order(Column(SensorGlucose.Columns.timestamp.name))
+                                .fetchAll(db)
+
+                            promise(.success(result))
+                        }
+                    } catch {
+                        promise(.failure(DirectError.withMessage(error.localizedDescription)))
+                    }
                 }
-            } catch {}
+            }
         }
-        
-        return []
     }
 }
 

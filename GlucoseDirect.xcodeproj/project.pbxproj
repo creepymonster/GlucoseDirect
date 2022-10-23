@@ -835,12 +835,12 @@
 		E2FDC933266FAF1C007AA1F5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E2CAC1DD2905DB7E00C87B17 /* LoadingIndicator.swift */,
 				E20B853F266F4A9800AA4224 /* ContentView.swift */,
 				E2D34BC3274D6BB500151895 /* OverviewView.swift */,
 				E2D34BC5274D6BC000151895 /* CalibrationsView.swift */,
 				E2D34BC7274D6BCB00151895 /* ListsView.swift */,
 				E2D34BC9274D6C1300151895 /* SettingsView.swift */,
+				E2CAC1DD2905DB7E00C87B17 /* LoadingIndicator.swift */,
 				E298CF07279DEC3300C1C218 /* Overview */,
 				E298CF01279DEB6600C1C218 /* Calibrations */,
 				E262DCC2287A48C700ECAB76 /* Lists */,
