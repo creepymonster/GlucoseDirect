@@ -10,6 +10,8 @@ import SwiftUI
 // MARK: - DirectState
 
 protocol DirectState {
+    var appIsBusy: Bool { get set }
+    var appSerial: String { get }
     var appState: ScenePhase { get set }
     var alarmHigh: Int { get set }
     var alarmLow: Int { get set }
@@ -111,7 +113,7 @@ extension DirectState {
         !isConnectionPaired && !(connectionState != .disconnected && connectionState != .pairing && connectionState != .scanning && connectionState != .connecting)
     }
 
-    var isBusy: Bool {
+    var connectionIsBusy: Bool {
         !(connectionState != .pairing && connectionState != .scanning && connectionState != .connecting)
     }
 

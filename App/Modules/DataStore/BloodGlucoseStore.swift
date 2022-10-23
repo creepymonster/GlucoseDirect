@@ -66,24 +66,7 @@ func bloodGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
     }
 }
 
-// MARK: - BloodGlucose + FetchableRecord, PersistableRecord
-
-extension BloodGlucose: FetchableRecord, PersistableRecord {
-    static let databaseUUIDEncodingStrategy = DatabaseUUIDEncodingStrategy.uppercaseString
-
-    static var Table: String {
-        "BloodGlucose"
-    }
-
-    enum Columns: String, ColumnExpression {
-        case id
-        case timestamp
-        case glucoseValue
-        case timegroup
-    }
-}
-
-extension DataStore {
+private extension DataStore {
     func createBloodGlucoseTable() {
         if let dbQueue = dbQueue {
             do {

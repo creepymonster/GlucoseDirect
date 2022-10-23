@@ -91,6 +91,10 @@ struct AboutView: View {
         Button("Send log file", action: {
             store.dispatch(.sendLogs)
         })
+        
+        Button("Export CSV", action: {
+            store.dispatch(.exportSensorGlucoseValues)
+        })
 
         #if DEBUG
         Section(

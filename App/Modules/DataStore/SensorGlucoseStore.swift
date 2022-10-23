@@ -87,12 +87,10 @@ func sensorGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
 
             return Publishers.MergeMany(
                 DataStore.shared.getSensorGlucoseValues().map { glucoseValues in
-                    DirectLog.info("getSensorGlucoseValues")
-                    return DirectAction.setSensorGlucoseValues(glucoseValues: glucoseValues)
+                    DirectAction.setSensorGlucoseValues(glucoseValues: glucoseValues)
                 },
                 DataStore.shared.getSensorGlucoseHistory().map { glucoseValues in
-                    DirectLog.info("getSensorGlucoseHistory")
-                    return DirectAction.setSensorGlucoseHistory(glucoseHistory: glucoseValues)
+                    DirectAction.setSensorGlucoseHistory(glucoseHistory: glucoseValues)
                 }
             ).eraseToAnyPublisher()
 
@@ -113,26 +111,7 @@ func sensorGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
     }
 }
 
-// MARK: - SensorGlucose + FetchableRecord, PersistableRecord
-
-extension SensorGlucose: FetchableRecord, PersistableRecord {
-    static let databaseUUIDEncodingStrategy = DatabaseUUIDEncodingStrategy.uppercaseString
-
-    static var Table: String {
-        "SensorGlucose"
-    }
-
-    enum Columns: String, ColumnExpression {
-        case id
-        case timestamp
-        case minuteChange
-        case rawGlucoseValue
-        case intGlucoseValue
-        case timegroup
-    }
-}
-
-extension DataStore {
+private extension DataStore {
     func createSensorGlucoseTable() {
         if let dbQueue = dbQueue {
             do {

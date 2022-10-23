@@ -64,24 +64,7 @@ func sensorErrorStoreMiddleware() -> Middleware<DirectState, DirectAction> {
     }
 }
 
-// MARK: - SensorError + FetchableRecord, PersistableRecord
-
-extension SensorError: FetchableRecord, PersistableRecord {
-    static let databaseUUIDEncodingStrategy = DatabaseUUIDEncodingStrategy.uppercaseString
-
-    static var Table: String {
-        "SensorError"
-    }
-
-    enum Columns: String, ColumnExpression {
-        case id
-        case timestamp
-        case error
-        case timegroup
-    }
-}
-
-extension DataStore {
+private extension DataStore {
     func createSensorErrorTable() {
         if let dbQueue = dbQueue {
             do {

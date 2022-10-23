@@ -243,6 +243,12 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         
     case .setStatisticsDays(days: let days):
         state.statisticsDays = days
+        
+    case .exportSensorGlucoseValues:
+        state.appIsBusy = true
+        
+    case .setAppIsBusy(isBusy: let isBusy):
+        state.appIsBusy = isBusy
 
     default:
         break

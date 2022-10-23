@@ -50,3 +50,56 @@ class DataStore {
         } catch _ {}
     }
 }
+
+// MARK: - SensorGlucose + FetchableRecord, PersistableRecord
+
+extension SensorGlucose: FetchableRecord, PersistableRecord {
+    static let databaseUUIDEncodingStrategy = DatabaseUUIDEncodingStrategy.uppercaseString
+
+    static var Table: String {
+        "SensorGlucose"
+    }
+
+    enum Columns: String, ColumnExpression {
+        case id
+        case timestamp
+        case minuteChange
+        case rawGlucoseValue
+        case intGlucoseValue
+        case timegroup
+    }
+}
+
+// MARK: - BloodGlucose + FetchableRecord, PersistableRecord
+
+extension BloodGlucose: FetchableRecord, PersistableRecord {
+    static let databaseUUIDEncodingStrategy = DatabaseUUIDEncodingStrategy.uppercaseString
+
+    static var Table: String {
+        "BloodGlucose"
+    }
+
+    enum Columns: String, ColumnExpression {
+        case id
+        case timestamp
+        case glucoseValue
+        case timegroup
+    }
+}
+
+// MARK: - SensorError + FetchableRecord, PersistableRecord
+
+extension SensorError: FetchableRecord, PersistableRecord {
+    static let databaseUUIDEncodingStrategy = DatabaseUUIDEncodingStrategy.uppercaseString
+
+    static var Table: String {
+        "SensorError"
+    }
+
+    enum Columns: String, ColumnExpression {
+        case id
+        case timestamp
+        case error
+        case timegroup
+    }
+}

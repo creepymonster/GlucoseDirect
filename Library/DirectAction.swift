@@ -25,6 +25,8 @@ enum DirectAction {
     case deleteSensorError(error: SensorError)
     case deleteSensorGlucose(glucose: SensorGlucose)
     case disconnectConnection
+    case exportSensorGlucoseValues
+    case exportValues(values: [[String]])
     case loadBloodGlucoseValues
     case loadSensorErrorValues
     case loadSensorGlucoseValues
@@ -41,6 +43,8 @@ enum DirectAction {
     case selectView(viewTag: Int)
     case sendLogs
     case sendDatabase
+    case sendFile(fileURL: URL)
+    case setAppIsBusy(isBusy: Bool)
     case setIgnoreMute(enabled: Bool)
     case setAlarmHigh(upperLimit: Int)
     case setAlarmLow(lowerLimit: Int)

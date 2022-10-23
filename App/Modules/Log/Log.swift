@@ -43,10 +43,17 @@ private func logMiddleware(service: SendService) -> Middleware<DirectState, Dire
             DirectLog.deleteLogs()
 
         case .sendDatabase:
-            service.sendFile(fileURL: DataStore.shared.databaseURL)
+            return Just(DirectAction.sendFile(fileURL: DataStore.shared.databaseURL))
+                .setFailureType(to: DirectError.self)
+                .eraseToAnyPublisher()
 
         case .sendLogs:
-            service.sendFile(fileURL: DirectLog.logsURL)
+            return Just(DirectAction.sendFile(fileURL: DirectLog.logsURL))
+                .setFailureType(to: DirectError.self)
+                .eraseToAnyPublisher()
+            
+        case .sendFile(fileURL: let fileURL):
+            service.sendFile(fileURL: fileURL)
 
         default:
             DirectLog.info("Triggered action: \(action)")
