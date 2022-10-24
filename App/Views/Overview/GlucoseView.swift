@@ -26,32 +26,13 @@ struct GlucoseView: View {
 
     var body: some View {
         if let latestGlucose = store.state.latestSensorGlucose {
-            VStack {
+            VStack(spacing: 20) {
                 HStack(alignment: .lastTextBaseline) {
-                    ZStack(alignment: .trailing) {
-                        Text(latestGlucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit))
-                            .font(.system(size: 96))
-                            .frame(height: 96)
-                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
-                            .clipped()
-
-                        if let warning = warning {
-                            Group {
-                                Text(warning)
-                                    .padding(.init(top: 2.5, leading: 5, bottom: 2.5, trailing: 5))
-                                    .foregroundColor(.white)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 5, style: .continuous)
-                                            .foregroundStyle(Color.ui.red)
-                                    )
-                            }.offset(y: 32)
-                        }
-
-                        HStack(spacing: 16) {
-                            Text(latestGlucose.timestamp.toLocalTime())
-                            Text(store.state.glucoseUnit.localizedDescription)
-                        }.offset(y: 58)
-                    }
+                    Text(latestGlucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit))
+                        .font(.system(size: 96))
+                        .frame(height: 72)
+                        .clipped()
+                        .foregroundColor(getGlucoseColor(glucose: latestGlucose))
 
                     VStack(alignment: .leading) {
                         Text(latestGlucose.trend.description)
@@ -64,9 +45,27 @@ struct GlucoseView: View {
                         }
                     }
                 }
-                .padding(.top, 16)
-                .padding(.bottom, 24)
 
+                HStack(spacing: 20) {
+                    Spacer()
+                    Text(latestGlucose.timestamp.toLocalTime()).opacity(0.5)
+
+                    if let warning = warning {
+                        Group {
+                            Text(warning)
+                                .padding(.init(top: 2.5, leading: 5, bottom: 2.5, trailing: 5))
+                                .foregroundColor(.white)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 5, style: .continuous)
+                                        .foregroundStyle(Color.ui.red)
+                                )
+                        }
+                    }
+
+                    Text(store.state.glucoseUnit.localizedDescription).opacity(0.5)
+                    Spacer()
+                }
+                
                 HStack {
                     Button(action: {
                         DirectNotifications.shared.hapticNotification()
@@ -107,8 +106,7 @@ struct GlucoseView: View {
                     }).opacity(store.state.alarmSnoozeUntil == nil ? 0.5 : 1)
                 }
                 .buttonStyle(.plain)
-                .padding(.bottom, 5)
-            }
+            }.padding(.vertical, 10)
         } else {
             VStack {
                 Text("No Data")

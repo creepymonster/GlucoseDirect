@@ -12,6 +12,14 @@ import OSLog
 enum DirectLog {
     // MARK: Internal
 
+    static var logsURL: URL {
+        return fileLogger.allLogsFileURL
+    }
+
+    static var logsSize: String {
+        return fileLogger.getLogsSize().asFileSize()
+    }
+
     static func debug(_ message: String, log: OSLog = .default, file: String = #fileID, line: Int = #line, function: String = #function) {
         self.log(message: message, type: .debug, log: log, error: nil, file: file, line: line, function: function)
     }
@@ -30,14 +38,6 @@ enum DirectLog {
 
     static func deleteLogs() {
         fileLogger.deleteLogs()
-    }
-
-    static var logsURL: URL {
-        return fileLogger.allLogsFileURL
-    }
-
-    static var logsSize: String {
-        return fileLogger.getLogsSize().asFileSize()
     }
 
     // MARK: Private
@@ -121,19 +121,19 @@ struct FileLogger {
             meta = "[\(file):\(line)] [\(function)]\n"
         }
         let prefixedLogMessage = "\(logType.icon) \(logDateFormatter.string(from: Date()))\n\(meta)\(logMessage)\n\n"
-        
+
         guard let fileHandle = makeWriteFileHandle(with: logType),
               let logMessageData = prefixedLogMessage.data(using: encoding)
         else {
             return
         }
-        
+
         defer {
             do {
                 try fileHandle.close()
             } catch {}
         }
-        
+
         do {
             try fileHandle.seekToEnd()
             try fileHandle.write(contentsOf: logMessageData)
@@ -142,13 +142,13 @@ struct FileLogger {
         guard let allLogsFileHandle = makeWriteFileHandle(with: allLogsFileURL) else {
             return
         }
-        
+
         defer {
             do {
                 try allLogsFileHandle.close()
             } catch {}
         }
-        
+
         do {
             try allLogsFileHandle.seekToEnd()
             try allLogsFileHandle.write(contentsOf: logMessageData)
@@ -162,11 +162,11 @@ struct FileLogger {
     func logReader(for logType: OSLogType) throws -> StreamReader {
         let fileURL = logFileBaseURL.appendingPathComponent(logType.logFilePath)
         try createLogFile(for: fileURL)
-        
+
         guard let reader = StreamReader(at: fileURL) else {
             throw Error.streamerInitError
         }
-        
+
         return reader
     }
 
@@ -176,11 +176,11 @@ struct FileLogger {
     func logReader() throws -> StreamReader {
         let url = allLogsFileURL
         try createLogFile(for: url)
-        
+
         guard let reader = StreamReader(at: url) else {
             throw Error.streamerInitError
         }
-        
+
         return reader
     }
 
