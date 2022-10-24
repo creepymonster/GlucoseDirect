@@ -28,7 +28,7 @@ struct ActionsView: View {
                     label: {
                         Text("Find transmitter")
                     }
-                ).disabled(store.state.isBusy)
+                ).disabled(store.state.connectionIsBusy)
             }
 
             if store.state.isSensor {

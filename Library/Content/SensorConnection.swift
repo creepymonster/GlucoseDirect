@@ -91,7 +91,7 @@ extension SensorConnectionProtocol {
             return
         }
 
-        DirectLog.error("Error: \(error.localizedDescription)")
+        DirectLog.error("Error: \(error)")
         subject?.send(.setConnectionError(errorMessage: error.localizedDescription, errorTimestamp: Date()))
     }
 

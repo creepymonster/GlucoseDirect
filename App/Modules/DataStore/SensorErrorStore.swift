@@ -64,24 +64,7 @@ func sensorErrorStoreMiddleware() -> Middleware<DirectState, DirectAction> {
     }
 }
 
-// MARK: - SensorError + FetchableRecord, PersistableRecord
-
-extension SensorError: FetchableRecord, PersistableRecord {
-    static let databaseUUIDEncodingStrategy = DatabaseUUIDEncodingStrategy.uppercaseString
-
-    static var Table: String {
-        "SensorError"
-    }
-
-    enum Columns: String, ColumnExpression {
-        case id
-        case timestamp
-        case error
-        case timegroup
-    }
-}
-
-extension DataStore {
+private extension DataStore {
     func createSensorErrorTable() {
         if let dbQueue = dbQueue {
             do {
@@ -100,7 +83,7 @@ extension DataStore {
                     }
                 }
             } catch {
-                DirectLog.error(error.localizedDescription)
+                DirectLog.error("\(error)")
             }
         }
     }
@@ -112,11 +95,11 @@ extension DataStore {
                     do {
                         try SensorError.deleteAll(db)
                     } catch {
-                        DirectLog.error(error.localizedDescription)
+                        DirectLog.error("\(error)")
                     }
                 }
             } catch {
-                DirectLog.error(error.localizedDescription)
+                DirectLog.error("\(error)")
             }
         }
     }
@@ -128,11 +111,11 @@ extension DataStore {
                     do {
                         try SensorError.deleteOne(db, id: value.id)
                     } catch {
-                        DirectLog.error(error.localizedDescription)
+                        DirectLog.error("\(error)")
                     }
                 }
             } catch {
-                DirectLog.error(error.localizedDescription)
+                DirectLog.error("\(error)")
             }
         }
     }
@@ -145,30 +128,41 @@ extension DataStore {
                         do {
                             try value.insert(db)
                         } catch {
-                            DirectLog.error(error.localizedDescription)
+                            DirectLog.error("\(error)")
                         }
                     }
                 }
             } catch {
-                DirectLog.error(error.localizedDescription)
+                DirectLog.error("\(error)")
             }
         }
     }
 
-    func getSensorErrorValues() -> Future<[SensorError], DirectError> {
+    func getSensorErrorValues(upToDay: Int? = 1) -> Future<[SensorError], DirectError> {
         return Future { promise in
             if let dbQueue = self.dbQueue {
                 dbQueue.asyncRead { asyncDB in
                     do {
-                        let db = try asyncDB.get()
-                        let result = try SensorError
-                            .filter(Column(SensorError.Columns.timestamp.name) > Calendar.current.date(byAdding: .day, value: -3, to: Date())!)
-                            .order(Column(SensorError.Columns.timestamp.name))
-                            .fetchAll(db)
+                        if let upToDay = upToDay,
+                           let upTo = Calendar.current.date(byAdding: .day, value: -upToDay, to: Date())
+                        {
+                            let db = try asyncDB.get()
+                            let result = try SensorError
+                                .filter(Column(SensorError.Columns.timestamp.name) > upTo)
+                                .order(Column(SensorError.Columns.timestamp.name))
+                                .fetchAll(db)
 
-                        promise(.success(result))
+                            promise(.success(result))
+                        } else {
+                            let db = try asyncDB.get()
+                            let result = try SensorError
+                                .order(Column(SensorError.Columns.timestamp.name))
+                                .fetchAll(db)
+
+                            promise(.success(result))
+                        }
                     } catch {
-                        promise(.failure(DirectError.withMessage(error.localizedDescription)))
+                        promise(.failure(.withMessage(error.localizedDescription)))
                     }
                 }
             }

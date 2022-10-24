@@ -151,7 +151,7 @@ class Libre2Connection: SensorBluetoothConnection, IsSensor {
                         sendUpdate(age: parsedBLE.age, state: .starting)
                     }
                 } catch {
-                    DirectLog.error("Cannot process BLE data: \(error.localizedDescription)")
+                    DirectLog.error("Cannot process BLE data: \(error)")
                 }
             }
 

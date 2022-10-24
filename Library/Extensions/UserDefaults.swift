@@ -8,6 +8,7 @@ import Foundation
 // MARK: - Keys
 
 private enum Keys: String {
+    case appSerial = "libre-direct.settings.app-serial"
     case alarmHigh = "libre-direct.settings.alarm-high"
     case alarmLow = "libre-direct.settings.alarm-low"
     case alarmSnoozeUntil = "libre-direct.settings.alarm-snooze-until"
@@ -54,6 +55,20 @@ private enum Keys: String {
 }
 
 extension UserDefaults {
+    var appSerial: String {
+        get {
+            if let serial = string(forKey: Keys.appSerial.rawValue) {
+                return serial
+            }
+            
+            let newSerial = UUID().uuidString
+            
+            set(newSerial, forKey: Keys.alarmHigh.rawValue)
+
+            return newSerial
+        }
+    }
+    
     var alarmHigh: Int? {
         get {
             if object(forKey: Keys.alarmHigh.rawValue) != nil {
@@ -181,13 +196,13 @@ extension UserDefaults {
 
     var connectionPeripheralUUID: String? {
         get {
-            return UserDefaults.standard.string(forKey: Keys.connectionPeripheralUUID.rawValue)
+            return string(forKey: Keys.connectionPeripheralUUID.rawValue)
         }
         set {
             if let newValue = newValue {
-                UserDefaults.standard.setValue(newValue, forKey: Keys.connectionPeripheralUUID.rawValue)
+                setValue(newValue, forKey: Keys.connectionPeripheralUUID.rawValue)
             } else {
-                UserDefaults.standard.removeObject(forKey: Keys.connectionPeripheralUUID.rawValue)
+                removeObject(forKey: Keys.connectionPeripheralUUID.rawValue)
             }
         }
     }

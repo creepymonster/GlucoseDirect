@@ -120,6 +120,8 @@
 		E2C19FB3273567FE00B70A73 /* SensorReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C19FB2273567FE00B70A73 /* SensorReading.swift */; };
 		E2C19FBC273568BF00B70A73 /* FactoryCalibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C19FBB273568BF00B70A73 /* FactoryCalibration.swift */; };
 		E2C8F5FE278CD63000519ABD /* BellmanAlarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C8F5FD278CD63000519ABD /* BellmanAlarm.swift */; };
+		E2CAC1DA2905BDA900C87B17 /* StoreExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CAC1D92905BDA900C87B17 /* StoreExport.swift */; };
+		E2CAC1DE2905DB7E00C87B17 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CAC1DD2905DB7E00C87B17 /* LoadingIndicator.swift */; };
 		E2CDA01A27722FB900A1E694 /* ReadAloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CDA01927722FB900A1E694 /* ReadAloud.swift */; };
 		E2D34BC4274D6BB500151895 /* OverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D34BC3274D6BB500151895 /* OverviewView.swift */; };
 		E2D34BC6274D6BC000151895 /* CalibrationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D34BC5274D6BC000151895 /* CalibrationsView.swift */; };
@@ -341,6 +343,8 @@
 		E2C19FB2273567FE00B70A73 /* SensorReading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorReading.swift; sourceTree = "<group>"; };
 		E2C19FBB273568BF00B70A73 /* FactoryCalibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryCalibration.swift; sourceTree = "<group>"; };
 		E2C8F5FD278CD63000519ABD /* BellmanAlarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BellmanAlarm.swift; sourceTree = "<group>"; };
+		E2CAC1D92905BDA900C87B17 /* StoreExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreExport.swift; sourceTree = "<group>"; };
+		E2CAC1DD2905DB7E00C87B17 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		E2CDA01927722FB900A1E694 /* ReadAloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadAloud.swift; sourceTree = "<group>"; };
 		E2D34BC3274D6BB500151895 /* OverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewView.swift; sourceTree = "<group>"; };
 		E2D34BC5274D6BC000151895 /* CalibrationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationsView.swift; sourceTree = "<group>"; };
@@ -600,6 +604,7 @@
 			isa = PBXGroup;
 			children = (
 				E294333D2878805A005C8A69 /* DataStore.swift */,
+				E2CAC1D92905BDA900C87B17 /* StoreExport.swift */,
 				E2B5FDA728789ED200D35D87 /* SensorGlucoseStore.swift */,
 				E2B5FDAA28789EDF00D35D87 /* BloodGlucoseStore.swift */,
 				E262DCBF287A432B00ECAB76 /* SensorErrorStore.swift */,
@@ -835,6 +840,7 @@
 				E2D34BC5274D6BC000151895 /* CalibrationsView.swift */,
 				E2D34BC7274D6BCB00151895 /* ListsView.swift */,
 				E2D34BC9274D6C1300151895 /* SettingsView.swift */,
+				E2CAC1DD2905DB7E00C87B17 /* LoadingIndicator.swift */,
 				E298CF07279DEC3300C1C218 /* Overview */,
 				E298CF01279DEB6600C1C218 /* Calibrations */,
 				E262DCC2287A48C700ECAB76 /* Lists */,
@@ -922,6 +928,7 @@
 				fi,
 				tr,
 				uk,
+				Base,
 			);
 			mainGroup = E20B8531266F4A9800AA4224;
 			packageReferences = (
@@ -1032,6 +1039,7 @@
 				E2FCAC1F270741BC00FE1CBF /* SensorRegion.swift in Sources */,
 				E2591C62287412740009F27C /* ScreenLock.swift in Sources */,
 				E26D19C8288143550028962C /* ChartViewCompatibility.swift in Sources */,
+				E2CAC1DA2905BDA900C87B17 /* StoreExport.swift in Sources */,
 				E2DE3CA327594E5500FAC82E /* SensorConnectorSettingsView.swift in Sources */,
 				E26089A42748DCB500749025 /* Double.swift in Sources */,
 				E262DCBD287A3E8900ECAB76 /* SensorError.swift in Sources */,
@@ -1039,6 +1047,7 @@
 				E2968ADA287A24C400445426 /* CollapsableSection.swift in Sources */,
 				E2FCAC5D2707426100FE1CBF /* GlucoseNotification.swift in Sources */,
 				E2FCAC33270741D200FE1CBF /* Int.swift in Sources */,
+				E2CAC1DE2905DB7E00C87B17 /* LoadingIndicator.swift in Sources */,
 				E2F5F3D126A70AC400834A74 /* DateSelectorView.swift in Sources */,
 				E2FCAC462707420100FE1CBF /* DirectReducer.swift in Sources */,
 				E2366841287FEC1A001BF000 /* Debug.swift in Sources */,

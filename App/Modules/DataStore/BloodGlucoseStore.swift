@@ -66,24 +66,7 @@ func bloodGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
     }
 }
 
-// MARK: - BloodGlucose + FetchableRecord, PersistableRecord
-
-extension BloodGlucose: FetchableRecord, PersistableRecord {
-    static let databaseUUIDEncodingStrategy = DatabaseUUIDEncodingStrategy.uppercaseString
-
-    static var Table: String {
-        "BloodGlucose"
-    }
-
-    enum Columns: String, ColumnExpression {
-        case id
-        case timestamp
-        case glucoseValue
-        case timegroup
-    }
-}
-
-extension DataStore {
+private extension DataStore {
     func createBloodGlucoseTable() {
         if let dbQueue = dbQueue {
             do {
@@ -102,7 +85,7 @@ extension DataStore {
                     }
                 }
             } catch {
-                DirectLog.error(error.localizedDescription)
+                DirectLog.error("\(error)")
             }
         }
     }
@@ -114,11 +97,11 @@ extension DataStore {
                     do {
                         try BloodGlucose.deleteAll(db)
                     } catch {
-                        DirectLog.error(error.localizedDescription)
+                        DirectLog.error("\(error)")
                     }
                 }
             } catch {
-                DirectLog.error(error.localizedDescription)
+                DirectLog.error("\(error)")
             }
         }
     }
@@ -130,11 +113,11 @@ extension DataStore {
                     do {
                         try BloodGlucose.deleteOne(db, id: value.id)
                     } catch {
-                        DirectLog.error(error.localizedDescription)
+                        DirectLog.error("\(error)")
                     }
                 }
             } catch {
-                DirectLog.error(error.localizedDescription)
+                DirectLog.error("\(error)")
             }
         }
     }
@@ -147,22 +130,24 @@ extension DataStore {
                         do {
                             try value.insert(db)
                         } catch {
-                            DirectLog.error(error.localizedDescription)
+                            DirectLog.error("\(error)")
                         }
                     }
                 }
             } catch {
-                DirectLog.error(error.localizedDescription)
+                DirectLog.error("\(error)")
             }
         }
     }
 
-    func getBloodGlucoseValues(upToDay: Int = 1) -> Future<[BloodGlucose], DirectError> {
+    func getBloodGlucoseValues(upToDay: Int? = 1) -> Future<[BloodGlucose], DirectError> {
         return Future { promise in
             if let dbQueue = self.dbQueue {
                 dbQueue.asyncRead { asyncDB in
                     do {
-                        if let upTo = Calendar.current.date(byAdding: .day, value: -upToDay, to: Date()) {
+                        if let upToDay = upToDay,
+                           let upTo = Calendar.current.date(byAdding: .day, value: -upToDay, to: Date())
+                        {
                             let db = try asyncDB.get()
                             let result = try BloodGlucose
                                 .filter(Column(BloodGlucose.Columns.timestamp.name) > upTo)
@@ -171,10 +156,15 @@ extension DataStore {
 
                             promise(.success(result))
                         } else {
-                            promise(.failure(DirectError.withMessage("Cannot get calendar dates")))
+                            let db = try asyncDB.get()
+                            let result = try BloodGlucose
+                                .order(Column(BloodGlucose.Columns.timestamp.name))
+                                .fetchAll(db)
+
+                            promise(.success(result))
                         }
                     } catch {
-                        promise(.failure(DirectError.withMessage(error.localizedDescription)))
+                        promise(.failure(.withMessage(error.localizedDescription)))
                     }
                 }
             }
@@ -205,10 +195,10 @@ extension DataStore {
 
                             promise(.success(result))
                         } else {
-                            promise(.failure(DirectError.withMessage("Cannot get calendar dates")))
+                            promise(.failure(.withMessage("Cannot get calendar dates")))
                         }
                     } catch {
-                        promise(.failure(DirectError.withMessage(error.localizedDescription)))
+                        promise(.failure(.withMessage(error.localizedDescription)))
                     }
                 }
             }

@@ -244,6 +244,21 @@ func directReducer(state: inout DirectState, action: DirectAction) {
     case .setStatisticsDays(days: let days):
         state.statisticsDays = days
 
+    case .exportToUnknown:
+        state.appIsBusy = true
+
+    case .exportToTidepool:
+        state.appIsBusy = true
+        
+    case .exportToGlooko:
+        state.appIsBusy = true
+        
+    case .sendFile(fileURL: _):
+        state.appIsBusy = false
+        
+    case .setAppIsBusy(isBusy: let isBusy):
+        state.appIsBusy = isBusy
+
     default:
         break
     }

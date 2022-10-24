@@ -30,9 +30,6 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
     }
 
     override func pairConnection() {
-        // UserDefaults.standard.email = ""
-        // UserDefaults.standard.password = ""
-
         Task {
             do {
                 try await loginIfNeeded(forceLogin: true)
@@ -172,7 +169,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
     private func update() async throws {
         let fetch = try await fetch()
 
-        guard let sensorAge = fetch.data?.connection?.sensor?.age ?? fetch.data?.activeSensors.first?.sensor?.age else {
+        guard let sensorAge = fetch.data?.connection?.sensor?.age ?? fetch.data?.activeSensors?.first?.sensor?.age else {
             throw LibreLinkError.missingData
         }
 
@@ -180,9 +177,9 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             throw LibreLinkError.missingData
         }
 
-        guard let historyData = fetch.data?.graphData else {
-            throw LibreLinkError.missingData
-        }
+        // guard let historyData = fetch.data?.graphData else {
+        //     throw LibreLinkError.missingData
+        // }
 
         sendUpdate(age: sensorAge, state: .ready)
 
@@ -190,11 +187,12 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             SensorReading.createGlucoseReading(timestamp: trendData.timestamp, glucoseValue: trendData.value),
         ]
 
-        let history = historyData.map {
-            SensorReading.createGlucoseReading(timestamp: $0.timestamp, glucoseValue: $0.value)
-        }
+        // let history = historyData.map {
+        //     SensorReading.createGlucoseReading(timestamp: $0.timestamp, glucoseValue: $0.value)
+        // }
 
-        sendUpdate(readings: history + trend)
+        // sendUpdate(readings: history + trend)
+        sendUpdate(readings: trend)
     }
 
     private func loginIfNeeded(forceLogin: Bool = false) async throws {
@@ -257,15 +255,11 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             throw LibreLinkError.invalidCredentials
         }
 
-        return try JSONDecoder().decode(LibreLinkResponse<LibreLinkResponseLogin>.self, from: data)
+        return try decode(LibreLinkResponse<LibreLinkResponseLogin>.self, data: data)
     }
 
     private func connect(userCountry: String, authToken: String) async throws -> LibreLinkResponse<[LibreLinkResponseConnect]> {
         DirectLog.info("LibreLinkUp connect")
-
-        guard let jsonDecoder = jsonDecoder else {
-            throw LibreLinkError.decoderError
-        }
 
         guard let url = URL(string: "https://api-\(userCountry).libreview.io/llu/connections") else {
             throw LibreLinkError.invalidURL
@@ -286,7 +280,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             throw LibreLinkError.notAuthenticated
         }
 
-        return try jsonDecoder.decode(LibreLinkResponse<[LibreLinkResponseConnect]>.self, from: data)
+        return try decode(LibreLinkResponse<[LibreLinkResponseConnect]>.self, data: data)
     }
 
     private func fetch() async throws -> LibreLinkResponse<LibreLinkResponseFetch> {
@@ -296,10 +290,6 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
         guard let lastLogin = lastLogin else {
             throw LibreLinkError.missingLoginSession
-        }
-
-        guard let jsonDecoder = jsonDecoder else {
-            throw LibreLinkError.decoderError
         }
 
         guard let url = URL(string: "https://api-\(lastLogin.userCountry).libreview.io/llu/connections/\(lastLogin.patientID)/graph") else {
@@ -321,7 +311,15 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             throw LibreLinkError.notAuthenticated
         }
 
-        return try jsonDecoder.decode(LibreLinkResponse<LibreLinkResponseFetch>.self, from: data)
+        return try decode(LibreLinkResponse<LibreLinkResponseFetch>.self, data: data)
+    }
+
+    private func decode<T: Decodable>(_ type: T.Type, data: Data) throws -> T {
+        guard let jsonDecoder = jsonDecoder else {
+            throw LibreLinkError.decoderError
+        }
+
+        return try jsonDecoder.decode(T.self, from: data)
     }
 }
 
@@ -368,7 +366,7 @@ private struct LibreLinkResponseLogin: Codable {
 
 private struct LibreLinkResponseConnect: Codable {
     enum CodingKeys: String, CodingKey { case patientID = "patientId" }
-    
+
     let patientID: String?
 }
 
@@ -376,8 +374,8 @@ private struct LibreLinkResponseConnect: Codable {
 
 private struct LibreLinkResponseFetch: Codable {
     let connection: LibreLinkResponseConnection?
-    let activeSensors: [LibreLinkResponseActiveSensors]
-    let graphData: [LibreLinkResponseGlucose]?
+    let activeSensors: [LibreLinkResponseActiveSensors]?
+    // let graphData: [LibreLinkResponseGlucose]?
 }
 
 // MARK: - LibreLinkResponseConnection
@@ -386,6 +384,8 @@ private struct LibreLinkResponseConnection: Codable {
     let sensor: LibreLinkResponseSensor?
     let glucoseMeasurement: LibreLinkResponseGlucose?
 }
+
+// MARK: - LibreLinkResponseActiveSensors
 
 private struct LibreLinkResponseActiveSensors: Codable {
     let sensor: LibreLinkResponseSensor?
@@ -467,6 +467,7 @@ private enum LibreLinkError: Error {
     case notAuthenticated
     case decoderError
     case missingData
+    case parsingError
 }
 
 // MARK: CustomStringConvertible
@@ -490,6 +491,8 @@ extension LibreLinkError: CustomStringConvertible {
             return "Decoder error"
         case .missingData:
             return "Missing data"
+        case .parsingError:
+            return "Parsing error"
         }
     }
 }

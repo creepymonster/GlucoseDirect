@@ -18,7 +18,7 @@ class DataStore {
         do {
             dbQueue = try DatabaseQueue(path: databaseURL.absoluteString)
         } catch {
-            DirectLog.error(error.localizedDescription)
+            DirectLog.error("\(error)")
             dbQueue = nil
         }
     }
@@ -27,7 +27,7 @@ class DataStore {
         do {
             try dbQueue?.close()
         } catch {
-            DirectLog.error(error.localizedDescription)
+            DirectLog.error("\(error)")
         }
     }
 
@@ -48,5 +48,58 @@ class DataStore {
         do {
             try FileManager.default.removeItem(at: databaseURL)
         } catch _ {}
+    }
+}
+
+// MARK: - SensorGlucose + FetchableRecord, PersistableRecord
+
+extension SensorGlucose: FetchableRecord, PersistableRecord {
+    static let databaseUUIDEncodingStrategy = DatabaseUUIDEncodingStrategy.uppercaseString
+
+    static var Table: String {
+        "SensorGlucose"
+    }
+
+    enum Columns: String, ColumnExpression {
+        case id
+        case timestamp
+        case minuteChange
+        case rawGlucoseValue
+        case intGlucoseValue
+        case timegroup
+    }
+}
+
+// MARK: - BloodGlucose + FetchableRecord, PersistableRecord
+
+extension BloodGlucose: FetchableRecord, PersistableRecord {
+    static let databaseUUIDEncodingStrategy = DatabaseUUIDEncodingStrategy.uppercaseString
+
+    static var Table: String {
+        "BloodGlucose"
+    }
+
+    enum Columns: String, ColumnExpression {
+        case id
+        case timestamp
+        case glucoseValue
+        case timegroup
+    }
+}
+
+// MARK: - SensorError + FetchableRecord, PersistableRecord
+
+extension SensorError: FetchableRecord, PersistableRecord {
+    static let databaseUUIDEncodingStrategy = DatabaseUUIDEncodingStrategy.uppercaseString
+
+    static var Table: String {
+        "SensorError"
+    }
+
+    enum Columns: String, ColumnExpression {
+        case id
+        case timestamp
+        case error
+        case timegroup
     }
 }

@@ -50,7 +50,7 @@ class LibreConnection: SensorConnectionProtocol, IsSensor {
                     sendUpdate(age: result.sensor.age, state: .starting)
                 }
             } catch {
-                DirectLog.error(error.localizedDescription)
+                DirectLog.error("\(error)")
 
                 sendUpdate(connectionState: .disconnected)
                 sendUpdate(errorMessage: error.localizedDescription)
