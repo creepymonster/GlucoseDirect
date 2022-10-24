@@ -18,7 +18,7 @@ class DataStore {
         do {
             dbQueue = try DatabaseQueue(path: databaseURL.absoluteString)
         } catch {
-            DirectLog.error(error.localizedDescription)
+            DirectLog.error("\(error)")
             dbQueue = nil
         }
     }
@@ -27,7 +27,7 @@ class DataStore {
         do {
             try dbQueue?.close()
         } catch {
-            DirectLog.error(error.localizedDescription)
+            DirectLog.error("\(error)")
         }
     }
 

@@ -102,7 +102,7 @@ private class NightscoutService {
 
         let task = session.uploadTask(with: request, from: nightscoutJson) { data, response, error in
             if let error = error {
-                DirectLog.info("Nightscout error: \(error.localizedDescription)")
+                DirectLog.info("Nightscout error: \(error)")
                 return
             }
 
@@ -132,7 +132,7 @@ private class NightscoutService {
 
         let task = session.dataTask(with: request) { data, response, error in
             if let error = error {
-                DirectLog.info("Nightscout error: \(error.localizedDescription)")
+                DirectLog.info("Nightscout error: \(error)")
                 return
             }
 
@@ -161,7 +161,7 @@ private class NightscoutService {
 
         let task = session.dataTask(with: request) { data, response, error in
             if let error = error {
-                DirectLog.info("Nightscout error: \(error.localizedDescription)")
+                DirectLog.info("Nightscout error: \(error)")
                 return
             }
 
@@ -190,7 +190,7 @@ private class NightscoutService {
 
         let task = session.dataTask(with: request) { data, response, error in
             if let error = error {
-                DirectLog.info("Nightscout error: \(error.localizedDescription)")
+                DirectLog.info("Nightscout error: \(error)")
                 return
             }
 
@@ -220,7 +220,7 @@ private class NightscoutService {
 
         let task = session.dataTask(with: request) { data, response, error in
             if let error = error {
-                DirectLog.info("Nightscout error: \(error.localizedDescription)")
+                DirectLog.info("Nightscout error: \(error)")
                 return
             }
 
@@ -257,7 +257,7 @@ private class NightscoutService {
 
         let task = session.uploadTask(with: request, from: nightscoutJson) { data, response, error in
             if let error = error {
-                DirectLog.info("Nightscout error: \(error.localizedDescription)")
+                DirectLog.info("Nightscout error: \(error)")
                 return
             }
 
@@ -293,7 +293,7 @@ private class NightscoutService {
 
         let task = session.uploadTask(with: request, from: nightscoutJson) { data, response, error in
             if let error = error {
-                DirectLog.info("Nightscout error: \(error.localizedDescription)")
+                DirectLog.info("Nightscout error: \(error)")
                 return
             }
 
@@ -323,7 +323,7 @@ private class NightscoutService {
 
         let task = session.dataTask(with: request) { data, response, error in
             if let error = error {
-                DirectLog.info("Nightscout error: \(error.localizedDescription)")
+                DirectLog.info("Nightscout error: \(error)")
 
                 completionHandler(nil)
                 return
@@ -341,7 +341,7 @@ private class NightscoutService {
                         let results = try JSONDecoder().decode([Treatment].self, from: data)
                         completionHandler(!results.isEmpty)
                     } catch {
-                        DirectLog.info("Nightscout, json decode failed: \(error.localizedDescription)")
+                        DirectLog.info("Nightscout, json decode failed: \(error)")
                         completionHandler(nil)
                     }
                 }

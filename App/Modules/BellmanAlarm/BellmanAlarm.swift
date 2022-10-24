@@ -174,7 +174,7 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
         DirectLog.info("DidFailToConnect peripheral: \(peripheral)")
 
         if let error = error {
-            DirectLog.error("DidFailToConnect error: \(error.localizedDescription)")
+            DirectLog.error("DidFailToConnect error: \(error)")
         }
 
         setConnectionState(connectionState: .disconnected)
@@ -190,7 +190,7 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
         DirectLog.info("DidDisconnectPeripheral peripheral: \(peripheral)")
 
         if let error = error {
-            DirectLog.error("DidDisconnectPeripheral error: \(error.localizedDescription)")
+            DirectLog.error("DidDisconnectPeripheral error: \(error)")
         }
 
         setConnectionState(connectionState: .disconnected)
@@ -213,7 +213,7 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
         DirectLog.info("DidDiscoverServices peripheral: \(peripheral)")
 
         if let error = error {
-            DirectLog.error("DidDiscoverServices error: \(error.localizedDescription)")
+            DirectLog.error("DidDiscoverServices error: \(error)")
         }
 
         if let services = peripheral.services {
@@ -230,7 +230,7 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
         DirectLog.info("DidDiscoverCharacteristicsFor peripheral: \(peripheral)")
 
         if let error = error {
-            DirectLog.error("DidDiscoverCharacteristicsFor error: \(error.localizedDescription)")
+            DirectLog.error("DidDiscoverCharacteristicsFor error: \(error)")
         }
 
         if let characteristics = service.characteristics {
@@ -270,7 +270,7 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
         DirectLog.info("DidUpdateNotificationStateFor peripheral: \(peripheral)")
 
         if let error = error {
-            DirectLog.error("DidUpdateNotificationStateFor error: \(error.localizedDescription)")
+            DirectLog.error("DidUpdateNotificationStateFor error: \(error)")
         }
 
         guard let data = characteristic.value else {
@@ -290,7 +290,7 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
         DirectLog.info("DidWriteValueFor peripheral: \(peripheral)")
 
         if let error = error {
-            DirectLog.error("DidWriteValueFor error: \(error.localizedDescription)")
+            DirectLog.error("DidWriteValueFor error: \(error)")
         }
 
         guard let data = characteristic.value else {
@@ -306,7 +306,7 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
         DirectLog.info("DidUpdateValueFor peripheral: \(peripheral)")
 
         if let error = error {
-            DirectLog.error("DidUpdateValueFor error: \(error.localizedDescription)")
+            DirectLog.error("DidUpdateValueFor error: \(error)")
         }
 
         guard let data = characteristic.value else {

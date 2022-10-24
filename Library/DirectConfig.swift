@@ -49,4 +49,5 @@ enum DirectConfig {
     static var virtualID = "virtual"
     static var widgetName = "\(appName) Widget"
     static var minGlucoseStatisticsDays = 7
+    static var timegroupRounding = 15
 }

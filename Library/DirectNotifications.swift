@@ -155,7 +155,7 @@ class DirectNotifications {
             try AVAudioSession.sharedInstance().setCategory(.playback, options: [.mixWithOthers])
             try AVAudioSession.sharedInstance().setActive(true)
         } catch {
-            DirectLog.error("NotificationCenter, could not set AVAudioSession category to playback and mixwithOthers, error = \(error.localizedDescription)")
+            DirectLog.error("NotificationCenter, could not set AVAudioSession category to playback and mixwithOthers, error = \(error)")
         }
 
         do {
@@ -166,7 +166,7 @@ class DirectNotifications {
 
             self.player = player
         } catch {
-            DirectLog.error("NotificationCenter, exception while trying to play sound, error = \(error.localizedDescription)")
+            DirectLog.error("NotificationCenter, exception while trying to play sound, error = \(error)")
         }
     }
 }

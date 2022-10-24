@@ -181,7 +181,7 @@ private class ActivityGlucoseService {
                     pushType: nil
                 )
             } catch {
-                DirectLog.error(error.localizedDescription)
+                DirectLog.error("\(error)")
 
                 activityStart = nil
                 activityRestart = nil

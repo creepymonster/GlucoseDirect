@@ -85,7 +85,7 @@ private extension DataStore {
                     }
                 }
             } catch {
-                DirectLog.error(error.localizedDescription)
+                DirectLog.error("\(error)")
             }
         }
     }
@@ -97,11 +97,11 @@ private extension DataStore {
                     do {
                         try BloodGlucose.deleteAll(db)
                     } catch {
-                        DirectLog.error(error.localizedDescription)
+                        DirectLog.error("\(error)")
                     }
                 }
             } catch {
-                DirectLog.error(error.localizedDescription)
+                DirectLog.error("\(error)")
             }
         }
     }
@@ -113,11 +113,11 @@ private extension DataStore {
                     do {
                         try BloodGlucose.deleteOne(db, id: value.id)
                     } catch {
-                        DirectLog.error(error.localizedDescription)
+                        DirectLog.error("\(error)")
                     }
                 }
             } catch {
-                DirectLog.error(error.localizedDescription)
+                DirectLog.error("\(error)")
             }
         }
     }
@@ -130,12 +130,12 @@ private extension DataStore {
                         do {
                             try value.insert(db)
                         } catch {
-                            DirectLog.error(error.localizedDescription)
+                            DirectLog.error("\(error)")
                         }
                     }
                 }
             } catch {
-                DirectLog.error(error.localizedDescription)
+                DirectLog.error("\(error)")
             }
         }
     }
@@ -164,7 +164,7 @@ private extension DataStore {
                             promise(.success(result))
                         }
                     } catch {
-                        promise(.failure(DirectError.withMessage(error.localizedDescription)))
+                        promise(.failure(.withMessage(error.localizedDescription)))
                     }
                 }
             }
@@ -195,10 +195,10 @@ private extension DataStore {
 
                             promise(.success(result))
                         } else {
-                            promise(.failure(DirectError.withMessage("Cannot get calendar dates")))
+                            promise(.failure(.withMessage("Cannot get calendar dates")))
                         }
                     } catch {
-                        promise(.failure(DirectError.withMessage(error.localizedDescription)))
+                        promise(.failure(.withMessage(error.localizedDescription)))
                     }
                 }
             }

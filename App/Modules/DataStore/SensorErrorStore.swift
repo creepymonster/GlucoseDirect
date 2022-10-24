@@ -83,7 +83,7 @@ private extension DataStore {
                     }
                 }
             } catch {
-                DirectLog.error(error.localizedDescription)
+                DirectLog.error("\(error)")
             }
         }
     }
@@ -95,11 +95,11 @@ private extension DataStore {
                     do {
                         try SensorError.deleteAll(db)
                     } catch {
-                        DirectLog.error(error.localizedDescription)
+                        DirectLog.error("\(error)")
                     }
                 }
             } catch {
-                DirectLog.error(error.localizedDescription)
+                DirectLog.error("\(error)")
             }
         }
     }
@@ -111,11 +111,11 @@ private extension DataStore {
                     do {
                         try SensorError.deleteOne(db, id: value.id)
                     } catch {
-                        DirectLog.error(error.localizedDescription)
+                        DirectLog.error("\(error)")
                     }
                 }
             } catch {
-                DirectLog.error(error.localizedDescription)
+                DirectLog.error("\(error)")
             }
         }
     }
@@ -128,12 +128,12 @@ private extension DataStore {
                         do {
                             try value.insert(db)
                         } catch {
-                            DirectLog.error(error.localizedDescription)
+                            DirectLog.error("\(error)")
                         }
                     }
                 }
             } catch {
-                DirectLog.error(error.localizedDescription)
+                DirectLog.error("\(error)")
             }
         }
     }
@@ -162,7 +162,7 @@ private extension DataStore {
                             promise(.success(result))
                         }
                     } catch {
-                        promise(.failure(DirectError.withMessage(error.localizedDescription)))
+                        promise(.failure(.withMessage(error.localizedDescription)))
                     }
                 }
             }

@@ -30,9 +30,6 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
     }
 
     override func pairConnection() {
-        // UserDefaults.standard.email = ""
-        // UserDefaults.standard.password = ""
-
         Task {
             do {
                 try await loginIfNeeded(forceLogin: true)
@@ -172,7 +169,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
     private func update() async throws {
         let fetch = try await fetch()
 
-        guard let sensorAge = fetch.data?.connection?.sensor?.age ?? fetch.data?.activeSensors.first?.sensor?.age else {
+        guard let sensorAge = fetch.data?.connection?.sensor?.age ?? fetch.data?.activeSensors?.first?.sensor?.age else {
             throw LibreLinkError.missingData
         }
 
@@ -180,9 +177,9 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             throw LibreLinkError.missingData
         }
 
-        guard let historyData = fetch.data?.graphData else {
-            throw LibreLinkError.missingData
-        }
+        // guard let historyData = fetch.data?.graphData else {
+        //     throw LibreLinkError.missingData
+        // }
 
         sendUpdate(age: sensorAge, state: .ready)
 
@@ -190,11 +187,12 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             SensorReading.createGlucoseReading(timestamp: trendData.timestamp, glucoseValue: trendData.value),
         ]
 
-        let history = historyData.map {
-            SensorReading.createGlucoseReading(timestamp: $0.timestamp, glucoseValue: $0.value)
-        }
+        // let history = historyData.map {
+        //     SensorReading.createGlucoseReading(timestamp: $0.timestamp, glucoseValue: $0.value)
+        // }
 
-        sendUpdate(readings: history + trend)
+        // sendUpdate(readings: history + trend)
+        sendUpdate(readings: trend)
     }
 
     private func loginIfNeeded(forceLogin: Bool = false) async throws {
@@ -376,8 +374,8 @@ private struct LibreLinkResponseConnect: Codable {
 
 private struct LibreLinkResponseFetch: Codable {
     let connection: LibreLinkResponseConnection?
-    let activeSensors: [LibreLinkResponseActiveSensors]
-    let graphData: [LibreLinkResponseGlucose]?
+    let activeSensors: [LibreLinkResponseActiveSensors]?
+    // let graphData: [LibreLinkResponseGlucose]?
 }
 
 // MARK: - LibreLinkResponseConnection

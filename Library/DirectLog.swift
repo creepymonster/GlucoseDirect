@@ -192,7 +192,7 @@ struct FileLogger {
 
             return fileSize
         } catch {
-            DirectLog.error("Failed to get file size: \(error.localizedDescription)")
+            DirectLog.error("Failed to get file size: \(error)")
         }
 
         return 0

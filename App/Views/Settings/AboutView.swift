@@ -83,17 +83,32 @@ struct AboutView: View {
                 Label("About \(DirectConfig.appName)", systemImage: "info")
             }
         )
-
+        
+        Section(
+            content: {
+                Button("Export as CSV", action: {
+                    store.dispatch(.exportToUnknown)
+                })
+                
+                Button("Export for Tidepool", action: {
+                    store.dispatch(.exportToTidepool)
+                })
+                
+                Button("Export for Glooko", action: {
+                    store.dispatch(.exportToGlooko)
+                })
+            },
+            header: {
+                Label("Export", systemImage: "square.and.arrow.up")
+            }
+        )
+        
         Button("Send database file", action: {
             store.dispatch(.sendDatabase)
         })
 
         Button("Send log file", action: {
             store.dispatch(.sendLogs)
-        })
-        
-        Button("Export CSV", action: {
-            store.dispatch(.exportSensorGlucoseValues)
         })
 
         #if DEBUG
