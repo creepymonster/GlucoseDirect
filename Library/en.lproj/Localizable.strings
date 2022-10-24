@@ -534,3 +534,18 @@
 
 /* (No Comment) */
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Your sensor is about to expire. Replace sensor in %1$@ minutes.";
+
+/* (No Comment) */
+"Loading..." = "Loading...";
+
+/* (No Comment) */
+"Export" = "Export";
+
+/* (No Comment) */
+"Export as CSV" = "Export as CSV";
+
+/* (No Comment) */
+"Export for Glooko" = "Export for Glooko";
+
+/* (No Comment) */
+"Export for Tidepool" = "Export for Tidepool";
