@@ -167,13 +167,13 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
     }()
 
     private func update() async throws {
-        let fetch = try await fetch()
+        let fetchResponse = try await fetch()
 
-        guard let sensorAge = fetch.data?.connection?.sensor?.age ?? fetch.data?.activeSensors?.first?.sensor?.age else {
+        guard let sensorAge = fetchResponse.data?.connection?.sensor?.age ?? fetchResponse.data?.activeSensors?.first?.sensor?.age else {
             throw LibreLinkError.missingData
         }
 
-        guard let trendData = fetch.data?.connection?.glucoseMeasurement else {
+        guard let trendData = fetchResponse.data?.connection?.glucoseMeasurement else {
             throw LibreLinkError.missingData
         }
 
@@ -197,38 +197,54 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
     private func loginIfNeeded(forceLogin: Bool = false) async throws {
         if forceLogin || lastLogin == nil || (lastLogin?.authExpires ?? Date()) <= Date() || (lastLogin?.authToken.count ?? 0) == 0 {
-            let login = try await login()
+            var loginResponse = try await login()
 
-            guard let userID = login.data?.user?.id,
-                  let userCountry = login.data?.user?.country,
-                  let authToken = login.data?.authTicket?.token,
-                  let authExpires = login.data?.authTicket?.expires,
+            if let redirect = loginResponse.data?.redirect,
+               let region = loginResponse.data?.region,
+               redirect, !region.isEmpty
+            {
+                loginResponse = try await login(region: region)
+            }
+
+            guard let userCountry = loginResponse.data?.user?.country,
+                  let authToken = loginResponse.data?.authTicket?.token,
+                  let authExpires = loginResponse.data?.authTicket?.expires,
                   !userCountry.isEmpty, !authToken.isEmpty
             else {
                 throw LibreLinkError.invalidCredentials
             }
 
-            DirectLog.info("LibreLinkUp login, userID: \(userID)")
             DirectLog.info("LibreLinkUp login, userCountry: \(userCountry)")
             DirectLog.info("LibreLinkUp login, authToken: \(authToken)")
             DirectLog.info("LibreLinkUp login, authExpires: \(authExpires)")
 
-            let connect = try await connect(userCountry: userCountry, authToken: authToken)
+            let connectResponse = try await connect(userCountry: userCountry, authToken: authToken)
 
-            guard let patientID = connect.data?.first?.patientID else {
+            guard let patientID = connectResponse.data?.first?.patientID else {
                 throw LibreLinkError.invalidCredentials
             }
 
             DirectLog.info("LibreLinkUp login, patientID: \(patientID)")
 
-            lastLogin = LibreLinkLogin(userID: userID, patientID: patientID, userCountry: userCountry, authToken: authToken, authExpires: authExpires)
+            lastLogin = LibreLinkLogin(patientID: patientID, userCountry: userCountry, authToken: authToken, authExpires: authExpires)
         }
     }
 
-    private func login() async throws -> LibreLinkResponse<LibreLinkResponseLogin> {
+    private func login(region: String? = nil) async throws -> LibreLinkResponse<LibreLinkResponseLogin> {
         DirectLog.info("LibreLinkUp login")
 
-        guard let url = URL(string: "https://api.libreview.io/llu/auth/login") else {
+        var urlString: String?
+        if let region = region {
+            urlString = "https://api-\(region).libreview.io/llu/auth/login"
+        } else {
+            urlString = "https://api.libreview.io/llu/auth/login"
+        }
+
+        guard let urlString = urlString else {
+            throw LibreLinkError.invalidURL
+        }
+
+        guard let url = URL(string: urlString) else {
             throw LibreLinkError.invalidURL
         }
 
@@ -360,6 +376,8 @@ private struct LibreLinkResponse<T: Codable>: Codable {
 private struct LibreLinkResponseLogin: Codable {
     let user: LibreLinkResponseUser?
     let authTicket: LibreLinkResponseAuthentication?
+    let redirect: Bool?
+    let region: String?
 }
 
 // MARK: - LibreLinkResponseConnect
@@ -417,7 +435,6 @@ private struct LibreLinkResponseGlucose: Codable {
 // MARK: - LibreLinkResponseUser
 
 private struct LibreLinkResponseUser: Codable {
-    let id: String
     let country: String
 }
 
@@ -433,8 +450,7 @@ private struct LibreLinkResponseAuthentication: Codable {
 private struct LibreLinkLogin {
     // MARK: Lifecycle
 
-    init(userID: String, patientID: String, userCountry: String, authToken: String, authExpires: Double) {
-        self.userID = userID
+    init(patientID: String, userCountry: String, authToken: String, authExpires: Double) {
         self.patientID = patientID
 
         if ["ae", "ap", "au", "de", "eu", "fr", "jp", "us"].contains(userCountry.lowercased()) {
@@ -449,7 +465,6 @@ private struct LibreLinkLogin {
 
     // MARK: Internal
 
-    let userID: String
     let patientID: String
     let userCountry: String
     let authToken: String
