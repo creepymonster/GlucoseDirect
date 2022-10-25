@@ -38,7 +38,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             }
         }
     }
-
+    
     override func find() {
         DirectLog.info("Find")
 
@@ -97,6 +97,14 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         if let characteristic = oneMinuteReadingCharacteristic {
             peripheral.setNotifyValue(true, for: characteristic)
         }
+        
+        Task {
+            do {
+                try await update()
+            } catch {
+                sendUpdate(error: error)
+            }
+        }
     }
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
@@ -105,18 +113,14 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         guard let value = characteristic.value else {
             return
         }
-
-        let sleepFactor: UInt64 = value.count == 15
-            ? 0
-            : 1
-
-        if lastLogin == nil, sleepFactor == 1 {
+        
+        guard value.count == 15 else {
             return
         }
 
         Task {
             do {
-                try await Task.sleep(nanoseconds: 1_000_000_000 * 30 * sleepFactor)
+                try await Task.sleep(nanoseconds: 1_000_000_000 * 30)
                 try await update()
             } catch {
                 sendUpdate(error: error)
@@ -195,15 +199,16 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         sendUpdate(readings: trend)
     }
 
-    private func loginIfNeeded(forceLogin: Bool = false) async throws {
+    private func loginIfNeeded(userCountry: String? = nil, forceLogin: Bool = false) async throws {
         if forceLogin || lastLogin == nil || (lastLogin?.authExpires ?? Date()) <= Date() || (lastLogin?.authToken.count ?? 0) == 0 {
-            var loginResponse = try await login()
+            let loginResponse = try await login(userCountry: userCountry)
 
-            if let redirect = loginResponse.data?.redirect,
-               let region = loginResponse.data?.region,
-               redirect, !region.isEmpty
-            {
-                loginResponse = try await login(region: region)
+            if let redirect = loginResponse.data?.redirect, let userCountry = loginResponse.data?.userCountry, redirect, !userCountry.isEmpty {
+                DirectLog.info("LibreLinkUp login, redirect to userCountry: \(userCountry)")
+                
+                try await loginIfNeeded(userCountry: userCountry, forceLogin: forceLogin)
+                
+                return
             }
 
             guard let userCountry = loginResponse.data?.user?.country,
@@ -211,17 +216,20 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
                   let authExpires = loginResponse.data?.authTicket?.expires,
                   !userCountry.isEmpty, !authToken.isEmpty
             else {
-                throw LibreLinkError.invalidCredentials
+                disconnectConnection()
+                
+                throw LibreLinkError.missingUserOrToken
             }
 
             DirectLog.info("LibreLinkUp login, userCountry: \(userCountry)")
-            DirectLog.info("LibreLinkUp login, authToken: \(authToken)")
             DirectLog.info("LibreLinkUp login, authExpires: \(authExpires)")
 
             let connectResponse = try await connect(userCountry: userCountry, authToken: authToken)
 
             guard let patientID = connectResponse.data?.first?.patientID else {
-                throw LibreLinkError.invalidCredentials
+                disconnectConnection()
+                
+                throw LibreLinkError.missingPatientID
             }
 
             DirectLog.info("LibreLinkUp login, patientID: \(patientID)")
@@ -230,12 +238,18 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         }
     }
 
-    private func login(region: String? = nil) async throws -> LibreLinkResponse<LibreLinkResponseLogin> {
+    private func login(userCountry: String? = nil) async throws -> LibreLinkResponse<LibreLinkResponseLogin> {
         DirectLog.info("LibreLinkUp login")
+        
+        guard !UserDefaults.standard.email.isEmpty && !UserDefaults.standard.password.isEmpty else {
+            disconnectConnection()
+            
+            throw LibreLinkError.missingCredentials
+        }
 
         var urlString: String?
-        if let region = region {
-            urlString = "https://api-\(region).libreview.io/llu/auth/login"
+        if let userCountry = userCountry {
+            urlString = "https://api-\(userCountry).libreview.io/llu/auth/login"
         } else {
             urlString = "https://api.libreview.io/llu/auth/login"
         }
@@ -374,10 +388,12 @@ private struct LibreLinkResponse<T: Codable>: Codable {
 // MARK: - LibreLinkResponseLogin
 
 private struct LibreLinkResponseLogin: Codable {
+    enum CodingKeys: String, CodingKey { case user, authTicket, redirect, userCountry = "region" }
+
     let user: LibreLinkResponseUser?
     let authTicket: LibreLinkResponseAuthentication?
     let redirect: Bool?
-    let region: String?
+    let userCountry: String?
 }
 
 // MARK: - LibreLinkResponseConnect
@@ -477,6 +493,8 @@ private enum LibreLinkError: Error {
     case invalidURL
     case serializationError
     case missingLoginSession
+    case missingUserOrToken
+    case missingPatientID
     case invalidCredentials
     case missingCredentials
     case notAuthenticated
@@ -494,8 +512,12 @@ extension LibreLinkError: CustomStringConvertible {
             return "Invalid url"
         case .serializationError:
             return "Serialization error"
+        case .missingUserOrToken:
+            return "Missing user or token"
         case .missingLoginSession:
             return "Missing login session"
+        case .missingPatientID:
+            return "Missing patient id"
         case .invalidCredentials:
             return "Invalid credentials"
         case .missingCredentials:
