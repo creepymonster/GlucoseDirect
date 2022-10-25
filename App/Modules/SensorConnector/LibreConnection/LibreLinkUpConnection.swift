@@ -240,6 +240,12 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
     private func login(userCountry: String? = nil) async throws -> LibreLinkResponse<LibreLinkResponseLogin> {
         DirectLog.info("LibreLinkUp login")
+        
+        guard !UserDefaults.standard.email.isEmpty && !UserDefaults.standard.password.isEmpty else {
+            disconnectConnection()
+            
+            throw LibreLinkError.missingCredentials
+        }
 
         var urlString: String?
         if let userCountry = userCountry {
