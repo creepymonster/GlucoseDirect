@@ -38,7 +38,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             }
         }
     }
-    
+
     override func find() {
         DirectLog.info("Find")
 
@@ -97,7 +97,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         if let characteristic = oneMinuteReadingCharacteristic {
             peripheral.setNotifyValue(true, for: characteristic)
         }
-        
+
         Task {
             do {
                 try await update()
@@ -113,7 +113,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         guard let value = characteristic.value else {
             return
         }
-        
+
         guard value.count == 15 else {
             return
         }
@@ -177,26 +177,23 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             throw LibreLinkError.missingData
         }
 
+        sendUpdate(age: sensorAge, state: .ready)
+
         guard let trendData = fetchResponse.data?.connection?.glucoseMeasurement else {
             throw LibreLinkError.missingData
         }
 
-        // guard let historyData = fetch.data?.graphData else {
-        //     throw LibreLinkError.missingData
-        // }
-
-        sendUpdate(age: sensorAge, state: .ready)
+        let historyData = fetchResponse.data?.graphData ?? []
 
         let trend = [
             SensorReading.createGlucoseReading(timestamp: trendData.timestamp, glucoseValue: trendData.value),
         ]
 
-        // let history = historyData.map {
-        //     SensorReading.createGlucoseReading(timestamp: $0.timestamp, glucoseValue: $0.value)
-        // }
+        let history = historyData.map {
+            SensorReading.createGlucoseReading(timestamp: $0.timestamp, glucoseValue: $0.value)
+        }
 
-        // sendUpdate(readings: history + trend)
-        sendUpdate(readings: trend)
+        sendUpdate(readings: history + trend)
     }
 
     private func loginIfNeeded(userCountry: String? = nil, forceLogin: Bool = false) async throws {
@@ -205,9 +202,9 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
             if let redirect = loginResponse.data?.redirect, let userCountry = loginResponse.data?.userCountry, redirect, !userCountry.isEmpty {
                 DirectLog.info("LibreLinkUp login, redirect to userCountry: \(userCountry)")
-                
+
                 try await loginIfNeeded(userCountry: userCountry, forceLogin: forceLogin)
-                
+
                 return
             }
 
@@ -217,7 +214,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
                   !userCountry.isEmpty, !authToken.isEmpty
             else {
                 disconnectConnection()
-                
+
                 throw LibreLinkError.missingUserOrToken
             }
 
@@ -228,7 +225,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
             guard let patientID = connectResponse.data?.first?.patientID else {
                 disconnectConnection()
-                
+
                 throw LibreLinkError.missingPatientID
             }
 
@@ -240,10 +237,10 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
     private func login(userCountry: String? = nil) async throws -> LibreLinkResponse<LibreLinkResponseLogin> {
         DirectLog.info("LibreLinkUp login")
-        
-        guard !UserDefaults.standard.email.isEmpty && !UserDefaults.standard.password.isEmpty else {
+
+        guard !UserDefaults.standard.email.isEmpty, !UserDefaults.standard.password.isEmpty else {
             disconnectConnection()
-            
+
             throw LibreLinkError.missingCredentials
         }
 
@@ -409,7 +406,7 @@ private struct LibreLinkResponseConnect: Codable {
 private struct LibreLinkResponseFetch: Codable {
     let connection: LibreLinkResponseConnection?
     let activeSensors: [LibreLinkResponseActiveSensors]?
-    // let graphData: [LibreLinkResponseGlucose]?
+    let graphData: [LibreLinkResponseGlucose]?
 }
 
 // MARK: - LibreLinkResponseConnection
@@ -519,9 +516,9 @@ extension LibreLinkError: CustomStringConvertible {
         case .missingPatientID:
             return "Missing patient id"
         case .invalidCredentials:
-            return "Invalid credentials"
+            return "Invalid credentials (check 'Settings' > 'Connection Settings')"
         case .missingCredentials:
-            return "Missing credentials"
+            return "Missing credentials (check 'Settings' > 'Connection Settings')"
         case .notAuthenticated:
             return "Not authenticated"
         case .decoderError:
