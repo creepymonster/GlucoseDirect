@@ -35,6 +35,9 @@
 "Alarm glucose notification" = "Alarm Glucose Notification";
 
 /* (No Comment) */
+"Alarm settings" = "Alarm settings";
+
+/* (No Comment) */
 "Alert, high glucose" = "警報，高血糖";
 
 /* (No Comment) */
@@ -138,6 +141,9 @@
 
 /* (No Comment) */
 "Connection error timestamp" = "時間";
+
+/* (No Comment) */
+"Connection settings" = "Connection settings";
 
 /* (No Comment) */
 "Connection state" = "狀態";
@@ -248,6 +254,9 @@
 "Nightscout url" = "網址";
 
 /* (No Comment) */
+"No Data" = "No Data";
+
+/* (No Comment) */
 "No screen lock" = "No screen lock";
 
 /* (No Comment) */
@@ -300,6 +309,9 @@
 
 /* (No Comment) */
 "Readable rising" = "rising";
+
+/* (No Comment) */
+"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
 
 /* (No Comment) */
 "Rescan the sensor" = "Rescan the sensor";
@@ -425,6 +437,9 @@
 "Statistics (%@ days)" = "Statistics (%@ days)";
 
 /* (No Comment) */
+"StatisticsPeriod" = "Period";
+
+/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "感測器連線中斷，請確保手機與感測器保持在5米以內範圍";
 
 /* (No Comment) */
@@ -521,13 +536,16 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "您的感測器即將到期, 請在%1$@分鐘後更換";
 
 /* (No Comment) */
-"Alarm settings" = "Alarm settings";
+"Loading..." = "Loading...";
 
 /* (No Comment) */
-"Connection settings" = "Connection settings";
+"Export" = "Export";
 
 /* (No Comment) */
-"No Data" = "No Data";
+"Export as CSV" = "Export as CSV";
 
 /* (No Comment) */
-"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
+"Export for Glooko" = "Export for Glooko";
+
+/* (No Comment) */
+"Export for Tidepool" = "Export for Tidepool";

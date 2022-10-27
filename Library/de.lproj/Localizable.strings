@@ -35,6 +35,9 @@
 "Alarm glucose notification" = "Alarm Glukose-Benachrichtigung";
 
 /* (No Comment) */
+"Alarm settings" = "Alarm Einstellungen";
+
+/* (No Comment) */
 "Alert, high glucose" = "Achtung, hoher Blutzucker";
 
 /* (No Comment) */
@@ -77,7 +80,7 @@
 "App website" = "Webseite";
 
 /* (No Comment) */
-"Apple export settings" = "Apple Export-Einstellungen";
+"Apple export settings" = "Apple-Exporteinstellungen";
 
 /* (No Comment) */
 "Are you sure you want to disconnect the sensor?" = "Sind Sie sicher, dass Sie die Verbindung zum Sensor trennen wollen?";
@@ -140,6 +143,9 @@
 "Connection error timestamp" = "Zeit";
 
 /* (No Comment) */
+"Connection settings" = "Verbindungseinstellungen";
+
+/* (No Comment) */
 "Connection state" = "Status";
 
 /* (No Comment) */
@@ -197,7 +203,7 @@
 "Glucose read aloud" = "Glukose Vorlesen";
 
 /* (No Comment) */
-"Glucose settings" = "Glukose Einstellungen";
+"Glucose settings" = "Glukose-Einstellungen";
 
 /* (No Comment) */
 "Glucose unit" = "Einheit";
@@ -246,6 +252,9 @@
 
 /* (No Comment) */
 "Nightscout url" = "Url";
+
+/* (No Comment) */
+"No Data" = "Keine Daten";
 
 /* (No Comment) */
 "No screen lock" = "Keine Displaysperre";
@@ -300,6 +309,9 @@
 
 /* (No Comment) */
 "Readable rising" = "steigend";
+
+/* (No Comment) */
+"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
 
 /* (No Comment) */
 "Rescan the sensor" = "Sensor erneut scannen";
@@ -425,6 +437,9 @@
 "Statistics (%@ days)" = "Statistiken (%@ Tage)";
 
 /* (No Comment) */
+"StatisticsPeriod" = "Zeitraum";
+
+/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "Die Verbindung mit dem Sensor ist unterbrochen worden. Normalerweise geschieht dies, wenn der Sensor außerhalb der Reichweite oder seine Sendeleistung beeinträchtigt ist.";
 
 /* (No Comment) */
@@ -521,16 +536,16 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Ihr Sensor läuft demnächst ab. Ersetzen Sie den Sensor in %1$@ Minuten.";
 
 /* (No Comment) */
-"Alarm settings" = "Alarm settings";
+"Loading..." = "Lädt...";
 
 /* (No Comment) */
-"Connection settings" = "Connection settings";
+"Export" = "Export";
 
 /* (No Comment) */
-"No Data" = "No Data";
+"Export as CSV" = "Als CSV exportieren";
 
 /* (No Comment) */
-"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
+"Export for Glooko" = "Export für Glooko";
 
 /* (No Comment) */
-"StatisticsPeriod" = "Zeitraum";
+"Export for Tidepool" = "Export für Tidepool";

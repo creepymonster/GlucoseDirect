@@ -24,52 +24,42 @@ struct GlucoseActivityWidget: Widget {
                 }
             } compactLeading: {
                 if let latestGlucose = context.state.glucose,
-                   let glucoseUnit = context.state.glucoseUnit
+                   let glucoseUnit = context.state.glucoseUnit,
+                   let connectionState = context.state.connectionState
                 {
-                    ZStack(alignment: .trailing) {
+                    VStack(alignment: .trailing) {
                         Text(latestGlucose.glucoseValue.asGlucose(unit: glucoseUnit))
-                            .offset(y: -7)
-                            .padding(.leading)
+                            .font(.body)
+                            .fontWeight(.bold)
+                            .strikethrough(connectionState != .connected, color: Color.ui.red)
 
                         Text(glucoseUnit.shortLocalizedDescription)
-                            .offset(y: 7)
-                            .opacity(0.5)
-                            .font(.footnote)
-                    }
+                            .font(.system(size: 12))
+                    }.padding(.leading, 7.5)
                 }
             } compactTrailing: {
                 if let latestGlucose = context.state.glucose,
                    let glucoseUnit = context.state.glucoseUnit
                 {
-                    ZStack(alignment: .trailing) {
+                    VStack(alignment: .trailing) {
                         Text(latestGlucose.trend.description)
-                            .offset(y: -7)
-                            .padding(.leading)
-
+                            .font(.body)
+                            .fontWeight(.bold)
+                        
                         if let minuteChange = latestGlucose.minuteChange?.asShortMinuteChange(glucoseUnit: glucoseUnit), latestGlucose.trend != .unknown {
                             Text(minuteChange)
-                                .offset(y: 8)
-                                .opacity(0.5)
-                                .font(.footnote)
+                                .font(.system(size: 12))
                         }
-                    }
-
-                    .padding(.trailing)
+                    }.padding(.trailing, 7.5)
                 }
             } minimal: {
                 if let latestGlucose = context.state.glucose,
-                   let glucoseUnit = context.state.glucoseUnit
+                   let glucoseUnit = context.state.glucoseUnit,
+                   let connectionState = context.state.connectionState
                 {
-                    ZStack(alignment: .trailing) {
-                        Text(latestGlucose.glucoseValue.asGlucose(unit: glucoseUnit))
-                            .offset(y: -7)
-                            .padding(.leading)
-
-                        Text(glucoseUnit.shortLocalizedDescription)
-                            .offset(y: 7)
-                            .opacity(0.5)
-                            .font(.footnote)
-                    }
+                    Text(latestGlucose.glucoseValue.asGlucose(unit: glucoseUnit))
+                        .font(.body)
+                        .strikethrough(connectionState != .connected, color: Color.ui.red)
                 }
             }
         }
