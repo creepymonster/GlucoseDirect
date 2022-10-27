@@ -51,6 +51,7 @@ protocol DirectState {
     var selectedCalendarTarget: String? { get set }
     var selectedConnection: SensorConnectionProtocol? { get set }
     var selectedConnectionID: String? { get set }
+    var selectedConfiguration: [SensorConnectionConfigurationOption] { get set }
     var selectedView: Int { get set }
     var sensor: Sensor? { get set }
     var sensorErrorValues: [SensorError] { get set }

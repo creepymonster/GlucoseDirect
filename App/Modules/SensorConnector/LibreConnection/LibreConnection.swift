@@ -65,11 +65,15 @@ class LibreConnection: SensorConnectionProtocol, IsSensor {
     }
 
     func disconnectConnection() {
-        bluetoothConnection = nil
+        bluetoothConnection?.disconnectConnection()
     }
 
-    func getConfiguration() -> [SensorConnectionConfigurationOption]? {
-        return bluetoothConnection?.getConfiguration()
+    func getConfiguration(sensor: Sensor) -> [SensorConnectionConfigurationOption] {
+        if let connection = initConnection(sensor: sensor) {
+            return connection.getConfiguration(sensor: sensor)
+        }
+        
+        return []
     }
 
     // MARK: Private

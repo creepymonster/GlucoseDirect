@@ -128,7 +128,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         }
     }
 
-    override func getConfiguration() -> [SensorConnectionConfigurationOption]? {
+    override func getConfiguration(sensor: Sensor) -> [SensorConnectionConfigurationOption] {
         return [
             SensorConnectionConfigurationOption(id: UserDefaults.Keys.email.rawValue, name: LocalizedString("LibreLinkUp email"), value: Binding(
                 get: { UserDefaults.standard.email },

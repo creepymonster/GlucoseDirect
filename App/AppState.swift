@@ -90,6 +90,7 @@ struct AppState: DirectState {
     var connectionState: SensorConnectionState = .disconnected
     var preventScreenLock = false
     var selectedConnection: SensorConnectionProtocol?
+    var selectedConfiguration: [SensorConnectionConfigurationOption] = []
     var sensorErrorValues: [SensorError] = []
     var sensorGlucoseHistory: [SensorGlucose] = []
     var sensorGlucoseValues: [SensorGlucose] = []
