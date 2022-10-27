@@ -159,6 +159,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.dateFormat = "M/d/yyyy h:mm:ss a"
         return formatter
     }()
