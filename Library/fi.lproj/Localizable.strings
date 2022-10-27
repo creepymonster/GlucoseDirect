@@ -35,6 +35,9 @@
 "Alarm glucose notification" = "Alarm Glucose Notification";
 
 /* (No Comment) */
+"Alarm settings" = "Alarm settings";
+
+/* (No Comment) */
 "Alert, high glucose" = "Hälytys, korkea glukoosi";
 
 /* (No Comment) */
@@ -138,6 +141,9 @@
 
 /* (No Comment) */
 "Connection error timestamp" = "Aika";
+
+/* (No Comment) */
+"Connection settings" = "Connection settings";
 
 /* (No Comment) */
 "Connection state" = "Tila";
@@ -248,6 +254,9 @@
 "Nightscout url" = "Url";
 
 /* (No Comment) */
+"No Data" = "No Data";
+
+/* (No Comment) */
 "No screen lock" = "No screen lock";
 
 /* (No Comment) */
@@ -300,6 +309,9 @@
 
 /* (No Comment) */
 "Readable rising" = "rising";
+
+/* (No Comment) */
+"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
 
 /* (No Comment) */
 "Rescan the sensor" = "Rescan the sensor";
@@ -425,6 +437,9 @@
 "Statistics (%@ days)" = "Statistics (%@ days)";
 
 /* (No Comment) */
+"StatisticsPeriod" = "Period";
+
+/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired.";
 
 /* (No Comment) */
@@ -521,16 +536,16 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Your sensor is about to expire. Replace sensor in %1$@ minutes.";
 
 /* (No Comment) */
-"Alarm settings" = "Alarm settings";
+"Loading..." = "Loading...";
 
 /* (No Comment) */
-"Connection settings" = "Connection settings";
+"Export" = "Export";
 
 /* (No Comment) */
-"No Data" = "No Data";
+"Export as CSV" = "Export as CSV";
 
 /* (No Comment) */
-"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
+"Export for Glooko" = "Export for Glooko";
 
 /* (No Comment) */
-"StatisticsPeriod" = "Jakso";
+"Export for Tidepool" = "Export for Tidepool";
