@@ -77,7 +77,7 @@ class LibreNFC: NSObject, NFCTagReaderSessionDelegate {
                     break
                 } catch {
                     if retry == retryCount - 1 {
-                        returnWithError(LibrePairingError.invalidPatchInfo)
+                        returnWithError(LibrePairingError.invalidPatchInfo(patchInfo: patchInfo.hex))
                         return
                     } else {
                         continue
@@ -86,7 +86,7 @@ class LibreNFC: NSObject, NFCTagReaderSessionDelegate {
             }
 
             guard patchInfo.count >= 6 else {
-                returnWithError(LibrePairingError.invalidPatchInfo)
+                returnWithError(LibrePairingError.invalidPatchInfo(patchInfo: patchInfo.hex))
                 return
             }
 
@@ -184,6 +184,11 @@ class LibreNFC: NSObject, NFCTagReaderSessionDelegate {
                         }
                         
                     case .libre3:
+                        guard patchInfo.count == 28 else {
+                            returnWithError(LibrePairingError.invalidPatchInfo(patchInfo: patchInfo.hex))
+                            return
+                        }
+                        
                         let sensor = Sensor.libre3Sensor(uuid: sensorUID, patchInfo: patchInfo)
 
                         returnWithResult(isPaired: true, sensor: sensor, readings: [])
@@ -271,7 +276,7 @@ enum LibrePairingError: Error {
     case noTagFound
     case noIsoTagFound
     case failedToConnect
-    case invalidPatchInfo
+    case invalidPatchInfo(patchInfo: String)
     case unsupportedSensor(type: String)
     case failedToRead
     case streamingNotEnabled
@@ -282,6 +287,9 @@ enum LibrePairingError: Error {
 extension LibrePairingError: CustomStringConvertible {
     var description: String {
         switch self {
+        case .invalidPatchInfo(patchInfo: let patchInfo):
+            return "Invalid patchInfo: \(patchInfo)"
+            
         case .unsupportedSensor(type: let type):
             return "Unsupported sensor: \(type)"
 

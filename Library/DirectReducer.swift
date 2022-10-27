@@ -71,12 +71,17 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         if id != state.selectedConnectionID || state.selectedConnection == nil {
             state.selectedConnectionID = id
             state.selectedConnection = connection
+            
+            if let sensor = state.sensor {
+                state.selectedConfiguration = connection.getConfiguration(sensor: sensor)
+            }
         }
         
     case .selectConnectionID(id: _):
         state.isConnectionPaired = false
         state.sensor = nil
         state.transmitter = nil
+        state.selectedConfiguration = []
         state.customCalibration = []
         state.connectionError = nil
         state.connectionErrorTimestamp = nil
@@ -209,6 +214,10 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         state.sensor = sensor
         state.connectionError = nil
         state.connectionErrorTimestamp = nil
+        
+        if let selectedConnection = state.selectedConnection {
+            state.selectedConfiguration = selectedConnection.getConfiguration(sensor: sensor)
+        }
         
     case .setSensorInterval(interval: let interval):
         state.sensorInterval = interval

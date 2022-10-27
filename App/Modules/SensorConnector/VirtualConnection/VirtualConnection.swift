@@ -20,8 +20,8 @@ class VirtualLibreConnection: SensorConnectionProtocol, IsSensor {
 
     weak var subject: PassthroughSubject<DirectAction, DirectError>?
 
-    func getConfiguration() -> [SensorConnectionConfigurationOption]? {
-        return nil
+    func getConfiguration(sensor: Sensor) -> [SensorConnectionConfigurationOption] {
+        return []
     }
 
     func pairConnection() {

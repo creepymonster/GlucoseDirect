@@ -23,7 +23,7 @@ protocol SensorConnectionProtocol {
     func pairConnection()
     func connectConnection(sensor: Sensor, sensorInterval: Int)
     func disconnectConnection()
-    func getConfiguration() -> [SensorConnectionConfigurationOption]?
+    func getConfiguration(sensor: Sensor) -> [SensorConnectionConfigurationOption]
 }
 
 // MARK: - SensorConnectionConfigurationOption
