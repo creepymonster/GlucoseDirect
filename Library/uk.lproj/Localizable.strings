@@ -536,16 +536,16 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Термін придатності вашого датчика закінчується. Замініть датчик через %1$@ хвилин.";
 
 /* (No Comment) */
-"Loading..." = "Loading...";
+"Loading..." = "Завантаження...";
 
 /* (No Comment) */
-"Export" = "Export";
+"Export" = "Експортувати";
 
 /* (No Comment) */
-"Export as CSV" = "Export as CSV";
+"Export as CSV" = "Експортувати як CVS";
 
 /* (No Comment) */
-"Export for Glooko" = "Export for Glooko";
+"Export for Glooko" = "Експорт до Glooko";
 
 /* (No Comment) */
-"Export for Tidepool" = "Export for Tidepool";
+"Export for Tidepool" = "Експорт до Tidepool";
