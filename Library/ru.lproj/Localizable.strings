@@ -35,6 +35,9 @@
 "Alarm glucose notification" = "Сигнал тревоги Уведомление о глюкозе";
 
 /* (No Comment) */
+"Alarm settings" = "Alarm settings";
+
+/* (No Comment) */
 "Alert, high glucose" = "Тревога, высокий уровень глюкозы";
 
 /* (No Comment) */
@@ -140,6 +143,9 @@
 "Connection error timestamp" = "Время";
 
 /* (No Comment) */
+"Connection settings" = "Connection settings";
+
+/* (No Comment) */
 "Connection state" = "Статус";
 
 /* (No Comment) */
@@ -194,7 +200,7 @@
 "Glucose overview" = "Обзор";
 
 /* (No Comment) */
-"Glucose read aloud" = "Уровень глюкозы";
+"Glucose read aloud" = " Уровень глюкозы";
 
 /* (No Comment) */
 "Glucose settings" = "Настройки ГК";
@@ -246,6 +252,9 @@
 
 /* (No Comment) */
 "Nightscout url" = "Url-адрес";
+
+/* (No Comment) */
+"No Data" = "No Data";
 
 /* (No Comment) */
 "No screen lock" = "Без блокировки экрана";
@@ -300,6 +309,9 @@
 
 /* (No Comment) */
 "Readable rising" = "рост";
+
+/* (No Comment) */
+"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
 
 /* (No Comment) */
 "Rescan the sensor" = "Повторное сканирование датчика";
@@ -425,6 +437,9 @@
 "Statistics (%@ days)" = "Статистика (%@ дня/дней)";
 
 /* (No Comment) */
+"StatisticsPeriod" = "Period";
+
+/* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "Соединение с датчиком прервано. Обычно это происходит, когда датчик находится вне зоны действия или его мощность передачи данных снижена.";
 
 /* (No Comment) */
@@ -437,7 +452,7 @@
 "Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Время ниже диапазона (TBR) или процент времени, проведенного ниже целевого уровня глюкозы %@.";
 
 /* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Время в диапазоне (TIR) или процент времени, проведенного в целевом диапазоне глюкозы между %@ - %@.";
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@.";
 
 /* (No Comment) */
 "Transmitter" = "Передатчик";
@@ -521,16 +536,16 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Срок действия вашего датчика истекает. Замените датчик через %1$@ минут.";
 
 /* (No Comment) */
-"Alarm settings" = "Alarm settings";
+"Loading..." = "Loading...";
 
 /* (No Comment) */
-"Connection settings" = "Connection settings";
+"Export" = "Export";
 
 /* (No Comment) */
-"No Data" = "No Data";
+"Export as CSV" = "Export as CSV";
 
 /* (No Comment) */
-"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
+"Export for Glooko" = "Export for Glooko";
 
 /* (No Comment) */
-"StatisticsPeriod" = "Период";
+"Export for Tidepool" = "Export for Tidepool";
