@@ -106,7 +106,7 @@ struct GlucoseView: View {
                     }).opacity(store.state.alarmSnoozeUntil == nil ? 0.5 : 1)
                 }
                 .buttonStyle(.plain)
-            }.padding(.vertical, 10)
+            }.padding(.top, 10)
         } else {
             VStack {
                 Text("No Data")
