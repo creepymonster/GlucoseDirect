@@ -28,7 +28,7 @@ struct ListsView: View {
                                 ForEach(Config.chartLevels, id: \.days) { level in
                                     Button(
                                         action: {
-                                            DirectNotifications.shared.hapticNotification()
+                                            DirectNotifications.shared.hapticFeedback()
                                             store.dispatch(.setStatisticsDays(days: level.days))
                                         },
                                         label: {

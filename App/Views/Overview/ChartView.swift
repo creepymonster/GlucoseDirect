@@ -217,7 +217,7 @@ struct ChartView: View {
             ForEach(Config.zoomLevels, id: \.level) { zoom in
                 Button(
                     action: {
-                        DirectNotifications.shared.hapticNotification()
+                        DirectNotifications.shared.hapticFeedback()
                         store.dispatch(.setChartZoomLevel(level: zoom.level))
                     },
                     label: {
@@ -246,7 +246,7 @@ struct ChartView: View {
                 VStack {
                     HStack {
                         Button(action: {
-                            DirectNotifications.shared.hapticNotification()
+                            DirectNotifications.shared.hapticFeedback()
                             store.dispatch(.setSelectedDate(selectedDate: Calendar.current.date(byAdding: .day, value: -1, to: store.state.selectedDate ?? Date())))
                         }, label: {
                             Image(systemName: "arrowshape.turn.up.backward")
@@ -267,7 +267,7 @@ struct ChartView: View {
                         Spacer()
 
                         Button(action: {
-                            DirectNotifications.shared.hapticNotification()
+                            DirectNotifications.shared.hapticFeedback()
                             store.dispatch(.setSelectedDate(selectedDate: Calendar.current.date(byAdding: .day, value: +1, to: store.state.selectedDate ?? Date())))
                         }, label: {
                             Image(systemName: "arrowshape.turn.up.forward")

@@ -68,7 +68,7 @@ struct GlucoseView: View {
                 
                 HStack {
                     Button(action: {
-                        DirectNotifications.shared.hapticNotification()
+                        DirectNotifications.shared.hapticFeedback()
                         store.dispatch(.setPreventScreenLock(enabled: !store.state.preventScreenLock))
                     }, label: {
                         if store.state.preventScreenLock {
@@ -83,7 +83,7 @@ struct GlucoseView: View {
 
                     if store.state.alarmSnoozeUntil != nil {
                         Button(action: {
-                            DirectNotifications.shared.hapticNotification()
+                            DirectNotifications.shared.hapticFeedback()
                             store.dispatch(.setAlarmSnoozeUntil(untilDate: nil))
                         }, label: {
                             Image(systemName: "delete.forward")
@@ -94,7 +94,7 @@ struct GlucoseView: View {
                         let date = (store.state.alarmSnoozeUntil ?? Date()).toRounded(on: 1, .minute)
                         let nextDate = Calendar.current.date(byAdding: .minute, value: 60, to: date)
 
-                        DirectNotifications.shared.hapticNotification()
+                        DirectNotifications.shared.hapticFeedback()
                         store.dispatch(.setAlarmSnoozeUntil(untilDate: nextDate))
                     }, label: {
                         if let alarmSnoozeUntil = store.state.alarmSnoozeUntil {
