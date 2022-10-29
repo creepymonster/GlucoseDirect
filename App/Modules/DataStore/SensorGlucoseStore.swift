@@ -272,9 +272,10 @@ private extension DataStore {
                     do {
                         let db = try asyncDB.get()
                         
-                        if let timestamp = selectedDate {
+                        if let selectedDate = selectedDate, let nextDate = Calendar.current.date(byAdding: .day, value: +1, to: selectedDate) {
                             let result = try SensorGlucose
-                                .filter(sql: "date(\(SensorGlucose.Columns.timestamp.name)) == date(\(timestamp.timeIntervalSince1970), 'unixepoch')")
+                                .filter(Column(SensorGlucose.Columns.timestamp.name) >= selectedDate.startOfDay)
+                                .filter(nextDate.startOfDay > Column(SensorGlucose.Columns.timestamp.name))
                                 .order(Column(SensorGlucose.Columns.timestamp.name))
                                 .fetchAll(db)
 
