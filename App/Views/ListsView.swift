@@ -52,14 +52,6 @@ struct ListsView: View {
                         }
 
                         Group {
-                            #if DEBUG
-                            HStack {
-                                Text("Readings")
-                                Spacer()
-                                Text(glucoseStatistics.readings.description)
-                            }
-                            #endif
-
                             VStack(alignment: .leading, spacing: 10) {
                                 HStack {
                                     Text(verbatim: "AVG")
