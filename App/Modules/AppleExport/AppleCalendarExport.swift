@@ -15,7 +15,7 @@ func appleCalendarExportMiddleware() -> Middleware<DirectState, DirectAction> {
 
 private func appleCalendarExportMiddleware(service: LazyService<AppleCalendarExportService>) -> Middleware<DirectState, DirectAction> {
     return { state, action, _ in
-        switch action {           
+        switch action {
         case .requestAppleCalendarAccess(enabled: let enabled):
             if enabled {
                 return Future<DirectAction, DirectError> { promise in
@@ -36,6 +36,23 @@ private func appleCalendarExportMiddleware(service: LazyService<AppleCalendarExp
                 return Just(DirectAction.setAppleCalendarExport(enabled: false))
                     .setFailureType(to: DirectError.self)
                     .eraseToAnyPublisher()
+            }
+
+        case .setConnectionState(connectionState: let connectionState):
+            guard state.appleCalendarExport else {
+                DirectLog.info("Guard: state.calendarExport disabled")
+                break
+            }
+
+            guard let calendarTarget = state.selectedCalendarTarget else {
+                DirectLog.info("Guard: state.selectedCalendarTarget is nil")
+                break
+            }
+
+            if connectionState == .connected {
+                service.value.clearGlucoseEvents()
+            } else {
+                service.value.addConnectionState(calendarTarget: calendarTarget, connectionState: connectionState, connectionError: state.connectionError)
             }
 
         case .addSensorGlucose(glucoseValues: let glucoseValues):
@@ -114,7 +131,19 @@ private class AppleCalendarExportService {
         }
     }
 
+    func addConnectionState(calendarTarget: String, connectionState: SensorConnectionState, connectionError: String?) {
+        addCalendarEntry(calendarTarget: calendarTarget, timestamp: Date(), title: connectionState.localizedDescription, location: connectionError)
+    }
+
     func addSensorGlucose(calendarTarget: String, glucose: SensorGlucose, glucoseUnit: GlucoseUnit, sensorInterval: Double) {
+        addCalendarEntry(calendarTarget: calendarTarget, timestamp: glucose.timestamp, title: "\(glucose.trend.description) \(glucose.glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true))", location: glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit))
+    }
+
+    // MARK: Private
+
+    private var calendar: EKCalendar?
+
+    private func addCalendarEntry(calendarTarget: String, timestamp: Date, title: String, location: String? = nil) {
         if calendar == nil || calendar?.title != calendarTarget {
             calendar = eventStore.calendars(for: .event).first(where: { $0.title == calendarTarget })
         }
@@ -122,20 +151,20 @@ private class AppleCalendarExportService {
         guard let calendar = calendar else {
             return
         }
-        
+
         clearGlucoseEvents()
 
         let event = EKEvent(eventStore: eventStore)
-        event.title = "\(glucose.trend.description) \(glucose.glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true))"
+        event.title = title
 
-        if let minuteChange = glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
-            event.location = "\(glucose.timestamp.toLocalTime()), \(minuteChange)"
+        if let location = location {
+            event.location = location
         }
 
         event.calendar = calendar
         event.url = DirectConfig.appSchemaURL
-        event.startDate = glucose.timestamp
-        event.endDate = glucose.timestamp + 15 * 60
+        event.startDate = timestamp
+        event.endDate = timestamp + 15 * 60
 
         do {
             try eventStore.save(event, span: .thisEvent)
@@ -143,10 +172,6 @@ private class AppleCalendarExportService {
             DirectLog.error("Cannot create calendar event: \(error)")
         }
     }
-
-    // MARK: Private
-
-    private var calendar: EKCalendar?
 
     private func findEvent() -> EKEvent? {
         guard let calendar = calendar else {
@@ -170,3 +195,5 @@ private class AppleCalendarExportService {
         return nil
     }
 }
+
+// TODO:
