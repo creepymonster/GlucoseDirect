@@ -217,11 +217,8 @@ struct ChartView: View {
             ForEach(Config.zoomLevels, id: \.level) { zoom in
                 Button(
                     action: {
-                        // DirectNotifications.shared.hapticNotification()
-
-                        if store.state.chartZoomLevel != zoom.level {
-                            store.dispatch(.setChartZoomLevel(level: zoom.level))
-                        }
+                        DirectNotifications.shared.hapticNotification()
+                        store.dispatch(.setChartZoomLevel(level: zoom.level))
                     },
                     label: {
                         Circle()
@@ -249,10 +246,11 @@ struct ChartView: View {
                 VStack {
                     HStack {
                         Button(action: {
+                            DirectNotifications.shared.hapticNotification()
                             store.dispatch(.setSelectedDate(selectedDate: Calendar.current.date(byAdding: .day, value: -1, to: store.state.selectedDate ?? Date())))
                         }, label: {
-                            Image(systemName: "arrowtriangle.backward.fill")
-                        }).opacity((store.state.selectedDate ?? Date()).startOfDay > store.state.minSelectedDate.startOfDay ? 0.35 : 0)
+                            Image(systemName: "arrowshape.turn.up.backward")
+                        }).opacity((store.state.selectedDate ?? Date()).startOfDay > store.state.minSelectedDate.startOfDay ? 0.5 : 0)
 
                         Spacer()
 
@@ -265,15 +263,15 @@ struct ChartView: View {
                         }.onTapGesture {
                             store.dispatch(.setSelectedDate(selectedDate: nil))
                         }
-                        .opacity(0.5)
 
                         Spacer()
 
                         Button(action: {
+                            DirectNotifications.shared.hapticNotification()
                             store.dispatch(.setSelectedDate(selectedDate: Calendar.current.date(byAdding: .day, value: +1, to: store.state.selectedDate ?? Date())))
                         }, label: {
-                            Image(systemName: "arrowtriangle.forward.fill")
-                        }).opacity(store.state.selectedDate == nil ? 0 : 0.35)
+                            Image(systemName: "arrowshape.turn.up.forward")
+                        }).opacity(store.state.selectedDate == nil ? 0 : 0.5)
                     }
                     .buttonStyle(.plain)
 
