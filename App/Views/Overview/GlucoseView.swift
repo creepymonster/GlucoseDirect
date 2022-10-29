@@ -112,7 +112,7 @@ struct GlucoseView: View {
                 Text("No Data")
                     .font(.system(size: 48))
                     .foregroundColor(Color.ui.red)
-                    .padding(.bottom)
+                    .padding(.vertical)
             }
         }
     }
