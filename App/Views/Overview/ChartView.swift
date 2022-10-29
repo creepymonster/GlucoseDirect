@@ -68,18 +68,6 @@ struct ChartView: View {
                                 .opacity(0.5)
                                 .foregroundStyle(Color.primary)
                             }
-
-                            if let startMarker = startMarker {
-                                RuleMark(
-                                    x: .value("", startMarker)
-                                ).foregroundStyle(.clear)
-                            }
-
-                            if let endMarker = endMarker {
-                                RuleMark(
-                                    x: .value("", endMarker)
-                                ).foregroundStyle(.clear)
-                            }
                         }
                         .chartPlotStyle { plotArea in
                             plotArea.padding(.vertical)
@@ -94,14 +82,8 @@ struct ChartView: View {
                             }
                         }
                         .chartYAxis {
-                            /* AxisMarks(position: .leading) {
-                             AxisTick(length: 4, stroke: StrokeStyle(lineWidth: 4))
-                             AxisValueLabel()
-                             } */
-
                             AxisMarks(position: .trailing) {
                                 AxisGridLine(stroke: Config.axisStyle)
-                                AxisTick(length: 4, stroke: StrokeStyle(lineWidth: 4))
                                 AxisValueLabel()
                             }
                         }
@@ -132,6 +114,10 @@ struct ChartView: View {
                                 updateSensorSeries()
                                 updateBloodSeries()
                             }
+                            
+                        }.onChange(of: store.state.selectedDate) { _ in
+                            selectedSensorPoint = nil
+                            selectedBloodPoint = nil
 
                         }.onChange(of: store.state.sensorGlucoseValues) { _ in
                             scrollToEnd(scrollViewProxy: scrollViewProxy)
