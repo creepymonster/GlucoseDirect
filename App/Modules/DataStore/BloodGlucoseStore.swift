@@ -45,7 +45,7 @@ func bloodGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
                 break
             }
 
-            return DataStore.shared.getBloodGlucoseValues().map { glucoseValues in
+            return DataStore.shared.getBloodGlucoseValues(selectedDate: state.selectedDate).map { glucoseValues in
                 DirectAction.setBloodGlucoseValues(glucoseValues: glucoseValues)
             }.eraseToAnyPublisher()
 
@@ -140,17 +140,15 @@ private extension DataStore {
         }
     }
 
-    func getBloodGlucoseValues(upToDay: Int? = 1) -> Future<[BloodGlucose], DirectError> {
+    func getBloodGlucoseValues(selectedDate: Date? = nil) -> Future<[BloodGlucose], DirectError> {
         return Future { promise in
             if let dbQueue = self.dbQueue {
                 dbQueue.asyncRead { asyncDB in
                     do {
-                        if let upToDay = upToDay,
-                           let upTo = Calendar.current.date(byAdding: .day, value: -upToDay, to: Date())
-                        {
+                        if let timestamp = selectedDate {
                             let db = try asyncDB.get()
                             let result = try BloodGlucose
-                                .filter(Column(BloodGlucose.Columns.timestamp.name) > upTo)
+                                .filter(sql: "date(\(BloodGlucose.Columns.timestamp.name)) == date(\(timestamp.timeIntervalSince1970), 'unixepoch')")
                                 .order(Column(BloodGlucose.Columns.timestamp.name))
                                 .fetchAll(db)
 
@@ -158,44 +156,11 @@ private extension DataStore {
                         } else {
                             let db = try asyncDB.get()
                             let result = try BloodGlucose
+                                .filter(sql: "\(BloodGlucose.Columns.timestamp.name) >= datetime('now', '-24 hours')")
                                 .order(Column(BloodGlucose.Columns.timestamp.name))
                                 .fetchAll(db)
 
                             promise(.success(result))
-                        }
-                    } catch {
-                        promise(.failure(.withMessage(error.localizedDescription)))
-                    }
-                }
-            }
-        }
-    }
-
-    func getBloodGlucoseHistory(fromDay: Int = 1, upToDay: Int = 7) -> Future<[BloodGlucose], DirectError> {
-        return Future { promise in
-            if let dbQueue = self.dbQueue {
-                dbQueue.asyncRead { asyncDB in
-                    do {
-                        if let from = Calendar.current.date(byAdding: .day, value: -fromDay, to: Date()),
-                           let upTo = Calendar.current.date(byAdding: .day, value: -upToDay, to: Date())
-                        {
-                            let db = try asyncDB.get()
-                            let result = try BloodGlucose
-                                .filter(Column(BloodGlucose.Columns.timestamp.name) <= from)
-                                .filter(Column(BloodGlucose.Columns.timestamp.name) > upTo)
-                                .select(
-                                    min(BloodGlucose.Columns.id).forKey(BloodGlucose.Columns.id.name),
-                                    BloodGlucose.Columns.timegroup.forKey(BloodGlucose.Columns.timestamp.name),
-                                    average(BloodGlucose.Columns.glucoseValue).forKey(BloodGlucose.Columns.glucoseValue.name),
-                                    BloodGlucose.Columns.timegroup
-                                )
-                                .group(BloodGlucose.Columns.timegroup)
-                                .order(Column(BloodGlucose.Columns.timestamp.name))
-                                .fetchAll(db)
-
-                            promise(.success(result))
-                        } else {
-                            promise(.failure(.withMessage("Cannot get calendar dates")))
                         }
                     } catch {
                         promise(.failure(.withMessage(error.localizedDescription)))

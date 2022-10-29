@@ -28,14 +28,6 @@ struct ChartView: View {
                                 .foregroundStyle(Color.ui.red)
                                 .lineStyle(Config.ruleStyle)
 
-                            ForEach(seriesDays, id: \.self) { day in
-                                RuleMark(
-                                    x: .value("", day)
-                                )
-                                .foregroundStyle(Color.ui.gray)
-                                .lineStyle(Config.dayStyle)
-                            }
-
                             ForEach(sensorGlucoseSeries) { value in
                                 LineMark(
                                     x: .value("Time", value.valueX),
@@ -74,9 +66,11 @@ struct ChartView: View {
                                 .foregroundStyle(Color.primary)
                             }
 
-                            RuleMark(
-                                x: .value("", endMarker)
-                            ).foregroundStyle(.clear)
+                            if let endMarker = endMarker {
+                                RuleMark(
+                                    x: .value("", endMarker)
+                                ).foregroundStyle(.clear)
+                            }
                         }
                         .chartPlotStyle { plotArea in
                             plotArea.padding(.vertical)
@@ -91,19 +85,13 @@ struct ChartView: View {
                             }
                         }
                         .chartYAxis {
-                            AxisMarks(position: .leading) {
-                                AxisGridLine(stroke: Config.axisStyle)
-                                AxisTick(length: 4, stroke: StrokeStyle(lineWidth: 4))
-                                AxisValueLabel()
-                            }
-                            
-                            AxisMarks(position: .automatic) {
-                                AxisGridLine(stroke: Config.axisStyle)
-                                AxisTick(length: 4, stroke: StrokeStyle(lineWidth: 4))
-                                AxisValueLabel()
-                            }
-                            
+                            /* AxisMarks(position: .leading) {
+                                 AxisTick(length: 4, stroke: StrokeStyle(lineWidth: 4))
+                                 AxisValueLabel()
+                             } */
+
                             AxisMarks(position: .trailing) {
+                                AxisGridLine(stroke: Config.axisStyle)
                                 AxisTick(length: 4, stroke: StrokeStyle(lineWidth: 4))
                                 AxisValueLabel()
                             }
@@ -112,36 +100,43 @@ struct ChartView: View {
                         .frame(width: max(0, geometryProxy.size.width, seriesWidth))
                         .onChange(of: store.state.glucoseUnit) { _ in
                             if shouldRefresh {
-                                DirectLog.info("onChangeOfGlucoseUnit()")
                                 updateSeriesMetadata(viewWidth: geometryProxy.size.width)
                                 updateSensorSeries()
                                 updateBloodSeries()
                             }
 
-                        }.onChange(of: [store.state.sensorGlucoseValues, store.state.sensorGlucoseHistory]) { _ in
+                        }.onChange(of: store.state.sensorGlucoseValues) { _ in
                             if shouldRefresh {
-                                DirectLog.info("onChangeOfSensorGlucoseValues()")
                                 updateSeriesMetadata(viewWidth: geometryProxy.size.width)
                                 updateSensorSeries()
                             }
 
-                        }.onChange(of: [store.state.bloodGlucoseValues, store.state.bloodGlucoseHistory]) { _ in
+                        }.onChange(of: store.state.bloodGlucoseValues) { _ in
                             if shouldRefresh {
-                                DirectLog.info("onChangeOfBloodGlucoseValues()")
                                 updateSeriesMetadata(viewWidth: geometryProxy.size.width)
                                 updateBloodSeries()
                             }
 
                         }.onChange(of: store.state.chartZoomLevel) { _ in
                             if shouldRefresh {
-                                DirectLog.info("onChangeOfChartZoomLevel()")
                                 updateSeriesMetadata(viewWidth: geometryProxy.size.width)
                                 updateSensorSeries()
                                 updateBloodSeries()
                             }
 
-                        }.onChange(of: seriesWidth) { _ in
+                        }.onChange(of: store.state.sensorGlucoseValues) { _ in
                             scrollToEnd(scrollViewProxy: scrollViewProxy)
+
+                        }.onChange(of: store.state.bloodGlucoseValues) { _ in
+                            scrollToEnd(scrollViewProxy: scrollViewProxy)
+
+                        }.onChange(of: store.state.chartZoomLevel) { _ in
+                            scrollToEnd(scrollViewProxy: scrollViewProxy, force: true)
+
+                        }.onAppear {
+                            updateSeriesMetadata(viewWidth: geometryProxy.size.width)
+                            updateSensorSeries()
+                            updateBloodSeries()
 
                         }.chartOverlay { overlayProxy in
                             GeometryReader { geometryProxy in
@@ -247,6 +242,30 @@ struct ChartView: View {
         Section(
             content: {
                 VStack {
+                    HStack {
+                        Button(action: {
+                            
+                        }, label: {
+                            Image(systemName: "chevron.left.circle")
+                        })
+                        
+                        Spacer()
+                        
+                        if let selectedDate = store.state.selectedDate {
+                            Text(verbatim: selectedDate.toLocalDate())
+                        } else {
+                            Text("24 hours")
+                        }
+                        
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            
+                        }, label: {
+                            Image(systemName: "chevron.right.circle")
+                        })
+                    }
                     ChartView.frame(height: 300)
                     ZoomLevelsView
                 }
@@ -332,20 +351,16 @@ struct ChartView: View {
         return store.state.alarmHigh.asMgdL
     }
 
-    private var bloodGlucoseValues: [BloodGlucose] {
-        store.state.bloodGlucoseHistory + store.state.bloodGlucoseValues
-    }
+    private var endMarker: Date? {
+        if let lastTimestamp = lastTimestamp {
+            if let zoomLevel = zoomLevel, zoomLevel.level == 1 {
+                return Calendar.current.date(byAdding: .minute, value: 15, to: lastTimestamp)!
+            }
 
-    private var sensorGlucoseValues: [SensorGlucose] {
-        store.state.sensorGlucoseHistory + store.state.sensorGlucoseValues
-    }
-
-    private var endMarker: Date {
-        if let zoomLevel = zoomLevel, zoomLevel.level == 1 {
-            return Calendar.current.date(byAdding: .minute, value: 15, to: Date())!
+            return Calendar.current.date(byAdding: .hour, value: 1, to: lastTimestamp)!
         }
 
-        return Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
+        return nil
     }
 
     private var shouldRefresh: Bool {
@@ -353,7 +368,7 @@ struct ChartView: View {
     }
 
     private var firstTimestamp: Date? {
-        let dates = [sensorGlucoseValues.first?.timestamp, bloodGlucoseValues.first?.timestamp]
+        let dates = [store.state.sensorGlucoseValues.first?.timestamp, store.state.bloodGlucoseValues.first?.timestamp]
             .compactMap { $0 }
             .sorted(by: { $0 < $1 })
 
@@ -361,7 +376,7 @@ struct ChartView: View {
     }
 
     private var lastTimestamp: Date? {
-        let dates = [sensorGlucoseValues.last?.timestamp, bloodGlucoseValues.last?.timestamp]
+        let dates = [store.state.sensorGlucoseValues.last?.timestamp, store.state.bloodGlucoseValues.last?.timestamp]
             .compactMap { $0 }
             .sorted(by: { $0 > $1 })
 
@@ -376,20 +391,23 @@ struct ChartView: View {
         return false
     }
 
-    private func scrollToStart(scrollViewProxy: ScrollViewProxy) {
-        if selectedSensorPoint == nil, selectedBloodPoint == nil {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(125)) {
-                DirectLog.info("scrollToStart()")
-                scrollViewProxy.scrollTo(Config.chartID, anchor: .leading)
-            }
-        }
+    private func scrollToStart(scrollViewProxy: ScrollViewProxy, force: Bool = false) {
+        scrollTo(scrollViewProxy: scrollViewProxy, force: force, anchor: .leading)
     }
 
-    private func scrollToEnd(scrollViewProxy: ScrollViewProxy) {
-        if selectedSensorPoint == nil, selectedBloodPoint == nil {
+    private func scrollToEnd(scrollViewProxy: ScrollViewProxy, force: Bool = false) {
+        scrollTo(scrollViewProxy: scrollViewProxy, force: force, anchor: .trailing)
+    }
+    
+    private func scrollTo(scrollViewProxy: ScrollViewProxy, force: Bool = false, anchor: UnitPoint) {
+        if selectedSensorPoint == nil && selectedBloodPoint == nil || force {
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(125)) {
-                DirectLog.info("scrollToEnd()")
                 scrollViewProxy.scrollTo(Config.chartID, anchor: .trailing)
+            }
+
+            if force {
+                selectedSensorPoint = nil
+                selectedBloodPoint = nil
             }
         }
     }
@@ -425,7 +443,7 @@ struct ChartView: View {
 
         calculationQueue.async {
             var sensorPointInfos: [Date: ChartDatapoint] = [:]
-            let sensorGlucoseSeries = populateValues(glucoseValues: sensorGlucoseValues)
+            let sensorGlucoseSeries = populateValues(glucoseValues: store.state.sensorGlucoseValues)
             sensorGlucoseSeries.forEach { value in
                 if sensorPointInfos[value.valueX] == nil {
                     sensorPointInfos[value.valueX] = value
@@ -444,7 +462,7 @@ struct ChartView: View {
 
         calculationQueue.async {
             var bloodPointInfos: [Date: ChartDatapoint] = [:]
-            let bloddGlucoseSeries = populateValues(glucoseValues: bloodGlucoseValues)
+            let bloddGlucoseSeries = populateValues(glucoseValues: store.state.bloodGlucoseValues)
             bloddGlucoseSeries.forEach { value in
                 if bloodPointInfos[value.valueX] == nil {
                     bloodPointInfos[value.valueX] = value

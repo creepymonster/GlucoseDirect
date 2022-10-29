@@ -57,6 +57,10 @@ extension Date {
     func toLocalTime() -> String {
         return Date.localTimeFormatter.string(from: self)
     }
+    
+    func toLocalDate() -> String {
+        return Date.localDateFormatter.string(from: self)
+    }
 
     private func floorAllComponents(before component: Calendar.Component) -> Date {
         // All components to round ordered by length
@@ -100,6 +104,15 @@ extension Date {
         format.timeZone = .current
         format.timeStyle = .short
         format.dateStyle = .none
+
+        return format
+    }()
+    
+    private static var localDateFormatter: DateFormatter = {
+        let format = DateFormatter()
+        format.timeZone = .current
+        format.timeStyle = .none
+        format.dateStyle = .short
 
         return format
     }()

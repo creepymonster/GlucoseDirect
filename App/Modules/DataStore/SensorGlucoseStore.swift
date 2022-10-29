@@ -85,14 +85,9 @@ func sensorGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
                 break
             }
 
-            return Publishers.MergeMany(
-                DataStore.shared.getSensorGlucoseValues().map { glucoseValues in
-                    DirectAction.setSensorGlucoseValues(glucoseValues: glucoseValues)
-                },
-                DataStore.shared.getSensorGlucoseHistory().map { glucoseValues in
-                    DirectAction.setSensorGlucoseHistory(glucoseHistory: glucoseValues)
-                }
-            ).eraseToAnyPublisher()
+            return DataStore.shared.getSensorGlucoseValues(selectedDate: state.selectedDate).map { glucoseValues in
+                DirectAction.setSensorGlucoseValues(glucoseValues: glucoseValues)
+            }.eraseToAnyPublisher()
 
         case .setAppState(appState: let appState):
             guard appState == .active else {
@@ -241,17 +236,15 @@ private extension DataStore {
         }
     }
 
-    func getSensorGlucoseValues(upToDay: Int? = 1) -> Future<[SensorGlucose], DirectError> {
+    func getSensorGlucoseValues(selectedDate: Date? = nil) -> Future<[SensorGlucose], DirectError> {
         return Future { promise in
             if let dbQueue = self.dbQueue {
                 dbQueue.asyncRead { asyncDB in
                     do {
-                        if let upToDay = upToDay,
-                           let upTo = Calendar.current.date(byAdding: .day, value: -upToDay, to: Date())
-                        {
+                        if let timestamp = selectedDate {
                             let db = try asyncDB.get()
                             let result = try SensorGlucose
-                                .filter(Column(SensorGlucose.Columns.timestamp.name) > upTo)
+                                .filter(sql: "date(\(SensorGlucose.Columns.timestamp.name)) == date(\(timestamp.timeIntervalSince1970), 'unixepoch')")
                                 .order(Column(SensorGlucose.Columns.timestamp.name))
                                 .fetchAll(db)
 
@@ -259,47 +252,11 @@ private extension DataStore {
                         } else {
                             let db = try asyncDB.get()
                             let result = try SensorGlucose
+                                .filter(sql: "\(SensorGlucose.Columns.timestamp.name) >= datetime('now', '-24 hours')")
                                 .order(Column(SensorGlucose.Columns.timestamp.name))
                                 .fetchAll(db)
 
                             promise(.success(result))
-                        }
-                    } catch {
-                        promise(.failure(.withMessage(error.localizedDescription)))
-                    }
-                }
-            }
-        }
-    }
-
-    func getSensorGlucoseHistory(fromDay: Int = 1, upToDay: Int = 7) -> Future<[SensorGlucose], DirectError> {
-        return Future { promise in
-            if let dbQueue = self.dbQueue {
-                dbQueue.asyncRead { asyncDB in
-                    do {
-                        if let from = Calendar.current.date(byAdding: .day, value: -fromDay, to: Date()),
-                           let upTo = Calendar.current.date(byAdding: .day, value: -upToDay, to: Date())
-                        {
-                            let db = try asyncDB.get()
-
-                            let result = try SensorGlucose
-                                .filter(Column(SensorGlucose.Columns.timestamp.name) <= from)
-                                .filter(Column(SensorGlucose.Columns.timestamp.name) > upTo)
-                                .select(
-                                    min(SensorGlucose.Columns.id).forKey(SensorGlucose.Columns.id.name),
-                                    SensorGlucose.Columns.timegroup.forKey(SensorGlucose.Columns.timestamp.name),
-                                    sum(SensorGlucose.Columns.minuteChange).forKey(SensorGlucose.Columns.minuteChange.name),
-                                    average(SensorGlucose.Columns.rawGlucoseValue).forKey(SensorGlucose.Columns.rawGlucoseValue.name),
-                                    average(SensorGlucose.Columns.intGlucoseValue).forKey(SensorGlucose.Columns.intGlucoseValue.name),
-                                    SensorGlucose.Columns.timegroup
-                                )
-                                .group(SensorGlucose.Columns.timegroup)
-                                .order(Column(SensorGlucose.Columns.timestamp.name))
-                                .fetchAll(db)
-
-                            promise(.success(result))
-                        } else {
-                            promise(.failure(.withMessage("Cannot get calendar dates")))
                         }
                     } catch {
                         promise(.failure(.withMessage(error.localizedDescription)))

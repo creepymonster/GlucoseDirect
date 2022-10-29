@@ -168,15 +168,9 @@ func directReducer(state: inout DirectState, action: DirectAction) {
 
     case .setBloodGlucoseValues(glucoseValues: let glucoseValues):
         state.bloodGlucoseValues = glucoseValues
-
-    case .setBloodGlucoseHistory(glucoseHistory: let glucoseValues):
-        state.bloodGlucoseHistory = glucoseValues
         
     case .setSensorGlucoseValues(glucoseValues: let glucoseValues):
         state.sensorGlucoseValues = glucoseValues
-        
-    case .setSensorGlucoseHistory(glucoseHistory: let glucoseValues):
-        state.sensorGlucoseHistory = glucoseValues
         
     case .setSensorErrorValues(errorValues: let errorValues):
         state.sensorErrorValues = errorValues

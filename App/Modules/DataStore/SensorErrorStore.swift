@@ -43,7 +43,7 @@ func sensorErrorStoreMiddleware() -> Middleware<DirectState, DirectAction> {
                 break
             }
 
-            return DataStore.shared.getSensorErrorValues().map { errorValues in
+            return DataStore.shared.getSensorErrorValues(selectedDate: state.selectedDate).map { errorValues in
                 DirectAction.setSensorErrorValues(errorValues: errorValues)
             }.eraseToAnyPublisher()
 
@@ -138,17 +138,15 @@ private extension DataStore {
         }
     }
 
-    func getSensorErrorValues(upToDay: Int? = 1) -> Future<[SensorError], DirectError> {
+    func getSensorErrorValues(selectedDate: Date? = nil) -> Future<[SensorError], DirectError> {
         return Future { promise in
             if let dbQueue = self.dbQueue {
                 dbQueue.asyncRead { asyncDB in
                     do {
-                        if let upToDay = upToDay,
-                           let upTo = Calendar.current.date(byAdding: .day, value: -upToDay, to: Date())
-                        {
+                        if let timestamp = selectedDate {
                             let db = try asyncDB.get()
                             let result = try SensorError
-                                .filter(Column(SensorError.Columns.timestamp.name) > upTo)
+                                .filter(sql: "date(\(SensorError.Columns.timestamp.name)) == date(\(timestamp.timeIntervalSince1970), 'unixepoch')")
                                 .order(Column(SensorError.Columns.timestamp.name))
                                 .fetchAll(db)
 
@@ -156,7 +154,7 @@ private extension DataStore {
                         } else {
                             let db = try asyncDB.get()
                             let result = try SensorError
-                                .order(Column(SensorError.Columns.timestamp.name))
+                                .filter(sql: "\(SensorError.Columns.timestamp.name) >= datetime('now', '-24 hours')")
                                 .fetchAll(db)
 
                             promise(.success(result))
