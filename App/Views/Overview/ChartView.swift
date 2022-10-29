@@ -84,10 +84,28 @@ struct ChartView: View {
                         .chartXAxis {
                             AxisMarks(values: .stride(by: labelEveryUnit, count: labelEvery)) { value in
                                 if let dateValue = value.as(Date.self) {
-                                    AxisGridLine()
-                                    AxisTick()
-                                    AxisValueLabel(dateValue.toLocalTime())
+                                    AxisGridLine(stroke: Config.axisStyle)
+                                    AxisTick(stroke: Config.axisStyle)
+                                    AxisValueLabel(dateValue.toLocalTime(), centered: true)
                                 }
+                            }
+                        }
+                        .chartYAxis {
+                            AxisMarks(position: .leading) {
+                                AxisGridLine(stroke: Config.axisStyle)
+                                AxisTick(length: 4, stroke: StrokeStyle(lineWidth: 4))
+                                AxisValueLabel()
+                            }
+                            
+                            AxisMarks(position: .automatic) {
+                                AxisGridLine(stroke: Config.axisStyle)
+                                AxisTick(length: 4, stroke: StrokeStyle(lineWidth: 4))
+                                AxisValueLabel()
+                            }
+                            
+                            AxisMarks(position: .trailing) {
+                                AxisTick(length: 4, stroke: StrokeStyle(lineWidth: 4))
+                                AxisValueLabel()
                             }
                         }
                         .id(Config.chartID)
@@ -250,6 +268,7 @@ struct ChartView: View {
         static let ruleStyle: StrokeStyle = .init(lineWidth: 1, dash: [2])
         static let gridStyle: StrokeStyle = .init(lineWidth: 1)
         static let dayStyle: StrokeStyle = .init(lineWidth: 1)
+        static let axisStyle: StrokeStyle = .init(lineWidth: 0.5, dash: [2, 3])
 
         static let zoomLevels: [ZoomLevel] = [
             ZoomLevel(level: 1, name: LocalizedString("1h"), visibleHours: 1, labelEvery: 30, labelEveryUnit: .minute),
