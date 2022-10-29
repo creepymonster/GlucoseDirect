@@ -275,7 +275,7 @@ struct ChartView: View {
                     }
                     .buttonStyle(.plain)
 
-                    ChartView.frame(height: 300)
+                    ChartView.frame(height: min(UIScreen.screenHeight, Config.chartHeight))
                     ZoomLevelsView
                 }
             },
@@ -292,6 +292,7 @@ struct ChartView: View {
         static let symbolSize: CGFloat = 10
         static let selectionSize: CGFloat = 100
         static let spacerWidth: CGFloat = 50
+        static let chartHeight: CGFloat = 340
         static let lineStyle: StrokeStyle = .init(lineWidth: 2.5, lineCap: .round)
         static let ruleStyle: StrokeStyle = .init(lineWidth: 1, dash: [2])
         static let gridStyle: StrokeStyle = .init(lineWidth: 1)
