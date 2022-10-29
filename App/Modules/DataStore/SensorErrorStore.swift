@@ -37,6 +37,11 @@ func sensorErrorStoreMiddleware() -> Middleware<DirectState, DirectAction> {
             return Just(DirectAction.loadSensorErrorValues)
                 .setFailureType(to: DirectError.self)
                 .eraseToAnyPublisher()
+            
+        case .setSelectedDate(selectedDate: _):
+            return Just(DirectAction.loadSensorErrorValues)
+                .setFailureType(to: DirectError.self)
+                .eraseToAnyPublisher()
 
         case .loadSensorErrorValues:
             guard state.appState == .active else {
@@ -143,8 +148,9 @@ private extension DataStore {
             if let dbQueue = self.dbQueue {
                 dbQueue.asyncRead { asyncDB in
                     do {
+                        let db = try asyncDB.get()
+                        
                         if let timestamp = selectedDate {
-                            let db = try asyncDB.get()
                             let result = try SensorError
                                 .filter(sql: "date(\(SensorError.Columns.timestamp.name)) == date(\(timestamp.timeIntervalSince1970), 'unixepoch')")
                                 .order(Column(SensorError.Columns.timestamp.name))
@@ -152,7 +158,6 @@ private extension DataStore {
 
                             promise(.success(result))
                         } else {
-                            let db = try asyncDB.get()
                             let result = try SensorError
                                 .filter(sql: "\(SensorError.Columns.timestamp.name) >= datetime('now', '-24 hours')")
                                 .fetchAll(db)

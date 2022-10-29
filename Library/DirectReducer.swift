@@ -88,6 +88,7 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         
     case .selectView(viewTag: let viewTag):
         state.selectedView = viewTag
+        state.selectedDate = nil
         
     case .setAlarmHigh(upperLimit: let upperLimit):
         state.alarmHigh = upperLimit
@@ -195,6 +196,16 @@ func directReducer(state: inout DirectState, action: DirectAction) {
 
     case .setReadGlucose(enabled: let enabled):
         state.readGlucose = enabled
+        
+    case .setMinSelectedDate(minSelectedDate: let minSelectedDate):
+        state.minSelectedDate = min(minSelectedDate, state.minSelectedDate)
+        
+    case .setSelectedDate(selectedDate: let date):
+        if let date = date, date < Date().startOfDay {
+            state.selectedDate = date
+        } else {
+            state.selectedDate = nil
+        }
         
     case .setSensor(sensor: let sensor, keepDevice: let keepDevice):
         if let sensorSerial = state.sensor?.serial, sensorSerial != sensor.serial {

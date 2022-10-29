@@ -54,6 +54,10 @@ func sensorGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
         switch action {
         case .startup:
             DataStore.shared.createSensorGlucoseTable()
+            
+            return DataStore.shared.getFirstSensorGlucoseDate().map { minSelectedDate in
+                DirectAction.setMinSelectedDate(minSelectedDate: minSelectedDate)
+            }.eraseToAnyPublisher()
 
         case .addSensorGlucose(glucoseValues: let glucoseValues):
             guard !glucoseValues.isEmpty else {
@@ -76,6 +80,11 @@ func sensorGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
         case .clearSensorGlucoseValues:
             DataStore.shared.deleteAllSensorGlucose()
 
+            return Just(DirectAction.loadSensorGlucoseValues)
+                .setFailureType(to: DirectError.self)
+                .eraseToAnyPublisher()
+
+        case .setSelectedDate(selectedDate: _):
             return Just(DirectAction.loadSensorGlucoseValues)
                 .setFailureType(to: DirectError.self)
                 .eraseToAnyPublisher()
@@ -235,14 +244,35 @@ private extension DataStore {
             }
         }
     }
+    
+    func getFirstSensorGlucoseDate() -> Future<Date, DirectError> {
+        return Future { promise in
+            if let dbQueue = self.dbQueue {
+                dbQueue.asyncRead { asyncDB in
+                    do {
+                        let db = try asyncDB.get()
+                        
+                        if let date = try Date.fetchOne(db, sql: "SELECT MIN(timestamp) FROM SensorGlucose") {
+                            promise(.success(date))
+                        } else {
+                            promise(.success(Date()))
+                        }
+                    } catch {
+                        promise(.failure(.withMessage(error.localizedDescription)))
+                    }
+                }
+            }
+        }
+    }
 
     func getSensorGlucoseValues(selectedDate: Date? = nil) -> Future<[SensorGlucose], DirectError> {
         return Future { promise in
             if let dbQueue = self.dbQueue {
                 dbQueue.asyncRead { asyncDB in
                     do {
+                        let db = try asyncDB.get()
+                        
                         if let timestamp = selectedDate {
-                            let db = try asyncDB.get()
                             let result = try SensorGlucose
                                 .filter(sql: "date(\(SensorGlucose.Columns.timestamp.name)) == date(\(timestamp.timeIntervalSince1970), 'unixepoch')")
                                 .order(Column(SensorGlucose.Columns.timestamp.name))
@@ -250,7 +280,6 @@ private extension DataStore {
 
                             promise(.success(result))
                         } else {
-                            let db = try asyncDB.get()
                             let result = try SensorGlucose
                                 .filter(sql: "\(SensorGlucose.Columns.timestamp.name) >= datetime('now', '-24 hours')")
                                 .order(Column(SensorGlucose.Columns.timestamp.name))

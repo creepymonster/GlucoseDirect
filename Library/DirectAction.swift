@@ -56,6 +56,8 @@ enum DirectAction {
     case setBellmanConnectionState(connectionState: BellmanConnectionState)
     case setBellmanNotification(enabled: Bool)
     case setBloodGlucoseValues(glucoseValues: [BloodGlucose])
+    case setMinSelectedDate(minSelectedDate: Date)
+    case setSelectedDate(selectedDate: Date?)
     case setChartShowLines(enabled: Bool)
     case setChartZoomLevel(level: Int)
     case setConnectionAlarmSound(sound: NotificationSound)

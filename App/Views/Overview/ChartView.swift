@@ -17,9 +17,12 @@ struct ChartView: View {
     var ChartView: some View {
         ZStack(alignment: .topLeading) {
             GeometryReader { geometryProxy in
-                ScrollView(.horizontal, showsIndicators: false) {
-                    ScrollViewReader { scrollViewProxy in
+                ScrollViewReader { scrollViewProxy in
+                    ScrollView(.horizontal, showsIndicators: false) {
                         Chart {
+                            RuleMark(y: .value("Minimum High", 300))
+                                .foregroundStyle(.clear)
+
                             RuleMark(y: .value("Lower limit", alarmLow))
                                 .foregroundStyle(Color.ui.red)
                                 .lineStyle(Config.ruleStyle)
@@ -66,6 +69,12 @@ struct ChartView: View {
                                 .foregroundStyle(Color.primary)
                             }
 
+                            if let startMarker = startMarker {
+                                RuleMark(
+                                    x: .value("", startMarker)
+                                ).foregroundStyle(.clear)
+                            }
+
                             if let endMarker = endMarker {
                                 RuleMark(
                                     x: .value("", endMarker)
@@ -86,8 +95,8 @@ struct ChartView: View {
                         }
                         .chartYAxis {
                             /* AxisMarks(position: .leading) {
-                                 AxisTick(length: 4, stroke: StrokeStyle(lineWidth: 4))
-                                 AxisValueLabel()
+                             AxisTick(length: 4, stroke: StrokeStyle(lineWidth: 4))
+                             AxisValueLabel()
                              } */
 
                             AxisMarks(position: .trailing) {
@@ -96,8 +105,8 @@ struct ChartView: View {
                                 AxisValueLabel()
                             }
                         }
-                        .id(Config.chartID)
                         .frame(width: max(0, geometryProxy.size.width, seriesWidth))
+                        .id(Config.chartID)
                         .onChange(of: store.state.glucoseUnit) { _ in
                             if shouldRefresh {
                                 updateSeriesMetadata(viewWidth: geometryProxy.size.width)
@@ -137,6 +146,7 @@ struct ChartView: View {
                             updateSeriesMetadata(viewWidth: geometryProxy.size.width)
                             updateSensorSeries()
                             updateBloodSeries()
+                            scrollToEnd(scrollViewProxy: scrollViewProxy, force: true)
 
                         }.chartOverlay { overlayProxy in
                             GeometryReader { geometryProxy in
@@ -215,8 +225,11 @@ struct ChartView: View {
             ForEach(Config.zoomLevels, id: \.level) { zoom in
                 Button(
                     action: {
-                        DirectNotifications.shared.hapticNotification()
-                        store.dispatch(.setChartZoomLevel(level: zoom.level))
+                        // DirectNotifications.shared.hapticNotification()
+
+                        if store.state.chartZoomLevel != zoom.level {
+                            store.dispatch(.setChartZoomLevel(level: zoom.level))
+                        }
                     },
                     label: {
                         Circle()
@@ -244,28 +257,34 @@ struct ChartView: View {
                 VStack {
                     HStack {
                         Button(action: {
-                            
+                            store.dispatch(.setSelectedDate(selectedDate: Calendar.current.date(byAdding: .day, value: -1, to: store.state.selectedDate ?? Date())))
                         }, label: {
-                            Image(systemName: "chevron.left.circle")
-                        })
-                        
+                            Image(systemName: "arrowtriangle.backward.fill")
+                        }).opacity((store.state.selectedDate ?? Date()).startOfDay > store.state.minSelectedDate.startOfDay ? 0.35 : 0)
+
                         Spacer()
-                        
-                        if let selectedDate = store.state.selectedDate {
-                            Text(verbatim: selectedDate.toLocalDate())
-                        } else {
-                            Text("24 hours")
+
+                        Group {
+                            if let selectedDate = store.state.selectedDate {
+                                Text(verbatim: selectedDate.toLocalDate())
+                            } else {
+                                Text("Last 24 hours")
+                            }
+                        }.onTapGesture {
+                            store.dispatch(.setSelectedDate(selectedDate: nil))
                         }
-                        
-                        
+                        .opacity(0.5)
+
                         Spacer()
-                        
+
                         Button(action: {
-                            
+                            store.dispatch(.setSelectedDate(selectedDate: Calendar.current.date(byAdding: .day, value: +1, to: store.state.selectedDate ?? Date())))
                         }, label: {
-                            Image(systemName: "chevron.right.circle")
-                        })
+                            Image(systemName: "arrowtriangle.forward.fill")
+                        }).opacity(store.state.selectedDate == nil ? 0 : 0.35)
                     }
+                    .buttonStyle(.plain)
+
                     ChartView.frame(height: 300)
                     ZoomLevelsView
                 }
@@ -351,6 +370,18 @@ struct ChartView: View {
         return store.state.alarmHigh.asMgdL
     }
 
+    private var startMarker: Date? {
+        if let firstTimestamp = firstTimestamp {
+            if let zoomLevel = zoomLevel, zoomLevel.level == 1 {
+                return Calendar.current.date(byAdding: .minute, value: 15, to: firstTimestamp)!
+            }
+
+            return Calendar.current.date(byAdding: .hour, value: 1, to: firstTimestamp)!
+        }
+
+        return nil
+    }
+
     private var endMarker: Date? {
         if let lastTimestamp = lastTimestamp {
             if let zoomLevel = zoomLevel, zoomLevel.level == 1 {
@@ -398,10 +429,10 @@ struct ChartView: View {
     private func scrollToEnd(scrollViewProxy: ScrollViewProxy, force: Bool = false) {
         scrollTo(scrollViewProxy: scrollViewProxy, force: force, anchor: .trailing)
     }
-    
+
     private func scrollTo(scrollViewProxy: ScrollViewProxy, force: Bool = false, anchor: UnitPoint) {
         if selectedSensorPoint == nil && selectedBloodPoint == nil || force {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(125)) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(150)) {
                 scrollViewProxy.scrollTo(Config.chartID, anchor: .trailing)
             }
 

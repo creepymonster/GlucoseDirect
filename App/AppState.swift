@@ -91,7 +91,8 @@ struct AppState: DirectState {
     var preventScreenLock = false
     var selectedConnection: SensorConnectionProtocol?
     var selectedConfiguration: [SensorConnectionConfigurationOption] = []
-    var selectedDate: Date? = Calendar.current.date(byAdding: .day, value: -1, to: Date())
+    var minSelectedDate: Date = Date()
+    var selectedDate: Date? = nil
     var sensorErrorValues: [SensorError] = []
     var sensorGlucoseHistory: [SensorGlucose] = []
     var sensorGlucoseValues: [SensorGlucose] = []
