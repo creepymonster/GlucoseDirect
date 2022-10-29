@@ -23,7 +23,7 @@ The first part is to connect the "Libre 3" app with the "LibreLinkUp" app. The m
 
 The second part is to connect the sensor in "Glucose Direct". The matching video is https://youtube.com/shorts/Xn5jM2rJcb0
 
-1. In "Glucose Direct" on the "Overview" select "Scan Sensor" and scan the Libre 3 sensor on the arm with it. Attention, the scanning process takes longer than with the Libre 2 - it can take 5-8 seconds until the sensor is scanned. While scanning, hold the phone as still as possible over the sensor - you will hear a beep when the scan is complete. 2.
+1. In "Glucose Direct" on the "Overview" select "Scan Sensor" and scan the Libre 3 sensor on the arm with it. Attention, the scanning process takes longer than with the Libre 2 - it can take 5-8 seconds until the sensor is scanned. While scanning, hold the phone as still as possible over the sensor - you will hear a beep when the scan is complete.
 2. Under "Overview", at the bottom "Sensor details" you should now see that a Libre 3 sensor was found.
 3. In "Glucose Direct" switch to "Settings" and enter the same LibreView data as in "LibreLinkUp" under "Connection Settings" at the top.
 4. Switch back to the overview and press "Connect sensor". After a short time, data will also appear in "Glucose Direct".
