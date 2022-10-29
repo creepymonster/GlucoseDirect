@@ -68,6 +68,12 @@ struct ChartView: View {
                                 .opacity(0.5)
                                 .foregroundStyle(Color.primary)
                             }
+                            
+                            if let endMarker = endMarker, store.state.selectedDate == nil {
+                                RuleMark(
+                                    x: .value("", endMarker)
+                                ).foregroundStyle(.clear)
+                            }
                         }
                         .chartPlotStyle { plotArea in
                             plotArea.padding(.vertical)
