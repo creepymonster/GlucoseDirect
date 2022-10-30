@@ -50,5 +50,5 @@ enum DirectConfig {
     static var widgetName = "\(appName) Widget"
     static var minGlucoseStatisticsDays = 7
     static var timegroupRounding = 15
-    static var lastChartHours = 72
+    static var lastChartHours = 24
 }

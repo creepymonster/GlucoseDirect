@@ -173,15 +173,20 @@ struct ChartView: View {
                 AxisMarks(values: .stride(by: labelEveryUnit, count: labelEvery)) { value in
                     if let dateValue = value.as(Date.self) {
                         AxisGridLine(stroke: Config.axisStyle)
-                        AxisTick(stroke: Config.axisStyle)
-                        AxisValueLabel(dateValue.toLocalTime(onlyHour: onlyHour))
+                        // AxisTick(stroke: Config.axisStyle)
+                        AxisTick(length: 4, stroke: Config.tickStyle)
+                        AxisValueLabel(dateValue.toLocalTime(onlyHour: onlyHour), anchor: .top)
+                        // AxisValueLabel(anchor: .)
                     }
                 }
             }
             .chartYAxis {
-                AxisMarks(position: .trailing) {
+                AxisMarks(position: .trailing) { value in
                     AxisGridLine(stroke: Config.axisStyle)
-                    AxisValueLabel()
+                    if let glucoseValue = value.as(Decimal.self), glucoseValue > 0 {
+                        AxisTick(length: 4, stroke: Config.tickStyle)
+                        AxisValueLabel()
+                    }
                 }
             }
             .id(Config.chartID)
@@ -302,6 +307,7 @@ struct ChartView: View {
         static let gridStyle: StrokeStyle = .init(lineWidth: 1)
         static let dayStyle: StrokeStyle = .init(lineWidth: 1)
         static let axisStyle: StrokeStyle = .init(lineWidth: 0.5, dash: [2, 3])
+        static let tickStyle: StrokeStyle = .init(lineWidth: 4)
         static let zoomLevels: [ZoomLevel] = [
             ZoomLevel(level: 1, name: LocalizedString("1h"), visibleHours: 1, labelEvery: 1, labelEveryUnit: .hour, onlyHour: false),
             ZoomLevel(level: 3, name: LocalizedString("3h"), visibleHours: 3, labelEvery: 1, labelEveryUnit: .hour, onlyHour: false),
