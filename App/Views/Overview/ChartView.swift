@@ -173,10 +173,9 @@ struct ChartView: View {
                 AxisMarks(values: .stride(by: labelEveryUnit, count: labelEvery)) { value in
                     if let dateValue = value.as(Date.self) {
                         AxisGridLine(stroke: Config.axisStyle)
-                        // AxisTick(stroke: Config.axisStyle)
                         AxisTick(length: 4, stroke: Config.tickStyle)
+                            .foregroundStyle(Color.ui.accent)
                         AxisValueLabel(dateValue.toLocalTime(onlyHour: onlyHour), anchor: .top)
-                        // AxisValueLabel(anchor: .)
                     }
                 }
             }
@@ -185,6 +184,7 @@ struct ChartView: View {
                     AxisGridLine(stroke: Config.axisStyle)
                     if let glucoseValue = value.as(Decimal.self), glucoseValue > 0 {
                         AxisTick(length: 4, stroke: Config.tickStyle)
+                            .foregroundStyle(Color.ui.accent)
                         AxisValueLabel()
                     }
                 }
