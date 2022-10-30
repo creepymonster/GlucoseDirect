@@ -94,9 +94,7 @@ struct ChartView: View {
                         }
                     }
 
-                    if store.state.selectedDate == nil {
-                        ZoomLevelsView
-                    }
+                    ZoomLevelsView.disabled(store.state.selectedDate != nil)
                 }
             },
             header: {
