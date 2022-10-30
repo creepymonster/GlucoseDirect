@@ -89,7 +89,7 @@ struct ChartView: View {
                                     scrollToEnd(scrollViewProxy: scrollViewProxy, force: true)
 
                                 }.onAppear {
-                                    scrollToEnd(scrollViewProxy: scrollViewProxy, force: true)
+                                    scrollToEnd(scrollViewProxy: scrollViewProxy)
                                 }
                         }
                     }
@@ -108,8 +108,13 @@ struct ChartView: View {
     var ChartView: some View {
         ZStack(alignment: .topLeading) {
             Chart {
-                RuleMark(y: .value("Minimum High", 300))
-                    .foregroundStyle(.clear)
+                if store.state.glucoseUnit == .mgdL {
+                    RuleMark(y: .value("Minimum High", 300))
+                        .foregroundStyle(.clear)
+                } else {
+                    RuleMark(y: .value("Minimum High", 15))
+                        .foregroundStyle(.clear)
+                }
 
                 RuleMark(y: .value("Lower limit", alarmLow))
                     .foregroundStyle(Color.ui.red)
@@ -157,18 +162,10 @@ struct ChartView: View {
                     .foregroundStyle(Color.primary)
                 }
 
-                if store.state.selectedDate == nil, store.state.chartZoomLevel != 24 {
-                    if let startMarker = startMarker {
-                        RuleMark(
-                            x: .value("", startMarker)
-                        ).foregroundStyle(.clear)
-                    }
-
-                    if let endMarker = endMarker {
-                        RuleMark(
-                            x: .value("", endMarker)
-                        ).foregroundStyle(.clear)
-                    }
+                if let endMarker = endMarker, store.state.selectedDate == nil, store.state.chartZoomLevel != 24 {
+                    RuleMark(
+                        x: .value("", endMarker)
+                    ).foregroundStyle(.clear)
                 }
             }
             .chartPlotStyle { plotArea in
@@ -320,7 +317,6 @@ struct ChartView: View {
         }
     }
 
-    @State private var seriesDays: [Date] = []
     @State private var seriesWidth: CGFloat = 0
     @State private var sensorGlucoseSeries: [ChartDatapoint] = []
     @State private var bloodGlucoseSeries: [ChartDatapoint] = []
@@ -348,7 +344,7 @@ struct ChartView: View {
 
         return .hour
     }
-    
+
     private var onlyHour: Bool {
         if let zoomLevel = zoomLevel {
             return zoomLevel.onlyHour
@@ -450,8 +446,8 @@ struct ChartView: View {
 
     private func scrollTo(scrollViewProxy: ScrollViewProxy, force: Bool = false, anchor: UnitPoint) {
         if selectedSensorPoint == nil && selectedBloodPoint == nil || force {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(150)) {
-                scrollViewProxy.scrollTo(Config.chartID, anchor: .trailing)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {
+                scrollViewProxy.scrollTo(Config.chartID, anchor: anchor)
             }
 
             if force {
@@ -465,22 +461,17 @@ struct ChartView: View {
         DirectLog.info("updateSeriesMetadata()")
 
         calculationQueue.async {
-            if let firstTime = firstTimestamp,
-               let lastTime = lastTimestamp,
-               let startTime = Calendar.current.date(byAdding: .minute, value: -15, to: firstTime)?.timeIntervalSince1970,
-               let endTime = Calendar.current.date(byAdding: .minute, value: 15, to: lastTime)?.timeIntervalSince1970,
+            if let firstTimestamp = firstTimestamp,
+               let lastTimestamp = lastTimestamp,
                let zoomLevel = zoomLevel
             {
                 let minuteWidth = (Config.screenWidth / CGFloat(zoomLevel.visibleHours * 60))
-                let chartMinutes = CGFloat((endTime - startTime) / 60)
+                let chartMinutes = CGFloat((lastTimestamp.timeIntervalSince1970 - firstTimestamp.timeIntervalSince1970) / 60)
                 let seriesWidth = CGFloat(minuteWidth * chartMinutes)
-
-                let seriesDays = Date.valuesBetween(from: firstTime, to: lastTime, component: .day, step: 1)
 
                 if self.seriesWidth != seriesWidth {
                     DispatchQueue.main.async {
                         self.seriesWidth = seriesWidth
-                        self.seriesDays = seriesDays
                     }
                 }
             }
