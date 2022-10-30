@@ -14,34 +14,6 @@ struct ChartView: View {
 
     @EnvironmentObject var store: DirectStore
 
-    var ZoomLevelsView: some View {
-        HStack {
-            ForEach(Config.zoomLevels, id: \.level) { zoom in
-                Button(
-                    action: {
-                        DirectNotifications.shared.hapticFeedback()
-                        store.dispatch(.setChartZoomLevel(level: zoom.level))
-                    },
-                    label: {
-                        Circle()
-                            .if(isSelectedZoomLevel(level: zoom.level)) {
-                                $0.fill(Color.ui.label)
-                            } else: {
-                                $0.stroke(Color.ui.label)
-                            }
-                            .frame(width: 12, height: 12)
-
-                        Text(zoom.name)
-                            .font(.subheadline)
-                            .foregroundColor(Color.ui.label)
-                    }
-                )
-                .buttonStyle(.plain)
-                .frame(maxWidth: .infinity)
-            }
-        }
-    }
-
     var body: some View {
         Section(
             content: {
@@ -59,7 +31,7 @@ struct ChartView: View {
                             if let selectedDate = store.state.selectedDate {
                                 Text(verbatim: selectedDate.toLocalDate())
                             } else {
-                                Text("Last 24 hours")
+                                Text("Last \(DirectConfig.lastChartHours.description) hours")
                             }
                         }.onTapGesture {
                             store.dispatch(.setSelectedDate(selectedDate: nil))
@@ -101,6 +73,34 @@ struct ChartView: View {
                 Label("Chart", systemImage: "chart.xyaxis.line")
             }
         )
+    }
+
+    var ZoomLevelsView: some View {
+        HStack {
+            ForEach(Config.zoomLevels, id: \.level) { zoom in
+                Button(
+                    action: {
+                        DirectNotifications.shared.hapticFeedback()
+                        store.dispatch(.setChartZoomLevel(level: zoom.level))
+                    },
+                    label: {
+                        Circle()
+                            .if(isSelectedZoomLevel(level: zoom.level)) {
+                                $0.fill(Color.ui.label)
+                            } else: {
+                                $0.stroke(Color.ui.label)
+                            }
+                            .frame(width: 12, height: 12)
+
+                        Text(zoom.name)
+                            .font(.subheadline)
+                            .foregroundColor(Color.ui.label)
+                    }
+                )
+                .buttonStyle(.plain)
+                .frame(maxWidth: .infinity)
+            }
+        }
     }
 
     var ChartView: some View {

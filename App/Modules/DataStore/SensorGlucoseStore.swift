@@ -282,7 +282,7 @@ private extension DataStore {
                             promise(.success(result))
                         } else {
                             let result = try SensorGlucose
-                                .filter(sql: "\(SensorGlucose.Columns.timestamp.name) >= datetime('now', '-24 hours')")
+                                .filter(sql: "\(SensorGlucose.Columns.timestamp.name) >= datetime('now', '-\(DirectConfig.lastChartHours) hours')")
                                 .order(Column(SensorGlucose.Columns.timestamp.name))
                                 .fetchAll(db)
 

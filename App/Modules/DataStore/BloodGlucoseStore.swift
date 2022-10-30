@@ -186,7 +186,7 @@ private extension DataStore {
                             promise(.success(result))
                         } else {
                             let result = try BloodGlucose
-                                .filter(sql: "\(BloodGlucose.Columns.timestamp.name) >= datetime('now', '-24 hours')")
+                                .filter(sql: "\(BloodGlucose.Columns.timestamp.name) >= datetime('now', '-\(DirectConfig.lastChartHours) hours')")
                                 .order(Column(BloodGlucose.Columns.timestamp.name))
                                 .fetchAll(db)
 

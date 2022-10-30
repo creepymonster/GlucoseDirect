@@ -160,7 +160,7 @@ private extension DataStore {
                             promise(.success(result))
                         } else {
                             let result = try SensorError
-                                .filter(sql: "\(SensorError.Columns.timestamp.name) >= datetime('now', '-24 hours')")
+                                .filter(sql: "\(SensorError.Columns.timestamp.name) >= datetime('now', '-\(DirectConfig.lastChartHours) hours')")
                                 .fetchAll(db)
 
                             promise(.success(result))

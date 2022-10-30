@@ -551,4 +551,4 @@
 "Export for Tidepool" = "Export for Tidepool";
 
 /* (No Comment) */
-"Last 24 hours" = "Last 24 hours";
+"Last %@ hours" = "Last %@ hours";
