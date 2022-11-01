@@ -32,7 +32,30 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
     override func pairConnection() {
         Task {
             do {
-                try await loginIfNeeded(forceLogin: true)
+                lastLogin = nil
+                try await loginIfNeeded()
+            } catch {
+                sendUpdate(error: error)
+            }
+        }
+    }
+
+    override func connectConnection(sensor: Sensor, sensorInterval: Int) {
+        DirectLog.info("ConnectSensor: \(sensor)")
+
+        self.sensor = sensor
+        self.sensorInterval = sensorInterval
+
+        setStayConnected(stayConnected: true)
+
+        Task {
+            do {
+                lastLogin = nil
+                try await loginIfNeeded()
+
+                managerQueue.async {
+                    self.find()
+                }
             } catch {
                 sendUpdate(error: error)
             }
@@ -197,32 +220,31 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         sendUpdate(readings: history + trend)
     }
 
-    private func loginIfNeeded(userCountry: String? = nil, forceLogin: Bool = false) async throws {
-        if forceLogin || lastLogin == nil || (lastLogin?.authExpires ?? Date()) <= Date() || (lastLogin?.authToken.count ?? 0) == 0 {
-            let loginResponse = try await login(userCountry: userCountry)
+    private func loginIfNeeded(apiRegion: String? = nil) async throws {
+        if lastLogin == nil || (lastLogin?.authExpires ?? Date()) <= Date() || (lastLogin?.authToken.count ?? 0) == 0 {
+            let loginResponse = try await login(apiRegion: apiRegion)
 
-            if let redirect = loginResponse.data?.redirect, let userCountry = loginResponse.data?.userCountry, redirect, !userCountry.isEmpty {
-                DirectLog.info("LibreLinkUp login, redirect to userCountry: \(userCountry)")
+            if let redirect = loginResponse.data?.redirect, let region = loginResponse.data?.region, redirect, !region.isEmpty {
+                DirectLog.info("LibreLinkUp login, redirect to userCountry: \(region)")
 
-                try await loginIfNeeded(userCountry: userCountry, forceLogin: forceLogin)
-
+                try await loginIfNeeded(apiRegion: region)
                 return
             }
 
-            guard let userCountry = loginResponse.data?.user?.country,
+            guard let apiRegion = apiRegion ?? loginResponse.data?.user?.apiRegion,
                   let authToken = loginResponse.data?.authTicket?.token,
                   let authExpires = loginResponse.data?.authTicket?.expires,
-                  !userCountry.isEmpty, !authToken.isEmpty
+                  !apiRegion.isEmpty, !authToken.isEmpty
             else {
                 disconnectConnection()
 
                 throw LibreLinkError.missingUserOrToken
             }
 
-            DirectLog.info("LibreLinkUp login, userCountry: \(userCountry)")
+            DirectLog.info("LibreLinkUp login, apiRegion: \(apiRegion)")
             DirectLog.info("LibreLinkUp login, authExpires: \(authExpires)")
 
-            let connectResponse = try await connect(userCountry: userCountry, authToken: authToken)
+            let connectResponse = try await connect(apiRegion: apiRegion, authToken: authToken)
 
             guard let patientID = connectResponse.data?.first?.patientID else {
                 disconnectConnection()
@@ -232,11 +254,11 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
             DirectLog.info("LibreLinkUp login, patientID: \(patientID)")
 
-            lastLogin = LibreLinkLogin(patientID: patientID, userCountry: userCountry, authToken: authToken, authExpires: authExpires)
+            lastLogin = LibreLinkLogin(patientID: patientID, apiRegion: apiRegion, authToken: authToken, authExpires: authExpires)
         }
     }
 
-    private func login(userCountry: String? = nil) async throws -> LibreLinkResponse<LibreLinkResponseLogin> {
+    private func login(apiRegion: String? = nil) async throws -> LibreLinkResponse<LibreLinkResponseLogin> {
         DirectLog.info("LibreLinkUp login")
 
         guard !UserDefaults.standard.email.isEmpty, !UserDefaults.standard.password.isEmpty else {
@@ -246,8 +268,8 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         }
 
         var urlString: String?
-        if let userCountry = userCountry {
-            urlString = "https://api-\(userCountry).libreview.io/llu/auth/login"
+        if let apiRegion = apiRegion {
+            urlString = "https://api-\(apiRegion).libreview.io/llu/auth/login"
         } else {
             urlString = "https://api.libreview.io/llu/auth/login"
         }
@@ -259,6 +281,8 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         guard let url = URL(string: urlString) else {
             throw LibreLinkError.invalidURL
         }
+
+        DirectLog.info("LibreLinkUp login, url: \(url.absoluteString)")
 
         guard let credentials = try? JSONSerialization.data(withJSONObject: [
             "email": UserDefaults.standard.email,
@@ -286,12 +310,14 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         return try decode(LibreLinkResponse<LibreLinkResponseLogin>.self, data: data)
     }
 
-    private func connect(userCountry: String, authToken: String) async throws -> LibreLinkResponse<[LibreLinkResponseConnect]> {
+    private func connect(apiRegion: String, authToken: String) async throws -> LibreLinkResponse<[LibreLinkResponseConnect]> {
         DirectLog.info("LibreLinkUp connect")
 
-        guard let url = URL(string: "https://api-\(userCountry).libreview.io/llu/connections") else {
+        guard let url = URL(string: "https://api-\(apiRegion).libreview.io/llu/connections") else {
             throw LibreLinkError.invalidURL
         }
+
+        DirectLog.info("LibreLinkUp connect, url: \(url.absoluteString)")
 
         var request = URLRequest(url: url)
         request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
@@ -320,9 +346,11 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             throw LibreLinkError.missingLoginSession
         }
 
-        guard let url = URL(string: "https://api-\(lastLogin.userCountry).libreview.io/llu/connections/\(lastLogin.patientID)/graph") else {
+        guard let url = URL(string: "https://api-\(lastLogin.apiRegion).libreview.io/llu/connections/\(lastLogin.patientID)/graph") else {
             throw LibreLinkError.invalidURL
         }
+
+        DirectLog.info("LibreLinkUp fetch, url: \(url.absoluteString)")
 
         var request = URLRequest(url: url)
         request.setValue("Bearer \(lastLogin.authToken)", forHTTPHeaderField: "Authorization")
@@ -386,12 +414,10 @@ private struct LibreLinkResponse<T: Codable>: Codable {
 // MARK: - LibreLinkResponseLogin
 
 private struct LibreLinkResponseLogin: Codable {
-    enum CodingKeys: String, CodingKey { case user, authTicket, redirect, userCountry = "region" }
-
     let user: LibreLinkResponseUser?
     let authTicket: LibreLinkResponseAuthentication?
     let redirect: Bool?
-    let userCountry: String?
+    let region: String?
 }
 
 // MARK: - LibreLinkResponseConnect
@@ -452,6 +478,16 @@ private struct LibreLinkResponseUser: Codable {
     let country: String
 }
 
+private extension LibreLinkResponseUser {
+    var apiRegion: String {
+        if ["ae", "ap", "au", "de", "eu", "fr", "jp", "us"].contains(country.lowercased()) {
+            return country.lowercased()
+        }
+
+        return "eu"
+    }
+}
+
 // MARK: - LibreLinkResponseAuthentication
 
 private struct LibreLinkResponseAuthentication: Codable {
@@ -464,15 +500,9 @@ private struct LibreLinkResponseAuthentication: Codable {
 private struct LibreLinkLogin {
     // MARK: Lifecycle
 
-    init(patientID: String, userCountry: String, authToken: String, authExpires: Double) {
+    init(patientID: String, apiRegion: String, authToken: String, authExpires: Double) {
         self.patientID = patientID
-
-        if ["ae", "ap", "au", "de", "eu", "fr", "jp", "us"].contains(userCountry.lowercased()) {
-            self.userCountry = userCountry.lowercased()
-        } else {
-            self.userCountry = "eu"
-        }
-
+        self.apiRegion = apiRegion.lowercased()
         self.authToken = authToken
         self.authExpires = Date(timeIntervalSince1970: authExpires)
     }
@@ -480,7 +510,7 @@ private struct LibreLinkLogin {
     // MARK: Internal
 
     let patientID: String
-    let userCountry: String
+    let apiRegion: String
     let authToken: String
     let authExpires: Date
 }
