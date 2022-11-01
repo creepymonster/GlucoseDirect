@@ -35,7 +35,7 @@
 "Alarm glucose notification" = "Сповіщення про рівень глюкози";
 
 /* (No Comment) */
-"Alarm settings" = "Alarm settings";
+"Alarm settings" = "Налаштування будильника";
 
 /* (No Comment) */
 "Alert, high glucose" = "Увага, високий вміст глюкози";
@@ -143,7 +143,7 @@
 "Connection error timestamp" = "Час";
 
 /* (No Comment) */
-"Connection settings" = "Connection settings";
+"Connection settings" = "Налаштування підключення";
 
 /* (No Comment) */
 "Connection state" = "Стан";
@@ -227,10 +227,10 @@
 "LibreLink transmitter" = "LibreLink";
 
 /* (No Comment) */
-"LibreLinkUp email" = "LibreLinkUp email";
+"LibreLinkUp email" = "Електронна пошта LibreLinkUp";
 
 /* (No Comment) */
-"LibreLinkUp password" = "LibreLinkUp password";
+"LibreLinkUp password" = "Пароль LibreLinkUp";
 
 /* (No Comment) */
 "Line" = "Рядок";
@@ -254,7 +254,7 @@
 "Nightscout url" = "URL-адреса";
 
 /* (No Comment) */
-"No Data" = "No Data";
+"No Data" = "Дані відсутні";
 
 /* (No Comment) */
 "No screen lock" = "Немає блокування екрана";
@@ -449,7 +449,7 @@
 "Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Час нижче діапазону (TBR) або відсоток часу, проведеного нижче за цільовий рівень глюкози в %@.";
 
 /* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@.";
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Час у діапазоні (TIR) або % часу, витраченого в цільовому діапазоні глюкози між %@ - %@.";
 
 /* (No Comment) */
 "Transmitter" = "Передавач";
@@ -548,4 +548,4 @@
 "Export for Tidepool" = "Експорт до Tidepool";
 
 /* (No Comment) */
-"Last %@ hours" = "Last %@ hours";
+"Last %@ hours" = "Останні %@ години";
