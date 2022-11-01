@@ -311,9 +311,6 @@
 "Readable rising" = "subida";
 
 /* (No Comment) */
-"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Vuelve a abrir la aplicación en %@ como muy tarde. De lo contrario, iOS desactivará automáticamente el widget :(";
-
-/* (No Comment) */
 "Rescan the sensor" = "Volver a escanear el sensor";
 
 /* (No Comment) */
