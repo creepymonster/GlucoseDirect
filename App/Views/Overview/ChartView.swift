@@ -50,7 +50,7 @@ struct ChartView: View {
                     ScrollViewReader { scrollViewProxy in
                         ScrollView(.horizontal, showsIndicators: false) {
                             ChartView
-                                .frame(width: max(0, Config.screenWidth, seriesWidth), height: min(UIScreen.screenHeight, Config.chartHeight))
+                                .frame(width: max(0, screenWidth, seriesWidth), height: min(screenHeight, Config.chartHeight))
                                 .onChange(of: store.state.sensorGlucoseValues) { _ in
                                     scrollToEnd(scrollViewProxy: scrollViewProxy)
 
@@ -78,6 +78,10 @@ struct ChartView: View {
     var ZoomLevelsView: some View {
         HStack {
             ForEach(Config.zoomLevels, id: \.level) { zoom in
+                if zoom != Config.zoomLevels.first {
+                    Spacer()
+                }
+
                 Button(
                     action: {
                         DirectNotifications.shared.hapticFeedback()
@@ -98,21 +102,17 @@ struct ChartView: View {
                     }
                 )
                 .buttonStyle(.plain)
-                .frame(maxWidth: .infinity)
             }
         }
+        .padding(.horizontal, 10)
+        .frame(maxWidth: .infinity)
     }
 
     var ChartView: some View {
         ZStack(alignment: .topLeading) {
             Chart {
-                if store.state.glucoseUnit == .mgdL {
-                    RuleMark(y: .value("Minimum High", 300))
-                        .foregroundStyle(.clear)
-                } else {
-                    RuleMark(y: .value("Minimum High", 15))
-                        .foregroundStyle(.clear)
-                }
+                RuleMark(y: .value("Minimum High", chartMinimum))
+                    .foregroundStyle(.clear)
 
                 RuleMark(y: .value("Lower limit", alarmLow))
                     .foregroundStyle(Color.ui.red)
@@ -174,8 +174,8 @@ struct ChartView: View {
                     if let dateValue = value.as(Date.self) {
                         AxisGridLine(stroke: Config.axisStyle)
                         AxisTick(length: 4, stroke: Config.tickStyle)
-                            .foregroundStyle(Color.ui.accent)
-                        AxisValueLabel(dateValue.toLocalTime(onlyHour: onlyHour), anchor: .top)
+                            .foregroundStyle(Color.ui.gray)
+                        AxisValueLabel(dateValue.toLocalTime(format: labelFormat), anchor: .top)
                     }
                 }
             }
@@ -184,7 +184,7 @@ struct ChartView: View {
                     AxisGridLine(stroke: Config.axisStyle)
                     if let glucoseValue = value.as(Decimal.self), glucoseValue > 0 {
                         AxisTick(length: 4, stroke: Config.tickStyle)
-                            .foregroundStyle(Color.ui.accent)
+                            .foregroundStyle(Color.ui.gray)
                         AxisValueLabel()
                     }
                 }
@@ -192,7 +192,6 @@ struct ChartView: View {
             .id(Config.chartID)
             .onChange(of: store.state.glucoseUnit) { _ in
                 if shouldRefresh {
-                    updateSeriesMetadata()
                     updateSensorSeries()
                     updateBloodSeries()
                 }
@@ -212,8 +211,13 @@ struct ChartView: View {
             }.onChange(of: store.state.chartZoomLevel) { _ in
                 if shouldRefresh {
                     updateSeriesMetadata()
-                    updateSensorSeries()
-                    updateBloodSeries()
+                }
+
+            }.onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+                if shouldRefresh {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                        updateSeriesMetadata()
+                    }
                 }
 
             }.onChange(of: store.state.selectedDate) { _ in
@@ -309,16 +313,11 @@ struct ChartView: View {
         static let axisStyle: StrokeStyle = .init(lineWidth: 0.5, dash: [2, 3])
         static let tickStyle: StrokeStyle = .init(lineWidth: 4)
         static let zoomLevels: [ZoomLevel] = [
-            ZoomLevel(level: 1, name: LocalizedString("1h"), visibleHours: 1, labelEvery: 1, labelEveryUnit: .hour, onlyHour: false),
-            ZoomLevel(level: 3, name: LocalizedString("3h"), visibleHours: 3, labelEvery: 1, labelEveryUnit: .hour, onlyHour: false),
-            ZoomLevel(level: 6, name: LocalizedString("6h"), visibleHours: 6, labelEvery: 1, labelEveryUnit: .hour, onlyHour: true),
-            ZoomLevel(level: 12, name: LocalizedString("12h"), visibleHours: 12, labelEvery: 2, labelEveryUnit: .hour, onlyHour: true),
-            ZoomLevel(level: 24, name: LocalizedString("24h"), visibleHours: 24, labelEvery: 3, labelEveryUnit: .hour, onlyHour: true)
+            ZoomLevel(level: 3, name: LocalizedString("3h"), visibleHours: 3, labelEvery: 1, labelEveryUnit: .hour, format: .hourWithMinutes),
+            ZoomLevel(level: 6, name: LocalizedString("6h"), visibleHours: 6, labelEvery: 1, labelEveryUnit: .hour, format: .hour),
+            ZoomLevel(level: 12, name: LocalizedString("12h"), visibleHours: 12, labelEvery: 2, labelEveryUnit: .hour, format: .hour),
+            ZoomLevel(level: 24, name: LocalizedString("24h"), visibleHours: 24, labelEvery: 3, labelEveryUnit: .hour, format: .hour)
         ]
-
-        static var screenWidth: CGFloat {
-            UIScreen.screenWidth - 40
-        }
     }
 
     @State private var seriesWidth: CGFloat = 0
@@ -333,8 +332,20 @@ struct ChartView: View {
 
     private let calculationQueue = DispatchQueue(label: "libre-direct.chart-calculation", qos: .utility)
 
+    private var screenHeight: CGFloat {
+        UIScreen.screenHeight
+    }
+
+    private var screenWidth: CGFloat {
+        UIScreen.screenWidth - 40
+    }
+
     private var zoomLevel: ZoomLevel? {
-        Config.zoomLevels.first(where: { $0.level == store.state.chartZoomLevel })
+        if let zoomLevel = Config.zoomLevels.first(where: { $0.level == store.state.chartZoomLevel }) {
+            return zoomLevel
+        }
+
+        return Config.zoomLevels.first
     }
 
     private var glucoseUnit: GlucoseUnit {
@@ -349,12 +360,12 @@ struct ChartView: View {
         return .hour
     }
 
-    private var onlyHour: Bool {
+    private var labelFormat: TimeFormat {
         if let zoomLevel = zoomLevel {
-            return zoomLevel.onlyHour
+            return zoomLevel.format
         }
 
-        return true
+        return .hourWithMinutes
     }
 
     private var labelEvery: Int {
@@ -363,6 +374,14 @@ struct ChartView: View {
         }
 
         return 1
+    }
+
+    private var chartMinimum: Decimal {
+        if glucoseUnit == .mmolL {
+            return 15
+        }
+
+        return 300
     }
 
     private var alarmLow: Decimal {
@@ -469,7 +488,7 @@ struct ChartView: View {
                let lastTimestamp = lastTimestamp,
                let zoomLevel = zoomLevel
             {
-                let minuteWidth = (Config.screenWidth / CGFloat(zoomLevel.visibleHours * 60))
+                let minuteWidth = (screenWidth / CGFloat(zoomLevel.visibleHours * 60))
                 let chartMinutes = CGFloat((lastTimestamp.timeIntervalSince1970 - firstTimestamp.timeIntervalSince1970) / 60)
                 let seriesWidth = CGFloat(minuteWidth * chartMinutes)
 
@@ -551,7 +570,15 @@ private struct ZoomLevel {
     let visibleHours: Int
     let labelEvery: Int
     let labelEveryUnit: Calendar.Component
-    let onlyHour: Bool
+    let format: TimeFormat
+}
+
+// MARK: Equatable
+
+extension ZoomLevel: Equatable {
+    static func == (lhs: ZoomLevel, rhs: ZoomLevel) -> Bool {
+        lhs.level == rhs.level
+    }
 }
 
 // MARK: - ChartDatapoint
@@ -618,3 +645,5 @@ private extension SensorGlucose {
         )
     }
 }
+
+// TODO:
