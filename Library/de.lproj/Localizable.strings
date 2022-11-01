@@ -80,7 +80,7 @@
 "App website" = "Webseite";
 
 /* (No Comment) */
-"Apple export settings" = "Apple-Exporteinstellungen";
+"Apple export settings" = "Apple Export-Einstellungen";
 
 /* (No Comment) */
 "Are you sure you want to disconnect the sensor?" = "Sind Sie sicher, dass Sie die Verbindung zum Sensor trennen wollen?";
@@ -203,7 +203,7 @@
 "Glucose read aloud" = "Glukose Vorlesen";
 
 /* (No Comment) */
-"Glucose settings" = "Glukose-Einstellungen";
+"Glucose settings" = "Glukose Einstellungen";
 
 /* (No Comment) */
 "Glucose unit" = "Einheit";
@@ -309,9 +309,6 @@
 
 /* (No Comment) */
 "Readable rising" = "steigend";
-
-/* (No Comment) */
-"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
 
 /* (No Comment) */
 "Rescan the sensor" = "Sensor erneut scannen";
@@ -549,3 +546,6 @@
 
 /* (No Comment) */
 "Export for Tidepool" = "Export für Tidepool";
+
+/* (No Comment) */
+"Last %@ hours" = "Letzten %@ Stunden";

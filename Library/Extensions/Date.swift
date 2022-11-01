@@ -5,6 +5,13 @@
 
 import Foundation
 
+// MARK: - TimeFormat
+
+enum TimeFormat {
+    case hour
+    case hourWithMinutes
+}
+
 extension Date {
     static func valuesBetween(from fromDate: Date, to toDate: Date, component: Calendar.Component, step: Int) -> [Date] {
         var dates: [Date] = []
@@ -54,8 +61,16 @@ extension Date {
         return Date.localDateTimeFormatter.string(from: self)
     }
 
-    func toLocalTime() -> String {
+    func toLocalTime(format: TimeFormat = .hourWithMinutes) -> String {
+        if format == .hour {
+            return Date.localHourFormatter.string(from: self)
+        }
+
         return Date.localTimeFormatter.string(from: self)
+    }
+
+    func toLocalDate() -> String {
+        return Date.localDateFormatter.string(from: self)
     }
 
     private func floorAllComponents(before component: Calendar.Component) -> Date {
@@ -86,21 +101,38 @@ extension Date {
         return dateFormatter
     }()
 
-    private static var localDateTimeFormatter: DateFormatter = {
-        let format = DateFormatter()
-        format.timeZone = .current
-        format.dateStyle = .short
-        format.timeStyle = .short
+    private static var localHourFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = .current
+        dateFormatter.dateFormat = "HH"
 
-        return format
+        return dateFormatter
+    }()
+
+    private static var localDateTimeFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = .current
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
+
+        return dateFormatter
     }()
 
     private static var localTimeFormatter: DateFormatter = {
-        let format = DateFormatter()
-        format.timeZone = .current
-        format.timeStyle = .short
-        format.dateStyle = .none
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = .current
+        dateFormatter.timeStyle = .short
+        dateFormatter.dateStyle = .none
 
-        return format
+        return dateFormatter
+    }()
+
+    private static var localDateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = .current
+        dateFormatter.timeStyle = .none
+        dateFormatter.dateStyle = .short
+
+        return dateFormatter
     }()
 }

@@ -54,6 +54,10 @@ func sensorGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
         switch action {
         case .startup:
             DataStore.shared.createSensorGlucoseTable()
+            
+            return DataStore.shared.getFirstSensorGlucoseDate().map { minSelectedDate in
+                DirectAction.setMinSelectedDate(minSelectedDate: minSelectedDate)
+            }.eraseToAnyPublisher()
 
         case .addSensorGlucose(glucoseValues: let glucoseValues):
             guard !glucoseValues.isEmpty else {
@@ -80,19 +84,19 @@ func sensorGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
                 .setFailureType(to: DirectError.self)
                 .eraseToAnyPublisher()
 
+        case .setSelectedDate(selectedDate: _):
+            return Just(DirectAction.loadSensorGlucoseValues)
+                .setFailureType(to: DirectError.self)
+                .eraseToAnyPublisher()
+
         case .loadSensorGlucoseValues:
             guard state.appState == .active else {
                 break
             }
 
-            return Publishers.MergeMany(
-                DataStore.shared.getSensorGlucoseValues().map { glucoseValues in
-                    DirectAction.setSensorGlucoseValues(glucoseValues: glucoseValues)
-                },
-                DataStore.shared.getSensorGlucoseHistory().map { glucoseValues in
-                    DirectAction.setSensorGlucoseHistory(glucoseHistory: glucoseValues)
-                }
-            ).eraseToAnyPublisher()
+            return DataStore.shared.getSensorGlucoseValues(selectedDate: state.selectedDate).map { glucoseValues in
+                DirectAction.setSensorGlucoseValues(glucoseValues: glucoseValues)
+            }.eraseToAnyPublisher()
 
         case .setAppState(appState: let appState):
             guard appState == .active else {
@@ -240,29 +244,18 @@ private extension DataStore {
             }
         }
     }
-
-    func getSensorGlucoseValues(upToDay: Int? = 1) -> Future<[SensorGlucose], DirectError> {
+    
+    func getFirstSensorGlucoseDate() -> Future<Date, DirectError> {
         return Future { promise in
             if let dbQueue = self.dbQueue {
                 dbQueue.asyncRead { asyncDB in
                     do {
-                        if let upToDay = upToDay,
-                           let upTo = Calendar.current.date(byAdding: .day, value: -upToDay, to: Date())
-                        {
-                            let db = try asyncDB.get()
-                            let result = try SensorGlucose
-                                .filter(Column(SensorGlucose.Columns.timestamp.name) > upTo)
-                                .order(Column(SensorGlucose.Columns.timestamp.name))
-                                .fetchAll(db)
-
-                            promise(.success(result))
+                        let db = try asyncDB.get()
+                        
+                        if let date = try Date.fetchOne(db, sql: "SELECT MIN(timestamp) FROM SensorGlucose") {
+                            promise(.success(date))
                         } else {
-                            let db = try asyncDB.get()
-                            let result = try SensorGlucose
-                                .order(Column(SensorGlucose.Columns.timestamp.name))
-                                .fetchAll(db)
-
-                            promise(.success(result))
+                            promise(.success(Date()))
                         }
                     } catch {
                         promise(.failure(.withMessage(error.localizedDescription)))
@@ -272,34 +265,28 @@ private extension DataStore {
         }
     }
 
-    func getSensorGlucoseHistory(fromDay: Int = 1, upToDay: Int = 7) -> Future<[SensorGlucose], DirectError> {
+    func getSensorGlucoseValues(selectedDate: Date? = nil) -> Future<[SensorGlucose], DirectError> {
         return Future { promise in
             if let dbQueue = self.dbQueue {
                 dbQueue.asyncRead { asyncDB in
                     do {
-                        if let from = Calendar.current.date(byAdding: .day, value: -fromDay, to: Date()),
-                           let upTo = Calendar.current.date(byAdding: .day, value: -upToDay, to: Date())
-                        {
-                            let db = try asyncDB.get()
-
+                        let db = try asyncDB.get()
+                        
+                        if let selectedDate = selectedDate, let nextDate = Calendar.current.date(byAdding: .day, value: +1, to: selectedDate) {
                             let result = try SensorGlucose
-                                .filter(Column(SensorGlucose.Columns.timestamp.name) <= from)
-                                .filter(Column(SensorGlucose.Columns.timestamp.name) > upTo)
-                                .select(
-                                    min(SensorGlucose.Columns.id).forKey(SensorGlucose.Columns.id.name),
-                                    SensorGlucose.Columns.timegroup.forKey(SensorGlucose.Columns.timestamp.name),
-                                    sum(SensorGlucose.Columns.minuteChange).forKey(SensorGlucose.Columns.minuteChange.name),
-                                    average(SensorGlucose.Columns.rawGlucoseValue).forKey(SensorGlucose.Columns.rawGlucoseValue.name),
-                                    average(SensorGlucose.Columns.intGlucoseValue).forKey(SensorGlucose.Columns.intGlucoseValue.name),
-                                    SensorGlucose.Columns.timegroup
-                                )
-                                .group(SensorGlucose.Columns.timegroup)
+                                .filter(Column(SensorGlucose.Columns.timestamp.name) >= selectedDate.startOfDay)
+                                .filter(nextDate.startOfDay > Column(SensorGlucose.Columns.timestamp.name))
                                 .order(Column(SensorGlucose.Columns.timestamp.name))
                                 .fetchAll(db)
 
                             promise(.success(result))
                         } else {
-                            promise(.failure(.withMessage("Cannot get calendar dates")))
+                            let result = try SensorGlucose
+                                .filter(sql: "\(SensorGlucose.Columns.timestamp.name) >= datetime('now', '-\(DirectConfig.lastChartHours) hours')")
+                                .order(Column(SensorGlucose.Columns.timestamp.name))
+                                .fetchAll(db)
+
+                            promise(.success(result))
                         }
                     } catch {
                         promise(.failure(.withMessage(error.localizedDescription)))

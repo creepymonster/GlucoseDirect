@@ -37,13 +37,18 @@ func sensorErrorStoreMiddleware() -> Middleware<DirectState, DirectAction> {
             return Just(DirectAction.loadSensorErrorValues)
                 .setFailureType(to: DirectError.self)
                 .eraseToAnyPublisher()
+            
+        case .setSelectedDate(selectedDate: _):
+            return Just(DirectAction.loadSensorErrorValues)
+                .setFailureType(to: DirectError.self)
+                .eraseToAnyPublisher()
 
         case .loadSensorErrorValues:
             guard state.appState == .active else {
                 break
             }
 
-            return DataStore.shared.getSensorErrorValues().map { errorValues in
+            return DataStore.shared.getSensorErrorValues(selectedDate: state.selectedDate).map { errorValues in
                 DirectAction.setSensorErrorValues(errorValues: errorValues)
             }.eraseToAnyPublisher()
 
@@ -138,25 +143,24 @@ private extension DataStore {
         }
     }
 
-    func getSensorErrorValues(upToDay: Int? = 1) -> Future<[SensorError], DirectError> {
+    func getSensorErrorValues(selectedDate: Date? = nil) -> Future<[SensorError], DirectError> {
         return Future { promise in
             if let dbQueue = self.dbQueue {
                 dbQueue.asyncRead { asyncDB in
                     do {
-                        if let upToDay = upToDay,
-                           let upTo = Calendar.current.date(byAdding: .day, value: -upToDay, to: Date())
-                        {
-                            let db = try asyncDB.get()
+                        let db = try asyncDB.get()
+                        
+                        if let selectedDate = selectedDate, let nextDate = Calendar.current.date(byAdding: .day, value: +1, to: selectedDate) {
                             let result = try SensorError
-                                .filter(Column(SensorError.Columns.timestamp.name) > upTo)
+                                .filter(Column(SensorGlucose.Columns.timestamp.name) >= selectedDate.startOfDay)
+                                .filter(nextDate.startOfDay > Column(SensorGlucose.Columns.timestamp.name))
                                 .order(Column(SensorError.Columns.timestamp.name))
                                 .fetchAll(db)
 
                             promise(.success(result))
                         } else {
-                            let db = try asyncDB.get()
                             let result = try SensorError
-                                .order(Column(SensorError.Columns.timestamp.name))
+                                .filter(sql: "\(SensorError.Columns.timestamp.name) >= datetime('now', '-\(DirectConfig.lastChartHours) hours')")
                                 .fetchAll(db)
 
                             promise(.success(result))

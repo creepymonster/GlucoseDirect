@@ -311,9 +311,6 @@
 "Readable rising" = "rising";
 
 /* (No Comment) */
-"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
-
-/* (No Comment) */
 "Rescan the sensor" = "Scan de sensor opnieuw";
 
 /* (No Comment) */
@@ -549,3 +546,6 @@
 
 /* (No Comment) */
 "Export for Tidepool" = "Export for Tidepool";
+
+/* (No Comment) */
+"Last %@ hours" = "Last %@ hours";

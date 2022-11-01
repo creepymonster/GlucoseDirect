@@ -311,9 +311,6 @@
 "Readable rising" = "yükseliyor";
 
 /* (No Comment) */
-"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Uygulamayı en geç %@ tarafından yeniden açın. Aksi takdirde iOS, widget'ı otomatik olarak devre dışı bırakır :(";
-
-/* (No Comment) */
 "Rescan the sensor" = "Sensörü yeniden tara";
 
 /* (No Comment) */
@@ -536,16 +533,19 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Sensörünüzün süresi dolmak üzere. Sensörü %1$@ dakika içinde değiştirin.";
 
 /* (No Comment) */
-"Loading..." = "Loading...";
+"Loading..." = "Yükleniyor...";
 
 /* (No Comment) */
-"Export" = "Export";
+"Export" = "Dışa Aktar";
 
 /* (No Comment) */
-"Export as CSV" = "Export as CSV";
+"Export as CSV" = "CSV olarak dışa aktar";
 
 /* (No Comment) */
-"Export for Glooko" = "Export for Glooko";
+"Export for Glooko" = "Glooko için Dışa Aktarma";
 
 /* (No Comment) */
-"Export for Tidepool" = "Export for Tidepool";
+"Export for Tidepool" = "Tidepool için Dışa Aktarma";
+
+/* (No Comment) */
+"Last %@ hours" = "Last %@ hours";

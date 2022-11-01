@@ -35,7 +35,7 @@
 "Alarm glucose notification" = "报警葡萄糖通知";
 
 /* (No Comment) */
-"Alarm settings" = "Alarm settings";
+"Alarm settings" = "提醒设置";
 
 /* (No Comment) */
 "Alert, high glucose" = "警告，高血糖";
@@ -143,7 +143,7 @@
 "Connection error timestamp" = "时间";
 
 /* (No Comment) */
-"Connection settings" = "Connection settings";
+"Connection settings" = "连接设置";
 
 /* (No Comment) */
 "Connection state" = "状态";
@@ -227,10 +227,10 @@
 "LibreLink transmitter" = "LibreLink";
 
 /* (No Comment) */
-"LibreLinkUp email" = "LibreLinkUp email";
+"LibreLinkUp email" = "LibreLinkUp邮件";
 
 /* (No Comment) */
-"LibreLinkUp password" = "LibreLinkUp password";
+"LibreLinkUp password" = "LibreLinkUp密码";
 
 /* (No Comment) */
 "Line" = "线";
@@ -254,7 +254,7 @@
 "Nightscout url" = "网址";
 
 /* (No Comment) */
-"No Data" = "No Data";
+"No Data" = "没有数据";
 
 /* (No Comment) */
 "No screen lock" = "无屏幕锁定";
@@ -309,9 +309,6 @@
 
 /* (No Comment) */
 "Readable rising" = "上升";
-
-/* (No Comment) */
-"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
 
 /* (No Comment) */
 "Rescan the sensor" = "重新扫描传感器";
@@ -452,7 +449,7 @@
 "Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "低于范围的时间 (TAR) 或低于目标葡萄糖的时间百分比， %@。";
 
 /* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@.";
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "目标范围内时间（TIR）或处于目标葡萄糖范围 %@ - %@ 内的时间占比。";
 
 /* (No Comment) */
 "Transmitter" = "发射器";
@@ -536,16 +533,19 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "您的传感器即将过期。在 %1$@ 分钟内更换传感器。";
 
 /* (No Comment) */
-"Loading..." = "Loading...";
+"Loading..." = "加载中…";
 
 /* (No Comment) */
-"Export" = "Export";
+"Export" = "导出";
 
 /* (No Comment) */
-"Export as CSV" = "Export as CSV";
+"Export as CSV" = "导出为CSV文件";
 
 /* (No Comment) */
-"Export for Glooko" = "Export for Glooko";
+"Export for Glooko" = "导出到Glooko";
 
 /* (No Comment) */
-"Export for Tidepool" = "Export for Tidepool";
+"Export for Tidepool" = "导出到Tidepool";
+
+/* (No Comment) */
+"Last %@ hours" = "最近 %@ 小时";

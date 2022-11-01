@@ -21,15 +21,9 @@ private func logMiddleware(service: SendService) -> Middleware<DirectState, Dire
         case .setSensorGlucoseValues(glucoseValues: _):
             break
 
-        case .setBloodGlucoseHistory(glucoseHistory: _):
-            break
-
-        case .setSensorGlucoseHistory(glucoseHistory: _):
-            break
-
         case .setSensorErrorValues(errorValues: _):
             break
-
+            
         case .setNightscoutURL(url: _):
             break
 
