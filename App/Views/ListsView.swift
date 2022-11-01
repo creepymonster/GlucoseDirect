@@ -18,7 +18,7 @@ struct ListsView: View {
             SensorGlucoseList()
             SensorErrorList()
 
-            if let glucoseStatistics = store.state.glucoseStatistics {
+            if let glucoseStatistics = store.state.glucoseStatistics, glucoseStatistics.days >= 3 {
                 Section(
                     content: {
                         HStack {
@@ -159,7 +159,7 @@ struct ListsView: View {
     }
 
     private var chartLevel: ChartLevel? {
-        Config.chartLevels.first(where: { $0.days == store.state.statisticsDays })
+        return Config.chartLevels.first(where: { $0.days == store.state.statisticsDays })
     }
 
     private func isSelectedChartLevel(days: Int) -> Bool {
