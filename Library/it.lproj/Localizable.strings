@@ -35,7 +35,7 @@
 "Alarm glucose notification" = "Notifica di allarme per il glucosio";
 
 /* (No Comment) */
-"Alarm settings" = "Alarm settings";
+"Alarm settings" = "Impostazioni sveglia";
 
 /* (No Comment) */
 "Alert, high glucose" = "Allarme, Glucosio alto";
@@ -143,7 +143,7 @@
 "Connection error timestamp" = "Tempo";
 
 /* (No Comment) */
-"Connection settings" = "Connection settings";
+"Connection settings" = "Impostazioni di connessione";
 
 /* (No Comment) */
 "Connection state" = "Stato";
@@ -227,10 +227,10 @@
 "LibreLink transmitter" = "LibreLink";
 
 /* (No Comment) */
-"LibreLinkUp email" = "LibreLinkUp email";
+"LibreLinkUp email" = "E-mail LibreLinkUp";
 
 /* (No Comment) */
-"LibreLinkUp password" = "LibreLinkUp password";
+"LibreLinkUp password" = "Password LibreLinkUp";
 
 /* (No Comment) */
 "Line" = "Linea";
@@ -254,7 +254,7 @@
 "Nightscout url" = "Url";
 
 /* (No Comment) */
-"No Data" = "No Data";
+"No Data" = "Nessun dato";
 
 /* (No Comment) */
 "No screen lock" = "Nessun blocco schermo";
@@ -434,7 +434,7 @@
 "Statistics (%@ days)" = "Statistiche (%@ days) ";
 
 /* (No Comment) */
-"StatisticsPeriod" = "Period";
+"StatisticsPeriod" = "Periodo";
 
 /* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "La connessione con il sensore è stata interrotta. Normalmente questo succede se il sensore è fuori portata o se la batteria è alterata.";
@@ -449,7 +449,7 @@
 "Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Tempo al di sotto dell'intervallo (TBR) o percentuale di tempo trascorso al di sotto del target di glucosio %@. ";
 
 /* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@.";
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Time in Range (TIR) ovvero la percentuale di tempo trascorsa nell'intervallo del glucosio target tra %@ e %@.";
 
 /* (No Comment) */
 "Transmitter" = "Transmettitore";
@@ -533,19 +533,19 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Il tuo sensore sta per scadere. Sostituisci il tuo sensore in %1$@ giorno/i.";
 
 /* (No Comment) */
-"Loading..." = "Loading...";
+"Loading..." = "Caricamento...";
 
 /* (No Comment) */
-"Export" = "Export";
+"Export" = "Esporta";
 
 /* (No Comment) */
-"Export as CSV" = "Export as CSV";
+"Export as CSV" = "Esporta come CSV";
 
 /* (No Comment) */
-"Export for Glooko" = "Export for Glooko";
+"Export for Glooko" = "Esporta per Glooko";
 
 /* (No Comment) */
-"Export for Tidepool" = "Export for Tidepool";
+"Export for Tidepool" = "Esporta per Tidepool";
 
 /* (No Comment) */
-"Last %@ hours" = "Last %@ hours";
+"Last %@ hours" = "Ultime %@ ore";
