@@ -311,9 +311,6 @@
 "Readable rising" = "зростає";
 
 /* (No Comment) */
-"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
-
-/* (No Comment) */
 "Rescan the sensor" = "Повторно сканувати датчик";
 
 /* (No Comment) */
