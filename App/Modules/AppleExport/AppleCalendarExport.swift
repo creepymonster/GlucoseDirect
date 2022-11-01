@@ -132,18 +132,18 @@ private class AppleCalendarExportService {
     }
 
     func addConnectionState(calendarTarget: String, connectionState: SensorConnectionState, connectionError: String?) {
-        addCalendarEntry(calendarTarget: calendarTarget, timestamp: Date(), title: connectionState.localizedDescription, location: connectionError)
+        addCalendarEntry(calendarTarget: calendarTarget, timestamp: Date(), durationMinutes: 120, title: connectionState.localizedDescription, location: connectionError)
     }
 
     func addSensorGlucose(calendarTarget: String, glucose: SensorGlucose, glucoseUnit: GlucoseUnit, sensorInterval: Double) {
-        addCalendarEntry(calendarTarget: calendarTarget, timestamp: glucose.timestamp, title: "\(glucose.trend.description) \(glucose.glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true))", location: glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit))
+        addCalendarEntry(calendarTarget: calendarTarget, timestamp: glucose.timestamp, durationMinutes: 15, title: "\(glucose.trend.description) \(glucose.glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true))", location: glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit))
     }
 
     // MARK: Private
 
     private var calendar: EKCalendar?
 
-    private func addCalendarEntry(calendarTarget: String, timestamp: Date, title: String, location: String? = nil) {
+    private func addCalendarEntry(calendarTarget: String, timestamp: Date, durationMinutes: Double, title: String, location: String? = nil) {
         if calendar == nil || calendar?.title != calendarTarget {
             calendar = eventStore.calendars(for: .event).first(where: { $0.title == calendarTarget })
         }
@@ -164,7 +164,7 @@ private class AppleCalendarExportService {
         event.calendar = calendar
         event.url = DirectConfig.appSchemaURL
         event.startDate = timestamp
-        event.endDate = timestamp + 15 * 60
+        event.endDate = timestamp + durationMinutes * 60
 
         do {
             try eventStore.save(event, span: .thisEvent)
@@ -195,5 +195,3 @@ private class AppleCalendarExportService {
         return nil
     }
 }
-
-// TODO:

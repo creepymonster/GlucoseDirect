@@ -18,7 +18,7 @@ struct ListsView: View {
             SensorGlucoseList()
             SensorErrorList()
 
-            if let glucoseStatistics = store.state.glucoseStatistics {
+            if let glucoseStatistics = store.state.glucoseStatistics, glucoseStatistics.days >= 3 {
                 Section(
                     content: {
                         HStack {
@@ -28,7 +28,7 @@ struct ListsView: View {
                                 ForEach(Config.chartLevels, id: \.days) { level in
                                     Button(
                                         action: {
-                                            DirectNotifications.shared.hapticNotification()
+                                            DirectNotifications.shared.hapticFeedback()
                                             store.dispatch(.setStatisticsDays(days: level.days))
                                         },
                                         label: {
@@ -52,14 +52,6 @@ struct ListsView: View {
                         }
 
                         Group {
-                            #if DEBUG
-                            HStack {
-                                Text("Readings")
-                                Spacer()
-                                Text(glucoseStatistics.readings.description)
-                            }
-                            #endif
-
                             VStack(alignment: .leading, spacing: 10) {
                                 HStack {
                                     Text(verbatim: "AVG")
@@ -167,7 +159,7 @@ struct ListsView: View {
     }
 
     private var chartLevel: ChartLevel? {
-        Config.chartLevels.first(where: { $0.days == store.state.statisticsDays })
+        return Config.chartLevels.first(where: { $0.days == store.state.statisticsDays })
     }
 
     private func isSelectedChartLevel(days: Int) -> Bool {
