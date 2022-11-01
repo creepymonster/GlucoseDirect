@@ -5,6 +5,13 @@
 
 import Foundation
 
+// MARK: - TimeFormat
+
+enum TimeFormat {
+    case hour
+    case hourWithMinutes
+}
+
 extension Date {
     static func valuesBetween(from fromDate: Date, to toDate: Date, component: Calendar.Component, step: Int) -> [Date] {
         var dates: [Date] = []
@@ -54,8 +61,8 @@ extension Date {
         return Date.localDateTimeFormatter.string(from: self)
     }
 
-    func toLocalTime(onlyHour: Bool = false) -> String {
-        if onlyHour {
+    func toLocalTime(format: TimeFormat = .hourWithMinutes) -> String {
+        if format == .hour {
             return Date.localHourFormatter.string(from: self)
         }
 
