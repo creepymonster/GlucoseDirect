@@ -67,9 +67,8 @@ struct AlarmSettingsView: View {
                     .labelsHidden()
                 }
 
-                ToggleView(key: LocalizedString("Ignore mute"), value: store.state.ignoreMute) { value in
-                    store.dispatch(.setIgnoreMute(enabled: value))
-                }
+                Toggle("Ignore mute", isOn: ignoreMute)
+                    .toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
             },
             header: {
                 Label("Alarm settings", systemImage: "alarm")
@@ -78,6 +77,13 @@ struct AlarmSettingsView: View {
     }
 
     // MARK: Private
+
+    private var ignoreMute: Binding<Bool> {
+        Binding(
+            get: { store.state.ignoreMute },
+            set: { store.dispatch(.setIgnoreMute(enabled: $0)) }
+        )
+    }
 
     private var selectedLowGlucoseAlarmSound: Binding<String> {
         Binding(

@@ -47,22 +47,65 @@ struct ChartView: View {
                     }
                     .buttonStyle(.plain)
 
-                    ScrollViewReader { scrollViewProxy in
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            ChartView
-                                .frame(width: max(0, screenWidth, seriesWidth), height: min(screenHeight, Config.chartHeight))
-                                .onChange(of: store.state.sensorGlucoseValues) { _ in
-                                    scrollToEnd(scrollViewProxy: scrollViewProxy)
+                    ZStack(alignment: .topLeading) {
+                        ScrollViewReader { scrollViewProxy in
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                ChartView
+                                    .frame(width: max(0, screenWidth, seriesWidth), height: min(screenHeight, Config.chartHeight))
+                                    .onChange(of: store.state.sensorGlucoseValues) { _ in
+                                        scrollToEnd(scrollViewProxy: scrollViewProxy)
 
-                                }.onChange(of: store.state.bloodGlucoseValues) { _ in
-                                    scrollToEnd(scrollViewProxy: scrollViewProxy)
+                                    }.onChange(of: store.state.bloodGlucoseValues) { _ in
+                                        scrollToEnd(scrollViewProxy: scrollViewProxy)
 
-                                }.onChange(of: store.state.chartZoomLevel) { _ in
-                                    scrollToEnd(scrollViewProxy: scrollViewProxy, force: true)
+                                    }.onChange(of: store.state.chartZoomLevel) { _ in
+                                        scrollToEnd(scrollViewProxy: scrollViewProxy, force: true)
 
-                                }.onAppear {
-                                    scrollToEnd(scrollViewProxy: scrollViewProxy)
+                                    }.onAppear {
+                                        scrollToEnd(scrollViewProxy: scrollViewProxy)
+                                    }
+                            }
+                        }
+
+                        if selectedSensorPoint != nil || selectedBloodPoint != nil {
+                            HStack {
+                                if let selectedSensorPoint = selectedSensorPoint {
+                                    VStack(alignment: .leading) {
+                                        Text(selectedSensorPoint.valueX.toLocalDateTime())
+                                        Text(selectedSensorPoint.info).bold()
+                                    }
+                                    .padding(.horizontal, 10)
+                                    .padding(.vertical, 5)
+                                    .foregroundColor(Color.white)
+                                    .font(.footnote)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 5, style: .continuous)
+                                            .foregroundStyle(Color.ui.blue)
+                                            .opacity(0.5)
+                                    )
                                 }
+
+                                if let selectedBloodPoint = selectedBloodPoint {
+                                    HStack {
+                                        Image(systemName: "drop.fill")
+                                            .foregroundColor(Color.white)
+
+                                        VStack(alignment: .leading) {
+                                            Text(selectedBloodPoint.valueX.toLocalDateTime())
+                                            Text(selectedBloodPoint.info).bold()
+                                        }
+                                        .foregroundColor(Color.white)
+                                        .font(.footnote)
+                                    }
+                                    .padding(.horizontal, 10)
+                                    .padding(.vertical, 5)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 5, style: .continuous)
+                                            .foregroundStyle(Color.ui.red)
+                                            .opacity(0.5)
+                                    )
+                                }
+                            }
                         }
                     }
 
@@ -109,191 +152,147 @@ struct ChartView: View {
     }
 
     var ChartView: some View {
-        ZStack(alignment: .topLeading) {
-            Chart {
-                RuleMark(y: .value("Minimum High", chartMinimum))
-                    .foregroundStyle(.clear)
+        Chart {
+            RuleMark(y: .value("Minimum High", chartMinimum))
+                .foregroundStyle(.clear)
 
-                RuleMark(y: .value("Lower limit", alarmLow))
-                    .foregroundStyle(Color.ui.red)
-                    .lineStyle(Config.ruleStyle)
+            RuleMark(y: .value("Lower limit", alarmLow))
+                .foregroundStyle(Color.ui.red)
+                .lineStyle(Config.ruleStyle)
 
-                RuleMark(y: .value("Upper limit", alarmHigh))
-                    .foregroundStyle(Color.ui.red)
-                    .lineStyle(Config.ruleStyle)
+            RuleMark(y: .value("Upper limit", alarmHigh))
+                .foregroundStyle(Color.ui.red)
+                .lineStyle(Config.ruleStyle)
 
-                ForEach(sensorGlucoseSeries) { value in
-                    LineMark(
-                        x: .value("Time", value.valueX),
-                        y: .value("Glucose", value.valueY)
-                    )
-                    .foregroundStyle(Color.ui.blue)
-                    .lineStyle(Config.lineStyle)
-                }
+            ForEach(sensorGlucoseSeries) { value in
+                LineMark(
+                    x: .value("Time", value.valueX),
+                    y: .value("Glucose", value.valueY)
+                )
+                .foregroundStyle(Color.ui.blue)
+                .lineStyle(Config.lineStyle)
+            }
 
-                ForEach(bloodGlucoseSeries) { value in
-                    PointMark(
-                        x: .value("Time", value.valueX),
-                        y: .value("Glucose", value.valueY)
-                    )
-                    .symbolSize(Config.symbolSize)
-                    .foregroundStyle(Color.ui.red)
-                }
+            ForEach(bloodGlucoseSeries) { value in
+                PointMark(
+                    x: .value("Time", value.valueX),
+                    y: .value("Glucose", value.valueY)
+                )
+                .symbolSize(Config.symbolSize)
+                .foregroundStyle(Color.ui.red)
+            }
 
-                if let selectedPointInfo = selectedSensorPoint {
-                    PointMark(
-                        x: .value("Time", selectedPointInfo.valueX),
-                        y: .value("Glucose", selectedPointInfo.valueY)
-                    )
-                    .symbolSize(Config.selectionSize)
-                    .opacity(0.5)
-                    .foregroundStyle(Color.primary)
-                }
+            if let selectedPointInfo = selectedSensorPoint {
+                PointMark(
+                    x: .value("Time", selectedPointInfo.valueX),
+                    y: .value("Glucose", selectedPointInfo.valueY)
+                )
+                .symbolSize(Config.selectionSize)
+                .opacity(0.5)
+                .foregroundStyle(Color.primary)
+            }
 
-                if let selectedPointInfo = selectedBloodPoint {
-                    PointMark(
-                        x: .value("Time", selectedPointInfo.valueX),
-                        y: .value("Glucose", selectedPointInfo.valueY)
-                    )
-                    .symbolSize(Config.selectionSize)
-                    .opacity(0.5)
-                    .foregroundStyle(Color.primary)
-                }
+            if let selectedPointInfo = selectedBloodPoint {
+                PointMark(
+                    x: .value("Time", selectedPointInfo.valueX),
+                    y: .value("Glucose", selectedPointInfo.valueY)
+                )
+                .symbolSize(Config.selectionSize)
+                .opacity(0.5)
+                .foregroundStyle(Color.primary)
+            }
 
-                if let endMarker = endMarker, store.state.selectedDate == nil, store.state.chartZoomLevel != 24 {
-                    RuleMark(
-                        x: .value("", endMarker)
-                    ).foregroundStyle(.clear)
+            if let endMarker = endMarker, store.state.selectedDate == nil, store.state.chartZoomLevel != 24 {
+                RuleMark(
+                    x: .value("", endMarker)
+                ).foregroundStyle(.clear)
+            }
+        }
+        .chartPlotStyle { plotArea in
+            plotArea.padding(.vertical)
+        }
+        .chartXAxis {
+            AxisMarks(values: .stride(by: .hour, count: labelEvery)) { _ in
+                AxisGridLine(stroke: Config.axisStyle)
+                AxisTick(length: 4, stroke: Config.tickStyle)
+                    .foregroundStyle(Color.ui.gray)
+                AxisValueLabel(format: .dateTime.hour(.defaultDigits(amPM: .narrow)), anchor: .top)
+            }
+        }
+        .chartYAxis {
+            AxisMarks(position: .trailing) { value in
+                AxisGridLine(stroke: Config.axisStyle)
+
+                if let glucoseValue = value.as(Decimal.self), glucoseValue > 0 {
+                    AxisTick(length: 4, stroke: Config.tickStyle)
+                        .foregroundStyle(Color.ui.gray)
+                    AxisValueLabel()
                 }
             }
-            .chartPlotStyle { plotArea in
-                plotArea.padding(.vertical)
-            }
-            .chartXAxis {
-                AxisMarks(values: .stride(by: labelEveryUnit, count: labelEvery)) { value in
-                    if let dateValue = value.as(Date.self) {
-                        AxisGridLine(stroke: Config.axisStyle)
-                        AxisTick(length: 4, stroke: Config.tickStyle)
-                            .foregroundStyle(Color.ui.gray)
-                        AxisValueLabel(dateValue.toLocalTime(format: labelFormat), anchor: .top)
-                    }
-                }
-            }
-            .chartYAxis {
-                AxisMarks(position: .trailing) { value in
-                    AxisGridLine(stroke: Config.axisStyle)
-                    if let glucoseValue = value.as(Decimal.self), glucoseValue > 0 {
-                        AxisTick(length: 4, stroke: Config.tickStyle)
-                            .foregroundStyle(Color.ui.gray)
-                        AxisValueLabel()
-                    }
-                }
-            }
-            .id(Config.chartID)
-            .onChange(of: store.state.glucoseUnit) { _ in
-                if shouldRefresh {
-                    updateSensorSeries()
-                    updateBloodSeries()
-                }
-
-            }.onChange(of: store.state.sensorGlucoseValues) { _ in
-                if shouldRefresh {
-                    updateSeriesMetadata()
-                    updateSensorSeries()
-                }
-
-            }.onChange(of: store.state.bloodGlucoseValues) { _ in
-                if shouldRefresh {
-                    updateSeriesMetadata()
-                    updateBloodSeries()
-                }
-
-            }.onChange(of: store.state.chartZoomLevel) { _ in
-                if shouldRefresh {
-                    updateSeriesMetadata()
-                }
-
-            }.onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
-                if shouldRefresh {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
-                        updateSeriesMetadata()
-                    }
-                }
-
-            }.onChange(of: store.state.selectedDate) { _ in
-                selectedSensorPoint = nil
-                selectedBloodPoint = nil
-
-            }.onAppear {
-                updateSeriesMetadata()
+        }
+        .id(Config.chartID)
+        .onChange(of: store.state.glucoseUnit) { _ in
+            if shouldRefresh {
                 updateSensorSeries()
                 updateBloodSeries()
+            }
 
-            }.chartOverlay { overlayProxy in
-                GeometryReader { geometryProxy in
-                    Rectangle().fill(.clear).contentShape(Rectangle())
-                        .gesture(DragGesture()
-                            .onChanged { value in
-                                let currentX = value.location.x - geometryProxy[overlayProxy.plotAreaFrame].origin.x
+        }.onChange(of: store.state.sensorGlucoseValues) { _ in
+            if shouldRefresh {
+                updateSeriesMetadata()
+                updateSensorSeries()
+            }
 
-                                if let currentDate: Date = overlayProxy.value(atX: currentX) {
-                                    let selectedSensorPoint = sensorPointInfos[currentDate.toRounded(on: 1, .minute)]
-                                    let selectedBloodPoint = bloodPointInfos[currentDate.toRounded(on: 1, .minute)]
+        }.onChange(of: store.state.bloodGlucoseValues) { _ in
+            if shouldRefresh {
+                updateSeriesMetadata()
+                updateBloodSeries()
+            }
 
-                                    if let selectedSensorPoint {
-                                        self.selectedSensorPoint = selectedSensorPoint
-                                    }
+        }.onChange(of: store.state.chartZoomLevel) { _ in
+            if shouldRefresh {
+                updateSeriesMetadata()
+            }
 
-                                    self.selectedBloodPoint = selectedBloodPoint
-                                }
-                            }
-                            .onEnded { _ in
-                                selectedSensorPoint = nil
-                                selectedBloodPoint = nil
-                            }
-                        )
+        }.onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+            if shouldRefresh {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                    updateSeriesMetadata()
                 }
             }
 
-            if selectedSensorPoint != nil || selectedBloodPoint != nil {
-                HStack {
-                    if let selectedSensorPoint = selectedSensorPoint {
-                        VStack(alignment: .leading) {
-                            Text(selectedSensorPoint.valueX.toLocalDateTime())
-                            Text(selectedSensorPoint.info).bold()
-                        }
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 5)
-                        .foregroundColor(Color.white)
-                        .font(.footnote)
-                        .background(
-                            RoundedRectangle(cornerRadius: 5, style: .continuous)
-                                .foregroundStyle(Color.ui.blue)
-                                .opacity(0.5)
-                        )
-                    }
+        }.onChange(of: store.state.selectedDate) { _ in
+            selectedSensorPoint = nil
+            selectedBloodPoint = nil
 
-                    if let selectedBloodPoint = selectedBloodPoint {
-                        HStack {
-                            Image(systemName: "drop.fill")
-                                .foregroundColor(Color.white)
+        }.onAppear {
+            updateSeriesMetadata()
+            updateSensorSeries()
+            updateBloodSeries()
 
-                            VStack(alignment: .leading) {
-                                Text(selectedBloodPoint.valueX.toLocalDateTime())
-                                Text(selectedBloodPoint.info).bold()
+        }.chartOverlay { overlayProxy in
+            GeometryReader { geometryProxy in
+                Rectangle().fill(.clear).contentShape(Rectangle())
+                    .gesture(DragGesture()
+                        .onChanged { value in
+                            let currentX = value.location.x - geometryProxy[overlayProxy.plotAreaFrame].origin.x
+
+                            if let currentDate: Date = overlayProxy.value(atX: currentX) {
+                                let selectedSensorPoint = sensorPointInfos[currentDate.toRounded(on: 1, .minute)]
+                                let selectedBloodPoint = bloodPointInfos[currentDate.toRounded(on: 1, .minute)]
+
+                                if let selectedSensorPoint {
+                                    self.selectedSensorPoint = selectedSensorPoint
+                                }
+
+                                self.selectedBloodPoint = selectedBloodPoint
                             }
-                            .foregroundColor(Color.white)
-                            .font(.footnote)
                         }
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 5)
-                        .background(
-                            RoundedRectangle(cornerRadius: 5, style: .continuous)
-                                .foregroundStyle(Color.ui.red)
-                                .opacity(0.5)
-                        )
-                    }
-                }
+                        .onEnded { _ in
+                            selectedSensorPoint = nil
+                            selectedBloodPoint = nil
+                        }
+                    )
             }
         }
     }
@@ -313,10 +312,10 @@ struct ChartView: View {
         static let axisStyle: StrokeStyle = .init(lineWidth: 0.5, dash: [2, 3])
         static let tickStyle: StrokeStyle = .init(lineWidth: 4)
         static let zoomLevels: [ZoomLevel] = [
-            ZoomLevel(level: 3, name: LocalizedString("3h"), visibleHours: 3, labelEvery: 1, labelEveryUnit: .hour, format: .hourWithMinutes),
-            ZoomLevel(level: 6, name: LocalizedString("6h"), visibleHours: 6, labelEvery: 1, labelEveryUnit: .hour, format: .hour),
-            ZoomLevel(level: 12, name: LocalizedString("12h"), visibleHours: 12, labelEvery: 2, labelEveryUnit: .hour, format: .hour),
-            ZoomLevel(level: 24, name: LocalizedString("24h"), visibleHours: 24, labelEvery: 3, labelEveryUnit: .hour, format: .hour)
+            ZoomLevel(level: 3, name: LocalizedString("3h"), visibleHours: 3, labelEvery: 1),
+            ZoomLevel(level: 6, name: LocalizedString("6h"), visibleHours: 6, labelEvery: 2),
+            ZoomLevel(level: 12, name: LocalizedString("12h"), visibleHours: 12, labelEvery: 3),
+            ZoomLevel(level: 24, name: LocalizedString("24h"), visibleHours: 24, labelEvery: 4)
         ]
     }
 
@@ -350,22 +349,6 @@ struct ChartView: View {
 
     private var glucoseUnit: GlucoseUnit {
         store.state.glucoseUnit
-    }
-
-    private var labelEveryUnit: Calendar.Component {
-        if let zoomLevel = zoomLevel {
-            return zoomLevel.labelEveryUnit
-        }
-
-        return .hour
-    }
-
-    private var labelFormat: TimeFormat {
-        if let zoomLevel = zoomLevel {
-            return zoomLevel.format
-        }
-
-        return .hourWithMinutes
     }
 
     private var labelEvery: Int {
@@ -483,20 +466,16 @@ struct ChartView: View {
     private func updateSeriesMetadata() {
         DirectLog.info("updateSeriesMetadata()")
 
-        calculationQueue.async {
-            if let firstTimestamp = firstTimestamp,
-               let lastTimestamp = lastTimestamp,
-               let zoomLevel = zoomLevel
-            {
-                let minuteWidth = (screenWidth / CGFloat(zoomLevel.visibleHours * 60))
-                let chartMinutes = CGFloat((lastTimestamp.timeIntervalSince1970 - firstTimestamp.timeIntervalSince1970) / 60)
-                let seriesWidth = CGFloat(minuteWidth * chartMinutes)
+        if let firstTimestamp = firstTimestamp,
+           let lastTimestamp = lastTimestamp,
+           let zoomLevel = zoomLevel
+        {
+            let minuteWidth = (screenWidth / CGFloat(zoomLevel.visibleHours * 60))
+            let chartMinutes = CGFloat((lastTimestamp.timeIntervalSince1970 - firstTimestamp.timeIntervalSince1970) / 60)
+            let seriesWidth = CGFloat(minuteWidth * chartMinutes)
 
-                if self.seriesWidth != seriesWidth {
-                    DispatchQueue.main.async {
-                        self.seriesWidth = seriesWidth
-                    }
-                }
+            if self.seriesWidth != seriesWidth {
+                self.seriesWidth = seriesWidth
             }
         }
     }
@@ -569,8 +548,6 @@ private struct ZoomLevel {
     let name: String
     let visibleHours: Int
     let labelEvery: Int
-    let labelEveryUnit: Calendar.Component
-    let format: TimeFormat
 }
 
 // MARK: Equatable
@@ -645,5 +622,3 @@ private extension SensorGlucose {
         )
     }
 }
-
-// TODO:

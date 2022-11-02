@@ -11,18 +11,7 @@ struct GlucoseView: View {
     // MARK: Internal
 
     @EnvironmentObject var store: DirectStore
-
-    var warning: String? {
-        if let sensor = store.state.sensor, sensor.state != .ready {
-            return sensor.state.localizedDescription
-        }
-
-        if store.state.connectionState != .connected {
-            return store.state.connectionState.localizedDescription
-        }
-
-        return nil
-    }
+    @State var relativeTimestamp: String?
 
     var body: some View {
         VStack(spacing: 20) {
@@ -48,7 +37,9 @@ struct GlucoseView: View {
 
                 HStack(spacing: 20) {
                     Spacer()
-                    Text(verbatim: latestGlucose.timestamp.toLocalTime()).opacity(0.5)
+                    Text(verbatim: relativeTimestamp ?? latestGlucose.timestamp.toRelativeTime())
+                        .monospacedDigit()
+                        .opacity(0.5)
 
                     if let warning = warning {
                         Group {
@@ -64,6 +55,10 @@ struct GlucoseView: View {
 
                     Text(verbatim: store.state.glucoseUnit.localizedDescription).opacity(0.5)
                     Spacer()
+                }.onReceive(timer) { _ in
+                    if store.state.appState == .active {
+                        relativeTimestamp = latestGlucose.timestamp.toRelativeTime()
+                    }
                 }
 
             } else {
@@ -124,6 +119,24 @@ struct GlucoseView: View {
 
     // MARK: Private
 
+    private let timer = Timer.publish(
+        every: 1,
+        on: .main,
+        in: .common
+    ).autoconnect()
+
+    private var warning: String? {
+        if let sensor = store.state.sensor, sensor.state != .ready {
+            return sensor.state.localizedDescription
+        }
+
+        if store.state.connectionState != .connected {
+            return store.state.connectionState.localizedDescription
+        }
+
+        return nil
+    }
+
     private func isAlarm(glucose: any Glucose) -> Bool {
         if glucose.glucoseValue < store.state.alarmLow || glucose.glucoseValue > store.state.alarmHigh {
             return true
@@ -140,5 +153,3 @@ struct GlucoseView: View {
         return Color.primary
     }
 }
-
-// TODO:

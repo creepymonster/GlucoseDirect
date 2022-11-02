@@ -45,7 +45,7 @@ struct GlucoseActivityWidget: Widget {
                         Text(latestGlucose.trend.description)
                             .font(.body)
                             .fontWeight(.bold)
-                        
+
                         if let minuteChange = latestGlucose.minuteChange?.asShortMinuteChange(glucoseUnit: glucoseUnit), latestGlucose.trend != .unknown {
                             Text(minuteChange)
                                 .font(.system(size: 12))
@@ -164,7 +164,8 @@ struct DynamicIslandBottomView: View, GlucoseStatusContext {
            let glucoseUnit = context.glucoseUnit
         {
             HStack(spacing: 20) {
-                Text(latestGlucose.timestamp.toLocalTime())
+                Text(verbatim: latestGlucose.timestamp.toRelativeTime())
+                    .monospacedDigit()
                 Text(glucoseUnit.localizedDescription)
             }
             .opacity(0.5)
@@ -206,7 +207,9 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
 
                     HStack(spacing: 20) {
                         Spacer()
-                        Text(latestGlucose.timestamp.toLocalTime()).opacity(0.5)
+                        Text(verbatim: latestGlucose.timestamp.toRelativeTime())
+                            .monospacedDigit()
+                            .opacity(0.5)
 
                         if let warning = warning {
                             Group {

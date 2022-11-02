@@ -15,11 +15,8 @@ struct NightscoutSettingsView: View {
     var body: some View {
         Section(
             content: {
-                ToggleView(key: LocalizedString("Nightscout upload enabled"), value: store.state.nightscoutUpload) { value in
-                    withAnimation {
-                        store.dispatch(.setNightscoutUpload(enabled: value))
-                    }
-                }
+                Toggle("Nightscout upload enabled", isOn: nightscoutUpload)
+                    .toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
 
                 if store.state.nightscoutUpload {
                     VStack(alignment: .leading) {
@@ -44,6 +41,13 @@ struct NightscoutSettingsView: View {
     }
 
     // MARK: Private
+
+    private var nightscoutUpload: Binding<Bool> {
+        Binding(
+            get: { store.state.nightscoutUpload },
+            set: { store.dispatch(.setNightscoutUpload(enabled: $0)) }
+        )
+    }
 
     private var nightscoutURL: Binding<String> {
         Binding(
