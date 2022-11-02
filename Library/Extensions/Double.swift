@@ -15,7 +15,7 @@ extension Double {
     }
 
     func asPercent(_ increment: Double = 1) -> String {
-        return self.formatted(.percent.scale(1.0).rounded(rule: .toNearestOrAwayFromZero, increment: increment))
+        return self.formatted(.percent.scale(1.0).rounded(increment: increment))
     }
 
     func asInteger() -> String {
