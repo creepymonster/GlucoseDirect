@@ -29,9 +29,6 @@
 "Add glucose for calibration" = "添加血糖以进行校准";
 
 /* (No Comment) */
-"After disconnections" = "- 断开连接后";
-
-/* (No Comment) */
 "Alarm glucose notification" = "报警葡萄糖通知";
 
 /* (No Comment) */
@@ -168,9 +165,6 @@
 
 /* (No Comment) */
 "Disconnected" = "已断开连接";
-
-/* (No Comment) */
-"Every 10 minutes" = "每 10 分钟";
 
 /* (No Comment) */
 "Export to Apple Calendar" = "同步到苹果日历";
@@ -495,12 +489,6 @@
 
 /* (No Comment) */
 "Wearing time alarm" = "佩戴时间报警";
-
-/* (No Comment) */
-"When a new alarm is triggered" = "- 当一个新的警报被触发时";
-
-/* (No Comment) */
-"When the glucose trend changes" = "- 当葡萄糖的趋势发生变化时";
 
 /* (No Comment) */
 "Without transmitter" = "无发射器";
