@@ -10,15 +10,6 @@ import SwiftUI
 // MARK: - GlucoseFormatters
 
 struct GlucoseFormatters {
-    static var percentFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.minimumFractionDigits = 0
-        formatter.maximumFractionDigits = 2
-
-        return formatter
-    }()
-
     static var integerFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
@@ -119,7 +110,7 @@ extension Int {
     }
 
     func asPercent() -> String {
-        return "\(GlucoseFormatters.percentFormatter.string(from: self as NSNumber)!)%"
+        return self.formatted(.percent.scale(1.0))
     }
 
     func toPercent(of: Int) -> Double {

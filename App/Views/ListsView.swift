@@ -84,7 +84,7 @@ struct ListsView: View {
                                 HStack {
                                     Text(verbatim: "CV")
                                     Spacer()
-                                    Text(Int(glucoseStatistics.cv).asPercent())
+                                    Text(glucoseStatistics.cv.asPercent())
                                 }
 
                                 if store.state.showAnnotations {
@@ -98,7 +98,7 @@ struct ListsView: View {
                                 HStack {
                                     Text(verbatim: "GMI")
                                     Spacer()
-                                    Text(Int(glucoseStatistics.gmi).asPercent())
+                                    Text(glucoseStatistics.gmi.asPercent(0.1))
                                 }
 
                                 if store.state.showAnnotations {
@@ -112,7 +112,7 @@ struct ListsView: View {
                                 HStack {
                                     Text(verbatim: "TIR")
                                     Spacer()
-                                    Text(Int(glucoseStatistics.tir).asPercent())
+                                    Text(glucoseStatistics.tir.asPercent())
                                 }
 
                                 if store.state.showAnnotations {
@@ -126,7 +126,7 @@ struct ListsView: View {
                                 HStack {
                                     Text(verbatim: "TBR")
                                     Spacer()
-                                    Text(Int(glucoseStatistics.tbr).asPercent())
+                                    Text(glucoseStatistics.tbr.asPercent())
                                 }
 
                                 if store.state.showAnnotations {
@@ -140,7 +140,7 @@ struct ListsView: View {
                                 HStack {
                                     Text(verbatim: "TAR")
                                     Spacer()
-                                    Text(Int(glucoseStatistics.tar).asPercent())
+                                    Text(glucoseStatistics.tar.asPercent())
                                 }
 
                                 if store.state.showAnnotations {

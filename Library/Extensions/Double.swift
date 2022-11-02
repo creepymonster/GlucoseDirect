@@ -14,8 +14,8 @@ extension Double {
         return Decimal(self)
     }
 
-    func asPercent() -> String {
-        return "\(GlucoseFormatters.percentFormatter.string(from: self as NSNumber)!)%"
+    func asPercent(_ increment: Double = 1) -> String {
+        return self.formatted(.percent.scale(1.0).rounded(rule: .toNearestOrAwayFromZero, increment: increment))
     }
 
     func asInteger() -> String {
