@@ -216,10 +216,10 @@ private extension DataStore {
                                 SensorGlucose sg, (
                                     SELECT AVG(ssg.intGlucoseValue) AS avg
                                     FROM SensorGlucose ssg
-                                    WHERE ssg.timestamp > date('now', :days) AND ssg.timestamp < date('now')
+                                    WHERE ssg.timestamp >= DATETIME('now', :days) AND ssg.timestamp < DATETIME('now')
                                 ) AS sub
                             WHERE
-                                sg.timestamp > date('now', :days) and sg.timestamp < date('now')
+                                sg.timestamp >= DATETIME('now', :days) and sg.timestamp < DATETIME('now')
                         """, arguments: ["days": "-\(days) days", "low": lowerLimit, "high": upperLimit]) {
                             let statistics = GlucoseStatistics(
                                 readings: row["readings"],
