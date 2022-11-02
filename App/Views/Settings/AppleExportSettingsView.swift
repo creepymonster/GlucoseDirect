@@ -16,15 +16,11 @@ struct AppleExportSettingsView: View {
     var body: some View {
         Section(
             content: {
-                ToggleView(key: LocalizedString("Export to Apple Health"), value: store.state.appleHealthExport) { value in
-                    store.dispatch(.requestAppleHealthAccess(enabled: value))
-                }
+                Toggle("Export to Apple Health", isOn: appleHealthExport)
+                    .toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
 
-                ToggleView(key: LocalizedString("Export to Apple Calendar"), value: store.state.appleCalendarExport) { value in
-                    withAnimation {
-                        store.dispatch(.requestAppleCalendarAccess(enabled: value))
-                    }
-                }
+                Toggle("Export to Apple Calendar", isOn: appleCalendarExport)
+                    .toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
 
                 if store.state.appleCalendarExport {
                     HStack {
@@ -54,6 +50,20 @@ struct AppleExportSettingsView: View {
 
     private var calendars: [String] {
         EKEventStore().calendars(for: .event).map { $0.title }
+    }
+
+    private var appleHealthExport: Binding<Bool> {
+        Binding(
+            get: { store.state.appleHealthExport },
+            set: { store.dispatch(.requestAppleHealthAccess(enabled: $0)) }
+        )
+    }
+
+    private var appleCalendarExport: Binding<Bool> {
+        Binding(
+            get: { store.state.appleCalendarExport },
+            set: { store.dispatch(.requestAppleCalendarAccess(enabled: $0)) }
+        )
     }
 
     private var selectedCalendar: Binding<String> {

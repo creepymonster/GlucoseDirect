@@ -29,9 +29,6 @@
 "Add glucose for calibration" = "Aggiungi glucosio per calibrare";
 
 /* (No Comment) */
-"After disconnections" = "- Dopo le disconnessioni";
-
-/* (No Comment) */
 "Alarm glucose notification" = "Notifica di allarme per il glucosio";
 
 /* (No Comment) */
@@ -168,9 +165,6 @@
 
 /* (No Comment) */
 "Disconnected" = "Disconnesso";
-
-/* (No Comment) */
-"Every 10 minutes" = "- Ogni 10 minuti";
 
 /* (No Comment) */
 "Export to Apple Calendar" = "Esportare nel calendario Apple";
@@ -495,12 +489,6 @@
 
 /* (No Comment) */
 "Wearing time alarm" = "Allarme orario d'uso";
-
-/* (No Comment) */
-"When a new alarm is triggered" = "- Quando un nuovo allarme è attivato";
-
-/* (No Comment) */
-"When the glucose trend changes" = "- Quando l'andamento di glucosio cambia";
 
 /* (No Comment) */
 "Without transmitter" = "Senza Transmettitore";

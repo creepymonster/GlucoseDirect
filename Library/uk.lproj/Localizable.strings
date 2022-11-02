@@ -29,9 +29,6 @@
 "Add glucose for calibration" = "Додати глюкозу для калібрування";
 
 /* (No Comment) */
-"After disconnections" = "- Після від’єднання";
-
-/* (No Comment) */
 "Alarm glucose notification" = "Сповіщення про рівень глюкози";
 
 /* (No Comment) */
@@ -168,9 +165,6 @@
 
 /* (No Comment) */
 "Disconnected" = "Від'єднано";
-
-/* (No Comment) */
-"Every 10 minutes" = "- Кожні 10 хвилин";
 
 /* (No Comment) */
 "Export to Apple Calendar" = "Експортувати до Apple Calendar";
@@ -495,12 +489,6 @@
 
 /* (No Comment) */
 "Wearing time alarm" = "Сигналізація часу носіння";
-
-/* (No Comment) */
-"When a new alarm is triggered" = "- Якщо спрацьовує новий сигнал тривоги";
-
-/* (No Comment) */
-"When the glucose trend changes" = "- Якщо тенденція із вмісту глюкози змінюється";
 
 /* (No Comment) */
 "Without transmitter" = "Без передавача";

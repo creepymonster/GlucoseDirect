@@ -8,14 +8,15 @@ import SwiftUI
 // MARK: - BellmanSettingsView
 
 struct BellmanSettingsView: View {
+    // MARK: Internal
+
     @EnvironmentObject var store: DirectStore
 
     var body: some View {
         Section(
             content: {
-                ToggleView(key: LocalizedString("Bellman alarm"), value: store.state.bellmanAlarm) { value in
-                    store.dispatch(.setBellmanNotification(enabled: value))
-                }
+                Toggle("Bellman alarm", isOn: bellmanAlarm)
+                    .toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
 
                 if store.state.bellmanAlarm {
                     HStack {
@@ -39,6 +40,15 @@ struct BellmanSettingsView: View {
             header: {
                 Label("Bellman Transceiver BT", systemImage: "hearingdevice.ear")
             }
+        )
+    }
+
+    // MARK: Private
+
+    private var bellmanAlarm: Binding<Bool> {
+        Binding(
+            get: { store.state.bellmanAlarm },
+            set: { store.dispatch(.setBellmanNotification(enabled: $0)) }
         )
     }
 }

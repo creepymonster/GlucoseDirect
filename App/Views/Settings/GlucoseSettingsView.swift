@@ -35,36 +35,19 @@ struct GlucoseSettingsView: View {
                     store.dispatch(.setAlarmHigh(upperLimit: value))
                 }
 
-                ToggleView(key: LocalizedString("Normal glucose notification"), value: store.state.normalGlucoseNotification) { value in
-                    store.dispatch(.setNormalGlucoseNotification(enabled: value))
-                }
+                Toggle("Normal glucose notification", isOn: normalGlucoseNotification)
+                    .toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
 
-                ToggleView(key: LocalizedString("Alarm glucose notification"), value: store.state.alarmGlucoseNotification) { value in
-                    store.dispatch(.setAlarmGlucoseNotification(enabled: value))
-                }
+                Toggle("Alarm glucose notification", isOn: alarmGlucoseNotification)
+                    .toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
 
                 if #available(iOS 16.1, *) {
-                    ToggleView(key: LocalizedString("Glucose Live Activity"), value: store.state.glucoseLiveActivity) { value in
-                        store.dispatch(.setGlucoseLiveActivity(enabled: value))
-                    }
+                    Toggle("Glucose Live Activity", isOn: glucoseLiveActivity)
+                        .toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
                 }
 
-                VStack(alignment: .leading, spacing: 10) {
-                    ToggleView(key: LocalizedString("Glucose read aloud"), value: store.state.readGlucose) { value in
-                        store.dispatch(.setReadGlucose(enabled: value))
-                    }
-
-                    if store.state.readGlucose {
-                        Group {
-                            Text("Every 10 minutes")
-                            Text("After disconnections")
-                            Text("When the glucose trend changes")
-                            Text("When a new alarm is triggered")
-                        }
-                        .font(.footnote)
-                        .foregroundColor(.gray)
-                    }
-                }
+                Toggle("Glucose read aloud", isOn: readGlucose)
+                    .toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
             },
             header: {
                 Label("Glucose settings", systemImage: "cross.case")
@@ -73,6 +56,34 @@ struct GlucoseSettingsView: View {
     }
 
     // MARK: Private
+
+    private var normalGlucoseNotification: Binding<Bool> {
+        Binding(
+            get: { store.state.normalGlucoseNotification },
+            set: { store.dispatch(.setNormalGlucoseNotification(enabled: $0)) }
+        )
+    }
+
+    private var alarmGlucoseNotification: Binding<Bool> {
+        Binding(
+            get: { store.state.alarmGlucoseNotification },
+            set: { store.dispatch(.setAlarmGlucoseNotification(enabled: $0)) }
+        )
+    }
+
+    private var glucoseLiveActivity: Binding<Bool> {
+        Binding(
+            get: { store.state.glucoseLiveActivity },
+            set: { store.dispatch(.setGlucoseLiveActivity(enabled: $0)) }
+        )
+    }
+
+    private var readGlucose: Binding<Bool> {
+        Binding(
+            get: { store.state.readGlucose },
+            set: { store.dispatch(.setReadGlucose(enabled: $0)) }
+        )
+    }
 
     private var selectedGlucoseUnit: Binding<String> {
         Binding(
