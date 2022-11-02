@@ -33,6 +33,10 @@ struct GlucoseStatistics: Codable {
     var stdev: Double {
         sqrt(variance)
     }
+
+    var cv: Double {
+        100 * stdev / avg
+    }
 }
 
 // MARK: - SensorGlucose
