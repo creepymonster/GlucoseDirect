@@ -79,12 +79,26 @@ struct ListsView: View {
                                         .foregroundColor(.gray)
                                 }
                             }
+                            
+                            VStack(alignment: .leading, spacing: 10) {
+                                HStack {
+                                    Text(verbatim: "CV")
+                                    Spacer()
+                                    Text(Int(glucoseStatistics.cv).asPercent())
+                                }
+
+                                if store.state.showAnnotations {
+                                    Text("..")
+                                        .font(.footnote)
+                                        .foregroundColor(.gray)
+                                }
+                            }
 
                             VStack(alignment: .leading, spacing: 10) {
                                 HStack {
                                     Text(verbatim: "GMI")
                                     Spacer()
-                                    Text(glucoseStatistics.gmi.asPercent())
+                                    Text(Int(glucoseStatistics.gmi).asPercent())
                                 }
 
                                 if store.state.showAnnotations {
@@ -98,7 +112,7 @@ struct ListsView: View {
                                 HStack {
                                     Text(verbatim: "TIR")
                                     Spacer()
-                                    Text(glucoseStatistics.tir.asPercent())
+                                    Text(Int(glucoseStatistics.tir).asPercent())
                                 }
 
                                 if store.state.showAnnotations {
@@ -112,7 +126,7 @@ struct ListsView: View {
                                 HStack {
                                     Text(verbatim: "TBR")
                                     Spacer()
-                                    Text(glucoseStatistics.tbr.asPercent())
+                                    Text(Int(glucoseStatistics.tbr).asPercent())
                                 }
 
                                 if store.state.showAnnotations {
@@ -126,7 +140,7 @@ struct ListsView: View {
                                 HStack {
                                     Text(verbatim: "TAR")
                                     Spacer()
-                                    Text(glucoseStatistics.tar.asPercent())
+                                    Text(Int(glucoseStatistics.tar).asPercent())
                                 }
 
                                 if store.state.showAnnotations {
