@@ -29,9 +29,6 @@
 "Add glucose for calibration" = "Kalibrasyon için glikoz ekleyin";
 
 /* (No Comment) */
-"After disconnections" = "- Bağlantı kesildikten sonra";
-
-/* (No Comment) */
 "Alarm glucose notification" = "Alarm Glikoz Bildirimi";
 
 /* (No Comment) */
@@ -168,9 +165,6 @@
 
 /* (No Comment) */
 "Disconnected" = "Bağlantı kesildi";
-
-/* (No Comment) */
-"Every 10 minutes" = "- Her 10 dakikada bir";
 
 /* (No Comment) */
 "Export to Apple Calendar" = "Apple Takvime Aktar";
@@ -495,12 +489,6 @@
 
 /* (No Comment) */
 "Wearing time alarm" = "Giyme zaman alarmı";
-
-/* (No Comment) */
-"When a new alarm is triggered" = "- Yeni bir alarm tetiklendiğinde";
-
-/* (No Comment) */
-"When the glucose trend changes" = "- Glikoz eğilimi değiştiğinde";
 
 /* (No Comment) */
 "Without transmitter" = "Vericisiz";
