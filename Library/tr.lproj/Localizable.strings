@@ -311,9 +311,6 @@
 "Readable rising" = "yükseliyor";
 
 /* (No Comment) */
-"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Uygulamayı en geç %@ tarafından yeniden açın. Aksi takdirde iOS, widget'ı otomatik olarak devre dışı bırakır :(";
-
-/* (No Comment) */
 "Rescan the sensor" = "Sensörü yeniden tara";
 
 /* (No Comment) */
@@ -551,4 +548,4 @@
 "Export for Tidepool" = "Tidepool için Dışa Aktarma";
 
 /* (No Comment) */
-"Last %@ hours" = "Last %@ hours";
+"Last %@ hours" = "Son %@ saat";

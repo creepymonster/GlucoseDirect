@@ -35,7 +35,7 @@
 "Alarm glucose notification" = "Notification de glycémie d'alarme";
 
 /* (No Comment) */
-"Alarm settings" = "Alarm settings";
+"Alarm settings" = "Paramètres de l'alarme";
 
 /* (No Comment) */
 "Alert, high glucose" = "Alerte, glucose élevé";
@@ -143,7 +143,7 @@
 "Connection error timestamp" = "Temps";
 
 /* (No Comment) */
-"Connection settings" = "Connection settings";
+"Connection settings" = "Paramètres de connexion";
 
 /* (No Comment) */
 "Connection state" = "État";
@@ -227,10 +227,10 @@
 "LibreLink transmitter" = "LibreLink";
 
 /* (No Comment) */
-"LibreLinkUp email" = "LibreLinkUp email";
+"LibreLinkUp email" = "Adresse e-mail LibreLinkUp";
 
 /* (No Comment) */
-"LibreLinkUp password" = "LibreLinkUp password";
+"LibreLinkUp password" = "Mot de passe LibreLinkUp";
 
 /* (No Comment) */
 "Line" = "Ligne";
@@ -254,7 +254,7 @@
 "Nightscout url" = "Url";
 
 /* (No Comment) */
-"No Data" = "No Data";
+"No Data" = "Aucune donnée";
 
 /* (No Comment) */
 "No screen lock" = "Pas de verrouillage d'écran";
@@ -309,9 +309,6 @@
 
 /* (No Comment) */
 "Readable rising" = "hausse";
-
-/* (No Comment) */
-"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
 
 /* (No Comment) */
 "Rescan the sensor" = "Rescanner le capteur";
@@ -437,7 +434,7 @@
 "Statistics (%@ days)" = "Statistiques (%@ jours)";
 
 /* (No Comment) */
-"StatisticsPeriod" = "Period";
+"StatisticsPeriod" = "Période";
 
 /* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "La connexion avec le capteur a été interrompue. Cela se produit normalement lorsque le capteur est hors de portée ou que sa puissance de transmission est affaiblie.";
@@ -452,7 +449,7 @@
 "Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Le temps sous l'intervalle (TSI) ou le pourcentage de temps passé en dessous de la glycémie cible de %@.";
 
 /* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@.";
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Le temps dans l'intervalle (TDI) ou le pourcentage de temps passé dans l'intervalle de glycémie cible entre %@ et %@.";
 
 /* (No Comment) */
 "Transmitter" = "Émetteur : ";
@@ -536,19 +533,19 @@
 "Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Votre capteur est sur le point d'expirer. Remplacez le capteur dans %1$@ minutes.";
 
 /* (No Comment) */
-"Loading..." = "Loading...";
+"Loading..." = "Chargement en cours...";
 
 /* (No Comment) */
-"Export" = "Export";
+"Export" = "Exporter";
 
 /* (No Comment) */
-"Export as CSV" = "Export as CSV";
+"Export as CSV" = "Exporter en format CSV";
 
 /* (No Comment) */
-"Export for Glooko" = "Export for Glooko";
+"Export for Glooko" = "Exporter pour Glooko";
 
 /* (No Comment) */
-"Export for Tidepool" = "Export for Tidepool";
+"Export for Tidepool" = "Exporter pour Tidepool";
 
 /* (No Comment) */
-"Last %@ hours" = "Last %@ hours";
+"Last %@ hours" = "Dernières %@ heures";
