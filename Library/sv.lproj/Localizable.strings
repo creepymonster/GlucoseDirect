@@ -29,9 +29,6 @@
 "Add glucose for calibration" = "Lägg till blodglukos för kalibrering";
 
 /* (No Comment) */
-"After disconnections" = "- Efter frånkopplingar";
-
-/* (No Comment) */
 "Alarm glucose notification" = "Blodsockerlarm";
 
 /* (No Comment) */
@@ -168,9 +165,6 @@
 
 /* (No Comment) */
 "Disconnected" = "Frånkopplad";
-
-/* (No Comment) */
-"Every 10 minutes" = "Var 10: e minut";
 
 /* (No Comment) */
 "Export to Apple Calendar" = "Skapa kalenderhändelser";
@@ -495,12 +489,6 @@
 
 /* (No Comment) */
 "Wearing time alarm" = "Larm för brukstid";
-
-/* (No Comment) */
-"When a new alarm is triggered" = "- När ett nytt larm utlöses";
-
-/* (No Comment) */
-"When the glucose trend changes" = "- När glukostrend förändras";
 
 /* (No Comment) */
 "Without transmitter" = "Utan sändare";
