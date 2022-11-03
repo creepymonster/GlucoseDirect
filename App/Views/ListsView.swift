@@ -52,20 +52,6 @@ struct ListsView: View {
                         }
 
                         Group {
-                            #if DEBUG
-                            HStack {
-                                Text(verbatim: "From")
-                                Spacer()
-                                Text(glucoseStatistics.fromTimestamp.toLocalDateTime())
-                            }
-
-                            HStack {
-                                Text(verbatim: "To")
-                                Spacer()
-                                Text(glucoseStatistics.toTimestamp.toLocalDateTime())
-                            }
-                            #endif
-
                             VStack(alignment: .leading, spacing: 10) {
                                 HStack {
                                     Text(verbatim: "AVG")
@@ -165,6 +151,20 @@ struct ListsView: View {
                                         .foregroundColor(.gray)
                                 }
                             }
+
+                            #if DEBUG
+                            HStack {
+                                Text(verbatim: "From")
+                                Spacer()
+                                Text(glucoseStatistics.fromTimestamp.toLocalDateTime())
+                            }
+
+                            HStack {
+                                Text(verbatim: "To")
+                                Spacer()
+                                Text(glucoseStatistics.toTimestamp.toLocalDateTime())
+                            }
+                            #endif
                         }.onTapGesture(count: 2) {
                             store.dispatch(.setShowAnnotations(showAnnotations: !store.state.showAnnotations))
                         }
