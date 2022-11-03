@@ -18,10 +18,6 @@ extension Double {
         return self.formatted(.percent.scale(1.0).rounded(increment: increment))
     }
 
-    func asInteger() -> String {
-        GlucoseFormatters.integerFormatter.string(from: self as NSNumber)!
-    }
-
     func asGlucose(glucoseUnit: GlucoseUnit, withUnit: Bool = false, precise: Bool = false) -> String {
         var glucose: String
 
@@ -68,7 +64,7 @@ extension Double {
         return String(format: LocalizedString("%1$@/min."), formattedMinuteChange)
     }
 
-    func toInt() -> Int? {
+    func toInteger() -> Int? {
         if self >= Double(Int.min), self < Double(Int.max) {
             return Int(self)
         } else {

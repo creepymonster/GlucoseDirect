@@ -54,7 +54,7 @@ extension SensorReading {
             ? glucoseValue
             : customCalibration.calibrate(sensorGlucose: glucoseValue)
 
-        guard let glucoseValue = glucoseValue.toInt(), let calibratedGlucoseValue = calibratedGlucoseValue.toInt() else {
+        guard let glucoseValue = glucoseValue.toInteger(), let calibratedGlucoseValue = calibratedGlucoseValue.toInteger() else {
             return nil
         }
         
