@@ -23,9 +23,11 @@ struct ListsView: View {
                     content: {
                         HStack {
                             Text("StatisticsPeriod")
-                            Spacer()
+                            
                             HStack {
                                 ForEach(Config.chartLevels, id: \.days) { level in
+                                    Spacer()
+                                    
                                     Button(
                                         action: {
                                             DirectNotifications.shared.hapticFeedback()
@@ -46,7 +48,6 @@ struct ListsView: View {
                                         }
                                     )
                                     .buttonStyle(.plain)
-                                    .padding(.leading)
                                 }
                             }
                         }
@@ -184,7 +185,7 @@ struct ListsView: View {
             ChartLevel(days: 3, name: LocalizedString("3d")),
             ChartLevel(days: 7, name: LocalizedString("7d")),
             ChartLevel(days: 14, name: LocalizedString("14d")),
-            ChartLevel(days: 30, name: LocalizedString("30d")),
+            ChartLevel(days: 30, name: LocalizedString("30d"))
         ]
     }
 
