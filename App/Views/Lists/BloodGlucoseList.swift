@@ -65,10 +65,10 @@ struct BloodGlucoseList: View {
                 } else {
                     ForEach(bloodGlucoseValues) { glucoseValue in
                         HStack {
-                            Text(glucoseValue.timestamp.toLocalDateTime())
+                            Text(verbatim: glucoseValue.timestamp.toLocalDateTime())
                             Spacer()
 
-                            Text(glucoseValue.glucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true))
+                            Text(verbatim: glucoseValue.glucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true))
                                 .if(glucoseValue.glucoseValue < store.state.alarmLow || glucoseValue.glucoseValue > store.state.alarmHigh) { text in
                                     text.foregroundColor(Color.ui.red)
                                 }

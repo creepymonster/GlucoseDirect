@@ -77,7 +77,7 @@ struct CustomCalibrationView: View {
 
                 ForEach(customCalibration) { calibration in
                     HStack {
-                        Text(calibration.timestamp.toLocalDateTime())
+                        Text(verbatim: calibration.timestamp.toLocalDateTime())
                         Spacer()
                         Text(verbatim: "\(calibration.x.asGlucose(glucoseUnit: store.state.glucoseUnit)) = \(calibration.y.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))")
                     }

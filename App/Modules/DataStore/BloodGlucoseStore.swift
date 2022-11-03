@@ -14,7 +14,7 @@ func bloodGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
         switch action {
         case .startup:
             DataStore.shared.createBloodGlucoseTable()
-            
+
             return DataStore.shared.getFirstBloodGlucoseDate().map { minSelectedDate in
                 DirectAction.setMinSelectedDate(minSelectedDate: minSelectedDate)
             }.eraseToAnyPublisher()
@@ -43,7 +43,7 @@ func bloodGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
             return Just(DirectAction.loadBloodGlucoseValues)
                 .setFailureType(to: DirectError.self)
                 .eraseToAnyPublisher()
-            
+
         case .setSelectedDate(selectedDate: _):
             return Just(DirectAction.loadBloodGlucoseValues)
                 .setFailureType(to: DirectError.self)
@@ -148,15 +148,15 @@ private extension DataStore {
             }
         }
     }
-    
+
     func getFirstBloodGlucoseDate() -> Future<Date, DirectError> {
         return Future { promise in
             if let dbQueue = self.dbQueue {
                 dbQueue.asyncRead { asyncDB in
                     do {
                         let db = try asyncDB.get()
-                        
-                        if let date = try Date.fetchOne(db, sql: "SELECT MIN(timestamp) FROM BloodGlucose") {
+
+                        if let date = try Date.fetchOne(db, sql: "SELECT MIN(timestamp) FROM \(BloodGlucose.Table)") {
                             promise(.success(date))
                         } else {
                             promise(.success(Date()))
@@ -175,7 +175,7 @@ private extension DataStore {
                 dbQueue.asyncRead { asyncDB in
                     do {
                         let db = try asyncDB.get()
-                        
+
                         if let selectedDate = selectedDate, let nextDate = Calendar.current.date(byAdding: .day, value: +1, to: selectedDate) {
                             let result = try BloodGlucose
                                 .filter(Column(SensorGlucose.Columns.timestamp.name) >= selectedDate.startOfDay)

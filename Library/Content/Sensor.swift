@@ -168,15 +168,15 @@ extension Sensor {
     }
 
     static func libre3Sensor(uuid: Data, patchInfo: Data) -> Sensor {
-        //let securityVersion = UInt16(patchInfo[2...3])
-        let localization = UInt16(patchInfo[4...5])
-        //let generation = UInt16(patchInfo[6...7])
-        let lifetime = UInt16(patchInfo[8...9])
-        let warmupTime = patchInfo[15]
+        let shiftedIndex = max(0, patchInfo.count - 28)
+
+        let localization = UInt16(patchInfo[(4 + shiftedIndex)...(5 + shiftedIndex)])
+        let lifetime = UInt16(patchInfo[(8 + shiftedIndex)...(9 + shiftedIndex)])
+        let warmupTime = patchInfo[15 + shiftedIndex]
 
         let region = UInt8(localization)
-        let serial = Data(patchInfo[17...25])
-        let sensorState = UInt8(patchInfo[16])
+        let serial = Data(patchInfo[(17 + shiftedIndex)...(25 + shiftedIndex)])
+        let sensorState = UInt8(patchInfo[16 + shiftedIndex])
 
         return Sensor(
             uuid: uuid,

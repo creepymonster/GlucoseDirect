@@ -18,36 +18,37 @@ struct ListsView: View {
             SensorGlucoseList()
             SensorErrorList()
 
-            if let glucoseStatistics = store.state.glucoseStatistics, glucoseStatistics.days >= 3 {
+            if let glucoseStatistics = store.state.glucoseStatistics, glucoseStatistics.maxDays >= 3 {
                 Section(
                     content: {
                         HStack {
                             Text("StatisticsPeriod")
                             Spacer()
-                            HStack {
-                                ForEach(Config.chartLevels, id: \.days) { level in
-                                    Button(
-                                        action: {
-                                            DirectNotifications.shared.hapticFeedback()
-                                            store.dispatch(.setStatisticsDays(days: level.days))
-                                        },
-                                        label: {
-                                            Circle()
-                                                .if(isSelectedChartLevel(days: level.days)) {
-                                                    $0.fill(Color.ui.label)
-                                                } else: {
-                                                    $0.stroke(Color.ui.label)
-                                                }
-                                                .frame(width: 12, height: 12)
 
-                                            Text(level.name)
-                                                .font(.subheadline)
-                                                .foregroundColor(Color.ui.label)
-                                        }
-                                    )
-                                    .buttonStyle(.plain)
-                                    .padding(.leading)
-                                }
+                            ForEach(Config.chartLevels, id: \.days) { level in
+                                Spacer()
+                                Button(
+                                    action: {
+                                        DirectNotifications.shared.hapticFeedback()
+                                        store.dispatch(.setStatisticsDays(days: level.days))
+                                    },
+                                    label: {
+                                        Circle()
+                                            .if(isSelectedChartLevel(days: level.days)) {
+                                                $0.fill(Color.ui.label)
+                                            } else: {
+                                                $0.stroke(Color.ui.label)
+                                            }
+                                            .frame(width: 12, height: 12)
+
+                                        Text(verbatim: level.name)
+                                            .font(.subheadline)
+                                            .foregroundColor(Color.ui.label)
+                                    }
+                                )
+                                .disabled(level.days > glucoseStatistics.maxDays)
+                                .lineLimit(1)
+                                .buttonStyle(.plain)
                             }
                         }
 
@@ -80,11 +81,27 @@ struct ListsView: View {
                                 }
                             }
 
+                            #if DEBUG
+                            VStack(alignment: .leading, spacing: 10) {
+                                HStack {
+                                    Text(verbatim: "CV")
+                                    Spacer()
+                                    Text(glucoseStatistics.cv.asPercent())
+                                }
+
+                                if store.state.showAnnotations {
+                                    Text("Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults.")
+                                        .font(.footnote)
+                                        .foregroundColor(.gray)
+                                }
+                            }
+                            #endif
+
                             VStack(alignment: .leading, spacing: 10) {
                                 HStack {
                                     Text(verbatim: "GMI")
                                     Spacer()
-                                    Text(glucoseStatistics.gmi.asPercent())
+                                    Text(glucoseStatistics.gmi.asPercent(0.1))
                                 }
 
                                 if store.state.showAnnotations {
@@ -135,6 +152,20 @@ struct ListsView: View {
                                         .foregroundColor(.gray)
                                 }
                             }
+
+                            #if DEBUG
+                            HStack {
+                                Text(verbatim: "From")
+                                Spacer()
+                                Text(glucoseStatistics.fromTimestamp.toLocalDate())
+                            }
+
+                            HStack {
+                                Text(verbatim: "To")
+                                Spacer()
+                                Text(glucoseStatistics.toTimestamp.toLocalDate())
+                            }
+                            #endif
                         }.onTapGesture(count: 2) {
                             store.dispatch(.setShowAnnotations(showAnnotations: !store.state.showAnnotations))
                         }
@@ -151,15 +182,15 @@ struct ListsView: View {
 
     private enum Config {
         static let chartLevels: [ChartLevel] = [
-            ChartLevel(days: 3, name: LocalizedString("3d")),
-            ChartLevel(days: 7, name: LocalizedString("7d")),
-            ChartLevel(days: 14, name: LocalizedString("14d")),
-            ChartLevel(days: 30, name: LocalizedString("30d")),
+            ChartLevel(days: 3, name: "3d"),
+            ChartLevel(days: 7, name: "7d"),
+            ChartLevel(days: 30, name: "30d"),
+            ChartLevel(days: 90, name: "90d")
         ]
     }
 
     private var chartLevel: ChartLevel? {
-        return Config.chartLevels.first(where: { $0.days == store.state.statisticsDays })
+        return Config.chartLevels.first(where: { $0.days == store.state.statisticsDays }) ?? Config.chartLevels.first
     }
 
     private func isSelectedChartLevel(days: Int) -> Bool {

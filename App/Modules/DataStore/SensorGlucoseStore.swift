@@ -54,7 +54,7 @@ func sensorGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
         switch action {
         case .startup:
             DataStore.shared.createSensorGlucoseTable()
-            
+
             return DataStore.shared.getFirstSensorGlucoseDate().map { minSelectedDate in
                 DirectAction.setMinSelectedDate(minSelectedDate: minSelectedDate)
             }.eraseToAnyPublisher()
@@ -125,6 +125,7 @@ private extension DataStore {
                             .primaryKey()
                         t.column(SensorGlucose.Columns.timestamp.name, .date)
                             .notNull()
+                            .unique()
                             .indexed()
                         t.column(SensorGlucose.Columns.minuteChange.name, .double)
                         t.column(SensorGlucose.Columns.rawGlucoseValue.name, .integer)
@@ -204,23 +205,22 @@ private extension DataStore {
                         if let row = try Row.fetchOne(db, sql: """
                             SELECT
                                 COUNT(sg.intGlucoseValue) AS readings,
-                                IFNULL(MIN(sg.timestamp), DATETIME('now')) AS fromTimestamp,
-                                IFNULL(MAX(sg.timestamp), DATETIME('now')) AS toTimestamp,
+                                IFNULL(MIN(sg.timestamp), DATETIME('now', 'utc')) AS fromTimestamp,
+                                IFNULL(MAX(sg.timestamp), DATETIME('now', 'utc')) AS toTimestamp,
                                 IFNULL(3.31 + (0.02392 * sub.avg), 0) AS gmi,
                                 IFNULL(sub.avg, 0) AS avg,
-                                IFNULL(100.0 / COUNT(sg.intGlucoseValue) * COUNT(CASE WHEN sg.intGlucoseValue < 80 THEN 1 END), 0) AS tbr,
-                                IFNULL(100.0 / COUNT(sg.intGlucoseValue) * COUNT(CASE WHEN sg.intGlucoseValue > 160 THEN 1 END), 0) AS tar,
-                                IFNULL(JULIANDAY(MAX(sg.timestamp)) - JULIANDAY(MIN(sg.timestamp)) + 1, 0) AS days,
-                                IFNULL(AVG((sg.intGlucoseValue - sub.avg) * (sg.intGlucoseValue - sub.avg)), 0) as variance
-                            FROM
-                                SensorGlucose sg, (
+                                IFNULL(100.0 / COUNT(sg.intGlucoseValue) * COUNT(CASE WHEN sg.intGlucoseValue < :low THEN 1 END), 0) AS tbr,
+                                IFNULL(100.0 / COUNT(sg.intGlucoseValue) * COUNT(CASE WHEN sg.intGlucoseValue > :high THEN 1 END), 0) AS tar,
+                                ROUND(IFNULL(JULIANDAY(MAX(sg.timestamp)) - JULIANDAY(MIN(sg.timestamp)), 0)) AS days,
+                                IFNULL(AVG((sg.intGlucoseValue - sub.avg) * (sg.intGlucoseValue - sub.avg)), 0) as variance,
+                                ROUND((SELECT IFNULL(JULIANDAY(MAX(timestamp)) - JULIANDAY(MIN(timestamp)), 0) FROM \(SensorGlucose.Table))) as maxDays
+                            FROM \(SensorGlucose.Table) sg, (
                                     SELECT AVG(ssg.intGlucoseValue) AS avg
-                                    FROM SensorGlucose ssg
-                                    WHERE ssg.timestamp > date('now', '-\(days) days') AND ssg.timestamp < date('now')
+                                    FROM \(SensorGlucose.Table) ssg
+                                    WHERE ssg.timestamp >= DATETIME('now', 'start of day', :days, 'utc') AND ssg.timestamp <= DATETIME('now', 'start of day', 'utc')
                                 ) AS sub
-                            WHERE
-                                sg.timestamp > date('now', '-\(days) days') and sg.timestamp < date('now')
-                        """, arguments: ["low": lowerLimit, "high": upperLimit]) {
+                            WHERE sg.timestamp >= DATETIME('now', 'start of day', :days, 'utc') and sg.timestamp < DATETIME('now', 'start of day', 'utc')
+                        """, arguments: ["days": "-\(days) days", "low": lowerLimit, "high": upperLimit]) {
                             let statistics = GlucoseStatistics(
                                 readings: row["readings"],
                                 fromTimestamp: row["fromTimestamp"],
@@ -230,7 +230,8 @@ private extension DataStore {
                                 tbr: row["tbr"],
                                 tar: row["tar"],
                                 variance: row["variance"],
-                                days: row["days"]
+                                days: row["days"],
+                                maxDays: row["maxDays"]
                             )
 
                             promise(.success(statistics))
@@ -244,15 +245,15 @@ private extension DataStore {
             }
         }
     }
-    
+
     func getFirstSensorGlucoseDate() -> Future<Date, DirectError> {
         return Future { promise in
             if let dbQueue = self.dbQueue {
                 dbQueue.asyncRead { asyncDB in
                     do {
                         let db = try asyncDB.get()
-                        
-                        if let date = try Date.fetchOne(db, sql: "SELECT MIN(timestamp) FROM SensorGlucose") {
+
+                        if let date = try Date.fetchOne(db, sql: "SELECT MIN(timestamp) FROM \(SensorGlucose.Table)") {
                             promise(.success(date))
                         } else {
                             promise(.success(Date()))
@@ -271,7 +272,7 @@ private extension DataStore {
                 dbQueue.asyncRead { asyncDB in
                     do {
                         let db = try asyncDB.get()
-                        
+
                         if let selectedDate = selectedDate, let nextDate = Calendar.current.date(byAdding: .day, value: +1, to: selectedDate) {
                             let result = try SensorGlucose
                                 .filter(Column(SensorGlucose.Columns.timestamp.name) >= selectedDate.startOfDay)

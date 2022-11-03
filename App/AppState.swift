@@ -91,15 +91,15 @@ struct AppState: DirectState {
     var preventScreenLock = false
     var selectedConnection: SensorConnectionProtocol?
     var selectedConfiguration: [SensorConnectionConfigurationOption] = []
-    var minSelectedDate: Date = Date()
-    var selectedDate: Date? = nil
+    var minSelectedDate: Date = .init()
+    var selectedDate: Date?
     var sensorErrorValues: [SensorError] = []
     var sensorGlucoseHistory: [SensorGlucose] = []
     var sensorGlucoseValues: [SensorGlucose] = []
     var glucoseStatistics: GlucoseStatistics?
     var targetValue = 100
     var selectedView = DirectConfig.overviewViewTag
-    var statisticsDays = 14
+    var statisticsDays = 3
 
     var appSerial: String {
         UserDefaults.shared.appSerial
