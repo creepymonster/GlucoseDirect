@@ -125,15 +125,18 @@ class LibreNFC: NSObject, NFCTagReaderSessionDelegate {
 
                 if i == requests - 1 {
                     var rxBuffer = Data()
-                    for (_, data) in dataArray.enumerated() {
-                        if !data.isEmpty {
-                            rxBuffer.append(data)
+                    
+                    if type != .libre3 {
+                        for (_, data) in dataArray.enumerated() {
+                            if !data.isEmpty {
+                                rxBuffer.append(data)
+                            }
                         }
-                    }
-
-                    guard rxBuffer.count >= 344 else {
-                        returnWithError(LibrePairingError.invalidBuffer)
-                        return
+                        
+                        guard rxBuffer.count >= 344 else {
+                            returnWithError(LibrePairingError.invalidBuffer)
+                            return
+                        }
                     }
 
                     switch type {
