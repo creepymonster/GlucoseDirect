@@ -204,8 +204,8 @@ private extension DataStore {
                         if let row = try Row.fetchOne(db, sql: """
                             SELECT
                                 COUNT(sg.intGlucoseValue) AS readings,
-                                IFNULL(MIN(sg.timestamp), DATETIME('now')) AS fromTimestamp,
-                                IFNULL(MAX(sg.timestamp), DATETIME('now')) AS toTimestamp,
+                                IFNULL(MIN(sg.timestamp), DATETIME('now', 'utc')) AS fromTimestamp,
+                                IFNULL(MAX(sg.timestamp), DATETIME('now', 'utc')) AS toTimestamp,
                                 IFNULL(3.31 + (0.02392 * sub.avg), 0) AS gmi,
                                 IFNULL(sub.avg, 0) AS avg,
                                 IFNULL(100.0 / COUNT(sg.intGlucoseValue) * COUNT(CASE WHEN sg.intGlucoseValue < :low THEN 1 END), 0) AS tbr,
@@ -216,10 +216,10 @@ private extension DataStore {
                                 SensorGlucose sg, (
                                     SELECT AVG(ssg.intGlucoseValue) AS avg
                                     FROM SensorGlucose ssg
-                                    WHERE ssg.timestamp >= DATETIME('now', 'start of day', :days) AND ssg.timestamp <= DATETIME('now', 'start of day')
+                                    WHERE ssg.timestamp >= DATETIME('now', 'start of day', :days, 'utc') AND ssg.timestamp <= DATETIME('now', 'start of day', 'utc')
                                 ) AS sub
                             WHERE
-                                sg.timestamp >= DATETIME('now', 'start of day', :days) and sg.timestamp < DATETIME('now', 'start of day')
+                                sg.timestamp >= DATETIME('now', 'start of day', :days, 'utc') and sg.timestamp < DATETIME('now', 'start of day', 'utc')
                         """, arguments: ["days": "-\(days) days", "low": lowerLimit, "high": upperLimit]) {
                             let statistics = GlucoseStatistics(
                                 readings: row["readings"],
