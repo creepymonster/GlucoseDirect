@@ -296,8 +296,30 @@ extension LibrePairingError: CustomStringConvertible {
         case .unsupportedSensor(type: let type):
             return "Unsupported sensor: \(type)"
 
-        default:
-            return "Retry pairing"
+        case .nfcNotAvailable:
+            return "NFC not available"
+            
+        case .noTagFound:
+            return "No tag found"
+
+        case .noIsoTagFound:
+            return "No ISO tag found"
+            
+        case .failedToConnect:
+            return "Failed to connect"
+            
+        case .failedToRead:
+            return "Failed to read"
+            
+        case .streamingNotEnabled:
+            return "Streaming not enabled"
+            
+        case .invalidBuffer:
+            return "Invalid buffer"
+            
+        case .unknownError:
+            return "Unknown error"
+            
         }
     }
 }
