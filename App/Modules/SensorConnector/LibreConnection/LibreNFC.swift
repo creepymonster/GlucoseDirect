@@ -69,10 +69,10 @@ class LibreNFC: NSObject, NFCTagReaderSessionDelegate {
             }
 
             let sensorUID = Data(tag.identifier.reversed())
-            
+
             // let patchInfo = Data(hexString: "A500010001000000C04E1E0D0101040C04303955374E36584A50A7E9")!
             // let patchInfo = Data(hexString: "A5A5A5A5A5A5A5A500010001000000C04E1E0D0101040C043041504445324D4A446500")!
-            
+
             var patchInfo = Data()
             for retry in 0 ..< retryCount {
                 do {
@@ -94,6 +94,18 @@ class LibreNFC: NSObject, NFCTagReaderSessionDelegate {
             }
 
             let type = SensorType(patchInfo)
+
+            if type == .libre3 {
+                guard patchInfo.count >= 28 else {
+                    returnWithError(LibrePairingError.invalidPatchInfo(patchInfo: patchInfo.hex))
+                    return
+                }
+
+                let sensor = Sensor.libre3Sensor(uuid: sensorUID, patchInfo: patchInfo)
+
+                returnWithResult(isPaired: true, sensor: sensor, readings: [])
+                return
+            }
 
             let blocks = 43
             let requestBlocks = 3
@@ -125,18 +137,15 @@ class LibreNFC: NSObject, NFCTagReaderSessionDelegate {
 
                 if i == requests - 1 {
                     var rxBuffer = Data()
-                    
-                    if type != .libre3 {
-                        for (_, data) in dataArray.enumerated() {
-                            if !data.isEmpty {
-                                rxBuffer.append(data)
-                            }
+                    for (_, data) in dataArray.enumerated() {
+                        if !data.isEmpty {
+                            rxBuffer.append(data)
                         }
-                        
-                        guard rxBuffer.count >= 344 else {
-                            returnWithError(LibrePairingError.invalidBuffer)
-                            return
-                        }
+                    }
+
+                    guard rxBuffer.count >= 344 else {
+                        returnWithError(LibrePairingError.invalidBuffer)
+                        return
                     }
 
                     switch type {
@@ -188,17 +197,6 @@ class LibreNFC: NSObject, NFCTagReaderSessionDelegate {
                             returnWithResult(isPaired: true, sensor: sensor, readings: readings.history + readings.trend)
                             return
                         }
-
-                    case .libre3:
-                        guard patchInfo.count >= 28 else {
-                            returnWithError(LibrePairingError.invalidPatchInfo(patchInfo: patchInfo.hex))
-                            return
-                        }
-                        
-                        let sensor = Sensor.libre3Sensor(uuid: sensorUID, patchInfo: patchInfo)
-
-                        returnWithResult(isPaired: true, sensor: sensor, readings: [])
-                        return
 
                     default:
                         break
@@ -301,28 +299,27 @@ extension LibrePairingError: CustomStringConvertible {
 
         case .nfcNotAvailable:
             return "NFC not available"
-            
+
         case .noTagFound:
             return "No tag found"
 
         case .noIsoTagFound:
             return "No ISO tag found"
-            
+
         case .failedToConnect:
             return "Failed to connect"
-            
+
         case .failedToRead:
             return "Failed to read"
-            
+
         case .streamingNotEnabled:
             return "Streaming not enabled"
-            
+
         case .invalidBuffer:
             return "Invalid buffer"
-            
+
         case .unknownError:
             return "Unknown error"
-            
         }
     }
 }
