@@ -44,11 +44,11 @@ struct NumberSelectorView: View {
     var body: some View {
         VStack {
             HStack {
-                Text(key)
+                Text(verbatim: key)
                 Spacer()
 
                 if let displayValue = displayValue {
-                    Text(displayValue)
+                    Text(verbatim: displayValue)
                 }
             }
 

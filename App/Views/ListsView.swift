@@ -18,37 +18,37 @@ struct ListsView: View {
             SensorGlucoseList()
             SensorErrorList()
 
-            if let glucoseStatistics = store.state.glucoseStatistics, glucoseStatistics.days >= 3 {
+            if let glucoseStatistics = store.state.glucoseStatistics, glucoseStatistics.maxDays >= 3 {
                 Section(
                     content: {
                         HStack {
                             Text("StatisticsPeriod")
-                            
-                            HStack {
-                                ForEach(Config.chartLevels, id: \.days) { level in
-                                    Spacer()
-                                    
-                                    Button(
-                                        action: {
-                                            DirectNotifications.shared.hapticFeedback()
-                                            store.dispatch(.setStatisticsDays(days: level.days))
-                                        },
-                                        label: {
-                                            Circle()
-                                                .if(isSelectedChartLevel(days: level.days)) {
-                                                    $0.fill(Color.ui.label)
-                                                } else: {
-                                                    $0.stroke(Color.ui.label)
-                                                }
-                                                .frame(width: 12, height: 12)
+                            Spacer()
 
-                                            Text(level.name)
-                                                .font(.subheadline)
-                                                .foregroundColor(Color.ui.label)
-                                        }
-                                    )
-                                    .buttonStyle(.plain)
-                                }
+                            ForEach(Config.chartLevels, id: \.days) { level in
+                                Spacer()
+                                Button(
+                                    action: {
+                                        DirectNotifications.shared.hapticFeedback()
+                                        store.dispatch(.setStatisticsDays(days: level.days))
+                                    },
+                                    label: {
+                                        Circle()
+                                            .if(isSelectedChartLevel(days: level.days)) {
+                                                $0.fill(Color.ui.label)
+                                            } else: {
+                                                $0.stroke(Color.ui.label)
+                                            }
+                                            .frame(width: 12, height: 12)
+
+                                        Text(verbatim: level.name)
+                                            .font(.subheadline)
+                                            .foregroundColor(Color.ui.label)
+                                    }
+                                )
+                                .disabled(level.days > glucoseStatistics.maxDays)
+                                .lineLimit(1)
+                                .buttonStyle(.plain)
                             }
                         }
 
@@ -157,13 +157,13 @@ struct ListsView: View {
                             HStack {
                                 Text(verbatim: "From")
                                 Spacer()
-                                Text(glucoseStatistics.fromTimestamp.toLocalDateTime())
+                                Text(glucoseStatistics.fromTimestamp.toLocalDate())
                             }
 
                             HStack {
                                 Text(verbatim: "To")
                                 Spacer()
-                                Text(glucoseStatistics.toTimestamp.toLocalDateTime())
+                                Text(glucoseStatistics.toTimestamp.toLocalDate())
                             }
                             #endif
                         }.onTapGesture(count: 2) {
@@ -182,15 +182,15 @@ struct ListsView: View {
 
     private enum Config {
         static let chartLevels: [ChartLevel] = [
-            ChartLevel(days: 3, name: LocalizedString("3d")),
-            ChartLevel(days: 7, name: LocalizedString("7d")),
-            ChartLevel(days: 14, name: LocalizedString("14d")),
-            ChartLevel(days: 30, name: LocalizedString("30d"))
+            ChartLevel(days: 3, name: "3d"),
+            ChartLevel(days: 7, name: "7d"),
+            ChartLevel(days: 30, name: "30d"),
+            ChartLevel(days: 90, name: "90d")
         ]
     }
 
     private var chartLevel: ChartLevel? {
-        return Config.chartLevels.first(where: { $0.days == store.state.statisticsDays })
+        return Config.chartLevels.first(where: { $0.days == store.state.statisticsDays }) ?? Config.chartLevels.first
     }
 
     private func isSelectedChartLevel(days: Int) -> Bool {

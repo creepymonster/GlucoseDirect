@@ -21,6 +21,7 @@ struct GlucoseStatistics: Codable {
     let tar: Double
     let variance: Double
     let days: Int
+    let maxDays: Int
 
     var tir: Double {
         100.0 - tor
