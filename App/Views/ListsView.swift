@@ -94,6 +94,7 @@ struct ListsView: View {
                                 }
                             }
 
+                            #if DEBUG
                             VStack(alignment: .leading, spacing: 10) {
                                 HStack {
                                     Text(verbatim: "CV")
@@ -102,11 +103,12 @@ struct ListsView: View {
                                 }
 
                                 if store.state.showAnnotations {
-                                    Text("..")
+                                    Text("Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults.")
                                         .font(.footnote)
                                         .foregroundColor(.gray)
                                 }
                             }
+                            #endif
 
                             VStack(alignment: .leading, spacing: 10) {
                                 HStack {
