@@ -95,9 +95,9 @@ extension Int {
 
         return plural
     }
-    
+
     func pluralizeLocalization(singular: String, plural: String) -> String {
-        return pluralize(singular: String(format: LocalizedString(singular), self.description), plural: String(format: LocalizedString(plural), self.description))
+        return self.pluralize(singular: String(format: LocalizedString(singular), self.description), plural: String(format: LocalizedString(plural), self.description))
     }
 
     func asPercent() -> String {

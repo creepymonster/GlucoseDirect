@@ -59,7 +59,7 @@ extension Date {
     }
 
     func toLocalDateTime() -> String {
-        return self.formatted(date: .numeric, time: .shortened)
+        return self.formatted(.dateTime.year().month(.twoDigits).day(.twoDigits).hour(.defaultDigits(amPM: .abbreviated)).minute())
     }
 
     func toLocalTime() -> String {
