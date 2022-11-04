@@ -17,6 +17,10 @@ final class GlucoseDirectApp: App {
     // MARK: Lifecycle
 
     init() {
+        #if targetEnvironment(simulator)
+            DirectLog.info("Application directory: \(NSHomeDirectory())")
+        #endif
+
         store.dispatch(.startup)
     }
 

@@ -16,28 +16,19 @@ struct AppleExportSettingsView: View {
     var body: some View {
         Section(
             content: {
-                Toggle("Export to Apple Health", isOn: appleHealthExport)
-                    .toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
-
-                Toggle("Export to Apple Calendar", isOn: appleCalendarExport)
-                    .toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
+                Toggle("Export to Apple Health", isOn: appleHealthExport).toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
+                Toggle("Export to Apple Calendar", isOn: appleCalendarExport).toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
 
                 if store.state.appleCalendarExport {
-                    HStack {
-                        Text("Selected calendar")
-                        Spacer()
-                        Picker("", selection: selectedCalendar) {
-                            if store.state.selectedCalendarTarget == nil {
-                                Text("Please select")
-                            }
-
-                            ForEach(calendars, id: \.self) { cal in
-                                Text(cal)
-                            }
+                    Picker("Selected calendar", selection: selectedCalendar) {
+                        if store.state.selectedCalendarTarget == nil {
+                            Text("Please select")
                         }
-                        .pickerStyle(.menu)
-                        .labelsHidden()
-                    }
+
+                        ForEach(calendars, id: \.self) { cal in
+                            Text(cal)
+                        }
+                    }.pickerStyle(.menu)
                 }
             },
             header: {

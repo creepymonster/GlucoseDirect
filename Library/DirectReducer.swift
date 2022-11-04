@@ -173,6 +173,12 @@ func directReducer(state: inout DirectState, action: DirectAction) {
     case .setSensorGlucoseValues(glucoseValues: let glucoseValues):
         state.sensorGlucoseValues = glucoseValues
         
+        #if targetEnvironment(simulator)
+        if state.latestSensorGlucose == nil {
+            state.latestSensorGlucose = glucoseValues.last
+        }
+        #endif
+        
     case .setSensorErrorValues(errorValues: let errorValues):
         state.sensorErrorValues = errorValues
         

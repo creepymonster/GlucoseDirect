@@ -11,7 +11,6 @@ struct GlucoseView: View {
     // MARK: Internal
 
     @EnvironmentObject var store: DirectStore
-    @State var relativeTimestamp: String?
 
     var body: some View {
         VStack(spacing: 20) {
@@ -37,8 +36,7 @@ struct GlucoseView: View {
 
                 HStack(spacing: 20) {
                     Spacer()
-                    Text(verbatim: relativeTimestamp ?? latestGlucose.timestamp.toRelativeTime())
-                        .monospacedDigit()
+                    Text(latestGlucose.timestamp, style: .relative)
                         .opacity(0.5)
 
                     if let warning = warning {
@@ -53,12 +51,9 @@ struct GlucoseView: View {
                         }
                     }
 
-                    Text(verbatim: store.state.glucoseUnit.localizedDescription).opacity(0.5)
+                    Text(verbatim: store.state.glucoseUnit.localizedDescription)
+                        .opacity(0.5)
                     Spacer()
-                }.onReceive(timer) { _ in
-                    if store.state.appState == .active {
-                        relativeTimestamp = latestGlucose.timestamp.toRelativeTime()
-                    }
                 }
 
             } else {
@@ -118,12 +113,6 @@ struct GlucoseView: View {
     }
 
     // MARK: Private
-
-    private let timer = Timer.publish(
-        every: 1,
-        on: .main,
-        in: .common
-    ).autoconnect()
 
     private var warning: String? {
         if let sensor = store.state.sensor, sensor.state != .ready {

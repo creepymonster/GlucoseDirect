@@ -9,11 +9,9 @@ struct CalibrationsView: View {
     @EnvironmentObject var store: DirectStore
 
     var body: some View {
-        VStack {
-            List {
-                CustomCalibrationView()
-                FactoryCalibrationView()
-            }.listStyle(.grouped)
-        }
+        List {
+            CustomCalibrationView()
+            FactoryCalibrationView()
+        }.listStyle(.grouped)
     }
 }

@@ -53,10 +53,6 @@ extension Date {
     func toMillisecondsAsDouble() -> Double {
         return Double(self.timeIntervalSince1970 * 1000)
     }
-    
-    func toRelativeTime() -> String {
-        return self.formatted(.relative(presentation: .numeric, unitsStyle: .abbreviated))
-    }
 
     func toLocalDateTime() -> String {
         return self.formatted(.dateTime.year().month(.twoDigits).day(.twoDigits).hour(.defaultDigits(amPM: .abbreviated)).minute())

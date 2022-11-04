@@ -74,36 +74,29 @@ struct ChartView: View {
                                         Text(selectedSensorPoint.valueX.toLocalDateTime())
                                         Text(selectedSensorPoint.info).bold()
                                     }
+                                    .font(.footnote)
                                     .padding(.horizontal, 10)
                                     .padding(.vertical, 5)
+                                    .background(Color.ui.blue)
                                     .foregroundColor(Color.white)
-                                    .font(.footnote)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 5, style: .continuous)
-                                            .foregroundStyle(Color.ui.blue)
-                                            .opacity(0.5)
-                                    )
+                                    .cornerRadius(5)
                                 }
 
                                 if let selectedBloodPoint = selectedBloodPoint {
                                     HStack {
                                         Image(systemName: "drop.fill")
-                                            .foregroundColor(Color.white)
 
                                         VStack(alignment: .leading) {
                                             Text(selectedBloodPoint.valueX.toLocalDateTime())
                                             Text(selectedBloodPoint.info).bold()
                                         }
-                                        .foregroundColor(Color.white)
-                                        .font(.footnote)
                                     }
+                                    .font(.footnote)
                                     .padding(.horizontal, 10)
                                     .padding(.vertical, 5)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 5, style: .continuous)
-                                            .foregroundStyle(Color.ui.red)
-                                            .opacity(0.5)
-                                    )
+                                    .background(Color.ui.blue)
+                                    .foregroundColor(Color.white)
+                                    .cornerRadius(5)
                                 }
                             }
                         }

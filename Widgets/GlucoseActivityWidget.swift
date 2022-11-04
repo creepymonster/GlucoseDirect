@@ -164,8 +164,7 @@ struct DynamicIslandBottomView: View, GlucoseStatusContext {
            let glucoseUnit = context.glucoseUnit
         {
             HStack(spacing: 20) {
-                Text(verbatim: latestGlucose.timestamp.toRelativeTime())
-                    .monospacedDigit()
+                Text(latestGlucose.timestamp, style: .relative)
                 Text(glucoseUnit.localizedDescription)
             }
             .opacity(0.5)
@@ -207,8 +206,7 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
 
                     HStack(spacing: 20) {
                         Spacer()
-                        Text(verbatim: latestGlucose.timestamp.toRelativeTime())
-                            .monospacedDigit()
+                        Text(latestGlucose.timestamp, style: .relative)
                             .opacity(0.5)
 
                         if let warning = warning {
@@ -223,7 +221,8 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
                             }
                         }
 
-                        Text(glucoseUnit.localizedDescription).opacity(0.5)
+                        Text(glucoseUnit.localizedDescription)
+                            .opacity(0.5)
                         Spacer()
                     }
                 }
