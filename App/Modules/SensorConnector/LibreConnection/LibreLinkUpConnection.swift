@@ -201,7 +201,17 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             throw LibreLinkError.missingData
         }
 
-        sendUpdate(age: sensorAge, state: .ready)
+        if let sensor = sensor {
+            if sensorAge >= sensor.lifetime {
+                sendUpdate(age: sensorAge, state: .expired)
+
+            } else if sensorAge > sensor.warmupTime {
+                sendUpdate(age: sensorAge, state: sensor.state)
+
+            } else if sensorAge <= sensor.warmupTime {
+                sendUpdate(age: sensorAge, state: .starting)
+            }
+        }
 
         guard let trendData = fetchResponse.data?.connection?.glucoseMeasurement else {
             throw LibreLinkError.missingData
