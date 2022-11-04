@@ -206,7 +206,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
                 sendUpdate(age: sensorAge, state: .expired)
 
             } else if sensorAge > sensor.warmupTime {
-                sendUpdate(age: sensorAge, state: sensor.state)
+                sendUpdate(age: sensorAge, state: .ready)
 
             } else if sensorAge <= sensor.warmupTime {
                 sendUpdate(age: sensorAge, state: .starting)
