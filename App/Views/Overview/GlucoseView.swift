@@ -32,7 +32,7 @@ struct GlucoseView: View {
                             Text(verbatim: "?")
                         }
                     }
-                }.padding(.top, 10)
+                }
 
                 if let warning = warning {
                     Text(verbatim: warning)
@@ -42,7 +42,7 @@ struct GlucoseView: View {
                         .cornerRadius(5)
                 } else {
                     HStack(spacing: 20) {
-                        Text(latestGlucose.timestamp, style: .relative)
+                        Text(latestGlucose.timestamp, style: .time)
                         Text(verbatim: store.state.glucoseUnit.localizedDescription)
                     }.opacity(0.5)
                 }
@@ -52,10 +52,8 @@ struct GlucoseView: View {
                     .font(.system(size: 56))
                     .foregroundColor(Color.ui.red)
 
-                HStack(spacing: 20) {
-                    Text(Date(), style: .time)
-                    Text(verbatim: store.state.glucoseUnit.localizedDescription)
-                }.opacity(0.5)
+                Text(Date(), style: .time)
+                    .opacity(0.5)
             }
 
             HStack {

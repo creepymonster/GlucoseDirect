@@ -164,7 +164,7 @@ struct DynamicIslandBottomView: View, GlucoseStatusContext {
            let glucoseUnit = context.glucoseUnit
         {
             HStack(spacing: 20) {
-                Text(latestGlucose.timestamp, style: .relative)
+                Text(latestGlucose.timestamp, style: .time)
                 Text(glucoseUnit.localizedDescription)
             }
             .opacity(0.5)
@@ -180,59 +180,47 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
     @State var context: SensorGlucoseActivityAttributes.GlucoseStatus
 
     var body: some View {
-        VStack(alignment: .center, spacing: 0) {
-            if let latestGlucose = context.glucose,
-               let glucoseUnit = context.glucoseUnit
-            {
-                VStack {
-                    HStack(alignment: .lastTextBaseline) {
-                        Text(latestGlucose.glucoseValue.asGlucose(unit: glucoseUnit))
-                            .font(.system(size: 64))
-                            .frame(height: 48)
-                            .clipped()
-                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
+        VStack(spacing: 10) {
+            if let latestGlucose = context.glucose, let glucoseUnit = context.glucoseUnit {
+                HStack(alignment: .lastTextBaseline) {
+                    Text(verbatim: latestGlucose.glucoseValue.asGlucose(unit: glucoseUnit))
+                        .font(.system(size: 96))
+                        .frame(height: 72)
+                        .clipped()
+                        .foregroundColor(getGlucoseColor(glucose: latestGlucose))
 
-                        VStack(alignment: .leading) {
-                            Text(latestGlucose.trend.description)
-                                .font(.system(size: 32))
+                    VStack(alignment: .leading) {
+                        Text(verbatim: latestGlucose.trend.description)
+                            .font(.system(size: 56))
 
-                            if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit), latestGlucose.trend != .unknown {
-                                Text(minuteChange)
-                            } else {
-                                Text("?".asMinuteChange())
-                            }
+                        if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
+                            Text(verbatim: minuteChange)
+                        } else {
+                            Text(verbatim: "?")
                         }
                     }
+                }
 
+                if let warning = warning {
+                    Text(verbatim: warning)
+                        .padding(5)
+                        .background(Color.ui.red)
+                        .foregroundColor(.white)
+                        .cornerRadius(5)
+                } else {
                     HStack(spacing: 20) {
-                        Spacer()
-                        Text(latestGlucose.timestamp, style: .relative)
-                            .opacity(0.5)
-
-                        if let warning = warning {
-                            Group {
-                                Text(warning)
-                                    .padding(.init(top: 2.5, leading: 5, bottom: 2.5, trailing: 5))
-                                    .foregroundColor(.white)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 5, style: .continuous)
-                                            .foregroundStyle(Color.ui.red)
-                                    )
-                            }
-                        }
-
-                        Text(glucoseUnit.localizedDescription)
-                            .opacity(0.5)
-                        Spacer()
-                    }
+                        Text(latestGlucose.timestamp, style: .time)
+                        Text(verbatim: glucoseUnit.localizedDescription)
+                    }.opacity(0.5)
                 }
+
             } else {
-                VStack {
-                    Text("No Data")
-                        .font(.system(size: 48))
-                        .foregroundColor(Color.ui.red)
-                        .padding(.bottom)
-                }
+                Text("No Data")
+                    .font(.system(size: 56))
+                    .foregroundColor(Color.ui.red)
+
+                Text(Date(), style: .time)
+                    .opacity(0.5)
             }
         }.padding()
     }
