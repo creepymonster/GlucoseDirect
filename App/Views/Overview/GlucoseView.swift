@@ -13,18 +13,16 @@ struct GlucoseView: View {
     @EnvironmentObject var store: DirectStore
 
     var body: some View {
-        VStack(spacing: 10) {
+        VStack(spacing: 0) {
             if let latestGlucose = store.state.latestSensorGlucose {
-                HStack(alignment: .lastTextBaseline) {
+                HStack(alignment: .lastTextBaseline, spacing: 20) {
                     Text(verbatim: latestGlucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit))
                         .font(.system(size: 96))
-                        .frame(height: 72)
-                        .clipped()
                         .foregroundColor(getGlucoseColor(glucose: latestGlucose))
 
                     VStack(alignment: .leading) {
                         Text(verbatim: latestGlucose.trend.description)
-                            .font(.system(size: 56))
+                            .font(.system(size: 52))
 
                         if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: store.state.glucoseUnit) {
                             Text(verbatim: minuteChange)
@@ -36,7 +34,8 @@ struct GlucoseView: View {
 
                 if let warning = warning {
                     Text(verbatim: warning)
-                        .padding(5)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 5)
                         .background(Color.ui.red)
                         .foregroundColor(.white)
                         .cornerRadius(5)
@@ -49,7 +48,7 @@ struct GlucoseView: View {
 
             } else {
                 Text("No Data")
-                    .font(.system(size: 56))
+                    .font(.system(size: 52))
                     .foregroundColor(Color.ui.red)
 
                 Text(Date(), style: .time)
