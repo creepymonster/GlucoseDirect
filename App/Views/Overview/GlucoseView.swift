@@ -40,7 +40,7 @@ struct GlucoseView: View {
                         .foregroundColor(.white)
                         .cornerRadius(5)
                 } else {
-                    HStack(spacing: 20) {
+                    HStack(spacing: 40) {
                         Text(latestGlucose.timestamp, style: .time)
                         Text(verbatim: store.state.glucoseUnit.localizedDescription)
                     }.opacity(0.5)

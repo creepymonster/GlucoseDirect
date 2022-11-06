@@ -134,7 +134,7 @@ struct DynamicIslandCenterView: View, GlucoseStatusContext {
                         .background(Color.ui.red)
                         .foregroundColor(.white)
                 } else {
-                    HStack(spacing: 20) {
+                    HStack(spacing: 40) {
                         Text(latestGlucose.timestamp, style: .time)
                         Text(verbatim: glucoseUnit.localizedDescription)
                     }.opacity(0.5)
@@ -188,7 +188,7 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
                             .background(Color.ui.red)
                             .foregroundColor(.white)
                     } else {
-                        HStack(spacing: 20) {
+                        HStack(spacing: 40) {
                             Text(latestGlucose.timestamp, style: .time)
                             Text(verbatim: glucoseUnit.localizedDescription)
                         }.opacity(0.5)
