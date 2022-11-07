@@ -241,7 +241,8 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
                 return
             }
 
-            guard let apiRegion = apiRegion ?? loginResponse.data?.user?.apiRegion,
+            guard let userID = loginResponse.data?.user?.id,
+                  let apiRegion = apiRegion ?? loginResponse.data?.user?.apiRegion,
                   let authToken = loginResponse.data?.authTicket?.token,
                   let authExpires = loginResponse.data?.authTicket?.expires,
                   !apiRegion.isEmpty, !authToken.isEmpty
@@ -256,7 +257,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
             let connectResponse = try await connect(apiRegion: apiRegion, authToken: authToken)
 
-            guard let patientID = connectResponse.data?.first?.patientID else {
+            guard let patientID = connectResponse.data?.first(where: { $0.patientID == userID })?.patientID ?? connectResponse.data?.first?.patientID else {
                 disconnectConnection()
 
                 throw LibreLinkError.missingPatientID
@@ -485,6 +486,7 @@ private struct LibreLinkResponseGlucose: Codable {
 // MARK: - LibreLinkResponseUser
 
 private struct LibreLinkResponseUser: Codable {
+    let id: String
     let country: String
 }
 
