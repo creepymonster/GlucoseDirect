@@ -135,9 +135,9 @@ class Libre2Connection: SensorBluetoothConnection, IsSensor {
         if !firstBuffer.isEmpty, !secondBuffer.isEmpty, !thirdBuffer.isEmpty {
             let rxBuffer = firstBuffer + secondBuffer + thirdBuffer
 
-            if let sensor = sensor, let factoryCalibration = sensor.factoryCalibration {
+            if let sensor = sensor, let factoryCalibration = sensor.factoryCalibration, let uuid = sensor.uuid {
                 do {
-                    let decryptedBLE = Data(try Libre2EUtility.decryptBLE(uuid: sensor.uuid, data: rxBuffer))
+                    let decryptedBLE = Data(try Libre2EUtility.decryptBLE(uuid: uuid, data: rxBuffer))
                     let parsedBLE = Libre2EUtility.parseBLE(calibration: factoryCalibration, data: decryptedBLE)
 
                     if parsedBLE.age >= sensor.lifetime {
@@ -176,12 +176,12 @@ class Libre2Connection: SensorBluetoothConnection, IsSensor {
     private func unlock() -> Data? {
         DirectLog.info("Unlock, count: \(UserDefaults.standard.unlockCount)")
 
-        if sensor == nil {
+        guard let uuid = sensor?.uuid, let patchInfo = sensor?.patchInfo else {
             return nil
         }
 
         let unlockCount = UserDefaults.standard.unlockCount + 1
-        let unlockPayload = Libre2EUtility.streamingUnlockPayload(uuid: sensor!.uuid, patchInfo: sensor!.patchInfo, enableTime: 42, unlockCount: UInt16(unlockCount))
+        let unlockPayload = Libre2EUtility.streamingUnlockPayload(uuid: uuid, patchInfo: patchInfo, enableTime: 42, unlockCount: UInt16(unlockCount))
 
         UserDefaults.standard.unlockCount = unlockCount
 

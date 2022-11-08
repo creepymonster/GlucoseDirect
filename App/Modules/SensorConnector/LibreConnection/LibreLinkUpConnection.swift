@@ -33,7 +33,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         Task {
             do {
                 lastLogin = nil
-                try await loginIfNeeded()
+                try await processLogin()
             } catch {
                 sendUpdate(error: error)
             }
@@ -51,7 +51,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         Task {
             do {
                 lastLogin = nil
-                try await loginIfNeeded()
+                try await processLogin()
 
                 managerQueue.async {
                     self.find()
@@ -123,7 +123,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
         Task {
             do {
-                try await update()
+                try await processFetch()
             } catch {
                 sendUpdate(error: error)
             }
@@ -144,7 +144,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         Task {
             do {
                 try await Task.sleep(nanoseconds: 1_000_000_000 * 30)
-                try await update()
+                try await processFetch()
             } catch {
                 sendUpdate(error: error)
             }
@@ -166,6 +166,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
     // MARK: Private
 
+    private var workingSince: Date?
     private var lastLogin: LibreLinkLogin?
     private let oneMinuteReadingUUID = CBUUID(string: "0898177A-EF89-11E9-81B4-2A2AE2DBCCE4")
     private var oneMinuteReadingCharacteristic: CBCharacteristic?
@@ -194,14 +195,90 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         return decoder
     }()
 
-    private func update() async throws {
+    private func processLogin(apiRegion: String? = nil) async throws {
+        if lastLogin == nil || lastLogin!.authExpires <= Date() {
+            if let workingSince = workingSince, workingSince.addingTimeInterval(30) > Date() {
+                return
+            }
+
+            DirectLog.info("LibreLinkUp processLogin, starts working, \(Date().debugDescription)")
+
+            workingSince = Date()
+
+            defer {
+                workingSince = nil
+            }
+
+            let loginResponse = try await login(apiRegion: apiRegion)
+
+            if let redirect = loginResponse.data?.redirect, let region = loginResponse.data?.region, redirect, !region.isEmpty {
+                DirectLog.info("LibreLinkUp processLogin, redirect to userCountry: \(region)")
+
+                try await processLogin(apiRegion: region)
+                return
+            }
+
+            guard let userID = loginResponse.data?.user?.id,
+                  let apiRegion = apiRegion ?? loginResponse.data?.user?.apiRegion,
+                  let authToken = loginResponse.data?.authTicket?.token,
+                  let authExpires = loginResponse.data?.authTicket?.expires,
+                  !apiRegion.isEmpty, !authToken.isEmpty
+            else {
+                disconnectConnection()
+
+                throw LibreLinkError.missingUserOrToken
+            }
+
+            DirectLog.info("LibreLinkUp processLogin, apiRegion: \(apiRegion)")
+            DirectLog.info("LibreLinkUp processLogin, authExpires: \(authExpires)")
+
+            let connectResponse = try await connect(apiRegion: apiRegion, authToken: authToken)
+
+            guard let patientID = connectResponse.data?.first(where: { $0.patientID == userID })?.patientID ?? connectResponse.data?.first?.patientID else {
+                disconnectConnection()
+
+                throw LibreLinkError.missingPatientID
+            }
+
+            DirectLog.info("LibreLinkUp processLogin, patientID: \(patientID)")
+
+            lastLogin = LibreLinkLogin(patientID: patientID, apiRegion: apiRegion, authToken: authToken, authExpires: authExpires)
+        }
+    }
+
+    private func processFetch() async throws {
+        try await processLogin()
+
+        if let workingSince = workingSince, workingSince.addingTimeInterval(30) > Date() {
+            return
+        }
+
+        DirectLog.info("LibreLinkUp processFetch, starts working, \(Date().debugDescription)")
+
+        workingSince = Date()
+
+        defer {
+            workingSince = nil
+        }
+
         let fetchResponse = try await fetch()
 
         guard let sensorAge = fetchResponse.data?.connection?.sensor?.age ?? fetchResponse.data?.activeSensors?.first?.sensor?.age else {
             throw LibreLinkError.missingData
         }
 
+        guard let sensorSerial = fetchResponse.data?.connection?.sensor?.serial ?? fetchResponse.data?.activeSensors?.first?.sensor?.serial else {
+            throw LibreLinkError.missingData
+        }
+
         if let sensor = sensor {
+            if sensor.serial != sensorSerial {
+                let sensor = Sensor(family: sensor.family, type: sensor.type, region: sensor.region, serial: sensorSerial, state: sensor.state, age: sensorAge, lifetime: sensor.lifetime)
+                sendUpdate(sensor: sensor)
+
+                self.sensor = sensor
+            }
+
             if sensorAge >= sensor.lifetime {
                 sendUpdate(age: sensorAge, state: .expired)
 
@@ -228,45 +305,6 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         }
 
         sendUpdate(readings: history + trend)
-    }
-
-    private func loginIfNeeded(apiRegion: String? = nil) async throws {
-        if lastLogin == nil || (lastLogin?.authExpires ?? Date()) <= Date() || (lastLogin?.authToken.count ?? 0) == 0 {
-            let loginResponse = try await login(apiRegion: apiRegion)
-
-            if let redirect = loginResponse.data?.redirect, let region = loginResponse.data?.region, redirect, !region.isEmpty {
-                DirectLog.info("LibreLinkUp login, redirect to userCountry: \(region)")
-
-                try await loginIfNeeded(apiRegion: region)
-                return
-            }
-
-            guard let userID = loginResponse.data?.user?.id,
-                  let apiRegion = apiRegion ?? loginResponse.data?.user?.apiRegion,
-                  let authToken = loginResponse.data?.authTicket?.token,
-                  let authExpires = loginResponse.data?.authTicket?.expires,
-                  !apiRegion.isEmpty, !authToken.isEmpty
-            else {
-                disconnectConnection()
-
-                throw LibreLinkError.missingUserOrToken
-            }
-
-            DirectLog.info("LibreLinkUp login, apiRegion: \(apiRegion)")
-            DirectLog.info("LibreLinkUp login, authExpires: \(authExpires)")
-
-            let connectResponse = try await connect(apiRegion: apiRegion, authToken: authToken)
-
-            guard let patientID = connectResponse.data?.first(where: { $0.patientID == userID })?.patientID ?? connectResponse.data?.first?.patientID else {
-                disconnectConnection()
-
-                throw LibreLinkError.missingPatientID
-            }
-
-            DirectLog.info("LibreLinkUp login, patientID: \(patientID)")
-
-            lastLogin = LibreLinkLogin(patientID: patientID, apiRegion: apiRegion, authToken: authToken, authExpires: authExpires)
-        }
     }
 
     private func login(apiRegion: String? = nil) async throws -> LibreLinkResponse<LibreLinkResponseLogin> {
@@ -350,8 +388,6 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
     private func fetch() async throws -> LibreLinkResponse<LibreLinkResponseFetch> {
         DirectLog.info("LibreLinkUp fetch")
-
-        try await loginIfNeeded()
 
         guard let lastLogin = lastLogin else {
             throw LibreLinkError.missingLoginSession
@@ -458,6 +494,16 @@ private struct LibreLinkResponseConnection: Codable {
 
 private struct LibreLinkResponseActiveSensors: Codable {
     let sensor: LibreLinkResponseSensor?
+    let device: LibreLinkResponseDevice?
+}
+
+// MARK: - LibreLinkResponseDevice
+
+private struct LibreLinkResponseDevice: Codable {
+    enum CodingKeys: String, CodingKey { case dtid, version = "v" }
+
+    let dtid: Int
+    let version: String
 }
 
 // MARK: - LibreLinkResponseSensor
@@ -541,6 +587,7 @@ private enum LibreLinkError: Error {
     case decoderError
     case missingData
     case parsingError
+    case cannotLock
 }
 
 // MARK: CustomStringConvertible
@@ -570,6 +617,8 @@ extension LibreLinkError: CustomStringConvertible {
             return "Missing data"
         case .parsingError:
             return "Parsing error"
+        case .cannotLock:
+            return "Cannot lock"
         }
     }
 }
