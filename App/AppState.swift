@@ -100,6 +100,7 @@ struct AppState: DirectState {
     var targetValue = 100
     var selectedView = DirectConfig.overviewViewTag
     var statisticsDays = 3
+    var smoothSensorGlucoseValues = true
 
     var appSerial: String {
         UserDefaults.shared.appSerial
