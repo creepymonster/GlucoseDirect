@@ -33,7 +33,7 @@ class GlucoseFilter {
 
     // MARK: Private
 
-    private let filterNoise = 2.5
+    private let filterNoise: Double = 10
     private var kalmanFilter: KalmanFilter<Double>?
 }
 

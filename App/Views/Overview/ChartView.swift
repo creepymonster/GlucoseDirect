@@ -91,7 +91,7 @@ struct ChartView: View {
                                         .font(.footnote)
                                         .padding(.horizontal, 10)
                                         .padding(.vertical, 5)
-                                        .background(Color.ui.orange)
+                                        .background(Color.ui.yellow)
                                         .foregroundColor(Color.white)
                                         .cornerRadius(5)
                                     }
@@ -113,7 +113,7 @@ struct ChartView: View {
                                     .foregroundColor(Color.white)
                                     .cornerRadius(5)
                                 }
-                            }
+                            }.opacity(0.75)
                         }
                     }
 
@@ -199,7 +199,8 @@ struct ChartView: View {
                         series: .value("Series", "Raw")
                     )
                     .interpolationMethod(.monotone)
-                    .foregroundStyle(Color.ui.orange)
+                    .opacity(0.5)
+                    .foregroundStyle(Color.ui.yellow)
                     .lineStyle(Config.rawLineStyle)
                 }
             }
@@ -210,9 +211,9 @@ struct ChartView: View {
                     y: .value("Glucose", selectedPointInfo.valueY)
                 )
                 .symbol(.square)
-                .opacity(0.5)
+                .opacity(0.75)
                 .symbolSize(Config.selectionSize)
-                .foregroundStyle(Color.ui.orange)
+                .foregroundStyle(Color.ui.yellow)
             }
 
             if let selectedPointInfo = selectedSensorPoint {
@@ -221,7 +222,7 @@ struct ChartView: View {
                     y: .value("Glucose", selectedPointInfo.valueY)
                 )
                 .symbol(.square)
-                .opacity(0.5)
+                .opacity(0.75)
                 .symbolSize(Config.selectionSize)
                 .foregroundStyle(Color.ui.blue)
             }
@@ -232,7 +233,7 @@ struct ChartView: View {
                     y: .value("Glucose", selectedPointInfo.valueY)
                 )
                 .symbol(.square)
-                .opacity(0.5)
+                .opacity(0.75)
                 .symbolSize(Config.selectionSize)
                 .foregroundStyle(Color.ui.red)
             }
@@ -540,11 +541,9 @@ struct ChartView: View {
                 }
             }
 
-            #if DEBUG
-            let rawGlucoseSeries = populateRawValues(glucoseValues: store.state.sensorGlucoseValues)
-            #else
-            let rawGlucoseSeries = populateRawValues(glucoseValues: [])
-            #endif
+            let rawGlucoseSeries = store.state.smoothSensorGlucoseValues
+                ? populateRawValues(glucoseValues: store.state.sensorGlucoseValues)
+                : populateRawValues(glucoseValues: [])
 
             rawGlucoseSeries.forEach { value in
                 if rawPointInfos[value.valueX] == nil {
