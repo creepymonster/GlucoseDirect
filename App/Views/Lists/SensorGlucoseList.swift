@@ -21,7 +21,7 @@ struct SensorGlucoseList: View {
                             Text(verbatim: sensorGlucose.timestamp.toLocalDateTime())
                             Spacer()
 
-                            let glucoseValue = sensorGlucose.id == store.state.latestSensorGlucose?.id
+                            let glucoseValue = sensorGlucose.id == store.state.latestSensorGlucose?.id || !store.state.smoothSensorGlucoseValues
                                 ? sensorGlucose.glucoseValue
                                 : sensorGlucose.smoothGlucoseValue ?? sensorGlucose.glucoseValue
                                                        

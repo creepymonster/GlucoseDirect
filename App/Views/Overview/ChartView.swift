@@ -594,7 +594,7 @@ struct ChartView: View {
 
     private func populateValues(glucoseValues: [SensorGlucose]) -> [ChartDatapoint] {
         glucoseValues.map { value in
-            if value.id == store.state.latestSensorGlucose?.id {
+            if value.id == store.state.latestSensorGlucose?.id || !store.state.smoothSensorGlucoseValues {
                 return value.toDatapoint(glucoseUnit: glucoseUnit, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh)
             } else {
                 return value.toSmoothDatapoint(glucoseUnit: glucoseUnit, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh)

@@ -511,7 +511,7 @@ private struct LibreLinkResponseDevice: Codable {
 private struct LibreLinkResponseSensor: Codable {
     enum CodingKeys: String, CodingKey { case sn, activation = "a" }
 
-    let serial: String
+    let sn: String
     let activation: Double
 
     var age: Int {
@@ -520,9 +520,9 @@ private struct LibreLinkResponseSensor: Codable {
     }
 }
 
-extension LibreLinkResponseSensor {
+private extension LibreLinkResponseSensor {
     var serial: String {
-        return sn.dropLast()
+        return String(sn.dropLast())
     }
 }
 
