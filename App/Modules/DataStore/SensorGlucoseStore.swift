@@ -125,7 +125,6 @@ private extension DataStore {
                             .primaryKey()
                         t.column(SensorGlucose.Columns.timestamp.name, .date)
                             .notNull()
-                            .unique()
                             .indexed()
                         t.column(SensorGlucose.Columns.minuteChange.name, .double)
                         t.column(SensorGlucose.Columns.rawGlucoseValue.name, .integer)
@@ -137,6 +136,19 @@ private extension DataStore {
                             .indexed()
                     }
                 }
+            } catch {
+                DirectLog.error("\(error)")
+            }
+
+            var migrator = DatabaseMigrator()
+            migrator.registerMigration("Add column 'smoothGlucoseValue'") { db in
+                try db.alter(table: SensorGlucose.Table) { t in
+                    t.add(column: SensorGlucose.Columns.smoothGlucoseValue.name, .integer)
+                }
+            }
+
+            do {
+                try migrator.migrate(dbQueue)
             } catch {
                 DirectLog.error("\(error)")
             }

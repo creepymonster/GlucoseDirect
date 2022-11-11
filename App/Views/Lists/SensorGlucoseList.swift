@@ -16,13 +16,17 @@ struct SensorGlucoseList: View {
                 if sensorGlucoseValues.isEmpty {
                     Text(getTeaser(sensorGlucoseValues.count))
                 } else {
-                    ForEach(sensorGlucoseValues) { glucoseValue in
+                    ForEach(sensorGlucoseValues) { sensorGlucose in
                         HStack {
-                            Text(verbatim: glucoseValue.timestamp.toLocalDateTime())
+                            Text(verbatim: sensorGlucose.timestamp.toLocalDateTime())
                             Spacer()
 
-                            Text(verbatim: glucoseValue.glucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true, precise: isPrecise(glucose: glucoseValue)))
-                                .if(glucoseValue.glucoseValue < store.state.alarmLow || glucoseValue.glucoseValue > store.state.alarmHigh) { text in
+                            let glucoseValue = sensorGlucose.id == store.state.latestSensorGlucose?.id
+                                ? sensorGlucose.glucoseValue
+                                : sensorGlucose.smoothGlucoseValue ?? sensorGlucose.glucoseValue
+                                                       
+                            Text(verbatim: glucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true, precise: isPrecise(glucoseValue: glucoseValue)))
+                                .if(glucoseValue < store.state.alarmLow || glucoseValue > store.state.alarmHigh) { text in
                                     text.foregroundColor(Color.ui.red)
                                 }
                         }
@@ -60,11 +64,11 @@ struct SensorGlucoseList: View {
         return count.pluralizeLocalization(singular: "%@ Entry", plural: "%@ Entries")
     }
 
-    private func isPrecise(glucose: SensorGlucose) -> Bool {
+    private func isPrecise(glucoseValue: Int) -> Bool {
         if store.state.glucoseUnit == .mgdL {
             return false
         }
 
-        return glucose.glucoseValue.isAlmost(store.state.alarmLow, store.state.alarmHigh)
+        return glucoseValue.isAlmost(store.state.alarmLow, store.state.alarmHigh)
     }
 }

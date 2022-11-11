@@ -93,7 +93,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
                 previousGlucose == nil || previousGlucose!.timestamp + intervalSeconds < $0.timestamp
             }.map {
                 if state.smoothSensorGlucoseValues {
-                    return SensorGlucose(id: $0.id, timestamp: $0.timestamp, rawGlucoseValue: $0.glucoseValue, intGlucoseValue: glucoseFilter.filter(glucoseValue: $0.glucoseValue))
+                    return SensorGlucose(id: $0.id, timestamp: $0.timestamp, rawGlucoseValue: $0.rawGlucoseValue, intGlucoseValue: $0.glucoseValue, smoothGlucoseValue: glucoseFilter.filter(glucoseValue: $0.glucoseValue))
                 }
 
                 return $0

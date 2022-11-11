@@ -52,6 +52,7 @@ protocol DirectState {
     var selectedConnectionID: String? { get set }
     var selectedConfiguration: [SensorConnectionConfigurationOption] { get set }
     var smoothSensorGlucoseValues: Bool { get set }
+    var drawRawGlucoseValues: Bool { get set }
     var selectedView: Int { get set }
     var minSelectedDate: Date { get set }
     var selectedDate: Date? { get set }

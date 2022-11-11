@@ -66,6 +66,7 @@ extension SensorGlucose: FetchableRecord, PersistableRecord {
         case minuteChange
         case rawGlucoseValue
         case intGlucoseValue
+        case smoothGlucoseValue
         case timegroup
     }
 }

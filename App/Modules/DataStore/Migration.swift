@@ -99,7 +99,7 @@ extension Array where Element == Gen1Glucose {
     func toSensorGlucose() -> [SensorGlucose] {
         return map { value in
             if let initialGlucoseValue = value.initialGlucoseValue, let calibratedGlucoseValue = value.calibratedGlucoseValue, value.type == .cgm {
-                return SensorGlucose(id: value.id, timestamp: value.timestamp, rawGlucoseValue: initialGlucoseValue, intGlucoseValue: calibratedGlucoseValue)
+                return SensorGlucose(id: value.id, timestamp: value.timestamp, rawGlucoseValue: initialGlucoseValue, intGlucoseValue: calibratedGlucoseValue, smoothGlucoseValue: nil)
             }
 
             return nil
@@ -163,7 +163,7 @@ extension Array where Element == Gen2Glucose {
     func toSensorGlucose() -> [SensorGlucose] {
         return map { value in
             if let rawGlucoseValue = value.rawGlucoseValue, let uncheckedGlucoseValue = value.uncheckedGlucoseValue, value.type == .cgm {
-                return SensorGlucose(id: value.id, timestamp: value.timestamp, rawGlucoseValue: rawGlucoseValue, intGlucoseValue: uncheckedGlucoseValue)
+                return SensorGlucose(id: value.id, timestamp: value.timestamp, rawGlucoseValue: rawGlucoseValue, intGlucoseValue: uncheckedGlucoseValue, smoothGlucoseValue: nil)
             }
 
             return nil
