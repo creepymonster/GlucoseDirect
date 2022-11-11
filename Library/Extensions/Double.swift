@@ -66,7 +66,7 @@ extension Double {
 
     func toInteger() -> Int? {
         if self >= Double(Int.min), self < Double(Int.max) {
-            return Int(self)
+            return Int(self.rounded())
         } else {
             return nil
         }
