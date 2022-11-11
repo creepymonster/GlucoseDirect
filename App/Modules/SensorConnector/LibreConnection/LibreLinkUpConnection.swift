@@ -509,7 +509,7 @@ private struct LibreLinkResponseDevice: Codable {
 // MARK: - LibreLinkResponseSensor
 
 private struct LibreLinkResponseSensor: Codable {
-    enum CodingKeys: String, CodingKey { case serial = "sn", activation = "a" }
+    enum CodingKeys: String, CodingKey { case sn, activation = "a" }
 
     let serial: String
     let activation: Double
@@ -517,6 +517,12 @@ private struct LibreLinkResponseSensor: Codable {
     var age: Int {
         let activationDate = Date(timeIntervalSince1970: activation)
         return Calendar.current.dateComponents([.minute], from: activationDate, to: Date()).minute ?? 0
+    }
+}
+
+extension LibreLinkResponseSensor {
+    var serial: String {
+        return sn.dropLast()
     }
 }
 

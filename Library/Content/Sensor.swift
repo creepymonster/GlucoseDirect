@@ -213,7 +213,7 @@ extension Sensor {
             family: .libre3,
             type: .libre3,
             region: SensorRegion(region),
-            serial: "\(serial.utf8)0",
+            serial: serial.utf8,
             state: SensorState(sensorState <= 2 ? sensorState : sensorState - 1),
             age: 0,
             lifetime: Int(lifetime),
