@@ -23,7 +23,7 @@ class GlucoseFilter {
             return kalmanFilter.updateEstimate(glucoseValue) ?? glucoseValue
         }
 
-        kalmanFilter = KalmanFilter(errMeasure: 0.5, errEstimate: 0.2, pNoise: 0.01, estimate: glucoseValue)
+        kalmanFilter = KalmanFilter(errMeasure: 0.75, errEstimate: 0.1, pNoise: 0.01, estimate: glucoseValue)
         return glucoseValue
     }
 

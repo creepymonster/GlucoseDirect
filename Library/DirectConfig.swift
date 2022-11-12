@@ -51,4 +51,17 @@ enum DirectConfig {
     static var minGlucoseStatisticsDays = 7
     static var timegroupRounding = 15
     static var lastChartHours = 24
+    static var smoothThresholdSeconds: Double = 15 * 60
+
+    static var smoothSensorGlucoseValues: Bool {
+        true
+    }
+    
+    static var drawRawGlucoseValues: Bool {
+        true
+    }
+
+    static var customCalibration: Bool {
+        true
+    }
 }

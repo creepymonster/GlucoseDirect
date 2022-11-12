@@ -63,10 +63,9 @@ struct ChartView: View {
 
                                     }.onAppear {
                                         scrollToEnd(scrollViewProxy: scrollViewProxy)
-                                        
+
                                     }.onTapGesture(count: 2) {
                                         showRaw = !showRaw
-                                        
                                     }
                             }
                         }
@@ -87,7 +86,7 @@ struct ChartView: View {
                                         .cornerRadius(5)
                                     }
 
-                                    if let selectedRawPoint = selectedRawPoint, showRaw {
+                                    if let selectedRawPoint = selectedRawPoint, DirectConfig.drawRawGlucoseValues, showRaw {
                                         VStack(alignment: .leading) {
                                             Text(selectedRawPoint.valueX.toLocalDateTime())
                                             Text(selectedRawPoint.info).bold()
@@ -195,29 +194,31 @@ struct ChartView: View {
                 .foregroundStyle(Color.ui.red)
             }
 
-            if !rawGlucoseSeries.isEmpty && showRaw {
-                ForEach(rawGlucoseSeries) { value in
-                    LineMark(
-                        x: .value("Time", value.valueX),
-                        y: .value("Glucose", value.valueY),
-                        series: .value("Series", "Raw")
-                    )
-                    .interpolationMethod(.monotone)
-                    .opacity(0.5)
-                    .foregroundStyle(Color.ui.orange)
-                    .lineStyle(Config.rawLineStyle)
+            if DirectConfig.drawRawGlucoseValues, showRaw {
+                if !rawGlucoseSeries.isEmpty {
+                    ForEach(rawGlucoseSeries) { value in
+                        LineMark(
+                            x: .value("Time", value.valueX),
+                            y: .value("Glucose", value.valueY),
+                            series: .value("Series", "Raw")
+                        )
+                        .interpolationMethod(.monotone)
+                        .opacity(0.5)
+                        .foregroundStyle(Color.ui.orange)
+                        .lineStyle(Config.rawLineStyle)
+                    }
                 }
-            }
-
-            if let selectedPointInfo = selectedRawPoint, showRaw {
-                PointMark(
-                    x: .value("Time", selectedPointInfo.valueX),
-                    y: .value("Glucose", selectedPointInfo.valueY)
-                )
-                .symbol(.square)
-                .opacity(0.75)
-                .symbolSize(Config.selectionSize)
-                .foregroundStyle(Color.ui.orange)
+                
+                if let selectedPointInfo = selectedRawPoint {
+                    PointMark(
+                        x: .value("Time", selectedPointInfo.valueX),
+                        y: .value("Glucose", selectedPointInfo.valueY)
+                    )
+                    .symbol(.square)
+                    .opacity(0.75)
+                    .symbolSize(Config.selectionSize)
+                    .foregroundStyle(Color.ui.orange)
+                }
             }
 
             if let selectedPointInfo = selectedSensorPoint {
@@ -546,7 +547,7 @@ struct ChartView: View {
                 }
             }
 
-            let rawGlucoseSeries = store.state.drawRawGlucoseValues
+            let rawGlucoseSeries = DirectConfig.drawRawGlucoseValues
                 ? populateRawValues(glucoseValues: store.state.sensorGlucoseValues)
                 : populateRawValues(glucoseValues: [])
 
@@ -593,18 +594,19 @@ struct ChartView: View {
     }
 
     private func populateValues(glucoseValues: [SensorGlucose]) -> [ChartDatapoint] {
-        glucoseValues.map { value in
-            if value.id == store.state.latestSensorGlucose?.id || !store.state.smoothSensorGlucoseValues {
-                return value.toDatapoint(glucoseUnit: glucoseUnit, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh)
-            } else {
+        let smoothThreshold = Date().addingTimeInterval(-DirectConfig.smoothThresholdSeconds)
+
+        return glucoseValues.map { value in
+            if value.timestamp < smoothThreshold, DirectConfig.smoothSensorGlucoseValues {
                 return value.toSmoothDatapoint(glucoseUnit: glucoseUnit, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh)
             }
-        }
-        .compactMap { $0 }
+
+            return value.toDatapoint(glucoseUnit: glucoseUnit, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh)
+        }.compactMap { $0 }
     }
 
     private func populateRawValues(glucoseValues: [SensorGlucose]) -> [ChartDatapoint] {
-        glucoseValues.map { value in
+        return glucoseValues.map { value in
             value.toRawDatapoint(glucoseUnit: glucoseUnit, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh)
         }
         .compactMap { $0 }
@@ -691,7 +693,7 @@ private extension SensorGlucose {
             info: rawGlucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)
         )
     }
-    
+
     func toSmoothDatapoint(glucoseUnit: GlucoseUnit, alarmLow: Int, alarmHigh: Int, shiftY: Int = 0) -> ChartDatapoint {
         let glucose = (smoothGlucoseValue ?? glucoseValue)
         let info = glucose.asGlucose(unit: glucoseUnit, withUnit: true)

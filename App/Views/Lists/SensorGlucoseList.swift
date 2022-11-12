@@ -16,14 +16,20 @@ struct SensorGlucoseList: View {
                 if sensorGlucoseValues.isEmpty {
                     Text(getTeaser(sensorGlucoseValues.count))
                 } else {
+                    let smoothThreshold = Date().addingTimeInterval(-DirectConfig.smoothThresholdSeconds)
+                    
                     ForEach(sensorGlucoseValues) { sensorGlucose in
                         HStack {
                             Text(verbatim: sensorGlucose.timestamp.toLocalDateTime())
                             Spacer()
 
-                            let glucoseValue = sensorGlucose.id == store.state.latestSensorGlucose?.id || !store.state.smoothSensorGlucoseValues
-                                ? sensorGlucose.glucoseValue
-                                : sensorGlucose.smoothGlucoseValue ?? sensorGlucose.glucoseValue
+                            if sensorGlucose.timestamp < smoothThreshold && DirectConfig.smoothSensorGlucoseValues {
+                                Text("smooth \(sensorGlucose.glucoseValue)")                               
+                            }
+                            
+                            let glucoseValue = sensorGlucose.timestamp < smoothThreshold && DirectConfig.smoothSensorGlucoseValues
+                                ? sensorGlucose.smoothGlucoseValue ?? sensorGlucose.glucoseValue
+                                : sensorGlucose.glucoseValue
                                                        
                             Text(verbatim: glucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true, precise: isPrecise(glucoseValue: glucoseValue)))
                                 .if(glucoseValue < store.state.alarmLow || glucoseValue > store.state.alarmHigh) { text in
