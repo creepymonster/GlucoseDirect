@@ -24,7 +24,7 @@ struct SensorGlucoseList: View {
                             Spacer()
 
                             if DirectConfig.isDebug, sensorGlucose.timestamp < smoothThreshold, DirectConfig.smoothSensorGlucoseValues {
-                                Text("smooth \(sensorGlucose.glucoseValue)")
+                                Text(sensorGlucose.glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit))
                             }
 
                             if let glucoseValue = sensorGlucose.smoothGlucoseValue?.toInteger(), sensorGlucose.timestamp < smoothThreshold, DirectConfig.smoothSensorGlucoseValues {
