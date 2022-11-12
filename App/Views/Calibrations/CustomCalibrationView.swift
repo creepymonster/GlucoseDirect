@@ -16,7 +16,7 @@ struct CustomCalibrationView: View {
         if showingAddCalibrationView {
             Section(
                 content: {
-                    NumberSelectorView(key: LocalizedString("Now"), value: value, step: 1, displayValue: value.asGlucose(unit: store.state.glucoseUnit, withUnit: true)) { value in
+                    NumberSelectorView(key: LocalizedString("Now"), value: value, step: 1, displayValue: value.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true)) { value in
                         self.value = value
                     }
                 },

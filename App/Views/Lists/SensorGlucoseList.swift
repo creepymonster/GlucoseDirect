@@ -31,7 +31,7 @@ struct SensorGlucoseList: View {
                                 ? sensorGlucose.smoothGlucoseValue ?? sensorGlucose.glucoseValue
                                 : sensorGlucose.glucoseValue
                                                        
-                            Text(verbatim: glucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true, precise: isPrecise(glucoseValue: glucoseValue)))
+                            Text(verbatim: glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true, precise: isPrecise(glucoseValue: glucoseValue)))
                                 .if(glucoseValue < store.state.alarmLow || glucoseValue > store.state.alarmHigh) { text in
                                     text.foregroundColor(Color.ui.red)
                                 }

@@ -16,7 +16,7 @@ struct GlucoseView: View {
         VStack(spacing: 0) {
             if let latestGlucose = store.state.latestSensorGlucose {
                 HStack(alignment: .lastTextBaseline, spacing: 20) {
-                    Text(verbatim: latestGlucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit))
+                    Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit))
                         .font(.system(size: 96))
                         .foregroundColor(getGlucoseColor(glucose: latestGlucose))
 

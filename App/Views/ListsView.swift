@@ -119,7 +119,7 @@ struct ListsView: View {
                                 }
 
                                 if store.state.showAnnotations {
-                                    Text("Time in Range (TIR) or the percentage of time spent in the target glucose range between \(store.state.alarmLow.asGlucose(unit: store.state.glucoseUnit)) - \(store.state.alarmHigh.asGlucose(unit: store.state.glucoseUnit, withUnit: true)).")
+                                    Text("Time in Range (TIR) or the percentage of time spent in the target glucose range between \(store.state.alarmLow.asGlucose(glucoseUnit: store.state.glucoseUnit)) - \(store.state.alarmHigh.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true)).")
                                         .font(.footnote)
                                         .foregroundColor(.gray)
                                 }
@@ -133,7 +133,7 @@ struct ListsView: View {
                                 }
 
                                 if store.state.showAnnotations {
-                                    Text("Time below Range (TBR) or the percentage of time spent below the target glucose of \(store.state.alarmLow.asGlucose(unit: store.state.glucoseUnit, withUnit: true)).")
+                                    Text("Time below Range (TBR) or the percentage of time spent below the target glucose of \(store.state.alarmLow.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true)).")
                                         .font(.footnote)
                                         .foregroundColor(.gray)
                                 }
@@ -147,7 +147,7 @@ struct ListsView: View {
                                 }
 
                                 if store.state.showAnnotations {
-                                    Text("Time above Range (TAR) or the percentage of time spent above the target glucose of \(store.state.alarmHigh.asGlucose(unit: store.state.glucoseUnit, withUnit: true)).")
+                                    Text("Time above Range (TAR) or the percentage of time spent above the target glucose of \(store.state.alarmHigh.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true)).")
                                         .font(.footnote)
                                         .foregroundColor(.gray)
                                 }

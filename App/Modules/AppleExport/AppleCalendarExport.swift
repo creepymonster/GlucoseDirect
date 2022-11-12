@@ -119,7 +119,7 @@ private class AppleCalendarExportService {
     }
 
     func addSensorGlucose(calendarTarget: String, glucose: SensorGlucose, glucoseUnit: GlucoseUnit, sensorInterval: Double) {
-        addCalendarEntry(calendarTarget: calendarTarget, timestamp: glucose.timestamp, durationMinutes: 15, title: "\(glucose.trend.description) \(glucose.glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true))", location: glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit))
+        addCalendarEntry(calendarTarget: calendarTarget, timestamp: glucose.timestamp, durationMinutes: 15, title: "\(glucose.trend.description) \(glucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit, withUnit: true))", location: glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit))
     }
 
     // MARK: Private

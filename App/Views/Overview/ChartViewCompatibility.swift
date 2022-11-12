@@ -631,7 +631,7 @@ struct ChartViewCompatibility: View {
                 }
 
                 let y = self.translateGlucoseToY(fullSize: fullSize, glucose: CGFloat(i))
-                yGridTexts.append(TextInfoCompatibility(description: i.asGlucose(unit: glucoseUnit), x: 0, y: y, highlight: false))
+                yGridTexts.append(TextInfoCompatibility(description: i.asGlucose(glucoseUnit: glucoseUnit), x: 0, y: y, highlight: false))
             }
 
             DispatchQueue.main.async {

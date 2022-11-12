@@ -15,7 +15,7 @@ struct BloodGlucoseList: View {
             if showingAddBloodGlucoseView {
                 Section(
                     content: {
-                        NumberSelectorView(key: LocalizedString("Now"), value: value, step: 1, displayValue: value.asGlucose(unit: store.state.glucoseUnit, withUnit: true)) { value in
+                        NumberSelectorView(key: LocalizedString("Now"), value: value, step: 1, displayValue: value.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true)) { value in
                             self.value = value
                         }
                     },
@@ -68,7 +68,7 @@ struct BloodGlucoseList: View {
                             Text(verbatim: bloodGlucose.timestamp.toLocalDateTime())
                             Spacer()
 
-                            Text(verbatim: bloodGlucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true))
+                            Text(verbatim: bloodGlucose.glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))
                                 .if(bloodGlucose.glucoseValue < store.state.alarmLow || bloodGlucose.glucoseValue > store.state.alarmHigh) { text in
                                     text.foregroundColor(Color.ui.red)
                                 }

@@ -658,7 +658,7 @@ private extension BloodGlucose {
                 id: toDatapointID(glucoseUnit: glucoseUnit),
                 valueX: timestamp,
                 valueY: glucoseValue.asMmolL,
-                info: glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)
+                info: glucoseValue.asGlucose(glucoseUnit: glucoseUnit, withUnit: true)
             )
         }
 
@@ -666,7 +666,7 @@ private extension BloodGlucose {
             id: toDatapointID(glucoseUnit: glucoseUnit),
             valueX: timestamp,
             valueY: glucoseValue.asMgdL,
-            info: glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)
+            info: glucoseValue.asGlucose(glucoseUnit: glucoseUnit, withUnit: true)
         )
     }
 }
@@ -682,7 +682,7 @@ private extension SensorGlucose {
                 id: toDatapointID(glucoseUnit: glucoseUnit),
                 valueX: timestamp,
                 valueY: rawGlucoseValue.asMmolL + shiftY.asMmolL,
-                info: rawGlucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)
+                info: rawGlucoseValue.asGlucose(glucoseUnit: glucoseUnit, withUnit: true)
             )
         }
 
@@ -690,13 +690,13 @@ private extension SensorGlucose {
             id: toDatapointID(glucoseUnit: glucoseUnit),
             valueX: timestamp,
             valueY: rawGlucoseValue.asMgdL + shiftY.asMgdL,
-            info: rawGlucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)
+            info: rawGlucoseValue.asGlucose(glucoseUnit: glucoseUnit, withUnit: true)
         )
     }
 
     func toSmoothDatapoint(glucoseUnit: GlucoseUnit, alarmLow: Int, alarmHigh: Int, shiftY: Int = 0) -> ChartDatapoint {
         let glucose = (smoothGlucoseValue ?? glucoseValue)
-        let info = glucose.asGlucose(unit: glucoseUnit, withUnit: true)
+        let info = glucose.asGlucose(glucoseUnit: glucoseUnit, withUnit: true)
 
         if glucoseUnit == .mmolL {
             return ChartDatapoint(
@@ -719,9 +719,9 @@ private extension SensorGlucose {
         var info: String
 
         if let minuteChange = minuteChange {
-            info = "\(glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)) \(minuteChange.asMinuteChange(glucoseUnit: glucoseUnit))"
+            info = "\(glucoseValue.asGlucose(glucoseUnit: glucoseUnit, withUnit: true)) \(minuteChange.asMinuteChange(glucoseUnit: glucoseUnit))"
         } else {
-            info = glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true)
+            info = glucoseValue.asGlucose(glucoseUnit: glucoseUnit, withUnit: true)
         }
 
         if glucoseUnit == .mmolL {
