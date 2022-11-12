@@ -146,6 +146,13 @@ private extension DataStore {
                     t.add(column: SensorGlucose.Columns.smoothGlucoseValue.name, .integer)
                 }
             }
+            
+            migrator.registerMigration("Update column 'smoothGlucoseValue'") { db in
+                try db.alter(table: SensorGlucose.Table) { t in
+                    t.drop(column: SensorGlucose.Columns.smoothGlucoseValue.name)
+                    t.add(column: SensorGlucose.Columns.smoothGlucoseValue.name, .double)
+                }
+            }
 
             do {
                 try migrator.migrate(dbQueue)

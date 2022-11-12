@@ -419,7 +419,7 @@ struct ChartView: View {
         return 300
     }
 
-    private var alarmLow: Decimal {
+    private var alarmLow: Double {
         if glucoseUnit == .mmolL {
             return store.state.alarmLow.asMmolL
         }
@@ -427,7 +427,7 @@ struct ChartView: View {
         return store.state.alarmLow.asMgdL
     }
 
-    private var alarmHigh: Decimal {
+    private var alarmHigh: Double {
         if glucoseUnit == .mmolL {
             return store.state.alarmHigh.asMmolL
         }
@@ -643,7 +643,7 @@ extension ZoomLevel: Equatable {
 private struct ChartDatapoint: Identifiable {
     let id: String
     let valueX: Date
-    let valueY: Decimal
+    let valueY: Double
     let info: String
 }
 

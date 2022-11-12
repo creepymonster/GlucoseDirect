@@ -80,12 +80,12 @@ extension Int {
         return String(format: LocalizedString("%1$@d %2$@h %3$@min"), self.inDays.description, self.inHours.description, self.inMinutes.description)
     }
 
-    var asMmolL: Decimal {
+    var asMmolL: Double {
         return Double(self).asMmolL
     }
 
-    var asMgdL: Decimal {
-        return Decimal(self)
+    var asMgdL: Double {
+        return Double(self)
     }
 
     func pluralize(singular: String, plural: String) -> String {
