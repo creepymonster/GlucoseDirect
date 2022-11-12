@@ -25,7 +25,7 @@ struct GlucoseActivityWidget: Widget {
                    let connectionState = context.state.connectionState
                 {
                     VStack(alignment: .trailing) {
-                        Text(latestGlucose.glucoseValue.asGlucose(unit: glucoseUnit))
+                        Text(latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
                             .font(.body)
                             .fontWeight(.bold)
                             .strikethrough(connectionState != .connected, color: Color.ui.red)
@@ -54,7 +54,7 @@ struct GlucoseActivityWidget: Widget {
                    let glucoseUnit = context.state.glucoseUnit,
                    let connectionState = context.state.connectionState
                 {
-                    Text(latestGlucose.glucoseValue.asGlucose(unit: glucoseUnit))
+                    Text(latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
                         .font(.body)
                         .strikethrough(connectionState != .connected, color: Color.ui.red)
                 }
@@ -111,7 +111,7 @@ struct DynamicIslandCenterView: View, GlucoseStatusContext {
         VStack(spacing: 0) {
             if let latestGlucose = context.glucose, let glucoseUnit = context.glucoseUnit {
                 HStack(alignment: .lastTextBaseline, spacing: 20) {
-                    Text(verbatim: latestGlucose.glucoseValue.asGlucose(unit: glucoseUnit))
+                    Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
                         .font(.system(size: 64))
                         .foregroundColor(getGlucoseColor(glucose: latestGlucose))
 
@@ -165,7 +165,7 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
             VStack(spacing: 10) {
                 if let latestGlucose = context.glucose, let glucoseUnit = context.glucoseUnit {
                     HStack(alignment: .lastTextBaseline, spacing: 20) {
-                        Text(verbatim: latestGlucose.glucoseValue.asGlucose(unit: glucoseUnit))
+                        Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
                             .font(.system(size: 96))
                             .foregroundColor(getGlucoseColor(glucose: latestGlucose))
 

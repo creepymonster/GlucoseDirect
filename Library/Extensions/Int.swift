@@ -120,10 +120,10 @@ extension Int {
         return false
     }
 
-    func asGlucose(unit: GlucoseUnit, withUnit: Bool = false, precise: Bool = false) -> String {
+    func asGlucose(glucoseUnit: GlucoseUnit, withUnit: Bool = false, precise: Bool = false) -> String {
         var glucose: String
 
-        if unit == .mmolL {
+        if glucoseUnit == .mmolL {
             if precise {
                 glucose = GlucoseFormatters.preciseMmolLFormatter.string(from: self.asMmolL as NSNumber)!
             } else {
@@ -134,7 +134,7 @@ extension Int {
         }
 
         if withUnit {
-            return "\(glucose) \(unit.localizedDescription)"
+            return "\(glucose) \(glucoseUnit.localizedDescription)"
         }
 
         return glucose
