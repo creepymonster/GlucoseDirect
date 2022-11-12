@@ -58,14 +58,22 @@ enum DirectConfig {
     }
 
     static var drawRawGlucoseValues: Bool {
-        #if DEBUG
-        true
-        #else
-        false
-        #endif
+        if isDebug {
+            return true
+        } else {
+            return false
+        }
     }
 
     static var customCalibration: Bool {
+        if isDebug {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    static var isDebug: Bool {
         #if DEBUG
         true
         #else

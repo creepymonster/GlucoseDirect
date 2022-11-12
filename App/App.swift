@@ -144,9 +144,9 @@ private func createSimulatorAppStore() -> DirectStore {
         SensorConnectionInfo(id: DirectConfig.virtualID, name: "Virtual") { VirtualLibreConnection(subject: $0) }
     ]))
 
-    #if DEBUG
+    if DirectConfig.isDebug {
         middlewares.append(debugMiddleware())
-    #endif
+    }
 
     return DirectStore(initialState: AppState(), reducer: directReducer, middlewares: middlewares)
 }
@@ -192,15 +192,15 @@ private func createAppStore() -> DirectStore {
         connectionInfos.append(SensorConnectionInfo(id: DirectConfig.bubbleID, name: LocalizedString("Bubble transmitter"), connectionCreator: { BubbleConnection(subject: $0) }))
     #endif
 
-    #if DEBUG
+    if DirectConfig.isDebug {
         connectionInfos.append(SensorConnectionInfo(id: DirectConfig.libreLinkID, name: LocalizedString("LibreLink transmitter"), connectionCreator: { LibreLinkConnection(subject: $0) }))
-    #endif
+    }
 
     middlewares.append(sensorConnectorMiddelware(connectionInfos))
 
-    #if DEBUG
+    if DirectConfig.isDebug {
         middlewares.append(debugMiddleware())
-    #endif
+    }
 
     return DirectStore(initialState: AppState(), reducer: directReducer, middlewares: middlewares)
 }

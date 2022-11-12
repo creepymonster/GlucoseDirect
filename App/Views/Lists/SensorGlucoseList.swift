@@ -23,7 +23,7 @@ struct SensorGlucoseList: View {
                             Text(verbatim: sensorGlucose.timestamp.toLocalDateTime())
                             Spacer()
 
-                            if sensorGlucose.timestamp < smoothThreshold && DirectConfig.smoothSensorGlucoseValues {
+                            if DirectConfig.isDebug, sensorGlucose.timestamp < smoothThreshold, DirectConfig.smoothSensorGlucoseValues {
                                 Text("smooth \(sensorGlucose.glucoseValue)")
                             }
 
