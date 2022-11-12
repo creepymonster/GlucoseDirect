@@ -17,24 +17,27 @@ struct SensorGlucoseList: View {
                     Text(getTeaser(sensorGlucoseValues.count))
                 } else {
                     let smoothThreshold = Date().addingTimeInterval(-DirectConfig.smoothThresholdSeconds)
-                    
+
                     ForEach(sensorGlucoseValues) { sensorGlucose in
                         HStack {
                             Text(verbatim: sensorGlucose.timestamp.toLocalDateTime())
                             Spacer()
 
                             if sensorGlucose.timestamp < smoothThreshold && DirectConfig.smoothSensorGlucoseValues {
-                                Text("smooth \(sensorGlucose.glucoseValue)")                               
+                                Text("smooth \(sensorGlucose.glucoseValue)")
                             }
-                            
-                            let glucoseValue = sensorGlucose.timestamp < smoothThreshold && DirectConfig.smoothSensorGlucoseValues
-                                ? sensorGlucose.smoothGlucoseValue ?? sensorGlucose.glucoseValue
-                                : sensorGlucose.glucoseValue
-                                                       
-                            Text(verbatim: glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true, precise: isPrecise(glucoseValue: glucoseValue)))
-                                .if(glucoseValue < store.state.alarmLow || glucoseValue > store.state.alarmHigh) { text in
-                                    text.foregroundColor(Color.ui.red)
-                                }
+
+                            if let glucoseValue = sensorGlucose.smoothGlucoseValue?.toInteger(), sensorGlucose.timestamp < smoothThreshold && DirectConfig.smoothSensorGlucoseValues {
+                                Text(verbatim: glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true, precise: isPrecise(glucoseValue: glucoseValue)))
+                                    .if(glucoseValue < store.state.alarmLow || glucoseValue > store.state.alarmHigh) { text in
+                                        text.foregroundColor(Color.ui.red)
+                                    }
+                            } else {
+                                Text(verbatim: sensorGlucose.glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true, precise: isPrecise(glucoseValue: sensorGlucose.glucoseValue)))
+                                    .if(sensorGlucose.glucoseValue < store.state.alarmLow || sensorGlucose.glucoseValue > store.state.alarmHigh) { text in
+                                        text.foregroundColor(Color.ui.red)
+                                    }
+                            }
                         }
                     }.onDelete { offsets in
                         DirectLog.info("onDelete: \(offsets)")

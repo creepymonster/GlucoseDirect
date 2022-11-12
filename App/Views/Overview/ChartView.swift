@@ -264,7 +264,7 @@ struct ChartView: View {
             AxisMarks(position: .trailing) { value in
                 AxisGridLine(stroke: Config.axisStyle)
 
-                if let glucoseValue = value.as(Decimal.self), glucoseValue > 0 {
+                if let glucoseValue = value.as(Double.self), glucoseValue > 0 {
                     AxisTick(length: 4, stroke: Config.tickStyle)
                         .foregroundStyle(Color.ui.gray)
                     AxisValueLabel()
@@ -411,7 +411,7 @@ struct ChartView: View {
         return 1
     }
 
-    private var chartMinimum: Decimal {
+    private var chartMinimum: Double {
         if glucoseUnit == .mmolL {
             return 15
         }
@@ -695,7 +695,7 @@ private extension SensorGlucose {
     }
 
     func toSmoothDatapoint(glucoseUnit: GlucoseUnit, alarmLow: Int, alarmHigh: Int, shiftY: Int = 0) -> ChartDatapoint {
-        let glucose = (smoothGlucoseValue ?? glucoseValue)
+        let glucose = (smoothGlucoseValue ?? Double(glucoseValue))
         let info = glucose.asGlucose(glucoseUnit: glucoseUnit, withUnit: true)
 
         if glucoseUnit == .mmolL {

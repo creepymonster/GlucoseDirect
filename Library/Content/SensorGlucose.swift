@@ -69,7 +69,7 @@ struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable, H
         self.timegroup = roundedTimestamp.toRounded(on: DirectConfig.timegroupRounding, .minute)
     }
 
-    init(id: UUID, timestamp: Date, rawGlucoseValue: Int, intGlucoseValue: Int, smoothGlucoseValue: Int?, minuteChange: Double? = nil) {
+    init(id: UUID, timestamp: Date, rawGlucoseValue: Int, intGlucoseValue: Int, smoothGlucoseValue: Double?, minuteChange: Double? = nil) {
         let roundedTimestamp = timestamp.toRounded(on: 1, .minute)
 
         self.id = id
@@ -88,7 +88,7 @@ struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable, H
     let minuteChange: Double?
     let rawGlucoseValue: Int
     let intGlucoseValue: Int
-    let smoothGlucoseValue: Int?
+    let smoothGlucoseValue: Double?
     let timegroup: Date
 
     var glucoseValue: Int {
