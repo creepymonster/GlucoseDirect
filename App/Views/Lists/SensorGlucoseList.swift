@@ -27,7 +27,7 @@ struct SensorGlucoseList: View {
                                 Text("smooth \(sensorGlucose.glucoseValue)")
                             }
 
-                            if let glucoseValue = sensorGlucose.smoothGlucoseValue?.toInteger(), sensorGlucose.timestamp < smoothThreshold && DirectConfig.smoothSensorGlucoseValues {
+                            if let glucoseValue = sensorGlucose.smoothGlucoseValue?.toInteger(), sensorGlucose.timestamp < smoothThreshold, DirectConfig.smoothSensorGlucoseValues {
                                 Text(verbatim: glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true, precise: isPrecise(glucoseValue: glucoseValue)))
                                     .if(glucoseValue < store.state.alarmLow || glucoseValue > store.state.alarmHigh) { text in
                                         text.foregroundColor(Color.ui.red)
