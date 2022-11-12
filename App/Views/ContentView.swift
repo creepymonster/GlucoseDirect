@@ -24,7 +24,7 @@ struct ContentView: View {
                     Label("Glucose list view", systemImage: "list.dash")
                 }.tag(DirectConfig.listsViewTag)
 
-                if store.state.isConnectionPaired && store.state.isConnectable || store.state.isDisconnectable {
+                if (store.state.isConnectionPaired && store.state.isConnectable || store.state.isDisconnectable) && (DirectConfig.customCalibration || !store.state.customCalibration.isEmpty || store.state.sensor?.factoryCalibration != nil) {
                     CalibrationsView().tabItem {
                         Label("Calibration view", systemImage: "tuningfork")
                     }.tag(DirectConfig.calibrationsViewTag)

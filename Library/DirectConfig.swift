@@ -56,12 +56,20 @@ enum DirectConfig {
     static var smoothSensorGlucoseValues: Bool {
         true
     }
-    
+
     static var drawRawGlucoseValues: Bool {
+        #if DEBUG
         true
+        #else
+        false
+        #endif
     }
 
     static var customCalibration: Bool {
+        #if DEBUG
         true
+        #else
+        false
+        #endif
     }
 }
