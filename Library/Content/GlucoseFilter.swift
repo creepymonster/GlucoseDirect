@@ -19,7 +19,7 @@ class GlucoseFilter {
             return kalmanFilter.filter(glucoseValue)
         }
 
-        kalmanFilter = KalmanFilter(measurementNoise: 100)
+        kalmanFilter = KalmanFilter(processNoise: 0.1, measurementNoise: 15)
         return glucoseValue
     }
 
@@ -30,7 +30,7 @@ class GlucoseFilter {
 }
 
 private class KalmanFilter {
-    init(processNoise: Double = 1, measurementNoise: Double = 1, stateVector: Double = 1, controlVector: Double = 1, measurementVector: Double = 1) {
+    init(processNoise: Double = 0.01, measurementNoise: Double = 1, stateVector: Double = 1, controlVector: Double = 1, measurementVector: Double = 0) {
         self.processNoise = processNoise
         self.measurementNoise = measurementNoise
         
