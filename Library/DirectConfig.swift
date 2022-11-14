@@ -8,7 +8,30 @@ import Foundation
 // MARK: - AppConfig
 
 enum DirectConfig {
-    static var appSchemaURL = URL(string: "glucosedirect://")
+    static let appSchemaURL = URL(string: "glucosedirect://")
+    static let bubbleID = "bubble"
+    static let calibrationsViewTag = 3
+    static let crowdinURL = "https://crwd.in/glucose-direct-app"
+    static let donateURL = "https://www.paypal.me/reimarmetzen"
+    static let expiredNotificationInterval: Double = 1 * 60 * 60 // in seconds
+    static let facebookURL = "https://www.facebook.com/groups/4747621411996068/"
+    static let faqURL = "https://github.com/creepymonster/GlucoseDirectApp"
+    static let githubURL = "https://github.com/creepymonster/GlucoseDirectApp"
+    static let lastChartHours = 24
+    static let libre2ID = "libre2"
+    static let libreLinkID = "librelink"
+    static let listsViewTag = 2
+    static let maxReadableGlucose = 501
+    static let minGlucoseStatisticsDays = 7
+    static let minReadableGlucose = 39
+    static let overviewViewTag = 1
+    static let projectName = "GlucoseDirect"
+    static let settingsViewTag = 4
+    static let smoothSensorGlucoseValues = true
+    static let smoothThresholdSeconds: Double = 15 * 60
+    static let timegroupRounding = 15
+    static let virtualID = "virtual"
+    static let widgetName = "\(appName) Widget"
 
     static var appName: String = {
         Bundle.main.localizedInfoDictionary?["CFBundleDisplayName"] as! String
@@ -29,33 +52,6 @@ enum DirectConfig {
     static var appSupportMail: String? = {
         Bundle.main.infoDictionary?["AppSupportMail"] as? String
     }()
-
-    static var bubbleID = "bubble"
-    static var calibrationsViewTag = 3
-    static var crowdinURL = "https://crwd.in/glucose-direct-app"
-    static var donateURL = "https://www.paypal.me/reimarmetzen"
-    static var expiredNotificationInterval: Double = 1 * 60 * 60 // in seconds
-    static var facebookURL = "https://www.facebook.com/groups/4747621411996068/"
-    static var faqURL = "https://github.com/creepymonster/GlucoseDirectApp"
-    static var githubURL = "https://github.com/creepymonster/GlucoseDirectApp"
-    static var libre2ID = "libre2"
-    static var libreLinkID = "librelink"
-    static var listsViewTag = 2
-    static var maxReadableGlucose = 501
-    static var minReadableGlucose = 39
-    static var overviewViewTag = 1
-    static var projectName = "GlucoseDirect"
-    static var settingsViewTag = 4
-    static var virtualID = "virtual"
-    static var widgetName = "\(appName) Widget"
-    static var minGlucoseStatisticsDays = 7
-    static var timegroupRounding = 15
-    static var lastChartHours = 24
-    static var smoothThresholdSeconds: Double = 15 * 60
-
-    static var smoothSensorGlucoseValues: Bool {
-        true
-    }
 
     static var drawRawGlucoseValues: Bool {
         if isDebug {
