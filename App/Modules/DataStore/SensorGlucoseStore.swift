@@ -141,9 +141,26 @@ private extension DataStore {
             }
 
             var migrator = DatabaseMigrator()
+
             migrator.registerMigration("Add column 'smoothGlucoseValue'") { db in
                 try db.alter(table: SensorGlucose.Table) { t in
                     t.add(column: SensorGlucose.Columns.smoothGlucoseValue.name, .double)
+                }
+            }
+
+            migrator.registerMigration("Fill column 'smoothGlucoseValue'") { db in
+                let filter = GlucoseFilter()
+                let glucoseValues = try Row.fetchAll(db, sql: "SELECT \(SensorGlucose.Columns.id.name), \(SensorGlucose.Columns.rawGlucoseValue.name) FROM \(SensorGlucose.databaseTableName) ORDER BY \(SensorGlucose.Columns.timestamp.name)")
+
+                try glucoseValues.forEach { row in
+                    let id: UUID = row[SensorGlucose.Columns.id.name]
+                    let rawGlucoseValue: Int = row[SensorGlucose.Columns.rawGlucoseValue.name]
+                    let smoothGlucoseValue = filter.filter(glucoseValue: rawGlucoseValue)
+
+                    try db.execute(
+                        sql: "UPDATE \(SensorGlucose.databaseTableName) SET \(SensorGlucose.Columns.smoothGlucoseValue.name) = :value WHERE \(SensorGlucose.Columns.id.name) = :id",
+                        arguments: ["value": smoothGlucoseValue, "id": id.uuidString]
+                    )
                 }
             }
 
@@ -251,7 +268,7 @@ private extension DataStore {
                             promise(.failure(.withMessage("No statistics available")))
                         }
                     } catch {
-                        promise(.failure(.withMessage(error.localizedDescription)))
+                        promise(.failure(.withError(error)))
                     }
                 }
             }
@@ -271,7 +288,7 @@ private extension DataStore {
                             promise(.success(Date()))
                         }
                     } catch {
-                        promise(.failure(.withMessage(error.localizedDescription)))
+                        promise(.failure(.withError(error)))
                     }
                 }
             }
@@ -302,7 +319,7 @@ private extension DataStore {
                             promise(.success(result))
                         }
                     } catch {
-                        promise(.failure(.withMessage(error.localizedDescription)))
+                        promise(.failure(.withError(error)))
                     }
                 }
             }

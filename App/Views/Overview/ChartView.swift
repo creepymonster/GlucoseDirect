@@ -208,7 +208,7 @@ struct ChartView: View {
                         .lineStyle(Config.rawLineStyle)
                     }
                 }
-                
+
                 if let selectedPointInfo = selectedRawPoint {
                     PointMark(
                         x: .value("Time", selectedPointInfo.valueX),
@@ -349,11 +349,11 @@ struct ChartView: View {
     private enum Config {
         static let chartID = "chart"
         static let symbolSize: CGFloat = 10
-        static let selectionSize: CGFloat = 75
+        static let selectionSize: CGFloat = 100
         static let spacerWidth: CGFloat = 50
-        static let chartHeight: CGFloat = 340
-        static let lineStyle: StrokeStyle = .init(lineWidth: 2, lineCap: .round)
-        static let rawLineStyle: StrokeStyle = .init(lineWidth: 2, lineCap: .round)
+        static let chartHeight: CGFloat = 400
+        static let lineStyle: StrokeStyle = .init(lineWidth: 3, lineCap: .round)
+        static let rawLineStyle: StrokeStyle = .init(lineWidth: 3, lineCap: .round)
         static let ruleStyle: StrokeStyle = .init(lineWidth: 1, dash: [2])
         static let gridStyle: StrokeStyle = .init(lineWidth: 1)
         static let dayStyle: StrokeStyle = .init(lineWidth: 1)

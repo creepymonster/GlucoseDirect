@@ -37,7 +37,7 @@ func sensorErrorStoreMiddleware() -> Middleware<DirectState, DirectAction> {
             return Just(DirectAction.loadSensorErrorValues)
                 .setFailureType(to: DirectError.self)
                 .eraseToAnyPublisher()
-            
+
         case .setSelectedDate(selectedDate: _):
             return Just(DirectAction.loadSensorErrorValues)
                 .setFailureType(to: DirectError.self)
@@ -149,7 +149,7 @@ private extension DataStore {
                 dbQueue.asyncRead { asyncDB in
                     do {
                         let db = try asyncDB.get()
-                        
+
                         if let selectedDate = selectedDate, let nextDate = Calendar.current.date(byAdding: .day, value: +1, to: selectedDate) {
                             let result = try SensorError
                                 .filter(Column(SensorGlucose.Columns.timestamp.name) >= selectedDate.startOfDay)
@@ -166,7 +166,7 @@ private extension DataStore {
                             promise(.success(result))
                         }
                     } catch {
-                        promise(.failure(.withMessage(error.localizedDescription)))
+                        promise(.failure(.withError(error)))
                     }
                 }
             }

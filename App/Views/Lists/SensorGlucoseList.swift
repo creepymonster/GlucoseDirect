@@ -23,10 +23,6 @@ struct SensorGlucoseList: View {
                             Text(verbatim: sensorGlucose.timestamp.toLocalDateTime())
                             Spacer()
 
-                            if DirectConfig.isDebug, sensorGlucose.timestamp < smoothThreshold, DirectConfig.smoothSensorGlucoseValues {
-                                Text(sensorGlucose.glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit))
-                            }
-
                             if let glucoseValue = sensorGlucose.smoothGlucoseValue?.toInteger(), sensorGlucose.timestamp < smoothThreshold, DirectConfig.smoothSensorGlucoseValues {
                                 Text(verbatim: glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true, precise: isPrecise(glucoseValue: glucoseValue)))
                                     .if(glucoseValue < store.state.alarmLow || glucoseValue > store.state.alarmHigh) { text in

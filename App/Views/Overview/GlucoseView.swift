@@ -64,6 +64,7 @@ struct GlucoseView: View {
                         Image(systemName: "lock.slash")
                         Text("No screen lock")
                     } else {
+                        Text(verbatim: "")
                         Image(systemName: "lock")
                     }
                 }).opacity(store.state.preventScreenLock ? 1 : 0.5)
@@ -81,7 +82,7 @@ struct GlucoseView: View {
 
                 Button(action: {
                     let date = (store.state.alarmSnoozeUntil ?? Date()).toRounded(on: 1, .minute)
-                    let nextDate = Calendar.current.date(byAdding: .minute, value: 60, to: date)
+                    let nextDate = Calendar.current.date(byAdding: .minute, value: 30, to: date)
 
                     DirectNotifications.shared.hapticFeedback()
                     store.dispatch(.setAlarmSnoozeUntil(untilDate: nextDate))
@@ -90,10 +91,12 @@ struct GlucoseView: View {
                         Text(verbatim: alarmSnoozeUntil.toLocalTime())
                         Image(systemName: "speaker.slash")
                     } else {
+                        Text(verbatim: "")
                         Image(systemName: "speaker.wave.2")
                     }
                 }).opacity(store.state.alarmSnoozeUntil == nil ? 0.5 : 1)
             }
+            .padding(.top)
             .disabled(store.state.latestSensorGlucose == nil)
             .buttonStyle(.plain)
         }
