@@ -19,7 +19,7 @@ class GlucoseFilter {
             return kalmanFilter.filter(glucoseValue)
         }
 
-        kalmanFilter = KalmanFilter(processNoise: 0.25, measurementNoise: 10)
+        kalmanFilter = KalmanFilter(processNoise: 0.5, measurementNoise: 10)
         return glucoseValue
     }
 
