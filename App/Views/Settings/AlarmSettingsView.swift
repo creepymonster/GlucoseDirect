@@ -15,60 +15,31 @@ struct AlarmSettingsView: View {
     var body: some View {
         Section(
             content: {
-                HStack {
-                    Text("Low glucose alarm")
-                    Spacer()
-
-                    Picker("", selection: selectedLowGlucoseAlarmSound) {
-                        ForEach(NotificationSound.allCases, id: \.rawValue) { info in
-                            Text(info.localizedDescription)
-                        }
+                Picker("Low glucose alarm", selection: selectedLowGlucoseAlarmSound) {
+                    ForEach(NotificationSound.allCases, id: \.rawValue) { info in
+                        Text(info.localizedDescription)
                     }
-                    .pickerStyle(.menu)
-                    .labelsHidden()
-                }
+                }.pickerStyle(.menu)
 
-                HStack {
-                    Text("High glucose alarm")
-                    Spacer()
-
-                    Picker("", selection: selectedHighGlucoseAlarmSound) {
-                        ForEach(NotificationSound.allCases, id: \.rawValue) { info in
-                            Text(info.localizedDescription)
-                        }
+                Picker("High glucose alarm", selection: selectedHighGlucoseAlarmSound) {
+                    ForEach(NotificationSound.allCases, id: \.rawValue) { info in
+                        Text(info.localizedDescription)
                     }
-                    .pickerStyle(.menu)
-                    .labelsHidden()
-                }
+                }.pickerStyle(.menu)
 
-                HStack {
-                    Text("Connection alarm")
-                    Spacer()
-
-                    Picker("", selection: selectedConnectionAlarmSound) {
-                        ForEach(NotificationSound.allCases, id: \.rawValue) { info in
-                            Text(info.localizedDescription)
-                        }
+                Picker("Connection alarm", selection: selectedConnectionAlarmSound) {
+                    ForEach(NotificationSound.allCases, id: \.rawValue) { info in
+                        Text(info.localizedDescription)
                     }
-                    .pickerStyle(.menu)
-                    .labelsHidden()
-                }
+                }.pickerStyle(.menu)
 
-                HStack {
-                    Text("Wearing time alarm")
-                    Spacer()
-
-                    Picker("", selection: selectedExpiringAlarmSound) {
-                        ForEach(NotificationSound.allCases, id: \.rawValue) { info in
-                            Text(info.localizedDescription)
-                        }
+                Picker("Wearing time alarm", selection: selectedExpiringAlarmSound) {
+                    ForEach(NotificationSound.allCases, id: \.rawValue) { info in
+                        Text(info.localizedDescription)
                     }
-                    .pickerStyle(.menu)
-                    .labelsHidden()
-                }
+                }.pickerStyle(.menu)
 
-                Toggle("Ignore mute", isOn: ignoreMute)
-                    .toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
+                Toggle("Ignore mute", isOn: ignoreMute).toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
             },
             header: {
                 Label("Alarm settings", systemImage: "alarm")

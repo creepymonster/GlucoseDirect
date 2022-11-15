@@ -33,10 +33,10 @@ func sensorErrorMiddleware() -> Middleware<DirectState, DirectAction> {
 }
 
 func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo]) -> Middleware<DirectState, DirectAction> {
-    return sensorConnectorMiddelware(infos, subject: PassthroughSubject<DirectAction, DirectError>())
+    return sensorConnectorMiddelware(infos, subject: PassthroughSubject<DirectAction, DirectError>(), glucoseFilter: GlucoseFilter())
 }
 
-private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject: PassthroughSubject<DirectAction, DirectError>) -> Middleware<DirectState, DirectAction> {
+private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject: PassthroughSubject<DirectAction, DirectError>, glucoseFilter: GlucoseFilter) -> Middleware<DirectState, DirectAction> {
     return { state, action, _ in
         switch action {
         case .startup:
@@ -77,6 +77,8 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             }
 
         case .addSensorReadings(readings: let readings):
+            var previousGlucose = state.latestSensorGlucose
+
             // calibrate valid values
             let readGlucoseValues = readings.map { reading in
                 reading.calibrate(customCalibration: state.customCalibration)
@@ -85,10 +87,14 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             // calc stdev of last 5 values
             let stdev = readGlucoseValues.count >= 5 ? readGlucoseValues.suffix(5).stdev : 0
             let intervalSeconds = Double(state.sensorInterval * 60 - 15)
+            let initGlucoseValues = state.sensorGlucoseValues.suffix(10).map { $0.intGlucoseValue }
 
-            var previousGlucose = state.latestSensorGlucose
-            let glucoseValues = readGlucoseValues.filter { reading in
-                previousGlucose == nil || previousGlucose!.timestamp + intervalSeconds < reading.timestamp
+            // filter unwanted values
+            let glucoseValues = readGlucoseValues.filter {
+                previousGlucose == nil || previousGlucose!.timestamp + intervalSeconds < $0.timestamp
+            }.map {
+                SensorGlucose(id: $0.id, timestamp: $0.timestamp, rawGlucoseValue: $0.rawGlucoseValue, intGlucoseValue: $0.glucoseValue, smoothGlucoseValue: glucoseFilter.filter(glucoseValue: $0.glucoseValue, initGlucoseValues: initGlucoseValues))
+
             }.map {
                 let glucose = $0.populateChange(previousGlucose: previousGlucose)
                 previousGlucose = glucose

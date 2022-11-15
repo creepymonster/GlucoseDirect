@@ -11,66 +11,48 @@ struct GlucoseView: View {
     // MARK: Internal
 
     @EnvironmentObject var store: DirectStore
-    @State var relativeTimestamp: String?
 
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 0) {
             if let latestGlucose = store.state.latestSensorGlucose {
-                HStack(alignment: .lastTextBaseline) {
-                    Text(verbatim: latestGlucose.glucoseValue.asGlucose(unit: store.state.glucoseUnit))
+                HStack(alignment: .lastTextBaseline, spacing: 20) {
+                    Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit))
                         .font(.system(size: 96))
-                        .frame(height: 72)
-                        .clipped()
                         .foregroundColor(getGlucoseColor(glucose: latestGlucose))
 
                     VStack(alignment: .leading) {
                         Text(verbatim: latestGlucose.trend.description)
-                            .font(.system(size: 48))
+                            .font(.system(size: 52))
 
-                        if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: store.state.glucoseUnit), latestGlucose.trend != .unknown {
+                        if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: store.state.glucoseUnit) {
                             Text(verbatim: minuteChange)
                         } else {
-                            Text(verbatim: "?".asMinuteChange())
+                            Text(verbatim: "?")
                         }
                     }
-                }.padding(.top, 10)
+                }
 
-                HStack(spacing: 20) {
-                    Spacer()
-                    Text(verbatim: relativeTimestamp ?? latestGlucose.timestamp.toRelativeTime())
-                        .monospacedDigit()
-                        .opacity(0.5)
-
-                    if let warning = warning {
-                        Group {
-                            Text(verbatim: warning)
-                                .padding(.init(top: 2.5, leading: 5, bottom: 2.5, trailing: 5))
-                                .foregroundColor(.white)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 5, style: .continuous)
-                                        .foregroundStyle(Color.ui.red)
-                                )
-                        }
-                    }
-
-                    Text(verbatim: store.state.glucoseUnit.localizedDescription).opacity(0.5)
-                    Spacer()
-                }.onReceive(timer) { _ in
-                    if store.state.appState == .active {
-                        relativeTimestamp = latestGlucose.timestamp.toRelativeTime()
-                    }
+                if let warning = warning {
+                    Text(verbatim: warning)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 5)
+                        .background(Color.ui.red)
+                        .foregroundColor(.white)
+                        .cornerRadius(5)
+                } else {
+                    HStack(spacing: 40) {
+                        Text(latestGlucose.timestamp, style: .time)
+                        Text(verbatim: store.state.glucoseUnit.localizedDescription)
+                    }.opacity(0.5)
                 }
 
             } else {
                 Text("No Data")
-                    .font(.system(size: 48))
+                    .font(.system(size: 52))
                     .foregroundColor(Color.ui.red)
 
-                HStack(spacing: 20) {
-                    Text(verbatim: Date().toLocalTime())
-
-                    Text(verbatim: store.state.glucoseUnit.localizedDescription)
-                }
+                Text(Date(), style: .time)
+                    .opacity(0.5)
             }
 
             HStack {
@@ -82,6 +64,7 @@ struct GlucoseView: View {
                         Image(systemName: "lock.slash")
                         Text("No screen lock")
                     } else {
+                        Text(verbatim: "")
                         Image(systemName: "lock")
                     }
                 }).opacity(store.state.preventScreenLock ? 1 : 0.5)
@@ -99,7 +82,7 @@ struct GlucoseView: View {
 
                 Button(action: {
                     let date = (store.state.alarmSnoozeUntil ?? Date()).toRounded(on: 1, .minute)
-                    let nextDate = Calendar.current.date(byAdding: .minute, value: 60, to: date)
+                    let nextDate = Calendar.current.date(byAdding: .minute, value: 30, to: date)
 
                     DirectNotifications.shared.hapticFeedback()
                     store.dispatch(.setAlarmSnoozeUntil(untilDate: nextDate))
@@ -108,22 +91,18 @@ struct GlucoseView: View {
                         Text(verbatim: alarmSnoozeUntil.toLocalTime())
                         Image(systemName: "speaker.slash")
                     } else {
+                        Text(verbatim: "")
                         Image(systemName: "speaker.wave.2")
                     }
                 }).opacity(store.state.alarmSnoozeUntil == nil ? 0.5 : 1)
             }
+            .padding(.top)
             .disabled(store.state.latestSensorGlucose == nil)
             .buttonStyle(.plain)
         }
     }
 
     // MARK: Private
-
-    private let timer = Timer.publish(
-        every: 1,
-        on: .main,
-        in: .common
-    ).autoconnect()
 
     private var warning: String? {
         if let sensor = store.state.sensor, sensor.state != .ready {

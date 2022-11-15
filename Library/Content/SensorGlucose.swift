@@ -53,6 +53,7 @@ struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable, H
         self.rawGlucoseValue = glucoseValue
         self.intGlucoseValue = glucoseValue
         self.minuteChange = minuteChange
+        self.smoothGlucoseValue = nil
         self.timegroup = roundedTimestamp.toRounded(on: DirectConfig.timegroupRounding, .minute)
     }
 
@@ -64,10 +65,11 @@ struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable, H
         self.rawGlucoseValue = rawGlucoseValue
         self.intGlucoseValue = intGlucoseValue
         self.minuteChange = minuteChange
+        self.smoothGlucoseValue = nil
         self.timegroup = roundedTimestamp.toRounded(on: DirectConfig.timegroupRounding, .minute)
     }
 
-    init(id: UUID, timestamp: Date, rawGlucoseValue: Int, intGlucoseValue: Int, minuteChange: Double? = nil) {
+    init(id: UUID, timestamp: Date, rawGlucoseValue: Int, intGlucoseValue: Int, smoothGlucoseValue: Double?, minuteChange: Double? = nil) {
         let roundedTimestamp = timestamp.toRounded(on: 1, .minute)
 
         self.id = id
@@ -75,6 +77,7 @@ struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable, H
         self.rawGlucoseValue = rawGlucoseValue
         self.intGlucoseValue = intGlucoseValue
         self.minuteChange = minuteChange
+        self.smoothGlucoseValue = smoothGlucoseValue
         self.timegroup = roundedTimestamp.toRounded(on: DirectConfig.timegroupRounding, .minute)
     }
 
@@ -85,6 +88,7 @@ struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable, H
     let minuteChange: Double?
     let rawGlucoseValue: Int
     let intGlucoseValue: Int
+    let smoothGlucoseValue: Double?
     let timegroup: Date
 
     var glucoseValue: Int {
@@ -116,7 +120,7 @@ extension SensorGlucose {
             return self
         }
 
-        return SensorGlucose(id: id, timestamp: timestamp, rawGlucoseValue: rawGlucoseValue, intGlucoseValue: glucoseValue, minuteChange: minuteChange(previousTimestamp: previousGlucose.timestamp, previousGlucoseValue: previousGlucose.glucoseValue, nextTimestamp: timestamp, nextGlucoseValue: glucoseValue))
+        return SensorGlucose(id: id, timestamp: timestamp, rawGlucoseValue: rawGlucoseValue, intGlucoseValue: glucoseValue, smoothGlucoseValue: smoothGlucoseValue, minuteChange: minuteChange(previousTimestamp: previousGlucose.timestamp, previousGlucoseValue: previousGlucose.glucoseValue, nextTimestamp: timestamp, nextGlucoseValue: glucoseValue))
     }
 
     // MARK: Private

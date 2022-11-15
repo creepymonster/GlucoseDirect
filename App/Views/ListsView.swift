@@ -81,21 +81,21 @@ struct ListsView: View {
                                 }
                             }
 
-                            #if DEBUG
-                            VStack(alignment: .leading, spacing: 10) {
-                                HStack {
-                                    Text(verbatim: "CV")
-                                    Spacer()
-                                    Text(glucoseStatistics.cv.asPercent())
-                                }
-
-                                if store.state.showAnnotations {
-                                    Text("Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults.")
-                                        .font(.footnote)
-                                        .foregroundColor(.gray)
+                            if DirectConfig.isDebug {
+                                VStack(alignment: .leading, spacing: 10) {
+                                    HStack {
+                                        Text(verbatim: "CV")
+                                        Spacer()
+                                        Text(glucoseStatistics.cv.asPercent())
+                                    }
+                                    
+                                    if store.state.showAnnotations {
+                                        Text("Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults.")
+                                            .font(.footnote)
+                                            .foregroundColor(.gray)
+                                    }
                                 }
                             }
-                            #endif
 
                             VStack(alignment: .leading, spacing: 10) {
                                 HStack {
@@ -119,7 +119,7 @@ struct ListsView: View {
                                 }
 
                                 if store.state.showAnnotations {
-                                    Text("Time in Range (TIR) or the percentage of time spent in the target glucose range between \(store.state.alarmLow.asGlucose(unit: store.state.glucoseUnit)) - \(store.state.alarmHigh.asGlucose(unit: store.state.glucoseUnit, withUnit: true)).")
+                                    Text("Time in Range (TIR) or the percentage of time spent in the target glucose range between \(store.state.alarmLow.asGlucose(glucoseUnit: store.state.glucoseUnit)) - \(store.state.alarmHigh.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true)).")
                                         .font(.footnote)
                                         .foregroundColor(.gray)
                                 }
@@ -133,7 +133,7 @@ struct ListsView: View {
                                 }
 
                                 if store.state.showAnnotations {
-                                    Text("Time below Range (TBR) or the percentage of time spent below the target glucose of \(store.state.alarmLow.asGlucose(unit: store.state.glucoseUnit, withUnit: true)).")
+                                    Text("Time below Range (TBR) or the percentage of time spent below the target glucose of \(store.state.alarmLow.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true)).")
                                         .font(.footnote)
                                         .foregroundColor(.gray)
                                 }
@@ -147,25 +147,25 @@ struct ListsView: View {
                                 }
 
                                 if store.state.showAnnotations {
-                                    Text("Time above Range (TAR) or the percentage of time spent above the target glucose of \(store.state.alarmHigh.asGlucose(unit: store.state.glucoseUnit, withUnit: true)).")
+                                    Text("Time above Range (TAR) or the percentage of time spent above the target glucose of \(store.state.alarmHigh.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true)).")
                                         .font(.footnote)
                                         .foregroundColor(.gray)
                                 }
                             }
 
-                            #if DEBUG
-                            HStack {
-                                Text(verbatim: "From")
-                                Spacer()
-                                Text(glucoseStatistics.fromTimestamp.toLocalDate())
+                            if DirectConfig.isDebug {
+                                HStack {
+                                    Text(verbatim: "From")
+                                    Spacer()
+                                    Text(glucoseStatistics.fromTimestamp.toLocalDate())
+                                }
+                                
+                                HStack {
+                                    Text(verbatim: "To")
+                                    Spacer()
+                                    Text(glucoseStatistics.toTimestamp.toLocalDate())
+                                }
                             }
-
-                            HStack {
-                                Text(verbatim: "To")
-                                Spacer()
-                                Text(glucoseStatistics.toTimestamp.toLocalDate())
-                            }
-                            #endif
                         }.onTapGesture(count: 2) {
                             store.dispatch(.setShowAnnotations(showAnnotations: !store.state.showAnnotations))
                         }

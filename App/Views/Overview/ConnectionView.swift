@@ -13,33 +13,10 @@ struct ConnectionView: View {
     var body: some View {
         Section(
             content: {
-                if store.state.isConnectionPaired {
-                    HStack {
-                        Text("Connection state")
-                        Spacer()
-                        Text(store.state.connectionState.localizedDescription)
-                    }
-                }
-
-                if let connectionError = store.state.connectionError,
-                   let connectionErrorTimestamp = store.state.connectionErrorTimestamp?.toLocalTime()
-                {
-                    VStack(alignment: .leading) {
-                        Text("Connection error")
-                        Text(connectionError)
-                    }
-
-                    HStack {
-                        Text("Connection error timestamp")
-                        Spacer()
-                        Text(connectionErrorTimestamp)
-                    }
-                }
-
-                ActionsView()
+                ConnectionActionsView()
             },
             header: {
-                Label("Connection", systemImage: "rectangle.connected.to.line.below")
+                Label("Sensor connection", systemImage: "rectangle.connected.to.line.below")
             }
         )
     }

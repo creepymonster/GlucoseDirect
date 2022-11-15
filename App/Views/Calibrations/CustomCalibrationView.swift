@@ -13,96 +13,100 @@ struct CustomCalibrationView: View {
     @EnvironmentObject var store: DirectStore
 
     var body: some View {
-        if showingAddCalibrationView {
+        if DirectConfig.customCalibration {
+            if showingAddCalibrationView {
+                Section(
+                    content: {
+                        NumberSelectorView(key: LocalizedString("Now"), value: value, step: 1, displayValue: value.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true)) { value in
+                            self.value = value
+                        }
+                    },
+                    header: {
+                        Label("Add glucose for calibration", systemImage: "drop.fill")
+                    },
+                    footer: {
+                        HStack {
+                            Button(
+                                action: {
+                                    withAnimation {
+                                        showingAddCalibrationView = false
+                                    }
+                                },
+                                label: {
+                                    Label("Cancel", systemImage: "multiply")
+                                }
+                            )
+                            
+                            Spacer()
+                            
+                            Button(
+                                action: {
+                                    withAnimation {
+                                        store.dispatch(.addCalibration(bloodGlucoseValue: value))
+                                        showingAddCalibrationView = false
+                                    }
+                                },
+                                label: {
+                                    Label("Add", systemImage: "checkmark")
+                                }
+                            )
+                        }.padding(.bottom)
+                    }
+                )
+            } else {
+                Button("Add calibration", action: {
+                    withAnimation {
+                        value = 100
+                        showingAddCalibrationView = true
+                    }
+                })
+            }
+        }
+
+        if DirectConfig.customCalibration || !store.state.customCalibration.isEmpty {
             Section(
                 content: {
-                    NumberSelectorView(key: LocalizedString("Now"), value: value, step: 1, displayValue: value.asGlucose(unit: store.state.glucoseUnit, withUnit: true)) { value in
-                        self.value = value
+                    HStack {
+                        Text("Custom calibration slope")
+                        Spacer()
+                        Text(slope.description)
+                    }
+                    
+                    HStack {
+                        Text("Custom calibration intercept")
+                        Spacer()
+                        Text(intercept.description)
+                    }
+                    
+                    ForEach(customCalibration) { calibration in
+                        HStack {
+                            Text(verbatim: calibration.timestamp.toLocalDateTime())
+                            Spacer()
+                            Text(verbatim: "\(calibration.x.asGlucose(glucoseUnit: store.state.glucoseUnit)) = \(calibration.y.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))")
+                        }
+                    }.onDelete { offsets in
+                        DirectLog.info("onDelete: \(offsets)")
+                        
+                        let deletables = offsets.map { i in
+                            (index: i, calibration: customCalibration[i])
+                        }
+                        
+                        deletables.forEach { delete in
+                            customCalibration.remove(at: delete.index)
+                            store.dispatch(.deleteCalibration(calibration: delete.calibration))
+                        }
                     }
                 },
                 header: {
-                    Label("Add glucose for calibration", systemImage: "drop.fill")
-                },
-                footer: {
-                    HStack {
-                        Button(
-                            action: {
-                                withAnimation {
-                                    showingAddCalibrationView = false
-                                }
-                            },
-                            label: {
-                                Label("Cancel", systemImage: "multiply")
-                            }
-                        )
-
-                        Spacer()
-
-                        Button(
-                            action: {
-                                withAnimation {
-                                    store.dispatch(.addCalibration(bloodGlucoseValue: value))
-                                    showingAddCalibrationView = false
-                                }
-                            },
-                            label: {
-                                Label("Add", systemImage: "checkmark")
-                            }
-                        )
-                    }.padding(.bottom)
+                    Label("Sensor custom calibration", systemImage: "person")
                 }
-            )
-        } else {
-            Button("Add calibration", action: {
-                withAnimation {
-                    value = 100
-                    showingAddCalibrationView = true
-                }
-            })
-        }
-
-        Section(
-            content: {
-                HStack {
-                    Text("Custom calibration slope")
-                    Spacer()
-                    Text(slope.description)
-                }
-
-                HStack {
-                    Text("Custom calibration intercept")
-                    Spacer()
-                    Text(intercept.description)
-                }
-
-                ForEach(customCalibration) { calibration in
-                    HStack {
-                        Text(verbatim: calibration.timestamp.toLocalDateTime())
-                        Spacer()
-                        Text(verbatim: "\(calibration.x.asGlucose(glucoseUnit: store.state.glucoseUnit)) = \(calibration.y.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))")
-                    }
-                }.onDelete { offsets in
-                    DirectLog.info("onDelete: \(offsets)")
-
-                    let deletables = offsets.map { i in
-                        (index: i, calibration: customCalibration[i])
-                    }
-
-                    deletables.forEach { delete in
-                        customCalibration.remove(at: delete.index)
-                        store.dispatch(.deleteCalibration(calibration: delete.calibration))
-                    }
-                }
-            },
-            header: {
-                Label("Sensor custom calibration", systemImage: "person")
+            ).onAppear {
+                DirectLog.info("onAppear")
+                self.customCalibration = store.state.customCalibration.reversed()
+            }.onChange(of: store.state.customCalibration) { customCalibration in
+                DirectLog.info("onChange")
+                self.customCalibration = customCalibration.reversed()
             }
-        ).onAppear {
-            DirectLog.info("onAppear")
-            self.customCalibration = store.state.customCalibration.reversed()
-        }.onChange(of: store.state.customCalibration) { customCalibration in
-            DirectLog.info("onChange")
-            self.customCalibration = customCalibration.reversed()
         }
     }
 

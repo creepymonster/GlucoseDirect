@@ -38,23 +38,6 @@ private func appleCalendarExportMiddleware(service: LazyService<AppleCalendarExp
                     .eraseToAnyPublisher()
             }
 
-        case .setConnectionState(connectionState: let connectionState):
-            guard state.appleCalendarExport else {
-                DirectLog.info("Guard: state.calendarExport disabled")
-                break
-            }
-
-            guard let calendarTarget = state.selectedCalendarTarget else {
-                DirectLog.info("Guard: state.selectedCalendarTarget is nil")
-                break
-            }
-
-            if connectionState == .connected {
-                service.value.clearGlucoseEvents()
-            } else {
-                service.value.addConnectionState(calendarTarget: calendarTarget, connectionState: connectionState, connectionError: state.connectionError)
-            }
-
         case .addSensorGlucose(glucoseValues: let glucoseValues):
             guard state.appleCalendarExport else {
                 DirectLog.info("Guard: state.calendarExport disabled")
@@ -136,7 +119,7 @@ private class AppleCalendarExportService {
     }
 
     func addSensorGlucose(calendarTarget: String, glucose: SensorGlucose, glucoseUnit: GlucoseUnit, sensorInterval: Double) {
-        addCalendarEntry(calendarTarget: calendarTarget, timestamp: glucose.timestamp, durationMinutes: 15, title: "\(glucose.trend.description) \(glucose.glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true))", location: glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit))
+        addCalendarEntry(calendarTarget: calendarTarget, timestamp: glucose.timestamp, durationMinutes: 15, title: "\(glucose.trend.description) \(glucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit, withUnit: true))", location: glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit))
     }
 
     // MARK: Private

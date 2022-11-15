@@ -17,6 +17,7 @@ typealias Middleware<State, Action> = (State, Action, State) -> AnyPublisher<Act
 // MARK: - DirectError
 
 enum DirectError: Error {
+    case withError(_ error: Error)
     case withMessage(_ message: String)
 }
 
@@ -57,7 +58,11 @@ class Store<State, Action>: ObservableObject {
                     receiveCompletion: { [weak self] completion in
                         switch completion {
                         case .failure(.withMessage(message: let message)):
-                            DirectLog.error(message)
+                            DirectLog.error("Error message: \(message)")
+
+                        case .failure(.withError(error: let error)):
+                            DirectLog.error("Error: \(error)")
+
                         default:
                             break
                         }

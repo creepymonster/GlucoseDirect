@@ -25,9 +25,6 @@ class VirtualLibreConnection: SensorConnectionProtocol, IsSensor {
 
     func pairConnection() {
         let sensor = Sensor(
-            uuid: Data(hexString: "e9ad9b6c79bd93aa")!,
-            patchInfo: Data(hexString: "448cd1")!,
-            factoryCalibration: nil,
             family: .unknown,
             type: .virtual,
             region: .european,

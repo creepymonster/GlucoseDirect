@@ -80,12 +80,12 @@ extension Int {
         return String(format: LocalizedString("%1$@d %2$@h %3$@min"), self.inDays.description, self.inHours.description, self.inMinutes.description)
     }
 
-    var asMmolL: Decimal {
+    var asMmolL: Double {
         return Double(self).asMmolL
     }
 
-    var asMgdL: Decimal {
-        return Decimal(self)
+    var asMgdL: Double {
+        return Double(self)
     }
 
     func pluralize(singular: String, plural: String) -> String {
@@ -120,10 +120,10 @@ extension Int {
         return false
     }
 
-    func asGlucose(unit: GlucoseUnit, withUnit: Bool = false, precise: Bool = false) -> String {
+    func asGlucose(glucoseUnit: GlucoseUnit, withUnit: Bool = false, precise: Bool = false) -> String {
         var glucose: String
 
-        if unit == .mmolL {
+        if glucoseUnit == .mmolL {
             if precise {
                 glucose = GlucoseFormatters.preciseMmolLFormatter.string(from: self.asMmolL as NSNumber)!
             } else {
@@ -134,7 +134,7 @@ extension Int {
         }
 
         if withUnit {
-            return "\(glucose) \(unit.localizedDescription)"
+            return "\(glucose) \(glucoseUnit.localizedDescription)"
         }
 
         return glucose

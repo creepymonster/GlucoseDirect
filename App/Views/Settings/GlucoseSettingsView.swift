@@ -15,39 +15,27 @@ struct GlucoseSettingsView: View {
     var body: some View {
         Section(
             content: {
-                HStack {
-                    Text("Glucose unit")
-                    Spacer()
+                Picker("Glucose unit", selection: selectedGlucoseUnit) {
+                    Text(GlucoseUnit.mgdL.localizedDescription).tag(GlucoseUnit.mgdL.rawValue)
+                    Text(GlucoseUnit.mmolL.localizedDescription).tag(GlucoseUnit.mmolL.rawValue)
+                }.pickerStyle(.menu)
 
-                    Picker("", selection: selectedGlucoseUnit) {
-                        Text(GlucoseUnit.mgdL.localizedDescription).tag(GlucoseUnit.mgdL.rawValue)
-                        Text(GlucoseUnit.mmolL.localizedDescription).tag(GlucoseUnit.mmolL.rawValue)
-                    }
-                    .pickerStyle(.menu)
-                    .labelsHidden()
-                }
-
-                NumberSelectorView(key: LocalizedString("Lower limit"), value: store.state.alarmLow, step: 5, max: store.state.alarmHigh, displayValue: store.state.alarmLow.asGlucose(unit: store.state.glucoseUnit, withUnit: true)) { value in
+                NumberSelectorView(key: LocalizedString("Lower limit"), value: store.state.alarmLow, step: 5, max: store.state.alarmHigh, displayValue: store.state.alarmLow.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true)) { value in
                     store.dispatch(.setAlarmLow(lowerLimit: value))
                 }
 
-                NumberSelectorView(key: LocalizedString("Upper limit"), value: store.state.alarmHigh, step: 5, min: store.state.alarmLow, displayValue: store.state.alarmHigh.asGlucose(unit: store.state.glucoseUnit, withUnit: true)) { value in
+                NumberSelectorView(key: LocalizedString("Upper limit"), value: store.state.alarmHigh, step: 5, min: store.state.alarmLow, displayValue: store.state.alarmHigh.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true)) { value in
                     store.dispatch(.setAlarmHigh(upperLimit: value))
                 }
 
-                Toggle("Normal glucose notification", isOn: normalGlucoseNotification)
-                    .toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
-
-                Toggle("Alarm glucose notification", isOn: alarmGlucoseNotification)
-                    .toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
+                Toggle("Normal glucose notification", isOn: normalGlucoseNotification).toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
+                Toggle("Alarm glucose notification", isOn: alarmGlucoseNotification).toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
 
                 if #available(iOS 16.1, *) {
-                    Toggle("Glucose Live Activity", isOn: glucoseLiveActivity)
-                        .toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
+                    Toggle("Glucose Live Activity", isOn: glucoseLiveActivity).toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
                 }
 
-                Toggle("Glucose read aloud", isOn: readGlucose)
-                    .toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
+                Toggle("Glucose read aloud", isOn: readGlucose).toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
             },
             header: {
                 Label("Glucose settings", systemImage: "cross.case")

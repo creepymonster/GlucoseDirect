@@ -6,12 +6,12 @@
 import Foundation
 
 extension Double {
-    var asMmolL: Decimal {
-        return Decimal(self * GlucoseUnit.exchangeRate)
+    var asMmolL: Double {
+        return self * GlucoseUnit.exchangeRate
     }
 
-    var asMgdL: Decimal {
-        return Decimal(self)
+    var asMgdL: Double {
+        return self
     }
 
     func asPercent(_ increment: Double = 1) -> String {
@@ -66,7 +66,7 @@ extension Double {
 
     func toInteger() -> Int? {
         if self >= Double(Int.min), self < Double(Int.max) {
-            return Int(self)
+            return Int(self.rounded())
         } else {
             return nil
         }

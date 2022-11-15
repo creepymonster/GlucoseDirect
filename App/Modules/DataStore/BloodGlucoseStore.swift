@@ -162,7 +162,7 @@ private extension DataStore {
                             promise(.success(Date()))
                         }
                     } catch {
-                        promise(.failure(.withMessage(error.localizedDescription)))
+                        promise(.failure(.withError(error)))
                     }
                 }
             }
@@ -193,7 +193,7 @@ private extension DataStore {
                             promise(.success(result))
                         }
                     } catch {
-                        promise(.failure(.withMessage(error.localizedDescription)))
+                        promise(.failure(.withError(error)))
                     }
                 }
             }

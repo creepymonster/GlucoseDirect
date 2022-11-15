@@ -111,22 +111,22 @@ struct AboutView: View {
             store.dispatch(.sendLogs)
         })
 
-        #if DEBUG
-        Section(
-            content: {
-                Button("Debug alarm", action: {
-                    store.dispatch(.debugAlarm)
-                })
-
-                Button("Debug notification", action: {
-                    store.dispatch(.debugNotification)
-                })
-            },
-            header: {
-                Label("Debug", systemImage: "testtube.2")
-            }
-        )
-        #endif
+        if DirectConfig.isDebug {
+            Section(
+                content: {
+                    Button("Debug alarm", action: {
+                        store.dispatch(.debugAlarm)
+                    })
+                    
+                    Button("Debug notification", action: {
+                        store.dispatch(.debugNotification)
+                    })
+                },
+                header: {
+                    Label("Debug", systemImage: "testtube.2")
+                }
+            )
+        }
     }
 
     // MARK: Private

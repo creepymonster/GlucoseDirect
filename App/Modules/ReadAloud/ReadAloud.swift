@@ -98,18 +98,18 @@ private class ReadAloudService {
     }
 
     private func read(glucoseValue: Int, glucoseUnit: GlucoseUnit, glucoseTrend: SensorTrend? = nil, alarm: AlarmType = .none) {
-        DirectLog.info("read: \(glucoseValue.asGlucose(unit: glucoseUnit)) \(glucoseUnit.readable) \(glucoseTrend?.readable)")
+        DirectLog.info("read: \(glucoseValue.asGlucose(glucoseUnit: glucoseUnit)) \(glucoseUnit.readable) \(glucoseTrend?.readable)")
 
         var glucoseString: String
 
         if alarm == .low {
-            glucoseString = String(format: LocalizedString("Readable low glucose: %1$@ %2$@"), glucoseValue.asGlucose(unit: glucoseUnit), glucoseUnit.readable)
+            glucoseString = String(format: LocalizedString("Readable low glucose: %1$@ %2$@"), glucoseValue.asGlucose(glucoseUnit: glucoseUnit), glucoseUnit.readable)
         } else if alarm == .high, alarm != self.alarm {
-            glucoseString = String(format: LocalizedString("Readable high glucose: %1$@ %2$@"), glucoseValue.asGlucose(unit: glucoseUnit), glucoseUnit.readable)
+            glucoseString = String(format: LocalizedString("Readable high glucose: %1$@ %2$@"), glucoseValue.asGlucose(glucoseUnit: glucoseUnit), glucoseUnit.readable)
         } else if let readableTrend = glucoseTrend?.readable {
-            glucoseString = String(format: LocalizedString("Readable glucose with trend: %1$@ %2$@, %3$@"), glucoseValue.asGlucose(unit: glucoseUnit), glucoseUnit.readable, readableTrend)
+            glucoseString = String(format: LocalizedString("Readable glucose with trend: %1$@ %2$@, %3$@"), glucoseValue.asGlucose(glucoseUnit: glucoseUnit), glucoseUnit.readable, readableTrend)
         } else {
-            glucoseString = String(format: LocalizedString("Readable glucose: %1$@ %2$@"), glucoseValue.asGlucose(unit: glucoseUnit), glucoseUnit.readable)
+            glucoseString = String(format: LocalizedString("Readable glucose: %1$@ %2$@"), glucoseValue.asGlucose(glucoseUnit: glucoseUnit), glucoseUnit.readable)
         }
 
         let glucoseUtterance = AVSpeechUtterance(string: glucoseString)
