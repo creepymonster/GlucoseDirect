@@ -155,7 +155,7 @@ private extension DataStore {
                 try glucoseValues.forEach { row in
                     let id: UUID = row[SensorGlucose.Columns.id.name]
                     let rawGlucoseValue: Int = row[SensorGlucose.Columns.rawGlucoseValue.name]
-                    let smoothGlucoseValue = filter.filter(glucoseValue: rawGlucoseValue)
+                    let smoothGlucoseValue = filter.filter(glucoseValue: rawGlucoseValue, initGlucoseValues: [])
 
                     try db.execute(
                         sql: "UPDATE \(SensorGlucose.databaseTableName) SET \(SensorGlucose.Columns.smoothGlucoseValue.name) = :value WHERE \(SensorGlucose.Columns.id.name) = :id",
@@ -223,7 +223,7 @@ private extension DataStore {
             }
         }
     }
-
+    
     func getSensorGlucoseStatistics(days: Int, lowerLimit: Int, upperLimit: Int) -> Future<GlucoseStatistics, DirectError> {
         return Future { promise in
             if let dbQueue = self.dbQueue {

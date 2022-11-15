@@ -10,17 +10,22 @@ import Foundation
 class GlucoseFilter {
     // MARK: Internal
 
-    func filter(glucoseValue: Int) -> Double {
-        return filter(glucoseValue: Double(glucoseValue))
+    func filter(glucoseValue: Int, initGlucoseValues: [Int]) -> Double {
+        return filter(glucoseValue: Double(glucoseValue), initGlucoseValues: initGlucoseValues.map { Double($0) })
     }
 
-    func filter(glucoseValue: Double) -> Double {
-        if let kalmanFilter = kalmanFilter {
-            return kalmanFilter.filter(glucoseValue)
+    func filter(glucoseValue: Double, initGlucoseValues: [Double]) -> Double {
+        if kalmanFilter == nil {
+            let kalmanFilter = KalmanFilter(processNoise: 0.5, measurementNoise: 20)
+
+            initGlucoseValues.forEach {
+                let _ = kalmanFilter.filter($0)
+            }
+
+            self.kalmanFilter = kalmanFilter
         }
 
-        kalmanFilter = KalmanFilter(processNoise: 0.25, measurementNoise: 10)
-        return glucoseValue
+        return kalmanFilter?.filter(glucoseValue) ?? glucoseValue
     }
 
     // MARK: Private
@@ -48,6 +53,8 @@ private class KalmanFilter {
 
             x = (1 / controlVector) * measurement
             cov = (1 / controlVector) * measurementNoise * (1 / controlVector)
+            
+            return measurement
         } else {
             // Compute prediction
             let predX = predict(control)

@@ -261,7 +261,7 @@ struct ChartView: View {
             }
         }
         .chartYAxis {
-            AxisMarks(position: .trailing) { value in
+            AxisMarks(position: .trailing, values: .stride(by: yAxisSteps)) { value in
                 AxisGridLine(stroke: Config.axisStyle)
 
                 if let glucoseValue = value.as(Double.self), glucoseValue > 0 {
@@ -351,7 +351,7 @@ struct ChartView: View {
         static let symbolSize: CGFloat = 10
         static let selectionSize: CGFloat = 100
         static let spacerWidth: CGFloat = 50
-        static let chartHeight: CGFloat = 400
+        static let chartHeight: CGFloat = 340
         static let lineStyle: StrokeStyle = .init(lineWidth: 3, lineCap: .round)
         static let rawLineStyle: StrokeStyle = .init(lineWidth: 3, lineCap: .round)
         static let ruleStyle: StrokeStyle = .init(lineWidth: 1, dash: [2])
@@ -391,16 +391,20 @@ struct ChartView: View {
         UIScreen.screenWidth - 40
     }
 
+    private var yAxisSteps: Double {
+        if store.state.glucoseUnit == .mmolL {
+            return 3
+        }
+
+        return 50
+    }
+
     private var zoomLevel: ZoomLevel? {
         if let zoomLevel = Config.zoomLevels.first(where: { $0.level == store.state.chartZoomLevel }) {
             return zoomLevel
         }
 
         return Config.zoomLevels.first
-    }
-
-    private var glucoseUnit: GlucoseUnit {
-        store.state.glucoseUnit
     }
 
     private var labelEvery: Int {
@@ -412,15 +416,15 @@ struct ChartView: View {
     }
 
     private var chartMinimum: Double {
-        if glucoseUnit == .mmolL {
-            return 15
+        if store.state.glucoseUnit == .mmolL {
+            return 18
         }
 
         return 300
     }
 
     private var alarmLow: Double {
-        if glucoseUnit == .mmolL {
+        if store.state.glucoseUnit == .mmolL {
             return store.state.alarmLow.asMmolL
         }
 
@@ -428,7 +432,7 @@ struct ChartView: View {
     }
 
     private var alarmHigh: Double {
-        if glucoseUnit == .mmolL {
+        if store.state.glucoseUnit == .mmolL {
             return store.state.alarmHigh.asMmolL
         }
 
@@ -588,7 +592,7 @@ struct ChartView: View {
 
     private func populateValues(glucoseValues: [BloodGlucose]) -> [ChartDatapoint] {
         glucoseValues.map { value in
-            value.toDatapoint(glucoseUnit: glucoseUnit, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh)
+            value.toDatapoint(glucoseUnit: store.state.glucoseUnit, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh)
         }
         .compactMap { $0 }
     }
@@ -598,16 +602,16 @@ struct ChartView: View {
 
         return glucoseValues.map { value in
             if value.timestamp < smoothThreshold, DirectConfig.smoothSensorGlucoseValues {
-                return value.toSmoothDatapoint(glucoseUnit: glucoseUnit, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh)
+                return value.toSmoothDatapoint(glucoseUnit: store.state.glucoseUnit, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh)
             }
 
-            return value.toDatapoint(glucoseUnit: glucoseUnit, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh)
+            return value.toDatapoint(glucoseUnit: store.state.glucoseUnit, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh)
         }.compactMap { $0 }
     }
 
     private func populateRawValues(glucoseValues: [SensorGlucose]) -> [ChartDatapoint] {
         return glucoseValues.map { value in
-            value.toRawDatapoint(glucoseUnit: glucoseUnit, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh)
+            value.toRawDatapoint(glucoseUnit: store.state.glucoseUnit, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh)
         }
         .compactMap { $0 }
     }

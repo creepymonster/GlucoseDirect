@@ -87,13 +87,14 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             // calc stdev of last 5 values
             let stdev = readGlucoseValues.count >= 5 ? readGlucoseValues.suffix(5).stdev : 0
             let intervalSeconds = Double(state.sensorInterval * 60 - 15)
+            let initGlucoseValues = state.sensorGlucoseValues.suffix(10).map { $0.intGlucoseValue }
 
             // filter unwanted values
             let glucoseValues = readGlucoseValues.filter {
                 previousGlucose == nil || previousGlucose!.timestamp + intervalSeconds < $0.timestamp
             }.map {
-                SensorGlucose(id: $0.id, timestamp: $0.timestamp, rawGlucoseValue: $0.rawGlucoseValue, intGlucoseValue: $0.glucoseValue, smoothGlucoseValue: glucoseFilter.filter(glucoseValue: $0.glucoseValue))
-                
+                SensorGlucose(id: $0.id, timestamp: $0.timestamp, rawGlucoseValue: $0.rawGlucoseValue, intGlucoseValue: $0.glucoseValue, smoothGlucoseValue: glucoseFilter.filter(glucoseValue: $0.glucoseValue, initGlucoseValues: initGlucoseValues))
+
             }.map {
                 let glucose = $0.populateChange(previousGlucose: previousGlucose)
                 previousGlucose = glucose
