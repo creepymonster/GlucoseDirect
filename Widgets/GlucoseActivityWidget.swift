@@ -111,19 +111,25 @@ struct DynamicIslandCenterView: View, GlucoseStatusContext {
         VStack(spacing: 0) {
             if let latestGlucose = context.glucose, let glucoseUnit = context.glucoseUnit {
                 HStack(alignment: .lastTextBaseline, spacing: 20) {
-                    Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
-                        .font(.system(size: 64))
-                        .foregroundColor(getGlucoseColor(glucose: latestGlucose))
-
-                    VStack(alignment: .leading) {
-                        Text(verbatim: latestGlucose.trend.description)
-                            .font(.system(size: 34))
-
-                        if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
-                            Text(verbatim: minuteChange)
-                        } else {
-                            Text(verbatim: "?")
+                    if latestGlucose.type != .high {
+                        Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
+                            .font(.system(size: 64))
+                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
+                        
+                        VStack(alignment: .leading) {
+                            Text(verbatim: latestGlucose.trend.description)
+                                .font(.system(size: 34))
+                            
+                            if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
+                                Text(verbatim: minuteChange)
+                            } else {
+                                Text(verbatim: "?")
+                            }
                         }
+                    } else {
+                        Text("HIGH")
+                            .font(.system(size: 64))
+                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
                     }
                 }
 
@@ -165,19 +171,25 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
             VStack(spacing: 10) {
                 if let latestGlucose = context.glucose, let glucoseUnit = context.glucoseUnit {
                     HStack(alignment: .lastTextBaseline, spacing: 20) {
-                        Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
-                            .font(.system(size: 96))
-                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
-
-                        VStack(alignment: .leading) {
-                            Text(verbatim: latestGlucose.trend.description)
-                                .font(.system(size: 52))
-
-                            if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
-                                Text(verbatim: minuteChange)
-                            } else {
-                                Text(verbatim: "?")
+                        if latestGlucose.type != .high {
+                            Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
+                                .font(.system(size: 96))
+                                .foregroundColor(getGlucoseColor(glucose: latestGlucose))
+                            
+                            VStack(alignment: .leading) {
+                                Text(verbatim: latestGlucose.trend.description)
+                                    .font(.system(size: 52))
+                                
+                                if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
+                                    Text(verbatim: minuteChange)
+                                } else {
+                                    Text(verbatim: "?")
+                                }
                             }
+                        } else {
+                            Text("HIGH")
+                                .font(.system(size: 96))
+                                .foregroundColor(getGlucoseColor(glucose: latestGlucose))
                         }
                     }
 
