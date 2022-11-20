@@ -40,6 +40,14 @@ struct GlucoseStatistics: Codable {
     }
 }
 
+// MARK: - SensorGlucoseType
+
+enum SensorGlucoseType {
+    case normal
+    case low
+    case high
+}
+
 // MARK: - SensorGlucose
 
 struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable, Hashable {
@@ -92,9 +100,9 @@ struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable, H
     let timegroup: Date
 
     var glucoseValue: Int {
-        if intGlucoseValue <= DirectConfig.minReadableGlucose {
+        if intGlucoseValue < DirectConfig.minReadableGlucose {
             return DirectConfig.minReadableGlucose
-        } else if intGlucoseValue >= DirectConfig.maxReadableGlucose {
+        } else if intGlucoseValue > DirectConfig.maxReadableGlucose {
             return DirectConfig.maxReadableGlucose
         }
 
@@ -107,6 +115,16 @@ struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable, H
         }
 
         return .unknown
+    }
+
+    var type: SensorGlucoseType {
+        if intGlucoseValue < DirectConfig.minReadableGlucose {
+            return .low
+        } else if intGlucoseValue > DirectConfig.maxReadableGlucose {
+            return .high
+        }
+
+        return .normal
     }
 
     var description: String {
