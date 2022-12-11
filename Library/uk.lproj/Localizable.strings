@@ -503,19 +503,7 @@
 "Your sensor has expired and needs to be replaced as soon as possible" = "Термін придатності вашого датчика закінчився і його слід замінити якомога швидше";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ day." = "Термін придатності вашого датчика закінчується. Замініть датчик через %1$@ день.";
-
-/* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ days." = "Термін придатності вашого датчика закінчується. Замініть датчик через %1$@ днів.";
-
-/* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ hour." = "Термін придатності вашого датчика закінчується. Замініть датчик через %1$@ час.";
-
-/* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ hours." = "Термін придатності вашого датчика закінчується. Замініть датчик через %1$@ годин.";
-
-/* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Термін придатності вашого датчика закінчується. Замініть датчик через %1$@ хвилин.";
+"Your sensor is about to expire. Replace sensor in %1$@." = "Your sensor is about to expire. Replace sensor in %1$@.";
 
 /* (No Comment) */
 "Loading..." = "Завантаження...";
@@ -534,3 +522,9 @@
 
 /* (No Comment) */
 "Last %@ hours" = "Останні %@ години";
+
+/* (No Comment) */
+"Updated" = "Updated";
+
+/* (No Comment) */
+"Reopen app in" = "Reopen app in";
