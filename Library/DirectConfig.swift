@@ -32,7 +32,6 @@ enum DirectConfig {
     static let timegroupRounding = 15
     static let virtualID = "virtual"
     static let widgetName = "\(appName) Widget"
-    static var drawRawGlucoseValues = true
     static var customCalibration = true
 
     static var appName: String = {
