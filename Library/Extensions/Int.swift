@@ -77,7 +77,15 @@ extension Int {
     }
 
     var inTime: String {
-        return String(format: LocalizedString("%1$@d %2$@h %3$@min"), self.inDays.description, self.inHours.description, self.inMinutes.description)
+        if inDays > 0 {
+            return String(format: LocalizedString("%1$@d %2$@h %3$@min"), inDays.description, inHours.description, inMinutes.description)
+        }
+        
+        if inHours > 0 {
+            return String(format: LocalizedString("%1$@h %2$@min"), inHours.description, inMinutes.description)
+        }
+        
+        return String(format: LocalizedString("%1$@min"), inMinutes.description)
     }
 
     var asMmolL: Double {

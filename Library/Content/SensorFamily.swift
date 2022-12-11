@@ -63,6 +63,8 @@ enum SensorFamily: Int, Codable {
             return "Libre 2"
         case .libreSense:
             return "Libre Sense"
+        case .libre3:
+            return "Libre 3"
         default:
             return "Unknown"
         }
