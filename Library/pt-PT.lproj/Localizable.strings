@@ -32,7 +32,7 @@
 "Alarm glucose notification" = "Notificação de Glucose de Alarme";
 
 /* (No Comment) */
-"Alarm settings" = "Alarm settings";
+"Alarm settings" = "Definições do alarme";
 
 /* (No Comment) */
 "Alert, high glucose" = "Alerta, glicemia alta";
@@ -137,7 +137,7 @@
 "Connection error timestamp" = "Hora";
 
 /* (No Comment) */
-"Connection settings" = "Connection settings";
+"Connection settings" = "Definições de Conexão";
 
 /* (No Comment) */
 "Connection state" = "Estado";
@@ -218,10 +218,10 @@
 "LibreLink transmitter" = "LibreLink";
 
 /* (No Comment) */
-"LibreLinkUp email" = "LibreLinkUp email";
+"LibreLinkUp email" = "E-mail LibreLinkUp";
 
 /* (No Comment) */
-"LibreLinkUp password" = "LibreLinkUp password";
+"LibreLinkUp password" = "Senha LibreLinkUp";
 
 /* (No Comment) */
 "Line" = "Linha";
@@ -245,7 +245,7 @@
 "Nightscout url" = "URL";
 
 /* (No Comment) */
-"No Data" = "No Data";
+"No Data" = "Sem Dados";
 
 /* (No Comment) */
 "No screen lock" = " Sem bloqueio de tela ";
@@ -425,7 +425,7 @@
 "Statistics (%@ days)" = " Estatísticas (%@ dias) ";
 
 /* (No Comment) */
-"StatisticsPeriod" = "Period";
+"StatisticsPeriod" = "Período";
 
 /* (No Comment) */
 "The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "A ligação com o sensor foi interrompida. Normalmente isto acontece quando o sensor está fora de alcance ou quando a sua potência de transmissão é imprópria.";
@@ -440,7 +440,7 @@
 "Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = " Tempo abaixo do Intervalo (TAI) ou a porcentagem de tempo gasto abaixo da glicose alvo de %@.a";
 
 /* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@.";
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Tempo no Intervalo (TNI) ou a porcentagem de tempo dentro do intervalo de glicose alvo entre %@ - %@.";
 
 /* (No Comment) */
 "Transmitter" = "Transmissor";
@@ -503,34 +503,28 @@
 "Your sensor has expired and needs to be replaced as soon as possible" = "O teu sensor expirou e precisa de ser substituído o mais rapidamente possível";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ day." = "O teu sensor está prestes a expirar. Substitui o sensor em %1$@ dia.";
+"Your sensor is about to expire. Replace sensor in %1$@." = "Your sensor is about to expire. Replace sensor in %1$@.";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ days." = "O teu sensor está prestes a expirar. Substitui o sensor em %1$@ dia.";
+"Loading..." = "Carregando...";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ hour." = "O teu sensor está prestes a expirar. Substitui o sensor em %1$@ dia.";
+"Export" = "Exportar";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ hours." = "O teu sensor está prestes a expirar. Substitui o sensor em %1$@ dia.";
+"Export as CSV" = "Exportar como CSV";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ minutes." = "O teu sensor está prestes a expirar. Substitui o sensor em %1$@ dia.";
+"Export for Glooko" = "Exportar para Glooko";
 
 /* (No Comment) */
-"Loading..." = "Loading...";
+"Export for Tidepool" = "Exportar para Tidepool";
 
 /* (No Comment) */
-"Export" = "Export";
+"Last %@ hours" = "Últimas %@ horas";
 
 /* (No Comment) */
-"Export as CSV" = "Export as CSV";
+"Updated" = "Updated";
 
 /* (No Comment) */
-"Export for Glooko" = "Export for Glooko";
-
-/* (No Comment) */
-"Export for Tidepool" = "Export for Tidepool";
-
-/* (No Comment) */
-"Last %@ hours" = "Last %@ hours";
+"Reopen app in" = "Reopen app in";
