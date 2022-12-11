@@ -111,19 +111,25 @@ struct DynamicIslandCenterView: View, GlucoseStatusContext {
         VStack(spacing: 0) {
             if let latestGlucose = context.glucose, let glucoseUnit = context.glucoseUnit {
                 HStack(alignment: .lastTextBaseline, spacing: 20) {
-                    Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
-                        .font(.system(size: 64))
-                        .foregroundColor(getGlucoseColor(glucose: latestGlucose))
+                    if latestGlucose.type != .high {
+                        Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
+                            .font(.system(size: 64))
+                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
 
-                    VStack(alignment: .leading) {
-                        Text(verbatim: latestGlucose.trend.description)
-                            .font(.system(size: 34))
+                        VStack(alignment: .leading) {
+                            Text(verbatim: latestGlucose.trend.description)
+                                .font(.system(size: 34))
 
-                        if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
-                            Text(verbatim: minuteChange)
-                        } else {
-                            Text(verbatim: "?")
+                            if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
+                                Text(verbatim: minuteChange)
+                            } else {
+                                Text(verbatim: "?")
+                            }
                         }
+                    } else {
+                        Text("HIGH")
+                            .font(.system(size: 64))
+                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
                     }
                 }
 
@@ -165,19 +171,26 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
             VStack(spacing: 10) {
                 if let latestGlucose = context.glucose, let glucoseUnit = context.glucoseUnit {
                     HStack(alignment: .lastTextBaseline, spacing: 20) {
-                        Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
-                            .font(.system(size: 96))
-                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
+                        if latestGlucose.type != .high {
+                            Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
+                                .frame(height: 96)
+                                .font(.system(size: 96))
+                                .foregroundColor(getGlucoseColor(glucose: latestGlucose))
 
-                        VStack(alignment: .leading) {
-                            Text(verbatim: latestGlucose.trend.description)
-                                .font(.system(size: 52))
+                            VStack(alignment: .leading) {
+                                Text(verbatim: latestGlucose.trend.description)
+                                    .font(.system(size: 52))
 
-                            if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
-                                Text(verbatim: minuteChange)
-                            } else {
-                                Text(verbatim: "?")
+                                if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
+                                    Text(verbatim: minuteChange)
+                                } else {
+                                    Text(verbatim: "?")
+                                }
                             }
+                        } else {
+                            Text("HIGH")
+                                .font(.system(size: 96))
+                                .foregroundColor(getGlucoseColor(glucose: latestGlucose))
                         }
                     }
 
@@ -188,10 +201,27 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
                             .background(Color.ui.red)
                             .foregroundColor(.white)
                     } else {
-                        HStack(spacing: 40) {
-                            Text(latestGlucose.timestamp, style: .time)
-                            Text(verbatim: glucoseUnit.localizedDescription)
-                        }.opacity(0.5)
+                        HStack(alignment: .lastTextBaseline, spacing: 40) {
+                            VStack {
+                                Text("Updated")
+                                    .textCase(.uppercase)
+                                    .font(.footnote)
+                                Text(latestGlucose.timestamp, style: .time)
+                                    .monospacedDigit()
+                            }.frame(width: 100)
+
+                            if let stopDate = context.stopDate {
+                                VStack {
+                                    Text("Reopen app in")
+                                        .textCase(.uppercase)
+                                        .font(.footnote)
+                                    Text(stopDate, style: .relative)
+                                        .multilineTextAlignment(.center)
+                                        .monospacedDigit()
+                                }.frame(width: 150)
+                            }
+                        }
+                        .opacity(0.5)
                     }
 
                 } else {
@@ -205,7 +235,7 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
             }
 
             Spacer()
-        }.padding([.trailing, .bottom, .leading])
+        }.padding()
     }
 }
 

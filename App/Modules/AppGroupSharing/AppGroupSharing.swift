@@ -72,6 +72,10 @@ private func appGroupSharingMiddleware(service: LazyService<AppGroupSharingServi
             guard let glucose = glucoseValues.last else {
                 break
             }
+            
+            guard glucose.type != .high else {
+                break
+            }
 
             service.value.addSensorGlucose(glucoseValues: [glucose])
 

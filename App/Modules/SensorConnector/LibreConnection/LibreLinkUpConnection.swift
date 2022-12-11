@@ -349,14 +349,19 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         }
 
         let (data, response) = try await URLSession.shared.data(for: request)
+        let statusCode = (response as? HTTPURLResponse)?.statusCode ?? 0
 
         DirectLog.info("LibreLinkUp login, response: \(String(data: data, encoding: String.Encoding.utf8))")
 
-        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+        if statusCode == 200 {
+            return try decode(LibreLinkResponse<LibreLinkResponseLogin>.self, data: data)
+        } else if statusCode == 911 {
+            throw LibreLinkError.maintenance
+        } else if statusCode == 401 {
             throw LibreLinkError.invalidCredentials
         }
 
-        return try decode(LibreLinkResponse<LibreLinkResponseLogin>.self, data: data)
+        throw LibreLinkError.unknownError
     }
 
     private func connect(apiRegion: String, authToken: String) async throws -> LibreLinkResponse<[LibreLinkResponseConnect]> {
@@ -376,14 +381,19 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         }
 
         let (data, response) = try await URLSession.shared.data(for: request)
+        let statusCode = (response as? HTTPURLResponse)?.statusCode ?? 0
 
         DirectLog.info("LibreLinkUp connect, response: \(String(data: data, encoding: String.Encoding.utf8))")
 
-        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-            throw LibreLinkError.notAuthenticated
+        if statusCode == 200 {
+            return try decode(LibreLinkResponse<[LibreLinkResponseConnect]>.self, data: data)
+        } else if statusCode == 911 {
+            throw LibreLinkError.maintenance
+        } else if statusCode == 401 {
+            throw LibreLinkError.invalidCredentials
         }
 
-        return try decode(LibreLinkResponse<[LibreLinkResponseConnect]>.self, data: data)
+        throw LibreLinkError.unknownError
     }
 
     private func fetch() async throws -> LibreLinkResponse<LibreLinkResponseFetch> {
@@ -407,14 +417,19 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         }
 
         let (data, response) = try await URLSession.shared.data(for: request)
+        let statusCode = (response as? HTTPURLResponse)?.statusCode ?? 0
 
         DirectLog.info("LibreLinkUp fetch, response: \(String(data: data, encoding: String.Encoding.utf8))")
 
-        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-            throw LibreLinkError.notAuthenticated
+        if statusCode == 200 {
+            return try decode(LibreLinkResponse<LibreLinkResponseFetch>.self, data: data)
+        } else if statusCode == 911 {
+            throw LibreLinkError.maintenance
+        } else if statusCode == 401 {
+            throw LibreLinkError.invalidCredentials
         }
-
-        return try decode(LibreLinkResponse<LibreLinkResponseFetch>.self, data: data)
+        
+        throw LibreLinkError.unknownError
     }
 
     private func decode<T: Decodable>(_ type: T.Type, data: Data) throws -> T {
@@ -582,6 +597,8 @@ private struct LibreLinkLogin {
 // MARK: - LibreLinkError
 
 private enum LibreLinkError: Error {
+    case unknownError
+    case maintenance
     case invalidURL
     case serializationError
     case missingLoginSession
@@ -594,6 +611,7 @@ private enum LibreLinkError: Error {
     case missingData
     case parsingError
     case cannotLock
+    case missingStatusCode
 }
 
 // MARK: CustomStringConvertible
@@ -601,6 +619,12 @@ private enum LibreLinkError: Error {
 extension LibreLinkError: CustomStringConvertible {
     var description: String {
         switch self {
+        case .unknownError:
+            return "Unknown error"
+        case .missingStatusCode:
+            return "Missing status code"
+        case .maintenance:
+            return "Maintenance"
         case .invalidURL:
             return "Invalid url"
         case .serializationError:

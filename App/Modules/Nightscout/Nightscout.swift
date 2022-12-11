@@ -35,6 +35,10 @@ private func nightscoutMiddleware(service: LazyService<NightscoutService>) -> Mi
                 service.value.addBloodGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: glucoseValues)
 
             case .addSensorGlucose(glucoseValues: let glucoseValues):
+                guard let glucose = glucoseValues.last, glucose.type != .high else {
+                    break
+                }
+                
                 service.value.addSensorGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: glucoseValues)
 
             case .setSensorState(sensorAge: _, sensorState: _):

@@ -503,19 +503,7 @@
 "Your sensor has expired and needs to be replaced as soon as possible" = "Ihr Sensor ist abgelaufen und muss so schnell wie möglich ersetzt werden.";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ day." = "Ihr Sensor läuft demnächst ab. Ersetzen Sie den Sensor in %1$@ Tag.";
-
-/* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ days." = "Ihr Sensor läuft demnächst ab. Ersetzen Sie den Sensor in %1$@ Tagen.";
-
-/* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ hour." = "Ihr Sensor läuft demnächst ab. Ersetzen Sie den Sensor in %1$@ Stunde.";
-
-/* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ hours." = "Ihr Sensor läuft demnächst ab. Ersetzen Sie den Sensor in %1$@ Stunden.";
-
-/* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Ihr Sensor läuft demnächst ab. Ersetzen Sie den Sensor in %1$@ Minuten.";
+"Your sensor is about to expire. Replace sensor in %1$@." = "Your sensor is about to expire. Replace sensor in %1$@.";
 
 /* (No Comment) */
 "Loading..." = "Lädt...";
@@ -534,3 +522,9 @@
 
 /* (No Comment) */
 "Last %@ hours" = "Letzten %@ Stunden";
+
+/* (No Comment) */
+"Updated" = "Updated";
+
+/* (No Comment) */
+"Reopen app in" = "Reopen app in";

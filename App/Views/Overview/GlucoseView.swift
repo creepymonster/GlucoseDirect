@@ -16,19 +16,25 @@ struct GlucoseView: View {
         VStack(spacing: 0) {
             if let latestGlucose = store.state.latestSensorGlucose {
                 HStack(alignment: .lastTextBaseline, spacing: 20) {
-                    Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit))
-                        .font(.system(size: 96))
-                        .foregroundColor(getGlucoseColor(glucose: latestGlucose))
+                    if latestGlucose.type != .high {
+                        Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit))
+                            .font(.system(size: 96))
+                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
+                        
+                        VStack(alignment: .leading) {
+                            Text(verbatim: latestGlucose.trend.description)
+                                .font(.system(size: 52))
 
-                    VStack(alignment: .leading) {
-                        Text(verbatim: latestGlucose.trend.description)
-                            .font(.system(size: 52))
-
-                        if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: store.state.glucoseUnit) {
-                            Text(verbatim: minuteChange)
-                        } else {
-                            Text(verbatim: "?")
+                            if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: store.state.glucoseUnit) {
+                                Text(verbatim: minuteChange)
+                            } else {
+                                Text(verbatim: "?")
+                            }
                         }
+                    } else {
+                        Text("HIGH")
+                            .font(.system(size: 96))
+                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
                     }
                 }
 
