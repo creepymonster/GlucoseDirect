@@ -503,19 +503,7 @@
 "Your sensor has expired and needs to be replaced as soon as possible" = "您的传感器已经过期，需要尽快更换";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ day." = "您的传感器即将过期。在 %1$@ 天内替换传感器。";
-
-/* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ days." = "您的传感器即将过期。在 %1$@ 天内更换传感器。";
-
-/* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ hour." = "您的传感器即将过期。在 %1$@ 小时内更换传感器。";
-
-/* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ hours." = "您的传感器即将过期。在 %1$@ 小时内更换传感器。";
-
-/* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ minutes." = "您的传感器即将过期。在 %1$@ 分钟内更换传感器。";
+"Your sensor is about to expire. Replace sensor in %1$@." = "Your sensor is about to expire. Replace sensor in %1$@.";
 
 /* (No Comment) */
 "Loading..." = "加载中…";
@@ -534,3 +522,9 @@
 
 /* (No Comment) */
 "Last %@ hours" = "最近 %@ 小时";
+
+/* (No Comment) */
+"Updated" = "Updated";
+
+/* (No Comment) */
+"Reopen app in" = "Reopen app in";
