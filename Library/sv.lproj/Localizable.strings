@@ -503,19 +503,7 @@
 "Your sensor has expired and needs to be replaced as soon as possible" = "Din sensor har utgått och behöver bytas snarast möjligast";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ day." = "Din sensor går snart ut. Byt sensor om %1$@ dag.";
-
-/* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ days." = "Din sensor går snart ut. Byt sensor om %1$@ dagar.";
-
-/* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ hour." = "Din sensor går snart ut. Byt sensor om %1$@ timme.";
-
-/* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ hours." = "Din sensor går snart ut. Byt sensor om %1$@ timmar.";
-
-/* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Din sensor går snart ut. Byt sensor om %1$@ minuter.";
+"Your sensor is about to expire. Replace sensor in %1$@." = "Your sensor is about to expire. Replace sensor in %1$@.";
 
 /* (No Comment) */
 "Loading..." = "Loading...";
@@ -534,3 +522,9 @@
 
 /* (No Comment) */
 "Last %@ hours" = "Last %@ hours";
+
+/* (No Comment) */
+"Updated" = "Updated";
+
+/* (No Comment) */
+"Reopen app in" = "Reopen app in";
