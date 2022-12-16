@@ -528,3 +528,18 @@
 
 /* (No Comment) */
 "Reopen app in" = "App neu öffnen in";
+
+/* (No Comment) */
+"%1$@ days" = "%1$@ days";
+
+/* (No Comment) */
+"%1$@ day" = "%1$@ day";
+
+/* (No Comment) */
+"%1$@ hours" = "%1$@ hours";
+
+/* (No Comment) */
+"%1$@ hour" = "%1$@ hour";
+
+/* (No Comment) */
+"%1$@ minutes" = "%1$@ minutes";
