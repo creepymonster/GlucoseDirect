@@ -41,8 +41,8 @@ private func expiringNotificationMiddelware(service: LazyService<ExpiringNotific
 
             } else if sensor.remainingLifetime <= (24 * 60) { // less than 24 hours
                 DirectLog.info("Sensor is expiring in less than 24 hours")
-
-                service.value.setSensorExpiringAlarm(body: String(format: LocalizedString("Your sensor is about to expire. Replace sensor in %1$@."), sensor.remainingLifetime.inTime), sound: .none, ignoreMute: state.ignoreMute)
+                
+                service.value.setSensorExpiringAlarm(body: String(format: LocalizedString("Your sensor is about to expire. Replace sensor in %1$@."), sensor.remainingLifetime.inTimeSummary), sound: .none, ignoreMute: state.ignoreMute)
             }
 
         default:
