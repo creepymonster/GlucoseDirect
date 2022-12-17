@@ -221,6 +221,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		105EC00A294E6E7B008EE77B /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		105EC00B294E6E7B008EE77B /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		105EC00C294E6E7B008EE77B /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1938BB6F2752F8D10047059C /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1938BB702752F8D20047059C /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E2016FD5285BA7C600079195 /* SensorWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorWidget.swift; sourceTree = "<group>"; };
@@ -937,6 +940,7 @@
 				tr,
 				uk,
 				Base,
+				pl,
 			);
 			mainGroup = E20B8531266F4A9800AA4224;
 			packageReferences = (
@@ -1192,6 +1196,7 @@
 				E26690682792F6D9009C0FE1 /* fi */,
 				E2920482284121CC00DFCCA6 /* tr */,
 				E2E4797C28BD6A0F006665EA /* uk */,
+				105EC00A294E6E7B008EE77B /* pl */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1213,6 +1218,7 @@
 				E2B5BF6928639C90006C9C7F /* zh-Hant */,
 				E2B5BF6A28639CF3006C9C7F /* en */,
 				E2E4797D28BD6A0F006665EA /* uk */,
+				105EC00B294E6E7B008EE77B /* pl */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1234,6 +1240,7 @@
 				E26690672792F6D9009C0FE1 /* fi */,
 				E2920481284121CC00DFCCA6 /* tr */,
 				E2E4797E28BD6A0F006665EA /* uk */,
+				105EC00C294E6E7B008EE77B /* pl */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
