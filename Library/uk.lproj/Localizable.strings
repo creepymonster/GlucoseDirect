@@ -530,16 +530,16 @@
 "Reopen app in" = "Повторно відкрити програму в";
 
 /* (No Comment) */
-"%1$@ days" = "%1$@ days";
+"%1$@ days" = "%1$@ днів";
 
 /* (No Comment) */
-"%1$@ day" = "%1$@ day";
+"%1$@ day" = "%1$@ день";
 
 /* (No Comment) */
-"%1$@ hours" = "%1$@ hours";
+"%1$@ hours" = "%1$d годин";
 
 /* (No Comment) */
-"%1$@ hour" = "%1$@ hour";
+"%1$@ hour" = "%1$@ година";
 
 /* (No Comment) */
-"%1$@ minutes" = "%1$@ minutes";
+"%1$@ minutes" = "%1$@ хвилин";
