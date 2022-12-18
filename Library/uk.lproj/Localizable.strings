@@ -41,7 +41,7 @@
 "Alert, low blood glucose" = "Увага, низький вміст глюкози в крові";
 
 /* (No Comment) */
-"Alert, sensor connection lost" = "Увага, втрачений зв'язок з датчиком";
+"Alarm, loss of signal" = "Alarm, loss of signal";
 
 /* (No Comment) */
 "Alert, sensor expired" = "Увага, термін дії датчика закінчився";
@@ -428,7 +428,7 @@
 "StatisticsPeriod" = "Термін";
 
 /* (No Comment) */
-"The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "З’єднання з сенсором було перервано. Зазвичай, це трапляється, коли датчик знаходиться поза зоною дії або його потужність передачі даних знижена.";
+"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data.";
 
 /* (No Comment) */
 "Time" = "Час";

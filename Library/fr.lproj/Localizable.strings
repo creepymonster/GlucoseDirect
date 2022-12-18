@@ -41,7 +41,7 @@
 "Alert, low blood glucose" = "Alerte, glycémie basse";
 
 /* (No Comment) */
-"Alert, sensor connection lost" = "Alerte, connexion au capteur perdue";
+"Alarm, loss of signal" = "Alarm, loss of signal";
 
 /* (No Comment) */
 "Alert, sensor expired" = "Alerte, capteur expiré";
@@ -428,7 +428,7 @@
 "StatisticsPeriod" = "Période";
 
 /* (No Comment) */
-"The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "La connexion avec le capteur a été interrompue. Cela se produit normalement lorsque le capteur est hors de portée ou que sa puissance de transmission est affaiblie.";
+"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data.";
 
 /* (No Comment) */
 "Time" = "Temps";
