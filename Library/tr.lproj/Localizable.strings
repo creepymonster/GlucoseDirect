@@ -41,7 +41,7 @@
 "Alert, low blood glucose" = "Uyarı, düşük kan şekeri";
 
 /* (No Comment) */
-"Alert, sensor connection lost" = "Uyarı, sensör bağlantısı kesildi";
+"Alarm, loss of signal" = "Alarm, loss of signal";
 
 /* (No Comment) */
 "Alert, sensor expired" = "Uyarı, sensör süresi doldu";
@@ -428,7 +428,7 @@
 "StatisticsPeriod" = "Period";
 
 /* (No Comment) */
-"The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "Sensörle bağlantı kesildi. Normalde bu sensör menzil dışında olduğunda veya iletim gücü bozulduğunda olur.";
+"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data.";
 
 /* (No Comment) */
 "Time" = "Zaman";
