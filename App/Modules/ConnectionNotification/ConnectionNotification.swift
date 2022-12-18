@@ -41,9 +41,14 @@ private func connectionNotificationMiddelware(service: LazyService<ConnectionNot
             
             service.value.scheduleSensorConnectionLostAlarm(sound: state.connectionAlarmSound)
 
-        case .addSensorGlucose(glucoseValues: _):
+        case .addSensorGlucose(glucoseValues: let glucoseValues):
             guard state.hasConnectionAlarm else {
                 DirectLog.info("Guard: connectionAlarm disabled")
+                break
+            }
+            
+            guard !glucoseValues.isEmpty else {
+                DirectLog.info("Guard: glucoseValues isEmpty")
                 break
             }
 
@@ -103,7 +108,7 @@ private class ConnectionNotificationService {
                     $0.identifier == Identifier.sensorConnectionAlarm.rawValue
                 }.count > 0
 
-                guard hasPendingAlarm == false else {
+                guard !hasPendingAlarm else {
                     return
                 }
 
@@ -115,9 +120,9 @@ private class ConnectionNotificationService {
                     notification.sound = .none
                 }
 
-                notification.title = LocalizedString("Alert, sensor connection lost")
+                notification.title = LocalizedString("Alarm, loss of signal")
                 notification.interruptionLevel = .timeSensitive
-                notification.body = LocalizedString("The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired.")
+                notification.body = LocalizedString("No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data.")
 
                 let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15 * 60, repeats: true)
                 DirectNotifications.shared.addNotification(identifier: Identifier.sensorConnectionAlarm.rawValue, content: notification, trigger: trigger)
