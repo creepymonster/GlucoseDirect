@@ -1,5 +1,5 @@
 /* (No Comment) */
-"%1$@ a clock" = "%1$@ Uhr";
+"%1$@ a clock" = "%1$@";
 
 /* (No Comment) */
 "%1$@/min." = "%1$@/min.";
@@ -11,529 +11,517 @@
 "%@ Entries" = "%@ Wpisy";
 
 /* (No Comment) */
-"%@ Entry" = "%@ Wejście";
+"%@ Entry" = "%@ Entry";
 
 /* (No Comment) */
-"About %@" = "O %@";
+"About %@" = "About %@";
 
 /* (No Comment) */
-"Add" = "Dodaj";
+"Add" = "Add";
 
 /* (No Comment) */
-"Add blood glucose" = "Glukoza z glukometru";
+"Add blood glucose" = "Add blood glucose";
 
 /* (No Comment) */
-"Add calibration" = "Dodaj kalibrację";
+"Add calibration" = "Add calibration";
 
 /* (No Comment) */
-"Add glucose for calibration" = "Dodaj glukozę do kalibracji";
+"Add glucose for calibration" = "Add glucose for calibration";
 
 /* (No Comment) */
-"Alarm glucose notification" = "Alarmy o poziomie glukozy";
+"Alarm glucose notification" = "Alarm Glucose Notification";
 
 /* (No Comment) */
-"Alarm settings" = "Ustawienia alarmu";
+"Alarm settings" = "Alarm settings";
 
 /* (No Comment) */
-"Alert, high glucose" = "Wysoka glukoza !";
+"Alert, high glucose" = "Alert, high glucose";
 
 /* (No Comment) */
-"Alert, low blood glucose" = "Niska glukoza !!!";
+"Alert, low blood glucose" = "Alert, low blood glucose";
 
 /* (No Comment) */
 "Alarm, loss of signal" = "Alarm, loss of signal";
 
 /* (No Comment) */
-"Alert, sensor expired" = "Koniec działania czujnika";
+"Alert, sensor expired" = "Alert, sensor expired";
 
 /* (No Comment) */
-"Alert, sensor expiring soon" = "Czujnik wkrótce wygaśnie!";
+"Alert, sensor expiring soon" = "Alert, sensor expiring soon";
 
 /* (No Comment) */
-"App author" = "Autor";
+"App author" = "Author";
 
 /* (No Comment) */
-"App donate" = "Darowizna";
+"App donate" = "Donate";
 
 /* (No Comment) */
-"App email" = "E-Mail";
+"App email" = "eMail";
 
 /* (No Comment) */
-"App facebook group" = "Facebook";
+"App facebook group" = "Facebook group";
 
 /* (No Comment) */
 "App faq" = "FAQ";
 
 /* (No Comment) */
-"App support mail" = "Pomoc";
+"App support mail" = "Support";
 
 /* (No Comment) */
-"App translation" = "Tłumaczenie aplikacji";
+"App translation" = "Translation";
 
 /* (No Comment) */
-"App version" = "Wersja";
+"App version" = "Version";
 
 /* (No Comment) */
-"App website" = "Strona";
+"App website" = "Website";
 
 /* (No Comment) */
-"Apple export settings" = "Ustawienia eksportu Apple";
+"Apple export settings" = "Apple export settings";
 
 /* (No Comment) */
-"Are you sure you want to disconnect the sensor?" = "Czy na pewno chcesz odłączyć czujnik?";
+"Are you sure you want to disconnect the sensor?" = "Are you sure you want to disconnect the sensor?";
 
 /* (No Comment) */
-"At least %@ days of data are required." = "Wymagane są dane z co najmniej %@ dni.";
+"At least %@ days of data are required." = "At least %@ days of data are required.";
 
 /* (No Comment) */
-"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Uwaga, czujnik wysyła błędne wartości. Proszę czekać 10 minut.";
+"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Attention, the sensor sends faulty values. Please wait 10 minutes.";
 
 /* (No Comment) */
-"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Average (AVG) oder Durchschnitt ist ein einfaches Maß für Blutzuckerwerte über einen bestimmten Zeitraum und bietet einen ungefähren Überblick über den Blutzuckerspiegel.";
+"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been.";
 
 /* (No Comment) */
-"Bellman alarm" = "Alarm Belmana";
+"Bellman alarm" = "Alarm";
 
 /* (No Comment) */
-"Bellman test alarm" = "Alarm testowy Bellmana";
+"Bellman test alarm" = "Test alarm";
 
 /* (No Comment) */
-"Blood glucose values" = "Wartości glukozy we krwi";
+"Blood glucose values" = "BGM";
 
 /* (No Comment) */
-"Blood glucose: %1$@" = "Glukoza we krwi: %1$@";
+"Blood glucose: %1$@" = "Blood glucose: %1$@";
 
 /* (No Comment) */
-"Bubble transmitter" = "Bubble";
+"Bubble transmitter" = "Bubble transmitter";
 
 /* (No Comment) */
-"Calibration view" = "Kalibracja";
+"Calibration view" = "Calibration";
 
 /* (No Comment) */
-"Cancel" = "anulować";
+"Cancel" = "Cancel";
 
 /* (No Comment) */
-"Chart" = "Wykres";
+"Chart" = "Chart";
 
 /* (No Comment) */
-"Connect sensor" = "Podłącz czujnik";
+"Connect sensor" = "Connect sensor";
 
 /* (No Comment) */
-"Connect transmitter" = "Podłącz transmiter";
+"Connect transmitter" = "Connect transmitter";
 
 /* (No Comment) */
-"Connected" = "Połączony";
+"Connected" = "Connected";
 
 /* (No Comment) */
-"Connecting" = "Łączenie...";
+"Connecting" = "Connecting";
 
 /* (No Comment) */
-"Connection alarm" = "Alarm braku połączenia";
+"Connection alarm" = "Connection alarm";
 
 /* (No Comment) */
-"Connection error" = "Błąd połączenia";
+"Connection error" = "Error";
 
 /* (No Comment) */
-"Connection error timestamp" = "Zeit";
+"Connection error timestamp" = "Time";
 
 /* (No Comment) */
-"Connection settings" = "Ustawienia połączenia";
+"Connection settings" = "Connection settings";
 
 /* (No Comment) */
-"Connection state" = "Stan połączenia";
+"Connection state" = "State";
 
 /* (No Comment) */
-"Custom calibration intercept" = "Wartość kalibracji";
+"Custom calibration intercept" = "Intercept";
 
 /* (No Comment) */
-"Custom calibration slope" = "Odchylenie kalibracji";
+"Custom calibration slope" = "Slope";
 
 /* (No Comment) */
-"Delete all" = "Usuń wszystko";
+"Delete all" = "Delete all";
 
 /* (No Comment) */
-"Disconnect" = "Rozłączyć się";
+"Disconnect" = "Disconnect";
 
 /* (No Comment) */
-"Disconnect sensor" = "Odłącz sensor";
+"Disconnect sensor" = "Disconnect sensor";
 
 /* (No Comment) */
-"Disconnect transmitter" = "Odłącz transmiter";
+"Disconnect transmitter" = "Disconnect transmitter";
 
 /* (No Comment) */
-"Disconnected" = "Utracono połączenie";
+"Disconnected" = "Disconnected";
 
 /* (No Comment) */
-"Export to Apple Calendar" = "Eksportuj do kalendarza Apple";
+"Export to Apple Calendar" = "Export to Apple Calendar";
 
 /* (No Comment) */
-"Export to Apple Health" = "Eksportuj do Apple Health";
+"Export to Apple Health" = "Export to Apple Health";
 
 /* (No Comment) */
-"Find transmitter" = "Wyszukaj transmiter";
+"Find transmitter" = "Find transmitter";
 
 /* (No Comment) */
-"Glucose" = "Glukoza";
+"Glucose" = "Glucose";
 
 /* (No Comment) */
-"Glucose list view" = "Historia odczytów";
+"Glucose list view" = "List";
 
 /* (No Comment) */
-"Glucose Live Activity" = "Glukoza na żywo";
+"Glucose Live Activity" = "Glucose Live Activity";
 
 /* (No Comment) */
 "Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring.";
 
 /* (No Comment) */
-"Glucose notification" = "Powiadomienie o poziomie glukozy";
+"Glucose notification" = "Glucose Notification";
 
 /* (No Comment) */
-"Glucose overview" = "Panel odczytów";
+"Glucose overview" = "Overview";
 
 /* (No Comment) */
-"Glucose read aloud" = "Odczytaj glukozę";
+"Glucose read aloud" = "Glucose Reading";
 
 /* (No Comment) */
-"Glucose settings" = "Ustawienia glukozy";
+"Glucose settings" = "Glucose settings";
 
 /* (No Comment) */
-"Glucose unit" = "Jednostka";
+"Glucose unit" = "Unit";
 
 /* (No Comment) */
-"Glucose widget" = "Glukoza";
+"Glucose widget" = "Glucose";
 
 /* (No Comment) */
-"Glucose widget description" = "Opis widżetu glukozy";
+"Glucose widget description" = "Displays the last glucose value.";
 
 /* (No Comment) */
-"High glucose alarm" = "Alarm o wysokim poziomie glukozy";
+"High glucose alarm" = "High glucose alarm";
 
 /* (No Comment) */
-"Hold the top edge of your iPhone close to the sensor." = "Przytrzymaj górną krawędź iPhone'a blisko sensora.";
+"Hold the top edge of your iPhone close to the sensor." = "Hold the top edge of your iPhone close to the sensor.";
 
 /* (No Comment) */
-"Ignore mute" = "Ignoruj wyciszenie";
+"Ignore mute" = "Ignore mute";
 
 /* (No Comment) */
-"LibreLink transmitter" = "Transmiter LibreLink";
+"LibreLink transmitter" = "LibreLink Transmitter";
 
 /* (No Comment) */
-"LibreLinkUp email" = "LibreLinkUp E-Mail";
+"LibreLinkUp email" = "LibreLinkUp email";
 
 /* (No Comment) */
-"LibreLinkUp password" = "LibreLinkUp Password";
+"LibreLinkUp password" = "LibreLinkUp password";
 
 /* (No Comment) */
-"Line" = "Linie";
+"Line" = "Line";
 
 /* (No Comment) */
-"Low glucose alarm" = "Alarm o niskim poziomie glukozy";
+"Low glucose alarm" = "Low glucose alarm";
 
 /* (No Comment) */
-"Lower limit" = "Niski";
+"Lower limit" = "Low";
 
 /* (No Comment) */
 "Nightscout API-Secret" = "API-Secret";
 
 /* (No Comment) */
-"Nightscout settings" = "Ustawienia Nightscout";
+"Nightscout settings" = "Nightscout settings";
 
 /* (No Comment) */
-"Nightscout upload enabled" = "Przesyłaj dane do Nightscout";
+"Nightscout upload enabled" = "Upload";
 
 /* (No Comment) */
-"Nightscout url" = "Adres Nightscout";
+"Nightscout url" = "Url";
 
 /* (No Comment) */
-"No Data" = "Brak danych";
+"No Data" = "No Data";
 
 /* (No Comment) */
-"No screen lock" = "Brak blokady ekranu";
+"No screen lock" = "No screen lock";
 
 /* (No Comment) */
-"Normal glucose notification" = "Powiadomienia o poziomie glukozy";
+"Normal glucose notification" = "Normal Glucose Notification";
 
 /* (No Comment) */
-"Now" = "Teraz";
+"Now" = "Now";
 
 /* (No Comment) */
-"Pairing" = "Parowanie";
+"Pairing" = "Pairing";
 
 /* (No Comment) */
-"Please select" = "Proszę wybrać";
+"Please select" = "Please select";
 
 /* (No Comment) */
-"Power off" = "Wyłącz";
+"Power off" = "Power off";
 
 /* (No Comment) */
-"Readable falling" = "Spada";
+"Readable falling" = "falling";
 
 /* (No Comment) */
-"Readable fast falling" = "szybko spada";
+"Readable fast falling" = "fast falling";
 
 /* (No Comment) */
-"Readable fast rising" = "szybko rośnie";
+"Readable fast rising" = "fast rising";
 
 /* (No Comment) */
-"Readable glucose with trend: %1$@ %2$@, %3$@" = "Glukoza: %1$@ %2$@, %3$@";
+"Readable glucose with trend: %1$@ %2$@, %3$@" = "Glucose: %1$@ %2$@, %3$@";
 
 /* (No Comment) */
-"Readable glucose: %1$@ %2$@" = "Glukoza: %1$@ %2$@";
+"Readable glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@";
 
 /* (No Comment) */
-"Readable high glucose: %1$@ %2$@" = "Glukoza: %1$@ %2$@. Achtung, Überzuckerung!";
+"Readable high glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, Hyperglycemia!";
 
 /* (No Comment) */
-"Readable low glucose: %1$@ %2$@" = "Glukoza: %1$@ %2$@. Achtung, Unterzuckerung!";
+"Readable low glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, Hypoglycemia!";
 
 /* (No Comment) */
-"Readable miligram" = "miligramy";
+"Readable miligram" = "miligram";
 
 /* (No Comment) */
-"Readable milimol" = "milimoll";
+"Readable milimol" = "milimol";
 
 /* (No Comment) */
-"Readable rapidly falling" = "spada szybko";
+"Readable rapidly falling" = "rapidly falling";
 
 /* (No Comment) */
-"Readable rapidly rising" = "szybko rośnie";
+"Readable rapidly rising" = "rapidly rising";
 
 /* (No Comment) */
-"Readable rising" = "rosnący";
+"Readable rising" = "rising";
 
 /* (No Comment) */
-"Rescan the sensor" = "Ponownie zeskanuj czujnik";
+"Rescan the sensor" = "Rescan the sensor";
 
 /* (No Comment) */
-"Retrieval interval" = "Odczyt glukozy co";
+"Retrieval interval" = "Retrieval interval";
 
 /* (No Comment) */
-"Retrieval interval, every %@ minutes" = "Co %@ minut";
+"Retrieval interval, every %@ minutes" = "Every %@ minutes";
 
 /* (No Comment) */
-"Retrieval interval, every minute" = "Co 1 min :-)";
+"Retrieval interval, every minute" = "Every minute";
 
 /* (No Comment) */
-"Retry pairing" = "Ponów parowanie";
+"Retry pairing" = "Retry pairing";
 
 /* (No Comment) */
-"Scan sensor" = "Zeskanuj sensor";
+"Scan sensor" = "Scan sensor";
 
 /* (No Comment) */
-"Scanning" = "Szukam...";
+"Scanning" = "Scanning";
 
 /* (No Comment) */
-"Selected calendar" = "Wybrany kalendarz";
+"Selected calendar" = "Calendar";
 
 /* (No Comment) */
-"Send database file" = "Wyślij plik bazy danych";
+"Send database file" = "Send database file";
 
 /* (No Comment) */
-"Send log file" = "Wyślij raport o błędzie";
+"Send log file" = "Send log file";
 
 /* (No Comment) */
-"Sensor age" = "Wiek sensora";
+"Sensor age" = "Sensor age";
 
 /* (No Comment) */
-"Sensor connection" = "Podłączenie czujnika";
+"Sensor connection" = "Sensor connection";
 
 /* (No Comment) */
-"Sensor custom calibration" = "Kalibracja sensora";
+"Sensor custom calibration" = "Custom Calibration";
 
 /* (No Comment) */
-"Sensor details" = "Szczegóły czujnika";
+"Sensor details" = "Sensor details";
 
 /* (No Comment) */
-"Sensor ending date" = "Zakończenie działania czujnika";
+"Sensor ending date" = "Ending date";
 
 /* (No Comment) */
-"Sensor error values" = "Błąd CGM";
+"Sensor error values" = "CGM errors";
 
 /* (No Comment) */
-"Sensor factory calibration" = "Kalibracja fabryczna";
+"Sensor factory calibration" = "Factory Calibration";
 
 /* (No Comment) */
 "Sensor glucose values" = "CGM";
 
 /* (No Comment) */
-"Sensor has failure" = "Awaria sensora";
+"Sensor has failure" = "Sensor has failure";
 
 /* (No Comment) */
-"Sensor in starting phase" = "Czujnik w fazie rozruchu";
+"Sensor in starting phase" = "Sensor in starting phase";
 
 /* (No Comment) */
-"Sensor is expired" = "Sensor wygasł";
+"Sensor is expired" = "Sensor is expired";
 
 /* (No Comment) */
-"Sensor is ready" = "Sensor gotowy";
+"Sensor is ready" = "Sensor is ready";
 
 /* (No Comment) */
-"Sensor is shut down" = "Czujnik jest wyłączony";
+"Sensor is shut down" = "Sensor is expired";
 
 /* (No Comment) */
-"Sensor lifetime" = "Żywotność czujnika";
+"Sensor lifetime" = "Lifetime";
 
 /* (No Comment) */
-"Sensor lifetime widget" = "Widżet żywotności czujnika";
+"Sensor lifetime widget" = "Sensor Lifetime";
 
 /* (No Comment) */
-"Sensor lifetime widget description" = "Wyświetla pozostałą żywotność bieżącego czujnika w formie odliczania.";
+"Sensor lifetime widget description" = "Displays the remaining lifetime of the current sensor as a countdown.";
 
 /* (No Comment) */
-"Sensor not yet startet" = "Sensor jeszcze nie uruchomiony";
+"Sensor not yet startet" = "Sensor not yet startet";
 
 /* (No Comment) */
 "Sensor PatchInfo" = "PatchInfo";
 
 /* (No Comment) */
-"Sensor possible lifetime" = "Żywotność czujnika";
+"Sensor possible lifetime" = "Lifetime";
 
 /* (No Comment) */
 "Sensor region" = "Region";
 
 /* (No Comment) */
-"Sensor remaining lifetime" = "Pozostały czas eksploatacji czujnika";
+"Sensor remaining lifetime" = "Remaining";
 
 /* (No Comment) */
-"Sensor remaining warmup time" = "Pozostały czas nagrzewania czujnika";
+"Sensor remaining warmup time" = "Warmup";
 
 /* (No Comment) */
-"Sensor serial" = "Nr sensora";
+"Sensor serial" = "Serial";
 
 /* (No Comment) */
-"Sensor starting date" = "Data uruchomienia czujnika";
+"Sensor starting date" = "Starting date";
 
 /* (No Comment) */
-"Sensor state" = "Status";
+"Sensor state" = "State";
 
 /* (No Comment) */
-"Sensor type" = "Typ";
+"Sensor type" = "Type";
 
 /* (No Comment) */
 "Sensor UID" = "UID";
 
 /* (No Comment) */
-"Settings view" = "Ustawienia";
+"Settings view" = "Settings";
 
 /* (No Comment) */
-"Snooze until" = "Pdłuż do/Sen";
+"Snooze until" = "Snooze";
 
 /* (No Comment) */
-"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Odchylenie standardowe (SD) jest miarą rozpiętości odczytów poziomu glukozy wokół średniej — przeskakiwanie między wysokimi i niskimi wartościami skutkuje większym odchyleniem standardowym. Celem jest najniższe możliwe SD, które odzwierciedlałoby stały poziom glukozy przy minimalnych wahaniach..";
+"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between many highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings.";
 
 /* (No Comment) */
-"Statistics (%@ days)" = "Statystyka (%@ Tage)";
+"Statistics (%@ days)" = "Statistics (%@ days)";
 
 /* (No Comment) */
-"StatisticsPeriod" = "Okres";
+"StatisticsPeriod" = "Period";
 
 /* (No Comment) */
 "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data.";
 
 /* (No Comment) */
-"Time" = "Czas";
+"Time" = "Time";
 
 /* (No Comment) */
-"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Czas powyżej zakresu (TAR) lub procent czasu spędzonego powyżej docelowego poziomu glukozy %@.";
+"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Time above Range (TAR) or the percentage of time spent above the target glucose of %@.";
 
 /* (No Comment) */
-"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Czas poniżej zakresu (TBR) lub procent czasu spędzonego poniżej docelowego poziomu glukozy %@.";
+"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Time below Range (TBR) or the percentage of time spent below the target glucose of %@.";
 
 /* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Czas w zakresie (TIR) lub procent czasu spędzonego w docelowym zakresie glukozy pomiędzy %@ - %@.";
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@.";
 
 /* (No Comment) */
-"Transmitter" = "Transmiter";
+"Transmitter" = "Transmitter";
 
 /* (No Comment) */
-"Transmitter battery" = "Bateria transmitera";
+"Transmitter battery" = "Battery";
 
 /* (No Comment) */
-"Transmitter battery widget" = "Bateria transmitera";
+"Transmitter battery widget" = "Transmitter Battery";
 
 /* (No Comment) */
-"Transmitter battery widget description" = "Pokazuje pozostały poziom naładowania baterii nadajnika w formie odliczania.";
+"Transmitter battery widget description" = "Displays the remaining battery charge of the transmitter as a countdown.";
 
 /* (No Comment) */
-"Transmitter details" = "Dane transmitera";
+"Transmitter details" = "Transmitter details";
 
 /* (No Comment) */
-"Transmitter firmware" = "Oprogramowania";
+"Transmitter firmware" = "Firmware";
 
 /* (No Comment) */
 "Transmitter hardware" = "Hardware";
 
 /* (No Comment) */
-"Transmitter name" = "Nazwa";
+"Transmitter name" = "Name";
 
 /* (No Comment) */
-"Unknown" = "Nieznany";
+"Unknown" = "Unknown";
 
 /* (No Comment) */
-"Upper limit" = "Wysoki";
+"Upper limit" = "High";
 
 /* (No Comment) */
-"Use LibreLink to start the sensor" = "Użyj LibreLink, aby uruchomić czujnik";
+"Use LibreLink to start the sensor" = "Use LibreLink to start the sensor";
 
 /* (No Comment) */
-"Vibration" = "Wibracja";
+"Vibration" = "Vibrate only";
 
 /* (No Comment) */
-"Virtual Sensor" = "Wirtualny czujnik";
+"Virtual Sensor" = "Virtual Sensor";
 
 /* (No Comment) */
-"Warmup" = "Sensor rozgrzewa się";
+"Warmup" = "Warmup";
 
 /* (No Comment) */
-"Wearing time alarm" = "Alarm ważności sensora";
+"Wearing time alarm" = "Wearing time alarm";
 
 /* (No Comment) */
-"Without transmitter" = "Bez transmitera";
+"Without transmitter" = "Without transmitter";
 
 /* (No Comment) */
-"Your current glucose is %1$@ (%2$@)." = "Twoja aktualna glukoza to %1$@ (%2$@).";
+"Your current glucose is %1$@ (%2$@)." = "Your current glucose is %1$@ (%2$@).";
 
 /* (No Comment) */
-"Your glucose %1$@ (%2$@) is dangerously high and needs to be treated." = "Twoja glukoza, %1$@ (%2$@), jest niebezpiecznie wysoka.";
+"Your glucose %1$@ (%2$@) is dangerously high and needs to be treated." = "Your glucose, %1$@ (%2$@), is dangerously high and needs to be treated.";
 
 /* (No Comment) */
-"Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "Twoja glukoza, %1$@ (%2$@), jest niebezpiecznie niska. Wypij słodzony napój.";
+"Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "Your glucose, %1$@ (%2$@), is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal.";
 
 /* (No Comment) */
-"Your sensor has expired and needs to be replaced as soon as possible" = "Twój czujnik wygasł i należy go jak najszybciej wymienić.";
+"Your sensor has expired and needs to be replaced as soon as possible" = "Your sensor has expired and needs to be replaced as soon as possible";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ day." = "Twój sensor wkrótce straci ważność. Wymienić czujnik za %1$@ dni.";
+"Your sensor is about to expire. Replace sensor in %1$@." = "Your sensor is about to expire. Replace sensor in %1$@.";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ days." = "Twój czujnik wkrótce straci ważność. Wymienić czujnik za %1$@ dni.";
-
-/* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ hour." = "Twój czujnik wkrótce straci ważność. Wymienić czujnik za %1$@ godzin.";
-
-/* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ hours." = "Twój czujnik wkrótce straci ważność. Wymienić czujnik za %1$@ godziny.";
-
-/* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Twój czujnik wkrótce straci ważność. Wymienić czujnik za %1$@ minut.";
-
-/* (No Comment) */
-"Loading..." = "Ładowanie...";
+"Loading..." = "Loading...";
 
 /* (No Comment) */
 "Export" = "Export";
 
 /* (No Comment) */
-"Export as CSV" = "Eksportuj jako CSV";
+"Export as CSV" = "Export as CSV";
 
 /* (No Comment) */
-"Export for Glooko" = "Eksportuj do Glooko";
+"Export for Glooko" = "Export for Glooko";
 
 /* (No Comment) */
-"Export for Tidepool" = "Eksportuj do Tidepool";
+"Export for Tidepool" = "Export for Tidepool";
 
 /* (No Comment) */
-"Last %@ hours" = "Ostatnie %@ godziny";
+"Last %@ hours" = "Last %@ hours";
 
 /* (No Comment) */
 "Updated" = "Updated";
