@@ -21,6 +21,7 @@ struct GlucoseStatistics: Codable {
     let tar: Double
     let variance: Double
     let days: Int
+    let maxDays: Int
 
     var tir: Double {
         100.0 - tor
@@ -33,6 +34,18 @@ struct GlucoseStatistics: Codable {
     var stdev: Double {
         sqrt(variance)
     }
+
+    var cv: Double {
+        100 * stdev / avg
+    }
+}
+
+// MARK: - SensorGlucoseType
+
+enum SensorGlucoseType {
+    case normal
+    case low
+    case high
 }
 
 // MARK: - SensorGlucose
@@ -48,7 +61,8 @@ struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable, H
         self.rawGlucoseValue = glucoseValue
         self.intGlucoseValue = glucoseValue
         self.minuteChange = minuteChange
-        self.timegroup = roundedTimestamp.toRounded(on: 15, .minute)
+        self.smoothGlucoseValue = nil
+        self.timegroup = roundedTimestamp.toRounded(on: DirectConfig.timegroupRounding, .minute)
     }
 
     init(timestamp: Date, rawGlucoseValue: Int, intGlucoseValue: Int, minuteChange: Double? = nil) {
@@ -59,10 +73,11 @@ struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable, H
         self.rawGlucoseValue = rawGlucoseValue
         self.intGlucoseValue = intGlucoseValue
         self.minuteChange = minuteChange
-        self.timegroup = roundedTimestamp.toRounded(on: 15, .minute)
+        self.smoothGlucoseValue = nil
+        self.timegroup = roundedTimestamp.toRounded(on: DirectConfig.timegroupRounding, .minute)
     }
 
-    init(id: UUID, timestamp: Date, rawGlucoseValue: Int, intGlucoseValue: Int, minuteChange: Double? = nil) {
+    init(id: UUID, timestamp: Date, rawGlucoseValue: Int, intGlucoseValue: Int, smoothGlucoseValue: Double?, minuteChange: Double? = nil) {
         let roundedTimestamp = timestamp.toRounded(on: 1, .minute)
 
         self.id = id
@@ -70,7 +85,8 @@ struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable, H
         self.rawGlucoseValue = rawGlucoseValue
         self.intGlucoseValue = intGlucoseValue
         self.minuteChange = minuteChange
-        self.timegroup = roundedTimestamp.toRounded(on: 15, .minute)
+        self.smoothGlucoseValue = smoothGlucoseValue
+        self.timegroup = roundedTimestamp.toRounded(on: DirectConfig.timegroupRounding, .minute)
     }
 
     // MARK: Internal
@@ -80,12 +96,13 @@ struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable, H
     let minuteChange: Double?
     let rawGlucoseValue: Int
     let intGlucoseValue: Int
+    let smoothGlucoseValue: Double?
     let timegroup: Date
 
     var glucoseValue: Int {
-        if intGlucoseValue <= DirectConfig.minReadableGlucose {
+        if intGlucoseValue < DirectConfig.minReadableGlucose {
             return DirectConfig.minReadableGlucose
-        } else if intGlucoseValue >= DirectConfig.maxReadableGlucose {
+        } else if intGlucoseValue > DirectConfig.maxReadableGlucose {
             return DirectConfig.maxReadableGlucose
         }
 
@@ -100,6 +117,16 @@ struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable, H
         return .unknown
     }
 
+    var type: SensorGlucoseType {
+        if intGlucoseValue < DirectConfig.minReadableGlucose {
+            return .low
+        } else if intGlucoseValue > DirectConfig.maxReadableGlucose {
+            return .high
+        }
+
+        return .normal
+    }
+
     var description: String {
         "{ id: \(id), timestamp: \(timestamp.toLocalTime()), minuteChange: \(minuteChange?.description ?? ""), rawGlucoseValue: \(rawGlucoseValue.description), glucoseValue: \(glucoseValue.description) }"
     }
@@ -111,7 +138,7 @@ extension SensorGlucose {
             return self
         }
 
-        return SensorGlucose(id: id, timestamp: timestamp, rawGlucoseValue: rawGlucoseValue, intGlucoseValue: glucoseValue, minuteChange: minuteChange(previousTimestamp: previousGlucose.timestamp, previousGlucoseValue: previousGlucose.glucoseValue, nextTimestamp: timestamp, nextGlucoseValue: glucoseValue))
+        return SensorGlucose(id: id, timestamp: timestamp, rawGlucoseValue: rawGlucoseValue, intGlucoseValue: glucoseValue, smoothGlucoseValue: smoothGlucoseValue, minuteChange: minuteChange(previousTimestamp: previousGlucose.timestamp, previousGlucoseValue: previousGlucose.glucoseValue, nextTimestamp: timestamp, nextGlucoseValue: glucoseValue))
     }
 
     // MARK: Private

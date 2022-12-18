@@ -29,9 +29,6 @@
 "Add glucose for calibration" = "Add glucose for calibration";
 
 /* (No Comment) */
-"After disconnections" = "- After disconnections";
-
-/* (No Comment) */
 "Alarm glucose notification" = "Alarm Glucose Notification";
 
 /* (No Comment) */
@@ -131,9 +128,6 @@
 "Connecting" = "Connecting";
 
 /* (No Comment) */
-"Connection" = "Connection";
-
-/* (No Comment) */
 "Connection alarm" = "Connection alarm";
 
 /* (No Comment) */
@@ -168,9 +162,6 @@
 
 /* (No Comment) */
 "Disconnected" = "Disconnected";
-
-/* (No Comment) */
-"Every 10 minutes" = "- Every 10 minutes";
 
 /* (No Comment) */
 "Export to Apple Calendar" = "Export to Apple Calendar";
@@ -309,9 +300,6 @@
 
 /* (No Comment) */
 "Readable rising" = "rising";
-
-/* (No Comment) */
-"Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(" = "Reopen app by %@ at the latest. Otherwise iOS automatically disables the widget :(";
 
 /* (No Comment) */
 "Rescan the sensor" = "Rescan the sensor";
@@ -500,12 +488,6 @@
 "Wearing time alarm" = "Wearing time alarm";
 
 /* (No Comment) */
-"When a new alarm is triggered" = "- When a new alarm is triggered";
-
-/* (No Comment) */
-"When the glucose trend changes" = "- When the glucose trend changes";
-
-/* (No Comment) */
 "Without transmitter" = "Without transmitter";
 
 /* (No Comment) */
@@ -521,16 +503,43 @@
 "Your sensor has expired and needs to be replaced as soon as possible" = "Your sensor has expired and needs to be replaced as soon as possible";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ day." = "Your sensor is about to expire. Replace sensor in %1$@ day.";
+"Your sensor is about to expire. Replace sensor in %1$@." = "Your sensor is about to expire. Replace sensor in %1$@.";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ days." = "Your sensor is about to expire. Replace sensor in %1$@ days.";
+"Loading..." = "Loading...";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ hour." = "Your sensor is about to expire. Replace sensor in %1$@ hour.";
+"Export" = "Export";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ hours." = "Your sensor is about to expire. Replace sensor in %1$@ hours.";
+"Export as CSV" = "Export as CSV";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Your sensor is about to expire. Replace sensor in %1$@ minutes.";
+"Export for Glooko" = "Export for Glooko";
+
+/* (No Comment) */
+"Export for Tidepool" = "Export for Tidepool";
+
+/* (No Comment) */
+"Last %@ hours" = "Last %@ hours";
+
+/* (No Comment) */
+"Updated" = "Updated";
+
+/* (No Comment) */
+"Reopen app in" = "Reopen app in";
+
+/* (No Comment) */
+"%1$@ days" = "%1$@ days";
+
+/* (No Comment) */
+"%1$@ day" = "%1$@ day";
+
+/* (No Comment) */
+"%1$@ hours" = "%1$@ hours";
+
+/* (No Comment) */
+"%1$@ hour" = "%1$@ hour";
+
+/* (No Comment) */
+"%1$@ minutes" = "%1$@ minutes";

@@ -2,8 +2,12 @@
 //  Date.swift
 //  GlucoseDirect
 //
+//  https://goshdarnformatstyle.com/date-styles/
+//
 
 import Foundation
+
+// MARK: - TimeFormat
 
 extension Date {
     static func valuesBetween(from fromDate: Date, to toDate: Date, component: Calendar.Component, step: Int) -> [Date] {
@@ -51,11 +55,15 @@ extension Date {
     }
 
     func toLocalDateTime() -> String {
-        return Date.localDateTimeFormatter.string(from: self)
+        return self.formatted(.dateTime.year().month(.twoDigits).day(.twoDigits).hour(.defaultDigits(amPM: .abbreviated)).minute())
     }
 
     func toLocalTime() -> String {
-        return Date.localTimeFormatter.string(from: self)
+        return self.formatted(.dateTime.hour().minute())
+    }
+
+    func toLocalDate() -> String {
+        return self.formatted(.dateTime.day(.twoDigits).month(.twoDigits).year(.defaultDigits))
     }
 
     private func floorAllComponents(before component: Calendar.Component) -> Date {
@@ -84,23 +92,5 @@ extension Date {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
 
         return dateFormatter
-    }()
-
-    private static var localDateTimeFormatter: DateFormatter = {
-        let format = DateFormatter()
-        format.timeZone = .current
-        format.dateStyle = .short
-        format.timeStyle = .short
-
-        return format
-    }()
-
-    private static var localTimeFormatter: DateFormatter = {
-        let format = DateFormatter()
-        format.timeZone = .current
-        format.timeStyle = .short
-        format.dateStyle = .none
-
-        return format
     }()
 }

@@ -122,9 +122,9 @@ private class GlucoseNotificationService {
                 notification.badge = glucose.glucoseValue.asRoundedMmolL as NSNumber
             }
 
-            notification.title = String(format: LocalizedString("Blood glucose: %1$@"), glucose.glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true))
+            notification.title = String(format: LocalizedString("Blood glucose: %1$@"), glucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit, withUnit: true))
             notification.body = String(format: LocalizedString("Your current glucose is %1$@ (%2$@)."),
-                                       glucose.glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true),
+                                       glucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit, withUnit: true),
                                        glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) ?? "?"
             )
 
@@ -157,7 +157,7 @@ private class GlucoseNotificationService {
 
             notification.title = LocalizedString("Alert, low blood glucose")
             notification.body = String(format: LocalizedString("Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal."),
-                                       glucose.glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true),
+                                       glucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit, withUnit: true),
                                        glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) ?? "?"
             )
 
@@ -190,7 +190,7 @@ private class GlucoseNotificationService {
 
             notification.title = LocalizedString("Alert, high glucose")
             notification.body = String(format: LocalizedString("Your glucose %1$@ (%2$@) is dangerously high and needs to be treated."),
-                                       glucose.glucoseValue.asGlucose(unit: glucoseUnit, withUnit: true),
+                                       glucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit, withUnit: true),
                                        glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) ?? "?"
             )
 

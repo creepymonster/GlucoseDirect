@@ -88,7 +88,7 @@ struct GlucoseView: View {
             switch size {
             case .accessoryRectangular:
                 HStack(alignment: .lastTextBaseline, spacing: 10) {
-                    Text(glucose.glucoseValue.asGlucose(unit: glucoseUnit))
+                    Text(glucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
                         .widgetAccentable()
                         .bold()
                         .font(.system(size: 35))
@@ -105,7 +105,7 @@ struct GlucoseView: View {
 
             case .accessoryCircular:
                 VStack(alignment: .center) {
-                    Text(glucose.glucoseValue.asGlucose(unit: glucoseUnit))
+                    Text(glucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
                         .widgetAccentable()
                         .font(.system(size: 25))
                         .bold()

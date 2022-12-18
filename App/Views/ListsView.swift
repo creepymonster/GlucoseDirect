@@ -18,48 +18,41 @@ struct ListsView: View {
             SensorGlucoseList()
             SensorErrorList()
 
-            if let glucoseStatistics = store.state.glucoseStatistics {
+            if let glucoseStatistics = store.state.glucoseStatistics, glucoseStatistics.maxDays >= 3 {
                 Section(
                     content: {
                         HStack {
                             Text("StatisticsPeriod")
                             Spacer()
-                            HStack {
-                                ForEach(Config.chartLevels, id: \.days) { level in
-                                    Button(
-                                        action: {
-                                            DirectNotifications.shared.hapticNotification()
-                                            store.dispatch(.setStatisticsDays(days: level.days))
-                                        },
-                                        label: {
-                                            Circle()
-                                                .if(isSelectedChartLevel(days: level.days)) {
-                                                    $0.fill(Color.ui.label)
-                                                } else: {
-                                                    $0.stroke(Color.ui.label)
-                                                }
-                                                .frame(width: 12, height: 12)
 
-                                            Text(level.name)
-                                                .font(.subheadline)
-                                                .foregroundColor(Color.ui.label)
-                                        }
-                                    )
-                                    .buttonStyle(.plain)
-                                    .padding(.leading)
-                                }
+                            ForEach(Config.chartLevels, id: \.days) { level in
+                                Spacer()
+                                Button(
+                                    action: {
+                                        DirectNotifications.shared.hapticFeedback()
+                                        store.dispatch(.setStatisticsDays(days: level.days))
+                                    },
+                                    label: {
+                                        Circle()
+                                            .if(isSelectedChartLevel(days: level.days)) {
+                                                $0.fill(Color.ui.label)
+                                            } else: {
+                                                $0.stroke(Color.ui.label)
+                                            }
+                                            .frame(width: 12, height: 12)
+
+                                        Text(verbatim: level.name)
+                                            .font(.subheadline)
+                                            .foregroundColor(Color.ui.label)
+                                    }
+                                )
+                                .disabled(level.days > glucoseStatistics.maxDays)
+                                .lineLimit(1)
+                                .buttonStyle(.plain)
                             }
                         }
 
                         Group {
-                            #if DEBUG
-                            HStack {
-                                Text("Readings")
-                                Spacer()
-                                Text(glucoseStatistics.readings.description)
-                            }
-                            #endif
-
                             VStack(alignment: .leading, spacing: 10) {
                                 HStack {
                                     Text(verbatim: "AVG")
@@ -88,11 +81,27 @@ struct ListsView: View {
                                 }
                             }
 
+                            if DirectConfig.isDebug {
+                                VStack(alignment: .leading, spacing: 10) {
+                                    HStack {
+                                        Text(verbatim: "CV")
+                                        Spacer()
+                                        Text(glucoseStatistics.cv.asPercent())
+                                    }
+                                    
+                                    if store.state.showAnnotations {
+                                        Text("Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults.")
+                                            .font(.footnote)
+                                            .foregroundColor(.gray)
+                                    }
+                                }
+                            }
+
                             VStack(alignment: .leading, spacing: 10) {
                                 HStack {
                                     Text(verbatim: "GMI")
                                     Spacer()
-                                    Text(glucoseStatistics.gmi.asPercent())
+                                    Text(glucoseStatistics.gmi.asPercent(0.1))
                                 }
 
                                 if store.state.showAnnotations {
@@ -110,7 +119,7 @@ struct ListsView: View {
                                 }
 
                                 if store.state.showAnnotations {
-                                    Text("Time in Range (TIR) or the percentage of time spent in the target glucose range between \(store.state.alarmLow.asGlucose(unit: store.state.glucoseUnit)) - \(store.state.alarmHigh.asGlucose(unit: store.state.glucoseUnit, withUnit: true)).")
+                                    Text("Time in Range (TIR) or the percentage of time spent in the target glucose range between \(store.state.alarmLow.asGlucose(glucoseUnit: store.state.glucoseUnit)) - \(store.state.alarmHigh.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true)).")
                                         .font(.footnote)
                                         .foregroundColor(.gray)
                                 }
@@ -124,7 +133,7 @@ struct ListsView: View {
                                 }
 
                                 if store.state.showAnnotations {
-                                    Text("Time below Range (TBR) or the percentage of time spent below the target glucose of \(store.state.alarmLow.asGlucose(unit: store.state.glucoseUnit, withUnit: true)).")
+                                    Text("Time below Range (TBR) or the percentage of time spent below the target glucose of \(store.state.alarmLow.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true)).")
                                         .font(.footnote)
                                         .foregroundColor(.gray)
                                 }
@@ -138,9 +147,23 @@ struct ListsView: View {
                                 }
 
                                 if store.state.showAnnotations {
-                                    Text("Time above Range (TAR) or the percentage of time spent above the target glucose of \(store.state.alarmHigh.asGlucose(unit: store.state.glucoseUnit, withUnit: true)).")
+                                    Text("Time above Range (TAR) or the percentage of time spent above the target glucose of \(store.state.alarmHigh.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true)).")
                                         .font(.footnote)
                                         .foregroundColor(.gray)
+                                }
+                            }
+
+                            if DirectConfig.isDebug {
+                                HStack {
+                                    Text(verbatim: "From")
+                                    Spacer()
+                                    Text(glucoseStatistics.fromTimestamp.toLocalDate())
+                                }
+                                
+                                HStack {
+                                    Text(verbatim: "To")
+                                    Spacer()
+                                    Text(glucoseStatistics.toTimestamp.toLocalDate())
                                 }
                             }
                         }.onTapGesture(count: 2) {
@@ -159,15 +182,15 @@ struct ListsView: View {
 
     private enum Config {
         static let chartLevels: [ChartLevel] = [
-            ChartLevel(days: 3, name: LocalizedString("3d")),
-            ChartLevel(days: 7, name: LocalizedString("7d")),
-            ChartLevel(days: 14, name: LocalizedString("14d")),
-            ChartLevel(days: 30, name: LocalizedString("30d")),
+            ChartLevel(days: 3, name: "3d"),
+            ChartLevel(days: 7, name: "7d"),
+            ChartLevel(days: 30, name: "30d"),
+            ChartLevel(days: 90, name: "90d")
         ]
     }
 
     private var chartLevel: ChartLevel? {
-        Config.chartLevels.first(where: { $0.days == store.state.statisticsDays })
+        return Config.chartLevels.first(where: { $0.days == store.state.statisticsDays }) ?? Config.chartLevels.first
     }
 
     private func isSelectedChartLevel(days: Int) -> Bool {

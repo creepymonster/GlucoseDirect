@@ -15,6 +15,10 @@ func bloodGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
         case .startup:
             DataStore.shared.createBloodGlucoseTable()
 
+            return DataStore.shared.getFirstBloodGlucoseDate().map { minSelectedDate in
+                DirectAction.setMinSelectedDate(minSelectedDate: minSelectedDate)
+            }.eraseToAnyPublisher()
+
         case .addBloodGlucose(glucoseValues: let glucoseValues):
             guard !glucoseValues.isEmpty else {
                 break
@@ -40,12 +44,17 @@ func bloodGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
                 .setFailureType(to: DirectError.self)
                 .eraseToAnyPublisher()
 
+        case .setSelectedDate(selectedDate: _):
+            return Just(DirectAction.loadBloodGlucoseValues)
+                .setFailureType(to: DirectError.self)
+                .eraseToAnyPublisher()
+
         case .loadBloodGlucoseValues:
             guard state.appState == .active else {
                 break
             }
 
-            return DataStore.shared.getBloodGlucoseValues().map { glucoseValues in
+            return DataStore.shared.getBloodGlucoseValues(selectedDate: state.selectedDate).map { glucoseValues in
                 DirectAction.setBloodGlucoseValues(glucoseValues: glucoseValues)
             }.eraseToAnyPublisher()
 
@@ -66,24 +75,7 @@ func bloodGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
     }
 }
 
-// MARK: - BloodGlucose + FetchableRecord, PersistableRecord
-
-extension BloodGlucose: FetchableRecord, PersistableRecord {
-    static let databaseUUIDEncodingStrategy = DatabaseUUIDEncodingStrategy.uppercaseString
-
-    static var Table: String {
-        "BloodGlucose"
-    }
-
-    enum Columns: String, ColumnExpression {
-        case id
-        case timestamp
-        case glucoseValue
-        case timegroup
-    }
-}
-
-extension DataStore {
+private extension DataStore {
     func createBloodGlucoseTable() {
         if let dbQueue = dbQueue {
             do {
@@ -102,7 +94,7 @@ extension DataStore {
                     }
                 }
             } catch {
-                DirectLog.error(error.localizedDescription)
+                DirectLog.error("\(error)")
             }
         }
     }
@@ -114,11 +106,11 @@ extension DataStore {
                     do {
                         try BloodGlucose.deleteAll(db)
                     } catch {
-                        DirectLog.error(error.localizedDescription)
+                        DirectLog.error("\(error)")
                     }
                 }
             } catch {
-                DirectLog.error(error.localizedDescription)
+                DirectLog.error("\(error)")
             }
         }
     }
@@ -130,11 +122,11 @@ extension DataStore {
                     do {
                         try BloodGlucose.deleteOne(db, id: value.id)
                     } catch {
-                        DirectLog.error(error.localizedDescription)
+                        DirectLog.error("\(error)")
                     }
                 }
             } catch {
-                DirectLog.error(error.localizedDescription)
+                DirectLog.error("\(error)")
             }
         }
     }
@@ -147,68 +139,61 @@ extension DataStore {
                         do {
                             try value.insert(db)
                         } catch {
-                            DirectLog.error(error.localizedDescription)
+                            DirectLog.error("\(error)")
                         }
                     }
                 }
             } catch {
-                DirectLog.error(error.localizedDescription)
+                DirectLog.error("\(error)")
             }
         }
     }
 
-    func getBloodGlucoseValues(upToDay: Int = 1) -> Future<[BloodGlucose], DirectError> {
+    func getFirstBloodGlucoseDate() -> Future<Date, DirectError> {
         return Future { promise in
             if let dbQueue = self.dbQueue {
                 dbQueue.asyncRead { asyncDB in
                     do {
-                        if let upTo = Calendar.current.date(byAdding: .day, value: -upToDay, to: Date()) {
-                            let db = try asyncDB.get()
-                            let result = try BloodGlucose
-                                .filter(Column(BloodGlucose.Columns.timestamp.name) > upTo)
-                                .order(Column(BloodGlucose.Columns.timestamp.name))
-                                .fetchAll(db)
+                        let db = try asyncDB.get()
 
-                            promise(.success(result))
+                        if let date = try Date.fetchOne(db, sql: "SELECT MIN(timestamp) FROM \(BloodGlucose.Table)") {
+                            promise(.success(date))
                         } else {
-                            promise(.failure(DirectError.withMessage("Cannot get calendar dates")))
+                            promise(.success(Date()))
                         }
                     } catch {
-                        promise(.failure(DirectError.withMessage(error.localizedDescription)))
+                        promise(.failure(.withError(error)))
                     }
                 }
             }
         }
     }
 
-    func getBloodGlucoseHistory(fromDay: Int = 1, upToDay: Int = 7) -> Future<[BloodGlucose], DirectError> {
+    func getBloodGlucoseValues(selectedDate: Date? = nil) -> Future<[BloodGlucose], DirectError> {
         return Future { promise in
             if let dbQueue = self.dbQueue {
                 dbQueue.asyncRead { asyncDB in
                     do {
-                        if let from = Calendar.current.date(byAdding: .day, value: -fromDay, to: Date()),
-                           let upTo = Calendar.current.date(byAdding: .day, value: -upToDay, to: Date())
-                        {
-                            let db = try asyncDB.get()
+                        let db = try asyncDB.get()
+
+                        if let selectedDate = selectedDate, let nextDate = Calendar.current.date(byAdding: .day, value: +1, to: selectedDate) {
                             let result = try BloodGlucose
-                                .filter(Column(BloodGlucose.Columns.timestamp.name) <= from)
-                                .filter(Column(BloodGlucose.Columns.timestamp.name) > upTo)
-                                .select(
-                                    min(BloodGlucose.Columns.id).forKey(BloodGlucose.Columns.id.name),
-                                    BloodGlucose.Columns.timegroup.forKey(BloodGlucose.Columns.timestamp.name),
-                                    average(BloodGlucose.Columns.glucoseValue).forKey(BloodGlucose.Columns.glucoseValue.name),
-                                    BloodGlucose.Columns.timegroup
-                                )
-                                .group(BloodGlucose.Columns.timegroup)
+                                .filter(Column(SensorGlucose.Columns.timestamp.name) >= selectedDate.startOfDay)
+                                .filter(nextDate.startOfDay > Column(SensorGlucose.Columns.timestamp.name))
                                 .order(Column(BloodGlucose.Columns.timestamp.name))
                                 .fetchAll(db)
 
                             promise(.success(result))
                         } else {
-                            promise(.failure(DirectError.withMessage("Cannot get calendar dates")))
+                            let result = try BloodGlucose
+                                .filter(sql: "\(BloodGlucose.Columns.timestamp.name) >= datetime('now', '-\(DirectConfig.lastChartHours) hours')")
+                                .order(Column(BloodGlucose.Columns.timestamp.name))
+                                .fetchAll(db)
+
+                            promise(.success(result))
                         }
                     } catch {
-                        promise(.failure(DirectError.withMessage(error.localizedDescription)))
+                        promise(.failure(.withError(error)))
                     }
                 }
             }

@@ -11,51 +11,42 @@ struct SensorConnectorSettingsView: View {
     // MARK: Internal
 
     @EnvironmentObject var store: DirectStore
-    
-    private let intervals: [Int] = [1, 5, 15]
 
     var body: some View {
         if store.state.connectionInfos.count > 1 {
             Section(
                 content: {
-                    HStack {
-                        Text("Transmitter")
-                        Spacer()
+                    Picker("Transmitter", selection: selectedConnectionID) {
+                        ForEach(store.state.connectionInfos, id: \.id) { info in
+                            Text(info.name)
+                                .lineLimit(1)
+                        }
+                    }.pickerStyle(.menu)
 
-                        Picker("", selection: selectedConnectionID) {
-                            ForEach(store.state.connectionInfos, id: \.id) { info in
-                                Text(info.name)
+                    Picker("Retrieval interval", selection: selectedSensorInterval) {
+                        ForEach(intervals, id: \.self) { interval in
+                            if interval == 1 {
+                                Text("Retrieval interval, every minute")
+                                    .lineLimit(1)
+                            } else {
+                                Text("Retrieval interval, every \(interval.description) minutes")
+                                    .lineLimit(1)
                             }
                         }
-                        .pickerStyle(.menu)
-                        .labelsHidden()
-                    }
+                    }.pickerStyle(.menu)
 
-                    HStack {
-                        Text("Retrieval interval")
-                        Spacer()
-
-                        Picker("", selection: selectedSensorInterval) {
-                            ForEach(intervals, id: \.self) { interval in
-                                if interval == 1 {
-                                    Text("Retrieval interval, every minute")
-                                } else {
-                                    Text("Retrieval interval, every \(interval.description) minutes")
-                                }
-                            }
-                        }
-                        .pickerStyle(.menu)
-                        .labelsHidden()
-                    }
+                    ConnectionActionsView()
                 },
                 header: {
-                    Label("Sensor connection", systemImage: "app.connected.to.app.below.fill")
+                    Label("Sensor connection", systemImage: "rectangle.connected.to.line.below")
                 }
             )
         }
     }
 
     // MARK: Private
+
+    private let intervals: [Int] = [1, 5, 15]
 
     private var selectedConnectionID: Binding<String> {
         Binding(

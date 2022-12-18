@@ -10,8 +10,27 @@ import Foundation
 struct Sensor: Codable {
     // MARK: Lifecycle
 
+    init(family: SensorFamily, type: SensorType, region: SensorRegion, serial: String?, state: SensorState, age: Int, lifetime: Int, warmupTime: Int = 60) {
+        pairingTimestamp = Date()
+
+        fram = nil
+        uuid = nil
+        patchInfo = nil
+        factoryCalibration = nil
+
+        self.family = family
+        self.type = type
+        self.region = region
+        self.serial = serial
+        self.state = state
+        self.age = age
+        self.lifetime = lifetime
+        self.warmupTime = warmupTime
+    }
+
     init(uuid: Data, patchInfo: Data, factoryCalibration: FactoryCalibration?, family: SensorFamily, type: SensorType, region: SensorRegion, serial: String?, state: SensorState, age: Int, lifetime: Int, warmupTime: Int = 60) {
         pairingTimestamp = Date()
+
         fram = nil
 
         self.uuid = uuid
@@ -56,8 +75,17 @@ struct Sensor: Codable {
             fram = nil
         }
 
-        uuid = try container.decode(Data.self, forKey: .uuid)
-        patchInfo = try container.decode(Data.self, forKey: .patchInfo)
+        do {
+            uuid = try container.decode(Data?.self, forKey: .uuid)
+        } catch {
+            uuid = nil
+        }
+
+        do {
+            patchInfo = try container.decode(Data?.self, forKey: .patchInfo)
+        } catch {
+            patchInfo = nil
+        }
 
         do {
             factoryCalibration = try container.decode(FactoryCalibration?.self, forKey: .factoryCalibration)
@@ -97,8 +125,8 @@ struct Sensor: Codable {
     var pairingTimestamp: Date
     var startTimestamp: Date?
     let fram: Data?
-    let uuid: Data
-    let patchInfo: Data
+    let uuid: Data?
+    let patchInfo: Data?
     let factoryCalibration: FactoryCalibration?
     let family: SensorFamily
     let type: SensorType
@@ -126,7 +154,7 @@ struct Sensor: Codable {
     }
 
     var description: String {
-        "{ uuid: \(uuid.hex), patchInfo: \(patchInfo.hex), factoryCalibration: \(factoryCalibration), family: \(family), type: \(type), region: \(region), serial: \(serial ?? "-"), state: \(state.description), lifetime: \(lifetime.inTime) }"
+        "{ uuid: \(uuid?.hex ?? "-"), patchInfo: \(patchInfo?.hex ?? "-"), factoryCalibration: \(factoryCalibration), family: \(family), type: \(type), region: \(region), serial: \(serial ?? "-"), state: \(state.description), lifetime: \(lifetime.inTime) }"
     }
 
     var endTimestamp: Date? {
@@ -168,24 +196,24 @@ extension Sensor {
     }
 
     static func libre3Sensor(uuid: Data, patchInfo: Data) -> Sensor {
-        //let securityVersion = UInt16(patchInfo[2...3])
-        let localization = UInt16(patchInfo[4...5])
-        //let generation = UInt16(patchInfo[6...7])
-        let lifetime = UInt16(patchInfo[8...9])
-        let warmupTime = patchInfo[15]
+        let shiftedIndex = max(0, patchInfo.count - 28)
+
+        let localization = UInt16(patchInfo[(4 + shiftedIndex)...(5 + shiftedIndex)])
+        let lifetime = UInt16(patchInfo[(8 + shiftedIndex)...(9 + shiftedIndex)])
+        let warmupTime = patchInfo[15 + shiftedIndex]
 
         let region = UInt8(localization)
-        let serial = Data(patchInfo[17...25])
-        let sensorState = UInt8(patchInfo[16])
+        let serial = Data(patchInfo[(17 + shiftedIndex)...(25 + shiftedIndex)])
+        let sensorState = UInt8(patchInfo[16 + shiftedIndex])
 
         return Sensor(
             uuid: uuid,
             patchInfo: patchInfo,
             factoryCalibration: nil,
-            family: .unknown,
+            family: .libre3,
             type: .libre3,
             region: SensorRegion(region),
-            serial: "\(serial.utf8)0",
+            serial: serial.utf8,
             state: SensorState(sensorState <= 2 ? sensorState : sensorState - 1),
             age: 0,
             lifetime: Int(lifetime),

@@ -6,20 +6,16 @@
 import Foundation
 
 extension Double {
-    var asMmolL: Decimal {
-        return Decimal(self * GlucoseUnit.exchangeRate)
+    var asMmolL: Double {
+        return self * GlucoseUnit.exchangeRate
     }
 
-    var asMgdL: Decimal {
-        return Decimal(self)
+    var asMgdL: Double {
+        return self
     }
 
-    func asPercent() -> String {
-        return "\(GlucoseFormatters.percentFormatter.string(from: self as NSNumber)!)%"
-    }
-
-    func asInteger() -> String {
-        GlucoseFormatters.integerFormatter.string(from: self as NSNumber)!
+    func asPercent(_ increment: Double = 1) -> String {
+        return self.formatted(.percent.scale(1.0).rounded(increment: increment))
     }
 
     func asGlucose(glucoseUnit: GlucoseUnit, withUnit: Bool = false, precise: Bool = false) -> String {
@@ -68,9 +64,9 @@ extension Double {
         return String(format: LocalizedString("%1$@/min."), formattedMinuteChange)
     }
 
-    func toInt() -> Int? {
+    func toInteger() -> Int? {
         if self >= Double(Int.min), self < Double(Int.max) {
-            return Int(self)
+            return Int(self.rounded())
         } else {
             return nil
         }

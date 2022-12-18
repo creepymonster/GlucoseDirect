@@ -16,15 +16,24 @@ struct SensorGlucoseList: View {
                 if sensorGlucoseValues.isEmpty {
                     Text(getTeaser(sensorGlucoseValues.count))
                 } else {
-                    ForEach(sensorGlucoseValues) { glucoseValue in
+                    let smoothThreshold = Date().addingTimeInterval(-DirectConfig.smoothThresholdSeconds)
+
+                    ForEach(sensorGlucoseValues) { sensorGlucose in
                         HStack {
-                            Text(glucoseValue.timestamp.toLocalDateTime())
+                            Text(verbatim: sensorGlucose.timestamp.toLocalDateTime())
                             Spacer()
 
-                            Text(glucoseValue.glucoseValue.asGlucose(unit: store.state.glucoseUnit, withUnit: true, precise: isPrecise(glucose: glucoseValue)))
-                                .if(glucoseValue.glucoseValue < store.state.alarmLow || glucoseValue.glucoseValue > store.state.alarmHigh) { text in
-                                    text.foregroundColor(Color.ui.red)
-                                }
+                            if let glucoseValue = sensorGlucose.smoothGlucoseValue?.toInteger(), sensorGlucose.timestamp < smoothThreshold, DirectConfig.smoothSensorGlucoseValues {
+                                Text(verbatim: glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true, precise: isPrecise(glucoseValue: glucoseValue)))
+                                    .if(glucoseValue < store.state.alarmLow || glucoseValue > store.state.alarmHigh) { text in
+                                        text.foregroundColor(Color.ui.red)
+                                    }
+                            } else {
+                                Text(verbatim: sensorGlucose.glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true, precise: isPrecise(glucoseValue: sensorGlucose.glucoseValue)))
+                                    .if(sensorGlucose.glucoseValue < store.state.alarmLow || sensorGlucose.glucoseValue > store.state.alarmHigh) { text in
+                                        text.foregroundColor(Color.ui.red)
+                                    }
+                            }
                         }
                     }.onDelete { offsets in
                         DirectLog.info("onDelete: \(offsets)")
@@ -60,11 +69,11 @@ struct SensorGlucoseList: View {
         return count.pluralizeLocalization(singular: "%@ Entry", plural: "%@ Entries")
     }
 
-    private func isPrecise(glucose: SensorGlucose) -> Bool {
+    private func isPrecise(glucoseValue: Int) -> Bool {
         if store.state.glucoseUnit == .mgdL {
             return false
         }
 
-        return glucose.glucoseValue.isAlmost(store.state.alarmLow, store.state.alarmHigh)
+        return glucoseValue.isAlmost(store.state.alarmLow, store.state.alarmHigh)
     }
 }

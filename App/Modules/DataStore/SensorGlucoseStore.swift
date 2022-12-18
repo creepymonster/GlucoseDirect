@@ -55,6 +55,10 @@ func sensorGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
         case .startup:
             DataStore.shared.createSensorGlucoseTable()
 
+            return DataStore.shared.getFirstSensorGlucoseDate().map { minSelectedDate in
+                DirectAction.setMinSelectedDate(minSelectedDate: minSelectedDate)
+            }.eraseToAnyPublisher()
+
         case .addSensorGlucose(glucoseValues: let glucoseValues):
             guard !glucoseValues.isEmpty else {
                 break
@@ -80,21 +84,19 @@ func sensorGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
                 .setFailureType(to: DirectError.self)
                 .eraseToAnyPublisher()
 
+        case .setSelectedDate(selectedDate: _):
+            return Just(DirectAction.loadSensorGlucoseValues)
+                .setFailureType(to: DirectError.self)
+                .eraseToAnyPublisher()
+
         case .loadSensorGlucoseValues:
             guard state.appState == .active else {
                 break
             }
 
-            return Publishers.MergeMany(
-                DataStore.shared.getSensorGlucoseValues().map { glucoseValues in
-                    DirectLog.info("getSensorGlucoseValues")
-                    return DirectAction.setSensorGlucoseValues(glucoseValues: glucoseValues)
-                },
-                DataStore.shared.getSensorGlucoseHistory().map { glucoseValues in
-                    DirectLog.info("getSensorGlucoseHistory")
-                    return DirectAction.setSensorGlucoseHistory(glucoseHistory: glucoseValues)
-                }
-            ).eraseToAnyPublisher()
+            return DataStore.shared.getSensorGlucoseValues(selectedDate: state.selectedDate).map { glucoseValues in
+                DirectAction.setSensorGlucoseValues(glucoseValues: glucoseValues)
+            }.eraseToAnyPublisher()
 
         case .setAppState(appState: let appState):
             guard appState == .active else {
@@ -113,26 +115,7 @@ func sensorGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
     }
 }
 
-// MARK: - SensorGlucose + FetchableRecord, PersistableRecord
-
-extension SensorGlucose: FetchableRecord, PersistableRecord {
-    static let databaseUUIDEncodingStrategy = DatabaseUUIDEncodingStrategy.uppercaseString
-
-    static var Table: String {
-        "SensorGlucose"
-    }
-
-    enum Columns: String, ColumnExpression {
-        case id
-        case timestamp
-        case minuteChange
-        case rawGlucoseValue
-        case intGlucoseValue
-        case timegroup
-    }
-}
-
-extension DataStore {
+private extension DataStore {
     func createSensorGlucoseTable() {
         if let dbQueue = dbQueue {
             do {
@@ -154,7 +137,37 @@ extension DataStore {
                     }
                 }
             } catch {
-                DirectLog.error(error.localizedDescription)
+                DirectLog.error("\(error)")
+            }
+
+            var migrator = DatabaseMigrator()
+
+            migrator.registerMigration("Add column 'smoothGlucoseValue'") { db in
+                try db.alter(table: SensorGlucose.Table) { t in
+                    t.add(column: SensorGlucose.Columns.smoothGlucoseValue.name, .double)
+                }
+            }
+
+            migrator.registerMigration("Fill column 'smoothGlucoseValue'") { db in
+                let filter = GlucoseFilter()
+                let glucoseValues = try Row.fetchAll(db, sql: "SELECT \(SensorGlucose.Columns.id.name), \(SensorGlucose.Columns.rawGlucoseValue.name) FROM \(SensorGlucose.databaseTableName) ORDER BY \(SensorGlucose.Columns.timestamp.name)")
+
+                try glucoseValues.forEach { row in
+                    let id: UUID = row[SensorGlucose.Columns.id.name]
+                    let rawGlucoseValue: Int = row[SensorGlucose.Columns.rawGlucoseValue.name]
+                    let smoothGlucoseValue = filter.filter(glucoseValue: rawGlucoseValue, initGlucoseValues: [])
+
+                    try db.execute(
+                        sql: "UPDATE \(SensorGlucose.databaseTableName) SET \(SensorGlucose.Columns.smoothGlucoseValue.name) = :value WHERE \(SensorGlucose.Columns.id.name) = :id",
+                        arguments: ["value": smoothGlucoseValue, "id": id.uuidString]
+                    )
+                }
+            }
+
+            do {
+                try migrator.migrate(dbQueue)
+            } catch {
+                DirectLog.error("\(error)")
             }
         }
     }
@@ -166,11 +179,11 @@ extension DataStore {
                     do {
                         try SensorGlucose.deleteAll(db)
                     } catch {
-                        DirectLog.error(error.localizedDescription)
+                        DirectLog.error("\(error)")
                     }
                 }
             } catch {
-                DirectLog.error(error.localizedDescription)
+                DirectLog.error("\(error)")
             }
         }
     }
@@ -182,11 +195,11 @@ extension DataStore {
                     do {
                         try SensorGlucose.deleteOne(db, id: value.id)
                     } catch {
-                        DirectLog.error(error.localizedDescription)
+                        DirectLog.error("\(error)")
                     }
                 }
             } catch {
-                DirectLog.error(error.localizedDescription)
+                DirectLog.error("\(error)")
             }
         }
     }
@@ -206,11 +219,11 @@ extension DataStore {
                     }
                 }
             } catch {
-                DirectLog.error(error.localizedDescription)
+                DirectLog.error("\(error)")
             }
         }
     }
-
+    
     func getSensorGlucoseStatistics(days: Int, lowerLimit: Int, upperLimit: Int) -> Future<GlucoseStatistics, DirectError> {
         return Future { promise in
             if let dbQueue = self.dbQueue {
@@ -221,23 +234,22 @@ extension DataStore {
                         if let row = try Row.fetchOne(db, sql: """
                             SELECT
                                 COUNT(sg.intGlucoseValue) AS readings,
-                                IFNULL(MIN(sg.timestamp), DATETIME('now')) AS fromTimestamp,
-                                IFNULL(MAX(sg.timestamp), DATETIME('now')) AS toTimestamp,
+                                IFNULL(MIN(sg.timestamp), DATETIME('now', 'utc')) AS fromTimestamp,
+                                IFNULL(MAX(sg.timestamp), DATETIME('now', 'utc')) AS toTimestamp,
                                 IFNULL(3.31 + (0.02392 * sub.avg), 0) AS gmi,
                                 IFNULL(sub.avg, 0) AS avg,
-                                IFNULL(100.0 / COUNT(sg.intGlucoseValue) * COUNT(CASE WHEN sg.intGlucoseValue < 80 THEN 1 END), 0) AS tbr,
-                                IFNULL(100.0 / COUNT(sg.intGlucoseValue) * COUNT(CASE WHEN sg.intGlucoseValue > 160 THEN 1 END), 0) AS tar,
-                                IFNULL(JULIANDAY(MAX(sg.timestamp)) - JULIANDAY(MIN(sg.timestamp)) + 1, 0) AS days,
-                                IFNULL(AVG((sg.intGlucoseValue - sub.avg) * (sg.intGlucoseValue - sub.avg)), 0) as variance
-                            FROM
-                                SensorGlucose sg, (
+                                IFNULL(100.0 / COUNT(sg.intGlucoseValue) * COUNT(CASE WHEN sg.intGlucoseValue < :low THEN 1 END), 0) AS tbr,
+                                IFNULL(100.0 / COUNT(sg.intGlucoseValue) * COUNT(CASE WHEN sg.intGlucoseValue > :high THEN 1 END), 0) AS tar,
+                                ROUND(IFNULL(JULIANDAY(MAX(sg.timestamp)) - JULIANDAY(MIN(sg.timestamp)), 0)) AS days,
+                                IFNULL(AVG((sg.intGlucoseValue - sub.avg) * (sg.intGlucoseValue - sub.avg)), 0) as variance,
+                                ROUND((SELECT IFNULL(JULIANDAY(MAX(timestamp)) - JULIANDAY(MIN(timestamp)), 0) FROM \(SensorGlucose.Table))) as maxDays
+                            FROM \(SensorGlucose.Table) sg, (
                                     SELECT AVG(ssg.intGlucoseValue) AS avg
-                                    FROM SensorGlucose ssg
-                                    WHERE ssg.timestamp > date('now', '-\(days) days') AND ssg.timestamp < date('now')
+                                    FROM \(SensorGlucose.Table) ssg
+                                    WHERE ssg.timestamp >= DATETIME('now', 'start of day', :days, 'utc') AND ssg.timestamp <= DATETIME('now', 'start of day', 'utc')
                                 ) AS sub
-                            WHERE
-                                sg.timestamp > date('now', '-\(days) days') and sg.timestamp < date('now')
-                        """, arguments: ["low": lowerLimit, "high": upperLimit]) {
+                            WHERE sg.timestamp >= DATETIME('now', 'start of day', :days, 'utc') and sg.timestamp < DATETIME('now', 'start of day', 'utc')
+                        """, arguments: ["days": "-\(days) days", "low": lowerLimit, "high": upperLimit]) {
                             let statistics = GlucoseStatistics(
                                 readings: row["readings"],
                                 fromTimestamp: row["fromTimestamp"],
@@ -247,76 +259,67 @@ extension DataStore {
                                 tbr: row["tbr"],
                                 tar: row["tar"],
                                 variance: row["variance"],
-                                days: row["days"]
+                                days: row["days"],
+                                maxDays: row["maxDays"]
                             )
 
                             promise(.success(statistics))
                         } else {
-                            promise(.failure(DirectError.withMessage("No statistics available")))
+                            promise(.failure(.withMessage("No statistics available")))
                         }
                     } catch {
-                        promise(.failure(DirectError.withMessage(error.localizedDescription)))
+                        promise(.failure(.withError(error)))
                     }
                 }
             }
         }
     }
 
-    func getSensorGlucoseValues(upToDay: Int = 1) -> Future<[SensorGlucose], DirectError> {
+    func getFirstSensorGlucoseDate() -> Future<Date, DirectError> {
         return Future { promise in
             if let dbQueue = self.dbQueue {
                 dbQueue.asyncRead { asyncDB in
                     do {
-                        if let upTo = Calendar.current.date(byAdding: .day, value: -upToDay, to: Date()) {
-                            let db = try asyncDB.get()
-                            let result = try SensorGlucose
-                                .filter(Column(SensorGlucose.Columns.timestamp.name) > upTo)
-                                .order(Column(SensorGlucose.Columns.timestamp.name))
-                                .fetchAll(db)
+                        let db = try asyncDB.get()
 
-                            promise(.success(result))
+                        if let date = try Date.fetchOne(db, sql: "SELECT MIN(timestamp) FROM \(SensorGlucose.Table)") {
+                            promise(.success(date))
                         } else {
-                            promise(.failure(DirectError.withMessage("Cannot get calendar dates")))
+                            promise(.success(Date()))
                         }
                     } catch {
-                        promise(.failure(DirectError.withMessage(error.localizedDescription)))
+                        promise(.failure(.withError(error)))
                     }
                 }
             }
         }
     }
 
-    func getSensorGlucoseHistory(fromDay: Int = 1, upToDay: Int = 7) -> Future<[SensorGlucose], DirectError> {
+    func getSensorGlucoseValues(selectedDate: Date? = nil) -> Future<[SensorGlucose], DirectError> {
         return Future { promise in
             if let dbQueue = self.dbQueue {
                 dbQueue.asyncRead { asyncDB in
                     do {
-                        if let from = Calendar.current.date(byAdding: .day, value: -fromDay, to: Date()),
-                           let upTo = Calendar.current.date(byAdding: .day, value: -upToDay, to: Date())
-                        {
-                            let db = try asyncDB.get()
+                        let db = try asyncDB.get()
 
+                        if let selectedDate = selectedDate, let nextDate = Calendar.current.date(byAdding: .day, value: +1, to: selectedDate) {
                             let result = try SensorGlucose
-                                .filter(Column(SensorGlucose.Columns.timestamp.name) <= from)
-                                .filter(Column(SensorGlucose.Columns.timestamp.name) > upTo)
-                                .select(
-                                    min(SensorGlucose.Columns.id).forKey(SensorGlucose.Columns.id.name),
-                                    SensorGlucose.Columns.timegroup.forKey(SensorGlucose.Columns.timestamp.name),
-                                    sum(SensorGlucose.Columns.minuteChange).forKey(SensorGlucose.Columns.minuteChange.name),
-                                    average(SensorGlucose.Columns.rawGlucoseValue).forKey(SensorGlucose.Columns.rawGlucoseValue.name),
-                                    average(SensorGlucose.Columns.intGlucoseValue).forKey(SensorGlucose.Columns.intGlucoseValue.name),
-                                    SensorGlucose.Columns.timegroup
-                                )
-                                .group(SensorGlucose.Columns.timegroup)
+                                .filter(Column(SensorGlucose.Columns.timestamp.name) >= selectedDate.startOfDay)
+                                .filter(nextDate.startOfDay > Column(SensorGlucose.Columns.timestamp.name))
                                 .order(Column(SensorGlucose.Columns.timestamp.name))
                                 .fetchAll(db)
 
                             promise(.success(result))
                         } else {
-                            promise(.failure(DirectError.withMessage("Cannot get calendar dates")))
+                            let result = try SensorGlucose
+                                .filter(sql: "\(SensorGlucose.Columns.timestamp.name) >= datetime('now', '-\(DirectConfig.lastChartHours) hours')")
+                                .order(Column(SensorGlucose.Columns.timestamp.name))
+                                .fetchAll(db)
+
+                            promise(.success(result))
                         }
                     } catch {
-                        promise(.failure(DirectError.withMessage(error.localizedDescription)))
+                        promise(.failure(.withError(error)))
                     }
                 }
             }

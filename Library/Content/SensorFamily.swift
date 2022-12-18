@@ -11,6 +11,7 @@ enum SensorFamily: Int, Codable {
     case librePro = 1
     case libre2 = 3
     case libreSense = 7
+    case libre3 = 46
 
     // MARK: Lifecycle
 
@@ -62,6 +63,8 @@ enum SensorFamily: Int, Codable {
             return "Libre 2"
         case .libreSense:
             return "Libre Sense"
+        case .libre3:
+            return "Libre 3"
         default:
             return "Unknown"
         }

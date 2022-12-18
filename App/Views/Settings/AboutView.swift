@@ -83,7 +83,26 @@ struct AboutView: View {
                 Label("About \(DirectConfig.appName)", systemImage: "info")
             }
         )
-
+        
+        Section(
+            content: {
+                Button("Export as CSV", action: {
+                    store.dispatch(.exportToUnknown)
+                })
+                
+                Button("Export for Tidepool", action: {
+                    store.dispatch(.exportToTidepool)
+                })
+                
+                Button("Export for Glooko", action: {
+                    store.dispatch(.exportToGlooko)
+                })
+            },
+            header: {
+                Label("Export", systemImage: "square.and.arrow.up")
+            }
+        )
+        
         Button("Send database file", action: {
             store.dispatch(.sendDatabase)
         })
@@ -92,22 +111,22 @@ struct AboutView: View {
             store.dispatch(.sendLogs)
         })
 
-        #if DEBUG
-        Section(
-            content: {
-                Button("Debug alarm", action: {
-                    store.dispatch(.debugAlarm)
-                })
-
-                Button("Debug notification", action: {
-                    store.dispatch(.debugNotification)
-                })
-            },
-            header: {
-                Label("Debug", systemImage: "testtube.2")
-            }
-        )
-        #endif
+        if DirectConfig.isDebug {
+            Section(
+                content: {
+                    Button("Debug alarm", action: {
+                        store.dispatch(.debugAlarm)
+                    })
+                    
+                    Button("Debug notification", action: {
+                        store.dispatch(.debugNotification)
+                    })
+                },
+                header: {
+                    Label("Debug", systemImage: "testtube.2")
+                }
+            )
+        }
     }
 
     // MARK: Private

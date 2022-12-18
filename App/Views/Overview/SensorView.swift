@@ -107,12 +107,6 @@ struct SensorView: View {
                             Text(sensor.region.localizedDescription)
                         }
 
-                        HStack {
-                            Text("Sensor UID")
-                            Spacer()
-                            Text(sensor.uuid.hex)
-                        }
-
                         if let serial = sensor.serial {
                             HStack {
                                 Text("Sensor serial")

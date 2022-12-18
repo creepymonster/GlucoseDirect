@@ -10,24 +10,6 @@ import SwiftUI
 // MARK: - GlucoseFormatters
 
 struct GlucoseFormatters {
-    static var percentFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.minimumFractionDigits = 0
-        formatter.maximumFractionDigits = 2
-
-        return formatter
-    }()
-
-    static var integerFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.minimumFractionDigits = 0
-        formatter.maximumFractionDigits = 0
-
-        return formatter
-    }()
-
     static var mgdLFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
@@ -95,15 +77,43 @@ extension Int {
     }
 
     var inTime: String {
-        return String(format: LocalizedString("%1$@d %2$@h %3$@min"), self.inDays.description, self.inHours.description, self.inMinutes.description)
+        if inDays > 0 {
+            return String(format: LocalizedString("%1$@d %2$@h %3$@min"), inDays.description, inHours.description, inMinutes.description)
+        }
+
+        if inHours > 0 {
+            return String(format: LocalizedString("%1$@h %2$@min"), inHours.description, inMinutes.description)
+        }
+
+        return String(format: LocalizedString("%1$@min"), inMinutes.description)
     }
 
-    var asMmolL: Decimal {
+    var inTimeSummary: String {
+        let days = inDays
+        let hours = (inDays > 0 || inHours > 0) && inMinutes > 0
+            ? inHours + 1
+            : inHours
+        let minutes = inMinutes
+
+        if days > 1 {
+            return String(format: LocalizedString("%1$@ days"), days.description)
+        } else if days > 0 {
+            return String(format: LocalizedString("%1$@ day"), days.description)
+        } else if hours > 1 {
+            return String(format: LocalizedString("%1$@ hours"), hours.description)
+        } else if hours > 0 {
+            return String(format: LocalizedString("%1$@ hour"), hours.description)
+        }
+
+        return String(format: LocalizedString("%1$@ minutes"), minutes.description)
+    }
+
+    var asMmolL: Double {
         return Double(self).asMmolL
     }
 
-    var asMgdL: Decimal {
-        return Decimal(self)
+    var asMgdL: Double {
+        return Double(self)
     }
 
     func pluralize(singular: String, plural: String) -> String {
@@ -113,13 +123,13 @@ extension Int {
 
         return plural
     }
-    
+
     func pluralizeLocalization(singular: String, plural: String) -> String {
-        return pluralize(singular: String(format: LocalizedString(singular), self.description), plural: String(format: LocalizedString(plural), self.description))
+        return pluralize(singular: String(format: LocalizedString(singular), description), plural: String(format: LocalizedString(plural), description))
     }
 
     func asPercent() -> String {
-        return "\(GlucoseFormatters.percentFormatter.string(from: self as NSNumber)!)%"
+        return formatted(.percent.scale(1.0))
     }
 
     func toPercent(of: Int) -> Double {
@@ -138,21 +148,21 @@ extension Int {
         return false
     }
 
-    func asGlucose(unit: GlucoseUnit, withUnit: Bool = false, precise: Bool = false) -> String {
+    func asGlucose(glucoseUnit: GlucoseUnit, withUnit: Bool = false, precise: Bool = false) -> String {
         var glucose: String
 
-        if unit == .mmolL {
+        if glucoseUnit == .mmolL {
             if precise {
-                glucose = GlucoseFormatters.preciseMmolLFormatter.string(from: self.asMmolL as NSNumber)!
+                glucose = GlucoseFormatters.preciseMmolLFormatter.string(from: asMmolL as NSNumber)!
             } else {
-                glucose = GlucoseFormatters.mmolLFormatter.string(from: self.asMmolL as NSNumber)!
+                glucose = GlucoseFormatters.mmolLFormatter.string(from: asMmolL as NSNumber)!
             }
         } else {
             glucose = String(self)
         }
 
         if withUnit {
-            return "\(glucose) \(unit.localizedDescription)"
+            return "\(glucose) \(glucoseUnit.localizedDescription)"
         }
 
         return glucose

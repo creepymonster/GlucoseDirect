@@ -71,18 +71,24 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         if id != state.selectedConnectionID || state.selectedConnection == nil {
             state.selectedConnectionID = id
             state.selectedConnection = connection
+            
+            if let sensor = state.sensor {
+                state.selectedConfiguration = connection.getConfiguration(sensor: sensor)
+            }
         }
         
     case .selectConnectionID(id: _):
         state.isConnectionPaired = false
         state.sensor = nil
         state.transmitter = nil
+        state.selectedConfiguration = []
         state.customCalibration = []
         state.connectionError = nil
         state.connectionErrorTimestamp = nil
         
     case .selectView(viewTag: let viewTag):
         state.selectedView = viewTag
+        state.selectedDate = nil
         
     case .setAlarmHigh(upperLimit: let upperLimit):
         state.alarmHigh = upperLimit
@@ -163,15 +169,15 @@ func directReducer(state: inout DirectState, action: DirectAction) {
 
     case .setBloodGlucoseValues(glucoseValues: let glucoseValues):
         state.bloodGlucoseValues = glucoseValues
-
-    case .setBloodGlucoseHistory(glucoseHistory: let glucoseValues):
-        state.bloodGlucoseHistory = glucoseValues
         
     case .setSensorGlucoseValues(glucoseValues: let glucoseValues):
         state.sensorGlucoseValues = glucoseValues
         
-    case .setSensorGlucoseHistory(glucoseHistory: let glucoseValues):
-        state.sensorGlucoseHistory = glucoseValues
+        #if targetEnvironment(simulator)
+        if state.latestSensorGlucose == nil {
+            state.latestSensorGlucose = glucoseValues.last
+        }
+        #endif
         
     case .setSensorErrorValues(errorValues: let errorValues):
         state.sensorErrorValues = errorValues
@@ -197,6 +203,16 @@ func directReducer(state: inout DirectState, action: DirectAction) {
     case .setReadGlucose(enabled: let enabled):
         state.readGlucose = enabled
         
+    case .setMinSelectedDate(minSelectedDate: let minSelectedDate):
+        state.minSelectedDate = min(minSelectedDate, state.minSelectedDate)
+        
+    case .setSelectedDate(selectedDate: let date):
+        if let date = date, date < Date().startOfDay {
+            state.selectedDate = date
+        } else {
+            state.selectedDate = nil
+        }
+        
     case .setSensor(sensor: let sensor, keepDevice: let keepDevice):
         if let sensorSerial = state.sensor?.serial, sensorSerial != sensor.serial {
             state.customCalibration = []
@@ -209,6 +225,10 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         state.sensor = sensor
         state.connectionError = nil
         state.connectionErrorTimestamp = nil
+        
+        if let selectedConnection = state.selectedConnection {
+            state.selectedConfiguration = selectedConnection.getConfiguration(sensor: sensor)
+        }
         
     case .setSensorInterval(interval: let interval):
         state.sensorInterval = interval
@@ -243,6 +263,21 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         
     case .setStatisticsDays(days: let days):
         state.statisticsDays = days
+
+    case .exportToUnknown:
+        state.appIsBusy = true
+
+    case .exportToTidepool:
+        state.appIsBusy = true
+        
+    case .exportToGlooko:
+        state.appIsBusy = true
+        
+    case .sendFile(fileURL: _):
+        state.appIsBusy = false
+        
+    case .setAppIsBusy(isBusy: let isBusy):
+        state.appIsBusy = isBusy
 
     default:
         break

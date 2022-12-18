@@ -9,10 +9,10 @@ struct SensorConnectionConfigurationView: View {
     @EnvironmentObject var store: DirectStore
 
     var body: some View {
-        if let selectedConnection = store.state.selectedConnection, let configuration = selectedConnection.getConfiguration() {
+        if !store.state.selectedConfiguration.isEmpty {
             Section(
                 content: {
-                    ForEach(configuration, id: \.id) { entry in
+                    ForEach(store.state.selectedConfiguration, id: \.id) { entry in
                         VStack(alignment: .leading) {
                             Text(entry.name)
 

@@ -10,6 +10,8 @@ import SwiftUI
 // MARK: - DirectState
 
 protocol DirectState {
+    var appIsBusy: Bool { get set }
+    var appSerial: String { get }
     var appState: ScenePhase { get set }
     var alarmHigh: Int { get set }
     var alarmLow: Int { get set }
@@ -19,7 +21,6 @@ protocol DirectState {
     var bellmanAlarm: Bool { get set }
     var bellmanConnectionState: BellmanConnectionState { get set }
     var bloodGlucoseValues: [BloodGlucose] { get set }
-    var bloodGlucoseHistory: [BloodGlucose] { get set }
     var chartShowLines: Bool { get set }
     var chartZoomLevel: Int { get set }
     var connectionAlarmSound: NotificationSound { get set }
@@ -49,11 +50,13 @@ protocol DirectState {
     var selectedCalendarTarget: String? { get set }
     var selectedConnection: SensorConnectionProtocol? { get set }
     var selectedConnectionID: String? { get set }
+    var selectedConfiguration: [SensorConnectionConfigurationOption] { get set }
     var selectedView: Int { get set }
+    var minSelectedDate: Date { get set }
+    var selectedDate: Date? { get set }
     var sensor: Sensor? { get set }
     var sensorErrorValues: [SensorError] { get set }
     var sensorGlucoseValues: [SensorGlucose] { get set }
-    var sensorGlucoseHistory: [SensorGlucose] { get set }
     var sensorInterval: Int { get set }
     var showAnnotations: Bool { get set }
     var statisticsDays: Int { get set }
@@ -111,7 +114,7 @@ extension DirectState {
         !isConnectionPaired && !(connectionState != .disconnected && connectionState != .pairing && connectionState != .scanning && connectionState != .connecting)
     }
 
-    var isBusy: Bool {
+    var connectionIsBusy: Bool {
         !(connectionState != .pairing && connectionState != .scanning && connectionState != .connecting)
     }
 

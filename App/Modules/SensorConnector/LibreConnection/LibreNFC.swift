@@ -69,15 +69,18 @@ class LibreNFC: NSObject, NFCTagReaderSessionDelegate {
             }
 
             let sensorUID = Data(tag.identifier.reversed())
-            var patchInfo = Data()
 
+            // let patchInfo = Data(hexString: "A500010001000000C04E1E0D0101040C04303955374E36584A50A7E9")!
+            // let patchInfo = Data(hexString: "A5A5A5A5A5A5A5A500010001000000C04E1E0D0101040C043041504445324D4A446500")!
+
+            var patchInfo = Data()
             for retry in 0 ..< retryCount {
                 do {
                     patchInfo = try await tag.customCommand(requestFlags: .highDataRate, customCommandCode: 0xA1, customRequestParameters: Data())
                     break
                 } catch {
                     if retry == retryCount - 1 {
-                        returnWithError(LibrePairingError.invalidPatchInfo)
+                        returnWithError(LibrePairingError.invalidPatchInfo(patchInfo: patchInfo.hex))
                         return
                     } else {
                         continue
@@ -86,12 +89,24 @@ class LibreNFC: NSObject, NFCTagReaderSessionDelegate {
             }
 
             guard patchInfo.count >= 6 else {
-                returnWithError(LibrePairingError.invalidPatchInfo)
+                returnWithError(LibrePairingError.invalidPatchInfo(patchInfo: patchInfo.hex))
                 return
             }
 
             let type = SensorType(patchInfo)
-            
+
+            if type == .libre3 {
+                guard patchInfo.count >= 28 else {
+                    returnWithError(LibrePairingError.invalidPatchInfo(patchInfo: patchInfo.hex))
+                    return
+                }
+
+                let sensor = Sensor.libre3Sensor(uuid: sensorUID, patchInfo: patchInfo)
+
+                returnWithResult(isPaired: true, sensor: sensor, readings: [])
+                return
+            }
+
             let blocks = 43
             let requestBlocks = 3
 
@@ -136,63 +151,53 @@ class LibreNFC: NSObject, NFCTagReaderSessionDelegate {
                     switch type {
                     case .libre1:
                         let sensor = Sensor.libreStyleSensor(uuid: sensorUID, patchInfo: patchInfo, fram: rxBuffer)
-                        
+
                         if let factoryCalibration = sensor.factoryCalibration {
                             let readings = LibreUtility.parseFRAM(calibration: factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: rxBuffer)
-                            
+
                             returnWithResult(isPaired: false, sensor: sensor, readings: readings.history + readings.trend)
                             return
                         }
-                        
+
                     case .libreUS14day:
                         guard let fram = Libre2EUtility.decryptFRAM(uuid: sensorUID, patchInfo: patchInfo, fram: rxBuffer) else {
                             break
                         }
 
                         let sensor = Sensor.libreStyleSensor(uuid: sensorUID, patchInfo: patchInfo, fram: fram)
-                        
+
                         if let factoryCalibration = sensor.factoryCalibration {
                             let readings = LibreUtility.parseFRAM(calibration: factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
-                            
+
                             returnWithResult(isPaired: false, sensor: sensor, readings: readings.history + readings.trend)
                             return
                         }
-                        
+
                     case .libre2EU:
                         guard let fram = Libre2EUtility.decryptFRAM(uuid: sensorUID, patchInfo: patchInfo, fram: rxBuffer) else {
                             break
                         }
 
                         let sensor = Sensor.libreStyleSensor(uuid: sensorUID, patchInfo: patchInfo, fram: fram)
-                        
+
                         if let factoryCalibration = sensor.factoryCalibration {
                             let readings = LibreUtility.parseFRAM(calibration: factoryCalibration, pairingTimestamp: sensor.pairingTimestamp, fram: fram)
-                            
+
                             if enableStreaming {
                                 let streamingCmd = self.nfcCommand(.enableStreaming, unlockCode: self.unlockCode, patchInfo: patchInfo, sensorUID: sensorUID)
                                 let streaminResponse = try await tag.customCommand(requestFlags: .highDataRate, customCommandCode: Int(streamingCmd.code), customRequestParameters: streamingCmd.parameters)
                                 let streamingEnabled = streaminResponse.count == 6
-                                
+
                                 guard streamingEnabled else {
                                     returnWithError(LibrePairingError.streamingNotEnabled)
                                     return
                                 }
                             }
-                            
+
                             returnWithResult(isPaired: true, sensor: sensor, readings: readings.history + readings.trend)
                             return
                         }
-                        
-                    case .libre3:
-                        guard patchInfo.count == 28 else {
-                            break
-                        }
-                        
-                        let sensor = Sensor.libre3Sensor(uuid: sensorUID, patchInfo: patchInfo)
 
-                        returnWithResult(isPaired: true, sensor: sensor, readings: [])
-                        return
-                        
                     default:
                         break
                     }
@@ -275,7 +280,7 @@ enum LibrePairingError: Error {
     case noTagFound
     case noIsoTagFound
     case failedToConnect
-    case invalidPatchInfo
+    case invalidPatchInfo(patchInfo: String)
     case unsupportedSensor(type: String)
     case failedToRead
     case streamingNotEnabled
@@ -286,11 +291,35 @@ enum LibrePairingError: Error {
 extension LibrePairingError: CustomStringConvertible {
     var description: String {
         switch self {
+        case .invalidPatchInfo(patchInfo: let patchInfo):
+            return "Invalid patchInfo: \(patchInfo)"
+
         case .unsupportedSensor(type: let type):
             return "Unsupported sensor: \(type)"
 
-        default:
-            return "Retry pairing"
+        case .nfcNotAvailable:
+            return "NFC not available"
+
+        case .noTagFound:
+            return "No tag found"
+
+        case .noIsoTagFound:
+            return "No ISO tag found"
+
+        case .failedToConnect:
+            return "Failed to connect"
+
+        case .failedToRead:
+            return "Failed to read"
+
+        case .streamingNotEnabled:
+            return "Streaming not enabled"
+
+        case .invalidBuffer:
+            return "Invalid buffer"
+
+        case .unknownError:
+            return "Unknown error"
         }
     }
 }

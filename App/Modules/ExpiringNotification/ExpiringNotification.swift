@@ -34,25 +34,15 @@ private func expiringNotificationMiddelware(service: LazyService<ExpiringNotific
 
             DirectLog.info("Sensor expiring alert check, age: \(sensorAge)")
 
-            let remainingMinutes = max(0, sensor.lifetime - sensorAge)
-            if remainingMinutes == 0 { // expired
+            if sensor.state == .expired { // expired
                 DirectLog.info("Sensor is expired")
 
                 service.value.setSensorExpiredAlarm(sound: state.expiringAlarmSound, ignoreMute: state.ignoreMute)
 
-            } else if remainingMinutes <= (8 * 60 + 1) { // less than 8 hours
-                DirectLog.info("Sensor is expiring in less than 8 hours")
-
-                if remainingMinutes.inHours == 0 {
-                    service.value.setSensorExpiringAlarm(body: String(format: LocalizedString("Your sensor is about to expire. Replace sensor in %1$@ minutes."), remainingMinutes.inMinutes.description), sound: state.expiringAlarmSound, ignoreMute: state.ignoreMute)
-                } else {
-                    service.value.setSensorExpiringAlarm(body: String(format: LocalizedString("Your sensor is about to expire. Replace sensor in %1$@ hours."), remainingMinutes.inHours.description), sound: state.expiringAlarmSound, ignoreMute: state.ignoreMute)
-                }
-
-            } else if remainingMinutes <= (24 * 60 + 1) { // less than 24 hours
+            } else if sensor.remainingLifetime <= (24 * 60) { // less than 24 hours
                 DirectLog.info("Sensor is expiring in less than 24 hours")
-
-                service.value.setSensorExpiringAlarm(body: String(format: LocalizedString("Your sensor is about to expire. Replace sensor in %1$@ hours."), remainingMinutes.inHours.description), sound: .none, ignoreMute: state.ignoreMute)
+                
+                service.value.setSensorExpiringAlarm(body: String(format: LocalizedString("Your sensor is about to expire. Replace sensor in %1$@."), sensor.remainingLifetime.inTimeSummary), sound: .none, ignoreMute: state.ignoreMute)
             }
 
         default:

@@ -19,57 +19,44 @@ struct GlucoseActivityWidget: Widget {
                 DynamicIslandExpandedRegion(.center) {
                     DynamicIslandCenterView(context: context.state)
                 }
-                DynamicIslandExpandedRegion(.bottom) {
-                    DynamicIslandBottomView(context: context.state)
-                }
             } compactLeading: {
                 if let latestGlucose = context.state.glucose,
-                   let glucoseUnit = context.state.glucoseUnit
+                   let glucoseUnit = context.state.glucoseUnit,
+                   let connectionState = context.state.connectionState
                 {
-                    ZStack(alignment: .trailing) {
-                        Text(latestGlucose.glucoseValue.asGlucose(unit: glucoseUnit))
-                            .offset(y: -7)
-                            .padding(.leading)
+                    VStack(alignment: .trailing) {
+                        Text(latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
+                            .font(.body)
+                            .fontWeight(.bold)
+                            .strikethrough(connectionState != .connected, color: Color.ui.red)
 
                         Text(glucoseUnit.shortLocalizedDescription)
-                            .offset(y: 7)
-                            .opacity(0.5)
-                            .font(.footnote)
-                    }
+                            .font(.system(size: 12))
+                    }.padding(.leading, 7.5)
                 }
             } compactTrailing: {
                 if let latestGlucose = context.state.glucose,
                    let glucoseUnit = context.state.glucoseUnit
                 {
-                    ZStack(alignment: .trailing) {
+                    VStack(alignment: .trailing) {
                         Text(latestGlucose.trend.description)
-                            .offset(y: -7)
-                            .padding(.leading)
+                            .font(.body)
+                            .fontWeight(.bold)
 
                         if let minuteChange = latestGlucose.minuteChange?.asShortMinuteChange(glucoseUnit: glucoseUnit), latestGlucose.trend != .unknown {
                             Text(minuteChange)
-                                .offset(y: 8)
-                                .opacity(0.5)
-                                .font(.footnote)
+                                .font(.system(size: 12))
                         }
-                    }
-
-                    .padding(.trailing)
+                    }.padding(.trailing, 7.5)
                 }
             } minimal: {
                 if let latestGlucose = context.state.glucose,
-                   let glucoseUnit = context.state.glucoseUnit
+                   let glucoseUnit = context.state.glucoseUnit,
+                   let connectionState = context.state.connectionState
                 {
-                    ZStack(alignment: .trailing) {
-                        Text(latestGlucose.glucoseValue.asGlucose(unit: glucoseUnit))
-                            .offset(y: -7)
-                            .padding(.leading)
-
-                        Text(glucoseUnit.shortLocalizedDescription)
-                            .offset(y: 7)
-                            .opacity(0.5)
-                            .font(.footnote)
-                    }
+                    Text(latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
+                        .font(.body)
+                        .strikethrough(connectionState != .connected, color: Color.ui.red)
                 }
             }
         }
@@ -121,65 +108,53 @@ struct DynamicIslandCenterView: View, GlucoseStatusContext {
     @State var context: SensorGlucoseActivityAttributes.GlucoseStatus
 
     var body: some View {
-        if let latestGlucose = context.glucose,
-           let glucoseUnit = context.glucoseUnit
-        {
-            HStack(alignment: .lastTextBaseline, spacing: 10) {
-                ZStack(alignment: .trailing) {
-                    Text(latestGlucose.glucoseValue.asGlucose(unit: glucoseUnit))
-                        .font(.system(size: 48))
-                        .frame(height: 48)
-                        .foregroundColor(getGlucoseColor(glucose: latestGlucose))
-                        .clipped()
+        VStack(spacing: 0) {
+            if let latestGlucose = context.glucose, let glucoseUnit = context.glucoseUnit {
+                HStack(alignment: .lastTextBaseline, spacing: 20) {
+                    if latestGlucose.type != .high {
+                        Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
+                            .font(.system(size: 64))
+                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
 
-                    if let warning = warning {
-                        Group {
-                            Text(warning)
-                                .padding(.init(top: 2.5, leading: 5, bottom: 2.5, trailing: 5))
-                                .foregroundColor(.white)
-                                .font(.system(size: 14))
-                                .background(
-                                    RoundedRectangle(cornerRadius: 5, style: .continuous)
-                                        .foregroundStyle(Color.ui.red)
-                                )
-                        }.offset(y: 20)
-                    }
-                }
+                        VStack(alignment: .leading) {
+                            Text(verbatim: latestGlucose.trend.description)
+                                .font(.system(size: 34))
 
-                VStack(alignment: .leading) {
-                    Text(latestGlucose.trend.description)
-                        .font(.system(size: 20))
-
-                    if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit), latestGlucose.trend != .unknown {
-                        Text(minuteChange)
-                            .font(.system(size: 14))
+                            if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
+                                Text(verbatim: minuteChange)
+                            } else {
+                                Text(verbatim: "?")
+                            }
+                        }
                     } else {
-                        Text("?".asMinuteChange())
-                            .font(.system(size: 14))
+                        Text("HIGH")
+                            .font(.system(size: 64))
+                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
                     }
                 }
+
+                if let warning = warning {
+                    Text(verbatim: warning)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 5)
+                        .background(Color.ui.red)
+                        .foregroundColor(.white)
+                } else {
+                    HStack(spacing: 40) {
+                        Text(latestGlucose.timestamp, style: .time)
+                        Text(verbatim: glucoseUnit.localizedDescription)
+                    }.opacity(0.5)
+                }
+
+            } else {
+                Text("No Data")
+                    .font(.system(size: 34))
+                    .foregroundColor(Color.ui.red)
+
+                Text(Date(), style: .time)
+                    .opacity(0.5)
             }
-        }
-    }
-}
-
-// MARK: - DynamicIslandBottomView
-
-@available(iOS 16.1, *)
-struct DynamicIslandBottomView: View, GlucoseStatusContext {
-    @State var context: SensorGlucoseActivityAttributes.GlucoseStatus
-
-    var body: some View {
-        if let latestGlucose = context.glucose,
-           let glucoseUnit = context.glucoseUnit
-        {
-            HStack(spacing: 20) {
-                Text(latestGlucose.timestamp.toLocalTime())
-                Text(glucoseUnit.localizedDescription)
-            }
-            .opacity(0.5)
-            .font(.system(size: 14))
-        }
+        }.padding(.bottom)
     }
 }
 
@@ -190,58 +165,76 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
     @State var context: SensorGlucoseActivityAttributes.GlucoseStatus
 
     var body: some View {
-        VStack(alignment: .center, spacing: 0) {
-            if let latestGlucose = context.glucose,
-               let glucoseUnit = context.glucoseUnit
-            {
-                VStack {
-                    HStack(alignment: .lastTextBaseline) {
-                        Text(latestGlucose.glucoseValue.asGlucose(unit: glucoseUnit))
-                            .font(.system(size: 64))
-                            .frame(height: 48)
-                            .clipped()
-                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
+        HStack {
+            Spacer()
 
-                        VStack(alignment: .leading) {
-                            Text(latestGlucose.trend.description)
-                                .font(.system(size: 32))
+            VStack(spacing: 10) {
+                if let latestGlucose = context.glucose, let glucoseUnit = context.glucoseUnit {
+                    HStack(alignment: .lastTextBaseline, spacing: 20) {
+                        if latestGlucose.type != .high {
+                            Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
+                                .frame(height: 96)
+                                .font(.system(size: 96))
+                                .foregroundColor(getGlucoseColor(glucose: latestGlucose))
 
-                            if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit), latestGlucose.trend != .unknown {
-                                Text(minuteChange)
-                            } else {
-                                Text("?".asMinuteChange())
+                            VStack(alignment: .leading) {
+                                Text(verbatim: latestGlucose.trend.description)
+                                    .font(.system(size: 52))
+
+                                if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
+                                    Text(verbatim: minuteChange)
+                                } else {
+                                    Text(verbatim: "?")
+                                }
                             }
+                        } else {
+                            Text("HIGH")
+                                .font(.system(size: 96))
+                                .foregroundColor(getGlucoseColor(glucose: latestGlucose))
                         }
                     }
 
-                    HStack(spacing: 20) {
-                        Spacer()
-                        Text(latestGlucose.timestamp.toLocalTime()).opacity(0.5)
+                    if let warning = warning {
+                        Text(verbatim: warning)
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 5)
+                            .background(Color.ui.red)
+                            .foregroundColor(.white)
+                    } else {
+                        HStack(alignment: .lastTextBaseline, spacing: 40) {
+                            VStack {
+                                Text("Updated")
+                                    .textCase(.uppercase)
+                                    .font(.footnote)
+                                Text(latestGlucose.timestamp, style: .time)
+                                    .monospacedDigit()
+                            }.frame(width: 100)
 
-                        if let warning = warning {
-                            Group {
-                                Text(warning)
-                                    .padding(.init(top: 2.5, leading: 5, bottom: 2.5, trailing: 5))
-                                    .foregroundColor(.white)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 5, style: .continuous)
-                                            .foregroundStyle(Color.ui.red)
-                                    )
+                            if let stopDate = context.stopDate {
+                                VStack {
+                                    Text("Reopen app in")
+                                        .textCase(.uppercase)
+                                        .font(.footnote)
+                                    Text(stopDate, style: .relative)
+                                        .multilineTextAlignment(.center)
+                                        .monospacedDigit()
+                                }.frame(width: 150)
                             }
                         }
-
-                        Text(glucoseUnit.localizedDescription).opacity(0.5)
-                        Spacer()
+                        .opacity(0.5)
                     }
-                }
-            } else {
-                VStack {
+
+                } else {
                     Text("No Data")
-                        .font(.system(size: 48))
+                        .font(.system(size: 52))
                         .foregroundColor(Color.ui.red)
-                        .padding(.bottom)
+
+                    Text(Date(), style: .time)
+                        .opacity(0.5)
                 }
             }
+
+            Spacer()
         }.padding()
     }
 }

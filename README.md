@@ -1,13 +1,12 @@
 # Glucose Direct
 
-**Warning, This project is highly experimental. Please use this app with caution and extreme care.
-Do not mindlessly make decisions based on software.
-Do not use this software if you are unsure.**
+**Warning, This project is highly experimental. Please use this app with caution and extreme care. Do not make careless decisions based on software. Do not use this software if you are unsure.**
 
-App programmed in Swift/SwiftUI for using Libre 1/2 blood glucose sensors. I try to keep the code as readable and understandable as possible so that as many people as possible can understand how this part of diabetes management works.
+App programmed in Swift/SwiftUI for using Libre blood glucose sensors. I try to keep the code as readable and understandable as possible so that as many people as possible can understand how this part of diabetes management works.
 
 ## Current features
-- Libre 2 EU support (without transmitter) - **Currently not supported are Libre 2 US/CA/AUS, Libre Pro, Libre H and Libre 3 sensors :'( - I am very happy about support for their connection**
+- Libre 3 Support (over LibreLinkUp)
+- Libre 2 EU support (without transmitter) - **Currently not supported are Libre 2 US/CA/AUS, Libre Pro, Libre H sensors :'( - I am very happy about support for their connection**
 - Libre 1 support with transmitter (supported transmitter bubble)
 - Libre 1, manual scans without transmitter
 - Add manual bgm values
@@ -17,6 +16,7 @@ App programmed in Swift/SwiftUI for using Libre 1/2 blood glucose sensors. I try
 - Upload sensor start to Nightscout
 - FreeAPS X support (with Shared App Groups)
 - Calendar export (to support Apple Watch)
+- Glucose statistics
 - Glucose read aloud
 - Glucose badge
 - Glucose chart
@@ -73,8 +73,6 @@ birdfly, Diabetlum, Fcourela, Anna Furman (annafman), Nicola Lorenzetti (goldsho
 - Cache Nightscout uploads without an Internet connection and run them later
 - Transmitter battery notifications
 - Upload sensor end to nightscout
-- Other transmitters
-- Other diabetes sources to upload to (like tidepool, ...)
 
 ## Screenshots
 ![Screenshot](/Screenshots/overview.png?raw=true)

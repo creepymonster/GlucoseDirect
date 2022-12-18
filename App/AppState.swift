@@ -5,8 +5,8 @@
 
 import Combine
 import Foundation
-import UserNotifications
 import SwiftUI
+import UserNotifications
 
 #if canImport(CoreNFC)
     import CoreNFC
@@ -43,7 +43,7 @@ struct AppState: DirectState {
         }
 
         self.alarmHigh = UserDefaults.standard.alarmHigh ?? 180
-        self.alarmLow =  UserDefaults.standard.alarmLow ?? 80
+        self.alarmLow = UserDefaults.standard.alarmLow ?? 80
         self.alarmSnoozeUntil = UserDefaults.standard.alarmSnoozeUntil
         self.appleCalendarExport = UserDefaults.standard.appleCalendarExport
         self.appleHealthExport = UserDefaults.standard.appleHealthExport
@@ -79,6 +79,7 @@ struct AppState: DirectState {
 
     // MARK: Internal
 
+    var appIsBusy = false
     var appState: ScenePhase = .inactive
     var bellmanConnectionState: BellmanConnectionState = .disconnected
     var bloodGlucoseHistory: [BloodGlucose] = []
@@ -89,13 +90,20 @@ struct AppState: DirectState {
     var connectionState: SensorConnectionState = .disconnected
     var preventScreenLock = false
     var selectedConnection: SensorConnectionProtocol?
+    var selectedConfiguration: [SensorConnectionConfigurationOption] = []
+    var minSelectedDate: Date = .init()
+    var selectedDate: Date?
     var sensorErrorValues: [SensorError] = []
     var sensorGlucoseHistory: [SensorGlucose] = []
     var sensorGlucoseValues: [SensorGlucose] = []
-    var glucoseStatistics: GlucoseStatistics? = nil
+    var glucoseStatistics: GlucoseStatistics?
     var targetValue = 100
     var selectedView = DirectConfig.overviewViewTag
-    var statisticsDays = 14
+    var statisticsDays = 3
+   
+    var appSerial: String {
+        UserDefaults.shared.appSerial
+    }
 
     var alarmHigh: Int { didSet { UserDefaults.standard.alarmHigh = alarmHigh } }
     var alarmLow: Int { didSet { UserDefaults.standard.alarmLow = alarmLow } }

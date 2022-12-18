@@ -12,7 +12,6 @@ class VirtualLibreConnection: SensorConnectionProtocol, IsSensor {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<DirectAction, DirectError>) {
-        DirectLog.info("init")
         self.subject = subject
     }
 
@@ -20,34 +19,74 @@ class VirtualLibreConnection: SensorConnectionProtocol, IsSensor {
 
     weak var subject: PassthroughSubject<DirectAction, DirectError>?
 
-    func getConfiguration() -> [SensorConnectionConfigurationOption]? {
-        return nil
+    func getConfiguration(sensor: Sensor) -> [SensorConnectionConfigurationOption] {
+        return []
     }
 
     func pairConnection() {
         let sensor = Sensor(
-            uuid: Data(hexString: "e9ad9b6c79bd93aa")!,
-            patchInfo: Data(hexString: "448cd1")!,
-            factoryCalibration: FactoryCalibration(i1: 1, i2: 2, i3: 4, i4: 8, i5: 16, i6: 32),
             family: .unknown,
             type: .virtual,
             region: .european,
             serial: "OBIR2PO",
             state: .ready,
             age: initAge,
-            lifetime: 24 * 60,
+            lifetime: 14 * 24 * 60,
             warmupTime: warmupTime
         )
 
         sendUpdate(sensor: sensor)
         sendUpdate(isPaired: true)
+
+        if sensor.age >= sensor.lifetime {
+            sendUpdate(age: sensor.age, state: .expired)
+
+        } else if sensor.age > sensor.warmupTime {
+            sendUpdate(age: sensor.age, state: sensor.state)
+            sendUpdate(readings: [
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(30), glucoseValue: 77),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(29), glucoseValue: 83),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(28), glucoseValue: 85),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(27), glucoseValue: 84),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(26), glucoseValue: 84),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(25), glucoseValue: 83),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(24), glucoseValue: 83),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(23), glucoseValue: 81),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(22), glucoseValue: 82),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(21), glucoseValue: 83),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(20), glucoseValue: 83),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(19), glucoseValue: 82),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(18), glucoseValue: 81),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(17), glucoseValue: 80),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(16), glucoseValue: 79),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(15), glucoseValue: 79),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(14), glucoseValue: 79),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(13), glucoseValue: 81),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(12), glucoseValue: 83),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(11), glucoseValue: 85),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(10), glucoseValue: 86),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(9), glucoseValue: 84),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(8), glucoseValue: 80),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(7), glucoseValue: 79),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(6), glucoseValue: 79),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(5), glucoseValue: 81),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(4), glucoseValue: 84),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(3), glucoseValue: 88),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(2), glucoseValue: 90),
+                SensorReading.createGlucoseReading(timestamp: generateHistoryTimestamp(1), glucoseValue: 96)
+            ])
+
+        } else if sensor.age <= sensor.warmupTime {
+            sendUpdate(age: sensor.age, state: .starting)
+        }
     }
 
     func connectConnection(sensor: Sensor, sensorInterval: Int) {
-        glucoseInterval = TimeInterval(sensorInterval * 60)
+        self.sensor = sensor
+        self.sensorInterval = TimeInterval(sensorInterval * 60)
 
         let fireDate = Date()
-        let timer = Timer(fire: fireDate, interval: glucoseInterval, repeats: true) { _ in
+        let timer = Timer(fire: fireDate, interval: self.sensorInterval, repeats: true) { _ in
             DirectLog.info("fires at \(Date())")
 
             self.sendNextGlucose()
@@ -70,13 +109,17 @@ class VirtualLibreConnection: SensorConnectionProtocol, IsSensor {
     private var initAge = 120
     private var warmupTime = 60
     private var age = 120
-    private var glucoseInterval = TimeInterval(60)
+    private var sensorInterval = TimeInterval(60)
     private var sensor: Sensor?
     private var timer: Timer?
     private var direction: VirtualGlucoseDirection = .up
     private var nextGlucose = 100
     private var nextRotation = 112
     private var lastGlucose = 100
+
+    private func generateHistoryTimestamp(_ factor: Double) -> Date {
+        Date() - factor * 60
+    }
 
     private func sendNextGlucose() {
         DirectLog.info("direction: \(direction)")

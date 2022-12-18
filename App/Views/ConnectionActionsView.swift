@@ -7,12 +7,33 @@ import SwiftUI
 
 // MARK: - ActionsView
 
-struct ActionsView: View {
+struct ConnectionActionsView: View {
     // MARK: Internal
 
     @EnvironmentObject var store: DirectStore
 
     var body: some View {
+        if store.state.isConnectionPaired {
+            HStack {
+                Text("Connection state")
+                Spacer()
+                Text(store.state.connectionState.localizedDescription)
+            }
+        }
+
+        if let connectionError = store.state.connectionError, let connectionErrorTimestamp = store.state.connectionErrorTimestamp?.toLocalTime() {
+            VStack(alignment: .leading) {
+                Text("Connection error")
+                Text(connectionError)
+            }
+
+            HStack {
+                Text("Connection error timestamp")
+                Spacer()
+                Text(connectionErrorTimestamp)
+            }
+        }
+
         if store.state.hasSelectedConnection {
             if store.state.isTransmitter && !store.state.isConnectionPaired {
                 Button(
@@ -28,7 +49,7 @@ struct ActionsView: View {
                     label: {
                         Text("Find transmitter")
                     }
-                ).disabled(store.state.isBusy)
+                ).disabled(store.state.connectionIsBusy)
             }
 
             if store.state.isSensor {

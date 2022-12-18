@@ -35,6 +35,10 @@ private func nightscoutMiddleware(service: LazyService<NightscoutService>) -> Mi
                 service.value.addBloodGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: glucoseValues)
 
             case .addSensorGlucose(glucoseValues: let glucoseValues):
+                guard let glucose = glucoseValues.last, glucose.type != .high else {
+                    break
+                }
+                
                 service.value.addSensorGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), glucoseValues: glucoseValues)
 
             case .setSensorState(sensorAge: _, sensorState: _):
@@ -102,7 +106,7 @@ private class NightscoutService {
 
         let task = session.uploadTask(with: request, from: nightscoutJson) { data, response, error in
             if let error = error {
-                DirectLog.info("Nightscout error: \(error.localizedDescription)")
+                DirectLog.info("Nightscout error: \(error)")
                 return
             }
 
@@ -132,7 +136,7 @@ private class NightscoutService {
 
         let task = session.dataTask(with: request) { data, response, error in
             if let error = error {
-                DirectLog.info("Nightscout error: \(error.localizedDescription)")
+                DirectLog.info("Nightscout error: \(error)")
                 return
             }
 
@@ -161,7 +165,7 @@ private class NightscoutService {
 
         let task = session.dataTask(with: request) { data, response, error in
             if let error = error {
-                DirectLog.info("Nightscout error: \(error.localizedDescription)")
+                DirectLog.info("Nightscout error: \(error)")
                 return
             }
 
@@ -190,7 +194,7 @@ private class NightscoutService {
 
         let task = session.dataTask(with: request) { data, response, error in
             if let error = error {
-                DirectLog.info("Nightscout error: \(error.localizedDescription)")
+                DirectLog.info("Nightscout error: \(error)")
                 return
             }
 
@@ -220,7 +224,7 @@ private class NightscoutService {
 
         let task = session.dataTask(with: request) { data, response, error in
             if let error = error {
-                DirectLog.info("Nightscout error: \(error.localizedDescription)")
+                DirectLog.info("Nightscout error: \(error)")
                 return
             }
 
@@ -257,7 +261,7 @@ private class NightscoutService {
 
         let task = session.uploadTask(with: request, from: nightscoutJson) { data, response, error in
             if let error = error {
-                DirectLog.info("Nightscout error: \(error.localizedDescription)")
+                DirectLog.info("Nightscout error: \(error)")
                 return
             }
 
@@ -293,7 +297,7 @@ private class NightscoutService {
 
         let task = session.uploadTask(with: request, from: nightscoutJson) { data, response, error in
             if let error = error {
-                DirectLog.info("Nightscout error: \(error.localizedDescription)")
+                DirectLog.info("Nightscout error: \(error)")
                 return
             }
 
@@ -323,7 +327,7 @@ private class NightscoutService {
 
         let task = session.dataTask(with: request) { data, response, error in
             if let error = error {
-                DirectLog.info("Nightscout error: \(error.localizedDescription)")
+                DirectLog.info("Nightscout error: \(error)")
 
                 completionHandler(nil)
                 return
@@ -341,7 +345,7 @@ private class NightscoutService {
                         let results = try JSONDecoder().decode([Treatment].self, from: data)
                         completionHandler(!results.isEmpty)
                     } catch {
-                        DirectLog.info("Nightscout, json decode failed: \(error.localizedDescription)")
+                        DirectLog.info("Nightscout, json decode failed: \(error)")
                         completionHandler(nil)
                     }
                 }

@@ -67,8 +67,8 @@ class SensorBluetoothConnection: NSObject, SensorConnectionProtocol, CBCentralMa
         }
     }
     
-    func getConfiguration() -> [SensorConnectionConfigurationOption]? {
-        return nil
+    func getConfiguration(sensor: Sensor) -> [SensorConnectionConfigurationOption] {
+        return []
     }
 
     func pairConnection() {

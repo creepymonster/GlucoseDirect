@@ -25,6 +25,9 @@ enum DirectAction {
     case deleteSensorError(error: SensorError)
     case deleteSensorGlucose(glucose: SensorGlucose)
     case disconnectConnection
+    case exportToUnknown
+    case exportToGlooko
+    case exportToTidepool
     case loadBloodGlucoseValues
     case loadSensorErrorValues
     case loadSensorGlucoseValues
@@ -41,6 +44,8 @@ enum DirectAction {
     case selectView(viewTag: Int)
     case sendLogs
     case sendDatabase
+    case sendFile(fileURL: URL)
+    case setAppIsBusy(isBusy: Bool)
     case setIgnoreMute(enabled: Bool)
     case setAlarmHigh(upperLimit: Int)
     case setAlarmLow(lowerLimit: Int)
@@ -50,8 +55,9 @@ enum DirectAction {
     case setAppState(appState: ScenePhase)
     case setBellmanConnectionState(connectionState: BellmanConnectionState)
     case setBellmanNotification(enabled: Bool)
-    case setBloodGlucoseHistory(glucoseHistory: [BloodGlucose])
     case setBloodGlucoseValues(glucoseValues: [BloodGlucose])
+    case setMinSelectedDate(minSelectedDate: Date)
+    case setSelectedDate(selectedDate: Date?)
     case setChartShowLines(enabled: Bool)
     case setChartZoomLevel(level: Int)
     case setConnectionAlarmSound(sound: NotificationSound)
@@ -73,7 +79,6 @@ enum DirectAction {
     case setReadGlucose(enabled: Bool)
     case setSensor(sensor: Sensor, keepDevice: Bool = false)
     case setSensorErrorValues(errorValues: [SensorError])
-    case setSensorGlucoseHistory(glucoseHistory: [SensorGlucose])
     case setSensorGlucoseValues(glucoseValues: [SensorGlucose])
     case setSensorInterval(interval: Int)
     case setSensorState(sensorAge: Int, sensorState: SensorState?)
