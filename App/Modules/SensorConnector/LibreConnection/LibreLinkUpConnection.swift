@@ -263,15 +263,10 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
         let fetchResponse = try await fetch()
 
-        guard let sensorAge = fetchResponse.data?.connection?.sensor?.age ?? fetchResponse.data?.activeSensors?.first?.sensor?.age else {
-            throw LibreLinkError.missingData
-        }
-
-        guard let sensorSerial = fetchResponse.data?.connection?.sensor?.serial ?? fetchResponse.data?.activeSensors?.first?.sensor?.serial else {
-            throw LibreLinkError.missingData
-        }
-
-        if let sensor = sensor {
+        if let sensorAge = fetchResponse.data?.connection?.sensor?.age ?? fetchResponse.data?.activeSensors?.first?.sensor?.age,
+           let sensorSerial = fetchResponse.data?.connection?.sensor?.serial ?? fetchResponse.data?.activeSensors?.first?.sensor?.serial,
+           let sensor = sensor
+        {
             if sensor.serial != sensorSerial {
                 let sensor = Sensor(family: sensor.family, type: sensor.type, region: sensor.region, serial: sensorSerial, state: sensor.state, age: sensorAge, lifetime: sensor.lifetime)
                 sendUpdate(sensor: sensor)
@@ -290,21 +285,13 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             }
         }
 
-        guard let trendData = fetchResponse.data?.connection?.glucoseMeasurement else {
-            throw LibreLinkError.missingData
-        }
+        let data = (fetchResponse.data?.graphData ?? []) + [fetchResponse.data?.connection?.glucoseMeasurement]
 
-        let historyData = fetchResponse.data?.graphData ?? []
-
-        let trend = [
-            SensorReading.createGlucoseReading(timestamp: trendData.timestamp, glucoseValue: trendData.value),
-        ]
-
-        let history = historyData.map {
+        sendUpdate(readings: data.compactMap {
+            $0
+        }.map {
             SensorReading.createGlucoseReading(timestamp: $0.timestamp, glucoseValue: $0.value)
-        }
-
-        sendUpdate(readings: history + trend)
+        })
     }
 
     private func login(apiRegion: String? = nil) async throws -> LibreLinkResponse<LibreLinkResponseLogin> {
@@ -428,7 +415,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         } else if statusCode == 401 {
             throw LibreLinkError.invalidCredentials
         }
-        
+
         throw LibreLinkError.unknownError
     }
 

@@ -41,7 +41,7 @@
 "Alert, low blood glucose" = "Alerta, glicemia baixa";
 
 /* (No Comment) */
-"Alert, sensor connection lost" = "Alerta, conexão de sensor perdida";
+"Alarm, loss of signal" = "Alarm, loss of signal";
 
 /* (No Comment) */
 "Alert, sensor expired" = "Alerta, sensor expirou";
@@ -428,7 +428,7 @@
 "StatisticsPeriod" = "Período";
 
 /* (No Comment) */
-"The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "A ligação com o sensor foi interrompida. Normalmente isto acontece quando o sensor está fora de alcance ou quando a sua potência de transmissão é imprópria.";
+"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data.";
 
 /* (No Comment) */
 "Time" = "Hora";
@@ -528,3 +528,18 @@
 
 /* (No Comment) */
 "Reopen app in" = "Reopen app in";
+
+/* (No Comment) */
+"%1$@ days" = "%1$@ dias";
+
+/* (No Comment) */
+"%1$@ day" = "%1$@ dia";
+
+/* (No Comment) */
+"%1$@ hours" = "%1$@ horas";
+
+/* (No Comment) */
+"%1$@ hour" = "%1$@ hora";
+
+/* (No Comment) */
+"%1$@ minutes" = "%1$@ minutos";

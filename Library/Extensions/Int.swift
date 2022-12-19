@@ -80,12 +80,32 @@ extension Int {
         if inDays > 0 {
             return String(format: LocalizedString("%1$@d %2$@h %3$@min"), inDays.description, inHours.description, inMinutes.description)
         }
-        
+
         if inHours > 0 {
             return String(format: LocalizedString("%1$@h %2$@min"), inHours.description, inMinutes.description)
         }
-        
+
         return String(format: LocalizedString("%1$@min"), inMinutes.description)
+    }
+
+    var inTimeSummary: String {
+        let days = inDays
+        let hours = (inDays > 0 || inHours > 0) && inMinutes > 0
+            ? inHours + 1
+            : inHours
+        let minutes = inMinutes
+
+        if days > 1 {
+            return String(format: LocalizedString("%1$@ days"), days.description)
+        } else if days > 0 {
+            return String(format: LocalizedString("%1$@ day"), days.description)
+        } else if hours > 1 {
+            return String(format: LocalizedString("%1$@ hours"), hours.description)
+        } else if hours > 0 {
+            return String(format: LocalizedString("%1$@ hour"), hours.description)
+        }
+
+        return String(format: LocalizedString("%1$@ minutes"), minutes.description)
     }
 
     var asMmolL: Double {
@@ -105,11 +125,11 @@ extension Int {
     }
 
     func pluralizeLocalization(singular: String, plural: String) -> String {
-        return self.pluralize(singular: String(format: LocalizedString(singular), self.description), plural: String(format: LocalizedString(plural), self.description))
+        return pluralize(singular: String(format: LocalizedString(singular), description), plural: String(format: LocalizedString(plural), description))
     }
 
     func asPercent() -> String {
-        return self.formatted(.percent.scale(1.0))
+        return formatted(.percent.scale(1.0))
     }
 
     func toPercent(of: Int) -> Double {
@@ -133,9 +153,9 @@ extension Int {
 
         if glucoseUnit == .mmolL {
             if precise {
-                glucose = GlucoseFormatters.preciseMmolLFormatter.string(from: self.asMmolL as NSNumber)!
+                glucose = GlucoseFormatters.preciseMmolLFormatter.string(from: asMmolL as NSNumber)!
             } else {
-                glucose = GlucoseFormatters.mmolLFormatter.string(from: self.asMmolL as NSNumber)!
+                glucose = GlucoseFormatters.mmolLFormatter.string(from: asMmolL as NSNumber)!
             }
         } else {
             glucose = String(self)

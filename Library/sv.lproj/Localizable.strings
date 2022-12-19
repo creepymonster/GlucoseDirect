@@ -41,7 +41,7 @@
 "Alert, low blood glucose" = "Varrning, lågt blodsocker";
 
 /* (No Comment) */
-"Alert, sensor connection lost" = "Varning, tappat sensoranslutning";
+"Alarm, loss of signal" = "Alarm, loss of signal";
 
 /* (No Comment) */
 "Alert, sensor expired" = "Varning, sensor har utgått";
@@ -428,7 +428,7 @@
 "StatisticsPeriod" = "Period";
 
 /* (No Comment) */
-"The connection with the sensor has been interrupted. Normally this happens when the sensor is out of range or its transmission power is impaired." = "Anslutningen till sensorn har avbrutits. Normalt händer detta när sensorn är utom räckvidd eller när dess överföringskapacitet är nedsatt.";
+"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data.";
 
 /* (No Comment) */
 "Time" = "Tid";
@@ -528,3 +528,18 @@
 
 /* (No Comment) */
 "Reopen app in" = "Reopen app in";
+
+/* (No Comment) */
+"%1$@ days" = "%1$@ days";
+
+/* (No Comment) */
+"%1$@ day" = "%1$@ day";
+
+/* (No Comment) */
+"%1$@ hours" = "%1$@ hours";
+
+/* (No Comment) */
+"%1$@ hour" = "%1$@ hour";
+
+/* (No Comment) */
+"%1$@ minutes" = "%1$@ minutes";

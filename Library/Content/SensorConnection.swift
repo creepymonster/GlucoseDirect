@@ -80,10 +80,8 @@ extension SensorConnectionProtocol {
 
     func sendUpdate(readings: [SensorReading] = []) {
         DirectLog.info("SensorReadings: \(readings)")
-
-        if !readings.isEmpty {
-            subject?.send(.addSensorReadings(readings: readings))
-        }
+        
+        subject?.send(.addSensorReadings(readings: readings))
     }
 
     func sendUpdate(error: Error?) {
@@ -92,6 +90,7 @@ extension SensorConnectionProtocol {
         }
 
         DirectLog.error("Error: \(error)")
+        
         subject?.send(.setConnectionError(errorMessage: error.localizedDescription, errorTimestamp: Date()))
     }
 
