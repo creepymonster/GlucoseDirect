@@ -44,6 +44,7 @@ App programmed in Swift/SwiftUI for using Libre blood glucose sensors. I try to 
 - French
 - German
 - Italian
+- Polish
 - Portuguese
 - Russian
 - Spanish
