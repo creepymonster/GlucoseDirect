@@ -262,9 +262,9 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         }
 
         let fetchResponse = try await fetch()
-
-        if let sensorAge = fetchResponse.data?.connection?.sensor?.age ?? fetchResponse.data?.activeSensors?.first?.sensor?.age,
-           let sensorSerial = fetchResponse.data?.connection?.sensor?.serial ?? fetchResponse.data?.activeSensors?.first?.sensor?.serial,
+        
+        if let sensorAge = fetchResponse.data?.activeSensors?.first?.sensor?.age ?? fetchResponse.data?.connection?.sensor?.age,
+           let sensorSerial = fetchResponse.data?.activeSensors?.first?.sensor?.serial ?? fetchResponse.data?.connection?.sensor?.serial,
            let sensor = sensor
         {
             if sensor.serial != sensorSerial {
