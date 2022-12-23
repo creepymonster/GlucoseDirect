@@ -368,7 +368,7 @@
 "Sensor is ready" = "Sensor gotowy";
 
 /* (No Comment) */
-"Sensor is shut down" = "Czujnik jest wyłączony";
+"Sensor is shut down" = "Sensor wygasł";
 
 /* (No Comment) */
 "Sensor lifetime" = "Żywotność czujnika";
@@ -404,7 +404,7 @@
 "Sensor starting date" = "Data uruchomienia czujnika";
 
 /* (No Comment) */
-"Sensor state" = "Status";
+"Sensor state" = "Stan połączenia";
 
 /* (No Comment) */
 "Sensor type" = "Typ";
@@ -431,7 +431,7 @@
 "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data.";
 
 /* (No Comment) */
-"Time" = "Czas";
+"Time" = "Zeit";
 
 /* (No Comment) */
 "Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Czas powyżej zakresu (TAR) lub procent czasu spędzonego powyżej docelowego poziomu glukozy %@.";
@@ -482,7 +482,7 @@
 "Virtual Sensor" = "Wirtualny czujnik";
 
 /* (No Comment) */
-"Warmup" = "Sensor rozgrzewa się";
+"Warmup" = "Pozostały czas nagrzewania czujnika";
 
 /* (No Comment) */
 "Wearing time alarm" = "Alarm ważności sensora";
@@ -503,19 +503,7 @@
 "Your sensor has expired and needs to be replaced as soon as possible" = "Twój czujnik wygasł i należy go jak najszybciej wymienić.";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ day." = "Twój sensor wkrótce straci ważność. Wymienić czujnik za %1$@ dni.";
-
-/* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ days." = "Twój czujnik wkrótce straci ważność. Wymienić czujnik za %1$@ dni.";
-
-/* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ hour." = "Twój czujnik wkrótce straci ważność. Wymienić czujnik za %1$@ godzin.";
-
-/* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ hours." = "Twój czujnik wkrótce straci ważność. Wymienić czujnik za %1$@ godziny.";
-
-/* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@ minutes." = "Twój czujnik wkrótce straci ważność. Wymienić czujnik za %1$@ minut.";
+"Your sensor is about to expire. Replace sensor in %1$@." = "Your sensor is about to expire. Replace sensor in %1$@.";
 
 /* (No Comment) */
 "Loading..." = "Ładowanie...";
