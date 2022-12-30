@@ -2,136 +2,136 @@
 "%1$@ a clock" = "%1$@";
 
 /* (No Comment) */
-"%1$@/min." = "%1$@/min.";
+"%1$@/min." = "%1$@/мин.";
 
 /* (No Comment) */
 "%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
 
 /* (No Comment) */
-"%@ Entries" = "%@ Entries";
+"%@ Entries" = "%@ Вписвания";
 
 /* (No Comment) */
-"%@ Entry" = "%@ Entry";
+"%@ Entry" = "%@ Вписване";
 
 /* (No Comment) */
-"About %@" = "About %@";
+"About %@" = "За %@";
 
 /* (No Comment) */
-"Add" = "Add";
+"Add" = "Добави";
 
 /* (No Comment) */
-"Add blood glucose" = "Add blood glucose";
+"Add blood glucose" = "Добавяне на кръвна глюкоза";
 
 /* (No Comment) */
-"Add calibration" = "Add calibration";
+"Add calibration" = "Добавяне на калибриране";
 
 /* (No Comment) */
-"Add glucose for calibration" = "Add glucose for calibration";
+"Add glucose for calibration" = "Добавяне на глюкоза за калибриране";
 
 /* (No Comment) */
 "Alarm glucose notification" = "Alarm Glucose Notification";
 
 /* (No Comment) */
-"Alarm settings" = "Alarm settings";
+"Alarm settings" = "Настройки на сигнал за тревога";
 
 /* (No Comment) */
-"Alert, high glucose" = "Alert, high glucose";
+"Alert, high glucose" = "Предупреждение, висока глюкоза";
 
 /* (No Comment) */
-"Alert, low blood glucose" = "Alert, low blood glucose";
+"Alert, low blood glucose" = "Предупреждение, ниска кръвна глюкоза";
 
 /* (No Comment) */
-"Alarm, loss of signal" = "Alarm, loss of signal";
+"Alarm, loss of signal" = "Тревога, загуба на сигнал";
 
 /* (No Comment) */
-"Alert, sensor expired" = "Alert, sensor expired";
+"Alert, sensor expired" = "Предупреждение, сензорът е изтекъл";
 
 /* (No Comment) */
-"Alert, sensor expiring soon" = "Alert, sensor expiring soon";
+"Alert, sensor expiring soon" = "Предупреждение, сензорът е изтича скоро";
 
 /* (No Comment) */
-"App author" = "Author";
+"App author" = "Автор";
 
 /* (No Comment) */
-"App donate" = "Donate";
+"App donate" = "Дарение";
 
 /* (No Comment) */
-"App email" = "eMail";
+"App email" = "е-поща";
 
 /* (No Comment) */
-"App facebook group" = "Facebook group";
+"App facebook group" = "Група във Facebook";
 
 /* (No Comment) */
-"App faq" = "FAQ";
+"App faq" = "Често задавани въпроси";
 
 /* (No Comment) */
-"App support mail" = "Support";
+"App support mail" = "Поддръжка";
 
 /* (No Comment) */
-"App translation" = "Translation";
+"App translation" = "Превод";
 
 /* (No Comment) */
-"App version" = "Version";
+"App version" = "Версия";
 
 /* (No Comment) */
-"App website" = "Website";
+"App website" = "Сайт";
 
 /* (No Comment) */
-"Apple export settings" = "Apple export settings";
+"Apple export settings" = "Настройки за експорт на Apple";
 
 /* (No Comment) */
-"Are you sure you want to disconnect the sensor?" = "Are you sure you want to disconnect the sensor?";
+"Are you sure you want to disconnect the sensor?" = "Сигурни ли сте, че искате да прекъснете връзката със сензора?";
 
 /* (No Comment) */
-"At least %@ days of data are required." = "At least %@ days of data are required.";
+"At least %@ days of data are required." = "Необходими са данни за поне %@ дни.";
 
 /* (No Comment) */
-"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Attention, the sensor sends faulty values. Please wait 10 minutes.";
+"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Внимание, сензорът изпраща грешни стойности. Моля, изчакайте 10 минути.";
 
 /* (No Comment) */
-"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been.";
+"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Средната стойност (AVG) е цялостна мярка за кръвната захар за определен период от време, която предлага един общ поглед на високо ниво за това къде е била глюкозата.";
 
 /* (No Comment) */
-"Bellman alarm" = "Alarm";
+"Bellman alarm" = "Аларма";
 
 /* (No Comment) */
-"Bellman test alarm" = "Test alarm";
+"Bellman test alarm" = "Проверка на алармата";
 
 /* (No Comment) */
 "Blood glucose values" = "BGM";
 
 /* (No Comment) */
-"Blood glucose: %1$@" = "Blood glucose: %1$@";
+"Blood glucose: %1$@" = "Глюкоза в кръвта: %1$@";
 
 /* (No Comment) */
-"Bubble transmitter" = "Bubble transmitter";
+"Bubble transmitter" = "Трансмитер на балончета";
 
 /* (No Comment) */
-"Calibration view" = "Calibration";
+"Calibration view" = "Калибриране";
 
 /* (No Comment) */
-"Cancel" = "Cancel";
+"Cancel" = "Отмени";
 
 /* (No Comment) */
-"Chart" = "Chart";
+"Chart" = "Диаграма";
 
 /* (No Comment) */
-"Connect sensor" = "Connect sensor";
+"Connect sensor" = "Свързване на сензора";
 
 /* (No Comment) */
-"Connect transmitter" = "Connect transmitter";
+"Connect transmitter" = "Свързване на трансмитера";
 
 /* (No Comment) */
-"Connected" = "Connected";
+"Connected" = "Свързан";
 
 /* (No Comment) */
-"Connecting" = "Connecting";
+"Connecting" = "Свързване";
 
 /* (No Comment) */
-"Connection alarm" = "Connection alarm";
+"Connection alarm" = "Аларма за свързване";
 
 /* (No Comment) */
-"Connection error" = "Error";
+"Connection error" = "Грешка";
 
 /* (No Comment) */
 "Connection error timestamp" = "Time";
@@ -146,7 +146,7 @@
 "Custom calibration intercept" = "Intercept";
 
 /* (No Comment) */
-"Custom calibration slope" = "Slope";
+"Custom calibration slope" = "Наклон";
 
 /* (No Comment) */
 "Delete all" = "Delete all";
