@@ -32,7 +32,7 @@
 "Alarm glucose notification" = "Известие за аларма за глюкоза";
 
 /* (No Comment) */
-"Alarm settings" = "Настройки на сигнал за тревога";
+"Alarm settings" = "Настройки на алармата";
 
 /* (No Comment) */
 "Alert, high glucose" = "Предупреждение, висока глюкоза";
@@ -41,7 +41,7 @@
 "Alert, low blood glucose" = "Предупреждение, ниска кръвна глюкоза";
 
 /* (No Comment) */
-"Alarm, loss of signal" = "Тревога, загуба на сигнал";
+"Alarm, loss of signal" = "Аларма, загуба на сигнал";
 
 /* (No Comment) */
 "Alert, sensor expired" = "Предупреждение, сензорът е изтекъл";
