@@ -9,7 +9,7 @@ import SwiftUI
 struct GlucoseDirectWatchApp: App {
     var body: some Scene {
         WindowGroup {
-            GlucoseView(entry: nil)
+            GlucoseView()
         }
     }
 }

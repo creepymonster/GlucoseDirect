@@ -5,24 +5,16 @@
 
 import SwiftUI
 
-private let placeholderLowGlucose = SensorGlucose(timestamp: Date(), rawGlucoseValue: 70, intGlucoseValue: 80, minuteChange: 2)
-private let placeholderGlucose = SensorGlucose(timestamp: Date(), rawGlucoseValue: 100, intGlucoseValue: 110, minuteChange: 5)
-private let placeholderHighGlucose = SensorGlucose(timestamp: Date(), rawGlucoseValue: 400, intGlucoseValue: 410, minuteChange: 5)
-private let placeholderGlucoseUnit = GlucoseUnit.mgdL
-
-
 // MARK: - GlucoseView
 
 struct GlucoseView: View {
     
-    let entry: GlucoseEntry?
-    
     var glucoseUnit: GlucoseUnit {
-        entry?.glucoseUnit ?? UserDefaults.shared.glucoseUnit ?? .mgdL
+        UserDefaults.shared.glucoseUnit ?? .mgdL
     }
     
     var glucose: SensorGlucose? {
-        entry?.glucose ?? UserDefaults.shared.latestSensorGlucose
+        UserDefaults.shared.latestSensorGlucose
     }
     
     var body: some View {
@@ -76,24 +68,3 @@ struct GlucoseView: View {
         }
     }
 }
-
-
-struct GlucoseView_Previews: PreviewProvider {
-    static var previews: some View {
-        GlucoseView(entry: GlucoseEntry(date: Date(), glucose: placeholderLowGlucose, glucoseUnit: .mgdL))
-        
-        GlucoseView(entry: GlucoseEntry(date: Date(), glucose: placeholderLowGlucose, glucoseUnit: .mmolL))
-        
-        GlucoseView(entry: GlucoseEntry(date: Date(), glucose: placeholderGlucose, glucoseUnit: .mgdL))
-        
-        GlucoseView(entry: GlucoseEntry(date: Date(), glucose: placeholderGlucose, glucoseUnit: .mmolL))
-        
-        GlucoseView(entry: GlucoseEntry(date: Date(), glucose: placeholderHighGlucose, glucoseUnit: .mgdL))
-        
-        GlucoseView(entry: GlucoseEntry(date: Date(), glucose: placeholderHighGlucose, glucoseUnit: .mmolL))
-        
-    }
-}
-
-
-
