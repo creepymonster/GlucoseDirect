@@ -19,7 +19,7 @@ struct GlucoseView: View {
                     if latestGlucose.type != .high {
                         Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit))
                             .font(.system(size: 96))
-                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
+                            .foregroundColor(GlucoseHelper.getGlucoseColor(glucose: latestGlucose))
                         
                         VStack(alignment: .leading) {
                             Text(verbatim: latestGlucose.trend.description)
@@ -34,11 +34,11 @@ struct GlucoseView: View {
                     } else {
                         Text("HIGH")
                             .font(.system(size: 96))
-                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
+                            .foregroundColor(GlucoseHelper.getGlucoseColor(glucose: latestGlucose))
                     }
                 }
 
-                if let warning = warning {
+                if let warning = GlucoseHelper.warning {
                     Text(verbatim: warning)
                         .padding(.horizontal, 10)
                         .padding(.vertical, 5)
@@ -106,35 +106,5 @@ struct GlucoseView: View {
             .disabled(store.state.latestSensorGlucose == nil)
             .buttonStyle(.plain)
         }
-    }
-
-    // MARK: Private
-
-    private var warning: String? {
-        if let sensor = store.state.sensor, sensor.state != .ready {
-            return sensor.state.localizedDescription
-        }
-
-        if store.state.connectionState != .connected {
-            return store.state.connectionState.localizedDescription
-        }
-
-        return nil
-    }
-
-    private func isAlarm(glucose: any Glucose) -> Bool {
-        if glucose.glucoseValue < store.state.alarmLow || glucose.glucoseValue > store.state.alarmHigh {
-            return true
-        }
-
-        return false
-    }
-
-    private func getGlucoseColor(glucose: any Glucose) -> Color {
-        if isAlarm(glucose: glucose) {
-            return Color.ui.red
-        }
-
-        return Color.primary
     }
 }
