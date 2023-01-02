@@ -14,6 +14,7 @@ struct ListsView: View {
 
     var body: some View {
         List {
+            InsulinDeliveryList()
             BloodGlucoseList()
             SensorGlucoseList()
             SensorErrorList()

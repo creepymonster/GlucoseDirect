@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6587CE4629621507008518F4 /* LogInsulinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587CE4529621507008518F4 /* LogInsulinView.swift */; };
+		6587CE4829625E94008518F4 /* InsulinDeliveryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587CE4729625E94008518F4 /* InsulinDeliveryList.swift */; };
+		6587CE4A29626070008518F4 /* InsulinDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587CE4929626070008518F4 /* InsulinDelivery.swift */; };
+		6587CE4C2962651B008518F4 /* InsulinDeliveryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587CE4B2962651B008518F4 /* InsulinDeliveryStore.swift */; };
+		6587CE4D29626AD5008518F4 /* InsulinDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587CE4929626070008518F4 /* InsulinDelivery.swift */; };
 		E2016FD9285BA80300079195 /* SensorWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2016FD5285BA7C600079195 /* SensorWidget.swift */; };
 		E2016FDA285BA81700079195 /* GlucoseWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2016FD7285BA7EE00079195 /* GlucoseWidget.swift */; };
 		E2016FDC285BA82600079195 /* TransmitterWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2016FDB285BA82600079195 /* TransmitterWidget.swift */; };
@@ -229,6 +234,11 @@
 		1074ABAB29510094008A375D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1938BB6F2752F8D10047059C /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1938BB702752F8D20047059C /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		6587CE4429620FB0008518F4 /* GlucoseDirectOverride.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = GlucoseDirectOverride.xcconfig; sourceTree = "<group>"; };
+		6587CE4529621507008518F4 /* LogInsulinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInsulinView.swift; sourceTree = "<group>"; };
+		6587CE4729625E94008518F4 /* InsulinDeliveryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsulinDeliveryList.swift; sourceTree = "<group>"; };
+		6587CE4929626070008518F4 /* InsulinDelivery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsulinDelivery.swift; sourceTree = "<group>"; };
+		6587CE4B2962651B008518F4 /* InsulinDeliveryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsulinDeliveryStore.swift; sourceTree = "<group>"; };
 		E2016FD5285BA7C600079195 /* SensorWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorWidget.swift; sourceTree = "<group>"; };
 		E2016FD7285BA7EE00079195 /* GlucoseWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseWidget.swift; sourceTree = "<group>"; };
 		E2016FDB285BA82600079195 /* TransmitterWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransmitterWidget.swift; sourceTree = "<group>"; };
@@ -442,6 +452,7 @@
 		E20B8531266F4A9800AA4224 = {
 			isa = PBXGroup;
 			children = (
+				6587CE4429620FB0008518F4 /* GlucoseDirectOverride.xcconfig */,
 				E247D8E426B7D70A00BDAF89 /* GlucoseDirect.xcconfig */,
 				E20B853C266F4A9800AA4224 /* App */,
 				E24474432859CA9600F8891C /* Widgets */,
@@ -548,6 +559,7 @@
 				E2715803287ABF2E00B611D9 /* SensorGlucoseList.swift */,
 				E2715805287ABF4100B611D9 /* BloodGlucoseList.swift */,
 				E2715807287ABF4B00B611D9 /* SensorErrorList.swift */,
+				6587CE4729625E94008518F4 /* InsulinDeliveryList.swift */,
 			);
 			path = Lists;
 			sourceTree = "<group>";
@@ -619,6 +631,7 @@
 				E2CAC1D92905BDA900C87B17 /* StoreExport.swift */,
 				E2B5FDA728789ED200D35D87 /* SensorGlucoseStore.swift */,
 				E2B5FDAA28789EDF00D35D87 /* BloodGlucoseStore.swift */,
+				6587CE4B2962651B008518F4 /* InsulinDeliveryStore.swift */,
 				E262DCBF287A432B00ECAB76 /* SensorErrorStore.swift */,
 				E23698E3288198B400FCF69F /* Migration.swift */,
 			);
@@ -703,6 +716,7 @@
 			children = (
 				E2591C5C28740EBB0009F27C /* BellmanConnectionState.swift */,
 				E26677D828799E76008E8B68 /* BloodGlucose.swift */,
+				6587CE4929626070008518F4 /* InsulinDelivery.swift */,
 				E26677DB28799E8A008E8B68 /* Glucose.swift */,
 				E2FCAC18270741BC00FE1CBF /* GlucoseUnit.swift */,
 				E2FCAC13270741BC00FE1CBF /* Sensor.swift */,
@@ -860,6 +874,7 @@
 				E29ED232268C774200CBD3F1 /* SharedViews */,
 				E2CAC1DD2905DB7E00C87B17 /* LoadingIndicator.swift */,
 				E20786222686283F004EEF1C /* ConnectionActionsView.swift */,
+				6587CE4529621507008518F4 /* LogInsulinView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1042,6 +1057,7 @@
 				E24B532126B863C00091417F /* GlucoseSettingsView.swift in Sources */,
 				E25FE9DF28984F8E00B3276F /* SensorGlucoseActivityAttributes.swift in Sources */,
 				E2FCAC422707420100FE1CBF /* AppState.swift in Sources */,
+				6587CE4629621507008518F4 /* LogInsulinView.swift in Sources */,
 				E2C8F5FE278CD63000519ABD /* BellmanAlarm.swift in Sources */,
 				E26677DC28799E8A008E8B68 /* Glucose.swift in Sources */,
 				E29FD14828E0A2DC00551F2E /* SensorConnectionConfigurationView.swift in Sources */,
@@ -1055,8 +1071,10 @@
 				E25762D5279D519200A2E249 /* BellmanSettingsView.swift in Sources */,
 				E2FCAC1F270741BC00FE1CBF /* SensorRegion.swift in Sources */,
 				E2591C62287412740009F27C /* ScreenLock.swift in Sources */,
+				6587CE4A29626070008518F4 /* InsulinDelivery.swift in Sources */,
 				E26D19C8288143550028962C /* ChartViewCompatibility.swift in Sources */,
 				E2CAC1DA2905BDA900C87B17 /* StoreExport.swift in Sources */,
+				6587CE4829625E94008518F4 /* InsulinDeliveryList.swift in Sources */,
 				E2DE3CA327594E5500FAC82E /* SensorConnectorSettingsView.swift in Sources */,
 				E26089A42748DCB500749025 /* Double.swift in Sources */,
 				E262DCBD287A3E8900ECAB76 /* SensorError.swift in Sources */,
@@ -1071,6 +1089,7 @@
 				E298CF06279DEBFE00C1C218 /* CustomCalibrationView.swift in Sources */,
 				E2B5FDAB28789EDF00D35D87 /* BloodGlucoseStore.swift in Sources */,
 				E2FCAC21270741BC00FE1CBF /* SensorFamily.swift in Sources */,
+				6587CE4C2962651B008518F4 /* InsulinDeliveryStore.swift in Sources */,
 				E2FCAC3B270741E600FE1CBF /* DirectLog.swift in Sources */,
 				E2D34BC4274D6BB500151895 /* OverviewView.swift in Sources */,
 				E298CF04279DEBF500C1C218 /* FactoryCalibrationView.swift in Sources */,
@@ -1122,6 +1141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6587CE4D29626AD5008518F4 /* InsulinDelivery.swift in Sources */,
 				E2591C5B28740E7A0009F27C /* SensorConnectionInfo.swift in Sources */,
 				E2E8DBFF2859F47D002C84FD /* CustomCalibration.swift in Sources */,
 				E2E8DBE62859F46D002C84FD /* LocalizedString.swift in Sources */,
