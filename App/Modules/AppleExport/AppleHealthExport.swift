@@ -313,7 +313,11 @@ private extension InsulinType {
         switch self {
         case .basal:
             return .basal
-        case .bolus:
+        case .mealBolus:
+            return .bolus
+        case .correctionBolus:
+            return .bolus
+        case .snackBolus:
             return .bolus
         }
     }

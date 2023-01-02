@@ -9,13 +9,19 @@ import Foundation
 
 
 enum InsulinType: Codable {
-    case bolus
+    case mealBolus
+    case snackBolus
+    case correctionBolus
     case basal
     
     func display() -> String {
         switch self {
-        case .bolus:
-            return  "Bolus"
+        case .mealBolus:
+            return  "Meal Bolus"
+        case .snackBolus:
+            return  "Snack Bolus"
+        case .correctionBolus:
+            return  "Correction Bolus"
         case .basal:
             return  "Basal"
         }

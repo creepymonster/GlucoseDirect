@@ -12,7 +12,7 @@ struct LogInsulinView: View {
     @State var starts: Date = Date()
     @State var ends: Date = Date()
     @State var units: Float?
-    @State var insulinType: InsulinType = .bolus
+    @State var insulinType: InsulinType = .mealBolus
     
     @FocusState private var unitsFocus: Bool
     
@@ -49,9 +49,11 @@ struct LogInsulinView: View {
                         }
                         List {
                             Picker("Insulin Type", selection: $insulinType) {
-                                Text("Bolus").tag(InsulinType.bolus)
+                                Text("Meal Bolus").tag(InsulinType.mealBolus)
+                                Text("Correction Bolus").tag(InsulinType.correctionBolus)
+                                Text("Snack Bolus").tag(InsulinType.snackBolus)
                                 Text("Basal").tag(InsulinType.basal)
-                            }.pickerStyle(.segmented)
+                            }.pickerStyle(.menu)
                         }
                     }
                 }
