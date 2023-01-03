@@ -29,6 +29,9 @@
 "Add glucose for calibration" = "Add glucose for calibration";
 
 /* (No Comment) */
+"ago" = "ago";
+
+/* (No Comment) */
 "Alarm glucose notification" = "Alarm Glucose Notification";
 
 /* (No Comment) */
@@ -468,6 +471,9 @@
 
 /* (No Comment) */
 "Unknown" = "Unknown";
+
+/* (No Comment) */
+"Updated" = "Updated";
 
 /* (No Comment) */
 "Upper limit" = "High";
