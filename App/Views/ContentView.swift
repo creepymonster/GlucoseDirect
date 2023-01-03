@@ -3,6 +3,7 @@
 //  GlucoseDirect
 //
 
+import WidgetKit
 import SwiftUI
 
 // MARK: - ContentView
@@ -42,7 +43,14 @@ struct ContentView: View {
                 if newPhase == .background, store.state.preventScreenLock {
                     store.dispatch(.setPreventScreenLock(enabled: false))
                 }
+                
+                if newPhase == .active {
+                    WidgetCenter.shared.reloadAllTimelines()
+                }
             }
+            .onChange(of: store.state.latestSensorGlucose, perform: { _ in
+                WidgetCenter.shared.reloadAllTimelines()
+            })
             .onAppear {
                 DirectLog.info("onAppear()")
 
