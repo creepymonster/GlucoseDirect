@@ -9,6 +9,7 @@ import SwiftUI
 
 enum DirectAction {
     case addBloodGlucose(glucoseValues: [BloodGlucose])
+    case addInsulinDelivery(insulinDeliveryValues: [InsulinDelivery])
     case addCalibration(bloodGlucoseValue: Int)
     case addSensorError(errorValues: [SensorError])
     case addSensorGlucose(glucoseValues: [SensorGlucose])
@@ -20,6 +21,7 @@ enum DirectAction {
     case clearSensorGlucoseValues
     case connectConnection
     case deleteBloodGlucose(glucose: BloodGlucose)
+    case deleteInsulinDelivery(insulinDelivery: InsulinDelivery)
     case deleteCalibration(calibration: CustomCalibration)
     case deleteLogs
     case deleteSensorError(error: SensorError)
@@ -29,6 +31,7 @@ enum DirectAction {
     case exportToGlooko
     case exportToTidepool
     case loadBloodGlucoseValues
+    case loadInsulinDeliveryValues
     case loadSensorErrorValues
     case loadSensorGlucoseValues
     case loadSensorGlucoseStatistics
@@ -56,6 +59,7 @@ enum DirectAction {
     case setBellmanConnectionState(connectionState: BellmanConnectionState)
     case setBellmanNotification(enabled: Bool)
     case setBloodGlucoseValues(glucoseValues: [BloodGlucose])
+    case setInsulinDeliveryValues(insulinDeliveryValues: [InsulinDelivery])
     case setMinSelectedDate(minSelectedDate: Date)
     case setSelectedDate(selectedDate: Date?)
     case setChartShowLines(enabled: Bool)
