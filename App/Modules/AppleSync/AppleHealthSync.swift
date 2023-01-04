@@ -28,18 +28,18 @@ private func appleHealthExportMiddleware(service: LazyService<AppleHealthExportS
                             promise(.failure(.withMessage("Calendar access declined")))
                             
                         } else {
-                            promise(.success(.setAppleHealthExport(enabled: true)))
+                            promise(.success(.setAppleHealthSync(enabled: true)))
                         }
                     }
                 }.eraseToAnyPublisher()
             } else {
-                return Just(DirectAction.setAppleHealthExport(enabled: false))
+                return Just(DirectAction.setAppleHealthSync(enabled: false))
                     .setFailureType(to: DirectError.self)
                     .eraseToAnyPublisher()
             }
             
         case .addBloodGlucose(glucoseValues: let glucoseValues):
-            guard state.appleHealthExport else {
+            guard state.appleHealthSync else {
                 DirectLog.info("Guard: state.appleHealth is false")
                 break
             }
@@ -91,7 +91,7 @@ private func appleHealthExportMiddleware(service: LazyService<AppleHealthExportS
             service.value.deleteInsulinDelivery(insulinDelivery: insulinDelivery)
             
         case .addSensorGlucose(glucoseValues: let glucoseValues):
-            guard state.appleHealthExport else {
+            guard state.appleHealthSync else {
                 DirectLog.info("Guard: state.appleHealth is false")
                 break
             }
@@ -101,10 +101,17 @@ private func appleHealthExportMiddleware(service: LazyService<AppleHealthExportS
                 break
             }
             
-            service.value.addGlucose(glucoseValues: glucoseValues)
-            
+            service.value.addGlucose(glucoseValues: glucoseValues)            
         case .deleteSensorGlucose(glucose: let glucose):
-            guard state.appleHealthExport else {
+            guard state.appleHealthSync else {
+                DirectLog.info("Guard: state.appleHealth is false")
+                break
+            }
+
+            service.value.deleteGlucose(glucose: glucose)
+
+        case .syncAppleHealth:
+            guard state.appleHealthSync else {
                 DirectLog.info("Guard: state.appleHealth is false")
                 break
             }
@@ -114,7 +121,8 @@ private func appleHealthExportMiddleware(service: LazyService<AppleHealthExportS
                 break
             }
             
-            service.value.deleteGlucose(glucose: glucose)
+
+            
             
         default:
             break
@@ -142,9 +150,13 @@ private class AppleHealthExportService {
     var glucoseType: HKQuantityType {
         HKObjectType.quantityType(forIdentifier: .bloodGlucose)!
     }
+
+    var requiredWritePermissions: Set<HKSampleType> {
+        Set([glucoseType, insulinType])
+    }
     
-    var insulinType: HKQuantityType {
-        HKObjectType.quantityType(forIdentifier: .insulinDelivery)!
+    var requiredReadPermissions: Set<HKObjectType> {
+        Set([glucoseType, insulinType])
     }
     
     var requiredPermissions: Set<HKSampleType> {
@@ -159,8 +171,8 @@ private class AppleHealthExportService {
         guard let healthStore = healthStore else {
             return
         }
-        
-        healthStore.requestAuthorization(toShare: requiredPermissions, read: nil) { granted, error in
+
+        healthStore.requestAuthorization(toShare: requiredWritePermissions, read: requiredReadPermissions) { granted, error in
             if granted, error == nil {
                 completionHandler(true)
             } else {
@@ -173,8 +185,8 @@ private class AppleHealthExportService {
         guard let healthStore = healthStore else {
             return
         }
-        
-        healthStore.requestAuthorization(toShare: requiredPermissions, read: nil) { granted, error in
+
+        healthStore.requestAuthorization(toShare: requiredWritePermissions, read: requiredReadPermissions) { granted, error in
             guard granted else {
                 DirectLog.info("Guard: HKHealthStore.requestAuthorization failed, error: \(error?.localizedDescription)")
                 return
@@ -205,7 +217,7 @@ private class AppleHealthExportService {
             }
         }
     }
-    
+
     func deleteGlucose(glucose: any Glucose) {
         guard let healthStore = healthStore else {
             return
@@ -226,6 +238,24 @@ private class AppleHealthExportService {
                 
                 DirectLog.info("Deleted \(numberDeleted) glucose delivery records from HealthKit")
             }
+        }
+    }
+    
+    func syncAppleHealth() {
+        guard let healthStore = healthStore else {
+            return
+        }
+
+        healthStore.requestAuthorization(toShare: requiredWritePermissions, read: requiredReadPermissions) { granted, error in
+            guard granted else {
+                DirectLog.info("Guard: HKHealthStore.requestAuthorization failed, error: \(error?.localizedDescription)")
+                return
+            }
+
+            //TODO:
+            // 1. Read all glucose from Apple Health, match against local database.
+            // 2. If not in local database, add to local database
+            // 3. Loop all local values and make sure in Apple Health
         }
     }
     
@@ -290,7 +320,8 @@ private class AppleHealthExportService {
             }
         }
     }
-    
+
+
     // MARK: Private
     
     private lazy var healthStore: HKHealthStore? = {

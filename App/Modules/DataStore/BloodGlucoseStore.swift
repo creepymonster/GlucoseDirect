@@ -92,12 +92,19 @@ private extension DataStore {
                             .notNull()
                             .indexed()
                     }
+                    
+                    try db.alter(table: BloodGlucose.Table) { t in
+                        t.add(column: BloodGlucose.Columns.originatingSource.name, .text)
+                            .notNull()
+                            .defaults(to: DirectConfig.projectName)
+                    }
                 }
             } catch {
                 DirectLog.error("\(error)")
             }
         }
     }
+
 
     func deleteAllBloodGlucose() {
         if let dbQueue = dbQueue {

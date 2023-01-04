@@ -46,7 +46,7 @@ struct AppState: DirectState {
         self.alarmLow = UserDefaults.standard.alarmLow
         self.alarmVolume = UserDefaults.standard.alarmVolume
         self.appleCalendarExport = UserDefaults.standard.appleCalendarExport
-        self.appleHealthExport = UserDefaults.standard.appleHealthExport
+        self.appleHealthSync = UserDefaults.standard.appleHealthExport
         self.bellmanAlarm = UserDefaults.standard.bellmanAlarm
         self.chartShowLines = UserDefaults.standard.chartShowLines
         self.chartZoomLevel = UserDefaults.standard.chartZoomLevel
@@ -115,7 +115,7 @@ struct AppState: DirectState {
     var alarmLow: Int { didSet { UserDefaults.standard.alarmLow = alarmLow } }
     var alarmVolume: Float { didSet { UserDefaults.standard.alarmVolume = alarmVolume } }
     var appleCalendarExport: Bool { didSet { UserDefaults.standard.appleCalendarExport = appleCalendarExport } }
-    var appleHealthExport: Bool { didSet { UserDefaults.standard.appleHealthExport = appleHealthExport } }
+    var appleHealthSync: Bool { didSet { UserDefaults.standard.appleHealthExport = appleHealthSync } }
     var bellmanAlarm: Bool { didSet { UserDefaults.standard.bellmanAlarm = bellmanAlarm } }
     var chartShowLines: Bool { didSet { UserDefaults.standard.chartShowLines = chartShowLines } }
     var chartZoomLevel: Int { didSet { UserDefaults.standard.chartZoomLevel = chartZoomLevel } }
