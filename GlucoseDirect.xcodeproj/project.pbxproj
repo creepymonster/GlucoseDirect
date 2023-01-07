@@ -977,6 +977,7 @@
 				Base,
 				pl,
 				ar,
+				bg,
 			);
 			mainGroup = E20B8531266F4A9800AA4224;
 			packageReferences = (
