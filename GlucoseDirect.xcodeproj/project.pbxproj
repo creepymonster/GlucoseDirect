@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		10DD12FE296A146800C900EA /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DD12FD296A146800C900EA /* StatisticsView.swift */; };
+		10DD1301296A15B900C900EA /* LogCalibrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DD1300296A15B900C900EA /* LogCalibrationView.swift */; };
+		10DD1303296A15CA00C900EA /* LogBloodGlucoseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DD1302296A15CA00C900EA /* LogBloodGlucoseView.swift */; };
 		6587CE4629621507008518F4 /* LogInsulinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587CE4529621507008518F4 /* LogInsulinView.swift */; };
 		6587CE4829625E94008518F4 /* InsulinDeliveryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587CE4729625E94008518F4 /* InsulinDeliveryList.swift */; };
 		6587CE4A29626070008518F4 /* InsulinDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587CE4929626070008518F4 /* InsulinDelivery.swift */; };
@@ -234,6 +236,8 @@
 		1074ABAA29510094008A375D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1074ABAB29510094008A375D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		10DD12FD296A146800C900EA /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
+		10DD1300296A15B900C900EA /* LogCalibrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogCalibrationView.swift; sourceTree = "<group>"; };
+		10DD1302296A15CA00C900EA /* LogBloodGlucoseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogBloodGlucoseView.swift; sourceTree = "<group>"; };
 		1938BB6F2752F8D10047059C /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1938BB702752F8D20047059C /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6587CE4429620FB0008518F4 /* GlucoseDirectOverride.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = GlucoseDirectOverride.xcconfig; sourceTree = "<group>"; };
@@ -451,6 +455,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		10DD12FF296A158600C900EA /* LogData */ = {
+			isa = PBXGroup;
+			children = (
+				6587CE4529621507008518F4 /* LogInsulinView.swift */,
+				10DD1300296A15B900C900EA /* LogCalibrationView.swift */,
+				10DD1302296A15CA00C900EA /* LogBloodGlucoseView.swift */,
+			);
+			path = LogData;
+			sourceTree = "<group>";
+		};
 		E20B8531266F4A9800AA4224 = {
 			isa = PBXGroup;
 			children = (
@@ -874,10 +888,10 @@
 				E298CF01279DEB6600C1C218 /* Calibrations */,
 				E262DCC2287A48C700ECAB76 /* Lists */,
 				E298CF02279DEB7400C1C218 /* Settings */,
+				10DD12FF296A158600C900EA /* LogData */,
 				E29ED232268C774200CBD3F1 /* SharedViews */,
 				E2CAC1DD2905DB7E00C87B17 /* LoadingIndicator.swift */,
 				E20786222686283F004EEF1C /* ConnectionActionsView.swift */,
-				6587CE4529621507008518F4 /* LogInsulinView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1061,6 +1075,7 @@
 				E25FE9DF28984F8E00B3276F /* SensorGlucoseActivityAttributes.swift in Sources */,
 				E2FCAC422707420100FE1CBF /* AppState.swift in Sources */,
 				6587CE4629621507008518F4 /* LogInsulinView.swift in Sources */,
+				10DD1303296A15CA00C900EA /* LogBloodGlucoseView.swift in Sources */,
 				E2C8F5FE278CD63000519ABD /* BellmanAlarm.swift in Sources */,
 				E26677DC28799E8A008E8B68 /* Glucose.swift in Sources */,
 				E29FD14828E0A2DC00551F2E /* SensorConnectionConfigurationView.swift in Sources */,
@@ -1125,6 +1140,7 @@
 				E294333E2878805A005C8A69 /* DataStore.swift in Sources */,
 				E2591C5D28740EBB0009F27C /* BellmanConnectionState.swift in Sources */,
 				E2C19FB3273567FE00B70A73 /* SensorReading.swift in Sources */,
+				10DD1301296A15B900C900EA /* LogCalibrationView.swift in Sources */,
 				E29ED231268C754F00CBD3F1 /* GlucoseView.swift in Sources */,
 				E28728AA26DE499200269F47 /* SnoozeView.swift in Sources */,
 				E2BDE9D0290DF346004B8AB7 /* UIScreen.swift in Sources */,

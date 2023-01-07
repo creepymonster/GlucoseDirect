@@ -5,7 +5,6 @@
 
 import SwiftUI
 
-
 struct InsulinDeliveryList: View {
     // MARK: Internal
 
@@ -13,10 +12,8 @@ struct InsulinDeliveryList: View {
 
     var body: some View {
         Group {
-            Button("Add insulin delivery", action: {
-                withAnimation {
-                    showingAddInsulinView = true
-                }
+            Button("Add insulin", action: {
+                showingAddInsulinView = true
             }).sheet(isPresented: $showingAddInsulinView, onDismiss: {
                 showingAddInsulinView = false
             }) {
@@ -34,7 +31,7 @@ struct InsulinDeliveryList: View {
                         HStack {
                             Text(verbatim: insulinDeliveryValue.starts.toLocalDateTime())
                             Spacer()
-                            Text(verbatim: "\(insulinDeliveryValue.units) units - \(insulinDeliveryValue.type.display())")
+                            Text(verbatim: "\(insulinDeliveryValue.units) units - \(insulinDeliveryValue.type.localizedDescription)")
                         }
                     }.onDelete { offsets in
                         DirectLog.info("onDelete: \(offsets)")

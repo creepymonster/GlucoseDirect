@@ -12,51 +12,15 @@ struct BloodGlucoseList: View {
 
     var body: some View {
         Group {
-            if showingAddBloodGlucoseView {
-                Section(
-                    content: {
-                        NumberSelectorView(key: LocalizedString("Now"), value: value, step: 1, displayValue: value.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true)) { value in
-                            self.value = value
-                        }
-                    },
-                    header: {
-                        Label("Add blood glucose", systemImage: "drop.fill")
-                    },
-                    footer: {
-                        HStack {
-                            Button(action: {
-                                withAnimation {
-                                    showingAddBloodGlucoseView = false
-                                }
-                            }) {
-                                Label("Cancel", systemImage: "multiply")
-                            }
-
-                            Spacer()
-
-                            Button(
-                                action: {
-                                    withAnimation {
-                                        let glucose = BloodGlucose(id: UUID(), timestamp: Date(), glucoseValue: value)
-                                        store.dispatch(.addBloodGlucose(glucoseValues: [glucose]))
-
-                                        showingAddBloodGlucoseView = false
-                                    }
-                                },
-                                label: {
-                                    Label("Add", systemImage: "checkmark")
-                                }
-                            )
-                        }.padding(.bottom)
-                    }
-                )
-            } else {
-                Button("Add blood glucose", action: {
-                    withAnimation {
-                        value = 100
-                        showingAddBloodGlucoseView = true
-                    }
-                })
+            Button("Add blood glucose", action: {
+                showingAddBloodGlucoseView = true
+            }).sheet(isPresented: $showingAddBloodGlucoseView, onDismiss: {
+                showingAddBloodGlucoseView = false
+            }) {
+                LogBloodGlucoseView(glucoseUnit: store.state.glucoseUnit) { time, value in
+                    let glucose = BloodGlucose(id: UUID(), timestamp: time, glucoseValue: value)
+                    store.dispatch(.addBloodGlucose(glucoseValues: [glucose]))
+                }
             }
 
             CollapsableSection(teaser: Text(getTeaser(bloodGlucoseValues.count)), header: Label("Blood glucose values", systemImage: "drop"), collapsed: true, collapsible: !bloodGlucoseValues.isEmpty) {

@@ -6,24 +6,22 @@
 import SwiftUI
 
 struct LogInsulinView: View {
-    
     @Environment(\.dismiss) var dismiss
     
-    @State var starts: Date = Date()
-    @State var ends: Date = Date()
+    @State var starts: Date = .init()
+    @State var ends: Date = .init()
     @State var units: Float?
     @State var insulinType: InsulinType = .mealBolus
     
     @FocusState private var unitsFocus: Bool
     
-    var addCallback: ((_ starts: Date, _ ends: Date, _ units: Float, _ insulinType: InsulinType) -> Void)
+    var addCallback: (_ starts: Date, _ ends: Date, _ units: Float, _ insulinType: InsulinType) -> Void
     
     var body: some View {
         NavigationView {
             HStack {
                 Form {
-                    Section(footer: Text("Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep. Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose.")) {
-                        
+                    Section(content: {
                         HStack {
                             DatePicker(
                                 "Starts",
@@ -31,6 +29,7 @@ struct LogInsulinView: View {
                                 displayedComponents: [.date, .hourAndMinute]
                             )
                         }
+                        
                         HStack {
                             DatePicker(
                                 "Ends",
@@ -38,6 +37,7 @@ struct LogInsulinView: View {
                                 displayedComponents: [.date, .hourAndMinute]
                             )
                         }
+                        
                         HStack {
                             Text("Units of Insulin").font(.callout)
                             
@@ -47,6 +47,7 @@ struct LogInsulinView: View {
                                 .focused($unitsFocus)
                                 .multilineTextAlignment(.trailing)
                         }
+                        
                         List {
                             Picker("Insulin Type", selection: $insulinType) {
                                 Text("Meal Bolus").tag(InsulinType.mealBolus)
@@ -55,27 +56,33 @@ struct LogInsulinView: View {
                                 Text("Basal").tag(InsulinType.basal)
                             }.pickerStyle(.menu)
                         }
+                    }, footer: {
+                        VStack(alignment: .leading, spacing: 20) {
+                            Text("Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep.")
+                            Text("Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose.")
+                        }
+                    })
+                }
+            }
+            .navigationTitle("Insulin")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Add") {
+                        addCallback(starts, ends, units!, insulinType)
+                        dismiss()
                     }
                 }
-            } .navigationTitle("Log Insulin")
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button("Add") {
-                            addCallback(starts, ends, units!, insulinType)
-                            dismiss()
-                        }
-                    }
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button("Cancel") {
-                            dismiss()
-                        }
-                    }
-                }.onAppear {
-                    //Set the units to be focused when the view opens.
-                    DispatchQueue.main.asyncAfter(deadline: .now()) {
-                        self.unitsFocus = true
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Cancel") {
+                        dismiss()
                     }
                 }
+            }.onAppear {
+                // Set the units to be focused when the view opens.
+                DispatchQueue.main.asyncAfter(deadline: .now()) {
+                    self.unitsFocus = true
+                }
+            }
         }
     }
 }
@@ -84,8 +91,7 @@ struct LogInsulinView_Previews: PreviewProvider {
     static var previews: some View {
         Button("Modal always shown") {}
             .sheet(isPresented: .constant(true)) {
-                LogInsulinView { starts, ends, units, insulinType in
-                    
+                LogInsulinView { _, _, _, _ in
                 }
             }
     }

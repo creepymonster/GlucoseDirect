@@ -14,7 +14,7 @@ enum InsulinType: Codable {
     case correctionBolus
     case basal
     
-    func display() -> String {
+    var description: String {
         switch self {
         case .mealBolus:
             return  "Meal Bolus"
@@ -25,6 +25,10 @@ enum InsulinType: Codable {
         case .basal:
             return  "Basal"
         }
+    }
+
+    var localizedDescription: String {
+        LocalizedString(description)
     }
 }
 
