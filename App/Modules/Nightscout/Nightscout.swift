@@ -62,6 +62,11 @@ private func nightscoutMiddleware(service: LazyService<NightscoutService>) -> Mi
                         service.value.setSensorStart(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), sensor: sensor)
                     }
                 }
+            case .addInsulinDelivery(insulinDeliveryValues: let insulinDeliveryValues):
+                service.value.addInsulinDelivery(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), insulinDeliveryValues: insulinDeliveryValues)
+            
+            case .deleteInsulinDelivery(insulinDelivery: let insulinDeliveryValue):
+                service.value.deleteInsulinDelivery(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), insulinDeliveryValue: insulinDeliveryValue)
 
             default:
                 break
@@ -356,6 +361,72 @@ private class NightscoutService {
 
         task.resume()
     }
+    
+    
+    func addInsulinDelivery(nightscoutURL: String, apiSecret: String, insulinDeliveryValues: [InsulinDelivery]) {
+        let nightscoutValues = insulinDeliveryValues.map { insulinDelivery in
+            insulinDelivery.toNightscoutInsulinDelivery()
+        }.compactMap { $0 }
+
+        guard let nightscoutJson = try? JSONSerialization.data(withJSONObject: nightscoutValues) else {
+            return
+        }
+
+        let session = URLSession.shared
+
+        let urlString = "\(nightscoutURL)/api/v1/treatments"
+        guard let url = URL(string: urlString) else {
+            DirectLog.error("Nightscout, bad nightscout url")
+            return
+        }
+
+        let request = createRequest(url: url, method: "POST", apiSecret: apiSecret)
+
+        let task = session.uploadTask(with: request, from: nightscoutJson) { data, response, error in
+            if let error = error {
+                DirectLog.info("Nightscout error: \(error)")
+                return
+            }
+
+            if let response = response as? HTTPURLResponse {
+                if response.statusCode != 200, let data = data {
+                    let responseString = String(data: data, encoding: .utf8)
+                    DirectLog.info("Nightscout error: \(response.statusCode) \(responseString)")
+                }
+            }
+        }
+
+        task.resume()
+    }
+    
+    func deleteInsulinDelivery(nightscoutURL: String, apiSecret: String, insulinDeliveryValue: InsulinDelivery) {
+        let session = URLSession.shared
+
+        let urlString = "\(nightscoutURL)/api/v1/treatments?find[enteredBy]=\(DirectConfig.projectName)&find[_id]=\(insulinDeliveryValue.id.uuidString)"
+        guard let url = URL(string: urlString) else {
+            DirectLog.error("Nightscout, bad nightscout url")
+            return
+        }
+
+        let request = createRequest(url: url, method: "DELETE", apiSecret: apiSecret)
+
+        let task = session.dataTask(with: request) { data, response, error in
+            if let error = error {
+                DirectLog.info("Nightscout error: \(error)")
+                return
+            }
+
+            if let response = response as? HTTPURLResponse {
+                let status = response.statusCode
+                if status != 200, let data = data {
+                    let responseString = String(data: data, encoding: .utf8)
+                    DirectLog.info("Nightscout error: \(response.statusCode) \(responseString)")
+                }
+            }
+        }
+
+        task.resume()
+    }
 
     // MARK: Private
 
@@ -430,5 +501,34 @@ private extension SensorGlucose {
         ]
 
         return nightscout
+    }
+}
+
+private extension InsulinDelivery {
+    func toNightscoutInsulinDelivery() -> [String: Any]? {
+        let nightscout: [String: Any] = [
+            "_id": id.uuidString,
+            "enteredBy": DirectConfig.projectName,
+            "created_at": starts.toISOStringFromDate(),
+            "eventType": type.toNightscoutEventType(),
+            "insulin": units
+        ]
+
+        return nightscout
+    }
+}
+
+private extension InsulinType {
+    func toNightscoutEventType() -> String {
+        switch self {
+        case .mealBolus:
+            return  "Meal Bolus"
+        case .correctionBolus:
+            return  "Correction Bolus"
+        case .basal:
+            return  "Temp Basal"
+        case .snackBolus:
+            return  "Snack Bolus"
+        }
     }
 }

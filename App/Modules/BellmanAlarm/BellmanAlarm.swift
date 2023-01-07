@@ -40,11 +40,9 @@ private func bellmanAlarmMiddelware(service: LazyService<BellmanAlarmService>, s
                 break
             }
 
-            var isSnoozed = false
-            if let snoozeUntil = state.alarmSnoozeUntil, Date() < snoozeUntil {
-                isSnoozed = true
-            }
-
+            let isSnoozed = state.isSnoozed
+            DirectLog.info("isSnoozed: \(isSnoozed)")
+            
             guard !isSnoozed else {
                 break
             }

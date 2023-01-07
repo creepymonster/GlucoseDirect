@@ -1,0 +1,545 @@
+/* (No Comment) */
+"%1$@ a clock" = "%1$@";
+
+/* (No Comment) */
+"%1$@/min." = "%1$@/мин.";
+
+/* (No Comment) */
+"%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
+
+/* (No Comment) */
+"%@ Entries" = "%@ Вписвания";
+
+/* (No Comment) */
+"%@ Entry" = "%@ Вписване";
+
+/* (No Comment) */
+"About %@" = "За %@";
+
+/* (No Comment) */
+"Add" = "Добави";
+
+/* (No Comment) */
+"Add blood glucose" = "Добавяне на кръвна глюкоза";
+
+/* (No Comment) */
+"Add calibration" = "Добавяне на калибриране";
+
+/* (No Comment) */
+"Add glucose for calibration" = "Добавяне на глюкоза за калибриране";
+
+/* (No Comment) */
+"Alarm glucose notification" = "Известие за аларма за глюкоза";
+
+/* (No Comment) */
+"Alarm settings" = "Настройки на алармата";
+
+/* (No Comment) */
+"Alert, high glucose" = "Предупреждение, висока глюкоза";
+
+/* (No Comment) */
+"Alert, low blood glucose" = "Предупреждение, ниска кръвна глюкоза";
+
+/* (No Comment) */
+"Alarm, loss of signal" = "Аларма, загуба на сигнал";
+
+/* (No Comment) */
+"Alert, sensor expired" = "Предупреждение, сензорът е изтекъл";
+
+/* (No Comment) */
+"Alert, sensor expiring soon" = "Предупреждение, сензорът е изтича скоро";
+
+/* (No Comment) */
+"App author" = "Автор";
+
+/* (No Comment) */
+"App donate" = "Дарение";
+
+/* (No Comment) */
+"App email" = "е-поща";
+
+/* (No Comment) */
+"App facebook group" = "Група във Facebook";
+
+/* (No Comment) */
+"App faq" = "Често задавани въпроси";
+
+/* (No Comment) */
+"App support mail" = "Поддръжка";
+
+/* (No Comment) */
+"App translation" = "Превод";
+
+/* (No Comment) */
+"App version" = "Версия";
+
+/* (No Comment) */
+"App website" = "Сайт";
+
+/* (No Comment) */
+"Apple export settings" = "Настройки за експорт на Apple";
+
+/* (No Comment) */
+"Are you sure you want to disconnect the sensor?" = "Сигурни ли сте, че искате да прекъснете връзката със сензора?";
+
+/* (No Comment) */
+"At least %@ days of data are required." = "Необходими са данни за поне %@ дни.";
+
+/* (No Comment) */
+"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Внимание, сензорът изпраща грешни стойности. Моля, изчакайте 10 минути.";
+
+/* (No Comment) */
+"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Средната стойност (AVG) е цялостна мярка за кръвната захар за определен период от време, която предлага един общ поглед на високо ниво за това къде е била глюкозата.";
+
+/* (No Comment) */
+"Bellman alarm" = "Аларма";
+
+/* (No Comment) */
+"Bellman test alarm" = "Проверка на алармата";
+
+/* (No Comment) */
+"Blood glucose values" = "BGM";
+
+/* (No Comment) */
+"Blood glucose: %1$@" = "Глюкоза в кръвта: %1$@";
+
+/* (No Comment) */
+"Bubble transmitter" = "Трансмитер на балончета";
+
+/* (No Comment) */
+"Calibration view" = "Калибриране";
+
+/* (No Comment) */
+"Cancel" = "Отмени";
+
+/* (No Comment) */
+"Chart" = "Диаграма";
+
+/* (No Comment) */
+"Connect sensor" = "Свързване на сензора";
+
+/* (No Comment) */
+"Connect transmitter" = "Свързване на трансмитера";
+
+/* (No Comment) */
+"Connected" = "Свързан";
+
+/* (No Comment) */
+"Connecting" = "Свързване";
+
+/* (No Comment) */
+"Connection alarm" = "Аларма за свързване";
+
+/* (No Comment) */
+"Connection error" = "Грешка";
+
+/* (No Comment) */
+"Connection error timestamp" = "Час";
+
+/* (No Comment) */
+"Connection settings" = "Настройки за свързване";
+
+/* (No Comment) */
+"Connection state" = "Статус";
+
+/* (No Comment) */
+"Custom calibration intercept" = "Прихващане";
+
+/* (No Comment) */
+"Custom calibration slope" = "Наклон";
+
+/* (No Comment) */
+"Delete all" = "Изтриване на всички";
+
+/* (No Comment) */
+"Disconnect" = "Прекъсване на връзката";
+
+/* (No Comment) */
+"Disconnect sensor" = "Изключване на сензора";
+
+/* (No Comment) */
+"Disconnect transmitter" = "Изключване на трансмитера";
+
+/* (No Comment) */
+"Disconnected" = "Изключен";
+
+/* (No Comment) */
+"Export to Apple Calendar" = "Експортиране към календара на Apple";
+
+/* (No Comment) */
+"Export to Apple Health" = "Експортиране към Apple Здраве";
+
+/* (No Comment) */
+"Find transmitter" = "Намиране на трансмитер";
+
+/* (No Comment) */
+"Glucose" = "Глюкоза";
+
+/* (No Comment) */
+"Glucose list view" = "Списък";
+
+/* (No Comment) */
+"Glucose Live Activity" = "Глюкоза на живо";
+
+/* (No Comment) */
+"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Индикаторът за управление на глюкозата (GMI) е заместител на \"приблизителния HbA1c\" за пациенти, използващи непрекъснато наблюдение на глюкозата.";
+
+/* (No Comment) */
+"Glucose notification" = "Известие за глюкоза";
+
+/* (No Comment) */
+"Glucose overview" = "Преглед";
+
+/* (No Comment) */
+"Glucose read aloud" = "Отчитане на глюкозата";
+
+/* (No Comment) */
+"Glucose settings" = "Настройки на глюкозата";
+
+/* (No Comment) */
+"Glucose unit" = "Мерна единица";
+
+/* (No Comment) */
+"Glucose widget" = "Глюкоза";
+
+/* (No Comment) */
+"Glucose widget description" = "Показва последната стойност на глюкозата.";
+
+/* (No Comment) */
+"High glucose alarm" = "Аларма за висока глюкоза";
+
+/* (No Comment) */
+"Hold the top edge of your iPhone close to the sensor." = "Дръжте горния ръб на iPhone близо до сензора.";
+
+/* (No Comment) */
+"Ignore mute" = "Игнориране на заглушаването на звука";
+
+/* (No Comment) */
+"LibreLink transmitter" = "Трансмитер LibreLink";
+
+/* (No Comment) */
+"LibreLinkUp email" = "Имейл на LibreLinkUp";
+
+/* (No Comment) */
+"LibreLinkUp password" = "Парола за LibreLinkUp";
+
+/* (No Comment) */
+"Line" = "Линия";
+
+/* (No Comment) */
+"Low glucose alarm" = "Аларма за ниска глюкоза";
+
+/* (No Comment) */
+"Lower limit" = "Ниска";
+
+/* (No Comment) */
+"Nightscout API-Secret" = "API-Secret";
+
+/* (No Comment) */
+"Nightscout settings" = "Настройки на Nightscout";
+
+/* (No Comment) */
+"Nightscout upload enabled" = "Качване";
+
+/* (No Comment) */
+"Nightscout url" = "Url";
+
+/* (No Comment) */
+"No Data" = "Няма данни";
+
+/* (No Comment) */
+"No screen lock" = "Няма заключване на екрана";
+
+/* (No Comment) */
+"Normal glucose notification" = "Известие за глюкоза";
+
+/* (No Comment) */
+"Now" = "Сега";
+
+/* (No Comment) */
+"Pairing" = "Сдвояване";
+
+/* (No Comment) */
+"Please select" = "Моля изберете";
+
+/* (No Comment) */
+"Power off" = "Изключване";
+
+/* (No Comment) */
+"Readable falling" = "падане";
+
+/* (No Comment) */
+"Readable fast falling" = "бързо падане";
+
+/* (No Comment) */
+"Readable fast rising" = "бързо нарастващ";
+
+/* (No Comment) */
+"Readable glucose with trend: %1$@ %2$@, %3$@" = "Глюкоза: %1$@ %2$@, %3$@";
+
+/* (No Comment) */
+"Readable glucose: %1$@ %2$@" = "Глюкоза: %1$@ %2$@";
+
+/* (No Comment) */
+"Readable high glucose: %1$@ %2$@" = "Глюкоза: %1$@ %2$@. Внимание, хипергликемия!";
+
+/* (No Comment) */
+"Readable low glucose: %1$@ %2$@" = "Глюкоза: %1$@ %2$@. Внимание, хипогликемия!";
+
+/* (No Comment) */
+"Readable miligram" = "miligram";
+
+/* (No Comment) */
+"Readable milimol" = "milimol";
+
+/* (No Comment) */
+"Readable rapidly falling" = "бързо спадане";
+
+/* (No Comment) */
+"Readable rapidly rising" = "бързо покачване";
+
+/* (No Comment) */
+"Readable rising" = "нарастващ";
+
+/* (No Comment) */
+"Rescan the sensor" = "Повторно сканиране на сензора";
+
+/* (No Comment) */
+"Retrieval interval" = "Интервал на извличане";
+
+/* (No Comment) */
+"Retrieval interval, every %@ minutes" = "На всеки %@ минути";
+
+/* (No Comment) */
+"Retrieval interval, every minute" = "Всяка минута";
+
+/* (No Comment) */
+"Retry pairing" = "Повторение на сдвояването";
+
+/* (No Comment) */
+"Scan sensor" = "Сканирай сензор";
+
+/* (No Comment) */
+"Scanning" = "Сканиране";
+
+/* (No Comment) */
+"Selected calendar" = "Календар";
+
+/* (No Comment) */
+"Send database file" = "Изпращане на базата от данни";
+
+/* (No Comment) */
+"Send log file" = "Изпращане на лог файл";
+
+/* (No Comment) */
+"Sensor age" = "Възраст на сензора";
+
+/* (No Comment) */
+"Sensor connection" = "Свързване на сензора";
+
+/* (No Comment) */
+"Sensor custom calibration" = "Персонализирано калибриране";
+
+/* (No Comment) */
+"Sensor details" = "Данни за сензора";
+
+/* (No Comment) */
+"Sensor ending date" = "Крайна дата";
+
+/* (No Comment) */
+"Sensor error values" = "Грешки на CGM";
+
+/* (No Comment) */
+"Sensor factory calibration" = "Фабрично калибриране";
+
+/* (No Comment) */
+"Sensor glucose values" = "CGM";
+
+/* (No Comment) */
+"Sensor has failure" = "Сензорът е повреден";
+
+/* (No Comment) */
+"Sensor in starting phase" = "Сензор в начална фаза";
+
+/* (No Comment) */
+"Sensor is expired" = "Сензора е с изтекъл срок на годност";
+
+/* (No Comment) */
+"Sensor is ready" = "Сензорът е готов";
+
+/* (No Comment) */
+"Sensor is shut down" = "Сензора е с изтекъл срок на годност";
+
+/* (No Comment) */
+"Sensor lifetime" = "Доживотен";
+
+/* (No Comment) */
+"Sensor lifetime widget" = "Живот на сензора";
+
+/* (No Comment) */
+"Sensor lifetime widget description" = "Показва оставащия живот на текущия сензор под формата на обратно броене.";
+
+/* (No Comment) */
+"Sensor not yet startet" = "Сензорът все още не е стартиран";
+
+/* (No Comment) */
+"Sensor PatchInfo" = "PatchInfo";
+
+/* (No Comment) */
+"Sensor possible lifetime" = "Доживотен";
+
+/* (No Comment) */
+"Sensor region" = "Регион";
+
+/* (No Comment) */
+"Sensor remaining lifetime" = "Остава";
+
+/* (No Comment) */
+"Sensor remaining warmup time" = "Подгряване";
+
+/* (No Comment) */
+"Sensor serial" = "Сериен номер";
+
+/* (No Comment) */
+"Sensor starting date" = "Начална дата";
+
+/* (No Comment) */
+"Sensor state" = "Статус";
+
+/* (No Comment) */
+"Sensor type" = "Вид";
+
+/* (No Comment) */
+"Sensor UID" = "UID";
+
+/* (No Comment) */
+"Settings view" = "Настройки";
+
+/* (No Comment) */
+"Snooze until" = "Отлагане";
+
+/* (No Comment) */
+"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Стандартното Отклонение (СО) е мярка за разликата в показанията на глюкозата около средната стойност - прескачането между много високи и ниски стойности води до по-голямо СО. Целта е възможно най-ниското СО, което би отразило стабилно ниво на глюкозата с минимални колебания.";
+
+/* (No Comment) */
+"Statistics (%@ days)" = "Статистика (%@ дни)";
+
+/* (No Comment) */
+"StatisticsPeriod" = "Период";
+
+/* (No Comment) */
+"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "Не се получават повече данни от сензора. Причината може да е, че Bluetooth връзката със сензора е прекъсната или че LibreLinkUp вече не предоставя данни.";
+
+/* (No Comment) */
+"Time" = "Час";
+
+/* (No Comment) */
+"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Време над диапазона (ВНД) или процентът от времето, прекарано над целевата глюкоза на %@.";
+
+/* (No Comment) */
+"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Време под диапазона (TBR) или процентът от времето, прекарано под целевата глюкоза на %@.";
+
+/* (No Comment) */
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Време в диапазона (Time in Range - TIR) или процентът от времето, прекарано в целевия диапазон на глюкозата между %@ - %@.";
+
+/* (No Comment) */
+"Transmitter" = "Трансмитер";
+
+/* (No Comment) */
+"Transmitter battery" = "Батерия";
+
+/* (No Comment) */
+"Transmitter battery widget" = "Батерия на трансмитера";
+
+/* (No Comment) */
+"Transmitter battery widget description" = "Показва оставащия заряд на батерията на предавателя като обратно броене.";
+
+/* (No Comment) */
+"Transmitter details" = "Данни за трансмитера";
+
+/* (No Comment) */
+"Transmitter firmware" = "Фърмуер";
+
+/* (No Comment) */
+"Transmitter hardware" = "Хардуер";
+
+/* (No Comment) */
+"Transmitter name" = "Име";
+
+/* (No Comment) */
+"Unknown" = "Неизвестно";
+
+/* (No Comment) */
+"Upper limit" = "Високо";
+
+/* (No Comment) */
+"Use LibreLink to start the sensor" = "Използване на LibreLink за стартиране на сензора";
+
+/* (No Comment) */
+"Vibration" = "Само вибриране";
+
+/* (No Comment) */
+"Virtual Sensor" = "Виртуален сензор";
+
+/* (No Comment) */
+"Warmup" = "Подгряване";
+
+/* (No Comment) */
+"Wearing time alarm" = "Аларма за времето на носене";
+
+/* (No Comment) */
+"Without transmitter" = "Без трансмитер";
+
+/* (No Comment) */
+"Your current glucose is %1$@ (%2$@)." = "Текущата ви глюкоза е %1$@ (%2$@).";
+
+/* (No Comment) */
+"Your glucose %1$@ (%2$@) is dangerously high and needs to be treated." = "Вашата глюкоза, %1$@ (%2$@), е опасно висока и трябва да се лекува.";
+
+/* (No Comment) */
+"Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "Глюкозата ви, %1$@ (%2$@), е опасно ниска. С подсладени напитки или декстроза нивата на глюкозата в кръвта често могат да се върнат към нормалните си стойности.";
+
+/* (No Comment) */
+"Your sensor has expired and needs to be replaced as soon as possible" = "Срокът на годност на сензора ви е изтекъл и трябва да бъде заменен възможно най-скоро";
+
+/* (No Comment) */
+"Your sensor is about to expire. Replace sensor in %1$@." = "Срокът на годност на сензора ви изтича. Сменете сензора след %1$@.";
+
+/* (No Comment) */
+"Loading..." = "Зареждане ...";
+
+/* (No Comment) */
+"Export" = "Експорт";
+
+/* (No Comment) */
+"Export as CSV" = "Екпсорт като CSV";
+
+/* (No Comment) */
+"Export for Glooko" = "Експорт за Glooko";
+
+/* (No Comment) */
+"Export for Tidepool" = "Експорт за Tidepool";
+
+/* (No Comment) */
+"Last %@ hours" = "Последните %@ часа";
+
+/* (No Comment) */
+"Updated" = "Актуализиран";
+
+/* (No Comment) */
+"Reopen app in" = "Повторно отваряне на приложението в";
+
+/* (No Comment) */
+"%1$@ days" = "%1$@ дни";
+
+/* (No Comment) */
+"%1$@ day" = "%1$@ ден";
+
+/* (No Comment) */
+"%1$@ hours" = "%1$@ часа";
+
+/* (No Comment) */
+"%1$@ hour" = "%1$@ час";
+
+/* (No Comment) */
+"%1$@ minutes" = "%1$@ минути";

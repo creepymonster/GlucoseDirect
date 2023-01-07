@@ -29,11 +29,7 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
                 break
             }
 
-            var isSnoozed = false
-            if let snoozeUntil = state.alarmSnoozeUntil, Date() < snoozeUntil {
-                isSnoozed = true
-            }
-
+            let isSnoozed = state.isSnoozed
             DirectLog.info("isSnoozed: \(isSnoozed)")
 
             if glucose.glucoseValue < state.alarmLow {
