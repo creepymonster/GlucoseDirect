@@ -52,8 +52,14 @@ private func appleCalendarExportMiddleware(service: LazyService<AppleCalendarExp
             guard let glucose = glucoseValues.last else {
                 break
             }
+            
+            let isSnoozed = state.isSnoozed
+            DirectLog.info("isSnoozed: \(isSnoozed)")
+            
+            let isAlarm = glucose.glucoseValue < state.alarmLow || glucose.glucoseValue > state.alarmHigh
+            DirectLog.info("isAlarm: \(isAlarm)")
 
-            service.value.addSensorGlucose(calendarTarget: calendarTarget, glucose: glucose, glucoseUnit: state.glucoseUnit, sensorInterval: Double(state.sensorInterval))
+            service.value.addSensorGlucose(calendarTarget: calendarTarget, glucose: glucose, glucoseUnit: state.glucoseUnit, sensorInterval: Double(state.sensorInterval), withAlarm: isAlarm && !isSnoozed)
 
         default:
             break
@@ -118,15 +124,15 @@ private class AppleCalendarExportService {
         addCalendarEntry(calendarTarget: calendarTarget, timestamp: Date(), durationMinutes: 120, title: connectionState.localizedDescription, location: connectionError)
     }
 
-    func addSensorGlucose(calendarTarget: String, glucose: SensorGlucose, glucoseUnit: GlucoseUnit, sensorInterval: Double) {
-        addCalendarEntry(calendarTarget: calendarTarget, timestamp: glucose.timestamp, durationMinutes: 15, title: "\(glucose.trend.description) \(glucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit, withUnit: true))", location: glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit))
+    func addSensorGlucose(calendarTarget: String, glucose: SensorGlucose, glucoseUnit: GlucoseUnit, sensorInterval: Double, withAlarm: Bool = false) {
+        addCalendarEntry(calendarTarget: calendarTarget, timestamp: glucose.timestamp, durationMinutes: 15, title: "\(glucose.trend.description) \(glucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit, withUnit: true))", location: glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit), withAlarm: withAlarm)
     }
 
     // MARK: Private
 
     private var calendar: EKCalendar?
 
-    private func addCalendarEntry(calendarTarget: String, timestamp: Date, durationMinutes: Double, title: String, location: String? = nil) {
+    private func addCalendarEntry(calendarTarget: String, timestamp: Date, durationMinutes: Double, title: String, location: String? = nil, withAlarm: Bool = false) {
         if calendar == nil || calendar?.title != calendarTarget {
             calendar = eventStore.calendars(for: .event).first(where: { $0.title == calendarTarget })
         }
@@ -148,6 +154,11 @@ private class AppleCalendarExportService {
         event.url = DirectConfig.appSchemaURL
         event.startDate = timestamp
         event.endDate = timestamp + durationMinutes * 60
+        
+        if withAlarm {
+            let alarm = EKAlarm(relativeOffset: 0)
+            event.addAlarm(alarm)
+        }
 
         do {
             try eventStore.save(event, span: .thisEvent)

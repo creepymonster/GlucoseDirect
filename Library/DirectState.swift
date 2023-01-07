@@ -68,6 +68,14 @@ protocol DirectState {
 }
 
 extension DirectState {
+    var isSnoozed: Bool {
+        if let snoozeUntil = alarmSnoozeUntil, Date() < snoozeUntil {
+            return true
+        }
+        
+        return false
+    }
+    
     var hasConnectionAlarm: Bool {
         connectionAlarmSound != .none
     }
