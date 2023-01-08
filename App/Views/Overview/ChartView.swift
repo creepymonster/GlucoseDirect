@@ -508,7 +508,7 @@ struct ChartView: View {
     }
 
     private var firstTimestamp: Date? {
-        let dates = [store.state.sensorGlucoseValues.first?.timestamp, store.state.bloodGlucoseValues.first?.timestamp, store.state.insulinDeliveryValues.last?.starts]
+        let dates = [store.state.sensorGlucoseValues.first?.timestamp, store.state.bloodGlucoseValues.first?.timestamp]
             .compactMap { $0 }
             .sorted(by: { $0 < $1 })
 
@@ -516,7 +516,7 @@ struct ChartView: View {
     }
 
     private var lastTimestamp: Date? {
-        let dates = [store.state.sensorGlucoseValues.last?.timestamp, store.state.bloodGlucoseValues.last?.timestamp, store.state.insulinDeliveryValues.last?.ends]
+        let dates = [store.state.sensorGlucoseValues.last?.timestamp, store.state.bloodGlucoseValues.last?.timestamp]
             .compactMap { $0 }
             .sorted(by: { $0 > $1 })
 
