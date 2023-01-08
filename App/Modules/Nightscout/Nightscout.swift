@@ -66,7 +66,7 @@ private func nightscoutMiddleware(service: LazyService<NightscoutService>) -> Mi
                 service.value.addInsulinDelivery(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), insulinDeliveryValues: insulinDeliveryValues)
             
             case .deleteInsulinDelivery(insulinDelivery: let insulinDeliveryValue):
-                service.value.deleteInsulinDelivery(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), insulinDeliveryValue: insulinDeliveryValue)
+                service.value.deleteInsulinDelivery(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), starts: insulinDeliveryValue.starts, ends: insulinDeliveryValue.ends)
 
             default:
                 break
@@ -215,11 +215,39 @@ private class NightscoutService {
         task.resume()
     }
 
-
     func deleteSensorGlucose(nightscoutURL: String, apiSecret: String, date: Date) {
         let session = URLSession.shared
 
         let urlString = "\(nightscoutURL)/api/v1/entries?find[device]=\(DirectConfig.projectName)&find[dateString]=\(date.toISOStringFromDate())&find[type]=sgv"
+        guard let url = URL(string: urlString) else {
+            DirectLog.error("Nightscout, bad nightscout url")
+            return
+        }
+
+        let request = createRequest(url: url, method: "DELETE", apiSecret: apiSecret)
+
+        let task = session.dataTask(with: request) { data, response, error in
+            if let error = error {
+                DirectLog.info("Nightscout error: \(error)")
+                return
+            }
+
+            if let response = response as? HTTPURLResponse {
+                let status = response.statusCode
+                if status != 200, let data = data {
+                    let responseString = String(data: data, encoding: .utf8)
+                    DirectLog.info("Nightscout error: \(response.statusCode) \(responseString)")
+                }
+            }
+        }
+
+        task.resume()
+    }
+    
+    func deleteInsulinDelivery(nightscoutURL: String, apiSecret: String, starts: Date, ends: Date) {
+        let session = URLSession.shared
+
+        let urlString = "\(nightscoutURL)/api/v1/treatments?find[enteredBy]=\(DirectConfig.projectName)&find[dateString]=\(starts.toISOStringFromDate())&find[dateString]=\(ends.toISOStringFromDate())"
         guard let url = URL(string: urlString) else {
             DirectLog.error("Nightscout, bad nightscout url")
             return
@@ -390,35 +418,6 @@ private class NightscoutService {
 
             if let response = response as? HTTPURLResponse {
                 if response.statusCode != 200, let data = data {
-                    let responseString = String(data: data, encoding: .utf8)
-                    DirectLog.info("Nightscout error: \(response.statusCode) \(responseString)")
-                }
-            }
-        }
-
-        task.resume()
-    }
-    
-    func deleteInsulinDelivery(nightscoutURL: String, apiSecret: String, insulinDeliveryValue: InsulinDelivery) {
-        let session = URLSession.shared
-
-        let urlString = "\(nightscoutURL)/api/v1/treatments?find[enteredBy]=\(DirectConfig.projectName)&find[_id]=\(insulinDeliveryValue.id.uuidString)"
-        guard let url = URL(string: urlString) else {
-            DirectLog.error("Nightscout, bad nightscout url")
-            return
-        }
-
-        let request = createRequest(url: url, method: "DELETE", apiSecret: apiSecret)
-
-        let task = session.dataTask(with: request) { data, response, error in
-            if let error = error {
-                DirectLog.info("Nightscout error: \(error)")
-                return
-            }
-
-            if let response = response as? HTTPURLResponse {
-                let status = response.statusCode
-                if status != 200, let data = data {
                     let responseString = String(data: data, encoding: .utf8)
                     DirectLog.info("Nightscout error: \(response.statusCode) \(responseString)")
                 }
