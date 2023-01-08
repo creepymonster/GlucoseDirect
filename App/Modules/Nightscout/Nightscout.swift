@@ -20,13 +20,13 @@ private func nightscoutMiddleware(service: LazyService<NightscoutService>) -> Mi
         if state.nightscoutUpload, !nightscoutURL.isEmpty, !nightscoutApiSecret.isEmpty {
             switch action {
             case .deleteBloodGlucose(glucose: let glucose):
-                service.value.deleteBloodGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), id: glucose.id.toNightscout())
+                service.value.deleteBloodGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), id: glucose.id.uuidString)
                 
             case .deleteSensorGlucose(glucose: let glucose):
-                service.value.deleteSensorGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), id: glucose.id.toNightscout())
+                service.value.deleteSensorGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), id: glucose.id.uuidString)
                 
             case .deleteInsulinDelivery(insulinDelivery: let insulinDeliveryValue):
-                service.value.deleteInsulinDelivery(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), id: insulinDeliveryValue.id.toNightscout())
+                service.value.deleteInsulinDelivery(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), id: insulinDeliveryValue.id.uuidString)
 
             case .clearBloodGlucoseValues:
                 service.value.clearBloodGlucoseValues(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1())
@@ -473,13 +473,13 @@ private extension Sensor {
 private extension BloodGlucose {
     func toNightscoutGlucose() -> [String: Any]? {
         let nightscout: [String: Any] = [
-            "_id": id.toNightscout(),
+            "_id": id.uuidString,
             "device": DirectConfig.projectName,
             "date": timestamp.toMillisecondsAsInt64(),
             "dateString": timestamp.toISOStringFromDate(),
             "type": "mbg",
             "mbg": glucoseValue,
-            "glucoseDirect": id.toNightscout()
+            "glucoseDirect": id.uuidString
         ]
 
         return nightscout
@@ -489,7 +489,7 @@ private extension BloodGlucose {
 private extension SensorGlucose {
     func toNightscoutGlucose() -> [String: Any]? {
         let nightscout: [String: Any] = [
-            "_id": id.toNightscout(),
+            "_id": id.uuidString,
             "device": DirectConfig.projectName,
             "date": timestamp.toMillisecondsAsInt64(),
             "dateString": timestamp.toISOStringFromDate(),
@@ -498,7 +498,7 @@ private extension SensorGlucose {
             "rawbg": rawGlucoseValue,
             "direction": trend.toNightscoutDirection(),
             "trend": trend.toNightscoutTrend(),
-            "glucoseDirect": id.toNightscout()
+            "glucoseDirect": id.uuidString
         ]
 
         return nightscout
@@ -508,12 +508,12 @@ private extension SensorGlucose {
 private extension InsulinDelivery {
     func toNightscoutInsulinDelivery() -> [String: Any]? {
         let nightscout: [String: Any] = [
-            "_id": id.toNightscout(),
+            "_id": id.uuidString,
             "enteredBy": DirectConfig.projectName,
             "created_at": starts.toISOStringFromDate(),
             "eventType": type.toNightscoutEventType(),
             "insulin": units,
-            "glucoseDirect": id.toNightscout()
+            "glucoseDirect": id.uuidString
         ]
 
         return nightscout
@@ -532,11 +532,5 @@ private extension InsulinType {
         case .snackBolus:
             return  "Snack Bolus"
         }
-    }
-}
-
-private extension UUID {
-    func toNightscout() -> String {
-        String(self.uuidString.replacingOccurrences(of: "-", with: "").prefix(24)).lowercased()
     }
 }
