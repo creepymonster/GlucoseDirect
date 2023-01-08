@@ -144,8 +144,6 @@ struct GlucoseView: View {
                             Text("Updated") + Text(" ")
                             +
                             Text(glucose.timestamp, style: .relative)
-                            +
-                            Text(" ") + Text("ago")
                         }
                         .multilineTextAlignment(.center)
                         .font(.system(size: 10))
