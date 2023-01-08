@@ -5,7 +5,7 @@
 
 import SwiftUI
 
-struct InsulinDeliveryList: View {
+struct InsulinDeliveryListView: View {
     // MARK: Internal
 
     @EnvironmentObject var store: DirectStore

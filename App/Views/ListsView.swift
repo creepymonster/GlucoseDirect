@@ -19,7 +19,7 @@ struct ListsView: View {
             }).sheet(isPresented: $showingAddInsulinView, onDismiss: {
                 showingAddInsulinView = false
             }) {
-                LogInsulinView { start, end, units, insulinType in
+                AddInsulinView { start, end, units, insulinType in
                     let insulinDelivery = InsulinDelivery(id: UUID(), starts: start, ends: end, units: units, type: insulinType)
                     store.dispatch(.addInsulinDelivery(insulinDeliveryValues: [insulinDelivery]))
                 }
@@ -30,24 +30,24 @@ struct ListsView: View {
             }).sheet(isPresented: $showingAddBloodGlucoseView, onDismiss: {
                 showingAddBloodGlucoseView = false
             }) {
-                LogBloodGlucoseView(glucoseUnit: store.state.glucoseUnit) { time, value in
+                AddBloodGlucoseView(glucoseUnit: store.state.glucoseUnit) { time, value in
                     let glucose = BloodGlucose(id: UUID(), timestamp: time, glucoseValue: value)
                     store.dispatch(.addBloodGlucose(glucoseValues: [glucose]))
                 }
             }
             
             if DirectConfig.insulinDeliveryInput {
-                InsulinDeliveryList()
+                InsulinDeliveryListView()
             }
             
             if DirectConfig.bloodGlucoseInput {
-                BloodGlucoseList()
+                BloodGlucoseListView()
             }
             
-            SensorGlucoseList()
+            SensorGlucoseListView()
             
             if DirectConfig.glucoseErrors {
-                SensorErrorList()
+                SensorErrorListView()
             }
             
             if DirectConfig.glucoseStatistics {

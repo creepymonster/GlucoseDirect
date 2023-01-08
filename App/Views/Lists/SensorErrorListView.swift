@@ -5,7 +5,7 @@
 
 import SwiftUI
 
-struct SensorErrorList: View {
+struct SensorErrorListView: View {
     // MARK: Internal
 
     @EnvironmentObject var store: DirectStore

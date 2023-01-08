@@ -1,5 +1,5 @@
 //
-//  LogCalibrationView.swift
+//  AddBloodGlucoseView.swift
 //  GlucoseDirectApp
 //
 //  Created by Reimar Metzen on 07.01.23.
@@ -7,31 +7,39 @@
 
 import SwiftUI
 
-struct LogCalibrationView: View {
+struct AddBloodGlucoseView: View {
     @Environment(\.dismiss) var dismiss
-    
+
+    @State var time: Date = .init()
     @State private var value: Int = 100
-    
-    var glucoseSuggestion: Int
+
     var glucoseUnit: GlucoseUnit
-    var addCallback: (_ value: Int) -> Void
+    var addCallback: (_ time: Date, _ value: Int) -> Void
     
     var body: some View {
         NavigationView {
             HStack {
                 Form {
                     Section {
-                        NumberSelectorView(key: LocalizedString("Glucose value"), value: glucoseSuggestion, step: 1, displayValue: value.asGlucose(glucoseUnit: glucoseUnit, withUnit: true)) { value in
+                        HStack {
+                            DatePicker(
+                                "Time",
+                                selection: $time,
+                                displayedComponents: [.date, .hourAndMinute]
+                            )
+                        }
+                        
+                        NumberSelectorView(key: LocalizedString("Glucose value"), value: 100, step: 1, displayValue: value.asGlucose(glucoseUnit: glucoseUnit, withUnit: true)) { value in
                             self.value = value
                         }
                     }
                 }
             }
-            .navigationTitle("Calibration")
+            .navigationTitle("Blood glucose")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Add") {
-                        addCallback(value)
+                        addCallback(time, value)
                         dismiss()
                     }
                 }
@@ -44,4 +52,3 @@ struct LogCalibrationView: View {
         }
     }
 }
-

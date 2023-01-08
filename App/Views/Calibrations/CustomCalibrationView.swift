@@ -19,7 +19,7 @@ struct CustomCalibrationView: View {
             }).sheet(isPresented: $showingAddCalibrationView, onDismiss: {
                 showingAddCalibrationView = false
             }) {
-                LogCalibrationView(glucoseSuggestion: store.state.latestSensorGlucose?.glucoseValue ?? 100, glucoseUnit: store.state.glucoseUnit) { value in
+                AddCalibrationView(glucoseSuggestion: store.state.latestSensorGlucose?.glucoseValue ?? 100, glucoseUnit: store.state.glucoseUnit) { value in
                     store.dispatch(.addCalibration(bloodGlucoseValue: value))
                 }
             }

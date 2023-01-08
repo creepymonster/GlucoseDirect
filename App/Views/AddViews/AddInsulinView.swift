@@ -1,11 +1,11 @@
 //
-//  LogInsulinView.swift
+//  AddInsulinView.swift
 //  GlucoseDirectApp
 //
 
 import SwiftUI
 
-struct LogInsulinView: View {
+struct AddInsulinView: View {
     @Environment(\.dismiss) var dismiss
     
     @State var starts: Date = .init()
@@ -103,11 +103,11 @@ struct LogInsulinView: View {
     }
 }
 
-struct LogInsulinView_Previews: PreviewProvider {
+struct AddInsulinView_Previews: PreviewProvider {
     static var previews: some View {
         Button("Modal always shown") {}
             .sheet(isPresented: .constant(true)) {
-                LogInsulinView { _, _, _, _ in
+                AddInsulinView { _, _, _, _ in
                 }
             }
     }
