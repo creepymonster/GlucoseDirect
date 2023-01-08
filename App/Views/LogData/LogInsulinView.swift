@@ -68,8 +68,10 @@ struct LogInsulinView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Add") {
-                        addCallback(starts, ends, units!, insulinType)
-                        dismiss()
+                        if let units = units {
+                            addCallback(starts, ends, units, insulinType)
+                            dismiss()
+                        }
                     }
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
