@@ -470,6 +470,9 @@
 "Unknown" = "未知";
 
 /* (No Comment) */
+"Updated" = "Updated";
+
+/* (No Comment) */
 "Upper limit" = "高";
 
 /* (No Comment) */
@@ -524,9 +527,6 @@
 "Last %@ hours" = "最近 %@ 小时";
 
 /* (No Comment) */
-"Updated" = "Updated";
-
-/* (No Comment) */
 "Reopen app in" = "Reopen app in";
 
 /* (No Comment) */
@@ -543,3 +543,33 @@
 
 /* (No Comment) */
 "%1$@ minutes" = "%1$@ minutes";
+
+/* (No Comment) */
+"Meal Bolus" = "Meal Bolus";
+
+/* (No Comment) */
+"Snack Bolus" = "Snack Bolus";
+
+/* (No Comment) */
+"Correction Bolus" = "Correction Bolus";
+
+/* (No Comment) */
+"Basal" = "Basal";
+
+/* (No Comment) */
+"Insulin" = "Insulin";
+
+/* (No Comment) */
+"Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep.";
+
+/* (No Comment) */
+"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose.";
+
+/* (No Comment) */
+"Blood glucose" = "Blood glucose";
+
+/* (No Comment) */
+"Add insulin" = "Add insulin";
+
+/* (No Comment) */
+"Calibration" = "校准";
