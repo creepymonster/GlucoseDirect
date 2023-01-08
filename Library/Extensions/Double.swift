@@ -47,6 +47,10 @@ extension Double {
         return glucose
     }
     
+    func asInsulin() -> String {
+        return GlucoseFormatters.insulinFormatter.string(from: self as NSNumber)!
+    }
+    
     func asShortMinuteChange(glucoseUnit: GlucoseUnit, withUnit: Bool = false) -> String {
         var formattedMinuteChange = ""
 

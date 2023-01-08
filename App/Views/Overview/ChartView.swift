@@ -203,7 +203,7 @@ struct ChartView: View {
                         height: MarkDimension(floatLiteral: value.value.map(from: 0...20, to: 5...25))
                     )
                     .annotation {
-                        Text(value.value.description)
+                        Text(value.value.asInsulin())
                             .foregroundStyle(Color.ui.orange)
                             .bold()
                             .font(.caption)

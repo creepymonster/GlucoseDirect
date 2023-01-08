@@ -10,6 +10,15 @@ import SwiftUI
 // MARK: - GlucoseFormatters
 
 struct GlucoseFormatters {
+    static var insulinFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 2
+
+        return formatter
+    }()
+    
     static var mgdLFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
@@ -171,6 +180,10 @@ extension Int {
         }
 
         return glucose
+    }
+    
+    func asInsulin() -> String {
+        return GlucoseFormatters.insulinFormatter.string(from: self as NSNumber)!
     }
 }
 
