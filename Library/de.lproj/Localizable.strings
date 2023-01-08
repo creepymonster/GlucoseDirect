@@ -44,7 +44,7 @@
 "Alert, low blood glucose" = "Achtung, niedriger Blutzucker";
 
 /* (No Comment) */
-"Alarm, loss of signal" = "Alarm, loss of signal";
+"Alarm, loss of signal" = "Alarm, Signalverlust";
 
 /* (No Comment) */
 "Alert, sensor expired" = "Achtung, Sensor abgelaufen";
@@ -431,7 +431,7 @@
 "StatisticsPeriod" = "Zeitraum";
 
 /* (No Comment) */
-"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data.";
+"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "Es werden keine Daten mehr vom Sensor empfangen. Die Ursache kann sein, dass die Bluetooth-Verbindung zum Sensor unterbrochen wurde oder dass LibreLinkUp keine Daten mehr bereitstellt.";
 
 /* (No Comment) */
 "Time" = "Zeit";
@@ -548,13 +548,13 @@
 "%1$@ minutes" = "%1$@ Minuten";
 
 /* (No Comment) */
-"Meal Bolus" = "Meal Bolus";
+"Meal Bolus" = "Mahlzeiten-Bolus";
 
 /* (No Comment) */
-"Snack Bolus" = "Snack Bolus";
+"Snack Bolus" = "Snack-Bolus";
 
 /* (No Comment) */
-"Correction Bolus" = "Correction Bolus";
+"Correction Bolus" = "Korrektur-Bolus";
 
 /* (No Comment) */
 "Basal" = "Basal";
@@ -569,13 +569,10 @@
 "Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose.";
 
 /* (No Comment) */
-"Blood glucose" = "Blood glucose";
+"Blood glucose" = "Blutzucker";
 
 /* (No Comment) */
-"Add insulin" = "Add insulin";
+"Add insulin" = "Insulin hinzufügen";
 
 /* (No Comment) */
 "Calibration" = "Kalibrierung";
-
-/* (No Comment) */
-"Glucose value" = "Glucose value";
