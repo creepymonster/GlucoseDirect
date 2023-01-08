@@ -36,6 +36,7 @@ enum DirectConfig {
     static var insulinDeliveryInput = true
     static var bloodGlucoseInput = true
     static var glucoseStatistics = true
+    static var glucoseErrors = false
 
     static var appName: String = {
         Bundle.main.localizedInfoDictionary?["CFBundleDisplayName"] as! String

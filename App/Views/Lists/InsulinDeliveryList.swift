@@ -12,17 +12,6 @@ struct InsulinDeliveryList: View {
 
     var body: some View {
         Group {
-            Button("Add insulin", action: {
-                showingAddInsulinView = true
-            }).sheet(isPresented: $showingAddInsulinView, onDismiss: {
-                showingAddInsulinView = false
-            }) {
-                LogInsulinView { start, end, units, insulinType in
-                    let insulinDelivery = InsulinDelivery(id: UUID(), starts: start, ends: end, units: units, type: insulinType)
-                    store.dispatch(.addInsulinDelivery(insulinDeliveryValues: [insulinDelivery]))
-                }
-            }
-
             CollapsableSection(teaser: Text(getTeaser(insulinDeliveryValues.count)), header: Label("Insulin Delivery", systemImage: "syringe"), collapsed: true, collapsible: !insulinDeliveryValues.isEmpty) {
                 if insulinDeliveryValues.isEmpty {
                     Text(getTeaser(insulinDeliveryValues.count))
@@ -61,8 +50,6 @@ struct InsulinDeliveryList: View {
 
     // MARK: Private
 
-    @State private var value: Int = 0
-    @State private var showingAddInsulinView = false
     @State private var insulinDeliveryValues: [InsulinDelivery] = []
 
     private func getTeaser(_ count: Int) -> String {

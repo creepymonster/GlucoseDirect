@@ -12,17 +12,6 @@ struct BloodGlucoseList: View {
 
     var body: some View {
         Group {
-            Button("Add blood glucose", action: {
-                showingAddBloodGlucoseView = true
-            }).sheet(isPresented: $showingAddBloodGlucoseView, onDismiss: {
-                showingAddBloodGlucoseView = false
-            }) {
-                LogBloodGlucoseView(glucoseUnit: store.state.glucoseUnit) { time, value in
-                    let glucose = BloodGlucose(id: UUID(), timestamp: time, glucoseValue: value)
-                    store.dispatch(.addBloodGlucose(glucoseValues: [glucose]))
-                }
-            }
-
             CollapsableSection(teaser: Text(getTeaser(bloodGlucoseValues.count)), header: Label("Blood glucose values", systemImage: "drop"), collapsed: true, collapsible: !bloodGlucoseValues.isEmpty) {
                 if bloodGlucoseValues.isEmpty {
                     Text(getTeaser(bloodGlucoseValues.count))
@@ -65,8 +54,6 @@ struct BloodGlucoseList: View {
 
     // MARK: Private
 
-    @State private var value: Int = 0
-    @State private var showingAddBloodGlucoseView = false
     @State private var bloodGlucoseValues: [BloodGlucose] = []
 
     private func getTeaser(_ count: Int) -> String {

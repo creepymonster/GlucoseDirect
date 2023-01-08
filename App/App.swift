@@ -122,6 +122,7 @@ private func createSimulatorAppStore() -> DirectStore {
         sensorGlucoseStoreMiddleware(),
         sensorErrorStoreMiddleware(),
         insulinDeliveryStoreMiddleware(),
+        glucoseStatisticsMiddleware(),
         expiringNotificationMiddelware(),
         glucoseNotificationMiddelware(),
         connectionNotificationMiddelware(),
@@ -135,18 +136,6 @@ private func createSimulatorAppStore() -> DirectStore {
         sensorErrorMiddleware(),
         storeExportMiddleware()
     ]
-    
-    if DirectConfig.insulinDeliveryInput {
-        middlewares.append(insulinDeliveryStoreMiddleware())
-    }
-    
-    if DirectConfig.bloodGlucoseInput {
-        middlewares.append(bloodGlucoseStoreMiddleware())
-    }
-    
-    if DirectConfig.glucoseStatistics {
-        middlewares.append(glucoseStatisticsMiddleware())
-    }
 
     if #available(iOS 16.1, *) {
         middlewares.append(widgetCenterMiddleware())
@@ -169,8 +158,11 @@ private func createAppStore() -> DirectStore {
     var middlewares = [
         logMiddleware(),
         dataStoreMigrationMiddleware(),
+        bloodGlucoseStoreMiddleware(),
         sensorGlucoseStoreMiddleware(),
         sensorErrorStoreMiddleware(),
+        insulinDeliveryStoreMiddleware(),
+        glucoseStatisticsMiddleware(),
         expiringNotificationMiddelware(),
         glucoseNotificationMiddelware(),
         connectionNotificationMiddelware(),
@@ -184,18 +176,6 @@ private func createAppStore() -> DirectStore {
         sensorErrorMiddleware(),
         storeExportMiddleware()
     ]
-       
-    if DirectConfig.insulinDeliveryInput {
-        middlewares.append(insulinDeliveryStoreMiddleware())
-    }
-    
-    if DirectConfig.bloodGlucoseInput {
-        middlewares.append(bloodGlucoseStoreMiddleware())
-    }
-    
-    if DirectConfig.glucoseStatistics {
-        middlewares.append(glucoseStatisticsMiddleware())
-    }
 
     if #available(iOS 16.1, *) {
         middlewares.append(widgetCenterMiddleware())
