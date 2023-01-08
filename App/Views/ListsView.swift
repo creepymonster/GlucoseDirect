@@ -14,11 +14,20 @@ struct ListsView: View {
 
     var body: some View {
         List {
-            InsulinDeliveryList()
-            BloodGlucoseList()
+            if DirectConfig.insulinDeliveryInput {
+                InsulinDeliveryList()
+            }
+            
+            if DirectConfig.bloodGlucoseInput {
+                BloodGlucoseList()
+            }
+            
             SensorGlucoseList()
             SensorErrorList()
-            StatisticsView()
+            
+            if DirectConfig.glucoseStatistics {
+                StatisticsView()
+            }
         }.listStyle(.grouped)
     }
 }
