@@ -21,7 +21,7 @@ struct AddCalibrationView: View {
             HStack {
                 Form {
                     Section {
-                        NumberSelectorView(key: LocalizedString("Glucose value"), value: glucoseSuggestion, step: 1, displayValue: value.asGlucose(glucoseUnit: glucoseUnit, withUnit: true)) { value in
+                        NumberSelectorView(key: LocalizedString("Glucose"), value: glucoseSuggestion, step: 1, displayValue: value.asGlucose(glucoseUnit: glucoseUnit, withUnit: true)) { value in
                             self.value = value
                         }
                     }
