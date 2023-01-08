@@ -545,31 +545,37 @@
 "%1$@ minutes" = "%1$@ хвилин";
 
 /* (No Comment) */
-"Meal Bolus" = "Meal Bolus";
+"Meal Bolus" = "Болюс їжі";
 
 /* (No Comment) */
-"Snack Bolus" = "Snack Bolus";
+"Snack Bolus" = "Болюс перекуса";
 
 /* (No Comment) */
-"Correction Bolus" = "Correction Bolus";
+"Correction Bolus" = "Корекційний болюс";
 
 /* (No Comment) */
-"Basal" = "Basal";
+"Basal" = "Базал";
 
 /* (No Comment) */
-"Insulin" = "Insulin";
+"Insulin" = "Інсулін";
 
 /* (No Comment) */
-"Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep.";
+"Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "Базальний інсулін відноситься до інсуліну, який використовується для регулювання рівня глюкози в крові між прийомами їжі, у тому числі під час сну.";
 
 /* (No Comment) */
-"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose.";
+"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Болюсний інсулін відноситься до інсуліну, який використовується для регулювання рівня глюкози в крові під час прийому їжі та/або для швидкого лікування високого рівня глюкози в крові.";
 
 /* (No Comment) */
-"Blood glucose" = "Blood glucose";
+"Blood glucose" = "Рівень глюкози в крові";
 
 /* (No Comment) */
-"Add insulin" = "Add insulin";
+"Add insulin" = "Додайте інсулін";
 
 /* (No Comment) */
 "Calibration" = "Калібрування";
+
+/* (No Comment) */
+"Starts" = "Starts";
+
+/* (No Comment) */
+"Ends" = "Ends";
