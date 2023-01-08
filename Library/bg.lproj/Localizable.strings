@@ -29,7 +29,7 @@
 "Add glucose for calibration" = "Добавяне на глюкоза за калибриране";
 
 /* (No Comment) */
-"ago" = "ago";
+"ago" = "преди";
 
 /* (No Comment) */
 "Alarm glucose notification" = "Известие за аларма за глюкоза";
@@ -50,7 +50,7 @@
 "Alert, sensor expired" = "Предупреждение, сензорът е изтекъл";
 
 /* (No Comment) */
-"Alert, sensor expiring soon" = "Предупреждение, сензорът е изтича скоро";
+"Alert, sensor expiring soon" = "Предупреждение, сензорът изтича скоро";
 
 /* (No Comment) */
 "App author" = "Автор";
@@ -158,13 +158,13 @@
 "Disconnect" = "Прекъсване на връзката";
 
 /* (No Comment) */
-"Disconnect sensor" = "Изключване на сензора";
+"Disconnect sensor" = "Прекъсване на връзката със сензора";
 
 /* (No Comment) */
-"Disconnect transmitter" = "Изключване на трансмитера";
+"Disconnect transmitter" = "Прекъсване на връзката с трансмитера";
 
 /* (No Comment) */
-"Disconnected" = "Изключен";
+"Disconnected" = "Връзката е прекъсната";
 
 /* (No Comment) */
 "Export to Apple Calendar" = "Експортиране към календара на Apple";
@@ -233,7 +233,7 @@
 "Low glucose alarm" = "Аларма за ниска глюкоза";
 
 /* (No Comment) */
-"Lower limit" = "Ниска";
+"Lower limit" = "Долна граница";
 
 /* (No Comment) */
 "Nightscout API-Secret" = "API-Secret";
@@ -308,7 +308,7 @@
 "Rescan the sensor" = "Повторно сканиране на сензора";
 
 /* (No Comment) */
-"Retrieval interval" = "Интервал на извличане";
+"Retrieval interval" = "Интервал на извличане на данни";
 
 /* (No Comment) */
 "Retrieval interval, every %@ minutes" = "На всеки %@ минути";
@@ -365,19 +365,19 @@
 "Sensor in starting phase" = "Сензор в начална фаза";
 
 /* (No Comment) */
-"Sensor is expired" = "Сензора е с изтекъл срок на годност";
+"Sensor is expired" = "Сензора е с изтекъл срок";
 
 /* (No Comment) */
 "Sensor is ready" = "Сензорът е готов";
 
 /* (No Comment) */
-"Sensor is shut down" = "Сензора е с изтекъл срок на годност";
+"Sensor is shut down" = "Сензора е с изтекъл срок";
 
 /* (No Comment) */
-"Sensor lifetime" = "Доживотен";
+"Sensor lifetime" = "Срок на годност";
 
 /* (No Comment) */
-"Sensor lifetime widget" = "Живот на сензора";
+"Sensor lifetime widget" = "Срок на годност на сензора";
 
 /* (No Comment) */
 "Sensor lifetime widget description" = "Показва оставащия живот на текущия сензор под формата на обратно броене.";
@@ -389,13 +389,13 @@
 "Sensor PatchInfo" = "PatchInfo";
 
 /* (No Comment) */
-"Sensor possible lifetime" = "Доживотен";
+"Sensor possible lifetime" = "Срок на годност";
 
 /* (No Comment) */
 "Sensor region" = "Регион";
 
 /* (No Comment) */
-"Sensor remaining lifetime" = "Остава";
+"Sensor remaining lifetime" = "Остават";
 
 /* (No Comment) */
 "Sensor remaining warmup time" = "Подгряване";
@@ -458,7 +458,7 @@
 "Transmitter battery widget description" = "Показва оставащия заряд на батерията на предавателя като обратно броене.";
 
 /* (No Comment) */
-"Transmitter details" = "Данни за трансмитера";
+"Transmitter details" = "Данни за трансмитер";
 
 /* (No Comment) */
 "Transmitter firmware" = "Фърмуер";
@@ -476,7 +476,7 @@
 "Updated" = "Актуализиран";
 
 /* (No Comment) */
-"Upper limit" = "Високо";
+"Upper limit" = "Горна граница";
 
 /* (No Comment) */
 "Use LibreLink to start the sensor" = "Използване на LibreLink за стартиране на сензора";
@@ -548,34 +548,31 @@
 "%1$@ minutes" = "%1$@ минути";
 
 /* (No Comment) */
-"Meal Bolus" = "Meal Bolus";
+"Meal Bolus" = "Болус за хранене";
 
 /* (No Comment) */
-"Snack Bolus" = "Snack Bolus";
+"Snack Bolus" = "Болус за закуска";
 
 /* (No Comment) */
-"Correction Bolus" = "Correction Bolus";
+"Correction Bolus" = "Коригиращ болус";
 
 /* (No Comment) */
-"Basal" = "Basal";
+"Basal" = "Базал";
 
 /* (No Comment) */
-"Insulin" = "Insulin";
+"Insulin" = "Инсулин";
 
 /* (No Comment) */
-"Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep.";
+"Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "Базов инсулин е инсулинът, използван за регулиране на кръвната глюкоза между храненията, включително по време на сън.";
 
 /* (No Comment) */
-"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose.";
+"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Болус инсулинът се отнася до инсулина, използван за регулиране на кръвната глюкоза по време на хранене и/или за остра борба с високата кръвна глюкоза.";
 
 /* (No Comment) */
-"Blood glucose" = "Blood glucose";
+"Blood glucose" = "Глюкоза в кръвта";
 
 /* (No Comment) */
-"Add insulin" = "Add insulin";
+"Add insulin" = "Добавяне на инсулин";
 
 /* (No Comment) */
 "Calibration" = "Калибриране";
-
-/* (No Comment) */
-"Glucose value" = "Glucose value";
