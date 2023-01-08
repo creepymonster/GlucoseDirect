@@ -560,16 +560,16 @@
 "Insulin" = "İnsülin";
 
 /* (No Comment) */
-"Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "Bazal insülin, uyku da dahil olmak üzere öğünler arasında kan glikozunu düzenlemek için kullanılan insülini ifade eder.";
+"Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "Bazal insülin, uyku da dahil olmak üzere öğünler arasında kan şekerini düzenlemek için kullanılan insülini ifade eder.";
 
 /* (No Comment) */
-"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Bolus insülin, öğünlerde kan glikozunu düzenlemek ve/veya yüksek kan glikozunu akut olarak ele almak için kullanılan insülini ifade eder.";
+"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Bolus insülin, öğünlerde kan şekerini düzenlemek ve/veya yüksek kan şekerini akut olarak ele almak için kullanılan insülini ifade eder.";
 
 /* (No Comment) */
-"Blood glucose" = "Blood glucose";
+"Blood glucose" = "Kan şekeri";
 
 /* (No Comment) */
-"Add insulin" = "Add insulin";
+"Add insulin" = "İnsülin Ekle";
 
 /* (No Comment) */
 "Calibration" = "Kalibrasyon";
