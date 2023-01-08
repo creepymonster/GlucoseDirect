@@ -17,6 +17,11 @@ extension Double {
     func asPercent(_ increment: Double = 1) -> String {
         return self.formatted(.percent.scale(1.0).rounded(increment: increment))
     }
+    
+    func map(from: ClosedRange<Double>, to: ClosedRange<Double>) -> Double {
+        let result = ((self - from.lowerBound) / (from.upperBound - from.lowerBound)) * (to.upperBound - to.lowerBound) + to.lowerBound
+        return result
+    }
 
     func asGlucose(glucoseUnit: GlucoseUnit, withUnit: Bool = false, precise: Bool = false) -> String {
         var glucose: String

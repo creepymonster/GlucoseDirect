@@ -116,6 +116,11 @@ extension Int {
         return Double(self)
     }
 
+    func map(from: ClosedRange<Int>, to: ClosedRange<Int>) -> Int {
+        let result = ((self - from.lowerBound) / (from.upperBound - from.lowerBound)) * (to.upperBound - to.lowerBound) + to.lowerBound
+        return result
+    }
+
     func pluralize(singular: String, plural: String) -> String {
         if self == 1 {
             return singular

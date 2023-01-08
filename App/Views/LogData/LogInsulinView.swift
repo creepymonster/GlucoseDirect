@@ -11,7 +11,7 @@ struct LogInsulinView: View {
     @State var starts: Date = .init()
     @State var ends: Date = .init()
     @State var units: Float?
-    @State var insulinType: InsulinType = .mealBolus
+    @State var insulinType: InsulinType = .snackBolus
     
     @FocusState private var unitsFocus: Bool
     
@@ -22,20 +22,13 @@ struct LogInsulinView: View {
             HStack {
                 Form {
                     Section(content: {
-                        HStack {
-                            DatePicker(
-                                "Starts",
-                                selection: $starts,
-                                displayedComponents: [.date, .hourAndMinute]
-                            )
-                        }
-                        
-                        HStack {
-                            DatePicker(
-                                "Ends",
-                                selection: $ends,
-                                displayedComponents: [.date, .hourAndMinute]
-                            )
+                        List {
+                            Picker("Insulin Type", selection: $insulinType) {
+                                Text("Correction Bolus").tag(InsulinType.correctionBolus)
+                                Text("Meal Bolus").tag(InsulinType.mealBolus)
+                                Text("Snack Bolus").tag(InsulinType.snackBolus)
+                                Text("Basal").tag(InsulinType.basal)
+                            }.pickerStyle(.menu)
                         }
                         
                         HStack {
@@ -48,13 +41,30 @@ struct LogInsulinView: View {
                                 .multilineTextAlignment(.trailing)
                         }
                         
-                        List {
-                            Picker("Insulin Type", selection: $insulinType) {
-                                Text("Meal Bolus").tag(InsulinType.mealBolus)
-                                Text("Correction Bolus").tag(InsulinType.correctionBolus)
-                                Text("Snack Bolus").tag(InsulinType.snackBolus)
-                                Text("Basal").tag(InsulinType.basal)
-                            }.pickerStyle(.menu)
+                        if insulinType != .basal {
+                            HStack {
+                                DatePicker(
+                                    "Time",
+                                    selection: $starts,
+                                    displayedComponents: [.date, .hourAndMinute]
+                                )
+                            }
+                        } else {
+                            HStack {
+                                DatePicker(
+                                    "Starts",
+                                    selection: $starts,
+                                    displayedComponents: [.date, .hourAndMinute]
+                                )
+                            }
+                            
+                            HStack {
+                                DatePicker(
+                                    "Ends",
+                                    selection: $ends,
+                                    displayedComponents: [.date, .hourAndMinute]
+                                )
+                            }
                         }
                     }, footer: {
                         VStack(alignment: .leading, spacing: 20) {
@@ -69,7 +79,11 @@ struct LogInsulinView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Add") {
                         if let units = units {
-                            addCallback(starts, ends, units, insulinType)
+                            if insulinType != .basal {
+                                addCallback(starts, starts, units, insulinType)
+                            } else {
+                                addCallback(starts, ends, units, insulinType)
+                            }
                             dismiss()
                         }
                     }
