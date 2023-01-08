@@ -31,7 +31,7 @@ struct InsulinDeliveryList: View {
                         HStack {
                             Text(verbatim: insulinDeliveryValue.starts.toLocalDateTime())
                             Spacer()
-                            Text(verbatim: "\(insulinDeliveryValue.units) units - \(insulinDeliveryValue.type.localizedDescription)")
+                            Text(verbatim: "\(insulinDeliveryValue.units) IE - \(insulinDeliveryValue.type.localizedDescription)")
                         }
                     }.onDelete { offsets in
                         DirectLog.info("onDelete: \(offsets)")
