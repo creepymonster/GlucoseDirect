@@ -205,6 +205,7 @@ struct ChartView: View {
                     .annotation {
                         Text(value.value.description)
                             .foregroundStyle(Color.ui.orange)
+                            .bold()
                             .font(.caption)
                     }
                     .cornerRadius(Config.cornerRadius)
