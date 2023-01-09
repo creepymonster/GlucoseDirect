@@ -65,6 +65,7 @@ protocol DirectState {
     var glucoseStatistics: GlucoseStatistics? { get set }
     var targetValue: Int { get set }
     var transmitter: Transmitter? { get set }
+    var smoothChartValues: Bool { get set }
 }
 
 extension DirectState {
@@ -130,6 +131,10 @@ extension DirectState {
 
     var isReady: Bool {
         sensor != nil && sensor!.state == .ready
+    }
+    
+    var smoothThreshold: Date {
+        Date().addingTimeInterval(-DirectConfig.smoothThresholdSeconds)
     }
 }
 

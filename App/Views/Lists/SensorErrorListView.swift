@@ -18,8 +18,11 @@ struct SensorErrorListView: View {
                 } else {
                     ForEach(sensorErrorValues) { sensorError in
                         HStack(alignment: .top) {
-                            Text(verbatim: sensorError.timestamp.toLocalDateTime()).lineLimit(1)
+                            Text(verbatim: sensorError.timestamp.toLocalDateTime())
+                                .monospacedDigit()
+                            
                             Spacer()
+                            
                             Text(verbatim: sensorError.error.description).multilineTextAlignment(.trailing)
                         }
                     }.onDelete { offsets in

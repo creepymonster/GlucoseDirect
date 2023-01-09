@@ -90,6 +90,7 @@ enum DirectAction {
     case setGlucoseStatistics(statistics: GlucoseStatistics)
     case setTransmitter(transmitter: Transmitter)
     case setStatisticsDays(days: Int)
+    case setSmoothChartValues(enabled: Bool)
     case startup
     case shutdown
 

@@ -284,6 +284,9 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         
     case .setAppIsBusy(isBusy: let isBusy):
         state.appIsBusy = isBusy
+        
+    case .setSmoothChartValues(enabled: let enabled):
+        state.smoothChartValues = enabled
 
     default:
         break

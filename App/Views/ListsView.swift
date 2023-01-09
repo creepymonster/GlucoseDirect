@@ -36,16 +36,16 @@ struct ListsView: View {
                 }
             }
             
-            if DirectConfig.insulinDeliveryInput {
-                InsulinDeliveryListView()
-            }
+            SensorGlucoseListView()
             
             if DirectConfig.bloodGlucoseInput {
                 BloodGlucoseListView()
             }
             
-            SensorGlucoseListView()
-            
+            if DirectConfig.insulinDeliveryInput {
+                InsulinDeliveryListView()
+            }
+
             if DirectConfig.glucoseErrors {
                 SensorErrorListView()
             }

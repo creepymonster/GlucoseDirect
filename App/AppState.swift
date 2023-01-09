@@ -76,6 +76,7 @@ struct AppState: DirectState {
         self.sensorInterval = UserDefaults.standard.sensorInterval
         self.showAnnotations = UserDefaults.standard.showAnnotations
         self.transmitter = UserDefaults.shared.transmitter
+        self.smoothChartValues = UserDefaults.standard.smoothChartValues
     }
 
     // MARK: Internal
@@ -141,4 +142,5 @@ struct AppState: DirectState {
     var sensorInterval: Int { didSet { UserDefaults.standard.sensorInterval = sensorInterval } }
     var showAnnotations: Bool { didSet { UserDefaults.standard.showAnnotations = showAnnotations } }
     var transmitter: Transmitter? { didSet { UserDefaults.shared.transmitter = transmitter } }
+    var smoothChartValues: Bool { didSet { UserDefaults.standard.smoothChartValues = smoothChartValues } }
 }

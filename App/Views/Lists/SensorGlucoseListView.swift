@@ -16,20 +16,22 @@ struct SensorGlucoseListView: View {
                 if sensorGlucoseValues.isEmpty {
                     Text(getTeaser(sensorGlucoseValues.count))
                 } else {
-                    let smoothThreshold = Date().addingTimeInterval(-DirectConfig.smoothThresholdSeconds)
-
                     ForEach(sensorGlucoseValues) { sensorGlucose in
                         HStack {
                             Text(verbatim: sensorGlucose.timestamp.toLocalDateTime())
+                                .monospacedDigit()
+                            
                             Spacer()
 
-                            if let glucoseValue = sensorGlucose.smoothGlucoseValue?.toInteger(), sensorGlucose.timestamp < smoothThreshold, DirectConfig.smoothSensorGlucoseValues {
+                            if let glucoseValue = sensorGlucose.smoothGlucoseValue?.toInteger(), sensorGlucose.timestamp < store.state.smoothThreshold, DirectConfig.smoothSensorGlucoseValues {
                                 Text(verbatim: glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true, precise: isPrecise(glucoseValue: glucoseValue)))
+                                    .monospacedDigit()
                                     .if(glucoseValue < store.state.alarmLow || glucoseValue > store.state.alarmHigh) { text in
                                         text.foregroundColor(Color.ui.red)
                                     }
                             } else {
                                 Text(verbatim: sensorGlucose.glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true, precise: isPrecise(glucoseValue: sensorGlucose.glucoseValue)))
+                                    .monospacedDigit()
                                     .if(sensorGlucose.glucoseValue < store.state.alarmLow || sensorGlucose.glucoseValue > store.state.alarmHigh) { text in
                                         text.foregroundColor(Color.ui.red)
                                     }

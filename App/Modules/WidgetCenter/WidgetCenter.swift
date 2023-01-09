@@ -62,6 +62,8 @@ private func widgetCenterMiddleware(service: LazyService<ActivityGlucoseService>
             guard appState == .active else {
                 break
             }
+            
+            WidgetCenter.shared.reloadAllTimelines()
 
             guard state.glucoseLiveActivity else {
                 break

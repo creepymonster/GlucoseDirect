@@ -12,15 +12,32 @@ struct InsulinDeliveryListView: View {
 
     var body: some View {
         Group {
-            CollapsableSection(teaser: Text(getTeaser(insulinDeliveryValues.count)), header: Label("Insulin Delivery", systemImage: "syringe"), collapsed: true, collapsible: !insulinDeliveryValues.isEmpty) {
+            CollapsableSection(teaser: Text(getTeaser(insulinDeliveryValues.count)), header: Label("Insulin", systemImage: "syringe"), collapsed: true, collapsible: !insulinDeliveryValues.isEmpty) {
                 if insulinDeliveryValues.isEmpty {
                     Text(getTeaser(insulinDeliveryValues.count))
                 } else {
                     ForEach(insulinDeliveryValues) { insulinDeliveryValue in
                         HStack {
-                            Text(verbatim: insulinDeliveryValue.starts.toLocalDateTime())
+                            VStack(alignment: .leading) {
+                                Text(verbatim: insulinDeliveryValue.starts.toLocalDateTime())
+                                    .monospacedDigit()
+                                
+                                if insulinDeliveryValue.type == .basal {
+                                    Text(verbatim: insulinDeliveryValue.ends.toLocalDateTime())
+                                        .monospacedDigit()
+                                }
+                            }
+
                             Spacer()
-                            Text(verbatim: "\(insulinDeliveryValue.units) IE - \(insulinDeliveryValue.type.localizedDescription)")
+                            
+                            VStack(alignment: .trailing) {
+                                Text(verbatim: "\(insulinDeliveryValue.units) IE")
+                                    .monospacedDigit()
+                                
+                                Text(verbatim: insulinDeliveryValue.type.localizedDescription)
+                                    .opacity(0.5)
+                                    .font(.footnote)
+                            }
                         }
                     }.onDelete { offsets in
                         DirectLog.info("onDelete: \(offsets)")
