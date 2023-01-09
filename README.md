@@ -34,8 +34,10 @@ App programmed in Swift/SwiftUI for using Libre blood glucose sensors. I try to 
 - Snooze for glucose alerts
 - Simple evaluation of glucose values
 - Loop (Workspace, dev branch) support, [Loop CGM Manager](https://github.com/creepymonster/GlucoseDirectClient)
+- Insulin input and display
 
 ## Available languages
+- Bulgarian
 - Chinese (simplified)
 - Chinese (traditional)
 - Dutch
