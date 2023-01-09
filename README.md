@@ -36,6 +36,7 @@ App programmed in Swift/SwiftUI for using Libre blood glucose sensors. I try to 
 - Loop (Workspace, dev branch) support, [Loop CGM Manager](https://github.com/creepymonster/GlucoseDirectClient)
 
 ## Available languages
+- Bulgarian
 - Chinese (simplified)
 - Chinese (traditional)
 - Dutch
