@@ -31,9 +31,11 @@ struct ChartView: View {
                             if let selectedDate = store.state.selectedDate {
                                 Text(verbatim: selectedDate.toLocalDate())
                             } else {
-                                Text("Last \(DirectConfig.lastChartHours.description) hours")
+                                Text("\(DirectConfig.lastChartHours.description) hours")
                             }
-                        }.onTapGesture {
+                        }
+                        .monospacedDigit()
+                        .onTapGesture {
                             store.dispatch(.setSelectedDate(selectedDate: nil))
                         }
 
@@ -58,6 +60,9 @@ struct ChartView: View {
                                     }.onChange(of: store.state.bloodGlucoseValues) { _ in
                                         scrollToEnd(scrollViewProxy: scrollViewProxy)
 
+                                    }.onChange(of: store.state.insulinDeliveryValues) { _ in
+                                        scrollToEnd(scrollViewProxy: scrollViewProxy)
+
                                     }.onChange(of: store.state.chartZoomLevel) { _ in
                                         scrollToEnd(scrollViewProxy: scrollViewProxy, force: true)
 
@@ -70,12 +75,12 @@ struct ChartView: View {
                             }
                         }
 
-                        if selectedSmoothSensorPoint != nil || selectedSensorPoint != nil || selectedBloodPoint != nil {
+                        if selectedSmoothSensorPoint != nil || selectedRawSensorPoint != nil || selectedBloodPoint != nil {
                             HStack(alignment: .top) {
                                 VStack(alignment: .leading) {
                                     if let selectedSensorPoint = selectedSmoothSensorPoint {
                                         VStack(alignment: .leading) {
-                                            Text(selectedSensorPoint.valueX.toLocalDateTime())
+                                            Text(selectedSensorPoint.time.toLocalDateTime())
                                             Text(selectedSensorPoint.info).bold()
                                         }
                                         .font(.footnote)
@@ -86,9 +91,9 @@ struct ChartView: View {
                                         .cornerRadius(5)
                                     }
 
-                                    if let selectedRawPoint = selectedSensorPoint, showUnsmoothedValues {
+                                    if let selectedRawPoint = selectedRawSensorPoint, showUnsmoothedValues, store.state.smoothChartValues {
                                         VStack(alignment: .leading) {
-                                            Text(selectedRawPoint.valueX.toLocalDateTime())
+                                            Text(selectedRawPoint.time.toLocalDateTime())
                                             Text(selectedRawPoint.info).bold()
                                         }
                                         .font(.footnote)
@@ -105,7 +110,7 @@ struct ChartView: View {
                                         Image(systemName: "drop.fill")
 
                                         VStack(alignment: .leading) {
-                                            Text(selectedBloodPoint.valueX.toLocalDateTime())
+                                            Text(selectedBloodPoint.time.toLocalDateTime())
                                             Text(selectedBloodPoint.info).bold()
                                         }
                                     }
@@ -120,7 +125,7 @@ struct ChartView: View {
                         }
                     }
 
-                    ZoomLevelsView.disabled(store.state.selectedDate != nil)
+                    ZoomLevelsView
                 }
             },
             header: {
@@ -177,8 +182,8 @@ struct ChartView: View {
 
             ForEach(smoothSensorGlucoseSeries) { value in
                 LineMark(
-                    x: .value("Time", value.valueX),
-                    y: .value("Glucose", value.valueY)
+                    x: .value("Time", value.time),
+                    y: .value("Glucose", value.value)
                 )
                 .interpolationMethod(.monotone)
                 .foregroundStyle(Color.ui.blue)
@@ -187,19 +192,47 @@ struct ChartView: View {
 
             ForEach(bloodGlucoseSeries) { value in
                 PointMark(
-                    x: .value("Time", value.valueX),
-                    y: .value("Glucose", value.valueY)
+                    x: .value("Time", value.time),
+                    y: .value("Glucose", value.value)
                 )
                 .symbolSize(Config.symbolSize)
                 .foregroundStyle(Color.ui.red)
             }
 
-            if showUnsmoothedValues {
-                if !sensorGlucoseSeries.isEmpty {
-                    ForEach(sensorGlucoseSeries) { value in
+            ForEach(insulinSeries) { value in
+                if value.type != .basal {
+                    RectangleMark(
+                        x: .value("Time", value.starts),
+                        y: .value("Units", value.value.map(from: 0...20, to: 5...50)),
+                        width: MarkDimension(floatLiteral: value.value.map(from: 0...20, to: 4...28)),
+                        height: MarkDimension(floatLiteral: value.value.map(from: 0...20, to: 4...28))
+                    )
+                    .annotation {
+                        Text(value.value.asInsulin())
+                            .foregroundStyle(Color.ui.orange)
+                            .bold()
+                            .font(.caption)
+                    }
+                    .cornerRadius(Config.cornerRadius)
+                    .foregroundStyle(Color.ui.orange)
+                } else {
+                    RectangleMark(
+                        xStart: .value("Starts Time", value.starts),
+                        xEnd: .value("Ends Time", value.ends),
+                        yStart: .value("Units", 0),
+                        yEnd: .value("Units", value.value.map(from: 0...5, to: 0...50))
+                    )
+                    .opacity(0.25)
+                    .foregroundStyle(Color.ui.orange)
+                }
+            }
+
+            if showUnsmoothedValues, store.state.smoothChartValues {
+                if !rawSensorGlucoseSeries.isEmpty {
+                    ForEach(rawSensorGlucoseSeries) { value in
                         LineMark(
-                            x: .value("Time", value.valueX),
-                            y: .value("Glucose", value.valueY),
+                            x: .value("Time", value.time),
+                            y: .value("Glucose", value.value),
                             series: .value("Series", "Raw")
                         )
                         .interpolationMethod(.monotone)
@@ -209,10 +242,10 @@ struct ChartView: View {
                     }
                 }
 
-                if let selectedPointInfo = selectedSensorPoint {
+                if let selectedPointInfo = selectedRawSensorPoint {
                     PointMark(
-                        x: .value("Time", selectedPointInfo.valueX),
-                        y: .value("Glucose", selectedPointInfo.valueY)
+                        x: .value("Time", selectedPointInfo.time),
+                        y: .value("Glucose", selectedPointInfo.value)
                     )
                     .symbol(.square)
                     .opacity(0.75)
@@ -223,8 +256,8 @@ struct ChartView: View {
 
             if let selectedPointInfo = selectedSmoothSensorPoint {
                 PointMark(
-                    x: .value("Time", selectedPointInfo.valueX),
-                    y: .value("Glucose", selectedPointInfo.valueY)
+                    x: .value("Time", selectedPointInfo.time),
+                    y: .value("Glucose", selectedPointInfo.value)
                 )
                 .symbol(.square)
                 .opacity(0.75)
@@ -234,8 +267,8 @@ struct ChartView: View {
 
             if let selectedPointInfo = selectedBloodPoint {
                 PointMark(
-                    x: .value("Time", selectedPointInfo.valueX),
-                    y: .value("Glucose", selectedPointInfo.valueY)
+                    x: .value("Time", selectedPointInfo.time),
+                    y: .value("Glucose", selectedPointInfo.value)
                 )
                 .symbol(.square)
                 .opacity(0.75)
@@ -272,44 +305,60 @@ struct ChartView: View {
             }
         }
         .id(Config.chartID)
-        .onChange(of: store.state.glucoseUnit) { _ in
+        .onChange(of: store.state.sensorGlucoseValues) { _ in
             if shouldRefresh {
-                updateSensorSeries()
-                updateBloodSeries()
-            }
+                DirectLog.info("onChange: sensorGlucoseValues")
 
-        }.onChange(of: store.state.sensorGlucoseValues) { _ in
-            if shouldRefresh {
                 updateSeriesMetadata()
                 updateSensorSeries()
             }
 
         }.onChange(of: store.state.bloodGlucoseValues) { _ in
             if shouldRefresh {
+                DirectLog.info("onChange: bloodGlucoseValues")
+
                 updateSeriesMetadata()
                 updateBloodSeries()
             }
 
+        }.onChange(of: store.state.insulinDeliveryValues) { _ in
+            if shouldRefresh {
+                DirectLog.info("onChange: insulinDeliveryValues")
+
+                updateSeriesMetadata()
+                updateInsulinSeries()
+            }
+
         }.onChange(of: store.state.chartZoomLevel) { _ in
             if shouldRefresh {
+                DirectLog.info("onChange: chartZoomLevel")
+
                 updateSeriesMetadata()
             }
 
-        }.onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
-            if shouldRefresh {
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
-                    updateSeriesMetadata()
-                }
-            }
+        }.onChange(of: store.state.smoothChartValues) { _ in
+            showUnsmoothedValues = false
 
         }.onChange(of: store.state.selectedDate) { _ in
             selectedSmoothSensorPoint = nil
             selectedBloodPoint = nil
 
+        }.onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+            if shouldRefresh {
+                DirectLog.info("onChange: orientation")
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                    updateSeriesMetadata()
+                }
+            }
+
         }.onAppear {
+            DirectLog.info("onAppear")
+
             updateSeriesMetadata()
             updateSensorSeries()
             updateBloodSeries()
+            updateInsulinSeries()
 
         }.chartOverlay { overlayProxy in
             GeometryReader { geometryProxy in
@@ -320,23 +369,20 @@ struct ChartView: View {
 
                             if let currentDate: Date = overlayProxy.value(atX: currentX) {
                                 let selectedSmoothSensorPoint = smoothSensorPointInfos[currentDate.toRounded(on: 1, .minute)]
-                                let selectedSensorPoint = sensorPointInfos[currentDate.toRounded(on: 1, .minute)]
+                                let selectedRawSensorPoint = rawSensorPointInfos[currentDate.toRounded(on: 1, .minute)]
                                 let selectedBloodPoint = bloodPointInfos[currentDate.toRounded(on: 1, .minute)]
 
                                 if let selectedSmoothSensorPoint {
                                     self.selectedSmoothSensorPoint = selectedSmoothSensorPoint
                                 }
 
-                                if let selectedSensorPoint {
-                                    self.selectedSensorPoint = selectedSensorPoint
-                                }
-
+                                self.selectedRawSensorPoint = selectedRawSensorPoint
                                 self.selectedBloodPoint = selectedBloodPoint
                             }
                         }
                         .onEnded { _ in
                             selectedSmoothSensorPoint = nil
-                            selectedSensorPoint = nil
+                            selectedRawSensorPoint = nil
                             selectedBloodPoint = nil
                         }
                     )
@@ -348,7 +394,10 @@ struct ChartView: View {
 
     private enum Config {
         static let chartID = "chart"
-        static let symbolSize: CGFloat = 10
+        static let cornerRadius: CGFloat = 20
+        static let rangeCornerRadius: CGFloat = 2
+        static let insulinSize: MarkDimension = 10
+        static let symbolSize: CGFloat = 20
         static let selectionSize: CGFloat = 100
         static let spacerWidth: CGFloat = 50
         static let chartHeight: CGFloat = 340
@@ -368,19 +417,20 @@ struct ChartView: View {
     }
 
     @State private var showUnsmoothedValues: Bool = false
-    
+
     @State private var seriesWidth: CGFloat = 0
-    @State private var smoothSensorGlucoseSeries: [ChartDatapoint] = []
-    @State private var sensorGlucoseSeries: [ChartDatapoint] = []
-    @State private var bloodGlucoseSeries: [ChartDatapoint] = []
+    @State private var smoothSensorGlucoseSeries: [GlucoseDatapoint] = []
+    @State private var rawSensorGlucoseSeries: [GlucoseDatapoint] = []
+    @State private var bloodGlucoseSeries: [GlucoseDatapoint] = []
+    @State private var insulinSeries: [InsulinDatapoint] = []
 
-    @State private var smoothSensorPointInfos: [Date: ChartDatapoint] = [:]
-    @State private var sensorPointInfos: [Date: ChartDatapoint] = [:]
-    @State private var bloodPointInfos: [Date: ChartDatapoint] = [:]
+    @State private var smoothSensorPointInfos: [Date: GlucoseDatapoint] = [:]
+    @State private var rawSensorPointInfos: [Date: GlucoseDatapoint] = [:]
+    @State private var bloodPointInfos: [Date: GlucoseDatapoint] = [:]
 
-    @State private var selectedSmoothSensorPoint: ChartDatapoint? = nil
-    @State private var selectedSensorPoint: ChartDatapoint? = nil
-    @State private var selectedBloodPoint: ChartDatapoint? = nil
+    @State private var selectedSmoothSensorPoint: GlucoseDatapoint? = nil
+    @State private var selectedRawSensorPoint: GlucoseDatapoint? = nil
+    @State private var selectedBloodPoint: GlucoseDatapoint? = nil
 
     private let calculationQueue = DispatchQueue(label: "libre-direct.chart-calculation", qos: .utility)
 
@@ -426,30 +476,22 @@ struct ChartView: View {
 
     private var alarmLow: Double {
         if store.state.glucoseUnit == .mmolL {
-            return store.state.alarmLow.asMmolL
+            return store.state.alarmLow.toMmolL()
         }
 
-        return store.state.alarmLow.asMgdL
+        return store.state.alarmLow.toDouble()
     }
 
     private var alarmHigh: Double {
         if store.state.glucoseUnit == .mmolL {
-            return store.state.alarmHigh.asMmolL
+            return store.state.alarmHigh.toMmolL()
         }
 
-        return store.state.alarmHigh.asMgdL
+        return store.state.alarmHigh.toDouble()
     }
 
     private var startMarker: Date? {
-        if let firstTimestamp = firstTimestamp {
-            if let zoomLevel = zoomLevel, zoomLevel.level == 1 {
-                return Calendar.current.date(byAdding: .minute, value: -15, to: firstTimestamp)!
-            }
-
-            return Calendar.current.date(byAdding: .hour, value: -1, to: firstTimestamp)!
-        }
-
-        return nil
+        return firstTimestamp
     }
 
     private var endMarker: Date? {
@@ -485,7 +527,7 @@ struct ChartView: View {
     }
 
     private func setSelectedDate(addDays: Int) {
-        store.dispatch(.setChartZoomLevel(level: 24))
+        // store.dispatch(.setChartZoomLevel(level: 24))
         store.dispatch(.setSelectedDate(selectedDate: Calendar.current.date(byAdding: .day, value: +addDays, to: store.state.selectedDate ?? Date())))
 
         DirectNotifications.shared.hapticFeedback()
@@ -515,7 +557,7 @@ struct ChartView: View {
 
             if force {
                 selectedSmoothSensorPoint = nil
-                selectedSensorPoint = nil
+                selectedRawSensorPoint = nil
                 selectedBloodPoint = nil
             }
         }
@@ -542,30 +584,35 @@ struct ChartView: View {
         DirectLog.info("updateSensorSeries()")
 
         calculationQueue.async {
-            var smoothSensorPointInfos: [Date: ChartDatapoint] = [:]
-            
-            let smoothSensorGlucoseSeries = populateSmoothValues(glucoseValues: store.state.sensorGlucoseValues)
+            var smoothSensorPointInfos: [Date: GlucoseDatapoint] = [:]
+            var rawSensorPointInfos: [Date: GlucoseDatapoint] = [:]
+
+            let smoothSensorGlucoseSeries = DirectConfig.smoothSensorGlucoseValues && store.state.smoothChartValues
+                ? populateSmoothValues(glucoseValues: store.state.sensorGlucoseValues)
+                : populateValues(glucoseValues: store.state.sensorGlucoseValues)
             smoothSensorGlucoseSeries.forEach { value in
-                if smoothSensorPointInfos[value.valueX] == nil {
-                    smoothSensorPointInfos[value.valueX] = value
+                if smoothSensorPointInfos[value.time] == nil {
+                    smoothSensorPointInfos[value.time] = value
                 }
             }
 
-            var sensorPointInfos: [Date: ChartDatapoint] = [:]
-            
-            let sensorGlucoseSeries = populateValues(glucoseValues: store.state.sensorGlucoseValues)
-            sensorGlucoseSeries.forEach { value in
-                if sensorPointInfos[value.valueX] == nil {
-                    sensorPointInfos[value.valueX] = value
+            let rawSensorGlucoseSeries = store.state.smoothChartValues
+                ? populateValues(glucoseValues: store.state.sensorGlucoseValues.filter {
+                    $0.timestamp < store.state.smoothThreshold
+                })
+                : []
+            rawSensorGlucoseSeries.forEach { value in
+                if rawSensorPointInfos[value.time] == nil {
+                    rawSensorPointInfos[value.time] = value
                 }
             }
 
             DispatchQueue.main.async {
                 self.smoothSensorGlucoseSeries = smoothSensorGlucoseSeries
                 self.smoothSensorPointInfos = smoothSensorPointInfos
-                
-                self.sensorGlucoseSeries = sensorGlucoseSeries
-                self.sensorPointInfos = sensorPointInfos
+
+                self.rawSensorGlucoseSeries = rawSensorGlucoseSeries
+                self.rawSensorPointInfos = rawSensorPointInfos
             }
         }
     }
@@ -574,39 +621,56 @@ struct ChartView: View {
         DirectLog.info("updateBloodSeries()")
 
         calculationQueue.async {
-            var bloodPointInfos: [Date: ChartDatapoint] = [:]
-            let bloddGlucoseSeries = populateValues(glucoseValues: store.state.bloodGlucoseValues)
-            bloddGlucoseSeries.forEach { value in
-                if bloodPointInfos[value.valueX] == nil {
-                    bloodPointInfos[value.valueX] = value
+            var bloodPointInfos: [Date: GlucoseDatapoint] = [:]
+            let bloodGlucoseSeries = populateValues(glucoseValues: store.state.bloodGlucoseValues)
+            bloodGlucoseSeries.forEach { value in
+                if bloodPointInfos[value.time] == nil {
+                    bloodPointInfos[value.time] = value
                 }
             }
 
             DispatchQueue.main.async {
-                self.bloodGlucoseSeries = bloddGlucoseSeries
+                self.bloodGlucoseSeries = bloodGlucoseSeries
                 self.bloodPointInfos = bloodPointInfos
             }
         }
     }
 
-    private func populateValues(glucoseValues: [BloodGlucose]) -> [ChartDatapoint] {
+    private func updateInsulinSeries() {
+        DirectLog.info("updateInsulinSeries()")
+
+        calculationQueue.async {
+            let insulinSeries = populateValues(glucoseValues: store.state.insulinDeliveryValues)
+
+            DispatchQueue.main.async {
+                self.insulinSeries = insulinSeries
+            }
+        }
+    }
+
+    private func populateValues(glucoseValues: [InsulinDelivery]) -> [InsulinDatapoint] {
+        glucoseValues.map { value in
+            value.toDatapoint(minDate: startMarker ?? Date(), maxDate: endMarker ?? Date())
+        }
+        .compactMap { $0 }
+    }
+
+    private func populateValues(glucoseValues: [BloodGlucose]) -> [GlucoseDatapoint] {
         glucoseValues.map { value in
             value.toDatapoint(glucoseUnit: store.state.glucoseUnit, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh)
         }
         .compactMap { $0 }
     }
-    
-    private func populateValues(glucoseValues: [SensorGlucose]) -> [ChartDatapoint] {
+
+    private func populateValues(glucoseValues: [SensorGlucose]) -> [GlucoseDatapoint] {
         return glucoseValues.map { value in
-            return value.toDatapoint(glucoseUnit: store.state.glucoseUnit, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh)
+            value.toDatapoint(glucoseUnit: store.state.glucoseUnit, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh)
         }.compactMap { $0 }
     }
 
-    private func populateSmoothValues(glucoseValues: [SensorGlucose]) -> [ChartDatapoint] {
-        let smoothThreshold = Date().addingTimeInterval(-DirectConfig.smoothThresholdSeconds)
-
+    private func populateSmoothValues(glucoseValues: [SensorGlucose]) -> [GlucoseDatapoint] {
         return glucoseValues.map { value in
-            if value.timestamp < smoothThreshold, DirectConfig.smoothSensorGlucoseValues {
+            if value.timestamp < store.state.smoothThreshold {
                 return value.toSmoothDatapoint(glucoseUnit: store.state.glucoseUnit, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh)
             }
 
@@ -617,8 +681,8 @@ struct ChartView: View {
 
 // MARK: - ChartDatapoint + Equatable
 
-extension ChartDatapoint: Equatable {
-    static func == (lhs: ChartDatapoint, rhs: ChartDatapoint) -> Bool {
+extension GlucoseDatapoint: Equatable {
+    static func == (lhs: GlucoseDatapoint, rhs: GlucoseDatapoint) -> Bool {
         lhs.id == rhs.id
     }
 }
@@ -642,11 +706,33 @@ extension ZoomLevel: Equatable {
 
 // MARK: - ChartDatapoint
 
-private struct ChartDatapoint: Identifiable {
+private struct GlucoseDatapoint: Identifiable {
     let id: String
-    let valueX: Date
-    let valueY: Double
+    let time: Date
+    let value: Double
     let info: String
+}
+
+private struct InsulinDatapoint: Identifiable {
+    let id: String
+    let starts: Date
+    let ends: Date
+    let value: Double
+    let type: InsulinType
+    let info: String
+}
+
+private extension InsulinDelivery {
+    func toDatapoint(minDate: Date, maxDate: Date) -> InsulinDatapoint {
+        return InsulinDatapoint(
+            id: id.uuidString,
+            starts: max(minDate, starts),
+            ends: min(maxDate, ends),
+            value: units,
+            type: type,
+            info: type.localizedDescription
+        )
+    }
 }
 
 private extension BloodGlucose {
@@ -654,20 +740,20 @@ private extension BloodGlucose {
         "\(id.uuidString)-\(glucoseUnit.rawValue)"
     }
 
-    func toDatapoint(glucoseUnit: GlucoseUnit, alarmLow: Int, alarmHigh: Int) -> ChartDatapoint {
+    func toDatapoint(glucoseUnit: GlucoseUnit, alarmLow: Int, alarmHigh: Int) -> GlucoseDatapoint {
         if glucoseUnit == .mmolL {
-            return ChartDatapoint(
+            return GlucoseDatapoint(
                 id: toDatapointID(glucoseUnit: glucoseUnit),
-                valueX: timestamp,
-                valueY: glucoseValue.asMmolL,
+                time: timestamp,
+                value: glucoseValue.toMmolL(),
                 info: glucoseValue.asGlucose(glucoseUnit: glucoseUnit, withUnit: true)
             )
         }
 
-        return ChartDatapoint(
+        return GlucoseDatapoint(
             id: toDatapointID(glucoseUnit: glucoseUnit),
-            valueX: timestamp,
-            valueY: glucoseValue.asMgdL,
+            time: timestamp,
+            value: glucoseValue.toDouble(),
             info: glucoseValue.asGlucose(glucoseUnit: glucoseUnit, withUnit: true)
         )
     }
@@ -678,46 +764,46 @@ private extension SensorGlucose {
         "\(id.uuidString)-\(glucoseUnit.rawValue)"
     }
 
-    func toRawDatapoint(glucoseUnit: GlucoseUnit, alarmLow: Int, alarmHigh: Int, shiftY: Int = 0) -> ChartDatapoint {
+    func toRawDatapoint(glucoseUnit: GlucoseUnit, alarmLow: Int, alarmHigh: Int, shiftY: Int = 0) -> GlucoseDatapoint {
         if glucoseUnit == .mmolL {
-            return ChartDatapoint(
+            return GlucoseDatapoint(
                 id: toDatapointID(glucoseUnit: glucoseUnit),
-                valueX: timestamp,
-                valueY: rawGlucoseValue.asMmolL + shiftY.asMmolL,
+                time: timestamp,
+                value: rawGlucoseValue.toMmolL() + shiftY.toMmolL(),
                 info: rawGlucoseValue.asGlucose(glucoseUnit: glucoseUnit, withUnit: true)
             )
         }
 
-        return ChartDatapoint(
+        return GlucoseDatapoint(
             id: toDatapointID(glucoseUnit: glucoseUnit),
-            valueX: timestamp,
-            valueY: rawGlucoseValue.asMgdL + shiftY.asMgdL,
+            time: timestamp,
+            value: rawGlucoseValue.toDouble() + shiftY.toDouble(),
             info: rawGlucoseValue.asGlucose(glucoseUnit: glucoseUnit, withUnit: true)
         )
     }
 
-    func toSmoothDatapoint(glucoseUnit: GlucoseUnit, alarmLow: Int, alarmHigh: Int, shiftY: Int = 0) -> ChartDatapoint {
+    func toSmoothDatapoint(glucoseUnit: GlucoseUnit, alarmLow: Int, alarmHigh: Int, shiftY: Int = 0) -> GlucoseDatapoint {
         let glucose = (smoothGlucoseValue ?? Double(glucoseValue))
-        let info = glucose.asGlucose(glucoseUnit: glucoseUnit, withUnit: true)
+        let info = glucose.toInteger()?.asGlucose(glucoseUnit: glucoseUnit, withUnit: true) ?? ""
 
         if glucoseUnit == .mmolL {
-            return ChartDatapoint(
+            return GlucoseDatapoint(
                 id: toDatapointID(glucoseUnit: glucoseUnit),
-                valueX: timestamp,
-                valueY: glucose.asMmolL + shiftY.asMmolL,
+                time: timestamp,
+                value: glucose.toMmolL() + shiftY.toMmolL(),
                 info: info
             )
         }
 
-        return ChartDatapoint(
+        return GlucoseDatapoint(
             id: toDatapointID(glucoseUnit: glucoseUnit),
-            valueX: timestamp,
-            valueY: glucose.asMgdL + shiftY.asMgdL,
+            time: timestamp,
+            value: glucose + shiftY.toDouble(),
             info: info
         )
     }
 
-    func toDatapoint(glucoseUnit: GlucoseUnit, alarmLow: Int, alarmHigh: Int, shiftY: Int = 0) -> ChartDatapoint {
+    func toDatapoint(glucoseUnit: GlucoseUnit, alarmLow: Int, alarmHigh: Int, shiftY: Int = 0) -> GlucoseDatapoint {
         var info: String
 
         if let minuteChange = minuteChange {
@@ -727,18 +813,18 @@ private extension SensorGlucose {
         }
 
         if glucoseUnit == .mmolL {
-            return ChartDatapoint(
+            return GlucoseDatapoint(
                 id: toDatapointID(glucoseUnit: glucoseUnit),
-                valueX: timestamp,
-                valueY: glucoseValue.asMmolL + shiftY.asMmolL,
+                time: timestamp,
+                value: glucoseValue.toMmolL() + shiftY.toMmolL(),
                 info: info
             )
         }
 
-        return ChartDatapoint(
+        return GlucoseDatapoint(
             id: toDatapointID(glucoseUnit: glucoseUnit),
-            valueX: timestamp,
-            valueY: glucoseValue.asMgdL + shiftY.asMgdL,
+            time: timestamp,
+            value: glucoseValue.toDouble() + shiftY.toDouble(),
             info: info
         )
     }

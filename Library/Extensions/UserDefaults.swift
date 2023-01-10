@@ -31,6 +31,7 @@ private enum Keys: String {
     case latestBloodGlucose = "libre-direct.settings.latest-blood-glucose"
     case latestSensorError = "libre-direct.settings.latest-sensor-error"
     case latestSensorGlucose = "libre-direct.settings.latest-sensor-glucose"
+    case latestInsulinDelivery = "libre-direct.settings.latest-insulin-delivery"
     case lowGlucoseAlarmSound = "libre-direct.settings.low-glucose-alarm-sound"
     case nightscoutApiSecret = "libre-direct.settings.nightscout-api-secret"
     case nightscoutUpload = "libre-direct.settings.nightscout-upload-enabled"
@@ -52,6 +53,7 @@ private enum Keys: String {
     case sharedTransmitterHardware = "glucosedirect--transmitter-hardware"
     case transmitter = "libre-direct.settings.transmitter"
     case showAnnotations = "libre-direct.settings.show-annotations"
+    case smoothChartValues = "libre-direct.settings.smooth-chart-values"
 }
 
 extension UserDefaults {
@@ -375,6 +377,20 @@ extension UserDefaults {
             }
         }
     }
+    
+    var latestInsulinDelivery: InsulinDelivery? {
+        get {
+            return getObject(forKey: Keys.latestInsulinDelivery.rawValue)
+        }
+        set {
+            if let newValue = newValue {
+                setObject(newValue, forKey: Keys.latestInsulinDelivery.rawValue)
+            } else {
+                removeObject(forKey: Keys.latestInsulinDelivery.rawValue)
+            }
+        }
+    }
+
 
     var sharedGlucose: Data? {
         get {
@@ -633,6 +649,19 @@ extension UserDefaults {
             } else {
                 removeObject(forKey: Keys.transmitter.rawValue)
             }
+        }
+    }
+    
+    var smoothChartValues: Bool {
+        get {
+            if object(forKey: Keys.smoothChartValues.rawValue) != nil {
+                return bool(forKey: Keys.smoothChartValues.rawValue)
+            }
+
+            return false
+        }
+        set {
+            set(newValue, forKey: Keys.smoothChartValues.rawValue)
         }
     }
 }

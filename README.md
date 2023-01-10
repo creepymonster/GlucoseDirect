@@ -34,8 +34,10 @@ App programmed in Swift/SwiftUI for using Libre blood glucose sensors. I try to 
 - Snooze for glucose alerts
 - Simple evaluation of glucose values
 - Loop (Workspace, dev branch) support, [Loop CGM Manager](https://github.com/creepymonster/GlucoseDirectClient)
+- Insulin input and display
 
 ## Available languages
+- Bulgarian
 - Chinese (simplified)
 - Chinese (traditional)
 - Dutch
@@ -44,6 +46,7 @@ App programmed in Swift/SwiftUI for using Libre blood glucose sensors. I try to 
 - French
 - German
 - Italian
+- Polish
 - Portuguese
 - Russian
 - Spanish
@@ -67,7 +70,7 @@ I am very happy to receive feedback - suggestions for improvement or reports of 
 - I appreciate all the translations I get. Just drop by Crowdin, every translation helps :) https://crwd.in/glucose-direct-app
 
 ## Thank you all hardworking translators for your great work ❤️
-birdfly, Diabetlum, Fcourela, Anna Furman (annafman), Nicola Lorenzetti (goldshotter), Matthias (HellsCrimson), Sahar Monitor (keyzersemen), Timmy_otoole, evr, Jon B Mårtensson (JBM_), Mrzurgon, Alberto Del Rio Malo (albertodeviaje2), georgin303@yandex.ru (georgin303), eyesoganci, mrfrostt, ferdytao, Jean-Jacques Erbstein (jjerbstein), Bmwmax73, Zhang Lin (Kobe24), Ato83, Rico Opheij (CrazySugarNL), kadet11415, Imma Texeira Ceró (immatexeira), Anton Vershinin (anton-tony_v), Bubblan, Asli Uygun Cheesmar (asliseckin), Mykola (Yroslavadudko), yinojiang, Victor Garcia (VictorGarcia), Tarf, Tessaverbunt, lcunha66, Василина Данилова (Vas.d.18), Marina Huranova (marinakalova.1997), 41person, Marjon Schutte (fairytale-living), jimboo677 (Jimboo677), villho, Rig22, Roxi2a, Brian7070, Kazimierz Badura (badurakazimierz3)
+birdfly, Diabetlum, Fcourela, Anna Furman (annafman), Nicola Lorenzetti (goldshotter), Matthias (HellsCrimson), Sahar Monitor (keyzersemen), Timmy_otoole, evr, Jon B Mårtensson (JBM_), Mrzurgon, Alberto Del Rio Malo (albertodeviaje2), georgin303@yandex.ru (georgin303), eyesoganci, mrfrostt, Mykola (Yroslavadudko), Fábio Romariz (fabioromariz), Francisco Losada (flosada), Moschetti Tiziana (ellie_fiume), Daisy Zhang (ryes), Alberto Nadim Assaf (alberto330), ferdytao, Irena Tkach (iratkach_1), Jean-Jacques Erbstein (jjerbstein), Bmwmax73, Zhang Lin (Kobe24), Ato83, Rico Opheij (CrazySugarNL), Imma Texeira Ceró (immatexeira), kadet11415, Anton Vershinin (anton-tony_v), Bubblan, Asli Uygun Cheesmar (asliseckin), yinojiang, 
 
 ## Todo
 - Cache Nightscout uploads without an Internet connection and run them later

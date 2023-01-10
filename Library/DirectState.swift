@@ -38,7 +38,9 @@ protocol DirectState {
     var highGlucoseAlarmSound: NotificationSound { get set }
     var ignoreMute: Bool { get set }
     var isConnectionPaired: Bool { get set }
+    var insulinDeliveryValues: [InsulinDelivery] { get set }
     var latestBloodGlucose: BloodGlucose? { get set }
+    var latestInsulinDelivery: InsulinDelivery? { get set }
     var latestSensorGlucose: SensorGlucose? { get set }
     var latestSensorError: SensorError? { get set }
     var lowGlucoseAlarmSound: NotificationSound { get set }
@@ -63,9 +65,18 @@ protocol DirectState {
     var glucoseStatistics: GlucoseStatistics? { get set }
     var targetValue: Int { get set }
     var transmitter: Transmitter? { get set }
+    var smoothChartValues: Bool { get set }
 }
 
 extension DirectState {
+    var isSnoozed: Bool {
+        if let snoozeUntil = alarmSnoozeUntil, Date() < snoozeUntil {
+            return true
+        }
+        
+        return false
+    }
+    
     var hasConnectionAlarm: Bool {
         connectionAlarmSound != .none
     }
@@ -120,6 +131,10 @@ extension DirectState {
 
     var isReady: Bool {
         sensor != nil && sensor!.state == .ready
+    }
+    
+    var smoothThreshold: Date {
+        Date().addingTimeInterval(-DirectConfig.smoothThresholdSeconds)
     }
 }
 

@@ -18,10 +18,7 @@ func widgetCenterMiddleware() -> Middleware<DirectState, DirectAction> {
 @available(iOS 16.1, *)
 private func widgetCenterMiddleware(service: LazyService<ActivityGlucoseService>) -> Middleware<DirectState, DirectAction> {
     return { state, action, _ in
-        var isSnoozed = false
-        if let snoozeUntil = state.alarmSnoozeUntil, Date() < snoozeUntil {
-            isSnoozed = true
-        }
+        let isSnoozed = state.isSnoozed
 
         switch action {
         case .startup:
@@ -65,6 +62,8 @@ private func widgetCenterMiddleware(service: LazyService<ActivityGlucoseService>
             guard appState == .active else {
                 break
             }
+            
+            WidgetCenter.shared.reloadAllTimelines()
 
             guard state.glucoseLiveActivity else {
                 break

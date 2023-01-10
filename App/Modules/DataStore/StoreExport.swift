@@ -84,7 +84,7 @@ func storeExportMiddleware() -> Middleware<DirectState, DirectAction> {
                                     value.id.uuidString,
                                     dateFormatter.string(from: value.timestamp),
                                     value.glucoseValue.description,
-                                    mmolLFormatter.string(from: value.glucoseValue.asMmolL as NSNumber)!
+                                    mmolLFormatter.string(from: value.glucoseValue.toMmolL() as NSNumber)!
                                 ]
                             }
                             

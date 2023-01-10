@@ -26,6 +26,9 @@ func directReducer(state: inout DirectState, action: DirectAction) {
     case .addBloodGlucose(glucoseValues: let glucoseValues):
         state.latestBloodGlucose = glucoseValues.last
         
+    case .addInsulinDelivery(insulinDeliveryValues: let insulinDeliveryValues):
+        state.latestInsulinDelivery = insulinDeliveryValues.last
+        
     case .addSensorGlucose(glucoseValues: let glucoseValues):
         state.latestSensorGlucose = glucoseValues.last
         state.connectionError = nil
@@ -88,7 +91,6 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         
     case .selectView(viewTag: let viewTag):
         state.selectedView = viewTag
-        state.selectedDate = nil
         
     case .setAlarmHigh(upperLimit: let upperLimit):
         state.alarmHigh = upperLimit
@@ -169,6 +171,9 @@ func directReducer(state: inout DirectState, action: DirectAction) {
 
     case .setBloodGlucoseValues(glucoseValues: let glucoseValues):
         state.bloodGlucoseValues = glucoseValues
+        
+    case .setInsulinDeliveryValues(insulinDeliveryValues: let insulinDeliveryValues):
+        state.insulinDeliveryValues = insulinDeliveryValues
         
     case .setSensorGlucoseValues(glucoseValues: let glucoseValues):
         state.sensorGlucoseValues = glucoseValues
@@ -278,6 +283,9 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         
     case .setAppIsBusy(isBusy: let isBusy):
         state.appIsBusy = isBusy
+        
+    case .setSmoothChartValues(enabled: let enabled):
+        state.smoothChartValues = enabled
 
     default:
         break
