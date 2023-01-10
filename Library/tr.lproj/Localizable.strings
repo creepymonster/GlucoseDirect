@@ -524,7 +524,7 @@
 "Export for Tidepool" = "Tidepool için Dışa Aktarma";
 
 /* (No Comment) */
-"Last %@ hours" = "Son %@ saat";
+"%@ hours" = "%@ hours";
 
 /* (No Comment) */
 "Reopen app in" = "Uygulamayı şu sürede tekrar aç";
@@ -579,3 +579,12 @@
 
 /* (No Comment) */
 "Ends" = "Ends";
+
+/* (No Comment) */
+"Smooth chart values" = "Smooth chart values";
+
+/* (No Comment) */
+"Units" = "Units";
+
+/* (No Comment) */
+"Type" = "Tip";

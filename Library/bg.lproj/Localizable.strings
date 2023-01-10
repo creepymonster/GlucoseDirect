@@ -524,7 +524,7 @@
 "Export for Tidepool" = "Експорт за Tidepool";
 
 /* (No Comment) */
-"Last %@ hours" = "Последните %@ часа";
+"%@ hours" = "%@ hours";
 
 /* (No Comment) */
 "Reopen app in" = "Повторно отваряне на приложението в";
@@ -579,3 +579,12 @@
 
 /* (No Comment) */
 "Ends" = "Край";
+
+/* (No Comment) */
+"Smooth chart values" = "Smooth chart values";
+
+/* (No Comment) */
+"Units" = "Units";
+
+/* (No Comment) */
+"Type" = "Вид";
