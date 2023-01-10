@@ -14,10 +14,10 @@
 "NSBluetoothPeripheralUsageDescription" = "The Bluetooth function is needed to connect to the supported devices.";
 
 /* Privacy - Calendars Usage Description */
-"NSCalendarsUsageDescription" = "Access to the calendar is required to display up-to-date glucose values on the Apple Watch.";
+"NSCalendarsUsageDescription" = "Dostęp do kalendarza jest wymagany do wyświetlania aktualnych wartości glukozy na Apple Watch.";
 
 /* Privacy - Health Share Usage Description */
-"NSHealthShareUsageDescription" = "Access to Apple Health is required if glucose data should be exported.";
+"NSHealthShareUsageDescription" = "Dostęp do Apple Health jest wymagany, jeśli dane dotyczące glukozy mają być eksportowane.";
 
 /* Privacy - Health Update Usage Description */
-"NSHealthUpdateUsageDescription" = "Access to Apple Health is required if glucose data should be exported.";
+"NSHealthUpdateUsageDescription" = "Dostęp do Apple Health jest wymagany, jeśli dane dotyczące glukozy mają być eksportowane.";
