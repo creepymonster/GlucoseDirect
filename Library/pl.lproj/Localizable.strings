@@ -41,13 +41,13 @@
 "Alert, low blood glucose" = "Niska glukoza !!!";
 
 /* (No Comment) */
-"Alarm, loss of signal" = "Alarm, loss of signal";
+"Alarm, loss of signal" = "Alarm, utrata sygnału";
 
 /* (No Comment) */
-"Alert, sensor expired" = "Koniec działania czujnika";
+"Alert, sensor expired" = "Koniec działania sensora";
 
 /* (No Comment) */
-"Alert, sensor expiring soon" = "Czujnik wkrótce wygaśnie!";
+"Alert, sensor expiring soon" = "Sensor wkrótce wygaśnie!";
 
 /* (No Comment) */
 "App author" = "Autor";
@@ -62,7 +62,7 @@
 "App facebook group" = "Facebook";
 
 /* (No Comment) */
-"App faq" = "FAQ";
+"App faq" = "Najczęściej zadawane pytania";
 
 /* (No Comment) */
 "App support mail" = "Pomoc";
@@ -80,16 +80,16 @@
 "Apple export settings" = "Ustawienia eksportu Apple";
 
 /* (No Comment) */
-"Are you sure you want to disconnect the sensor?" = "Czy na pewno chcesz odłączyć czujnik?";
+"Are you sure you want to disconnect the sensor?" = "Czy na pewno chcesz odłączyć sensor?";
 
 /* (No Comment) */
 "At least %@ days of data are required." = "Wymagane są dane z co najmniej %@ dni.";
 
 /* (No Comment) */
-"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Uwaga, czujnik wysyła błędne wartości. Proszę czekać 10 minut.";
+"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Uwaga, sensor wysyła błędne wartości. Proszę czekać 10 minut.";
 
 /* (No Comment) */
-"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Average (AVG) oder Durchschnitt ist ein einfaches Maß für Blutzuckerwerte über einen bestimmten Zeitraum und bietet einen ungefähren Überblick über den Blutzuckerspiegel.";
+"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Średnia (AVG) to ogólna miara poziomu cukru we krwi w pewnym okresie czasu, oferująca pojedynczy ogólny widok poziomu glukozy.";
 
 /* (No Comment) */
 "Bellman alarm" = "Alarm Belmana";
@@ -116,7 +116,7 @@
 "Chart" = "Wykres";
 
 /* (No Comment) */
-"Connect sensor" = "Podłącz czujnik";
+"Connect sensor" = "Podłącz sensor";
 
 /* (No Comment) */
 "Connect transmitter" = "Podłącz transmiter";
@@ -134,7 +134,7 @@
 "Connection error" = "Błąd połączenia";
 
 /* (No Comment) */
-"Connection error timestamp" = "Zeit";
+"Connection error timestamp" = "Czas błędu połączenia";
 
 /* (No Comment) */
 "Connection settings" = "Ustawienia połączenia";
@@ -179,10 +179,10 @@
 "Glucose list view" = "Historia odczytów";
 
 /* (No Comment) */
-"Glucose Live Activity" = "Glukoza na żywo";
+"Glucose Live Activity" = "Glukoza na ekranie blokady";
 
 /* (No Comment) */
-"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring.";
+"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Wskaźnik zarządzania glukozą (GMI) zastępuje „szacowaną HbA1c” dla pacjentów korzystających z ciągłego monitorowania glikemii.";
 
 /* (No Comment) */
 "Glucose notification" = "Powiadomienie o poziomie glukozy";
@@ -281,10 +281,10 @@
 "Readable glucose: %1$@ %2$@" = "Glukoza: %1$@ %2$@";
 
 /* (No Comment) */
-"Readable high glucose: %1$@ %2$@" = "Glukoza: %1$@ %2$@. Achtung, Überzuckerung!";
+"Readable high glucose: %1$@ %2$@" = "Glukoza: %1$@ %2$@. Uwaga! Wysoki poziom!";
 
 /* (No Comment) */
-"Readable low glucose: %1$@ %2$@" = "Glukoza: %1$@ %2$@. Achtung, Unterzuckerung!";
+"Readable low glucose: %1$@ %2$@" = "Glukoza: %1$@ %2$@. Uwaga! Niski poziom!";
 
 /* (No Comment) */
 "Readable miligram" = "miligramy";
@@ -302,16 +302,16 @@
 "Readable rising" = "rosnący";
 
 /* (No Comment) */
-"Rescan the sensor" = "Ponownie zeskanuj czujnik";
+"Rescan the sensor" = "Ponownie zeskanuj sensor";
 
 /* (No Comment) */
 "Retrieval interval" = "Odczyt glukozy co";
 
 /* (No Comment) */
-"Retrieval interval, every %@ minutes" = "Co %@ minut";
+"Retrieval interval, every %@ minutes" = "%@ minut";
 
 /* (No Comment) */
-"Retrieval interval, every minute" = "Co 1 min :-)";
+"Retrieval interval, every minute" = "1 min :-)";
 
 /* (No Comment) */
 "Retry pairing" = "Ponów parowanie";
@@ -335,16 +335,16 @@
 "Sensor age" = "Wiek sensora";
 
 /* (No Comment) */
-"Sensor connection" = "Podłączenie czujnika";
+"Sensor connection" = "Podłączenie sensora";
 
 /* (No Comment) */
 "Sensor custom calibration" = "Kalibracja sensora";
 
 /* (No Comment) */
-"Sensor details" = "Szczegóły czujnika";
+"Sensor details" = "Szczegóły sensora";
 
 /* (No Comment) */
-"Sensor ending date" = "Zakończenie działania czujnika";
+"Sensor ending date" = "Zakończenie działania sensora";
 
 /* (No Comment) */
 "Sensor error values" = "Błąd CGM";
@@ -359,7 +359,7 @@
 "Sensor has failure" = "Awaria sensora";
 
 /* (No Comment) */
-"Sensor in starting phase" = "Czujnik w fazie rozruchu";
+"Sensor in starting phase" = "Sensor w fazie rozruchu";
 
 /* (No Comment) */
 "Sensor is expired" = "Sensor wygasł";
@@ -371,13 +371,13 @@
 "Sensor is shut down" = "Sensor wygasł";
 
 /* (No Comment) */
-"Sensor lifetime" = "Żywotność czujnika";
+"Sensor lifetime" = "Żywotność sensora";
 
 /* (No Comment) */
-"Sensor lifetime widget" = "Widżet żywotności czujnika";
+"Sensor lifetime widget" = "Widżet żywotności sensora";
 
 /* (No Comment) */
-"Sensor lifetime widget description" = "Wyświetla pozostałą żywotność bieżącego czujnika w formie odliczania.";
+"Sensor lifetime widget description" = "Wyświetla pozostałą żywotność bieżącego sensora w formie odliczania.";
 
 /* (No Comment) */
 "Sensor not yet startet" = "Sensor jeszcze nie uruchomiony";
@@ -386,22 +386,22 @@
 "Sensor PatchInfo" = "PatchInfo";
 
 /* (No Comment) */
-"Sensor possible lifetime" = "Żywotność czujnika";
+"Sensor possible lifetime" = "Żywotność sensora";
 
 /* (No Comment) */
 "Sensor region" = "Region";
 
 /* (No Comment) */
-"Sensor remaining lifetime" = "Pozostały czas eksploatacji czujnika";
+"Sensor remaining lifetime" = "Pozostały czas eksploatacji sensora";
 
 /* (No Comment) */
-"Sensor remaining warmup time" = "Pozostały czas nagrzewania czujnika";
+"Sensor remaining warmup time" = "Pozostały czas nagrzewania sensora";
 
 /* (No Comment) */
 "Sensor serial" = "Nr sensora";
 
 /* (No Comment) */
-"Sensor starting date" = "Data uruchomienia czujnika";
+"Sensor starting date" = "Data uruchomienia sensora";
 
 /* (No Comment) */
 "Sensor state" = "Stan połączenia";
@@ -428,10 +428,10 @@
 "StatisticsPeriod" = "Okres";
 
 /* (No Comment) */
-"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data.";
+"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "Z sensora nie są już odbierane żadne dane. Przyczyną może być przerwanie połączenia Bluetooth z sensorem lub brak przesyłania danych przez LibreLinkUp.";
 
 /* (No Comment) */
-"Time" = "Zeit";
+"Time" = "Czas błędu połączenia";
 
 /* (No Comment) */
 "Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Czas powyżej zakresu (TAR) lub procent czasu spędzonego powyżej docelowego poziomu glukozy %@.";
@@ -470,19 +470,22 @@
 "Unknown" = "Nieznany";
 
 /* (No Comment) */
+"Updated" = "Updated";
+
+/* (No Comment) */
 "Upper limit" = "Wysoki";
 
 /* (No Comment) */
-"Use LibreLink to start the sensor" = "Użyj LibreLink, aby uruchomić czujnik";
+"Use LibreLink to start the sensor" = "Użyj LibreLink, aby uruchomić sensor";
 
 /* (No Comment) */
 "Vibration" = "Wibracja";
 
 /* (No Comment) */
-"Virtual Sensor" = "Wirtualny czujnik";
+"Virtual Sensor" = "Wirtualny sensor";
 
 /* (No Comment) */
-"Warmup" = "Pozostały czas nagrzewania czujnika";
+"Warmup" = "Pozostały czas nagrzewania sensora";
 
 /* (No Comment) */
 "Wearing time alarm" = "Alarm ważności sensora";
@@ -500,10 +503,10 @@
 "Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "Twoja glukoza, %1$@ (%2$@), jest niebezpiecznie niska. Wypij słodzony napój.";
 
 /* (No Comment) */
-"Your sensor has expired and needs to be replaced as soon as possible" = "Twój czujnik wygasł i należy go jak najszybciej wymienić.";
+"Your sensor has expired and needs to be replaced as soon as possible" = "Twój sensor wygasł i należy go jak najszybciej wymienić.";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@." = "Your sensor is about to expire. Replace sensor in %1$@.";
+"Your sensor is about to expire. Replace sensor in %1$@." = "Twój sensor wkrótce straci ważność. Wymienić sensor %1$@.";
 
 /* (No Comment) */
 "Loading..." = "Ładowanie...";
@@ -521,25 +524,67 @@
 "Export for Tidepool" = "Eksportuj do Tidepool";
 
 /* (No Comment) */
-"Last %@ hours" = "Ostatnie %@ godziny";
+"%@ hours" = "%@ hours";
 
 /* (No Comment) */
-"Updated" = "Updated";
+"Reopen app in" = "Otwórz GD w ciągu";
 
 /* (No Comment) */
-"Reopen app in" = "Reopen app in";
+"%1$@ days" = "%1$@ dni";
 
 /* (No Comment) */
-"%1$@ days" = "%1$@ days";
+"%1$@ day" = "%1$@ dzień";
 
 /* (No Comment) */
-"%1$@ day" = "%1$@ day";
+"%1$@ hours" = "%1$@ godziny";
 
 /* (No Comment) */
-"%1$@ hours" = "%1$@ hours";
+"%1$@ hour" = "%1$@ godzina";
 
 /* (No Comment) */
-"%1$@ hour" = "%1$@ hour";
+"%1$@ minutes" = "%1$@ minuty";
 
 /* (No Comment) */
-"%1$@ minutes" = "%1$@ minutes";
+"Meal Bolus" = "Bolus Posiłkowy";
+
+/* (No Comment) */
+"Snack Bolus" = "Bolus przekąskowy";
+
+/* (No Comment) */
+"Correction Bolus" = "Bolus korekcyjny";
+
+/* (No Comment) */
+"Basal" = "Baza";
+
+/* (No Comment) */
+"Insulin" = "Insulina";
+
+/* (No Comment) */
+"Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "Insulina podstawowa (baza) odnosi się do insuliny używanej do regulowania poziomu glukozy we krwi między posiłkami, w tym podczas snu.";
+
+/* (No Comment) */
+"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Insulina w bolusie odnosi się do insuliny stosowanej do regulowania poziomu glukozy we krwi podczas posiłków i/lub doraźnego leczenia wysokiego poziomu glukozy we krwi.";
+
+/* (No Comment) */
+"Blood glucose" = "Glukoza we krwi";
+
+/* (No Comment) */
+"Add insulin" = "Dodaj insulinę";
+
+/* (No Comment) */
+"Calibration" = "Kalibracja";
+
+/* (No Comment) */
+"Starts" = "Startuje";
+
+/* (No Comment) */
+"Ends" = "Kończy się";
+
+/* (No Comment) */
+"Smooth chart values" = "Smooth chart values";
+
+/* (No Comment) */
+"Units" = "Units";
+
+/* (No Comment) */
+"Type" = "Typ";

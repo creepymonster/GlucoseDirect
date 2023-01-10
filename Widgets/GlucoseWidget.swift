@@ -76,7 +76,7 @@ struct GlucoseView: View {
     var glucoseUnit: GlucoseUnit? {
         entry.glucoseUnit ?? UserDefaults.shared.glucoseUnit
     }
-    
+
     var glucose: SensorGlucose? {
         entry.glucose ?? UserDefaults.shared.latestSensorGlucose
     }
@@ -114,6 +114,52 @@ struct GlucoseView: View {
                         .font(.system(size: 10))
                 }
 
+            case .systemSmall:
+                ZStack {
+                    LinearGradient(gradient: Gradient(colors: [.white, .ui.gray]), startPoint: .top, endPoint: .bottom)
+
+                    VStack(spacing: 10) {
+                        if let appIcon = UIImage(named: "AppIcon") {
+                            Image(uiImage: appIcon)
+                                .cornerRadius(4)
+                        }
+
+                        HStack(alignment: .lastTextBaseline, spacing: 10) {
+                            if glucose.type != .high {
+                                Text(verbatim: glucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
+                                    .font(.system(size: 42))
+
+                                VStack(alignment: .leading) {
+                                    Text(verbatim: glucose.trend.description)
+                                        .font(.system(size: 18))
+
+                                    if let minuteChange = glucose.minuteChange?.asShortMinuteChange(glucoseUnit: glucoseUnit) {
+                                        Text(verbatim: minuteChange)
+                                            .font(.footnote)
+                                    } else {
+                                        Text(verbatim: "?")
+                                            .font(.footnote)
+                                    }
+                                }
+                            } else {
+                                Text("HIGH")
+                                    .font(.system(size: 64))
+                                    .foregroundColor(Color.ui.red)
+                            }
+                        }
+
+                        VStack {
+                            Text("Updated")
+                                .textCase(.uppercase)
+                                .font(.footnote)
+                            Text(glucose.timestamp, style: .time)
+                                .monospacedDigit()
+                        }
+                        .opacity(0.5)
+                        .font(.footnote)
+                    }
+                }
+
             default:
                 Text("")
             }
@@ -130,7 +176,7 @@ struct GlucoseWidget: Widget {
         StaticConfiguration(kind: kind, provider: GlucoseUpdateProvider()) { entry in
             GlucoseView(entry: entry)
         }
-        .supportedFamilies([.accessoryRectangular, .accessoryCircular])
+        .supportedFamilies([.accessoryRectangular, .accessoryCircular, .systemSmall])
         .configurationDisplayName("Glucose widget")
         .description("Glucose widget description")
     }
@@ -140,6 +186,9 @@ struct GlucoseWidget: Widget {
 
 struct GlucoseWidget_Previews: PreviewProvider {
     static var previews: some View {
+        GlucoseView(entry: GlucoseEntry(date: Date(), glucose: placeholderLowGlucose, glucoseUnit: .mgdL))
+            .previewContext(WidgetPreviewContext(family: .systemSmall))
+
         GlucoseView(entry: GlucoseEntry(date: Date(), glucose: placeholderLowGlucose, glucoseUnit: .mgdL))
             .previewContext(WidgetPreviewContext(family: .accessoryRectangular))
 

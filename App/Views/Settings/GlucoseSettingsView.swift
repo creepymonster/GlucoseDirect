@@ -35,7 +35,11 @@ struct GlucoseSettingsView: View {
                     Toggle("Glucose Live Activity", isOn: glucoseLiveActivity).toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
                 }
 
-                Toggle("Glucose read aloud", isOn: readGlucose).toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
+                Toggle("Smooth chart values", isOn: smoothChartValues).toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
+                
+                if DirectConfig.smoothSensorGlucoseValues {
+                    Toggle("Glucose read aloud", isOn: readGlucose).toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
+                }
             },
             header: {
                 Label("Glucose settings", systemImage: "cross.case")
@@ -44,6 +48,13 @@ struct GlucoseSettingsView: View {
     }
 
     // MARK: Private
+
+    private var smoothChartValues: Binding<Bool> {
+        Binding(
+            get: { store.state.smoothChartValues },
+            set: { store.dispatch(.setSmoothChartValues(enabled: $0)) }
+        )
+    }
 
     private var normalGlucoseNotification: Binding<Bool> {
         Binding(

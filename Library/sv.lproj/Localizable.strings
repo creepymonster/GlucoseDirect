@@ -470,6 +470,9 @@
 "Unknown" = "Okänd";
 
 /* (No Comment) */
+"Updated" = "Updated";
+
+/* (No Comment) */
 "Upper limit" = "Högt";
 
 /* (No Comment) */
@@ -521,10 +524,7 @@
 "Export for Tidepool" = "Export for Tidepool";
 
 /* (No Comment) */
-"Last %@ hours" = "Last %@ hours";
-
-/* (No Comment) */
-"Updated" = "Updated";
+"%@ hours" = "%@ hours";
 
 /* (No Comment) */
 "Reopen app in" = "Reopen app in";
@@ -543,3 +543,48 @@
 
 /* (No Comment) */
 "%1$@ minutes" = "%1$@ minutes";
+
+/* (No Comment) */
+"Meal Bolus" = "Meal Bolus";
+
+/* (No Comment) */
+"Snack Bolus" = "Snack Bolus";
+
+/* (No Comment) */
+"Correction Bolus" = "Correction Bolus";
+
+/* (No Comment) */
+"Basal" = "Basal";
+
+/* (No Comment) */
+"Insulin" = "Insulin";
+
+/* (No Comment) */
+"Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep.";
+
+/* (No Comment) */
+"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose.";
+
+/* (No Comment) */
+"Blood glucose" = "Blood glucose";
+
+/* (No Comment) */
+"Add insulin" = "Add insulin";
+
+/* (No Comment) */
+"Calibration" = "Kalibrering";
+
+/* (No Comment) */
+"Starts" = "Starts";
+
+/* (No Comment) */
+"Ends" = "Ends";
+
+/* (No Comment) */
+"Smooth chart values" = "Smooth chart values";
+
+/* (No Comment) */
+"Units" = "Units";
+
+/* (No Comment) */
+"Type" = "Typ";

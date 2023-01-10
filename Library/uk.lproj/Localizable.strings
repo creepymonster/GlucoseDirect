@@ -470,6 +470,9 @@
 "Unknown" = "Невідомий";
 
 /* (No Comment) */
+"Updated" = "Оновлено";
+
+/* (No Comment) */
 "Upper limit" = "Високий";
 
 /* (No Comment) */
@@ -521,10 +524,7 @@
 "Export for Tidepool" = "Експорт до Tidepool";
 
 /* (No Comment) */
-"Last %@ hours" = "Останні %@ години";
-
-/* (No Comment) */
-"Updated" = "Оновлено";
+"%@ hours" = "%@ hours";
 
 /* (No Comment) */
 "Reopen app in" = "Повторно відкрити програму в";
@@ -543,3 +543,48 @@
 
 /* (No Comment) */
 "%1$@ minutes" = "%1$@ хвилин";
+
+/* (No Comment) */
+"Meal Bolus" = "Болюс їжі";
+
+/* (No Comment) */
+"Snack Bolus" = "Болюс перекуса";
+
+/* (No Comment) */
+"Correction Bolus" = "Корекційний болюс";
+
+/* (No Comment) */
+"Basal" = "Базал";
+
+/* (No Comment) */
+"Insulin" = "Інсулін";
+
+/* (No Comment) */
+"Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "Базальний інсулін відноситься до інсуліну, який використовується для регулювання рівня глюкози в крові між прийомами їжі, у тому числі під час сну.";
+
+/* (No Comment) */
+"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Болюсний інсулін відноситься до інсуліну, який використовується для регулювання рівня глюкози в крові під час прийому їжі та/або для швидкого лікування високого рівня глюкози в крові.";
+
+/* (No Comment) */
+"Blood glucose" = "Рівень глюкози в крові";
+
+/* (No Comment) */
+"Add insulin" = "Додайте інсулін";
+
+/* (No Comment) */
+"Calibration" = "Калібрування";
+
+/* (No Comment) */
+"Starts" = "Запускається";
+
+/* (No Comment) */
+"Ends" = "Закінчується";
+
+/* (No Comment) */
+"Smooth chart values" = "Smooth chart values";
+
+/* (No Comment) */
+"Units" = "Units";
+
+/* (No Comment) */
+"Type" = "Тип";

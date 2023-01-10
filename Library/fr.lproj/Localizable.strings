@@ -41,7 +41,7 @@
 "Alert, low blood glucose" = "Alerte, glycémie basse";
 
 /* (No Comment) */
-"Alarm, loss of signal" = "Alarm, loss of signal";
+"Alarm, loss of signal" = " Alarme, perte de signal ";
 
 /* (No Comment) */
 "Alert, sensor expired" = "Alerte, capteur expiré";
@@ -428,7 +428,7 @@
 "StatisticsPeriod" = "Période";
 
 /* (No Comment) */
-"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data.";
+"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = " Plus aucune donnée n'est reçue du capteur. La cause peut être que la connexion Bluetooth avec le capteur a été interrompue ou que le LibreLinkUp ne fournit plus de données. ";
 
 /* (No Comment) */
 "Time" = "Temps";
@@ -470,6 +470,9 @@
 "Unknown" = "Inconnu";
 
 /* (No Comment) */
+"Updated" = " Mis à jour ";
+
+/* (No Comment) */
 "Upper limit" = "Haut";
 
 /* (No Comment) */
@@ -503,7 +506,7 @@
 "Your sensor has expired and needs to be replaced as soon as possible" = "Votre capteur a expiré et doit être remplacé dès que possible";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@." = "Your sensor is about to expire. Replace sensor in %1$@.";
+"Your sensor is about to expire. Replace sensor in %1$@." = " Votre capteur est sur le point d'expirer. Remplacer le capteur dans %1$@. ";
 
 /* (No Comment) */
 "Loading..." = "Chargement en cours...";
@@ -521,25 +524,67 @@
 "Export for Tidepool" = "Exporter pour Tidepool";
 
 /* (No Comment) */
-"Last %@ hours" = "Dernières %@ heures";
+"%@ hours" = "%@ hours";
 
 /* (No Comment) */
-"Updated" = "Updated";
+"Reopen app in" = " Rouvrir l'application dans ";
 
 /* (No Comment) */
-"Reopen app in" = "Reopen app in";
+"%1$@ days" = " %1$@ jours";
 
 /* (No Comment) */
-"%1$@ days" = "%1$@ days";
+"%1$@ day" = " %1$@ jour";
 
 /* (No Comment) */
-"%1$@ day" = "%1$@ day";
+"%1$@ hours" = " %1$@ heures ";
 
 /* (No Comment) */
-"%1$@ hours" = "%1$@ hours";
+"%1$@ hour" = " %1$@ heure ";
 
 /* (No Comment) */
-"%1$@ hour" = "%1$@ hour";
+"%1$@ minutes" = " %1$@ minutes ";
 
 /* (No Comment) */
-"%1$@ minutes" = "%1$@ minutes";
+"Meal Bolus" = " Bolus repas ";
+
+/* (No Comment) */
+"Snack Bolus" = " Bolus snack ";
+
+/* (No Comment) */
+"Correction Bolus" = " Bolus de correction ";
+
+/* (No Comment) */
+"Basal" = " Basal";
+
+/* (No Comment) */
+"Insulin" = " Insuline ";
+
+/* (No Comment) */
+"Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "L'insuline basale désigne l'insuline utilisée pour réguler la glycémie entre les repas, y compris pendant le sommeil. ";
+
+/* (No Comment) */
+"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "L'insuline en bolus désigne l'insuline utilisée pour réguler la glycémie au moment des repas et/ou pour traiter de façon aiguë une glycémie élevée. ";
+
+/* (No Comment) */
+"Blood glucose" = " Glycémie ";
+
+/* (No Comment) */
+"Add insulin" = "Ajouter de l'insuline";
+
+/* (No Comment) */
+"Calibration" = "Étalonnage";
+
+/* (No Comment) */
+"Starts" = "Starts";
+
+/* (No Comment) */
+"Ends" = "Ends";
+
+/* (No Comment) */
+"Smooth chart values" = "Smooth chart values";
+
+/* (No Comment) */
+"Units" = "Units";
+
+/* (No Comment) */
+"Type" = "Type";

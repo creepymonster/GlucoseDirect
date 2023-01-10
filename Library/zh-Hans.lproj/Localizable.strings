@@ -41,7 +41,7 @@
 "Alert, low blood glucose" = "警告，低血糖";
 
 /* (No Comment) */
-"Alarm, loss of signal" = "Alarm, loss of signal";
+"Alarm, loss of signal" = "报警，信号丢失";
 
 /* (No Comment) */
 "Alert, sensor expired" = "警报，传感器过期";
@@ -428,7 +428,7 @@
 "StatisticsPeriod" = "周期";
 
 /* (No Comment) */
-"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data.";
+"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "无法再从传感器接收数据。原因可能是传感器与蓝牙设备的连接已中断，或者LibreLinkUp不再提供数据。";
 
 /* (No Comment) */
 "Time" = "时间";
@@ -470,6 +470,9 @@
 "Unknown" = "未知";
 
 /* (No Comment) */
+"Updated" = "已更新";
+
+/* (No Comment) */
 "Upper limit" = "高";
 
 /* (No Comment) */
@@ -503,7 +506,7 @@
 "Your sensor has expired and needs to be replaced as soon as possible" = "您的传感器已经过期，需要尽快更换";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@." = "Your sensor is about to expire. Replace sensor in %1$@.";
+"Your sensor is about to expire. Replace sensor in %1$@." = "您的传感器即将过期。请在%1$@中替换传感器。";
 
 /* (No Comment) */
 "Loading..." = "加载中…";
@@ -521,25 +524,67 @@
 "Export for Tidepool" = "导出到Tidepool";
 
 /* (No Comment) */
-"Last %@ hours" = "最近 %@ 小时";
+"%@ hours" = "%@ hours";
 
 /* (No Comment) */
-"Updated" = "Updated";
+"Reopen app in" = "请在以下时间后重新打开应用：";
 
 /* (No Comment) */
-"Reopen app in" = "Reopen app in";
+"%1$@ days" = "%1$@天";
 
 /* (No Comment) */
-"%1$@ days" = "%1$@ days";
+"%1$@ day" = "%1$@天";
 
 /* (No Comment) */
-"%1$@ day" = "%1$@ day";
+"%1$@ hours" = "%1$@小时";
 
 /* (No Comment) */
-"%1$@ hours" = "%1$@ hours";
+"%1$@ hour" = "%1$@小时";
 
 /* (No Comment) */
-"%1$@ hour" = "%1$@ hour";
+"%1$@ minutes" = "%1$@分钟";
 
 /* (No Comment) */
-"%1$@ minutes" = "%1$@ minutes";
+"Meal Bolus" = "餐前推注";
+
+/* (No Comment) */
+"Snack Bolus" = "零食前推注";
+
+/* (No Comment) */
+"Correction Bolus" = "校正推注";
+
+/* (No Comment) */
+"Basal" = "基础";
+
+/* (No Comment) */
+"Insulin" = "胰岛素";
+
+/* (No Comment) */
+"Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "基础胰岛素是指用于调节两餐之间（包括睡眠期间）血糖水平的胰岛素。";
+
+/* (No Comment) */
+"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "推注胰岛素是指用于调节用餐时血糖水平和/或应对突发高血糖的胰岛素。";
+
+/* (No Comment) */
+"Blood glucose" = "血糖";
+
+/* (No Comment) */
+"Add insulin" = "添加胰岛素";
+
+/* (No Comment) */
+"Calibration" = "校准";
+
+/* (No Comment) */
+"Starts" = "Starts";
+
+/* (No Comment) */
+"Ends" = "Ends";
+
+/* (No Comment) */
+"Smooth chart values" = "Smooth chart values";
+
+/* (No Comment) */
+"Units" = "Units";
+
+/* (No Comment) */
+"Type" = "类型";

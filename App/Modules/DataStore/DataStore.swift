@@ -104,3 +104,22 @@ extension SensorError: FetchableRecord, PersistableRecord {
         case timegroup
     }
 }
+
+// MARK: - InsulinDelivery + FetchableRecord, PersistableRecord
+
+extension InsulinDelivery: FetchableRecord, PersistableRecord {
+    static let databaseUUIDEncodingStrategy = DatabaseUUIDEncodingStrategy.uppercaseString
+
+    static var Table: String {
+        "InsulinDelivery"
+    }
+
+    enum Columns: String, ColumnExpression {
+        case id
+        case starts
+        case ends
+        case units
+        case type
+        case timegroup
+    }
+}

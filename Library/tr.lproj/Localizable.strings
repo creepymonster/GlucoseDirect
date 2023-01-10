@@ -41,7 +41,7 @@
 "Alert, low blood glucose" = "Uyarı, düşük kan şekeri";
 
 /* (No Comment) */
-"Alarm, loss of signal" = "Alarm, loss of signal";
+"Alarm, loss of signal" = "Alarm, sinyal kaybı";
 
 /* (No Comment) */
 "Alert, sensor expired" = "Uyarı, sensör süresi doldu";
@@ -428,7 +428,7 @@
 "StatisticsPeriod" = "Period";
 
 /* (No Comment) */
-"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data.";
+"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "Sensörden artık veri alınmıyor. Bunun nedeni sensörle olan Bluetooth bağlantısının kesilmiş olması veya LibreLinkUp'ın artık veri sağlamıyor olması olabilir.";
 
 /* (No Comment) */
 "Time" = "Zaman";
@@ -470,6 +470,9 @@
 "Unknown" = "Bilinmeyen";
 
 /* (No Comment) */
+"Updated" = "Güncellendi";
+
+/* (No Comment) */
 "Upper limit" = "Yüksek";
 
 /* (No Comment) */
@@ -503,7 +506,7 @@
 "Your sensor has expired and needs to be replaced as soon as possible" = "Sensörünüzün kullanım süresi doldu ve mümkün olan en kısa sürede değiştirilmesi gerekiyor";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@." = "Your sensor is about to expire. Replace sensor in %1$@.";
+"Your sensor is about to expire. Replace sensor in %1$@." = "Sensörünüzün süresi dolmak üzere. Sensörü %1$@ içinde değiştirin.";
 
 /* (No Comment) */
 "Loading..." = "Yükleniyor...";
@@ -521,25 +524,67 @@
 "Export for Tidepool" = "Tidepool için Dışa Aktarma";
 
 /* (No Comment) */
-"Last %@ hours" = "Son %@ saat";
+"%@ hours" = "%@ hours";
 
 /* (No Comment) */
-"Updated" = "Updated";
+"Reopen app in" = "Uygulamayı şu sürede tekrar aç";
 
 /* (No Comment) */
-"Reopen app in" = "Reopen app in";
+"%1$@ days" = "%1$@ gün";
 
 /* (No Comment) */
-"%1$@ days" = "%1$@ days";
+"%1$@ day" = "%1$@ gün";
 
 /* (No Comment) */
-"%1$@ day" = "%1$@ day";
+"%1$@ hours" = "%1$@ saat";
 
 /* (No Comment) */
-"%1$@ hours" = "%1$@ hours";
+"%1$@ hour" = "%1$@ saat";
 
 /* (No Comment) */
-"%1$@ hour" = "%1$@ hour";
+"%1$@ minutes" = "%1$@ dakika";
 
 /* (No Comment) */
-"%1$@ minutes" = "%1$@ minutes";
+"Meal Bolus" = "Öğün Bolusu";
+
+/* (No Comment) */
+"Snack Bolus" = "Aperatif Bolusu";
+
+/* (No Comment) */
+"Correction Bolus" = "Düzeltme Bolusu";
+
+/* (No Comment) */
+"Basal" = "Bazal";
+
+/* (No Comment) */
+"Insulin" = "İnsülin";
+
+/* (No Comment) */
+"Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "Bazal insülin, uyku da dahil olmak üzere öğünler arasında kan şekerini düzenlemek için kullanılan insülini ifade eder.";
+
+/* (No Comment) */
+"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Bolus insülin, öğünlerde kan şekerini düzenlemek ve/veya yüksek kan şekerini akut olarak ele almak için kullanılan insülini ifade eder.";
+
+/* (No Comment) */
+"Blood glucose" = "Kan şekeri";
+
+/* (No Comment) */
+"Add insulin" = "İnsülin Ekle";
+
+/* (No Comment) */
+"Calibration" = "Kalibrasyon";
+
+/* (No Comment) */
+"Starts" = "Starts";
+
+/* (No Comment) */
+"Ends" = "Ends";
+
+/* (No Comment) */
+"Smooth chart values" = "Smooth chart values";
+
+/* (No Comment) */
+"Units" = "Units";
+
+/* (No Comment) */
+"Type" = "Tip";

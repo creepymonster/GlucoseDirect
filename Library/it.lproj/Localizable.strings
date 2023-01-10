@@ -8,10 +8,10 @@
 "%1$@d %2$@h %3$@min" = "%1$@giorni %2$@ore %3$@minuti";
 
 /* (No Comment) */
-"%@ Entries" = " %@ Voci ";
+"%@ Entries" = "%@ Voci";
 
 /* (No Comment) */
-"%@ Entry" = " %@ Voce ";
+"%@ Entry" = "%@ Voce";
 
 /* (No Comment) */
 "About %@" = "In circa %@";
@@ -41,7 +41,7 @@
 "Alert, low blood glucose" = "Allarme, livello Glucosio basso nel sangue";
 
 /* (No Comment) */
-"Alarm, loss of signal" = "Alarm, loss of signal";
+"Alarm, loss of signal" = " Allarme, perdita di segnale";
 
 /* (No Comment) */
 "Alert, sensor expired" = "Allarme, sensore scaduto";
@@ -89,7 +89,7 @@
 "Attention, the sensor sends faulty values. Please wait 10 minutes." = "Attenzione, il sensore manda valori errati. Riprovare tra 10 minuti.";
 
 /* (No Comment) */
-"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "La media (AVG) è una misura complessiva degli zuccheri nel sangue in un periodo di tempo, che offre una singola visione ad alto livello di dove è stato il glucosio. ";
+"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "La media (AVG) è una misura complessiva degli zuccheri nel sangue in un periodo di tempo, che offre una singola visione ad alto livello di dove è stato il glucosio.";
 
 /* (No Comment) */
 "Bellman alarm" = "Alarm";
@@ -182,7 +182,7 @@
 "Glucose Live Activity" = "Attività glucosio dal vivo";
 
 /* (No Comment) */
-"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "L'indicatore di gestione del glucosio (GMI) è un sostituto di \"HbA1c stimato\" per i pazienti che utilizzano il monitoraggio continuo del glucosio. ";
+"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "L'indicatore di gestione del glucosio (GMI) è un sostituto di \"HbA1c stimato\" per i pazienti che utilizzano il monitoraggio continuo del glucosio.";
 
 /* (No Comment) */
 "Glucose notification" = "Notifica glucosio";
@@ -347,7 +347,7 @@
 "Sensor ending date" = "Data di fine";
 
 /* (No Comment) */
-"Sensor error values" = "Errori CGM ";
+"Sensor error values" = "Errori CGM";
 
 /* (No Comment) */
 "Sensor factory calibration" = "Calibrazione Standard";
@@ -419,25 +419,25 @@
 "Snooze until" = "Posponi";
 
 /* (No Comment) */
-"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "La deviazione standard (SD) è una misura della diffusione delle letture del glucosio intorno alla media: il rimbalzo tra molti massimi e minimi si traduce in una SD più grande. L'obiettivo è la SD più bassa possibile, che rifletterebbe un livello di glucosio costante con oscillazioni minime. ";
+"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "La deviazione standard (SD) è una misura della diffusione delle letture del glucosio intorno alla media: il rimbalzo tra molti massimi e minimi si traduce in una SD più grande. L'obiettivo è la SD più bassa possibile, che rifletterebbe un livello di glucosio costante con oscillazioni minime.";
 
 /* (No Comment) */
-"Statistics (%@ days)" = "Statistiche (%@ days) ";
+"Statistics (%@ days)" = "Statistiche (%@ days)";
 
 /* (No Comment) */
 "StatisticsPeriod" = "Periodo";
 
 /* (No Comment) */
-"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data.";
+"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = " Non vengono ricevuti altri dati dal sensore. La causa potrebbe essere che la connessione Bluetooth al sensore è stata interrotta o che LibreLinkUp non fornisce più dati.";
 
 /* (No Comment) */
 "Time" = "Tempo";
 
 /* (No Comment) */
-"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Tempo al di sopra dell'intervallo (TAR) o percentuale di tempo trascorso al di sopra del target di glucosio target %@. ";
+"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Tempo al di sopra dell'intervallo (TAR) o percentuale di tempo trascorso al di sopra del target di glucosio target %@.";
 
 /* (No Comment) */
-"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Tempo al di sotto dell'intervallo (TBR) o percentuale di tempo trascorso al di sotto del target di glucosio %@. ";
+"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Tempo al di sotto dell'intervallo (TBR) o percentuale di tempo trascorso al di sotto del target di glucosio %@.";
 
 /* (No Comment) */
 "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Time in Range (TIR) ovvero la percentuale di tempo trascorsa nell'intervallo del glucosio target tra %@ e %@.";
@@ -449,7 +449,7 @@
 "Transmitter battery" = "Batteria";
 
 /* (No Comment) */
-"Transmitter battery widget" = "Batteria trasmettitore ";
+"Transmitter battery widget" = "Batteria trasmettitore";
 
 /* (No Comment) */
 "Transmitter battery widget description" = "Visualizza la carica residua della batteria del trasmettitore come conto alla rovescia.";
@@ -470,10 +470,13 @@
 "Unknown" = "Sconosciuto";
 
 /* (No Comment) */
+"Updated" = "Aggiornato";
+
+/* (No Comment) */
 "Upper limit" = "Alto";
 
 /* (No Comment) */
-"Use LibreLink to start the sensor" = "Utilizzare LibreLink per avviare il sensore ";
+"Use LibreLink to start the sensor" = "Utilizzare LibreLink per avviare il sensore";
 
 /* (No Comment) */
 "Vibration" = "Solo vibrazione";
@@ -503,7 +506,7 @@
 "Your sensor has expired and needs to be replaced as soon as possible" = "Il tuo sensore è scaduto e ha bisogno di essere sostituito il prima possibile";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@." = "Your sensor is about to expire. Replace sensor in %1$@.";
+"Your sensor is about to expire. Replace sensor in %1$@." = "Il sensore sta per scadere. Sostituire il sensore in %1$@.";
 
 /* (No Comment) */
 "Loading..." = "Caricamento...";
@@ -521,25 +524,67 @@
 "Export for Tidepool" = "Esporta per Tidepool";
 
 /* (No Comment) */
-"Last %@ hours" = "Ultime %@ ore";
+"%@ hours" = "%@ hours";
 
 /* (No Comment) */
-"Updated" = "Updated";
+"Reopen app in" = "Riapri l'app tra";
 
 /* (No Comment) */
-"Reopen app in" = "Reopen app in";
+"%1$@ days" = "%1$@ giorni";
 
 /* (No Comment) */
-"%1$@ days" = "%1$@ days";
+"%1$@ day" = "%1$@ giorno";
 
 /* (No Comment) */
-"%1$@ day" = "%1$@ day";
+"%1$@ hours" = "%1$@ ore";
 
 /* (No Comment) */
-"%1$@ hours" = "%1$@ hours";
+"%1$@ hour" = "%1$@ ora";
 
 /* (No Comment) */
-"%1$@ hour" = "%1$@ hour";
+"%1$@ minutes" = "%1$@ minuti";
 
 /* (No Comment) */
-"%1$@ minutes" = "%1$@ minutes";
+"Meal Bolus" = "Bolo insulunico";
+
+/* (No Comment) */
+"Snack Bolus" = "Bolo snack";
+
+/* (No Comment) */
+"Correction Bolus" = "Bolo di correzione";
+
+/* (No Comment) */
+"Basal" = "Basale";
+
+/* (No Comment) */
+"Insulin" = "Insulina";
+
+/* (No Comment) */
+"Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "L'insulina basale si riferisce all'insulina utilizzata per regolare la glicemia tra i pasti, anche durante il sonno.";
+
+/* (No Comment) */
+"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Il bolo insulinico si riferisce all'insulina utilizzata per regolare la glicemia durante i pasti e/o per affrontare in modo acuto la glicemia alta.";
+
+/* (No Comment) */
+"Blood glucose" = "Glicemia";
+
+/* (No Comment) */
+"Add insulin" = "Aggiungere insulina";
+
+/* (No Comment) */
+"Calibration" = "Calibrazione";
+
+/* (No Comment) */
+"Starts" = "Inizia";
+
+/* (No Comment) */
+"Ends" = "Fine";
+
+/* (No Comment) */
+"Smooth chart values" = "Smooth chart values";
+
+/* (No Comment) */
+"Units" = "Units";
+
+/* (No Comment) */
+"Type" = "Tipo";

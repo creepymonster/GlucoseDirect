@@ -64,6 +64,7 @@ struct AppState: DirectState {
         self.latestBloodGlucose = UserDefaults.shared.latestBloodGlucose
         self.latestSensorGlucose = UserDefaults.shared.latestSensorGlucose
         self.latestSensorError = UserDefaults.shared.latestSensorError
+        self.latestInsulinDelivery = UserDefaults.shared.latestInsulinDelivery
         self.lowGlucoseAlarmSound = UserDefaults.standard.lowGlucoseAlarmSound
         self.nightscoutApiSecret = UserDefaults.standard.nightscoutApiSecret
         self.nightscoutUpload = UserDefaults.standard.nightscoutUpload
@@ -75,6 +76,7 @@ struct AppState: DirectState {
         self.sensorInterval = UserDefaults.standard.sensorInterval
         self.showAnnotations = UserDefaults.standard.showAnnotations
         self.transmitter = UserDefaults.shared.transmitter
+        self.smoothChartValues = UserDefaults.standard.smoothChartValues
     }
 
     // MARK: Internal
@@ -84,6 +86,7 @@ struct AppState: DirectState {
     var bellmanConnectionState: BellmanConnectionState = .disconnected
     var bloodGlucoseHistory: [BloodGlucose] = []
     var bloodGlucoseValues: [BloodGlucose] = []
+    var insulinDeliveryValues: [InsulinDelivery] = []
     var connectionError: String?
     var connectionErrorTimestamp: Date?
     var connectionInfos: [SensorConnectionInfo] = []
@@ -127,6 +130,7 @@ struct AppState: DirectState {
     var latestBloodGlucose: BloodGlucose? { didSet { UserDefaults.shared.latestBloodGlucose = latestBloodGlucose } }
     var latestSensorError: SensorError? { didSet { UserDefaults.shared.latestSensorError = latestSensorError } }
     var latestSensorGlucose: SensorGlucose? { didSet { UserDefaults.shared.latestSensorGlucose = latestSensorGlucose } }
+    var latestInsulinDelivery: InsulinDelivery? { didSet { UserDefaults.shared.latestInsulinDelivery = latestInsulinDelivery } }
     var lowGlucoseAlarmSound: NotificationSound { didSet { UserDefaults.standard.lowGlucoseAlarmSound = lowGlucoseAlarmSound } }
     var nightscoutApiSecret: String { didSet { UserDefaults.standard.nightscoutApiSecret = nightscoutApiSecret } }
     var nightscoutUpload: Bool { didSet { UserDefaults.standard.nightscoutUpload = nightscoutUpload } }
@@ -138,4 +142,5 @@ struct AppState: DirectState {
     var sensorInterval: Int { didSet { UserDefaults.standard.sensorInterval = sensorInterval } }
     var showAnnotations: Bool { didSet { UserDefaults.standard.showAnnotations = showAnnotations } }
     var transmitter: Transmitter? { didSet { UserDefaults.shared.transmitter = transmitter } }
+    var smoothChartValues: Bool { didSet { UserDefaults.standard.smoothChartValues = smoothChartValues } }
 }
