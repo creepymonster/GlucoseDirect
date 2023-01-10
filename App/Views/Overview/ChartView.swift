@@ -220,7 +220,7 @@ struct ChartView: View {
                         yStart: .value("Units", 0),
                         yEnd: .value("Units", value.value.map(from: 0...5, to: 0...50))
                     )
-                    .opacity(0.15)
+                    .opacity(0.5)
                     .foregroundStyle(Color.ui.yellow)
                 }
             }

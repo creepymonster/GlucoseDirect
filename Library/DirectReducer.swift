@@ -91,7 +91,6 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         
     case .selectView(viewTag: let viewTag):
         state.selectedView = viewTag
-        state.selectedDate = nil
         
     case .setAlarmHigh(upperLimit: let upperLimit):
         state.alarmHigh = upperLimit
