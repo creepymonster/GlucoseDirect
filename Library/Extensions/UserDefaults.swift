@@ -53,6 +53,7 @@ private enum Keys: String {
     case sharedTransmitterHardware = "glucosedirect--transmitter-hardware"
     case transmitter = "libre-direct.settings.transmitter"
     case showAnnotations = "libre-direct.settings.show-annotations"
+    case smoothChartValues = "libre-direct.settings.smooth-chart-values"
 }
 
 extension UserDefaults {
@@ -648,6 +649,19 @@ extension UserDefaults {
             } else {
                 removeObject(forKey: Keys.transmitter.rawValue)
             }
+        }
+    }
+    
+    var smoothChartValues: Bool {
+        get {
+            if object(forKey: Keys.smoothChartValues.rawValue) != nil {
+                return bool(forKey: Keys.smoothChartValues.rawValue)
+            }
+
+            return false
+        }
+        set {
+            set(newValue, forKey: Keys.smoothChartValues.rawValue)
         }
     }
 }

@@ -24,7 +24,7 @@ struct ListsView: View {
                     store.dispatch(.addInsulinDelivery(insulinDeliveryValues: [insulinDelivery]))
                 }
             }
-            
+
             Button("Add blood glucose", action: {
                 showingAddBloodGlucoseView = true
             }).sheet(isPresented: $showingAddBloodGlucoseView, onDismiss: {
@@ -35,21 +35,21 @@ struct ListsView: View {
                     store.dispatch(.addBloodGlucose(glucoseValues: [glucose]))
                 }
             }
-            
-            if DirectConfig.insulinDeliveryInput {
-                InsulinDeliveryListView()
-            }
-            
+
+            SensorGlucoseListView()
+
             if DirectConfig.bloodGlucoseInput {
                 BloodGlucoseListView()
             }
-            
-            SensorGlucoseListView()
-            
+
+            if DirectConfig.insulinDeliveryInput {
+                InsulinDeliveryListView()
+            }
+
             if DirectConfig.glucoseErrors {
                 SensorErrorListView()
             }
-            
+
             if DirectConfig.glucoseStatistics {
                 StatisticsView()
             }

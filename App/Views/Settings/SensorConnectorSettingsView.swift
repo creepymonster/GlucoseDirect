@@ -34,8 +34,6 @@ struct SensorConnectorSettingsView: View {
                             }
                         }
                     }.pickerStyle(.menu)
-
-                    ConnectionActionsView()
                 },
                 header: {
                     Label("Sensor connection", systemImage: "rectangle.connected.to.line.below")

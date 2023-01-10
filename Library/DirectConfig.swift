@@ -28,7 +28,7 @@ enum DirectConfig {
     static let projectName = "GlucoseDirect"
     static let settingsViewTag = 4
     static let smoothSensorGlucoseValues = true
-    static let smoothThresholdSeconds: Double = 15 * 60
+    static let smoothThresholdSeconds: Double = 180 * 60
     static let timegroupRounding = 15
     static let virtualID = "virtual"
     static let widgetName = "\(appName) Widget"

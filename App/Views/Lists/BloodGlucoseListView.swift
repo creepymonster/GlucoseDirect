@@ -12,16 +12,28 @@ struct BloodGlucoseListView: View {
 
     var body: some View {
         Group {
-            CollapsableSection(teaser: Text(getTeaser(bloodGlucoseValues.count)), header: Label("Blood glucose values", systemImage: "drop"), collapsed: true, collapsible: !bloodGlucoseValues.isEmpty) {
+            CollapsableSection(
+                teaser: Text(getTeaser(bloodGlucoseValues.count)),
+                header: HStack {
+                    Label("Blood glucose values", systemImage: "drop")
+                    Spacer()
+                    SelectedDatePager().padding(.trailing)
+                }.buttonStyle(.plain),
+                collapsed: true,
+                collapsible: !bloodGlucoseValues.isEmpty)
+            {
                 if bloodGlucoseValues.isEmpty {
                     Text(getTeaser(bloodGlucoseValues.count))
                 } else {
                     ForEach(bloodGlucoseValues) { bloodGlucose in
                         HStack {
                             Text(verbatim: bloodGlucose.timestamp.toLocalDateTime())
+                                .monospacedDigit()
+
                             Spacer()
 
                             Text(verbatim: bloodGlucose.glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))
+                                .monospacedDigit()
                                 .if(bloodGlucose.glucoseValue < store.state.alarmLow || bloodGlucose.glucoseValue > store.state.alarmHigh) { text in
                                     text.foregroundColor(Color.ui.red)
                                 }
@@ -58,13 +70,5 @@ struct BloodGlucoseListView: View {
 
     private func getTeaser(_ count: Int) -> String {
         return count.pluralizeLocalization(singular: "%@ Entry", plural: "%@ Entries")
-    }
-
-    private func isPrecise(glucose: SensorGlucose) -> Bool {
-        if store.state.glucoseUnit == .mgdL {
-            return false
-        }
-
-        return glucose.glucoseValue.isAlmost(store.state.alarmLow, store.state.alarmHigh)
     }
 }

@@ -91,7 +91,6 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         
     case .selectView(viewTag: let viewTag):
         state.selectedView = viewTag
-        state.selectedDate = nil
         
     case .setAlarmHigh(upperLimit: let upperLimit):
         state.alarmHigh = upperLimit
@@ -284,6 +283,9 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         
     case .setAppIsBusy(isBusy: let isBusy):
         state.appIsBusy = isBusy
+        
+    case .setSmoothChartValues(enabled: let enabled):
+        state.smoothChartValues = enabled
 
     default:
         break

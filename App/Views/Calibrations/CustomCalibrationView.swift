@@ -44,7 +44,10 @@ struct CustomCalibrationView: View {
                         HStack {
                             Text(verbatim: calibration.timestamp.toLocalDateTime())
                             Spacer()
-                            Text(verbatim: "\(calibration.x.asGlucose(glucoseUnit: store.state.glucoseUnit)) = \(calibration.y.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))")
+                            
+                            if let xValue = calibration.x.toInteger(), let yValue = calibration.y.toInteger() {
+                                Text(verbatim: "\(xValue.asGlucose(glucoseUnit: store.state.glucoseUnit)) = \(yValue.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))")
+                            }
                         }
                     }.onDelete { offsets in
                         DirectLog.info("onDelete: \(offsets)")

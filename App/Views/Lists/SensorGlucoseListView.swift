@@ -12,24 +12,36 @@ struct SensorGlucoseListView: View {
 
     var body: some View {
         Group {
-            CollapsableSection(teaser: Text(getTeaser(sensorGlucoseValues.count)), header: Label("Sensor glucose values", systemImage: "sensor.tag.radiowaves.forward"), collapsed: true, collapsible: !sensorGlucoseValues.isEmpty) {
+            CollapsableSection(
+                teaser: Text(getTeaser(sensorGlucoseValues.count)),
+                header: HStack {
+                    Label("Sensor glucose values", systemImage: "sensor.tag.radiowaves.forward")
+                    Spacer()
+                    SelectedDatePager().padding(.trailing)
+                }.buttonStyle(.plain),
+
+                collapsed: true,
+                collapsible: !sensorGlucoseValues.isEmpty)
+            {
                 if sensorGlucoseValues.isEmpty {
                     Text(getTeaser(sensorGlucoseValues.count))
                 } else {
-                    let smoothThreshold = Date().addingTimeInterval(-DirectConfig.smoothThresholdSeconds)
-
                     ForEach(sensorGlucoseValues) { sensorGlucose in
                         HStack {
                             Text(verbatim: sensorGlucose.timestamp.toLocalDateTime())
+                                .monospacedDigit()
+
                             Spacer()
 
-                            if let glucoseValue = sensorGlucose.smoothGlucoseValue?.toInteger(), sensorGlucose.timestamp < smoothThreshold, DirectConfig.smoothSensorGlucoseValues {
-                                Text(verbatim: glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true, precise: isPrecise(glucoseValue: glucoseValue)))
+                            if let glucoseValue = sensorGlucose.smoothGlucoseValue?.toInteger(), sensorGlucose.timestamp < store.state.smoothThreshold, DirectConfig.smoothSensorGlucoseValues {
+                                Text(verbatim: glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))
+                                    .monospacedDigit()
                                     .if(glucoseValue < store.state.alarmLow || glucoseValue > store.state.alarmHigh) { text in
                                         text.foregroundColor(Color.ui.red)
                                     }
                             } else {
-                                Text(verbatim: sensorGlucose.glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true, precise: isPrecise(glucoseValue: sensorGlucose.glucoseValue)))
+                                Text(verbatim: sensorGlucose.glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))
+                                    .monospacedDigit()
                                     .if(sensorGlucose.glucoseValue < store.state.alarmLow || sensorGlucose.glucoseValue > store.state.alarmHigh) { text in
                                         text.foregroundColor(Color.ui.red)
                                     }
@@ -67,13 +79,5 @@ struct SensorGlucoseListView: View {
 
     private func getTeaser(_ count: Int) -> String {
         return count.pluralizeLocalization(singular: "%@ Entry", plural: "%@ Entries")
-    }
-
-    private func isPrecise(glucoseValue: Int) -> Bool {
-        if store.state.glucoseUnit == .mgdL {
-            return false
-        }
-
-        return glucoseValue.isAlmost(store.state.alarmLow, store.state.alarmHigh)
     }
 }
