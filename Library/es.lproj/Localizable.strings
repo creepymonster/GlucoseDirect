@@ -41,7 +41,7 @@
 "Alert, low blood glucose" = "Alerta: glucosa en sangre baja";
 
 /* (No Comment) */
-"Alarm, loss of signal" = "Alarm, loss of signal";
+"Alarm, loss of signal" = "Alarma, pérdida de señal";
 
 /* (No Comment) */
 "Alert, sensor expired" = "Alerta: sensor caducado";
@@ -56,7 +56,7 @@
 "App donate" = "Donar";
 
 /* (No Comment) */
-"App email" = "Correo electrónico ";
+"App email" = "Correo electrónico";
 
 /* (No Comment) */
 "App facebook group" = "Facebook";
@@ -428,7 +428,7 @@
 "StatisticsPeriod" = "Periodo";
 
 /* (No Comment) */
-"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data.";
+"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "No se reciben más datos del sensor. La causa puede ser que la conexión Bluetooth al sensor se haya interrumpido o que LibreLinkUp ya no proporcione datos.";
 
 /* (No Comment) */
 "Time" = "Tiempo";
@@ -470,7 +470,7 @@
 "Unknown" = "Desconocido";
 
 /* (No Comment) */
-"Updated" = "Updated";
+"Updated" = "Actualizado";
 
 /* (No Comment) */
 "Upper limit" = "Alta";
@@ -506,76 +506,76 @@
 "Your sensor has expired and needs to be replaced as soon as possible" = "Su sensor ha caducado y debe ser sustituido lo antes posible";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@." = "Your sensor is about to expire. Replace sensor in %1$@.";
+"Your sensor is about to expire. Replace sensor in %1$@." = "Su sensor está a punto de caducar. Reemplace el sensor en %1$@.";
 
 /* (No Comment) */
-"Loading..." = "Loading...";
+"Loading..." = "Cargando...";
 
 /* (No Comment) */
-"Export" = "Export";
+"Export" = "Exportar";
 
 /* (No Comment) */
-"Export as CSV" = "Export as CSV";
+"Export as CSV" = "Exportar como CSV";
 
 /* (No Comment) */
-"Export for Glooko" = "Export for Glooko";
+"Export for Glooko" = "Exportar para Glooko";
 
 /* (No Comment) */
-"Export for Tidepool" = "Export for Tidepool";
+"Export for Tidepool" = "Exportar para Tidepool";
 
 /* (No Comment) */
-"Last %@ hours" = "Last %@ hours";
+"Last %@ hours" = "Últimas %@ horas";
 
 /* (No Comment) */
-"Reopen app in" = "Reopen app in";
+"Reopen app in" = "Volver a abrir la aplicación en";
 
 /* (No Comment) */
-"%1$@ days" = "%1$@ days";
+"%1$@ days" = "%1 $@ días";
 
 /* (No Comment) */
-"%1$@ day" = "%1$@ day";
+"%1$@ day" = "%1 $@ día ";
 
 /* (No Comment) */
-"%1$@ hours" = "%1$@ hours";
+"%1$@ hours" = "%1 $@ horas ";
 
 /* (No Comment) */
-"%1$@ hour" = "%1$@ hour";
+"%1$@ hour" = "%1 $@ hora ";
 
 /* (No Comment) */
-"%1$@ minutes" = "%1$@ minutes";
+"%1$@ minutes" = "%1 $@ minutos ";
 
 /* (No Comment) */
-"Meal Bolus" = "Meal Bolus";
+"Meal Bolus" = "Bolo de comida";
 
 /* (No Comment) */
-"Snack Bolus" = "Snack Bolus";
+"Snack Bolus" = "Bolo de aperitivo";
 
 /* (No Comment) */
-"Correction Bolus" = "Correction Bolus";
+"Correction Bolus" = "Bolo de corrección";
 
 /* (No Comment) */
 "Basal" = "Basal";
 
 /* (No Comment) */
-"Insulin" = "Insulin";
+"Insulin" = "Insulina";
 
 /* (No Comment) */
-"Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep.";
+"Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "La insulina basal se refiere a la utilizada para regular la glucosa en sangre entre comidas, incluso durante el sueño.";
 
 /* (No Comment) */
-"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose.";
+"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "La insulina en bolo se refiere a la utilizada para regular la glucosa en sangre en las comidas o para tratar de forma aguda la glucosa alta en sangre.";
 
 /* (No Comment) */
-"Blood glucose" = "Blood glucose";
+"Blood glucose" = "Glucosa en sangre";
 
 /* (No Comment) */
-"Add insulin" = "Add insulin";
+"Add insulin" = "Añadir insulina";
 
 /* (No Comment) */
 "Calibration" = "Calibración";
 
 /* (No Comment) */
-"Starts" = "Starts";
+"Starts" = "Comienza";
 
 /* (No Comment) */
-"Ends" = "Ends";
+"Ends" = "Finaliza";
