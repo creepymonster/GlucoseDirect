@@ -524,7 +524,7 @@
 "Export for Tidepool" = "Export für Tidepool";
 
 /* (No Comment) */
-"%@ hours" = "%@ hours";
+"%@ hours" = "%@ Stunden";
 
 /* (No Comment) */
 "Reopen app in" = "App neu öffnen in";
@@ -581,10 +581,10 @@
 "Ends" = "Ende";
 
 /* (No Comment) */
-"Smooth chart values" = "Smooth chart values";
+"Smooth chart values" = "Diagrammwerte glätten";
 
 /* (No Comment) */
-"Units" = "Units";
+"Units" = "Einheiten";
 
 /* (No Comment) */
 "Type" = "Typ";
