@@ -30,13 +30,14 @@ struct CollapsableSection<Parent, Content, Teaser>: View where Parent: View, Con
                 header
                 Spacer()
 
-                if collapsible {
-                    Button(action: {
-                        collapsed.toggle()
-                    }, label: {
-                        Image(systemName: collapsed ? "chevron.up" : "chevron.down")
-                    }).buttonStyle(.plain)
-                }
+                Button(action: {
+                    collapsed.toggle()
+                }, label: {
+                    Image(systemName: collapsed ? "chevron.up" : "chevron.down")
+                })
+                .disabled(!collapsible)
+                .opacity(collapsible ? 1 : 0)
+                .buttonStyle(.plain)
             }
         ) {
             Group {

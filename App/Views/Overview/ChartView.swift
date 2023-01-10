@@ -31,9 +31,11 @@ struct ChartView: View {
                             if let selectedDate = store.state.selectedDate {
                                 Text(verbatim: selectedDate.toLocalDate())
                             } else {
-                                Text("Last \(DirectConfig.lastChartHours.description) hours")
+                                Text("\(DirectConfig.lastChartHours.description) hours")
                             }
-                        }.onTapGesture {
+                        }
+                        .monospacedDigit()
+                        .onTapGesture {
                             store.dispatch(.setSelectedDate(selectedDate: nil))
                         }
 
@@ -123,7 +125,7 @@ struct ChartView: View {
                         }
                     }
 
-                    ZoomLevelsView.disabled(store.state.selectedDate != nil)
+                    ZoomLevelsView
                 }
             },
             header: {
@@ -202,8 +204,8 @@ struct ChartView: View {
                     RectangleMark(
                         x: .value("Time", value.starts),
                         y: .value("Units", value.value.map(from: 0...20, to: 5...50)),
-                        width: MarkDimension(floatLiteral: value.value.map(from: 0...20, to: 5...25)),
-                        height: MarkDimension(floatLiteral: value.value.map(from: 0...20, to: 5...25))
+                        width: MarkDimension(floatLiteral: value.value.map(from: 0...20, to: 4...28)),
+                        height: MarkDimension(floatLiteral: value.value.map(from: 0...20, to: 4...28))
                     )
                     .annotation {
                         Text(value.value.asInsulin())
@@ -220,8 +222,8 @@ struct ChartView: View {
                         yStart: .value("Units", 0),
                         yEnd: .value("Units", value.value.map(from: 0...5, to: 0...50))
                     )
-                    .opacity(0.5)
-                    .foregroundStyle(Color.ui.yellow)
+                    .opacity(0.25)
+                    .foregroundStyle(Color.ui.orange)
                 }
             }
 
@@ -474,30 +476,22 @@ struct ChartView: View {
 
     private var alarmLow: Double {
         if store.state.glucoseUnit == .mmolL {
-            return store.state.alarmLow.asMmolL
+            return store.state.alarmLow.toMmolL()
         }
 
-        return store.state.alarmLow.asMgdL
+        return store.state.alarmLow.toDouble()
     }
 
     private var alarmHigh: Double {
         if store.state.glucoseUnit == .mmolL {
-            return store.state.alarmHigh.asMmolL
+            return store.state.alarmHigh.toMmolL()
         }
 
-        return store.state.alarmHigh.asMgdL
+        return store.state.alarmHigh.toDouble()
     }
 
     private var startMarker: Date? {
-        if let firstTimestamp = firstTimestamp {
-            if let zoomLevel = zoomLevel, zoomLevel.level == 1 {
-                return Calendar.current.date(byAdding: .minute, value: -15, to: firstTimestamp)!
-            }
-
-            return Calendar.current.date(byAdding: .hour, value: -1, to: firstTimestamp)!
-        }
-
-        return nil
+        return firstTimestamp
     }
 
     private var endMarker: Date? {
@@ -533,7 +527,7 @@ struct ChartView: View {
     }
 
     private func setSelectedDate(addDays: Int) {
-        store.dispatch(.setChartZoomLevel(level: 24))
+        // store.dispatch(.setChartZoomLevel(level: 24))
         store.dispatch(.setSelectedDate(selectedDate: Calendar.current.date(byAdding: .day, value: +addDays, to: store.state.selectedDate ?? Date())))
 
         DirectNotifications.shared.hapticFeedback()
@@ -656,7 +650,7 @@ struct ChartView: View {
 
     private func populateValues(glucoseValues: [InsulinDelivery]) -> [InsulinDatapoint] {
         glucoseValues.map { value in
-            value.toDatapoint(maxDate: endMarker ?? Date())
+            value.toDatapoint(minDate: startMarker ?? Date(), maxDate: endMarker ?? Date())
         }
         .compactMap { $0 }
     }
@@ -729,12 +723,12 @@ private struct InsulinDatapoint: Identifiable {
 }
 
 private extension InsulinDelivery {
-    func toDatapoint(maxDate: Date) -> InsulinDatapoint {
+    func toDatapoint(minDate: Date, maxDate: Date) -> InsulinDatapoint {
         return InsulinDatapoint(
             id: id.uuidString,
-            starts: starts,
+            starts: max(minDate, starts),
             ends: min(maxDate, ends),
-            value: Double(units),
+            value: units,
             type: type,
             info: type.localizedDescription
         )
@@ -751,7 +745,7 @@ private extension BloodGlucose {
             return GlucoseDatapoint(
                 id: toDatapointID(glucoseUnit: glucoseUnit),
                 time: timestamp,
-                value: glucoseValue.asMmolL,
+                value: glucoseValue.toMmolL(),
                 info: glucoseValue.asGlucose(glucoseUnit: glucoseUnit, withUnit: true)
             )
         }
@@ -759,7 +753,7 @@ private extension BloodGlucose {
         return GlucoseDatapoint(
             id: toDatapointID(glucoseUnit: glucoseUnit),
             time: timestamp,
-            value: glucoseValue.asMgdL,
+            value: glucoseValue.toDouble(),
             info: glucoseValue.asGlucose(glucoseUnit: glucoseUnit, withUnit: true)
         )
     }
@@ -775,7 +769,7 @@ private extension SensorGlucose {
             return GlucoseDatapoint(
                 id: toDatapointID(glucoseUnit: glucoseUnit),
                 time: timestamp,
-                value: rawGlucoseValue.asMmolL + shiftY.asMmolL,
+                value: rawGlucoseValue.toMmolL() + shiftY.toMmolL(),
                 info: rawGlucoseValue.asGlucose(glucoseUnit: glucoseUnit, withUnit: true)
             )
         }
@@ -783,20 +777,20 @@ private extension SensorGlucose {
         return GlucoseDatapoint(
             id: toDatapointID(glucoseUnit: glucoseUnit),
             time: timestamp,
-            value: rawGlucoseValue.asMgdL + shiftY.asMgdL,
+            value: rawGlucoseValue.toDouble() + shiftY.toDouble(),
             info: rawGlucoseValue.asGlucose(glucoseUnit: glucoseUnit, withUnit: true)
         )
     }
 
     func toSmoothDatapoint(glucoseUnit: GlucoseUnit, alarmLow: Int, alarmHigh: Int, shiftY: Int = 0) -> GlucoseDatapoint {
         let glucose = (smoothGlucoseValue ?? Double(glucoseValue))
-        let info = glucose.asGlucose(glucoseUnit: glucoseUnit, withUnit: true)
+        let info = glucose.toInteger()?.asGlucose(glucoseUnit: glucoseUnit, withUnit: true) ?? ""
 
         if glucoseUnit == .mmolL {
             return GlucoseDatapoint(
                 id: toDatapointID(glucoseUnit: glucoseUnit),
                 time: timestamp,
-                value: glucose.asMmolL + shiftY.asMmolL,
+                value: glucose.toMmolL() + shiftY.toMmolL(),
                 info: info
             )
         }
@@ -804,7 +798,7 @@ private extension SensorGlucose {
         return GlucoseDatapoint(
             id: toDatapointID(glucoseUnit: glucoseUnit),
             time: timestamp,
-            value: glucose.asMgdL + shiftY.asMgdL,
+            value: glucose + shiftY.toDouble(),
             info: info
         )
     }
@@ -822,7 +816,7 @@ private extension SensorGlucose {
             return GlucoseDatapoint(
                 id: toDatapointID(glucoseUnit: glucoseUnit),
                 time: timestamp,
-                value: glucoseValue.asMmolL + shiftY.asMmolL,
+                value: glucoseValue.toMmolL() + shiftY.toMmolL(),
                 info: info
             )
         }
@@ -830,7 +824,7 @@ private extension SensorGlucose {
         return GlucoseDatapoint(
             id: toDatapointID(glucoseUnit: glucoseUnit),
             time: timestamp,
-            value: glucoseValue.asMgdL + shiftY.asMgdL,
+            value: glucoseValue.toDouble() + shiftY.toDouble(),
             info: info
         )
     }

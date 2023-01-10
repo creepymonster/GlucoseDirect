@@ -8,14 +8,14 @@ import SwiftUI
 struct AddInsulinView: View {
     @Environment(\.dismiss) var dismiss
     
-    @State var starts: Date = .init()
-    @State var ends: Date = .init()
-    @State var units: Float?
-    @State var insulinType: InsulinType = .snackBolus
-    
     @FocusState private var unitsFocus: Bool
     
-    var addCallback: (_ starts: Date, _ ends: Date, _ units: Float, _ insulinType: InsulinType) -> Void
+    @State var starts: Date = .init()
+    @State var ends: Date = .init()
+    @State var units: Double?
+    @State var insulinType: InsulinType = .snackBolus
+
+    var addCallback: (_ starts: Date, _ ends: Date, _ units: Double, _ insulinType: InsulinType) -> Void
     
     var body: some View {
         NavigationView {
@@ -23,20 +23,20 @@ struct AddInsulinView: View {
                 Form {
                     Section(content: {
                         List {
-                            Picker("Insulin Type", selection: $insulinType) {
-                                Text("Correction Bolus").tag(InsulinType.correctionBolus)
-                                Text("Meal Bolus").tag(InsulinType.mealBolus)
-                                Text("Snack Bolus").tag(InsulinType.snackBolus)
-                                Text("Basal").tag(InsulinType.basal)
+                            Picker("Type", selection: $insulinType) {
+                                Text(InsulinType.correctionBolus.localizedDescription).tag(InsulinType.correctionBolus)
+                                Text(InsulinType.mealBolus.localizedDescription).tag(InsulinType.mealBolus)
+                                Text(InsulinType.snackBolus.localizedDescription).tag(InsulinType.snackBolus)
+                                Text(InsulinType.basal.localizedDescription).tag(InsulinType.basal)
                             }.pickerStyle(.menu)
                         }
                         
                         HStack {
-                            Text("Units of Insulin").font(.callout)
+                            Text("Units")
                             
                             TextField("", value: $units, format: .number)
                                 .textFieldStyle(.automatic)
-                                .keyboardType(.decimalPad)
+                                .keyboardType(.numbersAndPunctuation)
                                 .focused($unitsFocus)
                                 .multilineTextAlignment(.trailing)
                         }

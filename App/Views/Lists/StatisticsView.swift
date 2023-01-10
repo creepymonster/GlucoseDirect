@@ -7,6 +7,45 @@
 
 import SwiftUI
 
+struct SelectedDatePager: View {
+    @EnvironmentObject var store: DirectStore
+
+    var body: some View {
+        HStack {
+            Button(action: {
+                setSelectedDate(addDays: -1)
+            }, label: {
+                Image(systemName: "arrowshape.turn.up.backward")
+            }).opacity((store.state.selectedDate ?? Date()).startOfDay > store.state.minSelectedDate.startOfDay ? 0.5 : 0)
+            
+            Group {
+                if let selectedDate = store.state.selectedDate {
+                    Text(verbatim: selectedDate.toLocalDate())
+                } else {
+                    Text("\(DirectConfig.lastChartHours.description) hours")
+                }
+            }
+            .monospacedDigit()
+            .padding(.horizontal)
+            .onTapGesture {
+                store.dispatch(.setSelectedDate(selectedDate: nil))
+            }
+            
+            Button(action: {
+                setSelectedDate(addDays: +1)
+            }, label: {
+                Image(systemName: "arrowshape.turn.up.forward")
+            }).opacity(store.state.selectedDate == nil ? 0 : 0.5)
+        }
+    }
+    
+    private func setSelectedDate(addDays: Int) {
+        store.dispatch(.setSelectedDate(selectedDate: Calendar.current.date(byAdding: .day, value: +addDays, to: store.state.selectedDate ?? Date())))
+
+        DirectNotifications.shared.hapticFeedback()
+    }
+}
+
 struct StatisticsView: View {
     // MARK: Internal
 
@@ -48,31 +87,43 @@ struct StatisticsView: View {
                     }
 
                     Group {
-                        VStack(alignment: .leading, spacing: 10) {
+                        if DirectConfig.isDebug {
                             HStack {
-                                Text(verbatim: "AVG")
+                                Text("StatisticsPeriod")
                                 Spacer()
-                                Text(glucoseStatistics.avg.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))
+                                Text("\(glucoseStatistics.fromTimestamp.toLocalDate()) - \(glucoseStatistics.toTimestamp.toLocalDate())")
                             }
-
-                            if store.state.showAnnotations {
-                                Text("Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been.")
-                                    .font(.footnote)
-                                    .foregroundColor(.gray)
+                        }
+                        
+                        if let avg = glucoseStatistics.avg.toInteger() {
+                            VStack(alignment: .leading, spacing: 10) {
+                                HStack {
+                                    Text(verbatim: "AVG")
+                                    Spacer()
+                                    Text(avg.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))
+                                }
+                                
+                                if store.state.showAnnotations {
+                                    Text("Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been.")
+                                        .font(.footnote)
+                                        .foregroundColor(.gray)
+                                }
                             }
                         }
 
-                        VStack(alignment: .leading, spacing: 10) {
-                            HStack {
-                                Text(verbatim: "SD")
-                                Spacer()
-                                Text(glucoseStatistics.stdev.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))
-                            }
-
-                            if store.state.showAnnotations {
-                                Text("Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings.")
-                                    .font(.footnote)
-                                    .foregroundColor(.gray)
+                        if let stdev = glucoseStatistics.stdev.toInteger() {
+                            VStack(alignment: .leading, spacing: 10) {
+                                HStack {
+                                    Text(verbatim: "SD")
+                                    Spacer()
+                                    Text(stdev.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))
+                                }
+                                
+                                if store.state.showAnnotations {
+                                    Text("Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings.")
+                                        .font(.footnote)
+                                        .foregroundColor(.gray)
+                                }
                             }
                         }
 
@@ -145,20 +196,6 @@ struct StatisticsView: View {
                                 Text("Time above Range (TAR) or the percentage of time spent above the target glucose of \(store.state.alarmHigh.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true)).")
                                     .font(.footnote)
                                     .foregroundColor(.gray)
-                            }
-                        }
-
-                        if DirectConfig.isDebug {
-                            HStack {
-                                Text(verbatim: "From")
-                                Spacer()
-                                Text(glucoseStatistics.fromTimestamp.toLocalDate())
-                            }
-
-                            HStack {
-                                Text(verbatim: "To")
-                                Spacer()
-                                Text(glucoseStatistics.toTimestamp.toLocalDate())
                             }
                         }
                     }.onTapGesture(count: 2) {
