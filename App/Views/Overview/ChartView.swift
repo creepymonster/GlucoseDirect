@@ -201,28 +201,58 @@ struct ChartView: View {
 
             ForEach(insulinSeries) { value in
                 if value.type != .basal {
-                    RectangleMark(
+                    PointMark(
                         x: .value("Time", value.starts),
-                        y: .value("Units", value.value.map(from: 0...20, to: 5...50)),
-                        width: MarkDimension(floatLiteral: value.value.map(from: 0...20, to: 4...28)),
-                        height: MarkDimension(floatLiteral: value.value.map(from: 0...20, to: 4...28))
+                        y: .value("Units", value.value.map(from: 0...20, to: convertToRequired(mgdLValue: 5)...Double(alarmLow)))
                     )
+                    .symbolSize(value.value.map(from: 0...20, to: 0...100))
                     .annotation {
                         Text(value.value.asInsulin())
                             .foregroundStyle(Color.ui.orange)
+                            .padding(.horizontal, 2.5)
+                            .background(.white.opacity(0.5))
+                            .cornerRadius(2)
                             .bold()
                             .font(.caption)
                     }
-                    .cornerRadius(Config.cornerRadius)
                     .foregroundStyle(Color.ui.orange)
                 } else {
+//                    AreaMark(
+//                        x: .value("Time", value.starts),
+//                        y: .value("Units", value.value.map(from: 0...20, to: 0...Double(alarmLow))),
+//                        series: .value("Series", value.id),
+//                        stacking: .standard
+//                    )
+//                    .opacity(0.25)
+//                    .interpolationMethod(.stepEnd)
+//                    .foregroundStyle(Color.ui.orange)
+//
+//                    AreaMark(
+//                        x: .value("Time", value.ends),
+//                        y: .value("Units", value.value.map(from: 0...20, to: 0...Double(alarmLow))),
+//                        series: .value("Series", value.id),
+//                        stacking: .standard
+//                    )
+//                    .opacity(0.25)
+//                    .interpolationMethod(.stepEnd)
+//                    .foregroundStyle(Color.ui.orange)
+                    
                     RectangleMark(
                         xStart: .value("Starts Time", value.starts),
                         xEnd: .value("Ends Time", value.ends),
                         yStart: .value("Units", 0),
-                        yEnd: .value("Units", value.value.map(from: 0...5, to: 0...50))
+                        yEnd: .value("Units", value.value.map(from: 0...20, to: 0...Double(alarmLow)))
                     )
                     .opacity(0.25)
+                    .annotation(position: .overlay, alignment: .bottom) {
+                        Text(value.value.asInsulin())
+                            .foregroundStyle(Color.ui.orange)
+                            .padding(.horizontal, 2.5)
+                            .background(.white.opacity(0.5))
+                            .cornerRadius(2)
+                            .bold()
+                            .font(.caption)
+                    }
                     .foregroundStyle(Color.ui.orange)
                 }
             }
@@ -247,7 +277,7 @@ struct ChartView: View {
                         x: .value("Time", selectedPointInfo.time),
                         y: .value("Glucose", selectedPointInfo.value)
                     )
-                    .symbol(.square)
+                    //.symbol(.square)
                     .opacity(0.75)
                     .symbolSize(Config.selectionSize)
                     .foregroundStyle(Color.ui.orange)
@@ -259,7 +289,7 @@ struct ChartView: View {
                     x: .value("Time", selectedPointInfo.time),
                     y: .value("Glucose", selectedPointInfo.value)
                 )
-                .symbol(.square)
+                //.symbol(.square)
                 .opacity(0.75)
                 .symbolSize(Config.selectionSize)
                 .foregroundStyle(Color.ui.blue)
@@ -270,13 +300,13 @@ struct ChartView: View {
                     x: .value("Time", selectedPointInfo.time),
                     y: .value("Glucose", selectedPointInfo.value)
                 )
-                .symbol(.square)
+                //.symbol(.square)
                 .opacity(0.75)
                 .symbolSize(Config.selectionSize)
                 .foregroundStyle(Color.ui.red)
             }
 
-            if let endMarker = endMarker, store.state.selectedDate == nil, store.state.chartZoomLevel != 24 {
+            if let endMarker = endMarker {
                 RuleMark(
                     x: .value("", endMarker)
                 ).foregroundStyle(.clear)
@@ -475,19 +505,11 @@ struct ChartView: View {
     }
 
     private var alarmLow: Double {
-        if store.state.glucoseUnit == .mmolL {
-            return store.state.alarmLow.toMmolL()
-        }
-
-        return store.state.alarmLow.toDouble()
+        convertToRequired(mgdLValue: store.state.alarmLow)
     }
 
     private var alarmHigh: Double {
-        if store.state.glucoseUnit == .mmolL {
-            return store.state.alarmHigh.toMmolL()
-        }
-
-        return store.state.alarmHigh.toDouble()
+        convertToRequired(mgdLValue: store.state.alarmHigh)
     }
 
     private var startMarker: Date? {
@@ -495,7 +517,7 @@ struct ChartView: View {
     }
 
     private var endMarker: Date? {
-        if let lastTimestamp = lastTimestamp {
+        if let lastTimestamp = lastTimestamp, store.state.selectedDate == nil {
             if let zoomLevel = zoomLevel, zoomLevel.level == 1 {
                 return Calendar.current.date(byAdding: .minute, value: 15, to: lastTimestamp)!
             }
@@ -503,7 +525,7 @@ struct ChartView: View {
             return Calendar.current.date(byAdding: .hour, value: 1, to: lastTimestamp)!
         }
 
-        return nil
+        return lastTimestamp
     }
 
     private var shouldRefresh: Bool {
@@ -524,6 +546,14 @@ struct ChartView: View {
             .sorted(by: { $0 > $1 })
 
         return dates.first
+    }
+
+    private func convertToRequired(mgdLValue: Int) -> Double {
+        if store.state.glucoseUnit == .mmolL {
+            return mgdLValue.toMmolL()
+        }
+
+        return mgdLValue.toDouble()
     }
 
     private func setSelectedDate(addDays: Int) {
