@@ -167,9 +167,9 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
     var body: some View {
         HStack {
             Spacer()
-            
+
             if let latestGlucose = context.glucose, let glucoseUnit = context.glucoseUnit {
-                HStack(alignment: .lastTextBaseline, spacing: 15) {
+                HStack(alignment: .lastTextBaseline, spacing: 10) {
                     VStack(alignment: .trailing) {
                         Group {
                             if latestGlucose.type != .high {
@@ -180,18 +180,18 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
                         }
                         .bold()
                         .foregroundColor(getGlucoseColor(glucose: latestGlucose))
-                        .font(.title)
+                        .font(.system(size: 35))
 
-                        Text(latestGlucose.timestamp, style: .time)
-                            .opacity(0.75)
+                        Text(verbatim: glucoseUnit.localizedDescription)
+                            .opacity(0.5)
                             .font(.footnote)
-                            .monospacedDigit()
                     }
 
                     VStack(alignment: .leading) {
                         Text(verbatim: latestGlucose.trend.description)
-                            .font(.title)
-
+                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
+                            .font(.system(size: 35))
+                        
                         Group {
                             if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
                                 Text(verbatim: minuteChange)
@@ -206,10 +206,20 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
 
                 Spacer()
 
-                if let stopDate = context.stopDate {
-                    VStack(alignment: .leading, spacing: 5) {
+                VStack(alignment: .leading, spacing: 5) {
+                    HStack(spacing: 10) {
+                        Text("Updated")
+                            .opacity(0.5)
+                            .textCase(.uppercase)
+                        
+                        Text(latestGlucose.timestamp, style: .time)
+                            .bold()
+                            .monospacedDigit()
+                    }
+                    
+                    if let stopDate = context.stopDate {
                         Text("Open app")
-                            .opacity(0.75)
+                            .opacity(0.5)
                             .textCase(.uppercase)
 
                         Text(stopDate, style: .relative)
@@ -217,22 +227,22 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
                             .multilineTextAlignment(.leading)
                             .monospacedDigit()
                     }
-                    .font(.footnote)
-                    .frame(maxWidth: 140)
                 }
+                .font(.footnote)
+                .frame(maxWidth: 175)
 
             } else {
                 VStack(spacing: 10) {
                     Text("No Data")
                         .bold()
-                        .font(.title)
+                        .font(.system(size: 35))
                         .foregroundColor(Color.ui.red)
 
                     Text(Date(), style: .time)
-                        .opacity(0.75)
+                        .opacity(0.5)
                         .font(.footnote)
                 }
-                
+
                 Spacer()
             }
         }.padding(.vertical, 10)
