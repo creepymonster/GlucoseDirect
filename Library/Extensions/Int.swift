@@ -172,7 +172,7 @@ extension Int {
         var glucose: String
 
         if glucoseUnit == .mmolL {
-            glucose = GlucoseFormatters.mgdLFormatter.string(from: self.toMmolL() as NSNumber)!
+            glucose = GlucoseFormatters.mmolLFormatter.string(from: self.toMmolL() as NSNumber)!
         } else {
             glucose = GlucoseFormatters.mgdLFormatter.string(from: self.toDouble() as NSNumber)!
         }
