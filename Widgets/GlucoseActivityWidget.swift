@@ -218,7 +218,7 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
                     }
                     
                     if let stopDate = context.stopDate {
-                        Text("Open app")
+                        Text("Reopen app in")
                             .opacity(0.5)
                             .textCase(.uppercase)
 
