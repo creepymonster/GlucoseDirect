@@ -29,10 +29,13 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
                 break
             }
 
-            let isSnoozed = state.isSnoozed
+            let alarm = state.isAlarm(glucoseValue: glucose.glucoseValue)
+            DirectLog.info("alarm: \(alarm)")
+            
+            let isSnoozed = state.isSnoozed(alarm: alarm)
             DirectLog.info("isSnoozed: \(isSnoozed)")
 
-            if glucose.glucoseValue < state.alarmLow {
+            if alarm == .lowAlarm {
                 DirectLog.info("Glucose alert, low: \(glucose.glucoseValue) < \(state.alarmLow)")
 
                 if state.alarmGlucoseNotification {
@@ -49,7 +52,7 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
                         .eraseToAnyPublisher()
                 }
 
-            } else if glucose.glucoseValue > state.alarmHigh {
+            } else if alarm == .highAlarm {
                 DirectLog.info("Glucose alert, high: \(glucose.glucoseValue) > \(state.alarmHigh)")
 
                 if state.alarmGlucoseNotification {
