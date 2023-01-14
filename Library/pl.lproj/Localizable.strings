@@ -233,7 +233,7 @@
 "Lower limit" = "Niski";
 
 /* (No Comment) */
-"Nightscout API-Secret" = "API-Secret";
+"Nightscout API-Secret" = "API Secret";
 
 /* (No Comment) */
 "Nightscout settings" = "Ustawienia Nightscout";
@@ -470,7 +470,7 @@
 "Unknown" = "Nieznany";
 
 /* (No Comment) */
-"Updated" = "Updated";
+"Updated" = "Zaktualizowano";
 
 /* (No Comment) */
 "Upper limit" = "Wysoki";
@@ -512,7 +512,7 @@
 "Loading..." = "Ładowanie...";
 
 /* (No Comment) */
-"Export" = "Export";
+"Export" = "Eksport";
 
 /* (No Comment) */
 "Export as CSV" = "Eksportuj jako CSV";
@@ -524,7 +524,7 @@
 "Export for Tidepool" = "Eksportuj do Tidepool";
 
 /* (No Comment) */
-"%@ hours" = "%@ hours";
+"%@ hours" = "%@ Godziny";
 
 /* (No Comment) */
 "Reopen app in" = "Otwórz GD w ciągu";
@@ -581,10 +581,10 @@
 "Ends" = "Kończy się";
 
 /* (No Comment) */
-"Smooth chart values" = "Smooth chart values";
+"Smooth chart values" = "Gładkie wartości wykresu";
 
 /* (No Comment) */
-"Units" = "Units";
+"Units" = "Jednostki";
 
 /* (No Comment) */
 "Type" = "Typ";
