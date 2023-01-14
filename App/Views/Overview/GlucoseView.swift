@@ -23,6 +23,7 @@ struct GlucoseView: View {
                         
                         VStack(alignment: .leading) {
                             Text(verbatim: latestGlucose.trend.description)
+                                .foregroundColor(getGlucoseColor(glucose: latestGlucose))
                                 .font(.system(size: 52))
 
                             if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: store.state.glucoseUnit) {
