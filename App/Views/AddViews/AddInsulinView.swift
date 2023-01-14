@@ -36,7 +36,7 @@ struct AddInsulinView: View {
                             
                             TextField("", value: $units, format: .number)
                                 .textFieldStyle(.automatic)
-                                .keyboardType(.numbersAndPunctuation)
+                                .keyboardType(.decimalPad)
                                 .focused($unitsFocus)
                                 .multilineTextAlignment(.trailing)
                         }
