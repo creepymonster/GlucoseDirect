@@ -527,7 +527,7 @@
 "%@ hours" = "%@ saat";
 
 /* (No Comment) */
-"Reopen app in" = "Reopen app in";
+"Reopen app in" = "Uygulamayı şu sürede tekrar aç";
 
 /* (No Comment) */
 "%1$@ days" = "%1$@ gün";
