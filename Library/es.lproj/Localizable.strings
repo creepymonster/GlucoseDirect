@@ -524,10 +524,10 @@
 "Export for Tidepool" = "Exportar para Tidepool";
 
 /* (No Comment) */
-"%@ hours" = "%@ hours";
+"%@ hours" = "%@ horas";
 
 /* (No Comment) */
-"Reopen app in" = "Reopen app in";
+"Reopen app in" = "Volver a abrir la aplicación en";
 
 /* (No Comment) */
 "%1$@ days" = "%1 $@ días";
