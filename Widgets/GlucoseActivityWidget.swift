@@ -167,75 +167,75 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
     var body: some View {
         HStack {
             Spacer()
-
-            VStack(spacing: 10) {
-                if let latestGlucose = context.glucose, let glucoseUnit = context.glucoseUnit {
-                    HStack(alignment: .lastTextBaseline, spacing: 20) {
-                        if latestGlucose.type != .high {
-                            Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
-                                .frame(height: 96)
-                                .font(.system(size: 96))
-                                .foregroundColor(getGlucoseColor(glucose: latestGlucose))
-
-                            VStack(alignment: .leading) {
-                                Text(verbatim: latestGlucose.trend.description)
-                                    .font(.system(size: 52))
-
-                                if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
-                                    Text(verbatim: minuteChange)
-                                } else {
-                                    Text(verbatim: "?")
-                                }
-                            }
-                        } else {
-                            Text("HIGH")
-                                .font(.system(size: 96))
-                                .foregroundColor(getGlucoseColor(glucose: latestGlucose))
-                        }
-                    }
-
-                    if let warning = warning {
-                        Text(verbatim: warning)
-                            .padding(.horizontal, 10)
-                            .padding(.vertical, 5)
-                            .background(Color.ui.red)
-                            .foregroundColor(.white)
-                    } else {
-                        HStack(alignment: .lastTextBaseline, spacing: 40) {
-                            VStack {
-                                Text("Updated")
-                                    .textCase(.uppercase)
-                                    .font(.footnote)
-                                Text(latestGlucose.timestamp, style: .time)
-                                    .monospacedDigit()
-                            }.frame(width: 100)
-
-                            if let stopDate = context.stopDate {
-                                VStack {
-                                    Text("Reopen app in")
-                                        .textCase(.uppercase)
-                                        .font(.footnote)
-                                    Text(stopDate, style: .relative)
-                                        .multilineTextAlignment(.center)
-                                        .monospacedDigit()
-                                }.frame(width: 150)
+            
+            if let latestGlucose = context.glucose, let glucoseUnit = context.glucoseUnit {
+                HStack(alignment: .lastTextBaseline, spacing: 15) {
+                    VStack(alignment: .trailing) {
+                        Group {
+                            if latestGlucose.type != .high {
+                                Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
+                            } else {
+                                Text("HIGH")
                             }
                         }
-                        .opacity(0.5)
+                        .bold()
+                        .foregroundColor(getGlucoseColor(glucose: latestGlucose))
+                        .font(.title)
+
+                        Text(latestGlucose.timestamp, style: .time)
+                            .opacity(0.75)
+                            .font(.footnote)
+                            .monospacedDigit()
                     }
 
-                } else {
+                    VStack(alignment: .leading) {
+                        Text(verbatim: latestGlucose.trend.description)
+                            .font(.title)
+
+                        Group {
+                            if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
+                                Text(verbatim: minuteChange)
+                            } else {
+                                Text(verbatim: "?")
+                            }
+                        }
+                        .opacity(0.75)
+                        .font(.footnote)
+                    }
+                }
+
+                Spacer()
+
+                if let stopDate = context.stopDate {
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text("Open app")
+                            .opacity(0.75)
+                            .textCase(.uppercase)
+
+                        Text(stopDate, style: .relative)
+                            .bold()
+                            .multilineTextAlignment(.leading)
+                            .monospacedDigit()
+                    }
+                    .font(.footnote)
+                    .frame(maxWidth: 140)
+                }
+
+            } else {
+                VStack(spacing: 10) {
                     Text("No Data")
-                        .font(.system(size: 52))
+                        .bold()
+                        .font(.title)
                         .foregroundColor(Color.ui.red)
 
                     Text(Date(), style: .time)
-                        .opacity(0.5)
+                        .opacity(0.75)
+                        .font(.footnote)
                 }
+                
+                Spacer()
             }
-
-            Spacer()
-        }.padding()
+        }.padding(.vertical, 10)
     }
 }
 
@@ -261,8 +261,8 @@ struct GlucoseActivityWidget_Previews: PreviewProvider {
             context: SensorGlucoseActivityAttributes.GlucoseStatus(
                 alarmLow: 80,
                 alarmHigh: 160,
-                sensorState: .expired,
-                connectionState: .disconnected,
+                sensorState: .ready,
+                connectionState: .connected,
                 glucose: SensorGlucose(glucoseValue: 120, minuteChange: 2),
                 glucoseUnit: .mgdL,
                 startDate: Date(),

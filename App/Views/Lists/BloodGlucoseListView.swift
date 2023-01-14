@@ -34,7 +34,7 @@ struct BloodGlucoseListView: View {
 
                             Text(verbatim: bloodGlucose.glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))
                                 .monospacedDigit()
-                                .if(bloodGlucose.glucoseValue < store.state.alarmLow || bloodGlucose.glucoseValue > store.state.alarmHigh) { text in
+                                .if(store.state.isAlarm(glucoseValue: bloodGlucose.glucoseValue) != .none) { text in
                                     text.foregroundColor(Color.ui.red)
                                 }
                         }

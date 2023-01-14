@@ -123,11 +123,7 @@ struct GlucoseView: View {
     }
 
     private func isAlarm(glucose: any Glucose) -> Bool {
-        if glucose.glucoseValue < store.state.alarmLow || glucose.glucoseValue > store.state.alarmHigh {
-            return true
-        }
-
-        return false
+        return store.state.isAlarm(glucoseValue: glucose.glucoseValue) != .none
     }
 
     private func getGlucoseColor(glucose: any Glucose) -> Color {
