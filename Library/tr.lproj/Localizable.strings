@@ -524,7 +524,7 @@
 "Export for Tidepool" = "Tidepool için Dışa Aktarma";
 
 /* (No Comment) */
-"%@ hours" = "%@ hours";
+"%@ hours" = "%@ saat";
 
 /* (No Comment) */
 "Reopen app in" = "Uygulamayı şu sürede tekrar aç";
@@ -575,16 +575,16 @@
 "Calibration" = "Kalibrasyon";
 
 /* (No Comment) */
-"Starts" = "Starts";
+"Starts" = "Başlar";
 
 /* (No Comment) */
-"Ends" = "Ends";
+"Ends" = "Biter";
 
 /* (No Comment) */
-"Smooth chart values" = "Smooth chart values";
+"Smooth chart values" = "Pürüzsüz grafik değerleri";
 
 /* (No Comment) */
-"Units" = "Units";
+"Units" = "Ünite";
 
 /* (No Comment) */
 "Type" = "Tip";
