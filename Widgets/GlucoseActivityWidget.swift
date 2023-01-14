@@ -165,12 +165,12 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
     @State var context: SensorGlucoseActivityAttributes.GlucoseStatus
 
     var body: some View {
-        HStack {
+        HStack(alignment: .lastTextBaseline) {
             Spacer()
 
             if let latestGlucose = context.glucose, let glucoseUnit = context.glucoseUnit {
-                HStack(alignment: .lastTextBaseline, spacing: 10) {
-                    VStack(alignment: .trailing) {
+                VStack {
+                    HStack(alignment: .top) {
                         Group {
                             if latestGlucose.type != .high {
                                 Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
@@ -180,30 +180,39 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
                         }
                         .bold()
                         .foregroundColor(getGlucoseColor(glucose: latestGlucose))
-                        .font(.system(size: 35))
-
-                        Text(verbatim: glucoseUnit.localizedDescription)
-                            .opacity(0.5)
-                            .font(.footnote)
-                    }
-
-                    VStack(alignment: .leading) {
+                        .font(.system(size: 40))
+                        
                         Text(verbatim: latestGlucose.trend.description)
                             .foregroundColor(getGlucoseColor(glucose: latestGlucose))
-                            .font(.system(size: 35))
-                        
-                        Group {
-                            if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
-                                Text(verbatim: minuteChange)
-                            } else {
-                                Text(verbatim: "?")
+                            .font(.system(size: 32))
+                    }
+                    
+                    if let warning = warning {
+                        HStack {
+                            Image(systemName: "exclamationmark.triangle")
+                                .foregroundColor(Color.ui.red)
+                            
+                            Text(verbatim: warning)
+                                .bold()
+                        }
+                        .font(.footnote)
+                    } else {
+                        HStack {
+                            Text(verbatim: glucoseUnit.localizedDescription)
+                            
+                            Group {
+                                if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
+                                    Text(verbatim: minuteChange)
+                                } else {
+                                    Text(verbatim: "?")
+                                }
                             }
                         }
-                        .opacity(0.75)
+                        .opacity(0.5)
                         .font(.footnote)
                     }
                 }
-
+                
                 Spacer()
 
                 VStack(alignment: .leading, spacing: 5) {
@@ -245,7 +254,9 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
 
                 Spacer()
             }
-        }.padding(.vertical, 10)
+        }
+        .padding(.top, 5)
+        .padding(.bottom, 10)
     }
 }
 
