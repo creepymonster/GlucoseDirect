@@ -25,7 +25,8 @@ private func readAloudMiddelware(service: LazyService<ReadAloudService>) -> Midd
                 break
             }
 
-            service.value.readGlucose(sensorInterval: state.sensorInterval, glucose: glucose, glucoseUnit: state.glucoseUnit, alarmLow: state.alarmLow, alarmHigh: state.alarmHigh)
+            let alarm = state.isAlarm(glucoseValue: glucose.glucoseValue)
+            service.value.readGlucose(sensorInterval: state.sensorInterval, glucose: glucose, glucoseUnit: state.glucoseUnit, alarm: alarm)
 
         default:
             break
@@ -46,14 +47,7 @@ private class ReadAloudService {
 
     // MARK: Internal
 
-    func readGlucose(sensorInterval: Int, glucose: SensorGlucose, glucoseUnit: GlucoseUnit, alarmLow: Int, alarmHigh: Int) {
-        var alarm: AlarmType = .none
-        if glucose.glucoseValue < alarmLow {
-            alarm = .low
-        } else if glucose.glucoseValue > alarmHigh {
-            alarm = .high
-        }
-
+    func readGlucose(sensorInterval: Int, glucose: SensorGlucose, glucoseUnit: GlucoseUnit, alarm: Alarm) {
         if alarm != self.alarm || sensorInterval > 1 {
             read(glucoseValue: glucose.glucoseValue, glucoseUnit: glucoseUnit, glucoseTrend: glucose.trend, alarm: alarm)
 
@@ -72,7 +66,7 @@ private class ReadAloudService {
     private lazy var speechSynthesizer: AVSpeechSynthesizer = .init()
 
     private var glucose: SensorGlucose?
-    private var alarm: AlarmType = .none
+    private var alarm: Alarm = .none
 
     private lazy var voice: AVSpeechSynthesisVoice? = {
         for availableVoice in AVSpeechSynthesisVoice.speechVoices() {
@@ -97,14 +91,14 @@ private class ReadAloudService {
         speechSynthesizer.speak(textUtterance)
     }
 
-    private func read(glucoseValue: Int, glucoseUnit: GlucoseUnit, glucoseTrend: SensorTrend? = nil, alarm: AlarmType = .none) {
+    private func read(glucoseValue: Int, glucoseUnit: GlucoseUnit, glucoseTrend: SensorTrend? = nil, alarm: Alarm = .none) {
         DirectLog.info("read: \(glucoseValue.asGlucose(glucoseUnit: glucoseUnit)) \(glucoseUnit.readable) \(glucoseTrend?.readable)")
 
         var glucoseString: String
 
-        if alarm == .low {
+        if alarm == .lowAlarm {
             glucoseString = String(format: LocalizedString("Readable low glucose: %1$@ %2$@"), glucoseValue.asGlucose(glucoseUnit: glucoseUnit), glucoseUnit.readable)
-        } else if alarm == .high, alarm != self.alarm {
+        } else if alarm == .highAlarm, alarm != self.alarm {
             glucoseString = String(format: LocalizedString("Readable high glucose: %1$@ %2$@"), glucoseValue.asGlucose(glucoseUnit: glucoseUnit), glucoseUnit.readable)
         } else if let readableTrend = glucoseTrend?.readable {
             glucoseString = String(format: LocalizedString("Readable glucose with trend: %1$@ %2$@, %3$@"), glucoseValue.asGlucose(glucoseUnit: glucoseUnit), glucoseUnit.readable, readableTrend)
@@ -122,12 +116,6 @@ private class ReadAloudService {
 }
 
 // MARK: - AlarmType
-
-enum AlarmType {
-    case none
-    case low
-    case high
-}
 
 extension GlucoseUnit {
     var readable: String {

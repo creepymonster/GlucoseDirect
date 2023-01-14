@@ -524,10 +524,10 @@
 "Export for Tidepool" = "Експорт до Tidepool";
 
 /* (No Comment) */
-"%@ hours" = "%@ hours";
+"%@ hours" = "%@ годин";
 
 /* (No Comment) */
-"Reopen app in" = "Повторно відкрити програму в";
+"Open app" = "Open app";
 
 /* (No Comment) */
 "%1$@ days" = "%1$@ днів";
@@ -581,10 +581,10 @@
 "Ends" = "Закінчується";
 
 /* (No Comment) */
-"Smooth chart values" = "Smooth chart values";
+"Smooth chart values" = "Згладжені значення діаграми";
 
 /* (No Comment) */
-"Units" = "Units";
+"Units" = "Одиниці";
 
 /* (No Comment) */
 "Type" = "Тип";

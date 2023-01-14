@@ -165,77 +165,98 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
     @State var context: SensorGlucoseActivityAttributes.GlucoseStatus
 
     var body: some View {
-        HStack {
+        HStack(alignment: .lastTextBaseline) {
             Spacer()
 
-            VStack(spacing: 10) {
-                if let latestGlucose = context.glucose, let glucoseUnit = context.glucoseUnit {
-                    HStack(alignment: .lastTextBaseline, spacing: 20) {
-                        if latestGlucose.type != .high {
-                            Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
-                                .frame(height: 96)
-                                .font(.system(size: 96))
-                                .foregroundColor(getGlucoseColor(glucose: latestGlucose))
-
-                            VStack(alignment: .leading) {
-                                Text(verbatim: latestGlucose.trend.description)
-                                    .font(.system(size: 52))
-
+            if let latestGlucose = context.glucose, let glucoseUnit = context.glucoseUnit {
+                VStack {
+                    HStack(alignment: .top) {
+                        Group {
+                            if latestGlucose.type != .high {
+                                Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
+                            } else {
+                                Text("HIGH")
+                            }
+                        }
+                        .bold()
+                        .foregroundColor(getGlucoseColor(glucose: latestGlucose))
+                        .font(.system(size: 40))
+                        
+                        Text(verbatim: latestGlucose.trend.description)
+                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
+                            .font(.system(size: 32))
+                    }
+                    
+                    if let warning = warning {
+                        HStack {
+                            Image(systemName: "exclamationmark.triangle")
+                                .foregroundColor(Color.ui.red)
+                            
+                            Text(verbatim: warning)
+                                .bold()
+                        }
+                        .font(.footnote)
+                    } else {
+                        HStack {
+                            Text(verbatim: glucoseUnit.localizedDescription)
+                            
+                            Group {
                                 if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
                                     Text(verbatim: minuteChange)
                                 } else {
                                     Text(verbatim: "?")
                                 }
                             }
-                        } else {
-                            Text("HIGH")
-                                .font(.system(size: 96))
-                                .foregroundColor(getGlucoseColor(glucose: latestGlucose))
-                        }
-                    }
-
-                    if let warning = warning {
-                        Text(verbatim: warning)
-                            .padding(.horizontal, 10)
-                            .padding(.vertical, 5)
-                            .background(Color.ui.red)
-                            .foregroundColor(.white)
-                    } else {
-                        HStack(alignment: .lastTextBaseline, spacing: 40) {
-                            VStack {
-                                Text("Updated")
-                                    .textCase(.uppercase)
-                                    .font(.footnote)
-                                Text(latestGlucose.timestamp, style: .time)
-                                    .monospacedDigit()
-                            }.frame(width: 100)
-
-                            if let stopDate = context.stopDate {
-                                VStack {
-                                    Text("Reopen app in")
-                                        .textCase(.uppercase)
-                                        .font(.footnote)
-                                    Text(stopDate, style: .relative)
-                                        .multilineTextAlignment(.center)
-                                        .monospacedDigit()
-                                }.frame(width: 150)
-                            }
                         }
                         .opacity(0.5)
+                        .font(.footnote)
                     }
+                }
+                
+                Spacer()
 
-                } else {
+                VStack(alignment: .leading, spacing: 5) {
+                    HStack(spacing: 10) {
+                        Text("Updated")
+                            .opacity(0.5)
+                            .textCase(.uppercase)
+                        
+                        Text(latestGlucose.timestamp, style: .time)
+                            .bold()
+                            .monospacedDigit()
+                    }
+                    
+                    if let stopDate = context.stopDate {
+                        Text("Reopen app in")
+                            .opacity(0.5)
+                            .textCase(.uppercase)
+
+                        Text(stopDate, style: .relative)
+                            .bold()
+                            .multilineTextAlignment(.leading)
+                            .monospacedDigit()
+                    }
+                }
+                .font(.footnote)
+                .frame(maxWidth: 175)
+
+            } else {
+                VStack(spacing: 10) {
                     Text("No Data")
-                        .font(.system(size: 52))
+                        .bold()
+                        .font(.system(size: 35))
                         .foregroundColor(Color.ui.red)
 
                     Text(Date(), style: .time)
                         .opacity(0.5)
+                        .font(.footnote)
                 }
-            }
 
-            Spacer()
-        }.padding()
+                Spacer()
+            }
+        }
+        .padding(.top, 5)
+        .padding(.bottom, 10)
     }
 }
 
@@ -261,8 +282,8 @@ struct GlucoseActivityWidget_Previews: PreviewProvider {
             context: SensorGlucoseActivityAttributes.GlucoseStatus(
                 alarmLow: 80,
                 alarmHigh: 160,
-                sensorState: .expired,
-                connectionState: .disconnected,
+                sensorState: .ready,
+                connectionState: .connected,
                 glucose: SensorGlucose(glucoseValue: 120, minuteChange: 2),
                 glucoseUnit: .mgdL,
                 startDate: Date(),

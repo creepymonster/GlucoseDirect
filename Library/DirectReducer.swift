@@ -101,14 +101,23 @@ func directReducer(state: inout DirectState, action: DirectAction) {
     case .setAlarmSnoozeUntil(untilDate: let untilDate, autosnooze: let autosnooze):
         if let untilDate = untilDate {
             state.alarmSnoozeUntil = untilDate
+            
+            if let glucose = state.sensorGlucoseValues.last {
+                let alarm = state.isAlarm(glucoseValue: glucose.glucoseValue)
+                
+                if alarm != .none {
+                    state.alarmSnoozeKind = alarm
+                }
+            }
+            
+            if !autosnooze {
+                DirectNotifications.shared.stopSound()
+            }
         } else {
             state.alarmSnoozeUntil = nil
+            state.alarmSnoozeKind = nil
         }
-        
-        if !autosnooze {
-            DirectNotifications.shared.stopSound()
-        }
-        
+
     case .setAppleCalendarExport(enabled: let enabled):
         state.appleCalendarExport = enabled
         
@@ -293,6 +302,7 @@ func directReducer(state: inout DirectState, action: DirectAction) {
 
     if let alarmSnoozeUntil = state.alarmSnoozeUntil, Date() > alarmSnoozeUntil {
         state.alarmSnoozeUntil = nil
+        state.alarmSnoozeKind = nil
     }
 }
 
