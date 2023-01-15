@@ -36,13 +36,13 @@ struct SensorGlucoseListView: View {
                             if let glucoseValue = sensorGlucose.smoothGlucoseValue?.toInteger(), sensorGlucose.timestamp < store.state.smoothThreshold, DirectConfig.smoothSensorGlucoseValues {
                                 Text(verbatim: glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))
                                     .monospacedDigit()
-                                    .if(glucoseValue < store.state.alarmLow || glucoseValue > store.state.alarmHigh) { text in
+                                    .if(store.state.isAlarm(glucoseValue: glucoseValue) != .none) { text in
                                         text.foregroundColor(Color.ui.red)
                                     }
                             } else {
                                 Text(verbatim: sensorGlucose.glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))
                                     .monospacedDigit()
-                                    .if(sensorGlucose.glucoseValue < store.state.alarmLow || sensorGlucose.glucoseValue > store.state.alarmHigh) { text in
+                                    .if(store.state.isAlarm(glucoseValue: sensorGlucose.glucoseValue) != .none) { text in
                                         text.foregroundColor(Color.ui.red)
                                     }
                             }

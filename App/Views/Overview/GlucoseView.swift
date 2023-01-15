@@ -23,6 +23,7 @@ struct GlucoseView: View {
                         
                         VStack(alignment: .leading) {
                             Text(verbatim: latestGlucose.trend.description)
+                                .foregroundColor(getGlucoseColor(glucose: latestGlucose))
                                 .font(.system(size: 52))
 
                             if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: store.state.glucoseUnit) {
@@ -123,11 +124,7 @@ struct GlucoseView: View {
     }
 
     private func isAlarm(glucose: any Glucose) -> Bool {
-        if glucose.glucoseValue < store.state.alarmLow || glucose.glucoseValue > store.state.alarmHigh {
-            return true
-        }
-
-        return false
+        return store.state.isAlarm(glucoseValue: glucose.glucoseValue) != .none
     }
 
     private func getGlucoseColor(glucose: any Glucose) -> Color {

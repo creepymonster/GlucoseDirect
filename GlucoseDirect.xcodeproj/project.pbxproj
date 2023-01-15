@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10B3B0CE2972D65F00B70CE4 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B3B0CD2972D65F00B70CE4 /* Alarm.swift */; };
+		10B3B0CF2972D65F00B70CE4 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B3B0CD2972D65F00B70CE4 /* Alarm.swift */; };
 		10DD12FE296A146800C900EA /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DD12FD296A146800C900EA /* StatisticsView.swift */; };
 		10DD1301296A15B900C900EA /* AddCalibrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DD1300296A15B900C900EA /* AddCalibrationView.swift */; };
 		10DD1303296A15CA00C900EA /* AddBloodGlucoseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DD1302296A15CA00C900EA /* AddBloodGlucoseView.swift */; };
@@ -235,6 +237,7 @@
 		1074ABA929510094008A375D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1074ABAA29510094008A375D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1074ABAB29510094008A375D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		10B3B0CD2972D65F00B70CE4 /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
 		10DD12FD296A146800C900EA /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		10DD1300296A15B900C900EA /* AddCalibrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCalibrationView.swift; sourceTree = "<group>"; };
 		10DD1302296A15CA00C900EA /* AddBloodGlucoseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBloodGlucoseView.swift; sourceTree = "<group>"; };
@@ -731,6 +734,7 @@
 		E2FCAC112707419800FE1CBF /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				10B3B0CD2972D65F00B70CE4 /* Alarm.swift */,
 				E2591C5C28740EBB0009F27C /* BellmanConnectionState.swift */,
 				E26677D828799E76008E8B68 /* BloodGlucose.swift */,
 				6587CE4929626070008518F4 /* InsulinDelivery.swift */,
@@ -1068,6 +1072,7 @@
 				E2715806287ABF4100B611D9 /* BloodGlucoseListView.swift in Sources */,
 				E23698E4288198B400FCF69F /* Migration.swift in Sources */,
 				E2D34BC6274D6BC000151895 /* CalibrationsView.swift in Sources */,
+				10B3B0CE2972D65F00B70CE4 /* Alarm.swift in Sources */,
 				E2FCAC23270741BC00FE1CBF /* SensorState.swift in Sources */,
 				E2B63A88273E3EB100DDAA70 /* CustomCalibration.swift in Sources */,
 				E278848327B4646E00E07DDC /* Lazy.swift in Sources */,
@@ -1202,6 +1207,7 @@
 				E2E8DBEF2859F46D002C84FD /* Date.swift in Sources */,
 				E2E8DBF32859F479002C84FD /* SensorType.swift in Sources */,
 				E2591C5728740E3E0009F27C /* DirectState.swift in Sources */,
+				10B3B0CF2972D65F00B70CE4 /* Alarm.swift in Sources */,
 				E2E8DBEC2859F46D002C84FD /* Int.swift in Sources */,
 				E257B0652892C8C90081B2BD /* GlucoseActivityWidget.swift in Sources */,
 				E2016FDC285BA82600079195 /* TransmitterWidget.swift in Sources */,

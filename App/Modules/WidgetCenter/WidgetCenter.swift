@@ -18,8 +18,6 @@ func widgetCenterMiddleware() -> Middleware<DirectState, DirectAction> {
 @available(iOS 16.1, *)
 private func widgetCenterMiddleware(service: LazyService<ActivityGlucoseService>) -> Middleware<DirectState, DirectAction> {
     return { state, action, _ in
-        let isSnoozed = state.isSnoozed
-
         switch action {
         case .startup:
             guard state.glucoseLiveActivity else {
@@ -44,7 +42,7 @@ private func widgetCenterMiddleware(service: LazyService<ActivityGlucoseService>
                 service.value.start(alarmLow: state.alarmLow, alarmHigh: state.alarmHigh, sensorState: state.sensor?.state, connectionState: state.connectionState, glucose: state.latestSensorGlucose, glucoseUnit: state.glucoseUnit)
 
             } else if !service.value.startRequired {
-                service.value.update(alarmLow: state.alarmLow, alarmHigh: state.alarmHigh, sensorState: state.sensor?.state, connectionState: state.connectionState, glucose: state.latestSensorGlucose, glucoseUnit: state.glucoseUnit, isSnoozed: isSnoozed)
+                service.value.update(alarmLow: state.alarmLow, alarmHigh: state.alarmHigh, sensorState: state.sensor?.state, connectionState: state.connectionState, glucose: state.latestSensorGlucose, glucoseUnit: state.glucoseUnit)
             }
 
         case .setGlucoseLiveActivity(enabled: let enabled):
@@ -93,7 +91,7 @@ private func widgetCenterMiddleware(service: LazyService<ActivityGlucoseService>
                 service.value.start(alarmLow: state.alarmLow, alarmHigh: state.alarmHigh, sensorState: state.sensor?.state, connectionState: state.connectionState, glucose: state.latestSensorGlucose, glucoseUnit: state.glucoseUnit)
 
             } else if !service.value.startRequired {
-                service.value.update(alarmLow: state.alarmLow, alarmHigh: state.alarmHigh, sensorState: state.sensor?.state, connectionState: state.connectionState, glucose: state.latestSensorGlucose, glucoseUnit: state.glucoseUnit, isSnoozed: isSnoozed)
+                service.value.update(alarmLow: state.alarmLow, alarmHigh: state.alarmHigh, sensorState: state.sensor?.state, connectionState: state.connectionState, glucose: state.latestSensorGlucose, glucoseUnit: state.glucoseUnit)
             }
 
         case .addSensorGlucose(glucoseValues: _):
@@ -112,7 +110,7 @@ private func widgetCenterMiddleware(service: LazyService<ActivityGlucoseService>
                 service.value.start(alarmLow: state.alarmLow, alarmHigh: state.alarmHigh, sensorState: state.sensor?.state, connectionState: state.connectionState, glucose: state.latestSensorGlucose, glucoseUnit: state.glucoseUnit)
 
             } else if !service.value.startRequired {
-                service.value.update(alarmLow: state.alarmLow, alarmHigh: state.alarmHigh, sensorState: state.sensor?.state, connectionState: state.connectionState, glucose: state.latestSensorGlucose, glucoseUnit: state.glucoseUnit, isSnoozed: isSnoozed)
+                service.value.update(alarmLow: state.alarmLow, alarmHigh: state.alarmHigh, sensorState: state.sensor?.state, connectionState: state.connectionState, glucose: state.latestSensorGlucose, glucoseUnit: state.glucoseUnit)
             }
 
         default:
@@ -190,7 +188,7 @@ private class ActivityGlucoseService {
         }
     }
 
-    func update(alarmLow: Int, alarmHigh: Int, sensorState: SensorState?, connectionState: SensorConnectionState, glucose: SensorGlucose?, glucoseUnit: GlucoseUnit, isSnoozed: Bool) {
+    func update(alarmLow: Int, alarmHigh: Int, sensorState: SensorState?, connectionState: SensorConnectionState, glucose: SensorGlucose?, glucoseUnit: GlucoseUnit) {
         guard let activity = activity else {
             return
         }
@@ -198,12 +196,6 @@ private class ActivityGlucoseService {
         Task {
             let updatedStatus = getStatus(alarmLow: alarmLow, alarmHigh: alarmHigh, sensorState: sensorState, connectionState: connectionState, glucose: glucose, glucoseUnit: glucoseUnit)
             await activity.update(using: updatedStatus)
-
-            // if let glucose = glucose, let alertConfiguration = getAlertConfiguration(alarmLow: alarmLow, alarmHigh: alarmHigh, glucose: glucose, isSnoozed: isSnoozed) {
-            //     await activity.update(using: updatedStatus, alertConfiguration: alertConfiguration)
-            // } else {
-            //     await activity.update(using: updatedStatus)
-            // }
         }
     }
 
@@ -227,30 +219,6 @@ private class ActivityGlucoseService {
     private var activityStart: Date?
     private var activityRestart: Date?
     private var activityStop: Date?
-
-    private func getAlertConfiguration(alarmLow: Int, alarmHigh: Int, glucose: any Glucose, isSnoozed: Bool) -> AlertConfiguration? {
-        if isSnoozed {
-            return nil
-        }
-
-        if glucose.glucoseValue < alarmLow {
-            return AlertConfiguration(title: "Alert, low blood glucose", body: "", sound: .default)
-        }
-
-        if glucose.glucoseValue > alarmHigh {
-            return AlertConfiguration(title: "Alert, high glucose", body: "", sound: .default)
-        }
-
-        return nil
-    }
-
-    private func isAlarm(alarmLow: Int, alarmHigh: Int, glucose: any Glucose) -> Bool {
-        if glucose.glucoseValue < alarmLow || glucose.glucoseValue > alarmHigh {
-            return true
-        }
-
-        return false
-    }
 
     private func getStatus() -> SensorGlucoseActivityAttributes.GlucoseStatus {
         return SensorGlucoseActivityAttributes.GlucoseStatus(alarmLow: 0, alarmHigh: 0)

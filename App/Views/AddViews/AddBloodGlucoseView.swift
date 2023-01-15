@@ -29,7 +29,7 @@ struct AddBloodGlucoseView: View {
                             )
                         }
                         
-                        NumberSelectorView(key: LocalizedString("Glucose value"), value: 100, step: 1, displayValue: value.asGlucose(glucoseUnit: glucoseUnit, withUnit: true)) { value in
+                        NumberSelectorView(key: LocalizedString("Glucose"), value: 100, step: 1, displayValue: value.asGlucose(glucoseUnit: glucoseUnit, withUnit: true)) { value in
                             self.value = value
                         }
                     }

@@ -52,12 +52,13 @@ private func appleCalendarExportMiddleware(service: LazyService<AppleCalendarExp
             guard let glucose = glucoseValues.last else {
                 break
             }
+                       
+            let alarm = state.isAlarm(glucoseValue: glucose.glucoseValue)
+            DirectLog.info("alarm: \(alarm)")
             
-            let isSnoozed = state.isSnoozed
+            let isAlarm = alarm != .none
+            let isSnoozed = state.isSnoozed(alarm: alarm)
             DirectLog.info("isSnoozed: \(isSnoozed)")
-            
-            let isAlarm = glucose.glucoseValue < state.alarmLow || glucose.glucoseValue > state.alarmHigh
-            DirectLog.info("isAlarm: \(isAlarm)")
 
             service.value.addSensorGlucose(calendarTarget: calendarTarget, glucose: glucose, glucoseUnit: state.glucoseUnit, sensorInterval: Double(state.sensorInterval), withAlarm: isAlarm && !isSnoozed)
 
@@ -155,9 +156,9 @@ private class AppleCalendarExportService {
         event.startDate = timestamp
         event.endDate = timestamp + durationMinutes * 60
         
-        if withAlarm {
+        if withAlarm || true {
             let alarm = EKAlarm(relativeOffset: 0)
-            event.addAlarm(alarm)
+            event.alarms = [alarm]
         }
 
         do {

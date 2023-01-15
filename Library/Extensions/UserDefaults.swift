@@ -11,7 +11,6 @@ private enum Keys: String {
     case appSerial = "libre-direct.settings.app-serial"
     case alarmHigh = "libre-direct.settings.alarm-high"
     case alarmLow = "libre-direct.settings.alarm-low"
-    case alarmSnoozeUntil = "libre-direct.settings.alarm-snooze-until"
     case appleHealthExport = "libre-direct.settings.apple-health-export"
     case bellmanAlarm = "libre-direct.settings.bellman-alarm"
     case calendarExport = "libre-direct.settings.calendar-export"
@@ -101,19 +100,6 @@ extension UserDefaults {
                 set(newValue, forKey: Keys.alarmLow.rawValue)
             } else {
                 removeObject(forKey: Keys.alarmLow.rawValue)
-            }
-        }
-    }
-
-    var alarmSnoozeUntil: Date? {
-        get {
-            return getObject(forKey: Keys.alarmSnoozeUntil.rawValue)
-        }
-        set {
-            if let newValue = newValue {
-                setObject(newValue, forKey: Keys.alarmSnoozeUntil.rawValue)
-            } else {
-                removeObject(forKey: Keys.alarmSnoozeUntil.rawValue)
             }
         }
     }
