@@ -85,7 +85,8 @@ extension BloodGlucose: FetchableRecord, PersistableRecord {
         case timestamp
         case glucoseValue
         case timegroup
-        case originatingSource
+        case originatingSourceName
+        case originatingSourceBundle
     }
 }
 

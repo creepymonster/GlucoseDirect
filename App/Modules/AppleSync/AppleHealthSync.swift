@@ -100,8 +100,26 @@ private func appleHealthExportMiddleware(service: LazyService<AppleHealthExportS
                 DirectLog.info("Guard: HKHealthStore.isHealthDataAvailable is false")
                 break
             }
+                    
+            service.value.addGlucose(glucoseValues: glucoseValues)
+             
+        case .loadAppleHealth:
+            guard state.appleHealthSync else {
+                DirectLog.info("Guard: state.appleHealth is false")
+                break
+            }
             
-            service.value.addGlucose(glucoseValues: glucoseValues)            
+            guard service.value.healthStoreAvailable else {
+                DirectLog.info("Guard: HKHealthStore.isHealthDataAvailable is false")
+                break
+            }
+            
+            return Future<DirectAction, DirectError> { promise in
+                service.value.syncDataFromAppleHealth { newExternalValues in
+                    promise(.success(.addBloodGlucose(glucoseValues: newExternalValues)))
+                }
+            }.eraseToAnyPublisher()
+            
         case .deleteSensorGlucose(glucose: let glucose):
             guard state.appleHealthSync else {
                 DirectLog.info("Guard: state.appleHealth is false")
@@ -135,6 +153,8 @@ private func appleHealthExportMiddleware(service: LazyService<AppleHealthExportS
 // MARK: - AppleHealthService
 
 typealias AppleHealthExportHandler = (_ granted: Bool) -> Void
+typealias AppleHealthLoadFromAppleHealthHandler = (_ newExternalValues: [BloodGlucose]) -> Void
+typealias AppleHealthLoadHealthKitSample = (_ sample: HKQuantitySample?) -> Void
 
 // MARK: - AppleHealthExportService
 
@@ -185,39 +205,119 @@ private class AppleHealthExportService {
         guard let healthStore = healthStore else {
             return
         }
-
-        healthStore.requestAuthorization(toShare: requiredWritePermissions, read: requiredReadPermissions) { granted, error in
+        
+        healthStore.requestAuthorization(toShare: requiredWritePermissions, read: requiredReadPermissions) { [weak self] granted, error in
             guard granted else {
                 DirectLog.info("Guard: HKHealthStore.requestAuthorization failed, error: \(error?.localizedDescription)")
                 return
             }
-            
-            let healthGlucoseValues = glucoseValues.map { glucose in
-                HKQuantitySample(
-                    type: self.glucoseType,
-                    quantity: HKQuantity(unit: .milligramsPerDeciliter, doubleValue: Double(glucose.glucoseValue)),
-                    start: glucose.timestamp,
-                    end: glucose.timestamp,
-                    metadata: [
+
+            glucoseValues.forEach { [weak self] glucose in
+                self?.getSample(for: glucose.id) {  [weak self] sample in
+                    var metadata:[String : Any] = [
                         HKMetadataKeyExternalUUID: glucose.id.uuidString,
                         HKMetadataKeySyncIdentifier: glucose.id.uuidString,
-                        HKMetadataKeySyncVersion: 1
+                        HKMetadataKeySyncVersion: 2,
+                        HKMetadataKeyWasUserEntered:  type(of: glucose) == BloodGlucose.self && (glucose as! BloodGlucose).isExternal(),
                     ]
-                )
-            }.compactMap { $0 }
-            
-            guard !healthGlucoseValues.isEmpty else {
-                return
-            }
-            
-            healthStore.save(healthGlucoseValues) { success, error in
-                if !success {
-                    DirectLog.info("Guard: Writing data to apple health store failed, error: \(error?.localizedDescription)")
+                    
+                    if (type(of: glucose) == SensorGlucose.self) {
+                        // Add in the sensor data to HealthKit
+                        metadata[HKMetadataKeyDeviceSerialNumber] = UserDefaults.shared.sensor?.serial
+                        metadata[HKMetadataKeyDeviceManufacturerName] = UserDefaults.shared.sensor?.type.rawValue
+                    }
+                    
+                    guard let retrievedSample = sample else {
+                        let newSample = HKQuantitySample(
+                            type: self!.glucoseType,
+                            quantity: HKQuantity(unit: .milligramsPerDeciliter, doubleValue: Double(glucose.glucoseValue)),
+                            start: glucose.timestamp,
+                            end: glucose.timestamp,
+                            metadata: metadata
+                        )
+                        healthStore.save(newSample) { success, error in
+                            if !success {
+                                DirectLog.info("Guard: Writing data to apple health store failed, error: \(error?.localizedDescription)")
+                            }
+                        }
+                        return
+                    }
+                    
+                    if (retrievedSample.sourceRevision.source.bundleIdentifier == DirectConfig.appBundle) {
+                        //This sample is our own, so lets update the metadata.
+                        //retrievedSample.metadata = metadata
+                    }
+                    healthStore.save(retrievedSample) { success, error in
+                        if !success {
+                            DirectLog.info("Guard: Writing data to apple health store failed, error: \(error?.localizedDescription)")
+                        }
+                    }
                 }
             }
+
         }
     }
-
+    
+    func syncDataFromAppleHealth(completionHandler: @escaping AppleHealthLoadFromAppleHealthHandler) {
+        guard let healthStore = healthStore else {
+            completionHandler([])
+            return
+        }
+        
+        healthStore.requestAuthorization(toShare: requiredWritePermissions, read: requiredReadPermissions) {  granted, error in
+            guard granted else {
+                DirectLog.info("Guard: HKHealthStore.requestAuthorization failed, error: \(error?.localizedDescription)")
+                completionHandler([])
+                return
+            }
+        
+            
+            let query = HKSampleQuery(sampleType: self.glucoseType, predicate: nil, limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil) {
+                query, results, error in
+                
+                guard let samples = results as? [HKQuantitySample] else {
+                    // Handle any errors here.
+                    completionHandler([])
+                    return 
+                }
+                
+                
+                var newExternalValues: [BloodGlucose] = []
+                for sample in samples {
+                    let sourceName = sample.sourceRevision.source.name
+                    let sourceBundle = sample.sourceRevision.source.bundleIdentifier
+//
+//                    if (sourceBundle == DirectConfig.appBundle) {
+//                        //The value came from our app, so we don't need to load it back in.
+//                        continue
+//                    }
+                    
+                    
+                    // First try and use HKMetadataKeyExternalUUID
+                    // If HKMetadataKeyExternalUUID does not exist, use ID.
+                    let id = sample.metadata?[HKMetadataKeyExternalUUID] as? UUID ?? sample.uuid
+                                        
+                    let bloodGlucose = DataStore.shared.getBloodGlucose(for: id)
+                    if (bloodGlucose != nil) {
+                        continue
+                    }
+                    
+                    let syncedGlucose = BloodGlucose(id: id, timestamp: sample.startDate, glucoseValue: Int(sample.quantity.doubleValue(for: .milligramsPerDeciliter)), originatingSourceName: sourceName, originatingSourceBundle: sourceBundle)
+                    newExternalValues.append(syncedGlucose)
+                }
+                
+                completionHandler(newExternalValues)
+            }
+            
+            healthStore.execute(query)
+            
+            //TODO:
+            // 1. Read all glucose & insulin from Apple Health, match against local database.
+            // 2. If not in local database, add to local database
+            // 3. Loop all local values and make sure in Apple Health
+        }
+    }
+    
     func deleteGlucose(glucose: any Glucose) {
         guard let healthStore = healthStore else {
             return
@@ -333,6 +433,41 @@ private class AppleHealthExportService {
     }()
 }
 
+private extension AppleHealthExportService {
+    func getSample(for id: UUID, completionHandler: @escaping AppleHealthLoadHealthKitSample) {
+        guard let healthStore = healthStore else {
+            return
+        }
+        
+        healthStore.requestAuthorization(toShare: requiredWritePermissions, read: requiredReadPermissions) { granted, error in
+            guard granted else {
+                DirectLog.info("Guard: HKHealthStore.requestAuthorization failed, error: \(error?.localizedDescription)")
+                return
+            }
+            
+            
+            let query = HKSampleQuery(sampleType: self.glucoseType, predicate: NSPredicate(format: "%K == %@", HKMetadataKeyExternalUUID, id.uuidString, HKPredicateKeyPathUUID, id.uuidString), limit: 1, sortDescriptors: nil) {
+                query, results, error in
+                guard let samples = results as? [HKQuantitySample] else {
+                    completionHandler(nil)
+                    return
+                }
+                
+                DirectLog.debug("\(samples.first)")
+                
+                guard let sample = samples.first else {
+                    completionHandler(nil)
+                    return
+                }
+                completionHandler(sample)
+            }
+            
+            healthStore.execute(query)
+        }
+    }
+}
+
+
 private extension HKUnit {
     static let milligramsPerDeciliter: HKUnit = HKUnit.gramUnit(with: .milli).unitDivided(by: .literUnit(with: .deci))
 }
@@ -351,5 +486,24 @@ private extension InsulinType {
         case .snackBolus:
             return .bolus
         }
+    }
+}
+
+
+private extension DataStore {
+    func getBloodGlucose(for id: UUID) -> BloodGlucose? {
+        if let dbQueue = dbQueue {
+            do {
+                return try dbQueue.read { db in
+                    try BloodGlucose
+                        .filter(Column(BloodGlucose.Columns.id.name) == id.uuidString)
+                        .fetchOne(db)
+                }
+            } catch {
+                DirectLog.error("\(error)")
+            }
+        }
+        
+        return nil
     }
 }
