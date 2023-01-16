@@ -32,7 +32,7 @@
 "Alarm glucose notification" = "Сигнал тревоги Уведомление о глюкозе";
 
 /* (No Comment) */
-"Alarm settings" = "Alarm settings";
+"Alarm settings" = "Настройки оповедения";
 
 /* (No Comment) */
 "Alert, high glucose" = "Тревога, высокий уровень глюкозы";
@@ -41,7 +41,7 @@
 "Alert, low blood glucose" = "Тревога, низкий уровень глюкозы в крови";
 
 /* (No Comment) */
-"Alarm, loss of signal" = "Alarm, loss of signal";
+"Alarm, loss of signal" = "Сигнал тревоги, потеря сигнала";
 
 /* (No Comment) */
 "Alert, sensor expired" = "Тревога, сенсор закончился";
@@ -137,7 +137,7 @@
 "Connection error timestamp" = "Время";
 
 /* (No Comment) */
-"Connection settings" = "Connection settings";
+"Connection settings" = "Настройки подключения";
 
 /* (No Comment) */
 "Connection state" = "Статус";
@@ -218,10 +218,10 @@
 "LibreLink transmitter" = "LibreLink";
 
 /* (No Comment) */
-"LibreLinkUp email" = "LibreLinkUp email";
+"LibreLinkUp email" = "Эл. письмо LibreLinkUp";
 
 /* (No Comment) */
-"LibreLinkUp password" = "LibreLinkUp password";
+"LibreLinkUp password" = "Пароль LibreLinkUp";
 
 /* (No Comment) */
 "Line" = "Линия";
@@ -245,7 +245,7 @@
 "Nightscout url" = "Url-адрес";
 
 /* (No Comment) */
-"No Data" = "No Data";
+"No Data" = "Нет данных";
 
 /* (No Comment) */
 "No screen lock" = "Без блокировки экрана";
@@ -425,10 +425,10 @@
 "Statistics (%@ days)" = "Статистика (%@ дня/дней)";
 
 /* (No Comment) */
-"StatisticsPeriod" = "Period";
+"StatisticsPeriod" = "Период";
 
 /* (No Comment) */
-"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data.";
+"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "Больше никаких данных от датчика не поступает. Причина может заключаться в том, что соединение Bluetooth с датчиком прервано или LibreLinkUp больше не предоставляет данные.";
 
 /* (No Comment) */
 "Time" = "Время";
@@ -440,7 +440,7 @@
 "Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Время ниже диапазона (TBR) или процент времени, проведенного ниже целевого уровня глюкозы %@.";
 
 /* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@.";
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Время в диапазоне (TIR) или процент времени, проведенного в целевом диапазоне глюкозы от %@ до %@.";
 
 /* (No Comment) */
 "Transmitter" = "Передатчик";
@@ -470,7 +470,7 @@
 "Unknown" = "Неизвестно";
 
 /* (No Comment) */
-"Updated" = "Updated";
+"Updated" = "Обновлено";
 
 /* (No Comment) */
 "Upper limit" = "Высокий";
@@ -506,85 +506,91 @@
 "Your sensor has expired and needs to be replaced as soon as possible" = "Срок действия вашего датчика истек, и его необходимо заменить как можно скорее";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@." = "Your sensor is about to expire. Replace sensor in %1$@.";
+"Your sensor is about to expire. Replace sensor in %1$@." = "Срок действия вашего датчика истекает. Замените датчик в %1 $@. ";
 
 /* (No Comment) */
-"Loading..." = "Loading...";
+"Loading..." = "Загрузка...";
 
 /* (No Comment) */
-"Export" = "Export";
+"Export" = "Экспорт";
 
 /* (No Comment) */
-"Export as CSV" = "Export as CSV";
+"Export as CSV" = "Экспорт в формате CSV";
 
 /* (No Comment) */
-"Export for Glooko" = "Export for Glooko";
+"Export for Glooko" = "Экспорт для Glooko";
 
 /* (No Comment) */
-"Export for Tidepool" = "Export for Tidepool";
+"Export for Tidepool" = "Экспорт для Tidepool";
 
 /* (No Comment) */
-"%@ hours" = "%@ hours";
+"%@ hours" = "%@ часа(-ов)";
 
 /* (No Comment) */
-"Open app" = "Open app";
+"Reopen app in" = "Повторно открыть приложение в";
 
 /* (No Comment) */
-"%1$@ days" = "%1$@ days";
+"%1$@ days" = "%1$@ дня (дней)";
 
 /* (No Comment) */
-"%1$@ day" = "%1$@ day";
+"%1$@ day" = "%1$@ день";
 
 /* (No Comment) */
-"%1$@ hours" = "%1$@ hours";
+"%1$@ hours" = "%1$@ часа(-ов)";
 
 /* (No Comment) */
-"%1$@ hour" = "%1$@ hour";
+"%1$@ hour" = "%1$@ час";
 
 /* (No Comment) */
-"%1$@ minutes" = "%1$@ minutes";
+"%1$@ minutes" = "%1$@ минут(-ы)";
 
 /* (No Comment) */
-"Meal Bolus" = "Meal Bolus";
+"Meal Bolus" = "Болюсное питание";
 
 /* (No Comment) */
-"Snack Bolus" = "Snack Bolus";
+"Snack Bolus" = "Болюс для перекуса";
 
 /* (No Comment) */
-"Correction Bolus" = "Correction Bolus";
+"Correction Bolus" = "Болюсная коррекция";
 
 /* (No Comment) */
-"Basal" = "Basal";
+"Basal" = "Базальный";
 
 /* (No Comment) */
-"Insulin" = "Insulin";
+"Insulin" = "Инсулин";
 
 /* (No Comment) */
-"Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep.";
+"Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "Базальный инсулин — это инсулин, используемый для регулирования уровня глюкозы в крови между приемами пищи, в том числе во время сна.";
 
 /* (No Comment) */
-"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose.";
+"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Болюсный инсулин — это инсулин, используемый для регулирования уровня глюкозы в крови во время еды и/или для острого решения проблемы высокого уровня глюкозы в крови.";
 
 /* (No Comment) */
-"Blood glucose" = "Blood glucose";
+"Blood glucose" = "Глюкоза в крови ";
 
 /* (No Comment) */
-"Add insulin" = "Add insulin";
+"Add insulin" = "Добавить инсулин";
 
 /* (No Comment) */
 "Calibration" = "Калибровка";
 
 /* (No Comment) */
-"Starts" = "Starts";
+"Starts" = "Начинается";
 
 /* (No Comment) */
-"Ends" = "Ends";
+"Ends" = "Заканчивается";
 
 /* (No Comment) */
-"Smooth chart values" = "Smooth chart values";
-
-/* (No Comment) */
-"Units" = "Units";
+"Units" = "Единицы";
 
 /* (No Comment) */
 "Type" = "Тип";
+
+/* (No Comment) */
+"Additional settings" = "Дополнительные настройки";
+
+/* (No Comment) */
+"Show smoothed glucose" = "Показать выровненную глюкозу";
+
+/* (No Comment) */
+"Show insulin input" = "Показать ввод инсулина";
