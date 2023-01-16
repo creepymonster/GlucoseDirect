@@ -527,7 +527,7 @@
 "%@ hours" = "%@ годин";
 
 /* (No Comment) */
-"Open app" = "Open app";
+"Reopen app in" = "Повторно відкрити програму в";
 
 /* (No Comment) */
 "%1$@ days" = "%1$@ днів";
@@ -581,10 +581,16 @@
 "Ends" = "Закінчується";
 
 /* (No Comment) */
-"Smooth chart values" = "Згладжені значення діаграми";
-
-/* (No Comment) */
 "Units" = "Одиниці";
 
 /* (No Comment) */
 "Type" = "Тип";
+
+/* (No Comment) */
+"Additional settings" = " Додаткові налаштування ";
+
+/* (No Comment) */
+"Show smoothed glucose" = " Показати виправлений рівень глюкози";
+
+/* (No Comment) */
+"Show insulin input" = " Показати введення інсуліну";
