@@ -14,14 +14,16 @@ struct ListsView: View {
 
     var body: some View {
         List {
-            Button("Add insulin", action: {
-                showingAddInsulinView = true
-            }).sheet(isPresented: $showingAddInsulinView, onDismiss: {
-                showingAddInsulinView = false
-            }) {
-                AddInsulinView { start, end, units, insulinType in
-                    let insulinDelivery = InsulinDelivery(id: UUID(), starts: start, ends: end, units: units, type: insulinType)
-                    store.dispatch(.addInsulinDelivery(insulinDeliveryValues: [insulinDelivery]))
+            if DirectConfig.showInsulinInput, store.state.showInsulinInput {
+                Button("Add insulin", action: {
+                    showingAddInsulinView = true
+                }).sheet(isPresented: $showingAddInsulinView, onDismiss: {
+                    showingAddInsulinView = false
+                }) {
+                    AddInsulinView { start, end, units, insulinType in
+                        let insulinDelivery = InsulinDelivery(id: UUID(), starts: start, ends: end, units: units, type: insulinType)
+                        store.dispatch(.addInsulinDelivery(insulinDeliveryValues: [insulinDelivery]))
+                    }
                 }
             }
 
@@ -42,7 +44,7 @@ struct ListsView: View {
                 BloodGlucoseListView()
             }
 
-            if DirectConfig.insulinDeliveryInput {
+            if DirectConfig.showInsulinInput, store.state.showInsulinInput {
                 InsulinDeliveryListView()
             }
 

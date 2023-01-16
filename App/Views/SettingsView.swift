@@ -17,6 +17,7 @@ struct SettingsView: View {
             NightscoutSettingsView()
             AppleExportSettingsView()
             BellmanSettingsView()
+            AdditionalSettingsView()
             AboutView()
         }.listStyle(.grouped)
     }

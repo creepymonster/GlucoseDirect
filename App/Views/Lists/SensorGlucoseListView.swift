@@ -33,7 +33,7 @@ struct SensorGlucoseListView: View {
 
                             Spacer()
 
-                            if let glucoseValue = sensorGlucose.smoothGlucoseValue?.toInteger(), sensorGlucose.timestamp < store.state.smoothThreshold, DirectConfig.smoothSensorGlucoseValues {
+                            if let glucoseValue = sensorGlucose.smoothGlucoseValue?.toInteger(), sensorGlucose.timestamp < store.state.smoothThreshold, DirectConfig.showSmoothedGlucose {
                                 Text(verbatim: glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit, withUnit: true))
                                     .monospacedDigit()
                                     .if(store.state.isAlarm(glucoseValue: glucoseValue) != .none) { text in

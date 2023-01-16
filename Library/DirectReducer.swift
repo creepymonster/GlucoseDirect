@@ -98,6 +98,9 @@ func directReducer(state: inout DirectState, action: DirectAction) {
     case .setAlarmLow(lowerLimit: let lowerLimit):
         state.alarmLow = lowerLimit
         
+    case .setAlarmVolume(volume: let volume):
+        state.alarmVolume = volume
+        
     case .setAlarmSnoozeUntil(untilDate: let untilDate, autosnooze: let autosnooze):
         if let untilDate = untilDate {
             state.alarmSnoozeUntil = untilDate
@@ -293,8 +296,11 @@ func directReducer(state: inout DirectState, action: DirectAction) {
     case .setAppIsBusy(isBusy: let isBusy):
         state.appIsBusy = isBusy
         
-    case .setSmoothChartValues(enabled: let enabled):
-        state.smoothChartValues = enabled
+    case .setShowSmoothedGlucose(enabled: let enabled):
+        state.showSmoothedGlucose = enabled
+        
+    case .setShowInsulinInput(enabled: let enabled):
+        state.showInsulinInput = enabled
 
     default:
         break

@@ -524,10 +524,10 @@
 "Export for Tidepool" = "Exportar para Tidepool";
 
 /* (No Comment) */
-"%@ hours" = "%@ hours";
+"%@ hours" = " %@ horas ";
 
 /* (No Comment) */
-"Open app" = "Open app";
+"Reopen app in" = "Reabra a 'app' em";
 
 /* (No Comment) */
 "%1$@ days" = "%1$@ dias";
@@ -575,16 +575,22 @@
 "Calibration" = "Calibração";
 
 /* (No Comment) */
-"Starts" = "Starts";
+"Starts" = " Começa";
 
 /* (No Comment) */
-"Ends" = "Ends";
+"Ends" = " Termina";
 
 /* (No Comment) */
-"Smooth chart values" = "Smooth chart values";
-
-/* (No Comment) */
-"Units" = "Units";
+"Units" = " Unidades ";
 
 /* (No Comment) */
 "Type" = "Tipo";
+
+/* (No Comment) */
+"Additional settings" = " Configurações adicionais ";
+
+/* (No Comment) */
+"Show smoothed glucose" = " Mostrar glicose suavizada ";
+
+/* (No Comment) */
+"Show insulin input" = " Mostrar entrada de insulina ";

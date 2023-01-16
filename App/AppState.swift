@@ -42,8 +42,9 @@ struct AppState: DirectState {
             UserDefaults.shared.transmitter = transmitter
         }
 
-        self.alarmHigh = UserDefaults.standard.alarmHigh ?? 180
-        self.alarmLow = UserDefaults.standard.alarmLow ?? 80
+        self.alarmHigh = UserDefaults.standard.alarmHigh
+        self.alarmLow = UserDefaults.standard.alarmLow
+        self.alarmVolume = UserDefaults.standard.alarmVolume
         self.appleCalendarExport = UserDefaults.standard.appleCalendarExport
         self.appleHealthExport = UserDefaults.standard.appleHealthExport
         self.bellmanAlarm = UserDefaults.standard.bellmanAlarm
@@ -75,7 +76,8 @@ struct AppState: DirectState {
         self.sensorInterval = UserDefaults.standard.sensorInterval
         self.showAnnotations = UserDefaults.standard.showAnnotations
         self.transmitter = UserDefaults.shared.transmitter
-        self.smoothChartValues = UserDefaults.standard.smoothChartValues
+        self.showSmoothedGlucose = UserDefaults.standard.showSmoothedGlucose
+        self.showInsulinInput = UserDefaults.standard.showInsulinInput
     }
 
     // MARK: Internal
@@ -111,6 +113,7 @@ struct AppState: DirectState {
 
     var alarmHigh: Int { didSet { UserDefaults.standard.alarmHigh = alarmHigh } }
     var alarmLow: Int { didSet { UserDefaults.standard.alarmLow = alarmLow } }
+    var alarmVolume: Float { didSet { UserDefaults.standard.alarmVolume = alarmVolume } }
     var appleCalendarExport: Bool { didSet { UserDefaults.standard.appleCalendarExport = appleCalendarExport } }
     var appleHealthExport: Bool { didSet { UserDefaults.standard.appleHealthExport = appleHealthExport } }
     var bellmanAlarm: Bool { didSet { UserDefaults.standard.bellmanAlarm = bellmanAlarm } }
@@ -142,5 +145,6 @@ struct AppState: DirectState {
     var sensorInterval: Int { didSet { UserDefaults.standard.sensorInterval = sensorInterval } }
     var showAnnotations: Bool { didSet { UserDefaults.standard.showAnnotations = showAnnotations } }
     var transmitter: Transmitter? { didSet { UserDefaults.shared.transmitter = transmitter } }
-    var smoothChartValues: Bool { didSet { UserDefaults.standard.smoothChartValues = smoothChartValues } }
+    var showSmoothedGlucose: Bool { didSet { UserDefaults.standard.showSmoothedGlucose = showSmoothedGlucose } }
+    var showInsulinInput: Bool { didSet { UserDefaults.standard.showInsulinInput = showInsulinInput } }
 }

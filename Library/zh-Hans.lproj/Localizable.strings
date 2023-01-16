@@ -524,10 +524,10 @@
 "Export for Tidepool" = "导出到Tidepool";
 
 /* (No Comment) */
-"%@ hours" = "%@ hours";
+"%@ hours" = "%@小时";
 
 /* (No Comment) */
-"Open app" = "Open app";
+"Reopen app in" = "请在以下时间后重新打开应用：";
 
 /* (No Comment) */
 "%1$@ days" = "%1$@天";
@@ -575,16 +575,22 @@
 "Calibration" = "校准";
 
 /* (No Comment) */
-"Starts" = "Starts";
+"Starts" = "开始";
 
 /* (No Comment) */
-"Ends" = "Ends";
+"Ends" = "结束";
 
 /* (No Comment) */
-"Smooth chart values" = "Smooth chart values";
-
-/* (No Comment) */
-"Units" = "Units";
+"Units" = "单位";
 
 /* (No Comment) */
 "Type" = "类型";
+
+/* (No Comment) */
+"Additional settings" = "其他设置";
+
+/* (No Comment) */
+"Show smoothed glucose" = "显示平滑血糖曲线";
+
+/* (No Comment) */
+"Show insulin input" = "显示胰岛素注入";

@@ -11,6 +11,7 @@ private enum Keys: String {
     case appSerial = "libre-direct.settings.app-serial"
     case alarmHigh = "libre-direct.settings.alarm-high"
     case alarmLow = "libre-direct.settings.alarm-low"
+    case alarmVolume = "libre-direct.settings.alarm-volume"
     case appleHealthExport = "libre-direct.settings.apple-health-export"
     case bellmanAlarm = "libre-direct.settings.bellman-alarm"
     case calendarExport = "libre-direct.settings.calendar-export"
@@ -52,55 +53,59 @@ private enum Keys: String {
     case sharedTransmitterHardware = "glucosedirect--transmitter-hardware"
     case transmitter = "libre-direct.settings.transmitter"
     case showAnnotations = "libre-direct.settings.show-annotations"
-    case smoothChartValues = "libre-direct.settings.smooth-chart-values"
+    case showSmoothedGlucose = "libre-direct.settings.smooth-chart-values"
+    case showInsulinInput = "libre-direct.settings.show-insulin-delivery-input"
 }
 
 extension UserDefaults {
     var appSerial: String {
-        get {
-            if let serial = string(forKey: Keys.appSerial.rawValue) {
-                return serial
-            }
-            
-            let newSerial = UUID().uuidString
-            
-            set(newSerial, forKey: Keys.alarmHigh.rawValue)
-
-            return newSerial
+        if let serial = string(forKey: Keys.appSerial.rawValue) {
+            return serial
         }
+
+        let newSerial = UUID().uuidString
+
+        set(newSerial, forKey: Keys.alarmHigh.rawValue)
+
+        return newSerial
     }
-    
-    var alarmHigh: Int? {
+
+    var alarmHigh: Int {
         get {
             if object(forKey: Keys.alarmHigh.rawValue) != nil {
                 return integer(forKey: Keys.alarmHigh.rawValue)
             }
 
-            return nil
+            return 180
         }
         set {
-            if let newValue = newValue {
-                set(newValue, forKey: Keys.alarmHigh.rawValue)
-            } else {
-                removeObject(forKey: Keys.alarmHigh.rawValue)
-            }
+            set(newValue, forKey: Keys.alarmHigh.rawValue)
         }
     }
 
-    var alarmLow: Int? {
+    var alarmLow: Int {
         get {
             if object(forKey: Keys.alarmLow.rawValue) != nil {
                 return integer(forKey: Keys.alarmLow.rawValue)
             }
 
-            return nil
+            return 80
         }
         set {
-            if let newValue = newValue {
-                set(newValue, forKey: Keys.alarmLow.rawValue)
-            } else {
-                removeObject(forKey: Keys.alarmLow.rawValue)
+            set(newValue, forKey: Keys.alarmLow.rawValue)
+        }
+    }
+
+    var alarmVolume: Float {
+        get {
+            if object(forKey: Keys.alarmVolume.rawValue) != nil {
+                return float(forKey: Keys.alarmVolume.rawValue)
             }
+
+            return 0.2
+        }
+        set {
+            set(newValue, forKey: Keys.alarmVolume.rawValue)
         }
     }
 
@@ -268,7 +273,7 @@ extension UserDefaults {
             set(newValue, forKey: Keys.normalGlucoseNotification.rawValue)
         }
     }
-    
+
     var alarmGlucoseNotification: Bool {
         get {
             if object(forKey: Keys.alarmGlucoseNotification.rawValue) != nil {
@@ -363,7 +368,7 @@ extension UserDefaults {
             }
         }
     }
-    
+
     var latestInsulinDelivery: InsulinDelivery? {
         get {
             return getObject(forKey: Keys.latestInsulinDelivery.rawValue)
@@ -376,7 +381,6 @@ extension UserDefaults {
             }
         }
     }
-
 
     var sharedGlucose: Data? {
         get {
@@ -637,17 +641,30 @@ extension UserDefaults {
             }
         }
     }
-    
-    var smoothChartValues: Bool {
+
+    var showSmoothedGlucose: Bool {
         get {
-            if object(forKey: Keys.smoothChartValues.rawValue) != nil {
-                return bool(forKey: Keys.smoothChartValues.rawValue)
+            if object(forKey: Keys.showSmoothedGlucose.rawValue) != nil {
+                return bool(forKey: Keys.showSmoothedGlucose.rawValue)
             }
 
             return false
         }
         set {
-            set(newValue, forKey: Keys.smoothChartValues.rawValue)
+            set(newValue, forKey: Keys.showSmoothedGlucose.rawValue)
+        }
+    }
+
+    var showInsulinInput: Bool {
+        get {
+            if object(forKey: Keys.showInsulinInput.rawValue) != nil {
+                return bool(forKey: Keys.showInsulinInput.rawValue)
+            }
+
+            return true
+        }
+        set {
+            set(newValue, forKey: Keys.showInsulinInput.rawValue)
         }
     }
 }

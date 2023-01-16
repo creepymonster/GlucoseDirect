@@ -17,6 +17,7 @@ protocol DirectState {
     var alarmLow: Int { get set }
     var alarmSnoozeUntil: Date? { get set }
     var alarmSnoozeKind: Alarm? { get set }
+    var alarmVolume: Float { get set }
     var appleCalendarExport: Bool { get set }
     var appleHealthExport: Bool { get set }
     var bellmanAlarm: Bool { get set }
@@ -66,7 +67,8 @@ protocol DirectState {
     var glucoseStatistics: GlucoseStatistics? { get set }
     var targetValue: Int { get set }
     var transmitter: Transmitter? { get set }
-    var smoothChartValues: Bool { get set }
+    var showSmoothedGlucose: Bool { get set }
+    var showInsulinInput: Bool { get set }
 }
 
 extension DirectState {
@@ -140,9 +142,9 @@ extension DirectState {
 
         return .none
     }
-    
+
     func isSnoozed(alarm: Alarm) -> Bool {
-        if let snoozeUntil = alarmSnoozeUntil, Date() < snoozeUntil, (alarmSnoozeKind == nil || alarmSnoozeKind == alarm) {
+        if let snoozeUntil = alarmSnoozeUntil, Date() < snoozeUntil, alarmSnoozeKind == nil || alarmSnoozeKind == alarm {
             return true
         }
 
