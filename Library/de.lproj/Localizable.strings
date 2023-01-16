@@ -527,7 +527,7 @@
 "%@ hours" = "%@ Stunden";
 
 /* (No Comment) */
-"Open app" = "Open app";
+"Reopen app in" = "App neu öffnen in";
 
 /* (No Comment) */
 "%1$@ days" = "%1$@ Tage";
@@ -581,10 +581,16 @@
 "Ends" = "Ende";
 
 /* (No Comment) */
-"Smooth chart values" = "Diagrammwerte glätten";
-
-/* (No Comment) */
 "Units" = "Einheiten";
 
 /* (No Comment) */
 "Type" = "Typ";
+
+/* (No Comment) */
+"Additional settings" = "Weitere Einstellungen";
+
+/* (No Comment) */
+"Show smoothed glucose" = "Geglättete Glukose anzeigen";
+
+/* (No Comment) */
+"Show insulin input" = "Insulineingabe anzeigen";

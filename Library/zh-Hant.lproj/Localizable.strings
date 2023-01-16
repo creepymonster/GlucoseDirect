@@ -527,7 +527,7 @@
 "%@ hours" = "%@ hours";
 
 /* (No Comment) */
-"Open app" = "Open app";
+"Reopen app in" = "Reopen app in";
 
 /* (No Comment) */
 "%1$@ days" = "%1$@ days";
@@ -581,10 +581,16 @@
 "Ends" = "Ends";
 
 /* (No Comment) */
-"Smooth chart values" = "Smooth chart values";
-
-/* (No Comment) */
 "Units" = "Units";
 
 /* (No Comment) */
 "Type" = "類型";
+
+/* (No Comment) */
+"Additional settings" = "Additional settings";
+
+/* (No Comment) */
+"Show smoothed glucose" = "Show smoothed glucose";
+
+/* (No Comment) */
+"Show insulin input" = "Show insulin input";
