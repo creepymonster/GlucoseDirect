@@ -10,24 +10,22 @@ import Foundation
 struct BloodGlucose: Glucose, CustomStringConvertible, Codable, Identifiable {
     // MARK: Lifecycle
 
-    init(timestamp: Date, glucoseValue: Int, originatingSource: String) {
-        let roundedTimestamp = timestamp.toRounded(on: 1, .minute)
-
-        self.id = UUID()
-        self.timestamp = roundedTimestamp
-        self.glucoseValue = glucoseValue
-        self.timegroup = roundedTimestamp.toRounded(on: DirectConfig.timegroupRounding, .minute)
-        self.originatingSource = originatingSource
+    init(timestamp: Date, glucoseValue: Int) {
+        self.init(id: UUID(), timestamp: timestamp, glucoseValue: glucoseValue)
     }
 
-    init(id: UUID, timestamp: Date, glucoseValue: Int, originatingSource: String) {
+    init(id: UUID, timestamp: Date, glucoseValue: Int) {
+        self.init(id: id, timestamp: timestamp, glucoseValue: glucoseValue, originatingSourceName: DirectConfig.projectName, originatingSourceBundle: DirectConfig.appBundle)
+    }
+    
+    init(id: UUID, timestamp: Date, glucoseValue: Int, originatingSourceName: String, originatingSourceBundle: String) {
         let roundedTimestamp = timestamp.toRounded(on: 1, .minute)
-
         self.id = id
         self.timestamp = roundedTimestamp
         self.glucoseValue = glucoseValue
         self.timegroup = roundedTimestamp.toRounded(on: DirectConfig.timegroupRounding, .minute)
-        self.originatingSource = originatingSource
+        self.originatingSourceName = originatingSourceName
+        self.originatingSourceBundle = originatingSourceBundle
     }
 
     // MARK: Internal
@@ -36,9 +34,13 @@ struct BloodGlucose: Glucose, CustomStringConvertible, Codable, Identifiable {
     let timestamp: Date
     let glucoseValue: Int
     let timegroup: Date
-    let originatingSource: String
-
+    let originatingSourceName: String
+    let originatingSourceBundle: String
     var description: String {
-        "{ id: \(id), timestamp: \(timestamp.toLocalTime()), glucoseValue: \(glucoseValue.description), originatingSource: \(originatingSource) }"
+        "{ id: \(id), timestamp: \(timestamp.toLocalTime()), glucoseValue: \(glucoseValue.description), originatingSourceName: \(originatingSourceName), originatingSourceBundle: \(originatingSourceBundle)  }"
+    }
+    
+    public func isExternal() -> Bool {
+        return self.originatingSourceBundle != DirectConfig.appBundle
     }
 }
