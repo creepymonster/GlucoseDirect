@@ -524,10 +524,10 @@
 "Export for Tidepool" = "Експорт за Tidepool";
 
 /* (No Comment) */
-"%@ hours" = "%@ hours";
+"%@ hours" = "%@ часа";
 
 /* (No Comment) */
-"Open app" = "Open app";
+"Reopen app in" = "Повторно отваряне на приложението в";
 
 /* (No Comment) */
 "%1$@ days" = "%1$@ дни";
@@ -581,10 +581,16 @@
 "Ends" = "Край";
 
 /* (No Comment) */
-"Smooth chart values" = "Smooth chart values";
-
-/* (No Comment) */
-"Units" = "Units";
+"Units" = "Мерна единица";
 
 /* (No Comment) */
 "Type" = "Вид";
+
+/* (No Comment) */
+"Additional settings" = "Допълнителни настройки";
+
+/* (No Comment) */
+"Show smoothed glucose" = "Покажи изравнената глюкоза";
+
+/* (No Comment) */
+"Show insulin input" = "Покажи въведения инсулин";

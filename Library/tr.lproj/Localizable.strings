@@ -527,7 +527,7 @@
 "%@ hours" = "%@ saat";
 
 /* (No Comment) */
-"Open app" = "Open app";
+"Reopen app in" = "Uygulamayı şu sürede tekrar aç";
 
 /* (No Comment) */
 "%1$@ days" = "%1$@ gün";
@@ -581,10 +581,16 @@
 "Ends" = "Biter";
 
 /* (No Comment) */
-"Smooth chart values" = "Pürüzsüz grafik değerleri";
-
-/* (No Comment) */
 "Units" = "Ünite";
 
 /* (No Comment) */
 "Type" = "Tip";
+
+/* (No Comment) */
+"Additional settings" = "Ek ayarlar";
+
+/* (No Comment) */
+"Show smoothed glucose" = "Düzeltilmiş glikozu göster";
+
+/* (No Comment) */
+"Show insulin input" = "İnsülin girişini göster";

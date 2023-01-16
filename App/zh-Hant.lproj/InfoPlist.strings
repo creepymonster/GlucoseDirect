@@ -17,7 +17,7 @@
 "NSCalendarsUsageDescription" = "需要訪問日曆才能在Apple Watch上顯示最新的血糖值。";
 
 /* Privacy - Health Share Usage Description */
-"NSHealthShareUsageDescription" = "Access to Apple Health is required if glucose data should be exported.";
+"NSHealthShareUsageDescription" = "必須能夠使用Apple Health，才可導出血糖數據。";
 
 /* Privacy - Health Update Usage Description */
-"NSHealthUpdateUsageDescription" = "Access to Apple Health is required if glucose data should be exported.";
+"NSHealthUpdateUsageDescription" = "必須能夠使用Apple Health，才可導出血糖數據。";
