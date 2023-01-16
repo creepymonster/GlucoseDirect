@@ -56,11 +56,11 @@ class DirectNotifications {
         UNNotificationSound(named: UNNotificationSoundName(rawValue: "\(sound.rawValue).aiff"))
     }
 
-    func testSound(sound: NotificationSound) {
-        playSound(sound: sound, ignoreMute: true)
+    func testSound(sound: NotificationSound, volume: Float) {
+        playSound(sound: sound, volume: volume, ignoreMute: true)
     }
 
-    func playSound(sound: NotificationSound, ignoreMute: Bool = false) {
+    func playSound(sound: NotificationSound, volume: Float, ignoreMute: Bool = false) {
         guard sound != .none else {
             return
         }
@@ -71,7 +71,7 @@ class DirectNotifications {
             } else if sound == .vibration {
                 self.playVibration()
             } else {
-                self.playSound(named: sound.rawValue)
+                self.playSound(named: sound.rawValue, volume: volume)
             }
         }
     }
@@ -82,6 +82,10 @@ class DirectNotifications {
         DirectLog.info("NotificationCenter, identifier: \(identifier)")
         center.removeDeliveredNotifications(withIdentifiers: [identifier])
         center.removePendingNotificationRequests(withIdentifiers: [identifier])
+    }
+
+    func setVolume(volume: Float) {
+        player?.volume = volume
     }
 
     func addNotification(identifier: String, content: UNMutableNotificationContent, trigger: UNNotificationTrigger? = nil) {
@@ -98,7 +102,7 @@ class DirectNotifications {
     func ensureCanSendNotification(_ completion: @escaping (_ state: NotificationState) -> Void) {
         let center = UNUserNotificationCenter.current()
 
-        center.requestAuthorization(options: [.alert, .badge, .criticalAlert, .sound]) { granted, _ in
+        center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, _ in
             if granted {
                 center.getNotificationSettings { settings in
                     if settings.soundSetting == .enabled {
@@ -145,7 +149,7 @@ class DirectNotifications {
         }
     }
 
-    private func playSound(named: String) {
+    private func playSound(named: String, volume: Float) {
         guard let soundURL = FrameworkBundle.main.url(forResource: named, withExtension: "aiff") else {
             DirectLog.info("Guard: FrameworkBundle.main.url(forResource: \(named), withExtension: aiff) is nil")
             return
@@ -160,7 +164,7 @@ class DirectNotifications {
 
         do {
             let player = try AVAudioPlayer(contentsOf: soundURL)
-            player.volume = 0.2
+            player.volume = volume
             player.prepareToPlay()
             player.play()
 

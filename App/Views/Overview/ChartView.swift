@@ -91,7 +91,7 @@ struct ChartView: View {
                                         .cornerRadius(5)
                                     }
 
-                                    if let selectedRawPoint = selectedRawSensorPoint, showUnsmoothedValues, store.state.smoothChartValues {
+                                    if let selectedRawPoint = selectedRawSensorPoint, showUnsmoothedValues, store.state.showSmoothedGlucose {
                                         VStack(alignment: .leading) {
                                             Text(selectedRawPoint.time.toLocalDateTime())
                                             Text(selectedRawPoint.info).bold()
@@ -257,7 +257,7 @@ struct ChartView: View {
                 }
             }
 
-            if showUnsmoothedValues, store.state.smoothChartValues {
+            if showUnsmoothedValues, store.state.showSmoothedGlucose {
                 if !rawSensorGlucoseSeries.isEmpty {
                     ForEach(rawSensorGlucoseSeries) { value in
                         LineMark(
@@ -335,7 +335,15 @@ struct ChartView: View {
             }
         }
         .id(Config.chartID)
-        .onChange(of: store.state.sensorGlucoseValues) { _ in
+        .onChange(of: store.state.showSmoothedGlucose) { _ in
+            if shouldRefresh {
+                DirectLog.info("onChange: sensorGlucoseValues")
+
+                updateSeriesMetadata()
+                updateSensorSeries()
+            }
+
+        }.onChange(of: store.state.sensorGlucoseValues) { _ in
             if shouldRefresh {
                 DirectLog.info("onChange: sensorGlucoseValues")
 
@@ -366,7 +374,7 @@ struct ChartView: View {
                 updateSeriesMetadata()
             }
 
-        }.onChange(of: store.state.smoothChartValues) { _ in
+        }.onChange(of: store.state.showSmoothedGlucose) { _ in
             showUnsmoothedValues = false
 
         }.onChange(of: store.state.selectedDate) { _ in
@@ -617,7 +625,7 @@ struct ChartView: View {
             var smoothSensorPointInfos: [Date: GlucoseDatapoint] = [:]
             var rawSensorPointInfos: [Date: GlucoseDatapoint] = [:]
 
-            let smoothSensorGlucoseSeries = DirectConfig.smoothSensorGlucoseValues && store.state.smoothChartValues
+            let smoothSensorGlucoseSeries = DirectConfig.showSmoothedGlucose && store.state.showSmoothedGlucose
                 ? populateSmoothValues(glucoseValues: store.state.sensorGlucoseValues)
                 : populateValues(glucoseValues: store.state.sensorGlucoseValues)
             smoothSensorGlucoseSeries.forEach { value in
@@ -626,7 +634,7 @@ struct ChartView: View {
                 }
             }
 
-            let rawSensorGlucoseSeries = store.state.smoothChartValues
+            let rawSensorGlucoseSeries = store.state.showSmoothedGlucose
                 ? populateValues(glucoseValues: store.state.sensorGlucoseValues.filter {
                     $0.timestamp < store.state.smoothThreshold
                 })

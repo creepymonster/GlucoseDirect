@@ -52,6 +52,7 @@ enum DirectAction {
     case setIgnoreMute(enabled: Bool)
     case setAlarmHigh(upperLimit: Int)
     case setAlarmLow(lowerLimit: Int)
+    case setAlarmVolume(volume: Float)
     case setAlarmSnoozeUntil(untilDate: Date?, autosnooze: Bool = false)
     case setAppleCalendarExport(enabled: Bool)
     case setAppleHealthExport(enabled: Bool)
@@ -90,10 +91,12 @@ enum DirectAction {
     case setGlucoseStatistics(statistics: GlucoseStatistics)
     case setTransmitter(transmitter: Transmitter)
     case setStatisticsDays(days: Int)
-    case setSmoothChartValues(enabled: Bool)
+    case setShowSmoothedGlucose(enabled: Bool)
+    case setShowInsulinInput(enabled: Bool)
     case startup
     case shutdown
 
     case debugAlarm
     case debugNotification
 }
+
