@@ -20,10 +20,13 @@ private func nightscoutMiddleware(service: LazyService<NightscoutService>) -> Mi
         if state.nightscoutUpload, !nightscoutURL.isEmpty, !nightscoutApiSecret.isEmpty {
             switch action {
             case .deleteBloodGlucose(glucose: let glucose):
-                service.value.deleteBloodGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), date: glucose.timestamp)
+                service.value.deleteBloodGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), id: glucose.id.uuidString)
                 
             case .deleteSensorGlucose(glucose: let glucose):
-                service.value.deleteSensorGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), date: glucose.timestamp)
+                service.value.deleteSensorGlucose(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), id: glucose.id.uuidString)
+                
+            case .deleteInsulinDelivery(insulinDelivery: let insulinDeliveryValue):
+                service.value.deleteInsulinDelivery(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), id: insulinDeliveryValue.id.uuidString)
 
             case .clearBloodGlucoseValues:
                 service.value.clearBloodGlucoseValues(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1())
@@ -64,9 +67,6 @@ private func nightscoutMiddleware(service: LazyService<NightscoutService>) -> Mi
                 }
             case .addInsulinDelivery(insulinDeliveryValues: let insulinDeliveryValues):
                 service.value.addInsulinDelivery(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), insulinDeliveryValues: insulinDeliveryValues)
-            
-            case .deleteInsulinDelivery(insulinDelivery: let insulinDeliveryValue):
-                service.value.deleteInsulinDelivery(nightscoutURL: nightscoutURL, apiSecret: nightscoutApiSecret.toSha1(), insulinDeliveryValue: insulinDeliveryValue)
 
             default:
                 break
@@ -186,10 +186,10 @@ private class NightscoutService {
         task.resume()
     }
     
-    func deleteBloodGlucose(nightscoutURL: String, apiSecret: String, date: Date) {
+    func deleteBloodGlucose(nightscoutURL: String, apiSecret: String, id: String) {
         let session = URLSession.shared
 
-        let urlString = "\(nightscoutURL)/api/v1/entries?find[device]=\(DirectConfig.projectName)&find[dateString]=\(date.toISOStringFromDate())&find[type]=mbg"
+        let urlString = "\(nightscoutURL)/api/v1/entries?find[glucoseDirect]=\(id)"
         guard let url = URL(string: urlString) else {
             DirectLog.error("Nightscout, bad nightscout url")
             return
@@ -215,11 +215,39 @@ private class NightscoutService {
         task.resume()
     }
 
-
-    func deleteSensorGlucose(nightscoutURL: String, apiSecret: String, date: Date) {
+    func deleteSensorGlucose(nightscoutURL: String, apiSecret: String, id: String) {
         let session = URLSession.shared
 
-        let urlString = "\(nightscoutURL)/api/v1/entries?find[device]=\(DirectConfig.projectName)&find[dateString]=\(date.toISOStringFromDate())&find[type]=sgv"
+        let urlString = "\(nightscoutURL)/api/v1/entries?find[glucoseDirect]=\(id)"
+        guard let url = URL(string: urlString) else {
+            DirectLog.error("Nightscout, bad nightscout url")
+            return
+        }
+
+        let request = createRequest(url: url, method: "DELETE", apiSecret: apiSecret)
+
+        let task = session.dataTask(with: request) { data, response, error in
+            if let error = error {
+                DirectLog.info("Nightscout error: \(error)")
+                return
+            }
+
+            if let response = response as? HTTPURLResponse {
+                let status = response.statusCode
+                if status != 200, let data = data {
+                    let responseString = String(data: data, encoding: .utf8)
+                    DirectLog.info("Nightscout error: \(response.statusCode) \(responseString)")
+                }
+            }
+        }
+
+        task.resume()
+    }
+    
+    func deleteInsulinDelivery(nightscoutURL: String, apiSecret: String, id: String) {
+        let session = URLSession.shared
+
+        let urlString = "\(nightscoutURL)/api/v1/treatments?find[glucoseDirect]=\(id)"
         guard let url = URL(string: urlString) else {
             DirectLog.error("Nightscout, bad nightscout url")
             return
@@ -398,35 +426,6 @@ private class NightscoutService {
 
         task.resume()
     }
-    
-    func deleteInsulinDelivery(nightscoutURL: String, apiSecret: String, insulinDeliveryValue: InsulinDelivery) {
-        let session = URLSession.shared
-
-        let urlString = "\(nightscoutURL)/api/v1/treatments?find[enteredBy]=\(DirectConfig.projectName)&find[_id]=\(insulinDeliveryValue.id.uuidString)"
-        guard let url = URL(string: urlString) else {
-            DirectLog.error("Nightscout, bad nightscout url")
-            return
-        }
-
-        let request = createRequest(url: url, method: "DELETE", apiSecret: apiSecret)
-
-        let task = session.dataTask(with: request) { data, response, error in
-            if let error = error {
-                DirectLog.info("Nightscout error: \(error)")
-                return
-            }
-
-            if let response = response as? HTTPURLResponse {
-                let status = response.statusCode
-                if status != 200, let data = data {
-                    let responseString = String(data: data, encoding: .utf8)
-                    DirectLog.info("Nightscout error: \(response.statusCode) \(responseString)")
-                }
-            }
-        }
-
-        task.resume()
-    }
 
     // MARK: Private
 
@@ -479,7 +478,8 @@ private extension BloodGlucose {
             "date": timestamp.toMillisecondsAsInt64(),
             "dateString": timestamp.toISOStringFromDate(),
             "type": "mbg",
-            "mbg": glucoseValue
+            "mbg": glucoseValue,
+            "glucoseDirect": id.uuidString
         ]
 
         return nightscout
@@ -497,7 +497,8 @@ private extension SensorGlucose {
             "sgv": glucoseValue,
             "rawbg": rawGlucoseValue,
             "direction": trend.toNightscoutDirection(),
-            "trend": trend.toNightscoutTrend()
+            "trend": trend.toNightscoutTrend(),
+            "glucoseDirect": id.uuidString
         ]
 
         return nightscout
@@ -511,7 +512,8 @@ private extension InsulinDelivery {
             "enteredBy": DirectConfig.projectName,
             "created_at": starts.toISOStringFromDate(),
             "eventType": type.toNightscoutEventType(),
-            "insulin": units
+            "insulin": units,
+            "glucoseDirect": id.uuidString
         ]
 
         return nightscout

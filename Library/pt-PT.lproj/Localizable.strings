@@ -26,9 +26,6 @@
 "Add calibration" = " Adicionar calibração ";
 
 /* (No Comment) */
-"Add glucose for calibration" = "Adicionar glicemia para calibrar";
-
-/* (No Comment) */
 "Alarm glucose notification" = "Notificação de Glucose de Alarme";
 
 /* (No Comment) */
@@ -41,7 +38,7 @@
 "Alert, low blood glucose" = "Alerta, glicemia baixa";
 
 /* (No Comment) */
-"Alarm, loss of signal" = "Alarm, loss of signal";
+"Alarm, loss of signal" = "Alarme, perda de sinal";
 
 /* (No Comment) */
 "Alert, sensor expired" = "Alerta, sensor expirou";
@@ -428,7 +425,7 @@
 "StatisticsPeriod" = "Período";
 
 /* (No Comment) */
-"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data.";
+"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "Já não são recebidos dados do sensor. A causa pode ser a interrupção da ligação 'Bluetooth' com o sensor ou o não fornecimento de dados pela LibreLinkUp.";
 
 /* (No Comment) */
 "Time" = "Hora";
@@ -470,6 +467,9 @@
 "Unknown" = "Desconhecido";
 
 /* (No Comment) */
+"Updated" = "Atualizado";
+
+/* (No Comment) */
 "Upper limit" = "Alto";
 
 /* (No Comment) */
@@ -503,7 +503,7 @@
 "Your sensor has expired and needs to be replaced as soon as possible" = "O teu sensor expirou e precisa de ser substituído o mais rapidamente possível";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@." = "Your sensor is about to expire. Replace sensor in %1$@.";
+"Your sensor is about to expire. Replace sensor in %1$@." = "O seu sensor está prestes a expirar. Substitua o sensor em %1$@.";
 
 /* (No Comment) */
 "Loading..." = "Carregando...";
@@ -521,13 +521,10 @@
 "Export for Tidepool" = "Exportar para Tidepool";
 
 /* (No Comment) */
-"Last %@ hours" = "Últimas %@ horas";
+"%@ hours" = " %@ horas ";
 
 /* (No Comment) */
-"Updated" = "Updated";
-
-/* (No Comment) */
-"Reopen app in" = "Reopen app in";
+"Reopen app in" = "Reabra a 'app' em";
 
 /* (No Comment) */
 "%1$@ days" = "%1$@ dias";
@@ -543,3 +540,63 @@
 
 /* (No Comment) */
 "%1$@ minutes" = "%1$@ minutos";
+
+/* (No Comment) */
+"Meal Bolus" = "Bólus para a Refeição";
+
+/* (No Comment) */
+"Snack Bolus" = "Bólus para o Lanche";
+
+/* (No Comment) */
+"Correction Bolus" = "Bólus de Correção";
+
+/* (No Comment) */
+"Basal" = "Basal";
+
+/* (No Comment) */
+"Insulin" = "Insulina";
+
+/* (No Comment) */
+"Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "A insulina basal refere-se à insulina usada para regular a glicemia entre as refeições, inclusive durante o sono.";
+
+/* (No Comment) */
+"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "A insulina em bólus refere-se à insulina usada para regular a glicemia às refeições e/ou para tratar de forma aguda a glicemia alta.";
+
+/* (No Comment) */
+"Blood glucose" = "Glicemia";
+
+/* (No Comment) */
+"Add insulin" = "Adicionar insulina";
+
+/* (No Comment) */
+"Calibration" = "Calibração";
+
+/* (No Comment) */
+"Starts" = " Começa";
+
+/* (No Comment) */
+"Ends" = " Termina";
+
+/* (No Comment) */
+"Units" = " Unidades ";
+
+/* (No Comment) */
+"Type" = "Tipo";
+
+/* (No Comment) */
+"Additional settings" = " Configurações adicionais ";
+
+/* (No Comment) */
+"Show smoothed glucose" = " Mostrar glicose suavizada ";
+
+/* (No Comment) */
+"Show insulin input" = " Mostrar entrada de insulina ";
+
+/* (No Comment) */
+"Help" = "Help";
+
+/* (No Comment) */
+"Alarm volume" = "Alarm volume";
+
+/* (No Comment) */
+"Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults." = "Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults.";

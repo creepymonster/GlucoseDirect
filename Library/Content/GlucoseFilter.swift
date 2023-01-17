@@ -16,7 +16,7 @@ class GlucoseFilter {
 
     func filter(glucoseValue: Double, initGlucoseValues: [Double]) -> Double {
         if kalmanFilter == nil {
-            let kalmanFilter = KalmanFilter(processNoise: 0.5, measurementNoise: 20)
+            let kalmanFilter = KalmanFilter(processNoise: 1, measurementNoise: 25)
 
             initGlucoseValues.forEach {
                 let _ = kalmanFilter.filter($0)

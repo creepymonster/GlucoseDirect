@@ -91,7 +91,6 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         
     case .selectView(viewTag: let viewTag):
         state.selectedView = viewTag
-        state.selectedDate = nil
         
     case .setAlarmHigh(upperLimit: let upperLimit):
         state.alarmHigh = upperLimit
@@ -99,17 +98,29 @@ func directReducer(state: inout DirectState, action: DirectAction) {
     case .setAlarmLow(lowerLimit: let lowerLimit):
         state.alarmLow = lowerLimit
         
+    case .setAlarmVolume(volume: let volume):
+        state.alarmVolume = volume
+        
     case .setAlarmSnoozeUntil(untilDate: let untilDate, autosnooze: let autosnooze):
         if let untilDate = untilDate {
             state.alarmSnoozeUntil = untilDate
+            
+            if let glucose = state.sensorGlucoseValues.last {
+                let alarm = state.isAlarm(glucoseValue: glucose.glucoseValue)
+                
+                if alarm != .none {
+                    state.alarmSnoozeKind = alarm
+                }
+            }
+            
+            if !autosnooze {
+                DirectNotifications.shared.stopSound()
+            }
         } else {
             state.alarmSnoozeUntil = nil
+            state.alarmSnoozeKind = nil
         }
-        
-        if !autosnooze {
-            DirectNotifications.shared.stopSound()
-        }
-        
+
     case .setAppleCalendarExport(enabled: let enabled):
         state.appleCalendarExport = enabled
         
@@ -284,6 +295,12 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         
     case .setAppIsBusy(isBusy: let isBusy):
         state.appIsBusy = isBusy
+        
+    case .setShowSmoothedGlucose(enabled: let enabled):
+        state.showSmoothedGlucose = enabled
+        
+    case .setShowInsulinInput(enabled: let enabled):
+        state.showInsulinInput = enabled
 
     default:
         break
@@ -291,6 +308,7 @@ func directReducer(state: inout DirectState, action: DirectAction) {
 
     if let alarmSnoozeUntil = state.alarmSnoozeUntil, Date() > alarmSnoozeUntil {
         state.alarmSnoozeUntil = nil
+        state.alarmSnoozeKind = nil
     }
 }
 

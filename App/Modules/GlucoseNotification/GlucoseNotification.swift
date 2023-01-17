@@ -29,10 +29,13 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
                 break
             }
 
-            let isSnoozed = state.isSnoozed
+            let alarm = state.isAlarm(glucoseValue: glucose.glucoseValue)
+            DirectLog.info("alarm: \(alarm)")
+            
+            let isSnoozed = state.isSnoozed(alarm: alarm)
             DirectLog.info("isSnoozed: \(isSnoozed)")
 
-            if glucose.glucoseValue < state.alarmLow {
+            if alarm == .lowAlarm {
                 DirectLog.info("Glucose alert, low: \(glucose.glucoseValue) < \(state.alarmLow)")
 
                 if state.alarmGlucoseNotification {
@@ -41,7 +44,7 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
 
                 if !isSnoozed {
                     if state.hasLowGlucoseAlarm {
-                        service.value.setLowGlucoseAlarm(sound: state.lowGlucoseAlarmSound, ignoreMute: state.ignoreMute)
+                        service.value.setLowGlucoseAlarm(sound: state.lowGlucoseAlarmSound, volume: state.alarmVolume, ignoreMute: state.ignoreMute)
                     }
 
                     return Just(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).toRounded(on: 1, .minute), autosnooze: true))
@@ -49,7 +52,7 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
                         .eraseToAnyPublisher()
                 }
 
-            } else if glucose.glucoseValue > state.alarmHigh {
+            } else if alarm == .highAlarm {
                 DirectLog.info("Glucose alert, high: \(glucose.glucoseValue) > \(state.alarmHigh)")
 
                 if state.alarmGlucoseNotification {
@@ -58,7 +61,7 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
 
                 if !isSnoozed {
                     if state.hasHighGlucoseAlarm {
-                        service.value.setHighGlucoseAlarm(sound: state.highGlucoseAlarmSound, ignoreMute: state.ignoreMute)
+                        service.value.setHighGlucoseAlarm(sound: state.highGlucoseAlarmSound, volume: state.alarmVolume, ignoreMute: state.ignoreMute)
                     }
 
                     return Just(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).toRounded(on: 1, .minute), autosnooze: true))
@@ -128,8 +131,8 @@ private class GlucoseNotificationService {
         }
     }
 
-    func setLowGlucoseAlarm(sound: NotificationSound, ignoreMute: Bool) {
-        DirectNotifications.shared.playSound(sound: sound, ignoreMute: ignoreMute)
+    func setLowGlucoseAlarm(sound: NotificationSound, volume: Float, ignoreMute: Bool) {
+        DirectNotifications.shared.playSound(sound: sound, volume: volume, ignoreMute: ignoreMute)
     }
 
     func setLowGlucoseNotification(glucose: SensorGlucose, glucoseUnit: GlucoseUnit, isSnoozed: Bool) {
@@ -161,8 +164,8 @@ private class GlucoseNotificationService {
         }
     }
 
-    func setHighGlucoseAlarm(sound: NotificationSound, ignoreMute: Bool) {
-        DirectNotifications.shared.playSound(sound: sound, ignoreMute: ignoreMute)
+    func setHighGlucoseAlarm(sound: NotificationSound, volume: Float, ignoreMute: Bool) {
+        DirectNotifications.shared.playSound(sound: sound, volume: volume, ignoreMute: ignoreMute)
     }
 
     func setHighGlucoseNotification(glucose: SensorGlucose, glucoseUnit: GlucoseUnit, isSnoozed: Bool) {

@@ -16,7 +16,7 @@ struct GlucoseView: View {
     var glucoseUnit: GlucoseUnit? {
         entry.glucoseUnit ?? UserDefaults.shared.glucoseUnit
     }
-    
+
     var glucose: SensorGlucose? {
         entry.glucose ?? UserDefaults.shared.latestSensorGlucose
     }
@@ -53,7 +53,7 @@ struct GlucoseView: View {
                     Text(glucose.timestamp.toLocalTime())
                         .font(.system(size: 10))
                 }
-                
+
             case .accessoryCorner:
                 VStack(alignment: .center) {
                     Text(glucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
@@ -78,42 +78,48 @@ struct GlucoseView: View {
 
             case .systemSmall:
                 ZStack {
-                    LinearGradient(gradient: Gradient(colors: [.ui.red.opacity(0.5), .ui.red]), startPoint: .top, endPoint: .bottom)
-                    
-                    VStack(alignment: .trailing) {
-                        HStack {
-                            Spacer()
-                            Image(uiImage: UIImage(named: "AppIcon") ?? UIImage())
+                    LinearGradient(gradient: Gradient(colors: [.white, .ui.gray]), startPoint: .top, endPoint: .bottom)
+
+                    VStack(spacing: 10) {
+                        if let appIcon = UIImage(named: "AppIcon") {
+                            Image(uiImage: appIcon)
                                 .cornerRadius(4)
                         }
-                        Spacer()
-                    }
-                    .padding(.all)
-                    
-                    VStack {
-                        Text(glucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
-                            .font(.system(size: 50))
-                            .bold() +
-                        Text(glucoseUnit.shortLocalizedDescription)
-                            .font(.system(size: 10))
-                            .bold()
-                        
-                        Text(glucose.trend.description)
-                            .font(.system(size: 15))
-                            .bold()
-                            .padding(.bottom, 4)
-                        HStack {
-                            Text("Updated") + Text(" ")
-                            +
-                            Text(glucose.timestamp, style: .relative)
-                            +
-                            Text(" ") + Text("ago")
+
+                        HStack(alignment: .lastTextBaseline, spacing: 10) {
+                            if glucose.type != .high {
+                                Text(verbatim: glucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
+                                    .font(.system(size: 42))
+
+                                VStack(alignment: .leading) {
+                                    Text(verbatim: glucose.trend.description)
+                                        .font(.system(size: 18))
+
+                                    if let minuteChange = glucose.minuteChange?.asShortMinuteChange(glucoseUnit: glucoseUnit) {
+                                        Text(verbatim: minuteChange)
+                                            .font(.footnote)
+                                    } else {
+                                        Text(verbatim: "?")
+                                            .font(.footnote)
+                                    }
+                                }
+                            } else {
+                                Text("HIGH")
+                                    .font(.system(size: 64))
+                                    .foregroundColor(Color.ui.red)
+                            }
                         }
-                        .multilineTextAlignment(.center)
-                        .font(.system(size: 10))
+
+                        VStack {
+                            Text("Updated")
+                                .textCase(.uppercase)
+                                .font(.footnote)
+                            Text(glucose.timestamp, style: .time)
+                                .monospacedDigit()
+                        }
                         .opacity(0.5)
+                        .font(.footnote)
                     }
-                    .padding(.horizontal)
                 }
 
             default:
@@ -142,10 +148,9 @@ struct GlucoseWidget: Widget {
 
 struct GlucoseWidget_Previews: PreviewProvider {
     static var previews: some View {
-        
         GlucoseView(entry: GlucoseEntry(date: Date(), glucose: placeholderLowGlucose, glucoseUnit: .mgdL))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
-        
+
         GlucoseView(entry: GlucoseEntry(date: Date(), glucose: placeholderLowGlucose, glucoseUnit: .mgdL))
             .previewContext(WidgetPreviewContext(family: .accessoryRectangular))
 

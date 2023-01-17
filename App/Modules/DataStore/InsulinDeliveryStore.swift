@@ -3,7 +3,6 @@
 //  GlucoseDirectApp
 //
 
-import Foundation
 import Combine
 import Foundation
 import GRDB
@@ -191,7 +190,7 @@ private extension DataStore {
                             promise(.success(result))
                         } else {
                             let result = try InsulinDelivery
-                                .filter(sql: "\(InsulinDelivery.Columns.starts.name) >= datetime('now', '-\(DirectConfig.lastChartHours) hours')")
+                                .filter(sql: "\(InsulinDelivery.Columns.starts.name) >= datetime('now', '-\(DirectConfig.lastChartHours) hours') OR \(InsulinDelivery.Columns.ends.name) >= datetime('now', '-\(DirectConfig.lastChartHours) hours')")
                                 .order(Column(InsulinDelivery.Columns.starts.name))
                                 .fetchAll(db)
 

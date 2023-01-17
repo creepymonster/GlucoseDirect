@@ -122,6 +122,7 @@ private func createSimulatorAppStore() -> DirectStore {
         sensorGlucoseStoreMiddleware(),
         sensorErrorStoreMiddleware(),
         insulinDeliveryStoreMiddleware(),
+        glucoseStatisticsMiddleware(),
         expiringNotificationMiddelware(),
         glucoseNotificationMiddelware(),
         connectionNotificationMiddelware(),
@@ -133,7 +134,6 @@ private func createSimulatorAppStore() -> DirectStore {
         appGroupSharingMiddleware(),
         screenLockMiddleware(),
         sensorErrorMiddleware(),
-        glucoseStatisticsMiddleware(),
         storeExportMiddleware()
     ]
 
@@ -162,6 +162,7 @@ private func createAppStore() -> DirectStore {
         sensorGlucoseStoreMiddleware(),
         sensorErrorStoreMiddleware(),
         insulinDeliveryStoreMiddleware(),
+        glucoseStatisticsMiddleware(),
         expiringNotificationMiddelware(),
         glucoseNotificationMiddelware(),
         connectionNotificationMiddelware(),
@@ -173,7 +174,6 @@ private func createAppStore() -> DirectStore {
         appGroupSharingMiddleware(),
         screenLockMiddleware(),
         sensorErrorMiddleware(),
-        glucoseStatisticsMiddleware(),
         storeExportMiddleware()
     ]
 

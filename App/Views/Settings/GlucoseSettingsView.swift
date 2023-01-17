@@ -34,7 +34,7 @@ struct GlucoseSettingsView: View {
                 if #available(iOS 16.1, *) {
                     Toggle("Glucose Live Activity", isOn: glucoseLiveActivity).toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
                 }
-
+                
                 Toggle("Glucose read aloud", isOn: readGlucose).toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
             },
             header: {

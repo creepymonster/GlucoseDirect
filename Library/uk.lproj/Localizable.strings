@@ -26,9 +26,6 @@
 "Add calibration" = "Додати калібрування";
 
 /* (No Comment) */
-"Add glucose for calibration" = "Додати глюкозу для калібрування";
-
-/* (No Comment) */
 "Alarm glucose notification" = "Сповіщення про рівень глюкози";
 
 /* (No Comment) */
@@ -470,6 +467,9 @@
 "Unknown" = "Невідомий";
 
 /* (No Comment) */
+"Updated" = "Оновлено";
+
+/* (No Comment) */
 "Upper limit" = "Високий";
 
 /* (No Comment) */
@@ -521,10 +521,7 @@
 "Export for Tidepool" = "Експорт до Tidepool";
 
 /* (No Comment) */
-"Last %@ hours" = "Останні %@ години";
-
-/* (No Comment) */
-"Updated" = "Оновлено";
+"%@ hours" = "%@ годин";
 
 /* (No Comment) */
 "Reopen app in" = "Повторно відкрити програму в";
@@ -543,3 +540,63 @@
 
 /* (No Comment) */
 "%1$@ minutes" = "%1$@ хвилин";
+
+/* (No Comment) */
+"Meal Bolus" = "Болюс їжі";
+
+/* (No Comment) */
+"Snack Bolus" = "Болюс перекуса";
+
+/* (No Comment) */
+"Correction Bolus" = "Корекційний болюс";
+
+/* (No Comment) */
+"Basal" = "Базал";
+
+/* (No Comment) */
+"Insulin" = "Інсулін";
+
+/* (No Comment) */
+"Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "Базальний інсулін відноситься до інсуліну, який використовується для регулювання рівня глюкози в крові між прийомами їжі, у тому числі під час сну.";
+
+/* (No Comment) */
+"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Болюсний інсулін відноситься до інсуліну, який використовується для регулювання рівня глюкози в крові під час прийому їжі та/або для швидкого лікування високого рівня глюкози в крові.";
+
+/* (No Comment) */
+"Blood glucose" = "Рівень глюкози в крові";
+
+/* (No Comment) */
+"Add insulin" = "Додайте інсулін";
+
+/* (No Comment) */
+"Calibration" = "Калібрування";
+
+/* (No Comment) */
+"Starts" = "Запускається";
+
+/* (No Comment) */
+"Ends" = "Закінчується";
+
+/* (No Comment) */
+"Units" = "Одиниці";
+
+/* (No Comment) */
+"Type" = "Тип";
+
+/* (No Comment) */
+"Additional settings" = " Додаткові налаштування ";
+
+/* (No Comment) */
+"Show smoothed glucose" = " Показати виправлений рівень глюкози";
+
+/* (No Comment) */
+"Show insulin input" = " Показати введення інсуліну";
+
+/* (No Comment) */
+"Help" = "Допомога";
+
+/* (No Comment) */
+"Alarm volume" = "Гучність сигналу попередження";
+
+/* (No Comment) */
+"Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults." = "Коефіцієнт мінливості (CV) визначається як відношення стандартного відхилення до середнього значення. Взагалі кажучи, більшість експертів воліють бачити КМ на рівні 33% або нижче, що вважається маркером «стабільного» рівня глюкози. Але зверніть увагу, що дуже молоді пацієнти з діабетом, як правило, мають більш високу мінливість, ніж дорослі.";

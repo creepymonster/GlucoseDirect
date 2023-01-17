@@ -26,9 +26,6 @@
 "Add calibration" = "Kalibrierung hinzufügen";
 
 /* (No Comment) */
-"Add glucose for calibration" = "Glukose für Kalibrierung hinzufügen";
-
-/* (No Comment) */
 "Alarm glucose notification" = "Alarm Glukose-Benachrichtigung";
 
 /* (No Comment) */
@@ -41,7 +38,7 @@
 "Alert, low blood glucose" = "Achtung, niedriger Blutzucker";
 
 /* (No Comment) */
-"Alarm, loss of signal" = "Alarm, loss of signal";
+"Alarm, loss of signal" = "Alarm, Signalverlust";
 
 /* (No Comment) */
 "Alert, sensor expired" = "Achtung, Sensor abgelaufen";
@@ -428,7 +425,7 @@
 "StatisticsPeriod" = "Zeitraum";
 
 /* (No Comment) */
-"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data.";
+"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "Es werden keine Daten mehr vom Sensor empfangen. Die Ursache kann sein, dass die Bluetooth-Verbindung zum Sensor unterbrochen wurde oder dass LibreLinkUp keine Daten mehr bereitstellt.";
 
 /* (No Comment) */
 "Time" = "Zeit";
@@ -468,6 +465,9 @@
 
 /* (No Comment) */
 "Unknown" = "Unbekannt";
+
+/* (No Comment) */
+"Updated" = "Aktualisiert";
 
 /* (No Comment) */
 "Upper limit" = "Hoch";
@@ -521,10 +521,7 @@
 "Export for Tidepool" = "Export für Tidepool";
 
 /* (No Comment) */
-"Last %@ hours" = "Letzten %@ Stunden";
-
-/* (No Comment) */
-"Updated" = "Aktualisiert";
+"%@ hours" = "%@ Stunden";
 
 /* (No Comment) */
 "Reopen app in" = "App neu öffnen in";
@@ -543,3 +540,63 @@
 
 /* (No Comment) */
 "%1$@ minutes" = "%1$@ Minuten";
+
+/* (No Comment) */
+"Meal Bolus" = "Mahlzeiten-Bolus";
+
+/* (No Comment) */
+"Snack Bolus" = "Snack-Bolus";
+
+/* (No Comment) */
+"Correction Bolus" = "Korrektur-Bolus";
+
+/* (No Comment) */
+"Basal" = "Basal";
+
+/* (No Comment) */
+"Insulin" = "Insulin";
+
+/* (No Comment) */
+"Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "Als Basalinsulin bezeichnet man das Insulin, das zur Regulierung des Blutzuckerspiegels zwischen den Mahlzeiten und während des Schlafs verwendet wird.";
+
+/* (No Comment) */
+"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Bolusinsulin bezeichnet das Insulin, das zur Regulierung des Blutzuckerspiegels zu den Mahlzeiten und/oder zur akuten Behandlung eines hohen Blutzuckerspiegels verwendet wird.";
+
+/* (No Comment) */
+"Blood glucose" = "Blutzucker";
+
+/* (No Comment) */
+"Add insulin" = "Insulin hinzufügen";
+
+/* (No Comment) */
+"Calibration" = "Kalibrierung";
+
+/* (No Comment) */
+"Starts" = "Beginn";
+
+/* (No Comment) */
+"Ends" = "Ende";
+
+/* (No Comment) */
+"Units" = "Einheiten";
+
+/* (No Comment) */
+"Type" = "Typ";
+
+/* (No Comment) */
+"Additional settings" = "Weitere Einstellungen";
+
+/* (No Comment) */
+"Show smoothed glucose" = "Geglättete Glukose anzeigen";
+
+/* (No Comment) */
+"Show insulin input" = "Insulineingabe anzeigen";
+
+/* (No Comment) */
+"Help" = "Hilfe";
+
+/* (No Comment) */
+"Alarm volume" = "Alarmlautstärke";
+
+/* (No Comment) */
+"Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults." = "Der Koeffizient der Variation (CV) ist definiert als das Verhältnis der Standardabweichung zum Mittelwert. Im Allgemeinen bevorzugen die meisten Experten einen CV von 33% oder niedriger, was als Indikator für \"stabile\" Blutzuckerwerte gilt. Beachten Sie jedoch, dass sehr junge Patienten mit Diabetes tendenziell eine höhere Variabilität aufweisen als Erwachsene.";

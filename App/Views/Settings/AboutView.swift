@@ -18,14 +18,14 @@ struct AboutView: View {
                 HStack {
                     Text("App version")
                     Spacer()
-                    Text("\(DirectConfig.appVersion) (\(DirectConfig.appBuild))")
+                    Text(verbatim: "\(DirectConfig.appVersion) (\(DirectConfig.appBuild))")
                 }
 
                 if let appAuthor = DirectConfig.appAuthor, !appAuthor.isEmpty {
                     HStack {
                         Text("App author")
                         Spacer()
-                        Text(appAuthor)
+                        Text(verbatim: appAuthor)
                     }
                 }
 

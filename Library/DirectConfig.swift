@@ -15,7 +15,7 @@ enum DirectConfig {
     static let donateURL = "https://www.paypal.me/reimarmetzen"
     static let expiredNotificationInterval: Double = 1 * 60 * 60 // in seconds
     static let facebookURL = "https://www.facebook.com/groups/4747621411996068/"
-    static let faqURL = "https://github.com/creepymonster/GlucoseDirectApp"
+    static let faqURL = "https://github.com/creepymonster/GlucoseDirect/blob/main/FAQ.md#faq"
     static let githubURL = "https://github.com/creepymonster/GlucoseDirectApp"
     static let lastChartHours = 24
     static let libre2ID = "libre2"
@@ -27,12 +27,16 @@ enum DirectConfig {
     static let overviewViewTag = 1
     static let projectName = "GlucoseDirect"
     static let settingsViewTag = 4
-    static let smoothSensorGlucoseValues = true
-    static let smoothThresholdSeconds: Double = 15 * 60
+    static let smoothThresholdSeconds: Double = 180 * 60
     static let timegroupRounding = 15
     static let virtualID = "virtual"
     static let widgetName = "\(appName) Widget"
+    static var bloodGlucoseInput = true
     static var customCalibration = true
+    static var glucoseErrors = false
+    static var glucoseStatistics = true
+    static let showSmoothedGlucose = true
+    static var showInsulinInput = true
 
     static var appName: String = {
         Bundle.main.localizedInfoDictionary?["CFBundleDisplayName"] as! String

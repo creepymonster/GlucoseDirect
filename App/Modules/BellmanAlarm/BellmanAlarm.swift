@@ -40,20 +40,18 @@ private func bellmanAlarmMiddelware(service: LazyService<BellmanAlarmService>, s
                 break
             }
 
-            let isSnoozed = state.isSnoozed
+            let alarm = state.isAlarm(glucoseValue: glucose.glucoseValue)
+            DirectLog.info("alarm: \(alarm)")
+            
+            let isSnoozed = state.isSnoozed(alarm: alarm)
             DirectLog.info("isSnoozed: \(isSnoozed)")
             
             guard !isSnoozed else {
                 break
             }
 
-            if glucose.glucoseValue < state.alarmLow {
-                DirectLog.info("Glucose alert, low: \(glucose.glucoseValue) < \(state.alarmLow)")
-
-                service.value.notifyDevice()
-
-            } else if glucose.glucoseValue > state.alarmHigh {
-                DirectLog.info("Glucose alert, high: \(glucose.glucoseValue) > \(state.alarmHigh)")
+            if alarm != .none {
+                DirectLog.info("Glucose alert: \(glucose.glucoseValue)")
 
                 service.value.notifyDevice()
             }

@@ -10,6 +10,15 @@ import SwiftUI
 // MARK: - GlucoseFormatters
 
 struct GlucoseFormatters {
+    static var insulinFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 2
+
+        return formatter
+    }()
+
     static var mgdLFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
@@ -18,33 +27,51 @@ struct GlucoseFormatters {
 
         return formatter
     }()
-
-    static var preciseMgdLFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.minimumFractionDigits = 0
-        formatter.maximumFractionDigits = 2
-
-        return formatter
-    }()
-
+    
     static var mmolLFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
-        formatter.minimumFractionDigits = 1
+        formatter.minimumFractionDigits = 0
         formatter.maximumFractionDigits = 1
 
         return formatter
     }()
 
-    static var preciseMmolLFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.minimumFractionDigits = 1
-        formatter.maximumFractionDigits = 2
-
-        return formatter
-    }()
+//    static var mgdLFormatter: NumberFormatter = {
+//        let formatter = NumberFormatter()
+//        formatter.numberStyle = .decimal
+//        formatter.minimumFractionDigits = 0
+//        formatter.maximumFractionDigits = 0
+//
+//        return formatter
+//    }()
+//
+//    static var preciseMgdLFormatter: NumberFormatter = {
+//        let formatter = NumberFormatter()
+//        formatter.numberStyle = .decimal
+//        formatter.minimumFractionDigits = 0
+//        formatter.maximumFractionDigits = 2
+//
+//        return formatter
+//    }()
+//
+//    static var mmolLFormatter: NumberFormatter = {
+//        let formatter = NumberFormatter()
+//        formatter.numberStyle = .decimal
+//        formatter.minimumFractionDigits = 1
+//        formatter.maximumFractionDigits = 1
+//
+//        return formatter
+//    }()
+//
+//    static var preciseMmolLFormatter: NumberFormatter = {
+//        let formatter = NumberFormatter()
+//        formatter.numberStyle = .decimal
+//        formatter.minimumFractionDigits = 1
+//        formatter.maximumFractionDigits = 2
+//
+//        return formatter
+//    }()
 
     static var minuteChangeFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
@@ -108,12 +135,9 @@ extension Int {
         return String(format: LocalizedString("%1$@ minutes"), minutes.description)
     }
 
-    var asMmolL: Double {
-        return Double(self).asMmolL
-    }
-
-    var asMgdL: Double {
-        return Double(self)
+    func map(from: ClosedRange<Int>, to: ClosedRange<Int>) -> Int {
+        let result = ((self - from.lowerBound) / (from.upperBound - from.lowerBound)) * (to.upperBound - to.lowerBound) + to.lowerBound
+        return result
     }
 
     func pluralize(singular: String, plural: String) -> String {
@@ -128,14 +152,6 @@ extension Int {
         return pluralize(singular: String(format: LocalizedString(singular), description), plural: String(format: LocalizedString(plural), description))
     }
 
-    func asPercent() -> String {
-        return formatted(.percent.scale(1.0))
-    }
-
-    func toPercent(of: Int) -> Double {
-        return 100.0 / Double(of) * Double(self)
-    }
-
     func isAlmost(_ lower: Int, _ upper: Int) -> Bool {
         if self >= (lower - 1), self <= (lower + 1) {
             return true
@@ -148,17 +164,17 @@ extension Int {
         return false
     }
 
-    func asGlucose(glucoseUnit: GlucoseUnit, withUnit: Bool = false, precise: Bool = false) -> String {
+    func asPercent() -> String {
+        return formatted(.percent.scale(1.0))
+    }
+
+    func asGlucose(glucoseUnit: GlucoseUnit, withUnit: Bool = false) -> String {
         var glucose: String
 
         if glucoseUnit == .mmolL {
-            if precise {
-                glucose = GlucoseFormatters.preciseMmolLFormatter.string(from: asMmolL as NSNumber)!
-            } else {
-                glucose = GlucoseFormatters.mmolLFormatter.string(from: asMmolL as NSNumber)!
-            }
+            glucose = GlucoseFormatters.mmolLFormatter.string(from: self.toMmolL() as NSNumber)!
         } else {
-            glucose = String(self)
+            glucose = GlucoseFormatters.mgdLFormatter.string(from: self.toDouble() as NSNumber)!
         }
 
         if withUnit {
@@ -166,6 +182,26 @@ extension Int {
         }
 
         return glucose
+    }
+
+    func asInsulin() -> String {
+        return GlucoseFormatters.insulinFormatter.string(from: self as NSNumber)!
+    }
+
+    func toPercent(of: Int) -> Double {
+        return 100.0 / Double(of) * Double(self)
+    }
+
+    func toMmolL() -> Double {
+        return Double(self).toMmolL()
+    }
+
+    func toMgdl() -> Int? {
+        return Double(self).toMgdl()
+    }
+
+    func toDouble() -> Double {
+        return Double(self)
     }
 }
 
