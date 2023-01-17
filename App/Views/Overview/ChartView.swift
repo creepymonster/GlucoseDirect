@@ -238,8 +238,8 @@ struct ChartView: View {
 //                    .foregroundStyle(Color.ui.orange)
                     
                     RectangleMark(
-                        xStart: .value("Starts Time", value.starts),
-                        xEnd: .value("Ends Time", value.ends),
+                        xStart: .value("Starts", value.starts),
+                        xEnd: .value("Ends", value.ends),
                         yStart: .value("Units", 0),
                         yEnd: .value("Units", value.value.map(from: 0...20, to: 0...Double(alarmLow)))
                     )

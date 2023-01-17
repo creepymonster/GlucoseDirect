@@ -13,21 +13,11 @@ struct ConnectionView: View {
     @EnvironmentObject var store: DirectStore
 
     var body: some View {
-        Section(
-            content: {
-                if store.state.isConnectionPaired {
-                    HStack {
-                        Text("Connection state")
-                        Spacer()
-                        Text(store.state.connectionState.localizedDescription)
-                    }
-                }
-
-                if let connectionError = store.state.connectionError, let connectionErrorTimestamp = store.state.connectionErrorTimestamp?.toLocalTime() {
-                    VStack(alignment: .leading) {
-                        Text("Connection error")
-                        Text(connectionError)
-                    }
+        if let connectionError = store.state.connectionError, let connectionErrorTimestamp = store.state.connectionErrorTimestamp?.toLocalTime() {
+            Section(
+                content: {
+                    Link(connectionError, destination: URL(string: DirectConfig.faqURL)!)
+                        .foregroundColor(Color.ui.red)
 
                     HStack {
                         Text("Connection error timestamp")
@@ -41,6 +31,22 @@ struct ConnectionView: View {
                         Link("App faq", destination: URL(string: DirectConfig.faqURL)!)
                             .lineLimit(1)
                             .truncationMode(.head)
+                    }
+                },
+                header: {
+                    Label("Connection error", systemImage: "exclamationmark.triangle")
+                        .foregroundColor(Color.ui.red)
+                }
+            )
+        }
+
+        Section(
+            content: {
+                if store.state.isConnectionPaired {
+                    HStack {
+                        Text("Connection state")
+                        Spacer()
+                        Text(store.state.connectionState.localizedDescription)
                     }
                 }
 
