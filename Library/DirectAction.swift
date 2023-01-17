@@ -93,7 +93,6 @@ enum DirectAction {
     case setStatisticsDays(days: Int)
     case setShowSmoothedGlucose(enabled: Bool)
     case setShowInsulinInput(enabled: Bool)
-    case syncAppleHealth
     case startup
     case shutdown
 

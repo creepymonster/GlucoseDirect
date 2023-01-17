@@ -26,6 +26,7 @@ struct BloodGlucose: Glucose, CustomStringConvertible, Codable, Identifiable {
         self.timegroup = roundedTimestamp.toRounded(on: DirectConfig.timegroupRounding, .minute)
         self.originatingSourceName = originatingSourceName
         self.originatingSourceBundle = originatingSourceBundle
+        self.appleHealthId = nil
     }
 
     // MARK: Internal
@@ -36,8 +37,10 @@ struct BloodGlucose: Glucose, CustomStringConvertible, Codable, Identifiable {
     let timegroup: Date
     let originatingSourceName: String
     let originatingSourceBundle: String
+    var appleHealthId: UUID?
+    
     var description: String {
-        "{ id: \(id), timestamp: \(timestamp.toLocalTime()), glucoseValue: \(glucoseValue.description), originatingSourceName: \(originatingSourceName), originatingSourceBundle: \(originatingSourceBundle)  }"
+        "{ id: \(id), timestamp: \(timestamp.toLocalTime()), glucoseValue: \(glucoseValue.description), originatingSourceName: \(originatingSourceName), originatingSourceBundle: \(originatingSourceBundle), appleHealthId: \(appleHealthId) }"
     }
     
     public func isExternal() -> Bool {

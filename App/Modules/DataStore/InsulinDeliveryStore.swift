@@ -12,6 +12,7 @@ func insulinDeliveryStoreMiddleware() -> Middleware<DirectState, DirectAction> {
         switch action {
         case .startup:
             DataStore.shared.createInsulinDeliveryTable()
+            DataStore.shared.addExternalInsulinDeliveryColumns()
 
             return DataStore.shared.getFirstInsulinDeliveryDate().map { minSelectedDate in
                 DirectAction.setMinSelectedDate(minSelectedDate: minSelectedDate)
@@ -94,6 +95,27 @@ private extension DataStore {
                             .indexed()
                         t.column(InsulinDelivery.Columns.timegroup.name, .date)
                             .notNull()
+                            .indexed()
+                    }
+                }
+            } catch {
+                DirectLog.error("\(error)")
+            }
+        }
+    }
+    
+    func addExternalInsulinDeliveryColumns() {
+        if let dbQueue = dbQueue {
+            do {
+                try dbQueue.write { db in
+                    try db.alter(table: InsulinDelivery.Table) { t in
+                        t.add(column: InsulinDelivery.Columns.originatingSourceName.name, .text)
+                            .indexed()
+                            .defaults(to: DirectConfig.projectName)
+                        t.add(column: InsulinDelivery.Columns.originatingSourceBundle.name, .text)
+                            .indexed()
+                            .defaults(to: DirectConfig.appBundle)
+                        t.add(column: InsulinDelivery.Columns.appleHealthId.name, .text)
                             .indexed()
                     }
                 }
