@@ -14,7 +14,7 @@ Create a new calendar in the Apple "Calendar" app, e.g. "Glucose Direct".  Activ
 
 On the Apple Watch, activate a complication with the calendar selection "Your Schedule" on your Watch Face.
 
-## Connect Glucose Direct to a Libre 3 Sensor
+## Libre 3 connection problems ("No data" or "Missing patient id")
 The first part is to connect the "Libre 3" app with the "LibreLinkUp" app. The matching video is https://youtube.com/shorts/Ljj-eQ4Jl30
 
 1. In the "Libre 3" app under "Connected Apps" > "LibreLink Up" > "Manage" > "Add Connection" enter your LibreView account.
