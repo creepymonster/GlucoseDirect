@@ -593,10 +593,10 @@
 "Show insulin input" = " Показати введення інсуліну";
 
 /* (No Comment) */
-"Help" = "Help";
+"Help" = "Допомога";
 
 /* (No Comment) */
-"Alarm volume" = "Alarm volume";
+"Alarm volume" = "Гучність сигналу попередження";
 
 /* (No Comment) */
-"Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults." = "Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults.";
+"Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults." = "Коефіцієнт мінливості (КМ) визначається як відношення стандартного відхилення до середнього значення. Взагалі кажучи, більшість експертів воліють бачити КМ на рівні 33% або нижче, що вважається маркером «стабільного» рівня глюкози. Але зверніть увагу, що дуже молоді пацієнти з діабетом, як правило, мають більш високу мінливість, ніж дорослі. ";
