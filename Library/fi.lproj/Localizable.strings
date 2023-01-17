@@ -8,10 +8,10 @@
 "%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
 
 /* (No Comment) */
-"%@ Entries" = "%@ Entries";
+"%@ Entries" = "%@ Merkinnät";
 
 /* (No Comment) */
-"%@ Entry" = "%@ Entry";
+"%@ Entry" = "%@ Merkintä";
 
 /* (No Comment) */
 "About %@" = "Noin %@";
@@ -20,19 +20,16 @@
 "Add" = "Lisää";
 
 /* (No Comment) */
-"Add blood glucose" = "Add blood glucose";
+"Add blood glucose" = "Lisää verensokeri";
 
 /* (No Comment) */
 "Add calibration" = "Uusi kalibrointi";
 
 /* (No Comment) */
-"Add glucose for calibration" = "Lisää vs-arvo kalibrointia varten";
+"Alarm glucose notification" = "Sokeri hälytys ilmoitus";
 
 /* (No Comment) */
-"Alarm glucose notification" = "Alarm Glucose Notification";
-
-/* (No Comment) */
-"Alarm settings" = "Alarm settings";
+"Alarm settings" = "Hälytysasetukset";
 
 /* (No Comment) */
 "Alert, high glucose" = "Hälytys, korkea glukoosi";
@@ -77,25 +74,25 @@
 "App website" = "Verkkosivu";
 
 /* (No Comment) */
-"Apple export settings" = "Apple export settings";
+"Apple export settings" = "Apple vientiasetukset";
 
 /* (No Comment) */
 "Are you sure you want to disconnect the sensor?" = "Haluatko varmasti katkaista sensorin yhteyden?";
 
 /* (No Comment) */
-"At least %@ days of data are required." = "At least %@ days of data are required.";
+"At least %@ days of data are required." = "Vähintään %@ päivän tietoja vaaditaan.";
 
 /* (No Comment) */
 "Attention, the sensor sends faulty values. Please wait 10 minutes." = "Sensori antaa typeriä lukemia. Kokeile uudellen 10 min kuluttua.";
 
 /* (No Comment) */
-"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been.";
+"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Keskiarvo (AVG) on yleinen mittari verensokerista ajanjakson aikana, tarjoaa yhden korkeatasoisen näkymän siitä, missä glukoosi on ollut.";
 
 /* (No Comment) */
-"Bellman alarm" = "Alarm";
+"Bellman alarm" = "Bellman Alarm";
 
 /* (No Comment) */
-"Bellman test alarm" = "Test alarm";
+"Bellman test alarm" = "Bellman test alarm";
 
 /* (No Comment) */
 "Blood glucose values" = "BGM";
@@ -119,7 +116,7 @@
 "Connect sensor" = "Yhdistä sensori";
 
 /* (No Comment) */
-"Connect transmitter" = "Connect transmitter";
+"Connect transmitter" = "Transmitter lähettäjä";
 
 /* (No Comment) */
 "Connected" = "Yhdistetty";
@@ -164,13 +161,13 @@
 "Disconnected" = "Yhteys katkaistu";
 
 /* (No Comment) */
-"Export to Apple Calendar" = "Export to Apple Calendar";
+"Export to Apple Calendar" = "Vie Apple-kalenteriin";
 
 /* (No Comment) */
-"Export to Apple Health" = "Export to Apple Health";
+"Export to Apple Health" = "Vie Apple Healthiin";
 
 /* (No Comment) */
-"Find transmitter" = "Find transmitter";
+"Find transmitter" = "Etsi lähetin";
 
 /* (No Comment) */
 "Glucose" = "Glucose";
@@ -179,13 +176,13 @@
 "Glucose list view" = "Luettelo";
 
 /* (No Comment) */
-"Glucose Live Activity" = "Glucose Live Activity";
+"Glucose Live Activity" = "Verensokeri Live-aktiviteetti";
 
 /* (No Comment) */
-"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring.";
+"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Verensokerihallinta-indikaattori (GMI) on korvaus \"arvioidulle HbA1c:lle\" potilaille, jotka käyttävät jatkuvaa verensokerin seurantaa.";
 
 /* (No Comment) */
-"Glucose notification" = "Glucose Notification";
+"Glucose notification" = "Verensokeri-ilmoitus";
 
 /* (No Comment) */
 "Glucose overview" = "Yleiskatsaus";
@@ -203,7 +200,7 @@
 "Glucose widget" = "Glucose";
 
 /* (No Comment) */
-"Glucose widget description" = "Displays the last glucose value.";
+"Glucose widget description" = "Näyttää viimeisimmän glukoosiarvon.";
 
 /* (No Comment) */
 "High glucose alarm" = "High glucose alarm";
@@ -227,7 +224,7 @@
 "Line" = "Line";
 
 /* (No Comment) */
-"Low glucose alarm" = "Low glucose alarm";
+"Low glucose alarm" = "Matala glukoosihälytys";
 
 /* (No Comment) */
 "Lower limit" = "Matala";
@@ -245,13 +242,13 @@
 "Nightscout url" = "Url";
 
 /* (No Comment) */
-"No Data" = "No Data";
+"No Data" = "Ei dataa";
 
 /* (No Comment) */
-"No screen lock" = "No screen lock";
+"No screen lock" = "Ei näytön lukitusta";
 
 /* (No Comment) */
-"Normal glucose notification" = "Normal Glucose Notification";
+"Normal glucose notification" = "Normaali glukoosi-ilmoitus";
 
 /* (No Comment) */
 "Now" = "Nyt";
@@ -377,7 +374,7 @@
 "Sensor lifetime widget" = "Sensor Lifetime";
 
 /* (No Comment) */
-"Sensor lifetime widget description" = "Displays the remaining lifetime of the current sensor as a countdown.";
+"Sensor lifetime widget description" = "Näyttää nykyisen anturin jäljellä olevan elinajan laskelmana";
 
 /* (No Comment) */
 "Sensor not yet startet" = "Sensori ei ole vielä käynnistynyt";
@@ -419,28 +416,28 @@
 "Snooze until" = "Torkuta";
 
 /* (No Comment) */
-"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between many highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings.";
+"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Standard Deviation (SD) on glukoosimittauksen levittämisen mittari keskiarvon ympärillä - korkeiden ja matalien välillä hyppely johtaa suurempaan SD:hen. Tavoite on mahdollisimman pieni SD, joka kuvaisi tasaisesti pysyvää glukoositasoa vähäisillä vaihteluilla.";
 
 /* (No Comment) */
-"Statistics (%@ days)" = "Statistics (%@ days)";
+"Statistics (%@ days)" = "Tilastot (%@ päivää)";
 
 /* (No Comment) */
 "StatisticsPeriod" = "Period";
 
 /* (No Comment) */
-"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data.";
+"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "Anturilta ei saada enää dataa. Syy saattaa olla Bluetooth-yhteyden katkeaminen anturiin tai LibreLinkUp ei enää anna dataa.";
 
 /* (No Comment) */
 "Time" = "Aika";
 
 /* (No Comment) */
-"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Time above Range (TAR) or the percentage of time spent above the target glucose of %@.";
+"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Aika ylärajassa (TAR) tai prosenttiosuus ajasta, jonka vietät tavoiteglukoosin %@ yläpuolella.";
 
 /* (No Comment) */
-"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Time below Range (TBR) or the percentage of time spent below the target glucose of %@.";
+"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Aika alarajassa (TBR) tai prosenttiosuus ajasta, jonka vietät tavoiteglukoosin %@ alapuolella.";
 
 /* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@.";
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Aika tavoiterajassa (TIR) tai prosenttiosuus ajasta, jonka vietät tavoiteglukoosin välillä %@ - %@.";
 
 /* (No Comment) */
 "Transmitter" = "Lähetin";
@@ -452,7 +449,7 @@
 "Transmitter battery widget" = "Transmitter Battery";
 
 /* (No Comment) */
-"Transmitter battery widget description" = "Displays the remaining battery charge of the transmitter as a countdown.";
+"Transmitter battery widget description" = "Näyttää lähettimen jäljellä olevan akun varauksen laskelmana.";
 
 /* (No Comment) */
 "Transmitter details" = "Transmitter details";
@@ -476,7 +473,7 @@
 "Upper limit" = "High";
 
 /* (No Comment) */
-"Use LibreLink to start the sensor" = "Use LibreLink to start the sensor";
+"Use LibreLink to start the sensor" = "Käytä LibreLink aloittaaksesi anturin";
 
 /* (No Comment) */
 "Vibration" = "Vibrate only";
@@ -494,19 +491,19 @@
 "Without transmitter" = "Ilman lähetintä";
 
 /* (No Comment) */
-"Your current glucose is %1$@ (%2$@)." = "Your current glucose is %1$@ (%2$@).";
+"Your current glucose is %1$@ (%2$@)." = "Nykyinen glukoosisi on %1$@ (%2$@).";
 
 /* (No Comment) */
-"Your glucose %1$@ (%2$@) is dangerously high and needs to be treated." = "Your glucose, %1$@ (%2$@), is dangerously high and needs to be treated.";
+"Your glucose %1$@ (%2$@) is dangerously high and needs to be treated." = "Glukoosisi, %1$@ (%2$@), on vaarallisen korkea ja se tarvitsee hoitoa.";
 
 /* (No Comment) */
-"Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "Your glucose, %1$@ (%2$@), is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal.";
+"Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "Glukoosisi %1$@ (%2$@) on vaarallisen matala. Makeisten juomien tai dekstroosin kanssa glukoosipitoisuus usein palautuu normaaliksi.";
 
 /* (No Comment) */
-"Your sensor has expired and needs to be replaced as soon as possible" = "Your sensor has expired and needs to be replaced as soon as possible";
+"Your sensor has expired and needs to be replaced as soon as possible" = "Anturisi on vanhentunut ja se tulee vaihtaa mahdollisimman pian";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@." = "Your sensor is about to expire. Replace sensor in %1$@.";
+"Your sensor is about to expire. Replace sensor in %1$@." = "Anturisi on vanhentumassa. Vaihda anturi %1$@.";
 
 /* (No Comment) */
 "Loading..." = "Loading...";
@@ -560,28 +557,28 @@
 "Insulin" = "Insulin";
 
 /* (No Comment) */
-"Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep.";
+"Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "Basaali-insuliini viittaa siihen insuliiniin, jota käytetään säätelemään veren glukoosipitoisuutta aterioiden välillä, myös nukkuessa.";
 
 /* (No Comment) */
-"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose.";
+"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Bolus-insuliini viittaa siihen insuliiniin, jota käytetään säätelemään veren glukoosipitoisuutta aterioilla ja/tai korkean veren glukoosipitoisuuden tilapäisesti hallitsemiseen.";
 
 /* (No Comment) */
-"Blood glucose" = "Blood glucose";
+"Blood glucose" = "Verenglukoosi";
 
 /* (No Comment) */
-"Add insulin" = "Add insulin";
+"Add insulin" = "Lisää insuliinia";
 
 /* (No Comment) */
 "Calibration" = "Kalibrointi";
 
 /* (No Comment) */
-"Starts" = "Starts";
+"Starts" = "Alkaa";
 
 /* (No Comment) */
-"Ends" = "Ends";
+"Ends" = "Loppuu";
 
 /* (No Comment) */
-"Units" = "Units";
+"Units" = "Yksiköt";
 
 /* (No Comment) */
 "Type" = "Malli";
@@ -594,3 +591,12 @@
 
 /* (No Comment) */
 "Show insulin input" = "Show insulin input";
+
+/* (No Comment) */
+"Help" = "Help";
+
+/* (No Comment) */
+"Alarm volume" = "Alarm volume";
+
+/* (No Comment) */
+"Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults." = "Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults.";
