@@ -32,7 +32,7 @@
 "Alarm glucose notification" = "Blodsockerlarm";
 
 /* (No Comment) */
-"Alarm settings" = "Alarm settings";
+"Alarm settings" = "Alarminställningar";
 
 /* (No Comment) */
 "Alert, high glucose" = "Varning, högt blodsocker";
@@ -89,13 +89,13 @@
 "Attention, the sensor sends faulty values. Please wait 10 minutes." = "Varning, sensorn skickar felaktiga värden. Vänta 10 minuter.";
 
 /* (No Comment) */
-"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been.";
+"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Medelvärde (AVG) är en övergripande mätning av blodsocker över en tidsperiod, som ger en högnivåvy av var glukos har varit.";
 
 /* (No Comment) */
-"Bellman alarm" = "Larm";
+"Bellman alarm" = "Bellman Larm";
 
 /* (No Comment) */
-"Bellman test alarm" = "Testa larm";
+"Bellman test alarm" = "Bellman Testa larm";
 
 /* (No Comment) */
 "Blood glucose values" = "BGM";
@@ -137,7 +137,7 @@
 "Connection error timestamp" = "Tid";
 
 /* (No Comment) */
-"Connection settings" = "Connection settings";
+"Connection settings" = "Anslutningsinställningar";
 
 /* (No Comment) */
 "Connection state" = "Tillstånd";
@@ -182,7 +182,7 @@
 "Glucose Live Activity" = "Glucose Live Activity";
 
 /* (No Comment) */
-"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring.";
+"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Glukoshanteringsindikator (GMI) är ett ersättning för \"uppskattad HbA1c\" för patienter som använder kontinuerlig glukosövervakning.";
 
 /* (No Comment) */
 "Glucose notification" = "Blodsockernotis";
@@ -419,7 +419,7 @@
 "Snooze until" = "Snooza tills";
 
 /* (No Comment) */
-"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between many highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings.";
+"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Standardavvikelse (SD) är en mätning av spridningen av glukosläsningar kring medelvärdet - studsar mellan höga och låga resultat i en större SD. Målet är den lägsta SD som är möjligt, vilket skulle återspegla en jämn glukosnivå med minimala svängningar.";
 
 /* (No Comment) */
 "Statistics (%@ days)" = "Statistics (%@ days)";
@@ -428,19 +428,19 @@
 "StatisticsPeriod" = "Period";
 
 /* (No Comment) */
-"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data.";
+"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "Ingen mer data mottas från sensorn. Orsaken kan vara att Bluetooth-anslutningen till sensorn har avbrutits eller att LibreLinkUp inte längre tillhandahåller data.";
 
 /* (No Comment) */
 "Time" = "Tid";
 
 /* (No Comment) */
-"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Time above Range (TAR) or the percentage of time spent above the target glucose of %@.";
+"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Tid ovanför intervall (TAR) eller procentandel av tid som spenderas ovan målvärdet för glukos på %@.";
 
 /* (No Comment) */
-"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Time below Range (TBR) or the percentage of time spent below the target glucose of %@.";
+"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Tid under intervall (TBR) eller procentandel av tid som spenderas under målvärdet för glukos på %@.";
 
 /* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@.";
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Tid i intervall (TIR) eller procentandel av tid som spenderas i målintervallet för glukos mellan %@ - %@.";
 
 /* (No Comment) */
 "Transmitter" = "Sändare";
@@ -509,49 +509,49 @@
 "Your sensor is about to expire. Replace sensor in %1$@." = "Your sensor is about to expire. Replace sensor in %1$@.";
 
 /* (No Comment) */
-"Loading..." = "Loading...";
+"Loading..." = "Laddar...";
 
 /* (No Comment) */
-"Export" = "Export";
+"Export" = "Exportera";
 
 /* (No Comment) */
-"Export as CSV" = "Export as CSV";
+"Export as CSV" = "Exportera som CSV";
 
 /* (No Comment) */
-"Export for Glooko" = "Export for Glooko";
+"Export for Glooko" = "Exportera för Glooko";
 
 /* (No Comment) */
-"Export for Tidepool" = "Export for Tidepool";
+"Export for Tidepool" = "Exportera för Tidepool";
 
 /* (No Comment) */
-"%@ hours" = "%@ hours";
+"%@ hours" = "%@ timmar";
 
 /* (No Comment) */
-"Reopen app in" = "Reopen app in";
+"Reopen app in" = "Öppna appen igen om";
 
 /* (No Comment) */
-"%1$@ days" = "%1$@ days";
+"%1$@ days" = "%1$@ dagar";
 
 /* (No Comment) */
-"%1$@ day" = "%1$@ day";
+"%1$@ day" = "%1$@ dag";
 
 /* (No Comment) */
-"%1$@ hours" = "%1$@ hours";
+"%1$@ hours" = "%1$@ timmar";
 
 /* (No Comment) */
-"%1$@ hour" = "%1$@ hour";
+"%1$@ hour" = "%1$@ timme";
 
 /* (No Comment) */
-"%1$@ minutes" = "%1$@ minutes";
+"%1$@ minutes" = "%1$@ minuter";
 
 /* (No Comment) */
-"Meal Bolus" = "Meal Bolus";
+"Meal Bolus" = "Måltidsbolus";
 
 /* (No Comment) */
-"Snack Bolus" = "Snack Bolus";
+"Snack Bolus" = "Snackbolus";
 
 /* (No Comment) */
-"Correction Bolus" = "Correction Bolus";
+"Correction Bolus" = "Korrigeringsbolus";
 
 /* (No Comment) */
 "Basal" = "Basal";
@@ -560,37 +560,37 @@
 "Insulin" = "Insulin";
 
 /* (No Comment) */
-"Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep.";
+"Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "Basalinsulin syftar på insulin som används för att reglera blodsockret mellan måltiderna, inklusive under sömnen.";
 
 /* (No Comment) */
-"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose.";
+"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Bolusinsulin syftar på insulin som används för att reglera blodsockret vid måltider och/eller akut hantera högt blodsocker.";
 
 /* (No Comment) */
-"Blood glucose" = "Blood glucose";
+"Blood glucose" = "Blodsocker";
 
 /* (No Comment) */
-"Add insulin" = "Add insulin";
+"Add insulin" = "Lägg till insulin";
 
 /* (No Comment) */
 "Calibration" = "Kalibrering";
 
 /* (No Comment) */
-"Starts" = "Starts";
+"Starts" = "Startar";
 
 /* (No Comment) */
-"Ends" = "Ends";
+"Ends" = "Slutar";
 
 /* (No Comment) */
-"Units" = "Units";
+"Units" = "Enheter";
 
 /* (No Comment) */
 "Type" = "Typ";
 
 /* (No Comment) */
-"Additional settings" = "Additional settings";
+"Additional settings" = "Ytterligare inställningar";
 
 /* (No Comment) */
-"Show smoothed glucose" = "Show smoothed glucose";
+"Show smoothed glucose" = "Visa jämnat glukos";
 
 /* (No Comment) */
-"Show insulin input" = "Show insulin input";
+"Show insulin input" = "Visa insulinmatning";
