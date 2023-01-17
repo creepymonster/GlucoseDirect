@@ -26,9 +26,6 @@
 "Add calibration" = "Добавяне на калибриране";
 
 /* (No Comment) */
-"Add glucose for calibration" = "Добавяне на глюкоза за калибриране";
-
-/* (No Comment) */
 "Alarm glucose notification" = "Известие за аларма за глюкоза";
 
 /* (No Comment) */
@@ -594,3 +591,12 @@
 
 /* (No Comment) */
 "Show insulin input" = "Покажи въведения инсулин";
+
+/* (No Comment) */
+"Help" = "Помощ";
+
+/* (No Comment) */
+"Alarm volume" = "Сила на звука на алармата";
+
+/* (No Comment) */
+"Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults." = "Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults.";

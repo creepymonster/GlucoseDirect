@@ -26,9 +26,6 @@
 "Add calibration" = "Kalibrasyon ekle";
 
 /* (No Comment) */
-"Add glucose for calibration" = "Kalibrasyon için glikoz ekleyin";
-
-/* (No Comment) */
 "Alarm glucose notification" = "Alarm Glikoz Bildirimi";
 
 /* (No Comment) */
@@ -594,3 +591,12 @@
 
 /* (No Comment) */
 "Show insulin input" = "İnsülin girişini göster";
+
+/* (No Comment) */
+"Help" = "Yardım";
+
+/* (No Comment) */
+"Alarm volume" = "Alarm ses seviyesi";
+
+/* (No Comment) */
+"Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults." = "Varyasyon katsayısı (CV), standart sapmanın ortalamaya oranı olarak tanımlanır. Genel olarak, çoğu uzman %33 veya daha düşük bir CV görmek ister, bu da \"istikrarlı\" glikoz seviyelerinin bir işareti olarak kabul edilir. Ancak, çok genç diyabet hastalarının yetişkinlerden daha yüksek değişkenliğe sahip olma eğiliminde olduğunu dikkate alın.";
