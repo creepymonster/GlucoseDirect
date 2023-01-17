@@ -117,6 +117,8 @@ private extension DataStore {
                         t.add(column: BloodGlucose.Columns.originatingSourceBundle.name, .text)
                             .indexed()
                             .defaults(to: DirectConfig.appBundle)
+                        t.add(column: BloodGlucose.Columns.appleHealthId.name, .text)
+                            .indexed()
                     }
                 }
             } catch {

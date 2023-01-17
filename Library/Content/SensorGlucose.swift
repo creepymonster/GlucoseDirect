@@ -98,6 +98,7 @@ struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable, H
     let intGlucoseValue: Int
     let smoothGlucoseValue: Double?
     let timegroup: Date
+    var appleHealthId: UUID?
 
     var glucoseValue: Int {
         if intGlucoseValue < DirectConfig.minReadableGlucose {

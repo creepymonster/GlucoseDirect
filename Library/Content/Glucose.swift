@@ -11,6 +11,7 @@ protocol Glucose: Equatable {
     var id: UUID { get }
     var timestamp: Date { get }
     var glucoseValue: Int { get }
+    var appleHealthId: UUID? { get set }
 
     static func == (lhs: any Glucose, rhs: any Glucose) -> Bool
 }
@@ -24,5 +25,9 @@ extension Glucose {
 
     static func == (lhs: any Glucose, rhs: any Glucose) -> Bool {
         lhs.id == rhs.id
+    }
+    
+    public func isSyncedToAppleHealth() -> Bool {
+        return appleHealthId != nil
     }
 }
