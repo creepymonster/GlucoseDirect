@@ -15,7 +15,7 @@ enum DirectConfig {
     static let donateURL = "https://www.paypal.me/reimarmetzen"
     static let expiredNotificationInterval: Double = 1 * 60 * 60 // in seconds
     static let facebookURL = "https://www.facebook.com/groups/4747621411996068/"
-    static let faqURL = "https://github.com/creepymonster/GlucoseDirectApp"
+    static let faqURL = "https://github.com/creepymonster/GlucoseDirect/blob/main/FAQ.md#faq"
     static let githubURL = "https://github.com/creepymonster/GlucoseDirectApp"
     static let lastChartHours = 24
     static let libre2ID = "libre2"

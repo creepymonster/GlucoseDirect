@@ -23,7 +23,6 @@
 		E2016FDA285BA81700079195 /* GlucoseWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2016FD7285BA7EE00079195 /* GlucoseWidget.swift */; };
 		E2016FDC285BA82600079195 /* TransmitterWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2016FDB285BA82600079195 /* TransmitterWidget.swift */; };
 		E201769127AAB96000E6A756 /* AppleHealthExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = E201769027AAB96000E6A756 /* AppleHealthExport.swift */; };
-		E20786232686283F004EEF1C /* ConnectionActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20786222686283F004EEF1C /* ConnectionActionsView.swift */; };
 		E20B853E266F4A9800AA4224 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B853D266F4A9800AA4224 /* App.swift */; };
 		E20B8540266F4A9800AA4224 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B853F266F4A9800AA4224 /* ContentView.swift */; };
 		E20B8542266F4A9900AA4224 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E20B8541266F4A9900AA4224 /* Assets.xcassets */; };
@@ -256,7 +255,6 @@
 		E2016FD7285BA7EE00079195 /* GlucoseWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseWidget.swift; sourceTree = "<group>"; };
 		E2016FDB285BA82600079195 /* TransmitterWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransmitterWidget.swift; sourceTree = "<group>"; };
 		E201769027AAB96000E6A756 /* AppleHealthExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleHealthExport.swift; sourceTree = "<group>"; };
-		E20786222686283F004EEF1C /* ConnectionActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionActionsView.swift; sourceTree = "<group>"; };
 		E20B853A266F4A9800AA4224 /* GlucoseDirectApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlucoseDirectApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E20B853D266F4A9800AA4224 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		E20B853F266F4A9800AA4224 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -901,7 +899,6 @@
 				10DD12FF296A158600C900EA /* AddViews */,
 				E29ED232268C774200CBD3F1 /* SharedViews */,
 				E2CAC1DD2905DB7E00C87B17 /* LoadingView.swift */,
-				E20786222686283F004EEF1C /* ConnectionActionsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1143,7 +1140,6 @@
 				E2FCAC31270741D200FE1CBF /* Date.swift in Sources */,
 				10DD12FE296A146800C900EA /* StatisticsView.swift in Sources */,
 				E2646F3B275FD2EC00ADE451 /* AppleCalendarExport.swift in Sources */,
-				E20786232686283F004EEF1C /* ConnectionActionsView.swift in Sources */,
 				E2FCAC672707428500FE1CBF /* Log.swift in Sources */,
 				E2FCAC32270741D200FE1CBF /* UserDefaults.swift in Sources */,
 				E2FCAC35270741D200FE1CBF /* State.swift in Sources */,
