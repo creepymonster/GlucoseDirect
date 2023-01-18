@@ -1459,7 +1459,7 @@
 				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_CFBundleDisplayName = Watch;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "${APP_BUNDLE_IDENTIFIER}";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "com.9JNYW2DG9D.libre-direct";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1493,7 +1493,7 @@
 				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_CFBundleDisplayName = Watch;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "${APP_BUNDLE_IDENTIFIER}";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "com.9JNYW2DG9D.libre-direct";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1705,6 +1705,7 @@
 				INFOPLIST_FILE = Widgets/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Widgets;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1738,6 +1739,7 @@
 				INFOPLIST_FILE = Widgets/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Widgets;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
