@@ -6,56 +6,18 @@
 import SwiftUI
 import WidgetKit
 
-private let placeholderTransmitter = Transmitter(name: "Bubble", battery: 70, firmware: 2.0, hardware: 2.0)
+// MARK: - TransmitterWidget
 
-// MARK: - TransmitterEntry
+struct TransmitterWidget: Widget {
+    let kind: String = "TransmitterWidget"
 
-struct TransmitterEntry: TimelineEntry {
-    // MARK: Lifecycle
-
-    init() {
-        self.date = Date()
-        self.transmitter = nil
-    }
-
-    init(date: Date) {
-        self.date = date
-        self.transmitter = nil
-    }
-
-    init(date: Date, transmitter: Transmitter) {
-        self.date = date
-        self.transmitter = transmitter
-    }
-
-    // MARK: Internal
-
-    let date: Date
-    let transmitter: Transmitter?
-}
-
-// MARK: - TransmitterUpdateProvider
-
-struct TransmitterUpdateProvider: TimelineProvider {
-    func placeholder(in context: Context) -> TransmitterEntry {
-        return TransmitterEntry(date: Date(), transmitter: placeholderTransmitter)
-    }
-
-    func getSnapshot(in context: Context, completion: @escaping (TransmitterEntry) -> ()) {
-        let entry = TransmitterEntry()
-
-        completion(entry)
-    }
-
-    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        let entries = [
-            TransmitterEntry()
-        ]
-
-        let reloadDate = Calendar.current.date(byAdding: .minute, value: 15, to: Date())!
-
-        let timeline = Timeline(entries: entries, policy: .after(reloadDate))
-        completion(timeline)
+    var body: some WidgetConfiguration {
+        StaticConfiguration(kind: kind, provider: TransmitterUpdateProvider()) { entry in
+            TransmitterView(entry: entry)
+        }
+        .supportedFamilies([.accessoryCircular])
+        .configurationDisplayName("Transmitter battery widget")
+        .description("Transmitter battery widget description")
     }
 }
 
@@ -103,21 +65,6 @@ struct TransmitterView: View {
         }
 
         return "battery.100"
-    }
-}
-
-// MARK: - TransmitterWidget
-
-struct TransmitterWidget: Widget {
-    let kind: String = "TransmitterWidget"
-
-    var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: TransmitterUpdateProvider()) { entry in
-            TransmitterView(entry: entry)
-        }
-        .supportedFamilies([.accessoryCircular])
-        .configurationDisplayName("Transmitter battery widget")
-        .description("Transmitter battery widget description")
     }
 }
 

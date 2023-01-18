@@ -6,82 +6,18 @@
 import SwiftUI
 import WidgetKit
 
-private let placeholderSensor = Sensor(
-    uuid: Data(hexString: "e9ad9b6c79bd93aa")!,
-    patchInfo: Data(hexString: "448cd1")!,
-    factoryCalibration: FactoryCalibration(i1: 1, i2: 2, i3: 4, i4: 8, i5: 16, i6: 32),
-    family: .libre2,
-    type: .virtual,
-    region: .european,
-    serial: "OBIR2PO",
-    state: .ready,
-    age: 3 * 24 * 60,
-    lifetime: 14 * 24 * 60,
-    warmupTime: 60
-)
+// MARK: - SensorWidget
 
-private let placeholderStartingSensor = Sensor(
-    uuid: Data(hexString: "e9ad9b6c79bd93aa")!,
-    patchInfo: Data(hexString: "448cd1")!,
-    factoryCalibration: FactoryCalibration(i1: 1, i2: 2, i3: 4, i4: 8, i5: 16, i6: 32),
-    family: .libre2,
-    type: .virtual,
-    region: .european,
-    serial: "OBIR2PO",
-    state: .starting,
-    age: 20,
-    lifetime: 14 * 24 * 60,
-    warmupTime: 60
-)
+struct SensorWidget: Widget {
+    let kind: String = "SensorWidget"
 
-// MARK: - SensorEntry
-
-struct SensorEntry: TimelineEntry {
-    // MARK: Lifecycle
-
-    init() {
-        self.date = Date()
-        self.sensor = nil
-    }
-
-    init(date: Date) {
-        self.date = date
-        self.sensor = nil
-    }
-
-    init(date: Date, sensor: Sensor) {
-        self.date = date
-        self.sensor = sensor
-    }
-
-    // MARK: Internal
-
-    let date: Date
-    let sensor: Sensor?
-}
-
-// MARK: - SensorUpdateProvider
-
-struct SensorUpdateProvider: TimelineProvider {
-    func placeholder(in context: Context) -> SensorEntry {
-        return SensorEntry(date: Date(), sensor: placeholderSensor)
-    }
-
-    func getSnapshot(in context: Context, completion: @escaping (SensorEntry) -> ()) {
-        let entry = SensorEntry()
-
-        completion(entry)
-    }
-
-    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        let entries = [
-            SensorEntry()
-        ]
-
-        let reloadDate = Calendar.current.date(byAdding: .minute, value: 15, to: Date())!
-
-        let timeline = Timeline(entries: entries, policy: .after(reloadDate))
-        completion(timeline)
+    var body: some WidgetConfiguration {
+        StaticConfiguration(kind: kind, provider: SensorUpdateProvider()) { entry in
+            SensorView(entry: entry)
+        }
+        .supportedFamilies([.accessoryCircular])
+        .configurationDisplayName("Sensor lifetime widget")
+        .description("Sensor lifetime widget description")
     }
 }
 
@@ -115,21 +51,6 @@ struct SensorView: View {
                 Image(systemName: "questionmark")
             }
         }
-    }
-}
-
-// MARK: - SensorWidget
-
-struct SensorWidget: Widget {
-    let kind: String = "SensorWidget"
-
-    var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: SensorUpdateProvider()) { entry in
-            SensorView(entry: entry)
-        }
-        .supportedFamilies([.accessoryCircular])
-        .configurationDisplayName("Sensor lifetime widget")
-        .description("Sensor lifetime widget description")
     }
 }
 

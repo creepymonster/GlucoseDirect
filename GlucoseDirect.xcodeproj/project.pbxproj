@@ -11,6 +11,13 @@
 		107FA9CD2975C6F90002A9F4 /* Float.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FA9CC2975C6F90002A9F4 /* Float.swift */; };
 		10B3B0CE2972D65F00B70CE4 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B3B0CD2972D65F00B70CE4 /* Alarm.swift */; };
 		10B3B0CF2972D65F00B70CE4 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B3B0CD2972D65F00B70CE4 /* Alarm.swift */; };
+		10D0FA472978718E0097330E /* Float.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FA9CC2975C6F90002A9F4 /* Float.swift */; };
+		10D0FA4E297873140097330E /* TransmitterUpdateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D0FA4D297873140097330E /* TransmitterUpdateProvider.swift */; };
+		10D0FA50297873280097330E /* GlucoseUpdateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D0FA4F297873280097330E /* GlucoseUpdateProvider.swift */; };
+		10D0FA522978733A0097330E /* SensorUpdateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D0FA512978733A0097330E /* SensorUpdateProvider.swift */; };
+		10D0FA53297873490097330E /* GlucoseUpdateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D0FA4F297873280097330E /* GlucoseUpdateProvider.swift */; };
+		10D0FA54297873490097330E /* TransmitterUpdateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D0FA4D297873140097330E /* TransmitterUpdateProvider.swift */; };
+		10D0FA55297873490097330E /* SensorUpdateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D0FA512978733A0097330E /* SensorUpdateProvider.swift */; };
 		10DD12FE296A146800C900EA /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DD12FD296A146800C900EA /* StatisticsView.swift */; };
 		10DD1301296A15B900C900EA /* AddCalibrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DD1300296A15B900C900EA /* AddCalibrationView.swift */; };
 		10DD1303296A15CA00C900EA /* AddBloodGlucoseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DD1302296A15CA00C900EA /* AddBloodGlucoseView.swift */; };
@@ -241,6 +248,12 @@
 		107FA9CA2975C6780002A9F4 /* AdditionalSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalSettingsView.swift; sourceTree = "<group>"; };
 		107FA9CC2975C6F90002A9F4 /* Float.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Float.swift; sourceTree = "<group>"; };
 		10B3B0CD2972D65F00B70CE4 /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
+		10D0FA49297871E90097330E /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/Localizable.strings; sourceTree = "<group>"; };
+		10D0FA4A297871ED0097330E /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		10D0FA4B297871F10097330E /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		10D0FA4D297873140097330E /* TransmitterUpdateProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransmitterUpdateProvider.swift; sourceTree = "<group>"; };
+		10D0FA4F297873280097330E /* GlucoseUpdateProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseUpdateProvider.swift; sourceTree = "<group>"; };
+		10D0FA512978733A0097330E /* SensorUpdateProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorUpdateProvider.swift; sourceTree = "<group>"; };
 		10DD12FD296A146800C900EA /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		10DD1300296A15B900C900EA /* AddCalibrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCalibrationView.swift; sourceTree = "<group>"; };
 		10DD1302296A15CA00C900EA /* AddBloodGlucoseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBloodGlucoseView.swift; sourceTree = "<group>"; };
@@ -460,6 +473,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		10D0FA4C2978730A0097330E /* Widgets */ = {
+			isa = PBXGroup;
+			children = (
+				10D0FA4D297873140097330E /* TransmitterUpdateProvider.swift */,
+				10D0FA4F297873280097330E /* GlucoseUpdateProvider.swift */,
+				10D0FA512978733A0097330E /* SensorUpdateProvider.swift */,
+			);
+			path = Widgets;
+			sourceTree = "<group>";
+		};
 		10DD12FF296A158600C900EA /* AddViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -477,7 +500,7 @@
 				E247D8E426B7D70A00BDAF89 /* GlucoseDirect.xcconfig */,
 				E20B853C266F4A9800AA4224 /* App */,
 				E24474432859CA9600F8891C /* Widgets */,
-				E2218B87284F9E7300DB5A55 /* Library */,
+				E2218B87284F9E7300DB5A55 /* Shared */,
 				E27BFC0126B1407E00F8FBEF /* Frameworks */,
 				E20B853B266F4A9800AA4224 /* Products */,
 			);
@@ -499,6 +522,7 @@
 				E2FCAC3D2707420000FE1CBF /* AppState.swift */,
 				E2FCAC3C270741F000FE1CBF /* Modules */,
 				E2FDC933266FAF1C007AA1F5 /* Views */,
+				E2FCAC742707439300FE1CBF /* Resources */,
 				E20B8543266F4A9900AA4224 /* Preview Content */,
 				E2BF22DF266F9CA20060866F /* App.entitlements */,
 				E20B8546266F4A9900AA4224 /* Info.plist */,
@@ -524,23 +548,24 @@
 			path = AppleExport;
 			sourceTree = "<group>";
 		};
-		E2218B87284F9E7300DB5A55 /* Library */ = {
+		E2218B87284F9E7300DB5A55 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				E2FCAC6D2707438A00FE1CBF /* DirectAction.swift */,
 				E2FCAC6E2707438A00FE1CBF /* DirectConfig.swift */,
 				E2FCAC39270741E600FE1CBF /* DirectLog.swift */,
+				E2FCAC6D2707438A00FE1CBF /* DirectAction.swift */,
 				E2FCAC3E2707420100FE1CBF /* DirectNotifications.swift */,
-				E2FCAC412707420100FE1CBF /* DirectReducer.swift */,
 				E2FCAC6C2707438A00FE1CBF /* DirectState.swift */,
+				E2FCAC412707420100FE1CBF /* DirectReducer.swift */,
 				E2FCAC6F2707438A00FE1CBF /* DirectStore.swift */,
 				E2FCAC112707419800FE1CBF /* Content */,
+				E2C19FB8273568A000B70A73 /* Calibrations */,
+				10D0FA4C2978730A0097330E /* Widgets */,
 				E2FCAC26270741C700FE1CBF /* Extensions */,
-				E2FCAC742707439300FE1CBF /* Resources */,
 				E20B8541266F4A9900AA4224 /* Assets.xcassets */,
 				E2FCAC89270743E200FE1CBF /* Localizable.strings */,
 			);
-			path = Library;
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		E236683F287FEC1A001BF000 /* Debug */ = {
@@ -557,8 +582,8 @@
 				E24474442859CA9600F8891C /* Widgets.swift */,
 				E2016FD5285BA7C600079195 /* SensorWidget.swift */,
 				E2016FD7285BA7EE00079195 /* GlucoseWidget.swift */,
-				E257B0642892C89F0081B2BD /* GlucoseActivityWidget.swift */,
 				E2016FDB285BA82600079195 /* TransmitterWidget.swift */,
+				E257B0642892C89F0081B2BD /* GlucoseActivityWidget.swift */,
 				E2E8DC032859F62C002C84FD /* Widgets.entitlements */,
 				E24474482859CA9700F8891C /* Info.plist */,
 				E2B5BF5C28639C2A006C9C7F /* InfoPlist.strings */,
@@ -759,7 +784,6 @@
 				E25FE9DE28984F8E00B3276F /* SensorGlucoseActivityAttributes.swift */,
 				E21656C4275377A90007AF43 /* Transmitter.swift */,
 				E2218BAF284FA16900DB5A55 /* NotificationSound.swift */,
-				E2C19FB8273568A000B70A73 /* Calibrations */,
 				E2F04F67291C2E1A006C1301 /* GlucoseFilter.swift */,
 			);
 			path = Content;
@@ -1071,6 +1095,7 @@
 				E201769127AAB96000E6A756 /* AppleHealthExport.swift in Sources */,
 				E2FCAC632707427500FE1CBF /* ExpiringNotification.swift in Sources */,
 				E2FCAC34270741D200FE1CBF /* View.swift in Sources */,
+				10D0FA522978733A0097330E /* SensorUpdateProvider.swift in Sources */,
 				E27ED97F2758ADF40099149C /* SensorConnection.swift in Sources */,
 				E2715806287ABF4100B611D9 /* BloodGlucoseListView.swift in Sources */,
 				E23698E4288198B400FCF69F /* Migration.swift in Sources */,
@@ -1116,6 +1141,7 @@
 				E2366841287FEC1A001BF000 /* Debug.swift in Sources */,
 				E298CF06279DEBFE00C1C218 /* CustomCalibrationView.swift in Sources */,
 				E2B5FDAB28789EDF00D35D87 /* BloodGlucoseStore.swift in Sources */,
+				10D0FA4E297873140097330E /* TransmitterUpdateProvider.swift in Sources */,
 				E2FCAC21270741BC00FE1CBF /* SensorFamily.swift in Sources */,
 				6587CE4C2962651B008518F4 /* InsulinDeliveryStore.swift in Sources */,
 				E2FCAC3B270741E600FE1CBF /* DirectLog.swift in Sources */,
@@ -1139,6 +1165,7 @@
 				E27ED9732758A41B0099149C /* VirtualConnection.swift in Sources */,
 				E2FCAC31270741D200FE1CBF /* Date.swift in Sources */,
 				10DD12FE296A146800C900EA /* StatisticsView.swift in Sources */,
+				10D0FA50297873280097330E /* GlucoseUpdateProvider.swift in Sources */,
 				E2646F3B275FD2EC00ADE451 /* AppleCalendarExport.swift in Sources */,
 				E2FCAC672707428500FE1CBF /* Log.swift in Sources */,
 				E2FCAC32270741D200FE1CBF /* UserDefaults.swift in Sources */,
@@ -1184,9 +1211,11 @@
 				E2E8DBFD2859F479002C84FD /* Transmitter.swift in Sources */,
 				E2591C5528740E370009F27C /* DirectReducer.swift in Sources */,
 				E2E8DBE72859F46D002C84FD /* View.swift in Sources */,
+				10D0FA53297873490097330E /* GlucoseUpdateProvider.swift in Sources */,
 				E2E8DBE92859F46D002C84FD /* State.swift in Sources */,
 				E2591C5628740E3A0009F27C /* DirectAction.swift in Sources */,
 				E25FE9E028984F8E00B3276F /* SensorGlucoseActivityAttributes.swift in Sources */,
+				10D0FA472978718E0097330E /* Float.swift in Sources */,
 				E2E8DBEA2859F46D002C84FD /* Double.swift in Sources */,
 				E2E8DBFE2859F479002C84FD /* SensorTrend.swift in Sources */,
 				E2E8DBF22859F479002C84FD /* SensorRegion.swift in Sources */,
@@ -1212,8 +1241,10 @@
 				E2E8DBF32859F479002C84FD /* SensorType.swift in Sources */,
 				E2591C5728740E3E0009F27C /* DirectState.swift in Sources */,
 				10B3B0CF2972D65F00B70CE4 /* Alarm.swift in Sources */,
+				10D0FA55297873490097330E /* SensorUpdateProvider.swift in Sources */,
 				E2E8DBEC2859F46D002C84FD /* Int.swift in Sources */,
 				E257B0652892C8C90081B2BD /* GlucoseActivityWidget.swift in Sources */,
+				10D0FA54297873490097330E /* TransmitterUpdateProvider.swift in Sources */,
 				E2016FDC285BA82600079195 /* TransmitterWidget.swift in Sources */,
 				E2E8DBFA2859F479002C84FD /* SensorReading.swift in Sources */,
 				E2E8DBFB2859F479002C84FD /* Sensor.swift in Sources */,
@@ -1253,6 +1284,7 @@
 				E2E4797C28BD6A0F006665EA /* uk */,
 				105EC00A294E6E7B008EE77B /* pl */,
 				1074ABA929510094008A375D /* ar */,
+				10D0FA4B297871F10097330E /* bg */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1276,6 +1308,7 @@
 				E2E4797D28BD6A0F006665EA /* uk */,
 				105EC00B294E6E7B008EE77B /* pl */,
 				1074ABAA29510094008A375D /* ar */,
+				10D0FA4A297871ED0097330E /* bg */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1299,6 +1332,7 @@
 				E2E4797E28BD6A0F006665EA /* uk */,
 				105EC00C294E6E7B008EE77B /* pl */,
 				1074ABAB29510094008A375D /* ar */,
+				10D0FA49297871E90097330E /* bg */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
