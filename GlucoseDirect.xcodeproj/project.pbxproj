@@ -18,6 +18,10 @@
 		10D0FA53297873490097330E /* GlucoseUpdateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D0FA4F297873280097330E /* GlucoseUpdateProvider.swift */; };
 		10D0FA54297873490097330E /* TransmitterUpdateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D0FA4D297873140097330E /* TransmitterUpdateProvider.swift */; };
 		10D0FA55297873490097330E /* SensorUpdateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D0FA512978733A0097330E /* SensorUpdateProvider.swift */; };
+		10D0FA5D297875A50097330E /* WatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D0FA5C297875A50097330E /* WatchApp.swift */; };
+		10D0FA5F297875A50097330E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D0FA5E297875A50097330E /* ContentView.swift */; };
+		10D0FA61297875A60097330E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10D0FA60297875A60097330E /* Assets.xcassets */; };
+		10D0FA64297875A60097330E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10D0FA63297875A60097330E /* Preview Assets.xcassets */; };
 		10DD12FE296A146800C900EA /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DD12FD296A146800C900EA /* StatisticsView.swift */; };
 		10DD1301296A15B900C900EA /* AddCalibrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DD1300296A15B900C900EA /* AddCalibrationView.swift */; };
 		10DD1303296A15CA00C900EA /* AddBloodGlucoseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DD1302296A15CA00C900EA /* AddBloodGlucoseView.swift */; };
@@ -254,6 +258,12 @@
 		10D0FA4D297873140097330E /* TransmitterUpdateProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransmitterUpdateProvider.swift; sourceTree = "<group>"; };
 		10D0FA4F297873280097330E /* GlucoseUpdateProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseUpdateProvider.swift; sourceTree = "<group>"; };
 		10D0FA512978733A0097330E /* SensorUpdateProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorUpdateProvider.swift; sourceTree = "<group>"; };
+		10D0FA5A297875A40097330E /* GlucoseDirectWatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlucoseDirectWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		10D0FA5C297875A50097330E /* WatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchApp.swift; sourceTree = "<group>"; };
+		10D0FA5E297875A50097330E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		10D0FA60297875A60097330E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		10D0FA63297875A60097330E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		10D0FA68297876760097330E /* GlucoseDirectWatchApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GlucoseDirectWatchApp.entitlements; sourceTree = "<group>"; };
 		10DD12FD296A146800C900EA /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		10DD1300296A15B900C900EA /* AddCalibrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCalibrationView.swift; sourceTree = "<group>"; };
 		10DD1302296A15CA00C900EA /* AddBloodGlucoseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBloodGlucoseView.swift; sourceTree = "<group>"; };
@@ -450,6 +460,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		10D0FA57297875A40097330E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E20B8537266F4A9800AA4224 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -483,6 +500,25 @@
 			path = Widgets;
 			sourceTree = "<group>";
 		};
+		10D0FA5B297875A50097330E /* WatchApp */ = {
+			isa = PBXGroup;
+			children = (
+				10D0FA5C297875A50097330E /* WatchApp.swift */,
+				10D0FA5E297875A50097330E /* ContentView.swift */,
+				10D0FA60297875A60097330E /* Assets.xcassets */,
+				10D0FA62297875A60097330E /* Preview Content */,
+			);
+			path = WatchApp;
+			sourceTree = "<group>";
+		};
+		10D0FA62297875A60097330E /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				10D0FA63297875A60097330E /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 		10DD12FF296A158600C900EA /* AddViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -496,11 +532,13 @@
 		E20B8531266F4A9800AA4224 = {
 			isa = PBXGroup;
 			children = (
+				10D0FA68297876760097330E /* GlucoseDirectWatchApp.entitlements */,
 				6587CE4429620FB0008518F4 /* GlucoseDirectOverride.xcconfig */,
 				E247D8E426B7D70A00BDAF89 /* GlucoseDirect.xcconfig */,
 				E20B853C266F4A9800AA4224 /* App */,
 				E24474432859CA9600F8891C /* Widgets */,
 				E2218B87284F9E7300DB5A55 /* Shared */,
+				10D0FA5B297875A50097330E /* WatchApp */,
 				E27BFC0126B1407E00F8FBEF /* Frameworks */,
 				E20B853B266F4A9800AA4224 /* Products */,
 			);
@@ -511,6 +549,7 @@
 			children = (
 				E20B853A266F4A9800AA4224 /* GlucoseDirectApp.app */,
 				E24474402859CA9600F8891C /* GlucoseDirectWidget.appex */,
+				10D0FA5A297875A40097330E /* GlucoseDirectWatchApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -930,6 +969,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		10D0FA59297875A40097330E /* GlucoseDirectWatchApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 10D0FA67297875A60097330E /* Build configuration list for PBXNativeTarget "GlucoseDirectWatchApp" */;
+			buildPhases = (
+				10D0FA56297875A40097330E /* Sources */,
+				10D0FA57297875A40097330E /* Frameworks */,
+				10D0FA58297875A40097330E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GlucoseDirectWatchApp;
+			productName = "Watch Watch App";
+			productReference = 10D0FA5A297875A40097330E /* GlucoseDirectWatchApp.app */;
+			productType = "com.apple.product-type.application";
+		};
 		E20B8539266F4A9800AA4224 /* GlucoseDirectApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E20B8549266F4A9900AA4224 /* Build configuration list for PBXNativeTarget "GlucoseDirectApp" */;
@@ -975,9 +1031,12 @@
 		E20B8532266F4A9800AA4224 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1400;
+				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
+					10D0FA59297875A40097330E = {
+						CreatedOnToolsVersion = 14.2;
+					};
 					E20B8539266F4A9800AA4224 = {
 						CreatedOnToolsVersion = 12.5;
 					};
@@ -1020,11 +1079,21 @@
 			targets = (
 				E20B8539266F4A9800AA4224 /* GlucoseDirectApp */,
 				E244743F2859CA9600F8891C /* GlucoseDirectWidget */,
+				10D0FA59297875A40097330E /* GlucoseDirectWatchApp */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		10D0FA58297875A40097330E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10D0FA64297875A60097330E /* Preview Assets.xcassets in Resources */,
+				10D0FA61297875A60097330E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E20B8538266F4A9800AA4224 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1072,6 +1141,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		10D0FA56297875A40097330E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10D0FA5F297875A50097330E /* ContentView.swift in Sources */,
+				10D0FA5D297875A50097330E /* WatchApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E20B8536266F4A9800AA4224 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1340,6 +1418,72 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		10D0FA65297875A60097330E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E247D8E426B7D70A00BDAF89 /* GlucoseDirect.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = GlucoseDirectWatchApp.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"WatchApp/Preview Content\"";
+				DEVELOPMENT_TEAM = 9JNYW2DG9D;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Watch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = .watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 9.1;
+			};
+			name = Debug;
+		};
+		10D0FA66297875A60097330E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E247D8E426B7D70A00BDAF89 /* GlucoseDirect.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = GlucoseDirectWatchApp.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"WatchApp/Preview Content\"";
+				DEVELOPMENT_TEAM = 9JNYW2DG9D;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Watch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = .watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 9.1;
+			};
+			name = Release;
+		};
 		E20B8547266F4A9900AA4224 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1587,6 +1731,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		10D0FA67297875A60097330E /* Build configuration list for PBXNativeTarget "GlucoseDirectWatchApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				10D0FA65297875A60097330E /* Debug */,
+				10D0FA66297875A60097330E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		E20B8535266F4A9800AA4224 /* Build configuration list for PBXProject "GlucoseDirect" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
