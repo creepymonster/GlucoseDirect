@@ -144,5 +144,3 @@ struct AppState: DirectState {
     var showSmoothedGlucose: Bool { didSet { UserDefaults.standard.showSmoothedGlucose = showSmoothedGlucose } }
     var showInsulinInput: Bool { didSet { UserDefaults.standard.showInsulinInput = showInsulinInput } }
 }
-
-// TODO:

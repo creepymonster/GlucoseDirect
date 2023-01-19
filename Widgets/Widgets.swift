@@ -25,5 +25,3 @@ struct GlucoseDirectWidgets: WidgetBundle {
         }
     }
 }
-
-// TODO:

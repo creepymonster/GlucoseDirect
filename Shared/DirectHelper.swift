@@ -41,5 +41,3 @@ class DirectHelper {
         return Color.primary
     }
 }
-
-// TODO:
