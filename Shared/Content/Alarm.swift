@@ -2,8 +2,6 @@
 //  Alarm.swift
 //  GlucoseDirect
 //
-//  Created by Reimar Metzen on 14.01.23.
-//
 
 import Foundation
 

@@ -30,10 +30,6 @@ struct AppState: DirectState {
             #endif
         #endif
 
-        if UserDefaults.shared.glucoseUnit == nil {
-            UserDefaults.shared.glucoseUnit = UserDefaults.standard.glucoseUnit ?? .mgdL
-        }
-
         if let sensor = UserDefaults.standard.sensor, UserDefaults.shared.sensor == nil {
             UserDefaults.shared.sensor = sensor
         }
@@ -58,7 +54,7 @@ struct AppState: DirectState {
         self.alarmGlucoseNotification = UserDefaults.standard.alarmGlucoseNotification
         self.glucoseLiveActivity = UserDefaults.standard.glucoseLiveActivity
         self.ignoreMute = UserDefaults.standard.ignoreMute
-        self.glucoseUnit = UserDefaults.shared.glucoseUnit ?? .mgdL
+        self.glucoseUnit = UserDefaults.shared.glucoseUnit
         self.highGlucoseAlarmSound = UserDefaults.standard.highGlucoseAlarmSound
         self.isConnectionPaired = UserDefaults.standard.isConnectionPaired
         self.latestBloodGlucose = UserDefaults.shared.latestBloodGlucose
@@ -84,7 +80,7 @@ struct AppState: DirectState {
 
     var appIsBusy = false
     var appState: ScenePhase = .inactive
-    var alarmSnoozeUntil: Date? = nil
+    var alarmSnoozeUntil: Date?
     var alarmSnoozeKind: Alarm?
     var bellmanConnectionState: BellmanConnectionState = .disconnected
     var bloodGlucoseHistory: [BloodGlucose] = []
@@ -106,7 +102,7 @@ struct AppState: DirectState {
     var targetValue = 100
     var selectedView = DirectConfig.overviewViewTag
     var statisticsDays = 3
-   
+
     var appSerial: String {
         UserDefaults.shared.appSerial
     }
@@ -148,3 +144,5 @@ struct AppState: DirectState {
     var showSmoothedGlucose: Bool { didSet { UserDefaults.standard.showSmoothedGlucose = showSmoothedGlucose } }
     var showInsulinInput: Bool { didSet { UserDefaults.standard.showInsulinInput = showInsulinInput } }
 }
+
+// TODO:

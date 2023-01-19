@@ -16,12 +16,12 @@
 	<string>$(APP_BUNDLE_IDENTIFIER).Widgets</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
-	<key>NSSupportsLiveActivities</key>
-	<true/>
-	<key>NSExtension</key>
-	<dict>
-		<key>NSExtensionPointIdentifier</key>
-		<string>com.apple.widgetkit-extension</string>
-	</dict>
+	<key>UISupportedInterfaceOrientations</key>
+ 	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+	</array>
+	<key>WKCompanionAppBundleIdentifier</key>
+	<string>$(APP_BUNDLE_IDENTIFIER)</string>
 </dict>
 </plist>

@@ -8,6 +8,7 @@ import Foundation
 // MARK: - AppConfig
 
 enum DirectConfig {
+    static var appName: String = "Glucose Direct"
     static let appSchemaURL = URL(string: "glucosedirect://")
     static let bubbleID = "bubble"
     static let calibrationsViewTag = 3
@@ -37,11 +38,7 @@ enum DirectConfig {
     static var glucoseStatistics = true
     static let showSmoothedGlucose = true
     static var showInsulinInput = true
-
-    static var appName: String = {
-        Bundle.main.localizedInfoDictionary?["CFBundleDisplayName"] as! String
-    }()
-
+   
     static var appVersion: String = {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
     }()
@@ -51,11 +48,11 @@ enum DirectConfig {
     }()
 
     static var appAuthor: String? = {
-        Bundle.main.infoDictionary?["AppAuthor"] as? String
+        Bundle.main.infoDictionary?["APP_AUTHOR"] as? String
     }()
 
     static var appSupportMail: String? = {
-        Bundle.main.infoDictionary?["AppSupportMail"] as? String
+        Bundle.main.infoDictionary?["APP_SUPPORT_MAIL"] as? String
     }()
 
     static var isDebug: Bool {
@@ -66,3 +63,5 @@ enum DirectConfig {
         #endif
     }
 }
+
+// TODO:

@@ -14,9 +14,23 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "10D0FA59297875A40097330E"
+               BlueprintIdentifier = "10C0D0B129793CC200A42205"
                BuildableName = "GlucoseDirectWatchApp.app"
                BlueprintName = "GlucoseDirectWatchApp"
+               ReferencedContainer = "container:GlucoseDirect.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "E20B8539266F4A9800AA4224"
+               BuildableName = "GlucoseDirectApp.app"
+               BlueprintName = "GlucoseDirectApp"
                ReferencedContainer = "container:GlucoseDirect.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -44,7 +58,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "10D0FA59297875A40097330E"
+            BlueprintIdentifier = "10C0D0B129793CC200A42205"
             BuildableName = "GlucoseDirectWatchApp.app"
             BlueprintName = "GlucoseDirectWatchApp"
             ReferencedContainer = "container:GlucoseDirect.xcodeproj">
@@ -61,7 +75,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "10D0FA59297875A40097330E"
+            BlueprintIdentifier = "10C0D0B129793CC200A42205"
             BuildableName = "GlucoseDirectWatchApp.app"
             BlueprintName = "GlucoseDirectWatchApp"
             ReferencedContainer = "container:GlucoseDirect.xcodeproj">

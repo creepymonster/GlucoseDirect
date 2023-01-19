@@ -300,20 +300,16 @@ extension UserDefaults {
         }
     }
 
-    var glucoseUnit: GlucoseUnit? {
+    var glucoseUnit: GlucoseUnit {
         get {
             if let glucoseUnitValue = object(forKey: Keys.glucoseUnit.rawValue) as? String {
                 return GlucoseUnit(rawValue: glucoseUnitValue)!
             }
 
-            return nil
+            return .mgdL
         }
         set {
-            if let newValue = newValue {
-                set(newValue.rawValue, forKey: Keys.glucoseUnit.rawValue)
-            } else {
-                removeObject(forKey: Keys.glucoseUnit.rawValue)
-            }
+            set(newValue.rawValue, forKey: Keys.glucoseUnit.rawValue)
         }
     }
 
@@ -697,7 +693,7 @@ extension UserDefaults {
 
         return try? JSONDecoder().decode(Element.self, from: data)
     }
-
+    
     static func stringValue(forKey key: String) -> String {
         guard let value = Bundle.main.object(forInfoDictionaryKey: key) as? String else {
             fatalError("Invalid value or undefined key")
@@ -706,3 +702,5 @@ extension UserDefaults {
         return value
     }
 }
+
+// TODO:

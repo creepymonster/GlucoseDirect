@@ -1,6 +1,6 @@
 //
 //  Insulin.swift
-//  GlucoseDirectApp
+//  GlucoseDirect
 //
 
 import Foundation

@@ -1,8 +1,6 @@
 //
 //  SensorUpdateProvider.swift
-//  GlucoseDirectApp
-//
-//  Created by Reimar Metzen on 18.01.23.
+//  GlucoseDirect
 //
 
 import Foundation
