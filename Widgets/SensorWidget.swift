@@ -6,6 +6,8 @@
 import SwiftUI
 import WidgetKit
 
+private let families: [WidgetFamily] = [.accessoryCircular]
+
 // MARK: - SensorWidget
 
 struct SensorWidget: Widget {
@@ -13,17 +15,17 @@ struct SensorWidget: Widget {
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: SensorUpdateProvider()) { entry in
-            SensorView(entry: entry)
+            SensorWidgetView(entry: entry)
         }
-        .supportedFamilies([.accessoryCircular])
+        .supportedFamilies(families)
         .configurationDisplayName("Sensor lifetime widget")
         .description("Sensor lifetime widget description")
     }
 }
 
-// MARK: - SensorView
+// MARK: - SensorWidgetView
 
-struct SensorView: View {
+struct SensorWidgetView: View {
     @Environment(\.widgetFamily) var size
 
     var entry: SensorEntry
@@ -33,23 +35,29 @@ struct SensorView: View {
     }
 
     var body: some View {
-        if let sensor {
-            Gauge(
-                value: Double(sensor.remainingWarmupTime == nil ? sensor.remainingLifetime : sensor.remainingWarmupTime!),
-                in: 0 ... Double(sensor.remainingWarmupTime == nil ? sensor.lifetime : sensor.warmupTime),
-                label: {
-                    Text(sensor.remainingWarmupTime == nil ? sensor.family.localizedDescription : "Warmup")
-                        .font(.system(size: 10))
-                }
-            ).gaugeStyle(.accessoryCircularCapacity)
-        } else {
-            ZStack(alignment: .center) {
-                Circle()
-                    .stroke(style: StrokeStyle(lineWidth: 12, dash: [6, 3]))
-                    .opacity(0.3)
+        switch size {
+        case .accessoryCircular:
+            if let sensor {
+                Gauge(
+                    value: Double(sensor.remainingWarmupTime == nil ? sensor.remainingLifetime : sensor.remainingWarmupTime!),
+                    in: 0 ... Double(sensor.remainingWarmupTime == nil ? sensor.lifetime : sensor.warmupTime),
+                    label: {
+                        Text(sensor.remainingWarmupTime == nil ? sensor.family.localizedDescription : "Warmup")
+                            .font(.system(size: 10))
+                    }
+                ).gaugeStyle(.accessoryCircularCapacity)
+            } else {
+                ZStack(alignment: .center) {
+                    Circle()
+                        .stroke(style: StrokeStyle(lineWidth: 12, dash: [6, 3]))
+                        .opacity(0.3)
 
-                Image(systemName: "questionmark")
+                    Image(systemName: "questionmark")
+                }
             }
+
+        default:
+            Text("")
         }
     }
 }
@@ -58,10 +66,13 @@ struct SensorView: View {
 
 struct SensorWidget_Previews: PreviewProvider {
     static var previews: some View {
-        SensorView(entry: SensorEntry(date: Date(), sensor: placeholderSensor))
+        SensorWidgetView(entry: SensorEntry(date: Date(), sensor: placeholderSensor))
             .previewContext(WidgetPreviewContext(family: .accessoryCircular))
 
-        SensorView(entry: SensorEntry(date: Date(), sensor: placeholderStartingSensor))
+        SensorWidgetView(entry: SensorEntry(date: Date(), sensor: placeholderStartingSensor))
+            .previewContext(WidgetPreviewContext(family: .accessoryCircular))
+        
+        SensorWidgetView(entry: SensorEntry(date: Date()))
             .previewContext(WidgetPreviewContext(family: .accessoryCircular))
     }
 }

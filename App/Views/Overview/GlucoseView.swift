@@ -8,44 +8,35 @@ import SwiftUI
 // MARK: - GlucoseView
 
 struct GlucoseView: View {
-    // MARK: Internal
-
     @EnvironmentObject var store: DirectStore
 
     var body: some View {
         VStack(spacing: 0) {
             if let latestGlucose = store.state.latestSensorGlucose {
                 HStack(alignment: .lastTextBaseline, spacing: 20) {
-                    if latestGlucose.type != .high {
-                        Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit))
-                            .font(.system(size: 96))
-                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
-                        
-                        VStack(alignment: .leading) {
-                            Text(verbatim: latestGlucose.trend.description)
-                                .foregroundColor(getGlucoseColor(glucose: latestGlucose))
-                                .font(.system(size: 52))
+                    Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: store.state.glucoseUnit))
+                        .bold()
+                        .font(.system(size: 80))
+                        .foregroundColor(DirectHelper.getGlucoseColor(glucose: latestGlucose))
 
-                            if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: store.state.glucoseUnit) {
-                                Text(verbatim: minuteChange)
-                            } else {
-                                Text(verbatim: "?")
-                            }
+                    VStack(alignment: .leading) {
+                        Text(verbatim: latestGlucose.trend.description)
+                            .font(.system(size: 40))
+
+                        if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: store.state.glucoseUnit) {
+                            Text(verbatim: minuteChange)
+                        } else {
+                            Text(verbatim: "?")
                         }
-                    } else {
-                        Text("HIGH")
-                            .font(.system(size: 96))
-                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
                     }
                 }
 
-                if let warning = warning {
+                if let warning = DirectHelper.getWarning(sensorState: store.state.sensor?.state, connectionState: store.state.connectionState) {
                     Text(verbatim: warning)
                         .padding(.horizontal, 10)
                         .padding(.vertical, 5)
                         .background(Color.ui.red)
                         .foregroundColor(.white)
-                        .cornerRadius(5)
                 } else {
                     HStack(spacing: 40) {
                         Text(latestGlucose.timestamp, style: .time)
@@ -55,7 +46,7 @@ struct GlucoseView: View {
 
             } else {
                 Text("No Data")
-                    .font(.system(size: 52))
+                    .font(.system(size: 40))
                     .foregroundColor(Color.ui.red)
 
                 Text(Date(), style: .time)
@@ -107,31 +98,5 @@ struct GlucoseView: View {
             .disabled(store.state.latestSensorGlucose == nil)
             .buttonStyle(.plain)
         }
-    }
-
-    // MARK: Private
-
-    private var warning: String? {
-        if let sensor = store.state.sensor, sensor.state != .ready {
-            return sensor.state.localizedDescription
-        }
-
-        if store.state.connectionState != .connected {
-            return store.state.connectionState.localizedDescription
-        }
-
-        return nil
-    }
-
-    private func isAlarm(glucose: any Glucose) -> Bool {
-        return store.state.isAlarm(glucoseValue: glucose.glucoseValue) != .none
-    }
-
-    private func getGlucoseColor(glucose: any Glucose) -> Color {
-        if isAlarm(glucose: glucose) {
-            return Color.ui.red
-        }
-
-        return Color.primary
     }
 }

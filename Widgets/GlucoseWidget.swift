@@ -6,6 +6,8 @@
 import SwiftUI
 import WidgetKit
 
+private let families: [WidgetFamily] = [.accessoryRectangular, .accessoryCircular, .systemSmall]
+
 // MARK: - GlucoseWidget
 
 struct GlucoseWidget: Widget {
@@ -13,22 +15,22 @@ struct GlucoseWidget: Widget {
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: GlucoseUpdateProvider()) { entry in
-            GlucoseView(entry: entry)
+            GlucoseWidgetView(entry: entry)
         }
-        .supportedFamilies([.accessoryRectangular, .accessoryCircular, .systemSmall])
+        .supportedFamilies(families)
         .configurationDisplayName("Glucose widget")
         .description("Glucose widget description")
     }
 }
 
-// MARK: - GlucoseView
+// MARK: - GlucoseWidgetView
 
-struct GlucoseView: View {
+struct GlucoseWidgetView: View {
     @Environment(\.widgetFamily) var size
 
     var entry: GlucoseEntry
 
-    var glucoseUnit: GlucoseUnit? {
+    var glucoseUnit: GlucoseUnit {
         entry.glucoseUnit ?? UserDefaults.shared.glucoseUnit
     }
 
@@ -37,36 +39,41 @@ struct GlucoseView: View {
     }
 
     var body: some View {
-        if let glucose,
-           let glucoseUnit
-        {
+        if let glucose {
             switch size {
             case .accessoryRectangular:
-                HStack(alignment: .lastTextBaseline, spacing: 10) {
-                    Text(glucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
-                        .widgetAccentable()
-                        .bold()
-                        .font(.system(size: 35))
-
-                    VStack(alignment: .leading) {
-                        Text(glucose.trend.description)
-                            .font(.system(size: 15))
+                VStack {
+                    HStack(alignment: .top) {
+                        Text(verbatim: glucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
                             .bold()
+                            .font(.system(size: 32))
+                            .foregroundColor(DirectHelper.getGlucoseColor(glucose: glucose))
 
-                        Text(glucose.timestamp.toLocalTime())
-                            .font(.system(size: 10))
+                        Text(verbatim: glucose.trend.description)
+                            .font(.system(size: 20))
                     }
+                    
+                    HStack {
+                        Text(glucose.timestamp, style: .time)
+                            .bold()
+                            .monospacedDigit()
+
+                        if let minuteChange = glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
+                            Text(verbatim: minuteChange)
+                        } else {
+                            Text(verbatim: "?")
+                        }
+                    }.font(.system(size: 12))
                 }
 
             case .accessoryCircular:
                 VStack(alignment: .center) {
                     Text(glucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
-                        .widgetAccentable()
-                        .font(.system(size: 25))
                         .bold()
+                        .font(.system(size: 16))
 
                     Text(glucose.timestamp.toLocalTime())
-                        .font(.system(size: 10))
+                        .font(.system(size: 12))
                 }
 
             case .systemSmall:
@@ -74,44 +81,34 @@ struct GlucoseView: View {
                     LinearGradient(gradient: Gradient(colors: [.white, .ui.gray]), startPoint: .top, endPoint: .bottom)
 
                     VStack(spacing: 10) {
-                        if let appIcon = UIImage(named: "AppIcon") {
-                            Image(uiImage: appIcon)
-                                .cornerRadius(4)
-                        }
-
                         HStack(alignment: .lastTextBaseline, spacing: 10) {
-                            if glucose.type != .high {
-                                Text(verbatim: glucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
-                                    .font(.system(size: 42))
+                            Text(verbatim: glucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
+                                .bold()
+                                .font(.system(size: 40))
+                                .foregroundColor(DirectHelper.getGlucoseColor(glucose: glucose))
 
-                                VStack(alignment: .leading) {
-                                    Text(verbatim: glucose.trend.description)
-                                        .font(.system(size: 18))
+                            VStack(alignment: .leading) {
+                                Text(verbatim: glucose.trend.description)
+                                    .font(.system(size: 16))
 
+                                Group {
                                     if let minuteChange = glucose.minuteChange?.asShortMinuteChange(glucoseUnit: glucoseUnit) {
                                         Text(verbatim: minuteChange)
-                                            .font(.footnote)
                                     } else {
                                         Text(verbatim: "?")
-                                            .font(.footnote)
                                     }
-                                }
-                            } else {
-                                Text("HIGH")
-                                    .font(.system(size: 64))
-                                    .foregroundColor(Color.ui.red)
+                                }.font(.system(size: 12))
                             }
                         }
 
                         VStack {
                             Text("Updated")
                                 .textCase(.uppercase)
-                                .font(.footnote)
                             Text(glucose.timestamp, style: .time)
                                 .monospacedDigit()
                         }
+                        .font(.system(size: 12))
                         .opacity(0.5)
-                        .font(.footnote)
                     }
                 }
 
@@ -126,31 +123,13 @@ struct GlucoseView: View {
 
 struct GlucoseWidget_Previews: PreviewProvider {
     static var previews: some View {
-        GlucoseView(entry: GlucoseEntry(date: Date(), glucose: placeholderLowGlucose, glucoseUnit: .mgdL))
-            .previewContext(WidgetPreviewContext(family: .systemSmall))
-
-        GlucoseView(entry: GlucoseEntry(date: Date(), glucose: placeholderLowGlucose, glucoseUnit: .mgdL))
+        GlucoseWidgetView(entry: GlucoseEntry(date: Date(), glucose: placeholderLowGlucose, glucoseUnit: .mmolL))
             .previewContext(WidgetPreviewContext(family: .accessoryRectangular))
 
-        GlucoseView(entry: GlucoseEntry(date: Date(), glucose: placeholderLowGlucose, glucoseUnit: .mmolL))
+        GlucoseWidgetView(entry: GlucoseEntry(date: Date(), glucose: placeholderGlucose, glucoseUnit: .mmolL))
             .previewContext(WidgetPreviewContext(family: .accessoryRectangular))
 
-        GlucoseView(entry: GlucoseEntry(date: Date(), glucose: placeholderGlucose, glucoseUnit: .mgdL))
+        GlucoseWidgetView(entry: GlucoseEntry(date: Date(), glucose: placeholderHighGlucose, glucoseUnit: .mmolL))
             .previewContext(WidgetPreviewContext(family: .accessoryRectangular))
-
-        GlucoseView(entry: GlucoseEntry(date: Date(), glucose: placeholderGlucose, glucoseUnit: .mmolL))
-            .previewContext(WidgetPreviewContext(family: .accessoryRectangular))
-
-        GlucoseView(entry: GlucoseEntry(date: Date(), glucose: placeholderHighGlucose, glucoseUnit: .mgdL))
-            .previewContext(WidgetPreviewContext(family: .accessoryRectangular))
-
-        GlucoseView(entry: GlucoseEntry(date: Date(), glucose: placeholderHighGlucose, glucoseUnit: .mmolL))
-            .previewContext(WidgetPreviewContext(family: .accessoryRectangular))
-
-        GlucoseView(entry: GlucoseEntry(date: Date(), glucose: placeholderHighGlucose, glucoseUnit: .mgdL))
-            .previewContext(WidgetPreviewContext(family: .accessoryCircular))
-
-        GlucoseView(entry: GlucoseEntry(date: Date(), glucose: placeholderHighGlucose, glucoseUnit: .mmolL))
-            .previewContext(WidgetPreviewContext(family: .accessoryCircular))
     }
 }

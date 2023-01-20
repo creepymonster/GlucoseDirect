@@ -30,14 +30,6 @@ struct AppState: DirectState {
             #endif
         #endif
 
-        if let sensor = UserDefaults.standard.sensor, UserDefaults.shared.sensor == nil {
-            UserDefaults.shared.sensor = sensor
-        }
-
-        if let transmitter = UserDefaults.standard.transmitter, UserDefaults.shared.transmitter == nil {
-            UserDefaults.shared.transmitter = transmitter
-        }
-
         self.alarmHigh = UserDefaults.standard.alarmHigh
         self.alarmLow = UserDefaults.standard.alarmLow
         self.alarmVolume = UserDefaults.standard.alarmVolume
@@ -54,13 +46,8 @@ struct AppState: DirectState {
         self.alarmGlucoseNotification = UserDefaults.standard.alarmGlucoseNotification
         self.glucoseLiveActivity = UserDefaults.standard.glucoseLiveActivity
         self.ignoreMute = UserDefaults.standard.ignoreMute
-        self.glucoseUnit = UserDefaults.shared.glucoseUnit
         self.highGlucoseAlarmSound = UserDefaults.standard.highGlucoseAlarmSound
         self.isConnectionPaired = UserDefaults.standard.isConnectionPaired
-        self.latestBloodGlucose = UserDefaults.shared.latestBloodGlucose
-        self.latestSensorGlucose = UserDefaults.shared.latestSensorGlucose
-        self.latestSensorError = UserDefaults.shared.latestSensorError
-        self.latestInsulinDelivery = UserDefaults.shared.latestInsulinDelivery
         self.lowGlucoseAlarmSound = UserDefaults.standard.lowGlucoseAlarmSound
         self.nightscoutApiSecret = UserDefaults.standard.nightscoutApiSecret
         self.nightscoutUpload = UserDefaults.standard.nightscoutUpload
@@ -68,12 +55,18 @@ struct AppState: DirectState {
         self.readGlucose = UserDefaults.standard.readGlucose
         self.selectedCalendarTarget = UserDefaults.standard.selectedCalendarTarget
         self.selectedConnectionID = UserDefaults.standard.selectedConnectionID ?? defaultConnectionID
-        self.sensor = UserDefaults.shared.sensor
         self.sensorInterval = UserDefaults.standard.sensorInterval
         self.showAnnotations = UserDefaults.standard.showAnnotations
-        self.transmitter = UserDefaults.shared.transmitter
         self.showSmoothedGlucose = UserDefaults.standard.showSmoothedGlucose
         self.showInsulinInput = UserDefaults.standard.showInsulinInput
+        
+        self.glucoseUnit = UserDefaults.shared.glucoseUnit
+        self.latestBloodGlucose = UserDefaults.shared.latestBloodGlucose
+        self.latestSensorGlucose = UserDefaults.shared.latestSensorGlucose
+        self.latestSensorError = UserDefaults.shared.latestSensorError
+        self.latestInsulinDelivery = UserDefaults.shared.latestInsulinDelivery
+        self.sensor = UserDefaults.shared.sensor
+        self.transmitter = UserDefaults.shared.transmitter
     }
 
     // MARK: Internal
@@ -107,8 +100,6 @@ struct AppState: DirectState {
         UserDefaults.shared.appSerial
     }
 
-    var alarmHigh: Int { didSet { UserDefaults.standard.alarmHigh = alarmHigh } }
-    var alarmLow: Int { didSet { UserDefaults.standard.alarmLow = alarmLow } }
     var alarmVolume: Float { didSet { UserDefaults.standard.alarmVolume = alarmVolume } }
     var appleCalendarExport: Bool { didSet { UserDefaults.standard.appleCalendarExport = appleCalendarExport } }
     var appleHealthExport: Bool { didSet { UserDefaults.standard.appleHealthExport = appleHealthExport } }
@@ -122,14 +113,9 @@ struct AppState: DirectState {
     var normalGlucoseNotification: Bool { didSet { UserDefaults.standard.normalGlucoseNotification = normalGlucoseNotification } }
     var alarmGlucoseNotification: Bool { didSet { UserDefaults.standard.alarmGlucoseNotification = alarmGlucoseNotification } }
     var glucoseLiveActivity: Bool { didSet { UserDefaults.standard.glucoseLiveActivity = glucoseLiveActivity } }
-    var glucoseUnit: GlucoseUnit { didSet { UserDefaults.shared.glucoseUnit = glucoseUnit } }
     var highGlucoseAlarmSound: NotificationSound { didSet { UserDefaults.standard.highGlucoseAlarmSound = highGlucoseAlarmSound } }
     var ignoreMute: Bool { didSet { UserDefaults.standard.ignoreMute = ignoreMute } }
     var isConnectionPaired: Bool { didSet { UserDefaults.standard.isConnectionPaired = isConnectionPaired } }
-    var latestBloodGlucose: BloodGlucose? { didSet { UserDefaults.shared.latestBloodGlucose = latestBloodGlucose } }
-    var latestSensorError: SensorError? { didSet { UserDefaults.shared.latestSensorError = latestSensorError } }
-    var latestSensorGlucose: SensorGlucose? { didSet { UserDefaults.shared.latestSensorGlucose = latestSensorGlucose } }
-    var latestInsulinDelivery: InsulinDelivery? { didSet { UserDefaults.shared.latestInsulinDelivery = latestInsulinDelivery } }
     var lowGlucoseAlarmSound: NotificationSound { didSet { UserDefaults.standard.lowGlucoseAlarmSound = lowGlucoseAlarmSound } }
     var nightscoutApiSecret: String { didSet { UserDefaults.standard.nightscoutApiSecret = nightscoutApiSecret } }
     var nightscoutUpload: Bool { didSet { UserDefaults.standard.nightscoutUpload = nightscoutUpload } }
@@ -137,10 +123,30 @@ struct AppState: DirectState {
     var readGlucose: Bool { didSet { UserDefaults.standard.readGlucose = readGlucose } }
     var selectedCalendarTarget: String? { didSet { UserDefaults.standard.selectedCalendarTarget = selectedCalendarTarget } }
     var selectedConnectionID: String? { didSet { UserDefaults.standard.selectedConnectionID = selectedConnectionID } }
-    var sensor: Sensor? { didSet { UserDefaults.shared.sensor = sensor } }
     var sensorInterval: Int { didSet { UserDefaults.standard.sensorInterval = sensorInterval } }
     var showAnnotations: Bool { didSet { UserDefaults.standard.showAnnotations = showAnnotations } }
-    var transmitter: Transmitter? { didSet { UserDefaults.shared.transmitter = transmitter } }
     var showSmoothedGlucose: Bool { didSet { UserDefaults.standard.showSmoothedGlucose = showSmoothedGlucose } }
     var showInsulinInput: Bool { didSet { UserDefaults.standard.showInsulinInput = showInsulinInput } }
+    
+    var alarmHigh: Int {
+        didSet {
+            UserDefaults.shared.alarmHigh = alarmHigh
+            UserDefaults.standard.alarmHigh = alarmHigh
+        }
+    }
+
+    var alarmLow: Int {
+        didSet {
+            UserDefaults.shared.alarmLow = alarmLow
+            UserDefaults.standard.alarmLow = alarmLow
+        }
+    }
+    
+    var glucoseUnit: GlucoseUnit { didSet { UserDefaults.shared.glucoseUnit = glucoseUnit } }
+    var latestBloodGlucose: BloodGlucose? { didSet { UserDefaults.shared.latestBloodGlucose = latestBloodGlucose } }
+    var latestSensorError: SensorError? { didSet { UserDefaults.shared.latestSensorError = latestSensorError } }
+    var latestSensorGlucose: SensorGlucose? { didSet { UserDefaults.shared.latestSensorGlucose = latestSensorGlucose } }
+    var latestInsulinDelivery: InsulinDelivery? { didSet { UserDefaults.shared.latestInsulinDelivery = latestInsulinDelivery } }
+    var sensor: Sensor? { didSet { UserDefaults.shared.sensor = sensor } }
+    var transmitter: Transmitter? { didSet { UserDefaults.shared.transmitter = transmitter } }
 }

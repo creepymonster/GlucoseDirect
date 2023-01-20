@@ -6,27 +6,13 @@
 import Foundation
 import SwiftUI
 
-class DirectHelper {
-    static var warning: String? {
-        if let sensor = UserDefaults.shared.sensor, sensor.state != .ready {
-            return sensor.state.localizedDescription
-        }
-        
-        guard let connectionStateRawValue = UserDefaults.shared.sharedSensorConnectionState else {
-            return nil
-        }
-        
-        let connectionState = SensorConnectionState(rawValue: connectionStateRawValue)!
-
-        if connectionState != .connected {
-            return connectionState.localizedDescription
-        }
-        
-        return nil
-    }
-
+enum DirectHelper {
     static func isAlarm(glucose: any Glucose) -> Bool {
-        if glucose.glucoseValue < UserDefaults.shared.alarmLow || glucose.glucoseValue > UserDefaults.shared.alarmHigh {
+        isAlarm(glucose: glucose, alarmLow: UserDefaults.standard.alarmLow, alarmHigh: UserDefaults.standard.alarmHigh)
+    }
+    
+    static func isAlarm(glucose: any Glucose, alarmLow: Int, alarmHigh: Int) -> Bool {
+        if glucose.glucoseValue < alarmLow || glucose.glucoseValue > alarmHigh {
             return true
         }
         
@@ -39,5 +25,17 @@ class DirectHelper {
         }
         
         return Color.primary
+    }
+    
+    static func getWarning(sensorState: SensorState?, connectionState: SensorConnectionState?) -> String? {
+        if let sensorState, sensorState != .ready {
+            return sensorState.localizedDescription
+        }
+        
+        if let connectionState, connectionState != .connected {
+            return connectionState.localizedDescription
+        }
+        
+        return nil
     }
 }

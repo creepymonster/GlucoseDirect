@@ -205,38 +205,18 @@ struct ChartView: View {
                         x: .value("Time", value.starts),
                         y: .value("Units", value.value.map(from: 0...20, to: convertToRequired(mgdLValue: 5)...Double(alarmLow)))
                     )
-                    .symbolSize(value.value.map(from: 0...20, to: 0...100))
+                    .symbolSize(value.value.map(from: 0...20, to: 20...100))
                     .annotation {
                         Text(value.value.asInsulin())
                             .foregroundStyle(Color.ui.orange)
                             .padding(.horizontal, 2.5)
-                            .background(.white.opacity(0.5))
+                            .background(Config.backgroundColor.opacity(0.5))
                             .cornerRadius(2)
                             .bold()
                             .font(.caption)
                     }
                     .foregroundStyle(Color.ui.orange)
                 } else {
-//                    AreaMark(
-//                        x: .value("Time", value.starts),
-//                        y: .value("Units", value.value.map(from: 0...20, to: 0...Double(alarmLow))),
-//                        series: .value("Series", value.id),
-//                        stacking: .standard
-//                    )
-//                    .opacity(0.25)
-//                    .interpolationMethod(.stepEnd)
-//                    .foregroundStyle(Color.ui.orange)
-//
-//                    AreaMark(
-//                        x: .value("Time", value.ends),
-//                        y: .value("Units", value.value.map(from: 0...20, to: 0...Double(alarmLow))),
-//                        series: .value("Series", value.id),
-//                        stacking: .standard
-//                    )
-//                    .opacity(0.25)
-//                    .interpolationMethod(.stepEnd)
-//                    .foregroundStyle(Color.ui.orange)
-                    
                     RectangleMark(
                         xStart: .value("Starts", value.starts),
                         xEnd: .value("Ends", value.ends),
@@ -248,7 +228,7 @@ struct ChartView: View {
                         Text(value.value.asInsulin())
                             .foregroundStyle(Color.ui.orange)
                             .padding(.horizontal, 2.5)
-                            .background(.white.opacity(0.5))
+                            .background(Config.backgroundColor.opacity(0.5))
                             .cornerRadius(2)
                             .bold()
                             .font(.caption)
@@ -431,6 +411,7 @@ struct ChartView: View {
     // MARK: Private
 
     private enum Config {
+        static let backgroundColor = Color(uiColor: UIColor.systemBackground)
         static let chartID = "chart"
         static let cornerRadius: CGFloat = 20
         static let rangeCornerRadius: CGFloat = 2
