@@ -593,10 +593,10 @@
 "Show insulin input" = "Pokaż wprowadzanie insuliny";
 
 /* (No Comment) */
-"Help" = "Help";
+"Help" = "Pomoc";
 
 /* (No Comment) */
-"Alarm volume" = "Alarm volume";
+"Alarm volume" = "Głośność alarmu";
 
 /* (No Comment) */
-"Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults." = "Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults.";
+"Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults." = "Współczynnik zmienności (CV) jest definiowany jako stosunek odchylenia standardowego do średniej. Ogólnie rzecz biorąc, większość ekspertów lubi widzieć CV na poziomie 33% lub niższym, co jest uważane za marker \"stabilnego\" poziomu glukozy. Ale uwaga, bardzo młodzi pacjenci z cukrzycą mają tendencję do większej zmienności niż dorośli.";
