@@ -7,7 +7,7 @@ import SwiftUI
 import WidgetKit
 
 @main
-struct Widgets: WidgetBundle {
+struct GlucoseDirectWidgets: WidgetBundle {
     var body: some Widget {
         if #available(iOS 16.1, *) {
             return WidgetBundleBuilder.buildBlock(

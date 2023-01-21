@@ -183,7 +183,7 @@ struct ChartViewCompatibility: View {
         enum target {
             static let strokeStyle = StrokeStyle(lineWidth: lineWidth)
 
-            static var color: Color { Color.ui.green.opacity(opacity) }
+            static var color: Color { Color.ui.gray.opacity(opacity) }
         }
 
         enum now {

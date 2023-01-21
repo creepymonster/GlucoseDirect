@@ -1,9 +1,3 @@
-/* Bundle display name */
-"CFBundleDisplayName" = "Glucose Direct";
-
-/* Bundle name */
-"CFBundleName" = "Glucose Direct";
-
 /* Privacy - NFC Scan Usage Description */
 "NFCReaderUsageDescription" = "The NFC function is required to read out all connection settings before a Bluetooth connection.";
 

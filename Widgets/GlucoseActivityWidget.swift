@@ -17,47 +17,14 @@ struct GlucoseActivityWidget: Widget {
         } dynamicIsland: { context in
             DynamicIsland {
                 DynamicIslandExpandedRegion(.center) {
-                    DynamicIslandCenterView(context: context.state)
+                    DynamicIslandExpandedView(context: context.state)
                 }
             } compactLeading: {
-                if let latestGlucose = context.state.glucose,
-                   let glucoseUnit = context.state.glucoseUnit,
-                   let connectionState = context.state.connectionState
-                {
-                    VStack(alignment: .trailing) {
-                        Text(latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
-                            .font(.body)
-                            .fontWeight(.bold)
-                            .strikethrough(connectionState != .connected, color: Color.ui.red)
-
-                        Text(glucoseUnit.shortLocalizedDescription)
-                            .font(.system(size: 12))
-                    }.padding(.leading, 7.5)
-                }
+                DynamicIslandCompactLeadingView(context: context.state)
             } compactTrailing: {
-                if let latestGlucose = context.state.glucose,
-                   let glucoseUnit = context.state.glucoseUnit
-                {
-                    VStack(alignment: .trailing) {
-                        Text(latestGlucose.trend.description)
-                            .font(.body)
-                            .fontWeight(.bold)
-
-                        if let minuteChange = latestGlucose.minuteChange?.asShortMinuteChange(glucoseUnit: glucoseUnit), latestGlucose.trend != .unknown {
-                            Text(minuteChange)
-                                .font(.system(size: 12))
-                        }
-                    }.padding(.trailing, 7.5)
-                }
+                DynamicIslandCompactTrailingView(context: context.state)
             } minimal: {
-                if let latestGlucose = context.state.glucose,
-                   let glucoseUnit = context.state.glucoseUnit,
-                   let connectionState = context.state.connectionState
-                {
-                    Text(latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
-                        .font(.body)
-                        .strikethrough(connectionState != .connected, color: Color.ui.red)
-                }
+                DynamicIslandMinimalView(context: context.state)
             }
         }
     }
@@ -72,68 +39,116 @@ protocol GlucoseStatusContext {
 
 @available(iOS 16.1, *)
 extension GlucoseStatusContext {
-    var warning: String? {
-        if let sensorState = context.sensorState, sensorState != .ready {
-            return sensorState.localizedDescription
-        }
-
-        if let connectionState = context.connectionState, connectionState != .connected {
-            return connectionState.localizedDescription
-        }
-
-        return nil
+    var sensorState: SensorState? {
+        context.sensorState
     }
 
-    func isAlarm(glucose: any Glucose) -> Bool {
-        if glucose.glucoseValue < context.alarmLow || glucose.glucoseValue > context.alarmHigh {
-            return true
-        }
-
-        return false
+    var connectionState: SensorConnectionState? {
+        context.connectionState
     }
 
-    func getGlucoseColor(glucose: any Glucose) -> Color {
-        if isAlarm(glucose: glucose) {
-            return Color.ui.red
-        }
+    var glucoseUnit: GlucoseUnit? {
+        context.glucoseUnit
+    }
 
-        return Color.primary
+    var glucose: SensorGlucose? {
+        context.glucose
     }
 }
 
-// MARK: - DynamicIslandCenterView
+// MARK: - DynamicIslandCompactLeadingView
 
 @available(iOS 16.1, *)
-struct DynamicIslandCenterView: View, GlucoseStatusContext {
+struct DynamicIslandCompactLeadingView: View, GlucoseStatusContext {
+    @State var context: SensorGlucoseActivityAttributes.GlucoseStatus
+
+    var body: some View {
+        if let glucose,
+           let glucoseUnit
+        {
+            VStack(alignment: .trailing) {
+                Text(glucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
+                    .font(.body)
+                    .bold()
+                    .ifLet(connectionState) { $0.strikethrough($1 != .connected, color: Color.ui.red) }
+
+                Text(glucoseUnit.shortLocalizedDescription)
+                    .font(.system(size: 12))
+            }.padding(.leading, 7.5)
+        }
+    }
+}
+
+// MARK: - DynamicIslandCompactTrailingView
+
+@available(iOS 16.1, *)
+struct DynamicIslandCompactTrailingView: View, GlucoseStatusContext {
+    @State var context: SensorGlucoseActivityAttributes.GlucoseStatus
+
+    var body: some View {
+        if let glucose,
+           let glucoseUnit
+        {
+            VStack(alignment: .trailing) {
+                Text(glucose.trend.description)
+                    .font(.body)
+
+                if let minuteChange = glucose.minuteChange?.asShortMinuteChange(glucoseUnit: glucoseUnit) {
+                    Text(minuteChange)
+                        .font(.system(size: 12))
+                }
+            }.padding(.trailing, 7.5)
+        }
+    }
+}
+
+// MARK: - DynamicIslandMinimalView
+
+@available(iOS 16.1, *)
+struct DynamicIslandMinimalView: View, GlucoseStatusContext {
+    @State var context: SensorGlucoseActivityAttributes.GlucoseStatus
+
+    var body: some View {
+        if let glucose,
+           let glucoseUnit
+        {
+            Text(glucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
+                .font(.body)
+                .ifLet(connectionState) { $0.strikethrough($1 != .connected, color: Color.ui.red) }
+        }
+    }
+}
+
+// MARK: - DynamicIslandExpandedView
+
+@available(iOS 16.1, *)
+struct DynamicIslandExpandedView: View, GlucoseStatusContext {
     @State var context: SensorGlucoseActivityAttributes.GlucoseStatus
 
     var body: some View {
         VStack(spacing: 0) {
-            if let latestGlucose = context.glucose, let glucoseUnit = context.glucoseUnit {
+            if let glucose,
+               let glucoseUnit
+            {
                 HStack(alignment: .lastTextBaseline, spacing: 20) {
-                    if latestGlucose.type != .high {
-                        Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
-                            .font(.system(size: 64))
-                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
+                    Text(verbatim: glucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
+                        .bold()
+                        .font(.system(size: 64))
+                        .foregroundColor(DirectHelper.getGlucoseColor(glucose: glucose))
 
-                        VStack(alignment: .leading) {
-                            Text(verbatim: latestGlucose.trend.description)
-                                .font(.system(size: 34))
+                    VStack(alignment: .leading) {
+                        Text(verbatim: glucose.trend.description)
+                            .font(.system(size: 34))
 
-                            if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
-                                Text(verbatim: minuteChange)
-                            } else {
-                                Text(verbatim: "?")
-                            }
+                        if let minuteChange = glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
+                            Text(verbatim: minuteChange)
+                        } else {
+                            Text(verbatim: "?")
                         }
-                    } else {
-                        Text("HIGH")
-                            .font(.system(size: 64))
-                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
                     }
                 }
 
-                if let warning = warning {
+                if let warning = DirectHelper.getWarning(sensorState: sensorState, connectionState: connectionState) {
                     Text(verbatim: warning)
                         .padding(.horizontal, 10)
                         .padding(.vertical, 5)
@@ -141,7 +156,7 @@ struct DynamicIslandCenterView: View, GlucoseStatusContext {
                         .foregroundColor(.white)
                 } else {
                     HStack(spacing: 40) {
-                        Text(latestGlucose.timestamp, style: .time)
+                        Text(glucose.timestamp, style: .time)
                         Text(verbatim: glucoseUnit.localizedDescription)
                     }.opacity(0.5)
                 }
@@ -168,30 +183,25 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
         HStack(alignment: .lastTextBaseline) {
             Spacer()
 
-            if let latestGlucose = context.glucose, let glucoseUnit = context.glucoseUnit {
+            if let glucose,
+               let glucoseUnit
+            {
                 VStack {
                     HStack(alignment: .top) {
-                        Group {
-                            if latestGlucose.type != .high {
-                                Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
-                            } else {
-                                Text("HIGH")
-                            }
-                        }
-                        .bold()
-                        .foregroundColor(getGlucoseColor(glucose: latestGlucose))
-                        .font(.system(size: 40))
-                        
-                        Text(verbatim: latestGlucose.trend.description)
-                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
+                        Text(verbatim: glucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
+                            .bold()
+                            .font(.system(size: 40))
+                            .foregroundColor(DirectHelper.getGlucoseColor(glucose: glucose))
+
+                        Text(verbatim: glucose.trend.description)
                             .font(.system(size: 32))
                     }
-                    
-                    if let warning = warning {
+
+                    if let warning = DirectHelper.getWarning(sensorState: sensorState, connectionState: connectionState) {
                         HStack {
                             Image(systemName: "exclamationmark.triangle")
                                 .foregroundColor(Color.ui.red)
-                            
+
                             Text(verbatim: warning)
                                 .bold()
                         }
@@ -199,20 +209,18 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
                     } else {
                         HStack {
                             Text(verbatim: glucoseUnit.localizedDescription)
-                            
-                            Group {
-                                if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
-                                    Text(verbatim: minuteChange)
-                                } else {
-                                    Text(verbatim: "?")
-                                }
+
+                            if let minuteChange = glucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
+                                Text(verbatim: minuteChange)
+                            } else {
+                                Text(verbatim: "?")
                             }
                         }
                         .opacity(0.5)
                         .font(.footnote)
                     }
                 }
-                
+
                 Spacer()
 
                 VStack(alignment: .leading, spacing: 5) {
@@ -220,12 +228,12 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
                         Text("Updated")
                             .opacity(0.5)
                             .textCase(.uppercase)
-                        
-                        Text(latestGlucose.timestamp, style: .time)
+
+                        Text(glucose.timestamp, style: .time)
                             .bold()
                             .monospacedDigit()
                     }
-                    
+
                     if let stopDate = context.stopDate {
                         Text("Reopen app in")
                             .opacity(0.5)
@@ -262,34 +270,34 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
 
 // MARK: - GlucoseActivityWidget_Previews
 
-@available(iOS 16.1, *)
+@available(iOSApplicationExtension 16.2, *)
 struct GlucoseActivityWidget_Previews: PreviewProvider {
-    static var previews: some View {
-        GlucoseActivityView(
-            context: SensorGlucoseActivityAttributes.GlucoseStatus(
-                alarmLow: 80,
-                alarmHigh: 160,
-                sensorState: .expired,
-                connectionState: .disconnected,
-                glucoseUnit: .mgdL,
-                startDate: Date(),
-                restartDate: Date(),
-                stopDate: Date()
-            )
-        ).previewContext(WidgetPreviewContext(family: .systemMedium))
+    static let state = SensorGlucoseActivityAttributes.ContentState(
+        alarmLow: 80,
+        alarmHigh: 160,
+        sensorState: .ready,
+        connectionState: .connected,
+        glucose: SensorGlucose(glucoseValue: 120, minuteChange: 2),
+        glucoseUnit: .mmolL,
+        startDate: Date(),
+        restartDate: Date(),
+        stopDate: Date()
+    )
 
-        GlucoseActivityView(
-            context: SensorGlucoseActivityAttributes.GlucoseStatus(
-                alarmLow: 80,
-                alarmHigh: 160,
-                sensorState: .ready,
-                connectionState: .connected,
-                glucose: SensorGlucose(glucoseValue: 120, minuteChange: 2),
-                glucoseUnit: .mgdL,
-                startDate: Date(),
-                restartDate: Date(),
-                stopDate: Date()
-            )
-        ).previewContext(WidgetPreviewContext(family: .systemMedium))
+    static var previews: some View {
+        SensorGlucoseActivityAttributes()
+            .previewContext(state, viewKind: .dynamicIsland(.compact))
+            .previewDevice(PreviewDevice(rawValue: "iPhone 14 Pro"))
+
+        SensorGlucoseActivityAttributes()
+            .previewContext(state, viewKind: .dynamicIsland(.expanded))
+            .previewDevice(PreviewDevice(rawValue: "iPhone 14 Pro"))
+
+        SensorGlucoseActivityAttributes()
+            .previewContext(state, viewKind: .dynamicIsland(.minimal))
+            .previewDevice(PreviewDevice(rawValue: "iPhone 14 Pro"))
+
+        SensorGlucoseActivityAttributes()
+            .previewContext(state, viewKind: .content)
     }
 }
