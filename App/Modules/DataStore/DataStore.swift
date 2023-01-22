@@ -16,7 +16,13 @@ class DataStore {
 
     private init() {
         do {
-            dbQueue = try DatabaseQueue(path: databaseURL.absoluteString)
+            //Move the database to the app group store
+            try FileManager.default.copyItem(at: oldDatabaseURL, to: containerDatabaseURL)
+            try FileManager.default.removeItem(at: oldDatabaseURL)
+        } catch {}
+        
+        do {
+            dbQueue = try DatabaseQueue(path: containerDatabaseURL.absoluteString)
         } catch {
             DirectLog.error("\(error)")
             dbQueue = nil
@@ -36,17 +42,22 @@ class DataStore {
     static let shared = DataStore()
 
     let dbQueue: DatabaseQueue?
+    
+    var containerDatabaseURL: URL = {
+        let filename = "GlucoseDirect.sqlite"
+        let documentDirectory = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: UserDefaults.stringValue(forKey: "APP_GROUP_ID"))
+        return documentDirectory!.appendingPathComponent(filename)
+    }()
 
-    var databaseURL: URL = {
+    var oldDatabaseURL: URL = {
         let filename = "GlucoseDirect.sqlite"
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-
         return documentDirectory.appendingPathComponent(filename)
     }()
 
     func deleteDatabase() {
         do {
-            try FileManager.default.removeItem(at: databaseURL)
+            try FileManager.default.removeItem(at: containerDatabaseURL)
         } catch _ {}
     }
 }
