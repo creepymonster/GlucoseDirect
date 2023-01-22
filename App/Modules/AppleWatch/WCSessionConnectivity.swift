@@ -5,6 +5,7 @@
 //
 import Foundation
 import WatchConnectivity
+import WidgetKit
 import Combine
 
 
@@ -20,6 +21,12 @@ final class WCSessionConnectivityService: NSObject, ObservableObject {
         if WCSession.isSupported() {
             WCSession.default.delegate = self
             WCSession.default.activate()
+            #if os(iOS)
+            guard let latestSensorGlucose = UserDefaults.shared.latestSensorGlucose else {
+                return
+            }
+            self.send(latestSensorGlucose)
+            #endif
         }
     }
     
@@ -56,10 +63,13 @@ extension WCSessionConnectivityService: WCSessionDelegate {
     func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
         do {
             let sensorGlucose = try JSONDecoder().decode(SensorGlucose.self, from: messageData)
+            self.latestSensorGlucose = sensorGlucose
             UserDefaults.shared.latestSensorGlucose = sensorGlucose
+            WidgetCenter.shared.reloadAllTimelines()
         } catch {
             DirectLog.error("Cannot encode message from iOS", error: error)
         }
+        
     }
 #endif
 

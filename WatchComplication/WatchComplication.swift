@@ -40,11 +40,11 @@ struct GlucoseComplicationView: View {
     var entry: GlucoseEntry
 
     var glucoseUnit: GlucoseUnit {
-        entry.glucoseUnit!
+        entry.glucoseUnit ?? UserDefaults.shared.glucoseUnit
     }
     
     var glucose: SensorGlucose? {
-        entry.glucose
+        entry.glucose ?? UserDefaults.shared.latestSensorGlucose
     }
     
     var body: some View {
