@@ -120,6 +120,9 @@
 		10F950D72979500C002B12EC /* Float.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FA9CC2975C6F90002A9F4 /* Float.swift */; };
 		10F950D829795014002B12EC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E2FCAC89270743E200FE1CBF /* Localizable.strings */; };
 		10F950DA297951F3002B12EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E20B8541266F4A9900AA4224 /* Assets.xcassets */; };
+		657776D4297DB3F200E83752 /* WCSessionConnectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657776D3297DB3F200E83752 /* WCSessionConnectivity.swift */; };
+		657776D5297DB3F200E83752 /* WCSessionConnectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657776D3297DB3F200E83752 /* WCSessionConnectivity.swift */; };
+		657776D7297DB71400E83752 /* WCSessionConnectivityMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657776D6297DB71400E83752 /* WCSessionConnectivityMiddleware.swift */; };
 		6587CE4629621507008518F4 /* AddInsulinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587CE4529621507008518F4 /* AddInsulinView.swift */; };
 		6587CE4829625E94008518F4 /* InsulinDeliveryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587CE4729625E94008518F4 /* InsulinDeliveryListView.swift */; };
 		6587CE4A29626070008518F4 /* InsulinDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587CE4929626070008518F4 /* InsulinDelivery.swift */; };
@@ -395,6 +398,8 @@
 		10EB0F462979230800B6F057 /* DirectHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectHelper.swift; sourceTree = "<group>"; };
 		1938BB6F2752F8D10047059C /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1938BB702752F8D20047059C /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		657776D3297DB3F200E83752 /* WCSessionConnectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCSessionConnectivity.swift; sourceTree = "<group>"; };
+		657776D6297DB71400E83752 /* WCSessionConnectivityMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCSessionConnectivityMiddleware.swift; sourceTree = "<group>"; };
 		6587CE4429620FB0008518F4 /* GlucoseDirectOverride.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = GlucoseDirectOverride.xcconfig; sourceTree = "<group>"; };
 		6587CE4529621507008518F4 /* AddInsulinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInsulinView.swift; sourceTree = "<group>"; };
 		6587CE4729625E94008518F4 /* InsulinDeliveryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsulinDeliveryListView.swift; sourceTree = "<group>"; };
@@ -658,6 +663,15 @@
 				10DD1302296A15CA00C900EA /* AddBloodGlucoseView.swift */,
 			);
 			path = AddViews;
+			sourceTree = "<group>";
+		};
+		657776D2297DB3DA00E83752 /* AppleWatch */ = {
+			isa = PBXGroup;
+			children = (
+				657776D3297DB3F200E83752 /* WCSessionConnectivity.swift */,
+				657776D6297DB71400E83752 /* WCSessionConnectivityMiddleware.swift */,
+			);
+			path = AppleWatch;
 			sourceTree = "<group>";
 		};
 		E20B8531266F4A9800AA4224 = {
@@ -983,6 +997,7 @@
 		E2FCAC3C270741F000FE1CBF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				657776D2297DB3DA00E83752 /* AppleWatch */,
 				E236683F287FEC1A001BF000 /* Debug */,
 				E294333C2878803B005C8A69 /* DataStore */,
 				E2FCAC4A2707422000FE1CBF /* AppGroupSharing */,
@@ -1391,6 +1406,7 @@
 				10F950C029794FF8002B12EC /* GlucoseUnit.swift in Sources */,
 				10F950CD2979500C002B12EC /* Color.swift in Sources */,
 				10F950D12979500C002B12EC /* View.swift in Sources */,
+				657776D5297DB3F200E83752 /* WCSessionConnectivity.swift in Sources */,
 				10F950CC2979500C002B12EC /* Int.swift in Sources */,
 				10F950BE29794FF8002B12EC /* SensorRegion.swift in Sources */,
 				10C0D0B529793CC200A42205 /* WatchApp.swift in Sources */,
@@ -1425,6 +1441,7 @@
 				E27ED97A2758A4470099149C /* SensorConnector.swift in Sources */,
 				E20B8540266F4A9800AA4224 /* ContentView.swift in Sources */,
 				E283306726AF058500244343 /* ChartView.swift in Sources */,
+				657776D4297DB3F200E83752 /* WCSessionConnectivity.swift in Sources */,
 				E2FCAC1C270741BC00FE1CBF /* SensorType.swift in Sources */,
 				E2B5FDA828789ED200D35D87 /* SensorGlucoseStore.swift in Sources */,
 				E2E353F928DC6E4100824732 /* LibreConnection.swift in Sources */,
@@ -1447,6 +1464,7 @@
 				107FA9CD2975C6F90002A9F4 /* Float.swift in Sources */,
 				E2FCAC422707420100FE1CBF /* AppState.swift in Sources */,
 				6587CE4629621507008518F4 /* AddInsulinView.swift in Sources */,
+				657776D7297DB71400E83752 /* WCSessionConnectivityMiddleware.swift in Sources */,
 				10DD1303296A15CA00C900EA /* AddBloodGlucoseView.swift in Sources */,
 				E2C8F5FE278CD63000519ABD /* BellmanAlarm.swift in Sources */,
 				E26677DC28799E8A008E8B68 /* Glucose.swift in Sources */,

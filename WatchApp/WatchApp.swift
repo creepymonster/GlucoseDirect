@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct GlucoseDirectWatchApp: App {
+    @ObservedObject private var connectivityManager = WCSessionConnectivityService.shared
+
     var body: some Scene {
         WindowGroup {
-            GlucoseWatchView(glucose: UserDefaults.shared.latestSensorGlucose, glucoseUnit: UserDefaults.shared.glucoseUnit)
+            GlucoseWatchView(glucoseUnit: UserDefaults.shared.glucoseUnit, latestSensorGlucose: $connectivityManager.latestSensorGlucose)
         }
     }
 }
@@ -19,21 +21,21 @@ struct GlucoseDirectWatchApp: App {
 // MARK: - GlucoseWatchView
 
 struct GlucoseWatchView: View {
-    var glucose: SensorGlucose?
     var glucoseUnit: GlucoseUnit
-
+    
+    @Binding var latestSensorGlucose: SensorGlucose?
+    
     var body: some View {
         VStack(spacing: 0) {
-            if let latestGlucose = glucose {
-                HStack(alignment: .lastTextBaseline, spacing: 20) {
+            if let latestGlucose = $latestSensorGlucose.wrappedValue {
+                HStack(alignment: .lastTextBaseline, spacing: 30) {
                     Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
                         .bold()
-                        .font(.system(size: 96))
+                        .font(.system(size: 40))
                         .foregroundColor(DirectHelper.getGlucoseColor(glucose: latestGlucose))
 
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .center) {
                         Text(verbatim: latestGlucose.trend.description)
-                            .font(.system(size: 52))
 
                         if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
                             Text(verbatim: minuteChange)
@@ -43,9 +45,9 @@ struct GlucoseWatchView: View {
                     }
                 }
 
-                HStack(spacing: 40) {
-                    Text(latestGlucose.timestamp, style: .time)
+                HStack(alignment: .lastTextBaseline, spacing: 40) {
                     Text(verbatim: glucoseUnit.localizedDescription)
+                    Text(latestGlucose.timestamp, style: .time)
                 }.opacity(0.5)
 
             } else {
@@ -67,23 +69,40 @@ struct ContentView_Previews: PreviewProvider {
         PreviewDevice(rawValue: "Apple Watch Series 7 (45mm)")
     }
     
+    @State static var lowGlucose: SensorGlucose? = placeholderLowGlucose
+    @State static var glucose: SensorGlucose? = placeholderGlucose
+    @State static var highGlucose: SensorGlucose? = placeholderHighGlucose
+    @State static var noData: SensorGlucose? = nil
+
     static var previews: some View {
-        GlucoseWatchView(glucose: placeholderLowGlucose, glucoseUnit: .mgdL)
+        GlucoseWatchView(glucoseUnit: .mgdL, latestSensorGlucose: $lowGlucose)
             .previewDevice(device)
+            .previewDisplayName("Low Glucose, mgdL")
+
+        GlucoseWatchView(glucoseUnit: .mmolL, latestSensorGlucose: $lowGlucose)
+            .previewDevice(device)
+            .previewDisplayName("Low Glucose, mmo1L")
+
+        GlucoseWatchView(glucoseUnit: .mgdL, latestSensorGlucose: $glucose)
+            .previewDevice(device)
+            .previewDisplayName("Glucose, mgdL")
+
+        GlucoseWatchView(glucoseUnit: .mmolL, latestSensorGlucose: $glucose)
+            .previewDevice(device)
+            .previewDisplayName("Glucose, mmo1L")
+
+        GlucoseWatchView(glucoseUnit: .mgdL, latestSensorGlucose: $highGlucose)
+            .previewDevice(device)
+            .previewDisplayName("High Glucose, mgdL")
+
+        GlucoseWatchView(glucoseUnit: .mmolL, latestSensorGlucose: $highGlucose)
+            .previewDevice(device)
+            .previewDisplayName("High Glucose, mmo1L")
         
-        GlucoseWatchView(glucose: placeholderLowGlucose, glucoseUnit: .mmolL)
-            .previewDevice(device)
         
-        GlucoseWatchView(glucose: placeholderGlucose, glucoseUnit: .mgdL)
+        GlucoseWatchView(glucoseUnit: .mmolL, latestSensorGlucose: $noData)
             .previewDevice(device)
-        
-        GlucoseWatchView(glucose: placeholderGlucose, glucoseUnit: .mmolL)
-            .previewDevice(device)
-        
-        GlucoseWatchView(glucose: placeholderHighGlucose, glucoseUnit: .mgdL)
-            .previewDevice(device)
-        
-        GlucoseWatchView(glucose: placeholderHighGlucose, glucoseUnit: .mmolL)
-            .previewDevice(device)
+            .previewDisplayName("No Data")
+
     }
 }

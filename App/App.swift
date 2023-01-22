@@ -5,6 +5,7 @@
 
 import CoreBluetooth
 import SwiftUI
+import WatchConnectivity
 
 #if canImport(CoreNFC)
     import CoreNFC
