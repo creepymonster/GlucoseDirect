@@ -26,9 +26,6 @@
 "Add calibration" = "Kalibrierung hinzufügen";
 
 /* (No Comment) */
-"Add glucose for calibration" = "Glukose für Kalibrierung hinzufügen";
-
-/* (No Comment) */
 "Alarm glucose notification" = "Alarm Glukose-Benachrichtigung";
 
 /* (No Comment) */
@@ -594,3 +591,12 @@
 
 /* (No Comment) */
 "Show insulin input" = "Insulineingabe anzeigen";
+
+/* (No Comment) */
+"Help" = "Hilfe";
+
+/* (No Comment) */
+"Alarm volume" = "Alarmlautstärke";
+
+/* (No Comment) */
+"Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults." = "Der Koeffizient der Variation (CV) ist definiert als das Verhältnis der Standardabweichung zum Mittelwert. Im Allgemeinen bevorzugen die meisten Experten einen CV von 33% oder niedriger, was als Indikator für \"stabile\" Blutzuckerwerte gilt. Beachten Sie jedoch, dass sehr junge Patienten mit Diabetes tendenziell eine höhere Variabilität aufweisen als Erwachsene.";

@@ -91,7 +91,7 @@ struct StatisticsView: View {
                             HStack {
                                 Text("StatisticsPeriod")
                                 Spacer()
-                                Text("\(glucoseStatistics.fromTimestamp.toLocalDate()) - \(glucoseStatistics.toTimestamp.toLocalDate())")
+                                Text(verbatim: "\(glucoseStatistics.fromTimestamp.toLocalDate()) - \(glucoseStatistics.toTimestamp.toLocalDate())")
                             }
                         }
                         
