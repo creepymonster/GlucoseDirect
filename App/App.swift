@@ -135,7 +135,8 @@ private func createSimulatorAppStore() -> DirectStore {
         appGroupSharingMiddleware(),
         screenLockMiddleware(),
         sensorErrorMiddleware(),
-        storeExportMiddleware()
+        storeExportMiddleware(),
+        wcSessionConnectivityMiddleware()
     ]
 
     if #available(iOS 16.1, *) {
@@ -175,7 +176,8 @@ private func createAppStore() -> DirectStore {
         appGroupSharingMiddleware(),
         screenLockMiddleware(),
         sensorErrorMiddleware(),
-        storeExportMiddleware()
+        storeExportMiddleware(),
+        wcSessionConnectivityMiddleware()
     ]
 
     if #available(iOS 16.1, *) {
