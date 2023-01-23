@@ -379,6 +379,7 @@ struct ChartView: View {
 
         }.onChange(of: store.state.selectedDate) { _ in
             selectedSmoothSensorPoint = nil
+            selectedRawSensorPoint = nil
             selectedBloodPoint = nil
 
         }.onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
