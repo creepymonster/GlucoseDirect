@@ -125,7 +125,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             do {
                 try await processFetch()
             } catch {
-                sendUpdate(error: error)
+                DirectLog.error("Error: \(error)")
             }
         }
     }
@@ -146,7 +146,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
                 try await Task.sleep(nanoseconds: 1_000_000_000 * 30)
                 try await processFetch()
             } catch {
-                sendUpdate(error: error)
+                DirectLog.error("Error: \(error)")
             }
         }
     }
