@@ -8,10 +8,10 @@
 "%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
 
 /* (No Comment) */
-"%@ Entries" = "%@ Wpisy";
+"%@ Entries" = "%@ wpisy";
 
 /* (No Comment) */
-"%@ Entry" = "%@ Wejście";
+"%@ Entry" = "%@ wpis";
 
 /* (No Comment) */
 "About %@" = "O %@";
@@ -20,7 +20,7 @@
 "Add" = "Dodaj";
 
 /* (No Comment) */
-"Add blood glucose" = "Glukoza z glukometru";
+"Add blood glucose" = "Pomiar z glukometru";
 
 /* (No Comment) */
 "Add calibration" = "Dodaj kalibrację";
@@ -32,13 +32,13 @@
 "Alarm settings" = "Ustawienia alarmu";
 
 /* (No Comment) */
-"Alert, high glucose" = "Wysoka glukoza !";
+"Alert, high glucose" = "Wysoka glukoza!";
 
 /* (No Comment) */
-"Alert, low blood glucose" = "Niska glukoza !!!";
+"Alert, low blood glucose" = "Niska glukoza!";
 
 /* (No Comment) */
-"Alarm, loss of signal" = "Alarm, utrata sygnału";
+"Alarm, loss of signal" = "Utracono sygnał z sensorem";
 
 /* (No Comment) */
 "Alert, sensor expired" = "Koniec działania sensora";
