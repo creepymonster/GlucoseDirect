@@ -19,6 +19,10 @@ struct BloodGlucose: Glucose, CustomStringConvertible, Codable, Identifiable {
     }
     
     init(id: UUID, timestamp: Date, glucoseValue: Int, originatingSourceName: String, originatingSourceBundle: String) {
+        self.init(id: id, timestamp: timestamp, glucoseValue: glucoseValue, originatingSourceName: originatingSourceName, originatingSourceBundle: originatingSourceBundle, appleHealthId: nil)
+    }
+    
+    init(id: UUID, timestamp: Date, glucoseValue: Int, originatingSourceName: String, originatingSourceBundle: String, appleHealthId: UUID?) {
         let roundedTimestamp = timestamp.toRounded(on: 1, .minute)
         self.id = id
         self.timestamp = roundedTimestamp
@@ -26,7 +30,7 @@ struct BloodGlucose: Glucose, CustomStringConvertible, Codable, Identifiable {
         self.timegroup = roundedTimestamp.toRounded(on: DirectConfig.timegroupRounding, .minute)
         self.originatingSourceName = originatingSourceName
         self.originatingSourceBundle = originatingSourceBundle
-        self.appleHealthId = nil
+        self.appleHealthId = appleHealthId
     }
 
     // MARK: Internal

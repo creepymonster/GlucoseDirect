@@ -6,25 +6,27 @@
 import Combine
 import Foundation
 import HealthKit
+import GRDB
+import UIKit
 
-func appleHealthExportMiddleware() -> Middleware<DirectState, DirectAction> {
-    return appleHealthExportMiddleware(service: LazyService<AppleHealthExportService>(initialization: {
-        AppleHealthExportService()
+func appleHealthSyncMiddleware() -> Middleware<DirectState, DirectAction> {
+    return appleHealthExportMiddleware(service: LazyService<AppleHealthSyncService>(initialization: {
+        AppleHealthSyncService()
     }))
 }
 
-private func appleHealthExportMiddleware(service: LazyService<AppleHealthExportService>) -> Middleware<DirectState, DirectAction> {
+private func appleHealthExportMiddleware(service: LazyService<AppleHealthSyncService>) -> Middleware<DirectState, DirectAction> {
     return { state, action, _ in
         switch action {
         case .startup:
             if state.appleHealthSync && service.value.healthStoreAvailable {
                 return Future<DirectAction, DirectError> { promise in
                     Task {
-                        if await service.value.requestAccess() {
-                            promise(.success(.setAppleHealthSync(enabled: true)))
-                        } else {
+                        guard let _ = await service.value.requestAccess() else {
                             promise(.failure(.withMessage("Apple Health access declined")))
+                            return
                         }
+                        promise(.success(.setAppleHealthSync(enabled: true)))
                     }
                 }.eraseToAnyPublisher()
             } else {
@@ -35,8 +37,11 @@ private func appleHealthExportMiddleware(service: LazyService<AppleHealthExportS
         case .setAppleHealthSync(enabled: let enabled):
             if enabled {
                 Task {
+                    //TODO: Should this be it's own action?
                     await service.value.migrateAppleHealthToV2Format()
                     await service.value.syncAllDataToAppleHealth()
+                    await service.value.setUpGlucoseBackgroundDeliveries()
+                    await service.value.setUpInsulinBackgroundDeliveries()
                 }
             }
             
@@ -48,11 +53,11 @@ private func appleHealthExportMiddleware(service: LazyService<AppleHealthExportS
                 
                 return Future<DirectAction, DirectError> { promise in
                     Task {
-                        if await service.value.requestAccess() {
-                            promise(.success(.setAppleHealthSync(enabled: true)))
-                        } else {
+                        guard let _ = await service.value.requestAccess() else {
                             promise(.failure(.withMessage("Apple Health access declined")))
+                            return
                         }
+                        promise(.success(.setAppleHealthSync(enabled: true)))
                     }
                 }.eraseToAnyPublisher()
             } else {
@@ -131,19 +136,14 @@ private func appleHealthExportMiddleware(service: LazyService<AppleHealthExportS
     }
 }
 
-// MARK: - AppleHealthService
-
-typealias AppleHealthExportHandler = (_ granted: Bool) -> Void
-typealias AppleHealthLoadFromAppleHealthHandler = (_ newExternalValues: [BloodGlucose]) -> Void
-typealias AppleHealthLoadHealthKitSample = (_ sample: HKQuantitySample?) -> Void
 
 // MARK: - AppleHealthExportService
 
-private class AppleHealthExportService {
+private class AppleHealthSyncService {
     // MARK: Lifecycle
     
     init() {
-        DirectLog.info("Create AppleHealthExportService")
+        DirectLog.info("Create AppleHealthSyncService")
     }
     
     // MARK: Internal
@@ -170,6 +170,9 @@ private class AppleHealthExportService {
     
     // MARK: Private
     
+    /**
+     Holder for the Apple health store, use requestAccess though instead to get the healthstore
+     */
     private lazy var healthStore: HKHealthStore? = {
         if HKHealthStore.isHealthDataAvailable() {
             return HKHealthStore()
@@ -178,16 +181,19 @@ private class AppleHealthExportService {
         return nil
     }()
     
-    func requestAccess() async -> Bool {
+    /**
+     Request access to the apple health store
+     */
+    func requestAccess() async -> HKHealthStore? {
         guard let healthStore = healthStore else {
-            return false
+            return nil
         }
         
         do {
             try await healthStore.requestAuthorization(toShare: requiredWritePermissions, read: requiredReadPermissions)
-            return true
+            return healthStore
         } catch {
-            return false
+            return nil
         }
     }
     
@@ -196,60 +202,149 @@ private class AppleHealthExportService {
     /**
      In our long running HealthKit query we use the same handler for both new and updated HealthKit data points.
      */
-    let syncFromHealthKitHandler: ((HKAnchoredObjectQuery, [HKSample]?, [HKDeletedObject]?, HKQueryAnchor?, Error?) -> Void) = { (query, newSamples, deletedSamples, newAnchor, error) in
+    let syncFromHealthKitGlucoseHandler: ((HKAnchoredObjectQuery, [HKSample]?, [HKDeletedObject]?, HKQueryAnchor?, Error?) -> Void) = { (query, newSamples, deletedSamples, newAnchor, error) in
         
-        // 2 Guard our data to ensure it all exists and is the right type.
+        // 1. Guard our data to ensure it all exists and is the right type.
         guard let samples = newSamples as? [HKQuantitySample], let deleted = deletedSamples else {
             DirectLog.error("Error with samples recieved from our HealthKit Query", error: error)
             return
         }
         
-        // 3 Save our new anchor to user defaults so we can use it later.
-        UserDefaults.shared.anchor = newAnchor
+        // 2. Save our new anchor to user defaults so we can use it later.
+        UserDefaults.shared.glucoseAnchor = newAnchor
         
-        // 4 Loop through each new sample delievered to us.
-        for newSample in samples {
-            //self.queryForUpdates(newSample: newSample)
+        // 3. Remove any samples we already have in our database (these can come from us)
+        var samplesNotInDatabase = samples.filter {  DataStore.shared.getBloodGlucose(for: $0.uuid) == nil && DataStore.shared.getSensorGlucose(for: $0.uuid) == nil      }
+        
+        // 4. Loop through each new sample delievered to us.
+        let bloodGlucoseValues = samplesNotInDatabase.map { sample in
+            return BloodGlucose(id: UUID(), timestamp: sample.startDate, glucoseValue: Int(sample.quantity.doubleValue(for: .milligramsPerDeciliter)), originatingSourceName: sample.sourceRevision.source.name, originatingSourceBundle: sample.sourceRevision.source.bundleIdentifier, appleHealthId: sample.uuid)
         }
         
-        // 5 Delete any samples from our database that was deleted in Apple Health
-        for deletedSample in deleted {
-            //self.queryForDeletions(deletedSample: deletedSample, type: type)
+        // 5. Need to dispatch adds on the main thread.
+        DispatchQueue.main.sync {
+            GlucoseDirectApp.store.dispatch(.addBloodGlucose(glucoseValues: bloodGlucoseValues))
+        }
+        
+        // 6. Grab any samples from our database that was deleted in Apple Health
+        var deletedGlucoseValues: [(any Glucose)?] = deleted.map { sample in
+            return DataStore.shared.getBloodGlucose(for: sample.uuid) ?? DataStore.shared.getSensorGlucose(for: sample.uuid)
+        }
+        
+        let nonNilDeletedGlucoseValues: [any Glucose] = deletedGlucoseValues.filter { $0 != nil } as! [any Glucose]
+        
+        // 7. Filter to sensor glucose values to delete
+        let deletedSensorGlucose: [SensorGlucose] = nonNilDeletedGlucoseValues.filter { type(of:$0) == SensorGlucose.self } as! [SensorGlucose]
+        
+        // 7. Filter to blood glucose values to delete
+        let deletedBloodGlucose: [BloodGlucose] = nonNilDeletedGlucoseValues.filter { type(of:$0) == BloodGlucose.self} as! [BloodGlucose]
+        
+        
+        // 8. Delete all the glucose values
+        deletedSensorGlucose.forEach { glucose in
+            DispatchQueue.main.sync {
+                GlucoseDirectApp.store.dispatch(.deleteSensorGlucose(glucose: glucose))
+            }
+        }
+        
+        deletedBloodGlucose.forEach { glucose in
+            DispatchQueue.main.sync {
+                GlucoseDirectApp.store.dispatch(.deleteBloodGlucose(glucose: glucose))
+            }
+        }
+    }
+    
+    /**
+     In our long running HealthKit query we use the same handler for both new and updated HealthKit data points.
+     */
+    let syncFromHealthKitInsulinHandler: ((HKAnchoredObjectQuery, [HKSample]?, [HKDeletedObject]?, HKQueryAnchor?, Error?) -> Void) = { (query, newSamples, deletedSamples, newAnchor, error) in
+        
+        // 1. Guard our data to ensure it all exists and is the right type.
+        guard let samples = newSamples as? [HKQuantitySample], let deleted = deletedSamples else {
+            DirectLog.error("Error with samples recieved from our HealthKit Query", error: error)
+            return
+        }
+        
+        // 2. Save our new anchor to user defaults so we can use it later.
+        UserDefaults.shared.insulinAnchor = newAnchor
+        
+        // 3. Remove any samples we already have in our database (these can come from us)
+        var samplesNotInDatabase = samples.filter {  DataStore.shared.getInsulinDelivery(for: $0.uuid) == nil }
+        
+        // 4. Loop through each new sample delievered to us.
+        let insulinValues = samplesNotInDatabase.map { sample in
+            return InsulinDelivery(id: UUID(), starts: sample.startDate, ends: sample.endDate, units: sample.quantity.doubleValue(for: .internationalUnit()), type: InsulinType.insulinDeliveryReason(from:  HKInsulinDeliveryReason(rawValue: sample.metadata?[HKMetadataKeyInsulinDeliveryReason] as! Int)!) , originatingSourceName: sample.sourceRevision.source.name, originatingSourceBundle: sample.sourceRevision.source.bundleIdentifier, appleHealthId: sample.uuid)
+        }
+        
+        // 5. Need to dispatch adds on the main thread.
+        DispatchQueue.main.sync {
+            GlucoseDirectApp.store.dispatch(.addInsulinDelivery(insulinDeliveryValues: insulinValues))
+        }
+        
+        // 6. Grab any samples from our database that was deleted in Apple Health
+        var deletedInsulinValues: [InsulinDelivery?] = deleted.map { sample in
+            return DataStore.shared.getInsulinDelivery(for: sample.uuid)
+        }
+        
+        let nonNilDeletedInsulinValues: [InsulinDelivery] = deletedInsulinValues.filter { $0 != nil } as! [InsulinDelivery]
+        
+        // 7. Need to dispatch adds on the main thread.
+        DispatchQueue.main.sync {
+            nonNilDeletedInsulinValues.forEach { insulinDelivery in
+                GlucoseDirectApp.store.dispatch(.deleteInsulinDelivery(insulinDelivery: insulinDelivery))
+            }
+        }
+    }
+    
+    /**
+     Set up Background deliveries of all the glucose health kit data we want.
+     */
+    func setUpGlucoseBackgroundDeliveries() async {
+        guard let healthStore = await requestAccess() else {
+            DirectLog.info("Guard: HealthStore unavailable, not setting up HealthKit glucose background deliveries")
+            return
+        }
+        
+        // Create a long running query that will grab initial results
+        let query = HKAnchoredObjectQuery(type: self.glucoseType, predicate: nil, anchor: UserDefaults.shared.glucoseAnchor, limit: Int(HKObjectQueryNoLimit), resultsHandler: syncFromHealthKitGlucoseHandler)
+        
+        // Install an update handler that will retrieve any updates from HealthKit in the background
+        query.updateHandler = syncFromHealthKitGlucoseHandler
+        
+        healthStore.execute(query)
+        
+        // Enable background delievery for health data.
+        do {
+            try await healthStore.enableBackgroundDelivery(for: self.glucoseType, frequency: .immediate)
+            DirectLog.info("Successfully enabled background delivery of HealthKit data for type \(self.glucoseType)")
+        } catch {
+            DirectLog.error("Failed enabling background delievery of HealthKit data for type \(self.glucoseType)", error: error)
         }
     }
     
     /**
      Set up Background deliveries of all the health kit data we want.
      */
-    func setUpBackgroundDeliveries() {
-        guard let healthStore = healthStore else {
-            DirectLog.info("Guard: HealthStore unavailable, not setting up HealthKit background deliveries")
+    func setUpInsulinBackgroundDeliveries() async {
+        guard let healthStore = await requestAccess() else {
+            DirectLog.info("Guard: HealthStore unavailable, not setting up HealthKit insulin background deliveries")
             return
         }
         
-        for type in self.requiredReadPermissions {
-            
-            guard let sampleType = type as? HKSampleType else { print("ERROR: \(type) is not an HKSampleType"); continue }
-            
-            // Create a long running query that will grab initial results
-            let query = HKAnchoredObjectQuery(type: sampleType, predicate: nil, anchor: UserDefaults.shared.anchor, limit: Int(HKObjectQueryNoLimit), resultsHandler: syncFromHealthKitHandler)
-            
-            // Install an update handler that will retrieve any updates from HealthKit in the background
-            query.updateHandler = syncFromHealthKitHandler
-            
-            healthStore.execute(query)
-            
-            // Enable background delievery for health data.
-            healthStore.enableBackgroundDelivery(for: type, frequency: .immediate, withCompletion: { (success, error) in
-                
-                if let error = error {
-                    DirectLog.error("Failed enabling background delievery of HealthKit data for type \(type)", error: error)
-                } else {
-                    DirectLog.info("Successfully enabled background delivery of HealthKit data for type \(type)")
-                }
-                
-            })
-            
+        // Create a long running query that will grab initial results
+        let query = HKAnchoredObjectQuery(type: self.insulinType, predicate: nil, anchor: UserDefaults.shared.insulinAnchor, limit: Int(HKObjectQueryNoLimit), resultsHandler: syncFromHealthKitInsulinHandler)
+        
+        // Install an update handler that will retrieve any updates from HealthKit in the background
+        query.updateHandler = syncFromHealthKitInsulinHandler
+        
+        healthStore.execute(query)
+        
+        // Enable background delievery for health data.
+        do {
+            try await healthStore.enableBackgroundDelivery(for: self.insulinType, frequency: .immediate)
+            DirectLog.info("Successfully enabled background delivery of HealthKit data for type \(self.insulinType)")
+        } catch {
+            DirectLog.error("Failed enabling background delievery of HealthKit data for type \(self.insulinType)", error: error)
         }
     }
     
@@ -258,12 +353,8 @@ private class AppleHealthExportService {
     //MARK: Glucose Handling
     
     func addGlucose(glucoseValues: [any Glucose]) async {
-        guard let healthStore = healthStore else {
+        guard let healthStore = await requestAccess() else {
             DirectLog.info("Guard: HealthStore unavailable, not adding new glucuse values")
-            return
-        }
-        
-        guard await self.requestAccess() else {
             return
         }
         
@@ -304,7 +395,7 @@ private class AppleHealthExportService {
             } else {
                 DataStore.shared.updateBloodGlucose(for: glucose.id, with: appleHealthId)
             }
-
+            
             healthGlucoseValues.append(appleSample)
         }
         
@@ -320,16 +411,12 @@ private class AppleHealthExportService {
     }
     
     func deleteGlucose(glucose: any Glucose) async {
-        guard let healthStore = healthStore else {
+        guard let healthStore = await requestAccess() else {
             DirectLog.info("Guard: HealthStore unavailable, not deleting glucose values")
             return
         }
         
         guard let appleHealthId = glucose.appleHealthId else {
-            return
-        }
-        
-        guard await self.requestAccess() else {
             return
         }
         
@@ -344,15 +431,11 @@ private class AppleHealthExportService {
     //MARK: Insulin Handling
     
     func addInsulinDelivery(insulinDeliveryValues: [InsulinDelivery]) async {
-        guard let healthStore = healthStore else {
+        guard let healthStore = await requestAccess() else {
             DirectLog.info("Guard: HealthStore unavailable, not deleting glucose values")
             return
         }
         
-        guard await self.requestAccess() else {
-            return
-        }
-            
         var healthInsulinDeliveryValues: [HKQuantitySample] = []
         
         for insulinDelivery in insulinDeliveryValues {
@@ -360,7 +443,7 @@ private class AppleHealthExportService {
                 // We don't save health values Back to Health Kit that are not from us.
                 continue
             }
-             
+            
             let appleSample = HKQuantitySample(
                 type: self.insulinType,
                 quantity: HKQuantity(unit: .internationalUnit(), doubleValue: Double(insulinDelivery.units)),
@@ -392,7 +475,7 @@ private class AppleHealthExportService {
     }
     
     func deleteInsulinDelivery(insulinDelivery: InsulinDelivery) async {
-        guard let healthStore = healthStore else {
+        guard let healthStore = await requestAccess() else {
             DirectLog.info("Guard: HealthStore unavailable, not deleting glucose values")
             return
         }
@@ -400,11 +483,6 @@ private class AppleHealthExportService {
         guard let appleHealthId = insulinDelivery.appleHealthId else {
             return
         }
-        
-        guard await self.requestAccess() else {
-            return
-        }
-        
         
         do {
             let numberDeleted = try await healthStore.deleteObjects(of: self.insulinType, predicate: HKQuery.predicateForObject(with: appleHealthId))
@@ -424,24 +502,48 @@ private class AppleHealthExportService {
         if UserDefaults.shared.appleHealthIdMigrated {
             return
         }
+        // 2. Reset all the apple health data from this app
+        await resetAppleHealthData()
         
-        guard let healthStore = healthStore else {
-            DirectLog.info("Guard: HealthStore unavailable, not migrating to apple health v2")
+        // 3. Mark that we have migrated.
+        UserDefaults.shared.appleHealthIdMigrated = true
+    }
+    
+    /**
+     Resets all the apple health data as needed.
+     */
+    func resetAppleHealthData() async {
+        // 1. Delete all data from AppleHealth originating from this app.
+        await deleteAllAppleHealthGlucoseValues()
+        
+        // 2. Loop through all data in this app and re-send it to AppleHealth
+        await self.syncAllDataToAppleHealth()
+    }
+    
+    /**
+     Delete all the apple health glucose values
+     */
+    func deleteAllAppleHealthGlucoseValues() async {
+        guard let healthStore = await requestAccess() else {
+            DirectLog.info("Guard: HealthStore unavailable, not deleting apple health glucose values")
             return
         }
         
-
-        guard await self.requestAccess() else {
-            return
-        }
-        
-        
-        // 2. Delete all data from AppleHealth originating from this app.
         do {
             let numberGlucoseDeleted = try await healthStore.deleteObjects(of: self.glucoseType, predicate: HKQuery.predicateForObjects(from: .default()))
-            DirectLog.info("Deleted \(numberGlucoseDeleted) glucise while migrating to v2 Apple Health")
+            DirectLog.info("Deleted \(numberGlucoseDeleted) apple health glucose values")
         } catch {
-            DirectLog.error("Could not delete glucose migrating to v2 Apple Health", error: error)
+            DirectLog.error("Could not delete glucose froma Apple Health", error: error)
+        }
+    }
+    
+    /**
+     Delete all the apple health insulin values
+     */
+    func deleteAllAppleHealthInsulinValues() async {
+        guard let healthStore = await requestAccess() else {
+            DirectLog.info("Guard: HealthStore unavailable, not deleting apple health glucose values")
+            return
         }
         
         do {
@@ -450,15 +552,11 @@ private class AppleHealthExportService {
         } catch {
             DirectLog.error("Could not delete insulin migrating to v2 Apple Health", error: error)
         }
-        
-        // 3. Loop through all data in this app and send it to AppleHealth
-        await self.syncAllDataToAppleHealth()
-        
-        // 4. Mark that we have migrated.
-        UserDefaults.shared.appleHealthIdMigrated = true
     }
     
-    
+    /**
+     Sync all the data we have to apple health.
+     */
     func syncAllDataToAppleHealth() async {
         await self.syncAllBloodGlucoseToAppleHealth()
         await self.syncAllSensorGlucoseToAppleHealth()
@@ -503,20 +601,63 @@ private extension InsulinType {
             return .bolus
         }
     }
+    
+    static func insulinDeliveryReason(from: HKInsulinDeliveryReason) -> InsulinType {
+        switch from {
+        case .basal:
+            return .basal
+        case .bolus:
+            return .mealBolus
+        @unknown default:
+            return .mealBolus
+        }
+    }
 }
 
 
 private extension DataStore {
-    func getBloodGlucose(for id: UUID) -> BloodGlucose? {
+    func getBloodGlucose(for appleHealthId: UUID) -> BloodGlucose? {
         if let dbQueue = dbQueue {
             do {
                 return try dbQueue.read { db in
                     try BloodGlucose
-                        .filter(Column(BloodGlucose.Columns.id.name) == id.uuidString)
+                        .filter(Column(BloodGlucose.Columns.appleHealthId.name) == appleHealthId.uuidString)
                         .fetchOne(db)
                 }
             } catch {
                 DirectLog.error("Could not get blood glucose", error: error)
+            }
+        }
+        
+        return nil
+    }
+    
+    func getSensorGlucose(for appleHealthId: UUID) -> SensorGlucose? {
+        if let dbQueue = dbQueue {
+            do {
+                return try dbQueue.read { db in
+                    try SensorGlucose
+                        .filter(Column(SensorGlucose.Columns.appleHealthId.name) == appleHealthId.uuidString)
+                        .fetchOne(db)
+                }
+            } catch {
+                DirectLog.error("Could not get sensor glucose", error: error)
+            }
+        }
+        
+        return nil
+    }
+    
+    func getInsulinDelivery(for appleHealthId: UUID) -> InsulinDelivery? {
+        if let dbQueue = dbQueue {
+            do {
+                return try dbQueue.read { db in
+                    try InsulinDelivery
+                        .filter(Column(InsulinDelivery.Columns.appleHealthId.name) == appleHealthId.uuidString)
+                        .fetchOne(db)
+                }
+            } catch {
+                DirectLog.error("Could not get insulin delivery", error: error)
             }
         }
         
@@ -623,7 +764,9 @@ private extension DataStore {
 
 private extension UserDefaults {
     enum Keys: String {
-        case anchor = "libre-direct.healthkit.anchor"
+        case glucoseAnchor = "libre-direct.healthkit.glucose-anchor"
+        case insulinAnchor = "libre-direct.healthkit.insulin-anchor"
+        
         // Used to determine if we have done a migration of all GlucoseDirects apple health data,
         // so that we have the HealthKit identifiers from Apple saved.
         case appleHealthIdMigrated = "libre-direct.healthkit.appleHealthIdMigrated"
@@ -642,12 +785,12 @@ private extension UserDefaults {
         }
     }
     
-    var anchor: HKQueryAnchor? {
+    var glucoseAnchor: HKQueryAnchor? {
         get {
             var anchor = HKQueryAnchor.init(fromValue: 0)
             
-            if UserDefaults.shared.object(forKey: UserDefaults.Keys.anchor.rawValue) != nil {
-                let data = UserDefaults.shared.object(forKey: UserDefaults.Keys.anchor.rawValue) as! Data
+            if UserDefaults.shared.object(forKey: UserDefaults.Keys.glucoseAnchor.rawValue) != nil {
+                let data = UserDefaults.shared.object(forKey: UserDefaults.Keys.glucoseAnchor.rawValue) as! Data
                 do {
                     anchor = try NSKeyedUnarchiver.unarchivedObject(ofClass: HKQueryAnchor.self, from: data)!
                 } catch {
@@ -658,16 +801,46 @@ private extension UserDefaults {
         }
         set {
             guard let newValue = newValue else {
-                UserDefaults.shared.removeObject(forKey: UserDefaults.Keys.anchor.rawValue)
+                UserDefaults.shared.removeObject(forKey: UserDefaults.Keys.glucoseAnchor.rawValue)
                 return
             }
             
             do {
                 let data : Data = try NSKeyedArchiver.archivedData(withRootObject: newValue as Any, requiringSecureCoding: false)
-                UserDefaults.shared.set(data, forKey: UserDefaults.Keys.anchor.rawValue)
+                UserDefaults.shared.set(data, forKey: UserDefaults.Keys.glucoseAnchor.rawValue)
             } catch {
                 DirectLog.error("Could not encode healthkit anchor, so clearing out existing one", error: error)
-                UserDefaults.shared.removeObject(forKey: UserDefaults.Keys.anchor.rawValue)
+                UserDefaults.shared.removeObject(forKey: UserDefaults.Keys.glucoseAnchor.rawValue)
+            }
+        }
+    }
+    
+    var insulinAnchor: HKQueryAnchor? {
+        get {
+            var anchor = HKQueryAnchor.init(fromValue: 0)
+            
+            if UserDefaults.shared.object(forKey: UserDefaults.Keys.insulinAnchor.rawValue) != nil {
+                let data = UserDefaults.shared.object(forKey: UserDefaults.Keys.insulinAnchor.rawValue) as! Data
+                do {
+                    anchor = try NSKeyedUnarchiver.unarchivedObject(ofClass: HKQueryAnchor.self, from: data)!
+                } catch {
+                    DirectLog.error("Could not decode saved healthkit anchor, using a new one", error: error)
+                }
+            }
+            return anchor
+        }
+        set {
+            guard let newValue = newValue else {
+                UserDefaults.shared.removeObject(forKey: UserDefaults.Keys.insulinAnchor.rawValue)
+                return
+            }
+            
+            do {
+                let data : Data = try NSKeyedArchiver.archivedData(withRootObject: newValue as Any, requiringSecureCoding: false)
+                UserDefaults.shared.set(data, forKey: UserDefaults.Keys.insulinAnchor.rawValue)
+            } catch {
+                DirectLog.error("Could not encode healthkit anchor, so clearing out existing one", error: error)
+                UserDefaults.shared.removeObject(forKey: UserDefaults.Keys.insulinAnchor.rawValue)
             }
         }
     }

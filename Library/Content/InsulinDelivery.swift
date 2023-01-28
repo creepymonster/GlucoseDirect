@@ -30,7 +30,7 @@ enum InsulinType: Codable {
 
     var localizedDescription: String {
         LocalizedString(description)
-    }
+    }    
 }
 
 struct InsulinDelivery: CustomStringConvertible, Codable, Identifiable {
@@ -43,7 +43,12 @@ struct InsulinDelivery: CustomStringConvertible, Codable, Identifiable {
         self.init(id: id, starts: starts, ends: ends, units: units, type: type, originatingSourceName: DirectConfig.projectName, originatingSourceBundle: DirectConfig.appBundle)
     }
     
+
     init(id: UUID, starts: Date, ends: Date, units: Float, type: InsulinType, originatingSourceName: String, originatingSourceBundle: String) {
+        self.init(id: id, starts: starts, ends: ends, units: units, type: type, originatingSourceName: originatingSourceName, originatingSourceBundle: originatingSourceBundle, appleHealthId: nil)
+    }
+    
+    init(id: UUID, starts: Date, ends: Date, units: Float, type: InsulinType, originatingSourceName: String, originatingSourceBundle: String, appleHealthId: UUID?) {
         let roundedStarts = starts.toRounded(on: 1, .minute)
         let roundedEnds = ends.toRounded(on: 1, .minute)
 
@@ -55,7 +60,7 @@ struct InsulinDelivery: CustomStringConvertible, Codable, Identifiable {
         self.timegroup = starts.toRounded(on: DirectConfig.timegroupRounding, .minute)
         self.originatingSourceName = originatingSourceName
         self.originatingSourceBundle = originatingSourceBundle
-        self.appleHealthId = nil
+        self.appleHealthId = appleHealthId
     }
 
     // MARK: Internal
@@ -63,7 +68,7 @@ struct InsulinDelivery: CustomStringConvertible, Codable, Identifiable {
     let id: UUID
     let starts: Date
     let ends: Date
-    let units: Double
+    let units: Float
     let type: InsulinType
     let timegroup: Date
     var appleHealthId: UUID?
