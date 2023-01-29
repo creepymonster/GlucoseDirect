@@ -53,7 +53,7 @@ enum SensorGlucoseType {
 struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable, Hashable {
     // MARK: Lifecycle
 
-    init(glucoseValue: Int, minuteChange: Double? = nil) {
+    init(glucoseValue: Int, minuteChange: Double? = nil, serial: String? = nil, manufacturer: String? = nil) {
         let roundedTimestamp = Date().toRounded(on: 1, .minute)
 
         self.id = UUID()
@@ -63,9 +63,11 @@ struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable, H
         self.minuteChange = minuteChange
         self.smoothGlucoseValue = nil
         self.timegroup = roundedTimestamp.toRounded(on: DirectConfig.timegroupRounding, .minute)
+        self.serial = serial
+        self.manufacturer = manufacturer
     }
 
-    init(timestamp: Date, rawGlucoseValue: Int, intGlucoseValue: Int, minuteChange: Double? = nil) {
+    init(timestamp: Date, rawGlucoseValue: Int, intGlucoseValue: Int, minuteChange: Double? = nil, serial: String? = nil, manufacturer: String? = nil) {
         let roundedTimestamp = timestamp.toRounded(on: 1, .minute)
 
         self.id = UUID()
@@ -75,9 +77,11 @@ struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable, H
         self.minuteChange = minuteChange
         self.smoothGlucoseValue = nil
         self.timegroup = roundedTimestamp.toRounded(on: DirectConfig.timegroupRounding, .minute)
+        self.serial = serial
+        self.manufacturer = manufacturer
     }
 
-    init(id: UUID, timestamp: Date, rawGlucoseValue: Int, intGlucoseValue: Int, smoothGlucoseValue: Double?, minuteChange: Double? = nil) {
+    init(id: UUID, timestamp: Date, rawGlucoseValue: Int, intGlucoseValue: Int, smoothGlucoseValue: Double?, minuteChange: Double? = nil, serial: String? = nil, manufacturer: String? = nil) {
         let roundedTimestamp = timestamp.toRounded(on: 1, .minute)
 
         self.id = id
@@ -87,6 +91,8 @@ struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable, H
         self.minuteChange = minuteChange
         self.smoothGlucoseValue = smoothGlucoseValue
         self.timegroup = roundedTimestamp.toRounded(on: DirectConfig.timegroupRounding, .minute)
+        self.serial = serial
+        self.manufacturer = manufacturer
     }
 
     // MARK: Internal
@@ -99,6 +105,8 @@ struct SensorGlucose: Glucose, CustomStringConvertible, Codable, Identifiable, H
     let smoothGlucoseValue: Double?
     let timegroup: Date
     var appleHealthId: UUID?
+    var serial: String?
+    var manufacturer: String?
 
     var glucoseValue: Int {
         if intGlucoseValue < DirectConfig.minReadableGlucose {
