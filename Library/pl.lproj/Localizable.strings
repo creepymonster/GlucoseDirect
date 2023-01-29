@@ -86,7 +86,7 @@
 "Attention, the sensor sends faulty values. Please wait 10 minutes." = "Uwaga, sensor wysyła błędne wartości. Proszę poczekać 10 minut.";
 
 /* (No Comment) */
-"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Średnia (AVG) to ogólna miara poziomu cukru we krwi w pewnym okresie czasu, oferująca pojedynczy ogólny widok poziomu glukozy.";
+"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Średnia (AVG) to miara poziomu glikemii w pewnym okresie czasu, określająca pojedynczą ogólną wartość poziomu glukozy.";
 
 /* (No Comment) */
 "Bellman alarm" = "Alarm Bellmana";
@@ -95,7 +95,7 @@
 "Bellman test alarm" = "Alarm testowy Bellmana";
 
 /* (No Comment) */
-"Blood glucose values" = "Wartości glukozy we krwi";
+"Blood glucose values" = "Pomiary z glukometru";
 
 /* (No Comment) */
 "Blood glucose: %1$@" = "Glukoza we krwi: %1$@";
@@ -308,7 +308,7 @@
 "Retrieval interval, every %@ minutes" = "%@ minut";
 
 /* (No Comment) */
-"Retrieval interval, every minute" = "1 min :-)";
+"Retrieval interval, every minute" = "1 minutę";
 
 /* (No Comment) */
 "Retry pairing" = "Ponów parowanie";
