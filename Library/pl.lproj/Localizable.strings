@@ -416,10 +416,10 @@
 "Snooze until" = "Pdłuż do/Sen";
 
 /* (No Comment) */
-"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Odchylenie standardowe (SD) jest miarą rozpiętości odczytów poziomu glukozy wokół średniej — przeskakiwanie między wysokimi i niskimi wartościami skutkuje większym odchyleniem standardowym. Celem jest najniższe możliwe SD, które odzwierciedlałoby stały poziom glukozy przy minimalnych wahaniach..";
+"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Odchylenie standardowe (SD) jest miarą rozpiętości odczytów poziomu glukozy wokół średniej — przeskakiwanie między wysokimi i niskimi wartościami skutkuje większym odchyleniem standardowym. Celem jest najniższe możliwe SD, które odzwierciedlałoby stały poziom glukozy przy minimalnych wahaniach.";
 
 /* (No Comment) */
-"Statistics (%@ days)" = "Statystyka (%@ Tage)";
+"Statistics (%@ days)" = "Statystyka (%@ dni)";
 
 /* (No Comment) */
 "StatisticsPeriod" = "Okres";
