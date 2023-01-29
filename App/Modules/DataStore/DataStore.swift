@@ -69,6 +69,8 @@ extension SensorGlucose: FetchableRecord, PersistableRecord {
         case smoothGlucoseValue
         case timegroup
         case appleHealthId
+        case serial
+        case manufacturer
     }
 }
 

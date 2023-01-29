@@ -374,10 +374,10 @@ private class AppleHealthSyncService {
             ]
             
             if (type(of: glucose) == SensorGlucose.self) {
+                let sensorGlucose = glucose as! SensorGlucose
                 // Add in the sensor data to HealthKit
-                //TODO: Move these values to be saved on the Glucose Object in the database, and set based on that.
-                metadata[HKMetadataKeyDeviceSerialNumber] = UserDefaults.shared.sensor?.serial
-                metadata[HKMetadataKeyDeviceManufacturerName] = UserDefaults.shared.sensor?.type.rawValue
+                metadata[HKMetadataKeyDeviceSerialNumber] = sensorGlucose.serial
+                metadata[HKMetadataKeyDeviceManufacturerName] = sensorGlucose.manufacturer
             }
             
             let appleSample = HKQuantitySample(
