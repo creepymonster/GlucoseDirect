@@ -38,7 +38,7 @@
 "Alert, low blood glucose" = "Alerta: glucosa en sangre baja";
 
 /* (No Comment) */
-"Alarm, loss of signal" = "Alarma, pérdida de señal";
+"Alarm, loss of signal" = "Alarma: pérdida de señal";
 
 /* (No Comment) */
 "Alert, sensor expired" = "Alerta: sensor caducado";
@@ -65,7 +65,7 @@
 "App support mail" = "Soporte";
 
 /* (No Comment) */
-"App translation" = "Translation";
+"App translation" = "Traducción";
 
 /* (No Comment) */
 "App version" = "Versión";
