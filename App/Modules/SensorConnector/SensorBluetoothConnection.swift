@@ -41,8 +41,8 @@ class SensorBluetoothConnection: NSObject, SensorConnectionProtocol, CBCentralMa
 
     // MARK: Internal
 
-    var serviceUUID: CBUUID!
-    var manager: CBCentralManager!
+    var serviceUUID: CBUUID?
+    var manager: CBCentralManager?
 
     let managerQueue = DispatchQueue(label: "libre-direct.sensor-ble-connection.queue")
     weak var subject: PassthroughSubject<DirectAction, DirectError>?
@@ -66,7 +66,7 @@ class SensorBluetoothConnection: NSObject, SensorConnectionProtocol, CBCentralMa
             }
         }
     }
-    
+
     func getConfiguration(sensor: Sensor) -> [SensorConnectionConfigurationOption] {
         return []
     }
@@ -99,16 +99,19 @@ class SensorBluetoothConnection: NSObject, SensorConnectionProtocol, CBCentralMa
 
         setStayConnected(stayConnected: false)
 
-        managerQueue.sync {
+        managerQueue.async {
             self.disconnect()
         }
     }
 
     func find() {
-        DirectLog.info("Find")
-
-        guard manager != nil else {
+        guard let manager else {
             DirectLog.error("Guard: manager is nil")
+            return
+        }
+
+        guard let serviceUUID else {
+            DirectLog.error("Guard: serviceUUID is nil")
             return
         }
 
@@ -143,10 +146,13 @@ class SensorBluetoothConnection: NSObject, SensorConnectionProtocol, CBCentralMa
     }
 
     func scan() {
-        DirectLog.info("scan")
-
-        guard manager != nil else {
+        guard let manager else {
             DirectLog.error("Guard: manager is nil")
+            return
+        }
+
+        guard let serviceUUID else {
+            DirectLog.error("Guard: serviceUUID is nil")
             return
         }
 
@@ -155,9 +161,7 @@ class SensorBluetoothConnection: NSObject, SensorConnectionProtocol, CBCentralMa
     }
 
     func disconnect() {
-        DirectLog.info("Disconnect")
-
-        guard manager != nil else {
+        guard let manager else {
             DirectLog.error("Guard: manager is nil")
             return
         }
@@ -176,9 +180,7 @@ class SensorBluetoothConnection: NSObject, SensorConnectionProtocol, CBCentralMa
     }
 
     func connect(_ peripheral: CBPeripheral) {
-        DirectLog.info("Connect: \(peripheral)")
-
-        guard manager != nil else {
+        guard let manager else {
             DirectLog.error("Guard: manager is nil")
             return
         }
@@ -194,7 +196,6 @@ class SensorBluetoothConnection: NSObject, SensorConnectionProtocol, CBCentralMa
     }
 
     func setStayConnected(stayConnected: Bool) {
-        DirectLog.info("StayConnected: \(stayConnected.description)")
         self.stayConnected = stayConnected
     }
 
@@ -203,34 +204,30 @@ class SensorBluetoothConnection: NSObject, SensorConnectionProtocol, CBCentralMa
     }
 
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        guard manager != nil else {
+        guard let manager else {
             DirectLog.error("Guard: manager is nil")
             return
         }
 
-        if let manager = manager {
-            switch manager.state {
-            case .poweredOff:
-                sendUpdate(connectionState: .powerOff)
+        switch manager.state {
+        case .poweredOff:
+            sendUpdate(connectionState: .powerOff)
 
-            case .poweredOn:
-                sendUpdate(connectionState: .disconnected)
+        case .poweredOn:
+            sendUpdate(connectionState: .disconnected)
 
-                guard stayConnected else {
-                    break
-                }
-
-                find()
-            default:
-                sendUpdate(connectionState: .unknown)
+            guard stayConnected else {
+                break
             }
+
+            find()
+        default:
+            sendUpdate(connectionState: .unknown)
         }
     }
 
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
-        DirectLog.info("Peripheral: \(peripheral)")
-
-        guard manager != nil else {
+        guard let manager else {
             DirectLog.error("Guard: manager is nil")
             return
         }
@@ -244,8 +241,6 @@ class SensorBluetoothConnection: NSObject, SensorConnectionProtocol, CBCentralMa
     }
 
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
-        DirectLog.info("Peripheral: \(peripheral), didFailToConnect")
-
         sendUpdate(connectionState: .disconnected)
         sendUpdate(error: error)
 
@@ -257,8 +252,6 @@ class SensorBluetoothConnection: NSObject, SensorConnectionProtocol, CBCentralMa
     }
 
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        DirectLog.info("Peripheral: \(peripheral), didDisconnectPeripheral")
-
         sendUpdate(connectionState: .disconnected)
         sendUpdate(error: error)
 
@@ -270,9 +263,12 @@ class SensorBluetoothConnection: NSObject, SensorConnectionProtocol, CBCentralMa
     }
 
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        DirectLog.info("Peripheral: \(peripheral)")
-
         resetBuffer()
+
+        guard let serviceUUID else {
+            DirectLog.error("Guard: serviceUUID is nil")
+            return
+        }
 
         sendUpdate(connectionState: .connected)
         peripheral.discoverServices([serviceUUID])

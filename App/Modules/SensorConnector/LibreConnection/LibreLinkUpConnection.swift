@@ -63,10 +63,13 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
     }
 
     override func find() {
-        DirectLog.info("Find")
-
-        guard manager != nil else {
+        guard let manager else {
             DirectLog.error("Guard: manager is nil")
+            return
+        }
+
+        guard let serviceUUID else {
+            DirectLog.error("Guard: serviceUUID is nil")
             return
         }
 
@@ -82,15 +85,13 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             connect(connectedPeripheral)
 
         } else {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
+            managerQueue.asyncAfter(deadline: .now() + .seconds(5)) {
                 self.find()
             }
         }
     }
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
-        DirectLog.info("Peripheral: \(peripheral)")
-
         sendUpdate(error: error)
 
         if let services = peripheral.services {
@@ -103,8 +104,6 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
     }
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
-        DirectLog.info("Peripheral: \(peripheral)")
-
         sendUpdate(error: error)
 
         if let characteristics = service.characteristics {
@@ -262,7 +261,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         }
 
         let fetchResponse = try await fetch()
-        
+
         if let sensorAge = fetchResponse.data?.activeSensors?.first?.sensor?.age ?? fetchResponse.data?.connection?.sensor?.age,
            let sensorSerial = fetchResponse.data?.activeSensors?.first?.sensor?.serial ?? fetchResponse.data?.connection?.sensor?.serial,
            let sensor = sensor

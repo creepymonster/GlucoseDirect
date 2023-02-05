@@ -50,10 +50,13 @@ class LibreLinkConnection: Libre2Connection {
     }
 
     override func find() {
-        DirectLog.info("Find")
-
-        guard manager != nil else {
+        guard let manager else {
             DirectLog.error("Guard: manager is nil")
+            return
+        }
+        
+        guard let serviceUUID else {
+            DirectLog.error("Guard: serviceUUID is nil")
             return
         }
 
@@ -71,7 +74,7 @@ class LibreLinkConnection: Libre2Connection {
             connect(connectedPeripheral)
 
         } else {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
+            managerQueue.asyncAfter(deadline: .now() + .seconds(5)) {
                 self.find()
             }
         }
