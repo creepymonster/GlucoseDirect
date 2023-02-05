@@ -8,16 +8,16 @@
 "NFCReaderUsageDescription" = "Funkcja NFC jest wymagana do odczytania wszystkich ustawień połączenia przed połączeniem Bluetooth.";
 
 /* Privacy - Bluetooth Always Usage Description */
-"NSBluetoothAlwaysUsageDescription" = "Do połączenia z obsługiwanymi urządzeniami potrzebna jest funkcja Bluetooth.";
+"NSBluetoothAlwaysUsageDescription" = "Do połączenia z obsługiwanymi urządzeniami wymagana jest funkcja Bluetooth.";
 
 /* Privacy - Bluetooth Peripheral Usage Description */
-"NSBluetoothPeripheralUsageDescription" = "Do połączenia z obsługiwanymi urządzeniami potrzebna jest funkcja Bluetooth.";
+"NSBluetoothPeripheralUsageDescription" = "Do połączenia z obsługiwanymi urządzeniami wymagana jest funkcja Bluetooth.";
 
 /* Privacy - Calendars Usage Description */
-"NSCalendarsUsageDescription" = "Dostęp do kalendarza jest wymagany do wyświetlania aktualnych wartości glukozy na Apple Watch.";
+"NSCalendarsUsageDescription" = "Dostęp do aplikacji Kalendarz jest wymagany, żeby wyświetlić aktualne wartości glukozy na Apple Watch.";
 
 /* Privacy - Health Share Usage Description */
-"NSHealthShareUsageDescription" = "Dostęp do Apple Health jest wymagany, jeśli dane dotyczące glukozy mają być eksportowane.";
+"NSHealthShareUsageDescription" = "Dostęp do aplikacji Zdrowie jest wymagany, jeśli dane dotyczące glukozy mają być eksportowane.";
 
 /* Privacy - Health Update Usage Description */
-"NSHealthUpdateUsageDescription" = "Dostęp do Apple Health jest wymagany, jeśli dane dotyczące glukozy mają być eksportowane.";
+"NSHealthUpdateUsageDescription" = "Dostęp do aplikacji Zdrowie jest wymagany, jeśli dane dotyczące glukozy mają być eksportowane.";

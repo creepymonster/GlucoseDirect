@@ -8,10 +8,10 @@
 "%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
 
 /* (No Comment) */
-"%@ Entries" = "%@ Wpisy";
+"%@ Entries" = "%@ wpisy";
 
 /* (No Comment) */
-"%@ Entry" = "%@ Wejście";
+"%@ Entry" = "%@ wpis";
 
 /* (No Comment) */
 "About %@" = "O %@";
@@ -20,7 +20,7 @@
 "Add" = "Dodaj";
 
 /* (No Comment) */
-"Add blood glucose" = "Glukoza z glukometru";
+"Add blood glucose" = "Pomiar z glukometru";
 
 /* (No Comment) */
 "Add calibration" = "Dodaj kalibrację";
@@ -32,19 +32,19 @@
 "Alarm settings" = "Ustawienia alarmu";
 
 /* (No Comment) */
-"Alert, high glucose" = "Wysoka glukoza !";
+"Alert, high glucose" = "Wysoka glukoza!";
 
 /* (No Comment) */
-"Alert, low blood glucose" = "Niska glukoza !!!";
+"Alert, low blood glucose" = "Niska glukoza!";
 
 /* (No Comment) */
-"Alarm, loss of signal" = "Alarm, utrata sygnału";
+"Alarm, loss of signal" = "Utracono sygnał z sensorem";
 
 /* (No Comment) */
 "Alert, sensor expired" = "Koniec działania sensora";
 
 /* (No Comment) */
-"Alert, sensor expiring soon" = "Sensor wkrótce wygaśnie!";
+"Alert, sensor expiring soon" = "Sensor wkrótce przestanie działać";
 
 /* (No Comment) */
 "App author" = "Autor";
@@ -65,7 +65,7 @@
 "App support mail" = "Pomoc";
 
 /* (No Comment) */
-"App translation" = "Tłumaczenie aplikacji";
+"App translation" = "Tłumaczenie";
 
 /* (No Comment) */
 "App version" = "Wersja";
@@ -80,22 +80,22 @@
 "Are you sure you want to disconnect the sensor?" = "Czy na pewno chcesz odłączyć sensor?";
 
 /* (No Comment) */
-"At least %@ days of data are required." = "Wymagane są dane z co najmniej %@ dni.";
+"At least %@ days of data are required." = "Wymagane są dane z co najmniej %@ dni";
 
 /* (No Comment) */
-"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Uwaga, sensor wysyła błędne wartości. Proszę czekać 10 minut.";
+"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Uwaga, sensor wysyła błędne wartości. Proszę poczekać 10 minut.";
 
 /* (No Comment) */
-"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Średnia (AVG) to ogólna miara poziomu cukru we krwi w pewnym okresie czasu, oferująca pojedynczy ogólny widok poziomu glukozy.";
+"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Średnia (AVG) to miara poziomu glikemii w pewnym okresie czasu, określająca pojedynczą ogólną wartość poziomu glukozy.";
 
 /* (No Comment) */
-"Bellman alarm" = "Alarm Belmana";
+"Bellman alarm" = "Alarm Bellmana";
 
 /* (No Comment) */
 "Bellman test alarm" = "Alarm testowy Bellmana";
 
 /* (No Comment) */
-"Blood glucose values" = "Wartości glukozy we krwi";
+"Blood glucose values" = "Pomiary z glukometru";
 
 /* (No Comment) */
 "Blood glucose: %1$@" = "Glukoza we krwi: %1$@";
@@ -107,7 +107,7 @@
 "Calibration view" = "Kalibracja";
 
 /* (No Comment) */
-"Cancel" = "anulować";
+"Cancel" = "Anuluj";
 
 /* (No Comment) */
 "Chart" = "Wykres";
@@ -131,13 +131,13 @@
 "Connection error" = "Błąd połączenia";
 
 /* (No Comment) */
-"Connection error timestamp" = "Czas błędu połączenia";
+"Connection error timestamp" = "Czas";
 
 /* (No Comment) */
-"Connection settings" = "Ustawienia połączenia";
+"Connection settings" = "Integracja z LibreLink";
 
 /* (No Comment) */
-"Connection state" = "Stan połączenia";
+"Connection state" = "Stan";
 
 /* (No Comment) */
 "Custom calibration intercept" = "Wartość kalibracji";
@@ -149,7 +149,7 @@
 "Delete all" = "Usuń wszystko";
 
 /* (No Comment) */
-"Disconnect" = "Rozłączyć się";
+"Disconnect" = "Rozłącz";
 
 /* (No Comment) */
 "Disconnect sensor" = "Odłącz sensor";
@@ -158,13 +158,13 @@
 "Disconnect transmitter" = "Odłącz transmiter";
 
 /* (No Comment) */
-"Disconnected" = "Utracono połączenie";
+"Disconnected" = "Rozłączono";
 
 /* (No Comment) */
-"Export to Apple Calendar" = "Eksportuj do kalendarza Apple";
+"Export to Apple Calendar" = "Eksportuj do aplikacji Kalendarz";
 
 /* (No Comment) */
-"Export to Apple Health" = "Eksportuj do Apple Health";
+"Export to Apple Health" = "Eksportuj do aplikacji Zdrowie";
 
 /* (No Comment) */
 "Find transmitter" = "Wyszukaj transmiter";
@@ -176,7 +176,7 @@
 "Glucose list view" = "Historia odczytów";
 
 /* (No Comment) */
-"Glucose Live Activity" = "Glukoza na ekranie blokady";
+"Glucose Live Activity" = "Wyświetlaj na ekranie blokady";
 
 /* (No Comment) */
 "Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Wskaźnik zarządzania glukozą (GMI) zastępuje „szacowaną HbA1c” dla pacjentów korzystających z ciągłego monitorowania glikemii.";
@@ -185,10 +185,10 @@
 "Glucose notification" = "Powiadomienie o poziomie glukozy";
 
 /* (No Comment) */
-"Glucose overview" = "Panel odczytów";
+"Glucose overview" = "Odczyty";
 
 /* (No Comment) */
-"Glucose read aloud" = "Odczytaj glukozę";
+"Glucose read aloud" = "Przeczytaj poziom glukozy";
 
 /* (No Comment) */
 "Glucose settings" = "Ustawienia glukozy";
@@ -200,7 +200,7 @@
 "Glucose widget" = "Glukoza";
 
 /* (No Comment) */
-"Glucose widget description" = "Opis widżetu glukozy";
+"Glucose widget description" = "Wyświetlaj ostatnią wartość glukozy.";
 
 /* (No Comment) */
 "High glucose alarm" = "Alarm o wysokim poziomie glukozy";
@@ -215,10 +215,10 @@
 "LibreLink transmitter" = "Transmiter LibreLink";
 
 /* (No Comment) */
-"LibreLinkUp email" = "LibreLinkUp E-Mail";
+"LibreLinkUp email" = "Email LibreLinkUp";
 
 /* (No Comment) */
-"LibreLinkUp password" = "LibreLinkUp Password";
+"LibreLinkUp password" = "Hasło LibreLinkUp";
 
 /* (No Comment) */
 "Line" = "Linie";
@@ -233,10 +233,10 @@
 "Nightscout API-Secret" = "API Secret";
 
 /* (No Comment) */
-"Nightscout settings" = "Ustawienia Nightscout";
+"Nightscout settings" = "Integracja Nightscout";
 
 /* (No Comment) */
-"Nightscout upload enabled" = "Przesyłaj dane do Nightscout";
+"Nightscout upload enabled" = "Przesyłaj dane do chmury";
 
 /* (No Comment) */
 "Nightscout url" = "Adres Nightscout";
@@ -287,16 +287,16 @@
 "Readable miligram" = "miligramy";
 
 /* (No Comment) */
-"Readable milimol" = "milimoll";
+"Readable milimol" = "milimol";
 
 /* (No Comment) */
-"Readable rapidly falling" = "spada szybko";
+"Readable rapidly falling" = "szybko spada";
 
 /* (No Comment) */
 "Readable rapidly rising" = "szybko rośnie";
 
 /* (No Comment) */
-"Readable rising" = "rosnący";
+"Readable rising" = "rośnie";
 
 /* (No Comment) */
 "Rescan the sensor" = "Ponownie zeskanuj sensor";
@@ -308,7 +308,7 @@
 "Retrieval interval, every %@ minutes" = "%@ minut";
 
 /* (No Comment) */
-"Retrieval interval, every minute" = "1 min :-)";
+"Retrieval interval, every minute" = "1 minutę";
 
 /* (No Comment) */
 "Retry pairing" = "Ponów parowanie";
@@ -401,7 +401,7 @@
 "Sensor starting date" = "Data uruchomienia sensora";
 
 /* (No Comment) */
-"Sensor state" = "Stan połączenia";
+"Sensor state" = "Stan";
 
 /* (No Comment) */
 "Sensor type" = "Typ";
@@ -416,10 +416,10 @@
 "Snooze until" = "Pdłuż do/Sen";
 
 /* (No Comment) */
-"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Odchylenie standardowe (SD) jest miarą rozpiętości odczytów poziomu glukozy wokół średniej — przeskakiwanie między wysokimi i niskimi wartościami skutkuje większym odchyleniem standardowym. Celem jest najniższe możliwe SD, które odzwierciedlałoby stały poziom glukozy przy minimalnych wahaniach..";
+"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Odchylenie standardowe (SD) jest miarą rozpiętości odczytów poziomu glukozy wokół średniej — przeskakiwanie między wysokimi i niskimi wartościami skutkuje większym odchyleniem standardowym. Celem jest najniższe możliwe SD, które odzwierciedlałoby stały poziom glukozy przy minimalnych wahaniach.";
 
 /* (No Comment) */
-"Statistics (%@ days)" = "Statystyka (%@ Tage)";
+"Statistics (%@ days)" = "Statystyka (%@ dni)";
 
 /* (No Comment) */
 "StatisticsPeriod" = "Okres";
@@ -428,7 +428,7 @@
 "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "Z sensora nie są już odbierane żadne dane. Przyczyną może być przerwanie połączenia Bluetooth z sensorem lub brak przesyłania danych przez LibreLinkUp.";
 
 /* (No Comment) */
-"Time" = "Czas błędu połączenia";
+"Time" = "Czas";
 
 /* (No Comment) */
 "Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Czas powyżej zakresu (TAR) lub procent czasu spędzonego powyżej docelowego poziomu glukozy %@.";
@@ -473,7 +473,7 @@
 "Upper limit" = "Wysoki";
 
 /* (No Comment) */
-"Use LibreLink to start the sensor" = "Użyj LibreLink, aby uruchomić sensor";
+"Use LibreLink to start the sensor" = "Użyj aplikacji LibreLink, aby uruchomić sensor";
 
 /* (No Comment) */
 "Vibration" = "Wibracja";
@@ -491,7 +491,7 @@
 "Without transmitter" = "Bez transmitera";
 
 /* (No Comment) */
-"Your current glucose is %1$@ (%2$@)." = "Twoja aktualna glukoza to %1$@ (%2$@).";
+"Your current glucose is %1$@ (%2$@)." = "Twój aktualny poziom glukozy to %1$@ (%2$@).";
 
 /* (No Comment) */
 "Your glucose %1$@ (%2$@) is dangerously high and needs to be treated." = "Twoja glukoza, %1$@ (%2$@), jest niebezpiecznie wysoka.";
@@ -521,7 +521,7 @@
 "Export for Tidepool" = "Eksportuj do Tidepool";
 
 /* (No Comment) */
-"%@ hours" = "%@ Godziny";
+"%@ hours" = "%@ godziny";
 
 /* (No Comment) */
 "Reopen app in" = "Otwórz GD w ciągu";
@@ -542,7 +542,7 @@
 "%1$@ minutes" = "%1$@ minuty";
 
 /* (No Comment) */
-"Meal Bolus" = "Bolus Posiłkowy";
+"Meal Bolus" = "Bolus posiłkowy";
 
 /* (No Comment) */
 "Snack Bolus" = "Bolus przekąskowy";
@@ -566,7 +566,7 @@
 "Blood glucose" = "Glukoza we krwi";
 
 /* (No Comment) */
-"Add insulin" = "Dodaj insulinę";
+"Add insulin" = "Podanie insuliny";
 
 /* (No Comment) */
 "Calibration" = "Kalibracja";
@@ -590,7 +590,7 @@
 "Show smoothed glucose" = "Pokaż wyrównaną glukozę ";
 
 /* (No Comment) */
-"Show insulin input" = "Pokaż wprowadzanie insuliny";
+"Show insulin input" = "Pokaż podanie insuliny";
 
 /* (No Comment) */
 "Help" = "Pomoc";
@@ -599,4 +599,4 @@
 "Alarm volume" = "Głośność alarmu";
 
 /* (No Comment) */
-"Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults." = "Współczynnik zmienności (CV) jest definiowany jako stosunek odchylenia standardowego do średniej. Ogólnie rzecz biorąc, większość ekspertów lubi widzieć CV na poziomie 33% lub niższym, co jest uważane za marker \"stabilnego\" poziomu glukozy. Ale uwaga, bardzo młodzi pacjenci z cukrzycą mają tendencję do większej zmienności niż dorośli.";
+"Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults." = "Współczynnik zmienności (CV) jest definiowany jako stosunek odchylenia standardowego do średniej. Wartość CV na poziomie 33% lub niższym jest uważana za marker \"stabilnego\" poziomu glukozy. Uwaga: bardzo młodzi pacjenci z cukrzycą mają tendencję do większej zmienności niż dorośli.";
