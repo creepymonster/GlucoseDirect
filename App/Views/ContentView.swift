@@ -58,7 +58,7 @@ struct ContentView: View {
                 apparence.configureWithOpaqueBackground()
 
                 UITabBar.appearance().scrollEdgeAppearance = apparence
-            }.animation(.default, value: store.state.selectedView)
+            }
         }
     }
 
