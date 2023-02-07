@@ -32,8 +32,6 @@ class BubbleConnection: SensorBluetoothConnection, IsTransmitter {
     }
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
-        DirectLog.info("Peripheral: \(peripheral)")
-
         sendUpdate(error: error)
 
         if let services = peripheral.services {
@@ -46,8 +44,6 @@ class BubbleConnection: SensorBluetoothConnection, IsTransmitter {
     }
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
-        DirectLog.info("Peripheral: \(peripheral)")
-
         sendUpdate(error: error)
 
         if let characteristics = service.characteristics {
@@ -67,8 +63,6 @@ class BubbleConnection: SensorBluetoothConnection, IsTransmitter {
     }
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
-        DirectLog.info("Peripheral: \(peripheral)")
-
         sendUpdate(error: error)
 
         guard let writeCharacteristic = writeCharacteristic else {
@@ -79,8 +73,6 @@ class BubbleConnection: SensorBluetoothConnection, IsTransmitter {
     }
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        DirectLog.info("Peripheral: \(peripheral)")
-
         guard let value = characteristic.value else {
             return
         }

@@ -45,7 +45,7 @@ class Libre2Connection: SensorBluetoothConnection, IsSensor {
     override func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         DirectLog.info("Found peripheral: \(peripheral.name ?? "-")")
 
-        guard manager != nil else {
+        guard let manager else {
             DirectLog.error("Guard: manager is nil")
             return
         }
@@ -69,8 +69,6 @@ class Libre2Connection: SensorBluetoothConnection, IsSensor {
     }
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
-        DirectLog.info("Peripheral: \(peripheral)")
-
         sendUpdate(error: error)
 
         if let services = peripheral.services {
@@ -83,8 +81,6 @@ class Libre2Connection: SensorBluetoothConnection, IsSensor {
     }
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
-        DirectLog.info("Peripheral: \(peripheral)")
-
         sendUpdate(error: error)
 
         if let characteristics = service.characteristics {
@@ -111,8 +107,6 @@ class Libre2Connection: SensorBluetoothConnection, IsSensor {
     }
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        DirectLog.info("Peripheral: \(peripheral)")
-
         sendUpdate(error: error)
 
         guard let value = characteristic.value else {
@@ -155,7 +149,7 @@ class Libre2Connection: SensorBluetoothConnection, IsSensor {
                 }
             }
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+            managerQueue.asyncAfter(deadline: .now() + .seconds(2)) {
                 self.resetBuffer()
             }
         }

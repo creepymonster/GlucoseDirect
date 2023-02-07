@@ -44,7 +44,7 @@ struct SensorConnectorSettingsView: View {
 
     // MARK: Private
 
-    private let intervals: [Int] = [1, 5, 15]
+    private let intervals: [Int] = [1, 2, 5, 15]
 
     private var selectedConnectionID: Binding<String> {
         Binding(
