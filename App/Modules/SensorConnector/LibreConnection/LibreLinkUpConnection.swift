@@ -6,6 +6,7 @@
 import Combine
 import CoreBluetooth
 import Foundation
+import SwiftThrottle
 import SwiftUI
 
 // MARK: - LibreLinkUpConnection
@@ -30,34 +31,43 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
     }
 
     override func pairConnection() {
-        Task {
-            do {
-                lastLogin = nil
-                try await processLogin()
-            } catch {
-                sendUpdate(error: error)
+        workThrottle?.throttle {
+            Task {
+                do {
+                    self.lastLogin = nil
+
+                    try await self.processLogin()
+                } catch {
+                    self.sendUpdate(error: error)
+                }
             }
         }
     }
 
     override func connectConnection(sensor: Sensor, sensorInterval: Int) {
         DirectLog.info("ConnectSensor: \(sensor)")
-
+        DirectLog.info("ConnectSensor, throttleDelay: \(throttleDelay)")
+        
         self.sensor = sensor
         self.sensorInterval = sensorInterval
+        
+        workThrottle = Throttle(minimumDelay: throttleDelay)
 
         setStayConnected(stayConnected: true)
 
-        Task {
-            do {
-                lastLogin = nil
-                try await processLogin()
+        workThrottle?.throttle {
+            Task {
+                do {
+                    self.lastLogin = nil
 
-                managerQueue.async {
-                    self.find()
+                    try await self.processLogin()
+
+                    self.managerQueue.async {
+                        self.find()
+                    }
+                } catch {
+                    self.sendUpdate(error: error)
                 }
-            } catch {
-                sendUpdate(error: error)
             }
         }
     }
@@ -120,11 +130,13 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             peripheral.setNotifyValue(true, for: characteristic)
         }
 
-        Task {
-            do {
-                try await processFetch()
-            } catch {
-                DirectLog.error("Error: \(error)")
+        workThrottle?.throttle {
+            Task {
+                do {
+                    try await self.processFetch()
+                } catch {
+                    DirectLog.error("Error: \(error)")
+                }
             }
         }
     }
@@ -140,12 +152,15 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             return
         }
 
-        Task {
-            do {
-                try await Task.sleep(nanoseconds: 1_000_000_000 * 30)
-                try await processFetch()
-            } catch {
-                DirectLog.error("Error: \(error)")
+        managerQueue.asyncAfter(deadline: .now() + .seconds(30)) {
+            self.workThrottle?.throttle {
+                Task {
+                    do {
+                        try await self.processFetch()
+                    } catch {
+                        DirectLog.error("Error: \(error)")
+                    }
+                }
             }
         }
     }
@@ -165,7 +180,11 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
     // MARK: Private
 
-    private var workingSince: Date?
+    private var workThrottle: Throttle?
+    private var throttleDelay: Double {
+        (Double(sensorInterval) / 1.5) * 60
+    }
+   
     private var lastLogin: LibreLinkLogin?
     private let oneMinuteReadingUUID = CBUUID(string: "0898177A-EF89-11E9-81B4-2A2AE2DBCCE4")
     private var oneMinuteReadingCharacteristic: CBCharacteristic?
@@ -196,17 +215,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
     private func processLogin(apiRegion: String? = nil) async throws {
         if lastLogin == nil || lastLogin!.authExpires <= Date() {
-            if let workingSince = workingSince, workingSince.addingTimeInterval(30) > Date() {
-                return
-            }
-
             DirectLog.info("LibreLinkUp processLogin, starts working, \(Date().debugDescription)")
-
-            workingSince = Date()
-
-            defer {
-                workingSince = nil
-            }
 
             let loginResponse = try await login(apiRegion: apiRegion)
 
@@ -246,19 +255,9 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
     }
 
     private func processFetch() async throws {
-        try await processLogin()
-
-        if let workingSince = workingSince, workingSince.addingTimeInterval(30) > Date() {
-            return
-        }
-
         DirectLog.info("LibreLinkUp processFetch, starts working, \(Date().debugDescription)")
 
-        workingSince = Date()
-
-        defer {
-            workingSince = nil
-        }
+        try await processLogin()
 
         let fetchResponse = try await fetch()
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1055974F2990DEAF008187B4 /* SwiftThrottle in Frameworks */ = {isa = PBXBuildFile; productRef = 1055974E2990DEAF008187B4 /* SwiftThrottle */; };
 		107FA9CB2975C6780002A9F4 /* AdditionalSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FA9CA2975C6780002A9F4 /* AdditionalSettingsView.swift */; };
 		107FA9CD2975C6F90002A9F4 /* Float.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FA9CC2975C6F90002A9F4 /* Float.swift */; };
 		10B3B0CE2972D65F00B70CE4 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B3B0CD2972D65F00B70CE4 /* Alarm.swift */; };
@@ -240,6 +241,9 @@
 		1074ABAB29510094008A375D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		107FA9CA2975C6780002A9F4 /* AdditionalSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalSettingsView.swift; sourceTree = "<group>"; };
 		107FA9CC2975C6F90002A9F4 /* Float.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Float.swift; sourceTree = "<group>"; };
+		10808D50299105FD007257DA /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		10808D5129910605007257DA /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/Localizable.strings; sourceTree = "<group>"; };
+		10808D522991060B007257DA /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		10B3B0CD2972D65F00B70CE4 /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
 		10DD12FD296A146800C900EA /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		10DD1300296A15B900C900EA /* AddCalibrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCalibrationView.swift; sourceTree = "<group>"; };
@@ -441,6 +445,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1055974F2990DEAF008187B4 /* SwiftThrottle in Frameworks */,
 				E2D57349291B8E96009C37BD /* GRDB in Frameworks */,
 				E251653E28D7BFE900922898 /* ActivityKit.framework in Frameworks */,
 				E27BBA8027AD7DDA00A6B8EE /* HealthKit.framework in Frameworks */,
@@ -923,6 +928,7 @@
 			name = GlucoseDirectApp;
 			packageProductDependencies = (
 				E2D57348291B8E96009C37BD /* GRDB */,
+				1055974E2990DEAF008187B4 /* SwiftThrottle */,
 			);
 			productName = GlucoseDirect;
 			productReference = E20B853A266F4A9800AA4224 /* GlucoseDirectApp.app */;
@@ -989,6 +995,7 @@
 			mainGroup = E20B8531266F4A9800AA4224;
 			packageReferences = (
 				E2D57347291B8E96009C37BD /* XCRemoteSwiftPackageReference "GRDB" */,
+				1055974D2990DEAF008187B4 /* XCRemoteSwiftPackageReference "SwiftThrottle" */,
 			);
 			productRefGroup = E20B853B266F4A9800AA4224 /* Products */;
 			projectDirPath = "";
@@ -1253,6 +1260,7 @@
 				E2E4797C28BD6A0F006665EA /* uk */,
 				105EC00A294E6E7B008EE77B /* pl */,
 				1074ABA929510094008A375D /* ar */,
+				10808D50299105FD007257DA /* bg */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1276,6 +1284,7 @@
 				E2E4797D28BD6A0F006665EA /* uk */,
 				105EC00B294E6E7B008EE77B /* pl */,
 				1074ABAA29510094008A375D /* ar */,
+				10808D522991060B007257DA /* bg */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1299,6 +1308,7 @@
 				E2E4797E28BD6A0F006665EA /* uk */,
 				105EC00C294E6E7B008EE77B /* pl */,
 				1074ABAB29510094008A375D /* ar */,
+				10808D5129910605007257DA /* bg */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1589,6 +1599,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1055974D2990DEAF008187B4 /* XCRemoteSwiftPackageReference "SwiftThrottle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Lakr233/SwiftThrottle";
+			requirement = {
+				kind = exactVersion;
+				version = 1.0.2;
+			};
+		};
 		E2D57347291B8E96009C37BD /* XCRemoteSwiftPackageReference "GRDB" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/groue/GRDB.swift";
@@ -1600,6 +1618,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1055974E2990DEAF008187B4 /* SwiftThrottle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1055974D2990DEAF008187B4 /* XCRemoteSwiftPackageReference "SwiftThrottle" */;
+			productName = SwiftThrottle;
+		};
 		E2D57348291B8E96009C37BD /* GRDB */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E2D57347291B8E96009C37BD /* XCRemoteSwiftPackageReference "GRDB" */;

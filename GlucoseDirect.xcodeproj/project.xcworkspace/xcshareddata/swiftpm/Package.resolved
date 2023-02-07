@@ -8,6 +8,15 @@
         "revision" : "5ff2ad9e71693477547f311cd72aea2f87f0a2ff",
         "version" : "6.3.0"
       }
+    },
+    {
+      "identity" : "swiftthrottle",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Lakr233/SwiftThrottle",
+      "state" : {
+        "revision" : "8df5f0f890a388355be70b0cfd962d2cd2da0ce8",
+        "version" : "1.0.2"
+      }
     }
   ],
   "version" : 2
