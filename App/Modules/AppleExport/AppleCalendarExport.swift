@@ -156,7 +156,7 @@ private class AppleCalendarExportService {
         event.startDate = timestamp
         event.endDate = timestamp + durationMinutes * 60
         
-        if withAlarm || true {
+        if withAlarm {
             let alarm = EKAlarm(relativeOffset: 0)
             event.alarms = [alarm]
         }
