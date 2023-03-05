@@ -45,6 +45,7 @@ struct AppState: DirectState {
         self.alarmHigh = UserDefaults.standard.alarmHigh
         self.alarmLow = UserDefaults.standard.alarmLow
         self.alarmVolume = UserDefaults.standard.alarmVolume
+        self.alarmInterval = UserDefaults.standard.alarmInterval
         self.appleCalendarExport = UserDefaults.standard.appleCalendarExport
         self.appleHealthExport = UserDefaults.standard.appleHealthExport
         self.bellmanAlarm = UserDefaults.standard.bellmanAlarm
@@ -114,6 +115,7 @@ struct AppState: DirectState {
     var alarmHigh: Int { didSet { UserDefaults.standard.alarmHigh = alarmHigh } }
     var alarmLow: Int { didSet { UserDefaults.standard.alarmLow = alarmLow } }
     var alarmVolume: Float { didSet { UserDefaults.standard.alarmVolume = alarmVolume } }
+    var alarmInterval: Int { didSet { UserDefaults.standard.alarmInterval = alarmInterval } }
     var appleCalendarExport: Bool { didSet { UserDefaults.standard.appleCalendarExport = appleCalendarExport } }
     var appleHealthExport: Bool { didSet { UserDefaults.standard.appleHealthExport = appleHealthExport } }
     var bellmanAlarm: Bool { didSet { UserDefaults.standard.bellmanAlarm = bellmanAlarm } }

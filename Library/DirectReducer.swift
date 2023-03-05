@@ -100,7 +100,10 @@ func directReducer(state: inout DirectState, action: DirectAction) {
         
     case .setAlarmVolume(volume: let volume):
         state.alarmVolume = volume
-        
+    
+    case .setAlarmInterval(interval: let interval):
+        state.alarmInterval = interval
+    
     case .setAlarmSnoozeUntil(untilDate: let untilDate, autosnooze: let autosnooze):
         if let untilDate = untilDate {
             state.alarmSnoozeUntil = untilDate

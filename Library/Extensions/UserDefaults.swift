@@ -12,6 +12,7 @@ private enum Keys: String {
     case alarmHigh = "libre-direct.settings.alarm-high"
     case alarmLow = "libre-direct.settings.alarm-low"
     case alarmVolume = "libre-direct.settings.alarm-volume"
+    case alarmInterval = "libre-direct.settings.alarm-interval"
     case appleHealthExport = "libre-direct.settings.apple-health-export"
     case bellmanAlarm = "libre-direct.settings.bellman-alarm"
     case calendarExport = "libre-direct.settings.calendar-export"
@@ -106,6 +107,19 @@ extension UserDefaults {
         }
         set {
             set(newValue, forKey: Keys.alarmVolume.rawValue)
+        }
+    }
+    
+    var alarmInterval: Int {
+        get {
+            if object(forKey: Keys.alarmInterval.rawValue) != nil {
+                return integer(forKey: Keys.alarmInterval.rawValue)
+            }
+
+            return 5
+        }
+        set {
+            set(newValue, forKey: Keys.alarmInterval.rawValue)
         }
     }
 
