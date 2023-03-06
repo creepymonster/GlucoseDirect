@@ -47,7 +47,7 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
                         service.value.setLowGlucoseAlarm(sound: state.lowGlucoseAlarmSound, volume: state.alarmVolume, ignoreMute: state.ignoreMute)
                     }
 
-                    return Just(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).toRounded(on: 1, .minute), autosnooze: true))
+                    return Just(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(Double(state.alarmInterval) * 60).toRounded(on: 1, .minute), autosnooze: true))
                         .setFailureType(to: DirectError.self)
                         .eraseToAnyPublisher()
                 }
@@ -64,7 +64,7 @@ private func glucoseNotificationMiddelware(service: LazyService<GlucoseNotificat
                         service.value.setHighGlucoseAlarm(sound: state.highGlucoseAlarmSound, volume: state.alarmVolume, ignoreMute: state.ignoreMute)
                     }
 
-                    return Just(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(5 * 60).toRounded(on: 1, .minute), autosnooze: true))
+                    return Just(.setAlarmSnoozeUntil(untilDate: Date().addingTimeInterval(Double(state.alarmInterval) * 60).toRounded(on: 1, .minute), autosnooze: true))
                         .setFailureType(to: DirectError.self)
                         .eraseToAnyPublisher()
                 }
