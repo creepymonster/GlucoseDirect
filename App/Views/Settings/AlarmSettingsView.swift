@@ -52,10 +52,10 @@ struct AlarmSettingsView: View {
                     HStack {
                         Text("Alarm interval")
                         Spacer()
-                        Text(store.state.alarmInterval.description + " mins")
+                        Text(String(format: LocalizedString("%1$@ minutes"), store.state.alarmInterval.description))
                     }
                     
-                    Slider(value: alarmInterval, in: 2...15, step: 1)
+                    Slider(value: alarmInterval, in: 2...20, step: 1)
                 }
 
                 Toggle("Ignore mute", isOn: ignoreMute).toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
