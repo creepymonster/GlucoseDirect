@@ -599,4 +599,7 @@
 "Alarm volume" = "Volumen de la alarma";
 
 /* (No Comment) */
+"Alarm interval" = "Intervalo de la alarma";
+
+/* (No Comment) */
 "Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults." = "El coeficiente de variación (CV) se define como la relación entre la desviación típica y la media. En general, la mayoría de los expertos desean ver un CV del 33 % o inferior, lo que se considera un marcador de niveles de glucosa \"estables\". Sin embargo, hay que tener en cuenta que los pacientes diabéticos muy jóvenes tienden a presentar una mayor variabilidad que los adultos.";

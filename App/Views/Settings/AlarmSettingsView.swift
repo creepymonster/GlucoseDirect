@@ -48,6 +48,15 @@ struct AlarmSettingsView: View {
                     
                     Slider(value: alarmVolume, in: 0...1, step: 0.05)
                 }
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text("Alarm interval")
+                        Spacer()
+                        Text(String(format: LocalizedString("%1$@ minutes"), store.state.alarmInterval.description))
+                    }
+                    
+                    Slider(value: alarmInterval, in: 2...20, step: 1)
+                }
 
                 Toggle("Ignore mute", isOn: ignoreMute).toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
             },
@@ -77,6 +86,15 @@ struct AlarmSettingsView: View {
                 } else {
                     DirectNotifications.shared.testSound(sound: .alarm, volume: $0)
                 }
+            }
+        )
+    }
+    
+    private var alarmInterval: Binding<Float> {
+        Binding(
+            get: { Float(store.state.alarmInterval) },
+            set: {
+                store.dispatch(.setAlarmInterval(interval: Int($0)))
             }
         )
     }

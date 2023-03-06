@@ -15,6 +15,7 @@ protocol DirectState {
     var appState: ScenePhase { get set }
     var alarmHigh: Int { get set }
     var alarmLow: Int { get set }
+    var alarmInterval: Int { get set }
     var alarmSnoozeUntil: Date? { get set }
     var alarmSnoozeKind: Alarm? { get set }
     var alarmVolume: Float { get set }

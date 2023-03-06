@@ -51,6 +51,7 @@ enum DirectAction {
     case setAppIsBusy(isBusy: Bool)
     case setIgnoreMute(enabled: Bool)
     case setAlarmHigh(upperLimit: Int)
+    case setAlarmInterval(interval: Int)
     case setAlarmLow(lowerLimit: Int)
     case setAlarmVolume(volume: Float)
     case setAlarmSnoozeUntil(untilDate: Date?, autosnooze: Bool = false)
