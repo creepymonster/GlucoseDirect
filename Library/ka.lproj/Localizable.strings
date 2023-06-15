@@ -2,142 +2,142 @@
 "%1$@ a clock" = "%1$@";
 
 /* (No Comment) */
-"%1$@/min." = "%1$@/min.";
+"%1$@/min." = "%1$@/წთ.";
 
 /* (No Comment) */
-"%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
+"%1$@d %2$@h %3$@min" = "%1$@დღე %2$@სთ %3$@წთ";
 
 /* (No Comment) */
-"%@ Entries" = "%@ Entries";
+"%@ Entries" = "%@ ჩანაწერი";
 
 /* (No Comment) */
-"%@ Entry" = "%@ Entry";
+"%@ Entry" = "%@ ჩანაწერი";
 
 /* (No Comment) */
-"About %@" = "About %@";
+"About %@" = "%@ შესახებ";
 
 /* (No Comment) */
-"Add" = "Add";
+"Add" = "დამატება";
 
 /* (No Comment) */
-"Add blood glucose" = "Add blood glucose";
+"Add blood glucose" = "დაამატე გლუკოზას დონე სისხლში";
 
 /* (No Comment) */
-"Add calibration" = "Add calibration";
+"Add calibration" = "დაამატე კალიბრაცია";
 
 /* (No Comment) */
-"Alarm glucose notification" = "Alarm Glucose Notification";
+"Alarm glucose notification" = "შეტყობინება გლუკოზის შესახებ";
 
 /* (No Comment) */
-"Alarm settings" = "Alarm settings";
+"Alarm settings" = "შეტყობინების პარამეტრები";
 
 /* (No Comment) */
-"Alert, high glucose" = "Alert, high glucose";
+"Alert, high glucose" = "განგაში, გლუკოზის მაღალი დონე";
 
 /* (No Comment) */
-"Alert, low blood glucose" = "Alert, low blood glucose";
+"Alert, low blood glucose" = "განგაში, გლუკოზის დაბალი დონე";
 
 /* (No Comment) */
-"Alarm, loss of signal" = "Alarm, loss of signal";
+"Alarm, loss of signal" = "განგაში, კავშირის დაკარგვა";
 
 /* (No Comment) */
-"Alert, sensor expired" = "Alert, sensor expired";
+"Alert, sensor expired" = "შეტყობინება, სენსორს ვადა გაუვიდა";
 
 /* (No Comment) */
-"Alert, sensor expiring soon" = "Alert, sensor expiring soon";
+"Alert, sensor expiring soon" = "შეტყობინება, სენსორს ვადა გასდის";
 
 /* (No Comment) */
-"App author" = "Author";
+"App author" = "ავტორი";
 
 /* (No Comment) */
-"App donate" = "Donate";
+"App donate" = "პროექტის დახმარება";
 
 /* (No Comment) */
-"App email" = "eMail";
+"App email" = "იმეილი";
 
 /* (No Comment) */
-"App facebook group" = "Facebook group";
+"App facebook group" = "Facebook ჯგუფი";
 
 /* (No Comment) */
-"App faq" = "FAQ";
+"App faq" = "ხდკ";
 
 /* (No Comment) */
-"App support mail" = "Support";
+"App support mail" = "მხარდაჭერა";
 
 /* (No Comment) */
-"App translation" = "Translation";
+"App translation" = "თარგმანი";
 
 /* (No Comment) */
-"App version" = "Version";
+"App version" = "ვერსია";
 
 /* (No Comment) */
-"App website" = "Website";
+"App website" = "ვებგვერდი";
 
 /* (No Comment) */
-"Apple export settings" = "Apple export settings";
+"Apple export settings" = "Apple ექსპორტის პარამეტრები";
 
 /* (No Comment) */
-"Are you sure you want to disconnect the sensor?" = "Are you sure you want to disconnect the sensor?";
+"Are you sure you want to disconnect the sensor?" = "დარწმუნებული ხარ, რომ გსურს გამორთო სენსორი?";
 
 /* (No Comment) */
-"At least %@ days of data are required." = "At least %@ days of data are required.";
+"At least %@ days of data are required." = "საჭიროა მინიმუმ %@ დღის მონაცემი.";
 
 /* (No Comment) */
-"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Attention, the sensor sends faulty values. Please wait 10 minutes.";
+"Attention, the sensor sends faulty values. Please wait 10 minutes." = "ყურადღება, სენსორი აგზავნის ნაკლოვან მონაცემებს. გთხოვ, დაელოდო 10 წუთი.";
 
 /* (No Comment) */
-"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been.";
+"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "საშუალო (AVG) არის სისხლში გლუკოზის დონის საერთო საზომი გარკვეული პერიოდის განმავლობაში, რომელიც გვთავაზობს მიმოხილვას იმის შესახებ, თუ როგორი იყო გლუკოზის დონე.";
 
 /* (No Comment) */
-"Bellman alarm" = "Alarm";
+"Bellman alarm" = "განგაში";
 
 /* (No Comment) */
-"Bellman test alarm" = "Test alarm";
+"Bellman test alarm" = "სატესტო განგაში";
 
 /* (No Comment) */
-"Blood glucose values" = "BGM";
+"Blood glucose values" = "გლუკოზის უწყვეტი მონიტორინგი";
 
 /* (No Comment) */
-"Blood glucose: %1$@" = "Blood glucose: %1$@";
+"Blood glucose: %1$@" = "გლუკოზა სისხლში: %1$@";
 
 /* (No Comment) */
 "Bubble transmitter" = "Bubble transmitter";
 
 /* (No Comment) */
-"Calibration view" = "Calibration";
+"Calibration view" = "კალიბრაცია";
 
 /* (No Comment) */
-"Cancel" = "Cancel";
+"Cancel" = "გაუქმება";
 
 /* (No Comment) */
-"Chart" = "Chart";
+"Chart" = "გრაფა";
 
 /* (No Comment) */
-"Connect sensor" = "Connect sensor";
+"Connect sensor" = "სენსორის დაკავშირება";
 
 /* (No Comment) */
-"Connect transmitter" = "Connect transmitter";
+"Connect transmitter" = "გადამცემის დაკავშირება";
 
 /* (No Comment) */
-"Connected" = "Connected";
+"Connected" = "დაკავშირებულია";
 
 /* (No Comment) */
-"Connecting" = "Connecting";
+"Connecting" = "მიმდინარეობს დაკავშირება";
 
 /* (No Comment) */
-"Connection alarm" = "Connection alarm";
+"Connection alarm" = "კავშირის შეტყობინება";
 
 /* (No Comment) */
-"Connection error" = "Error";
+"Connection error" = "შეცდომა";
 
 /* (No Comment) */
-"Connection error timestamp" = "Time";
+"Connection error timestamp" = "დრო";
 
 /* (No Comment) */
-"Connection settings" = "Connection settings";
+"Connection settings" = "კავშირის პარამეტრები";
 
 /* (No Comment) */
-"Connection state" = "State";
+"Connection state" = "მდგომარეობა";
 
 /* (No Comment) */
 "Custom calibration intercept" = "Intercept";
@@ -146,31 +146,31 @@
 "Custom calibration slope" = "Slope";
 
 /* (No Comment) */
-"Delete all" = "Delete all";
+"Delete all" = "ყველას წაშლა";
 
 /* (No Comment) */
-"Disconnect" = "Disconnect";
+"Disconnect" = "კავშირის გაწყვეტა";
 
 /* (No Comment) */
-"Disconnect sensor" = "Disconnect sensor";
+"Disconnect sensor" = "სენსორის გამოერთება";
 
 /* (No Comment) */
-"Disconnect transmitter" = "Disconnect transmitter";
+"Disconnect transmitter" = "გადამცემის გამოერთება";
 
 /* (No Comment) */
-"Disconnected" = "Disconnected";
+"Disconnected" = "კავშირი გაწყვეტილია";
 
 /* (No Comment) */
-"Export to Apple Calendar" = "Export to Apple Calendar";
+"Export to Apple Calendar" = "ექსპორტი Apple Calendar-ში";
 
 /* (No Comment) */
-"Export to Apple Health" = "Export to Apple Health";
+"Export to Apple Health" = "ექსპორტი Apple Health-ში";
 
 /* (No Comment) */
-"Find transmitter" = "Find transmitter";
+"Find transmitter" = "მოძებნე გადამცემი";
 
 /* (No Comment) */
-"Glucose" = "Glucose";
+"Glucose" = "გლუკოზა";
 
 /* (No Comment) */
 "Glucose list view" = "List";
@@ -197,7 +197,7 @@
 "Glucose unit" = "Unit";
 
 /* (No Comment) */
-"Glucose widget" = "Glucose";
+"Glucose widget" = "გლუკოზა";
 
 /* (No Comment) */
 "Glucose widget description" = "Displays the last glucose value.";
@@ -401,7 +401,7 @@
 "Sensor starting date" = "Starting date";
 
 /* (No Comment) */
-"Sensor state" = "State";
+"Sensor state" = "მდგომარეობა";
 
 /* (No Comment) */
 "Sensor type" = "Type";
@@ -428,7 +428,7 @@
 "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data.";
 
 /* (No Comment) */
-"Time" = "Time";
+"Time" = "დრო";
 
 /* (No Comment) */
 "Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Time above Range (TAR) or the percentage of time spent above the target glucose of %@.";
@@ -569,7 +569,7 @@
 "Add insulin" = "Add insulin";
 
 /* (No Comment) */
-"Calibration" = "Calibration";
+"Calibration" = "კალიბრაცია";
 
 /* (No Comment) */
 "Starts" = "Starts";
