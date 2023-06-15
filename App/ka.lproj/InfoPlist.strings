@@ -5,19 +5,19 @@
 "CFBundleName" = "Glucose Direct";
 
 /* Privacy - NFC Scan Usage Description */
-"NFCReaderUsageDescription" = "The NFC function is required to read out all connection settings before a Bluetooth connection.";
+"NFCReaderUsageDescription" = "Bluetooth კავშირის დამყარებამდე საჭიროა NFC ფუნქცია ყველა პარამეტრის წასაკითხად.";
 
 /* Privacy - Bluetooth Always Usage Description */
-"NSBluetoothAlwaysUsageDescription" = "The Bluetooth function is needed to connect to the supported devices.";
+"NSBluetoothAlwaysUsageDescription" = "Bluetooth ფუნქცია საჭიროა მხარდაჭერილ მოწყობილობებთან დასაკავშირებლად.";
 
 /* Privacy - Bluetooth Peripheral Usage Description */
-"NSBluetoothPeripheralUsageDescription" = "The Bluetooth function is needed to connect to the supported devices.";
+"NSBluetoothPeripheralUsageDescription" = "Bluetooth ფუნქცია საჭიროა მხარდაჭერილ მოწყობილობებთან დასაკავშირებლად.";
 
 /* Privacy - Calendars Usage Description */
-"NSCalendarsUsageDescription" = "Access to the calendar is required to display up-to-date glucose values on the Apple Watch.";
+"NSCalendarsUsageDescription" = "კალენდარზე წვდომა საჭიროა Apple Watch-ზე გლუკოზის განახლებული მნიშვნელობების საჩვენებლად.";
 
 /* Privacy - Health Share Usage Description */
-"NSHealthShareUsageDescription" = "Access to Apple Health is required if glucose data should be exported.";
+"NSHealthShareUsageDescription" = "Apple Health-ზე წვდომა საჭიროა, თუ გლუკოზის მონაცემების ექსპორტი გსურს.";
 
 /* Privacy - Health Update Usage Description */
-"NSHealthUpdateUsageDescription" = "Access to Apple Health is required if glucose data should be exported.";
+"NSHealthUpdateUsageDescription" = "Apple Health-ზე წვდომა საჭიროა, თუ გლუკოზის მონაცემების ექსპორტი გსურს.";
