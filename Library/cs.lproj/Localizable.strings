@@ -1,0 +1,602 @@
+/* (No Comment) */
+"%1$@ a clock" = "%1$@";
+
+/* (No Comment) */
+"%1$@/min." = "%1$@/min.";
+
+/* (No Comment) */
+"%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
+
+/* (No Comment) */
+"%@ Entries" = "%@ Záznamů";
+
+/* (No Comment) */
+"%@ Entry" = "%@ Záznam";
+
+/* (No Comment) */
+"About %@" = "O aplikaci %@";
+
+/* (No Comment) */
+"Add" = "Přidat";
+
+/* (No Comment) */
+"Add blood glucose" = "Zapsat glykémii";
+
+/* (No Comment) */
+"Add calibration" = "Přidat kalibraci";
+
+/* (No Comment) */
+"Alarm glucose notification" = "Alarm upozorněni na glykémii";
+
+/* (No Comment) */
+"Alarm settings" = "Nastavení alarmů";
+
+/* (No Comment) */
+"Alert, high glucose" = "Výstraha, vysoká glykémie";
+
+/* (No Comment) */
+"Alert, low blood glucose" = "Výstraha, nízká glykémie";
+
+/* (No Comment) */
+"Alarm, loss of signal" = "Alarm, ztráta signálu";
+
+/* (No Comment) */
+"Alert, sensor expired" = "Výstraha, expirovaný senzor";
+
+/* (No Comment) */
+"Alert, sensor expiring soon" = "Výstraha, senzor brzy expiruje";
+
+/* (No Comment) */
+"App author" = "Autor";
+
+/* (No Comment) */
+"App donate" = "Přispět";
+
+/* (No Comment) */
+"App email" = "e-mail";
+
+/* (No Comment) */
+"App facebook group" = "Skupina na Facebooku";
+
+/* (No Comment) */
+"App faq" = "FAQ";
+
+/* (No Comment) */
+"App support mail" = "Podpora";
+
+/* (No Comment) */
+"App translation" = "Překlad";
+
+/* (No Comment) */
+"App version" = "Verze";
+
+/* (No Comment) */
+"App website" = "Webová stránka";
+
+/* (No Comment) */
+"Apple export settings" = "Nastavení exportu Apple";
+
+/* (No Comment) */
+"Are you sure you want to disconnect the sensor?" = "Opravdu chcete senzor odpojit?";
+
+/* (No Comment) */
+"At least %@ days of data are required." = "Je nutné mít k dispozici dala alespoň za %@ dní.";
+
+/* (No Comment) */
+"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Pozor, senzor odesílá chybné hodnoty. Počkejte, prosím, 10 minut.";
+
+/* (No Comment) */
+"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Průměr (AVG) vypočítává ze všech hodnot glykémie za časovou jednotku jedinou hodnotu. Ta pak ukazuje, jaká by byla glykémie, kdyby se neměnila.";
+
+/* (No Comment) */
+"Bellman alarm" = "Alarm";
+
+/* (No Comment) */
+"Bellman test alarm" = "Test alarmů";
+
+/* (No Comment) */
+"Blood glucose values" = "BGM";
+
+/* (No Comment) */
+"Blood glucose: %1$@" = "Glykémie: %1$@";
+
+/* (No Comment) */
+"Bubble transmitter" = "Bubble vysílač";
+
+/* (No Comment) */
+"Calibration view" = "Kalibrace";
+
+/* (No Comment) */
+"Cancel" = "Zrušit";
+
+/* (No Comment) */
+"Chart" = "Graf";
+
+/* (No Comment) */
+"Connect sensor" = "Připojit senzor";
+
+/* (No Comment) */
+"Connect transmitter" = "Připojit vysílač";
+
+/* (No Comment) */
+"Connected" = "Připojeno";
+
+/* (No Comment) */
+"Connecting" = "Připojuji se";
+
+/* (No Comment) */
+"Connection alarm" = "Alarm připojení";
+
+/* (No Comment) */
+"Connection error" = "Chyba";
+
+/* (No Comment) */
+"Connection error timestamp" = "Čas";
+
+/* (No Comment) */
+"Connection settings" = "Nastavení připojení";
+
+/* (No Comment) */
+"Connection state" = "Stav";
+
+/* (No Comment) */
+"Custom calibration intercept" = "Intercept";
+
+/* (No Comment) */
+"Custom calibration slope" = "Slope";
+
+/* (No Comment) */
+"Delete all" = "Smazat vše";
+
+/* (No Comment) */
+"Disconnect" = "Odpojit";
+
+/* (No Comment) */
+"Disconnect sensor" = "Odpojit senzor";
+
+/* (No Comment) */
+"Disconnect transmitter" = "Odpojit vysílač";
+
+/* (No Comment) */
+"Disconnected" = "Odpojeno";
+
+/* (No Comment) */
+"Export to Apple Calendar" = "Odeslat do Apple kalendáře";
+
+/* (No Comment) */
+"Export to Apple Health" = "Odeslat do služby Apple zdraví";
+
+/* (No Comment) */
+"Find transmitter" = "Najít vysílač";
+
+/* (No Comment) */
+"Glucose" = "Sacharidy";
+
+/* (No Comment) */
+"Glucose list view" = "Seznam";
+
+/* (No Comment) */
+"Glucose Live Activity" = "Aktivita glykémie";
+
+/* (No Comment) */
+"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Glucose Management Indicator (GMI) je náhrada za \"odhadovaný HbA1c\" pro pacienty používající kontinuální monitorování glykémie.";
+
+/* (No Comment) */
+"Glucose notification" = "Alarm upozorněni na glykémii";
+
+/* (No Comment) */
+"Glucose overview" = "Přehled";
+
+/* (No Comment) */
+"Glucose read aloud" = "Hodnoty glykémie";
+
+/* (No Comment) */
+"Glucose settings" = "Nastavení glykémie";
+
+/* (No Comment) */
+"Glucose unit" = "Jednotka";
+
+/* (No Comment) */
+"Glucose widget" = "Sacharidy";
+
+/* (No Comment) */
+"Glucose widget description" = "Zobrazí poslední hodnotu glykémie.";
+
+/* (No Comment) */
+"High glucose alarm" = "Alarm vysoké glykémie";
+
+/* (No Comment) */
+"Hold the top edge of your iPhone close to the sensor." = "Podržte horní okraj iPhonu blízko senzoru.";
+
+/* (No Comment) */
+"Ignore mute" = "Ignorovat ztlumení";
+
+/* (No Comment) */
+"LibreLink transmitter" = "Vysílač LibreLink";
+
+/* (No Comment) */
+"LibreLinkUp email" = "LibreLinkUp e-mail";
+
+/* (No Comment) */
+"LibreLinkUp password" = "LibreLinkUp heslo";
+
+/* (No Comment) */
+"Line" = "Čára";
+
+/* (No Comment) */
+"Low glucose alarm" = "Alarm nízké glykémie";
+
+/* (No Comment) */
+"Lower limit" = "Nízká";
+
+/* (No Comment) */
+"Nightscout API-Secret" = "API-heslo";
+
+/* (No Comment) */
+"Nightscout settings" = "Nastavení Nightscoutu";
+
+/* (No Comment) */
+"Nightscout upload enabled" = "Nahrávání";
+
+/* (No Comment) */
+"Nightscout url" = "URL";
+
+/* (No Comment) */
+"No Data" = "Žádná data";
+
+/* (No Comment) */
+"No screen lock" = "Žádný zámek obrazovky";
+
+/* (No Comment) */
+"Normal glucose notification" = "Oznámení o normální glykémii";
+
+/* (No Comment) */
+"Now" = "Nyní";
+
+/* (No Comment) */
+"Pairing" = "Párování";
+
+/* (No Comment) */
+"Please select" = "Vyberte prosím";
+
+/* (No Comment) */
+"Power off" = "Vypnout";
+
+/* (No Comment) */
+"Readable falling" = "klesající";
+
+/* (No Comment) */
+"Readable fast falling" = "rychle klesající";
+
+/* (No Comment) */
+"Readable fast rising" = "rychle rostoucí";
+
+/* (No Comment) */
+"Readable glucose with trend: %1$@ %2$@, %3$@" = "Glykémie: %1$@ %2$@, %3$@";
+
+/* (No Comment) */
+"Readable glucose: %1$@ %2$@" = "Glykémie: %1$@ %2$@";
+
+/* (No Comment) */
+"Readable high glucose: %1$@ %2$@" = "Glykémie: %1$@ %2$@. Pozor, hyperglykémie!";
+
+/* (No Comment) */
+"Readable low glucose: %1$@ %2$@" = "Glykémie: %1$@ %2$@. Pozor, hypoglykémie!";
+
+/* (No Comment) */
+"Readable miligram" = "miligram";
+
+/* (No Comment) */
+"Readable milimol" = "milimol";
+
+/* (No Comment) */
+"Readable rapidly falling" = "rychle klesající";
+
+/* (No Comment) */
+"Readable rapidly rising" = "rychle stoupající";
+
+/* (No Comment) */
+"Readable rising" = "stoupající";
+
+/* (No Comment) */
+"Rescan the sensor" = "Znovu naskenovat senzor";
+
+/* (No Comment) */
+"Retrieval interval" = "Interval načítání";
+
+/* (No Comment) */
+"Retrieval interval, every %@ minutes" = "Každých %@ minut";
+
+/* (No Comment) */
+"Retrieval interval, every minute" = "Každou minutu";
+
+/* (No Comment) */
+"Retry pairing" = "Opakování párování";
+
+/* (No Comment) */
+"Scan sensor" = "Naskenovat senzor";
+
+/* (No Comment) */
+"Scanning" = "Skenuji";
+
+/* (No Comment) */
+"Selected calendar" = "Kalendář";
+
+/* (No Comment) */
+"Send database file" = "Poslat databázi";
+
+/* (No Comment) */
+"Send log file" = "Poslat logy";
+
+/* (No Comment) */
+"Sensor age" = "Stáří senzoru";
+
+/* (No Comment) */
+"Sensor connection" = "Připojení senzoru";
+
+/* (No Comment) */
+"Sensor custom calibration" = "Vlastní kalibrace";
+
+/* (No Comment) */
+"Sensor details" = "Podrobnosti o senzoru";
+
+/* (No Comment) */
+"Sensor ending date" = "Datum ukončení";
+
+/* (No Comment) */
+"Sensor error values" = "Chyby CGM";
+
+/* (No Comment) */
+"Sensor factory calibration" = "Tovární kalibrace";
+
+/* (No Comment) */
+"Sensor glucose values" = "CGM";
+
+/* (No Comment) */
+"Sensor has failure" = "Chyba senzoru";
+
+/* (No Comment) */
+"Sensor in starting phase" = "Senzor je ve fázi zahřívání";
+
+/* (No Comment) */
+"Sensor is expired" = "Senzor expiroval";
+
+/* (No Comment) */
+"Sensor is ready" = "Senzor je připraven";
+
+/* (No Comment) */
+"Sensor is shut down" = "Senzor expiroval";
+
+/* (No Comment) */
+"Sensor lifetime" = "Životnost";
+
+/* (No Comment) */
+"Sensor lifetime widget" = "Životnost senzoru";
+
+/* (No Comment) */
+"Sensor lifetime widget description" = "Zobrazuje zbývající životnost aktuálního snímače ve formě odpočtu.";
+
+/* (No Comment) */
+"Sensor not yet startet" = "Senzor ještě není spuštěn";
+
+/* (No Comment) */
+"Sensor PatchInfo" = "PatchInfo";
+
+/* (No Comment) */
+"Sensor possible lifetime" = "Životnost";
+
+/* (No Comment) */
+"Sensor region" = "Region";
+
+/* (No Comment) */
+"Sensor remaining lifetime" = "Zbývá";
+
+/* (No Comment) */
+"Sensor remaining warmup time" = "Zahřívání";
+
+/* (No Comment) */
+"Sensor serial" = "Sériové číslo";
+
+/* (No Comment) */
+"Sensor starting date" = "Datum spuštění";
+
+/* (No Comment) */
+"Sensor state" = "Stav";
+
+/* (No Comment) */
+"Sensor type" = "Typ";
+
+/* (No Comment) */
+"Sensor UID" = "UID";
+
+/* (No Comment) */
+"Settings view" = "Nastavení";
+
+/* (No Comment) */
+"Snooze until" = "Odložit";
+
+/* (No Comment) */
+"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Směrodatná odchylka (SD) je měřítkem rozptylu hodnot glykémie kolem průměru. Časté změny glykémie mezi nízkými a vysokými hodnotami mají za následek větší SD. Cílem je co nejnižší SD, která ukazuje na stabilní hladinu glykémie s minimálními výkyvy.";
+
+/* (No Comment) */
+"Statistics (%@ days)" = "Statistika (%@ dní)";
+
+/* (No Comment) */
+"StatisticsPeriod" = "Období";
+
+/* (No Comment) */
+"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "Ze snímače nejsou přijímána žádná data. Příčina může být v přerušení spojení Bluetooth se snímačem nebo to, že LibreLinkUp neposílá data.";
+
+/* (No Comment) */
+"Time" = "Čas";
+
+/* (No Comment) */
+"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Čas nad rozsahem (TAR) nebo procento času stráveného nad cílovou hodnotou glykemie %@.";
+
+/* (No Comment) */
+"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Čas pod rozsahem (TBR) nebo procento času stráveného pod cílovou hodnotou glykémie %@.";
+
+/* (No Comment) */
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Time in Range (TIR) neboli procento času stráveného v cílovém rozmezí glykemie mezi %@ - %@.";
+
+/* (No Comment) */
+"Transmitter" = "Vysílač";
+
+/* (No Comment) */
+"Transmitter battery" = "Baterie";
+
+/* (No Comment) */
+"Transmitter battery widget" = "Baterie vysílače";
+
+/* (No Comment) */
+"Transmitter battery widget description" = "Zobrazuje zbývající čas potřebný pro nabití baterie vysílače ve formě odpočítávání.";
+
+/* (No Comment) */
+"Transmitter details" = "Podrobnosti o vysílači";
+
+/* (No Comment) */
+"Transmitter firmware" = "Firmware";
+
+/* (No Comment) */
+"Transmitter hardware" = "Hardware";
+
+/* (No Comment) */
+"Transmitter name" = "Název";
+
+/* (No Comment) */
+"Unknown" = "Neznámý";
+
+/* (No Comment) */
+"Updated" = "Aktualizováno";
+
+/* (No Comment) */
+"Upper limit" = "Vysoká";
+
+/* (No Comment) */
+"Use LibreLink to start the sensor" = "Ke spuštění senzoru použijte LibreLink";
+
+/* (No Comment) */
+"Vibration" = "Pouze vibrace";
+
+/* (No Comment) */
+"Virtual Sensor" = "Virtuální senzor";
+
+/* (No Comment) */
+"Warmup" = "Zahřívání";
+
+/* (No Comment) */
+"Wearing time alarm" = "Alarm doby nasazení";
+
+/* (No Comment) */
+"Without transmitter" = "Bez vysílače";
+
+/* (No Comment) */
+"Your current glucose is %1$@ (%2$@)." = "Vaše aktuální hladina glykémie je %1$@ (%2$@).";
+
+/* (No Comment) */
+"Your glucose %1$@ (%2$@) is dangerously high and needs to be treated." = "Vaše glykémie %1$@ (%2$@) je nebezpečně vysoká, je třeba ji léčit.";
+
+/* (No Comment) */
+"Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "Vaše hladina glukózy %1$@ (%2$@) je nebezpečně nízká. Vrátit k normálu ji můžete pomocí slazených nápojů nebo dextrózy.";
+
+/* (No Comment) */
+"Your sensor has expired and needs to be replaced as soon as possible" = "Váš senzor expiroval, a musí být co nejdříve vyměněn";
+
+/* (No Comment) */
+"Your sensor is about to expire. Replace sensor in %1$@." = "Váš senzor již brzy expiruje. Vyměňte ho za %1$@.";
+
+/* (No Comment) */
+"Loading..." = "Nahrávám...";
+
+/* (No Comment) */
+"Export" = "Export";
+
+/* (No Comment) */
+"Export as CSV" = "Exportovat do CSV";
+
+/* (No Comment) */
+"Export for Glooko" = "Exportovat pro Glooko";
+
+/* (No Comment) */
+"Export for Tidepool" = "Exportovat pro Tidepool";
+
+/* (No Comment) */
+"%@ hours" = "%@ hodin";
+
+/* (No Comment) */
+"Reopen app in" = "Znovu otevřete aplikaci za";
+
+/* (No Comment) */
+"%1$@ days" = "%1$@ dní";
+
+/* (No Comment) */
+"%1$@ day" = "%1$@ den";
+
+/* (No Comment) */
+"%1$@ hours" = "%1$@ hodin(y)";
+
+/* (No Comment) */
+"%1$@ hour" = "%1$@ hodin";
+
+/* (No Comment) */
+"%1$@ minutes" = "%1$@ minut";
+
+/* (No Comment) */
+"Meal Bolus" = "Bolus na jídlo";
+
+/* (No Comment) */
+"Snack Bolus" = "Bolus na svačinu";
+
+/* (No Comment) */
+"Correction Bolus" = "Korekční bolus";
+
+/* (No Comment) */
+"Basal" = "Bazál";
+
+/* (No Comment) */
+"Insulin" = "Inzulín";
+
+/* (No Comment) */
+"Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "Bazální inzulín označuje inzulín používaný k regulaci hladiny glukózy v krvi mezi jídly včetně spánku.";
+
+/* (No Comment) */
+"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Bolusový inzulin označuje inzulin používaný k regulaci hladiny glukózy v krvi při jídle a/nebo k akutnímu řešení vysoké hladiny glukózy v krvi.";
+
+/* (No Comment) */
+"Blood glucose" = "Glykémie";
+
+/* (No Comment) */
+"Add insulin" = "Zapsat inzulín";
+
+/* (No Comment) */
+"Calibration" = "Kalibrace";
+
+/* (No Comment) */
+"Starts" = "Začíná";
+
+/* (No Comment) */
+"Ends" = "Končí";
+
+/* (No Comment) */
+"Units" = "Jednotky";
+
+/* (No Comment) */
+"Type" = "Typ";
+
+/* (No Comment) */
+"Additional settings" = "Další nastavení";
+
+/* (No Comment) */
+"Show smoothed glucose" = "Zobrazit vyhlazené hodnoty glykémie";
+
+/* (No Comment) */
+"Show insulin input" = "Zobrazit inzulín";
+
+/* (No Comment) */
+"Help" = "Nápověda";
+
+/* (No Comment) */
+"Alarm volume" = "Hlasitost alarmu";
+
+/* (No Comment) */
+"Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults." = "Variační koeficient (CV) je definován jako poměr směrodatné odchylky k průměru. Obecně lze říci, že většina odborníků by ráda viděla CV 33 % nebo nižší, což je považováno za ukazatel \"stabilní\" hladiny glukózy. Vezměte však na vědomí, že velmi mladí pacienti s diabetem mívají vyšší variabilitu než dospělí.";

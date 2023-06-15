@@ -8,10 +8,10 @@
 "%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
 
 /* (No Comment) */
-"%@ Entries" = "%@ Entries";
+"%@ Entries" = "%@ poster";
 
 /* (No Comment) */
-"%@ Entry" = "%@ Entry";
+"%@ Entry" = "%@ post";
 
 /* (No Comment) */
 "About %@" = "Om %@";
@@ -38,7 +38,7 @@
 "Alert, low blood glucose" = "Varrning, lågt blodsocker";
 
 /* (No Comment) */
-"Alarm, loss of signal" = "Alarm, loss of signal";
+"Alarm, loss of signal" = "Larm, förlorad anslutning";
 
 /* (No Comment) */
 "Alert, sensor expired" = "Varning, sensor har utgått";
@@ -176,7 +176,7 @@
 "Glucose list view" = "Lista";
 
 /* (No Comment) */
-"Glucose Live Activity" = "Glucose Live Activity";
+"Glucose Live Activity" = "Glukos liveaktivitet";
 
 /* (No Comment) */
 "Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Glukoshanteringsindikator (GMI) är ett ersättning för \"uppskattad HbA1c\" för patienter som använder kontinuerlig glukosövervakning.";
@@ -242,7 +242,7 @@
 "Nightscout url" = "URL";
 
 /* (No Comment) */
-"No Data" = "No Data";
+"No Data" = "Ingen data";
 
 /* (No Comment) */
 "No screen lock" = "Inget skärmlås";
@@ -419,7 +419,7 @@
 "Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Standardavvikelse (SD) är en mätning av spridningen av glukosläsningar kring medelvärdet - studsar mellan höga och låga resultat i en större SD. Målet är den lägsta SD som är möjligt, vilket skulle återspegla en jämn glukosnivå med minimala svängningar.";
 
 /* (No Comment) */
-"Statistics (%@ days)" = "Statistics (%@ days)";
+"Statistics (%@ days)" = "Statistik (%@ dagar)";
 
 /* (No Comment) */
 "StatisticsPeriod" = "Period";
@@ -467,7 +467,7 @@
 "Unknown" = "Okänd";
 
 /* (No Comment) */
-"Updated" = "Updated";
+"Updated" = "Uppdaterad";
 
 /* (No Comment) */
 "Upper limit" = "Högt";
@@ -503,7 +503,7 @@
 "Your sensor has expired and needs to be replaced as soon as possible" = "Din sensor har utgått och behöver bytas snarast möjligast";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@." = "Your sensor is about to expire. Replace sensor in %1$@.";
+"Your sensor is about to expire. Replace sensor in %1$@." = "Din sensor går snart ut. Byt sensor om %1$@.";
 
 /* (No Comment) */
 "Loading..." = "Laddar...";
@@ -593,10 +593,10 @@
 "Show insulin input" = "Visa insulinmatning";
 
 /* (No Comment) */
-"Help" = "Help";
+"Help" = "Hjälp";
 
 /* (No Comment) */
-"Alarm volume" = "Alarm volume";
+"Alarm volume" = "Larmvolym";
 
 /* (No Comment) */
-"Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults." = "Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults.";
+"Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults." = "Variationskoefficienten (CV) definieras som förhållandet mellan standardavvikelsen och medelvärdet. Generellt sett vill de flesta experter se en CV på 33 % eller lägre, vilket anses vara en markör för \"stabila\" glukosnivåer. Men observera att mycket unga patienter med diabetes tenderar att ha högre variabilitet än vuxna.";

@@ -32,10 +32,10 @@
 "Alarm settings" = "Ustawienia alarmu";
 
 /* (No Comment) */
-"Alert, high glucose" = "Wysoka glukoza!";
+"Alert, high glucose" = "Wysoki poziom glukozy";
 
 /* (No Comment) */
-"Alert, low blood glucose" = "Niska glukoza!";
+"Alert, low blood glucose" = "Niski poziom glukozy";
 
 /* (No Comment) */
 "Alarm, loss of signal" = "Utracono sygnał z sensorem";
@@ -56,7 +56,7 @@
 "App email" = "E-Mail";
 
 /* (No Comment) */
-"App facebook group" = "Facebook";
+"App facebook group" = "Grupa na Facebook";
 
 /* (No Comment) */
 "App faq" = "Najczęściej zadawane pytania";
@@ -113,13 +113,13 @@
 "Chart" = "Wykres";
 
 /* (No Comment) */
-"Connect sensor" = "Podłącz sensor";
+"Connect sensor" = "Połącz sensor";
 
 /* (No Comment) */
 "Connect transmitter" = "Podłącz transmiter";
 
 /* (No Comment) */
-"Connected" = "Połączony";
+"Connected" = "Połączono";
 
 /* (No Comment) */
 "Connecting" = "Łączenie...";
@@ -167,7 +167,7 @@
 "Export to Apple Health" = "Eksportuj do aplikacji Zdrowie";
 
 /* (No Comment) */
-"Find transmitter" = "Wyszukaj transmiter";
+"Find transmitter" = "Wyszukaj czytnik";
 
 /* (No Comment) */
 "Glucose" = "Glukoza";
@@ -203,7 +203,7 @@
 "Glucose widget description" = "Wyświetlaj ostatnią wartość glukozy.";
 
 /* (No Comment) */
-"High glucose alarm" = "Alarm o wysokim poziomie glukozy";
+"High glucose alarm" = "Alarm wysokiego poziomu glukozy";
 
 /* (No Comment) */
 "Hold the top edge of your iPhone close to the sensor." = "Przytrzymaj górną krawędź iPhone'a blisko sensora.";
@@ -212,7 +212,7 @@
 "Ignore mute" = "Ignoruj wyciszenie";
 
 /* (No Comment) */
-"LibreLink transmitter" = "Transmiter LibreLink";
+"LibreLink transmitter" = "Czytnik LibreLink";
 
 /* (No Comment) */
 "LibreLinkUp email" = "Email LibreLinkUp";
@@ -224,13 +224,13 @@
 "Line" = "Linie";
 
 /* (No Comment) */
-"Low glucose alarm" = "Alarm o niskim poziomie glukozy";
+"Low glucose alarm" = "Alarm niskiego poziomu glukozy";
 
 /* (No Comment) */
 "Lower limit" = "Niski";
 
 /* (No Comment) */
-"Nightscout API-Secret" = "API Secret";
+"Nightscout API-Secret" = "Klucz API";
 
 /* (No Comment) */
 "Nightscout settings" = "Integracja Nightscout";
@@ -239,7 +239,7 @@
 "Nightscout upload enabled" = "Przesyłaj dane do chmury";
 
 /* (No Comment) */
-"Nightscout url" = "Adres Nightscout";
+"Nightscout url" = "Adres";
 
 /* (No Comment) */
 "No Data" = "Brak danych";
@@ -263,7 +263,7 @@
 "Power off" = "Wyłącz";
 
 /* (No Comment) */
-"Readable falling" = "Spada";
+"Readable falling" = "spada";
 
 /* (No Comment) */
 "Readable fast falling" = "szybko spada";
@@ -329,10 +329,10 @@
 "Send log file" = "Wyślij raport o błędzie";
 
 /* (No Comment) */
-"Sensor age" = "Wiek sensora";
+"Sensor age" = "Czas używania";
 
 /* (No Comment) */
-"Sensor connection" = "Podłączenie sensora";
+"Sensor connection" = "Połączenie sensora";
 
 /* (No Comment) */
 "Sensor custom calibration" = "Kalibracja sensora";
@@ -341,7 +341,7 @@
 "Sensor details" = "Szczegóły sensora";
 
 /* (No Comment) */
-"Sensor ending date" = "Zakończenie działania sensora";
+"Sensor ending date" = "Koniec działania";
 
 /* (No Comment) */
 "Sensor error values" = "Błąd CGM";
@@ -389,16 +389,16 @@
 "Sensor region" = "Region";
 
 /* (No Comment) */
-"Sensor remaining lifetime" = "Pozostały czas eksploatacji sensora";
+"Sensor remaining lifetime" = "Pozostały czas używania";
 
 /* (No Comment) */
 "Sensor remaining warmup time" = "Pozostały czas nagrzewania sensora";
 
 /* (No Comment) */
-"Sensor serial" = "Nr sensora";
+"Sensor serial" = "Nr seryjny";
 
 /* (No Comment) */
-"Sensor starting date" = "Data uruchomienia sensora";
+"Sensor starting date" = "Data uruchomienia";
 
 /* (No Comment) */
 "Sensor state" = "Stan";
@@ -413,7 +413,7 @@
 "Settings view" = "Ustawienia";
 
 /* (No Comment) */
-"Snooze until" = "Pdłuż do/Sen";
+"Snooze until" = "Wycisz do";
 
 /* (No Comment) */
 "Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Odchylenie standardowe (SD) jest miarą rozpiętości odczytów poziomu glukozy wokół średniej — przeskakiwanie między wysokimi i niskimi wartościami skutkuje większym odchyleniem standardowym. Celem jest najniższe możliwe SD, które odzwierciedlałoby stały poziom glukozy przy minimalnych wahaniach.";
@@ -431,31 +431,31 @@
 "Time" = "Czas";
 
 /* (No Comment) */
-"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Czas powyżej zakresu (TAR) lub procent czasu spędzonego powyżej docelowego poziomu glukozy %@.";
+"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Czas powyżej zakresu (TAR) to procent czasu spędzonego powyżej docelowego poziomu glukozy %@.";
 
 /* (No Comment) */
-"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Czas poniżej zakresu (TBR) lub procent czasu spędzonego poniżej docelowego poziomu glukozy %@.";
+"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Czas poniżej zakresu (TBR) to procent czasu spędzonego poniżej docelowego poziomu glukozy %@.";
 
 /* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Czas w zakresie (TIR) lub procent czasu spędzonego w docelowym zakresie glukozy pomiędzy %@ - %@.";
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Czas w zakresie (TIR) to procent czasu spędzonego w docelowym zakresie glukozy pomiędzy %@ - %@.";
 
 /* (No Comment) */
-"Transmitter" = "Transmiter";
+"Transmitter" = "Czytnik";
 
 /* (No Comment) */
-"Transmitter battery" = "Bateria transmitera";
+"Transmitter battery" = "Bateria";
 
 /* (No Comment) */
-"Transmitter battery widget" = "Bateria transmitera";
+"Transmitter battery widget" = "Bateria czytnika";
 
 /* (No Comment) */
-"Transmitter battery widget description" = "Pokazuje pozostały poziom naładowania baterii nadajnika w formie odliczania.";
+"Transmitter battery widget description" = "Pokazuje pozostały poziom naładowania baterii czytnika w formie odliczania.";
 
 /* (No Comment) */
-"Transmitter details" = "Dane transmitera";
+"Transmitter details" = "Dane czytnika";
 
 /* (No Comment) */
-"Transmitter firmware" = "Oprogramowania";
+"Transmitter firmware" = "Oprogramowanie";
 
 /* (No Comment) */
 "Transmitter hardware" = "Hardware";
@@ -485,10 +485,10 @@
 "Warmup" = "Pozostały czas nagrzewania sensora";
 
 /* (No Comment) */
-"Wearing time alarm" = "Alarm ważności sensora";
+"Wearing time alarm" = "Alarm końca działania";
 
 /* (No Comment) */
-"Without transmitter" = "Bez transmitera";
+"Without transmitter" = "Bez czytnika";
 
 /* (No Comment) */
 "Your current glucose is %1$@ (%2$@)." = "Twój aktualny poziom glukozy to %1$@ (%2$@).";
@@ -503,13 +503,13 @@
 "Your sensor has expired and needs to be replaced as soon as possible" = "Twój sensor wygasł i należy go jak najszybciej wymienić.";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@." = "Twój sensor wkrótce straci ważność. Wymienić sensor %1$@.";
+"Your sensor is about to expire. Replace sensor in %1$@." = "Twój sensor wkrótce wygaśnie. Wymień sensor w ciągu %1$@.";
 
 /* (No Comment) */
 "Loading..." = "Ładowanie...";
 
 /* (No Comment) */
-"Export" = "Eksport";
+"Export" = "Eksport danych";
 
 /* (No Comment) */
 "Export as CSV" = "Eksportuj jako CSV";
@@ -560,7 +560,7 @@
 "Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "Insulina podstawowa (baza) odnosi się do insuliny używanej do regulowania poziomu glukozy we krwi między posiłkami, w tym podczas snu.";
 
 /* (No Comment) */
-"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Insulina w bolusie odnosi się do insuliny stosowanej do regulowania poziomu glukozy we krwi podczas posiłków i/lub doraźnego leczenia wysokiego poziomu glukozy we krwi.";
+"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Insulina w bolusie odnosi się do insuliny stosowanej do regulowania poziomu glukozy we krwi podczas posiłków i/lub doraźnego regulowania wysokiego poziomu glukozy we krwi.";
 
 /* (No Comment) */
 "Blood glucose" = "Glukoza we krwi";
