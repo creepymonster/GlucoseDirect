@@ -3,11 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1055974F2990DEAF008187B4 /* SwiftThrottle in Frameworks */ = {isa = PBXBuildFile; productRef = 1055974E2990DEAF008187B4 /* SwiftThrottle */; };
+		101B53852A3BC0210088B4BD /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 101B53842A3BC0210088B4BD /* GRDB */; };
 		107FA9CB2975C6780002A9F4 /* AdditionalSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FA9CA2975C6780002A9F4 /* AdditionalSettingsView.swift */; };
 		107FA9CD2975C6F90002A9F4 /* Float.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FA9CC2975C6F90002A9F4 /* Float.swift */; };
 		10B3B0CE2972D65F00B70CE4 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B3B0CD2972D65F00B70CE4 /* Alarm.swift */; };
@@ -140,7 +140,6 @@
 		E2D34BC6274D6BC000151895 /* CalibrationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D34BC5274D6BC000151895 /* CalibrationsView.swift */; };
 		E2D34BC8274D6BCB00151895 /* ListsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D34BC7274D6BCB00151895 /* ListsView.swift */; };
 		E2D34BCA274D6C1300151895 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D34BC9274D6C1300151895 /* SettingsView.swift */; };
-		E2D57349291B8E96009C37BD /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = E2D57348291B8E96009C37BD /* GRDB */; };
 		E2DE3CA327594E5500FAC82E /* SensorConnectorSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DE3CA227594E5500FAC82E /* SensorConnectorSettingsView.swift */; };
 		E2E353F928DC6E4100824732 /* LibreConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E353F828DC6E4100824732 /* LibreConnection.swift */; };
 		E2E8DBE62859F46D002C84FD /* LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC2E270741D200FE1CBF /* LocalizedString.swift */; };
@@ -445,8 +444,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1055974F2990DEAF008187B4 /* SwiftThrottle in Frameworks */,
-				E2D57349291B8E96009C37BD /* GRDB in Frameworks */,
+				101B53852A3BC0210088B4BD /* GRDB in Frameworks */,
 				E251653E28D7BFE900922898 /* ActivityKit.framework in Frameworks */,
 				E27BBA8027AD7DDA00A6B8EE /* HealthKit.framework in Frameworks */,
 			);
@@ -927,8 +925,7 @@
 			);
 			name = GlucoseDirectApp;
 			packageProductDependencies = (
-				E2D57348291B8E96009C37BD /* GRDB */,
-				1055974E2990DEAF008187B4 /* SwiftThrottle */,
+				101B53842A3BC0210088B4BD /* GRDB */,
 			);
 			productName = GlucoseDirect;
 			productReference = E20B853A266F4A9800AA4224 /* GlucoseDirectApp.app */;
@@ -994,8 +991,7 @@
 			);
 			mainGroup = E20B8531266F4A9800AA4224;
 			packageReferences = (
-				E2D57347291B8E96009C37BD /* XCRemoteSwiftPackageReference "GRDB" */,
-				1055974D2990DEAF008187B4 /* XCRemoteSwiftPackageReference "SwiftThrottle" */,
+				101B53832A3BC0210088B4BD /* XCRemoteSwiftPackageReference "GRDB" */,
 			);
 			productRefGroup = E20B853B266F4A9800AA4224 /* Products */;
 			projectDirPath = "";
@@ -1599,33 +1595,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		1055974D2990DEAF008187B4 /* XCRemoteSwiftPackageReference "SwiftThrottle" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Lakr233/SwiftThrottle";
-			requirement = {
-				kind = exactVersion;
-				version = 1.0.2;
-			};
-		};
-		E2D57347291B8E96009C37BD /* XCRemoteSwiftPackageReference "GRDB" */ = {
+		101B53832A3BC0210088B4BD /* XCRemoteSwiftPackageReference "GRDB" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/groue/GRDB.swift";
 			requirement = {
-				kind = exactVersion;
-				version = 6.3.0;
+				branch = master;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1055974E2990DEAF008187B4 /* SwiftThrottle */ = {
+		101B53842A3BC0210088B4BD /* GRDB */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1055974D2990DEAF008187B4 /* XCRemoteSwiftPackageReference "SwiftThrottle" */;
-			productName = SwiftThrottle;
-		};
-		E2D57348291B8E96009C37BD /* GRDB */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E2D57347291B8E96009C37BD /* XCRemoteSwiftPackageReference "GRDB" */;
+			package = 101B53832A3BC0210088B4BD /* XCRemoteSwiftPackageReference "GRDB" */;
 			productName = GRDB;
 		};
 /* End XCSwiftPackageProductDependency section */

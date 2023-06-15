@@ -14,16 +14,16 @@
 "%@ Entry" = "%@ Entry";
 
 /* (No Comment) */
-"About %@" = "Over %@";
+"About %@" = "About %@";
 
 /* (No Comment) */
-"Add" = "Voeg toe";
+"Add" = "Add";
 
 /* (No Comment) */
 "Add blood glucose" = "Add blood glucose";
 
 /* (No Comment) */
-"Add calibration" = "Kalibratie toevoegen";
+"Add calibration" = "Add calibration";
 
 /* (No Comment) */
 "Alarm glucose notification" = "Alarm Glucose Notification";
@@ -32,25 +32,25 @@
 "Alarm settings" = "Alarm settings";
 
 /* (No Comment) */
-"Alert, high glucose" = "Alarm, hoge glucosewaarde";
+"Alert, high glucose" = "Alert, high glucose";
 
 /* (No Comment) */
-"Alert, low blood glucose" = "Alarm, lage glucosewaarde";
+"Alert, low blood glucose" = "Alert, low blood glucose";
 
 /* (No Comment) */
 "Alarm, loss of signal" = "Alarm, loss of signal";
 
 /* (No Comment) */
-"Alert, sensor expired" = "Alarm, sensor verlopen";
+"Alert, sensor expired" = "Alert, sensor expired";
 
 /* (No Comment) */
-"Alert, sensor expiring soon" = "Alert, sensor verloopt binnenkort";
+"Alert, sensor expiring soon" = "Alert, sensor expiring soon";
 
 /* (No Comment) */
 "App author" = "Author";
 
 /* (No Comment) */
-"App donate" = "Doneer";
+"App donate" = "Donate";
 
 /* (No Comment) */
 "App email" = "eMail";
@@ -68,22 +68,22 @@
 "App translation" = "Translation";
 
 /* (No Comment) */
-"App version" = "Versie";
+"App version" = "Version";
 
 /* (No Comment) */
 "App website" = "Website";
 
 /* (No Comment) */
-"Apple export settings" = "Apple export instellingen";
+"Apple export settings" = "Apple export settings";
 
 /* (No Comment) */
-"Are you sure you want to disconnect the sensor?" = "Weet je het zeker dat je de sensor wilt ontkoppelen?";
+"Are you sure you want to disconnect the sensor?" = "Are you sure you want to disconnect the sensor?";
 
 /* (No Comment) */
 "At least %@ days of data are required." = "At least %@ days of data are required.";
 
 /* (No Comment) */
-"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Let op, de sensor geeft foutieve waarden. Wacht 10 minuten.";
+"Attention, the sensor sends faulty values. Please wait 10 minutes." = "Attention, the sensor sends faulty values. Please wait 10 minutes.";
 
 /* (No Comment) */
 "Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been.";
@@ -98,34 +98,34 @@
 "Blood glucose values" = "BGM";
 
 /* (No Comment) */
-"Blood glucose: %1$@" = "Bloedglucose: %1$@";
+"Blood glucose: %1$@" = "Blood glucose: %1$@";
 
 /* (No Comment) */
-"Bubble transmitter" = "Bubble";
+"Bubble transmitter" = "Bubble transmitter";
 
 /* (No Comment) */
-"Calibration view" = "Kalibratie";
+"Calibration view" = "Calibration";
 
 /* (No Comment) */
-"Cancel" = "Annuleer";
+"Cancel" = "Cancel";
 
 /* (No Comment) */
-"Chart" = "Grafiek";
+"Chart" = "Chart";
 
 /* (No Comment) */
-"Connect sensor" = "Sensor verbinden";
+"Connect sensor" = "Connect sensor";
 
 /* (No Comment) */
-"Connect transmitter" = "Verbind zender";
+"Connect transmitter" = "Connect transmitter";
 
 /* (No Comment) */
-"Connected" = "Verbonden";
+"Connected" = "Connected";
 
 /* (No Comment) */
-"Connecting" = "Bezig met verbinden";
+"Connecting" = "Connecting";
 
 /* (No Comment) */
-"Connection alarm" = "Verbindingsalarm";
+"Connection alarm" = "Connection alarm";
 
 /* (No Comment) */
 "Connection error" = "Error";
@@ -140,40 +140,40 @@
 "Connection state" = "State";
 
 /* (No Comment) */
-"Custom calibration intercept" = "Onderscheppen";
+"Custom calibration intercept" = "Intercept";
 
 /* (No Comment) */
-"Custom calibration slope" = "Helling";
+"Custom calibration slope" = "Slope";
 
 /* (No Comment) */
-"Delete all" = "Verwijder alles";
+"Delete all" = "Delete all";
 
 /* (No Comment) */
-"Disconnect" = "Verbreek verbinding";
+"Disconnect" = "Disconnect";
 
 /* (No Comment) */
-"Disconnect sensor" = "Ontkoppel sensor";
+"Disconnect sensor" = "Disconnect sensor";
 
 /* (No Comment) */
-"Disconnect transmitter" = "Zender loskoppelen";
+"Disconnect transmitter" = "Disconnect transmitter";
 
 /* (No Comment) */
-"Disconnected" = "Verbinding verbroken";
+"Disconnected" = "Disconnected";
 
 /* (No Comment) */
-"Export to Apple Calendar" = "Exporteer naar Apple Agenda";
+"Export to Apple Calendar" = "Export to Apple Calendar";
 
 /* (No Comment) */
-"Export to Apple Health" = "Exporteer naar Apple Health";
+"Export to Apple Health" = "Export to Apple Health";
 
 /* (No Comment) */
-"Find transmitter" = "Zoek zender";
+"Find transmitter" = "Find transmitter";
 
 /* (No Comment) */
 "Glucose" = "Glucose";
 
 /* (No Comment) */
-"Glucose list view" = "Lijst";
+"Glucose list view" = "List";
 
 /* (No Comment) */
 "Glucose Live Activity" = "Glucose Live Activity";
@@ -185,16 +185,16 @@
 "Glucose notification" = "Glucose Notification";
 
 /* (No Comment) */
-"Glucose overview" = "Overzicht";
+"Glucose overview" = "Overview";
 
 /* (No Comment) */
 "Glucose read aloud" = "Glucose Reading";
 
 /* (No Comment) */
-"Glucose settings" = "Glucose-instellingen";
+"Glucose settings" = "Glucose settings";
 
 /* (No Comment) */
-"Glucose unit" = "Eenheid";
+"Glucose unit" = "Unit";
 
 /* (No Comment) */
 "Glucose widget" = "Glucose";
@@ -203,46 +203,46 @@
 "Glucose widget description" = "Displays the last glucose value.";
 
 /* (No Comment) */
-"High glucose alarm" = "Hoog glucose alarm";
+"High glucose alarm" = "High glucose alarm";
 
 /* (No Comment) */
-"Hold the top edge of your iPhone close to the sensor." = "Houd de bovenkant van je iPhone dicht bij de sensor.";
+"Hold the top edge of your iPhone close to the sensor." = "Hold the top edge of your iPhone close to the sensor.";
 
 /* (No Comment) */
-"Ignore mute" = "Negeer dempen";
+"Ignore mute" = "Ignore mute";
 
 /* (No Comment) */
-"LibreLink transmitter" = "LibreLink";
+"LibreLink transmitter" = "LibreLink Transmitter";
 
 /* (No Comment) */
-"LibreLinkUp email" = "LibreLinkUp e-mail";
+"LibreLinkUp email" = "LibreLinkUp email";
 
 /* (No Comment) */
-"LibreLinkUp password" = "LibreLinkUp wachtwoord";
+"LibreLinkUp password" = "LibreLinkUp password";
 
 /* (No Comment) */
-"Line" = "Lijn";
+"Line" = "Line";
 
 /* (No Comment) */
-"Low glucose alarm" = "Laag glucose alarm";
+"Low glucose alarm" = "Low glucose alarm";
 
 /* (No Comment) */
-"Lower limit" = "Laag";
+"Lower limit" = "Low";
 
 /* (No Comment) */
 "Nightscout API-Secret" = "API-Secret";
 
 /* (No Comment) */
-"Nightscout settings" = "Nightscout instellingen";
+"Nightscout settings" = "Nightscout settings";
 
 /* (No Comment) */
-"Nightscout upload enabled" = "Uploaden";
+"Nightscout upload enabled" = "Upload";
 
 /* (No Comment) */
 "Nightscout url" = "Url";
 
 /* (No Comment) */
-"No Data" = "Geen Data";
+"No Data" = "No Data";
 
 /* (No Comment) */
 "No screen lock" = "No screen lock";
@@ -251,25 +251,25 @@
 "Normal glucose notification" = "Normal Glucose Notification";
 
 /* (No Comment) */
-"Now" = "Nu";
+"Now" = "Now";
 
 /* (No Comment) */
-"Pairing" = "Koppelen";
+"Pairing" = "Pairing";
 
 /* (No Comment) */
-"Please select" = "Maak een keuze";
+"Please select" = "Please select";
 
 /* (No Comment) */
-"Power off" = "Schakel uit";
+"Power off" = "Power off";
 
 /* (No Comment) */
-"Readable falling" = "dalende";
+"Readable falling" = "falling";
 
 /* (No Comment) */
-"Readable fast falling" = "snel dalend";
+"Readable fast falling" = "fast falling";
 
 /* (No Comment) */
-"Readable fast rising" = "snel stijgend";
+"Readable fast rising" = "fast rising";
 
 /* (No Comment) */
 "Readable glucose with trend: %1$@ %2$@, %3$@" = "Glucose: %1$@ %2$@, %3$@";
@@ -290,28 +290,28 @@
 "Readable milimol" = "milimol";
 
 /* (No Comment) */
-"Readable rapidly falling" = "snel dalend";
+"Readable rapidly falling" = "rapidly falling";
 
 /* (No Comment) */
-"Readable rapidly rising" = "snel stijgend";
+"Readable rapidly rising" = "rapidly rising";
 
 /* (No Comment) */
-"Readable rising" = "stijgend";
+"Readable rising" = "rising";
 
 /* (No Comment) */
-"Rescan the sensor" = "Scan de sensor opnieuw";
+"Rescan the sensor" = "Rescan the sensor";
 
 /* (No Comment) */
-"Retrieval interval" = "Interval voor vernieuwen";
+"Retrieval interval" = "Retrieval interval";
 
 /* (No Comment) */
-"Retrieval interval, every %@ minutes" = "Elke %@ minuten";
+"Retrieval interval, every %@ minutes" = "Every %@ minutes";
 
 /* (No Comment) */
-"Retrieval interval, every minute" = "Elke minuut";
+"Retrieval interval, every minute" = "Every minute";
 
 /* (No Comment) */
-"Retry pairing" = "Probeer opnieuw te koppelen";
+"Retry pairing" = "Retry pairing";
 
 /* (No Comment) */
 "Scan sensor" = "Scan sensor";
@@ -320,7 +320,7 @@
 "Scanning" = "Scanning";
 
 /* (No Comment) */
-"Selected calendar" = "Agenda";
+"Selected calendar" = "Calendar";
 
 /* (No Comment) */
 "Send database file" = "Send database file";
@@ -332,7 +332,7 @@
 "Sensor age" = "Sensor age";
 
 /* (No Comment) */
-"Sensor connection" = "Sensorverbinding";
+"Sensor connection" = "Sensor connection";
 
 /* (No Comment) */
 "Sensor custom calibration" = "Custom Calibration";
@@ -344,7 +344,7 @@
 "Sensor ending date" = "Ending date";
 
 /* (No Comment) */
-"Sensor error values" = "CGM fouten";
+"Sensor error values" = "CGM errors";
 
 /* (No Comment) */
 "Sensor factory calibration" = "Factory Calibration";
@@ -359,13 +359,13 @@
 "Sensor in starting phase" = "Sensor in starting phase";
 
 /* (No Comment) */
-"Sensor is expired" = "Sensor verlopen";
+"Sensor is expired" = "Sensor is expired";
 
 /* (No Comment) */
 "Sensor is ready" = "Sensor is ready";
 
 /* (No Comment) */
-"Sensor is shut down" = "Sensor verlopen";
+"Sensor is shut down" = "Sensor is expired";
 
 /* (No Comment) */
 "Sensor lifetime" = "Lifetime";
@@ -440,10 +440,10 @@
 "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@.";
 
 /* (No Comment) */
-"Transmitter" = "Zender";
+"Transmitter" = "Transmitter";
 
 /* (No Comment) */
-"Transmitter battery" = "Batterij";
+"Transmitter battery" = "Battery";
 
 /* (No Comment) */
 "Transmitter battery widget" = "Transmitter Battery";
@@ -461,46 +461,46 @@
 "Transmitter hardware" = "Hardware";
 
 /* (No Comment) */
-"Transmitter name" = "Naam";
+"Transmitter name" = "Name";
 
 /* (No Comment) */
-"Unknown" = "Onbekend";
+"Unknown" = "Unknown";
 
 /* (No Comment) */
 "Updated" = "Updated";
 
 /* (No Comment) */
-"Upper limit" = "Hoog";
+"Upper limit" = "High";
 
 /* (No Comment) */
 "Use LibreLink to start the sensor" = "Use LibreLink to start the sensor";
 
 /* (No Comment) */
-"Vibration" = "Alleen trillen";
+"Vibration" = "Vibrate only";
 
 /* (No Comment) */
-"Virtual Sensor" = "Virtuele sensor";
+"Virtual Sensor" = "Virtual Sensor";
 
 /* (No Comment) */
 "Warmup" = "Warmup";
 
 /* (No Comment) */
-"Wearing time alarm" = "Draagtijd alarm";
+"Wearing time alarm" = "Wearing time alarm";
 
 /* (No Comment) */
-"Without transmitter" = "Zonder zender";
+"Without transmitter" = "Without transmitter";
 
 /* (No Comment) */
-"Your current glucose is %1$@ (%2$@)." = "Je huidige glucose is %1$@ (%2$@).";
+"Your current glucose is %1$@ (%2$@)." = "Your current glucose is %1$@ (%2$@).";
 
 /* (No Comment) */
-"Your glucose %1$@ (%2$@) is dangerously high and needs to be treated." = "Je glucose, %1$@ (%2$@), is erg hoog. Onderneem actie.";
+"Your glucose %1$@ (%2$@) is dangerously high and needs to be treated." = "Your glucose, %1$@ (%2$@), is dangerously high and needs to be treated.";
 
 /* (No Comment) */
-"Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "Je glucose, %1$@ (%2$@), is erg laag. Met dextrose kun je je waarde vaak weer naar normaal krijgen.";
+"Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "Your glucose, %1$@ (%2$@), is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal.";
 
 /* (No Comment) */
-"Your sensor has expired and needs to be replaced as soon as possible" = "Uw sensor is verlopen en moet zo snel mogelijk worden vervangen";
+"Your sensor has expired and needs to be replaced as soon as possible" = "Your sensor has expired and needs to be replaced as soon as possible";
 
 /* (No Comment) */
 "Your sensor is about to expire. Replace sensor in %1$@." = "Your sensor is about to expire. Replace sensor in %1$@.";
@@ -554,7 +554,7 @@
 "Basal" = "Basal";
 
 /* (No Comment) */
-"Insulin" = "Insuline";
+"Insulin" = "Insulin";
 
 /* (No Comment) */
 "Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep.";
@@ -569,7 +569,7 @@
 "Add insulin" = "Add insulin";
 
 /* (No Comment) */
-"Calibration" = "Kalibratie";
+"Calibration" = "Calibration";
 
 /* (No Comment) */
 "Starts" = "Starts";

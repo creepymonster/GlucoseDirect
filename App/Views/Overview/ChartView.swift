@@ -312,9 +312,6 @@ struct ChartView: View {
                 ).foregroundStyle(.clear)
             }
         }
-        .chartPlotStyle { plotArea in
-            plotArea.padding(.vertical)
-        }
         .chartXAxis {
             AxisMarks(values: .stride(by: .hour, count: labelEvery)) { _ in
                 AxisGridLine(stroke: Config.axisStyle)

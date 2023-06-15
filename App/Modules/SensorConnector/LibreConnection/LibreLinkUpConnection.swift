@@ -6,7 +6,6 @@
 import Combine
 import CoreBluetooth
 import Foundation
-import SwiftThrottle
 import SwiftUI
 
 // MARK: - LibreLinkUpConnection
@@ -31,17 +30,6 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
     }
 
     override func pairConnection() {
-        workThrottle?.throttle {
-            Task {
-                do {
-                    self.lastLogin = nil
-
-                    try await self.processLogin()
-                } catch {
-                    self.sendUpdate(error: error)
-                }
-            }
-        }
     }
 
     override func connectConnection(sensor: Sensor, sensorInterval: Int) {
@@ -51,23 +39,19 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         self.sensor = sensor
         self.sensorInterval = sensorInterval
         
-        workThrottle = Throttle(minimumDelay: throttleDelay)
-
         setStayConnected(stayConnected: true)
 
-        workThrottle?.throttle {
-            Task {
-                do {
-                    self.lastLogin = nil
+        Task {
+            do {
+                self.lastLogin = nil
 
-                    try await self.processLogin()
+                try await self.processLogin()
 
-                    self.managerQueue.async {
-                        self.find()
-                    }
-                } catch {
-                    self.sendUpdate(error: error)
+                self.managerQueue.async {
+                    self.find()
                 }
+            } catch {
+                self.sendUpdate(error: error)
             }
         }
     }
@@ -95,6 +79,8 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             connect(connectedPeripheral)
 
         } else {
+            sendUpdate(connectionState: .scanning)
+            
             managerQueue.asyncAfter(deadline: .now() + .seconds(5)) {
                 self.find()
             }
@@ -129,16 +115,6 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         if let characteristic = oneMinuteReadingCharacteristic {
             peripheral.setNotifyValue(true, for: characteristic)
         }
-
-        workThrottle?.throttle {
-            Task {
-                do {
-                    try await self.processFetch()
-                } catch {
-                    DirectLog.error("Error: \(error)")
-                }
-            }
-        }
     }
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
@@ -152,15 +128,11 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             return
         }
 
-        managerQueue.asyncAfter(deadline: .now() + .seconds(30)) {
-            self.workThrottle?.throttle {
-                Task {
-                    do {
-                        try await self.processFetch()
-                    } catch {
-                        DirectLog.error("Error: \(error)")
-                    }
-                }
+        Task {
+            do {
+                try await self.processFetch()
+            } catch {
+                DirectLog.error("Error: \(error)")
             }
         }
     }
@@ -180,7 +152,6 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
     // MARK: Private
 
-    private var workThrottle: Throttle?
     private var throttleDelay: Double {
         (Double(sensorInterval) / 1.5) * 60
     }
@@ -192,7 +163,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         "User-Agent": "Mozilla/5.0",
         "Content-Type": "application/json",
         "product": "llu.ios",
-        "version": "4.3.0",
+        "version": "4.7.0",
         "Accept-Encoding": "gzip, deflate, br",
         "Connection": "keep-alive",
         "Pragma": "no-cache",
