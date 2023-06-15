@@ -203,28 +203,28 @@
 "Glucose widget description" = "Displays the last glucose value.";
 
 /* (No Comment) */
-"High glucose alarm" = "High glucose alarm";
+"High glucose alarm" = "Hoog glucose alarm";
 
 /* (No Comment) */
 "Hold the top edge of your iPhone close to the sensor." = "Houd de bovenkant van je iPhone dicht bij de sensor.";
 
 /* (No Comment) */
-"Ignore mute" = "Ignore mute";
+"Ignore mute" = "Negeer dempen";
 
 /* (No Comment) */
 "LibreLink transmitter" = "LibreLink";
 
 /* (No Comment) */
-"LibreLinkUp email" = "LibreLinkUp email";
+"LibreLinkUp email" = "LibreLinkUp e-mail";
 
 /* (No Comment) */
-"LibreLinkUp password" = "LibreLinkUp password";
+"LibreLinkUp password" = "LibreLinkUp wachtwoord";
 
 /* (No Comment) */
 "Line" = "Lijn";
 
 /* (No Comment) */
-"Low glucose alarm" = "Low glucose alarm";
+"Low glucose alarm" = "Laag glucose alarm";
 
 /* (No Comment) */
 "Lower limit" = "Laag";
@@ -236,13 +236,13 @@
 "Nightscout settings" = "Nightscout instellingen";
 
 /* (No Comment) */
-"Nightscout upload enabled" = "Upload";
+"Nightscout upload enabled" = "Uploaden";
 
 /* (No Comment) */
 "Nightscout url" = "Url";
 
 /* (No Comment) */
-"No Data" = "No Data";
+"No Data" = "Geen Data";
 
 /* (No Comment) */
 "No screen lock" = "No screen lock";
@@ -260,16 +260,16 @@
 "Please select" = "Maak een keuze";
 
 /* (No Comment) */
-"Power off" = "Power off";
+"Power off" = "Schakel uit";
 
 /* (No Comment) */
-"Readable falling" = "falling";
+"Readable falling" = "dalende";
 
 /* (No Comment) */
-"Readable fast falling" = "fast falling";
+"Readable fast falling" = "snel dalend";
 
 /* (No Comment) */
-"Readable fast rising" = "fast rising";
+"Readable fast rising" = "snel stijgend";
 
 /* (No Comment) */
 "Readable glucose with trend: %1$@ %2$@, %3$@" = "Glucose: %1$@ %2$@, %3$@";
@@ -290,13 +290,13 @@
 "Readable milimol" = "milimol";
 
 /* (No Comment) */
-"Readable rapidly falling" = "rapidly falling";
+"Readable rapidly falling" = "snel dalend";
 
 /* (No Comment) */
-"Readable rapidly rising" = "rapidly rising";
+"Readable rapidly rising" = "snel stijgend";
 
 /* (No Comment) */
-"Readable rising" = "rising";
+"Readable rising" = "stijgend";
 
 /* (No Comment) */
 "Rescan the sensor" = "Scan de sensor opnieuw";
@@ -554,7 +554,7 @@
 "Basal" = "Basal";
 
 /* (No Comment) */
-"Insulin" = "Insulin";
+"Insulin" = "Insuline";
 
 /* (No Comment) */
 "Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep.";
