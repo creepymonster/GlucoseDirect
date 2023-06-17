@@ -21,3 +21,6 @@
 
 /* Privacy - Health Update Usage Description */
 "NSHealthUpdateUsageDescription" = "Tillgång till Apple Hälsa krävs för export av glukosdata.";
+
+/* Privacy - Calendars Full Access Usage Description */
+"NSCalendarsFullAccessUsageDescription" = "Tillgång till kalendern krävs för att visa aktuella glukosvärden på din Apple Watch.";
