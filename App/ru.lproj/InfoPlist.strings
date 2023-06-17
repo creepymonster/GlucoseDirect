@@ -21,3 +21,6 @@
 
 /* Privacy - Health Update Usage Description */
 "NSHealthUpdateUsageDescription" = "Для экспорта данных о глюкозе необходим доступ к Apple Health.";
+
+/* Privacy - Calendars Full Access Usage Description */
+"NSCalendarsFullAccessUsageDescription" = "Доступ к календарю необходим для отображения актуальных значений глюкозы на Apple Watch.";
