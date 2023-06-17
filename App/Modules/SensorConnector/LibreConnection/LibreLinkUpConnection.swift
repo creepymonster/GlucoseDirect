@@ -518,6 +518,10 @@ private extension LibreLinkResponseUser {
         if ["ae", "ap", "au", "de", "eu", "fr", "jp", "us"].contains(country.lowercased()) {
             return country.lowercased()
         }
+        
+        if (country.lowercased() == "gb") {
+            return "eu2"
+        }
 
         return "eu"
     }
