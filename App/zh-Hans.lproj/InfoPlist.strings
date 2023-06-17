@@ -21,3 +21,6 @@
 
 /* Privacy - Health Update Usage Description */
 "NSHealthUpdateUsageDescription" = "如需导出血糖数据，须登录苹果健康。";
+
+/* Privacy - Calendars Full Access Usage Description */
+"NSCalendarsFullAccessUsageDescription" = "要在Apple Watch上显示最新的葡萄糖值，需要访问日历。";
