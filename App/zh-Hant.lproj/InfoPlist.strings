@@ -21,3 +21,6 @@
 
 /* Privacy - Health Update Usage Description */
 "NSHealthUpdateUsageDescription" = "必須能夠使用Apple Health，才可導出血糖數據。";
+
+/* Privacy - Calendars Full Access Usage Description */
+"NSCalendarsFullAccessUsageDescription" = "需要訪問日曆才能在Apple Watch上顯示最新的血糖值。";
