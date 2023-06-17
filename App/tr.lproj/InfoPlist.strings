@@ -21,3 +21,6 @@
 
 /* Privacy - Health Update Usage Description */
 "NSHealthUpdateUsageDescription" = "Glikoz verilerinin dışa aktarılması gerekiyorsa Apple Health'e erişim gerekir.";
+
+/* Privacy - Calendars Full Access Usage Description */
+"NSCalendarsFullAccessUsageDescription" = "Apple Watch'ta güncel glikoz değerlerini görüntülemek için takvime erişim gerekir.";
