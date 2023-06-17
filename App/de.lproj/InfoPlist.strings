@@ -21,3 +21,6 @@
 
 /* Privacy - Health Update Usage Description */
 "NSHealthUpdateUsageDescription" = "Für den Export von Glukosedaten ist ein Zugang zu Apple Health erforderlich.";
+
+/* Privacy - Calendars Full Access Usage Description */
+"NSCalendarsFullAccessUsageDescription" = "Um aktuelle Glukosewerte auf der Apple Watch anzeigen zu können, ist der Zugriff auf den Kalender erforderlich.";
