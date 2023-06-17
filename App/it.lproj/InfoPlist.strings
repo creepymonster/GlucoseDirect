@@ -21,3 +21,6 @@
 
 /* Privacy - Health Update Usage Description */
 "NSHealthUpdateUsageDescription" = "L'accesso ad Apple Health è necessario nel caso in cui i dati sul glucosio devono essere esportati. ";
+
+/* Privacy - Calendars Full Access Usage Description */
+"NSCalendarsFullAccessUsageDescription" = "L'accesso al calendario è richiesto per mostrare i valori di glucosio su Apple Watch.";
