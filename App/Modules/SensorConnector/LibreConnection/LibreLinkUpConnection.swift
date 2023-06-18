@@ -29,16 +29,15 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         return true
     }
 
-    override func pairConnection() {
-    }
+    override func pairConnection() {}
 
     override func connectConnection(sensor: Sensor, sensorInterval: Int) {
         DirectLog.info("ConnectSensor: \(sensor)")
         DirectLog.info("ConnectSensor, throttleDelay: \(throttleDelay)")
-        
+
         self.sensor = sensor
         self.sensorInterval = sensorInterval
-        
+
         setStayConnected(stayConnected: true)
 
         Task {
@@ -80,7 +79,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
         } else {
             sendUpdate(connectionState: .scanning)
-            
+
             managerQueue.asyncAfter(deadline: .now() + .seconds(5)) {
                 self.find()
             }
@@ -152,10 +151,6 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
     // MARK: Private
 
-    private var throttleDelay: Double {
-        (Double(sensorInterval) / 1.5) * 60
-    }
-   
     private var lastLogin: LibreLinkLogin?
     private let oneMinuteReadingUUID = CBUUID(string: "0898177A-EF89-11E9-81B4-2A2AE2DBCCE4")
     private var oneMinuteReadingCharacteristic: CBCharacteristic?
@@ -184,14 +179,18 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         return decoder
     }()
 
+    private var throttleDelay: Double {
+        (Double(sensorInterval) / 1.5) * 60
+    }
+
     private func processLogin(apiRegion: String? = nil) async throws {
         if lastLogin == nil || lastLogin!.authExpires <= Date() {
-            DirectLog.info("LibreLinkUp processLogin, starts working, \(Date().debugDescription)")
+            DirectLog.info("LibreLinkUp processLogin")
 
             var loginResponse = try await login(apiRegion: apiRegion)
             if loginResponse.status == 4 {
                 DirectLog.info("LibreLinkUp processLogin, request to accept tou")
-                
+
                 guard let authToken = loginResponse.data?.authTicket?.token,
                       !authToken.isEmpty
                 else {
@@ -199,7 +198,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
                     throw LibreLinkError.missingUserOrToken
                 }
-                
+
                 loginResponse = try await tou(apiRegion: apiRegion, authToken: authToken)
             }
 
@@ -239,7 +238,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
     }
 
     private func processFetch() async throws {
-        DirectLog.info("LibreLinkUp processFetch, starts working, \(Date().debugDescription)")
+        DirectLog.info("LibreLinkUp processFetch")
 
         try await processLogin()
 
@@ -275,7 +274,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             SensorReading.createGlucoseReading(timestamp: $0.timestamp, glucoseValue: $0.value)
         })
     }
-    
+
     private func tou(apiRegion: String? = nil, authToken: String) async throws -> LibreLinkResponse<LibreLinkResponseLogin> {
         DirectLog.info("LibreLinkUp tou")
 
@@ -298,7 +297,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        
+
         request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
 
         for (header, value) in requestHeaders {
@@ -527,7 +526,9 @@ private struct LibreLinkResponseActiveSensors: Codable {
 // MARK: - LibreLinkResponseDevice
 
 private struct LibreLinkResponseDevice: Codable {
-    enum CodingKeys: String, CodingKey { case dtid, version = "v" }
+    enum CodingKeys: String, CodingKey { case dtid
+        case version = "v"
+    }
 
     let dtid: Int
     let version: String
@@ -536,7 +537,9 @@ private struct LibreLinkResponseDevice: Codable {
 // MARK: - LibreLinkResponseSensor
 
 private struct LibreLinkResponseSensor: Codable {
-    enum CodingKeys: String, CodingKey { case sn, activation = "a" }
+    enum CodingKeys: String, CodingKey { case sn
+        case activation = "a"
+    }
 
     let sn: String
     let activation: Double
@@ -556,7 +559,9 @@ private extension LibreLinkResponseSensor {
 // MARK: - LibreLinkResponseGlucose
 
 private struct LibreLinkResponseGlucose: Codable {
-    enum CodingKeys: String, CodingKey { case timestamp = "Timestamp", value = "ValueInMgPerDl" }
+    enum CodingKeys: String, CodingKey { case timestamp = "Timestamp"
+        case value = "ValueInMgPerDl"
+    }
 
     let timestamp: Date
     let value: Double
@@ -574,8 +579,8 @@ private extension LibreLinkResponseUser {
         if ["ae", "ap", "au", "de", "eu", "fr", "jp", "us"].contains(country.lowercased()) {
             return country.lowercased()
         }
-        
-        if (country.lowercased() == "gb") {
+
+        if country.lowercased() == "gb" {
             return "eu2"
         }
 
