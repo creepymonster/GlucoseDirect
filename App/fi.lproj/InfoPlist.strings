@@ -21,3 +21,6 @@
 
 /* Privacy - Health Update Usage Description */
 "NSHealthUpdateUsageDescription" = "Pääsy Apple Healthiin vaaditaan, jos glukoositietoja halutaan viedä.";
+
+/* Privacy - Calendars Full Access Usage Description */
+"NSCalendarsFullAccessUsageDescription" = "Kalenterin käyttö on tarpeen, jotta Apple Watchissa voidaan näyttää ajantasaiset glukoosiarvot.";

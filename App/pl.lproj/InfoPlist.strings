@@ -21,3 +21,6 @@
 
 /* Privacy - Health Update Usage Description */
 "NSHealthUpdateUsageDescription" = "Dostęp do aplikacji Zdrowie jest wymagany, jeśli dane dotyczące glukozy mają być eksportowane.";
+
+/* Privacy - Calendars Full Access Usage Description */
+"NSCalendarsFullAccessUsageDescription" = "Dostęp do aplikacji Kalendarz jest wymagany, żeby wyświetlić aktualne wartości glukozy na Apple Watch.";

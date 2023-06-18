@@ -21,3 +21,6 @@
 
 /* Privacy - Health Update Usage Description */
 "NSHealthUpdateUsageDescription" = "Доступ до функції Apple Health є необхідним, якщо дані щодо глюкози потрібно експортувати.";
+
+/* Privacy - Calendars Full Access Usage Description */
+"NSCalendarsFullAccessUsageDescription" = "Доступ до календаря необхідний для відтворення актуальних показників глюкози на годиннику Apple Watch.";
