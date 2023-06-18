@@ -188,7 +188,20 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         if lastLogin == nil || lastLogin!.authExpires <= Date() {
             DirectLog.info("LibreLinkUp processLogin, starts working, \(Date().debugDescription)")
 
-            let loginResponse = try await login(apiRegion: apiRegion)
+            var loginResponse = try await login(apiRegion: apiRegion)
+            if loginResponse.status == 4 {
+                DirectLog.info("LibreLinkUp processLogin, request to accept tou")
+                
+                guard let authToken = loginResponse.data?.authTicket?.token,
+                      !authToken.isEmpty
+                else {
+                    disconnectConnection()
+
+                    throw LibreLinkError.missingUserOrToken
+                }
+                
+                loginResponse = try await tou(apiRegion: apiRegion, authToken: authToken)
+            }
 
             if let redirect = loginResponse.data?.redirect, let region = loginResponse.data?.region, redirect, !region.isEmpty {
                 DirectLog.info("LibreLinkUp processLogin, redirect to userCountry: \(region)")
@@ -261,6 +274,49 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         }.map {
             SensorReading.createGlucoseReading(timestamp: $0.timestamp, glucoseValue: $0.value)
         })
+    }
+    
+    private func tou(apiRegion: String? = nil, authToken: String) async throws -> LibreLinkResponse<LibreLinkResponseLogin> {
+        DirectLog.info("LibreLinkUp tou")
+
+        var urlString: String?
+        if let apiRegion = apiRegion {
+            urlString = "https://api-\(apiRegion).libreview.io/auth/continue/tou"
+        } else {
+            urlString = "https://api.libreview.io/auth/continue/tou"
+        }
+
+        guard let urlString = urlString else {
+            throw LibreLinkError.invalidURL
+        }
+
+        guard let url = URL(string: urlString) else {
+            throw LibreLinkError.invalidURL
+        }
+
+        DirectLog.info("LibreLinkUp tou, url: \(url.absoluteString)")
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
+
+        for (header, value) in requestHeaders {
+            request.setValue(value, forHTTPHeaderField: header)
+        }
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+        let statusCode = (response as? HTTPURLResponse)?.statusCode ?? 0
+
+        DirectLog.info("LibreLinkUp tou, response: \(String(data: data, encoding: String.Encoding.utf8))")
+
+        if statusCode == 200 {
+            return try decode(LibreLinkResponse<LibreLinkResponseLogin>.self, data: data)
+        } else if statusCode == 911 {
+            throw LibreLinkError.maintenance
+        }
+
+        throw LibreLinkError.unknownError
     }
 
     private func login(apiRegion: String? = nil) async throws -> LibreLinkResponse<LibreLinkResponseLogin> {
@@ -509,7 +565,7 @@ private struct LibreLinkResponseGlucose: Codable {
 // MARK: - LibreLinkResponseUser
 
 private struct LibreLinkResponseUser: Codable {
-    let id: String
+    let id: String?
     let country: String
 }
 
