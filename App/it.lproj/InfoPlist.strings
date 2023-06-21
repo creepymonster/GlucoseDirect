@@ -1,8 +1,8 @@
 /* Bundle display name */
-"CFBundleDisplayName" = "Glucosio Diretto";
+"CFBundleDisplayName" = "Glucose Direct";
 
 /* Bundle name */
-"CFBundleName" = "Glucosio Diretto";
+"CFBundleName" = "Glucose Direct";
 
 /* Privacy - NFC Scan Usage Description */
 "NFCReaderUsageDescription" = "La funzione NFC è richiesta per leggere tutte le impostazioni di connessione prima di una connessione Bluetooth.";
