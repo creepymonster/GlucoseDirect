@@ -29,11 +29,11 @@ enum SensorType: String, Codable {
             self = .libre1
         case 0xA2:
             self = .libre1
-        case 0xE5:
+        case 0xE5, 0xE6:
             self = .libreUS14day
         case 0x70:
             self = .libreProH
-        case 0x9D:
+        case 0x9D, 0xC5:
             self = .libre2EU
         case 0x76:
             self = patchInfo[3] == 0x02 ? .libre2US
