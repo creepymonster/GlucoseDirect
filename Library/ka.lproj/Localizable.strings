@@ -335,94 +335,94 @@
 "Sensor connection" = "სენსორის კავშირი";
 
 /* (No Comment) */
-"Sensor custom calibration" = "Custom Calibration";
+"Sensor custom calibration" = "სპეციფიური კალიბრაცია";
 
 /* (No Comment) */
-"Sensor details" = "Sensor details";
+"Sensor details" = "სენსორის დეტალები";
 
 /* (No Comment) */
-"Sensor ending date" = "Ending date";
+"Sensor ending date" = "დასრულების თარიღი";
 
 /* (No Comment) */
-"Sensor error values" = "CGM errors";
+"Sensor error values" = "CGM შეცდომები";
 
 /* (No Comment) */
-"Sensor factory calibration" = "Factory Calibration";
+"Sensor factory calibration" = "ქარხნული კალიბრაცია";
 
 /* (No Comment) */
 "Sensor glucose values" = "CGM";
 
 /* (No Comment) */
-"Sensor has failure" = "Sensor has failure";
+"Sensor has failure" = "სენსორს აქვს პრობლემა";
 
 /* (No Comment) */
-"Sensor in starting phase" = "Sensor in starting phase";
+"Sensor in starting phase" = "სენსორის საწყის ფაზაშია";
 
 /* (No Comment) */
-"Sensor is expired" = "Sensor is expired";
+"Sensor is expired" = "სენსორს ვადა გაუვიდა";
 
 /* (No Comment) */
-"Sensor is ready" = "Sensor is ready";
+"Sensor is ready" = "სენსორი მზადაა";
 
 /* (No Comment) */
-"Sensor is shut down" = "Sensor is expired";
+"Sensor is shut down" = "სენსორს ვადა გაუვიდა";
 
 /* (No Comment) */
-"Sensor lifetime" = "Lifetime";
+"Sensor lifetime" = "სრული ციკლი";
 
 /* (No Comment) */
-"Sensor lifetime widget" = "Sensor Lifetime";
+"Sensor lifetime widget" = "სენსორის ხანგრძლივობა";
 
 /* (No Comment) */
-"Sensor lifetime widget description" = "Displays the remaining lifetime of the current sensor as a countdown.";
+"Sensor lifetime widget description" = "უკუთვლით აჩვენებს სენსორის დარჩენილ ხანგრძივობას.";
 
 /* (No Comment) */
-"Sensor not yet startet" = "Sensor not yet startet";
+"Sensor not yet startet" = "სენსორი ჯერ არ დაწყებულა";
 
 /* (No Comment) */
-"Sensor PatchInfo" = "PatchInfo";
+"Sensor PatchInfo" = "Patch ინფორმაცია";
 
 /* (No Comment) */
-"Sensor possible lifetime" = "Lifetime";
+"Sensor possible lifetime" = "სრული ციკლი";
 
 /* (No Comment) */
-"Sensor region" = "Region";
+"Sensor region" = "რეგიონი";
 
 /* (No Comment) */
-"Sensor remaining lifetime" = "Remaining";
+"Sensor remaining lifetime" = "დარჩენილია";
 
 /* (No Comment) */
-"Sensor remaining warmup time" = "Warmup";
+"Sensor remaining warmup time" = "მოთელვა";
 
 /* (No Comment) */
-"Sensor serial" = "Serial";
+"Sensor serial" = "სერიული ნომერი";
 
 /* (No Comment) */
-"Sensor starting date" = "Starting date";
+"Sensor starting date" = "საწყისი თარიღი";
 
 /* (No Comment) */
 "Sensor state" = "მდგომარეობა";
 
 /* (No Comment) */
-"Sensor type" = "Type";
+"Sensor type" = "ტიპი";
 
 /* (No Comment) */
 "Sensor UID" = "UID";
 
 /* (No Comment) */
-"Settings view" = "Settings";
+"Settings view" = "პარამეტრები";
 
 /* (No Comment) */
-"Snooze until" = "Snooze";
+"Snooze until" = "დროებით გათიშვა";
 
 /* (No Comment) */
 "Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between many highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings.";
 
 /* (No Comment) */
-"Statistics (%@ days)" = "Statistics (%@ days)";
+"Statistics (%@ days)" = "სტატისტიკა (%@ დღე)";
 
 /* (No Comment) */
-"StatisticsPeriod" = "Period";
+"StatisticsPeriod" = "პერიოდი";
 
 /* (No Comment) */
 "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data.";
@@ -440,34 +440,34 @@
 "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@.";
 
 /* (No Comment) */
-"Transmitter" = "Transmitter";
+"Transmitter" = "გადამცემი";
 
 /* (No Comment) */
-"Transmitter battery" = "Battery";
+"Transmitter battery" = "ელემენტი";
 
 /* (No Comment) */
-"Transmitter battery widget" = "Transmitter Battery";
+"Transmitter battery widget" = "გადამცემის ელემენტი";
 
 /* (No Comment) */
-"Transmitter battery widget description" = "Displays the remaining battery charge of the transmitter as a countdown.";
+"Transmitter battery widget description" = "უკუთვლით აჩვენებს გადამცემის ელემენტის მარაგს.";
 
 /* (No Comment) */
-"Transmitter details" = "Transmitter details";
+"Transmitter details" = "გადამცემის დეტალები";
 
 /* (No Comment) */
-"Transmitter firmware" = "Firmware";
+"Transmitter firmware" = "სისტემური პროგრამის ვერსია";
 
 /* (No Comment) */
-"Transmitter hardware" = "Hardware";
+"Transmitter hardware" = "მოწყობილობა";
 
 /* (No Comment) */
-"Transmitter name" = "Name";
+"Transmitter name" = "სახელი";
 
 /* (No Comment) */
-"Unknown" = "Unknown";
+"Unknown" = "უცნობი";
 
 /* (No Comment) */
-"Updated" = "Updated";
+"Updated" = "განახლებულია";
 
 /* (No Comment) */
 "Upper limit" = "მაღალი";
@@ -482,16 +482,16 @@
 "Virtual Sensor" = "ვირტუალური სენსორი";
 
 /* (No Comment) */
-"Warmup" = "Warmup";
+"Warmup" = "მოთელვა";
 
 /* (No Comment) */
 "Wearing time alarm" = "Wearing time alarm";
 
 /* (No Comment) */
-"Without transmitter" = "Without transmitter";
+"Without transmitter" = "გადამცემის გარეშე";
 
 /* (No Comment) */
-"Your current glucose is %1$@ (%2$@)." = "Your current glucose is %1$@ (%2$@).";
+"Your current glucose is %1$@ (%2$@)." = "თქვენი გლუკოზის დონე არის %1$@ (%2$@).";
 
 /* (No Comment) */
 "Your glucose %1$@ (%2$@) is dangerously high and needs to be treated." = "Your glucose, %1$@ (%2$@), is dangerously high and needs to be treated.";
@@ -500,61 +500,61 @@
 "Your glucose %1$@ (%2$@) is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal." = "Your glucose, %1$@ (%2$@), is dangerously low. With sweetened drinks or dextrose, blood glucose levels can often return to normal.";
 
 /* (No Comment) */
-"Your sensor has expired and needs to be replaced as soon as possible" = "Your sensor has expired and needs to be replaced as soon as possible";
+"Your sensor has expired and needs to be replaced as soon as possible" = "თქვენს სენსორს ვადა გაუვიდა და სჭირდება გამოცვლა";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@." = "Your sensor is about to expire. Replace sensor in %1$@.";
+"Your sensor is about to expire. Replace sensor in %1$@." = "თქვენს სენსორს ვადა გასდის. შეცვალეთ სენსორი %1$@.";
 
 /* (No Comment) */
-"Loading..." = "Loading...";
+"Loading..." = "იტვირთება...";
 
 /* (No Comment) */
-"Export" = "Export";
+"Export" = "ექსპორტი";
 
 /* (No Comment) */
-"Export as CSV" = "Export as CSV";
+"Export as CSV" = "CSV ექსპორტი";
 
 /* (No Comment) */
-"Export for Glooko" = "Export for Glooko";
+"Export for Glooko" = "ექსპორტი Glooko-თვის";
 
 /* (No Comment) */
-"Export for Tidepool" = "Export for Tidepool";
+"Export for Tidepool" = "ექსპორტი Tidepool-თვის";
 
 /* (No Comment) */
-"%@ hours" = "%@ hours";
+"%@ hours" = "%@ საათი";
 
 /* (No Comment) */
-"Reopen app in" = "Reopen app in";
+"Reopen app in" = "გახსენი აპლიკაცია";
 
 /* (No Comment) */
-"%1$@ days" = "%1$@ days";
+"%1$@ days" = "%1$@ დღე";
 
 /* (No Comment) */
-"%1$@ day" = "%1$@ day";
+"%1$@ day" = "%1$@ დღე";
 
 /* (No Comment) */
-"%1$@ hours" = "%1$@ hours";
+"%1$@ hours" = "%1$@ საათი";
 
 /* (No Comment) */
-"%1$@ hour" = "%1$@ hour";
+"%1$@ hour" = "%1$@ საათი";
 
 /* (No Comment) */
-"%1$@ minutes" = "%1$@ minutes";
+"%1$@ minutes" = "%1$@ წუთი";
 
 /* (No Comment) */
-"Meal Bolus" = "Meal Bolus";
+"Meal Bolus" = "საკვების ბოლუსი";
 
 /* (No Comment) */
-"Snack Bolus" = "Snack Bolus";
+"Snack Bolus" = "სნექის ბოლუსი";
 
 /* (No Comment) */
-"Correction Bolus" = "Correction Bolus";
+"Correction Bolus" = "კორექციის ბოლუსი";
 
 /* (No Comment) */
-"Basal" = "Basal";
+"Basal" = "ბაზალური";
 
 /* (No Comment) */
-"Insulin" = "Insulin";
+"Insulin" = "ინსულინი";
 
 /* (No Comment) */
 "Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep.";
@@ -563,40 +563,40 @@
 "Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose.";
 
 /* (No Comment) */
-"Blood glucose" = "Blood glucose";
+"Blood glucose" = "გლუკოზა სისხლში";
 
 /* (No Comment) */
-"Add insulin" = "Add insulin";
+"Add insulin" = "ინსულინის დამატება";
 
 /* (No Comment) */
 "Calibration" = "კალიბრაცია";
 
 /* (No Comment) */
-"Starts" = "Starts";
+"Starts" = "დაწყება";
 
 /* (No Comment) */
-"Ends" = "Ends";
+"Ends" = "დასრულება";
 
 /* (No Comment) */
-"Units" = "Units";
+"Units" = "ერთეული";
 
 /* (No Comment) */
-"Type" = "Type";
+"Type" = "ტიპი";
 
 /* (No Comment) */
-"Additional settings" = "Additional settings";
+"Additional settings" = "დამატებითი პარამეტრები";
 
 /* (No Comment) */
-"Show smoothed glucose" = "Show smoothed glucose";
+"Show smoothed glucose" = "აჩვენე გასაშუალოებული გლუკოზა";
 
 /* (No Comment) */
-"Show insulin input" = "Show insulin input";
+"Show insulin input" = "აჩვენე შეყვანილი ინსულინი";
 
 /* (No Comment) */
-"Help" = "Help";
+"Help" = "დახმარება";
 
 /* (No Comment) */
-"Alarm volume" = "Alarm volume";
+"Alarm volume" = "განგაშის ხმის დონე";
 
 /* (No Comment) */
 "Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults." = "Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults.";
