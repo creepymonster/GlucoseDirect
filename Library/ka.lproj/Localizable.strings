@@ -101,7 +101,7 @@
 "Blood glucose: %1$@" = "გლუკოზა სისხლში: %1$@";
 
 /* (No Comment) */
-"Bubble transmitter" = "Bubble transmitter";
+"Bubble transmitter" = "Bubble გადამცემი";
 
 /* (No Comment) */
 "Calibration view" = "კალიბრაცია";
@@ -173,37 +173,37 @@
 "Glucose" = "გლუკოზა";
 
 /* (No Comment) */
-"Glucose list view" = "List";
+"Glucose list view" = "სია";
 
 /* (No Comment) */
-"Glucose Live Activity" = "Glucose Live Activity";
+"Glucose Live Activity" = "გლუკოზის Live Activity";
 
 /* (No Comment) */
-"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring.";
+"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Glucose Management Indicator (GMI) არის \"მიახლოებითი HbA1c\"-ის ჩამნაცვლებელი იმ პაციენტებისთვის, ვინც იყენებს გლუკოზის განგრძობით მონიტორს.";
 
 /* (No Comment) */
-"Glucose notification" = "Glucose Notification";
+"Glucose notification" = "შეტყობინება გლუკოზის შესახებ";
 
 /* (No Comment) */
-"Glucose overview" = "Overview";
+"Glucose overview" = "მიმოხილვა";
 
 /* (No Comment) */
-"Glucose read aloud" = "Glucose Reading";
+"Glucose read aloud" = "წაკითხული გლუკოზა";
 
 /* (No Comment) */
-"Glucose settings" = "Glucose settings";
+"Glucose settings" = "გლუკოზის პარამეტრები";
 
 /* (No Comment) */
-"Glucose unit" = "Unit";
+"Glucose unit" = "ერთეული";
 
 /* (No Comment) */
 "Glucose widget" = "გლუკოზა";
 
 /* (No Comment) */
-"Glucose widget description" = "Displays the last glucose value.";
+"Glucose widget description" = "აჩვენებს გლუკოზის ბოლო მაჩვენებელს.";
 
 /* (No Comment) */
-"High glucose alarm" = "High glucose alarm";
+"High glucose alarm" = "მაღალი გლუკოზის შეტყობინება";
 
 /* (No Comment) */
 "Hold the top edge of your iPhone close to the sensor." = "Hold the top edge of your iPhone close to the sensor.";
