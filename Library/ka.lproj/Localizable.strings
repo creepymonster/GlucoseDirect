@@ -314,25 +314,25 @@
 "Retry pairing" = "ხელახლა სცადეთ დაკავშირება";
 
 /* (No Comment) */
-"Scan sensor" = "Scan sensor";
+"Scan sensor" = "დაასკანერეთ სენსორი";
 
 /* (No Comment) */
-"Scanning" = "Scanning";
+"Scanning" = "მიმდინარეობს სკანირება";
 
 /* (No Comment) */
-"Selected calendar" = "Calendar";
+"Selected calendar" = "კალენდარი";
 
 /* (No Comment) */
-"Send database file" = "Send database file";
+"Send database file" = "მონაცემთა ბაზის გაგზავნა";
 
 /* (No Comment) */
-"Send log file" = "Send log file";
+"Send log file" = "ლოგების ფაილის გაგზავნა";
 
 /* (No Comment) */
-"Sensor age" = "Sensor age";
+"Sensor age" = "სენსორის ასაკი";
 
 /* (No Comment) */
-"Sensor connection" = "Sensor connection";
+"Sensor connection" = "სენსორის კავშირი";
 
 /* (No Comment) */
 "Sensor custom calibration" = "Custom Calibration";
