@@ -206,112 +206,112 @@
 "High glucose alarm" = "მაღალი გლუკოზის შეტყობინება";
 
 /* (No Comment) */
-"Hold the top edge of your iPhone close to the sensor." = "Hold the top edge of your iPhone close to the sensor.";
+"Hold the top edge of your iPhone close to the sensor." = "თქვენი iPhone-ის ზედა ნაწილი მოათავსეთ სენსორთან ახლოს.";
 
 /* (No Comment) */
-"Ignore mute" = "Ignore mute";
+"Ignore mute" = "დააიგნორე ჩუმი რეჟიმი";
 
 /* (No Comment) */
-"LibreLink transmitter" = "LibreLink Transmitter";
+"LibreLink transmitter" = "LibreLink გადამცემი";
 
 /* (No Comment) */
-"LibreLinkUp email" = "LibreLinkUp email";
+"LibreLinkUp email" = "LibreLinkUp იმეილი";
 
 /* (No Comment) */
-"LibreLinkUp password" = "LibreLinkUp password";
+"LibreLinkUp password" = "LibreLinkUp პასვორდი";
 
 /* (No Comment) */
-"Line" = "Line";
+"Line" = "ხაზი";
 
 /* (No Comment) */
-"Low glucose alarm" = "Low glucose alarm";
+"Low glucose alarm" = "დაბალი გლუკოზის შეტყობინება";
 
 /* (No Comment) */
-"Lower limit" = "Low";
+"Lower limit" = "დაბალი";
 
 /* (No Comment) */
 "Nightscout API-Secret" = "API-Secret";
 
 /* (No Comment) */
-"Nightscout settings" = "Nightscout settings";
+"Nightscout settings" = "Nightscout პარამეტრები";
 
 /* (No Comment) */
-"Nightscout upload enabled" = "Upload";
+"Nightscout upload enabled" = "ატვირთვა";
 
 /* (No Comment) */
 "Nightscout url" = "Url";
 
 /* (No Comment) */
-"No Data" = "No Data";
+"No Data" = "არ არის მონაცემები";
 
 /* (No Comment) */
-"No screen lock" = "No screen lock";
+"No screen lock" = "არ აჩვენო დაბლოკილ ეკრანზე";
 
 /* (No Comment) */
-"Normal glucose notification" = "Normal Glucose Notification";
+"Normal glucose notification" = "ნორმალური გლუკოზის შეტყობინება";
 
 /* (No Comment) */
-"Now" = "Now";
+"Now" = "ახლა";
 
 /* (No Comment) */
-"Pairing" = "Pairing";
+"Pairing" = "დაკავშირება";
 
 /* (No Comment) */
-"Please select" = "Please select";
+"Please select" = "აირჩიეთ";
 
 /* (No Comment) */
-"Power off" = "Power off";
+"Power off" = "გამორთვა";
 
 /* (No Comment) */
-"Readable falling" = "falling";
+"Readable falling" = "მცირდება";
 
 /* (No Comment) */
-"Readable fast falling" = "fast falling";
+"Readable fast falling" = "სწრაფად მცირდება";
 
 /* (No Comment) */
-"Readable fast rising" = "fast rising";
+"Readable fast rising" = "სწარფად იზრდება";
 
 /* (No Comment) */
-"Readable glucose with trend: %1$@ %2$@, %3$@" = "Glucose: %1$@ %2$@, %3$@";
+"Readable glucose with trend: %1$@ %2$@, %3$@" = "გლუკოზა: %1$@ %2$@, %3$@";
 
 /* (No Comment) */
-"Readable glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@";
+"Readable glucose: %1$@ %2$@" = "გლუკოზა: %1$@ %2$@";
 
 /* (No Comment) */
-"Readable high glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, Hyperglycemia!";
+"Readable high glucose: %1$@ %2$@" = "გლუკოზა: %1$@ %2$@. ყურადღება, ჰიპერგლიკემია!";
 
 /* (No Comment) */
-"Readable low glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, Hypoglycemia!";
+"Readable low glucose: %1$@ %2$@" = "გლუკოზა: %1$@ %2$@. ყურადღება, ჰიპოგლიკემია!";
 
 /* (No Comment) */
-"Readable miligram" = "miligram";
+"Readable miligram" = "მილიგრამი";
 
 /* (No Comment) */
-"Readable milimol" = "milimol";
+"Readable milimol" = "მილიმოლი";
 
 /* (No Comment) */
-"Readable rapidly falling" = "rapidly falling";
+"Readable rapidly falling" = "ძალიან სწრაფად მცირდება";
 
 /* (No Comment) */
-"Readable rapidly rising" = "rapidly rising";
+"Readable rapidly rising" = "ძალიან სწრაფად იზრდება";
 
 /* (No Comment) */
-"Readable rising" = "rising";
+"Readable rising" = "მზარდი";
 
 /* (No Comment) */
-"Rescan the sensor" = "Rescan the sensor";
+"Rescan the sensor" = "ხელახლა დაასკანერეთ სენსორი";
 
 /* (No Comment) */
-"Retrieval interval" = "Retrieval interval";
+"Retrieval interval" = "მონაცემების მიღების შუალედი";
 
 /* (No Comment) */
-"Retrieval interval, every %@ minutes" = "Every %@ minutes";
+"Retrieval interval, every %@ minutes" = "ყოველ %@ წუთში";
 
 /* (No Comment) */
-"Retrieval interval, every minute" = "Every minute";
+"Retrieval interval, every minute" = "ყოველ წუთში";
 
 /* (No Comment) */
-"Retry pairing" = "Retry pairing";
+"Retry pairing" = "ხელახლა სცადეთ დაკავშირება";
 
 /* (No Comment) */
 "Scan sensor" = "Scan sensor";
@@ -470,16 +470,16 @@
 "Updated" = "Updated";
 
 /* (No Comment) */
-"Upper limit" = "High";
+"Upper limit" = "მაღალი";
 
 /* (No Comment) */
-"Use LibreLink to start the sensor" = "Use LibreLink to start the sensor";
+"Use LibreLink to start the sensor" = "გამოიყენეთ LibreLink, რომ ჩართოთ სენსორი";
 
 /* (No Comment) */
-"Vibration" = "Vibrate only";
+"Vibration" = "მხოლოდ ვიბრაცია";
 
 /* (No Comment) */
-"Virtual Sensor" = "Virtual Sensor";
+"Virtual Sensor" = "ვირტუალური სენსორი";
 
 /* (No Comment) */
 "Warmup" = "Warmup";
