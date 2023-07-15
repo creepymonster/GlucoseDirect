@@ -60,6 +60,8 @@ struct StatisticsView: View {
                         Spacer()
 
                         ForEach(Config.chartLevels, id: \.days) { level in
+                            let levelDisabled = level.days > glucoseStatistics.maxDays
+
                             Spacer()
                             Button(
                                 action: {
@@ -71,16 +73,19 @@ struct StatisticsView: View {
                                         .if(isSelectedChartLevel(days: level.days)) {
                                             $0.fill(Color.ui.label)
                                         } else: {
-                                            $0.stroke(Color.ui.label)
+                                            $0.stroke(levelDisabled ? Color.ui.gray : Color.ui.label )
                                         }
                                         .frame(width: 12, height: 12)
 
                                     Text(verbatim: level.name)
+                                        .if(levelDisabled) {
+                                            $0.strikethrough()
+                                        }
                                         .font(.subheadline)
-                                        .foregroundColor(Color.ui.label)
+                                        .foregroundColor(levelDisabled ? Color.ui.gray : Color.ui.label)
                                 }
                             )
-                            .disabled(level.days > glucoseStatistics.maxDays)
+                            .disabled(levelDisabled)
                             .lineLimit(1)
                             .buttonStyle(.plain)
                         }
