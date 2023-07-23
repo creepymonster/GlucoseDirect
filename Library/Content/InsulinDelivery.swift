@@ -35,20 +35,20 @@ enum InsulinType: Codable {
 
 struct InsulinDelivery: CustomStringConvertible, Codable, Identifiable {
     // MARK: Lifecycle
-    init(starts: Date, ends: Date, units: Float, type: InsulinType) {
+    init(starts: Date, ends: Date, units: Double, type: InsulinType) {
         self.init(id: UUID(), starts: starts, ends: ends, units: units, type: type)
     }
     
-    init(id: UUID, starts: Date, ends: Date, units: Float, type: InsulinType) {
+    init(id: UUID, starts: Date, ends: Date, units: Double, type: InsulinType) {
         self.init(id: id, starts: starts, ends: ends, units: units, type: type, originatingSourceName: DirectConfig.projectName, originatingSourceBundle: DirectConfig.appBundle)
     }
     
 
-    init(id: UUID, starts: Date, ends: Date, units: Float, type: InsulinType, originatingSourceName: String, originatingSourceBundle: String) {
+    init(id: UUID, starts: Date, ends: Date, units: Double, type: InsulinType, originatingSourceName: String, originatingSourceBundle: String) {
         self.init(id: id, starts: starts, ends: ends, units: units, type: type, originatingSourceName: originatingSourceName, originatingSourceBundle: originatingSourceBundle, appleHealthId: nil)
     }
     
-    init(id: UUID, starts: Date, ends: Date, units: Float, type: InsulinType, originatingSourceName: String, originatingSourceBundle: String, appleHealthId: UUID?) {
+    init(id: UUID, starts: Date, ends: Date, units: Double, type: InsulinType, originatingSourceName: String, originatingSourceBundle: String, appleHealthId: UUID?) {
         let roundedStarts = starts.toRounded(on: 1, .minute)
         let roundedEnds = ends.toRounded(on: 1, .minute)
 
@@ -68,7 +68,7 @@ struct InsulinDelivery: CustomStringConvertible, Codable, Identifiable {
     let id: UUID
     let starts: Date
     let ends: Date
-    let units: Float
+    let units: Double
     let type: InsulinType
     let timegroup: Date
     var appleHealthId: UUID?

@@ -75,7 +75,7 @@ struct ChartView: View {
                             }
                         }
 
-                        if selectedSmoothSensorPoint != nil || selectedSensorPoint != nil || selectedBloodPoint != nil {
+                        if selectedSmoothSensorPoint != nil || selectedRawSensorPoint != nil || selectedBloodPoint != nil {
                             HStack(alignment: .top) {
                                 VStack(alignment: .leading) {
                                     if let selectedSensorPoint = selectedSmoothSensorPoint {
@@ -192,8 +192,8 @@ struct ChartView: View {
 
             ForEach(bloodGlucoseSeries) { value in
                 PointMark(
-                    x: .value("Time", value.valueX),
-                    y: .value("Glucose", value.valueY)
+                    x: .value("Time", value.time),
+                    y: .value("Glucose", value.value)
                 )
                 .symbolSize(Config.symbolSize)
                 .foregroundStyle(Color.ui.red)
@@ -338,7 +338,6 @@ struct ChartView: View {
 
                 updateSeriesMetadata()
                 updateSensorSeries()
-                updateBloodSeries()
             }
 
         }.onChange(of: store.state.sensorGlucoseValues) { _ in
