@@ -49,6 +49,10 @@ enum DirectConfig {
     static var appBuild: String = {
         Bundle.main.infoDictionary?["CFBundleVersion"] as! String
     }()
+    
+    static var appBundle: String = {
+        Bundle.main.infoDictionary?["CFBundleIdentifier"] as! String
+    }()
 
     static var appAuthor: String? = {
         Bundle.main.infoDictionary?["AppAuthor"] as? String

@@ -77,7 +77,7 @@ private func appleHealthExportMiddleware(service: LazyService<AppleHealthSyncSer
             }
             
         case .deleteBloodGlucose(glucose: let glucose):
-            guard state.appleHealthExport else {
+            guard state.appleHealthSync else {
                 DirectLog.info("Guard: state.appleHealth is false")
                 break
             }
@@ -85,7 +85,7 @@ private func appleHealthExportMiddleware(service: LazyService<AppleHealthSyncSer
                 await service.value.deleteGlucose(glucose: glucose)
             }
         case .addInsulinDelivery(insulinDeliveryValues: let insulinDeliveryValues):
-            guard state.appleHealthExport else {
+            guard state.appleHealthSync else {
                 DirectLog.info("Guard: state.appleHealth is false")
                 break
             }
@@ -94,7 +94,7 @@ private func appleHealthExportMiddleware(service: LazyService<AppleHealthSyncSer
                 await service.value.addInsulinDelivery(insulinDeliveryValues: insulinDeliveryValues)
             }
         case .deleteInsulinDelivery(insulinDelivery: let insulinDelivery):
-            guard state.appleHealthExport else {
+            guard state.appleHealthSync else {
                 DirectLog.info("Guard: state.appleHealth is false")
                 break
             }
@@ -112,14 +112,6 @@ private func appleHealthExportMiddleware(service: LazyService<AppleHealthSyncSer
                 await service.value.addGlucose(glucoseValues: glucoseValues)
             }
         case .deleteSensorGlucose(glucose: let glucose):
-            guard state.appleHealthSync else {
-                DirectLog.info("Guard: state.appleHealth is false")
-                break
-            }
-
-            service.value.deleteGlucose(glucose: glucose)
-
-        case .syncAppleHealth:
             guard state.appleHealthSync else {
                 DirectLog.info("Guard: state.appleHealth is false")
                 break
@@ -150,6 +142,10 @@ private class AppleHealthSyncService {
     
     var glucoseType: HKQuantityType {
         HKObjectType.quantityType(forIdentifier: .bloodGlucose)!
+    }
+    
+    var insulinType: HKQuantityType {
+        HKObjectType.quantityType(forIdentifier: .insulinDelivery)!
     }
 
     var requiredWritePermissions: Set<HKSampleType> {
