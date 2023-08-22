@@ -20,7 +20,7 @@
 "Add" = "Voeg toe";
 
 /* (No Comment) */
-"Add blood glucose" = "Add blood glucose";
+"Add blood glucose" = "Bloedglucose toevoegen";
 
 /* (No Comment) */
 "Add calibration" = "Kalibratie toevoegen";
@@ -29,7 +29,7 @@
 "Alarm glucose notification" = "Alarm Glucose Notification";
 
 /* (No Comment) */
-"Alarm settings" = "Alarm settings";
+"Alarm settings" = "Alarminstellingen";
 
 /* (No Comment) */
 "Alert, high glucose" = "Alarm, hoge glucosewaarde";
@@ -38,7 +38,7 @@
 "Alert, low blood glucose" = "Alarm, lage glucosewaarde";
 
 /* (No Comment) */
-"Alarm, loss of signal" = "Alarm, loss of signal";
+"Alarm, loss of signal" = "Alarm, verlies van signaal";
 
 /* (No Comment) */
 "Alert, sensor expired" = "Alarm, sensor verlopen";
@@ -47,25 +47,25 @@
 "Alert, sensor expiring soon" = "Alert, sensor verloopt binnenkort";
 
 /* (No Comment) */
-"App author" = "Author";
+"App author" = "Auteur";
 
 /* (No Comment) */
 "App donate" = "Doneer";
 
 /* (No Comment) */
-"App email" = "eMail";
+"App email" = "e-mail";
 
 /* (No Comment) */
-"App facebook group" = "Facebook group";
+"App facebook group" = "Facebookgroep";
 
 /* (No Comment) */
-"App faq" = "FAQ";
+"App faq" = "Veelgestelde vragen";
 
 /* (No Comment) */
-"App support mail" = "Support";
+"App support mail" = "Ondersteuning";
 
 /* (No Comment) */
-"App translation" = "Translation";
+"App translation" = "Vertaling";
 
 /* (No Comment) */
 "App version" = "Versie";
@@ -128,16 +128,16 @@
 "Connection alarm" = "Verbindingsalarm";
 
 /* (No Comment) */
-"Connection error" = "Error";
+"Connection error" = "Fout";
 
 /* (No Comment) */
-"Connection error timestamp" = "Time";
+"Connection error timestamp" = "Tijd";
 
 /* (No Comment) */
-"Connection settings" = "Connection settings";
+"Connection settings" = "Verbindingsinstellingen";
 
 /* (No Comment) */
-"Connection state" = "State";
+"Connection state" = "Staat";
 
 /* (No Comment) */
 "Custom calibration intercept" = "Onderscheppen";
@@ -200,7 +200,7 @@
 "Glucose widget" = "Glucose";
 
 /* (No Comment) */
-"Glucose widget description" = "Displays the last glucose value.";
+"Glucose widget description" = "Toont de laatste glucosewaarde.";
 
 /* (No Comment) */
 "High glucose alarm" = "Hoog glucose alarm";
@@ -245,7 +245,7 @@
 "No Data" = "Geen Data";
 
 /* (No Comment) */
-"No screen lock" = "No screen lock";
+"No screen lock" = "Geen schermvergrendeling";
 
 /* (No Comment) */
 "Normal glucose notification" = "Normal Glucose Notification";
@@ -401,7 +401,7 @@
 "Sensor starting date" = "Starting date";
 
 /* (No Comment) */
-"Sensor state" = "State";
+"Sensor state" = "Staat";
 
 /* (No Comment) */
 "Sensor type" = "Type";
@@ -428,7 +428,7 @@
 "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data.";
 
 /* (No Comment) */
-"Time" = "Time";
+"Time" = "Tijd";
 
 /* (No Comment) */
 "Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Time above Range (TAR) or the percentage of time spent above the target glucose of %@.";
