@@ -317,31 +317,31 @@
 "Scan sensor" = "Scan sensor";
 
 /* (No Comment) */
-"Scanning" = "Scanning";
+"Scanning" = "Bezig met scannen";
 
 /* (No Comment) */
 "Selected calendar" = "Agenda";
 
 /* (No Comment) */
-"Send database file" = "Send database file";
+"Send database file" = "Databasebestand verzenden";
 
 /* (No Comment) */
-"Send log file" = "Send log file";
+"Send log file" = "Logboekbestand verzenden";
 
 /* (No Comment) */
-"Sensor age" = "Sensor age";
+"Sensor age" = "Ouderdom sensor";
 
 /* (No Comment) */
 "Sensor connection" = "Sensorverbinding";
 
 /* (No Comment) */
-"Sensor custom calibration" = "Custom Calibration";
+"Sensor custom calibration" = "Aangepaste kalibratie";
 
 /* (No Comment) */
-"Sensor details" = "Sensor details";
+"Sensor details" = "Sensordetails";
 
 /* (No Comment) */
-"Sensor ending date" = "Ending date";
+"Sensor ending date" = "Einddatum";
 
 /* (No Comment) */
 "Sensor error values" = "CGM fouten";
@@ -353,16 +353,16 @@
 "Sensor glucose values" = "CGM";
 
 /* (No Comment) */
-"Sensor has failure" = "Sensor has failure";
+"Sensor has failure" = "Sensor heeft fout";
 
 /* (No Comment) */
-"Sensor in starting phase" = "Sensor in starting phase";
+"Sensor in starting phase" = "Sensor in de startfase";
 
 /* (No Comment) */
 "Sensor is expired" = "Sensor verlopen";
 
 /* (No Comment) */
-"Sensor is ready" = "Sensor is ready";
+"Sensor is ready" = "Sensor is klaar";
 
 /* (No Comment) */
 "Sensor is shut down" = "Sensor verlopen";
@@ -377,7 +377,7 @@
 "Sensor lifetime widget description" = "Displays the remaining lifetime of the current sensor as a countdown.";
 
 /* (No Comment) */
-"Sensor not yet startet" = "Sensor not yet startet";
+"Sensor not yet startet" = "Sensor nog niet gestart";
 
 /* (No Comment) */
 "Sensor PatchInfo" = "PatchInfo";
@@ -386,19 +386,19 @@
 "Sensor possible lifetime" = "Lifetime";
 
 /* (No Comment) */
-"Sensor region" = "Region";
+"Sensor region" = "Gebied";
 
 /* (No Comment) */
-"Sensor remaining lifetime" = "Remaining";
+"Sensor remaining lifetime" = "Resterend";
 
 /* (No Comment) */
-"Sensor remaining warmup time" = "Warmup";
+"Sensor remaining warmup time" = "Opwarmen";
 
 /* (No Comment) */
 "Sensor serial" = "Serial";
 
 /* (No Comment) */
-"Sensor starting date" = "Starting date";
+"Sensor starting date" = "Begindatum";
 
 /* (No Comment) */
 "Sensor state" = "Staat";
@@ -410,19 +410,19 @@
 "Sensor UID" = "UID";
 
 /* (No Comment) */
-"Settings view" = "Settings";
+"Settings view" = "Instellingen";
 
 /* (No Comment) */
-"Snooze until" = "Snooze";
+"Snooze until" = "Sluimeren";
 
 /* (No Comment) */
 "Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between many highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings.";
 
 /* (No Comment) */
-"Statistics (%@ days)" = "Statistics (%@ days)";
+"Statistics (%@ days)" = "Statistieken (%@ dagen)";
 
 /* (No Comment) */
-"StatisticsPeriod" = "Period";
+"StatisticsPeriod" = "Periode";
 
 /* (No Comment) */
 "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data.";
@@ -467,13 +467,13 @@
 "Unknown" = "Onbekend";
 
 /* (No Comment) */
-"Updated" = "Updated";
+"Updated" = "Ge-update";
 
 /* (No Comment) */
 "Upper limit" = "Hoog";
 
 /* (No Comment) */
-"Use LibreLink to start the sensor" = "Use LibreLink to start the sensor";
+"Use LibreLink to start the sensor" = "Gebruik LibreLink om de sensor te starten";
 
 /* (No Comment) */
 "Vibration" = "Alleen trillen";
@@ -482,7 +482,7 @@
 "Virtual Sensor" = "Virtuele sensor";
 
 /* (No Comment) */
-"Warmup" = "Warmup";
+"Warmup" = "Opwarmen";
 
 /* (No Comment) */
 "Wearing time alarm" = "Draagtijd alarm";
@@ -503,16 +503,16 @@
 "Your sensor has expired and needs to be replaced as soon as possible" = "Uw sensor is verlopen en moet zo snel mogelijk worden vervangen";
 
 /* (No Comment) */
-"Your sensor is about to expire. Replace sensor in %1$@." = "Your sensor is about to expire. Replace sensor in %1$@.";
+"Your sensor is about to expire. Replace sensor in %1$@." = "Je sensor zal bijna verlopen. Vervang de sensor in %1$@.";
 
 /* (No Comment) */
-"Loading..." = "Loading...";
+"Loading..." = "Aan het laden...";
 
 /* (No Comment) */
-"Export" = "Export";
+"Export" = "Exporteren";
 
 /* (No Comment) */
-"Export as CSV" = "Export as CSV";
+"Export as CSV" = "Exporteren als CSV";
 
 /* (No Comment) */
 "Export for Glooko" = "Export for Glooko";
@@ -521,25 +521,25 @@
 "Export for Tidepool" = "Export for Tidepool";
 
 /* (No Comment) */
-"%@ hours" = "%@ hours";
+"%@ hours" = "%@ uren";
 
 /* (No Comment) */
-"Reopen app in" = "Reopen app in";
+"Reopen app in" = "App heropenen in";
 
 /* (No Comment) */
-"%1$@ days" = "%1$@ days";
+"%1$@ days" = "%1$@ dagen";
 
 /* (No Comment) */
-"%1$@ day" = "%1$@ day";
+"%1$@ day" = "%1$@ dag";
 
 /* (No Comment) */
-"%1$@ hours" = "%1$@ hours";
+"%1$@ hours" = "%1$@ uren";
 
 /* (No Comment) */
-"%1$@ hour" = "%1$@ hour";
+"%1$@ hour" = "%1$@ uur";
 
 /* (No Comment) */
-"%1$@ minutes" = "%1$@ minutes";
+"%1$@ minutes" = "%1$@ minuten";
 
 /* (No Comment) */
 "Meal Bolus" = "Meal Bolus";
@@ -551,7 +551,7 @@
 "Correction Bolus" = "Correction Bolus";
 
 /* (No Comment) */
-"Basal" = "Basal";
+"Basal" = "Basaal";
 
 /* (No Comment) */
 "Insulin" = "Insuline";
@@ -563,28 +563,28 @@
 "Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose.";
 
 /* (No Comment) */
-"Blood glucose" = "Blood glucose";
+"Blood glucose" = "Bloedglucose";
 
 /* (No Comment) */
-"Add insulin" = "Add insulin";
+"Add insulin" = "Voeg insuline toe";
 
 /* (No Comment) */
 "Calibration" = "Kalibratie";
 
 /* (No Comment) */
-"Starts" = "Starts";
+"Starts" = "Begint";
 
 /* (No Comment) */
-"Ends" = "Ends";
+"Ends" = "Eindigt";
 
 /* (No Comment) */
-"Units" = "Units";
+"Units" = "Eenheden";
 
 /* (No Comment) */
 "Type" = "Type";
 
 /* (No Comment) */
-"Additional settings" = "Additional settings";
+"Additional settings" = "Aanvullende instellingen";
 
 /* (No Comment) */
 "Show smoothed glucose" = "Show smoothed glucose";
@@ -596,7 +596,7 @@
 "Help" = "Help";
 
 /* (No Comment) */
-"Alarm volume" = "Alarm volume";
+"Alarm volume" = "Alarmvolume";
 
 /* (No Comment) */
 "Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults." = "Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults.";
