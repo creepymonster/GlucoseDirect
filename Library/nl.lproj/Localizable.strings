@@ -26,7 +26,7 @@
 "Add calibration" = "Kalibratie toevoegen";
 
 /* (No Comment) */
-"Alarm glucose notification" = "Alarm Glucose Notification";
+"Alarm glucose notification" = "Alarm Glucose Melding";
 
 /* (No Comment) */
 "Alarm settings" = "Alarminstellingen";
@@ -80,7 +80,7 @@
 "Are you sure you want to disconnect the sensor?" = "Weet je het zeker dat je de sensor wilt ontkoppelen?";
 
 /* (No Comment) */
-"At least %@ days of data are required." = "At least %@ days of data are required.";
+"At least %@ days of data are required." = "Ten minste %@ dagen aan gegevens zijn vereist.";
 
 /* (No Comment) */
 "Attention, the sensor sends faulty values. Please wait 10 minutes." = "Let op, de sensor geeft foutieve waarden. Wacht 10 minuten.";
