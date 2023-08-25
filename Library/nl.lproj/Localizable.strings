@@ -77,10 +77,10 @@
 "Apple export settings" = "Apple export instellingen";
 
 /* (No Comment) */
-"Are you sure you want to disconnect the sensor?" = "Weet je het zeker dat je de sensor wilt ontkoppelen?";
+"Are you sure you want to disconnect the sensor?" = "Weet u zeker dat je de sensor wilt ontkoppelen?";
 
 /* (No Comment) */
-"At least %@ days of data are required." = "Ten minste %@ dagen aan gegevens zijn vereist.";
+"At least %@ days of data are required." = "Minstens %@ dagen aan gegevens zijn vereist.";
 
 /* (No Comment) */
 "Attention, the sensor sends faulty values. Please wait 10 minutes." = "Let op, de sensor geeft foutieve waarden. Wacht 10 minuten.";
@@ -416,7 +416,7 @@
 "Snooze until" = "Sluimeren";
 
 /* (No Comment) */
-"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between many highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings.";
+"Standard Deviation (SD) is a measure of the spread in glucose readings around the average - bouncing between highs and lows results in a larger SD. The goal is the lowest SD possible, which would reflect a steady glucose level with minimal swings." = "Standaard afwijking (SD) is een meting van het afwijkende glucosemetingen rond het gemiddelde; springen tussen veel hypers en hypo's zorgt voor een grotere SD. Het doel is zo'n klein mogelijke SD, wat een stabiele bloedsuikerspiegel is met weinig pieken of dalen.";
 
 /* (No Comment) */
 "Statistics (%@ days)" = "Statistieken (%@ dagen)";
@@ -557,10 +557,10 @@
 "Insulin" = "Insuline";
 
 /* (No Comment) */
-"Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep.";
+"Basal insulin referes to the insulin used to regulate blood glucose between meals including during sleep." = "Basale insuline verwijst naar de insuline die gebruikt wordt om bloedglucose tussen maaltijden te reguleren, ook tijdens de slaap.";
 
 /* (No Comment) */
-"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose.";
+"Bolus insulin refers to the insulin used to regulate blood glucose at meals and/or to acutely address high blood glucose." = "Bolus insuline verwijst naar de insuline die gebruikt wordt om bloedglucose bij maaltijden te reguleren en/of om hoge bloedglucose aan te passen.";
 
 /* (No Comment) */
 "Blood glucose" = "Bloedglucose";
@@ -587,10 +587,10 @@
 "Additional settings" = "Aanvullende instellingen";
 
 /* (No Comment) */
-"Show smoothed glucose" = "Show smoothed glucose";
+"Show smoothed glucose" = "Toon vloeiende glucosewaarde";
 
 /* (No Comment) */
-"Show insulin input" = "Show insulin input";
+"Show insulin input" = "Toon insuline invoer";
 
 /* (No Comment) */
 "Help" = "Help";
@@ -599,4 +599,4 @@
 "Alarm volume" = "Alarmvolume";
 
 /* (No Comment) */
-"Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults." = "Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults.";
+"Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults." = "Coëfficiënt van variatie (CV) wordt gedefinieerd als de verhouding van de standaard afwijking tot het gemiddelde. Over het algemeen zien de meeste deskundigen graag een CV van 33% of lager, wat wordt gezien als een markering van ‘stabiele’ suikerspiegels. Maar het is belangrijk te weten dat zeer jonge patiënten met diabetes vaak een grotere variatie hebben dan volwassenen.";
