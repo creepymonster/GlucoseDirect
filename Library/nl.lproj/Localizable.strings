@@ -8,10 +8,10 @@
 "%1$@d %2$@h %3$@min" = "%1$@d %2$@h %3$@min";
 
 /* (No Comment) */
-"%@ Entries" = "%@ Entries";
+"%@ Entries" = "%@ Invoeringen";
 
 /* (No Comment) */
-"%@ Entry" = "%@ Entry";
+"%@ Entry" = "%@ Invoer";
 
 /* (No Comment) */
 "About %@" = "Over %@";
@@ -86,7 +86,7 @@
 "Attention, the sensor sends faulty values. Please wait 10 minutes." = "Let op, de sensor geeft foutieve waarden. Wacht 10 minuten.";
 
 /* (No Comment) */
-"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been.";
+"Average (AVG) is an overall measure of blood sugars over a period of time, offering a single high-level view of where glucose has been." = "Het gemiddelde (AVG) is een globale meting van bloedsuikers van een bepaalde periode, wat een in 1 oogopslag een overzicht van hoge kwaliteit bied van hoe hoog het glucose is geweest.";
 
 /* (No Comment) */
 "Bellman alarm" = "Alarm";
@@ -176,19 +176,19 @@
 "Glucose list view" = "Lijst";
 
 /* (No Comment) */
-"Glucose Live Activity" = "Glucose Live Activity";
+"Glucose Live Activity" = "Gluctose Live Activiteit";
 
 /* (No Comment) */
-"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring.";
+"Glucose Management Indicator (GMI) is an replacement for \"estimated HbA1c\" for patients using continuous glucose monitoring." = "Glucose Management Indicator (GMI) is een vervanging voor \"geschatte HbA1c\" voor patiënten met behulp van continue glucosemonitoring.";
 
 /* (No Comment) */
-"Glucose notification" = "Glucose Notification";
+"Glucose notification" = "Gluctose melding";
 
 /* (No Comment) */
 "Glucose overview" = "Overzicht";
 
 /* (No Comment) */
-"Glucose read aloud" = "Glucose Reading";
+"Glucose read aloud" = "Glucose meting";
 
 /* (No Comment) */
 "Glucose settings" = "Glucose-instellingen";
@@ -248,7 +248,7 @@
 "No screen lock" = "Geen schermvergrendeling";
 
 /* (No Comment) */
-"Normal glucose notification" = "Normal Glucose Notification";
+"Normal glucose notification" = "Normale Glucose melding";
 
 /* (No Comment) */
 "Now" = "Nu";
@@ -278,10 +278,10 @@
 "Readable glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@";
 
 /* (No Comment) */
-"Readable high glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, Hyperglycemia!";
+"Readable high glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attentie, Hyperglycemia!";
 
 /* (No Comment) */
-"Readable low glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, Hypoglycemia!";
+"Readable low glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attentie, Hypoglycemia!";
 
 /* (No Comment) */
 "Readable miligram" = "miligram";
@@ -347,7 +347,7 @@
 "Sensor error values" = "CGM fouten";
 
 /* (No Comment) */
-"Sensor factory calibration" = "Factory Calibration";
+"Sensor factory calibration" = "Fabrieks kalibratie";
 
 /* (No Comment) */
 "Sensor glucose values" = "CGM";
@@ -368,13 +368,13 @@
 "Sensor is shut down" = "Sensor verlopen";
 
 /* (No Comment) */
-"Sensor lifetime" = "Lifetime";
+"Sensor lifetime" = "Legensduur";
 
 /* (No Comment) */
-"Sensor lifetime widget" = "Sensor Lifetime";
+"Sensor lifetime widget" = "Levensduur van sensor";
 
 /* (No Comment) */
-"Sensor lifetime widget description" = "Displays the remaining lifetime of the current sensor as a countdown.";
+"Sensor lifetime widget description" = "Toont de resterende levensduur van de huidige sensor als aftelling.";
 
 /* (No Comment) */
 "Sensor not yet startet" = "Sensor nog niet gestart";
@@ -383,7 +383,7 @@
 "Sensor PatchInfo" = "PatchInfo";
 
 /* (No Comment) */
-"Sensor possible lifetime" = "Lifetime";
+"Sensor possible lifetime" = "Legensduur";
 
 /* (No Comment) */
 "Sensor region" = "Gebied";
@@ -395,7 +395,7 @@
 "Sensor remaining warmup time" = "Opwarmen";
 
 /* (No Comment) */
-"Sensor serial" = "Serial";
+"Sensor serial" = "Serienummer";
 
 /* (No Comment) */
 "Sensor starting date" = "Begindatum";
@@ -425,19 +425,19 @@
 "StatisticsPeriod" = "Periode";
 
 /* (No Comment) */
-"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data.";
+"No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "Er worden geen gegevens ontvangen van de sensor. De oorzaak kan zijn dat de Bluetooth-verbinding met de sensor is onderbroken of dat de LibreLinkUp geen gegevens meer verstrekt.";
 
 /* (No Comment) */
 "Time" = "Tijd";
 
 /* (No Comment) */
-"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Time above Range (TAR) or the percentage of time spent above the target glucose of %@.";
+"Time above Range (TAR) or the percentage of time spent above the target glucose of %@." = "Tijd boven doel (TAR) of het percentage tijd boven de streefwaarde van %@.";
 
 /* (No Comment) */
-"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Time below Range (TBR) or the percentage of time spent below the target glucose of %@.";
+"Time below Range (TBR) or the percentage of time spent below the target glucose of %@." = "Tijd onder bereik (TBR) of het percentage tijd onder de streefwaarde %@.";
 
 /* (No Comment) */
-"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@.";
+"Time in Range (TIR) or the percentage of time spent in the target glucose range between %@ - %@." = "Tijd in Bereik (TIR) of het percentage tijd in de streefwaardes %@ - %@.";
 
 /* (No Comment) */
 "Transmitter" = "Zender";
@@ -446,13 +446,13 @@
 "Transmitter battery" = "Batterij";
 
 /* (No Comment) */
-"Transmitter battery widget" = "Transmitter Battery";
+"Transmitter battery widget" = "Zender batterij";
 
 /* (No Comment) */
-"Transmitter battery widget description" = "Displays the remaining battery charge of the transmitter as a countdown.";
+"Transmitter battery widget description" = "Geeft de resterende batterij van de zender weer als aftelling.";
 
 /* (No Comment) */
-"Transmitter details" = "Transmitter details";
+"Transmitter details" = "Zender details";
 
 /* (No Comment) */
 "Transmitter firmware" = "Firmware";
@@ -515,10 +515,10 @@
 "Export as CSV" = "Exporteren als CSV";
 
 /* (No Comment) */
-"Export for Glooko" = "Export for Glooko";
+"Export for Glooko" = "Exporteren voor Glooko";
 
 /* (No Comment) */
-"Export for Tidepool" = "Export for Tidepool";
+"Export for Tidepool" = "Exporteren voor Tidepool";
 
 /* (No Comment) */
 "%@ hours" = "%@ uren";
@@ -542,13 +542,13 @@
 "%1$@ minutes" = "%1$@ minuten";
 
 /* (No Comment) */
-"Meal Bolus" = "Meal Bolus";
+"Meal Bolus" = "Maaltijd bolus";
 
 /* (No Comment) */
-"Snack Bolus" = "Snack Bolus";
+"Snack Bolus" = "Snack bolus";
 
 /* (No Comment) */
-"Correction Bolus" = "Correction Bolus";
+"Correction Bolus" = "Correctie bolus";
 
 /* (No Comment) */
 "Basal" = "Basaal";
