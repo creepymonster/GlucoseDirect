@@ -27,3 +27,4 @@ The second part is to connect the sensor in "Glucose Direct". The matching video
 2. Under "Overview", at the bottom "Sensor details" you should now see that a Libre 3 sensor was found.
 3. In "Glucose Direct" switch to "Settings" and enter the same LibreView data as in "LibreLinkUp" under "Connection Settings" at the top.
 4. Switch back to the overview and press "Connect sensor". After a short time, data will also appear in "Glucose Direct".
+.
