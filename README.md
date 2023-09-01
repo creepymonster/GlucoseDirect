@@ -5,7 +5,7 @@
 App programmed in Swift/SwiftUI for using Libre blood glucose sensors. I try to keep the code as readable and understandable as possible so that as many people as possible can understand how this part of diabetes management works.
 
 ## Current features
-- Libre 3 Support (over LibreLinkUp)
+- Libre 3 Support# (over LibreLinkUp)
 - Libre 2 EU support (without transmitter) - **Currently not supported are Libre 2 US/CA/AUS, Libre Pro, Libre H sensors :'( - I am very happy about support for their connection**
 - Libre 1 support with transmitter (supported transmitter bubble)
 - Libre 1, manual scans without transmitter
