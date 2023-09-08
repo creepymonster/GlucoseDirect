@@ -8,13 +8,13 @@
 "NFCReaderUsageDescription" = "NFC-toimintoa edellytetään kaikkien yhteyksien asetuksiin ennen Bluetooth yhteyttä.";
 
 /* Privacy - Bluetooth Always Usage Description */
-"NSBluetoothAlwaysUsageDescription" = "Bluetooth toimintoa tarvitaan tuettuihin laitteisiin yhdistämiseen.";
+"NSBluetoothAlwaysUsageDescription" = "Bluetooth-asetuksen täytyy olla päällä, jotta voi yhdistää tuettuihin laitteisiin.";
 
 /* Privacy - Bluetooth Peripheral Usage Description */
 "NSBluetoothPeripheralUsageDescription" = "Bluetooth toimintoa tarvitaan tuettuihin laitteisiin yhdistämiseen.";
 
 /* Privacy - Calendars Usage Description */
-"NSCalendarsUsageDescription" = "Kalenterin käyttö on tarpeen, jotta Apple Watchissa voidaan näyttää ajantasaiset glukoosiarvot.";
+"NSCalendarsUsageDescription" = "Oikeudet kalenterin käyttöön vaaditaan, jotta Apple Watchissa voidaan näyttää ajantasaiset glukoosiarvot.";
 
 /* Privacy - Health Share Usage Description */
 "NSHealthShareUsageDescription" = "Pääsy Apple Healthiin vaaditaan, jos glukoositietoja halutaan viedä.";
@@ -23,4 +23,4 @@
 "NSHealthUpdateUsageDescription" = "Pääsy Apple Healthiin vaaditaan, jos glukoositietoja halutaan viedä.";
 
 /* Privacy - Calendars Full Access Usage Description */
-"NSCalendarsFullAccessUsageDescription" = "Kalenterin käyttö on tarpeen, jotta Apple Watchissa voidaan näyttää ajantasaiset glukoosiarvot.";
+"NSCalendarsFullAccessUsageDescription" = "Oikeudet kalenterin käyttöön vaaditaan, jotta Apple Watchissa voidaan näyttää ajantasaiset glukoosiarvot.";
