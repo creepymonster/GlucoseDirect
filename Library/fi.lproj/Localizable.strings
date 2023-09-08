@@ -38,7 +38,7 @@
 "Alert, low blood glucose" = "Hälytys matala verensokeri";
 
 /* (No Comment) */
-"Alarm, loss of signal" = "Alarm, loss of signal";
+"Alarm, loss of signal" = "Hälytys, ei signaalia";
 
 /* (No Comment) */
 "Alert, sensor expired" = "Sensori loppunut hälytys";
@@ -47,25 +47,25 @@
 "Alert, sensor expiring soon" = "Sensori loppuu pian hälytys";
 
 /* (No Comment) */
-"App author" = "Author";
+"App author" = "Kehittäjä";
 
 /* (No Comment) */
-"App donate" = "Donate";
+"App donate" = "Lahjoita";
 
 /* (No Comment) */
-"App email" = "eMail";
+"App email" = "Sähköposti";
 
 /* (No Comment) */
-"App facebook group" = "Facebook group";
+"App facebook group" = "Facebook-ryhmä";
 
 /* (No Comment) */
-"App faq" = "FAQ";
+"App faq" = "Usein kysytyt kysymykset";
 
 /* (No Comment) */
-"App support mail" = "Support";
+"App support mail" = "Tuki";
 
 /* (No Comment) */
-"App translation" = "Translation";
+"App translation" = "Käännökset";
 
 /* (No Comment) */
 "App version" = "Versio";
@@ -95,7 +95,7 @@
 "Bellman test alarm" = "Bellman test alarm";
 
 /* (No Comment) */
-"Blood glucose values" = "BGM";
+"Blood glucose values" = "Verensokeriarvot";
 
 /* (No Comment) */
 "Blood glucose: %1$@" = "Verensokeri: %1$@";
@@ -110,7 +110,7 @@
 "Cancel" = "Peruuta";
 
 /* (No Comment) */
-"Chart" = "Chart";
+"Chart" = "Kuvaaja";
 
 /* (No Comment) */
 "Connect sensor" = "Yhdistä sensori";
@@ -134,13 +134,13 @@
 "Connection error timestamp" = "Aika";
 
 /* (No Comment) */
-"Connection settings" = "Connection settings";
+"Connection settings" = "Yhteysasetukset";
 
 /* (No Comment) */
 "Connection state" = "Tila";
 
 /* (No Comment) */
-"Custom calibration intercept" = "Intercept";
+"Custom calibration intercept" = "Poikkeama";
 
 /* (No Comment) */
 "Custom calibration slope" = "Kulma";
@@ -155,7 +155,7 @@
 "Disconnect sensor" = "Katkaise yhteys sensoriin";
 
 /* (No Comment) */
-"Disconnect transmitter" = "Disconnect transmitter";
+"Disconnect transmitter" = "Katkaise yhteys lähettimeen";
 
 /* (No Comment) */
 "Disconnected" = "Yhteys katkaistu";
@@ -170,7 +170,7 @@
 "Find transmitter" = "Etsi lähetin";
 
 /* (No Comment) */
-"Glucose" = "Glucose";
+"Glucose" = "Verensokeri";
 
 /* (No Comment) */
 "Glucose list view" = "Luettelo";
@@ -197,7 +197,7 @@
 "Glucose unit" = "Yksikkö";
 
 /* (No Comment) */
-"Glucose widget" = "Glucose";
+"Glucose widget" = "Verensokeri";
 
 /* (No Comment) */
 "Glucose widget description" = "Näyttää viimeisimmän glukoosiarvon.";
