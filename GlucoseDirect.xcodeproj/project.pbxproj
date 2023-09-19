@@ -205,6 +205,8 @@
 		E2FCAC732707438A00FE1CBF /* DirectStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FCAC6F2707438A00FE1CBF /* DirectStore.swift */; };
 		E2FCAC7D270743B100FE1CBF /* sensor.png in Resources */ = {isa = PBXBuildFile; fileRef = E2FCAC77270743B100FE1CBF /* sensor.png */; };
 		E2FCAC87270743E200FE1CBF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E2FCAC89270743E200FE1CBF /* Localizable.strings */; };
+		F46B78C02A59B3850008A97E /* GitVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46B78BF2A59B3850008A97E /* GitVersion.swift */; };
+		F46B78C12A59B3850008A97E /* GitVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46B78BF2A59B3850008A97E /* GitVersion.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -440,6 +442,7 @@
 		E2FCAC77270743B100FE1CBF /* sensor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sensor.png; sourceTree = "<group>"; };
 		E2FCAC88270743E200FE1CBF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E2FCAC8A270743E500FE1CBF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F46B78BF2A59B3850008A97E /* GitVersion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitVersion.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -501,6 +504,7 @@
 		E20B853C266F4A9800AA4224 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				F46B78BF2A59B3850008A97E /* GitVersion.swift */,
 				E20B853D266F4A9800AA4224 /* App.swift */,
 				E2FCAC3D2707420000FE1CBF /* AppState.swift */,
 				E2FCAC3C270741F000FE1CBF /* Modules */,
@@ -916,6 +920,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E20B8549266F4A9900AA4224 /* Build configuration list for PBXNativeTarget "GlucoseDirectApp" */;
 			buildPhases = (
+				F46B78BD2A599F340008A97E /* Run Script */,
 				E20B8536266F4A9800AA4224 /* Sources */,
 				E20B8537266F4A9800AA4224 /* Frameworks */,
 				E20B8538266F4A9800AA4224 /* Resources */,
@@ -957,6 +962,7 @@
 		E20B8532266F4A9800AA4224 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1400;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
@@ -1054,6 +1060,29 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		F46B78BD2A599F340008A97E /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 12;
+			files = (
+			);
+			inputFileListPaths = (
+				"",
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#/bin/sh\n\nFILENAME=\"GitVersion.swift\"\nGIT_VERSION=$(git rev-parse --short HEAD)\nCOMMIT_DATE=$(git log -n 1 HEAD --date=format:'%Y-%m-%dT%H:%M:%S%z' --pretty=format:\"%cd\")\n\nfilesource=\"// DO NOT EDIT\\n// THIS IS A MACHINE GENERATED FILE\\n//\\n//  ${FILENAME}\\n//\\n//  Commit Date: ${COMMIT_DATE}\\n//\\n\\n#if !RELEASE\\nlet gitVersion = \\\"${GIT_VERSION}\\\"\\n#else\\nlet gitVersion = \\\"\\\"\\n#endif\"\n\ncd $SRCROOT/App\n\ntouch ${FILENAME}\necho \"$filesource\" > ${FILENAME}\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E20B8536266F4A9800AA4224 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -1092,6 +1121,7 @@
 				107FA9CD2975C6F90002A9F4 /* Float.swift in Sources */,
 				E2FCAC422707420100FE1CBF /* AppState.swift in Sources */,
 				6587CE4629621507008518F4 /* AddInsulinView.swift in Sources */,
+				F46B78C02A59B3850008A97E /* GitVersion.swift in Sources */,
 				10DD1303296A15CA00C900EA /* AddBloodGlucoseView.swift in Sources */,
 				E2C8F5FE278CD63000519ABD /* BellmanAlarm.swift in Sources */,
 				E26677DC28799E8A008E8B68 /* Glucose.swift in Sources */,
@@ -1181,6 +1211,7 @@
 				6587CE4D29626AD5008518F4 /* InsulinDelivery.swift in Sources */,
 				E2591C5B28740E7A0009F27C /* SensorConnectionInfo.swift in Sources */,
 				E2E8DBFF2859F47D002C84FD /* CustomCalibration.swift in Sources */,
+				F46B78C12A59B3850008A97E /* GitVersion.swift in Sources */,
 				E2E8DBE62859F46D002C84FD /* LocalizedString.swift in Sources */,
 				E2E8DBF42859F479002C84FD /* SensorReadingError.swift in Sources */,
 				E2016FDA285BA81700079195 /* GlucoseWidget.swift in Sources */,
@@ -1432,6 +1463,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = RELEASE;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
