@@ -103,16 +103,42 @@ private extension DataStore {
     func addExternalGlucoseColumns() {
         if let dbQueue = dbQueue {
             do {
+                var hasOriginatingSourceName = false;
+                var hasOriginatingSourceBundle = false;
+                var hasAppleHealthId = false;
+
+                try dbQueue.read { db in
+                    let columns = try db.columns(in: BloodGlucose.Table)
+                    columns.forEach { column in
+                        switch column.name {
+                        case BloodGlucose.Columns.originatingSourceName.name:
+                            hasOriginatingSourceName = true;
+                        case BloodGlucose.Columns.originatingSourceBundle.name:
+                            hasOriginatingSourceBundle = true;
+                        case BloodGlucose.Columns.appleHealthId.name:
+                            hasAppleHealthId = true;
+                        default:
+                            break;
+                        }
+                    }
+                }
+
                 try dbQueue.write { db in
                     try db.alter(table: BloodGlucose.Table) { t in
-                        t.add(column: BloodGlucose.Columns.originatingSourceName.name, .text)
+                        if !hasOriginatingSourceName{
+                            t.add(column: BloodGlucose.Columns.originatingSourceName.name, .text)
+                                .indexed()
+                                .defaults(to: DirectConfig.projectName)
+                        }
+                        if !hasOriginatingSourceBundle {
+                            t.add(column: BloodGlucose.Columns.originatingSourceBundle.name, .text)
+                                .indexed()
+                                .defaults(to: DirectConfig.appBundle)
+                        }
+                        if !hasAppleHealthId {
+                            t.add(column: BloodGlucose.Columns.appleHealthId.name, .text)
                             .indexed()
-                            .defaults(to: DirectConfig.projectName)
-                        t.add(column: BloodGlucose.Columns.originatingSourceBundle.name, .text)
-                            .indexed()
-                            .defaults(to: DirectConfig.appBundle)
-                        t.add(column: BloodGlucose.Columns.appleHealthId.name, .text)
-                            .indexed()
+                        }
                     }
                 }
             } catch {
