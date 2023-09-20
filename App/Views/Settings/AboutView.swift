@@ -21,12 +21,12 @@ struct AboutView: View {
                     Text(verbatim: "\(DirectConfig.appVersion) (\(DirectConfig.appBuild))")
                 }
 
-                if !gitVersion.isEmpty {
+                if !gitShortSha.isEmpty {
                     HStack {
                         Text(verbatim: "Git commit")
                         Spacer()
-                        Text(verbatim: gitVersion).onTapGesture {
-                            UIPasteboard.general.string = gitVersion
+                        Text(verbatim: gitShortSha).onTapGesture {
+                            UIPasteboard.general.string = gitFullSha
                         }
                     }
                 }

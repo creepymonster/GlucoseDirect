@@ -1079,7 +1079,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#/bin/sh\n\nFILENAME=\"GitVersion.swift\"\nGIT_VERSION=$(git rev-parse --short HEAD)\nCOMMIT_DATE=$(git log -n 1 HEAD --date=format:'%Y-%m-%dT%H:%M:%S%z' --pretty=format:\"%cd\")\n\nfilesource=\"// DO NOT EDIT\\n// THIS IS A MACHINE GENERATED FILE\\n//\\n//  ${FILENAME}\\n//\\n//  Commit Date: ${COMMIT_DATE}\\n//\\n\\n#if !RELEASE\\nlet gitVersion = \\\"${GIT_VERSION}\\\"\\n#else\\nlet gitVersion = \\\"\\\"\\n#endif\"\n\ncd $SRCROOT/App\n\ntouch ${FILENAME}\necho \"$filesource\" > ${FILENAME}\n";
+			shellScript = "#/bin/sh\n\nFILENAME=\"GitVersion.swift\"\nGIT_SHORT_SHA=$(git rev-parse --short HEAD)\nGIT_FULL_SHA=$(git rev-parse HEAD)\nCOMMIT_DATE=$(git log -n 1 HEAD --date=format:'%Y-%m-%dT%H:%M:%S%z' --pretty=format:\"%cd\")\n\nfilesource=\"// DO NOT EDIT\\n// THIS IS A MACHINE GENERATED FILE\\n//\\n//  ${FILENAME}\\n//\\n//  Commit Date: ${COMMIT_DATE}\\n//\\n\\n#if !RELEASE\\nlet gitShortSha = \\\"${GIT_SHORT_SHA}\\\"\\nlet gitFullSha = \\\"${GIT_FULL_SHA}\\\"\\n\\n#else\\nlet gitShortSha = \\\"\\\"\\nlet gitFullSha = \\\"\\\"\\n#endif\"\n\ncd $SRCROOT/App\n\ntouch ${FILENAME}\necho \"$filesource\" > ${FILENAME}\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
