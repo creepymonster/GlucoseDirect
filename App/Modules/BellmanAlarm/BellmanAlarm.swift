@@ -303,7 +303,7 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
     private weak var subject: PassthroughSubject<DirectAction, DirectError>?
 
     private var manager: CBCentralManager!
-    private let managerQueue = DispatchQueue(label: "libre-direct.bellman-connection.queue")
+    private let managerQueue = DispatchQueue(label: "glucose-direct.bellman-connection.queue")
 
     private var commandServiceUUID = CBUUID(string: "6e400001-b5a3-f393-e0a9-e50e24dcca9e")
     private var deviceServiceUUID = CBUUID(string: "0000180a-0000-1000-8000-00805f9b34fb")
@@ -453,7 +453,7 @@ private class BellmanAlarmService: NSObject, CBCentralManagerDelegate, CBPeriphe
 
 private extension UserDefaults {
     private enum Keys: String {
-        case bellmanPeripheralUUID = "libre-direct.bellman.peripheral-uuid"
+        case bellmanPeripheralUUID = "glucose-direct.bellman.peripheral-uuid"
     }
 
     var bellmanPeripheralUUID: String? {

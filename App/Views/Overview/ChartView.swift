@@ -468,7 +468,7 @@ struct ChartView: View {
     @State private var selectedRawSensorPoint: GlucoseDatapoint? = nil
     @State private var selectedBloodPoint: GlucoseDatapoint? = nil
 
-    private let calculationQueue = DispatchQueue(label: "libre-direct.chart-calculation", qos: .utility)
+    private let calculationQueue = DispatchQueue(label: "glucose-direct.chart-calculation", qos: .utility)
 
     private var screenHeight: CGFloat {
         UIScreen.screenHeight

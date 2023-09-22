@@ -59,7 +59,7 @@ App programmed in Swift/SwiftUI for using Libre blood glucose sensors. I try to 
 - Apple iPhone with iOS 15
 
 ## Quick test?
-You can quickly get an idea of Libre Direct: [TestFlight](https://testflight.apple.com/join/dWDt5Wme)
+You can quickly get an idea of Glucose Direct: [TestFlight](https://testflight.apple.com/join/dWDt5Wme)
 
 ## Frequently Asked Questions
 Read the [FAQ](FAQ.md) ☺️

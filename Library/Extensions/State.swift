@@ -38,7 +38,7 @@ class Store<State, Action>: ObservableObject {
     @Published private(set) var state: State
 
     var tasks = [AnyCancellable]()
-    let serialQueue = DispatchQueue(label: "libre-direct.store-queue")
+    let serialQueue = DispatchQueue(label: "glucose-direct.store-queue")
     let middlewares: [Middleware<State, Action>]
 
     // The dispatch function.

@@ -454,8 +454,8 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
 private extension UserDefaults {
     enum Keys: String {
-        case email = "libre-direct.libre-link-up.email"
-        case password = "libre-direct.libre-link-up.password"
+        case email = "glucose-direct.libre-link-up.email"
+        case password = "glucose-direct.libre-link-up.password"
     }
 
     var email: String {

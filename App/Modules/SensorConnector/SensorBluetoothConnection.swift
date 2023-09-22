@@ -44,7 +44,7 @@ class SensorBluetoothConnection: NSObject, SensorConnectionProtocol, CBCentralMa
     var serviceUUID: CBUUID?
     var manager: CBCentralManager?
 
-    let managerQueue = DispatchQueue(label: "libre-direct.sensor-ble-connection.queue")
+    let managerQueue = DispatchQueue(label: "glucose-direct.sensor-ble-connection.queue")
     weak var subject: PassthroughSubject<DirectAction, DirectError>?
 
     var stayConnected = false

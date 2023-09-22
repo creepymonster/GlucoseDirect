@@ -52,19 +52,19 @@ func dataStoreMigrationMiddleware() -> Middleware<DirectState, DirectAction> {
 extension UserDefaults {
     var gen1GlucoseValues: [Gen1Glucose] {
         get {
-            return getArray(forKey: "libre-direct.settings.glucose-value-array") ?? []
+            return getArray(forKey: "glucose-direct.settings.glucose-value-array") ?? []
         }
         set {
-            setArray(newValue, forKey: "libre-direct.settings.glucose-value-array")
+            setArray(newValue, forKey: "glucose-direct.settings.glucose-value-array")
         }
     }
 
     var gen2GlucoseValues: [Gen2Glucose] {
         get {
-            return getArray(forKey: "libre-direct.settings.glucose-values") ?? []
+            return getArray(forKey: "glucose-direct.settings.glucose-values") ?? []
         }
         set {
-            setArray(newValue, forKey: "libre-direct.settings.glucose-values")
+            setArray(newValue, forKey: "glucose-direct.settings.glucose-values")
         }
     }
 }

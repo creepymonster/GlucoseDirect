@@ -185,7 +185,7 @@ class Libre2Connection: SensorBluetoothConnection, IsSensor {
 
 private extension UserDefaults {
     private enum Keys: String {
-        case unlockCount = "libre-direct.libre2.unlock-count"
+        case unlockCount = "glucose-direct.libre2.unlock-count"
     }
 
     var unlockCount: Int {
