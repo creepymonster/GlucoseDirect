@@ -19,7 +19,7 @@ protocol DirectState {
     var alarmSnoozeKind: Alarm? { get set }
     var alarmVolume: Float { get set }
     var appleCalendarExport: Bool { get set }
-    var appleHealthExport: Bool { get set }
+    var appleHealthSync: Bool { get set }
     var bellmanAlarm: Bool { get set }
     var bellmanConnectionState: BellmanConnectionState { get set }
     var bloodGlucoseValues: [BloodGlucose] { get set }

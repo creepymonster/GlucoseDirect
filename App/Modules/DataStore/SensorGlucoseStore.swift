@@ -54,6 +54,8 @@ func sensorGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
         switch action {
         case .startup:
             DataStore.shared.createSensorGlucoseTable()
+            DataStore.shared.addExternalSensorGlucoseColumns()
+            DataStore.shared.addSensorInfoSensorGlucoseColumns()
 
             return DataStore.shared.getFirstSensorGlucoseDate().map { minSelectedDate in
                 DirectAction.setMinSelectedDate(minSelectedDate: minSelectedDate)
@@ -166,6 +168,36 @@ private extension DataStore {
 
             do {
                 try migrator.migrate(dbQueue)
+            } catch {
+                DirectLog.error("\(error)")
+            }
+        }
+    }
+    
+    func addExternalSensorGlucoseColumns() {
+        if let dbQueue = dbQueue {
+            do {
+                try dbQueue.write { db in
+                    try db.alter(table: SensorGlucose.Table) { t in
+                        t.add(column: SensorGlucose.Columns.appleHealthId.name, .text)
+                            .indexed()
+                    }
+                }
+            } catch {
+                DirectLog.error("\(error)")
+            }
+        }
+    }
+    
+    func addSensorInfoSensorGlucoseColumns() {
+        if let dbQueue = dbQueue {
+            do {
+                try dbQueue.write { db in
+                    try db.alter(table: SensorGlucose.Table) { t in
+                        t.add(column: SensorGlucose.Columns.serial.name, .text)
+                        t.add(column: SensorGlucose.Columns.manufacturer.name, .text)
+                    }
+                }
             } catch {
                 DirectLog.error("\(error)")
             }
