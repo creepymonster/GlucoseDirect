@@ -36,6 +36,7 @@ struct SecureInputView: View {
             }.padding(.trailing, 32)
             Button(action: {
                 isVisible.toggle()
+                inFocus = isVisible ? .plain : .secure
             }) {
                 Image(systemName: self.isVisible ? "eye.slash" : "eye")
                     .accentColor(.gray)
