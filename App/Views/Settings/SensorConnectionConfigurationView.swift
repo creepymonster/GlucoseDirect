@@ -12,21 +12,25 @@ struct SensorConnectionConfigurationView: View {
         if !store.state.selectedConfiguration.isEmpty {
             Section(
                 content: {
-                    ForEach(store.state.selectedConfiguration, id: \.id) { entry in
-                        VStack(alignment: .leading) {
-                            Text(entry.name)
-
-                            if entry.isSecret {
-                                SecureInputView("", text: entry.value)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                            } else {
-                                TextField("", text: entry.value)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    VStack() {
+                        ForEach(store.state.selectedConfiguration, id: \.id) { entry in
+                            VStack(alignment: .leading) {
+                                Text(entry.name)
+                                
+                                if entry.isSecret {
+                                    SecureInputView("", text: entry.value)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .submitLabel(.done)
+                                } else {
+                                    TextField("", text: entry.value)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                }
                             }
                         }
                     }
+                    .onSubmit(of: .text, {() -> Void in store.dispatch(.connectConnection)})
                 },
                 header: {
                     Label("Connection settings", systemImage: "app.connected.to.app.below.fill")
