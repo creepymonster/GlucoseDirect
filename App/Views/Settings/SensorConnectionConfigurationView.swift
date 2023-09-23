@@ -17,7 +17,7 @@ struct SensorConnectionConfigurationView: View {
                             Text(entry.name)
 
                             if entry.isSecret {
-                                SecureField("", text: entry.value)
+                                SecureInputView("", text: entry.value)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .textFieldStyle(RoundedBorderTextFieldStyle())
                             } else {

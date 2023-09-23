@@ -207,6 +207,7 @@
 		E2FCAC87270743E200FE1CBF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E2FCAC89270743E200FE1CBF /* Localizable.strings */; };
 		F46B78C02A59B3850008A97E /* GitVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46B78BF2A59B3850008A97E /* GitVersion.swift */; };
 		F46B78C12A59B3850008A97E /* GitVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46B78BF2A59B3850008A97E /* GitVersion.swift */; };
+		F4B713FA2ABE9AA600C0BCDE /* SecureInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B713F92ABE9AA600C0BCDE /* SecureInputView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -443,6 +444,7 @@
 		E2FCAC88270743E200FE1CBF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E2FCAC8A270743E500FE1CBF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F46B78BF2A59B3850008A97E /* GitVersion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitVersion.swift; sourceTree = "<group>"; };
+		F4B713F92ABE9AA600C0BCDE /* SecureInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureInputView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -909,6 +911,7 @@
 				10DD12FF296A158600C900EA /* AddViews */,
 				E29ED232268C774200CBD3F1 /* SharedViews */,
 				E2CAC1DD2905DB7E00C87B17 /* LoadingView.swift */,
+				F4B713F92ABE9AA600C0BCDE /* SecureInputView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1154,6 +1157,7 @@
 				E298CF06279DEBFE00C1C218 /* CustomCalibrationView.swift in Sources */,
 				E2B5FDAB28789EDF00D35D87 /* BloodGlucoseStore.swift in Sources */,
 				E2FCAC21270741BC00FE1CBF /* SensorFamily.swift in Sources */,
+				F4B713FA2ABE9AA600C0BCDE /* SecureInputView.swift in Sources */,
 				6587CE4C2962651B008518F4 /* InsulinDeliveryStore.swift in Sources */,
 				E2FCAC3B270741E600FE1CBF /* DirectLog.swift in Sources */,
 				E2D34BC4274D6BB500151895 /* OverviewView.swift in Sources */,
