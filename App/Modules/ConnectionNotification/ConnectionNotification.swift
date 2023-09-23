@@ -89,7 +89,7 @@ private class ConnectionNotificationService {
     // MARK: Internal
 
     enum Identifier: String {
-        case sensorConnectionAlarm = "libre-direct.notifications.sensor-connection-alarm"
+        case sensorConnectionAlarm = "glucose-direct.notifications.sensor-connection-alarm"
     }
 
     func clearAlarm() {

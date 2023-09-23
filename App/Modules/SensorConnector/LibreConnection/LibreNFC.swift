@@ -214,7 +214,7 @@ class LibreNFC: NSObject, NFCTagReaderSessionDelegate {
     private var enableStreaming: Bool = false
     private var activeContinuation: CheckedContinuation<LibrePairingResult, Error>?
     private var session: NFCTagReaderSession?
-    private let nfcQueue = DispatchQueue(label: "libre-direct.nfc-queue")
+    private let nfcQueue = DispatchQueue(label: "glucose-direct.nfc-queue")
     private let unlockCode: UInt32 = 42
 
     private func returnWithError(_ error: LibrePairingError) {

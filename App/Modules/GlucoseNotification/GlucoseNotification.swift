@@ -95,7 +95,7 @@ private class GlucoseNotificationService {
     // MARK: Internal
 
     enum Identifier: String {
-        case sensorGlucoseAlarm = "libre-direct.notifications.sensor-glucose-alarm"
+        case sensorGlucoseAlarm = "glucose-direct.notifications.sensor-glucose-alarm"
     }
 
     func clear() {

@@ -42,7 +42,7 @@ private class DebugService {
     // MARK: Internal
 
     enum Identifier: String {
-        case debugAlarm = "libre-direct.notifications.debug-alarm"
+        case debugAlarm = "glucose-direct.notifications.debug-alarm"
     }
 
     func clearAlarm() {

@@ -760,12 +760,12 @@ private extension DataStore {
 
 private extension UserDefaults {
     enum Keys: String {
-        case glucoseAnchor = "libre-direct.healthkit.glucose-anchor"
-        case insulinAnchor = "libre-direct.healthkit.insulin-anchor"
+        case glucoseAnchor = "glucose-direct.healthkit.glucose-anchor"
+        case insulinAnchor = "glucose-direct.healthkit.insulin-anchor"
         
         // Used to determine if we have done a migration of all GlucoseDirects apple health data,
         // so that we have the HealthKit identifiers from Apple saved.
-        case appleHealthIdMigrated = "libre-direct.healthkit.appleHealthIdMigrated"
+        case appleHealthIdMigrated = "glucose-direct.healthkit.appleHealthIdMigrated"
     }
     
     var appleHealthIdMigrated: Bool {

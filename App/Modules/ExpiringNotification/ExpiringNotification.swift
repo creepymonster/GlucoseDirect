@@ -65,7 +65,7 @@ private class ExpiringNotificationService {
     // MARK: Internal
 
     enum Identifier: String {
-        case sensorExpiringAlarm = "libre-direct.notifications.sensor-expiring-alarm"
+        case sensorExpiringAlarm = "glucose-direct.notifications.sensor-expiring-alarm"
     }
 
     var nextExpiredAlert: Date?

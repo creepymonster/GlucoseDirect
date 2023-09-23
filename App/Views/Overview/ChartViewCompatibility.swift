@@ -272,7 +272,7 @@ struct ChartViewCompatibility: View {
     @State private var bloodGlucoseValues: [BloodGlucose] = []
     @State private var zoomGridStep = Config.zoomGridStep[Config.zoomLevels.first!.level]!
 
-    private let calculationQueue = DispatchQueue(label: "libre-direct.chart-calculation")
+    private let calculationQueue = DispatchQueue(label: "glucose-direct.chart-calculation")
 
     private func scrollGridView(fullSize: CGSize) -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
