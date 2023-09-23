@@ -9,10 +9,10 @@ import OSLog
 import SwiftUI
 
 func logMiddleware() -> Middleware<DirectState, DirectAction> {
-    return logMiddleware(service: SendService())
+    return logMiddleware(sendService: SendService(), importService: ImportService())
 }
 
-private func logMiddleware(service: SendService) -> Middleware<DirectState, DirectAction> {
+private func logMiddleware(sendService: SendService, importService: ImportService) -> Middleware<DirectState, DirectAction> {
     return { _, action, _ in
         switch action {
         case .setBloodGlucoseValues(glucoseValues: _):
@@ -47,7 +47,15 @@ private func logMiddleware(service: SendService) -> Middleware<DirectState, Dire
                 .eraseToAnyPublisher()
             
         case .sendFile(fileURL: let fileURL):
-            service.sendFile(fileURL: fileURL)
+            sendService.sendFile(fileURL: fileURL)
+
+        case .importDatabase(url: let fileURL):
+            return Just(DirectAction.importFile(srcUrl: fileURL, dstUrl: DataStore.shared.databaseURL))
+                .setFailureType(to: DirectError.self)
+                .eraseToAnyPublisher()
+        
+        case .importFile(srcUrl: let srcUrl, dstUrl: let dstUrl):
+            importService.importFile(srcUrl: srcUrl, dstUrl: dstUrl)
 
         default:
             DirectLog.info("Triggered action: \(action)")
@@ -57,7 +65,7 @@ private func logMiddleware(service: SendService) -> Middleware<DirectState, Dire
     }
 }
 
-// MARK: - SendLogsService
+// MARK: - SendService
 
 private class SendService {
     func sendFile(fileURL: URL) {
@@ -71,5 +79,30 @@ private class SendService {
             .filter { $0.isKeyWindow }.first
 
         foregroundWindow?.rootViewController?.present(activityViewController, animated: true, completion: nil)
+    }
+}
+
+// MARK: - ImportService
+
+private class ImportService {
+    func importFile(srcUrl: URL, dstUrl: URL) {
+        do {
+            let isSrcSecurityScoped = srcUrl.startAccessingSecurityScopedResource()
+            let isDstSecurityScoped = dstUrl.startAccessingSecurityScopedResource()
+
+            if FileManager.default.fileExists(atPath: dstUrl.path) {
+                try FileManager.default.removeItem(at: dstUrl)
+            }
+            try FileManager.default.copyItem(at: srcUrl, to: dstUrl)
+
+            if isSrcSecurityScoped {
+                srcUrl.stopAccessingSecurityScopedResource()
+            }
+            if isDstSecurityScoped {
+                dstUrl.stopAccessingSecurityScopedResource()
+            }
+        } catch let writeError {
+            DirectLog.error("Error creating a file \(dstUrl) : \(writeError)")
+        }
     }
 }
