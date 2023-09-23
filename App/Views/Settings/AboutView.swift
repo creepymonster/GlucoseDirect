@@ -4,11 +4,13 @@
 //
 
 import SwiftUI
+import UniformTypeIdentifiers
 
 // MARK: - AboutView
 
 struct AboutView: View {
     // MARK: Internal
+    @State private var importing = false
 
     @EnvironmentObject var store: DirectStore
 
@@ -120,6 +122,38 @@ struct AboutView: View {
         Button("Send log file", action: {
             store.dispatch(.sendLogs)
         })
+        
+        Section(
+            content: {
+                Button("Import database file") {
+                    importing = true
+                }
+                .fileImporter(
+                    isPresented: $importing,
+                    allowedContentTypes: [.database, UTType.init(filenameExtension: "sqlite")!, UTType.init(filenameExtension: "sqlite3")!],
+                    allowsMultipleSelection: false
+                ) { result in
+                    switch result {
+                    case .success(let file):
+                        if file.count == 0 {
+                            DirectLog.warning("no files provided, aborting")
+                            break
+                        } else if file.count > 1 {
+                            DirectLog.warning("more than 1 file provided, choosing first")
+                        }
+
+                        store.dispatch(.importDatabase(url: file[0]))
+                    case .failure(let error):
+                        DirectLog.error(error.localizedDescription)
+                    }
+                    importing = false
+                }
+
+            },
+            header: {
+                Label("Import", systemImage: "square.and.arrow.down")
+            }
+        )
 
         if DirectConfig.isDebug {
             Section(

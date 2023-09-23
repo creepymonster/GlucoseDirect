@@ -30,6 +30,8 @@ enum DirectAction {
     case exportToUnknown
     case exportToGlooko
     case exportToTidepool
+    case importDatabase(url: URL)
+    case importFile(srcUrl: URL, dstUrl: URL)
     case loadBloodGlucoseValues
     case loadInsulinDeliveryValues
     case loadSensorErrorValues
