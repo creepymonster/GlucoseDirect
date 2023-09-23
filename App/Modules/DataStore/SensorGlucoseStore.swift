@@ -177,10 +177,22 @@ private extension DataStore {
     func addExternalSensorGlucoseColumns() {
         if let dbQueue = dbQueue {
             do {
+                var hasAppleHealthId = false;
+                try dbQueue.read { db in
+                    let columns = try db.columns(in: SensorGlucose.Table)
+                    columns.forEach { column in
+                        if column.name == SensorGlucose.Columns.appleHealthId.name {
+                            hasAppleHealthId = true;
+                        }
+                    }
+                }
+
                 try dbQueue.write { db in
-                    try db.alter(table: SensorGlucose.Table) { t in
-                        t.add(column: SensorGlucose.Columns.appleHealthId.name, .text)
-                            .indexed()
+                    if !hasAppleHealthId {
+                        try db.alter(table: SensorGlucose.Table) { t in
+                            t.add(column: SensorGlucose.Columns.appleHealthId.name, .text)
+                                .indexed()
+                        }
                     }
                 }
             } catch {
@@ -192,10 +204,30 @@ private extension DataStore {
     func addSensorInfoSensorGlucoseColumns() {
         if let dbQueue = dbQueue {
             do {
+                var hasSensorSerial = false;
+                var hasSensorManufacturer = false;
+                try dbQueue.read { db in
+                    let columns = try db.columns(in: SensorGlucose.Table)
+                    columns.forEach { column in
+                        switch column.name {
+                        case SensorGlucose.Columns.serial.name:
+                            hasSensorSerial = true;
+                        case SensorGlucose.Columns.manufacturer.name:
+                            hasSensorManufacturer = true;
+                        default:
+                            break;
+                        }
+                    }
+                }
+
                 try dbQueue.write { db in
                     try db.alter(table: SensorGlucose.Table) { t in
-                        t.add(column: SensorGlucose.Columns.serial.name, .text)
-                        t.add(column: SensorGlucose.Columns.manufacturer.name, .text)
+                        if !hasSensorSerial {
+                            t.add(column: SensorGlucose.Columns.serial.name, .text)
+                        }
+                        if !hasSensorManufacturer {
+                            t.add(column: SensorGlucose.Columns.manufacturer.name, .text)
+                        }
                     }
                 }
             } catch {
