@@ -8,7 +8,7 @@
 "NFCReaderUsageDescription" = "De NFC-functie is nodig om alle verbindingsinstellingen uit te lezen voordat een Bluetooth-verbinding tot stand komt.";
 
 /* Privacy - Bluetooth Always Usage Description */
-"NSBluetoothAlwaysUsageDescription" = "De Bluetooth-functie is nodig om verbinding te maken met de ondersteunde apparaten.";
+"NSBluetoothAlwaysUsageDescription" = "De Bluetooth-functie is essentieel om verbinding te maken met de apparaten die worden ondersteund.";
 
 /* Privacy - Bluetooth Peripheral Usage Description */
 "NSBluetoothPeripheralUsageDescription" = "De Bluetooth-functie is nodig om verbinding te maken met de ondersteunde apparaten.";
