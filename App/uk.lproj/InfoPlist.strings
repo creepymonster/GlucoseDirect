@@ -1,8 +1,8 @@
 /* Bundle display name */
-"CFBundleDisplayName" = "Пряма доставка глюкози";
+"CFBundleDisplayName" = "Glucose Direct";
 
 /* Bundle name */
-"CFBundleName" = "Пряма доставка глюкози";
+"CFBundleName" = "Glucose Direct";
 
 /* Privacy - NFC Scan Usage Description */
 "NFCReaderUsageDescription" = "Функція NFC необхідна для зчитування всіх параметрів підключення до Bluetooth.";

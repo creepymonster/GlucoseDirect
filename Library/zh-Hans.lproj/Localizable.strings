@@ -593,10 +593,10 @@
 "Show insulin input" = "显示胰岛素注入";
 
 /* (No Comment) */
-"Help" = "Help";
+"Help" = "帮助";
 
 /* (No Comment) */
-"Alarm volume" = "Alarm volume";
+"Alarm volume" = "闹钟音量";
 
 /* (No Comment) */
-"Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults." = "Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults.";
+"Coefficient of variation (CV) is defined as the ratio of the standard deviation to the mean. Generally speaking, most experts like to see a CV of 33% or lower, which is considered a marker of “stable” glucose levels. But take note, very young patients with diabetes tend to have higher variability than adults." = "变化系数(CV) 定义为标准偏差与平均值的比率。 一般来说，大多数专家都希望看到一个相当于33%或更低的CV，这被认为是“稳定”血糖水平的标志。 但值得注意的是，年幼的糖尿病患者往往比成年人易受影响。";

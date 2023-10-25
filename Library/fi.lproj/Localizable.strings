@@ -38,7 +38,7 @@
 "Alert, low blood glucose" = "Hälytys matala verensokeri";
 
 /* (No Comment) */
-"Alarm, loss of signal" = "Alarm, loss of signal";
+"Alarm, loss of signal" = "Hälytys, ei signaalia";
 
 /* (No Comment) */
 "Alert, sensor expired" = "Sensori loppunut hälytys";
@@ -47,25 +47,25 @@
 "Alert, sensor expiring soon" = "Sensori loppuu pian hälytys";
 
 /* (No Comment) */
-"App author" = "Author";
+"App author" = "Kehittäjä";
 
 /* (No Comment) */
-"App donate" = "Donate";
+"App donate" = "Lahjoita";
 
 /* (No Comment) */
-"App email" = "eMail";
+"App email" = "Sähköposti";
 
 /* (No Comment) */
-"App facebook group" = "Facebook group";
+"App facebook group" = "Facebook-ryhmä";
 
 /* (No Comment) */
-"App faq" = "FAQ";
+"App faq" = "Usein kysytyt kysymykset";
 
 /* (No Comment) */
-"App support mail" = "Support";
+"App support mail" = "Tuki";
 
 /* (No Comment) */
-"App translation" = "Translation";
+"App translation" = "Käännökset";
 
 /* (No Comment) */
 "App version" = "Versio";
@@ -95,7 +95,7 @@
 "Bellman test alarm" = "Bellman test alarm";
 
 /* (No Comment) */
-"Blood glucose values" = "BGM";
+"Blood glucose values" = "Verensokeriarvot";
 
 /* (No Comment) */
 "Blood glucose: %1$@" = "Verensokeri: %1$@";
@@ -110,7 +110,7 @@
 "Cancel" = "Peruuta";
 
 /* (No Comment) */
-"Chart" = "Chart";
+"Chart" = "Kuvaaja";
 
 /* (No Comment) */
 "Connect sensor" = "Yhdistä sensori";
@@ -134,13 +134,13 @@
 "Connection error timestamp" = "Aika";
 
 /* (No Comment) */
-"Connection settings" = "Connection settings";
+"Connection settings" = "Yhteysasetukset";
 
 /* (No Comment) */
 "Connection state" = "Tila";
 
 /* (No Comment) */
-"Custom calibration intercept" = "Intercept";
+"Custom calibration intercept" = "Poikkeama";
 
 /* (No Comment) */
 "Custom calibration slope" = "Kulma";
@@ -155,7 +155,7 @@
 "Disconnect sensor" = "Katkaise yhteys sensoriin";
 
 /* (No Comment) */
-"Disconnect transmitter" = "Disconnect transmitter";
+"Disconnect transmitter" = "Katkaise yhteys lähettimeen";
 
 /* (No Comment) */
 "Disconnected" = "Yhteys katkaistu";
@@ -170,7 +170,7 @@
 "Find transmitter" = "Etsi lähetin";
 
 /* (No Comment) */
-"Glucose" = "Glucose";
+"Glucose" = "Verensokeri";
 
 /* (No Comment) */
 "Glucose list view" = "Luettelo";
@@ -188,7 +188,7 @@
 "Glucose overview" = "Yleiskatsaus";
 
 /* (No Comment) */
-"Glucose read aloud" = "Glucose Reading";
+"Glucose read aloud" = "Puhu verensokeriarvot";
 
 /* (No Comment) */
 "Glucose settings" = "Verensokeri asetukset";
@@ -197,28 +197,28 @@
 "Glucose unit" = "Yksikkö";
 
 /* (No Comment) */
-"Glucose widget" = "Glucose";
+"Glucose widget" = "Verensokeri";
 
 /* (No Comment) */
 "Glucose widget description" = "Näyttää viimeisimmän glukoosiarvon.";
 
 /* (No Comment) */
-"High glucose alarm" = "High glucose alarm";
+"High glucose alarm" = "Korkean glukoosin hälytys";
 
 /* (No Comment) */
 "Hold the top edge of your iPhone close to the sensor." = "Pidä iPhonen yläreunaa lähellä sensoria ja pidä paikallaan hetki.";
 
 /* (No Comment) */
-"Ignore mute" = "Ignore mute";
+"Ignore mute" = "Ohita Hiljainen tila";
 
 /* (No Comment) */
 "LibreLink transmitter" = "LibreLink";
 
 /* (No Comment) */
-"LibreLinkUp email" = "LibreLinkUp email";
+"LibreLinkUp email" = "LibreLinkUp sähköposti";
 
 /* (No Comment) */
-"LibreLinkUp password" = "LibreLinkUp password";
+"LibreLinkUp password" = "LibreLinkUp salasana";
 
 /* (No Comment) */
 "Line" = "Line";
@@ -263,13 +263,13 @@
 "Power off" = "Sammuta";
 
 /* (No Comment) */
-"Readable falling" = "falling";
+"Readable falling" = "laskeva";
 
 /* (No Comment) */
-"Readable fast falling" = "fast falling";
+"Readable fast falling" = "nopeasti laskeva";
 
 /* (No Comment) */
-"Readable fast rising" = "fast rising";
+"Readable fast rising" = "nopeasti nouseva";
 
 /* (No Comment) */
 "Readable glucose with trend: %1$@ %2$@, %3$@" = "Glucose: %1$@ %2$@, %3$@";
@@ -284,37 +284,37 @@
 "Readable low glucose: %1$@ %2$@" = "Glucose: %1$@ %2$@. Attention, Hypoglycemia!";
 
 /* (No Comment) */
-"Readable miligram" = "miligram";
+"Readable miligram" = "milligramma";
 
 /* (No Comment) */
-"Readable milimol" = "milimol";
+"Readable milimol" = "millimooli";
 
 /* (No Comment) */
-"Readable rapidly falling" = "rapidly falling";
+"Readable rapidly falling" = "nopeasti laskeva";
 
 /* (No Comment) */
-"Readable rapidly rising" = "rapidly rising";
+"Readable rapidly rising" = "nopeasti nouseva";
 
 /* (No Comment) */
-"Readable rising" = "rising";
+"Readable rising" = "nouseva";
 
 /* (No Comment) */
-"Rescan the sensor" = "Rescan the sensor";
+"Rescan the sensor" = "Skannaa sensori uudelleen";
 
 /* (No Comment) */
-"Retrieval interval" = "Retrieval interval";
+"Retrieval interval" = "Hakuväli";
 
 /* (No Comment) */
-"Retrieval interval, every %@ minutes" = "Every %@ minutes";
+"Retrieval interval, every %@ minutes" = "Joka %@ minuutti";
 
 /* (No Comment) */
-"Retrieval interval, every minute" = "Every minute";
+"Retrieval interval, every minute" = "Joka minuutti";
 
 /* (No Comment) */
-"Retry pairing" = "Retry pairing";
+"Retry pairing" = "Parita uudelleen";
 
 /* (No Comment) */
-"Scan sensor" = "Scan sensor";
+"Scan sensor" = "Skannaa sensori";
 
 /* (No Comment) */
 "Scanning" = "Skannaa";
@@ -323,10 +323,10 @@
 "Selected calendar" = "Kalenteri";
 
 /* (No Comment) */
-"Send database file" = "Send database file";
+"Send database file" = "Vie tietokantatiedosto";
 
 /* (No Comment) */
-"Send log file" = "Send log file";
+"Send log file" = "Vie lokitiedosto";
 
 /* (No Comment) */
 "Sensor age" = "Sensori aloitettu";
@@ -341,16 +341,16 @@
 "Sensor details" = "Sensorin tiedot";
 
 /* (No Comment) */
-"Sensor ending date" = "Ending date";
+"Sensor ending date" = "Lopetuspäivämäärä";
 
 /* (No Comment) */
-"Sensor error values" = "CGM errors";
+"Sensor error values" = "Sensorin virheet";
 
 /* (No Comment) */
 "Sensor factory calibration" = "Tehdaskalibrointi";
 
 /* (No Comment) */
-"Sensor glucose values" = "CGM";
+"Sensor glucose values" = "Sensori";
 
 /* (No Comment) */
 "Sensor has failure" = "Sensorivirhe";
@@ -359,19 +359,19 @@
 "Sensor in starting phase" = "Sensori alkuvaiheessa";
 
 /* (No Comment) */
-"Sensor is expired" = "Sensor is expired";
+"Sensor is expired" = "Sensori on loppunut";
 
 /* (No Comment) */
 "Sensor is ready" = "Sensori on valmis käytettäväksi";
 
 /* (No Comment) */
-"Sensor is shut down" = "Sensor is expired";
+"Sensor is shut down" = "Sensori on loppunut";
 
 /* (No Comment) */
-"Sensor lifetime" = "Lifetime";
+"Sensor lifetime" = "Toiminta-aika";
 
 /* (No Comment) */
-"Sensor lifetime widget" = "Sensor Lifetime";
+"Sensor lifetime widget" = "Sensorin toiminta-aika";
 
 /* (No Comment) */
 "Sensor lifetime widget description" = "Näyttää nykyisen anturin jäljellä olevan elinajan laskelmana";
@@ -383,7 +383,7 @@
 "Sensor PatchInfo" = "PatchInfo";
 
 /* (No Comment) */
-"Sensor possible lifetime" = "Lifetime";
+"Sensor possible lifetime" = "Toiminta-aika";
 
 /* (No Comment) */
 "Sensor region" = "Alue";
@@ -422,7 +422,7 @@
 "Statistics (%@ days)" = "Tilastot (%@ päivää)";
 
 /* (No Comment) */
-"StatisticsPeriod" = "Period";
+"StatisticsPeriod" = "Aikaväli";
 
 /* (No Comment) */
 "No more data is received from the sensor. The cause may be that the Bluetooth connection to the sensor has been interrupted or that the LibreLinkUp is no longer providing data." = "Anturilta ei saada enää dataa. Syy saattaa olla Bluetooth-yhteyden katkeaminen anturiin tai LibreLinkUp ei enää anna dataa.";
@@ -446,13 +446,13 @@
 "Transmitter battery" = "Patteri";
 
 /* (No Comment) */
-"Transmitter battery widget" = "Transmitter Battery";
+"Transmitter battery widget" = "Lähettimen akku";
 
 /* (No Comment) */
 "Transmitter battery widget description" = "Näyttää lähettimen jäljellä olevan akun varauksen laskelmana.";
 
 /* (No Comment) */
-"Transmitter details" = "Transmitter details";
+"Transmitter details" = "Lähettimen tarkemmat tiedot";
 
 /* (No Comment) */
 "Transmitter firmware" = "Firmware";
