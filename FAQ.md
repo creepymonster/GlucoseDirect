@@ -2,7 +2,7 @@
 
 ## Glucose Direct keeps losing the connection to the sensor
 
-Check if other apps (such as LibreLink) are allowed to use Bluetooth, and thus take away Glucose Direct's connection to the sensor.
+Check if other apps (such as LibreLink) are allowed to use Bluetooth, and thus take away Glucose Direct's connection to the sensor !
 
 This can be done under the iOS app "Settings" > "LibreLink" (or other app that can connect sensors), disable Bluetooth there.
 
