@@ -21,6 +21,16 @@ struct AboutView: View {
                     Text(verbatim: "\(DirectConfig.appVersion) (\(DirectConfig.appBuild))")
                 }
 
+                if !gitVersion.isEmpty {
+                    HStack {
+                        Text(verbatim: "Git commit")
+                        Spacer()
+                        Text(verbatim: gitVersion).onTapGesture {
+                            UIPasteboard.general.string = gitVersion
+                        }
+                    }
+                }
+
                 if let appAuthor = DirectConfig.appAuthor, !appAuthor.isEmpty {
                     HStack {
                         Text("App author")
