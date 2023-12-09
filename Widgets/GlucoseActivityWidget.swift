@@ -155,6 +155,7 @@ struct DynamicIslandCenterView: View, GlucoseStatusContext {
                     .opacity(0.5)
             }
         }.padding(.bottom)
+        .widgetBackground(backgroundView: Color("WidgetBackground"))
     }
 }
 
@@ -257,6 +258,7 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
         }
         .padding(.top, 5)
         .padding(.bottom, 10)
+        .widgetBackground(backgroundView: Color("WidgetBackground"))
     }
 }
 

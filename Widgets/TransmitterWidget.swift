@@ -80,6 +80,7 @@ struct TransmitterView: View {
                         .font(.system(size: 10))
                 }
             ).gaugeStyle(.accessoryCircularCapacity)
+            .widgetBackground(backgroundView: Color("WidgetBackground"))
         } else {
             ZStack(alignment: .center) {
                 Circle()
@@ -88,6 +89,7 @@ struct TransmitterView: View {
 
                 Image(systemName: "questionmark")
             }
+            .widgetBackground(backgroundView: Color("WidgetBackground"))
         }
     }
 
