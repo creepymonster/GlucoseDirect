@@ -448,7 +448,7 @@ struct ChartViewCompatibility: View {
 
                     let meanGlucoseValues = sumGlucoseValues / group.value.count
 
-                    return SensorGlucose(timestamp: group.key, rawGlucoseValue: meanGlucoseValues, intGlucoseValue: meanGlucoseValues)
+                    return SensorGlucose(timestamp: group.key, rawGlucoseValue: meanGlucoseValues, intGlucoseValue: meanGlucoseValues, serial: store.state.sensor?.serial, manufacturer: store.state.sensor?.type.rawValue)
                 }.sorted(by: { $0.timestamp < $1.timestamp })
 
                 DispatchQueue.main.async {

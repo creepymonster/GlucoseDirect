@@ -55,7 +55,7 @@ enum DirectAction {
     case setAlarmVolume(volume: Float)
     case setAlarmSnoozeUntil(untilDate: Date?, autosnooze: Bool = false)
     case setAppleCalendarExport(enabled: Bool)
-    case setAppleHealthExport(enabled: Bool)
+    case setAppleHealthSync(enabled: Bool)
     case setAppState(appState: ScenePhase)
     case setBellmanConnectionState(connectionState: BellmanConnectionState)
     case setBellmanNotification(enabled: Bool)

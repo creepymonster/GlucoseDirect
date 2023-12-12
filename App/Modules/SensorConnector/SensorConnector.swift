@@ -93,7 +93,7 @@ private func sensorConnectorMiddelware(_ infos: [SensorConnectionInfo], subject:
             let glucoseValues = readGlucoseValues.filter {
                 previousGlucose == nil || previousGlucose!.timestamp + intervalSeconds < $0.timestamp
             }.map {
-                SensorGlucose(id: $0.id, timestamp: $0.timestamp, rawGlucoseValue: $0.rawGlucoseValue, intGlucoseValue: $0.glucoseValue, smoothGlucoseValue: glucoseFilter.filter(glucoseValue: $0.glucoseValue, initGlucoseValues: initGlucoseValues))
+                SensorGlucose(id: $0.id, timestamp: $0.timestamp, rawGlucoseValue: $0.rawGlucoseValue, intGlucoseValue: $0.glucoseValue, smoothGlucoseValue: glucoseFilter.filter(glucoseValue: $0.glucoseValue, initGlucoseValues: initGlucoseValues), serial: state.sensor?.serial, manufacturer: state.sensor?.type.rawValue)
 
             }.map {
                 let glucose = $0.populateChange(previousGlucose: previousGlucose)

@@ -68,6 +68,9 @@ extension SensorGlucose: FetchableRecord, PersistableRecord {
         case intGlucoseValue
         case smoothGlucoseValue
         case timegroup
+        case appleHealthId
+        case serial
+        case manufacturer
     }
 }
 
@@ -85,6 +88,9 @@ extension BloodGlucose: FetchableRecord, PersistableRecord {
         case timestamp
         case glucoseValue
         case timegroup
+        case originatingSourceName
+        case originatingSourceBundle
+        case appleHealthId
     }
 }
 
@@ -121,5 +127,8 @@ extension InsulinDelivery: FetchableRecord, PersistableRecord {
         case units
         case type
         case timegroup
+        case originatingSourceName
+        case originatingSourceBundle
+        case appleHealthId
     }
 }
