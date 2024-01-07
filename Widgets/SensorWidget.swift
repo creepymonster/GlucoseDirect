@@ -126,10 +126,12 @@ struct SensorWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: SensorUpdateProvider()) { entry in
             SensorView(entry: entry)
+                .widgetBackground(Color.black)
         }
         .supportedFamilies([.accessoryCircular])
         .configurationDisplayName("Sensor lifetime widget")
         .description("Sensor lifetime widget description")
+        .contentMarginsDisabled()
     }
 }
 
