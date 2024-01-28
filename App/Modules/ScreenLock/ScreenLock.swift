@@ -12,11 +12,9 @@ func screenLockMiddleware() -> Middleware<DirectState, DirectAction> {
         switch action {
         case .setPreventScreenLock(enabled: let enabled):
             UIApplication.shared.isIdleTimerDisabled = enabled
-
         default:
             break
         }
-
         return Empty().eraseToAnyPublisher()
     }
 }

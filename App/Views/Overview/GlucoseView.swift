@@ -61,7 +61,6 @@ struct GlucoseView: View {
                 Text(Date(), style: .time)
                     .opacity(0.5)
             }
-
             HStack {
                 Button(action: {
                     DirectNotifications.shared.hapticFeedback()

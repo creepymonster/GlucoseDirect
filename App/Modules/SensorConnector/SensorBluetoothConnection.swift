@@ -41,8 +41,8 @@ class SensorBluetoothConnection: NSObject, SensorConnectionProtocol, CBCentralMa
 
     // MARK: Internal
 
-    var serviceUUID: CBUUID?
-    var manager: CBCentralManager?
+    var serviceUUID: CBUUID!
+    var manager: CBCentralManager!
 
     let managerQueue = DispatchQueue(label: "libre-direct.sensor-ble-connection.queue")
     weak var subject: PassthroughSubject<DirectAction, DirectError>?

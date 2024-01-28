@@ -259,6 +259,13 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
         }
         .padding(.top, 5)
         .padding(.bottom, 10)
+        .privacySensitive()
+        // Semantic BackgroundStyle and Color values work here. They adapt to the given interface style (light mode, dark mode)
+        // Semantic UIColors do NOT (as of iOS 17.1.1). Like UIColor.systemBackgroundColor (it does not adapt to changes of the interface style)
+        // The colorScheme environment varaible that is usually used to detect dark mode does NOT work here (it reports false values)
+        .foregroundStyle(Color.primary)
+        .background(BackgroundStyle.background.opacity(0.6))
+        .activityBackgroundTint(Color.clear)
     }
 }
 
