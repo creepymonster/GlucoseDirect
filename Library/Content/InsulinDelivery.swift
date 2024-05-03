@@ -30,25 +30,25 @@ enum InsulinType: Codable {
 
     var localizedDescription: String {
         LocalizedString(description)
-    }
+    }    
 }
 
 struct InsulinDelivery: CustomStringConvertible, Codable, Identifiable {
     // MARK: Lifecycle
-
     init(starts: Date, ends: Date, units: Double, type: InsulinType) {
-        let roundedStarts = starts.toRounded(on: 1, .minute)
-        let roundedEnds = ends.toRounded(on: 1, .minute)
-
-        self.id = UUID()
-        self.starts = roundedStarts
-        self.ends = roundedEnds
-        self.units = units
-        self.type = type
-        self.timegroup = starts.toRounded(on: DirectConfig.timegroupRounding, .minute)
+        self.init(id: UUID(), starts: starts, ends: ends, units: units, type: type)
     }
-
+    
     init(id: UUID, starts: Date, ends: Date, units: Double, type: InsulinType) {
+        self.init(id: id, starts: starts, ends: ends, units: units, type: type, originatingSourceName: DirectConfig.projectName, originatingSourceBundle: DirectConfig.appBundle)
+    }
+    
+
+    init(id: UUID, starts: Date, ends: Date, units: Double, type: InsulinType, originatingSourceName: String, originatingSourceBundle: String) {
+        self.init(id: id, starts: starts, ends: ends, units: units, type: type, originatingSourceName: originatingSourceName, originatingSourceBundle: originatingSourceBundle, appleHealthId: nil)
+    }
+    
+    init(id: UUID, starts: Date, ends: Date, units: Double, type: InsulinType, originatingSourceName: String, originatingSourceBundle: String, appleHealthId: UUID?) {
         let roundedStarts = starts.toRounded(on: 1, .minute)
         let roundedEnds = ends.toRounded(on: 1, .minute)
 
@@ -58,6 +58,9 @@ struct InsulinDelivery: CustomStringConvertible, Codable, Identifiable {
         self.units = units
         self.type = type
         self.timegroup = starts.toRounded(on: DirectConfig.timegroupRounding, .minute)
+        self.originatingSourceName = originatingSourceName
+        self.originatingSourceBundle = originatingSourceBundle
+        self.appleHealthId = appleHealthId
     }
 
     // MARK: Internal
@@ -68,10 +71,18 @@ struct InsulinDelivery: CustomStringConvertible, Codable, Identifiable {
     let units: Double
     let type: InsulinType
     let timegroup: Date
+    var appleHealthId: UUID?
+    let originatingSourceName: String
+    let originatingSourceBundle: String
 
     var description: String {
-        "{ id: \(id), starts: \(starts.toLocalTime()), ends: \(ends.toLocalTime()), units: \(units), type: \(type)}"
+        "{ id: \(id), starts: \(starts.toLocalTime()), ends: \(ends.toLocalTime()), units: \(units), type: \(type), originatingSourceName: \(originatingSourceName), originatingSourceBundle: \(originatingSourceBundle), appleHealthId: \(appleHealthId)}"
     }
+    
+    public func isSyncedToAppleHealth() -> Bool {
+        return appleHealthId != nil
+    }
+
 }
 
 // MARK: Equatable

@@ -8,7 +8,7 @@ import SwiftUI
 
 // MARK: - CalendarExportSettingsView
 
-struct AppleExportSettingsView: View {
+struct AppleSyncSettingsView: View {
     // MARK: Internal
 
     @EnvironmentObject var store: DirectStore
@@ -16,7 +16,7 @@ struct AppleExportSettingsView: View {
     var body: some View {
         Section(
             content: {
-                Toggle("Export to Apple Health", isOn: appleHealthExport).toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
+                Toggle("Sync with Apple Health", isOn: appleHealthExport).toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
                 Toggle("Export to Apple Calendar", isOn: appleCalendarExport).toggleStyle(SwitchToggleStyle(tint: Color.ui.accent))
 
                 if store.state.appleCalendarExport {
@@ -32,7 +32,7 @@ struct AppleExportSettingsView: View {
                 }
             },
             header: {
-                Label("Apple export settings", systemImage: "square.and.arrow.up")
+                Label("Apple sync settings", systemImage: "square.and.arrow.up")
             }
         )
     }
@@ -45,7 +45,7 @@ struct AppleExportSettingsView: View {
 
     private var appleHealthExport: Binding<Bool> {
         Binding(
-            get: { store.state.appleHealthExport },
+            get: { store.state.appleHealthSync },
             set: { store.dispatch(.requestAppleHealthAccess(enabled: $0)) }
         )
     }

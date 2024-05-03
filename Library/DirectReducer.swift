@@ -124,8 +124,8 @@ func directReducer(state: inout DirectState, action: DirectAction) {
     case .setAppleCalendarExport(enabled: let enabled):
         state.appleCalendarExport = enabled
         
-    case .setAppleHealthExport(enabled: let enabled):
-        state.appleHealthExport = enabled
+    case .setAppleHealthSync(enabled: let enabled):
+        state.appleHealthSync = enabled
         
     case .setAppState(appState: let appState):
         state.appState = appState

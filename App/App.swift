@@ -21,7 +21,7 @@ final class GlucoseDirectApp: App {
             DirectLog.info("Application directory: \(NSHomeDirectory())")
         #endif
 
-        store.dispatch(.startup)
+        GlucoseDirectApp.store.dispatch(.startup)
     }
 
     // MARK: Internal
@@ -29,20 +29,23 @@ final class GlucoseDirectApp: App {
     @UIApplicationDelegateAdaptor(GlucoseDirectAppDelegate.self) var appDelegate {
         didSet {
             oldValue.store = nil
-            appDelegate.store = store
+            appDelegate.store = GlucoseDirectApp.store
         }
     }
 
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(store)
+                .environmentObject(GlucoseDirectApp.store)
         }
     }
 
     // MARK: Private
 
-    private let store: DirectStore = createStore()
+    
+    public static var store: DirectStore = {
+            return createStore()
+        }()
 }
 
 // MARK: - GlucoseDirectAppDelegate
@@ -127,7 +130,7 @@ private func createSimulatorAppStore() -> DirectStore {
         glucoseNotificationMiddelware(),
         connectionNotificationMiddelware(),
         appleCalendarExportMiddleware(),
-        appleHealthExportMiddleware(),
+        appleHealthSyncMiddleware(),
         readAloudMiddelware(),
         bellmanAlarmMiddelware(),
         nightscoutMiddleware(),
@@ -167,7 +170,7 @@ private func createAppStore() -> DirectStore {
         glucoseNotificationMiddelware(),
         connectionNotificationMiddelware(),
         appleCalendarExportMiddleware(),
-        appleHealthExportMiddleware(),
+        appleHealthSyncMiddleware(),
         readAloudMiddelware(),
         bellmanAlarmMiddelware(),
         nightscoutMiddleware(),
