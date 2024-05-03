@@ -80,3 +80,5 @@ fastlane/FastlaneRunner
 
 # Custom
 GlucoseDirectOverride.xcconfig
+## ignored because this is created during the build
+App/GitVersion.swift
