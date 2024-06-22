@@ -1,6 +1,6 @@
 ## Glucose Direct App
 
-***Warning***, This project is highly experimental. Please use this app with caution and extreme care. Do not make careless decisions based on software. Do not use this software if you are unsure.***
+*** Warning ***, This project is highly experimental! Please use this app with caution and extreme care. Do not make careless decisions based on software. Do not use this software if you are unsure.***
 
 App programmed in Swift/SwiftUI for using Libre blood glucose sensors. I try to keep the code as readable and understandable as possible so that as many people as possible can understand how this part of diabetes management works.
 
