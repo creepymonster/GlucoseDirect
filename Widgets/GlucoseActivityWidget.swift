@@ -14,6 +14,7 @@ struct GlucoseActivityWidget: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: SensorGlucoseActivityAttributes.self) { context in
             GlucoseActivityView(context: context.state)
+                .widgetBackground(Color.black)
         } dynamicIsland: { context in
             DynamicIsland {
                 DynamicIslandExpandedRegion(.center) {
@@ -60,6 +61,7 @@ struct GlucoseActivityWidget: Widget {
                 }
             }
         }
+        .contentMarginsDisabled()
     }
 }
 

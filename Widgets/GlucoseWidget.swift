@@ -167,6 +167,19 @@ struct GlucoseView: View {
     }
 }
 
+extension View {
+    func widgetBackground(_ backgroundView: some View) -> some View {
+        if #available(iOSApplicationExtension 17.0, *) {
+            return containerBackground(for: .widget) {
+                backgroundView
+            }
+        } else {
+            return background(backgroundView)
+        }
+    }
+}
+
+
 // MARK: - GlucoseWidget
 
 struct GlucoseWidget: Widget {
@@ -175,10 +188,12 @@ struct GlucoseWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: GlucoseUpdateProvider()) { entry in
             GlucoseView(entry: entry)
+                .widgetBackground(Color.black)
         }
         .supportedFamilies([.accessoryRectangular, .accessoryCircular, .systemSmall])
         .configurationDisplayName("Glucose widget")
         .description("Glucose widget description")
+        .contentMarginsDisabled()
     }
 }
 

@@ -114,10 +114,12 @@ struct TransmitterWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: TransmitterUpdateProvider()) { entry in
             TransmitterView(entry: entry)
+                .widgetBackground(Color.black)
         }
         .supportedFamilies([.accessoryCircular])
         .configurationDisplayName("Transmitter battery widget")
         .description("Transmitter battery widget description")
+        .contentMarginsDisabled()
     }
 }
 
