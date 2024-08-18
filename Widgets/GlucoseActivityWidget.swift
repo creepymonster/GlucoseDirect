@@ -13,8 +13,7 @@ import WidgetKit
 struct GlucoseActivityWidget: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: SensorGlucoseActivityAttributes.self) { context in
-            GlucoseActivityView(context: context.state)
-                .widgetBackground(Color.black)
+            MainLockScreenLiveActivityView(context: context.state)
         } dynamicIsland: { context in
             DynamicIsland {
                 DynamicIslandExpandedRegion(.center) {
@@ -62,6 +61,7 @@ struct GlucoseActivityWidget: Widget {
             }
         }
         .contentMarginsDisabled()
+        .extraActivityFamily()
     }
 }
 
@@ -164,6 +164,7 @@ struct DynamicIslandCenterView: View, GlucoseStatusContext {
 
 @available(iOS 16.1, *)
 struct GlucoseActivityView: View, GlucoseStatusContext {
+    @Environment(\.colorScheme) var colorScheme
     @State var context: SensorGlucoseActivityAttributes.GlucoseStatus
 
     var body: some View {
@@ -232,7 +233,6 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
                         Text("Reopen app in")
                             .opacity(0.5)
                             .textCase(.uppercase)
-
                         Text(stopDate, style: .relative)
                             .bold()
                             .multilineTextAlignment(.leading)
@@ -260,9 +260,6 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
         .padding(.top, 5)
         .padding(.bottom, 10)
         .privacySensitive()
-        // Semantic BackgroundStyle and Color values work here. They adapt to the given interface style (light mode, dark mode)
-        // Semantic UIColors do NOT (as of iOS 17.1.1). Like UIColor.systemBackgroundColor (it does not adapt to changes of the interface style)
-        // The colorScheme environment varaible that is usually used to detect dark mode does NOT work here (it reports false values)
         .foregroundStyle(Color.primary)
         .background(BackgroundStyle.background.opacity(0.6))
         .activityBackgroundTint(Color.clear)
@@ -300,5 +297,131 @@ struct GlucoseActivityWidget_Previews: PreviewProvider {
                 stopDate: Date()
             )
         ).previewContext(WidgetPreviewContext(family: .systemMedium))
+    }
+}
+
+@available(iOS 16.1, *)
+struct InitialLockScreenLiveActivityContentView: View {
+    @State var context: SensorGlucoseActivityAttributes.GlucoseStatus
+    
+    var body: some View {
+        GlucoseActivityView(context: context)
+    }
+}
+
+@available(iOS 18, *)
+struct StackedLiveActivityContentView: View, GlucoseStatusContext {
+    @Environment(\.colorScheme) var colorScheme
+    @State var context: SensorGlucoseActivityAttributes.GlucoseStatus
+    
+    var body: some View {
+        HStack(alignment: .center) {
+            if let latestGlucose = context.glucose, let glucoseUnit = context.glucoseUnit {
+                VStack(alignment: .leading, spacing: 10) {
+                    HStack(alignment: .center, spacing: 5) {
+                        Spacer()
+                        VStack(alignment: .leading, spacing: 5) {
+                            Group {
+                                if latestGlucose.type != .high {
+                                    Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
+                                } else {
+                                    Text("HIGH")
+                                }
+                            }
+                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
+                            .font(.system(size: 32))
+                            .minimumScaleFactor(0.2)
+                            .lineLimit(1)
+                        }
+                        
+                        Text(verbatim: latestGlucose.trend.description)
+                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
+                            .font(.system(size: 18))
+                            .minimumScaleFactor(0.2)
+                            .lineLimit(1)
+                    }
+                    
+                    HStack(alignment: .center){
+                        Spacer()
+               }
+                    
+                    if let warning = warning {
+                        HStack {
+                            Image(systemName: "exclamationmark.triangle")
+                                .foregroundColor(Color.ui.red)
+                            Text(verbatim: warning)
+                                .bold()
+                        }
+                        .font(.footnote)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        Spacer()
+                    }
+                }
+                Spacer()
+
+                VStack(alignment: .trailing, spacing: 5) {
+                    Text(latestGlucose.timestamp, style: .time)
+                        .bold()
+                        .monospacedDigit()
+                        .foregroundColor(.gray)
+                        .fontWeight(.bold)
+                    if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
+                        
+                        Text(verbatim: minuteChange)
+                            .fontWeight(.bold)
+                            .font(.system(size: 16))
+                            .foregroundColor(.gray)
+                    } else {
+                        Text(verbatim: "?")
+                    }
+                  
+                    if warning == nil {
+                        HStack {
+                        }
+                        .opacity(0.5)
+                        .font(.footnote)
+                        .font(.system(size: 20))
+                        .minimumScaleFactor(0.2)
+                        .lineLimit(1)
+                        .fontWeight(.bold)
+                    }
+                }
+                .font(.footnote)
+                .frame(maxWidth: .infinity, alignment: .center)
+            }
+        }
+    
+        .activityBackgroundTint(.black)
+    }
+}
+
+@available(iOS 18.0, *)
+struct UpdatedLockScreenLiveActivityContentView: View {
+    @Environment(\.activityFamily) var activityFamily
+    @State var context: SensorGlucoseActivityAttributes.GlucoseStatus
+     
+    var body: some View {
+        switch activityFamily {
+        case .small:
+            StackedLiveActivityContentView(context: context)
+        case .medium:
+            GlucoseActivityView(context: context)
+        @unknown default:
+            MainLockScreenLiveActivityView(context: context)
+        }
+    }
+}
+
+@available(iOS 16.1, *)
+struct MainLockScreenLiveActivityView: View {
+      @State var context: SensorGlucoseActivityAttributes.GlucoseStatus
+    var body: some View {
+        Group {
+            if #available(iOS 18.0, *) {
+                UpdatedLockScreenLiveActivityContentView(context: context)
+            } else {
+                GlucoseActivityView(context: context)
+            }
+        }
     }
 }

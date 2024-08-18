@@ -15,6 +15,7 @@ struct Widgets: WidgetBundle {
                 GlucoseActivityWidget(),
                 SensorWidget(),
                 TransmitterWidget()
+                
             )
         } else {
             return WidgetBundleBuilder.buildBlock(
@@ -24,4 +25,5 @@ struct Widgets: WidgetBundle {
             )
         }
     }
+ 
 }

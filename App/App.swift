@@ -13,7 +13,7 @@ import SwiftUI
 // MARK: - GlucoseDirectApp
 
 @main
-final class GlucoseDirectApp: App {
+struct GlucoseDirectApp: App {
     // MARK: Lifecycle
 
     init() {
@@ -36,7 +36,7 @@ final class GlucoseDirectApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(store)
+                .environmentObject(self.store)
         }
     }
 

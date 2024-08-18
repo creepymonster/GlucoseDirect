@@ -29,16 +29,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         return true
     }
 
-    override func pairConnection() {
-        Task {
-            do {
-                lastLogin = nil
-                try await processLogin()
-            } catch {
-                sendUpdate(error: error)
-            }
-        }
-    }
+    override func pairConnection() {}
 
     override func connectConnection(sensor: Sensor, sensorInterval: Int) {
         DirectLog.info("ConnectSensor: \(sensor)")
@@ -50,23 +41,27 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
         Task {
             do {
-                lastLogin = nil
-                try await processLogin()
+                self.lastLogin = nil
 
-                managerQueue.async {
+                try await self.processLogin()
+
+                self.managerQueue.async {
                     self.find()
                 }
             } catch {
-                sendUpdate(error: error)
+                self.sendUpdate(error: error)
             }
         }
     }
 
     override func find() {
-        DirectLog.info("Find")
-
-        guard manager != nil else {
+        guard let manager else {
             DirectLog.error("Guard: manager is nil")
+            return
+        }
+
+        guard let serviceUUID else {
+            DirectLog.error("Guard: serviceUUID is nil")
             return
         }
 
@@ -82,15 +77,15 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             connect(connectedPeripheral)
 
         } else {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
+            sendUpdate(connectionState: .scanning)
+
+            managerQueue.asyncAfter(deadline: .now() + .seconds(5)) {
                 self.find()
             }
         }
     }
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
-        DirectLog.info("Peripheral: \(peripheral)")
-
         sendUpdate(error: error)
 
         if let services = peripheral.services {
@@ -103,8 +98,6 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
     }
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
-        DirectLog.info("Peripheral: \(peripheral)")
-
         sendUpdate(error: error)
 
         if let characteristics = service.characteristics {
@@ -120,14 +113,6 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         if let characteristic = oneMinuteReadingCharacteristic {
             peripheral.setNotifyValue(true, for: characteristic)
         }
-
-        Task {
-            do {
-                try await processFetch()
-            } catch {
-                sendUpdate(error: error)
-            }
-        }
     }
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
@@ -141,12 +126,12 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             return
         }
 
-        Task {
+        Task { @MainActor in
+            try? await Task.sleep(nanoseconds: 4_000_000_000)
             do {
-                try await Task.sleep(nanoseconds: 1_000_000_000 * 4)
-                try await processFetch()
+                try await self.processFetch()
             } catch {
-                sendUpdate(error: error)
+                DirectLog.error("Error: \(error)")
             }
         }
     }
@@ -166,7 +151,6 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
     // MARK: Private
 
-    private var workingSince: Date?
     private var lastLogin: LibreLinkLogin?
     private let oneMinuteReadingUUID = CBUUID(string: "0898177A-EF89-11E9-81B4-2A2AE2DBCCE4")
     private var oneMinuteReadingCharacteristic: CBCharacteristic?
@@ -174,7 +158,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         "User-Agent": "Mozilla/5.0",
         "Content-Type": "application/json",
         "product": "llu.ios",
-        "version": "4.9.0",
+        "version": "4.10.0",
         "Accept-Encoding": "gzip, deflate, br",
         "Connection": "keep-alive",
         "Pragma": "no-cache",
@@ -195,34 +179,25 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         return decoder
     }()
 
+
     private func processLogin(apiRegion: String? = nil) async throws {
         if lastLogin == nil || lastLogin!.authExpires <= Date() {
-            if let workingSince = workingSince, workingSince.addingTimeInterval(30) > Date() {
-                return
-            }
-
-            DirectLog.info("LibreLinkUp processLogin, starts working, \(Date().debugDescription)")
-
-            workingSince = Date()
-
-            defer {
-                workingSince = nil
-            }
+            DirectLog.info("LibreLinkUp processLogin")
 
             var loginResponse = try await login(apiRegion: apiRegion)
-                        if loginResponse.status == 4 {
-                            DirectLog.info("LibreLinkUp processLogin, request to accept tou")
+            if loginResponse.status == 4 {
+                DirectLog.info("LibreLinkUp processLogin, request to accept tou")
 
-                            guard let authToken = loginResponse.data?.authTicket?.token,
-                                  !authToken.isEmpty
-                            else {
-                                disconnectConnection()
+                guard let authToken = loginResponse.data?.authTicket?.token,
+                      !authToken.isEmpty
+                else {
+                    disconnectConnection()
 
-                                throw LibreLinkError.missingUserOrToken
-                            }
+                    throw LibreLinkError.missingUserOrToken
+                }
 
-                            loginResponse = try await tou(apiRegion: apiRegion, authToken: authToken)
-                        }
+                loginResponse = try await tou(apiRegion: apiRegion, authToken: authToken)
+            }
 
             if let redirect = loginResponse.data?.redirect, let region = loginResponse.data?.region, redirect, !region.isEmpty {
                 DirectLog.info("LibreLinkUp processLogin, redirect to userCountry: \(region)")
@@ -260,22 +235,12 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
     }
 
     private func processFetch() async throws {
+        DirectLog.info("LibreLinkUp processFetch")
+
         try await processLogin()
 
-        if let workingSince = workingSince, workingSince.addingTimeInterval(30) > Date() {
-            return
-        }
-
-        DirectLog.info("LibreLinkUp processFetch, starts working, \(Date().debugDescription)")
-
-        workingSince = Date()
-
-        defer {
-            workingSince = nil
-        }
-
         let fetchResponse = try await fetch()
-        
+
         if let sensorAge = fetchResponse.data?.activeSensors?.first?.sensor?.age ?? fetchResponse.data?.connection?.sensor?.age,
            let sensorSerial = fetchResponse.data?.activeSensors?.first?.sensor?.serial ?? fetchResponse.data?.connection?.sensor?.serial,
            let sensor = sensor
@@ -308,47 +273,47 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
     }
 
     private func tou(apiRegion: String? = nil, authToken: String) async throws -> LibreLinkResponse<LibreLinkResponseLogin> {
-            DirectLog.info("LibreLinkUp tou")
+        DirectLog.info("LibreLinkUp tou")
 
-            var urlString: String?
-            if let apiRegion = apiRegion {
-                urlString = "https://api-\(apiRegion).libreview.io/auth/continue/tou"
-            } else {
-                urlString = "https://api.libreview.io/auth/continue/tou"
-            }
-
-            guard let urlString = urlString else {
-                throw LibreLinkError.invalidURL
-            }
-
-            guard let url = URL(string: urlString) else {
-                throw LibreLinkError.invalidURL
-            }
-
-            DirectLog.info("LibreLinkUp tou, url: \(url.absoluteString)")
-
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-
-            request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
-
-            for (header, value) in requestHeaders {
-                request.setValue(value, forHTTPHeaderField: header)
-            }
-
-            let (data, response) = try await URLSession.shared.data(for: request)
-            let statusCode = (response as? HTTPURLResponse)?.statusCode ?? 0
-
-            DirectLog.info("LibreLinkUp tou, response: \(String(data: data, encoding: String.Encoding.utf8))")
-
-            if statusCode == 200 {
-                return try decode(LibreLinkResponse<LibreLinkResponseLogin>.self, data: data)
-            } else if statusCode == 911 {
-                throw LibreLinkError.maintenance
-            }
-
-            throw LibreLinkError.unknownError
+        var urlString: String?
+        if let apiRegion = apiRegion {
+            urlString = "https://api-\(apiRegion).libreview.io/auth/continue/tou"
+        } else {
+            urlString = "https://api.libreview.io/auth/continue/tou"
         }
+
+        guard let urlString = urlString else {
+            throw LibreLinkError.invalidURL
+        }
+
+        guard let url = URL(string: urlString) else {
+            throw LibreLinkError.invalidURL
+        }
+
+        DirectLog.info("LibreLinkUp tou, url: \(url.absoluteString)")
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+
+        request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
+
+        for (header, value) in requestHeaders {
+            request.setValue(value, forHTTPHeaderField: header)
+        }
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+        let statusCode = (response as? HTTPURLResponse)?.statusCode ?? 0
+
+        DirectLog.info("LibreLinkUp tou, response: \(String(data: data, encoding: String.Encoding.utf8))")
+
+        if statusCode == 200 {
+            return try decode(LibreLinkResponse<LibreLinkResponseLogin>.self, data: data)
+        } else if statusCode == 911 {
+            throw LibreLinkError.maintenance
+        }
+
+        throw LibreLinkError.unknownError
+    }
 
     private func login(apiRegion: String? = nil) async throws -> LibreLinkResponse<LibreLinkResponseLogin> {
         DirectLog.info("LibreLinkUp login")
@@ -558,7 +523,9 @@ private struct LibreLinkResponseActiveSensors: Codable {
 // MARK: - LibreLinkResponseDevice
 
 private struct LibreLinkResponseDevice: Codable {
-    enum CodingKeys: String, CodingKey { case dtid, version = "v" }
+    enum CodingKeys: String, CodingKey { case dtid
+        case version = "v"
+    }
 
     let dtid: Int
     let version: String
@@ -567,7 +534,9 @@ private struct LibreLinkResponseDevice: Codable {
 // MARK: - LibreLinkResponseSensor
 
 private struct LibreLinkResponseSensor: Codable {
-    enum CodingKeys: String, CodingKey { case sn, activation = "a" }
+    enum CodingKeys: String, CodingKey { case sn
+        case activation = "a"
+    }
 
     let sn: String
     let activation: Double
@@ -587,7 +556,9 @@ private extension LibreLinkResponseSensor {
 // MARK: - LibreLinkResponseGlucose
 
 private struct LibreLinkResponseGlucose: Codable {
-    enum CodingKeys: String, CodingKey { case timestamp = "Timestamp", value = "ValueInMgPerDl" }
+    enum CodingKeys: String, CodingKey { case timestamp = "Timestamp"
+        case value = "ValueInMgPerDl"
+    }
 
     let timestamp: Date
     let value: Double
@@ -604,6 +575,10 @@ private extension LibreLinkResponseUser {
     var apiRegion: String {
         if ["ae", "ap", "au", "de", "eu", "fr", "jp", "us"].contains(country.lowercased()) {
             return country.lowercased()
+        }
+
+        if country.lowercased() == "gb" {
+            return "eu2"
         }
 
         return "eu"
@@ -703,3 +678,4 @@ extension LibreLinkError: LocalizedError {
         return LocalizedString(description)
     }
 }
+
