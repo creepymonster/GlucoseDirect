@@ -74,6 +74,7 @@ protocol GlucoseStatusContext {
 
 @available(iOS 16.1, *)
 extension GlucoseStatusContext {
+    var c: String? {""}
     var warning: String? {
         if let sensorState = context.sensorState, sensorState != .ready {
             return sensorState.localizedDescription
@@ -199,6 +200,8 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
                                 .bold()
                         }
                         .font(.footnote)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        Spacer()
                     } else {
                         HStack {
                             Text(verbatim: glucoseUnit.localizedDescription)
@@ -313,84 +316,89 @@ struct InitialLockScreenLiveActivityContentView: View {
 struct StackedLiveActivityContentView: View, GlucoseStatusContext {
     @Environment(\.colorScheme) var colorScheme
     @State var context: SensorGlucoseActivityAttributes.GlucoseStatus
-    
-    var body: some View {
-        HStack(alignment: .center) {
-            if let latestGlucose = context.glucose, let glucoseUnit = context.glucoseUnit {
-                VStack(alignment: .leading, spacing: 10) {
-                    HStack(alignment: .center, spacing: 5) {
-                        Spacer()
-                        VStack(alignment: .leading, spacing: 5) {
-                            Group {
-                                if latestGlucose.type != .high {
-                                    Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
-                                } else {
-                                    Text("HIGH")
-                                }
-                            }
-                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
-                            .font(.system(size: 32))
-                            .minimumScaleFactor(0.2)
-                            .lineLimit(1)
-                        }
-                        
-                        Text(verbatim: latestGlucose.trend.description)
-                            .foregroundColor(getGlucoseColor(glucose: latestGlucose))
-                            .font(.system(size: 18))
-                            .minimumScaleFactor(0.2)
-                            .lineLimit(1)
-                    }
-                    
-                    HStack(alignment: .center){
-                        Spacer()
-               }
-                    
-                    if let warning = warning {
-                        HStack {
-                            Image(systemName: "exclamationmark.triangle")
-                                .foregroundColor(Color.ui.red)
-                            Text(verbatim: warning)
-                                .bold()
-                        }
-                        .font(.footnote)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        Spacer()
-                    }
-                }
-                Spacer()
 
-                VStack(alignment: .trailing, spacing: 5) {
-                    Text(latestGlucose.timestamp, style: .time)
-                        .bold()
-                        .monospacedDigit()
-                        .foregroundColor(.gray)
-                        .fontWeight(.bold)
-                    if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
-                        
-                        Text(verbatim: minuteChange)
-                            .fontWeight(.bold)
-                            .font(.system(size: 16))
-                            .foregroundColor(.gray)
-                    } else {
-                        Text(verbatim: "?")
-                    }
-                  
-                    if warning == nil {
-                        HStack {
+    var body: some View {
+        ZStack {
+            LinearGradient(
+                gradient: Gradient(colors: [Color.black.opacity(0.1), Color.black.opacity(0.5)]),
+                                       startPoint: .topLeading,
+                                       endPoint: .bottomTrailing
+                                   )
+            HStack(alignment: .center) {
+                if let latestGlucose = context.glucose, let glucoseUnit = context.glucoseUnit {
+                    VStack(alignment: .leading, spacing: 10) {
+                        HStack(alignment: .center, spacing: 5) {
+                            Spacer()
+                            VStack(alignment: .center, spacing: 5) {
+                                Group {
+                                    if latestGlucose.type != .high {
+                                        Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
+                                    } else {
+                                        Text("HIGH")
+                                    }
+                                }
+                                .foregroundColor(getGlucoseColor(glucose: latestGlucose))
+                                .font(.system(size: 32))
+                                .minimumScaleFactor(0.2)
+                                .lineLimit(1)
+                                .fontWeight(.semibold)
+                            }
+
+                            Text(verbatim: latestGlucose.trend.description)
+                                .foregroundColor(getGlucoseColor(glucose: latestGlucose))
+                                .font(.system(size: 18))
+                                .minimumScaleFactor(0.2)
+                                .lineLimit(1)
                         }
-                        .opacity(0.5)
-                        .font(.footnote)
-                        .font(.system(size: 20))
-                        .minimumScaleFactor(0.2)
-                        .lineLimit(1)
-                        .fontWeight(.bold)
+
+                        if let warning = warning {
+                            HStack(alignment: .center, spacing: 5) {
+                                Image(systemName: "exclamationmark.triangle")
+                                    .minimumScaleFactor(0.1)
+                                    .foregroundColor(Color.ui.red)
+                                Text(verbatim: warning)
+                            }
+                            .font(.footnote)
+                            .minimumScaleFactor(0.1)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            font(.system(size: 10))
+                       
+                        }
                     }
+
+                    Spacer()
+
+                    VStack(alignment: .trailing, spacing: 5) {
+                        Text(latestGlucose.timestamp, style: .time)
+                            .bold()
+                            .monospacedDigit()
+                            .foregroundColor(.primary)
+                            .fontWeight(.bold)
+
+                        if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
+                            Text(verbatim: minuteChange)
+                                .fontWeight(.bold)
+                                .font(.system(size: 16))
+                                .foregroundColor(.primary)
+                        } else {
+                            Text(verbatim: "?")
+                        }
+
+                        if warning == nil {
+                            HStack {
+                            }
+                            .opacity(0.5)
+                            .font(.footnote)
+                            .font(.system(size: 10))
+                            .minimumScaleFactor(0.2)
+                        }
+                    }
+                    .font(.footnote)
+                    .frame(maxWidth: .infinity, alignment: .center)
                 }
-                .font(.footnote)
-                .frame(maxWidth: .infinity, alignment: .center)
             }
         }
-    
+     
         .activityBackgroundTint(.black)
     }
 }
