@@ -320,16 +320,16 @@ struct StackedLiveActivityContentView: View, GlucoseStatusContext {
     var body: some View {
         ZStack {
             LinearGradient(
-                gradient: Gradient(colors: [Color.black.opacity(0.1), Color.black.opacity(0.5)]),
+                gradient: Gradient(colors: [Color.black.opacity(0.9), Color.black.opacity(0.9)]),
                                        startPoint: .topLeading,
                                        endPoint: .bottomTrailing
                                    )
             HStack(alignment: .center) {
                 if let latestGlucose = context.glucose, let glucoseUnit = context.glucoseUnit {
-                    VStack(alignment: .leading, spacing: 10) {
-                        HStack(alignment: .center, spacing: 5) {
+                    VStack(alignment: .leading) {
+                        HStack(alignment: .center, spacing: 0) {
                             Spacer()
-                            VStack(alignment: .center, spacing: 5) {
+                            VStack(alignment: .center, spacing: 0) {
                                 Group {
                                     if latestGlucose.type != .high {
                                         Text(verbatim: latestGlucose.glucoseValue.asGlucose(glucoseUnit: glucoseUnit))
