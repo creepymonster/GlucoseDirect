@@ -102,7 +102,30 @@ extension GlucoseStatusContext {
 
         return Color.primary
     }
+
+    func getGlucoseBackgroundGradient(glucose: any Glucose) -> LinearGradient {
+        if isAlarm(glucose: glucose) {
+            return LinearGradient(
+                gradient: Gradient(colors: [Color.paleRed.opacity(0.9), Color.red.opacity(0.6)]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        }
+        return LinearGradient(
+            gradient: Gradient(colors: [Color.skyBlue.opacity(0.5), Color.paleBlue.opacity(0.4)]),
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing)
+       }
 }
+
+extension Color {
+    static let skyBlue = Color(red: 135/255, green: 206/255, blue: 235/255)
+    static let paleRed = Color(red: 255/255, green: 182/255, blue: 193/255)
+    static let softOrange = Color(red: 255/255, green: 165/255, blue: 0/255)
+    static let paleBlue = Color(red: 173/255, green: 216/255, blue: 230/255)
+    static let brightWhite = Color(red: 255/255, green: 255/255, blue: 255/255, opacity: 1.0)
+}
+
 
 // MARK: - DynamicIslandCenterView
 
@@ -319,11 +342,10 @@ struct StackedLiveActivityContentView: View, GlucoseStatusContext {
 
     var body: some View {
         ZStack {
-            LinearGradient(
-                gradient: Gradient(colors: [Color.black.opacity(0.9), Color.black.opacity(0.9)]),
-                                       startPoint: .topLeading,
-                                       endPoint: .bottomTrailing
-                                   )
+            if let latestGlucose = context.glucose {
+                getGlucoseBackgroundGradient(glucose: latestGlucose)
+                    .edgesIgnoringSafeArea(.all)
+            }
             HStack(alignment: .center) {
                 if let latestGlucose = context.glucose, let glucoseUnit = context.glucoseUnit {
                     VStack(alignment: .leading) {
@@ -337,7 +359,7 @@ struct StackedLiveActivityContentView: View, GlucoseStatusContext {
                                         Text("HIGH")
                                     }
                                 }
-                                .foregroundColor(getGlucoseColor(glucose: latestGlucose))
+                                .foregroundColor(.brightWhite)
                                 .font(.system(size: 32))
                                 .minimumScaleFactor(0.2)
                                 .lineLimit(1)
@@ -345,10 +367,11 @@ struct StackedLiveActivityContentView: View, GlucoseStatusContext {
                             }
 
                             Text(verbatim: latestGlucose.trend.description)
-                                .foregroundColor(getGlucoseColor(glucose: latestGlucose))
+                            //    .foregroundColor(getGlucoseColor(glucose: latestGlucose))
                                 .font(.system(size: 18))
                                 .minimumScaleFactor(0.2)
                                 .lineLimit(1)
+                                .foregroundColor(.brightWhite)
                         }
 
                         if let warning = warning {
@@ -372,14 +395,14 @@ struct StackedLiveActivityContentView: View, GlucoseStatusContext {
                         Text(latestGlucose.timestamp, style: .time)
                             .bold()
                             .monospacedDigit()
-                            .foregroundColor(.primary)
+                            .foregroundColor(.brightWhite)
                             .fontWeight(.bold)
 
                         if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
                             Text(verbatim: minuteChange)
                                 .fontWeight(.bold)
                                 .font(.system(size: 16))
-                                .foregroundColor(.primary)
+                                .foregroundColor(.brightWhite)
                         } else {
                             Text(verbatim: "?")
                         }
@@ -399,7 +422,7 @@ struct StackedLiveActivityContentView: View, GlucoseStatusContext {
             }
         }
      
-        .activityBackgroundTint(.black)
+     //   .activityBackgroundTint(.black)
     }
 }
 
