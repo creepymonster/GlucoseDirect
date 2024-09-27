@@ -19,6 +19,7 @@
 		6587CE4A29626070008518F4 /* InsulinDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587CE4929626070008518F4 /* InsulinDelivery.swift */; };
 		6587CE4C2962651B008518F4 /* InsulinDeliveryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587CE4B2962651B008518F4 /* InsulinDeliveryStore.swift */; };
 		6587CE4D29626AD5008518F4 /* InsulinDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587CE4929626070008518F4 /* InsulinDelivery.swift */; };
+		6D7231992CA6806600B9A498 /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6D7231982CA6806600B9A498 /* CryptoSwift */; };
 		6D9306602C9ECB3C00BCD78D /* GlucoseWatchActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D93065F2C9ECB2100BCD78D /* GlucoseWatchActivity.swift */; };
 		6DE86CD62C9CA70B008A827E /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 6DE86CD52C9CA70B008A827E /* GRDB */; };
 		E2016FD9285BA80300079195 /* SensorWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2016FD5285BA7C600079195 /* SensorWidget.swift */; };
@@ -460,6 +461,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6DE86CD62C9CA70B008A827E /* GRDB in Frameworks */,
+				6D7231992CA6806600B9A498 /* CryptoSwift in Frameworks */,
 				E251653E28D7BFE900922898 /* ActivityKit.framework in Frameworks */,
 				E27BBA8027AD7DDA00A6B8EE /* HealthKit.framework in Frameworks */,
 			);
@@ -943,6 +945,7 @@
 			name = GlucoseDirectApp;
 			packageProductDependencies = (
 				6DE86CD52C9CA70B008A827E /* GRDB */,
+				6D7231982CA6806600B9A498 /* CryptoSwift */,
 			);
 			productName = GlucoseDirect;
 			productReference = E20B853A266F4A9800AA4224 /* GlucoseDirectApp.app */;
@@ -1011,6 +1014,7 @@
 			mainGroup = E20B8531266F4A9800AA4224;
 			packageReferences = (
 				101B53832A3BC0210088B4BD /* XCRemoteSwiftPackageReference "GRDB" */,
+				6D7231972CA6806600B9A498 /* XCRemoteSwiftPackageReference "CryptoSwift" */,
 			);
 			productRefGroup = E20B853B266F4A9800AA4224 /* Products */;
 			projectDirPath = "";
@@ -1628,9 +1632,22 @@
 				version = 6.29.2;
 			};
 		};
+		6D7231972CA6806600B9A498 /* XCRemoteSwiftPackageReference "CryptoSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzyzanowskim/CryptoSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.8.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6D7231982CA6806600B9A498 /* CryptoSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6D7231972CA6806600B9A498 /* XCRemoteSwiftPackageReference "CryptoSwift" */;
+			productName = CryptoSwift;
+		};
 		6DE86CD52C9CA70B008A827E /* GRDB */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = GRDB;
