@@ -104,18 +104,26 @@ extension GlucoseStatusContext {
     }
 
     func getGlucoseBackgroundGradient(glucose: any Glucose) -> LinearGradient {
-        if isAlarm(glucose: glucose) {
+        if glucose.glucoseValue < 55 || glucose.glucoseValue > 280 {
             return LinearGradient(
-                gradient: Gradient(colors: [Color.paleRed.opacity(0.9), Color.red.opacity(0.6)]),
+                gradient: Gradient(colors: [Color.red.opacity(0.7), Color.red.opacity(0.6)]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        } else if isAlarm(glucose: glucose) {
+            return LinearGradient(
+                gradient: Gradient(colors: [Color.softOrange.opacity(0.7), Color.red.opacity(0.6)]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        } else {
+            return LinearGradient(
+                gradient: Gradient(colors: [Color.skyBlue.opacity(0.5), Color.paleBlue.opacity(0.4)]),
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
         }
-        return LinearGradient(
-            gradient: Gradient(colors: [Color.skyBlue.opacity(0.5), Color.paleBlue.opacity(0.4)]),
-            startPoint: .topLeading,
-            endPoint: .bottomTrailing)
-       }
+    }
 }
 
 extension Color {
@@ -367,7 +375,6 @@ struct StackedLiveActivityContentView: View, GlucoseStatusContext {
                             }
 
                             Text(verbatim: latestGlucose.trend.description)
-                            //    .foregroundColor(getGlucoseColor(glucose: latestGlucose))
                                 .font(.system(size: 18))
                                 .minimumScaleFactor(0.2)
                                 .lineLimit(1)
@@ -384,7 +391,7 @@ struct StackedLiveActivityContentView: View, GlucoseStatusContext {
                             .font(.footnote)
                             .minimumScaleFactor(0.1)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            font(.system(size: 10))
+                            .font(.system(size: 10))
                        
                         }
                     }
@@ -397,11 +404,12 @@ struct StackedLiveActivityContentView: View, GlucoseStatusContext {
                             .monospacedDigit()
                             .foregroundColor(.brightWhite)
                             .fontWeight(.bold)
+                            .font(.system(size: 18))
 
                         if let minuteChange = latestGlucose.minuteChange?.asMinuteChange(glucoseUnit: glucoseUnit) {
                             Text(verbatim: minuteChange)
                                 .fontWeight(.bold)
-                                .font(.system(size: 16))
+                                .font(.system(size: 18))
                                 .foregroundColor(.brightWhite)
                         } else {
                             Text(verbatim: "?")
