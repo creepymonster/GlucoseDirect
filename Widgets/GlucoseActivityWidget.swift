@@ -94,6 +94,14 @@ extension GlucoseStatusContext {
 
         return false
     }
+    
+    func isWatchAlarm(glucose: any Glucose) -> Bool {
+        if glucose.glucoseValue < context.alarmLow || glucose.glucoseValue > context.alarmHigh {
+            return true
+        }
+
+        return false
+    }
 
     func getGlucoseColor(glucose: any Glucose) -> Color {
         if isAlarm(glucose: glucose) {
@@ -106,24 +114,25 @@ extension GlucoseStatusContext {
     func getGlucoseBackgroundGradient(glucose: any Glucose) -> LinearGradient {
         if glucose.glucoseValue < 55 || glucose.glucoseValue > 280 {
             return LinearGradient(
-                gradient: Gradient(colors: [Color.red.opacity(0.7), Color.red.opacity(0.6)]),
+                gradient: Gradient(colors: [Color.red.opacity(0.7), Color.red.opacity(0.5)]),
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
         } else if isAlarm(glucose: glucose) {
             return LinearGradient(
-                gradient: Gradient(colors: [Color.softOrange.opacity(0.7), Color.red.opacity(0.6)]),
+                gradient: Gradient(colors: [Color.magentaRed.opacity(0.7), Color.magentaRed.opacity(0.5)]),
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
         } else {
             return LinearGradient(
-                gradient: Gradient(colors: [Color.skyBlue.opacity(0.5), Color.paleBlue.opacity(0.4)]),
+                gradient: Gradient(colors: [Color.paleTurquoise.opacity(0.7), Color.paleTurquoise.opacity(0.5)]),
                 startPoint: .topLeading,
-                endPoint: .bottomTrailing
+              endPoint: .bottomTrailing
             )
         }
     }
+    
 }
 
 extension Color {
@@ -132,6 +141,11 @@ extension Color {
     static let softOrange = Color(red: 255/255, green: 165/255, blue: 0/255)
     static let paleBlue = Color(red: 173/255, green: 216/255, blue: 230/255)
     static let brightWhite = Color(red: 255/255, green: 255/255, blue: 255/255, opacity: 1.0)
+    static let paleTurquoise = Color(red: 64/255, green: 224/255, blue: 208/255)
+    static let softMagentaRed = Color(red: 255/255, green: 102/255, blue: 178/255)
+    static let rubyRed = Color(red: 155/255, green: 17/255, blue: 30/255)
+    static let magentaRed = Color(red: 255/255, green: 62/255, blue: 106/255)
+    static let appleBlue = Color(red: 14.0/255.0, green: 122.0/255.0, blue: 254.0/255.0)
 }
 
 
@@ -293,10 +307,10 @@ struct GlucoseActivityView: View, GlucoseStatusContext {
         }
         .padding(.top, 5)
         .padding(.bottom, 10)
-        .privacySensitive()
-        .foregroundStyle(Color.primary)
-        .background(BackgroundStyle.background.opacity(0.6))
-        .activityBackgroundTint(Color.clear)
+ //       .privacySensitive()
+ //       .foregroundStyle(Color.primary)
+ //       .background(BackgroundStyle.background.opacity(0.6))
+//        .activityBackgroundTint(Color.clear)
     }
 }
 
@@ -375,30 +389,27 @@ struct StackedLiveActivityContentView: View, GlucoseStatusContext {
                             }
 
                             Text(verbatim: latestGlucose.trend.description)
-                                .font(.system(size: 18))
+                                .font(.system(size: 20))
                                 .minimumScaleFactor(0.2)
                                 .lineLimit(1)
                                 .foregroundColor(.brightWhite)
                         }
 
                         if let warning = warning {
-                            HStack(alignment: .center, spacing: 5) {
-                                Image(systemName: "exclamationmark.triangle")
-                                    .minimumScaleFactor(0.1)
-                                    .foregroundColor(Color.ui.red)
+                            HStack(alignment: .center) {
                                 Text(verbatim: warning)
+                                    .font(.footnote)
+                          //          .minimumScaleFactor(0.05)
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                    .font(.system(size: 6))
+                                    .foregroundStyle(.primary)
                             }
-                            .font(.footnote)
-                            .minimumScaleFactor(0.1)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(.system(size: 10))
-                       
                         }
                     }
 
                     Spacer()
 
-                    VStack(alignment: .trailing, spacing: 5) {
+                    VStack(alignment: .center, spacing: 5) {
                         Text(latestGlucose.timestamp, style: .time)
                             .bold()
                             .monospacedDigit()
