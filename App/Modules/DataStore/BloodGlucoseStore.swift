@@ -14,6 +14,7 @@ func bloodGlucoseStoreMiddleware() -> Middleware<DirectState, DirectAction> {
         switch action {
         case .startup:
             DataStore.shared.createBloodGlucoseTable()
+            DataStore.shared.addExternalGlucoseColumns()
 
             return DataStore.shared.getFirstBloodGlucoseDate().map { minSelectedDate in
                 DirectAction.setMinSelectedDate(minSelectedDate: minSelectedDate)
@@ -98,6 +99,28 @@ private extension DataStore {
             }
         }
     }
+    
+    func addExternalGlucoseColumns() {
+        if let dbQueue = dbQueue {
+            do {
+                try dbQueue.write { db in
+                    try db.alter(table: BloodGlucose.Table) { t in
+                        t.add(column: BloodGlucose.Columns.originatingSourceName.name, .text)
+                            .indexed()
+                            .defaults(to: DirectConfig.projectName)
+                        t.add(column: BloodGlucose.Columns.originatingSourceBundle.name, .text)
+                            .indexed()
+                            .defaults(to: DirectConfig.appBundle)
+                        t.add(column: BloodGlucose.Columns.appleHealthId.name, .text)
+                            .indexed()
+                    }
+                }
+            } catch {
+                DirectLog.error("\(error)")
+            }
+        }
+    }
+
 
     func deleteAllBloodGlucose() {
         if let dbQueue = dbQueue {

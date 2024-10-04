@@ -12,7 +12,7 @@ private enum Keys: String {
     case alarmHigh = "libre-direct.settings.alarm-high"
     case alarmLow = "libre-direct.settings.alarm-low"
     case alarmVolume = "libre-direct.settings.alarm-volume"
-    case appleHealthExport = "libre-direct.settings.apple-health-export"
+    case appleHealthSync = "libre-direct.settings.apple-health-export"
     case bellmanAlarm = "libre-direct.settings.bellman-alarm"
     case calendarExport = "libre-direct.settings.calendar-export"
     case chartShowLines = "libre-direct.settings.chart-show-lines"
@@ -109,16 +109,16 @@ extension UserDefaults {
         }
     }
 
-    var appleHealthExport: Bool {
+    var appleHealthSync: Bool {
         get {
-            if object(forKey: Keys.appleHealthExport.rawValue) != nil {
-                return bool(forKey: Keys.appleHealthExport.rawValue)
+            if object(forKey: Keys.appleHealthSync.rawValue) != nil {
+                return bool(forKey: Keys.appleHealthSync.rawValue)
             }
 
             return false
         }
         set {
-            set(newValue, forKey: Keys.appleHealthExport.rawValue)
+            set(newValue, forKey: Keys.appleHealthSync.rawValue)
         }
     }
 
