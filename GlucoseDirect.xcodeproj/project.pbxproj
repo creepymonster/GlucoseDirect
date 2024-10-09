@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		101B53852A3BC0210088B4BD /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 101B53842A3BC0210088B4BD /* GRDB */; };
 		107FA9CB2975C6780002A9F4 /* AdditionalSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FA9CA2975C6780002A9F4 /* AdditionalSettingsView.swift */; };
 		107FA9CD2975C6F90002A9F4 /* Float.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FA9CC2975C6F90002A9F4 /* Float.swift */; };
 		10B3B0CE2972D65F00B70CE4 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B3B0CD2972D65F00B70CE4 /* Alarm.swift */; };
@@ -20,6 +19,9 @@
 		6587CE4A29626070008518F4 /* InsulinDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587CE4929626070008518F4 /* InsulinDelivery.swift */; };
 		6587CE4C2962651B008518F4 /* InsulinDeliveryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587CE4B2962651B008518F4 /* InsulinDeliveryStore.swift */; };
 		6587CE4D29626AD5008518F4 /* InsulinDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587CE4929626070008518F4 /* InsulinDelivery.swift */; };
+		6D7231992CA6806600B9A498 /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6D7231982CA6806600B9A498 /* CryptoSwift */; };
+		6D9306602C9ECB3C00BCD78D /* GlucoseWatchActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D93065F2C9ECB2100BCD78D /* GlucoseWatchActivity.swift */; };
+		6DE86CD62C9CA70B008A827E /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 6DE86CD52C9CA70B008A827E /* GRDB */; };
 		E2016FD9285BA80300079195 /* SensorWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2016FD5285BA7C600079195 /* SensorWidget.swift */; };
 		E2016FDA285BA81700079195 /* GlucoseWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2016FD7285BA7EE00079195 /* GlucoseWidget.swift */; };
 		E2016FDC285BA82600079195 /* TransmitterWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2016FDB285BA82600079195 /* TransmitterWidget.swift */; };
@@ -218,6 +220,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		6DE86CD42C9CA68D008A827E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E27BFC1526B1407F00F8FBEF /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -257,6 +269,7 @@
 		6587CE4729625E94008518F4 /* InsulinDeliveryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsulinDeliveryListView.swift; sourceTree = "<group>"; };
 		6587CE4929626070008518F4 /* InsulinDelivery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsulinDelivery.swift; sourceTree = "<group>"; };
 		6587CE4B2962651B008518F4 /* InsulinDeliveryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsulinDeliveryStore.swift; sourceTree = "<group>"; };
+		6D93065F2C9ECB2100BCD78D /* GlucoseWatchActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseWatchActivity.swift; sourceTree = "<group>"; };
 		E2016FD5285BA7C600079195 /* SensorWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorWidget.swift; sourceTree = "<group>"; };
 		E2016FD7285BA7EE00079195 /* GlucoseWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseWidget.swift; sourceTree = "<group>"; };
 		E2016FDB285BA82600079195 /* TransmitterWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransmitterWidget.swift; sourceTree = "<group>"; };
@@ -447,7 +460,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				101B53852A3BC0210088B4BD /* GRDB in Frameworks */,
+				6DE86CD62C9CA70B008A827E /* GRDB in Frameworks */,
+				6D7231992CA6806600B9A498 /* CryptoSwift in Frameworks */,
 				E251653E28D7BFE900922898 /* ActivityKit.framework in Frameworks */,
 				E27BBA8027AD7DDA00A6B8EE /* HealthKit.framework in Frameworks */,
 			);
@@ -564,6 +578,7 @@
 				E2016FD5285BA7C600079195 /* SensorWidget.swift */,
 				E2016FD7285BA7EE00079195 /* GlucoseWidget.swift */,
 				E257B0642892C89F0081B2BD /* GlucoseActivityWidget.swift */,
+				6D93065F2C9ECB2100BCD78D /* GlucoseWatchActivity.swift */,
 				E2016FDB285BA82600079195 /* TransmitterWidget.swift */,
 				E2E8DC032859F62C002C84FD /* Widgets.entitlements */,
 				E24474482859CA9700F8891C /* Info.plist */,
@@ -920,6 +935,7 @@
 				E20B8537266F4A9800AA4224 /* Frameworks */,
 				E20B8538266F4A9800AA4224 /* Resources */,
 				E27BFC1526B1407F00F8FBEF /* Embed Foundation Extensions */,
+				6DE86CD42C9CA68D008A827E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -928,7 +944,8 @@
 			);
 			name = GlucoseDirectApp;
 			packageProductDependencies = (
-				101B53842A3BC0210088B4BD /* GRDB */,
+				6DE86CD52C9CA70B008A827E /* GRDB */,
+				6D7231982CA6806600B9A498 /* CryptoSwift */,
 			);
 			productName = GlucoseDirect;
 			productReference = E20B853A266F4A9800AA4224 /* GlucoseDirectApp.app */;
@@ -957,8 +974,9 @@
 		E20B8532266F4A9800AA4224 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1400;
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1510;
 				TargetAttributes = {
 					E20B8539266F4A9800AA4224 = {
 						CreatedOnToolsVersion = 12.5;
@@ -996,6 +1014,7 @@
 			mainGroup = E20B8531266F4A9800AA4224;
 			packageReferences = (
 				101B53832A3BC0210088B4BD /* XCRemoteSwiftPackageReference "GRDB" */,
+				6D7231972CA6806600B9A498 /* XCRemoteSwiftPackageReference "CryptoSwift" */,
 			);
 			productRefGroup = E20B853B266F4A9800AA4224 /* Products */;
 			projectDirPath = "";
@@ -1209,6 +1228,7 @@
 				E2E8DBF92859F479002C84FD /* NotificationSound.swift in Sources */,
 				E26677DA28799E76008E8B68 /* BloodGlucose.swift in Sources */,
 				E2B5FDA628789C3400D35D87 /* SensorGlucose.swift in Sources */,
+				6D9306602C9ECB3C00BCD78D /* GlucoseWatchActivity.swift in Sources */,
 				E26677DD28799E8A008E8B68 /* Glucose.swift in Sources */,
 				E2E8DC022859F481002C84FD /* DirectConfig.swift in Sources */,
 				E2BDE9D1290DF346004B8AB7 /* UIScreen.swift in Sources */,
@@ -1357,6 +1377,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1420,6 +1441,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1451,11 +1473,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"App/Preview Content\"";
-				DEVELOPMENT_TEAM = "${DEVELOPMENT_TEAM}";
+				DEVELOPMENT_TEAM = JBZXBBQ35Y;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1483,11 +1505,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"App/Preview Content\"";
-				DEVELOPMENT_TEAM = "${DEVELOPMENT_TEAM}";
+				DEVELOPMENT_TEAM = JBZXBBQ35Y;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1515,7 +1537,7 @@
 				CODE_SIGN_ENTITLEMENTS = Widgets/Widgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "${DEVELOPMENT_TEAM}";
+				DEVELOPMENT_TEAM = JBZXBBQ35Y;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Widgets/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Widgets;
@@ -1548,7 +1570,7 @@
 				CODE_SIGN_ENTITLEMENTS = Widgets/Widgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "${DEVELOPMENT_TEAM}";
+				DEVELOPMENT_TEAM = JBZXBBQ35Y;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Widgets/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Widgets;
@@ -1607,15 +1629,27 @@
 			repositoryURL = "https://github.com/groue/GRDB.swift";
 			requirement = {
 				kind = exactVersion;
-				version = 6.15.0;
+				version = 6.29.2;
+			};
+		};
+		6D7231972CA6806600B9A498 /* XCRemoteSwiftPackageReference "CryptoSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzyzanowskim/CryptoSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.8.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		101B53842A3BC0210088B4BD /* GRDB */ = {
+		6D7231982CA6806600B9A498 /* CryptoSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 101B53832A3BC0210088B4BD /* XCRemoteSwiftPackageReference "GRDB" */;
+			package = 6D7231972CA6806600B9A498 /* XCRemoteSwiftPackageReference "CryptoSwift" */;
+			productName = CryptoSwift;
+		};
+		6DE86CD52C9CA70B008A827E /* GRDB */ = {
+			isa = XCSwiftPackageProductDependency;
 			productName = GRDB;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -1,14 +1,24 @@
 {
+  "originHash" : "45f0090c156c390d3f1a4937cfb02820c4cff59bf111e9dabd3abc46741667dd",
   "pins" : [
+    {
+      "identity" : "cryptoswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/krzyzanowskim/CryptoSwift.git",
+      "state" : {
+        "revision" : "678d442c6f7828def400a70ae15968aef67ef52d",
+        "version" : "1.8.3"
+      }
+    },
     {
       "identity" : "grdb.swift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/groue/GRDB.swift",
       "state" : {
-        "revision" : "57aa4c30bfa0fe6a1913f83042937c4fb943e79c",
-        "version" : "6.15.0"
+        "revision" : "57a4587b5b09ac706bc985288a62432ddbf20b09",
+        "version" : "6.29.2"
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

@@ -7,6 +7,16 @@ import Combine
 import CoreBluetooth
 import Foundation
 import SwiftUI
+import CryptoSwift // Import CryptoSwift
+
+// MARK: - String Extension
+
+extension String {
+    /// Returns the SHA-256 hash of the string
+    func sha256() -> String {
+        return Data(self.utf8).sha256().hexEncodedString()
+    }
+}
 
 // MARK: - LibreLinkUpConnection
 
@@ -33,7 +43,6 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
     override func connectConnection(sensor: Sensor, sensorInterval: Int) {
         DirectLog.info("ConnectSensor: \(sensor)")
-        DirectLog.info("ConnectSensor, throttleDelay: \(throttleDelay)")
 
         self.sensor = sensor
         self.sensorInterval = sensorInterval
@@ -127,7 +136,8 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             return
         }
 
-        Task {
+        Task { @MainActor in
+            try? await Task.sleep(nanoseconds: 4_000_000_000)
             do {
                 try await self.processFetch()
             } catch {
@@ -138,14 +148,24 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
     override func getConfiguration(sensor: Sensor) -> [SensorConnectionConfigurationOption] {
         return [
-            SensorConnectionConfigurationOption(id: UserDefaults.Keys.email.rawValue, name: LocalizedString("LibreLinkUp email"), value: Binding(
-                get: { UserDefaults.standard.email },
-                set: { UserDefaults.standard.email = $0 }
-            ), isSecret: false),
-            SensorConnectionConfigurationOption(id: UserDefaults.Keys.password.rawValue, name: LocalizedString("LibreLinkUp password"), value: Binding(
-                get: { UserDefaults.standard.password },
-                set: { UserDefaults.standard.password = $0 }
-            ), isSecret: true),
+            SensorConnectionConfigurationOption(
+                id: UserDefaults.Keys.email.rawValue,
+                name: LocalizedString("LibreLinkUp email"),
+                value: Binding(
+                    get: { UserDefaults.standard.email },
+                    set: { UserDefaults.standard.email = $0 }
+                ),
+                isSecret: false
+            ),
+            SensorConnectionConfigurationOption(
+                id: UserDefaults.Keys.password.rawValue,
+                name: LocalizedString("LibreLinkUp password"),
+                value: Binding(
+                    get: { UserDefaults.standard.password },
+                    set: { UserDefaults.standard.password = $0 }
+                ),
+                isSecret: true
+            ),
         ]
     }
 
@@ -158,7 +178,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         "User-Agent": "Mozilla/5.0",
         "Content-Type": "application/json",
         "product": "llu.ios",
-        "version": "4.7.0",
+        "version": "4.12.0",
         "Accept-Encoding": "gzip, deflate, br",
         "Connection": "keep-alive",
         "Pragma": "no-cache",
@@ -179,17 +199,13 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         return decoder
     }()
 
-    private var throttleDelay: Double {
-        (Double(sensorInterval) / 1.5) * 60
-    }
-
     private func processLogin(apiRegion: String? = nil) async throws {
         if lastLogin == nil || lastLogin!.authExpires <= Date() {
             DirectLog.info("LibreLinkUp processLogin")
 
             var loginResponse = try await login(apiRegion: apiRegion)
             if loginResponse.status == 4 {
-                DirectLog.info("LibreLinkUp processLogin, request to accept tou")
+                DirectLog.info("LibreLinkUp processLogin, request to accept TOU")
 
                 guard let authToken = loginResponse.data?.authTicket?.token,
                       !authToken.isEmpty
@@ -223,6 +239,9 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             DirectLog.info("LibreLinkUp processLogin, apiRegion: \(apiRegion)")
             DirectLog.info("LibreLinkUp processLogin, authExpires: \(authExpires)")
 
+            // Set libreLinkUpId to userID (the correct value for Account-Id)
+            libreLinkUpId = userID
+
             let connectResponse = try await connect(apiRegion: apiRegion, authToken: authToken)
 
             guard let patientID = connectResponse.data?.first(where: { $0.patientID == userID })?.patientID ?? connectResponse.data?.first?.patientID else {
@@ -233,7 +252,13 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
             DirectLog.info("LibreLinkUp processLogin, patientID: \(patientID)")
 
-            lastLogin = LibreLinkLogin(patientID: patientID, apiRegion: apiRegion, authToken: authToken, authExpires: authExpires)
+            lastLogin = LibreLinkLogin(
+                patientID: patientID,
+                userID: userID,
+                apiRegion: apiRegion,
+                authToken: authToken,
+                authExpires: authExpires
+            )
         }
     }
 
@@ -249,7 +274,15 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
            let sensor = sensor
         {
             if sensor.serial != sensorSerial {
-                let sensor = Sensor(family: sensor.family, type: sensor.type, region: sensor.region, serial: sensorSerial, state: sensor.state, age: sensorAge, lifetime: sensor.lifetime)
+                let sensor = Sensor(
+                    family: sensor.family,
+                    type: sensor.type,
+                    region: sensor.region,
+                    serial: sensorSerial,
+                    state: sensor.state,
+                    age: sensorAge,
+                    lifetime: sensor.lifetime
+                )
                 sendUpdate(sensor: sensor)
 
                 self.sensor = sensor
@@ -276,7 +309,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
     }
 
     private func tou(apiRegion: String? = nil, authToken: String) async throws -> LibreLinkResponse<LibreLinkResponseLogin> {
-        DirectLog.info("LibreLinkUp tou")
+        DirectLog.info("LibreLinkUp TOU")
 
         var urlString: String?
         if let apiRegion = apiRegion {
@@ -285,15 +318,11 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             urlString = "https://api.libreview.io/auth/continue/tou"
         }
 
-        guard let urlString = urlString else {
+        guard let urlString = urlString, let url = URL(string: urlString) else {
             throw LibreLinkError.invalidURL
         }
 
-        guard let url = URL(string: urlString) else {
-            throw LibreLinkError.invalidURL
-        }
-
-        DirectLog.info("LibreLinkUp tou, url: \(url.absoluteString)")
+        DirectLog.info("LibreLinkUp TOU, url: \(url.absoluteString)")
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -304,10 +333,19 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             request.setValue(value, forHTTPHeaderField: header)
         }
 
+        // Set "Account-Id" header
+        guard let libreLinkUpId = libreLinkUpId, !libreLinkUpId.isEmpty else {
+            DirectLog.error("libreLinkUpId is nil or empty")
+            throw LibreLinkError.missingUserOrToken
+        }
+        let accountIdHash = libreLinkUpId.sha256()
+        request.setValue(accountIdHash, forHTTPHeaderField: "Account-Id")
+        DirectLog.info("TOU Account-Id header set to: \(accountIdHash)")
+
         let (data, response) = try await URLSession.shared.data(for: request)
         let statusCode = (response as? HTTPURLResponse)?.statusCode ?? 0
 
-        DirectLog.info("LibreLinkUp tou, response: \(String(data: data, encoding: String.Encoding.utf8))")
+        DirectLog.info("LibreLinkUp TOU, response: \(String(data: data, encoding: .utf8) ?? "No Data")")
 
         if statusCode == 200 {
             return try decode(LibreLinkResponse<LibreLinkResponseLogin>.self, data: data)
@@ -334,20 +372,18 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             urlString = "https://api.libreview.io/llu/auth/login"
         }
 
-        guard let urlString = urlString else {
-            throw LibreLinkError.invalidURL
-        }
-
-        guard let url = URL(string: urlString) else {
+        guard let urlString = urlString, let url = URL(string: urlString) else {
             throw LibreLinkError.invalidURL
         }
 
         DirectLog.info("LibreLinkUp login, url: \(url.absoluteString)")
 
-        guard let credentials = try? JSONSerialization.data(withJSONObject: [
+        let credentialsDict = [
             "email": UserDefaults.standard.email,
             "password": UserDefaults.standard.password,
-        ]) else {
+        ]
+
+        guard let credentials = try? JSONSerialization.data(withJSONObject: credentialsDict) else {
             throw LibreLinkError.serializationError
         }
 
@@ -359,10 +395,13 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             request.setValue(value, forHTTPHeaderField: header)
         }
 
+        // Do not set "Account-Id" header during login
+        // The server does not expect "Account-Id" during the login request
+
         let (data, response) = try await URLSession.shared.data(for: request)
         let statusCode = (response as? HTTPURLResponse)?.statusCode ?? 0
 
-        DirectLog.info("LibreLinkUp login, response: \(String(data: data, encoding: String.Encoding.utf8))")
+        DirectLog.info("LibreLinkUp login, response: \(String(data: data, encoding: .utf8) ?? "No Data")")
 
         if statusCode == 200 {
             return try decode(LibreLinkResponse<LibreLinkResponseLogin>.self, data: data)
@@ -391,10 +430,19 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             request.setValue(value, forHTTPHeaderField: header)
         }
 
+        // Set "Account-Id" header
+        guard let libreLinkUpId = libreLinkUpId, !libreLinkUpId.isEmpty else {
+            DirectLog.error("libreLinkUpId is nil or empty")
+            throw LibreLinkError.missingUserOrToken
+        }
+        let accountIdHash = libreLinkUpId.sha256()
+        request.setValue(accountIdHash, forHTTPHeaderField: "Account-Id")
+        DirectLog.info("Connect Account-Id header set to: \(accountIdHash)")
+
         let (data, response) = try await URLSession.shared.data(for: request)
         let statusCode = (response as? HTTPURLResponse)?.statusCode ?? 0
 
-        DirectLog.info("LibreLinkUp connect, response: \(String(data: data, encoding: String.Encoding.utf8))")
+        DirectLog.info("LibreLinkUp connect, response: \(String(data: data, encoding: .utf8) ?? "No Data")")
 
         if statusCode == 200 {
             return try decode(LibreLinkResponse<[LibreLinkResponseConnect]>.self, data: data)
@@ -427,10 +475,19 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             request.setValue(value, forHTTPHeaderField: header)
         }
 
+        // Set "Account-Id" header
+        guard let libreLinkUpId = libreLinkUpId, !libreLinkUpId.isEmpty else {
+            DirectLog.error("libreLinkUpId is nil or empty")
+            throw LibreLinkError.missingUserOrToken
+        }
+        let accountIdHash = libreLinkUpId.sha256()
+        request.setValue(accountIdHash, forHTTPHeaderField: "Account-Id")
+        DirectLog.info("Fetch Account-Id header set to: \(accountIdHash)")
+
         let (data, response) = try await URLSession.shared.data(for: request)
         let statusCode = (response as? HTTPURLResponse)?.statusCode ?? 0
 
-        DirectLog.info("LibreLinkUp fetch, response: \(String(data: data, encoding: String.Encoding.utf8))")
+        DirectLog.info("LibreLinkUp fetch, response: \(String(data: data, encoding: .utf8) ?? "No Data")")
 
         if statusCode == 200 {
             return try decode(LibreLinkResponse<LibreLinkResponseFetch>.self, data: data)
@@ -450,7 +507,13 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
         return try jsonDecoder.decode(T.self, from: data)
     }
+
+    // MARK: - Private Variables
+
+    private var libreLinkUpId: String? // Variable to hold libreLinkUpId (userID)
 }
+
+// MARK: - UserDefaults Extension
 
 private extension UserDefaults {
     enum Keys: String {
@@ -526,7 +589,8 @@ private struct LibreLinkResponseActiveSensors: Codable {
 // MARK: - LibreLinkResponseDevice
 
 private struct LibreLinkResponseDevice: Codable {
-    enum CodingKeys: String, CodingKey { case dtid
+    enum CodingKeys: String, CodingKey {
+        case dtid
         case version = "v"
     }
 
@@ -537,7 +601,8 @@ private struct LibreLinkResponseDevice: Codable {
 // MARK: - LibreLinkResponseSensor
 
 private struct LibreLinkResponseSensor: Codable {
-    enum CodingKeys: String, CodingKey { case sn
+    enum CodingKeys: String, CodingKey {
+        case sn
         case activation = "a"
     }
 
@@ -559,7 +624,8 @@ private extension LibreLinkResponseSensor {
 // MARK: - LibreLinkResponseGlucose
 
 private struct LibreLinkResponseGlucose: Codable {
-    enum CodingKeys: String, CodingKey { case timestamp = "Timestamp"
+    enum CodingKeys: String, CodingKey {
+        case timestamp = "Timestamp"
         case value = "ValueInMgPerDl"
     }
 
@@ -600,8 +666,9 @@ private struct LibreLinkResponseAuthentication: Codable {
 private struct LibreLinkLogin {
     // MARK: Lifecycle
 
-    init(patientID: String, apiRegion: String, authToken: String, authExpires: Double) {
+    init(patientID: String, userID: String, apiRegion: String, authToken: String, authExpires: Double) {
         self.patientID = patientID
+        self.userID = userID
         self.apiRegion = apiRegion.lowercased()
         self.authToken = authToken
         self.authExpires = Date(timeIntervalSince1970: authExpires)
@@ -610,6 +677,7 @@ private struct LibreLinkLogin {
     // MARK: Internal
 
     let patientID: String
+    let userID: String
     let apiRegion: String
     let authToken: String
     let authExpires: Date
@@ -647,7 +715,7 @@ extension LibreLinkError: CustomStringConvertible {
         case .maintenance:
             return "Maintenance"
         case .invalidURL:
-            return "Invalid url"
+            return "Invalid URL"
         case .serializationError:
             return "Serialization error"
         case .missingUserOrToken:
@@ -655,7 +723,7 @@ extension LibreLinkError: CustomStringConvertible {
         case .missingLoginSession:
             return "Missing login session"
         case .missingPatientID:
-            return "Missing patient id"
+            return "Missing patient ID"
         case .invalidCredentials:
             return "Invalid credentials (check 'Settings' > 'Connection Settings')"
         case .missingCredentials:

@@ -63,6 +63,7 @@ struct SensorEntry: TimelineEntry {
 // MARK: - SensorUpdateProvider
 
 struct SensorUpdateProvider: TimelineProvider {
+    
     func placeholder(in context: Context) -> SensorEntry {
         return SensorEntry(date: Date(), sensor: placeholderSensor)
     }
@@ -126,10 +127,12 @@ struct SensorWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: SensorUpdateProvider()) { entry in
             SensorView(entry: entry)
+                .widgetBackground(Color.black)
         }
         .supportedFamilies([.accessoryCircular])
         .configurationDisplayName("Sensor lifetime widget")
         .description("Sensor lifetime widget description")
+        .contentMarginsDisabled()
     }
 }
 
