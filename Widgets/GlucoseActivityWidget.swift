@@ -114,21 +114,21 @@ extension GlucoseStatusContext {
     func getGlucoseBackgroundGradient(glucose: any Glucose) -> LinearGradient {
         if glucose.glucoseValue < 55 || glucose.glucoseValue > 280 {
             return LinearGradient(
-                gradient: Gradient(colors: [Color.red.opacity(0.7), Color.red.opacity(0.5)]),
+                gradient: Gradient(colors: [Color.red.opacity(0.9), Color.red.opacity(0.9)]),
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
         } else if isAlarm(glucose: glucose) {
             return LinearGradient(
-                gradient: Gradient(colors: [Color.magentaRed.opacity(0.7), Color.magentaRed.opacity(0.5)]),
+                gradient: Gradient(colors: [Color.red.opacity(0.9), Color.red.opacity(0.7)]),
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
         } else {
             return LinearGradient(
-                gradient: Gradient(colors: [Color.paleTurquoise.opacity(0.7), Color.paleTurquoise.opacity(0.5)]),
+                gradient: Gradient(colors: [Color.screamingGreen.opacity(0.8), Color.screamingGreen.opacity(0.8)]),
                 startPoint: .topLeading,
-              endPoint: .bottomTrailing
+                endPoint: .bottomTrailing
             )
         }
     }
@@ -136,16 +136,7 @@ extension GlucoseStatusContext {
 }
 
 extension Color {
-    static let skyBlue = Color(red: 135/255, green: 206/255, blue: 235/255)
-    static let paleRed = Color(red: 255/255, green: 182/255, blue: 193/255)
-    static let softOrange = Color(red: 255/255, green: 165/255, blue: 0/255)
-    static let paleBlue = Color(red: 173/255, green: 216/255, blue: 230/255)
-    static let brightWhite = Color(red: 255/255, green: 255/255, blue: 255/255, opacity: 1.0)
-    static let paleTurquoise = Color(red: 64/255, green: 224/255, blue: 208/255)
-    static let softMagentaRed = Color(red: 255/255, green: 102/255, blue: 178/255)
-    static let rubyRed = Color(red: 155/255, green: 17/255, blue: 30/255)
-    static let magentaRed = Color(red: 255/255, green: 62/255, blue: 106/255)
-    static let appleBlue = Color(red: 14.0/255.0, green: 122.0/255.0, blue: 254.0/255.0)
+    static let screamingGreen = Color(red: 61/255, green: 255/255, blue: 139/255)
 }
 
 
@@ -381,7 +372,7 @@ struct StackedLiveActivityContentView: View, GlucoseStatusContext {
                                         Text("HIGH")
                                     }
                                 }
-                                .foregroundColor(.brightWhite)
+                                .foregroundColor(.primary)
                                 .font(.system(size: 32))
                                 .minimumScaleFactor(0.2)
                                 .lineLimit(1)
@@ -392,7 +383,7 @@ struct StackedLiveActivityContentView: View, GlucoseStatusContext {
                                 .font(.system(size: 20))
                                 .minimumScaleFactor(0.2)
                                 .lineLimit(1)
-                                .foregroundColor(.brightWhite)
+                                .foregroundColor(.primary)
                         }
 
                         if let warning = warning {
@@ -413,7 +404,7 @@ struct StackedLiveActivityContentView: View, GlucoseStatusContext {
                         Text(latestGlucose.timestamp, style: .time)
                             .bold()
                             .monospacedDigit()
-                            .foregroundColor(.brightWhite)
+                            .foregroundColor(.primary)
                             .fontWeight(.bold)
                             .font(.system(size: 18))
 
@@ -421,7 +412,7 @@ struct StackedLiveActivityContentView: View, GlucoseStatusContext {
                             Text(verbatim: minuteChange)
                                 .fontWeight(.bold)
                                 .font(.system(size: 18))
-                                .foregroundColor(.brightWhite)
+                                .foregroundColor(.primary)
                         } else {
                             Text(verbatim: "?")
                         }
