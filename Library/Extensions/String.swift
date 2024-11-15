@@ -5,6 +5,7 @@
 
 import CommonCrypto
 import Foundation
+import CryptoKit
 
 extension String {
     func capitalizingFirstLetter() -> String {
@@ -13,6 +14,13 @@ extension String {
 
     func asMinuteChange() -> String {
         return String(format: LocalizedString("%1$@/min."), self)
+    }
+    
+    func toSha256() -> String {
+        let data = Data(self.utf8)
+        
+        let hashedData = SHA256.hash(data: data)
+        return hashedData.map { String(format: "%02hhx", $0) }.joined()
     }
 
     func toSha1() -> String {

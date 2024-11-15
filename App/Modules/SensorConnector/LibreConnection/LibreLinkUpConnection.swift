@@ -224,7 +224,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
             DirectLog.info("LibreLinkUp processLogin, apiRegion: \(apiRegion)")
             DirectLog.info("LibreLinkUp processLogin, authExpires: \(authExpires)")
 
-            let connectResponse = try await connect(apiRegion: apiRegion, authToken: authToken)
+            let connectResponse = try await connect(userID: userID, apiRegion: apiRegion, authToken: authToken)
 
             guard let patientID = connectResponse.data?.first(where: { $0.patientID == userID })?.patientID ?? connectResponse.data?.first?.patientID else {
                 disconnectConnection()
@@ -234,7 +234,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
             DirectLog.info("LibreLinkUp processLogin, patientID: \(patientID)")
 
-            lastLogin = LibreLinkLogin(patientID: patientID, apiRegion: apiRegion, authToken: authToken, authExpires: authExpires)
+            lastLogin = LibreLinkLogin(userID: userID, patientID: patientID, apiRegion: apiRegion, authToken: authToken, authExpires: authExpires)
         }
     }
 
@@ -376,7 +376,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         throw LibreLinkError.unknownError
     }
 
-    private func connect(apiRegion: String, authToken: String) async throws -> LibreLinkResponse<[LibreLinkResponseConnect]> {
+    private func connect(userID: String, apiRegion: String, authToken: String) async throws -> LibreLinkResponse<[LibreLinkResponseConnect]> {
         DirectLog.info("LibreLinkUp connect")
 
         guard let url = URL(string: "https://api-\(apiRegion).libreview.io/llu/connections") else {
@@ -387,6 +387,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
         var request = URLRequest(url: url)
         request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
+        request.setValue(userID.toSha256(), forHTTPHeaderField: "Account-Id")
 
         for (header, value) in requestHeaders {
             request.setValue(value, forHTTPHeaderField: header)
@@ -423,6 +424,7 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
 
         var request = URLRequest(url: url)
         request.setValue("Bearer \(lastLogin.authToken)", forHTTPHeaderField: "Authorization")
+        request.setValue(lastLogin.userID.toSha256(), forHTTPHeaderField: "Account-Id")
 
         for (header, value) in requestHeaders {
             request.setValue(value, forHTTPHeaderField: header)
@@ -595,7 +597,8 @@ private struct LibreLinkResponseAuthentication: Codable {
 private struct LibreLinkLogin {
     // MARK: Lifecycle
 
-    init(patientID: String, apiRegion: String, authToken: String, authExpires: Double) {
+    init(userID: String, patientID: String, apiRegion: String, authToken: String, authExpires: Double) {
+        self.userID = userID
         self.patientID = patientID
         self.apiRegion = apiRegion.lowercased()
         self.authToken = authToken
@@ -604,6 +607,7 @@ private struct LibreLinkLogin {
 
     // MARK: Internal
 
+    let userID: String
     let patientID: String
     let apiRegion: String
     let authToken: String
