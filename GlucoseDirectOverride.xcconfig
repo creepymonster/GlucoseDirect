@@ -3,8 +3,4 @@
 //  LibreDirect
 //
 
-PRODUCT_BUNDLE_IDENTIFIER = name.${DEVELOPMENT_TEAM}.libre-direct
 DEVELOPMENT_TEAM = 9JNYW2DG9D
-
-APP_AUTHOR = Reimar Metzen
-APP_SUPPORT_MAIL = glucosedirect@icloud.com
