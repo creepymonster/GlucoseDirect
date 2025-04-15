@@ -399,7 +399,7 @@ struct ChartView: View {
         }.chartOverlay { overlayProxy in
             GeometryReader { geometryProxy in
                 Rectangle().fill(.clear).contentShape(Rectangle())
-                    .gesture(DragGesture()
+                    .simultaneousGesture(DragGesture()
                         .onChanged { value in
                             let currentX = value.location.x - geometryProxy[overlayProxy.plotAreaFrame].origin.x
 
