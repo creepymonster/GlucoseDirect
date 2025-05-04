@@ -102,6 +102,7 @@ struct GlucoseView: View {
                             .font(.system(size: 10))
                     }
                 }
+                .widgetBackground(backgroundView: Color("WidgetBackground"))
 
             case .accessoryCircular:
                 VStack(alignment: .center) {
@@ -113,6 +114,7 @@ struct GlucoseView: View {
                     Text(glucose.timestamp.toLocalTime())
                         .font(.system(size: 10))
                 }
+                .widgetBackground(backgroundView: Color("WidgetBackground"))
 
             case .systemSmall:
                 ZStack {
@@ -159,6 +161,7 @@ struct GlucoseView: View {
                         .font(.footnote)
                     }
                 }
+                .widgetBackground(backgroundView: Color("WidgetBackground"))
 
             default:
                 Text("")

@@ -105,7 +105,9 @@ struct SensorView: View {
                     Text(sensor.remainingWarmupTime == nil ? sensor.family.localizedDescription : "Warmup")
                         .font(.system(size: 10))
                 }
-            ).gaugeStyle(.accessoryCircularCapacity)
+            )
+            .gaugeStyle(.accessoryCircularCapacity)
+            .widgetBackground(backgroundView: Color("WidgetBackground"))
         } else {
             ZStack(alignment: .center) {
                 Circle()
@@ -114,6 +116,7 @@ struct SensorView: View {
 
                 Image(systemName: "questionmark")
             }
+            .widgetBackground(backgroundView: Color("WidgetBackground"))
         }
     }
 }
