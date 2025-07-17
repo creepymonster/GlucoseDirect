@@ -200,7 +200,9 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
                     throw LibreLinkError.missingUserOrToken
                 }
                 
-                loginResponse = try await tou(apiRegion: apiRegion, authToken: authToken)
+                let type = loginResponse.data?.step?.type ?? "tou"
+                
+                loginResponse = try await tou(apiRegion: apiRegion, authToken: authToken, type: type)
             }
 
             if let redirect = loginResponse.data?.redirect, let region = loginResponse.data?.region, redirect, !region.isEmpty {
@@ -276,14 +278,14 @@ class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
         })
     }
     
-    private func tou(apiRegion: String? = nil, authToken: String) async throws -> LibreLinkResponse<LibreLinkResponseLogin> {
+    private func tou(apiRegion: String? = nil, authToken: String, type: String) async throws -> LibreLinkResponse<LibreLinkResponseLogin> {
         DirectLog.info("LibreLinkUp tou")
 
         var urlString: String?
         if let apiRegion = apiRegion {
-            urlString = "https://api-\(apiRegion).libreview.io/auth/continue/tou"
+            urlString = "https://api-\(apiRegion).libreview.io/auth/continue/\(type)"
         } else {
-            urlString = "https://api.libreview.io/auth/continue/tou"
+            urlString = "https://api.libreview.io/auth/continue/\(type)"
         }
 
         guard let urlString = urlString else {
@@ -487,9 +489,16 @@ private struct LibreLinkResponse<T: Codable>: Codable {
     let data: T?
 }
 
+// MARK: - LibreLinkResponseStep
+
+private struct LibreLinkResponseStep: Codable {
+    let type: String;
+}
+
 // MARK: - LibreLinkResponseLogin
 
 private struct LibreLinkResponseLogin: Codable {
+    let step: LibreLinkResponseStep?
     let user: LibreLinkResponseUser?
     let authTicket: LibreLinkResponseAuthentication?
     let redirect: Bool?
