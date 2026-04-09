@@ -58,10 +58,15 @@ class Libre2Connection: SensorBluetoothConnection, IsSensor {
         DirectLog.info("ManufacturerData: \(manufacturerData)")
 
         if manufacturerData.count == 8 {
-            var foundUUID = manufacturerData.subdata(in: 2 ..< 8)
-            foundUUID.append(contentsOf: [0x07, 0xe0])
+            let baseUUID = manufacturerData.subdata(in: 2 ..< 8)
 
-            if foundUUID == sensor.uuid {
+            let matchesSensorUUID = ([ [UInt8(0x07), 0xe0], [0x7A, 0xe0] ]).contains { suffix in
+                var candidate = baseUUID
+                candidate.append(contentsOf: suffix) // suffix ist jetzt [UInt8]
+                return candidate == sensor.uuid
+            }
+
+            if matchesSensorUUID {
                 manager.stopScan()
                 connect(peripheral)
             }
