@@ -1,6 +1,6 @@
 //
 //  SensorType.swift
-//  GlucoseDirect
+//  DOSBTS
 //
 
 import Foundation
@@ -33,7 +33,7 @@ enum SensorType: String, Codable {
             self = .libreUS14day
         case 0x70:
             self = .libreProH
-        case 0x9D, 0xC5, 0xC6:
+        case 0x9D, 0xC5, 0xC6, 0x7F:
             self = .libre2EU
         case 0x76:
             self = patchInfo[3] == 0x02 ? .libre2US
