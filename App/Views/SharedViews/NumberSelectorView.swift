@@ -63,11 +63,11 @@ struct NumberSelectorView: View {
                 .foregroundColor(Color.primary)
                 .buttonStyle(.borderless)
 
-                Slider(value: doubleProxy, in: min ... max).onChange(of: value, perform: { value in
+                Slider(value: doubleProxy, in: min ... max).onChange(of: value) { _, value in
                     if let completionHandler = completionHandler {
                         completionHandler(value)
                     }
-                })
+                }
 
                 Button {
                     value = value + 1

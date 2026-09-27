@@ -68,7 +68,7 @@ struct CustomCalibrationView: View {
             ).onAppear {
                 DirectLog.info("onAppear")
                 self.customCalibration = store.state.customCalibration.reversed()
-            }.onChange(of: store.state.customCalibration) { customCalibration in
+            }.onChange(of: store.state.customCalibration) { _, customCalibration in
                 DirectLog.info("onChange")
                 self.customCalibration = customCalibration.reversed()
             }

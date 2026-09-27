@@ -35,7 +35,7 @@ struct ContentView: View {
                     Label("Settings view", systemImage: "gearshape")
                 }.tag(DirectConfig.settingsViewTag)
             }
-            .onChange(of: scenePhase) { newPhase in
+            .onChange(of: scenePhase) { _, newPhase in
                 if store.state.appState != newPhase {
                     store.dispatch(.setAppState(appState: newPhase))
                 }
@@ -48,9 +48,9 @@ struct ContentView: View {
                     WidgetCenter.shared.reloadAllTimelines()
                 }
             }
-            .onChange(of: store.state.latestSensorGlucose, perform: { _ in
+            .onChange(of: store.state.latestSensorGlucose) { _, _ in
                 WidgetCenter.shared.reloadAllTimelines()
-            })
+            }
             .onAppear {
                 DirectLog.info("onAppear()")
 

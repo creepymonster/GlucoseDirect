@@ -1,0 +1,9 @@
+{
+  "id" : "a356c3e8-a0c0-483f-a4a2-570c181198fa",
+  "targets" : [
+    {
+      "id" : "6752C322-530A-4932-B0A3-81816FB77A7D",
+      "name" : "GlucoseDirectApp"
+    }
+  ]
+}

@@ -68,7 +68,7 @@ struct InsulinDeliveryListView: View {
             DirectLog.info("onAppear")
             self.insulinDeliveryValues = store.state.insulinDeliveryValues.reversed()
         }
-        .onChange(of: store.state.insulinDeliveryValues) { insulinDeliveryValues in
+        .onChange(of: store.state.insulinDeliveryValues) { _, insulinDeliveryValues in
             DirectLog.info("onChange")
             self.insulinDeliveryValues = insulinDeliveryValues.reversed()
         }

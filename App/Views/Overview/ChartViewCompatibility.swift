@@ -28,61 +28,61 @@ struct ChartViewCompatibility: View {
             .gesture(TapGesture(count: 2).onEnded { _ in
                 store.dispatch(.setChartShowLines(enabled: !store.state.chartShowLines))
             })
-            .onChange(of: colorScheme) { scheme in
+            .onChange(of: colorScheme) { _, scheme in
                 if deviceColorScheme != scheme {
                     DirectLog.info("onChange colorScheme: \(scheme)")
                     deviceColorScheme = scheme
                 }
             }
-            .onChange(of: store.state.chartShowLines) { chartShowLines in
+            .onChange(of: store.state.chartShowLines) { _, chartShowLines in
                 DirectLog.info("onChange chartShowLines: \(chartShowLines)")
 
                 updateSensorGlucosePath(fullSize: geo.size, glucoseValues: sensorGlucoseValues)
                 updateBloodGlucosePath(fullSize: geo.size, glucoseValues: bloodGlucoseValues)
             }
-            .onChange(of: store.state.alarmLow) { alarmLow in
+            .onChange(of: store.state.alarmLow) { _, alarmLow in
                 DirectLog.info("onChange alarmLow: \(alarmLow)")
 
                 updateYGrid(fullSize: geo.size, alarmLow: alarmLow, alarmHigh: store.state.alarmHigh, targetValue: store.state.targetValue, glucoseUnit: store.state.glucoseUnit)
                 updateAlarmLowGrid(fullSize: geo.size, alarmLow: alarmLow)
             }
-            .onChange(of: store.state.alarmHigh) { alarmHigh in
+            .onChange(of: store.state.alarmHigh) { _, alarmHigh in
                 DirectLog.info("onChange alarmHigh: \(alarmHigh)")
 
                 updateYGrid(fullSize: geo.size, alarmLow: store.state.alarmLow, alarmHigh: alarmHigh, targetValue: store.state.targetValue, glucoseUnit: store.state.glucoseUnit)
                 updateAlarmHighGrid(fullSize: geo.size, alarmHigh: alarmHigh)
             }
-            .onChange(of: store.state.targetValue) { targetValue in
+            .onChange(of: store.state.targetValue) { _, targetValue in
                 DirectLog.info("onChange targetValue: \(targetValue)")
 
                 updateYGrid(fullSize: geo.size, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh, targetValue: targetValue, glucoseUnit: store.state.glucoseUnit)
                 updateTargetGrid(fullSize: geo.size, targetValue: targetValue)
             }
-            .onChange(of: store.state.glucoseUnit) { glucoseUnit in
+            .onChange(of: store.state.glucoseUnit) { _, glucoseUnit in
                 DirectLog.info("onChange glucoseUnit: \(glucoseUnit)")
 
                 updateYGrid(fullSize: geo.size, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh, targetValue: store.state.targetValue, glucoseUnit: glucoseUnit)
             }
-            .onChange(of: store.state.sensorGlucoseValues) { _ in
+            .onChange(of: store.state.sensorGlucoseValues) { _, _ in
                 DirectLog.info("onChange glucoseValues: \(store.state.sensorGlucoseValues.count)")
 
                 updateHelpVariables(fullSize: geo.size, glucoseValues: store.state.sensorGlucoseValues)
                 updateGlucoseValues(sensorGlucoseValues: store.state.sensorGlucoseValues, bloodGlucoseValues: store.state.bloodGlucoseValues)
             }
-            .onChange(of: store.state.bloodGlucoseValues) { _ in
+            .onChange(of: store.state.bloodGlucoseValues) { _, _ in
                 DirectLog.info("onChange glucoseValues: \(store.state.bloodGlucoseValues.count)")
 
                 updateHelpVariables(fullSize: geo.size, glucoseValues: store.state.sensorGlucoseValues)
                 updateGlucoseValues(sensorGlucoseValues: store.state.sensorGlucoseValues, bloodGlucoseValues: store.state.bloodGlucoseValues)
             }
-            .onChange(of: store.state.chartZoomLevel) { zoomLevel in
+            .onChange(of: store.state.chartZoomLevel) { _, zoomLevel in
                 DirectLog.info("onChange zoomLevel: \(zoomLevel)")
 
                 updateZoomLevel(level: zoomLevel)
                 updateHelpVariables(fullSize: geo.size, glucoseValues: store.state.sensorGlucoseValues)
                 updateGlucoseValues(sensorGlucoseValues: store.state.sensorGlucoseValues, bloodGlucoseValues: store.state.bloodGlucoseValues)
             }
-            .onChange(of: sensorGlucoseValues) { _ in
+            .onChange(of: sensorGlucoseValues) { _, _ in
                 DirectLog.info("onChange sensorGlucoseValues")
 
                 updateYGrid(fullSize: geo.size, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh, targetValue: store.state.targetValue, glucoseUnit: store.state.glucoseUnit)
@@ -94,7 +94,7 @@ struct ChartViewCompatibility: View {
 
                 updateSensorGlucosePath(fullSize: geo.size, glucoseValues: sensorGlucoseValues)
             }
-            .onChange(of: bloodGlucoseValues) { _ in
+            .onChange(of: bloodGlucoseValues) { _, _ in
                 DirectLog.info("onChange bloodGlucoseValues")
 
                 updateYGrid(fullSize: geo.size, alarmLow: store.state.alarmLow, alarmHigh: store.state.alarmHigh, targetValue: store.state.targetValue, glucoseUnit: store.state.glucoseUnit)
@@ -294,13 +294,13 @@ struct ChartViewCompatibility: View {
                     bgmDotsView().zIndex(4)
                 }
                 .frame(width: CGFloat(Double(glucoseSteps) * Config.x.stepWidth))
-                .onChange(of: store.state.sensorGlucoseValues) { _ in
+                .onChange(of: store.state.sensorGlucoseValues) { _, _ in
                     scroll.scrollTo(Config.endID, anchor: .trailing)
                 }
-                .onChange(of: store.state.bloodGlucoseValues) { _ in
+                .onChange(of: store.state.bloodGlucoseValues) { _, _ in
                     scroll.scrollTo(Config.endID, anchor: .trailing)
                 }
-                .onChange(of: store.state.chartZoomLevel) { _ in
+                .onChange(of: store.state.chartZoomLevel) { _, _ in
                     scroll.scrollTo(Config.endID, anchor: .trailing)
                 }.onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {

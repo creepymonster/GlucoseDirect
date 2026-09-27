@@ -161,7 +161,7 @@ private class ActivityGlucoseService {
         Task {
             let activities = Activity<SensorGlucoseActivityAttributes>.activities
             for activity in activities {
-                await activity.end(dismissalPolicy: .immediate)
+                await activity.end(nil, dismissalPolicy: .immediate)
             }
 
             do {
@@ -174,7 +174,7 @@ private class ActivityGlucoseService {
 
                 activity = try Activity<SensorGlucoseActivityAttributes>.request(
                     attributes: activityAttributes,
-                    contentState: initialContentState,
+                    content: ActivityContent(state: initialContentState, staleDate: nil),
                     pushType: nil
                 )
             } catch {
@@ -195,7 +195,7 @@ private class ActivityGlucoseService {
 
         Task {
             let updatedStatus = getStatus(alarmLow: alarmLow, alarmHigh: alarmHigh, sensorState: sensorState, connectionState: connectionState, glucose: glucose, glucoseUnit: glucoseUnit)
-            await activity.update(using: updatedStatus)
+            await activity.update(ActivityContent(state: updatedStatus, staleDate: nil))
         }
     }
 
@@ -208,7 +208,7 @@ private class ActivityGlucoseService {
         Task {
             let activities = Activity<SensorGlucoseActivityAttributes>.activities
             for activity in activities {
-                await activity.end(using: getStatus(), dismissalPolicy: .immediate)
+                await activity.end(ActivityContent(state: getStatus(), staleDate: nil), dismissalPolicy: .immediate)
             }
         }
     }

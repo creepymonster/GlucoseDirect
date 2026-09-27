@@ -54,16 +54,16 @@ struct ChartView: View {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 ChartView
                                     .frame(width: max(0, screenWidth, seriesWidth), height: min(screenHeight, Config.chartHeight))
-                                    .onChange(of: store.state.sensorGlucoseValues) { _ in
+                                    .onChange(of: store.state.sensorGlucoseValues) { _, _ in
                                         scrollToEnd(scrollViewProxy: scrollViewProxy)
 
-                                    }.onChange(of: store.state.bloodGlucoseValues) { _ in
+                                    }.onChange(of: store.state.bloodGlucoseValues) { _, _ in
                                         scrollToEnd(scrollViewProxy: scrollViewProxy)
 
-                                    }.onChange(of: store.state.insulinDeliveryValues) { _ in
+                                    }.onChange(of: store.state.insulinDeliveryValues) { _, _ in
                                         scrollToEnd(scrollViewProxy: scrollViewProxy)
 
-                                    }.onChange(of: store.state.chartZoomLevel) { _ in
+                                    }.onChange(of: store.state.chartZoomLevel) { _, _ in
                                         scrollToEnd(scrollViewProxy: scrollViewProxy, force: true)
 
                                     }.onAppear {
@@ -332,7 +332,7 @@ struct ChartView: View {
             }
         }
         .id(Config.chartID)
-        .onChange(of: store.state.showSmoothedGlucose) { _ in
+        .onChange(of: store.state.showSmoothedGlucose) { _, _ in
             if shouldRefresh {
                 DirectLog.info("onChange: sensorGlucoseValues")
 
@@ -340,7 +340,7 @@ struct ChartView: View {
                 updateSensorSeries()
             }
 
-        }.onChange(of: store.state.sensorGlucoseValues) { _ in
+        }.onChange(of: store.state.sensorGlucoseValues) { _, _ in
             if shouldRefresh {
                 DirectLog.info("onChange: sensorGlucoseValues")
 
@@ -348,7 +348,7 @@ struct ChartView: View {
                 updateSensorSeries()
             }
 
-        }.onChange(of: store.state.bloodGlucoseValues) { _ in
+        }.onChange(of: store.state.bloodGlucoseValues) { _, _ in
             if shouldRefresh {
                 DirectLog.info("onChange: bloodGlucoseValues")
 
@@ -356,7 +356,7 @@ struct ChartView: View {
                 updateBloodSeries()
             }
 
-        }.onChange(of: store.state.insulinDeliveryValues) { _ in
+        }.onChange(of: store.state.insulinDeliveryValues) { _, _ in
             if shouldRefresh {
                 DirectLog.info("onChange: insulinDeliveryValues")
 
@@ -364,17 +364,17 @@ struct ChartView: View {
                 updateInsulinSeries()
             }
 
-        }.onChange(of: store.state.chartZoomLevel) { _ in
+        }.onChange(of: store.state.chartZoomLevel) { _, _ in
             if shouldRefresh {
                 DirectLog.info("onChange: chartZoomLevel")
 
                 updateSeriesMetadata()
             }
 
-        }.onChange(of: store.state.showSmoothedGlucose) { _ in
+        }.onChange(of: store.state.showSmoothedGlucose) { _, _ in
             showUnsmoothedValues = false
 
-        }.onChange(of: store.state.selectedDate) { _ in
+        }.onChange(of: store.state.selectedDate) { _, _ in
             selectedSmoothSensorPoint = nil
             selectedRawSensorPoint = nil
             selectedBloodPoint = nil
@@ -401,7 +401,7 @@ struct ChartView: View {
                 Rectangle().fill(.clear).contentShape(Rectangle())
                     .gesture(DragGesture()
                         .onChanged { value in
-                            let currentX = value.location.x - geometryProxy[overlayProxy.plotAreaFrame].origin.x
+                            let currentX = value.location.x - geometryProxy[overlayProxy.plotFrame!].origin.x
 
                             if let currentDate: Date = overlayProxy.value(atX: currentX) {
                                 let selectedSmoothSensorPoint = smoothSensorPointInfos[currentDate.toRounded(on: 1, .minute)]

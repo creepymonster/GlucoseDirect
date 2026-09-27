@@ -43,7 +43,7 @@ class LibreNFC: NSObject, NFCTagReaderSessionDelegate {
     }
 
     func tagReaderSession(_ session: NFCTagReaderSession, didDetect tags: [NFCTag]) {
-        Task {
+        _ = Task {
             guard let firstTag = tags.first else {
                 returnWithError(LibrePairingError.noTagFound)
                 return

@@ -10,7 +10,7 @@ import SwiftUI
 
 // MARK: - LibreLinkUpConnection
 
-class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor {
+class LibreLinkUpConnection: SensorBluetoothConnection, IsSensor, @unchecked Sendable {
     // MARK: Lifecycle
 
     init(subject: PassthroughSubject<DirectAction, DirectError>) {

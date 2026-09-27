@@ -67,7 +67,7 @@ struct SensorGlucoseListView: View {
             DirectLog.info("onAppear")
             self.sensorGlucoseValues = store.state.sensorGlucoseValues.reversed()
         }
-        .onChange(of: store.state.sensorGlucoseValues) { glucoseValues in
+        .onChange(of: store.state.sensorGlucoseValues) { _, glucoseValues in
             DirectLog.info("onChange")
             self.sensorGlucoseValues = glucoseValues.reversed()
         }

@@ -54,7 +54,7 @@ struct SensorErrorListView: View {
             DirectLog.info("onAppear")
             self.sensorErrorValues = store.state.sensorErrorValues.reversed()
         }
-        .onChange(of: store.state.sensorErrorValues) { errorValues in
+        .onChange(of: store.state.sensorErrorValues) { _, errorValues in
             DirectLog.info("onChange")
             self.sensorErrorValues = errorValues.reversed()
         }

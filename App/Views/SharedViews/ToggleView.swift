@@ -60,11 +60,11 @@ struct ToggleView: View {
                         }
                     }
                 }.frame(maxWidth: .infinity, alignment: .trailing)
-            }).onChange(of: value, perform: { value in
+            }).onChange(of: value) { _, value in
                 if let completionHandler = completionHandler {
                     completionHandler(value)
                 }
-            })
+            }
             .toggleStyle(SwitchToggleStyle(tint: tintColor))
             .if(trueValue == nil && falseValue == nil) { $0.labelsHidden() }
         }
