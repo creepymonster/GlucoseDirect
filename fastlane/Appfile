@@ -1,0 +1,2 @@
+# app_identifier is derived from the Apple Developer Team ID at build time.
+# See fastlane/Fastfile and the GitHub Actions workflows.

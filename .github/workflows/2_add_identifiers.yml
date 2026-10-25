@@ -1,0 +1,44 @@
+name: 2. Add Identifiers
+run-name: Add Identifiers (${{ github.ref_name }})
+on:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    name: Validate
+    uses: ./.github/workflows/1_validate_secrets.yml
+    secrets: inherit
+
+  identifiers:
+    name: Add Identifiers
+    needs: validate
+    runs-on: macos-15
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Patch Match Tables
+        run: |
+          TABLE_PRINTER_PATH=$(ruby -e 'puts Gem::Specification.find_by_name("fastlane").gem_dir')/match/lib/match/table_printer.rb
+          if [ -f "$TABLE_PRINTER_PATH" ]; then
+            sed -i "" "/puts(Terminal::Table.new(params))/d" "$TABLE_PRINTER_PATH"
+          else
+            echo "table_printer.rb not found"
+            exit 1
+          fi
+
+      - name: Install Project Dependencies
+        run: bundle install
+
+      - name: Sync clock
+        run: sudo sntp -sS time.windows.com
+
+      - name: Fastlane Provision
+        run: bundle exec fastlane identifiers
+        env:
+          TEAMID: ${{ secrets.TEAMID }}
+          GH_PAT: ${{ secrets.GH_PAT }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          FASTLANE_KEY_ID: ${{ secrets.FASTLANE_KEY_ID }}
+          FASTLANE_ISSUER_ID: ${{ secrets.FASTLANE_ISSUER_ID }}
+          FASTLANE_KEY: ${{ secrets.FASTLANE_KEY }}

@@ -80,3 +80,14 @@ fastlane/FastlaneRunner
 
 # Custom
 GlucoseDirectOverride.xcconfig
+
+# fastlane / CI build artifacts
+buildlog/
+artifacts/
+fastlane/report.xml
+fastlane/new_certificate_needed.txt
+fastlane/*.log
+*.ipa
+*.dSYM.zip
+vendor/bundle
+.bundle
